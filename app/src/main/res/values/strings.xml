@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Survival Aid</string>
+    <string name="bearing">Bearing</string>
+    <string name="north">N</string>
+    <string name="south">S</string>
+    <string name="east">E</string>
+    <string name="west">W</string>
+    <string name="compass_alt">Compass</string>
+    <string name="direction_arrow_desc">Direction Arrow</string>
+</resources>
