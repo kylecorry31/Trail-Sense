@@ -7,4 +7,6 @@
     <string name="west">W</string>
     <string name="compass_alt">Compass</string>
     <string name="direction_arrow_desc">Direction Arrow</string>
+    <string name="location_unknown">Location unknown</string>
+    <string name="destination_star_desc">Destination</string>
 </resources>

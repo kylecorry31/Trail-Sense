@@ -11,13 +11,23 @@ import java.util.*
 
 class GPS(ctx: Context): Observable() {
 
+    private val SMOOTHING = 0.2f
+
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(ctx)
     private val locationCallback = object: LocationCallback() {
         override fun onLocationResult(result: LocationResult?) {
             result ?: return
             result.lastLocation ?: return
             val lastLocation = result.lastLocation
-            lastCoordinate = Coordinate(lastLocation.latitude.toFloat(), lastLocation.longitude.toFloat())
+            val currentLocation = location
+            lastCoordinate = if (currentLocation != null){
+                Coordinate(
+                    currentLocation.latitude * SMOOTHING + (1 - SMOOTHING) * lastLocation.latitude.toFloat(),
+                    currentLocation.longitude * SMOOTHING + (1 - SMOOTHING) * lastLocation.longitude.toFloat()
+                )
+            } else {
+                Coordinate(lastLocation.latitude.toFloat(), lastLocation.longitude.toFloat())
+            }
             setChanged()
             notifyObservers()
         }
@@ -40,15 +50,19 @@ class GPS(ctx: Context): Observable() {
 
     private fun updateLastLocation(){
         fusedLocationClient.lastLocation.addOnSuccessListener {
-            location: Location? -> if (location != null) lastCoordinate = Coordinate(location.latitude.toFloat(), location.longitude.toFloat())
+            if (location != null) {
+                lastCoordinate = Coordinate(it.latitude.toFloat(), it.longitude.toFloat())
+                setChanged()
+                notifyObservers()
+            }
         }
     }
 
     fun start(){
         if (started) return
         val locationRequest = LocationRequest.create()?.apply {
-            interval = 15000
-            fastestInterval = 3000
+            interval = 8000
+            fastestInterval = 2000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
         fusedLocationClient.requestLocationUpdates(locationRequest,
