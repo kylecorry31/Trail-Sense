@@ -50,7 +50,7 @@ class GPS(ctx: Context): Observable() {
 
     private fun updateLastLocation(){
         fusedLocationClient.lastLocation.addOnSuccessListener {
-            if (location != null) {
+            if (it != null) {
                 lastCoordinate = Coordinate(it.latitude.toFloat(), it.longitude.toFloat())
                 setChanged()
                 notifyObservers()

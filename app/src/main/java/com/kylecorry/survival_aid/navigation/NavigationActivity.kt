@@ -48,6 +48,8 @@ class NavigationActivity : AppCompatActivity(), Observer {
         compass.start()
         compass.addObserver(this)
         gps.addObserver(this)
+        updateCompass()
+        updateLocation()
     }
 
     override fun onPause() {
