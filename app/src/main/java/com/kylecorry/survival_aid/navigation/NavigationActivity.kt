@@ -85,6 +85,9 @@ class NavigationActivity : AppCompatActivity(), Observer {
         if (o == gps) updateLocation()
     }
 
+    /**
+     * Update the compass
+     */
     private fun updateCompass(){
         val azimuthValue = compass.azimuth
         val azimuth = (azimuthValue.roundToInt() % 360).toString().padStart(3, ' ')
@@ -95,6 +98,9 @@ class NavigationActivity : AppCompatActivity(), Observer {
         updateNavigation()
     }
 
+    /**
+     * Update the navigation
+     */
     private fun updateNavigation(){
         val dest = destination
         val location = gps.location
@@ -124,6 +130,9 @@ class NavigationActivity : AppCompatActivity(), Observer {
         navigationTxt.text = "Destination:    ${bearing.roundToInt()}°    -    ${LocationMath.distanceToReadableString(distance, UnitSystem.IMPERIAL)}"
     }
 
+    /**
+     * Update the current location
+     */
     private fun updateLocation(){
         val location = gps.location
         if (location == null){
