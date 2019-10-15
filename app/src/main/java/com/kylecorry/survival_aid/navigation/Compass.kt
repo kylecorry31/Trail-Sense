@@ -1,4 +1,4 @@
-package com.kylecorry.survival_aid
+package com.kylecorry.survival_aid.navigation
 
 import android.content.Context
 import android.hardware.Sensor

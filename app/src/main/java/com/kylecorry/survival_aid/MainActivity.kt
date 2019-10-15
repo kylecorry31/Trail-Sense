@@ -1,46 +1,56 @@
 package com.kylecorry.survival_aid
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
-import java.util.*
-import kotlin.math.roundToInt
+import androidx.core.app.ActivityCompat
+import com.kylecorry.survival_aid.navigation.NavigationActivity
 
-class MainActivity : AppCompatActivity(), Observer {
-
-    private lateinit var compass: Compass
-    private lateinit var azimuthTxt: TextView
-    private lateinit var directionTxt: TextView
-    private lateinit var needleImg: ImageView
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_bearing)
-        compass = Compass(this)
-        azimuthTxt = findViewById(R.id.compass_azimuth)
-        directionTxt = findViewById(R.id.compass_direction)
-        needleImg = findViewById(R.id.needle)
+        setContentView(R.layout.activity_main)
+        if (!hasPermissions()){
+            getPermission()
+        } else {
+            startApp()
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        compass.start()
-        compass.addObserver(this)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        val granted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+        if (granted){
+            startApp()
+        }
     }
 
-    override fun onPause() {
-        super.onPause()
-        compass.stop()
-        compass.deleteObserver(this)
+    private fun startApp(){
+        startActivity(NavigationActivity.newIntent(this))
     }
 
-    override fun update(o: Observable?, arg: Any?) {
-        val azimuthValue = compass.azimuth
-        val azimuth = (azimuthValue.roundToInt() % 360).toString().padStart(3, ' ')
-        val direction = compass.direction.symbol.toUpperCase().padEnd(2, ' ')
-        azimuthTxt.text = "${azimuth}°"
-        directionTxt.text = direction
-        needleImg.rotation = -azimuthValue
+    private fun hasPermissions(): Boolean {
+        val permissionAccessCoarseLocationApproved = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED
+
+        val permissionAccessFineLocationApproved = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED
+
+        return permissionAccessCoarseLocationApproved && permissionAccessFineLocationApproved
+    }
+
+    private fun getPermission(){
+        ActivityCompat.requestPermissions(this,
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION),
+            1
+        )
     }
 }
