@@ -11,25 +11,14 @@ import java.util.*
 
 class GPS(ctx: Context): Observable() {
 
-    private val SMOOTHING = 0.2f
+    private val SECONDS_TO_MILLIS = 1000L
 
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(ctx)
     private val locationCallback = object: LocationCallback() {
         override fun onLocationResult(result: LocationResult?) {
             result ?: return
             result.lastLocation ?: return
-            val lastLocation = result.lastLocation
-            val currentLocation = location
-            lastCoordinate = if (currentLocation != null){
-                Coordinate(
-                    currentLocation.latitude * SMOOTHING + (1 - SMOOTHING) * lastLocation.latitude.toFloat(),
-                    currentLocation.longitude * SMOOTHING + (1 - SMOOTHING) * lastLocation.longitude.toFloat()
-                )
-            } else {
-                Coordinate(lastLocation.latitude.toFloat(), lastLocation.longitude.toFloat())
-            }
-            setChanged()
-            notifyObservers()
+            updateLastLocation(result.lastLocation)
         }
     }
 
@@ -37,32 +26,60 @@ class GPS(ctx: Context): Observable() {
 
 
     init {
-        updateLastLocation()
+        // Set the current location to the last location seen
+        fusedLocationClient.lastLocation.addOnSuccessListener {
+            updateLastLocation(it)
+        }
     }
 
-    private var lastCoordinate: Coordinate? = null
+    /**
+     * The last known location received by the GPS
+     */
+    var location: Coordinate? = null
+        private set
 
-    val location: Coordinate?
-        get(){
-            return lastCoordinate
-        }
+    /**
+     * Updates the current location
+     */
+    fun updateLocation(){
+        val callback = object: LocationCallback(){
+            override fun onLocationResult(result: LocationResult?) {
 
+                // Log the location result
+                locationCallback.onLocationResult(result)
 
-    private fun updateLastLocation(){
-        fusedLocationClient.lastLocation.addOnSuccessListener {
-            if (it != null) {
-                lastCoordinate = Coordinate(it.latitude.toFloat(), it.longitude.toFloat())
-                setChanged()
-                notifyObservers()
+                // Stop future updates
+                fusedLocationClient.removeLocationUpdates(this)
             }
         }
+
+        // Request a single location update
+        val locationRequest = LocationRequest.create()?.apply {
+            numUpdates = 1
+            interval = 1 * SECONDS_TO_MILLIS
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+        fusedLocationClient.requestLocationUpdates(locationRequest, callback, Looper.getMainLooper())
     }
 
+    /**
+     * Updates the last location
+     * @param location the new location
+     */
+    private fun updateLastLocation(location: Location){
+        this.location = Coordinate(location.latitude.toFloat(), location.longitude.toFloat())
+        setChanged()
+        notifyObservers()
+    }
+
+    /**
+     * Start receiving location updates
+     */
     fun start(){
         if (started) return
         val locationRequest = LocationRequest.create()?.apply {
-            interval = 8000
-            fastestInterval = 2000
+            interval = 8 * SECONDS_TO_MILLIS
+            fastestInterval = 2 * SECONDS_TO_MILLIS
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
         fusedLocationClient.requestLocationUpdates(locationRequest,
@@ -70,6 +87,9 @@ class GPS(ctx: Context): Observable() {
         started = true
     }
 
+    /**
+     * Stop receiving location updates
+     */
     fun stop(){
         if (!started) return
         fusedLocationClient.removeLocationUpdates(locationCallback)

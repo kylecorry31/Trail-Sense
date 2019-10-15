@@ -23,6 +23,8 @@ class Compass (ctx: Context) : SensorEventListener, Observable() {
 
     private var oldAngle = 0f
 
+    private var started = false
+
 
     private val RAW_SMOOTHING = 0.95f
     private val OUTPUT_SMOOTHING = 0.5f
@@ -63,6 +65,7 @@ class Compass (ctx: Context) : SensorEventListener, Observable() {
      * Start the compass sensor
      */
     fun start(){
+        if (started) return
         sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)?.also { accelerometer ->
             sensorManager.registerListener(
                 this,
@@ -77,13 +80,16 @@ class Compass (ctx: Context) : SensorEventListener, Observable() {
                 SensorManager.SENSOR_DELAY_GAME
             )
         }
+        started = true
     }
 
     /**
      * Stop the compass sensor
      */
     fun stop(){
+        if (!started) return
         sensorManager.unregisterListener(this)
+        started = false
     }
 
 

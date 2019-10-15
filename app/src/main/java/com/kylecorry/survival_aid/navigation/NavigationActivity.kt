@@ -48,6 +48,7 @@ class NavigationActivity : AppCompatActivity(), Observer {
         compass.start()
         compass.addObserver(this)
         gps.addObserver(this)
+        gps.updateLocation()
         updateCompass()
         updateLocation()
     }
@@ -114,7 +115,7 @@ class NavigationActivity : AppCompatActivity(), Observer {
 
         if (distance <= DESTINATION_ARRIVED_THRESHOLD){
             // Arrived at the destination
-            Toast.makeText(this, "Arrived", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.arrived), Toast.LENGTH_LONG).show()
             stopNavigation()
             return
         }
@@ -124,9 +125,10 @@ class NavigationActivity : AppCompatActivity(), Observer {
         val imgCenterY = needleImg.y + needleImg.height / 2f
         val offsetX = -destinationStar.width / 2f
         val offsetY = -destinationStar.height / 2f
-        val radius = needleImg.width / 2f + 64
+        val radius = needleImg.width / 2f + 30
         destinationStar.x = imgCenterX + offsetX + radius * cos(Math.toRadians(adjBearing.toDouble())).toFloat()
         destinationStar.y = imgCenterY + offsetY + radius * sin(Math.toRadians(adjBearing.toDouble())).toFloat()
+        destinationStar.rotation = adjBearing + 90 // Make the star always rotated tangent to the compass
         navigationTxt.text = "Destination:    ${bearing.roundToInt()}°    -    ${LocationMath.distanceToReadableString(distance, UnitSystem.IMPERIAL)}"
     }
 

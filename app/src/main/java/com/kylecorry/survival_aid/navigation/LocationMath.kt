@@ -69,13 +69,6 @@ object LocationMath {
     }
 
     /**
-     * Converts miles to feet
-     */
-    fun convertMilesToFeet(miles: Float): Float {
-        return miles * 5280
-    }
-
-    /**
      * Converts a distance in meters to a readable string in the given unit system
      */
     fun distanceToReadableString(meters: Float, unitSystem: UnitSystem): String {
@@ -84,7 +77,7 @@ object LocationMath {
             val feet = convertMetersToFeet(meters)
             return if (feet >= feetThreshold) {
                 // Display as miles
-                "${round(convertFeetToMiles(feet) / 100f) * 100f} mi"
+                "${round(convertFeetToMiles(feet) * 100f) / 100f} mi"
             } else {
                 // Display as feet
                 "${feet.roundToInt()} ft"
@@ -94,7 +87,7 @@ object LocationMath {
             return if (meters >= meterThreshold) {
                 // Display as km
                 val km = meters / 1000f
-                "${round( km / 100f) * 100f} km"
+                "${round( km * 100f) / 100f} km"
             } else {
                 // Display as meters
                 "${meters.roundToInt()} m"
