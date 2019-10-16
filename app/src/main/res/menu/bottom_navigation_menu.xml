@@ -1,0 +1,31 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.MainActivity">
+
+    <item
+        android:id="@+id/action_navigation"
+        android:title="@string/action_navigation"
+        android:icon="@drawable/ic_navigation"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_light"
+        android:title="@string/action_light"
+        android:icon="@drawable/ic_flashlight"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_morse"
+        android:title="@string/action_morse"
+        android:icon="@drawable/ic_morse"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_blueprint"
+        android:title="@string/action_blueprint"
+        android:icon="@drawable/ic_blueprints"
+        app:showAsAction="ifRoom" />
+
+
+</menu>

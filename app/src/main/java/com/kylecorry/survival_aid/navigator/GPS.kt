@@ -1,4 +1,4 @@
-package com.kylecorry.survival_aid.navigation
+package com.kylecorry.survival_aid.navigator
 
 import android.content.Context
 import android.location.Location

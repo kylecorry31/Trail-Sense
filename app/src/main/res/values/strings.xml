@@ -1,4 +1,6 @@
 <resources>
+    <string name="app_brand_name">Survive</string>
+    <string name="action_navigation">Navigation</string>
     <string name="app_name">Survive</string>
     <string name="bearing">Bearing</string>
     <string name="north">N</string>
@@ -10,4 +12,9 @@
     <string name="location_unknown">Location unknown</string>
     <string name="destination_star_desc">Destination</string>
     <string name="arrived">You have arrived</string>
+    <string name="back_btn_desc">Back</string>
+    <string name="navigator">Navigator</string>
+    <string name="action_light">Light</string>
+    <string name="action_blueprint">Blueprints</string>
+    <string name="action_morse">Morse Code</string>
 </resources>

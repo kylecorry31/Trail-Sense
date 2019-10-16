@@ -4,28 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".navigation.NavigationActivity">
-
-    <TextView
-        android:id="@+id/bearing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/bearing"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:paddingBottom="8dp"
+    tools:context=".navigator.NavigatorFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bearing">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/compass_azimuth"
@@ -71,10 +61,10 @@
         android:id="@+id/navigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/location"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:text="10° - 200m" />
 
     <ImageView
@@ -86,7 +76,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/needle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_arrow_drop_up_black_24dp" />
+        app:srcCompat="@drawable/ic_arrow_bearing" />
 
     <ImageView
         android:id="@+id/destination_star"
@@ -98,6 +88,34 @@
         app:layout_constraintEnd_toStartOf="@+id/needle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_drop_up_yellow" />
+        app:srcCompat="@drawable/ic_arrow_target" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/navigateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_navigation" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/locationBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:foregroundTintMode="screen"
+        android:tint="@color/colorPrimary"
+        app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/navigateBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_location" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

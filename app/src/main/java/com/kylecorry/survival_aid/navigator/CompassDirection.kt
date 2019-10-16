@@ -1,4 +1,4 @@
-package com.kylecorry.survival_aid.navigation
+package com.kylecorry.survival_aid.navigator
 
 enum class CompassDirection(val symbol: String, val azimuth: Float) {
     NORTH("N", 0f),

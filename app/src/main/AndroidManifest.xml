@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".navigation.NavigationActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".navigator.NavigatorFragment" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
