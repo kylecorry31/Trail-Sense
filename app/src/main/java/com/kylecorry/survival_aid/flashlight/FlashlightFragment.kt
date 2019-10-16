@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import com.kylecorry.survival_aid.R
 import java.util.*
@@ -14,26 +16,34 @@ import java.util.*
 class FlashlightFragment: Fragment(), Observer {
 
     private lateinit var flashlight: Flashlight
-    private lateinit var strobe: Strobe
 
-    private lateinit var flashlightBtn: Button
+    private lateinit var flashlightBtn: ImageButton
+    private lateinit var strobeRadio: RadioButton
+    private lateinit var normalRadio: RadioButton
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_flashlight, container, false)
 
         flashlight = Flashlight(context!!)
-        strobe = Strobe(flashlight)
 
         flashlightBtn = view.findViewById(R.id.flashlight_btn)
+        normalRadio = view.findViewById(R.id.normal_radio)
+        strobeRadio = view.findViewById(R.id.strobe_radio)
+
+
+        normalRadio.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) flashlight.mode = NormalFlashlightMode()
+        }
+
+        strobeRadio.setOnCheckedChangeListener {buttonView, isChecked ->
+            if (isChecked) flashlight.mode = StrobeFlashlightMode(STROBE_FREQUENCY)
+        }
 
         flashlightBtn.setOnClickListener {
-            if (flashlight.isOn || strobe.isOn) {
+            if (flashlight.isOn) {
                 flashlight.off()
-                strobe.stop()
-            }
-            else {
+            } else {
                 flashlight.on()
-//                strobe.start(20f * 2)
             }
         }
 
@@ -43,29 +53,29 @@ class FlashlightFragment: Fragment(), Observer {
     override fun onResume() {
         super.onResume()
         flashlight.addObserver(this)
-        strobe.addObserver(this)
     }
 
     override fun onPause() {
         super.onPause()
-        strobe.stop()
         flashlight.off()
         flashlight.deleteObserver(this)
-        strobe.deleteObserver(this)
     }
 
     override fun update(o: Observable?, arg: Any?) {
         Handler(Looper.getMainLooper()).post{
             if (o == flashlight) updateFlashlightUI()
-            if (o == strobe) updateFlashlightUI()
         }
     }
 
     private fun updateFlashlightUI(){
-        if (flashlight.isOn || strobe.isOn){
-            flashlightBtn.text = context?.getString(R.string.turn_flashlight_off)
+        if (flashlight.isOn){
+            flashlightBtn.setImageDrawable(context!!.getDrawable(R.drawable.ic_power_on))
         } else {
-            flashlightBtn.text = context?.getString(R.string.turn_flashlight_on)
+            flashlightBtn.setImageDrawable(context!!.getDrawable(R.drawable.ic_power_off))
         }
+    }
+
+    companion object {
+        const val STROBE_FREQUENCY = 40f //hz
     }
 }

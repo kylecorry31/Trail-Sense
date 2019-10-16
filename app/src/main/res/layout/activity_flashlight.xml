@@ -7,13 +7,41 @@
     android:paddingBottom="8dp"
     tools:context=".navigator.NavigatorFragment">
 
-    <Button
-        android:id="@+id/flashlight_btn"
+    <RadioGroup
+        android:id="@+id/flashlight_mode_radio_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/turn_flashlight_on"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flashlight_btn">
+
+        <RadioButton
+            android:id="@+id/normal_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimary"
+            android:checked="true"
+            android:text="@string/normal_flashlight_mode" />
+
+        <RadioButton
+            android:id="@+id/strobe_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimary"
+            android:text="@string/strobe_flashlight_mode" />
+    </RadioGroup>
+
+    <ImageButton
+        android:id="@+id/flashlight_btn"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_power_off"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

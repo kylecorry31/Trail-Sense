@@ -19,4 +19,6 @@
     <string name="action_morse">Morse Code</string>
     <string name="turn_flashlight_on">Turn on</string>
     <string name="turn_flashlight_off">Turn off</string>
+    <string name="normal_flashlight_mode">Normal</string>
+    <string name="strobe_flashlight_mode">Strobe</string>
 </resources>
