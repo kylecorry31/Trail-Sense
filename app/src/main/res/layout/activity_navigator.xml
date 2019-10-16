@@ -91,17 +91,18 @@
         app:srcCompat="@drawable/ic_arrow_target" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/navigateBtn"
+        android:id="@+id/beaconBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/colorPrimary"
         android:clickable="true"
+        android:focusable="true"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_navigation" />
+        app:srcCompat="@drawable/ic_beacon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/locationBtn"
@@ -111,10 +112,11 @@
         android:layout_marginBottom="16dp"
         android:background="@color/white"
         android:clickable="true"
+        android:focusable="true"
         android:foregroundTintMode="screen"
         android:tint="@color/colorPrimary"
         app:backgroundTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/navigateBtn"
+        app:layout_constraintBottom_toTopOf="@+id/beaconBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_location" />
 

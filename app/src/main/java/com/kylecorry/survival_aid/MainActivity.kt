@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        bottomNavigation.selectedItemId = savedInstanceState?.getInt("page", R.id.action_navigation)!!
+        bottomNavigation.selectedItemId = savedInstanceState.getInt("page", R.id.action_navigation)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
