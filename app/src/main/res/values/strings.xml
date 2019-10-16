@@ -17,4 +17,6 @@
     <string name="action_light">Light</string>
     <string name="action_blueprint">Blueprints</string>
     <string name="action_morse">Morse Code</string>
+    <string name="turn_flashlight_on">Turn on</string>
+    <string name="turn_flashlight_off">Turn off</string>
 </resources>
