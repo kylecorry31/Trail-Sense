@@ -1,5 +1,6 @@
 package com.kylecorry.survival_aid.flashlight
 
+import com.kylecorry.survival_aid.flashlight.MorseEncoder.MorseSymbol.*
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.math.roundToLong
@@ -35,14 +36,68 @@ class NormalFlashlightMode: FlashlightMode {
  */
 class StrobeFlashlightMode(private val frequency: Float): FlashlightMode {
 
+    private val pattern = PatternFlashlightMode(listOf(true, false), (1 / frequency * 1000).roundToLong(), true)
+
+    override fun on(flashlight: Flashlight) {
+        pattern.on(flashlight)
+    }
+
+    override fun off(flashlight: Flashlight) {
+        pattern.off(flashlight)
+    }
+
+}
+
+/**
+ * A SOS morse code flashlight mode
+ * @param dotDuration the duration of a dot in milliseconds
+ */
+class SosFlashlightMode(dotDuration: Long): FlashlightMode {
+
+    private val sos = MorseEncoder.encode(listOf(
+        DOT, // S
+        DOT,
+        DOT,
+        SPACE,
+        DASH, // O
+        DASH,
+        DASH,
+        SPACE,
+        DOT, // S
+        DOT,
+        DOT,
+        WORD_SEPARATOR
+    ))
+    private val pattern = PatternFlashlightMode(sos, dotDuration, true)
+
+    override fun on(flashlight: Flashlight) {
+        pattern.on(flashlight)
+    }
+
+    override fun off(flashlight: Flashlight) {
+        pattern.off(flashlight)
+    }
+}
+
+/**
+ * A flashlight mode which displays a pattern
+ */
+private class PatternFlashlightMode(private val steps: List<Boolean>, private val stepDuration: Long, private val repeat: Boolean = true): FlashlightMode {
     private var timer: Timer? = null
 
     override fun on(flashlight: Flashlight) {
         timer?.cancel()
-        val period: Long = (1 / frequency * 1000).roundToLong()
-        timer = fixedRateTimer(period = period, action = {
-            if (flashlight.isBulbOn) flashlight.bulbOff()
-            else flashlight.bulbOn()
+        var idx = 0
+        timer = fixedRateTimer(period = stepDuration, action = {
+            if (!repeat && idx >= steps.size){
+                off(flashlight)
+            } else {
+                idx %= steps.size
+                val state = steps[idx]
+                idx++
+                if (state) flashlight.bulbOn()
+                else flashlight.bulbOff()
+            }
         })
     }
 
@@ -50,5 +105,4 @@ class StrobeFlashlightMode(private val frequency: Float): FlashlightMode {
         timer?.cancel()
         flashlight.bulbOff()
     }
-
 }

@@ -9,12 +9,14 @@
 
     <RadioGroup
         android:id="@+id/flashlight_mode_radio_group"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flashlight_btn">
+        app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
             android:id="@+id/normal_radio"
@@ -24,22 +26,59 @@
             android:checked="true"
             android:text="@string/normal_flashlight_mode" />
 
+        <TextView
+            android:id="@+id/normal_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/normal_flashlight_desc"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="12sp" />
+
         <RadioButton
             android:id="@+id/strobe_radio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/colorPrimary"
             android:text="@string/strobe_flashlight_mode" />
+
+        <TextView
+            android:id="@+id/strobe_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/strobe_flashlight_desc"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/sos_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimary"
+            android:text="@string/sos_flashlight_mode" />
+
+        <TextView
+            android:id="@+id/sos_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="@string/sos_flashlight_desc"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="12sp" />
+
     </RadioGroup>
 
     <ImageButton
         android:id="@+id/flashlight_btn"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="32dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_power_off"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

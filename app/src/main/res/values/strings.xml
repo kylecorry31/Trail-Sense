@@ -21,4 +21,8 @@
     <string name="turn_flashlight_off">Turn off</string>
     <string name="normal_flashlight_mode">Normal</string>
     <string name="strobe_flashlight_mode">Strobe</string>
+    <string name="sos_flashlight_mode">SOS</string>
+    <string name="normal_flashlight_desc">A standard flashlight, turns on/off when the button is pressed</string>
+    <string name="strobe_flashlight_desc">A strobe light effect, can be used for self-defense</string>
+    <string name="sos_flashlight_desc">An SOS morse code transmitter, can be used to signal help</string>
 </resources>
