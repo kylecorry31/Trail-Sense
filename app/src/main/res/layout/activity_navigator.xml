@@ -96,10 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/colorPrimary"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_beacon" />
@@ -132,12 +130,14 @@
         app:layout_constraintStart_toStartOf="@+id/location"
         tools:text="Accuracy: 10ft" />
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/true_north"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:checked="false"
         android:rotation="0"
+        android:splitTrack="false"
         android:text="@string/use_true_north"
         app:layout_constraintEnd_toEndOf="@+id/needle"
         app:layout_constraintStart_toStartOf="@+id/needle"

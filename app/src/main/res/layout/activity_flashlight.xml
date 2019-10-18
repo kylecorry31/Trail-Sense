@@ -22,7 +22,6 @@
             android:id="@+id/normal_radio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/colorPrimary"
             android:checked="true"
             android:text="@string/normal_flashlight_mode" />
 
@@ -40,7 +39,6 @@
             android:id="@+id/strobe_radio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/colorPrimary"
             android:text="@string/strobe_flashlight_mode" />
 
         <TextView
@@ -57,7 +55,6 @@
             android:id="@+id/sos_radio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/colorPrimary"
             android:text="@string/sos_flashlight_mode" />
 
         <TextView

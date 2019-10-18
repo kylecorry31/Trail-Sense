@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.survival_aid.R
@@ -33,7 +34,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var navigationTxt: TextView
     private lateinit var beaconBtn: FloatingActionButton
     private lateinit var locationBtn: FloatingActionButton
-    private lateinit var trueNorthBtn: Switch
+    private lateinit var trueNorthBtn: SwitchCompat
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
