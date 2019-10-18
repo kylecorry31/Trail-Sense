@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,5 +119,28 @@
         app:layout_constraintBottom_toTopOf="@+id/beaconBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_location" />
+
+    <TextView
+        android:id="@+id/location_accuracy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/location"
+        app:layout_constraintEnd_toEndOf="@+id/location"
+        app:layout_constraintStart_toStartOf="@+id/location"
+        tools:text="Accuracy: 10ft" />
+
+    <Switch
+        android:id="@+id/true_north"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:rotation="0"
+        android:text="@string/use_true_north"
+        app:layout_constraintEnd_toEndOf="@+id/needle"
+        app:layout_constraintStart_toStartOf="@+id/needle"
+        app:layout_constraintTop_toBottomOf="@+id/needle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

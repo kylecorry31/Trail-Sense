@@ -38,8 +38,15 @@ class BeaconDB(ctx: Context) {
      * Create a location
      */
     fun create(location: Beacon){
-        // Select where all fields are equal
-        val values = getContentValues(location)
+
+        var beaconToCreate = location
+        var uniqueNumber = 1
+        while(get(beaconToCreate.name) != null){
+            beaconToCreate = appendNumberToName(location, uniqueNumber)
+            uniqueNumber++
+        }
+
+        val values = getContentValues(beaconToCreate)
         db.insert(Beacon.DB_BEACON_TABLE, null, values)
     }
 
@@ -48,8 +55,27 @@ class BeaconDB(ctx: Context) {
      */
     fun delete(location: Beacon){
         db.delete(Beacon.DB_BEACON_TABLE,
-            Beacon.DB_NAME + " = ?",
+            "${Beacon.DB_NAME} = ?",
             arrayOf(location.name))
+    }
+
+    /**
+     * Gets the beacon with the given name
+     * @param name the name of the beacon
+     * @return the beacon with the name, or null if it doesn't exist
+     */
+    fun get(name: String): Beacon? {
+        val cursor = query("${Beacon.DB_NAME} = ?", arrayOf(name))
+        if (cursor.count != 0){
+            cursor.moveToFirst()
+            return cursor.getBeacon()
+        }
+        return null
+    }
+
+    fun appendNumberToName(beacon: Beacon, number: Int): Beacon {
+        val name = "${beacon.name} ($number)"
+        return Beacon(name, beacon.coordinate)
     }
 
     private fun getContentValues(location: Beacon): ContentValues {
@@ -102,12 +128,12 @@ private class BeaconCursor(cursor: Cursor): CursorWrapper(cursor) {
      */
     fun getBeacon(): Beacon {
         var name = ""
-        var lat = 0f
-        var lng = 0f
+        var lat = 0.0
+        var lng = 0.0
         try {
             name = getString(getColumnIndex(Beacon.DB_NAME))
-            lat = getFloat(getColumnIndex(Beacon.DB_LAT))
-            lng = getFloat(getColumnIndex(Beacon.DB_LNG))
+            lat = getDouble(getColumnIndex(Beacon.DB_LAT))
+            lng = getDouble(getColumnIndex(Beacon.DB_LNG))
         } catch (e: Exception){}
         return Beacon(name, Coordinate(lat, lng))
     }

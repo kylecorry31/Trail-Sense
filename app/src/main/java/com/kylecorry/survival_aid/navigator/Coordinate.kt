@@ -1,3 +1,3 @@
 package com.kylecorry.survival_aid.navigator
 
-data class Coordinate(val latitude: Float, val longitude: Float)
+data class Coordinate(val latitude: Double, val longitude: Double)

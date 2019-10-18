@@ -1,6 +1,7 @@
 package com.kylecorry.survival_aid.navigator
 
 import android.content.Context
+import android.hardware.GeomagneticField
 import android.location.Location
 import android.os.Looper
 import com.google.android.gms.location.LocationCallback
@@ -39,9 +40,32 @@ class GPS(ctx: Context): Observable() {
         private set
 
     /**
+     * The altitude in meters
+     */
+    var altitude: Double = 0.0
+        private set
+
+    /**
+     * The accuracy of the GPS in meters
+     */
+    var accuracy: Float = 0f
+        private set
+
+    /**
+     * The geomagnetic declination in degrees at the current location
+     */
+    val declination: Float
+        get() {
+            val loc = location
+            loc ?: return 0f
+            val geoField = GeomagneticField(loc.latitude.toFloat(), loc.longitude.toFloat(), altitude.toFloat(), System.currentTimeMillis())
+            return geoField.declination
+        }
+
+    /**
      * Updates the current location
      */
-    fun updateLocation(){
+    fun updateLocation(onCompleteFunction: ((location: Coordinate) -> Unit)? = null){
         val callback = object: LocationCallback(){
             override fun onLocationResult(result: LocationResult?) {
 
@@ -50,6 +74,10 @@ class GPS(ctx: Context): Observable() {
 
                 // Stop future updates
                 fusedLocationClient.removeLocationUpdates(this)
+
+                // Notify the callback
+                val loc = location
+                if (onCompleteFunction != null && loc != null) onCompleteFunction(loc)
             }
         }
 
@@ -67,7 +95,9 @@ class GPS(ctx: Context): Observable() {
      * @param location the new location
      */
     private fun updateLastLocation(location: Location){
-        this.location = Coordinate(location.latitude.toFloat(), location.longitude.toFloat())
+        this.location = Coordinate(location.latitude, location.longitude)
+        accuracy = location.accuracy
+        altitude = location.altitude
         setChanged()
         notifyObservers()
     }

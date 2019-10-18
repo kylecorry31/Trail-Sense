@@ -1,5 +1,6 @@
 package com.kylecorry.survival_aid.navigator
 
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,16 +9,19 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.survival_aid.R
+import com.kylecorry.survival_aid.doTransaction
+import kotlinx.android.synthetic.main.activity_navigator.*
 import java.util.*
 import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
-class NavigatorFragment : Fragment(), Observer {
+class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragment(), Observer {
 
     private lateinit var compass: Compass
     private lateinit var gps: GPS
     private lateinit var navigator: Navigator
+    private val unitSystem = UnitSystem.IMPERIAL
 
     // UI Fields
     private lateinit var azimuthTxt: TextView
@@ -25,9 +29,11 @@ class NavigatorFragment : Fragment(), Observer {
     private lateinit var needleImg: ImageView
     private lateinit var destinationStar: ImageView
     private lateinit var locationTxt: TextView
+    private lateinit var accuracyTxt: TextView
     private lateinit var navigationTxt: TextView
     private lateinit var beaconBtn: FloatingActionButton
     private lateinit var locationBtn: FloatingActionButton
+    private lateinit var trueNorthBtn: Switch
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
@@ -35,6 +41,9 @@ class NavigatorFragment : Fragment(), Observer {
         compass = Compass(context!!)
         gps = GPS(context!!)
         navigator = Navigator()
+        if (initialDestination != null){
+            navigator.destination = initialDestination
+        }
 
         // Assign the UI fields
         azimuthTxt = view.findViewById(R.id.compass_azimuth)
@@ -42,9 +51,11 @@ class NavigatorFragment : Fragment(), Observer {
         needleImg = view.findViewById(R.id.needle)
         destinationStar = view.findViewById(R.id.destination_star)
         locationTxt = view.findViewById(R.id.location)
+        accuracyTxt = view.findViewById(R.id.location_accuracy)
         navigationTxt = view.findViewById(R.id.navigation)
         beaconBtn = view.findViewById(R.id.beaconBtn)
         locationBtn = view.findViewById(R.id.locationBtn)
+        trueNorthBtn = view.findViewById(R.id.true_north)
 
         locationBtn.setOnClickListener {
             gps.updateLocation()
@@ -54,7 +65,10 @@ class NavigatorFragment : Fragment(), Observer {
             // Open the navigation select screen
             // Allows user to choose destination from list or add a destination to the list
             if (!navigator.hasDestination){
-                navigator.destination = Beacon("Equator", Coordinate(0f, 0f))
+                fragmentManager?.doTransaction {
+                    this.addToBackStack(null)
+                    this.replace(R.id.fragment_holder, BeaconListFragment(BeaconDB(context!!), gps))
+                }
             } else {
                 navigator.destination = null
             }
@@ -120,7 +134,13 @@ class NavigatorFragment : Fragment(), Observer {
      */
     private fun updateCompassUI(){
         // Get the compass value
-        val azimuthValue = compass.azimuth
+        var azimuthValue = compass.azimuth
+        val declination = gps.declination
+
+        if (trueNorthBtn.isChecked){
+            azimuthValue += declination
+            azimuthValue %= 360
+        }
 
         // Update the text boxes
         val azimuth = (azimuthValue.roundToInt() % 360).toString().padStart(3, ' ')
@@ -147,25 +167,26 @@ class NavigatorFragment : Fragment(), Observer {
             return
         }
 
+        val declination = gps.declination
+
         // Display the indicator
         destinationStar.visibility = View.VISIBLE
 
         // Retrieve the current location and azimuth
         val location = gps.location
-        val azimuth = compass.azimuth
+        var azimuth = compass.azimuth
+        if (trueNorthBtn.isChecked) azimuth += declination
+        azimuth %= 360
 
         location ?: return
 
         // Get the distance to the bearing
         val distance = navigator.getDistance(location)
-        val bearing = navigator.getBearing(location)
+        var bearing = navigator.getBearing(location)
 
-        // Determine if the device has arrived at the destination
-        if (navigator.hasArrived(location, DESTINATION_ARRIVAL_DISTANCE)){
-            Toast.makeText(context!!, getString(R.string.arrived), Toast.LENGTH_LONG).show()
-            navigator.destination = null
-            return
-        }
+        // The bearing is already in true north format, convert that to magnetic north
+        if (!trueNorthBtn.isChecked) bearing -= declination
+        bearing %= 360
 
         // Display the direction indicator
         val adjBearing = -azimuth - 90 + bearing
@@ -175,7 +196,7 @@ class NavigatorFragment : Fragment(), Observer {
         displayDestinationBearing(adjBearing, imgCenterX, imgCenterY, radius)
 
         // Update the direction text
-        navigationTxt.text = "${navigator.getDestinationName()}:    ${bearing.roundToInt()}°    -    ${LocationMath.distanceToReadableString(distance, UnitSystem.IMPERIAL)}"
+        navigationTxt.text = "${navigator.getDestinationName()}:    ${bearing.roundToInt()}°    -    ${LocationMath.distanceToReadableString(distance, unitSystem)}"
     }
 
     /**
@@ -203,6 +224,7 @@ class NavigatorFragment : Fragment(), Observer {
      */
     private fun updateLocationUI(){
         val location = gps.location
+        val accuracy = gps.accuracy
 
         // Check to see if the GPS got a location
         if (location == null){
@@ -212,12 +234,10 @@ class NavigatorFragment : Fragment(), Observer {
 
         // Update the latitude, longitude display
         locationTxt.text = "${location.latitude}, ${location.longitude}"
+        accuracyTxt.text = "GPS accuracy: ${LocationMath.distanceToReadableString(accuracy, unitSystem)}"
 
         // Update the navigation display
         updateNavigationUI()
     }
 
-    companion object {
-        const val DESTINATION_ARRIVAL_DISTANCE = 50f // m
-    }
 }

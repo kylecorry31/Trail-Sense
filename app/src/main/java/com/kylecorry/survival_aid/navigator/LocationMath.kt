@@ -17,13 +17,13 @@ object LocationMath {
     fun getBearing(from: Coordinate, to: Coordinate): Float {
         val locationA = Location("point A")
 
-        locationA.latitude = from.latitude.toDouble()
-        locationA.longitude = from.longitude.toDouble()
+        locationA.latitude = from.latitude
+        locationA.longitude = from.longitude
 
         val locationB = Location("point B")
 
-        locationB.latitude = to.latitude.toDouble()
-        locationB.longitude = to.longitude.toDouble()
+        locationB.latitude = to.latitude
+        locationB.longitude = to.longitude
 
         var bearing = locationA.bearingTo(locationB)
 
@@ -43,13 +43,13 @@ object LocationMath {
     fun getDistance(from: Coordinate, to: Coordinate): Float {
         val locationA = Location("point A")
 
-        locationA.latitude = from.latitude.toDouble()
-        locationA.longitude = from.longitude.toDouble()
+        locationA.latitude = from.latitude
+        locationA.longitude = from.longitude
 
         val locationB = Location("point B")
 
-        locationB.latitude = to.latitude.toDouble()
-        locationB.longitude = to.longitude.toDouble()
+        locationB.latitude = to.latitude
+        locationB.longitude = to.longitude
 
         return locationA.distanceTo(locationB)
     }
@@ -94,16 +94,6 @@ object LocationMath {
             }
         }
     }
-
-
-    private fun toRadians(deg: Float): Float {
-        return Math.toRadians(deg.toDouble()).toFloat()
-    }
-
-    private fun toDegrees(rad: Float): Float {
-        return Math.toDegrees(rad.toDouble()).toFloat()
-    }
-
 }
 
 enum class UnitSystem {

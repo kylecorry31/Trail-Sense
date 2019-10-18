@@ -25,4 +25,14 @@
     <string name="normal_flashlight_desc">A standard flashlight, turns on/off when the button is pressed</string>
     <string name="strobe_flashlight_desc">A strobe light effect, can be used for self-defense</string>
     <string name="sos_flashlight_desc">An SOS morse code transmitter, can be used to signal help</string>
+    <string name="create_beacon_title">Place a beacon</string>
+    <string name="beacon_name_hint">Name</string>
+    <string name="beacon_latitude_hint">Latitude</string>
+    <string name="beacon_longitude_hint">Longitude</string>
+    <string name="beacon_use_current_location">Use current location</string>
+    <string name="beacon_title">Beacons</string>
+    <string name="dialog_ok">OK</string>
+    <string name="delete_beacon_alert_title">Delete beacon</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="use_true_north">Use True North</string>
 </resources>
