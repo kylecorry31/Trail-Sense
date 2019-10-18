@@ -5,6 +5,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import com.kylecorry.survival_aid.navigator.normalizeAngle
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.floor
@@ -42,8 +43,7 @@ class Compass (ctx: Context) : SensorEventListener, Observable() {
             } else {
                 oldAngle += OUTPUT_SMOOTHING * deltaAngle(oldAngle, newAngle)
             }
-            if (oldAngle < 0) oldAngle += 360
-            return oldAngle
+            return normalizeAngle(oldAngle + declination)
         }
 
     /**
@@ -60,6 +60,11 @@ class Compass (ctx: Context) : SensorEventListener, Observable() {
             }
             return CompassDirection.NORTH
         }
+
+    /**
+     * The declination in degrees to apply to the azimuth
+     */
+    var declination: Float = 0f
 
     /**
      * Start the compass sensor

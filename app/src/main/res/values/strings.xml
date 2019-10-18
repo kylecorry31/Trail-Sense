@@ -35,4 +35,6 @@
     <string name="delete_beacon_alert_title">Delete beacon</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="use_true_north">Use True North</string>
+    <string name="prefs_name">prefs</string>
+    <string name="pref_use_true_north">use_true_north</string>
 </resources>
