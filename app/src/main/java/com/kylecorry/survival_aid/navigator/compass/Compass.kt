@@ -1,4 +1,4 @@
-package com.kylecorry.survival_aid.navigator
+package com.kylecorry.survival_aid.navigator.compass
 
 import android.content.Context
 import android.hardware.Sensor
@@ -124,6 +124,24 @@ class Compass (ctx: Context) : SensorEventListener, Observable() {
      */
     private fun updateOrientation(){
         SensorManager.getRotationMatrix(rotation, null, accelReading, magnetReading)
+
+        var largestAccelAxis = 0
+        for (i in accelReading.indices){
+            if (abs(accelReading[i]) > abs(accelReading[largestAccelAxis])){
+                largestAccelAxis = i
+            }
+        }
+
+        // If the device is vertical, change the compass orientation to a different axis
+        if (largestAccelAxis == 1) {
+            SensorManager.remapCoordinateSystem(
+                rotation,
+                SensorManager.AXIS_X, SensorManager.AXIS_Z,
+                rotation
+            )
+        }
+
+
         SensorManager.getOrientation(rotation, orientation)
     }
 

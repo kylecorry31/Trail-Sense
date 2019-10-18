@@ -1,4 +1,4 @@
-package com.kylecorry.survival_aid.navigator
+package com.kylecorry.survival_aid.navigator.gps
 
 import android.location.Location
 import kotlin.math.*
@@ -74,10 +74,14 @@ object LocationMath {
     fun distanceToReadableString(meters: Float, unitSystem: UnitSystem): String {
         if (unitSystem == UnitSystem.IMPERIAL){
             val feetThreshold = 500
-            val feet = convertMetersToFeet(meters)
+            val feet =
+                convertMetersToFeet(meters)
             return if (feet >= feetThreshold) {
                 // Display as miles
-                "${round(convertFeetToMiles(feet) * 100f) / 100f} mi"
+                "${round(
+                    convertFeetToMiles(
+                        feet
+                    ) * 100f) / 100f} mi"
             } else {
                 // Display as feet
                 "${feet.roundToInt()} ft"

@@ -1,4 +1,6 @@
-package com.kylecorry.survival_aid.navigator
+package com.kylecorry.survival_aid.navigator.beacons
+
+import com.kylecorry.survival_aid.navigator.gps.Coordinate
 
 data class Beacon(val name: String, val coordinate: Coordinate){
     companion object {

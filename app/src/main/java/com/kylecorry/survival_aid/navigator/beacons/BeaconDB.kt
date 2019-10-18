@@ -1,4 +1,4 @@
-package com.kylecorry.survival_aid.navigator
+package com.kylecorry.survival_aid.navigator.beacons
 
 import android.content.ContentValues
 import android.content.Context
@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.database.CursorWrapper
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.kylecorry.survival_aid.navigator.gps.Coordinate
 
 /**
  * The beacon database
@@ -54,7 +55,8 @@ class BeaconDB(ctx: Context) {
      * Delete a location
      */
     fun delete(location: Beacon){
-        db.delete(Beacon.DB_BEACON_TABLE,
+        db.delete(
+            Beacon.DB_BEACON_TABLE,
             "${Beacon.DB_NAME} = ?",
             arrayOf(location.name))
     }
@@ -86,7 +88,7 @@ class BeaconDB(ctx: Context) {
         return values
     }
 
-    private fun query(where: String?, whereArgs: Array<String>?): BeaconCursor{
+    private fun query(where: String?, whereArgs: Array<String>?): BeaconCursor {
         val cursor = db.query(
             Beacon.DB_BEACON_TABLE,
             null,
@@ -135,6 +137,9 @@ private class BeaconCursor(cursor: Cursor): CursorWrapper(cursor) {
             lat = getDouble(getColumnIndex(Beacon.DB_LAT))
             lng = getDouble(getColumnIndex(Beacon.DB_LNG))
         } catch (e: Exception){}
-        return Beacon(name, Coordinate(lat, lng))
+        return Beacon(
+            name,
+            Coordinate(lat, lng)
+        )
     }
 }

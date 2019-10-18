@@ -1,4 +1,4 @@
-package com.kylecorry.survival_aid.navigator
+package com.kylecorry.survival_aid.navigator.gps
 
 import android.content.Context
 import android.hardware.GeomagneticField
@@ -95,7 +95,10 @@ class GPS(ctx: Context): Observable() {
      * @param location the new location
      */
     private fun updateLastLocation(location: Location){
-        this.location = Coordinate(location.latitude, location.longitude)
+        this.location = Coordinate(
+            location.latitude,
+            location.longitude
+        )
         accuracy = location.accuracy
         altitude = location.altitude
         setChanged()

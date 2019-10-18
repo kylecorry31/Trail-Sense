@@ -1,4 +1,4 @@
-package com.kylecorry.survival_aid.navigator
+package com.kylecorry.survival_aid.navigator.beacons
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.survival_aid.R
 import com.kylecorry.survival_aid.doTransaction
+import com.kylecorry.survival_aid.navigator.gps.Coordinate
+import com.kylecorry.survival_aid.navigator.gps.GPS
 
 class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS): Fragment() {
 
@@ -35,10 +37,18 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS):
 
             if (name.isNotBlank() && lat != null && lng != null){
                 // All fields supplied, create the beacon
-                val beacon = Beacon(name, Coordinate(lat, lng))
+                val beacon = Beacon(
+                    name,
+                    Coordinate(lat, lng)
+                )
                 beaconDB.create(beacon)
                 fragmentManager?.doTransaction {
-                    this.replace(R.id.fragment_holder, BeaconListFragment(beaconDB, gps))
+                    this.replace(R.id.fragment_holder,
+                        BeaconListFragment(
+                            beaconDB,
+                            gps
+                        )
+                    )
                 }
             }
         }

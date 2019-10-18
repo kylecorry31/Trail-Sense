@@ -1,6 +1,5 @@
 package com.kylecorry.survival_aid.navigator
 
-import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,13 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.survival_aid.R
 import com.kylecorry.survival_aid.doTransaction
-import kotlinx.android.synthetic.main.activity_navigator.*
+import com.kylecorry.survival_aid.navigator.beacons.Beacon
+import com.kylecorry.survival_aid.navigator.beacons.BeaconDB
+import com.kylecorry.survival_aid.navigator.beacons.BeaconListFragment
+import com.kylecorry.survival_aid.navigator.compass.Compass
+import com.kylecorry.survival_aid.navigator.gps.GPS
+import com.kylecorry.survival_aid.navigator.gps.LocationMath
+import com.kylecorry.survival_aid.navigator.gps.UnitSystem
 import java.util.*
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -68,7 +73,11 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
             if (!navigator.hasDestination){
                 fragmentManager?.doTransaction {
                     this.addToBackStack(null)
-                    this.replace(R.id.fragment_holder, BeaconListFragment(BeaconDB(context!!), gps))
+                    this.replace(R.id.fragment_holder,
+                        BeaconListFragment(
+                            BeaconDB(context!!), gps
+                        )
+                    )
                 }
             } else {
                 navigator.destination = null

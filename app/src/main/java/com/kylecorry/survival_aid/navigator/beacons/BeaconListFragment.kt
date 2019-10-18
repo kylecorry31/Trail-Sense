@@ -1,7 +1,6 @@
-package com.kylecorry.survival_aid.navigator
+package com.kylecorry.survival_aid.navigator.beacons
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.survival_aid.R
 import com.kylecorry.survival_aid.doTransaction
-
+import com.kylecorry.survival_aid.navigator.gps.GPS
+import com.kylecorry.survival_aid.navigator.NavigatorFragment
 
 
 class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): Fragment() {
@@ -35,7 +35,9 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): 
 
         createBtn.setOnClickListener {
             fragmentManager?.doTransaction {
-                this.replace(R.id.fragment_holder, PlaceBeaconFragment(beaconDB, gps))
+                this.replace(R.id.fragment_holder,
+                    PlaceBeaconFragment(beaconDB, gps)
+                )
             }
         }
 
@@ -55,7 +57,9 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): 
 
             itemView.setOnClickListener {
                 fragmentManager?.doTransaction {
-                    this.replace(R.id.fragment_holder, NavigatorFragment(beacon))
+                    this.replace(R.id.fragment_holder,
+                        NavigatorFragment(beacon)
+                    )
                 }
             }
 

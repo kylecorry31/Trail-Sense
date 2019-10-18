@@ -36,7 +36,8 @@ class NormalFlashlightMode: FlashlightMode {
  */
 class StrobeFlashlightMode(private val frequency: Float): FlashlightMode {
 
-    private val pattern = PatternFlashlightMode(listOf(true, false), (1 / frequency * 1000).roundToLong(), true)
+    private val states = listOf(true, false)
+    private val pattern = PatternFlashlightMode(states, (1 / frequency / states.size * 1000).roundToLong(), true)
 
     override fun on(flashlight: Flashlight) {
         pattern.on(flashlight)

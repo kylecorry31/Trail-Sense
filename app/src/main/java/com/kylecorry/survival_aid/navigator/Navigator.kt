@@ -1,5 +1,8 @@
 package com.kylecorry.survival_aid.navigator
 
+import com.kylecorry.survival_aid.navigator.beacons.Beacon
+import com.kylecorry.survival_aid.navigator.gps.Coordinate
+import com.kylecorry.survival_aid.navigator.gps.LocationMath
 import java.util.*
 
 /**

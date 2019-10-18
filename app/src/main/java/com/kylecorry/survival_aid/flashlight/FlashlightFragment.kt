@@ -98,7 +98,7 @@ class FlashlightFragment: Fragment(), Observer {
     }
 
     companion object {
-        const val STROBE_FREQUENCY = 40f //hz
+        const val STROBE_FREQUENCY = 20f //hz
         const val SOS_DOT_DURATION = 300L // ms
     }
 }
