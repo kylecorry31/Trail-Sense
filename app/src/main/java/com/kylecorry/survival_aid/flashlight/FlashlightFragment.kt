@@ -84,16 +84,16 @@ class FlashlightFragment: Fragment(), Observer {
     }
 
     override fun update(o: Observable?, arg: Any?) {
-        Handler(Looper.getMainLooper()).post{
-            if (o == flashlight) updateFlashlightUI()
-        }
+        if (o == flashlight) updateFlashlightUI()
     }
 
     private fun updateFlashlightUI(){
+        val ctx = context
+        ctx ?: return
         if (flashlight.isOn){
-            flashlightBtn.setImageDrawable(context!!.getDrawable(R.drawable.ic_power_on))
+            flashlightBtn.setImageDrawable(ctx.getDrawable(R.drawable.ic_power_on))
         } else {
-            flashlightBtn.setImageDrawable(context!!.getDrawable(R.drawable.ic_power_off))
+            flashlightBtn.setImageDrawable(ctx.getDrawable(R.drawable.ic_power_off))
         }
     }
 
