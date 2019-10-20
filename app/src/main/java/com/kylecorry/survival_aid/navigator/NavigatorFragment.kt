@@ -267,7 +267,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         }
 
         // Update the latitude, longitude display
-        locationTxt.text = "${location.latitude}, ${location.longitude}"
+        locationTxt.text = location.toString()
         accuracyTxt.text = "GPS accuracy: ${LocationMath.distanceToReadableString(accuracy, unitSystem)}"
 
         // Update the navigation display

@@ -20,7 +20,7 @@ class BeaconDB(ctx: Context) {
      */
     val beacons: List<Beacon>
         get(){
-            val cursor = query(null, null)
+            val cursor = query(null, null, Beacon.DB_NAME)
             val locations: MutableList<Beacon> = mutableListOf()
             cursor.use { cursor ->
                 if (cursor.count == 0){
@@ -88,7 +88,7 @@ class BeaconDB(ctx: Context) {
         return values
     }
 
-    private fun query(where: String?, whereArgs: Array<String>?): BeaconCursor {
+    private fun query(where: String?, whereArgs: Array<String>?, orderBy: String? = null): BeaconCursor {
         val cursor = db.query(
             Beacon.DB_BEACON_TABLE,
             null,
@@ -96,7 +96,7 @@ class BeaconDB(ctx: Context) {
             whereArgs,
             null,
             null,
-            null
+            orderBy
         )
 
         return BeaconCursor(cursor)

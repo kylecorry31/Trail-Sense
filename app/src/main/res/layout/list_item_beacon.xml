@@ -18,20 +18,12 @@
         tools:text="Name" />
 
     <TextView
-        android:id="@+id/beacon_lat_disp"
+        android:id="@+id/beacon_location_disp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/beacon_name_disp"
         app:layout_constraintTop_toBottomOf="@+id/beacon_name_disp"
         tools:text="42.82091382" />
 
-    <TextView
-        android:id="@+id/beacon_lng_disp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@+id/beacon_lat_disp"
-        app:layout_constraintTop_toTopOf="@+id/beacon_lat_disp"
-        tools:text="-70.720348" />
 </androidx.constraintlayout.widget.ConstraintLayout>

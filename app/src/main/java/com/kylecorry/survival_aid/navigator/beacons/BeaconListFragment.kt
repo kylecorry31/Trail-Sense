@@ -14,6 +14,7 @@ import com.kylecorry.survival_aid.R
 import com.kylecorry.survival_aid.doTransaction
 import com.kylecorry.survival_aid.navigator.gps.GPS
 import com.kylecorry.survival_aid.navigator.NavigatorFragment
+import kotlinx.android.synthetic.main.activity_navigator.*
 
 
 class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): Fragment() {
@@ -47,13 +48,11 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): 
     inner class BeaconHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private var nameText: TextView = itemView.findViewById(R.id.beacon_name_disp)
-        private var latText: TextView = itemView.findViewById(R.id.beacon_lat_disp)
-        private var lngText: TextView = itemView.findViewById(R.id.beacon_lng_disp)
+        private var locationText: TextView = itemView.findViewById(R.id.beacon_location_disp)
 
         fun bindToBeacon(beacon: Beacon){
             nameText.text = beacon.name
-            latText.text = beacon.coordinate.latitude.toString()
-            lngText.text = beacon.coordinate.longitude.toString()
+            locationText.text = beacon.coordinate.toString()
 
             itemView.setOnClickListener {
                 fragmentManager?.doTransaction {

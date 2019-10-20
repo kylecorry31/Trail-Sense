@@ -1,6 +1,7 @@
 package com.kylecorry.survival_aid.navigator.gps
 
 import android.location.Location
+import com.kylecorry.survival_aid.navigator.normalizeAngle
 import kotlin.math.*
 
 /**
@@ -15,22 +16,9 @@ object LocationMath {
      * @return the bearing in degrees (same as Compass.azimuth)
      */
     fun getBearing(from: Coordinate, to: Coordinate): Float {
-        val locationA = Location("point A")
-
-        locationA.latitude = from.latitude
-        locationA.longitude = from.longitude
-
-        val locationB = Location("point B")
-
-        locationB.latitude = to.latitude
-        locationB.longitude = to.longitude
-
-        var bearing = locationA.bearingTo(locationB)
-
-        if (bearing < 0){
-            bearing += 360
-        }
-        return bearing % 360
+        val results = FloatArray(3)
+        Location.distanceBetween(from.latitude, from.longitude, to.latitude, to.longitude, results)
+        return normalizeAngle(results[1])
     }
 
 
@@ -41,17 +29,9 @@ object LocationMath {
      * @return the distance in meters between the two coordinates
      */
     fun getDistance(from: Coordinate, to: Coordinate): Float {
-        val locationA = Location("point A")
-
-        locationA.latitude = from.latitude
-        locationA.longitude = from.longitude
-
-        val locationB = Location("point B")
-
-        locationB.latitude = to.latitude
-        locationB.longitude = to.longitude
-
-        return locationA.distanceTo(locationB)
+        val results = FloatArray(3)
+        Location.distanceBetween(from.latitude, from.longitude, to.latitude, to.longitude, results)
+        return results[0]
     }
 
     /**
