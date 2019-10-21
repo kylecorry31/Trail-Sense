@@ -37,4 +37,7 @@
     <string name="use_true_north">Use True North</string>
     <string name="prefs_name">prefs</string>
     <string name="pref_use_true_north">use_true_north</string>
+    <string name="blueprint_title">Blueprints</string>
+    <string name="blueprint_ingredients_title">Ingredients</string>
+    <string name="blueprint_steps_title">Steps</string>
 </resources>

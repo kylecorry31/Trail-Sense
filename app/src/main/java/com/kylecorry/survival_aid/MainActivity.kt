@@ -15,7 +15,7 @@ import com.kylecorry.survival_aid.navigator.NavigatorFragment
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
+import com.kylecorry.survival_aid.blueprints.BlueprintListFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -58,6 +58,9 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_light -> {
                 switchFragment(FlashlightFragment())
+            }
+            R.id.action_blueprint -> {
+                switchFragment(BlueprintListFragment())
             }
         }
     }

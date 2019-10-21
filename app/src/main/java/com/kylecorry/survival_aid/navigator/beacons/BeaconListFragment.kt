@@ -14,7 +14,6 @@ import com.kylecorry.survival_aid.R
 import com.kylecorry.survival_aid.doTransaction
 import com.kylecorry.survival_aid.navigator.gps.GPS
 import com.kylecorry.survival_aid.navigator.NavigatorFragment
-import kotlinx.android.synthetic.main.activity_navigator.*
 
 
 class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): Fragment() {

@@ -22,7 +22,7 @@ object Resources {
     // Composite resources
     val waterFilter = Resource("Water Filter", "A water filter is used to remove particulate contaminates from water - this will not disinfect water, so it should still be boiled / treated.")
     val stove = Resource("Stove", "A stove which can be used for cooking.")
-    val filteredWater = Resource("Filtered Water", "Water that has been filtered of particular impurities.")
+    val filteredWater = Resource("Filtered Water", "Water that has been filtered of particulate impurities.")
     val potableWater = Resource("Potable Water", "Water which is drinkable and safe to use in cooking.")
     val phoneCharger = Resource("Phone Charger", "A device which can be used to charge a cellphone.")
 

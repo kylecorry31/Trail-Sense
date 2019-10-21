@@ -1,7 +1,7 @@
 package com.kylecorry.survival_aid.blueprints
 
 /**
- * A collection of blueprints
+ * A collection of resources
  */
 object Blueprints {
 
@@ -76,9 +76,9 @@ object Blueprints {
     val blueprints = listOf(waterFilter, filteredWater, boiledWater, phoneCharger)
 
     /**
-     * Get all blueprints which produce the given resource
+     * Get all resources which produce the given resource
      * @param resource the resource to produce
-     * @return the list of blueprints which can produce the resource
+     * @return the list of resources which can produce the resource
      */
     fun getBlueprintsForResource(resource: Resource): List<Blueprint> {
         return blueprints.filter { it.resource == resource }
