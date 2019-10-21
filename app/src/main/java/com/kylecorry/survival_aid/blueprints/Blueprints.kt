@@ -7,6 +7,7 @@ object Blueprints {
 
     private val waterFilter = Blueprint(
         Resources.waterFilter,
+        BlueprintCategory.WATER,
         listOf(
             Pair(Resources.charcoal, Quantity(1, "Cup")),
             Pair(Resources.sand, Quantity(1, "Cup")),
@@ -28,6 +29,7 @@ object Blueprints {
 
     private val filteredWater = Blueprint(
         Resources.filteredWater,
+        BlueprintCategory.WATER,
         listOf(
             Pair(Resources.water, Quantity(1)),
             Pair(Resources.waterFilter, Quantity(1))
@@ -40,6 +42,7 @@ object Blueprints {
 
     private val boiledWater = Blueprint(
         Resources.potableWater,
+        BlueprintCategory.WATER,
         listOf(
             Pair(Resources.filteredWater, Quantity(1)),
             Pair(Resources.stove, Quantity(1)),
@@ -54,6 +57,7 @@ object Blueprints {
 
     private val phoneCharger = Blueprint(
         Resources.phoneCharger,
+        BlueprintCategory.ELECTRICITY,
         listOf(
             Pair(Resources.carCharger, Quantity(1)),
             Pair(Resources.copperWire, Quantity(1)),

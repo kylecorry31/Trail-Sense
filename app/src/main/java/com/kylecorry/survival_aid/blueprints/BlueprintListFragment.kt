@@ -23,7 +23,7 @@ class BlueprintListFragment: Fragment() {
 
         blueprintList.layoutManager = LinearLayoutManager(context)
 
-        adapter = BlueprintAdapter(Blueprints.blueprints.sortedBy { it.resource.name })
+        adapter = BlueprintAdapter(Blueprints.blueprints.sortedWith(compareBy({ it.category.name }, { it.resource.name })))
         blueprintList.adapter = adapter
 
         return view
@@ -32,9 +32,11 @@ class BlueprintListFragment: Fragment() {
     inner class BlueprintHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private var nameText: TextView = itemView.findViewById(R.id.blueprint_name_disp)
+        private var categoryText: TextView = itemView.findViewById(R.id.blueprint_category_disp)
 
         fun bindToBlueprint(blueprint: Blueprint){
             nameText.text = blueprint.resource.name
+            categoryText.text = blueprint.category.name.toLowerCase().capitalize()
 
             itemView.setOnClickListener {
                 fragmentManager?.doTransaction {

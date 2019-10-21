@@ -7,5 +7,14 @@ package com.kylecorry.survival_aid.blueprints
  * @param steps the steps to create the resource
  */
 data class Blueprint(val resource: Resource,
+                     val category: BlueprintCategory,
                      val ingredients: List<Pair<Resource, Quantity>>,
                      val steps: List<String> = emptyList())
+
+
+enum class BlueprintCategory {
+    WATER,
+    FOOD,
+    ELECTRICITY,
+    OTHER
+}
