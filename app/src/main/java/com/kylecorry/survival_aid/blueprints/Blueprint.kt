@@ -7,5 +7,5 @@ package com.kylecorry.survival_aid.blueprints
  * @param steps the steps to create the resource
  */
 data class Blueprint(val resource: Resource,
-                     val ingredients: List<Pair<Resource, Float>>,
+                     val ingredients: List<Pair<Resource, Quantity>>,
                      val steps: List<String> = emptyList())
