@@ -16,5 +16,9 @@ enum class BlueprintCategory {
     WATER,
     FOOD,
     ELECTRICITY,
+    DEFENSE,
+    LIGHTING,
+    HEAT,
+    MEDICAL,
     OTHER
 }

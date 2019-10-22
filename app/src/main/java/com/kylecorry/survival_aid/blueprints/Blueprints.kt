@@ -77,7 +77,34 @@ object Blueprints {
         )
     )
 
-    val blueprints = listOf(waterFilter, filteredWater, boiledWater, phoneCharger)
+    private val oilCandle = Blueprint(
+        Resources.candle,
+        BlueprintCategory.LIGHTING,
+        listOf(
+            Pair(Resources.sodaCan, Quantity(1)),
+            Pair(Resources.cookingOil, Quantity(1, "Cup")),
+            Pair(Resources.paperTowel, Quantity(1, "Sheet"))
+        ),
+        listOf(
+            "Empty the soda can",
+            "Fill the can with oil to about halfway",
+            "Roll up a piece of paper towel to form a wick",
+            "Place the paper towel into the opening of the can so it is in the oil and still sticks out the top",
+            "Light the exposed paper towel on fire"
+        )
+    )
+
+    private val siphon = null
+    private val lockPicks = null
+    private val perimeterAlarm= null // With cans
+    private val longBow = null
+    private val splint = null
+    private val flashlight = null
+    private val solarOven = null
+    private val compass = null
+    private val fishingHook = null
+
+    val blueprints = listOf(waterFilter, filteredWater, boiledWater, phoneCharger, oilCandle)
 
     /**
      * Get all resources which produce the given resource

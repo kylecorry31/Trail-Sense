@@ -40,6 +40,7 @@ class BlueprintListFragment: Fragment() {
 
             itemView.setOnClickListener {
                 fragmentManager?.doTransaction {
+                    this.addToBackStack(null)
                     this.replace(R.id.fragment_holder, BlueprintDetailsFragment(blueprint))
                 }
             }

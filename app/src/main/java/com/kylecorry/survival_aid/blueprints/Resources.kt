@@ -18,6 +18,9 @@ object Resources {
     val nineVoltBattery = Resource("9V Battery", "A disposable battery which provides 9 volts of electricity. Typically used in smoke detectors.")
     val copperWire = Resource("Copper Wire", "Electrical grade wire made of copper, can be found in many large electronics or in the walls of buildings.")
     val tape = Resource("Tape", "An strip adhesive used to fasten items together, and is found in many different forms such as electrical, duct, shipping, or masking.")
+    val sodaCan = Resource("Soda Can", "A simple aluminum can used to hold soda.")
+    val cookingOil = Resource("Cooking Oil", "An oil primarily used for cooking food. May be flammable.")
+    val paperTowel = Resource("Paper Towel", "A paper based towel product used in kitchens and bathrooms.")
 
     // Composite resources
     val waterFilter = Resource("Water Filter", "A filter is used to remove particles from water. Note: this will not disinfect water, so it should still be boiled / treated.")
@@ -25,4 +28,5 @@ object Resources {
     val filteredWater = Resource("Filtered Water", "Water that has been filtered of particles.")
     val potableWater = Resource("Drinking Water", "Water which is drinkable and safe to use in cooking. Also called potable water.")
     val phoneCharger = Resource("Phone Charger", "A device which can be used to charge a cellphone.")
+    val candle = Resource("Candle", "A small fire based lighting element that can burn for several hours.")
 }
