@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.kylecorry.survival_aid.R
 import com.kylecorry.survival_aid.navigator.gps.UnitSystem
-import org.w3c.dom.Text
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -19,12 +18,14 @@ class WeatherFragment : Fragment(), Observer {
     private lateinit var moonPhase: MoonPhase
     private lateinit var thermometer: Thermometer
     private lateinit var hygrometer: Hygrometer
+    private lateinit var barometer: Barometer
 
     private lateinit var moonTxt: TextView
     private lateinit var tempTxt: TextView
     private lateinit var humidityTxt: TextView
     private lateinit var feelsLikeTxt: TextView
     private lateinit var dewpointTxt: TextView
+    private lateinit var pressureTxt: TextView
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,12 +34,14 @@ class WeatherFragment : Fragment(), Observer {
         moonPhase = MoonPhase()
         thermometer = Thermometer(context!!)
         hygrometer = Hygrometer(context!!)
+        barometer = Barometer(context!!)
 
         moonTxt = view.findViewById(R.id.moonphase)
         tempTxt = view.findViewById(R.id.temperature)
         humidityTxt = view.findViewById(R.id.humidity)
         feelsLikeTxt = view.findViewById(R.id.feelslike)
         dewpointTxt = view.findViewById(R.id.dewpoint)
+        pressureTxt = view.findViewById(R.id.pressure)
 
         return view
     }
@@ -47,27 +50,39 @@ class WeatherFragment : Fragment(), Observer {
         super.onResume()
         thermometer.addObserver(this)
         hygrometer.addObserver(this)
+        barometer.addObserver(this)
 
         thermometer.start()
         hygrometer.start()
+        barometer.start()
 
         updateMoonPhase()
         updateTemperature()
         updateHumidity()
+        updatePressure()
     }
 
     override fun onPause() {
         super.onPause()
         thermometer.stop()
         hygrometer.stop()
+        barometer.stop()
 
         thermometer.deleteObserver(this)
         hygrometer.deleteObserver(this)
+        barometer.deleteObserver(this)
     }
 
     override fun update(o: Observable?, arg: Any?) {
         if (o == thermometer) updateTemperature()
         if (o == hygrometer) updateHumidity()
+        if (o == barometer) updatePressure()
+    }
+
+    private fun updatePressure(){
+        val pressure = barometer.pressure.roundToInt()
+
+        pressureTxt.text = "Pressure: $pressure hPa"
     }
 
     private fun updateHumidity(){

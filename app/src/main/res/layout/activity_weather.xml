@@ -59,4 +59,14 @@
         app:layout_constraintStart_toStartOf="@+id/humidity"
         app:layout_constraintTop_toBottomOf="@+id/humidity"
         tools:text="Dew point: 30°F" />
+
+    <TextView
+        android:id="@+id/pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/dewpoint"
+        app:layout_constraintStart_toStartOf="@+id/dewpoint"
+        app:layout_constraintTop_toBottomOf="@+id/dewpoint"
+        tools:text="1020 hPa" />
 </androidx.constraintlayout.widget.ConstraintLayout>
