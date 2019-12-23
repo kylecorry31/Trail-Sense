@@ -15,6 +15,9 @@ object WeatherUtils {
      * @return The heat index in celsius
      */
     fun getHeatIndex(tempCelsius: Float, relativeHumidity: Float): Float {
+
+        if (celsiusToFahrenheit(tempCelsius) < 80) return tempCelsius
+
         val c1 = -8.78469475556
         val c2 = 1.61139411
         val c3 = 2.33854883889
@@ -39,12 +42,13 @@ object WeatherUtils {
     }
 
 
-    enum class HeatAlert {
-        NORMAL,
-        CAUTION,
-        EXTREME_CAUTION,
-        DANGER,
-        EXTREME_DANGER
+    enum class HeatAlert(val readableName: String) {
+        // TODO: Include freezing/frostbite alerts (https://www.weather.gov/bou/windchill)
+        NORMAL("No alert"),
+        CAUTION("Heat caution"),
+        EXTREME_CAUTION("Heat warning"),
+        DANGER("Heat alert"),
+        EXTREME_DANGER("Extreme heat alert")
     }
 
     /**
@@ -54,7 +58,7 @@ object WeatherUtils {
      * @return The heat alert level
      */
     fun getHeatAlert(tempCelsius: Float, relativeHumidity: Float): HeatAlert {
-        val heatIndex = getHeatIndex(tempCelsius, relativeHumidity)
+        val heatIndex = celsiusToFahrenheit(getHeatIndex(tempCelsius, relativeHumidity))
 
         return when {
             heatIndex < 80 -> HeatAlert.NORMAL
@@ -93,10 +97,12 @@ object WeatherUtils {
     fun getDewPoint(tempCelsius: Float, relativeHumidity: Float): Float {
         val m = 17.62
         val tn = 243.12
-        val lnRH = ln(relativeHumidity.toDouble() / 100)
+        var lnRH = ln(relativeHumidity.toDouble() / 100)
+        if (lnRH.isNaN() || abs(lnRH).isInfinite()) lnRH = ln(0.00001)
         val tempCalc = m * tempCelsius / (tn + tempCelsius)
         val top = lnRH + tempCalc
-        val bottom = m - top
+        var bottom = m - top
+        if (bottom == 0.0) bottom = 0.00001
         val dewPoint = tn * top / bottom
         return dewPoint.toFloat()
     }
