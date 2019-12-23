@@ -38,6 +38,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var destinationStar: ImageView
     private lateinit var locationTxt: TextView
     private lateinit var accuracyTxt: TextView
+    private lateinit var altitudeTxt: TextView
     private lateinit var navigationTxt: TextView
     private lateinit var beaconBtn: FloatingActionButton
     private lateinit var locationBtn: FloatingActionButton
@@ -60,6 +61,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         destinationStar = view.findViewById(R.id.destination_star)
         locationTxt = view.findViewById(R.id.location)
         accuracyTxt = view.findViewById(R.id.location_accuracy)
+        altitudeTxt = view.findViewById(R.id.location_altitude)
         navigationTxt = view.findViewById(R.id.navigation)
         beaconBtn = view.findViewById(R.id.beaconBtn)
         locationBtn = view.findViewById(R.id.locationBtn)
@@ -259,6 +261,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         val location = gps.location
         val accuracy = gps.accuracy
+        val altitude = gps.altitude
 
         // Check to see if the GPS got a location
         if (location == null){
@@ -269,6 +272,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         // Update the latitude, longitude display
         locationTxt.text = location.toString()
         accuracyTxt.text = "GPS accuracy: ${LocationMath.distanceToReadableString(accuracy, unitSystem)}"
+        altitudeTxt.text = "Altitude: ${LocationMath.distanceToReadableString(altitude.toFloat(), unitSystem)}"
 
         // Update the navigation display
         updateNavigationUI()

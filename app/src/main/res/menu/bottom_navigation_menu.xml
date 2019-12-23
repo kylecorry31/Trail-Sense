@@ -10,6 +10,12 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_weather"
+        android:title="@string/action_weather"
+        android:icon="@drawable/ic_weather"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_light"
         android:title="@string/action_light"
         android:icon="@drawable/ic_flashlight"

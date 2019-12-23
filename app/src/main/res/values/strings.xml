@@ -40,4 +40,5 @@
     <string name="blueprint_title">Blueprints</string>
     <string name="blueprint_ingredients_title">Ingredients</string>
     <string name="blueprint_steps_title">Steps</string>
+    <string name="action_weather">Weather</string>
 </resources>

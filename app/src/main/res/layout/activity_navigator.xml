@@ -130,6 +130,18 @@
         app:layout_constraintStart_toStartOf="@+id/location"
         tools:text="Accuracy: 10ft" />
 
+    <TextView
+        android:id="@+id/location_altitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/location_accuracy"
+        app:layout_constraintEnd_toEndOf="@+id/location"
+        app:layout_constraintStart_toStartOf="@+id/location"
+        tools:text="Altitude: 100ft" />
+
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/true_north"
         android:layout_width="wrap_content"
