@@ -19,10 +19,10 @@ object BarometerAlarmManager {
         alarmIntent = Intent(context, BarometerAlarmReceiver::class.java).let { intent ->
             PendingIntent.getBroadcast(context, 0, intent, 0)
         }
-        alarmMgr?.setRepeating(
+        alarmMgr?.setInexactRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
             SystemClock.elapsedRealtime(),
-            60000,
+            AlarmManager.INTERVAL_FIFTEEN_MINUTES,
             alarmIntent
         )
     }

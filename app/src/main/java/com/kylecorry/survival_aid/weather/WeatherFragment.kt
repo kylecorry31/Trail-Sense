@@ -21,6 +21,9 @@ class WeatherFragment : Fragment(), Observer {
     private lateinit var hygrometer: Hygrometer
     private lateinit var barometer: Barometer
 
+    private var hasTemp = false
+    private var hasHumidity = false
+
     private lateinit var moonTxt: TextView
     private lateinit var tempTxt: TextView
     private lateinit var humidityTxt: TextView
@@ -64,9 +67,9 @@ class WeatherFragment : Fragment(), Observer {
         barometer.start()
 
         updateMoonPhase()
-        updateTemperature()
-        updateHumidity()
-        updatePressure()
+        //updateTemperature()
+        //updateHumidity()
+        //updatePressure()
     }
 
     override fun onPause() {
@@ -95,7 +98,6 @@ class WeatherFragment : Fragment(), Observer {
 
         pressureTxt.text = "Pressure: $convertedPressure $symbol"
 
-
         val pressureDirection = WeatherUtils.getBarometricChangeDirection(PressureHistory.readings)
 
         barometerInterpTxt.text = pressureDirection.readableName
@@ -108,6 +110,7 @@ class WeatherFragment : Fragment(), Observer {
     }
 
     private fun updateHumidity(){
+        hasHumidity = true
         val humidity = hygrometer.humidity.roundToInt()
 
         humidityTxt.text = "$humidity% humidity"
@@ -115,6 +118,7 @@ class WeatherFragment : Fragment(), Observer {
     }
 
     private fun updateTemperature(){
+        hasTemp = true
         val temp = if (unitSystem == UnitSystem.IMPERIAL) WeatherUtils.celsiusToFahrenheit(thermometer.temperature) else thermometer.temperature
         val symbol = if (unitSystem == UnitSystem.IMPERIAL) "F" else "C"
         tempTxt.text = "${temp.roundToInt()}°$symbol"
@@ -145,8 +149,8 @@ class WeatherFragment : Fragment(), Observer {
             tempWarningTxt.text = ""
         }
 
-
-        dewpointTxt.text = "Dew point of $dewPoint°$symbol (${comfortLevel.readableName.toLowerCase()})"
+        if (hasHumidity)
+            dewpointTxt.text = "Dew point of $dewPoint°$symbol (${comfortLevel.readableName.toLowerCase()})"
     }
 
 

@@ -17,6 +17,7 @@ class Hygrometer(ctx: Context) : AbstractSensor(ctx, Sensor.TYPE_RELATIVE_HUMIDI
     var humidity: Float = 0f
         private set
 
+
     override fun handleSensorEvent(event: SensorEvent) {
         humidity = event.values[0]
     }

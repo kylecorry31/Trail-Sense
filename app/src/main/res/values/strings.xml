@@ -42,4 +42,7 @@
     <string name="blueprint_steps_title">Steps</string>
     <string name="action_weather">Weather</string>
     <string name="storm_incoming_warning">STORM INCOMING</string>
+    <string name="humidity_unknown">Humidity unknown</string>
+    <string name="dew_point_unknown">Dew point unknown</string>
+    <string name="pressure_unknown">Pressure unknown</string>
 </resources>
