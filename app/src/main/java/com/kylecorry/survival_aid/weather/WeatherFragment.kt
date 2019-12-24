@@ -27,7 +27,9 @@ class WeatherFragment : Fragment(), Observer {
     private lateinit var feelsLikeTxt: TextView
     private lateinit var dewpointTxt: TextView
     private lateinit var pressureTxt: TextView
-    private lateinit var warningTxt: TextView
+    private lateinit var tempWarningTxt: TextView
+    private lateinit var stormWarningTxt: TextView
+    private lateinit var barometerInterpTxt: TextView
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,7 +46,9 @@ class WeatherFragment : Fragment(), Observer {
         feelsLikeTxt = view.findViewById(R.id.feelslike)
         dewpointTxt = view.findViewById(R.id.dewpoint)
         pressureTxt = view.findViewById(R.id.pressure)
-        warningTxt = view.findViewById(R.id.warning)
+        tempWarningTxt = view.findViewById(R.id.tempWarning)
+        stormWarningTxt = view.findViewById(R.id.stormWarning)
+        barometerInterpTxt = view.findViewById(R.id.barometerInterpretation)
 
         return view
     }
@@ -90,6 +94,17 @@ class WeatherFragment : Fragment(), Observer {
         val convertedPressure: Float = if (unitSystem == UnitSystem.IMPERIAL) WeatherUtils.hPaToInches(pressure).roundPlaces(2) else pressure.roundToInt().toFloat()
 
         pressureTxt.text = "Pressure: $convertedPressure $symbol"
+
+
+        val pressureDirection = WeatherUtils.getBarometricChangeDirection(PressureHistory.readings)
+
+        barometerInterpTxt.text = pressureDirection.readableName
+
+        if (WeatherUtils.isStormIncoming(PressureHistory.readings)){
+            stormWarningTxt.text = getString(R.string.storm_incoming_warning)
+        } else {
+            stormWarningTxt.text = ""
+        }
     }
 
     private fun updateHumidity(){
@@ -125,9 +140,9 @@ class WeatherFragment : Fragment(), Observer {
         }
 
         if (heatAlert != WeatherUtils.HeatAlert.NORMAL){
-            warningTxt.text = heatAlert.readableName.toUpperCase()
+            tempWarningTxt.text = heatAlert.readableName.toUpperCase()
         } else {
-            warningTxt.text = ""
+            tempWarningTxt.text = ""
         }
 
 

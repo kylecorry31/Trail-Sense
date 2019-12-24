@@ -8,6 +8,8 @@ import kotlin.math.ln
  */
 object WeatherUtils {
 
+    const val STORM_THRESHOLD = 3
+
     /**
      * Get the heat index in celsius
      * @param tempCelsius The temperature in celsius
@@ -43,7 +45,9 @@ object WeatherUtils {
 
 
     enum class HeatAlert(val readableName: String) {
-        // TODO: Include freezing/frostbite alerts (https://www.weather.gov/bou/windchill)
+        FROSTBITE_DANGER("Frostbite alert (5 mins)"),
+        FROSTBITE("Frostbite warning (10 mins)"),
+        FROSTBITE_CAUTION("Frostbite caution (30 mins)"),
         NORMAL("No alert"),
         CAUTION("Heat caution"),
         EXTREME_CAUTION("Heat warning"),
@@ -61,6 +65,9 @@ object WeatherUtils {
         val heatIndex = celsiusToFahrenheit(getHeatIndex(tempCelsius, relativeHumidity))
 
         return when {
+            heatIndex <= -30 -> HeatAlert.FROSTBITE_DANGER
+            heatIndex <= -10 -> HeatAlert.FROSTBITE
+            heatIndex <= 0 -> HeatAlert.FROSTBITE_CAUTION
             heatIndex < 80 -> HeatAlert.NORMAL
             heatIndex <= 90 -> HeatAlert.CAUTION
             heatIndex <= 103 -> HeatAlert.EXTREME_CAUTION
@@ -162,10 +169,10 @@ object WeatherUtils {
     }
 
 
-    enum class BarometricChange {
-        FALLING,
-        RISING,
-        NO_CHANGE
+    enum class BarometricChange(val readableName: String) {
+        FALLING("Weather worsening soon"),
+        RISING("Weather improving soon"),
+        NO_CHANGE("Weather not changing soon")
     }
 
     /**
@@ -173,7 +180,7 @@ object WeatherUtils {
      * @param readings The barometric pressure readings in hPa
      * @return The direction of change
      */
-    fun getBarometricChangeDirection(readings: Array<Float>): BarometricChange {
+    fun getBarometricChangeDirection(readings: List<PressureReading>): BarometricChange {
         val change = getBarometricChange(readings)
 
         return when {
@@ -188,12 +195,23 @@ object WeatherUtils {
      * @param readings The barometric pressure readings in hPa
      * @return The pressure change in hPa
      */
-    fun getBarometricChange(readings: Array<Float>): Float {
+    fun getBarometricChange(readings: List<PressureReading>): Float {
         if (readings.size < 2) return 0f
         val firstReading = readings.first()
         val lastReading = readings.last()
-        val change = lastReading - firstReading
-        return change
+        return lastReading.reading - firstReading.reading
+    }
+
+    /**
+     * Determines if a storm is incoming
+     * @param readings The barometric pressure readings in hPa
+     * @return True if a storm is incoming, false otherwise
+     */
+    fun isStormIncoming(readings: List<PressureReading>): Boolean {
+        val pressureDirection = getBarometricChangeDirection(readings)
+        val pressureChange = getBarometricChange(readings)
+
+        return pressureDirection == BarometricChange.FALLING && abs(pressureChange) >= STORM_THRESHOLD
     }
 
 }

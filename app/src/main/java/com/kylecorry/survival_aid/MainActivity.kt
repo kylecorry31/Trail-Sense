@@ -16,6 +16,8 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.kylecorry.survival_aid.blueprints.BlueprintListFragment
+import com.kylecorry.survival_aid.weather.BarometerAlarmManager
+import com.kylecorry.survival_aid.weather.BarometerAlarmReceiver
 import com.kylecorry.survival_aid.weather.WeatherFragment
 
 
@@ -30,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         if (!hasPermissions()){
             getPermission()
         }
+
+        BarometerAlarmManager.startRecording(this)
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
 
