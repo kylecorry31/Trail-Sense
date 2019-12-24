@@ -107,13 +107,13 @@ object WeatherUtils {
         return dewPoint.toFloat()
     }
 
-    enum class HumidityComfortLevel {
-        PLEASANT,
-        COMFORTABLE,
-        STICKY,
-        UNCOMFORTABLE,
-        OPPRESSIVE,
-        MISERABLE
+    enum class HumidityComfortLevel(val readableName: String) {
+        PLEASANT("Pleasant"),
+        COMFORTABLE("Comfortable"),
+        STICKY("Sticky"),
+        UNCOMFORTABLE("Uncomfortable"),
+        OPPRESSIVE("Oppressive"),
+        MISERABLE("Miserable")
     }
 
     /**
@@ -132,6 +132,15 @@ object WeatherUtils {
      */
     fun fahrenheitToCelsius(tempFahrenheit: Float): Float {
         return (tempFahrenheit - 32) * 5 / 9f + 32
+    }
+
+    /**
+     * Convert hPa to inches
+     * @param pressure The pressure in hPa
+     * @return The pressure in inches
+     */
+    fun hPaToInches(pressure: Float): Float {
+        return 0.030f * pressure
     }
 
     /**

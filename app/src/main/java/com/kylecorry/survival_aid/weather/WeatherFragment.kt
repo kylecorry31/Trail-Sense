@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.kylecorry.survival_aid.R
 import com.kylecorry.survival_aid.navigator.gps.UnitSystem
+import com.kylecorry.survival_aid.roundPlaces
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -26,6 +27,7 @@ class WeatherFragment : Fragment(), Observer {
     private lateinit var feelsLikeTxt: TextView
     private lateinit var dewpointTxt: TextView
     private lateinit var pressureTxt: TextView
+    private lateinit var warningTxt: TextView
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,6 +44,7 @@ class WeatherFragment : Fragment(), Observer {
         feelsLikeTxt = view.findViewById(R.id.feelslike)
         dewpointTxt = view.findViewById(R.id.dewpoint)
         pressureTxt = view.findViewById(R.id.pressure)
+        warningTxt = view.findViewById(R.id.warning)
 
         return view
     }
@@ -80,22 +83,26 @@ class WeatherFragment : Fragment(), Observer {
     }
 
     private fun updatePressure(){
-        val pressure = barometer.pressure.roundToInt()
+        val pressure = barometer.pressure
 
-        pressureTxt.text = "Pressure: $pressure hPa"
+        val symbol = if (unitSystem == UnitSystem.IMPERIAL) "in" else "hPa"
+
+        val convertedPressure: Float = if (unitSystem == UnitSystem.IMPERIAL) WeatherUtils.hPaToInches(pressure).roundPlaces(2) else pressure.roundToInt().toFloat()
+
+        pressureTxt.text = "Pressure: $convertedPressure $symbol"
     }
 
     private fun updateHumidity(){
         val humidity = hygrometer.humidity.roundToInt()
 
-        humidityTxt.text = "$humidity% Humidity"
+        humidityTxt.text = "$humidity% humidity"
         updateTempHumidityCombos()
     }
 
     private fun updateTemperature(){
         val temp = if (unitSystem == UnitSystem.IMPERIAL) WeatherUtils.celsiusToFahrenheit(thermometer.temperature) else thermometer.temperature
         val symbol = if (unitSystem == UnitSystem.IMPERIAL) "F" else "C"
-        tempTxt.text = "${temp.roundToInt()} °$symbol"
+        tempTxt.text = "${temp.roundToInt()}°$symbol"
         updateTempHumidityCombos()
     }
 
@@ -110,15 +117,21 @@ class WeatherFragment : Fragment(), Observer {
         val heatAlert = WeatherUtils.getHeatAlert(temp, humidity)
 
         val symbol = if (unitSystem == UnitSystem.IMPERIAL) "F" else "C"
-        var feelsLikeString = "Feels like $heatIndex °$symbol"
 
-        if (heatAlert != WeatherUtils.HeatAlert.NORMAL){
-            feelsLikeString += " - ${heatAlert.readableName}"
+        if (heatIndex != convertTemp(temp).roundToInt()){
+            feelsLikeTxt.text = "Feels like $heatIndex°$symbol"
+        } else {
+            feelsLikeTxt.text = ""
         }
 
-        feelsLikeTxt.text = feelsLikeString
+        if (heatAlert != WeatherUtils.HeatAlert.NORMAL){
+            warningTxt.text = heatAlert.readableName.toUpperCase()
+        } else {
+            warningTxt.text = ""
+        }
 
-        dewpointTxt.text = "Dew point: $dewPoint °$symbol"
+
+        dewpointTxt.text = "Dew point of $dewPoint°$symbol (${comfortLevel.readableName.toLowerCase()})"
     }
 
 

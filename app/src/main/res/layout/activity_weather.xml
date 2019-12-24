@@ -22,22 +22,24 @@
         android:id="@+id/temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moonphase"
         tools:text="32°F" />
 
     <TextView
         android:id="@+id/humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/dewpoint"
         app:layout_constraintEnd_toEndOf="@+id/temperature"
         app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="@+id/temperature"
-        app:layout_constraintTop_toBottomOf="@+id/feelslike"
         tools:text="100% Humidity" />
 
     <TextView
@@ -54,19 +56,35 @@
         android:id="@+id/dewpoint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/pressure"
         app:layout_constraintEnd_toEndOf="@+id/humidity"
         app:layout_constraintStart_toStartOf="@+id/humidity"
-        app:layout_constraintTop_toBottomOf="@+id/humidity"
         tools:text="Dew point: 30°F" />
 
     <TextView
         android:id="@+id/pressure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/dewpoint"
         app:layout_constraintStart_toStartOf="@+id/dewpoint"
-        app:layout_constraintTop_toBottomOf="@+id/dewpoint"
-        tools:text="1020 hPa" />
+        tools:text="Pressure: 1020 hPa" />
+
+    <TextView
+        android:id="@+id/warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toTopOf="@+id/temperature"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moonphase"
+        tools:text="HEAT ALERT" />
 </androidx.constraintlayout.widget.ConstraintLayout>
