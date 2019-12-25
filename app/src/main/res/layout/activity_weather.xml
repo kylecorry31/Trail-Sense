@@ -12,8 +12,8 @@
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/stormWarning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barometerInterpretation" />
@@ -23,11 +23,11 @@
         android:id="@+id/moonphase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/sunrise_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="New" />
+        app:layout_constraintTop_toTopOf="@+id/sunrise"
+        tools:text="New Moon" />
 
     <TextView
         android:id="@+id/sunrise"
@@ -129,13 +129,4 @@
         app:layout_constraintTop_toBottomOf="@+id/pressure"
         tools:text="1000 hPa at sea-level" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/moon_label"
-        app:layout_constraintEnd_toEndOf="@+id/moonphase"
-        app:layout_constraintStart_toStartOf="@+id/moonphase"
-        app:layout_constraintTop_toBottomOf="@+id/moonphase" />
 </androidx.constraintlayout.widget.ConstraintLayout>

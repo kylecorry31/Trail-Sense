@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.kylecorry.survival_aid.R
@@ -16,6 +15,7 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
 
     private lateinit var context: Context
     private lateinit var barometer: Barometer
+    private var sentAlert = false
 
     override fun update(o: Observable?, arg: Any?) {
         PressureHistory.addReading(barometer.pressure)
@@ -23,19 +23,23 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
         createNotificationChannel()
 
         if (WeatherUtils.isStormIncoming(PressureHistory.readings)){
-            val builder = NotificationCompat.Builder(context, "Alerts")
-                .setSmallIcon(R.drawable.ic_alert)
-                .setContentTitle("Storm Alert")
-                .setContentText("A storm might be approaching")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
+            if (!sentAlert) {
+                val builder = NotificationCompat.Builder(context, "Alerts")
+                    .setSmallIcon(R.drawable.ic_alert)
+                    .setContentTitle("Storm Alert")
+                    .setContentText("A storm might be approaching")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
 
-            with(NotificationManagerCompat.from(context)) {
-                notify(0, builder.build())
+                with(NotificationManagerCompat.from(context)) {
+                    notify(0, builder.build())
+                }
+                sentAlert = true
             }
         } else {
             with(NotificationManagerCompat.from(context)) {
                 cancel(0)
             }
+            sentAlert = false
         }
         barometer.stop()
         barometer.deleteObserver(this)

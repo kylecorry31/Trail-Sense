@@ -1,5 +1,7 @@
 package com.kylecorry.survival_aid.weather
 
+import java.time.Duration
+import java.time.Instant
 import kotlin.math.abs
 
 /**
@@ -7,7 +9,9 @@ import kotlin.math.abs
  */
 object WeatherUtils {
 
+    private const val CHANGE_THRESHOLD = 2
     private const val STORM_THRESHOLD = 6
+    private val STORM_PREDICTION_DURATION = Duration.ofHours(3).plusMinutes(5)
 
     /**
      * Convert hPa to inches
@@ -42,7 +46,7 @@ object WeatherUtils {
         val change = getBarometricChange(readings)
 
         return when {
-            abs(change) < 1 -> BarometricChange.NO_CHANGE
+            abs(change) < CHANGE_THRESHOLD -> BarometricChange.NO_CHANGE
             change < 0 -> BarometricChange.FALLING
             else -> BarometricChange.RISING
         }
@@ -67,7 +71,7 @@ object WeatherUtils {
      */
     fun isStormIncoming(readings: List<PressureReading>): Boolean {
         val pressureDirection = getBarometricChangeDirection(readings)
-        val pressureChange = getBarometricChange(readings)
+        val pressureChange = getBarometricChange(readings.filter { Duration.between(it.time, Instant.now()) <= STORM_PREDICTION_DURATION })
 
         return pressureDirection == BarometricChange.FALLING && abs(pressureChange) >= STORM_THRESHOLD
     }

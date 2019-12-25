@@ -1,6 +1,7 @@
 package com.kylecorry.survival_aid.weather
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +19,11 @@ import com.anychart.AnyChart.area
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
+import com.anychart.enums.ScaleTypes
+import com.anychart.graphics.vector.text.HAlign
+import com.anychart.scales.DateTime
 import com.kylecorry.survival_aid.snap
-import java.time.Duration
-import java.time.Instant
+import java.time.*
 
 
 class WeatherFragment : Fragment(), Observer {
@@ -129,20 +132,23 @@ class WeatherFragment : Fragment(), Observer {
             MoonPhase.Phase.WAXING_GIBBOUS -> "Waxing Gibbous"
             MoonPhase.Phase.FIRST_QUARTER -> "First Quarter"
             MoonPhase.Phase.LAST_QUARTER -> "Last Quarter"
-            MoonPhase.Phase.FULL -> "Full"
-            else -> "New"
+            MoonPhase.Phase.FULL -> "Full Moon"
+            else -> "New Moon"
         }
     }
 
 
     private fun createBarometerChart(){
         areaChart = area()
+        areaChart.credits().enabled(false)
         areaChart.animation(true)
         areaChart.title("Pressure")
         updateBarometerChartData()
-        areaChart.xAxis(0).title("Hours ago")
+        areaChart.xAxis(0).title(false)
         areaChart.yAxis(0).title(false)
-
+        areaChart.yScale().ticks().interval(0.05)
+        areaChart.xAxis(0).labels().useHtml(true)
+        areaChart.xAxis(0).labels().hAlign(HAlign.CENTER)
         chart.setChart(areaChart)
     }
 
@@ -150,14 +156,17 @@ class WeatherFragment : Fragment(), Observer {
         val seriesData = mutableListOf<DataEntry>()
 
         PressureHistory.readings.forEach { pressureReading: PressureReading ->
-            val dt = (Duration.between(pressureReading.time, Instant.now()).toMinutes() / 60.0).toFloat().snap(0.25f)
-            seriesData.add(PressureDataEntry(dt, convertPressure(pressureReading.reading)))
+//            val dt = (Duration.between(pressureReading.time, Instant.now()).toMinutes() / 60.0).toFloat().snap(0.25f)
+            val date = LocalDateTime.ofInstant(pressureReading.time, ZoneId.of("UTC+0"))
+            val formatted = date.format(DateTimeFormatter.ofPattern("MMM dd, yyyy")) + "<br>" + date.format(
+                DateTimeFormatter.ofPattern("h:mm a"))
+            seriesData.add(PressureDataEntry(formatted, convertPressure(pressureReading.reading)))
         }
         areaChart.data(seriesData)
     }
 
     private inner class PressureDataEntry internal constructor(
-        x: Number,
+        x: String,
         value: Number
     ) : ValueDataEntry(x, value)
 }
