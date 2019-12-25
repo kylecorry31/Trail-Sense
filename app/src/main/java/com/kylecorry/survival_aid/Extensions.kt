@@ -18,7 +18,11 @@ inline fun Activity.editPrefs(name: String, mode: Int, func: SharedPreferences.E
     editor.apply()
 }
 
-inline fun Float.roundPlaces(places: Int): Float {
+fun Float.roundPlaces(places: Int): Float {
     val newFloat = (this * 10.0.pow(places)).roundToInt() / 10.0.pow(places)
     return newFloat.toFloat()
+}
+
+fun Float.snap(nearest: Float): Float {
+    return (this / nearest).roundToInt() * nearest
 }

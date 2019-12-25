@@ -6,97 +6,105 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.anychart.AnyChartView
 import com.kylecorry.survival_aid.R
+import com.kylecorry.survival_aid.navigator.gps.GPS
 import com.kylecorry.survival_aid.navigator.gps.UnitSystem
 import com.kylecorry.survival_aid.roundPlaces
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.math.roundToInt
+import com.anychart.AnyChart.area
+import com.anychart.chart.common.dataentry.DataEntry
+import com.anychart.chart.common.dataentry.ValueDataEntry
+import com.anychart.charts.Cartesian
+import com.kylecorry.survival_aid.snap
+import java.time.Duration
+import java.time.Instant
+
 
 class WeatherFragment : Fragment(), Observer {
 
 
     private val unitSystem = UnitSystem.IMPERIAL
     private lateinit var moonPhase: MoonPhase
-    private lateinit var thermometer: Thermometer
-    private lateinit var hygrometer: Hygrometer
     private lateinit var barometer: Barometer
+    private lateinit var gps: GPS
 
-    private var hasTemp = false
-    private var hasHumidity = false
+    private var altitude = 0.0
 
     private lateinit var moonTxt: TextView
-    private lateinit var tempTxt: TextView
-    private lateinit var humidityTxt: TextView
-    private lateinit var feelsLikeTxt: TextView
-    private lateinit var dewpointTxt: TextView
     private lateinit var pressureTxt: TextView
-    private lateinit var tempWarningTxt: TextView
     private lateinit var stormWarningTxt: TextView
     private lateinit var barometerInterpTxt: TextView
+    private lateinit var seaLevelTxt: TextView
+    private lateinit var sunriseTxt: TextView
+    private lateinit var sunsetTxt: TextView
+    private lateinit var chart: AnyChartView
+
+    private lateinit var areaChart: Cartesian
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_weather, container, false)
 
         moonPhase = MoonPhase()
-        thermometer = Thermometer(context!!)
-        hygrometer = Hygrometer(context!!)
         barometer = Barometer(context!!)
+        gps = GPS(context!!)
 
         moonTxt = view.findViewById(R.id.moonphase)
-        tempTxt = view.findViewById(R.id.temperature)
-        humidityTxt = view.findViewById(R.id.humidity)
-        feelsLikeTxt = view.findViewById(R.id.feelslike)
-        dewpointTxt = view.findViewById(R.id.dewpoint)
         pressureTxt = view.findViewById(R.id.pressure)
-        tempWarningTxt = view.findViewById(R.id.tempWarning)
         stormWarningTxt = view.findViewById(R.id.stormWarning)
         barometerInterpTxt = view.findViewById(R.id.barometerInterpretation)
+        seaLevelTxt = view.findViewById(R.id.sealevel_pressure)
+        sunriseTxt = view.findViewById(R.id.sunrise)
+        sunsetTxt = view.findViewById(R.id.sunset)
+        chart = view.findViewById(R.id.chart)
 
+        createBarometerChart()
         return view
     }
 
     override fun onResume() {
         super.onResume()
-        thermometer.addObserver(this)
-        hygrometer.addObserver(this)
         barometer.addObserver(this)
-
-        thermometer.start()
-        hygrometer.start()
         barometer.start()
 
         updateMoonPhase()
-        //updateTemperature()
-        //updateHumidity()
-        //updatePressure()
+
+        gps.updateLocation { location ->
+            val sunrise = Sun.getSunrise(location)
+            val sunset = Sun.getSunset(location)
+
+            altitude = gps.altitude
+
+            sunriseTxt.text = sunrise.format(DateTimeFormatter.ofPattern("h:mm a"))
+            sunsetTxt.text = sunset.format(DateTimeFormatter.ofPattern("h:mm a"))
+
+            updatePressure()
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        thermometer.stop()
-        hygrometer.stop()
         barometer.stop()
-
-        thermometer.deleteObserver(this)
-        hygrometer.deleteObserver(this)
         barometer.deleteObserver(this)
     }
 
     override fun update(o: Observable?, arg: Any?) {
-        if (o == thermometer) updateTemperature()
-        if (o == hygrometer) updateHumidity()
         if (o == barometer) updatePressure()
     }
 
     private fun updatePressure(){
         val pressure = barometer.pressure
+        val symbol = if (unitSystem == UnitSystem.IMPERIAL) "inHg" else "hPa"
 
-        val symbol = if (unitSystem == UnitSystem.IMPERIAL) "in" else "hPa"
+        pressureTxt.text = "${convertPressure(pressure)} $symbol"
 
-        val convertedPressure: Float = if (unitSystem == UnitSystem.IMPERIAL) WeatherUtils.hPaToInches(pressure).roundPlaces(2) else pressure.roundToInt().toFloat()
-
-        pressureTxt.text = "Pressure: $convertedPressure $symbol"
+        if (altitude != 0.0) {
+            val seaLevelPressure = barometer.getSeaLevelPressure(altitude.toFloat())
+            seaLevelTxt.text = "${convertPressure(seaLevelPressure)} $symbol at sea-level"
+        }
 
         val pressureDirection = WeatherUtils.getBarometricChangeDirection(PressureHistory.readings)
 
@@ -109,73 +117,47 @@ class WeatherFragment : Fragment(), Observer {
         }
     }
 
-    private fun updateHumidity(){
-        hasHumidity = true
-        val humidity = hygrometer.humidity.roundToInt()
-
-        humidityTxt.text = "$humidity% humidity"
-        updateTempHumidityCombos()
+    private fun convertPressure(pressure: Float): Float {
+        return if (unitSystem == UnitSystem.IMPERIAL) WeatherUtils.hPaToInches(pressure).roundPlaces(2) else pressure.roundToInt().toFloat()
     }
-
-    private fun updateTemperature(){
-        hasTemp = true
-        val temp = if (unitSystem == UnitSystem.IMPERIAL) WeatherUtils.celsiusToFahrenheit(thermometer.temperature) else thermometer.temperature
-        val symbol = if (unitSystem == UnitSystem.IMPERIAL) "F" else "C"
-        tempTxt.text = "${temp.roundToInt()}°$symbol"
-        updateTempHumidityCombos()
-    }
-
-
-    private fun updateTempHumidityCombos(){
-        val temp = thermometer.temperature
-        val humidity = hygrometer.humidity
-
-        val heatIndex = convertTemp(WeatherUtils.getHeatIndex(temp, humidity)).roundToInt()
-        val comfortLevel = WeatherUtils.getHumidityComfortLevel(temp, humidity)
-        val dewPoint = convertTemp(WeatherUtils.getDewPoint(temp, humidity)).roundToInt()
-        val heatAlert = WeatherUtils.getHeatAlert(temp, humidity)
-
-        val symbol = if (unitSystem == UnitSystem.IMPERIAL) "F" else "C"
-
-        if (heatIndex != convertTemp(temp).roundToInt()){
-            feelsLikeTxt.text = "Feels like $heatIndex°$symbol"
-        } else {
-            feelsLikeTxt.text = ""
-        }
-
-        if (heatAlert != WeatherUtils.HeatAlert.NORMAL){
-            tempWarningTxt.text = heatAlert.readableName.toUpperCase()
-        } else {
-            tempWarningTxt.text = ""
-        }
-
-        if (hasHumidity)
-            dewpointTxt.text = "Dew point of $dewPoint°$symbol (${comfortLevel.readableName.toLowerCase()})"
-    }
-
-
-    private fun convertTemp(temp: Float): Float {
-        if (unitSystem == UnitSystem.IMPERIAL){
-            return WeatherUtils.celsiusToFahrenheit(temp)
-        }
-
-        return temp
-    }
-
 
     private fun updateMoonPhase(){
-        val phase = moonPhase.getPhase()
-        val stringPhase = when {
-            phase == MoonPhase.Phase.WANING_CRESCENT -> "Waning Crescent"
-            phase == MoonPhase.Phase.WAXING_CRESCENT -> "Waxing Crescent"
-            phase == MoonPhase.Phase.WANING_GIBBOUS -> "Waning Gibbous"
-            phase == MoonPhase.Phase.WAXING_GIBBOUS -> "Waxing Gibbous"
-            phase == MoonPhase.Phase.FIRST_QUARTER -> "First Quarter"
-            phase == MoonPhase.Phase.LAST_QUARTER -> "Last Quarter"
-            phase == MoonPhase.Phase.FULL -> "Full"
+        moonTxt.text = when (moonPhase.getPhase()) {
+            MoonPhase.Phase.WANING_CRESCENT -> "Waning Crescent"
+            MoonPhase.Phase.WAXING_CRESCENT -> "Waxing Crescent"
+            MoonPhase.Phase.WANING_GIBBOUS -> "Waning Gibbous"
+            MoonPhase.Phase.WAXING_GIBBOUS -> "Waxing Gibbous"
+            MoonPhase.Phase.FIRST_QUARTER -> "First Quarter"
+            MoonPhase.Phase.LAST_QUARTER -> "Last Quarter"
+            MoonPhase.Phase.FULL -> "Full"
             else -> "New"
         }
-
-        moonTxt.text = "Moon: $stringPhase"
     }
+
+
+    private fun createBarometerChart(){
+        areaChart = area()
+        areaChart.animation(true)
+        areaChart.title("Pressure")
+        updateBarometerChartData()
+        areaChart.xAxis(0).title("Hours ago")
+        areaChart.yAxis(0).title(false)
+
+        chart.setChart(areaChart)
+    }
+
+    private fun updateBarometerChartData(){
+        val seriesData = mutableListOf<DataEntry>()
+
+        PressureHistory.readings.forEach { pressureReading: PressureReading ->
+            val dt = (Duration.between(pressureReading.time, Instant.now()).toMinutes() / 60.0).toFloat().snap(0.25f)
+            seriesData.add(PressureDataEntry(dt, convertPressure(pressureReading.reading)))
+        }
+        areaChart.data(seriesData)
+    }
+
+    private inner class PressureDataEntry internal constructor(
+        x: Number,
+        value: Number
+    ) : ValueDataEntry(x, value)
 }

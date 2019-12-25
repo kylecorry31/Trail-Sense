@@ -45,4 +45,8 @@
     <string name="humidity_unknown">Humidity unknown</string>
     <string name="dew_point_unknown">Dew point unknown</string>
     <string name="pressure_unknown">Pressure unknown</string>
+    <string name="sunrise_label">Sunrise</string>
+    <string name="sunset_label">Sunset</string>
+    <string name="air_pressure_label">Pressure</string>
+    <string name="moon_label">Moon</string>
 </resources>

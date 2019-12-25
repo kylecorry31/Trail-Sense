@@ -67,7 +67,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         locationBtn = view.findViewById(R.id.locationBtn)
         trueNorthBtn = view.findViewById(R.id.true_north)
 
-        trueNorthBtn.setOnCheckedChangeListener { buttonView, isChecked ->
+        trueNorthBtn.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
                 compass.declination = gps.declination
             } else {
