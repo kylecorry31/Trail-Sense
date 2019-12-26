@@ -17,7 +17,6 @@ import com.kylecorry.survival_aid.navigator.gps.UnitSystem
 import com.kylecorry.survival_aid.roundPlaces
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.math.roundToInt
 import com.anychart.AnyChart.area
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
@@ -94,7 +93,7 @@ class WeatherFragment : Fragment(), Observer {
             val sunrise = Sun.getSunrise(location)
             val sunset = Sun.getSunset(location)
 
-            altitude = 200.0//gps.altitude
+            altitude = gps.altitude
 
             sunriseTxt.text = sunrise.format(DateTimeFormatter.ofPattern("h:mm a"))
             sunsetTxt.text = sunset.format(DateTimeFormatter.ofPattern("h:mm a"))
@@ -179,6 +178,12 @@ class WeatherFragment : Fragment(), Observer {
         areaChart.xAxis(0).title(false)
         areaChart.yAxis(0).title(false)
         areaChart.yScale().ticks().interval(0.05)
+
+        val min: Number = if (unitSystem == UnitSystem.IMPERIAL) 29 else 980
+        val max: Number = if (unitSystem == UnitSystem.IMPERIAL) 30.5 else 1030
+
+        areaChart.yScale().softMinimum(min)
+        areaChart.yScale().softMaximum(max)
         areaChart.xAxis(0).labels().useHtml(true)
         areaChart.xAxis(0).labels().hAlign(HAlign.CENTER)
         areaChart.getSeriesAt(0).color("#FF6D00")
