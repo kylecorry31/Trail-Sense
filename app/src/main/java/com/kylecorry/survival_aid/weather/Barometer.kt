@@ -18,15 +18,6 @@ class Barometer(ctx: Context) : AbstractSensor(ctx, Sensor.TYPE_PRESSURE, Sensor
     var pressure: Float = 0f
         private set
 
-    /**
-     * Get the pressure reading at sea level
-     * @param altitude The altitude in meters of the reading
-     * @return The pressure at sea level in hPa
-     */
-    fun getSeaLevelPressure(altitude: Float): Float {
-        return pressure * (1 - altitude / 44330.0).pow(-5.255).toFloat()
-    }
-
     override fun handleSensorEvent(event: SensorEvent) {
         pressure = event.values[0]
     }

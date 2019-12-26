@@ -4,6 +4,7 @@ import android.util.Log
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.abs
+import kotlin.math.pow
 
 /**
  * A collection of weather utilities
@@ -75,6 +76,16 @@ object WeatherUtils {
         val pressureChange = getBarometricChange(readings.filter { Duration.between(it.time, Instant.now()) <= STORM_PREDICTION_DURATION })
 
         return pressureDirection == BarometricChange.FALLING && abs(pressureChange) >= STORM_THRESHOLD
+    }
+
+    /**
+     * Converts a pressure to sea level
+     * @param pressure The barometric pressure in hPa
+     * @param altitude The altitude of the device in meters
+     * @return The pressure at sea level in hPa
+     */
+    fun convertToSeaLevelPressure(pressure: Float, altitude: Float): Float {
+        return pressure * (1 - altitude / 44330.0).pow(-5.255).toFloat()
     }
 
 }

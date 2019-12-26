@@ -16,7 +16,9 @@
         app:layout_constraintBottom_toTopOf="@+id/stormWarning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barometerInterpretation" />
+        app:layout_constraintTop_toBottomOf="@+id/barometerInterpretation" >
+
+    </com.anychart.AnyChartView>
 
 
     <TextView
@@ -70,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sealevel_pressure"
+        app:layout_constraintTop_toBottomOf="@+id/pressure"
         tools:text="Expect bad weather" />
 
     <TextView
@@ -117,18 +119,6 @@
         app:layout_constraintEnd_toEndOf="@+id/pressure"
         app:layout_constraintStart_toStartOf="@+id/pressure" />
 
-    <TextView
-        android:id="@+id/sealevel_pressure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/pressure"
-        app:layout_constraintStart_toStartOf="@+id/pressure"
-        app:layout_constraintTop_toBottomOf="@+id/pressure"
-        tools:text="1000 hPa at sea-level" />
-
     <ImageView
         android:id="@+id/barometer_trend"
         android:layout_width="wrap_content"
@@ -139,5 +129,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/pressure"
         app:layout_constraintEnd_toStartOf="@+id/pressure"
         app:layout_constraintTop_toTopOf="@+id/pressure" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/calibrate_pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:checked="false"
+        android:rotation="0"
+        android:splitTrack="false"
+        android:text="@string/use_sea_level_pressure"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

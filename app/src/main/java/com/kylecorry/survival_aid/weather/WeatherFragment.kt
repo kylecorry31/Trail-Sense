@@ -1,5 +1,6 @@
 package com.kylecorry.survival_aid.weather
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import com.anychart.AnyChartView
 import com.kylecorry.survival_aid.R
@@ -21,6 +23,7 @@ import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
 import com.anychart.graphics.vector.text.HAlign
+import com.kylecorry.survival_aid.editPrefs
 import com.kylecorry.survival_aid.toZonedDateTime
 
 
@@ -40,11 +43,11 @@ class WeatherFragment : Fragment(), Observer {
     private lateinit var pressureTxt: TextView
     private lateinit var stormWarningTxt: TextView
     private lateinit var barometerInterpTxt: TextView
-    private lateinit var seaLevelTxt: TextView
     private lateinit var sunriseTxt: TextView
     private lateinit var sunsetTxt: TextView
     private lateinit var chart: AnyChartView
     private lateinit var trendImg: ImageView
+    private lateinit var useSeaLevelPressureSwitch: SwitchCompat
 
     private lateinit var areaChart: Cartesian
 
@@ -60,11 +63,19 @@ class WeatherFragment : Fragment(), Observer {
         pressureTxt = view.findViewById(R.id.pressure)
         stormWarningTxt = view.findViewById(R.id.stormWarning)
         barometerInterpTxt = view.findViewById(R.id.barometerInterpretation)
-        seaLevelTxt = view.findViewById(R.id.sealevel_pressure)
         sunriseTxt = view.findViewById(R.id.sunrise)
         sunsetTxt = view.findViewById(R.id.sunset)
         chart = view.findViewById(R.id.chart)
         trendImg = view.findViewById(R.id.barometer_trend)
+        useSeaLevelPressureSwitch = view.findViewById(R.id.calibrate_pressure)
+
+        useSeaLevelPressureSwitch.setOnCheckedChangeListener { _, isChecked ->
+            updatePressure()
+            updateBarometerChartData()
+            activity?.editPrefs(getString(R.string.prefs_name), Context.MODE_PRIVATE){
+                putBoolean(getString(R.string.pref_use_sea_level_pressure), isChecked)
+            }
+        }
 
         createBarometerChart()
 
@@ -83,12 +94,18 @@ class WeatherFragment : Fragment(), Observer {
             val sunrise = Sun.getSunrise(location)
             val sunset = Sun.getSunset(location)
 
-            altitude = gps.altitude
+            altitude = 200.0//gps.altitude
 
             sunriseTxt.text = sunrise.format(DateTimeFormatter.ofPattern("h:mm a"))
             sunsetTxt.text = sunset.format(DateTimeFormatter.ofPattern("h:mm a"))
 
             updatePressure()
+            updateBarometerChartData()
+        }
+
+        activity?.apply {
+            val prefs = getSharedPreferences(getString(R.string.prefs_name), Context.MODE_PRIVATE)
+            useSeaLevelPressureSwitch.isChecked = prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), false)
         }
     }
 
@@ -103,15 +120,10 @@ class WeatherFragment : Fragment(), Observer {
     }
 
     private fun updatePressure(){
-        val pressure = barometer.pressure
+        val pressure = getCalibratedPressure(barometer.pressure)
         val symbol = if (unitSystem == UnitSystem.IMPERIAL) "in" else "hPa"
 
-        pressureTxt.text = "${convertPressure(pressure)} $symbol"
-
-        if (altitude != 0.0) {
-            val seaLevelPressure = barometer.getSeaLevelPressure(altitude.toFloat())
-            seaLevelTxt.text = "${convertPressure(seaLevelPressure)} $symbol at sea-level"
-        }
+        pressureTxt.text = "$pressure $symbol"
 
         val pressureDirection = WeatherUtils.getBarometricChangeDirection(PressureHistory.readings)
 
@@ -136,10 +148,6 @@ class WeatherFragment : Fragment(), Observer {
         }
     }
 
-    private fun convertPressure(pressure: Float): Float {
-        return if (unitSystem == UnitSystem.IMPERIAL) WeatherUtils.hPaToInches(pressure).roundPlaces(2) else pressure.roundToInt().toFloat()
-    }
-
     private fun updateMoonPhase(){
         moonTxt.text = when (moonPhase.getPhase()) {
             MoonPhase.Phase.WANING_CRESCENT -> "Waning Crescent"
@@ -153,6 +161,14 @@ class WeatherFragment : Fragment(), Observer {
         }
     }
 
+    private fun getCalibratedPressure(pressure: Float): Float {
+        var calibratedPressure = pressure
+
+        if (useSeaLevelPressureSwitch.isChecked){
+            calibratedPressure = WeatherUtils.convertToSeaLevelPressure(pressure, altitude.toFloat())
+        }
+        return if (unitSystem == UnitSystem.IMPERIAL) WeatherUtils.hPaToInches(calibratedPressure).roundPlaces(2) else calibratedPressure.roundPlaces(1)
+    }
 
     private fun createBarometerChart(){
         areaChart = area()
@@ -182,7 +198,7 @@ class WeatherFragment : Fragment(), Observer {
             val date = pressureReading.time.toZonedDateTime()
             val formatted = date.format(DateTimeFormatter.ofPattern("MMM dd, yyyy")) + "<br>" + date.format(
                 DateTimeFormatter.ofPattern("h:mm a"))
-            seriesData.add(PressureDataEntry(formatted, convertPressure(pressureReading.reading)))
+            seriesData.add(PressureDataEntry(formatted, getCalibratedPressure(pressureReading.reading)))
         }
         areaChart.data(seriesData)
     }
