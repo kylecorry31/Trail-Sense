@@ -1,5 +1,6 @@
 package com.kylecorry.survival_aid.weather
 
+import android.util.Log
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.abs
@@ -43,7 +44,7 @@ object WeatherUtils {
      * @return The direction of change
      */
     fun getBarometricChangeDirection(readings: List<PressureReading>): BarometricChange {
-        val change = getBarometricChange(readings)
+        val change = getBarometricChange(readings.filter { Duration.between(it.time, Instant.now()) <= STORM_PREDICTION_DURATION })
 
         return when {
             abs(change) < CHANGE_THRESHOLD -> BarometricChange.NO_CHANGE
