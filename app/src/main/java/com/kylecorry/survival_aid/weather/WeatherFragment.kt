@@ -104,7 +104,7 @@ class WeatherFragment : Fragment(), Observer {
 
     private fun updatePressure(){
         val pressure = barometer.pressure
-        val symbol = if (unitSystem == UnitSystem.IMPERIAL) "inHg" else "hPa"
+        val symbol = if (unitSystem == UnitSystem.IMPERIAL) "in" else "hPa"
 
         pressureTxt.text = "${convertPressure(pressure)} $symbol"
 
