@@ -150,6 +150,7 @@ class WeatherFragment : Fragment(), Observer {
         areaChart.yScale().ticks().interval(0.05)
         areaChart.xAxis(0).labels().useHtml(true)
         areaChart.xAxis(0).labels().hAlign(HAlign.CENTER)
+        areaChart.getSeriesAt(0).color("#FF6D00")
         chart.setChart(areaChart)
     }
 
