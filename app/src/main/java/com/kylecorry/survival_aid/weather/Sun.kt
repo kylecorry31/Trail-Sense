@@ -65,7 +65,6 @@ object Sun {
             return ZonedDateTime.now()
         }
         val hourAngle = (acos(cosHourAngle) / (2 * Math.PI)).toFloat()
-//        sunset = Math.round((solarTransitJ2000 + hourAngle) * DateUtils.DAY_IN_MILLIS) + UTC_2000
         val instant = Instant.ofEpochMilli(((solarTransitJ2000 - hourAngle) * DateUtils.DAY_IN_MILLIS).roundToLong() + UTC_2000)
         return instant.toZonedDateTime()
     }
