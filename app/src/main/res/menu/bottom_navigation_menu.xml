@@ -6,7 +6,7 @@
     <item
         android:id="@+id/action_navigation"
         android:title="@string/action_navigation"
-        android:icon="@drawable/ic_navigation"
+        android:icon="@drawable/ic_compass_icon"
         app:showAsAction="ifRoom" />
 
     <item
