@@ -83,8 +83,7 @@ class WeatherFragment : Fragment(), Observer {
             val sunrise = Sun.getSunrise(location)
             val sunset = Sun.getSunset(location)
 
-            if (altitude == 0.0)
-                altitude = gps.altitude
+            altitude = gps.altitude
 
             sunriseTxt.text = sunrise.format(DateTimeFormatter.ofPattern("h:mm a"))
             sunsetTxt.text = sunset.format(DateTimeFormatter.ofPattern("h:mm a"))

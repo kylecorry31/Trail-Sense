@@ -24,9 +24,7 @@ class Barometer(ctx: Context) : AbstractSensor(ctx, Sensor.TYPE_PRESSURE, Sensor
      * @return The pressure at sea level in hPa
      */
     fun getSeaLevelPressure(altitude: Float): Float {
-        val pressureInHg = WeatherUtils.hPaToInches(pressure)
-        val seaLevelInHg = pressureInHg * ((288 - 0.0065 * altitude) / 288).pow(-5.2561)
-        return WeatherUtils.inchesToHPa(seaLevelInHg.toFloat())
+        return pressure * (1 - altitude / 44330.0).pow(-5.255).toFloat()
     }
 
     override fun handleSensorEvent(event: SensorEvent) {
