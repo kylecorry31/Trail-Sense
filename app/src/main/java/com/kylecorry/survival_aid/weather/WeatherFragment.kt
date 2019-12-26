@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.anychart.AnyChartView
@@ -21,6 +22,8 @@ import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
 import com.anychart.graphics.vector.text.HAlign
 import com.kylecorry.survival_aid.toZonedDateTime
+
+
 
 
 class WeatherFragment : Fragment(), Observer {
@@ -41,6 +44,7 @@ class WeatherFragment : Fragment(), Observer {
     private lateinit var sunriseTxt: TextView
     private lateinit var sunsetTxt: TextView
     private lateinit var chart: AnyChartView
+    private lateinit var trendImg: ImageView
 
     private lateinit var areaChart: Cartesian
 
@@ -60,8 +64,10 @@ class WeatherFragment : Fragment(), Observer {
         sunriseTxt = view.findViewById(R.id.sunrise)
         sunsetTxt = view.findViewById(R.id.sunset)
         chart = view.findViewById(R.id.chart)
+        trendImg = view.findViewById(R.id.barometer_trend)
 
         createBarometerChart()
+
         return view
     }
 
@@ -71,12 +77,14 @@ class WeatherFragment : Fragment(), Observer {
         barometer.start()
 
         updateMoonPhase()
+        updateBarometerChartData()
 
         gps.updateLocation { location ->
             val sunrise = Sun.getSunrise(location)
             val sunset = Sun.getSunset(location)
 
-            altitude = gps.altitude
+            if (altitude == 0.0)
+                altitude = gps.altitude
 
             sunriseTxt.text = sunrise.format(DateTimeFormatter.ofPattern("h:mm a"))
             sunsetTxt.text = sunset.format(DateTimeFormatter.ofPattern("h:mm a"))
@@ -107,6 +115,18 @@ class WeatherFragment : Fragment(), Observer {
         }
 
         val pressureDirection = WeatherUtils.getBarometricChangeDirection(PressureHistory.readings)
+
+        when (pressureDirection) {
+            WeatherUtils.BarometricChange.FALLING -> {
+                trendImg.setImageResource(R.drawable.ic_arrow_down)
+                trendImg.visibility = View.VISIBLE
+            }
+            WeatherUtils.BarometricChange.RISING -> {
+                trendImg.setImageResource(R.drawable.ic_arrow_up)
+                trendImg.visibility = View.VISIBLE
+            }
+            else -> trendImg.visibility = View.INVISIBLE
+        }
 
         barometerInterpTxt.text = pressureDirection.readableName
 
@@ -139,7 +159,7 @@ class WeatherFragment : Fragment(), Observer {
         areaChart = area()
         areaChart.credits().enabled(false)
         areaChart.animation(true)
-        areaChart.title("Pressure")
+        areaChart.title("Pressure History")
         updateBarometerChartData()
         areaChart.xAxis(0).title(false)
         areaChart.yAxis(0).title(false)
@@ -156,6 +176,8 @@ class WeatherFragment : Fragment(), Observer {
         if (PressureHistory.readings.isEmpty()){
             BarometerAlarmReceiver.loadFromFile(context!!)
         }
+
+        PressureHistory.removeOldReadings()
 
         PressureHistory.readings.forEach { pressureReading: PressureReading ->
             val date = pressureReading.time.toZonedDateTime()
