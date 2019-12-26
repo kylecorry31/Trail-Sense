@@ -6,9 +6,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.kylecorry.survival_aid.R
+import java.time.Instant
 import java.util.*
 
 class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
@@ -18,7 +20,11 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     private var sentAlert = false
 
     override fun update(o: Observable?, arg: Any?) {
+        if (PressureHistory.readings.isEmpty()){
+            loadFromFile(context)
+        }
         PressureHistory.addReading(barometer.pressure)
+        saveToFile(context)
 
         createNotificationChannel()
 
@@ -61,6 +67,36 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
             notificationManager.createNotificationChannel(channel)
         }
     }
+
+
+    companion object {
+        private const val FILE_NAME = "pressure.csv"
+
+        fun loadFromFile(context: Context) {
+            val readings = mutableListOf<PressureReading>()
+            if (!context.getFileStreamPath(FILE_NAME).exists()) return
+            context.openFileInput(FILE_NAME).bufferedReader().useLines { lines ->
+                lines.forEach { line ->
+                    val splitLine = line.split(",")
+                    val time = splitLine.first().toLong()
+                    val pressure = splitLine.last().toFloat()
+                    readings.add(PressureReading(Instant.ofEpochMilli(time), pressure))
+                }
+            }
+            PressureHistory.setReadings(readings)
+        }
+
+
+        fun saveToFile(context: Context){
+            context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE).use {
+                val output = PressureHistory.readings.joinToString("\n") { reading ->
+                    "${reading.time.toEpochMilli()},${reading.reading}"
+                }
+                it.write(output.toByteArray())
+            }
+        }
+    }
+
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null){

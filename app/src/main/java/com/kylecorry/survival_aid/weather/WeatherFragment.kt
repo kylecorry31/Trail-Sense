@@ -23,6 +23,7 @@ import com.anychart.enums.ScaleTypes
 import com.anychart.graphics.vector.text.HAlign
 import com.anychart.scales.DateTime
 import com.kylecorry.survival_aid.snap
+import com.kylecorry.survival_aid.toOffsetDateTime
 import java.time.*
 
 
@@ -155,9 +156,12 @@ class WeatherFragment : Fragment(), Observer {
     private fun updateBarometerChartData(){
         val seriesData = mutableListOf<DataEntry>()
 
+        if (PressureHistory.readings.isEmpty()){
+            BarometerAlarmReceiver.loadFromFile(context!!)
+        }
+
         PressureHistory.readings.forEach { pressureReading: PressureReading ->
-//            val dt = (Duration.between(pressureReading.time, Instant.now()).toMinutes() / 60.0).toFloat().snap(0.25f)
-            val date = LocalDateTime.ofInstant(pressureReading.time, ZoneId.of("UTC+0"))
+            val date = pressureReading.time.toOffsetDateTime()
             val formatted = date.format(DateTimeFormatter.ofPattern("MMM dd, yyyy")) + "<br>" + date.format(
                 DateTimeFormatter.ofPattern("h:mm a"))
             seriesData.add(PressureDataEntry(formatted, convertPressure(pressureReading.reading)))

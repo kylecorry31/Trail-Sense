@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.SharedPreferences
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import java.time.Instant
+import java.time.OffsetDateTime
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -25,4 +27,9 @@ fun Float.roundPlaces(places: Int): Float {
 
 fun Float.snap(nearest: Float): Float {
     return (this / nearest).roundToInt() * nearest
+}
+
+fun Instant.toOffsetDateTime(): OffsetDateTime {
+    val offsetTime = OffsetDateTime.now()
+    return OffsetDateTime.ofInstant(this, offsetTime.offset)
 }

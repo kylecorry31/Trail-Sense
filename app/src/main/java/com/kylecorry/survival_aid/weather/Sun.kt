@@ -20,6 +20,7 @@ package com.kylecorry.survival_aid.weather
 import java.time.Instant
 import android.text.format.DateUtils
 import com.kylecorry.survival_aid.navigator.gps.Coordinate
+import com.kylecorry.survival_aid.toOffsetDateTime
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
@@ -38,7 +39,7 @@ object Sun {
     private val UTC_2000 = 946728000000L
 
 
-    fun getSunrise(coordinate: Coordinate, day: Instant = Instant.now()): LocalDateTime {
+    fun getSunrise(coordinate: Coordinate, day: Instant = Instant.now()): OffsetDateTime {
         val daysSince2000 = Duration.between(Instant.ofEpochMilli(946728000000L), day).toDays()
         val meanAnomaly = 6.240059968f + daysSince2000 * 0.01720197f
         val trueAnomaly =
@@ -63,17 +64,17 @@ object Sun {
         // The day or night never ends for the given date and location, if this value is out of
         // range.
         if (cosHourAngle >= 1) {
-            return LocalDateTime.now()
+            return OffsetDateTime.now()
         } else if (cosHourAngle <= -1) {
-            return LocalDateTime.now()
+            return OffsetDateTime.now()
         }
         val hourAngle = (acos(cosHourAngle) / (2 * Math.PI)).toFloat()
 //        sunset = Math.round((solarTransitJ2000 + hourAngle) * DateUtils.DAY_IN_MILLIS) + UTC_2000
         val instant = Instant.ofEpochMilli(((solarTransitJ2000 - hourAngle) * DateUtils.DAY_IN_MILLIS).roundToLong() + UTC_2000)
-        return LocalDateTime.ofInstant(instant, OffsetDateTime.now().offset)
+        return instant.toOffsetDateTime()
     }
 
-    fun getSunset(coordinate: Coordinate, day: Instant = Instant.now()): LocalDateTime {
+    fun getSunset(coordinate: Coordinate, day: Instant = Instant.now()): OffsetDateTime {
         val daysSince2000 = Duration.between(Instant.ofEpochMilli(946728000000L), day).toDays()
         val meanAnomaly = 6.240059968f + daysSince2000 * 0.01720197f
         val trueAnomaly =
@@ -98,13 +99,13 @@ object Sun {
         // The day or night never ends for the given date and location, if this value is out of
         // range.
         if (cosHourAngle >= 1) {
-            return LocalDateTime.now()
+            return OffsetDateTime.now()
         } else if (cosHourAngle <= -1) {
-            return LocalDateTime.now()
+            return OffsetDateTime.now()
         }
         val hourAngle = (acos(cosHourAngle) / (2 * Math.PI)).toFloat()
         val instant = Instant.ofEpochMilli(((solarTransitJ2000 + hourAngle) * DateUtils.DAY_IN_MILLIS).roundToLong() + UTC_2000)
-        return LocalDateTime.ofInstant(instant, OffsetDateTime.now().offset)
+        return instant.toOffsetDateTime()
     }
 
 }

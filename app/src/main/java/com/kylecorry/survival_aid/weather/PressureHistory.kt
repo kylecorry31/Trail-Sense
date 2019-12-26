@@ -28,6 +28,12 @@ object PressureHistory {
         removeOldReadings()
     }
 
+    fun setReadings(readings: List<PressureReading>){
+        this.readings.clear()
+        this.readings.addAll(readings)
+        removeOldReadings()
+    }
+
     fun removeOldReadings(){
         readings.removeIf { Duration.between(it.time, Instant.now()) > keepDuration }
     }
