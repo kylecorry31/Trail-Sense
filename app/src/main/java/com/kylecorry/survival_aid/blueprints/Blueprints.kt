@@ -66,8 +66,8 @@ object Blueprints {
         ),
         listOf(
             "(Optional) Remove the casing of the car charger",
-            "Cut the copper wire into two equal size pieces (minimum 4 inches each)",
-            "Strip both sides of each copper wire (about 1 inch)",
+            "Cut the copper wire into two equal size pieces (minimum 4 inches [10 cm] each)",
+            "Strip both sides of each copper wire (about 1 inch [2.5 cm])",
             "Tape one end of one piece of copper wire to the center prong of the car charger (Referred to as wire A)",
             "Tape one end of the other piece of copper wire to one of the outside prongs of the car charger (Referred to as wire B)",
             "Tape the other end of wire A to the positive terminal of the battery",
