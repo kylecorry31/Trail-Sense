@@ -1,6 +1,6 @@
 package com.kylecorry.survival_aid.weather
 
-import java.util.*
+import java.time.LocalDate
 
 class MoonPhase {
 
@@ -19,21 +19,21 @@ class MoonPhase {
      * Get the current phase of the moon
      * @return The moon phase
      */
-    fun getPhase(time: Calendar = Calendar.getInstance()): Phase {
-        var month = time.get(Calendar.MONTH)
-        var year = time.get(Calendar.YEAR)
-        val day = time.get(Calendar.DAY_OF_MONTH)
+    fun getPhase(time: LocalDate = LocalDate.now()): Phase {
+        var month = time.monthValue
+        var year = time.year
+        val day = time.dayOfMonth
 
-        if (month == Calendar.JANUARY){
-            month = 12
-            year--
-        } else if (month == Calendar.FEBRUARY){
+        if (month == 1){
             month = 13
+            year--
+        } else if (month == 2){
+            month = 14
             year--
         }
 
 
-        val result = (year % 19) * 11 + (month - 2) + day
+        val result = (year % 19) * 11 + (month - 3) + day
         val daysSinceNewMoon = result % 30
 
         return when {

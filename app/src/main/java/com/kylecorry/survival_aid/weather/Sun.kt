@@ -17,30 +17,26 @@
 
 package com.kylecorry.survival_aid.weather
 
-import java.time.Instant
 import android.text.format.DateUtils
 import com.kylecorry.survival_aid.navigator.gps.Coordinate
-import com.kylecorry.survival_aid.toOffsetDateTime
-import java.time.Duration
-import java.time.LocalDateTime
-import java.time.OffsetDateTime
+import com.kylecorry.survival_aid.toZonedDateTime
+import java.time.*
 import kotlin.math.*
 
 
 object Sun {
 
-    private val DEGREES_TO_RADIANS = (Math.PI / 180.0f).toFloat()
-    private val J0 = 0.0009f
-    private val ALTIDUTE_CORRECTION_CIVIL_TWILIGHT = -0.104719755f
-    private val C1 = 0.0334196f
-    private val C2 = 0.000349066f
-    private val C3 = 0.000005236f
-    private val OBLIQUITY = 0.40927971f
-    private val UTC_2000 = 946728000000L
+    private const val J0 = 0.0009f
+    private const val ALTITUDE_CORRECTION_CIVIL_TWILIGHT = -0.104719755f
+    private const val C1 = 0.0334196f
+    private const val C2 = 0.000349066f
+    private const val C3 = 0.000005236f
+    private const val OBLIQUITY = 0.40927971f
+    private const val UTC_2000 = 946728000000L
 
 
-    fun getSunrise(coordinate: Coordinate, day: Instant = Instant.now()): OffsetDateTime {
-        val daysSince2000 = Duration.between(Instant.ofEpochMilli(946728000000L), day).toDays()
+    fun getSunrise(coordinate: Coordinate, day: ZonedDateTime = ZonedDateTime.now()): ZonedDateTime {
+        val daysSince2000 = Duration.between(Instant.ofEpochMilli(UTC_2000), day.toInstant()).toDays()
         val meanAnomaly = 6.240059968f + daysSince2000 * 0.01720197f
         val trueAnomaly =
             meanAnomaly.toDouble() + C1 * sin(meanAnomaly.toDouble()) + C2 * sin((2 * meanAnomaly).toDouble()) + C3 * sin(
@@ -56,26 +52,26 @@ object Sun {
                     + -0.0069 * sin(2 * solarLng))
         // declination of sun
         val solarDec = asin(sin(solarLng) * sin(OBLIQUITY.toDouble()))
-        val latRad = coordinate.latitude * DEGREES_TO_RADIANS
+        val latRad = Math.toRadians(coordinate.latitude)
         val cosHourAngle =
-            (sin(ALTIDUTE_CORRECTION_CIVIL_TWILIGHT.toDouble()) - sin(latRad) * sin(
+            (sin(ALTITUDE_CORRECTION_CIVIL_TWILIGHT.toDouble()) - sin(latRad) * sin(
                 solarDec
             )) / (cos(latRad) * cos(solarDec))
         // The day or night never ends for the given date and location, if this value is out of
         // range.
         if (cosHourAngle >= 1) {
-            return OffsetDateTime.now()
+            return ZonedDateTime.now()
         } else if (cosHourAngle <= -1) {
-            return OffsetDateTime.now()
+            return ZonedDateTime.now()
         }
         val hourAngle = (acos(cosHourAngle) / (2 * Math.PI)).toFloat()
 //        sunset = Math.round((solarTransitJ2000 + hourAngle) * DateUtils.DAY_IN_MILLIS) + UTC_2000
         val instant = Instant.ofEpochMilli(((solarTransitJ2000 - hourAngle) * DateUtils.DAY_IN_MILLIS).roundToLong() + UTC_2000)
-        return instant.toOffsetDateTime()
+        return instant.toZonedDateTime()
     }
 
-    fun getSunset(coordinate: Coordinate, day: Instant = Instant.now()): OffsetDateTime {
-        val daysSince2000 = Duration.between(Instant.ofEpochMilli(946728000000L), day).toDays()
+    fun getSunset(coordinate: Coordinate, day: ZonedDateTime = ZonedDateTime.now()): ZonedDateTime {
+        val daysSince2000 = Duration.between(Instant.ofEpochMilli(UTC_2000), day.toInstant()).toDays()
         val meanAnomaly = 6.240059968f + daysSince2000 * 0.01720197f
         val trueAnomaly =
             meanAnomaly.toDouble() + C1 * sin(meanAnomaly.toDouble()) + C2 * sin((2 * meanAnomaly).toDouble()) + C3 * sin(
@@ -91,21 +87,21 @@ object Sun {
                     + -0.0069 * sin(2 * solarLng))
         // declination of sun
         val solarDec = asin(sin(solarLng) * sin(OBLIQUITY.toDouble()))
-        val latRad = coordinate.latitude * DEGREES_TO_RADIANS
+        val latRad = Math.toRadians(coordinate.latitude)
         val cosHourAngle =
-            (sin(ALTIDUTE_CORRECTION_CIVIL_TWILIGHT.toDouble()) - sin(latRad) * sin(
+            (sin(ALTITUDE_CORRECTION_CIVIL_TWILIGHT.toDouble()) - sin(latRad) * sin(
                 solarDec
             )) / (cos(latRad) * cos(solarDec))
         // The day or night never ends for the given date and location, if this value is out of
         // range.
         if (cosHourAngle >= 1) {
-            return OffsetDateTime.now()
+            return ZonedDateTime.now()
         } else if (cosHourAngle <= -1) {
-            return OffsetDateTime.now()
+            return ZonedDateTime.now()
         }
         val hourAngle = (acos(cosHourAngle) / (2 * Math.PI)).toFloat()
         val instant = Instant.ofEpochMilli(((solarTransitJ2000 + hourAngle) * DateUtils.DAY_IN_MILLIS).roundToLong() + UTC_2000)
-        return instant.toOffsetDateTime()
+        return instant.toZonedDateTime()
     }
 
 }

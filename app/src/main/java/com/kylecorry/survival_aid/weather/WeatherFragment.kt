@@ -19,12 +19,8 @@ import com.anychart.AnyChart.area
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
-import com.anychart.enums.ScaleTypes
 import com.anychart.graphics.vector.text.HAlign
-import com.anychart.scales.DateTime
-import com.kylecorry.survival_aid.snap
-import com.kylecorry.survival_aid.toOffsetDateTime
-import java.time.*
+import com.kylecorry.survival_aid.toZonedDateTime
 
 
 class WeatherFragment : Fragment(), Observer {
@@ -162,7 +158,7 @@ class WeatherFragment : Fragment(), Observer {
         }
 
         PressureHistory.readings.forEach { pressureReading: PressureReading ->
-            val date = pressureReading.time.toOffsetDateTime()
+            val date = pressureReading.time.toZonedDateTime()
             val formatted = date.format(DateTimeFormatter.ofPattern("MMM dd, yyyy")) + "<br>" + date.format(
                 DateTimeFormatter.ofPattern("h:mm a"))
             seriesData.add(PressureDataEntry(formatted, convertPressure(pressureReading.reading)))

@@ -2,65 +2,62 @@ package com.kylecorry.survival_aid.weather
 
 import org.junit.Assert.*
 import org.junit.Test
+import java.time.LocalDate
+import java.time.Month
 import java.util.*
 
 class MoonPhaseTest {
     @Test
     fun test(){
         val moonPhase = MoonPhase()
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.MONTH, Calendar.DECEMBER)
-        calendar.set(Calendar.YEAR, 2019)
+        var date = LocalDate.of(2019, Month.DECEMBER, 26)
 
         // New moon
-        calendar.set(Calendar.DAY_OF_MONTH, 26)
-        assertEquals(MoonPhase.Phase.NEW, moonPhase.getPhase(calendar))
+        assertEquals(MoonPhase.Phase.NEW, moonPhase.getPhase(date))
 
         // Waxing crescent
-        calendar.set(Calendar.DAY_OF_MONTH, 27)
-        assertEquals(MoonPhase.Phase.WAXING_CRESCENT, moonPhase.getPhase(calendar))
+        date = LocalDate.of(2019, Month.DECEMBER, 27)
+        assertEquals(MoonPhase.Phase.WAXING_CRESCENT, moonPhase.getPhase(date))
 
-        calendar.set(Calendar.MONTH, Calendar.JANUARY)
-        calendar.set(Calendar.YEAR, 2020)
-        calendar.set(Calendar.DAY_OF_MONTH, 2)
-        assertEquals(MoonPhase.Phase.WAXING_CRESCENT, moonPhase.getPhase(calendar))
+        date = LocalDate.of(2020, Month.JANUARY, 2)
+        assertEquals(MoonPhase.Phase.WAXING_CRESCENT, moonPhase.getPhase(date))
 
         // First quarter
-        calendar.set(Calendar.DAY_OF_MONTH, 3)
-        assertEquals(MoonPhase.Phase.FIRST_QUARTER, moonPhase.getPhase(calendar))
+        date = LocalDate.of(2020, Month.JANUARY, 3)
+        assertEquals(MoonPhase.Phase.FIRST_QUARTER, moonPhase.getPhase(date))
 
         // Waxing gibbous
-        calendar.set(Calendar.DAY_OF_MONTH, 4)
-        assertEquals(MoonPhase.Phase.WAXING_GIBBOUS, moonPhase.getPhase(calendar))
+        date = LocalDate.of(2020, Month.JANUARY, 4)
+        assertEquals(MoonPhase.Phase.WAXING_GIBBOUS, moonPhase.getPhase(date))
 
-        calendar.set(Calendar.DAY_OF_MONTH, 9)
-        assertEquals(MoonPhase.Phase.WAXING_GIBBOUS, moonPhase.getPhase(calendar))
+        date = LocalDate.of(2020, Month.JANUARY, 9)
+        assertEquals(MoonPhase.Phase.WAXING_GIBBOUS, moonPhase.getPhase(date))
 
         // Full moon
-        calendar.set(Calendar.DAY_OF_MONTH, 10)
-        assertEquals(MoonPhase.Phase.FULL, moonPhase.getPhase(calendar))
+        date = LocalDate.of(2020, Month.JANUARY, 10)
+        assertEquals(MoonPhase.Phase.FULL, moonPhase.getPhase(date))
 
         // Waning gibbous
-        calendar.set(Calendar.DAY_OF_MONTH, 11)
-        assertEquals(MoonPhase.Phase.WANING_GIBBOUS, moonPhase.getPhase(calendar))
+        date = LocalDate.of(2020, Month.JANUARY, 11)
+        assertEquals(MoonPhase.Phase.WANING_GIBBOUS, moonPhase.getPhase(date))
 
-        calendar.set(Calendar.DAY_OF_MONTH, 16)
-        assertEquals(MoonPhase.Phase.WANING_GIBBOUS, moonPhase.getPhase(calendar))
+        date = LocalDate.of(2020, Month.JANUARY, 16)
+        assertEquals(MoonPhase.Phase.WANING_GIBBOUS, moonPhase.getPhase(date))
 
         // Last quarter
-        calendar.set(Calendar.DAY_OF_MONTH, 17)
-        assertEquals(MoonPhase.Phase.LAST_QUARTER, moonPhase.getPhase(calendar))
+        date = LocalDate.of(2020, Month.JANUARY, 17)
+        assertEquals(MoonPhase.Phase.LAST_QUARTER, moonPhase.getPhase(date))
 
         // Waning crescent
-        calendar.set(Calendar.DAY_OF_MONTH, 18)
-        assertEquals(MoonPhase.Phase.WANING_CRESCENT, moonPhase.getPhase(calendar))
+        date = LocalDate.of(2020, Month.JANUARY, 18)
+        assertEquals(MoonPhase.Phase.WANING_CRESCENT, moonPhase.getPhase(date))
 
-        calendar.set(Calendar.DAY_OF_MONTH, 23)
-        assertEquals(MoonPhase.Phase.WANING_CRESCENT, moonPhase.getPhase(calendar))
+        date = LocalDate.of(2020, Month.JANUARY, 23)
+        assertEquals(MoonPhase.Phase.WANING_CRESCENT, moonPhase.getPhase(date))
 
         // New moon
-        calendar.set(Calendar.DAY_OF_MONTH, 24)
-        assertEquals(MoonPhase.Phase.NEW, moonPhase.getPhase(calendar))
+        date = LocalDate.of(2020, Month.JANUARY, 24)
+        assertEquals(MoonPhase.Phase.NEW, moonPhase.getPhase(date))
 
     }
 }

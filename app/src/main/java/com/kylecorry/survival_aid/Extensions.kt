@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import java.time.Instant
 import java.time.OffsetDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -25,11 +27,6 @@ fun Float.roundPlaces(places: Int): Float {
     return newFloat.toFloat()
 }
 
-fun Float.snap(nearest: Float): Float {
-    return (this / nearest).roundToInt() * nearest
-}
-
-fun Instant.toOffsetDateTime(): OffsetDateTime {
-    val offsetTime = OffsetDateTime.now()
-    return OffsetDateTime.ofInstant(this, offsetTime.offset)
+fun Instant.toZonedDateTime(): ZonedDateTime {
+    return ZonedDateTime.ofInstant(this, ZoneId.systemDefault())
 }
