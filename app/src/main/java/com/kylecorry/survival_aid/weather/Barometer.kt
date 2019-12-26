@@ -25,7 +25,7 @@ class Barometer(ctx: Context) : AbstractSensor(ctx, Sensor.TYPE_PRESSURE, Sensor
      */
     fun getSeaLevelPressure(altitude: Float): Float {
         val pressureInHg = WeatherUtils.hPaToInches(pressure)
-        val seaLevelInHg = pressureInHg * ((288 - 0.0065 * altitude) / 288).pow(5.2561)
+        val seaLevelInHg = pressureInHg * ((288 - 0.0065 * altitude) / 288).pow(-5.2561)
         return WeatherUtils.inchesToHPa(seaLevelInHg.toFloat())
     }
 
