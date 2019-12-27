@@ -18,7 +18,6 @@ import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
 import com.anychart.enums.ScaleTypes
-import com.anychart.graphics.vector.text.HAlign
 import com.kylecorry.survival_aid.roundPlaces
 import com.kylecorry.survival_aid.toZonedDateTime
 import java.time.Duration
@@ -115,22 +114,21 @@ class WeatherFragment : Fragment(), Observer {
 
         pressureTxt.text = "${format.format(pressure )} $symbol"
 
-        val pressureDirection = WeatherUtils.get3HourChangeDirection(PressureHistory.readings)
-        val instantPressureDirection = WeatherUtils.get15MinuteChangeDirection(PressureHistory.readings)
+        val pressureDirection = WeatherUtils.getPressureTendency(PressureHistory.readings)
 
-        when (pressureDirection) {
-            WeatherUtils.BarometricChange.FALLING -> {
+        when {
+            WeatherUtils.isFalling(pressureDirection) -> {
                 trendImg.setImageResource(R.drawable.ic_arrow_down)
                 trendImg.visibility = View.VISIBLE
             }
-            WeatherUtils.BarometricChange.RISING -> {
+            WeatherUtils.isRising(pressureDirection) -> {
                 trendImg.setImageResource(R.drawable.ic_arrow_up)
                 trendImg.visibility = View.VISIBLE
             }
             else -> trendImg.visibility = View.INVISIBLE
         }
 
-        barometerInterpTxt.text = instantPressureDirection.readableName
+        barometerInterpTxt.text = pressureDirection.readableName
 
         if (WeatherUtils.isStormIncoming(PressureHistory.readings)){
             stormWarningTxt.text = getString(R.string.storm_incoming_warning)

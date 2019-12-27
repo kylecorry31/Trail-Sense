@@ -3,7 +3,6 @@ package com.kylecorry.survival_aid.weather
 import java.text.DecimalFormat
 import java.time.Duration
 import java.time.Instant
-import kotlin.math.abs
 import kotlin.math.pow
 
 /**
@@ -11,9 +10,9 @@ import kotlin.math.pow
  */
 object WeatherUtils {
 
-    private const val FIFTEEN_MIN_CHANGE_THRESHOLD = 0.8f
-    private const val THREE_HOUR_CHANGE_THRESHOLD = 0.8f
-    private const val THREE_HOUR_STORM_THRESHOLD = 6f
+    private const val FAST_CHANGE_THRESHOLD = 2f
+    private const val SLOW_CHANGE_THRESHOLD = 0.5f
+    private const val STORM_THRESHOLD = 6f
     private val STORM_PREDICTION_DURATION = Duration.ofHours(3).plusMinutes(5)
 
     /**
@@ -73,10 +72,30 @@ object WeatherUtils {
         }
     }
 
-    enum class BarometricChange(val readableName: String) {
-        FALLING("Weather worsening soon"),
-        RISING("Weather improving soon"),
-        NO_CHANGE("Weather not changing soon")
+    enum class PressureTendency(val readableName: String) {
+        FALLING_SLOW("Weather may worsen"),
+        RISING_SLOW("Weather may improve"),
+        FALLING_FAST("Weather will worsen soon"),
+        RISING_FAST("Weather will improve soon "),
+        NO_CHANGE("Weather not changing")
+    }
+
+    /**
+     * Determines if a tendency is falling
+     * @param change The tendency
+     * @return true if it is falling, false otherwise
+     */
+    fun isFalling(change: PressureTendency): Boolean {
+        return change == PressureTendency.FALLING_FAST || change == PressureTendency.FALLING_SLOW
+    }
+
+    /**
+     * Determines if a tendency is rising
+     * @param change The tendency
+     * @return true if it is rising, false otherwise
+     */
+    fun isRising(change: PressureTendency): Boolean {
+        return change == PressureTendency.RISING_FAST || change == PressureTendency.RISING_SLOW
     }
 
     /**
@@ -84,39 +103,16 @@ object WeatherUtils {
      * @param readings The barometric pressure readings in hPa
      * @return The direction of change
      */
-    fun get3HourChangeDirection(readings: List<PressureReading>): BarometricChange {
+    fun getPressureTendency(readings: List<PressureReading>): PressureTendency {
         val change = get3HourChange(readings)
 
         return when {
-            abs(change) < THREE_HOUR_CHANGE_THRESHOLD -> BarometricChange.NO_CHANGE
-            change < 0 -> BarometricChange.FALLING
-            else -> BarometricChange.RISING
+            change <= -FAST_CHANGE_THRESHOLD -> PressureTendency.FALLING_FAST
+            change <= -SLOW_CHANGE_THRESHOLD -> PressureTendency.FALLING_SLOW
+            change >= FAST_CHANGE_THRESHOLD -> PressureTendency.RISING_FAST
+            change >= SLOW_CHANGE_THRESHOLD -> PressureTendency.RISING_SLOW
+            else -> PressureTendency.NO_CHANGE
         }
-    }
-
-    /**
-     * Get the instantaneous barometric pressure change direction
-     * @param readings The barometric pressure readings in hPa
-     * @return The direction of change
-     */
-    fun get15MinuteChangeDirection(readings: List<PressureReading>): BarometricChange {
-
-        val change = get15MinuteChange(readings)
-
-        return when {
-            abs(change) < FIFTEEN_MIN_CHANGE_THRESHOLD -> BarometricChange.NO_CHANGE
-            change < 0 -> BarometricChange.FALLING
-            else -> BarometricChange.RISING
-        }
-    }
-
-    private fun get15MinuteChange(readings: List<PressureReading>): Float {
-        if (readings.size < 2) return 0f
-
-        val first = readings[readings.size - 2]
-        val last = readings.last()
-
-        return last.reading - first.reading
     }
 
     private fun get3HourChange(readings: List<PressureReading>): Float {
@@ -134,7 +130,7 @@ object WeatherUtils {
      */
     fun isStormIncoming(readings: List<PressureReading>): Boolean {
         val threeHourChange = get3HourChange(readings)
-        return threeHourChange <= -THREE_HOUR_STORM_THRESHOLD
+        return threeHourChange <= -STORM_THRESHOLD
     }
 
     /**
