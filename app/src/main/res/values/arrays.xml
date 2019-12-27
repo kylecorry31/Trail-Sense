@@ -1,0 +1,26 @@
+<resources>
+   <string-array name="distance_unit_entries">
+        <item>Meters</item>
+        <item>Feet / Miles</item>
+    </string-array>
+
+    <string-array name="distance_unit_values">
+        <item>meters</item>
+        <item>feet_miles</item>
+    </string-array>
+
+
+    <string-array name="pressure_unit_entries">
+        <item>hPa</item>
+        <item>inHg</item>
+        <item>mbar</item>
+        <item>PSI</item>
+    </string-array>
+
+    <string-array name="pressure_unit_values">
+        <item>hpa</item>
+        <item>in</item>
+        <item>mbar</item>
+        <item>psi</item>
+    </string-array>
+</resources>

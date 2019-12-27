@@ -1,24 +1,21 @@
 package com.kylecorry.survival_aid.navigator
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.survival_aid.R
 import com.kylecorry.survival_aid.doTransaction
-import com.kylecorry.survival_aid.editPrefs
 import com.kylecorry.survival_aid.navigator.beacons.Beacon
 import com.kylecorry.survival_aid.navigator.beacons.BeaconDB
 import com.kylecorry.survival_aid.navigator.beacons.BeaconListFragment
 import com.kylecorry.survival_aid.navigator.compass.Compass
 import com.kylecorry.survival_aid.navigator.gps.GPS
 import com.kylecorry.survival_aid.navigator.gps.LocationMath
-import com.kylecorry.survival_aid.navigator.gps.UnitSystem
 import java.util.*
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -29,7 +26,9 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var compass: Compass
     private lateinit var gps: GPS
     private lateinit var navigator: Navigator
-    private val unitSystem = UnitSystem.IMPERIAL
+
+    private var units = "meters"
+    private var useTrueNorth = false
 
     // UI Fields
     private lateinit var azimuthTxt: TextView
@@ -42,7 +41,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var navigationTxt: TextView
     private lateinit var beaconBtn: FloatingActionButton
     private lateinit var locationBtn: FloatingActionButton
-    private lateinit var trueNorthBtn: SwitchCompat
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
@@ -65,20 +63,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         navigationTxt = view.findViewById(R.id.navigation)
         beaconBtn = view.findViewById(R.id.beaconBtn)
         locationBtn = view.findViewById(R.id.locationBtn)
-        trueNorthBtn = view.findViewById(R.id.true_north)
-
-        trueNorthBtn.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
-                compass.declination = gps.declination
-            } else {
-                compass.declination = 0f
-            }
-            updateCompassUI()
-            updateNavigationUI()
-            activity?.editPrefs(getString(R.string.prefs_name), Context.MODE_PRIVATE){
-                putBoolean(getString(R.string.pref_use_true_north), isChecked)
-            }
-        }
 
         locationBtn.setOnClickListener {
             gps.updateLocation()
@@ -111,10 +95,14 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         gps.addObserver(this)
         navigator.addObserver(this)
 
-        // Get the use true north preference
-        activity?.apply {
-            val prefs = getSharedPreferences(getString(R.string.prefs_name), Context.MODE_PRIVATE)
-            trueNorthBtn.isChecked = prefs.getBoolean(getString(R.string.pref_use_true_north), false)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        useTrueNorth = prefs.getBoolean(getString(R.string.pref_use_true_north), false)
+        units = prefs.getString(getString(R.string.pref_distance_units), "meters") ?: "meters"
+
+        if (useTrueNorth){
+            compass.declination = gps.declination
+        } else {
+            compass.declination = 0f
         }
 
 
@@ -212,7 +200,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         var bearing = navigator.getBearing(location)
 
         // The bearing is already in true north format, convert that to magnetic north
-        if (!trueNorthBtn.isChecked) bearing -= declination
+        if (!useTrueNorth) bearing -= declination
         bearing = normalizeAngle(bearing)
 
         // Display the direction indicator
@@ -223,7 +211,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         displayDestinationBearing(adjBearing, imgCenterX, imgCenterY, radius)
 
         // Update the direction text
-        navigationTxt.text = "${navigator.getDestinationName()}:    ${bearing.roundToInt()}°    -    ${LocationMath.distanceToReadableString(distance, unitSystem)}"
+        navigationTxt.text = "${navigator.getDestinationName()}:    ${bearing.roundToInt()}°    -    ${LocationMath.distanceToReadableString(distance, units)}"
     }
 
     /**
@@ -252,7 +240,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private fun updateLocationUI(){
 
         // Update the declination value
-        if (trueNorthBtn.isChecked){
+        if (useTrueNorth){
             compass.declination = gps.declination
         } else {
             compass.declination = 0f
@@ -271,8 +259,8 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         // Update the latitude, longitude display
         locationTxt.text = location.toString()
-        accuracyTxt.text = "GPS accuracy: ${LocationMath.distanceToReadableString(accuracy, unitSystem)}"
-        altitudeTxt.text = "Altitude: ${LocationMath.distanceToReadableString(altitude.toFloat(), unitSystem)}"
+        accuracyTxt.text = "GPS accuracy: ${LocationMath.distanceToReadableString(accuracy, units)}"
+        altitudeTxt.text = "Altitude: ${LocationMath.distanceToReadableString(altitude.toFloat(), units)}"
 
         // Update the navigation display
         updateNavigationUI()

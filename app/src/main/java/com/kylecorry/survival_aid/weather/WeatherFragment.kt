@@ -1,20 +1,16 @@
 package com.kylecorry.survival_aid.weather
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.anychart.AnyChartView
 import com.kylecorry.survival_aid.R
 import com.kylecorry.survival_aid.navigator.gps.GPS
-import com.kylecorry.survival_aid.navigator.gps.UnitSystem
-import com.kylecorry.survival_aid.roundPlaces
 import java.time.format.DateTimeFormatter
 import java.util.*
 import com.anychart.AnyChart.area
@@ -22,21 +18,20 @@ import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
 import com.anychart.graphics.vector.text.HAlign
-import com.kylecorry.survival_aid.editPrefs
 import com.kylecorry.survival_aid.toZonedDateTime
-
-
+import java.text.DecimalFormat
 
 
 class WeatherFragment : Fragment(), Observer {
 
-
-    private val unitSystem = UnitSystem.IMPERIAL
     private lateinit var moonPhase: MoonPhase
     private lateinit var barometer: Barometer
     private lateinit var gps: GPS
 
     private var altitude = 0.0
+    private var useSeaLevelPressure = false
+    private var gotGpsReading = false
+    private var units = "hPa"
 
     private lateinit var moonTxt: TextView
     private lateinit var pressureTxt: TextView
@@ -46,7 +41,6 @@ class WeatherFragment : Fragment(), Observer {
     private lateinit var sunsetTxt: TextView
     private lateinit var chart: AnyChartView
     private lateinit var trendImg: ImageView
-    private lateinit var useSeaLevelPressureSwitch: SwitchCompat
 
     private lateinit var areaChart: Cartesian
 
@@ -66,18 +60,6 @@ class WeatherFragment : Fragment(), Observer {
         sunsetTxt = view.findViewById(R.id.sunset)
         chart = view.findViewById(R.id.chart)
         trendImg = view.findViewById(R.id.barometer_trend)
-        useSeaLevelPressureSwitch = view.findViewById(R.id.calibrate_pressure)
-
-        useSeaLevelPressureSwitch.setOnCheckedChangeListener { _, isChecked ->
-            updatePressure()
-            updateBarometerChartData()
-            activity?.editPrefs(getString(R.string.prefs_name), Context.MODE_PRIVATE){
-                putBoolean(getString(R.string.pref_use_sea_level_pressure), isChecked)
-            }
-        }
-
-        createBarometerChart()
-
         return view
     }
 
@@ -86,10 +68,17 @@ class WeatherFragment : Fragment(), Observer {
         barometer.addObserver(this)
         barometer.start()
 
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        useSeaLevelPressure = prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), false)
+        units = prefs.getString(getString(R.string.pref_pressure_units), "hPa") ?: "hPa"
+
         updateMoonPhase()
-        updateBarometerChartData()
+
+        if (!useSeaLevelPressure)
+            createBarometerChart()
 
         gps.updateLocation { location ->
+            gotGpsReading = true
             val sunrise = Sun.getSunrise(location)
             val sunset = Sun.getSunset(location)
 
@@ -99,12 +88,7 @@ class WeatherFragment : Fragment(), Observer {
             sunsetTxt.text = sunset.format(DateTimeFormatter.ofPattern("h:mm a"))
 
             updatePressure()
-            updateBarometerChartData()
-        }
-
-        activity?.apply {
-            val prefs = getSharedPreferences(getString(R.string.prefs_name), Context.MODE_PRIVATE)
-            useSeaLevelPressureSwitch.isChecked = prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), false)
+            createBarometerChart()
         }
     }
 
@@ -119,10 +103,15 @@ class WeatherFragment : Fragment(), Observer {
     }
 
     private fun updatePressure(){
-        val pressure = getCalibratedPressure(barometer.pressure)
-        val symbol = if (unitSystem == UnitSystem.IMPERIAL) "in" else "hPa"
 
-        pressureTxt.text = "$pressure $symbol"
+        if (useSeaLevelPressure && !gotGpsReading) return
+
+        val pressure = getCalibratedPressure(barometer.pressure)
+        val symbol = WeatherUtils.getPressureSymbol(units)
+
+        val format = DecimalFormat("0.##")
+
+        pressureTxt.text = "${format.format(pressure )} $symbol"
 
         val pressureDirection = WeatherUtils.getBarometricChangeDirection(PressureHistory.readings)
 
@@ -163,10 +152,10 @@ class WeatherFragment : Fragment(), Observer {
     private fun getCalibratedPressure(pressure: Float): Float {
         var calibratedPressure = pressure
 
-        if (useSeaLevelPressureSwitch.isChecked){
+        if (useSeaLevelPressure){
             calibratedPressure = WeatherUtils.convertToSeaLevelPressure(pressure, altitude.toFloat())
         }
-        return if (unitSystem == UnitSystem.IMPERIAL) WeatherUtils.hPaToInches(calibratedPressure).roundPlaces(2) else calibratedPressure.roundPlaces(1)
+        return WeatherUtils.convertPressureToUnits(calibratedPressure, units)
     }
 
     private fun createBarometerChart(){
@@ -179,8 +168,8 @@ class WeatherFragment : Fragment(), Observer {
         areaChart.yAxis(0).title(false)
         areaChart.yScale().ticks().interval(0.05)
 
-        val min: Number = if (unitSystem == UnitSystem.IMPERIAL) 29 else 980
-        val max: Number = if (unitSystem == UnitSystem.IMPERIAL) 30.5 else 1030
+        val min: Number = WeatherUtils.convertPressureToUnits(980f, units)
+        val max: Number = WeatherUtils.convertPressureToUnits(1030f, units)
 
         areaChart.yScale().softMinimum(min)
         areaChart.yScale().softMaximum(max)
@@ -197,13 +186,19 @@ class WeatherFragment : Fragment(), Observer {
             BarometerAlarmReceiver.loadFromFile(context!!)
         }
 
-        PressureHistory.removeOldReadings()
-
+    PressureHistory.removeOldReadings()
         PressureHistory.readings.forEach { pressureReading: PressureReading ->
             val date = pressureReading.time.toZonedDateTime()
-            val formatted = date.format(DateTimeFormatter.ofPattern("MMM dd, yyyy")) + "<br>" + date.format(
-                DateTimeFormatter.ofPattern("h:mm a"))
-            seriesData.add(PressureDataEntry(formatted, getCalibratedPressure(pressureReading.reading)))
+            val formatted =
+                date.format(DateTimeFormatter.ofPattern("MMM dd, yyyy")) + "<br>" + date.format(
+                    DateTimeFormatter.ofPattern("h:mm a")
+                )
+            seriesData.add(
+                PressureDataEntry(
+                    formatted,
+                    getCalibratedPressure(pressureReading.reading)
+                )
+            )
         }
         areaChart.data(seriesData)
     }

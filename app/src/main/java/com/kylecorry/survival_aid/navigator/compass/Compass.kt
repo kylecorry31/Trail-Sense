@@ -28,7 +28,7 @@ class Compass (ctx: Context) : SensorEventListener, Observable() {
 
 
     private val RAW_SMOOTHING = 0.95f
-    private val OUTPUT_SMOOTHING = 0.5f
+    private val OUTPUT_SMOOTHING = 0.05f
     private val OUTPUT_SMOOTHING_THRESHOLD = 30f
 
     /**

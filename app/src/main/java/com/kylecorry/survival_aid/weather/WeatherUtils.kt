@@ -1,6 +1,7 @@
 package com.kylecorry.survival_aid.weather
 
 import android.util.Log
+import com.kylecorry.survival_aid.roundPlaces
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.abs
@@ -11,7 +12,7 @@ import kotlin.math.pow
  */
 object WeatherUtils {
 
-    private const val CHANGE_THRESHOLD = 2
+    private const val CHANGE_THRESHOLD = 2f
     private const val STORM_THRESHOLD = 6
     private val STORM_PREDICTION_DURATION = Duration.ofHours(3).plusMinutes(5)
 
@@ -31,6 +32,38 @@ object WeatherUtils {
      */
     fun inchesToHPa(pressure: Float): Float {
         return pressure / 0.02953f
+    }
+
+
+    /**
+     * Converts a pressure in hPa to another unit
+     * @param pressure The pressure in hPa
+     * @param units The new units for the pressure
+     * @return The pressure in the new units
+     */
+    fun convertPressureToUnits(pressure: Float, units: String): Float {
+        return when (units) {
+            "hpa" -> pressure.roundPlaces(0)
+            "in" -> (0.02953f * pressure).roundPlaces(2)
+            "mbar" -> pressure.roundPlaces(0)
+            "psi" -> (0.01450f * pressure).roundPlaces(2)
+            else -> pressure.roundPlaces(0)
+        }
+    }
+
+    /**
+     * Gets the symbol for the pressure units
+     * @param units The pressure units
+     * @return The symbol for the units
+     */
+    fun getPressureSymbol(units: String): String {
+        return when (units) {
+            "hpa" -> "hPa"
+            "in" -> "in"
+            "mbar" -> "mbar"
+            "psi" -> "PSI"
+            else -> "hPa"
+        }
     }
 
     enum class BarometricChange(val readableName: String) {

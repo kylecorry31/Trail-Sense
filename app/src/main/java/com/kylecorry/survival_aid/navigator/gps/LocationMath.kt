@@ -51,8 +51,8 @@ object LocationMath {
     /**
      * Converts a distance in meters to a readable string in the given unit system
      */
-    fun distanceToReadableString(meters: Float, unitSystem: UnitSystem): String {
-        if (unitSystem == UnitSystem.IMPERIAL){
+    fun distanceToReadableString(meters: Float, units: String): String {
+        if (units == "feet_miles"){
             val feetThreshold = 500
             val feet =
                 convertMetersToFeet(meters)
@@ -78,8 +78,4 @@ object LocationMath {
             }
         }
     }
-}
-
-enum class UnitSystem {
-    METRIC, IMPERIAL
 }

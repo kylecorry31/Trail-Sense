@@ -142,17 +142,4 @@
         app:layout_constraintStart_toStartOf="@+id/location"
         tools:text="Altitude: 100ft" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/true_north"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:checked="false"
-        android:rotation="0"
-        android:splitTrack="false"
-        android:text="@string/use_true_north"
-        app:layout_constraintEnd_toEndOf="@+id/needle"
-        app:layout_constraintStart_toStartOf="@+id/needle"
-        app:layout_constraintTop_toBottomOf="@+id/needle" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

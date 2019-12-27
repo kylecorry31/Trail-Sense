@@ -22,9 +22,9 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_blueprint"
-        android:title="@string/action_blueprint"
-        android:icon="@drawable/ic_blueprints"
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:icon="@drawable/ic_settings"
         app:showAsAction="ifRoom" />
 
 
