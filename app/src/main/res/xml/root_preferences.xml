@@ -56,6 +56,11 @@
             app:summaryOn="@string/pref_use_sea_level_pressure_summary_on"
             app:title="@string/use_sea_level_pressure" />
 
+        <SwitchPreferenceCompat
+            app:key="@string/pref_send_storm_alert"
+            app:title="@string/pref_send_storm_alerts_title"
+            app:defaultValue="true"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

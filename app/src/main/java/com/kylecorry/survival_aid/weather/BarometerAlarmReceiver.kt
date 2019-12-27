@@ -9,6 +9,7 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.preference.PreferenceManager
 import com.kylecorry.survival_aid.R
 import java.time.Instant
 import java.util.*
@@ -29,7 +30,9 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
         createNotificationChannel()
 
         if (WeatherUtils.isStormIncoming(PressureHistory.readings)){
-            if (!sentAlert) {
+            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+            val shouldSend = prefs.getBoolean(context.getString(R.string.pref_send_storm_alert), true)
+            if (shouldSend && !sentAlert) {
                 val builder = NotificationCompat.Builder(context, "Alerts")
                     .setSmallIcon(R.drawable.ic_alert)
                     .setContentTitle("Storm Alert")
