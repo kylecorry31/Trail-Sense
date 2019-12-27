@@ -17,9 +17,11 @@ import com.anychart.AnyChart.area
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
+import com.anychart.enums.ScaleTypes
 import com.anychart.graphics.vector.text.HAlign
 import com.kylecorry.survival_aid.roundPlaces
 import com.kylecorry.survival_aid.toZonedDateTime
+import java.time.Duration
 
 
 class WeatherFragment : Fragment(), Observer {
@@ -165,15 +167,30 @@ class WeatherFragment : Fragment(), Observer {
         areaChart.animation(true)
         areaChart.title("Pressure History")
         updateBarometerChartData()
-        areaChart.xAxis(0).title(false)
         areaChart.yAxis(0).title(false)
         areaChart.yScale().ticks().interval(0.05)
 
         val min: Number = WeatherUtils.convertPressureToUnits(1015f, units).roundPlaces(2)
 
         areaChart.yScale().softMinimum(min)
-        areaChart.xAxis(0).labels().useHtml(true)
-        areaChart.xAxis(0).labels().hAlign(HAlign.CENTER)
+        areaChart.xScale(ScaleTypes.DATE_TIME)
+
+        if (PressureHistory.readings.size >= 2){
+            val totalTime = Duration.between(PressureHistory.readings.first().time, PressureHistory.readings.last().time)
+            var hours = totalTime.toHours()
+            val minutes = totalTime.toMinutes() - hours * 60
+
+            when (hours) {
+                0L -> areaChart.xAxis(0  ).title("$minutes minute${if (minutes == 1L) "" else "s"}")
+                else -> {
+                    if (minutes >= 30) hours++
+                    areaChart.xAxis(0  ).title("$hours hour${if (hours == 1L) "" else "s"}")
+                }
+            }
+
+        }
+
+        areaChart.xAxis(0).labels().enabled(false)
         areaChart.getSeriesAt(0).color("#FF6D00")
         chart.setChart(areaChart)
     }
@@ -188,13 +205,9 @@ class WeatherFragment : Fragment(), Observer {
     PressureHistory.removeOldReadings()
         PressureHistory.readings.forEach { pressureReading: PressureReading ->
             val date = pressureReading.time.toZonedDateTime()
-            val formatted =
-                date.format(DateTimeFormatter.ofPattern("MMM dd")) + "<br>" + date.format(
-                    DateTimeFormatter.ofPattern("h:mm a")
-                )
             seriesData.add(
                 PressureDataEntry(
-                    formatted,
+                    (date.toEpochSecond() + date.offset.totalSeconds) * 1000,
                     getCalibratedPressure(pressureReading.reading)
                 )
             )
@@ -203,7 +216,7 @@ class WeatherFragment : Fragment(), Observer {
     }
 
     private inner class PressureDataEntry internal constructor(
-        x: String,
+        x: Number,
         value: Number
     ) : ValueDataEntry(x, value)
 }
