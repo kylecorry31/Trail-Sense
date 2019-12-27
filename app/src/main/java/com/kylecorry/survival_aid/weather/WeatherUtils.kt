@@ -12,7 +12,7 @@ import kotlin.math.pow
  */
 object WeatherUtils {
 
-    private const val CHANGE_THRESHOLD = 2f
+    private const val CHANGE_THRESHOLD = 1.5f
     private const val STORM_THRESHOLD = 6
     private val STORM_PREDICTION_DURATION = Duration.ofHours(3).plusMinutes(5)
 

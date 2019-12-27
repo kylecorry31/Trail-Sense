@@ -168,7 +168,7 @@ class WeatherFragment : Fragment(), Observer {
         areaChart.yAxis(0).title(false)
         areaChart.yScale().ticks().interval(0.05)
 
-        val min: Number = WeatherUtils.convertPressureToUnits(980f, units)
+        val min: Number = WeatherUtils.convertPressureToUnits(1000f, units)
         val max: Number = WeatherUtils.convertPressureToUnits(1030f, units)
 
         areaChart.yScale().softMinimum(min)
