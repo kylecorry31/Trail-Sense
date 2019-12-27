@@ -1,7 +1,6 @@
 package com.kylecorry.survival_aid.weather
 
-import android.util.Log
-import com.kylecorry.survival_aid.roundPlaces
+import java.text.DecimalFormat
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.abs
@@ -12,8 +11,9 @@ import kotlin.math.pow
  */
 object WeatherUtils {
 
-    private const val CHANGE_THRESHOLD = 1.5f
-    private const val STORM_THRESHOLD = 6
+    private const val FIFTEEN_MIN_CHANGE_THRESHOLD = 0.8f
+    private const val THREE_HOUR_CHANGE_THRESHOLD = 0.8f
+    private const val THREE_HOUR_STORM_THRESHOLD = 6f
     private val STORM_PREDICTION_DURATION = Duration.ofHours(3).plusMinutes(5)
 
     /**
@@ -43,11 +43,11 @@ object WeatherUtils {
      */
     fun convertPressureToUnits(pressure: Float, units: String): Float {
         return when (units) {
-            "hpa" -> pressure.roundPlaces(0)
-            "in" -> (0.02953f * pressure).roundPlaces(2)
-            "mbar" -> pressure.roundPlaces(0)
-            "psi" -> (0.01450f * pressure).roundPlaces(2)
-            else -> pressure.roundPlaces(0)
+            "hpa" -> pressure
+            "in" -> 0.02953f * pressure
+            "mbar" -> pressure
+            "psi" -> 0.01450f * pressure
+            else -> pressure
         }
     }
 
@@ -66,6 +66,13 @@ object WeatherUtils {
         }
     }
 
+    fun getDecimalFormat(units: String): DecimalFormat {
+        return when(units){
+            "hpa", "mbar" -> DecimalFormat("0")
+            else -> DecimalFormat("0.##")
+        }
+    }
+
     enum class BarometricChange(val readableName: String) {
         FALLING("Weather worsening soon"),
         RISING("Weather improving soon"),
@@ -77,25 +84,46 @@ object WeatherUtils {
      * @param readings The barometric pressure readings in hPa
      * @return The direction of change
      */
-    fun getBarometricChangeDirection(readings: List<PressureReading>): BarometricChange {
-        val change = getBarometricChange(readings.filter { Duration.between(it.time, Instant.now()) <= STORM_PREDICTION_DURATION })
+    fun get3HourChangeDirection(readings: List<PressureReading>): BarometricChange {
+        val change = get3HourChange(readings)
 
         return when {
-            abs(change) < CHANGE_THRESHOLD -> BarometricChange.NO_CHANGE
+            abs(change) < THREE_HOUR_CHANGE_THRESHOLD -> BarometricChange.NO_CHANGE
             change < 0 -> BarometricChange.FALLING
             else -> BarometricChange.RISING
         }
     }
 
     /**
-     * Get the barometric pressure change
+     * Get the instantaneous barometric pressure change direction
      * @param readings The barometric pressure readings in hPa
-     * @return The pressure change in hPa
+     * @return The direction of change
      */
-    fun getBarometricChange(readings: List<PressureReading>): Float {
+    fun get15MinuteChangeDirection(readings: List<PressureReading>): BarometricChange {
+
+        val change = get15MinuteChange(readings)
+
+        return when {
+            abs(change) < FIFTEEN_MIN_CHANGE_THRESHOLD -> BarometricChange.NO_CHANGE
+            change < 0 -> BarometricChange.FALLING
+            else -> BarometricChange.RISING
+        }
+    }
+
+    private fun get15MinuteChange(readings: List<PressureReading>): Float {
         if (readings.size < 2) return 0f
-        val firstReading = readings.first()
-        val lastReading = readings.last()
+
+        val first = readings[readings.size - 2]
+        val last = readings.last()
+
+        return last.reading - first.reading
+    }
+
+    private fun get3HourChange(readings: List<PressureReading>): Float {
+        val filtered = readings.filter { Duration.between(it.time, Instant.now()) <= STORM_PREDICTION_DURATION }
+        if (filtered.size < 2) return 0f
+        val firstReading = filtered.first()
+        val lastReading = filtered.last()
         return lastReading.reading - firstReading.reading
     }
 
@@ -105,10 +133,8 @@ object WeatherUtils {
      * @return True if a storm is incoming, false otherwise
      */
     fun isStormIncoming(readings: List<PressureReading>): Boolean {
-        val pressureDirection = getBarometricChangeDirection(readings)
-        val pressureChange = getBarometricChange(readings.filter { Duration.between(it.time, Instant.now()) <= STORM_PREDICTION_DURATION })
-
-        return pressureDirection == BarometricChange.FALLING && abs(pressureChange) >= STORM_THRESHOLD
+        val threeHourChange = get3HourChange(readings)
+        return threeHourChange <= -THREE_HOUR_STORM_THRESHOLD
     }
 
     /**

@@ -18,8 +18,8 @@ import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
 import com.anychart.graphics.vector.text.HAlign
+import com.kylecorry.survival_aid.roundPlaces
 import com.kylecorry.survival_aid.toZonedDateTime
-import java.text.DecimalFormat
 
 
 class WeatherFragment : Fragment(), Observer {
@@ -109,11 +109,12 @@ class WeatherFragment : Fragment(), Observer {
         val pressure = getCalibratedPressure(barometer.pressure)
         val symbol = WeatherUtils.getPressureSymbol(units)
 
-        val format = DecimalFormat("0.##")
+        val format = WeatherUtils.getDecimalFormat(units)
 
         pressureTxt.text = "${format.format(pressure )} $symbol"
 
-        val pressureDirection = WeatherUtils.getBarometricChangeDirection(PressureHistory.readings)
+        val pressureDirection = WeatherUtils.get3HourChangeDirection(PressureHistory.readings)
+        val instantPressureDirection = WeatherUtils.get15MinuteChangeDirection(PressureHistory.readings)
 
         when (pressureDirection) {
             WeatherUtils.BarometricChange.FALLING -> {
@@ -127,7 +128,7 @@ class WeatherFragment : Fragment(), Observer {
             else -> trendImg.visibility = View.INVISIBLE
         }
 
-        barometerInterpTxt.text = pressureDirection.readableName
+        barometerInterpTxt.text = instantPressureDirection.readableName
 
         if (WeatherUtils.isStormIncoming(PressureHistory.readings)){
             stormWarningTxt.text = getString(R.string.storm_incoming_warning)
@@ -168,11 +169,9 @@ class WeatherFragment : Fragment(), Observer {
         areaChart.yAxis(0).title(false)
         areaChart.yScale().ticks().interval(0.05)
 
-        val min: Number = WeatherUtils.convertPressureToUnits(1000f, units)
-        val max: Number = WeatherUtils.convertPressureToUnits(1030f, units)
+        val min: Number = WeatherUtils.convertPressureToUnits(1015f, units).roundPlaces(2)
 
         areaChart.yScale().softMinimum(min)
-        areaChart.yScale().softMaximum(max)
         areaChart.xAxis(0).labels().useHtml(true)
         areaChart.xAxis(0).labels().hAlign(HAlign.CENTER)
         areaChart.getSeriesAt(0).color("#FF6D00")
@@ -190,7 +189,7 @@ class WeatherFragment : Fragment(), Observer {
         PressureHistory.readings.forEach { pressureReading: PressureReading ->
             val date = pressureReading.time.toZonedDateTime()
             val formatted =
-                date.format(DateTimeFormatter.ofPattern("MMM dd, yyyy")) + "<br>" + date.format(
+                date.format(DateTimeFormatter.ofPattern("MMM dd")) + "<br>" + date.format(
                     DateTimeFormatter.ofPattern("h:mm a")
                 )
             seriesData.add(
