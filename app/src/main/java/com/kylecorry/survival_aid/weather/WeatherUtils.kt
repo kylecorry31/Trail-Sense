@@ -103,8 +103,8 @@ object WeatherUtils {
      * @param readings The barometric pressure readings in hPa
      * @return The direction of change
      */
-    fun getPressureTendency(readings: List<PressureReading>): PressureTendency {
-        val change = get3HourChange(readings)
+    fun getPressureTendency(readings: List<PressureReading>, useSeaLevelPressure: Boolean = false): PressureTendency {
+        val change = get3HourChange(readings, useSeaLevelPressure)
 
         return when {
             change <= -FAST_CHANGE_THRESHOLD -> PressureTendency.FALLING_FAST
@@ -115,12 +115,19 @@ object WeatherUtils {
         }
     }
 
-    private fun get3HourChange(readings: List<PressureReading>): Float {
+    private fun get3HourChange(readings: List<PressureReading>, useSeaLevelPressure: Boolean = false): Float {
         val filtered = readings.filter { Duration.between(it.time, Instant.now()) <= STORM_PREDICTION_DURATION }
         if (filtered.size < 2) return 0f
         val firstReading = filtered.first()
         val lastReading = filtered.last()
-        return lastReading.reading - firstReading.reading
+        return getCalibratedReading(lastReading, useSeaLevelPressure) - getCalibratedReading(firstReading, useSeaLevelPressure)
+    }
+
+    private fun getCalibratedReading(reading: PressureReading, useSeaLevelPressure: Boolean = false): Float {
+        if (useSeaLevelPressure){
+            return convertToSeaLevelPressure(reading.reading, reading.altitude.toFloat())
+        }
+        return reading.reading
     }
 
     /**
@@ -128,8 +135,8 @@ object WeatherUtils {
      * @param readings The barometric pressure readings in hPa
      * @return True if a storm is incoming, false otherwise
      */
-    fun isStormIncoming(readings: List<PressureReading>): Boolean {
-        val threeHourChange = get3HourChange(readings)
+    fun isStormIncoming(readings: List<PressureReading>, useSeaLevelPressure: Boolean = false): Boolean {
+        val threeHourChange = get3HourChange(readings, useSeaLevelPressure)
         return threeHourChange <= -STORM_THRESHOLD
     }
 

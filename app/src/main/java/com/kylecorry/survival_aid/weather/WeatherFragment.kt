@@ -66,6 +66,7 @@ class WeatherFragment : Fragment(), Observer {
 
     override fun onResume() {
         super.onResume()
+        PressureHistory.addObserver(this)
         barometer.addObserver(this)
         barometer.start()
 
@@ -88,19 +89,23 @@ class WeatherFragment : Fragment(), Observer {
             sunriseTxt.text = sunrise.format(DateTimeFormatter.ofPattern("h:mm a"))
             sunsetTxt.text = sunset.format(DateTimeFormatter.ofPattern("h:mm a"))
 
-            updatePressure()
-            createBarometerChart()
+            if (useSeaLevelPressure) {
+                updatePressure()
+                createBarometerChart()
+            }
         }
     }
 
     override fun onPause() {
         super.onPause()
         barometer.stop()
+        PressureHistory.deleteObserver(this)
         barometer.deleteObserver(this)
     }
 
     override fun update(o: Observable?, arg: Any?) {
         if (o == barometer) updatePressure()
+        if (o == PressureHistory) updateBarometerChartData()
     }
 
     private fun updatePressure(){
@@ -114,7 +119,7 @@ class WeatherFragment : Fragment(), Observer {
 
         pressureTxt.text = "${format.format(pressure )} $symbol"
 
-        val pressureDirection = WeatherUtils.getPressureTendency(PressureHistory.readings)
+        val pressureDirection = WeatherUtils.getPressureTendency(PressureHistory.readings, useSeaLevelPressure)
 
         when {
             WeatherUtils.isFalling(pressureDirection) -> {
@@ -130,7 +135,7 @@ class WeatherFragment : Fragment(), Observer {
 
         barometerInterpTxt.text = pressureDirection.readableName
 
-        if (WeatherUtils.isStormIncoming(PressureHistory.readings)){
+        if (WeatherUtils.isStormIncoming(PressureHistory.readings, useSeaLevelPressure)){
             stormWarningTxt.text = getString(R.string.storm_incoming_warning)
         } else {
             stormWarningTxt.text = ""
@@ -148,6 +153,15 @@ class WeatherFragment : Fragment(), Observer {
             MoonPhase.Phase.FULL -> "Full Moon"
             else -> "New Moon"
         }
+    }
+
+    private fun getCalibratedPressure(reading: PressureReading): Float {
+        var calibratedPressure = reading.reading
+
+        if (useSeaLevelPressure){
+            calibratedPressure = WeatherUtils.convertToSeaLevelPressure(calibratedPressure, reading.altitude.toFloat())
+        }
+        return WeatherUtils.convertPressureToUnits(calibratedPressure, units)
     }
 
     private fun getCalibratedPressure(pressure: Float): Float {
@@ -206,7 +220,7 @@ class WeatherFragment : Fragment(), Observer {
             seriesData.add(
                 PressureDataEntry(
                     (date.toEpochSecond() + date.offset.totalSeconds) * 1000,
-                    getCalibratedPressure(pressureReading.reading)
+                    getCalibratedPressure(pressureReading)
                 )
             )
         }

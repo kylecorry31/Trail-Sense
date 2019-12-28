@@ -7,7 +7,7 @@ import android.content.Intent
 class BarometerBootReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent?.action == "android.intent.action.BOOT_COMPLETED" && context != null){
-            BarometerAlarmManager.startRecording(context)
+            BarometerService.start(context)
         }
     }
 }

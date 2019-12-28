@@ -13,7 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.survival_aid.flashlight.FlashlightFragment
 import com.kylecorry.survival_aid.navigator.NavigatorFragment
 import com.kylecorry.survival_aid.settings.SettingsFragment
-import com.kylecorry.survival_aid.weather.BarometerAlarmManager
+import com.kylecorry.survival_aid.weather.BarometerService
 import com.kylecorry.survival_aid.weather.WeatherFragment
 
 
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             getPermission()
         }
 
-        BarometerAlarmManager.startRecording(this)
+        BarometerService.start(this)
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
 
