@@ -56,8 +56,8 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS):
 
         useCurrentLocationBtn.setOnClickListener {
             gps.updateLocation {
-                beaconLat.setText(it.latitude.toString())
-                beaconLng.setText(it.longitude.toString())
+                beaconLat.setText(it?.latitude.toString())
+                beaconLng.setText(it?.longitude.toString())
             }
         }
 

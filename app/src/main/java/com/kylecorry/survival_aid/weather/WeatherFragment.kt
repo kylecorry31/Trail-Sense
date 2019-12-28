@@ -18,6 +18,7 @@ import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
 import com.anychart.enums.ScaleTypes
+import com.kylecorry.survival_aid.navigator.gps.Coordinate
 import com.kylecorry.survival_aid.navigator.gps.LocationMath
 import com.kylecorry.survival_aid.roundPlaces
 import com.kylecorry.survival_aid.toZonedDateTime
@@ -46,6 +47,8 @@ class WeatherFragment : Fragment(), Observer {
     private lateinit var trendImg: ImageView
 
     private lateinit var areaChart: Cartesian
+
+    private var chartInitialized = false
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -84,8 +87,8 @@ class WeatherFragment : Fragment(), Observer {
 
         gps.updateLocation { location ->
             gotGpsReading = true
-            val sunrise = Sun.getSunrise(location)
-            val sunset = Sun.getSunset(location)
+            val sunrise = Sun.getSunrise(location ?: Coordinate(0.0, 0.0))
+            val sunset = Sun.getSunset(location ?: Coordinate(0.0, 0.0))
 
             altitude = gps.altitude
 
@@ -108,7 +111,13 @@ class WeatherFragment : Fragment(), Observer {
 
     override fun update(o: Observable?, arg: Any?) {
         if (o == barometer) updatePressure()
-        if (o == PressureHistory) updateBarometerChartData()
+        if (o == PressureHistory) {
+            if (!chartInitialized) {
+                createBarometerChart()
+            } else {
+                updateBarometerChartData()
+            }
+        }
     }
 
     private fun updatePressure(){
@@ -208,6 +217,7 @@ class WeatherFragment : Fragment(), Observer {
         areaChart.xAxis(0).labels().enabled(false)
         areaChart.getSeriesAt(0).color("#FF6D00")
         chart.setChart(areaChart)
+        chartInitialized = true
     }
 
     private fun updateBarometerChartData(){

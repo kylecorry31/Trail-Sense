@@ -8,11 +8,10 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import java.time.Duration
 import java.util.*
 
 class GPS(ctx: Context): Observable() {
-
-    private val SECONDS_TO_MILLIS = 1000L
 
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(ctx)
     private val locationCallback = object: LocationCallback() {
@@ -29,7 +28,9 @@ class GPS(ctx: Context): Observable() {
     init {
         // Set the current location to the last location seen
         fusedLocationClient.lastLocation.addOnSuccessListener {
-            updateLastLocation(it)
+            if (it != null) {
+                updateLastLocation(it)
+            }
         }
     }
 
@@ -65,7 +66,7 @@ class GPS(ctx: Context): Observable() {
     /**
      * Updates the current location
      */
-    fun updateLocation(onCompleteFunction: ((location: Coordinate) -> Unit)? = null){
+    fun updateLocation(onCompleteFunction: ((location: Coordinate?) -> Unit)? = null){
         val callback = object: LocationCallback(){
             override fun onLocationResult(result: LocationResult?) {
 
@@ -77,14 +78,14 @@ class GPS(ctx: Context): Observable() {
 
                 // Notify the callback
                 val loc = location
-                if (onCompleteFunction != null && loc != null) onCompleteFunction(loc)
+                if (onCompleteFunction != null) onCompleteFunction(loc)
             }
         }
 
         // Request a single location update
         val locationRequest = LocationRequest.create()?.apply {
             numUpdates = 1
-            interval = 1 * SECONDS_TO_MILLIS
+            interval = Duration.ofSeconds(1).toMillis()
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
         fusedLocationClient.requestLocationUpdates(locationRequest, callback, Looper.getMainLooper())
@@ -94,13 +95,15 @@ class GPS(ctx: Context): Observable() {
      * Updates the last location
      * @param location the new location
      */
-    private fun updateLastLocation(location: Location){
-        this.location = Coordinate(
-            location.latitude,
-            location.longitude
-        )
-        accuracy = location.accuracy
-        altitude = location.altitude
+    private fun updateLastLocation(location: Location?){
+        if (location != null) {
+            this.location = Coordinate(
+                location.latitude,
+                location.longitude
+            )
+            accuracy = location.accuracy
+            altitude = location.altitude
+        }
         setChanged()
         notifyObservers()
     }
@@ -111,8 +114,8 @@ class GPS(ctx: Context): Observable() {
     fun start(){
         if (started) return
         val locationRequest = LocationRequest.create()?.apply {
-            interval = 8 * SECONDS_TO_MILLIS
-            fastestInterval = 2 * SECONDS_TO_MILLIS
+            interval = Duration.ofSeconds(8).toMillis()
+            fastestInterval = Duration.ofSeconds(2).toMillis()
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
         fusedLocationClient.requestLocationUpdates(locationRequest,
