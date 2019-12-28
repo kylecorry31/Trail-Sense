@@ -74,6 +74,7 @@
         android:layout_height="200dp"
         android:layout_marginTop="32dp"
         android:background="@android:color/transparent"
+        android:contentDescription="Toggle flashlight state"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_power_off"
         app:layout_constraintBottom_toTopOf="@+id/flashlight_mode_radio_group"

@@ -15,24 +15,6 @@ object WeatherUtils {
     private const val STORM_THRESHOLD = 6f
     private val STORM_PREDICTION_DURATION = Duration.ofHours(3).plusMinutes(5)
 
-    /**
-     * Convert hPa to inches
-     * @param pressure The pressure in hPa
-     * @return The pressure in inches
-     */
-    fun hPaToInches(pressure: Float): Float {
-        return 0.02953f * pressure
-    }
-
-    /**
-     * Convert inHg to hPa
-     * @param pressure The pressure in inHg
-     * @return The pressure in hPa
-     */
-    fun inchesToHPa(pressure: Float): Float {
-        return pressure / 0.02953f
-    }
-
 
     /**
      * Converts a pressure in hPa to another unit

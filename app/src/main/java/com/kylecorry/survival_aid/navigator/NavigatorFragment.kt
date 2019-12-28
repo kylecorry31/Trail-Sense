@@ -16,6 +16,7 @@ import com.kylecorry.survival_aid.navigator.beacons.BeaconListFragment
 import com.kylecorry.survival_aid.navigator.compass.Compass
 import com.kylecorry.survival_aid.navigator.gps.GPS
 import com.kylecorry.survival_aid.navigator.gps.LocationMath
+import com.kylecorry.survival_aid.weather.Barometer
 import java.util.*
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -26,9 +27,11 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var compass: Compass
     private lateinit var gps: GPS
     private lateinit var navigator: Navigator
+    private lateinit var barometer: Barometer
 
     private var units = "meters"
     private var useTrueNorth = false
+    private var useBarometricAltitude = false
 
     // UI Fields
     private lateinit var azimuthTxt: TextView
@@ -47,6 +50,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         compass = Compass(context!!)
         gps = GPS(context!!)
+        barometer = Barometer(context!!)
         navigator = Navigator()
         if (initialDestination != null){
             navigator.destination = initialDestination
@@ -94,15 +98,21 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         compass.addObserver(this)
         gps.addObserver(this)
         navigator.addObserver(this)
+        barometer.addObserver(this)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         useTrueNorth = prefs.getBoolean(getString(R.string.pref_use_true_north), false)
+        useBarometricAltitude = prefs.getBoolean(getString(R.string.pref_use_barometric_altitude), false)
         units = prefs.getString(getString(R.string.pref_distance_units), "meters") ?: "meters"
 
         if (useTrueNorth){
             compass.declination = gps.declination
         } else {
             compass.declination = 0f
+        }
+
+        if (useBarometricAltitude){
+            barometer.start()
         }
 
 
@@ -122,17 +132,20 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         // Stop the low level sensors
         compass.stop()
         gps.stop()
+        barometer.stop()
 
         // Remove the observers
         compass.deleteObserver(this)
         gps.deleteObserver(this)
         navigator.deleteObserver(this)
+        barometer.deleteObserver(this)
     }
 
     override fun update(o: Observable?, arg: Any?) {
         if (o == compass) updateCompassUI()
         if (o == gps) updateLocationUI()
         if (o == navigator) updateNavigator()
+        if (o == barometer) updateLocationUI()
     }
 
     /**
@@ -161,7 +174,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         // Update the text boxes
         val azimuth = (azimuthValue.roundToInt() % 360).toString().padStart(3, ' ')
-        val direction = compass.direction.symbol.toUpperCase().padEnd(2, ' ')
+        val direction = compass.direction.symbol.toUpperCase(Locale.getDefault()).padEnd(2, ' ')
         azimuthTxt.text = "${azimuth}°"
         directionTxt.text = direction
 
@@ -249,7 +262,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         val location = gps.location
         val accuracy = gps.accuracy
-        val altitude = gps.altitude
+        val altitude = if (useBarometricAltitude) barometer.altitude.toDouble() else gps.altitude
 
         // Check to see if the GPS got a location
         if (location == null){
@@ -260,6 +273,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         // Update the latitude, longitude display
         locationTxt.text = location.toString()
         accuracyTxt.text = "GPS accuracy: ${LocationMath.distanceToReadableString(accuracy, units)}"
+
         altitudeTxt.text = "Altitude: ${LocationMath.distanceToReadableString(altitude.toFloat(), units)}"
 
         // Update the navigation display

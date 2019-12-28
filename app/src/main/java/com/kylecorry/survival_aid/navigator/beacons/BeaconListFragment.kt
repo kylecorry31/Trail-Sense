@@ -65,11 +65,11 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): 
                 val dialog: AlertDialog? = activity?.let {
                     val builder = AlertDialog.Builder(it)
                     builder.apply {
-                        setPositiveButton(R.string.dialog_ok) { dialog, id ->
+                        setPositiveButton(R.string.dialog_ok) { _, _ ->
                             beaconDB.delete(beacon)
                             adapter.beacons = beaconDB.beacons
                         }
-                        setNegativeButton(R.string.dialog_cancel){ dialog, id ->
+                        setNegativeButton(R.string.dialog_cancel){ _, _ ->
                             // Do nothing
                         }
                         setMessage("Are you sure you want to remove \"${beacon.name}\"?")

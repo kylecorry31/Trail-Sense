@@ -1,10 +1,9 @@
 package com.kylecorry.survival_aid.weather
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
 import java.time.Month
-import java.util.*
 
 class MoonPhaseTest {
     @Test

@@ -68,7 +68,6 @@
         tools:text="10° - 200m" />
 
     <ImageView
-        android:id="@+id/direction_arrow"
         android:layout_width="68dp"
         android:layout_height="50dp"
         android:layout_marginBottom="235dp"

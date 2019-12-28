@@ -27,17 +27,6 @@ class Navigator: Observable() {
         get() = destination != null
 
     /**
-     * Determines if the device has arrived at the beacon
-     * @param currentLocation the current location of the device
-     * @param arriveDistance the distance in meters from the beacon to consider the device to have arrived
-     * @return true if the device is at the beacon, false otherwise
-     */
-    fun hasArrived(currentLocation: Coordinate, arriveDistance: Float): Boolean {
-        val distance = getDistance(currentLocation)
-        return distance <= arriveDistance
-    }
-
-    /**
      * Get the bearing to the destination
      * @param currentLocation the current location of the device
      * @return the bearing in degrees

@@ -37,14 +37,14 @@ object LocationMath {
     /**
      * Converts meters to feet
      */
-    fun convertMetersToFeet(meters: Float): Float {
+    private fun convertMetersToFeet(meters: Float): Float {
         return meters * 3.28084f
     }
 
     /**
      * Converts feet to miles
      */
-    fun convertFeetToMiles(feet: Float): Float {
+    private fun convertFeetToMiles(feet: Float): Float {
         return feet / 5280f
     }
 

@@ -1,22 +1,11 @@
 <resources>
-    <string name="app_brand_name">Survive</string>
     <string name="action_navigation">Navigation</string>
     <string name="app_name">Survive</string>
-    <string name="bearing">Bearing</string>
-    <string name="north">N</string>
-    <string name="south">S</string>
-    <string name="east">E</string>
-    <string name="west">W</string>
     <string name="compass_alt">Compass</string>
     <string name="direction_arrow_desc">Direction Arrow</string>
     <string name="location_unknown">Location unknown</string>
     <string name="destination_star_desc">Destination</string>
-    <string name="arrived">You have arrived</string>
-    <string name="back_btn_desc">Back</string>
-    <string name="navigator">Navigator</string>
     <string name="action_light">Light</string>
-    <string name="turn_flashlight_on">Turn on</string>
-    <string name="turn_flashlight_off">Turn off</string>
     <string name="normal_flashlight_mode">Normal</string>
     <string name="strobe_flashlight_mode">Strobe</string>
     <string name="sos_flashlight_mode">SOS</string>
@@ -33,19 +22,14 @@
     <string name="delete_beacon_alert_title">Delete beacon</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="use_true_north">Use True North</string>
-    <string name="prefs_name">prefs</string>
     <string name="pref_use_true_north">use_true_north</string>
     <string name="pref_use_sea_level_pressure">use_sea_level_pressure</string>
     <string name="pref_send_storm_alert">send_storm_alert</string>
     <string name="action_weather">Weather</string>
     <string name="storm_incoming_warning">STORM INCOMING</string>
-    <string name="humidity_unknown">Humidity unknown</string>
-    <string name="dew_point_unknown">Dew point unknown</string>
-    <string name="pressure_unknown">Pressure unknown</string>
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
     <string name="air_pressure_label">Pressure</string>
-    <string name="moon_label">Moon</string>
     <string name="use_sea_level_pressure">Use sea level pressure</string>
     <string name="action_settings">Settings</string>
     <string name="pref_use_true_north_summary_on">Point toward True North</string>
@@ -60,4 +44,8 @@
     <string name="pref_use_sea_level_pressure_summary_off">Use uncalibrated barometer reading</string>
     <string name="pref_use_sea_level_pressure_summary_on">Use sea-level calibrated barometer reading</string>
     <string name="pref_send_storm_alerts_title">Send storm alerts</string>
+    <string name="pref_use_barometric_altitude">use_barometric_altitude</string>
+    <string name="pref_use_barometric_altitude_title">Use barometer for altitude</string>
+    <string name="pref_use_barometric_altitude_summary_off">Use GPS altitude</string>
+    <string name="pref_use_barometric_altitude_summary_on">Use barometric altitude</string>
 </resources>

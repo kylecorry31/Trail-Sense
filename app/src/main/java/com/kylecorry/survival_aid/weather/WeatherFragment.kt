@@ -18,8 +18,10 @@ import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
 import com.anychart.enums.ScaleTypes
+import com.kylecorry.survival_aid.navigator.gps.LocationMath
 import com.kylecorry.survival_aid.roundPlaces
 import com.kylecorry.survival_aid.toZonedDateTime
+import kotlinx.android.synthetic.main.activity_weather.*
 import java.time.Duration
 
 
@@ -61,6 +63,7 @@ class WeatherFragment : Fragment(), Observer {
         sunsetTxt = view.findViewById(R.id.sunset)
         chart = view.findViewById(R.id.chart)
         trendImg = view.findViewById(R.id.barometer_trend)
+
         return view
     }
 

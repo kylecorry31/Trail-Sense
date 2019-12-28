@@ -121,8 +121,5 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun newIntent(ctx: Context): Intent {
-            return Intent(ctx, MainActivity::class.java)
-        }
     }
 }

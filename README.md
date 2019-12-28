@@ -1,5 +1,5 @@
 # Survive
- An Android app designed to be used in survival situtations (assuming Internet connection is unavailable).
+ An Android app designed to be used in survival situations (assuming Internet connection is unavailable).
 
 ## Features
 * Compass / GPS

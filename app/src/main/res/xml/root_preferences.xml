@@ -45,6 +45,13 @@
             app:summaryOn="@string/pref_use_true_north_summary_on"
             app:title="@string/use_true_north" />
 
+        <SwitchPreferenceCompat
+            app:key="@string/pref_use_barometric_altitude"
+            app:title="@string/pref_use_barometric_altitude_title"
+            app:summaryOff="@string/pref_use_barometric_altitude_summary_off"
+            app:summaryOn="@string/pref_use_barometric_altitude_summary_on"
+            app:defaultValue="false"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_weather_header">

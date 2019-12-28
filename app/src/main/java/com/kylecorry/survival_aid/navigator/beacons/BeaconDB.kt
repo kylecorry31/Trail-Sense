@@ -75,7 +75,7 @@ class BeaconDB(ctx: Context) {
         return null
     }
 
-    fun appendNumberToName(beacon: Beacon, number: Int): Beacon {
+    private fun appendNumberToName(beacon: Beacon, number: Int): Beacon {
         val name = "${beacon.name} ($number)"
         return Beacon(name, beacon.coordinate)
     }
@@ -113,7 +113,7 @@ private class BeaconDBHelper(ctx: Context): SQLiteOpenHelper(ctx, "survive", nul
                 Beacon.DB_LAT + ", " +
                 Beacon.DB_LNG +
                 ")"
-        );
+        )
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

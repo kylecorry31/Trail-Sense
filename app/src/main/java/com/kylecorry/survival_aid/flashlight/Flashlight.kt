@@ -24,7 +24,7 @@ class Flashlight(ctx: Context, initialMode: FlashlightMode = NormalFlashlightMod
             notifyObservers()
         }
 
-    internal var isBulbOn: Boolean = false
+    private var isBulbOn: Boolean = false
         private set
 
     private val cameraService = ctx.getSystemService(Context.CAMERA_SERVICE) as CameraManager
