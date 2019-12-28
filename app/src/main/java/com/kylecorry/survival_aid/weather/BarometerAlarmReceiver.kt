@@ -34,7 +34,11 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
             gps = GPS(context)
 
             gps.updateLocation {
-                altitude = gps.altitude
+                altitude = if (it == null || gps.altitude == 0.0){
+                    getLastAltitude()
+                } else {
+                    gps.altitude
+                }
                 hasLocation = true
                 if (hasBarometerReading){
                     gotAllReadings()
@@ -90,6 +94,18 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
             }
             sentAlert = false
         }
+    }
+
+    private fun getLastAltitude(): Double {
+        if (PressureHistory.readings.isEmpty()){
+            loadFromFile(context)
+        }
+
+        PressureHistory.readings.reversed().forEach {
+            if (it.altitude != 0.0) return it.altitude
+        }
+
+        return 0.0
     }
 
     private fun createNotificationChannel() {
