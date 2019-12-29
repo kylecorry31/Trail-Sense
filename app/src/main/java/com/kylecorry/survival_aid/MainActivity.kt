@@ -1,8 +1,6 @@
 package com.kylecorry.survival_aid
 
 import android.Manifest
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +8,6 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.kylecorry.survival_aid.flashlight.FlashlightFragment
 import com.kylecorry.survival_aid.navigator.NavigatorFragment
 import com.kylecorry.survival_aid.settings.SettingsFragment
 import com.kylecorry.survival_aid.weather.BarometerService
@@ -61,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 switchFragment(WeatherFragment())
             }
             R.id.action_light -> {
-                switchFragment(FlashlightFragment())
+//                switchFragment()
             }
             R.id.action_settings -> {
                 switchFragment(SettingsFragment())

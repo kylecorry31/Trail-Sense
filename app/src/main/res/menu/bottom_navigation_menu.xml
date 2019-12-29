@@ -17,8 +17,8 @@
 
     <item
         android:id="@+id/action_light"
-        android:title="@string/action_light"
-        android:icon="@drawable/ic_flashlight"
+        android:title="@string/action_altimeter"
+        android:icon="@drawable/ic_altimeter"
         app:showAsAction="ifRoom" />
 
     <item
