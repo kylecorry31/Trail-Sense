@@ -44,7 +44,7 @@ class AltimeterFragment : Fragment(), Observer {
     private var lastAltitude = 0.0
     private val ALTITUDE_SMOOTHING = 0.6
 
-    private val CHART_DURATION = Duration.ofHours(24)
+    private val CHART_DURATION = Duration.ofHours(12)
 
     private lateinit var altitudeTxt: TextView
     private lateinit var chart: AnyChartView
