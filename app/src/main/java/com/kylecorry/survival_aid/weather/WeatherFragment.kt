@@ -83,19 +83,23 @@ class WeatherFragment : Fragment(), Observer {
         if (!useSeaLevelPressure)
             createBarometerChart()
 
-        gps.updateLocation { location ->
-            gotGpsReading = true
-            val sunrise = Sun.getSunrise(location ?: Coordinate(0.0, 0.0))
-            val sunset = Sun.getSunset(location ?: Coordinate(0.0, 0.0))
+        gps.updateLocation {
+            gps.updateLocation { location ->
+                if (context != null) {
+                    gotGpsReading = true
+                    val sunrise = Sun.getSunrise(location ?: Coordinate(0.0, 0.0))
+                    val sunset = Sun.getSunset(location ?: Coordinate(0.0, 0.0))
 
-            altitude = gps.altitude
+                    altitude = gps.altitude
 
-            sunriseTxt.text = sunrise.format(DateTimeFormatter.ofPattern("h:mm a"))
-            sunsetTxt.text = sunset.format(DateTimeFormatter.ofPattern("h:mm a"))
+                    sunriseTxt.text = sunrise.format(DateTimeFormatter.ofPattern("h:mm a"))
+                    sunsetTxt.text = sunset.format(DateTimeFormatter.ofPattern("h:mm a"))
 
-            if (useSeaLevelPressure) {
-                updatePressure()
-                createBarometerChart()
+                    if (useSeaLevelPressure) {
+                        updatePressure()
+                        createBarometerChart()
+                    }
+                }
             }
         }
     }
@@ -184,6 +188,7 @@ class WeatherFragment : Fragment(), Observer {
     }
 
     private fun createBarometerChart(){
+        if (context == null) return
         areaChart = area()
         areaChart.credits().enabled(false)
         areaChart.animation(true)

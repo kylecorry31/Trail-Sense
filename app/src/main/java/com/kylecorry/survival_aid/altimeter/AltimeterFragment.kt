@@ -84,10 +84,14 @@ class AltimeterFragment : Fragment(), Observer {
             createAltitudeChart()
         } else {
             gps.updateLocation {
-                gotGpsReading = true
-                lastGpsAltitude = gps.altitude
-                updateAltitude()
-                createAltitudeChart()
+                gps.updateLocation {
+                    if (context != null) {
+                        gotGpsReading = true
+                        lastGpsAltitude = gps.altitude
+                        updateAltitude()
+                        createAltitudeChart()
+                    }
+                }
             }
         }
 
