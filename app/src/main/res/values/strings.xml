@@ -42,4 +42,5 @@
     <string name="pref_use_barometric_altitude_summary_off">Use GPS altitude</string>
     <string name="pref_use_barometric_altitude_summary_on">Use barometric altitude</string>
     <string name="action_altimeter">Altimeter</string>
+    <string name="altitude_label">Altitude</string>
 </resources>

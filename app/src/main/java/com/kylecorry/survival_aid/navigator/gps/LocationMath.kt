@@ -48,6 +48,14 @@ object LocationMath {
         return feet / 5280f
     }
 
+    fun convertToBaseUnit(meters: Float, units: String): Float {
+        return if (units == "feet_miles"){
+            convertMetersToFeet(meters)
+        } else {
+            meters
+        }
+    }
+
     /**
      * Converts a distance in meters to a readable string in the given unit system
      */

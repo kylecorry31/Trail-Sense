@@ -39,8 +39,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var needleImg: ImageView
     private lateinit var destinationStar: ImageView
     private lateinit var locationTxt: TextView
-    private lateinit var accuracyTxt: TextView
-    private lateinit var altitudeTxt: TextView
     private lateinit var navigationTxt: TextView
     private lateinit var beaconBtn: FloatingActionButton
     private lateinit var locationBtn: FloatingActionButton
@@ -62,8 +60,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         needleImg = view.findViewById(R.id.needle)
         destinationStar = view.findViewById(R.id.destination_star)
         locationTxt = view.findViewById(R.id.location)
-        accuracyTxt = view.findViewById(R.id.location_accuracy)
-        altitudeTxt = view.findViewById(R.id.location_altitude)
         navigationTxt = view.findViewById(R.id.navigation)
         beaconBtn = view.findViewById(R.id.beaconBtn)
         locationBtn = view.findViewById(R.id.locationBtn)
@@ -272,9 +268,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         // Update the latitude, longitude display
         locationTxt.text = location.toString()
-        accuracyTxt.text = "GPS accuracy: ${LocationMath.distanceToReadableString(accuracy, units)}"
-
-        altitudeTxt.text = "Altitude: ${LocationMath.distanceToReadableString(altitude.toFloat(), units)}"
 
         // Update the navigation display
         updateNavigationUI()

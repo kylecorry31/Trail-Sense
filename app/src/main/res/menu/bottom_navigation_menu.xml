@@ -16,7 +16,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_light"
+        android:id="@+id/action_altimeter"
         android:title="@string/action_altimeter"
         android:icon="@drawable/ic_altimeter"
         app:showAsAction="ifRoom" />

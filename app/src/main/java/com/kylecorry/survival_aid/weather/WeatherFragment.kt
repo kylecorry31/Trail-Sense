@@ -19,10 +19,8 @@ import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
 import com.anychart.enums.ScaleTypes
 import com.kylecorry.survival_aid.navigator.gps.Coordinate
-import com.kylecorry.survival_aid.navigator.gps.LocationMath
 import com.kylecorry.survival_aid.roundPlaces
 import com.kylecorry.survival_aid.toZonedDateTime
-import kotlinx.android.synthetic.main.activity_weather.*
 import java.time.Duration
 
 
@@ -215,7 +213,7 @@ class WeatherFragment : Fragment(), Observer {
         }
 
         areaChart.xAxis(0).labels().enabled(false)
-        areaChart.getSeriesAt(0).color("#FF6D00")
+        areaChart.getSeriesAt(0).color(String.format("#%06X", 0xFFFFFF and resources.getColor(R.color.colorPrimary, null)))
         chart.setChart(areaChart)
         chartInitialized = true
     }
@@ -227,7 +225,8 @@ class WeatherFragment : Fragment(), Observer {
             BarometerAlarmReceiver.loadFromFile(context!!)
         }
 
-    PressureHistory.removeOldReadings()
+        PressureHistory.removeOldReadings()
+
         PressureHistory.readings.forEach { pressureReading: PressureReading ->
             val date = pressureReading.time.toZonedDateTime()
             seriesData.add(

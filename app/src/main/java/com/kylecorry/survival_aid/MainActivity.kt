@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kylecorry.survival_aid.altimeter.AltimeterFragment
 import com.kylecorry.survival_aid.navigator.NavigatorFragment
 import com.kylecorry.survival_aid.settings.SettingsFragment
 import com.kylecorry.survival_aid.weather.BarometerService
@@ -57,8 +58,8 @@ class MainActivity : AppCompatActivity() {
             R.id.action_weather -> {
                 switchFragment(WeatherFragment())
             }
-            R.id.action_light -> {
-//                switchFragment()
+            R.id.action_altimeter -> {
+                switchFragment(AltimeterFragment())
             }
             R.id.action_settings -> {
                 switchFragment(SettingsFragment())
