@@ -27,6 +27,9 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     private var altitude = 0.0
     private var reading: Float = 0f
 
+    private var numBarometerReadings = 0
+    private val MAX_BAROMETER_READINGS = 5
+
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null){
             this.context = context
@@ -53,13 +56,17 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     }
 
     override fun update(o: Observable?, arg: Any?) {
-        reading = barometer.pressure
-        hasBarometerReading = true
-        barometer.stop()
-        barometer.deleteObserver(this)
+        reading =+ barometer.pressure
 
-        if (hasLocation){
-            gotAllReadings()
+        if (numBarometerReadings == MAX_BAROMETER_READINGS) {
+            reading /= MAX_BAROMETER_READINGS
+            hasBarometerReading = true
+            barometer.stop()
+            barometer.deleteObserver(this)
+
+            if (hasLocation) {
+                gotAllReadings()
+            }
         }
     }
 
