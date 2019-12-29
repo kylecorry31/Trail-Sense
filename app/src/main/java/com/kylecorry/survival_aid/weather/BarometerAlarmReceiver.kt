@@ -34,14 +34,16 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
             gps = GPS(context)
 
             gps.updateLocation {
-                altitude = if (it == null || gps.altitude == 0.0){
-                    getLastAltitude()
-                } else {
-                    gps.altitude
-                }
-                hasLocation = true
-                if (hasBarometerReading){
-                    gotAllReadings()
+                gps.updateLocation {
+                    altitude = if (it == null || gps.altitude == 0.0){
+                        getLastAltitude()
+                    } else {
+                        gps.altitude
+                    }
+                    hasLocation = true
+                    if (hasBarometerReading){
+                        gotAllReadings()
+                    }
                 }
             }
 
