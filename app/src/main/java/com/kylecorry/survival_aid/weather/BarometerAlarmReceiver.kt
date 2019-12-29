@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.preference.PreferenceManager
@@ -56,7 +57,8 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     }
 
     override fun update(o: Observable?, arg: Any?) {
-        reading =+ barometer.pressure
+        reading += barometer.pressure
+        numBarometerReadings++
 
         if (numBarometerReadings == MAX_BAROMETER_READINGS) {
             reading /= MAX_BAROMETER_READINGS

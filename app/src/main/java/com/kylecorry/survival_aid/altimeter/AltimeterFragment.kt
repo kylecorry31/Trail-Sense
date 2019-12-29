@@ -2,6 +2,7 @@ package com.kylecorry.survival_aid.altimeter
 
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,9 @@ class AltimeterFragment : Fragment(), Observer {
     private var gotGpsReading = false
     private var gotBarometerReading = false
     private var units = "meters"
+
+    private var lastAltitude = 0.0
+    private val ALTITUDE_SMOOTHING = 0.6
 
     private val CHART_DURATION = Duration.ofHours(24)
 
@@ -78,6 +82,7 @@ class AltimeterFragment : Fragment(), Observer {
         if (PressureHistory.readings.isNotEmpty()){
             lastGpsAltitude = PressureHistory.readings.last().altitude
             lastGpsPressure = PressureHistory.readings.last().reading
+            lastAltitude = lastGpsAltitude
             gotGpsReading = true
             gotBarometerReading = true
             updateAltitude()
@@ -88,6 +93,7 @@ class AltimeterFragment : Fragment(), Observer {
                     if (context != null) {
                         gotGpsReading = true
                         lastGpsAltitude = gps.altitude
+                        lastAltitude = lastGpsAltitude
                         updateAltitude()
                         createAltitudeChart()
                     }
@@ -124,14 +130,13 @@ class AltimeterFragment : Fragment(), Observer {
     private fun updateAltitude() {
         if (!gotGpsReading) return
         if (!gotBarometerReading) return
+        if (barometer.pressure == 0.0f) return
 
-        var altitude = lastGpsAltitude
+        val altitude = getCalibratedAltitude(lastGpsAltitude.toFloat(), lastGpsPressure, barometer.pressure).toDouble()
 
-        if (PressureHistory.readings.isNotEmpty()) {
-            altitude = getCalibratedAltitude(altitude.toFloat(), PressureHistory.readings.last().reading, barometer.pressure).toDouble()
-        }
+        lastAltitude = (1 - ALTITUDE_SMOOTHING) * altitude + ALTITUDE_SMOOTHING * lastAltitude
 
-        altitudeTxt.text = "${LocationMath.convertToBaseUnit(altitude.toFloat(), units).roundToInt()} ${if (units == "meters") "m" else "ft"}"
+        altitudeTxt.text = "${LocationMath.convertToBaseUnit(lastAltitude.toFloat(), units).roundToInt()} ${if (units == "meters") "m" else "ft"}"
     }
 
     private fun getCalibratedAltitude(gpsAltitude: Float, pressureAtGpsAltitude: Float, currentPressure: Float): Float {
