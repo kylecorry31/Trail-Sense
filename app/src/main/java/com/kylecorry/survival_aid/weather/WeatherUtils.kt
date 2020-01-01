@@ -107,9 +107,9 @@ object WeatherUtils {
 
     private fun getCalibratedReading(reading: PressureReading, useSeaLevelPressure: Boolean = false): Float {
         if (useSeaLevelPressure){
-            return convertToSeaLevelPressure(reading.reading, reading.altitude.toFloat())
+            return convertToSeaLevelPressure(reading.pressure, reading.altitude.toFloat())
         }
-        return reading.reading
+        return reading.pressure
     }
 
     /**

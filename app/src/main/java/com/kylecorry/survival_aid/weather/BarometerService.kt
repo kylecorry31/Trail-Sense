@@ -9,7 +9,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.os.Handler
+import android.util.Log
+import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import com.kylecorry.survival_aid.R
+import java.time.ZonedDateTime
 
 
 class BarometerService: Service() {
@@ -31,9 +35,10 @@ class BarometerService: Service() {
 
         startForeground(1, notification)
 
-        val delay = 15 * 60 * 1000L // 15 Minutes
+        val delay = 10 * 60 * 1000L // 10 Minutes
 
         runnable = Runnable {
+            Log.i("BarometerService", "Sent broadcast at " + ZonedDateTime.now().toString())
             sendBroadcast(broadcastIntent)
             handler.postDelayed(runnable, delay)
         }
@@ -49,6 +54,10 @@ class BarometerService: Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        prefs.edit {
+            putBoolean(getString(R.string.pref_just_sent_alert), false)
+        }
         return START_STICKY_COMPATIBILITY
     }
 

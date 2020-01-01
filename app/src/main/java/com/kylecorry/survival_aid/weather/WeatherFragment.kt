@@ -1,7 +1,6 @@
 package com.kylecorry.survival_aid.weather
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -171,7 +170,7 @@ class WeatherFragment : Fragment(), Observer {
     }
 
     private fun getCalibratedPressure(reading: PressureReading): Float {
-        var calibratedPressure = reading.reading
+        var calibratedPressure = reading.pressure
 
         if (useSeaLevelPressure){
             calibratedPressure = WeatherUtils.convertToSeaLevelPressure(calibratedPressure, reading.altitude.toFloat())

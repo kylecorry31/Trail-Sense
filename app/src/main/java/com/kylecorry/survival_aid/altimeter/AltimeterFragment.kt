@@ -2,7 +2,6 @@ package com.kylecorry.survival_aid.altimeter
 
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,7 +80,7 @@ class AltimeterFragment : Fragment(), Observer {
 
         if (PressureHistory.readings.isNotEmpty()){
             lastGpsAltitude = PressureHistory.readings.last().altitude
-            lastGpsPressure = PressureHistory.readings.last().reading
+            lastGpsPressure = PressureHistory.readings.last().pressure
             lastAltitude = lastGpsAltitude
             gotGpsReading = true
             gotBarometerReading = true
@@ -99,7 +98,7 @@ class AltimeterFragment : Fragment(), Observer {
                     }
                 }
             }
-        }
+    }
 
     }
 
@@ -158,6 +157,25 @@ class AltimeterFragment : Fragment(), Observer {
 //        areaChart.yScale().softMinimum(0)
         areaChart.xScale(ScaleTypes.DATE_TIME)
 
+
+        areaChart.xAxis(0).labels().enabled(false)
+        areaChart.getSeriesAt(0).color(String.format("#%06X", 0xFFFFFF and resources.getColor(R.color.colorPrimary, null)))
+        chart.setChart(areaChart)
+        chartInitialized = true
+    }
+
+    private fun updateAltimeterChartData(){
+        val seriesData = mutableListOf<DataEntry>()
+
+        if (PressureHistory.readings.isEmpty()){
+            BarometerAlarmReceiver.loadFromFile(context!!)
+        }
+
+        if (PressureHistory.readings.isEmpty()){
+            areaChart.data(seriesData)
+            return
+        }
+
         val readings = PressureHistory.readings.filter { Duration.between(it.time, Instant.now()) < CHART_DURATION }
 
         if (readings.size >= 2){
@@ -175,33 +193,18 @@ class AltimeterFragment : Fragment(), Observer {
 
         }
 
-        areaChart.xAxis(0).labels().enabled(false)
-        areaChart.getSeriesAt(0).color(String.format("#%06X", 0xFFFFFF and resources.getColor(R.color.colorPrimary, null)))
-        chart.setChart(areaChart)
-        chartInitialized = true
-    }
-
-    private fun updateAltimeterChartData(){
-        val seriesData = mutableListOf<DataEntry>()
-
-        if (PressureHistory.readings.isEmpty()){
-            BarometerAlarmReceiver.loadFromFile(context!!)
-        }
-
-        val readings = PressureHistory.readings.filter { Duration.between(it.time, Instant.now()) < CHART_DURATION }
-
         var referenceReading = readings.first()
 
         readings.forEach {
             val date = it.time.toZonedDateTime()
-            if (Duration.between(referenceReading.time, it.time) >= Duration.ofMinutes(31)){
+            if (Duration.between(referenceReading.time, it.time) >= Duration.ofMinutes(61)){
                 referenceReading = it
             }
 
             seriesData.add(
                 PressureDataEntry(
                     (date.toEpochSecond() + date.offset.totalSeconds) * 1000,
-                    LocationMath.convertToBaseUnit(getCalibratedAltitude(referenceReading.altitude.toFloat(), referenceReading.reading, it.reading), units)
+                    LocationMath.convertToBaseUnit(getCalibratedAltitude(referenceReading.altitude.toFloat(), referenceReading.pressure, it.pressure), units)
                 )
             )
         }

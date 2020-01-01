@@ -65,7 +65,9 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         locationBtn = view.findViewById(R.id.locationBtn)
 
         locationBtn.setOnClickListener {
-            gps.updateLocation()
+            gps.updateLocation {
+                gps.updateLocation()
+            }
         }
 
         beaconBtn.setOnClickListener {
@@ -115,7 +117,9 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         // Start the low level sensors
         compass.start()
-        gps.updateLocation()
+        gps.updateLocation {
+            gps.updateLocation()
+        }
 
         // Update the UI
         updateNavigator()
@@ -257,8 +261,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
 
         val location = gps.location
-        val accuracy = gps.accuracy
-        val altitude = if (useBarometricAltitude) barometer.altitude.toDouble() else gps.altitude
 
         // Check to see if the GPS got a location
         if (location == null){

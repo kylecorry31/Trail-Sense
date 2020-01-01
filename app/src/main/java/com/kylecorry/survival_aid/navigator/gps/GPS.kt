@@ -111,11 +111,11 @@ class GPS(ctx: Context): Observable() {
     /**
      * Start receiving location updates
      */
-    fun start(){
+    fun start(interval: Duration = Duration.ofSeconds(8)){
         if (started) return
         val locationRequest = LocationRequest.create()?.apply {
-            interval = Duration.ofSeconds(8).toMillis()
-            fastestInterval = Duration.ofSeconds(2).toMillis()
+            this.interval = interval.toMillis()
+            fastestInterval = interval.dividedBy(2).toMillis()
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
         fusedLocationClient.requestLocationUpdates(locationRequest,

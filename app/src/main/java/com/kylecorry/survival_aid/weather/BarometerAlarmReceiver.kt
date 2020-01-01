@@ -9,27 +9,30 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.survival_aid.R
 import com.kylecorry.survival_aid.navigator.gps.GPS
+import java.time.Duration
 import java.time.Instant
+import java.time.ZonedDateTime
 import java.util.*
+import kotlin.math.abs
 
 class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
 
     private lateinit var context: Context
     private lateinit var barometer: Barometer
     private lateinit var gps: GPS
-    private var sentAlert = false
 
     private var hasLocation = false
     private var hasBarometerReading = false
 
-    private var altitude = 0.0
-    private var reading: Float = 0f
+    private val altitudeReadings = mutableListOf<Float>()
+    private val pressureReadings = mutableListOf<Float>()
 
-    private var numBarometerReadings = 0
     private val MAX_BAROMETER_READINGS = 5
+    private val MAX_GPS_READINGS = 3
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null){
@@ -37,19 +40,8 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
             barometer = Barometer(context)
             gps = GPS(context)
 
-            gps.updateLocation {
-                gps.updateLocation {
-                    altitude = if (it == null || gps.altitude == 0.0){
-                        getLastAltitude()
-                    } else {
-                        gps.altitude
-                    }
-                    hasLocation = true
-                    if (hasBarometerReading){
-                        gotAllReadings()
-                    }
-                }
-            }
+            gps.addObserver(this)
+            gps.start(Duration.ofSeconds(1))
 
             barometer.addObserver(this)
             barometer.start()
@@ -57,11 +49,77 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     }
 
     override fun update(o: Observable?, arg: Any?) {
-        reading += barometer.pressure
-        numBarometerReadings++
+        if (o == barometer) recordBarometerReading()
+        if (o == gps) recordGPSReading()
+    }
 
-        if (numBarometerReadings == MAX_BAROMETER_READINGS) {
-            reading /= MAX_BAROMETER_READINGS
+    private fun recordGPSReading(){
+        altitudeReadings.add(gps.altitude.toFloat())
+
+        if (altitudeReadings.size >= MAX_GPS_READINGS) {
+            hasLocation = true
+            gps.stop()
+            gps.deleteObserver(this)
+
+            if (hasBarometerReading) {
+                gotAllReadings()
+            }
+        }
+    }
+
+    private fun getBestReadings(readings: List<Float>, threshold: Float = 5f): List<Float> {
+        var bestReadings = mutableListOf<Float>()
+        for (i in readings.indices){
+            val same = mutableListOf<Float>()
+            for (j in readings.indices){
+                val diff = abs(readings[i] - readings[j])
+                if (diff <= threshold){
+                    same.add(readings[j])
+                }
+            }
+
+            if (same.size > bestReadings.size){
+                bestReadings = same
+            }
+        }
+
+        return bestReadings
+    }
+
+    private fun getTrueAltitude(readings: List<Float>): Float {
+        val bestReadings = getBestReadings(readings, 10f)
+
+        if (bestReadings.size > 1){
+            return bestReadings.average().toFloat()
+        }
+
+        val lastAltitude = getLastAltitude()
+        if (lastAltitude == 0.0 && bestReadings.size == 1){
+            return bestReadings[0]
+        }
+
+        return 0.0f
+    }
+
+    private fun getTruePressure(readings: List<Float>): Float {
+        val bestReadings = getBestReadings(readings, 0.1f)
+
+        if (bestReadings.size > 1){
+            return bestReadings.average().toFloat()
+        }
+
+        val lastPressure = getLastPressure()
+        if (lastPressure == 0.0f && bestReadings.size == 1){
+            return bestReadings[0]
+        }
+
+        return 0.0f
+    }
+
+    private fun recordBarometerReading(){
+        pressureReadings.add(barometer.pressure)
+
+        if (pressureReadings.size >= MAX_BAROMETER_READINGS) {
             hasBarometerReading = true
             barometer.stop()
             barometer.deleteObserver(this)
@@ -76,12 +134,14 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
         if (PressureHistory.readings.isEmpty()){
             loadFromFile(context)
         }
-        PressureHistory.addReading(reading, altitude)
+
+        PressureHistory.addReading(getTruePressure(pressureReadings), getTrueAltitude(altitudeReadings).toDouble())
         saveToFile(context)
 
         createNotificationChannel()
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val sentAlert = prefs.getBoolean(context.getString(R.string.pref_just_sent_alert), false)
         val useSeaLevel = prefs.getBoolean(context.getString(R.string.pref_use_sea_level_pressure), false)
 
         if (WeatherUtils.isStormIncoming(PressureHistory.readings, useSeaLevel)){
@@ -97,14 +157,22 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
                 with(NotificationManagerCompat.from(context)) {
                     notify(0, builder.build())
                 }
-                sentAlert = true
+                prefs.edit {
+                    putBoolean(context.getString(R.string.pref_just_sent_alert), true)
+                }
             }
         } else {
             with(NotificationManagerCompat.from(context)) {
                 cancel(0)
             }
-            sentAlert = false
+            prefs.edit {
+                putBoolean(context.getString(R.string.pref_just_sent_alert), false)
+            }
         }
+
+
+        Log.i("BarometerAlarmReceiver", "Got all readings recorded at ${ZonedDateTime.now()}")
+
     }
 
     private fun getLastAltitude(): Double {
@@ -117,6 +185,18 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
         }
 
         return 0.0
+    }
+
+    private fun getLastPressure(): Float {
+        if (PressureHistory.readings.isEmpty()){
+            loadFromFile(context)
+        }
+
+        PressureHistory.readings.reversed().forEach {
+            if (it.pressure != 0.0f) return it.pressure
+        }
+
+        return 0.0f
     }
 
     private fun createNotificationChannel() {
@@ -159,7 +239,7 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
         fun saveToFile(context: Context){
             context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE).use {
                 val output = PressureHistory.readings.joinToString("\n") { reading ->
-                    "${reading.time.toEpochMilli()},${reading.reading},${reading.altitude}"
+                    "${reading.time.toEpochMilli()},${reading.pressure},${reading.altitude}"
                 }
                 it.write(output.toByteArray())
             }

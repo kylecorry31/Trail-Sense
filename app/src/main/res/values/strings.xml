@@ -1,5 +1,5 @@
 <resources>
-    <string name="action_navigation">Navigation</string>
+    <string name="action_navigation">Compass</string>
     <string name="app_name">Survive</string>
     <string name="compass_alt">Compass</string>
     <string name="direction_arrow_desc">Direction Arrow</string>
@@ -18,7 +18,7 @@
     <string name="pref_use_true_north">use_true_north</string>
     <string name="pref_use_sea_level_pressure">use_sea_level_pressure</string>
     <string name="pref_send_storm_alert">send_storm_alert</string>
-    <string name="action_weather">Weather</string>
+    <string name="action_weather">Barometer</string>
     <string name="storm_incoming_warning">STORM INCOMING</string>
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
@@ -32,8 +32,8 @@
     <string name="pref_pressure_units_title">Pressure units</string>
     <string name="pref_pressure_units">pressure_units</string>
     <string name="pref_distance_units">distance_units</string>
-    <string name="pref_navigation_header">Navigation</string>
-    <string name="pref_weather_header">Weather</string>
+    <string name="pref_navigation_header">Compass</string>
+    <string name="pref_weather_header">Barometer</string>
     <string name="pref_use_sea_level_pressure_summary_off">Use uncalibrated barometer reading</string>
     <string name="pref_use_sea_level_pressure_summary_on">Use sea-level calibrated barometer reading</string>
     <string name="pref_send_storm_alerts_title">Send storm alerts</string>
@@ -41,6 +41,7 @@
     <string name="pref_use_barometric_altitude_title">Use barometer for altitude</string>
     <string name="pref_use_barometric_altitude_summary_off">Use GPS altitude</string>
     <string name="pref_use_barometric_altitude_summary_on">Use barometric altitude</string>
+    <string name="pref_just_sent_alert">just_sent_alert</string>
     <string name="action_altimeter">Altimeter</string>
     <string name="altitude_label">Altitude</string>
 </resources>
