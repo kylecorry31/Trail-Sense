@@ -10,7 +10,7 @@ import java.util.*
 /**
  * A sensor
  */
-abstract class AbstractSensor(ctx: Context, private val sensorType: Int, private val sensorDelay: Int) : SensorEventListener, Observable() {
+abstract class AbstractSensor(ctx: Context, private val sensorType: Int, private val sensorDelay: Int) : SensorEventListener, Observable(), ISensor {
 
     private var sensorManager: SensorManager = ctx.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
@@ -20,7 +20,7 @@ abstract class AbstractSensor(ctx: Context, private val sensorType: Int, private
     /**
      * Start the sensor
      */
-    fun start(){
+    override fun start(){
         if (started) return
         sensorManager.getDefaultSensor(sensorType)?.also { sensor ->
             sensorManager.registerListener(
@@ -35,7 +35,7 @@ abstract class AbstractSensor(ctx: Context, private val sensorType: Int, private
     /**
      * Stop the compass sensor
      */
-    fun stop(){
+    override fun stop(){
         if (!started) return
         sensorManager.unregisterListener(this)
         started = false

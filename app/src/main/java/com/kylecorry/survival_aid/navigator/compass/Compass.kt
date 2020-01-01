@@ -5,6 +5,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import com.kylecorry.survival_aid.ISensor
 import com.kylecorry.survival_aid.navigator.normalizeAngle
 import java.util.*
 import kotlin.math.abs
@@ -13,7 +14,7 @@ import kotlin.math.floor
 /**
  * A compass sensor
  */
-class Compass (ctx: Context) : SensorEventListener, Observable() {
+class Compass (ctx: Context) : ISensor, SensorEventListener, Observable() {
 
     private var sensorManager: SensorManager = ctx.getSystemService(Context.SENSOR_SERVICE) as SensorManager
     private val accelReading = FloatArray(3)
@@ -69,7 +70,7 @@ class Compass (ctx: Context) : SensorEventListener, Observable() {
     /**
      * Start the compass sensor
      */
-    fun start(){
+    override fun start(){
         if (started) return
         sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)?.also { accelerometer ->
             sensorManager.registerListener(
@@ -91,7 +92,7 @@ class Compass (ctx: Context) : SensorEventListener, Observable() {
     /**
      * Stop the compass sensor
      */
-    fun stop(){
+    override fun stop(){
         if (!started) return
         sensorManager.unregisterListener(this)
         started = false

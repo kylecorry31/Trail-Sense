@@ -17,9 +17,6 @@ class Barometer(ctx: Context) : AbstractSensor(ctx, Sensor.TYPE_PRESSURE, Sensor
     var pressure: Float = 0f
         private set
 
-    val altitude: Float
-        get() { return SensorManager.getAltitude(SensorManager.PRESSURE_STANDARD_ATMOSPHERE, pressure) }
-
     override fun handleSensorEvent(event: SensorEvent) {
         pressure = event.values[0]
     }

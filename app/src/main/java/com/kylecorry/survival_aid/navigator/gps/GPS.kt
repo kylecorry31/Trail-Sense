@@ -8,10 +8,11 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.kylecorry.survival_aid.ISensor
 import java.time.Duration
 import java.util.*
 
-class GPS(ctx: Context): Observable() {
+class GPS(ctx: Context): ISensor, Observable() {
 
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(ctx)
     private val locationCallback = object: LocationCallback() {
@@ -108,10 +109,14 @@ class GPS(ctx: Context): Observable() {
         notifyObservers()
     }
 
+    override fun start() {
+        start(Duration.ofSeconds(8))
+    }
+
     /**
      * Start receiving location updates
      */
-    fun start(interval: Duration = Duration.ofSeconds(8)){
+    fun start(interval: Duration){
         if (started) return
         val locationRequest = LocationRequest.create()?.apply {
             this.interval = interval.toMillis()
@@ -126,7 +131,7 @@ class GPS(ctx: Context): Observable() {
     /**
      * Stop receiving location updates
      */
-    fun stop(){
+    override fun stop(){
         if (!started) return
         fusedLocationClient.removeLocationUpdates(locationCallback)
         started = false

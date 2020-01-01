@@ -26,7 +26,6 @@ import java.time.Duration
 
 class BarometerFragment : Fragment(), Observer {
 
-    private lateinit var moonPhase: MoonPhase
     private lateinit var barometer: Barometer
     private lateinit var gps: GPS
 
@@ -35,12 +34,9 @@ class BarometerFragment : Fragment(), Observer {
     private var gotGpsReading = false
     private var units = "hPa"
 
-    private lateinit var moonTxt: TextView
     private lateinit var pressureTxt: TextView
     private lateinit var stormWarningTxt: TextView
     private lateinit var barometerInterpTxt: TextView
-    private lateinit var sunriseTxt: TextView
-    private lateinit var sunsetTxt: TextView
     private lateinit var chart: AnyChartView
     private lateinit var trendImg: ImageView
 
@@ -52,16 +48,12 @@ class BarometerFragment : Fragment(), Observer {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_weather, container, false)
 
-        moonPhase = MoonPhase()
         barometer = Barometer(context!!)
         gps = GPS(context!!)
 
-        moonTxt = view.findViewById(R.id.moonphase)
         pressureTxt = view.findViewById(R.id.pressure)
         stormWarningTxt = view.findViewById(R.id.stormWarning)
         barometerInterpTxt = view.findViewById(R.id.barometerInterpretation)
-        sunriseTxt = view.findViewById(R.id.sunrise)
-        sunsetTxt = view.findViewById(R.id.sunset)
         chart = view.findViewById(R.id.chart)
         trendImg = view.findViewById(R.id.barometer_trend)
 
@@ -78,8 +70,6 @@ class BarometerFragment : Fragment(), Observer {
         useSeaLevelPressure = prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), false)
         units = prefs.getString(getString(R.string.pref_pressure_units), "hPa") ?: "hPa"
 
-        updateMoonPhase()
-
         if (!useSeaLevelPressure)
             createBarometerChart()
 
@@ -87,13 +77,9 @@ class BarometerFragment : Fragment(), Observer {
             gps.updateLocation { location ->
                 if (context != null) {
                     gotGpsReading = true
-                    val sunrise = Sun.getSunrise(location ?: Coordinate(0.0, 0.0))
-                    val sunset = Sun.getSunset(location ?: Coordinate(0.0, 0.0))
 
                     altitude = gps.altitude
 
-                    sunriseTxt.text = sunrise.format(DateTimeFormatter.ofPattern("h:mm a"))
-                    sunsetTxt.text = sunset.format(DateTimeFormatter.ofPattern("h:mm a"))
 
                     if (useSeaLevelPressure) {
                         updatePressure()
@@ -153,19 +139,6 @@ class BarometerFragment : Fragment(), Observer {
             stormWarningTxt.text = getString(R.string.storm_incoming_warning)
         } else {
             stormWarningTxt.text = ""
-        }
-    }
-
-    private fun updateMoonPhase(){
-        moonTxt.text = when (moonPhase.getPhase()) {
-            MoonPhase.Phase.WANING_CRESCENT -> "Waning Crescent"
-            MoonPhase.Phase.WAXING_CRESCENT -> "Waxing Crescent"
-            MoonPhase.Phase.WANING_GIBBOUS -> "Waning Gibbous"
-            MoonPhase.Phase.WAXING_GIBBOUS -> "Waxing Gibbous"
-            MoonPhase.Phase.FIRST_QUARTER -> "First Quarter"
-            MoonPhase.Phase.LAST_QUARTER -> "Last Quarter"
-            MoonPhase.Phase.FULL -> "Full Moon"
-            else -> "New Moon"
         }
     }
 
