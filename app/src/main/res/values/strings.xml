@@ -1,6 +1,6 @@
 <resources>
     <string name="action_navigation">Compass</string>
-    <string name="app_name">Survive</string>
+    <string name="app_name">Trail Sense</string>
     <string name="compass_alt">Compass</string>
     <string name="direction_arrow_desc">Direction Arrow</string>
     <string name="location_unknown">Location unknown</string>
