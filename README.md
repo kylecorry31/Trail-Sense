@@ -1,4 +1,4 @@
-# Trail Companion
+# Trail Sense
  An Android app which provides useful information about the environment and can be used offline (designed for hiking / mountaineering).
 
 ## Features
