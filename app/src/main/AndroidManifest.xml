@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kylecorry.survival_aid">
+    package="com.kylecorry.trail_sense">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor">
         <activity
-            android:name=".MainActivity"
+            android:name="com.kylecorry.trail_sense.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,17 +28,17 @@
         </activity>
 
         <receiver
-            android:name=".weather.BarometerAlarmReceiver"
+            android:name="com.kylecorry.trail_sense.weather.BarometerAlarmReceiver"
             android:enabled="true" />
         <receiver
-            android:name=".weather.BarometerBootReceiver"
+            android:name="com.kylecorry.trail_sense.weather.BarometerBootReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".weather.BarometerService" />
+        <service android:name="com.kylecorry.trail_sense.weather.BarometerService" />
     </application>
 
 </manifest>
