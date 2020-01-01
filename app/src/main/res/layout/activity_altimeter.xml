@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="8dp"
-    tools:context=".weather.WeatherFragment">
+    tools:context=".weather.BarometerFragment">
 
 
     <TextView

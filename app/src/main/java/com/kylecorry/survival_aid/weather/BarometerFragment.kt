@@ -24,7 +24,7 @@ import com.kylecorry.survival_aid.toZonedDateTime
 import java.time.Duration
 
 
-class WeatherFragment : Fragment(), Observer {
+class BarometerFragment : Fragment(), Observer {
 
     private lateinit var moonPhase: MoonPhase
     private lateinit var barometer: Barometer
@@ -202,21 +202,6 @@ class WeatherFragment : Fragment(), Observer {
         areaChart.yScale().softMinimum(min)
         areaChart.xScale(ScaleTypes.DATE_TIME)
 
-        if (PressureHistory.readings.size >= 2){
-            val totalTime = Duration.between(PressureHistory.readings.first().time, PressureHistory.readings.last().time)
-            var hours = totalTime.toHours()
-            val minutes = totalTime.toMinutes() - hours * 60
-
-            when (hours) {
-                0L -> areaChart.xAxis(0  ).title("$minutes minute${if (minutes == 1L) "" else "s"}")
-                else -> {
-                    if (minutes >= 30) hours++
-                    areaChart.xAxis(0  ).title("$hours hour${if (hours == 1L) "" else "s"}")
-                }
-            }
-
-        }
-
         areaChart.xAxis(0).labels().enabled(false)
         areaChart.getSeriesAt(0).color(String.format("#%06X", 0xFFFFFF and resources.getColor(R.color.colorPrimary, null)))
         chart.setChart(areaChart)
@@ -232,6 +217,21 @@ class WeatherFragment : Fragment(), Observer {
 
         PressureHistory.removeOldReadings()
 
+        if (PressureHistory.readings.size >= 2){
+            val totalTime = Duration.between(PressureHistory.readings.first().time, PressureHistory.readings.last().time)
+            var hours = totalTime.toHours()
+            val minutes = totalTime.toMinutes() - hours * 60
+
+            when (hours) {
+                0L -> areaChart.xAxis(0  ).title("$minutes minute${if (minutes == 1L) "" else "s"}")
+                else -> {
+                    if (minutes >= 30) hours++
+                    areaChart.xAxis(0  ).title("$hours hour${if (hours == 1L) "" else "s"}")
+                }
+            }
+
+        }
+        
         PressureHistory.readings.forEach { pressureReading: PressureReading ->
             val date = pressureReading.time.toZonedDateTime()
             seriesData.add(

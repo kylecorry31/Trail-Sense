@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -14,7 +13,7 @@ import com.kylecorry.survival_aid.altimeter.AltimeterFragment
 import com.kylecorry.survival_aid.navigator.NavigatorFragment
 import com.kylecorry.survival_aid.settings.SettingsFragment
 import com.kylecorry.survival_aid.weather.BarometerService
-import com.kylecorry.survival_aid.weather.WeatherFragment
+import com.kylecorry.survival_aid.weather.BarometerFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 switchFragment(NavigatorFragment())
             }
             R.id.action_weather -> {
-                switchFragment(WeatherFragment())
+                switchFragment(BarometerFragment())
             }
             R.id.action_altimeter -> {
                 switchFragment(AltimeterFragment())
