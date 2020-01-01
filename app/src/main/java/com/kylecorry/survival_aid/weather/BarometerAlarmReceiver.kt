@@ -91,13 +91,13 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
 
         val average = bestReadings.average().toFloat()
 
-        if (average != 0f && bestReadings.size > 1){
+        if (average != 0f && bestReadings.size > MAX_GPS_READINGS / 2){
             return average
         }
 
         val lastAltitude = getLastAltitude()
-        if (lastAltitude == 0.0 && bestReadings.size == 1){
-            return bestReadings[0]
+        if (lastAltitude == 0.0 && bestReadings.isNotEmpty()){
+            return bestReadings.average().toFloat()
         }
 
         return lastAltitude.toFloat()
@@ -106,13 +106,13 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     private fun getTruePressure(readings: List<Float>): Float {
         val bestReadings = getBestReadings(readings, 0.1f)
 
-        if (bestReadings.size > 1){
+        if (bestReadings.size > MAX_BAROMETER_READINGS / 2){
             return bestReadings.average().toFloat()
         }
 
         val lastPressure = getLastPressure()
-        if (lastPressure == 0.0f && bestReadings.size == 1){
-            return bestReadings[0]
+        if (lastPressure == 0.0f && bestReadings.isNotEmpty()){
+            return bestReadings.average().toFloat()
         }
 
         return lastPressure
