@@ -2,6 +2,7 @@ package com.kylecorry.survival_aid.altimeter
 
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,8 +23,10 @@ import com.kylecorry.survival_aid.toZonedDateTime
 import com.kylecorry.survival_aid.weather.Barometer
 import com.kylecorry.survival_aid.weather.BarometerAlarmReceiver
 import com.kylecorry.survival_aid.weather.PressureHistory
+import com.kylecorry.survival_aid.weather.PressureReading
 import java.time.Duration
 import java.time.Instant
+import kotlin.math.abs
 import kotlin.math.roundToInt
 
 
@@ -34,14 +37,9 @@ class AltimeterFragment : Fragment(), Observer {
     private lateinit var barometer: Barometer
     private lateinit var gps: GPS
 
-    private var lastGpsAltitude = 0.0
-    private var lastGpsPressure = 0.0f
     private var gotGpsReading = false
-    private var gotBarometerReading = false
     private var units = "meters"
-
-    private var lastAltitude = 0.0
-    private val ALTITUDE_SMOOTHING = 0.6
+    private var mode = "barometer_gps"
 
     private val CHART_DURATION = Duration.ofHours(12)
 
@@ -68,53 +66,39 @@ class AltimeterFragment : Fragment(), Observer {
     override fun onResume() {
         super.onResume()
         PressureHistory.addObserver(this)
-        barometer.addObserver(this)
-        barometer.start()
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         units = prefs.getString(getString(R.string.pref_distance_units), "meters") ?: "meters"
+        mode = prefs.getString(getString(R.string.pref_altimeter_mode), "barometer_gps") ?: "barometer_gps"
 
-        if (PressureHistory.readings.isEmpty()){
-            BarometerAlarmReceiver.loadFromFile(context!!)
+        if (mode == "gps" || mode == "barometer_gps") {
+            gps.addObserver(this)
+            gps.start()
         }
 
-        if (PressureHistory.readings.isNotEmpty()){
-            lastGpsAltitude = PressureHistory.readings.last().altitude
-            lastGpsPressure = PressureHistory.readings.last().pressure
-            lastAltitude = lastGpsAltitude
-            gotGpsReading = true
-            gotBarometerReading = true
-            updateAltitude()
-            createAltitudeChart()
-        } else {
-            gps.updateLocation {
-                gps.updateLocation {
-                    if (context != null) {
-                        gotGpsReading = true
-                        lastGpsAltitude = gps.altitude
-                        lastAltitude = lastGpsAltitude
-                        updateAltitude()
-                        createAltitudeChart()
-                    }
-                }
-            }
-    }
+        if (mode == "barometer" || mode == "barometer_gps"){
+            barometer.addObserver(this)
+            barometer.start()
+        }
 
+        if (!chartInitialized){
+            createAltitudeChart()
+        }
     }
 
     override fun onPause() {
         super.onPause()
         barometer.stop()
+        gps.stop()
+
         PressureHistory.deleteObserver(this)
         barometer.deleteObserver(this)
+        gps.deleteObserver(this)
     }
 
     override fun update(o: Observable?, arg: Any?) {
+        if (context == null) return
         if (o == barometer){
-            if (!gotBarometerReading) {
-                lastGpsPressure = barometer.pressure
-                gotBarometerReading = true
-            }
             updateAltitude()
         }
         if (o == PressureHistory) {
@@ -124,18 +108,30 @@ class AltimeterFragment : Fragment(), Observer {
                 updateAltimeterChartData()
             }
         }
+        if (o == gps){
+            gotGpsReading = true
+            updateAltitude()
+        }
     }
 
     private fun updateAltitude() {
-        if (!gotGpsReading) return
-        if (!gotBarometerReading) return
-        if (barometer.pressure == 0.0f) return
+        if (mode != "barometer" && !gotGpsReading) return
+        if (mode != "gps" && barometer.pressure == 0.0f) return
 
-        val altitude = getCalibratedAltitude(lastGpsAltitude.toFloat(), lastGpsPressure, barometer.pressure).toDouble()
+        if (PressureHistory.readings.isEmpty()){
+            BarometerAlarmReceiver.loadFromFile(context!!)
+        }
 
-        lastAltitude = (1 - ALTITUDE_SMOOTHING) * altitude + ALTITUDE_SMOOTHING * lastAltitude
+        val rawPressureHistory = PressureHistory.readings.filter { Duration.between(it.time, Instant.now()) < CHART_DURATION }
+        val pressureHistory = mutableListOf<PressureReading>()
+        pressureHistory.addAll(rawPressureHistory)
+        pressureHistory.add(PressureReading(Instant.now(), barometer.pressure, gps.altitude))
 
-        altitudeTxt.text = "${LocationMath.convertToBaseUnit(lastAltitude.toFloat(), units).roundToInt()} ${if (units == "meters") "m" else "ft"}"
+        val historicalAltitudes = getAltitudeHistory(pressureHistory)
+
+        val altitude = historicalAltitudes.last().altitude
+
+        altitudeTxt.text = "${LocationMath.convertToBaseUnit(altitude.toFloat(), units).roundToInt()} ${if (units == "meters") "m" else "ft"}"
     }
 
     private fun getCalibratedAltitude(gpsAltitude: Float, pressureAtGpsAltitude: Float, currentPressure: Float): Float {
@@ -164,6 +160,32 @@ class AltimeterFragment : Fragment(), Observer {
         chartInitialized = true
     }
 
+    private fun getAltitudeHistory(pressureHistory: List<PressureReading> = PressureHistory.readings): List<AltitudeReading> {
+
+        val altitudeHistory = mutableListOf<AltitudeReading>()
+
+
+        var referenceReading = pressureHistory.first()
+
+        pressureHistory.forEach {
+
+            // TODO: Make barometer + gps combo better
+            if (mode == "barometer_gps" && Duration.between(referenceReading.time, it.time) >= Duration.ofMinutes(31)){
+                referenceReading = it
+            }
+
+            val altitude = if (mode == "gps"){
+                it.altitude
+            } else {
+                getCalibratedAltitude(referenceReading.altitude.toFloat(), referenceReading.pressure, it.pressure).toDouble()
+            }
+
+            altitudeHistory.add(AltitudeReading(it.time, altitude))
+        }
+
+        return altitudeHistory
+    }
+
     private fun updateAltimeterChartData(){
         val seriesData = mutableListOf<DataEntry>()
 
@@ -171,12 +193,14 @@ class AltimeterFragment : Fragment(), Observer {
             BarometerAlarmReceiver.loadFromFile(context!!)
         }
 
-        if (PressureHistory.readings.isEmpty()){
+        val pressureHistory = PressureHistory.readings.filter { Duration.between(it.time, Instant.now()) < CHART_DURATION }
+
+        val readings = getAltitudeHistory(pressureHistory)
+
+        if (readings.isEmpty()){
             areaChart.data(seriesData)
             return
         }
-
-        val readings = PressureHistory.readings.filter { Duration.between(it.time, Instant.now()) < CHART_DURATION }
 
         if (readings.size >= 2){
             val totalTime = Duration.between(readings.first().time, readings.last().time)
@@ -193,18 +217,13 @@ class AltimeterFragment : Fragment(), Observer {
 
         }
 
-        var referenceReading = readings.first()
-
         readings.forEach {
             val date = it.time.toZonedDateTime()
-            if (Duration.between(referenceReading.time, it.time) >= Duration.ofMinutes(31)){
-                referenceReading = it
-            }
 
             seriesData.add(
                 PressureDataEntry(
                     (date.toEpochSecond() + date.offset.totalSeconds) * 1000,
-                    LocationMath.convertToBaseUnit(getCalibratedAltitude(referenceReading.altitude.toFloat(), referenceReading.pressure, it.pressure), units)
+                    LocationMath.convertToBaseUnit(it.altitude.toFloat(), units)
                 )
             )
         }
@@ -215,4 +234,7 @@ class AltimeterFragment : Fragment(), Observer {
         x: Number,
         value: Number
     ) : ValueDataEntry(x, value)
+
+
+    private data class AltitudeReading(val time: Instant, val altitude: Double)
 }

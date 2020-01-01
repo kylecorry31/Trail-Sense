@@ -44,4 +44,7 @@
     <string name="pref_just_sent_alert">just_sent_alert</string>
     <string name="action_altimeter">Altimeter</string>
     <string name="altitude_label">Altitude</string>
+    <string name="pref_altimeter_header">Altimeter</string>
+    <string name="pref_altimeter_mode">altimeter_mode</string>
+    <string name="pref_altimeter_mode_title">Mode</string>
 </resources>

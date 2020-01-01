@@ -31,8 +31,8 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     private val altitudeReadings = mutableListOf<Float>()
     private val pressureReadings = mutableListOf<Float>()
 
-    private val MAX_BAROMETER_READINGS = 5
-    private val MAX_GPS_READINGS = 3
+    private val MAX_BAROMETER_READINGS = 7
+    private val MAX_GPS_READINGS = 5
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null){
@@ -89,8 +89,10 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     private fun getTrueAltitude(readings: List<Float>): Float {
         val bestReadings = getBestReadings(readings, 10f)
 
-        if (bestReadings.size > 1){
-            return bestReadings.average().toFloat()
+        val average = bestReadings.average().toFloat()
+
+        if (average != 0f && bestReadings.size > 1){
+            return average
         }
 
         val lastAltitude = getLastAltitude()
@@ -98,7 +100,7 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
             return bestReadings[0]
         }
 
-        return 0.0f
+        return lastAltitude.toFloat()
     }
 
     private fun getTruePressure(readings: List<Float>): Float {
@@ -113,7 +115,7 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
             return bestReadings[0]
         }
 
-        return 0.0f
+        return lastPressure
     }
 
     private fun recordBarometerReading(){
@@ -228,7 +230,7 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
                     val splitLine = line.split(",")
                     val time = splitLine[0].toLong()
                     val pressure = splitLine[1].toFloat()
-                    val altitude = if (splitLine.size == 3) splitLine[2].toDouble() else 0.0
+                    val altitude = splitLine[2].toDouble()
                     readings.add(PressureReading(Instant.ofEpochMilli(time), pressure, altitude))
                 }
             }

@@ -63,4 +63,16 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/pref_altimeter_header">
+
+        <ListPreference
+            app:defaultValue="barometer_gps"
+            app:entries="@array/altimeter_mode_entries"
+            app:entryValues="@array/altimeter_mode_values"
+            app:key="@string/pref_altimeter_mode"
+            app:title="@string/pref_altimeter_mode_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
