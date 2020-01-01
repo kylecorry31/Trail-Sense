@@ -197,7 +197,7 @@ class AltimeterFragment : Fragment(), Observer {
 
         readings.forEach {
             val date = it.time.toZonedDateTime()
-            if (Duration.between(referenceReading.time, it.time) >= Duration.ofMinutes(61)){
+            if (Duration.between(referenceReading.time, it.time) >= Duration.ofMinutes(31)){
                 referenceReading = it
             }
 
