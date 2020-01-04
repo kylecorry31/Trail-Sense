@@ -13,6 +13,7 @@ import android.util.Log
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
+import java.time.Duration
 import java.time.ZonedDateTime
 
 
@@ -21,6 +22,8 @@ class BarometerService: Service() {
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
     private lateinit var broadcastIntent: Intent
+
+    private val INTERVAL = Duration.ofMinutes(15);
 
     override fun onCreate() {
         handler = Handler()
@@ -35,7 +38,7 @@ class BarometerService: Service() {
 
         startForeground(1, notification)
 
-        val delay = 10 * 60 * 1000L // 10 Minutes
+        val delay = INTERVAL.toMillis()
 
         runnable = Runnable {
             Log.i("BarometerService", "Sent broadcast at " + ZonedDateTime.now().toString())
