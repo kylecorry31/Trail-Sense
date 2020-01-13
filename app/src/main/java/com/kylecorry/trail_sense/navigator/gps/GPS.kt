@@ -54,6 +54,12 @@ class GPS(ctx: Context): ISensor, Observable() {
         private set
 
     /**
+     * The vertical accuracy of the GPS in meters
+     */
+    var verticalAccuracy: Float = 0f
+        private set
+
+    /**
      * The geomagnetic declination in degrees at the current location
      */
     val declination: Float
@@ -103,6 +109,7 @@ class GPS(ctx: Context): ISensor, Observable() {
                 location.longitude
             )
             accuracy = location.accuracy
+            verticalAccuracy = location.verticalAccuracyMeters
             altitude = location.altitude
         }
         setChanged()

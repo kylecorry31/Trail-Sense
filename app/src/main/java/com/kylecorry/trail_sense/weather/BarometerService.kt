@@ -23,7 +23,7 @@ class BarometerService: Service() {
     private lateinit var runnable: Runnable
     private lateinit var broadcastIntent: Intent
 
-    private val INTERVAL = Duration.ofMinutes(15);
+    private val INTERVAL = Duration.ofMinutes(10)
 
     override fun onCreate() {
         handler = Handler()

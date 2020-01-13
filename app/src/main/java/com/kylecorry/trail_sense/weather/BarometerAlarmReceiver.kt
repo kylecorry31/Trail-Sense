@@ -133,12 +133,7 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     }
 
     private fun gotAllReadings(){
-        if (PressureHistory.readings.isEmpty()){
-            loadFromFile(context)
-        }
-
-        PressureHistory.addReading(getTruePressure(pressureReadings), getTrueAltitude(altitudeReadings).toDouble())
-        saveToFile(context)
+        PressureHistoryRepository.add(context, PressureReading(Instant.now(), getTruePressure(pressureReadings), getTrueAltitude(altitudeReadings).toDouble()))
 
         createNotificationChannel()
 
@@ -146,7 +141,7 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
         val sentAlert = prefs.getBoolean(context.getString(R.string.pref_just_sent_alert), false)
         val useSeaLevel = prefs.getBoolean(context.getString(R.string.pref_use_sea_level_pressure), false)
 
-        if (WeatherUtils.isStormIncoming(PressureHistory.readings, useSeaLevel)){
+        if (WeatherUtils.isStormIncoming(PressureHistoryRepository.getAll(context), useSeaLevel)){
 
             val shouldSend = prefs.getBoolean(context.getString(R.string.pref_send_storm_alert), true)
             if (shouldSend && !sentAlert) {
@@ -178,11 +173,7 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     }
 
     private fun getLastAltitude(): Double {
-        if (PressureHistory.readings.isEmpty()){
-            loadFromFile(context)
-        }
-
-        PressureHistory.readings.reversed().forEach {
+        PressureHistoryRepository.getAll(context).reversed().forEach {
             if (it.altitude != 0.0) return it.altitude
         }
 
@@ -190,11 +181,7 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     }
 
     private fun getLastPressure(): Float {
-        if (PressureHistory.readings.isEmpty()){
-            loadFromFile(context)
-        }
-
-        PressureHistory.readings.reversed().forEach {
+        PressureHistoryRepository.getAll(context).reversed().forEach {
             if (it.pressure != 0.0f) return it.pressure
         }
 
@@ -215,36 +202,6 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
             val notificationManager: NotificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
-        }
-    }
-
-
-    companion object {
-        private const val FILE_NAME = "pressure.csv"
-
-        fun loadFromFile(context: Context) {
-            val readings = mutableListOf<PressureReading>()
-            if (!context.getFileStreamPath(FILE_NAME).exists()) return
-            context.openFileInput(FILE_NAME).bufferedReader().useLines { lines ->
-                lines.forEach { line ->
-                    val splitLine = line.split(",")
-                    val time = splitLine[0].toLong()
-                    val pressure = splitLine[1].toFloat()
-                    val altitude = splitLine[2].toDouble()
-                    readings.add(PressureReading(Instant.ofEpochMilli(time), pressure, altitude))
-                }
-            }
-            PressureHistory.setReadings(readings)
-        }
-
-
-        fun saveToFile(context: Context){
-            context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE).use {
-                val output = PressureHistory.readings.joinToString("\n") { reading ->
-                    "${reading.time.toEpochMilli()},${reading.pressure},${reading.altitude}"
-                }
-                it.write(output.toByteArray())
-            }
         }
     }
 }

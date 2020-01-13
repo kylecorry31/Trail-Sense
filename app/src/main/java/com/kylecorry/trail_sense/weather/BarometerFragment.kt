@@ -60,7 +60,7 @@ class BarometerFragment : Fragment(), Observer {
 
     override fun onResume() {
         super.onResume()
-        PressureHistory.addObserver(this)
+        PressureHistoryRepository.addObserver(this)
         barometer.addObserver(this)
         barometer.start()
 
@@ -72,17 +72,15 @@ class BarometerFragment : Fragment(), Observer {
             createBarometerChart()
 
         gps.updateLocation {
-            gps.updateLocation { location ->
-                if (context != null) {
-                    gotGpsReading = true
+            if (context != null) {
+                gotGpsReading = true
 
-                    altitude = gps.altitude
+                altitude = gps.altitude
 
 
-                    if (useSeaLevelPressure) {
-                        updatePressure()
-                        createBarometerChart()
-                    }
+                if (useSeaLevelPressure) {
+                    updatePressure()
+                    createBarometerChart()
                 }
             }
         }
@@ -91,13 +89,13 @@ class BarometerFragment : Fragment(), Observer {
     override fun onPause() {
         super.onPause()
         barometer.stop()
-        PressureHistory.deleteObserver(this)
+        PressureHistoryRepository.deleteObserver(this)
         barometer.deleteObserver(this)
     }
 
     override fun update(o: Observable?, arg: Any?) {
         if (o == barometer) updatePressure()
-        if (o == PressureHistory) {
+        if (o == PressureHistoryRepository) {
             if (!chartInitialized) {
                 createBarometerChart()
             } else {
@@ -109,6 +107,7 @@ class BarometerFragment : Fragment(), Observer {
     private fun updatePressure(){
 
         if (useSeaLevelPressure && !gotGpsReading) return
+        if (context == null) return
 
         val pressure = getCalibratedPressure(barometer.pressure)
         val symbol = WeatherUtils.getPressureSymbol(units)
@@ -117,7 +116,7 @@ class BarometerFragment : Fragment(), Observer {
 
         pressureTxt.text = "${format.format(pressure )} $symbol"
 
-        val pressureDirection = WeatherUtils.getPressureTendency(PressureHistory.readings, useSeaLevelPressure)
+        val pressureDirection = WeatherUtils.getPressureTendency(PressureHistoryRepository.getAll(context!!), useSeaLevelPressure)
 
         when {
             WeatherUtils.isFalling(pressureDirection) -> {
@@ -133,7 +132,7 @@ class BarometerFragment : Fragment(), Observer {
 
         barometerInterpTxt.text = pressureDirection.readableName
 
-        if (WeatherUtils.isStormIncoming(PressureHistory.readings, useSeaLevelPressure)){
+        if (WeatherUtils.isStormIncoming(PressureHistoryRepository.getAll(context!!), useSeaLevelPressure)){
             stormWarningTxt.text = getString(R.string.storm_incoming_warning)
         } else {
             stormWarningTxt.text = ""
@@ -182,14 +181,8 @@ class BarometerFragment : Fragment(), Observer {
     private fun updateBarometerChartData(){
         val seriesData = mutableListOf<DataEntry>()
 
-        if (PressureHistory.readings.isEmpty()){
-            BarometerAlarmReceiver.loadFromFile(context!!)
-        }
-
-        PressureHistory.removeOldReadings()
-
-        if (PressureHistory.readings.size >= 2){
-            val totalTime = Duration.between(PressureHistory.readings.first().time, PressureHistory.readings.last().time)
+        if (PressureHistoryRepository.getAll(context!!).size >= 2){
+            val totalTime = Duration.between(PressureHistoryRepository.getAll(context!!).first().time, PressureHistoryRepository.getAll(context!!).last().time)
             var hours = totalTime.toHours()
             val minutes = totalTime.toMinutes() - hours * 60
 
@@ -202,8 +195,8 @@ class BarometerFragment : Fragment(), Observer {
             }
 
         }
-        
-        PressureHistory.readings.forEach { pressureReading: PressureReading ->
+
+        PressureHistoryRepository.getAll(context!!).forEach { pressureReading: PressureReading ->
             val date = pressureReading.time.toZonedDateTime()
             seriesData.add(
                 PressureDataEntry(

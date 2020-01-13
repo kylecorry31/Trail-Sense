@@ -19,10 +19,7 @@ import com.anychart.charts.Cartesian
 import com.anychart.enums.ScaleTypes
 import com.kylecorry.trail_sense.navigator.gps.LocationMath
 import com.kylecorry.trail_sense.toZonedDateTime
-import com.kylecorry.trail_sense.weather.Barometer
-import com.kylecorry.trail_sense.weather.BarometerAlarmReceiver
-import com.kylecorry.trail_sense.weather.PressureHistory
-import com.kylecorry.trail_sense.weather.PressureReading
+import com.kylecorry.trail_sense.weather.*
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.roundToInt
@@ -39,7 +36,7 @@ class AltimeterFragment : Fragment(), Observer {
     private var units = "meters"
     private var mode = "barometer_gps"
 
-    private val CHART_DURATION = Duration.ofHours(12)
+    private val CHART_DURATION = Duration.ofHours(4)
 
     private lateinit var altitudeTxt: TextView
     private lateinit var chart: AnyChartView
@@ -63,7 +60,7 @@ class AltimeterFragment : Fragment(), Observer {
 
     override fun onResume() {
         super.onResume()
-        PressureHistory.addObserver(this)
+        PressureHistoryRepository.addObserver(this)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         units = prefs.getString(getString(R.string.pref_distance_units), "meters") ?: "meters"
@@ -89,7 +86,7 @@ class AltimeterFragment : Fragment(), Observer {
         barometer.stop()
         gps.stop()
 
-        PressureHistory.deleteObserver(this)
+        PressureHistoryRepository.deleteObserver(this)
         barometer.deleteObserver(this)
         gps.deleteObserver(this)
     }
@@ -99,7 +96,7 @@ class AltimeterFragment : Fragment(), Observer {
         if (o == barometer){
             updateAltitude()
         }
-        if (o == PressureHistory) {
+        if (o == PressureHistoryRepository) {
             if (!chartInitialized) {
                 createAltitudeChart()
             } else {
@@ -115,12 +112,9 @@ class AltimeterFragment : Fragment(), Observer {
     private fun updateAltitude() {
         if (mode != "barometer" && !gotGpsReading) return
         if (mode != "gps" && barometer.pressure == 0.0f) return
+        if (context == null) return
 
-        if (PressureHistory.readings.isEmpty()){
-            BarometerAlarmReceiver.loadFromFile(context!!)
-        }
-
-        val rawPressureHistory = PressureHistory.readings.filter { Duration.between(it.time, Instant.now()) < CHART_DURATION }
+        val rawPressureHistory = PressureHistoryRepository.getAll(context!!).filter { Duration.between(it.time, Instant.now()) < CHART_DURATION }
         val pressureHistory = mutableListOf<PressureReading>()
         pressureHistory.addAll(rawPressureHistory)
         pressureHistory.add(PressureReading(Instant.now(), barometer.pressure, gps.altitude))
@@ -158,7 +152,7 @@ class AltimeterFragment : Fragment(), Observer {
         chartInitialized = true
     }
 
-    private fun getAltitudeHistory(pressureHistory: List<PressureReading> = PressureHistory.readings): List<AltitudeReading> {
+    private fun getAltitudeHistory(pressureHistory: List<PressureReading> = PressureHistoryRepository.getAll(context!!)): List<AltitudeReading> {
 
         val altitudeHistory = mutableListOf<AltitudeReading>()
 
@@ -189,11 +183,7 @@ class AltimeterFragment : Fragment(), Observer {
     private fun updateAltimeterChartData(){
         val seriesData = mutableListOf<DataEntry>()
 
-        if (PressureHistory.readings.isEmpty()){
-            BarometerAlarmReceiver.loadFromFile(context!!)
-        }
-
-        val pressureHistory = PressureHistory.readings.filter { Duration.between(it.time, Instant.now()) < CHART_DURATION }
+        val pressureHistory = PressureHistoryRepository.getAll(context!!).filter { Duration.between(it.time, Instant.now()) < CHART_DURATION }
 
         val readings = getAltitudeHistory(pressureHistory)
 
