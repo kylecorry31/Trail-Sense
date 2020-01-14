@@ -13,6 +13,7 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigator.gps.GPS
+import com.kylecorry.trail_sense.sensors.Barometer
 import java.time.Duration
 import java.time.Instant
 import java.time.ZonedDateTime

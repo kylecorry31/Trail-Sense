@@ -18,6 +18,7 @@ import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
 import com.anychart.enums.ScaleTypes
 import com.kylecorry.trail_sense.navigator.gps.LocationMath
+import com.kylecorry.trail_sense.sensors.Barometer
 import com.kylecorry.trail_sense.toZonedDateTime
 import com.kylecorry.trail_sense.weather.*
 import java.time.Duration

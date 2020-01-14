@@ -5,7 +5,7 @@ import java.time.Duration
 import java.time.Instant
 import java.util.*
 
-object PressureHistoryRepository: Observable() {
+object PressureHistoryRepository: Observable(), IPressureHistoryRepository {
 
     private const val FILE_NAME = "pressure.csv"
     private val keepDuration: Duration = Duration.ofHours(48)
@@ -14,14 +14,14 @@ object PressureHistoryRepository: Observable() {
 
     private var loaded = false
 
-    fun getAll(context: Context): List<PressureReading> {
+    override fun getAll(context: Context): List<PressureReading> {
         if (!loaded){
             loadFromFile(context)
         }
         return readings
     }
 
-    fun add(context: Context, reading: PressureReading): PressureReading {
+    override fun add(context: Context, reading: PressureReading): PressureReading {
         if (!loaded){
             loadFromFile(context)
         }

@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.navigator.beacons.BeaconListFragment
 import com.kylecorry.trail_sense.navigator.compass.Compass
 import com.kylecorry.trail_sense.navigator.gps.GPS
 import com.kylecorry.trail_sense.navigator.gps.LocationMath
-import com.kylecorry.trail_sense.weather.Barometer
+import com.kylecorry.trail_sense.sensors.Barometer
 import java.util.*
 import kotlin.math.cos
 import kotlin.math.roundToInt
