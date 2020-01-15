@@ -28,17 +28,17 @@
         </activity>
 
         <receiver
-            android:name="com.kylecorry.trail_sense.weather.BarometerAlarmReceiver"
+            android:name="com.kylecorry.trail_sense.services.BarometerAlarmReceiver"
             android:enabled="true" />
         <receiver
-            android:name="com.kylecorry.trail_sense.weather.BarometerBootReceiver"
+            android:name="com.kylecorry.trail_sense.services.BarometerBootReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.kylecorry.trail_sense.weather.BarometerService" />
+        <service android:name="com.kylecorry.trail_sense.services.BarometerService" />
     </application>
 
 </manifest>

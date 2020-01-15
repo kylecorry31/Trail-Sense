@@ -1,20 +1,16 @@
 package com.kylecorry.trail_sense.weather
 
+import com.kylecorry.trail_sense.models.PressureAltitudeReading
+import com.kylecorry.trail_sense.models.PressureReading
 import java.text.DecimalFormat
-import java.time.Duration
-import java.time.Instant
-import kotlin.math.pow
 
 /**
  * A collection of weather utilities
  */
 object WeatherUtils {
 
-    private const val FAST_CHANGE_THRESHOLD = 2f
-    private const val SLOW_CHANGE_THRESHOLD = 0.5f
-    private const val STORM_THRESHOLD = 6f
-    private val STORM_PREDICTION_DURATION = Duration.ofHours(3).plusMinutes(5)
-
+    private val pressureCalibrator: IPressureCalibrator = SeaLevelPressureCalibrator()
+    private val pressureTendencyCalculator: IPressureTendencyCalculator = PressureTendencyCalculator()
 
     /**
      * Converts a pressure in hPa to another unit
@@ -54,14 +50,6 @@ object WeatherUtils {
         }
     }
 
-    enum class PressureTendency(val readableName: String) {
-        FALLING_SLOW("Weather may worsen"),
-        RISING_SLOW("Weather may improve"),
-        FALLING_FAST("Weather will worsen soon"),
-        RISING_FAST("Weather will improve soon "),
-        NO_CHANGE("Weather not changing")
-    }
-
     /**
      * Determines if a tendency is falling
      * @param change The tendency
@@ -85,27 +73,17 @@ object WeatherUtils {
      * @param readings The barometric pressure readings in hPa
      * @return The direction of change
      */
-    fun getPressureTendency(readings: List<PressureReading>, useSeaLevelPressure: Boolean = false): PressureTendency {
-        val change = get3HourChange(readings, useSeaLevelPressure)
-
-        return when {
-            change <= -FAST_CHANGE_THRESHOLD -> PressureTendency.FALLING_FAST
-            change <= -SLOW_CHANGE_THRESHOLD -> PressureTendency.FALLING_SLOW
-            change >= FAST_CHANGE_THRESHOLD -> PressureTendency.RISING_FAST
-            change >= SLOW_CHANGE_THRESHOLD -> PressureTendency.RISING_SLOW
-            else -> PressureTendency.NO_CHANGE
+    fun getPressureTendency(readings: List<PressureAltitudeReading>, useSeaLevelPressure: Boolean = false): PressureTendency {
+        val calibratedReadings = readings.map {
+            PressureReading(
+                it.time,
+                getCalibratedReading(it, useSeaLevelPressure)
+            )
         }
+        return pressureTendencyCalculator.getPressureTendency(calibratedReadings)
     }
 
-    private fun get3HourChange(readings: List<PressureReading>, useSeaLevelPressure: Boolean = false): Float {
-        val filtered = readings.filter { Duration.between(it.time, Instant.now()) <= STORM_PREDICTION_DURATION }
-        if (filtered.size < 2) return 0f
-        val firstReading = filtered.first()
-        val lastReading = filtered.last()
-        return getCalibratedReading(lastReading, useSeaLevelPressure) - getCalibratedReading(firstReading, useSeaLevelPressure)
-    }
-
-    private fun getCalibratedReading(reading: PressureReading, useSeaLevelPressure: Boolean = false): Float {
+    private fun getCalibratedReading(reading: PressureAltitudeReading, useSeaLevelPressure: Boolean = false): Float {
         if (useSeaLevelPressure){
             return convertToSeaLevelPressure(reading.pressure, reading.altitude.toFloat())
         }
@@ -117,9 +95,14 @@ object WeatherUtils {
      * @param readings The barometric pressure readings in hPa
      * @return True if a storm is incoming, false otherwise
      */
-    fun isStormIncoming(readings: List<PressureReading>, useSeaLevelPressure: Boolean = false): Boolean {
-        val threeHourChange = get3HourChange(readings, useSeaLevelPressure)
-        return threeHourChange <= -STORM_THRESHOLD
+    fun isStormIncoming(readings: List<PressureAltitudeReading>, useSeaLevelPressure: Boolean = false): Boolean {
+        val calibratedReadings = readings.map {
+            PressureReading(
+                it.time,
+                getCalibratedReading(it, useSeaLevelPressure)
+            )
+        }
+        return StormDetector().isStormIncoming(calibratedReadings)
     }
 
     /**
@@ -129,7 +112,7 @@ object WeatherUtils {
      * @return The pressure at sea level in hPa
      */
     fun convertToSeaLevelPressure(pressure: Float, altitude: Float): Float {
-        return pressure * (1 - altitude / 44330.0).pow(-5.255).toFloat()
+        return pressureCalibrator.getCalibratedPressure(pressure, altitude)
     }
 
 }

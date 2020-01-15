@@ -1,8 +1,7 @@
 package com.kylecorry.trail_sense.navigator
 
-import com.kylecorry.trail_sense.navigator.beacons.Beacon
-import com.kylecorry.trail_sense.navigator.gps.Coordinate
-import com.kylecorry.trail_sense.navigator.gps.LocationMath
+import com.kylecorry.trail_sense.models.Beacon
+import com.kylecorry.trail_sense.models.Coordinate
 import java.util.*
 
 /**
