@@ -17,11 +17,13 @@ import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
 import com.anychart.enums.ScaleTypes
+import com.kylecorry.trail_sense.Constants
 import com.kylecorry.trail_sense.roundPlaces
 import com.kylecorry.trail_sense.sensors.barometer.Barometer
 import com.kylecorry.trail_sense.models.PressureAltitudeReading
 import com.kylecorry.trail_sense.toZonedDateTime
 import com.kylecorry.trail_sense.database.PressureHistoryRepository
+import com.kylecorry.trail_sense.weather.PressureTendencyRepository
 import com.kylecorry.trail_sense.weather.WeatherUtils
 import java.time.Duration
 
@@ -34,7 +36,9 @@ class BarometerFragment : Fragment(), Observer {
     private var altitude = 0F
     private var useSeaLevelPressure = false
     private var gotGpsReading = false
-    private var units = "hPa"
+    private var units = Constants.PRESSURE_UNITS_HPA
+
+    private val pressureTendencyRepository = PressureTendencyRepository()
 
     private lateinit var pressureTxt: TextView
     private lateinit var stormWarningTxt: TextView
@@ -71,7 +75,7 @@ class BarometerFragment : Fragment(), Observer {
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         useSeaLevelPressure = prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), false)
-        units = prefs.getString(getString(R.string.pref_pressure_units), "hPa") ?: "hPa"
+        units = prefs.getString(getString(R.string.pref_pressure_units), Constants.PRESSURE_UNITS_HPA) ?: Constants.PRESSURE_UNITS_HPA
 
         if (!useSeaLevelPressure)
             createBarometerChart()
@@ -149,7 +153,7 @@ class BarometerFragment : Fragment(), Observer {
             else -> trendImg.visibility = View.INVISIBLE
         }
 
-        barometerInterpTxt.text = pressureDirection.readableName
+        barometerInterpTxt.text = pressureTendencyRepository.getDescription(pressureDirection)
 
         if (WeatherUtils.isStormIncoming(
                 PressureHistoryRepository.getAll(
@@ -171,7 +175,7 @@ class BarometerFragment : Fragment(), Observer {
             calibratedPressure =
                 WeatherUtils.convertToSeaLevelPressure(
                     calibratedPressure,
-                    reading.altitude.toFloat()
+                    reading.altitude
                 )
         }
         return WeatherUtils.convertPressureToUnits(
@@ -187,7 +191,7 @@ class BarometerFragment : Fragment(), Observer {
             calibratedPressure =
                 WeatherUtils.convertToSeaLevelPressure(
                     pressure,
-                    altitude.toFloat()
+                    altitude
                 )
         }
         return WeatherUtils.convertPressureToUnits(
@@ -201,7 +205,7 @@ class BarometerFragment : Fragment(), Observer {
         areaChart = area()
         areaChart.credits().enabled(false)
         areaChart.animation(true)
-        areaChart.title("Pressure History")
+        areaChart.title(getString(R.string.pressure_chart_title))
         updateBarometerChartData()
         areaChart.yAxis(0).title(false)
         areaChart.yScale().ticks().interval(0.05)

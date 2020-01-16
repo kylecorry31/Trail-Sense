@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.ui
 
+import android.annotation.SuppressLint
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Cartesian
 import com.anychart.enums.ScaleTypes
+import com.kylecorry.trail_sense.Constants
 import com.kylecorry.trail_sense.database.PressureHistoryRepository
 import com.kylecorry.trail_sense.models.AltitudeReading
 import com.kylecorry.trail_sense.navigator.LocationMath
@@ -36,8 +38,8 @@ class AltimeterFragment : Fragment(), Observer {
     private lateinit var gps: GPS
 
     private var gotGpsReading = false
-    private var units = "meters"
-    private var mode = "barometer_gps"
+    private var units = Constants.DISTANCE_UNITS_METERS
+    private var mode = Constants.ALTIMETER_MODE_BAROMETER_GPS
 
     private val CHART_DURATION = Duration.ofHours(4)
 
@@ -67,15 +69,15 @@ class AltimeterFragment : Fragment(), Observer {
         PressureHistoryRepository.addObserver(this)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        units = prefs.getString(getString(R.string.pref_distance_units), "meters") ?: "meters"
-        mode = prefs.getString(getString(R.string.pref_altimeter_mode), "barometer_gps") ?: "barometer_gps"
+        units = prefs.getString(getString(R.string.pref_distance_units), Constants.DISTANCE_UNITS_METERS) ?: Constants.DISTANCE_UNITS_METERS
+        mode = prefs.getString(getString(R.string.pref_altimeter_mode), Constants.ALTIMETER_MODE_BAROMETER_GPS) ?: Constants.ALTIMETER_MODE_BAROMETER_GPS
 
-        if (mode == "gps" || mode == "barometer_gps") {
+        if (mode == Constants.ALTIMETER_MODE_BAROMETER_GPS || mode == Constants.ALTIMETER_MODE_BAROMETER_GPS) {
             gps.addObserver(this)
             gps.start()
         }
 
-        if (mode == "barometer" || mode == "barometer_gps"){
+        if (mode == Constants.ALTIMETER_MODE_BAROMETER || mode == Constants.ALTIMETER_MODE_BAROMETER_GPS){
             barometer.addObserver(this)
             barometer.start()
         }
@@ -113,9 +115,10 @@ class AltimeterFragment : Fragment(), Observer {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateAltitude() {
-        if (mode != "barometer" && !gotGpsReading) return
-        if (mode != "gps" && barometer.pressure.value == 0.0f) return
+        if (mode != Constants.ALTIMETER_MODE_BAROMETER && !gotGpsReading) return
+        if (mode != Constants.ALTIMETER_MODE_GPS && barometer.pressure.value == 0.0f) return
         if (context == null) return
 
         val rawPressureHistory = PressureHistoryRepository.getAll(context!!).filter { Duration.between(it.time, Instant.now()) < CHART_DURATION }
@@ -133,7 +136,7 @@ class AltimeterFragment : Fragment(), Observer {
 
         val altitude = historicalAltitudes.last().value
 
-        altitudeTxt.text = "${LocationMath.convertToBaseUnit(altitude.toFloat(), units).roundToInt()} ${if (units == "meters") "m" else "ft"}"
+        altitudeTxt.text = "${LocationMath.convertToBaseUnit(altitude, units).roundToInt()} ${if (units == Constants.DISTANCE_UNITS_METERS) "m" else "ft"}"
     }
 
     private fun getCalibratedAltitude(gpsAltitude: Float, pressureAtGpsAltitude: Float, currentPressure: Float): Float {
@@ -147,7 +150,7 @@ class AltimeterFragment : Fragment(), Observer {
         areaChart = area()
         areaChart.credits().enabled(false)
         areaChart.animation(true)
-        areaChart.title("Altitude History")
+        areaChart.title(getString(R.string.altitude_chart_title))
         updateAltimeterChartData()
         areaChart.yAxis(0).title(false)
         areaChart.yScale().ticks().interval(10)
@@ -174,14 +177,14 @@ class AltimeterFragment : Fragment(), Observer {
         pressureHistory.forEach {
 
             // TODO: Make barometer + gps combo better
-            if (mode == "barometer_gps" && Duration.between(referenceReading.time, it.time) >= Duration.ofMinutes(31)){
+            if (mode == Constants.ALTIMETER_MODE_BAROMETER_GPS && Duration.between(referenceReading.time, it.time) >= Duration.ofMinutes(31)){
                 referenceReading = it
             }
 
-            val altitude: Float = if (mode == "gps"){
+            val altitude: Float = if (mode == Constants.ALTIMETER_MODE_GPS){
                 it.altitude
             } else {
-                getCalibratedAltitude(referenceReading.altitude.toFloat(), referenceReading.pressure, it.pressure)
+                getCalibratedAltitude(referenceReading.altitude, referenceReading.pressure, it.pressure)
             }
 
             altitudeHistory.add(

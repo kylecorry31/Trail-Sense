@@ -47,4 +47,6 @@
     <string name="pref_altimeter_header">Altimeter</string>
     <string name="pref_altimeter_mode">altimeter_mode</string>
     <string name="pref_altimeter_mode_title">Mode</string>
+    <string name="altitude_chart_title">Altitude History</string>
+    <string name="pressure_chart_title">Pressure History</string>
 </resources>
