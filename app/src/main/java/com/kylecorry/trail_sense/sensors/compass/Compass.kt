@@ -5,13 +5,15 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import com.kylecorry.sensorfilters.ISensorFilter
+import com.kylecorry.sensorfilters.KalmanFilter
 import com.kylecorry.trail_sense.models.Bearing
 import com.kylecorry.trail_sense.models.CompassDirection
 import com.kylecorry.trail_sense.sensors.ISensor
-import com.kylecorry.trail_sense.navigator.normalizeAngle
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.floor
+import kotlin.math.max
 
 /**
  * A compass sensor
@@ -25,13 +27,15 @@ class Compass (ctx: Context) : ICompass, ISensor, SensorEventListener, Observabl
     private val rotation = FloatArray(9)
     private val orientation = FloatArray(3)
 
-    private var oldAngle = 0f
+    private var totalAngle = 0f
 
     private var started = false
 
-    private val RAW_SMOOTHING = 0.95f
-    private val OUTPUT_SMOOTHING = 0.05f
-    private val OUTPUT_SMOOTHING_THRESHOLD = 30f
+    private val azimuthKf = KalmanFilter(0.5, 0.0001)
+
+    private val magXKf = KalmanFilter(0.9, 0.001)
+    private val magYKf = KalmanFilter(0.9, 0.001)
+    private val magZKf = KalmanFilter(0.9, 0.001)
 
     /**
      * The direction in degrees that the compass is facing (called azimuth)
@@ -39,13 +43,15 @@ class Compass (ctx: Context) : ICompass, ISensor, SensorEventListener, Observabl
     override val azimuth: Bearing
         get() {
             updateOrientation()
-            val newAngle = (Math.toDegrees(orientation[0].toDouble()).toFloat() + 360) % 360
-            if (!closeTo(oldAngle, newAngle, OUTPUT_SMOOTHING_THRESHOLD)) {
-                oldAngle = newAngle
-            } else {
-                oldAngle += OUTPUT_SMOOTHING * deltaAngle(oldAngle, newAngle)
+
+            if (orientation[0] == 0.0F){
+                return Bearing(declination)
             }
-            return Bearing(oldAngle + declination)
+
+            var currentAngle = (Math.toDegrees(orientation[0].toDouble()) + 360) % 360
+            totalAngle += deltaAngle(totalAngle, currentAngle.toFloat())
+
+            return Bearing(azimuthKf.filter(totalAngle.toDouble()).toFloat() + declination)
         }
 
     /**
@@ -106,9 +112,11 @@ class Compass (ctx: Context) : ICompass, ISensor, SensorEventListener, Observabl
 
     override fun onSensorChanged(event: SensorEvent) {
         if (event.sensor.type == Sensor.TYPE_GRAVITY) {
-            applySmoothing(event.values, accelReading, RAW_SMOOTHING)
+            for (i in event.values.indices){
+                accelReading[i] = event.values[i]
+            }
         } else if (event.sensor.type == Sensor.TYPE_MAGNETIC_FIELD) {
-            applySmoothing(event.values, magnetReading, RAW_SMOOTHING)
+            applySmoothing(event.values, magnetReading, listOf(magXKf, magYKf, magZKf))
         }
         setChanged()
         notifyObservers()
@@ -119,10 +127,10 @@ class Compass (ctx: Context) : ICompass, ISensor, SensorEventListener, Observabl
     /**
      * Apply smoothing to an array
      */
-    private fun applySmoothing(input: FloatArray, output: FloatArray, smoothingFactor: Float) {
+    private fun applySmoothing(input: FloatArray, output: FloatArray, filters: List<ISensorFilter>) {
         if (output.size != input.size) return
         for (i in input.indices){
-            output[i] = smoothingFactor * output[i] + (1 - smoothingFactor) * input[i]
+            output[i] = filters[i].filter(input[i].toDouble()).toFloat()
         }
     }
 

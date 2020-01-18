@@ -72,7 +72,7 @@ class AltimeterFragment : Fragment(), Observer {
         units = prefs.getString(getString(R.string.pref_distance_units), Constants.DISTANCE_UNITS_METERS) ?: Constants.DISTANCE_UNITS_METERS
         mode = prefs.getString(getString(R.string.pref_altimeter_mode), Constants.ALTIMETER_MODE_BAROMETER_GPS) ?: Constants.ALTIMETER_MODE_BAROMETER_GPS
 
-        if (mode == Constants.ALTIMETER_MODE_BAROMETER_GPS || mode == Constants.ALTIMETER_MODE_BAROMETER_GPS) {
+        if (mode == Constants.ALTIMETER_MODE_BAROMETER_GPS || mode == Constants.ALTIMETER_MODE_GPS) {
             gps.addObserver(this)
             gps.start()
         }

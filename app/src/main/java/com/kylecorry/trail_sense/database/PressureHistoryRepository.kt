@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.database
 
 import android.content.Context
+import com.kylecorry.sensorfilters.KalmanFilter
 import com.kylecorry.trail_sense.models.PressureAltitudeReading
 import java.time.Duration
 import java.time.Instant
@@ -23,6 +24,19 @@ object PressureHistoryRepository: Observable(),
             )
         }
         return readings
+
+//        val newReadings = mutableListOf<PressureAltitudeReading>()
+//        if (readings.isNotEmpty()){
+//            val pressureFilter = KalmanFilter(0.05, 0.75, readings.first().pressure.toDouble())
+//            val altitudeFilter = KalmanFilter(0.5, 0.75, readings.first().altitude.toDouble())
+//            for (reading in readings){
+//                val pressure = pressureFilter.filter(reading.pressure.toDouble()).toFloat()
+//                val altitude = altitudeFilter.filter(reading.altitude.toDouble()).toFloat()
+//                newReadings.add(PressureAltitudeReading(reading.time, pressure, altitude))
+//            }
+//        }
+//
+//        return newReadings
     }
 
     override fun add(context: Context, reading: PressureAltitudeReading): PressureAltitudeReading {
