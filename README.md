@@ -1,4 +1,7 @@
 # Trail Sense
+
+![](https://github.com/kylecorry31/Trail-Sense/workflows/Android%20CI/badge.svg)
+
  An Android app which provides useful information about the environment and can be used offline (designed for hiking / mountaineering).
 
 ## Features
