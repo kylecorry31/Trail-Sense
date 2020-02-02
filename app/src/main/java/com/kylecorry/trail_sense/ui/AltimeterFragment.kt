@@ -41,7 +41,7 @@ class AltimeterFragment : Fragment(), Observer {
     private var units = Constants.DISTANCE_UNITS_METERS
     private var mode = Constants.ALTIMETER_MODE_BAROMETER_GPS
 
-    private val CHART_DURATION = Duration.ofHours(4)
+    private val CHART_DURATION = Duration.ofHours(48)
 
     private lateinit var altitudeTxt: TextView
     private lateinit var chart: AnyChartView

@@ -12,4 +12,6 @@ object Constants {
     const val DISTANCE_UNITS_METERS = "meters"
 
     const val PRESSURE_UNITS_HPA = "hPa"
+
+    const val MAXIMUM_NATURAL_PRESSURE_CHANGE = 3f
 }

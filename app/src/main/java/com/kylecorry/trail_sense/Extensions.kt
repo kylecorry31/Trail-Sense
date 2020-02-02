@@ -20,3 +20,17 @@ fun Float.roundPlaces(places: Int): Float {
 fun Instant.toZonedDateTime(): ZonedDateTime {
     return ZonedDateTime.ofInstant(this, ZoneId.systemDefault())
 }
+
+fun List<Float>.median(): Float {
+    if (this.isEmpty()) return 0f
+
+    val sortedList = this.sortedBy { it }
+    return sortedList[this.size / 2]
+}
+
+fun List<Double>.median(): Double {
+    if (this.isEmpty()) return 0.0
+
+    val sortedList = this.sortedBy { it }
+    return sortedList[this.size / 2]
+}

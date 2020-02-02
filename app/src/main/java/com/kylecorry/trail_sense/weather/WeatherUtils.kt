@@ -10,7 +10,6 @@ import java.text.DecimalFormat
  */
 object WeatherUtils {
 
-    private val pressureCalibrator: IPressureCalibrator = SeaLevelPressureCalibrator()
     private val pressureTendencyCalculator: IPressureTendencyCalculator = PressureTendencyCalculator()
 
     /**
@@ -74,21 +73,14 @@ object WeatherUtils {
      * @param readings The barometric pressure readings in hPa
      * @return The direction of change
      */
-    fun getPressureTendency(readings: List<PressureAltitudeReading>, useSeaLevelPressure: Boolean = false): PressureTendency {
+    fun getPressureTendency(readings: List<PressureReading>): PressureTendency {
         val calibratedReadings = readings.map {
             PressureReading(
                 it.time,
-                getCalibratedReading(it, useSeaLevelPressure)
+                it.value
             )
         }
         return pressureTendencyCalculator.getPressureTendency(calibratedReadings)
-    }
-
-    private fun getCalibratedReading(reading: PressureAltitudeReading, useSeaLevelPressure: Boolean = false): Float {
-        if (useSeaLevelPressure){
-            return convertToSeaLevelPressure(reading.pressure, reading.altitude.toFloat())
-        }
-        return reading.pressure
     }
 
     /**
@@ -96,24 +88,14 @@ object WeatherUtils {
      * @param readings The barometric pressure readings in hPa
      * @return True if a storm is incoming, false otherwise
      */
-    fun isStormIncoming(readings: List<PressureAltitudeReading>, useSeaLevelPressure: Boolean = false): Boolean {
+    fun isStormIncoming(readings: List<PressureReading>): Boolean {
         val calibratedReadings = readings.map {
             PressureReading(
                 it.time,
-                getCalibratedReading(it, useSeaLevelPressure)
+                it.value
             )
         }
         return StormDetector().isStormIncoming(calibratedReadings)
-    }
-
-    /**
-     * Converts a pressure to sea level
-     * @param pressure The barometric pressure in hPa
-     * @param altitude The altitude of the device in meters
-     * @return The pressure at sea level in hPa
-     */
-    fun convertToSeaLevelPressure(pressure: Float, altitude: Float): Float {
-        return pressureCalibrator.getCalibratedPressure(pressure, altitude)
     }
 
 }

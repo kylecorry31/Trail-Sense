@@ -20,12 +20,10 @@ import com.anychart.enums.ScaleTypes
 import com.kylecorry.trail_sense.Constants
 import com.kylecorry.trail_sense.roundPlaces
 import com.kylecorry.trail_sense.sensors.barometer.Barometer
-import com.kylecorry.trail_sense.models.PressureAltitudeReading
 import com.kylecorry.trail_sense.toZonedDateTime
 import com.kylecorry.trail_sense.database.PressureHistoryRepository
-import com.kylecorry.trail_sense.weather.PressureTendencyRepository
-import com.kylecorry.trail_sense.weather.WeatherUtils
-import java.time.Duration
+import com.kylecorry.trail_sense.weather.*
+import java.time.*
 
 
 class BarometerFragment : Fragment(), Observer {
@@ -37,6 +35,7 @@ class BarometerFragment : Fragment(), Observer {
     private var useSeaLevelPressure = false
     private var gotGpsReading = false
     private var units = Constants.PRESSURE_UNITS_HPA
+    private var pressureConverter: ISeaLevelPressureConverter = NullPressureConverter()
 
     private val pressureTendencyRepository = PressureTendencyRepository()
 
@@ -75,6 +74,11 @@ class BarometerFragment : Fragment(), Observer {
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         useSeaLevelPressure = prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), false)
+
+        if (useSeaLevelPressure){
+            pressureConverter = DerivativeSeaLevelPressureConverter(Constants.MAXIMUM_NATURAL_PRESSURE_CHANGE)
+        }
+
         units = prefs.getString(getString(R.string.pref_pressure_units), Constants.PRESSURE_UNITS_HPA) ?: Constants.PRESSURE_UNITS_HPA
 
         if (!useSeaLevelPressure)
@@ -118,6 +122,9 @@ class BarometerFragment : Fragment(), Observer {
         if (useSeaLevelPressure && !gotGpsReading) return
         if (context == null) return
 
+        val readings = PressureHistoryRepository.getAll(context!!)
+        val convertedReadings = pressureConverter.convert(readings)
+
         val pressure = getCalibratedPressure(barometer.pressure.value)
         val symbol =
             WeatherUtils.getPressureSymbol(
@@ -129,13 +136,7 @@ class BarometerFragment : Fragment(), Observer {
 
         pressureTxt.text = "${format.format(pressure )} $symbol"
 
-        val pressureDirection =
-            WeatherUtils.getPressureTendency(
-                PressureHistoryRepository.getAll(
-                    context!!
-                ),
-                useSeaLevelPressure
-            )
+        val pressureDirection = WeatherUtils.getPressureTendency(convertedReadings)
 
         when {
             WeatherUtils.isFalling(
@@ -155,33 +156,12 @@ class BarometerFragment : Fragment(), Observer {
 
         barometerInterpTxt.text = pressureTendencyRepository.getDescription(pressureDirection)
 
-        if (WeatherUtils.isStormIncoming(
-                PressureHistoryRepository.getAll(
-                    context!!
-                ),
-                useSeaLevelPressure
-            )
-        ){
+
+        if (WeatherUtils.isStormIncoming(convertedReadings)){
             stormWarningTxt.text = getString(R.string.storm_incoming_warning)
         } else {
             stormWarningTxt.text = ""
         }
-    }
-
-    private fun getCalibratedPressure(reading: PressureAltitudeReading): Float {
-        var calibratedPressure = reading.pressure
-
-        if (useSeaLevelPressure){
-            calibratedPressure =
-                WeatherUtils.convertToSeaLevelPressure(
-                    calibratedPressure,
-                    reading.altitude
-                )
-        }
-        return WeatherUtils.convertPressureToUnits(
-            calibratedPressure,
-            units
-        )
     }
 
     private fun getCalibratedPressure(pressure: Float): Float {
@@ -189,7 +169,7 @@ class BarometerFragment : Fragment(), Observer {
 
         if (useSeaLevelPressure){
             calibratedPressure =
-                WeatherUtils.convertToSeaLevelPressure(
+                SeaLevelPressureCalibrator.calibrate(
                     pressure,
                     altitude
                 )
@@ -227,15 +207,11 @@ class BarometerFragment : Fragment(), Observer {
     private fun updateBarometerChartData(){
         val seriesData = mutableListOf<DataEntry>()
 
-        if (PressureHistoryRepository.getAll(
-                context!!
-            ).size >= 2){
+        val readings = PressureHistoryRepository.getAll(context!!)
+
+        if (readings.size >= 2){
             val totalTime = Duration.between(
-                PressureHistoryRepository.getAll(
-                    context!!
-                ).first().time, PressureHistoryRepository.getAll(
-                    context!!
-                ).last().time)
+                readings.first().time, readings.last().time)
             var hours = totalTime.toHours()
             val minutes = totalTime.toMinutes() - hours * 60
 
@@ -249,14 +225,16 @@ class BarometerFragment : Fragment(), Observer {
 
         }
 
-        PressureHistoryRepository.getAll(
-            context!!
-        ).forEach { pressureReading: PressureAltitudeReading ->
-            val date = pressureReading.time.toZonedDateTime()
+        val convertedPressures = pressureConverter.convert(readings)
+
+        convertedPressures.forEach {
+            val date = it.time.toZonedDateTime()
             seriesData.add(
                 PressureDataEntry(
                     (date.toEpochSecond() + date.offset.totalSeconds) * 1000,
-                    getCalibratedPressure(pressureReading)
+                        WeatherUtils.convertPressureToUnits(
+                            it.value,
+                            units)
                 )
             )
         }

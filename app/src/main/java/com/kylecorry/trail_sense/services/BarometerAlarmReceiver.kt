@@ -11,11 +11,15 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.kylecorry.trail_sense.Constants
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.sensors.gps.GPS
 import com.kylecorry.trail_sense.sensors.barometer.Barometer
 import com.kylecorry.trail_sense.models.PressureAltitudeReading
 import com.kylecorry.trail_sense.database.PressureHistoryRepository
+import com.kylecorry.trail_sense.median
+import com.kylecorry.trail_sense.weather.DerivativeSeaLevelPressureConverter
+import com.kylecorry.trail_sense.weather.NullPressureConverter
 import com.kylecorry.trail_sense.weather.WeatherUtils
 import java.time.Duration
 import java.time.Instant
@@ -92,35 +96,33 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     }
 
     private fun getTrueAltitude(readings: List<Float>): Float {
-        val bestReadings = getBestReadings(readings, 10f)
+        val reading = readings.median()
+        val lastReading = getLastAltitude()
 
-        val average = bestReadings.average().toFloat()
+        val alpha = 0.8f
 
-        if (average != 0f && bestReadings.size > MAX_GPS_READINGS / 2){
-            return average
+        return if (reading != 0f && lastReading != 0f){
+            (1 - alpha) * lastReading + alpha * reading
+        } else if (reading != 0f){
+            reading
+        } else {
+            lastReading
         }
-
-        val lastAltitude = getLastAltitude()
-        if (lastAltitude == 0F && bestReadings.isNotEmpty()){
-            return bestReadings.average().toFloat()
-        }
-
-        return lastAltitude.toFloat()
     }
 
     private fun getTruePressure(readings: List<Float>): Float {
-        val bestReadings = getBestReadings(readings, 0.1f)
+        val reading = readings.median()
+        val lastReading = getLastPressure()
 
-        if (bestReadings.size > MAX_BAROMETER_READINGS / 2){
-            return bestReadings.average().toFloat()
+        val alpha = 0.8f
+
+        return if (reading != 0f && lastReading != 0f){
+            (1 - alpha) * lastReading + alpha * reading
+        } else if (reading != 0f){
+            reading
+        } else {
+            lastReading
         }
-
-        val lastPressure = getLastPressure()
-        if (lastPressure == 0.0f && bestReadings.isNotEmpty()){
-            return bestReadings.average().toFloat()
-        }
-
-        return lastPressure
     }
 
     private fun recordBarometerReading(){
@@ -153,13 +155,15 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
         val sentAlert = prefs.getBoolean(context.getString(R.string.pref_just_sent_alert), false)
         val useSeaLevel = prefs.getBoolean(context.getString(R.string.pref_use_sea_level_pressure), false)
 
-        if (WeatherUtils.isStormIncoming(
-                PressureHistoryRepository.getAll(
-                    context
-                ),
-                useSeaLevel
-            )
-        ){
+        val pressureConverter = if (useSeaLevel){
+            DerivativeSeaLevelPressureConverter(Constants.MAXIMUM_NATURAL_PRESSURE_CHANGE)
+        } else {
+            NullPressureConverter()
+        }
+
+        val readings = PressureHistoryRepository.getAll(context)
+
+        if (WeatherUtils.isStormIncoming(pressureConverter.convert(readings))){
 
             val shouldSend = prefs.getBoolean(context.getString(R.string.pref_send_storm_alert), true)
             if (shouldSend && !sentAlert) {

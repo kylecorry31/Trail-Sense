@@ -11,8 +11,6 @@ class SeaLevelPressureCalibratorTest {
     fun getCalibratedPressure() {
         val pressure = 1000F
         val altitude = 200F
-        val pressureCalibrator = SeaLevelPressureCalibrator()
-
-        assertEquals(altitude, SensorManager.getAltitude(pressureCalibrator.getCalibratedPressure(pressure, altitude), pressure), 0.01F)
+        assertEquals(altitude, SensorManager.getAltitude(SeaLevelPressureCalibrator.calibrate(pressure, altitude), pressure), 0.01F)
     }
 }
