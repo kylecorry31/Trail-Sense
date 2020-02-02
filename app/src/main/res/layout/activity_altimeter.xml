@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="100 m" />
 
-    <com.anychart.AnyChartView
+    <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/altitude_chart"
         android:layout_width="0dp"
         android:layout_height="200dp"
@@ -43,6 +43,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/altitude">
 
-    </com.anychart.AnyChartView>
+    </com.github.mikephil.charting.charts.LineChart>
+
+    <TextView
+        android:id="@+id/altitude_chart_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/altitude_chart_title"
+        app:layout_constraintBottom_toTopOf="@+id/altitude_chart"
+        app:layout_constraintEnd_toEndOf="@+id/altitude_chart"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/altitude_chart_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/altitude_chart"
+        app:layout_constraintStart_toStartOf="@+id/altitude_chart"
+        app:layout_constraintTop_toBottomOf="@+id/altitude_chart"
+        tools:text="48 Hours" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

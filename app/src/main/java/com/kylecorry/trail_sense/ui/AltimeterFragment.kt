@@ -9,15 +9,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import com.anychart.AnyChartView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.sensors.gps.GPS
 import java.util.*
-import com.anychart.AnyChart.area
-import com.anychart.chart.common.dataentry.DataEntry
-import com.anychart.chart.common.dataentry.ValueDataEntry
-import com.anychart.charts.Cartesian
-import com.anychart.enums.ScaleTypes
 import com.kylecorry.trail_sense.Constants
 import com.kylecorry.trail_sense.database.PressureHistoryRepository
 import com.kylecorry.trail_sense.models.AltitudeReading
@@ -29,9 +23,6 @@ import java.time.Duration
 import java.time.Instant
 import kotlin.math.roundToInt
 
-
-
-
 class AltimeterFragment : Fragment(), Observer {
 
     private lateinit var barometer: Barometer
@@ -41,15 +32,11 @@ class AltimeterFragment : Fragment(), Observer {
     private var units = Constants.DISTANCE_UNITS_METERS
     private var mode = Constants.ALTIMETER_MODE_BAROMETER_GPS
 
-    private val CHART_DURATION = Duration.ofHours(48)
+    private val CHART_DURATION = Duration.ofHours(12)
 
     private lateinit var altitudeTxt: TextView
-    private lateinit var chart: AnyChartView
-
-    private lateinit var areaChart: Cartesian
-
-    private var chartInitialized = false
-
+    private lateinit var chart: ILineChart
+    private lateinit var chartDurationTxt: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_altimeter, container, false)
@@ -59,7 +46,8 @@ class AltimeterFragment : Fragment(), Observer {
         gps = GPS(context!!)
 
         altitudeTxt = view.findViewById(R.id.altitude)
-        chart = view.findViewById(R.id.altitude_chart)
+        chart = MpLineChart(view.findViewById(R.id.altitude_chart), resources.getColor(R.color.colorPrimary, null))
+        chartDurationTxt = view.findViewById(R.id.altitude_chart_duration)
 
         return view
     }
@@ -82,9 +70,7 @@ class AltimeterFragment : Fragment(), Observer {
             barometer.start()
         }
 
-        if (!chartInitialized){
-            createAltitudeChart()
-        }
+        updateAltimeterChartData()
     }
 
     override fun onPause() {
@@ -103,11 +89,7 @@ class AltimeterFragment : Fragment(), Observer {
             updateAltitude()
         }
         if (o == PressureHistoryRepository) {
-            if (!chartInitialized) {
-                createAltitudeChart()
-            } else {
-                updateAltimeterChartData()
-            }
+            updateAltimeterChartData()
         }
         if (o == gps){
             gotGpsReading = true
@@ -146,25 +128,6 @@ class AltimeterFragment : Fragment(), Observer {
         return gpsAltitude + change
     }
 
-    private fun createAltitudeChart(){
-        areaChart = area()
-        areaChart.credits().enabled(false)
-        areaChart.animation(true)
-        areaChart.title(getString(R.string.altitude_chart_title))
-        updateAltimeterChartData()
-        areaChart.yAxis(0).title(false)
-        areaChart.yScale().ticks().interval(10)
-
-//        areaChart.yScale().softMinimum(0)
-        areaChart.xScale(ScaleTypes.DATE_TIME)
-
-
-        areaChart.xAxis(0).labels().enabled(false)
-        areaChart.getSeriesAt(0).color(String.format("#%06X", 0xFFFFFF and resources.getColor(R.color.colorPrimary, null)))
-        chart.setChart(areaChart)
-        chartInitialized = true
-    }
-
     private fun getAltitudeHistory(pressureHistory: List<PressureAltitudeReading> = PressureHistoryRepository.getAll(context!!)): List<AltitudeReading> {
 
         val altitudeHistory = mutableListOf<AltitudeReading>()
@@ -199,16 +162,9 @@ class AltimeterFragment : Fragment(), Observer {
     }
 
     private fun updateAltimeterChartData(){
-        val seriesData = mutableListOf<DataEntry>()
-
         val pressureHistory = PressureHistoryRepository.getAll(context!!).filter { Duration.between(it.time, Instant.now()) < CHART_DURATION }
 
         val readings = getAltitudeHistory(pressureHistory)
-
-        if (readings.isEmpty()){
-            areaChart.data(seriesData)
-            return
-        }
 
         if (readings.size >= 2){
             val totalTime = Duration.between(readings.first().time, readings.last().time)
@@ -216,30 +172,23 @@ class AltimeterFragment : Fragment(), Observer {
             val minutes = totalTime.toMinutes() - hours * 60
 
             when (hours) {
-                0L -> areaChart.xAxis(0  ).title("$minutes minute${if (minutes == 1L) "" else "s"}")
+                0L -> chartDurationTxt.text = "$minutes minute${if (minutes == 1L) "" else "s"}"
                 else -> {
                     if (minutes >= 30) hours++
-                    areaChart.xAxis(0  ).title("$hours hour${if (hours == 1L) "" else "s"}")
+                    chartDurationTxt.text = "$hours hour${if (hours == 1L) "" else "s"}"
                 }
             }
 
         }
 
-        readings.forEach {
+        val chartData = readings.map {
             val date = it.time.toZonedDateTime()
 
-            seriesData.add(
-                PressureDataEntry(
-                    (date.toEpochSecond() + date.offset.totalSeconds) * 1000,
+            Pair<Number, Number>((date.toEpochSecond() + date.offset.totalSeconds) * 1000,
                     LocationMath.convertToBaseUnit(it.value, units)
-                )
             )
         }
-        areaChart.data(seriesData)
-    }
 
-    private inner class PressureDataEntry internal constructor(
-        x: Number,
-        value: Number
-    ) : ValueDataEntry(x, value)
+        chart.plot(chartData)
+    }
 }

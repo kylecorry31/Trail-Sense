@@ -11,6 +11,7 @@ class DerivativeSeaLevelPressureConverter(private val maximumNaturalChange: Floa
         val output = mutableListOf<PressureReading>()
 
         var lastPressure = readings.first()
+        var lastDp = 0f
 
         var pressure = SeaLevelPressureCalibrator.calibrate(
                 lastPressure.pressure,
@@ -26,12 +27,13 @@ class DerivativeSeaLevelPressureConverter(private val maximumNaturalChange: Floa
             }
 
             if (abs(dp) > maximumNaturalChange) {
-                // Caused by change in location, don't accumulate pressure
-                dp = 0f
+                dp = lastDp
             }
 
             pressure += dp * dt
+
             lastPressure = it
+            lastDp = dp
 
             output.add(PressureReading(it.time, pressure))
         }

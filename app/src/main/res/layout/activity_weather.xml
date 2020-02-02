@@ -7,7 +7,7 @@
     android:paddingBottom="8dp"
     tools:context=".ui.BarometerFragment">
 
-    <com.anychart.AnyChartView
+    <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="0dp"
         android:layout_height="200dp"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barometerInterpretation" >
 
-    </com.anychart.AnyChartView>
+    </com.github.mikephil.charting.charts.LineChart>
 
 
     <TextView
@@ -79,5 +79,23 @@
         app:layout_constraintBottom_toBottomOf="@+id/pressure"
         app:layout_constraintEnd_toStartOf="@+id/pressure"
         app:layout_constraintTop_toTopOf="@+id/pressure" />
+
+    <TextView
+        android:id="@+id/barometer_chart_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pressure_chart_title"
+        app:layout_constraintBottom_toTopOf="@+id/chart"
+        app:layout_constraintEnd_toEndOf="@+id/chart"
+        app:layout_constraintStart_toStartOf="@+id/chart" />
+
+    <TextView
+        android:id="@+id/pressure_history_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/chart"
+        app:layout_constraintStart_toStartOf="@+id/chart"
+        app:layout_constraintTop_toBottomOf="@+id/chart"
+        tools:text="48 Hours" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

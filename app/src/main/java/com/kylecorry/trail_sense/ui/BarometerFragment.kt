@@ -8,21 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import com.anychart.AnyChartView
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.sensors.gps.GPS
 import java.util.*
-import com.anychart.AnyChart.area
-import com.anychart.chart.common.dataentry.DataEntry
-import com.anychart.chart.common.dataentry.ValueDataEntry
-import com.anychart.charts.Cartesian
-import com.anychart.enums.ScaleTypes
-import com.kylecorry.trail_sense.Constants
-import com.kylecorry.trail_sense.roundPlaces
+import com.kylecorry.trail_sense.*
 import com.kylecorry.trail_sense.sensors.barometer.Barometer
-import com.kylecorry.trail_sense.toZonedDateTime
 import com.kylecorry.trail_sense.database.PressureHistoryRepository
 import com.kylecorry.trail_sense.weather.*
+import org.w3c.dom.Text
 import java.time.*
 
 
@@ -42,12 +34,10 @@ class BarometerFragment : Fragment(), Observer {
     private lateinit var pressureTxt: TextView
     private lateinit var stormWarningTxt: TextView
     private lateinit var barometerInterpTxt: TextView
-    private lateinit var chart: AnyChartView
     private lateinit var trendImg: ImageView
+    private lateinit var historyDurationTxt: TextView
 
-    private lateinit var areaChart: Cartesian
-
-    private var chartInitialized = false
+    private lateinit var chart: ILineChart
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -60,8 +50,9 @@ class BarometerFragment : Fragment(), Observer {
         pressureTxt = view.findViewById(R.id.pressure)
         stormWarningTxt = view.findViewById(R.id.stormWarning)
         barometerInterpTxt = view.findViewById(R.id.barometerInterpretation)
-        chart = view.findViewById(R.id.chart)
+        chart = MpLineChart(view.findViewById(R.id.chart), resources.getColor(R.color.colorPrimary, null))
         trendImg = view.findViewById(R.id.barometer_trend)
+        historyDurationTxt = view.findViewById(R.id.pressure_history_duration)
 
         return view
     }
@@ -81,8 +72,7 @@ class BarometerFragment : Fragment(), Observer {
 
         units = prefs.getString(getString(R.string.pref_pressure_units), Constants.PRESSURE_UNITS_HPA) ?: Constants.PRESSURE_UNITS_HPA
 
-        if (!useSeaLevelPressure)
-            createBarometerChart()
+        updateBarometerChartData()
 
         gps.updateLocation {
             if (context != null) {
@@ -93,7 +83,6 @@ class BarometerFragment : Fragment(), Observer {
 
                 if (useSeaLevelPressure) {
                     updatePressure()
-                    createBarometerChart()
                 }
             }
         }
@@ -109,11 +98,7 @@ class BarometerFragment : Fragment(), Observer {
     override fun update(o: Observable?, arg: Any?) {
         if (o == barometer) updatePressure()
         if (o == PressureHistoryRepository) {
-            if (!chartInitialized) {
-                createBarometerChart()
-            } else {
-                updateBarometerChartData()
-            }
+            updateBarometerChartData()
         }
     }
 
@@ -180,46 +165,21 @@ class BarometerFragment : Fragment(), Observer {
         )
     }
 
-    private fun createBarometerChart(){
-        if (context == null) return
-        areaChart = area()
-        areaChart.credits().enabled(false)
-        areaChart.animation(true)
-        areaChart.title(getString(R.string.pressure_chart_title))
-        updateBarometerChartData()
-        areaChart.yAxis(0).title(false)
-        areaChart.yScale().ticks().interval(0.05)
-
-        val min: Number = WeatherUtils.convertPressureToUnits(
-            1015f,
-            units
-        ).roundPlaces(2)
-
-        areaChart.yScale().softMinimum(min)
-        areaChart.xScale(ScaleTypes.DATE_TIME)
-
-        areaChart.xAxis(0).labels().enabled(false)
-        areaChart.getSeriesAt(0).color(String.format("#%06X", 0xFFFFFF and resources.getColor(R.color.colorPrimary, null)))
-        chart.setChart(areaChart)
-        chartInitialized = true
-    }
-
-    private fun updateBarometerChartData(){
-        val seriesData = mutableListOf<DataEntry>()
-
+    private fun updateBarometerChartData() {
         val readings = PressureHistoryRepository.getAll(context!!)
 
-        if (readings.size >= 2){
+        if (readings.size >= 2) {
             val totalTime = Duration.between(
-                readings.first().time, readings.last().time)
+                readings.first().time, readings.last().time
+            )
             var hours = totalTime.toHours()
             val minutes = totalTime.toMinutes() - hours * 60
 
             when (hours) {
-                0L -> areaChart.xAxis(0  ).title("$minutes minute${if (minutes == 1L) "" else "s"}")
+                0L -> historyDurationTxt.text = "$minutes minute${if (minutes == 1L) "" else "s"}"
                 else -> {
                     if (minutes >= 30) hours++
-                    areaChart.xAxis(0  ).title("$hours hour${if (hours == 1L) "" else "s"}")
+                    historyDurationTxt.text = "$hours hour${if (hours == 1L) "" else "s"}"
                 }
             }
 
@@ -227,22 +187,14 @@ class BarometerFragment : Fragment(), Observer {
 
         val convertedPressures = pressureConverter.convert(readings)
 
-        convertedPressures.forEach {
+        val chartData = convertedPressures.map {
             val date = it.time.toZonedDateTime()
-            seriesData.add(
-                PressureDataEntry(
-                    (date.toEpochSecond() + date.offset.totalSeconds) * 1000,
-                        WeatherUtils.convertPressureToUnits(
-                            it.value,
-                            units)
-                )
+            Pair(
+                ((date.toEpochSecond() + date.offset.totalSeconds) * 1000) as Number,
+                (WeatherUtils.convertPressureToUnits(it.value, units)) as Number
             )
         }
-        areaChart.data(seriesData)
-    }
 
-    private inner class PressureDataEntry internal constructor(
-        x: Number,
-        value: Number
-    ) : ValueDataEntry(x, value)
+        chart.plot(chartData)
+    }
 }

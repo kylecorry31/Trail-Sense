@@ -34,3 +34,7 @@ fun List<Double>.median(): Double {
     val sortedList = this.sortedBy { it }
     return sortedList[this.size / 2]
 }
+
+fun Int.toHexColor(): String {
+    return String.format("#%06X", 0xFFFFFF and this)
+}
