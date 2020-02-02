@@ -35,7 +35,8 @@ class MpLineChart(private val chart: LineChart, private val color: Int): ILineCh
         set1.color = color
         set1.fillAlpha = 180
         set1.lineWidth = 2f
-        set1.mode = LineDataSet.Mode.CUBIC_BEZIER
+        set1.setDrawValues(false)
+        set1.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
         set1.fillColor = color
         set1.setDrawCircleHole(false)
         set1.setDrawCircles(false)
