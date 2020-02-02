@@ -6,6 +6,9 @@ import com.kylecorry.trail_sense.models.PressureAltitudeReading
 
 class InitialCalibrationBarometerAltitudeCalculator : IAltitudeCalculator {
     override fun convert(readings: List<PressureAltitudeReading>): List<AltitudeReading> {
+
+        if (readings.isEmpty()) return listOf()
+
         val referenceReading = readings.first()
 
         return readings.map {

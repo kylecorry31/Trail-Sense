@@ -8,6 +8,8 @@ import kotlin.math.abs
 class DerivativeSeaLevelPressureConverter(private val maximumNaturalChange: Float)  : ISeaLevelPressureConverter {
     override fun convert(readings: List<PressureAltitudeReading>): List<PressureReading> {
 
+        if (readings.isEmpty()) return listOf()
+
         val output = mutableListOf<PressureReading>()
 
         var lastPressure = readings.first()
