@@ -1,0 +1,17 @@
+package com.kylecorry.trail_sense.weather
+
+import com.kylecorry.trail_sense.altimeter.IAltitudeCalculator
+import com.kylecorry.trail_sense.models.PressureAltitudeReading
+import com.kylecorry.trail_sense.models.PressureReading
+
+class AltimeterSeaLevelPressureConverter(private val altitudeCalculator: IAltitudeCalculator) : ISeaLevelPressureConverter {
+
+    override fun convert(readings: List<PressureAltitudeReading>): List<PressureReading> {
+        val altitudeHistory = altitudeCalculator.convert(readings)
+
+        return readings.mapIndexed { index, reading ->
+            PressureReading(reading.time, SeaLevelPressureCalibrator.calibrate(reading.pressure, altitudeHistory[index].value))
+        }
+    }
+
+}

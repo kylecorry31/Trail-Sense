@@ -11,6 +11,10 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.sensors.gps.GPS
 import java.util.*
 import com.kylecorry.trail_sense.*
+import com.kylecorry.trail_sense.altimeter.AltitudeCalculatorFactory
+import com.kylecorry.trail_sense.altimeter.BarometerAltitudeCalculator
+import com.kylecorry.trail_sense.altimeter.GPSAltitudeCalculator
+import com.kylecorry.trail_sense.altimeter.InitialCalibrationBarometerAltitudeCalculator
 import com.kylecorry.trail_sense.sensors.barometer.Barometer
 import com.kylecorry.trail_sense.database.PressureHistoryRepository
 import com.kylecorry.trail_sense.weather.*
@@ -66,7 +70,9 @@ class BarometerFragment : Fragment(), Observer {
         useSeaLevelPressure = prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), false)
 
         if (useSeaLevelPressure){
-            pressureConverter = DerivativeSeaLevelPressureConverter(Constants.MAXIMUM_NATURAL_PRESSURE_CHANGE)
+            var calculator = AltitudeCalculatorFactory(context!!).create()
+            if (calculator is BarometerAltitudeCalculator || calculator is InitialCalibrationBarometerAltitudeCalculator) calculator = GPSAltitudeCalculator()
+            pressureConverter = AltimeterSeaLevelPressureConverter(calculator)
         }
 
         units = prefs.getString(getString(R.string.pref_pressure_units), Constants.PRESSURE_UNITS_HPA) ?: Constants.PRESSURE_UNITS_HPA

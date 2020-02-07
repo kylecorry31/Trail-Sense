@@ -13,5 +13,5 @@ object Constants {
 
     const val PRESSURE_UNITS_HPA = "hPa"
 
-    const val MAXIMUM_NATURAL_PRESSURE_CHANGE = 2.5f
+    const val MAXIMUM_NATURAL_PRESSURE_CHANGE = 5f
 }
