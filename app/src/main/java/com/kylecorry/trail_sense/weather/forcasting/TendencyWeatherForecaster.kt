@@ -5,11 +5,11 @@ import com.kylecorry.trail_sense.models.PressureTendency
 class TendencyWeatherForecaster : IWeatherForecaster {
     override fun forcast(pressure: Float, tendency: PressureTendency): String {
         return when(tendency){
-            PressureTendency.FALLING_SLOW -> "Weather may worsen"
-            PressureTendency.RISING_SLOW -> "Weather may improve"
-            PressureTendency.FALLING_FAST -> "Weather will worsen soon"
-            PressureTendency.RISING_FAST -> "Weather will improve soon "
-            PressureTendency.STEADY -> "Weather not changing"
+            PressureTendency.FALLING_SLOW -> "Worsening"
+            PressureTendency.RISING_SLOW -> "Improving"
+            PressureTendency.FALLING_FAST -> "Worsening soon"
+            PressureTendency.RISING_FAST -> "Improving soon"
+            PressureTendency.STEADY -> "No change"
         }
     }
 }
