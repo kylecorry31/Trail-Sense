@@ -14,7 +14,7 @@ class PressureTendencyCalculator: IPressureTendencyCalculator {
             change <= -SLOW_CHANGE_THRESHOLD -> PressureTendency.FALLING_SLOW
             change >= FAST_CHANGE_THRESHOLD -> PressureTendency.RISING_FAST
             change >= SLOW_CHANGE_THRESHOLD -> PressureTendency.RISING_SLOW
-            else -> PressureTendency.NO_CHANGE
+            else -> PressureTendency.STEADY
         }
     }
 

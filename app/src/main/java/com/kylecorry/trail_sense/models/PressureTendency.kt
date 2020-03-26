@@ -5,5 +5,5 @@ enum class PressureTendency {
     RISING_SLOW,
     FALLING_FAST,
     RISING_FAST,
-    NO_CHANGE
+    STEADY
 }

@@ -18,6 +18,9 @@ import com.kylecorry.trail_sense.altimeter.InitialCalibrationBarometerAltitudeCa
 import com.kylecorry.trail_sense.sensors.barometer.Barometer
 import com.kylecorry.trail_sense.database.PressureHistoryRepository
 import com.kylecorry.trail_sense.weather.*
+import com.kylecorry.trail_sense.weather.forcasting.IWeatherForecaster
+import com.kylecorry.trail_sense.weather.forcasting.PressureAndTendencyWeatherForecaster
+import com.kylecorry.trail_sense.weather.forcasting.TendencyWeatherForecaster
 import org.w3c.dom.Text
 import java.time.*
 
@@ -33,7 +36,7 @@ class BarometerFragment : Fragment(), Observer {
     private var units = Constants.PRESSURE_UNITS_HPA
     private var pressureConverter: ISeaLevelPressureConverter = NullPressureConverter()
 
-    private val pressureTendencyRepository = PressureTendencyRepository()
+    private val weatherForecaster: IWeatherForecaster = PressureAndTendencyWeatherForecaster()
 
     private lateinit var pressureTxt: TextView
     private lateinit var stormWarningTxt: TextView
@@ -144,7 +147,7 @@ class BarometerFragment : Fragment(), Observer {
             else -> trendImg.visibility = View.INVISIBLE
         }
 
-        barometerInterpTxt.text = pressureTendencyRepository.getDescription(pressureDirection)
+        barometerInterpTxt.text = "Several hour forecast: " + weatherForecaster.forcast(pressure, pressureDirection)
 
 
         if (WeatherUtils.isStormIncoming(convertedReadings)){
