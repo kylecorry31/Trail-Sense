@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.weather.forcasting
 
-import com.kylecorry.trail_sense.models.PressureTendency
+import com.kylecorry.trail_sense.models.PressureReading
 
 interface IWeatherForecaster {
 
-    fun forcast(pressure: Float, tendency: PressureTendency): String
+    fun forecast(readings: List<PressureReading>): Weather
 
 }

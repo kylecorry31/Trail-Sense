@@ -12,24 +12,24 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="64dp"
         android:text="@string/altitude_label"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/altitude"
         app:layout_constraintEnd_toEndOf="@+id/altitude"
-        app:layout_constraintStart_toStartOf="@+id/altitude" />
+        app:layout_constraintStart_toStartOf="@+id/altitude"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/altitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:text="100 m" />
 
     <com.github.mikephil.charting.charts.LineChart
@@ -38,10 +38,9 @@
         android:layout_height="200dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/altitude_chart_duration"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/altitude">
+        app:layout_constraintStart_toStartOf="parent">
 
     </com.github.mikephil.charting.charts.LineChart>
 
@@ -58,9 +57,10 @@
         android:id="@+id/altitude_chart_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/altitude_chart"
         app:layout_constraintStart_toStartOf="@+id/altitude_chart"
-        app:layout_constraintTop_toBottomOf="@+id/altitude_chart"
         tools:text="48 Hours" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

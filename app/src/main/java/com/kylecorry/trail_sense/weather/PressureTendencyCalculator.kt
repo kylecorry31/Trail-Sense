@@ -5,9 +5,13 @@ import com.kylecorry.trail_sense.models.PressureTendency
 import java.time.Duration
 import java.time.Instant
 
-class PressureTendencyCalculator: IPressureTendencyCalculator {
-    override fun getPressureTendency(readings: List<PressureReading>): PressureTendency {
-        val change = getRecentChangeAmount(readings)
+object PressureTendencyCalculator {
+
+    private const val FAST_CHANGE_THRESHOLD = 2f
+    private const val SLOW_CHANGE_THRESHOLD = 0.5f
+
+    fun getPressureTendency(readings: List<PressureReading>, duration: Duration): PressureTendency {
+        val change = getChangeAmount(readings, duration)
 
         return when {
             change <= -FAST_CHANGE_THRESHOLD -> PressureTendency.FALLING_FAST
@@ -18,18 +22,11 @@ class PressureTendencyCalculator: IPressureTendencyCalculator {
         }
     }
 
-    private fun getRecentChangeAmount(readings: List<PressureReading>): Float {
-        val filtered = readings.filter { Duration.between(it.time, Instant.now()) <= CHANGE_DURATION }
+    private fun getChangeAmount(readings: List<PressureReading>, duration: Duration): Float {
+        val filtered = readings.filter { Duration.between(it.time, Instant.now()) <= duration }
         if (filtered.size < 2) return 0f
         val firstReading = filtered.first()
         val lastReading = filtered.last()
         return lastReading.value - firstReading.value
     }
-
-    companion object {
-        private const val FAST_CHANGE_THRESHOLD = 2f
-        private const val SLOW_CHANGE_THRESHOLD = 0.5f
-        private val CHANGE_DURATION = Duration.ofHours(3).plusMinutes(5)
-    }
-
 }

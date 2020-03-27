@@ -4,13 +4,12 @@ import com.kylecorry.trail_sense.models.PressureAltitudeReading
 import com.kylecorry.trail_sense.models.PressureReading
 import com.kylecorry.trail_sense.models.PressureTendency
 import java.text.DecimalFormat
+import java.time.Duration
 
 /**
  * A collection of weather utilities
  */
 object WeatherUtils {
-
-    private val pressureTendencyCalculator: IPressureTendencyCalculator = PressureTendencyCalculator()
 
     /**
      * Converts a pressure in hPa to another unit
@@ -80,7 +79,15 @@ object WeatherUtils {
                 it.value
             )
         }
-        return pressureTendencyCalculator.getPressureTendency(calibratedReadings)
+        return PressureTendencyCalculator.getPressureTendency(calibratedReadings, Duration.ofHours(3).plusMinutes(5))
+    }
+
+    fun isHighPressure(pressure: Float): Boolean {
+        return pressure >= 1022.6
+    }
+
+    fun isLowPressure(pressure: Float): Boolean {
+        return pressure <= 1009.14
     }
 
     /**
