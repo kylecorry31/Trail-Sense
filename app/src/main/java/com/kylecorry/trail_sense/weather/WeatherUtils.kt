@@ -1,9 +1,6 @@
 package com.kylecorry.trail_sense.weather
 
-import com.kylecorry.trail_sense.models.PressureReading
-import com.kylecorry.trail_sense.models.OldPressureTendency
 import java.text.DecimalFormat
-import java.time.Duration
 
 /**
  * A collection of weather utilities
