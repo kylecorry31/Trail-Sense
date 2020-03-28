@@ -9,11 +9,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.kylecorry.trail_sense.ui.AltimeterFragment
-import com.kylecorry.trail_sense.ui.NavigatorFragment
-import com.kylecorry.trail_sense.ui.SettingsFragment
 import com.kylecorry.trail_sense.services.BarometerService
-import com.kylecorry.trail_sense.ui.BarometerFragment
+import com.kylecorry.trail_sense.ui.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -61,6 +58,9 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_altimeter -> {
                 switchFragment(AltimeterFragment())
+            }
+            R.id.action_astronomy -> {
+                switchFragment(AstronomyFragment())
             }
             R.id.action_settings -> {
                 switchFragment(SettingsFragment())
