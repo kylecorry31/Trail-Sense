@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="8dp"
     tools:context=".ui.BarometerFragment">
 
     <com.github.mikephil.charting.charts.LineChart
@@ -48,7 +47,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="@dimen/default_top_margin"
         android:text="@string/air_pressure_label"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textSize="12sp"
@@ -82,7 +81,7 @@
         android:id="@+id/pressure_history_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/chart"
         app:layout_constraintStart_toStartOf="@+id/chart"

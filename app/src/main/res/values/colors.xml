@@ -3,5 +3,7 @@
     <color name="colorPrimary">#FF6D00</color>
     <color name="colorPrimaryDark">#D32F2F</color>
     <color name="colorAccent">#FF9100</color>
+    <color name="night">#003688</color>
+    <color name="day">@color/colorPrimary</color>
     <color name="white">#FFFFFF</color>
 </resources>

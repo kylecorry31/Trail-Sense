@@ -1,13 +1,15 @@
 package com.kylecorry.trail_sense.weather.forcasting
 
 import com.kylecorry.trail_sense.models.PressureReading
+import com.kylecorry.trail_sense.weather.PressureTendencyCalculator
+import java.time.Duration
 import kotlin.math.pow
 
 class DailyForecaster : IWeatherForecaster {
 
     override fun forecast(readings: List<PressureReading>): Weather {
 
-        val slope = getSlope(readings) * 60 * 60 * 3
+        val slope = PressureTendencyCalculator.getPressureTendency(readings, Duration.ofHours(48)).amount
 
         return when {
             slope <= -CHANGE_THRESHOLD -> Weather.WorseningSlow
@@ -15,27 +17,6 @@ class DailyForecaster : IWeatherForecaster {
             else -> Weather.Unknown
         }
 
-    }
-
-    private fun getSlope(readings: List<PressureReading>): Float {
-        val startTime = readings.first().time.epochSecond
-        val xBar = readings.map { it.time.epochSecond - startTime }.average().toFloat()
-        val yBar = readings.map { it.value }.average().toFloat()
-
-        var ssxx = 0.0f
-        var ssxy = 0.0f
-        var ssto = 0.0f
-
-        for (i in readings.indices) {
-            val x = (readings[i].time.epochSecond - startTime).toFloat()
-            ssxx += (x - xBar).pow(2)
-            ssxy += (x - xBar) * (readings[i].value - yBar)
-            ssto += (readings[i].value - yBar).pow(2)
-        }
-
-        val b1 = ssxy / ssxx
-
-        return b1
     }
 
     companion object {

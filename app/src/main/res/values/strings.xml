@@ -48,4 +48,8 @@
     <string name="pref_use_24_hour_title">Use 24 hour format</string>
     <string name="pref_altitude_mode">altitude_mode</string>
     <string name="pref_altitude_mode_title">Altitude mode</string>
+    <string name="noon_label">Noon</string>
+    <string name="midnight_label">Midnight</string>
+    <string name="until_sunrise_label">Time until sunrise</string>
+    <string name="until_sunset_label">Time until sunset</string>
 </resources>
