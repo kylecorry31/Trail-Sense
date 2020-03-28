@@ -120,6 +120,9 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         if (useBarometricAltitude){
             barometer.start()
+            gps.updateLocation {
+                barometer.setAltitude(gps.altitude.value)
+            }
         } else {
             gps.start()
         }
@@ -275,10 +278,18 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
             gps.altitude
         }
 
-        altitudeTxt.text = "Altitude ${LocationMath.distanceToReadableString(altitude.value, units)}"
+        altitudeTxt.text = "Altitude ${getAltitudeString(altitude.value, units)}"
 
         // Update the navigation display
         updateNavigationUI()
+    }
+
+    private fun getAltitudeString(altitude: Float, units: String): String {
+        if (units == "meters"){
+            return "${altitude.roundToInt()} m"
+        } else {
+            return "${LocationMath.convertToBaseUnit(altitude, units).roundToInt()} ft"
+        }
     }
 
 }
