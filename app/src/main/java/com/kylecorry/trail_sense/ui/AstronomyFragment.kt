@@ -14,6 +14,8 @@ import com.kylecorry.trail_sense.sensors.gps.GPS
 import java.util.*
 import com.kylecorry.trail_sense.Constants
 import com.kylecorry.trail_sense.altimeter.*
+import com.kylecorry.trail_sense.astronomy.Moon
+import com.kylecorry.trail_sense.astronomy.Sun
 import com.kylecorry.trail_sense.database.PressureHistoryRepository
 import com.kylecorry.trail_sense.models.AltitudeReading
 import com.kylecorry.trail_sense.models.Coordinate
@@ -59,13 +61,23 @@ class AstronomyFragment : Fragment(), Observer {
         if (context == null) return
         if (o == gps){
             gotLocation = true
+            location = gps.location
             gps.stop()
+            updateUI()
         }
     }
 
     fun updateUI(){
-        // TODO: Calculate sunrise / sunset times
-        // TODO: Calculate moon phase
+        val sunrise = Sun.getSunrise(location).toLocalDateTime()
+        val sunset = Sun.getSunset(location).toLocalDateTime()
+        val moonPhase = Moon.getPhase()
+
+        print(sunrise)
+        print(", ")
+        print(sunset)
+        print(", ")
+        println(moonPhase)
+
     }
 
 }
