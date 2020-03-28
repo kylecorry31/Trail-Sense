@@ -2,9 +2,7 @@ package com.kylecorry.trail_sense
 
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import java.time.Instant
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import java.time.*
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -19,6 +17,10 @@ fun Float.roundPlaces(places: Int): Float {
 
 fun Instant.toZonedDateTime(): ZonedDateTime {
     return ZonedDateTime.ofInstant(this, ZoneId.systemDefault())
+}
+
+fun LocalDateTime.toZonedInstant(): Instant {
+    return ZonedDateTime.of(this, ZoneId.systemDefault()).toInstant()
 }
 
 fun List<Float>.median(): Float {

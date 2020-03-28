@@ -4,15 +4,15 @@ import java.time.LocalDate
 
 object Moon {
 
-    enum class Phase {
-        New,
-        WaxingCrescent,
-        FirstQuarter,
-        WaxingGibbous,
-        Full,
-        WaningGibbous,
-        LastQuarter,
-        WaningCrescent
+    enum class Phase(val longName: String) {
+        New("New Moon"),
+        WaxingCrescent("Waxing Crescent"),
+        FirstQuarter("First Quarter"),
+        WaxingGibbous("Waxing Gibbous"),
+        Full("Full Moon"),
+        WaningGibbous("Waning Gibbous"),
+        LastQuarter("Last Quarter"),
+        WaningCrescent("Waning Crescent")
     }
 
     /**

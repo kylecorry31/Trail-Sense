@@ -25,13 +25,11 @@
     </string-array>
 
     <string-array name="altimeter_mode_entries">
-        <item>Barometer only</item>
         <item>GPS only</item>
         <item>Barometer and GPS</item>
     </string-array>
 
     <string-array name="altimeter_mode_values">
-        <item>barometer</item>
         <item>gps</item>
         <item>barometer_gps</item>
     </string-array>

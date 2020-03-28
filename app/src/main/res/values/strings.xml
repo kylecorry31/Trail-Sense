@@ -21,8 +21,6 @@
     <string name="pref_use_true_north">use_true_north</string>
     <string name="pref_use_sea_level_pressure">use_sea_level_pressure</string>
     <string name="pref_send_storm_alert">send_storm_alert</string>
-    <string name="sunrise_label">Sunrise</string>
-    <string name="sunset_label">Sunset</string>
     <string name="air_pressure_label">Pressure</string>
     <string name="use_sea_level_pressure">Use sea level pressure</string>
     <string name="pref_use_true_north_summary_on">Point toward True North</string>
@@ -45,9 +43,14 @@
     <string name="altitude_label">Altitude</string>
     <string name="pref_altimeter_header">Altimeter</string>
     <string name="pref_altimeter_mode">altimeter_mode</string>
-    <string name="pref_altimeter_mode_title">Mode</string>
+    <string name="pref_altimeter_mode_title">Calibration mode</string>
     <string name="altitude_chart_title">Altitude History</string>
     <string name="pressure_chart_title">Pressure History</string>
     <string name="weather_now">Now</string>
     <string name="action_astronomy">Astronomy</string>
+    <string name="sunrise_label">Sunrise</string>
+    <string name="sunset_label">Sunset</string>
+    <string name="pref_astronomy_header">Astronomy</string>
+    <string name="pref_use_24_hour">use_24_hour</string>
+    <string name="pref_use_24_hour_title">Use 24 hour format</string>
 </resources>

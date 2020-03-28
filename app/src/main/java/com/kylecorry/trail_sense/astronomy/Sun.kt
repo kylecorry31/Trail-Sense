@@ -35,7 +35,7 @@ object Sun {
     private const val UTC_2000 = 946728000000L
 
 
-    fun getSunrise(coordinate: Coordinate, day: ZonedDateTime = ZonedDateTime.now()): ZonedDateTime {
+    fun getSunrise(coordinate: Coordinate, day: ZonedDateTime = ZonedDateTime.now()): LocalTime {
         val daysSince2000 = Duration.between(Instant.ofEpochMilli(UTC_2000), day.toInstant()).toDays()
         val meanAnomaly = 6.240059968f + daysSince2000 * 0.01720197f
         val trueAnomaly =
@@ -60,16 +60,16 @@ object Sun {
         // The day or night never ends for the given date and location, if this value is out of
         // range.
         if (cosHourAngle >= 1) {
-            return ZonedDateTime.now()
+            return LocalTime.now()
         } else if (cosHourAngle <= -1) {
-            return ZonedDateTime.now()
+            return LocalTime.now()
         }
         val hourAngle = (acos(cosHourAngle) / (2 * Math.PI)).toFloat()
         val instant = Instant.ofEpochMilli(((solarTransitJ2000 - hourAngle) * DateUtils.DAY_IN_MILLIS).roundToLong() + UTC_2000)
-        return instant.toZonedDateTime()
+        return instant.toZonedDateTime().toLocalTime()
     }
 
-    fun getSunset(coordinate: Coordinate, day: ZonedDateTime = ZonedDateTime.now()): ZonedDateTime {
+    fun getSunset(coordinate: Coordinate, day: ZonedDateTime = ZonedDateTime.now()): LocalTime {
         val daysSince2000 = Duration.between(Instant.ofEpochMilli(UTC_2000), day.toInstant()).toDays()
         val meanAnomaly = 6.240059968f + daysSince2000 * 0.01720197f
         val trueAnomaly =
@@ -94,13 +94,13 @@ object Sun {
         // The day or night never ends for the given date and location, if this value is out of
         // range.
         if (cosHourAngle >= 1) {
-            return ZonedDateTime.now()
+            return LocalTime.now()
         } else if (cosHourAngle <= -1) {
-            return ZonedDateTime.now()
+            return LocalTime.now()
         }
         val hourAngle = (acos(cosHourAngle) / (2 * Math.PI)).toFloat()
         val instant = Instant.ofEpochMilli(((solarTransitJ2000 + hourAngle) * DateUtils.DAY_IN_MILLIS).roundToLong() + UTC_2000)
-        return instant.toZonedDateTime()
+        return instant.toZonedDateTime().toLocalTime()
     }
 
 }

@@ -34,6 +34,11 @@
             app:title="@string/pref_pressure_units_title"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            app:key="@string/pref_use_24_hour"
+            app:title="@string/pref_use_24_hour_title"
+            app:defaultValue="false"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_navigation_header">
@@ -56,15 +61,6 @@
             app:summaryOn="@string/pref_use_sea_level_pressure_summary_on"
             app:title="@string/use_sea_level_pressure" />
 
-        <SwitchPreferenceCompat
-            app:key="@string/pref_send_storm_alert"
-            app:title="@string/pref_send_storm_alerts_title"
-            app:defaultValue="true"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/pref_altimeter_header">
-
         <ListPreference
             app:defaultValue="barometer_gps"
             app:entries="@array/altimeter_mode_entries"
@@ -72,6 +68,11 @@
             app:key="@string/pref_altimeter_mode"
             app:title="@string/pref_altimeter_mode_title"
             app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:key="@string/pref_send_storm_alert"
+            app:title="@string/pref_send_storm_alerts_title"
+            app:defaultValue="true"/>
 
     </PreferenceCategory>
 
