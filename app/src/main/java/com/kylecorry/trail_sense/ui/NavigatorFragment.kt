@@ -20,6 +20,9 @@ import com.kylecorry.trail_sense.sensors.gps.GPS
 import com.kylecorry.trail_sense.navigator.LocationMath
 import com.kylecorry.trail_sense.sensors.barometer.Barometer
 import com.kylecorry.trail_sense.navigator.DeclinationCalculator
+import com.kylecorry.trail_sense.sensors.altimeter.BarometricAltimeter
+import com.kylecorry.trail_sense.sensors.altimeter.IAltimeter
+import java.time.Duration
 import java.util.*
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -30,7 +33,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var compass: Compass
     private lateinit var gps: GPS
     private lateinit var navigator: Navigator
-    private lateinit var barometer: Barometer
+    private lateinit var barometer: BarometricAltimeter
 
     private var units = "meters"
     private var useTrueNorth = false
@@ -45,14 +48,14 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var navigationTxt: TextView
     private lateinit var beaconBtn: FloatingActionButton
     private lateinit var locationBtn: FloatingActionButton
+    private lateinit var altitudeTxt: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
 
         compass = Compass(context!!)
         gps = GPS(context!!)
-        barometer =
-            Barometer(context!!)
+        barometer = BarometricAltimeter(context!!)
         navigator = Navigator()
         if (initialDestination != null){
             navigator.destination = initialDestination
@@ -67,6 +70,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         navigationTxt = view.findViewById(R.id.navigation)
         beaconBtn = view.findViewById(R.id.beaconBtn)
         locationBtn = view.findViewById(R.id.locationBtn)
+        altitudeTxt = view.findViewById(R.id.altitude)
 
         locationBtn.setOnClickListener {
             gps.updateLocation {
@@ -104,7 +108,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         useTrueNorth = prefs.getBoolean(getString(R.string.pref_use_true_north), false)
-        useBarometricAltitude = prefs.getBoolean(getString(R.string.pref_use_barometric_altitude), false)
+        useBarometricAltitude = prefs.getString(getString(R.string.pref_altitude_mode), "gps") == "barometer"
         units = prefs.getString(getString(R.string.pref_distance_units), "meters") ?: "meters"
 
         if (useTrueNorth){
@@ -116,15 +120,11 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         if (useBarometricAltitude){
             barometer.start()
+        } else {
+            gps.start()
         }
 
-
-
-        // Start the low level sensors
         compass.start()
-        gps.updateLocation {
-            gps.updateLocation()
-        }
 
         // Update the UI
         updateNavigator()
@@ -164,7 +164,9 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
             updateNavigationUI()
         } else {
             // Not navigating
-            gps.stop()
+            if (useBarometricAltitude) {
+                gps.stop()
+            }
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_beacon))
             updateNavigationUI()
         }
@@ -266,6 +268,14 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         // Update the latitude, longitude display
         locationTxt.text = location.toString()
+
+        val altitude = if (useBarometricAltitude){
+            barometer.altitude
+        } else {
+            gps.altitude
+        }
+
+        altitudeTxt.text = "Altitude ${LocationMath.distanceToReadableString(altitude.value, units)}"
 
         // Update the navigation display
         updateNavigationUI()

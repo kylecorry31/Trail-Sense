@@ -50,6 +50,14 @@
             app:summaryOn="@string/pref_use_true_north_summary_on"
             app:title="@string/use_true_north" />
 
+        <ListPreference
+            app:defaultValue="gps"
+            app:entries="@array/altitude_mode_entries"
+            app:entryValues="@array/altitude_mode_values"
+            app:key="@string/pref_altitude_mode"
+            app:title="@string/pref_altitude_mode_title"
+            app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_weather_header">
@@ -63,10 +71,11 @@
 
         <ListPreference
             app:defaultValue="barometer_gps"
-            app:entries="@array/altimeter_mode_entries"
-            app:entryValues="@array/altimeter_mode_values"
-            app:key="@string/pref_altimeter_mode"
-            app:title="@string/pref_altimeter_mode_title"
+            app:entries="@array/barometer_mode_entries"
+            app:entryValues="@array/barometer_mode_values"
+            app:key="@string/pref_barometer_mode"
+            app:title="@string/pref_barometer_mode_title"
+            app:dependency="@string/pref_use_sea_level_pressure"
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat

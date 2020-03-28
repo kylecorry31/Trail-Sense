@@ -24,14 +24,24 @@
         <item>psi</item>
     </string-array>
 
-    <string-array name="altimeter_mode_entries">
+    <string-array name="barometer_mode_entries">
         <item>GPS only</item>
         <item>Barometer and GPS</item>
     </string-array>
 
-    <string-array name="altimeter_mode_values">
+    <string-array name="barometer_mode_values">
         <item>gps</item>
         <item>barometer_gps</item>
+    </string-array>
+
+    <string-array name="altitude_mode_entries">
+        <item>GPS</item>
+        <item>Barometer</item>
+    </string-array>
+
+    <string-array name="altitude_mode_values">
+        <item>gps</item>
+        <item>barometer</item>
     </string-array>
 
 </resources>

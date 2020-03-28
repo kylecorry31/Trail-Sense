@@ -2,7 +2,6 @@
     <string name="app_name">Trail Sense</string>
     <string name="action_navigation">Navigation</string>
     <string name="action_weather">Weather</string>
-    <string name="action_altimeter">Altitude</string>
     <string name="action_settings">Settings</string>
     <string name="compass_alt">Compass</string>
     <string name="direction_arrow_desc">Direction Arrow</string>
@@ -30,20 +29,14 @@
     <string name="pref_pressure_units_title">Pressure units</string>
     <string name="pref_pressure_units">pressure_units</string>
     <string name="pref_distance_units">distance_units</string>
-    <string name="pref_navigation_header">Compass</string>
-    <string name="pref_weather_header">Barometer</string>
+    <string name="pref_navigation_header">Navigation</string>
+    <string name="pref_weather_header">Weather</string>
     <string name="pref_use_sea_level_pressure_summary_off">Use uncalibrated barometer reading</string>
     <string name="pref_use_sea_level_pressure_summary_on">Use sea-level calibrated barometer reading</string>
     <string name="pref_send_storm_alerts_title">Send storm alerts</string>
-    <string name="pref_use_barometric_altitude">use_barometric_altitude</string>
-    <string name="pref_use_barometric_altitude_title">Use barometer for altitude</string>
-    <string name="pref_use_barometric_altitude_summary_off">Use GPS altitude</string>
-    <string name="pref_use_barometric_altitude_summary_on">Use barometric altitude</string>
     <string name="pref_just_sent_alert">just_sent_alert</string>
-    <string name="altitude_label">Altitude</string>
-    <string name="pref_altimeter_header">Altimeter</string>
-    <string name="pref_altimeter_mode">altimeter_mode</string>
-    <string name="pref_altimeter_mode_title">Calibration mode</string>
+    <string name="pref_barometer_mode">barometer_mode</string>
+    <string name="pref_barometer_mode_title">Calibration mode</string>
     <string name="altitude_chart_title">Altitude History</string>
     <string name="pressure_chart_title">Pressure History</string>
     <string name="weather_now">Now</string>
@@ -53,4 +46,6 @@
     <string name="pref_astronomy_header">Astronomy</string>
     <string name="pref_use_24_hour">use_24_hour</string>
     <string name="pref_use_24_hour_title">Use 24 hour format</string>
+    <string name="pref_altitude_mode">altitude_mode</string>
+    <string name="pref_altitude_mode_title">Altitude mode</string>
 </resources>

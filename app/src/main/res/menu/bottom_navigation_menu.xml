@@ -16,12 +16,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_altimeter"
-        android:title="@string/action_altimeter"
-        android:icon="@drawable/ic_altitude"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/action_astronomy"
         android:title="@string/action_astronomy"
         android:icon="@drawable/ic_astronomy"

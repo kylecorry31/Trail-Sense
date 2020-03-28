@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.altimeter
+package com.kylecorry.trail_sense.weather.altimeter
 
 import android.hardware.SensorManager
 import com.kylecorry.trail_sense.models.AltitudeReading

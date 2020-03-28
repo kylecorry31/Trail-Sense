@@ -11,10 +11,10 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.sensors.gps.GPS
 import java.util.*
 import com.kylecorry.trail_sense.*
-import com.kylecorry.trail_sense.altimeter.AltitudeCalculatorFactory
-import com.kylecorry.trail_sense.altimeter.BarometerAltitudeCalculator
-import com.kylecorry.trail_sense.altimeter.GPSAltitudeCalculator
-import com.kylecorry.trail_sense.altimeter.InitialCalibrationBarometerAltitudeCalculator
+import com.kylecorry.trail_sense.weather.altimeter.AltitudeCalculatorFactory
+import com.kylecorry.trail_sense.weather.altimeter.BarometerAltitudeCalculator
+import com.kylecorry.trail_sense.weather.altimeter.GPSAltitudeCalculator
+import com.kylecorry.trail_sense.weather.altimeter.InitialCalibrationBarometerAltitudeCalculator
 import com.kylecorry.trail_sense.sensors.barometer.Barometer
 import com.kylecorry.trail_sense.database.PressureHistoryRepository
 import com.kylecorry.trail_sense.models.PressureAltitudeReading

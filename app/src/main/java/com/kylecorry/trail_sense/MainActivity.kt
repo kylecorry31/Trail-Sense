@@ -56,9 +56,6 @@ class MainActivity : AppCompatActivity() {
             R.id.action_weather -> {
                 switchFragment(BarometerFragment())
             }
-            R.id.action_altimeter -> {
-                switchFragment(AltimeterFragment())
-            }
             R.id.action_astronomy -> {
                 switchFragment(AstronomyFragment())
             }

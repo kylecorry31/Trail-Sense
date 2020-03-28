@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.weather
 
-import com.kylecorry.trail_sense.altimeter.IAltitudeCalculator
+import com.kylecorry.trail_sense.weather.altimeter.IAltitudeCalculator
 import com.kylecorry.trail_sense.models.PressureAltitudeReading
 import com.kylecorry.trail_sense.models.PressureReading
 
