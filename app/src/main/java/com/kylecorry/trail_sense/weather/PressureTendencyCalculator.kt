@@ -1,24 +1,27 @@
 package com.kylecorry.trail_sense.weather
 
 import com.kylecorry.trail_sense.models.PressureReading
-import com.kylecorry.trail_sense.models.PressureTendency
 import java.time.Duration
 import java.time.Instant
+import kotlin.math.abs
 
 object PressureTendencyCalculator {
 
-    private const val FAST_CHANGE_THRESHOLD = 2f
-    private const val SLOW_CHANGE_THRESHOLD = 0.5f
+    private const val CHANGE_THRESHOLD = 0.1f
 
-    fun getPressureTendency(readings: List<PressureReading>, duration: Duration): PressureTendency {
-        val change = getChangeAmount(readings, duration)
+    fun getPressureTendency(readings: List<PressureReading>): PressureTendency {
+        val change = getChangeAmount(readings, Duration.ofHours(3))
 
         return when {
-            change <= -FAST_CHANGE_THRESHOLD -> PressureTendency.FALLING_FAST
-            change <= -SLOW_CHANGE_THRESHOLD -> PressureTendency.FALLING_SLOW
-            change >= FAST_CHANGE_THRESHOLD -> PressureTendency.RISING_FAST
-            change >= SLOW_CHANGE_THRESHOLD -> PressureTendency.RISING_SLOW
-            else -> PressureTendency.STEADY
+            abs(change) < CHANGE_THRESHOLD -> {
+                PressureTendency(PressureCharacteristic.Steady, change)
+            }
+            change < 0 -> {
+                PressureTendency(PressureCharacteristic.Falling, change)
+            }
+            else -> {
+                PressureTendency(PressureCharacteristic.Rising, change)
+            }
         }
     }
 

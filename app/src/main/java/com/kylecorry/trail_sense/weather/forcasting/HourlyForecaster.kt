@@ -1,20 +1,34 @@
 package com.kylecorry.trail_sense.weather.forcasting
 
 import com.kylecorry.trail_sense.models.PressureReading
-import com.kylecorry.trail_sense.models.PressureTendency
+import com.kylecorry.trail_sense.weather.PressureCharacteristic
 import com.kylecorry.trail_sense.weather.PressureTendencyCalculator
-import java.time.Duration
+import kotlin.math.abs
 
 class HourlyForecaster : IWeatherForecaster {
 
     override fun forecast(readings: List<PressureReading>): Weather {
-        return when(PressureTendencyCalculator.getPressureTendency(readings, Duration.ofHours(3).plusMinutes(5))){
-            PressureTendency.FALLING_SLOW -> Weather.WorseningSlow
-            PressureTendency.RISING_SLOW -> Weather.ImprovingSlow
-            PressureTendency.FALLING_FAST -> Weather.WorseningFast
-            PressureTendency.RISING_FAST -> Weather.ImprovingFast
-            PressureTendency.STEADY -> Weather.NoChange
+
+        val tendency = PressureTendencyCalculator.getPressureTendency(readings)
+
+        val isStorm = tendency.amount <= STORM_THRESHOLD
+
+        if (isStorm){
+            return Weather.Storm
         }
 
+        val isFast = abs(tendency.amount) >= FAST_CHANGE
+
+        return when(tendency.characteristic){
+            PressureCharacteristic.Falling -> if (isFast) Weather.WorseningFast else Weather.WorseningSlow
+            PressureCharacteristic.Rising -> if (isFast) Weather.ImprovingFast else Weather.ImprovingSlow
+            else -> Weather.NoChange
+        }
     }
+
+    companion object {
+        private const val FAST_CHANGE = 2f
+        private const val STORM_THRESHOLD = -6f
+    }
+
 }

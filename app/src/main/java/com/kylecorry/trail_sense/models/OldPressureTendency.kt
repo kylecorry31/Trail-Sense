@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.models
 
-enum class PressureTendency {
+enum class OldPressureTendency {
     FALLING_SLOW,
     RISING_SLOW,
     FALLING_FAST,

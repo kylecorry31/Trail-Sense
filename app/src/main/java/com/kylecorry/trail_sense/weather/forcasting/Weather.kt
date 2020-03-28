@@ -8,6 +8,7 @@ enum class Weather(val description: String) {
     ImprovingSlow("Improving"),
     WorseningSlow("Worsening"),
     NoChange("Not changing"),
+    Storm("Storm incoming"),
     Unknown("Unknown"),
 
 }

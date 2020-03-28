@@ -1,8 +1,7 @@
 package com.kylecorry.trail_sense.weather
 
-import com.kylecorry.trail_sense.models.PressureAltitudeReading
 import com.kylecorry.trail_sense.models.PressureReading
-import com.kylecorry.trail_sense.models.PressureTendency
+import com.kylecorry.trail_sense.models.OldPressureTendency
 import java.text.DecimalFormat
 import java.time.Duration
 
@@ -49,38 +48,7 @@ object WeatherUtils {
         }
     }
 
-    /**
-     * Determines if a tendency is falling
-     * @param change The tendency
-     * @return true if it is falling, false otherwise
-     */
-    fun isFalling(change: PressureTendency): Boolean {
-        return change == PressureTendency.FALLING_FAST || change == PressureTendency.FALLING_SLOW
-    }
-
-    /**
-     * Determines if a tendency is rising
-     * @param change The tendency
-     * @return true if it is rising, false otherwise
-     */
-    fun isRising(change: PressureTendency): Boolean {
-        return change == PressureTendency.RISING_FAST || change == PressureTendency.RISING_SLOW
-    }
-
-    /**
-     * Get the barometric pressure change direction
-     * @param readings The barometric pressure readings in hPa
-     * @return The direction of change
-     */
-    fun getPressureTendency(readings: List<PressureReading>): PressureTendency {
-        val calibratedReadings = readings.map {
-            PressureReading(
-                it.time,
-                it.value
-            )
-        }
-        return PressureTendencyCalculator.getPressureTendency(calibratedReadings, Duration.ofHours(3).plusMinutes(5))
-    }
+    // TODO: Move these two out of Weather Utils
 
     fun isHighPressure(pressure: Float): Boolean {
         return pressure >= 1022.6
@@ -88,21 +56,6 @@ object WeatherUtils {
 
     fun isLowPressure(pressure: Float): Boolean {
         return pressure <= 1009.14
-    }
-
-    /**
-     * Determines if a storm is incoming
-     * @param readings The barometric pressure readings in hPa
-     * @return True if a storm is incoming, false otherwise
-     */
-    fun isStormIncoming(readings: List<PressureReading>): Boolean {
-        val calibratedReadings = readings.map {
-            PressureReading(
-                it.time,
-                it.value
-            )
-        }
-        return StormDetector().isStormIncoming(calibratedReadings)
     }
 
 }

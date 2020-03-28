@@ -136,18 +136,14 @@ class BarometerFragment : Fragment(), Observer {
 
         pressureTxt.text = "${format.format(pressure )} $symbol"
 
-        val pressureDirection = WeatherUtils.getPressureTendency(convertedReadings)
+        val pressureDirection = PressureTendencyCalculator.getPressureTendency(convertedReadings)
 
-        when {
-            WeatherUtils.isFalling(
-                pressureDirection
-            ) -> {
+        when(pressureDirection.characteristic) {
+             PressureCharacteristic.Falling -> {
                 trendImg.setImageResource(R.drawable.ic_arrow_down)
                 trendImg.visibility = View.VISIBLE
             }
-            WeatherUtils.isRising(
-                pressureDirection
-            ) -> {
+            PressureCharacteristic.Rising -> {
                 trendImg.setImageResource(R.drawable.ic_arrow_up)
                 trendImg.visibility = View.VISIBLE
             }
@@ -157,15 +153,8 @@ class BarometerFragment : Fragment(), Observer {
         val shortTerm = shortTermForecaster.forecast(convertedReadings)
         val longTerm = longTermForecaster.forecast(convertedReadings)
 
-        val isStormIncoming = WeatherUtils.isStormIncoming(convertedReadings)
-
-        if (isStormIncoming){
-            weatherNowTxt.text = getString(R.string.storm_incoming_warning)
-            weatherNowImg.setImageResource(R.drawable.storm)
-        } else {
-            weatherNowTxt.text = "${shortTerm.description} soon"
-            weatherNowImg.setImageResource(getWeatherImage(shortTerm, pressure))
-        }
+        weatherNowTxt.text = "${shortTerm.description} soon"
+        weatherNowImg.setImageResource(getWeatherImage(shortTerm, pressure))
 
         if (longTerm != Weather.Unknown) {
             weatherLaterTxt.text = "Possibly ${longTerm.description.toLowerCase()} later"
@@ -183,24 +172,9 @@ class BarometerFragment : Fragment(), Observer {
             Weather.ImprovingSlow -> if (isHigh) R.drawable.sunny else R.drawable.partially_cloudy
             Weather.WorseningSlow -> if (isLow) R.drawable.light_rain else R.drawable.cloudy
             Weather.WorseningFast -> if (isLow) R.drawable.heavy_rain else R.drawable.light_rain
+            Weather.Storm -> R.drawable.storm
             else -> R.drawable.steady
         }
-    }
-
-    private fun getCalibratedPressure(pressure: Float): Float {
-        var calibratedPressure = pressure
-
-        if (useSeaLevelPressure){
-            calibratedPressure =
-                SeaLevelPressureCalibrator.calibrate(
-                    pressure,
-                    altitude
-                )
-        }
-        return WeatherUtils.convertPressureToUnits(
-            calibratedPressure,
-            units
-        )
     }
 
     private fun updateBarometerChartData() {

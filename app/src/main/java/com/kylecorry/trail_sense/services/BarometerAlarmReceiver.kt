@@ -21,6 +21,8 @@ import com.kylecorry.trail_sense.median
 import com.kylecorry.trail_sense.weather.DerivativeSeaLevelPressureConverter
 import com.kylecorry.trail_sense.weather.NullPressureConverter
 import com.kylecorry.trail_sense.weather.WeatherUtils
+import com.kylecorry.trail_sense.weather.forcasting.HourlyForecaster
+import com.kylecorry.trail_sense.weather.forcasting.Weather
 import java.time.Duration
 import java.time.Instant
 import java.time.ZonedDateTime
@@ -38,6 +40,8 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
 
     private val altitudeReadings = mutableListOf<Float>()
     private val pressureReadings = mutableListOf<Float>()
+
+    private val forcaster = HourlyForecaster()
 
     private val MAX_BAROMETER_READINGS = 7
     private val MAX_GPS_READINGS = 5
@@ -163,7 +167,7 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
 
         val readings = PressureHistoryRepository.getAll(context)
 
-        if (WeatherUtils.isStormIncoming(pressureConverter.convert(readings))){
+        if (forcaster.forecast(pressureConverter.convert(readings)) == Weather.Storm){
 
             val shouldSend = prefs.getBoolean(context.getString(R.string.pref_send_storm_alert), true)
             if (shouldSend && !sentAlert) {
