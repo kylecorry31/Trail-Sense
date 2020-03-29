@@ -1,11 +1,10 @@
 package com.kylecorry.trail_sense.astronomy.moon
 
-import com.kylecorry.trail_sense.navigator.cosDegrees
-import com.kylecorry.trail_sense.navigator.normalizeAngle
-import com.kylecorry.trail_sense.navigator.sinDegrees
+import com.kylecorry.trail_sense.navigation.cosDegrees
+import com.kylecorry.trail_sense.navigation.normalizeAngle
+import com.kylecorry.trail_sense.navigation.sinDegrees
 import com.kylecorry.trail_sense.roundNearest
 import com.kylecorry.trail_sense.toUTCLocal
-import com.kylecorry.trail_sense.toZonedDateTime
 import java.time.*
 import kotlin.math.pow
 import kotlin.math.roundToInt

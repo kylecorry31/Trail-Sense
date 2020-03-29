@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.navigator
+package com.kylecorry.trail_sense.navigation
 
 import android.hardware.GeomagneticField
 import com.kylecorry.trail_sense.models.AltitudeReading
