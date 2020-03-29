@@ -201,10 +201,10 @@ class AstronomyFragment : Fragment(), Observer {
         val hours = duration.toHours()
         val minutes = duration.toMinutes() % 60
 
-        return if (hours == 0L){
-            "${minutes}m"
-        } else {
-            "${hours}h ${minutes}m"
+        return when {
+            hours == 0L -> "${minutes}m"
+            minutes == 0L -> "${hours}h"
+            else -> "${hours}h ${minutes}m"
         }
     }
 
