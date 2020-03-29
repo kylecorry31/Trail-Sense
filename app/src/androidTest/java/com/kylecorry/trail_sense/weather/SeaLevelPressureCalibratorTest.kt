@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather
 
 import android.hardware.SensorManager
+import com.kylecorry.trail_sense.weather.sealevel.SeaLevelPressureCalibrator
 import org.junit.Test
 
 import org.junit.Assert.*

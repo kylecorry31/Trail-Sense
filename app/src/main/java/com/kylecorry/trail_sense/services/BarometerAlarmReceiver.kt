@@ -18,9 +18,8 @@ import com.kylecorry.trail_sense.sensors.barometer.Barometer
 import com.kylecorry.trail_sense.models.PressureAltitudeReading
 import com.kylecorry.trail_sense.database.PressureHistoryRepository
 import com.kylecorry.trail_sense.median
-import com.kylecorry.trail_sense.weather.DerivativeSeaLevelPressureConverter
-import com.kylecorry.trail_sense.weather.NullPressureConverter
-import com.kylecorry.trail_sense.weather.WeatherUtils
+import com.kylecorry.trail_sense.weather.sealevel.DerivativeSeaLevelPressureConverter
+import com.kylecorry.trail_sense.weather.sealevel.NullPressureConverter
 import com.kylecorry.trail_sense.weather.forcasting.HourlyForecaster
 import com.kylecorry.trail_sense.weather.forcasting.Weather
 import java.time.Duration
@@ -160,7 +159,9 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
         val useSeaLevel = prefs.getBoolean(context.getString(R.string.pref_use_sea_level_pressure), false)
 
         val pressureConverter = if (useSeaLevel){
-            DerivativeSeaLevelPressureConverter(Constants.MAXIMUM_NATURAL_PRESSURE_CHANGE)
+            DerivativeSeaLevelPressureConverter(
+                Constants.MAXIMUM_NATURAL_PRESSURE_CHANGE
+            )
         } else {
             NullPressureConverter()
         }

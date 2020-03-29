@@ -1,11 +1,12 @@
-package com.kylecorry.trail_sense.weather
+package com.kylecorry.trail_sense.weather.sealevel
 
 import com.kylecorry.trail_sense.models.PressureAltitudeReading
 import com.kylecorry.trail_sense.models.PressureReading
 import java.time.Duration
 import kotlin.math.abs
 
-class DerivativeSeaLevelPressureConverter(private val maximumNaturalChange: Float)  : ISeaLevelPressureConverter {
+class DerivativeSeaLevelPressureConverter(private val maximumNaturalChange: Float)  :
+    ISeaLevelPressureConverter {
     override fun convert(readings: List<PressureAltitudeReading>): List<PressureReading> {
 
         if (readings.isEmpty()) return listOf()
@@ -15,7 +16,8 @@ class DerivativeSeaLevelPressureConverter(private val maximumNaturalChange: Floa
         var lastPressure = readings.first()
         var lastDp = 0f
 
-        var pressure = SeaLevelPressureCalibrator.calibrate(
+        var pressure =
+            SeaLevelPressureCalibrator.calibrate(
                 lastPressure.pressure,
                 lastPressure.altitude
             )

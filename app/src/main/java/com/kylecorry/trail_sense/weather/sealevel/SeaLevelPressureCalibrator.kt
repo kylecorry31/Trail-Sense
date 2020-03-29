@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather
+package com.kylecorry.trail_sense.weather.sealevel
 
 import kotlin.math.pow
 

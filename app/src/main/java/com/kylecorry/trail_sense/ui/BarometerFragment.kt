@@ -20,6 +20,9 @@ import com.kylecorry.trail_sense.database.PressureHistoryRepository
 import com.kylecorry.trail_sense.models.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.*
 import com.kylecorry.trail_sense.weather.forcasting.*
+import com.kylecorry.trail_sense.weather.sealevel.AltimeterSeaLevelPressureConverter
+import com.kylecorry.trail_sense.weather.sealevel.ISeaLevelPressureConverter
+import com.kylecorry.trail_sense.weather.sealevel.NullPressureConverter
 import java.time.*
 
 
@@ -32,7 +35,8 @@ class BarometerFragment : Fragment(), Observer {
     private var useSeaLevelPressure = false
     private var gotGpsReading = false
     private var units = Constants.PRESSURE_UNITS_HPA
-    private var pressureConverter: ISeaLevelPressureConverter = NullPressureConverter()
+    private var pressureConverter: ISeaLevelPressureConverter =
+        NullPressureConverter()
 
     private val shortTermForecaster: IWeatherForecaster = HourlyForecaster()
     private val longTermForecaster: IWeatherForecaster = DailyForecaster()
@@ -77,7 +81,10 @@ class BarometerFragment : Fragment(), Observer {
         if (useSeaLevelPressure){
             var calculator = AltitudeCalculatorFactory(context!!).create()
             if (calculator is BarometerAltitudeCalculator || calculator is InitialCalibrationBarometerAltitudeCalculator) calculator = GPSAltitudeCalculator()
-            pressureConverter = AltimeterSeaLevelPressureConverter(calculator)
+            pressureConverter =
+                AltimeterSeaLevelPressureConverter(
+                    calculator
+                )
         }
 
         units = prefs.getString(getString(R.string.pref_pressure_units), Constants.PRESSURE_UNITS_HPA) ?: Constants.PRESSURE_UNITS_HPA
