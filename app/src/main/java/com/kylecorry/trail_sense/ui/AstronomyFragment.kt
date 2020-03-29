@@ -14,6 +14,7 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.moon.MoonPhaseCalculator
 import com.kylecorry.trail_sense.astronomy.moon.MoonTruePhase
+import com.kylecorry.trail_sense.astronomy.sun.SunTimes
 import com.kylecorry.trail_sense.astronomy.sun.SunTimesCalculatorFactory
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import java.util.*
@@ -178,7 +179,7 @@ class AstronomyFragment : Fragment(), Observer {
         sunProgress.progress = ((timeRemaining.seconds / totalTime.seconds.toFloat()) * 100).roundToInt()
 
         sunStartTimeTxt.text = formatTime(start)
-        sunMiddleTimeTxt.text = formatTime(start.plus(totalTime.dividedBy(2)))
+        sunMiddleTimeTxt.text = formatTime(SunTimes.getPeakTime(start, end))
         sunEndTimeTxt.text = formatTime(end)
 
         sunTxt.text = formatDuration(timeRemaining)

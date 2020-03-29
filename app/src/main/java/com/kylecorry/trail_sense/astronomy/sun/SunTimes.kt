@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.sun
 
+import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -14,6 +15,11 @@ class SunTimes(val up: LocalDateTime, val down: LocalDateTime) {
                 ), date.atTime(LocalTime.MAX)
             )
         }
+
+        fun getPeakTime(start: LocalDateTime, end: LocalDateTime): LocalDateTime {
+            return start.plus(Duration.between(start, end).dividedBy(2))
+        }
+
     }
 
 }
