@@ -168,14 +168,9 @@ class BarometerFragment : Fragment(), Observer {
         val shortTerm = shortTermForecaster.forecast(convertedReadings)
         val longTerm = longTermForecaster.forecast(convertedReadings)
 
-        weatherNowTxt.text = "${shortTerm.description} soon"
+        weatherNowTxt.text = getShortTermWeatherDescription(shortTerm)
         weatherNowImg.setImageResource(getWeatherImage(shortTerm, pressure))
-
-        if (longTerm != Weather.Unknown) {
-            weatherLaterTxt.text = "Possibly ${longTerm.description.toLowerCase()} later"
-        } else {
-            weatherLaterTxt.text = ""
-        }
+        weatherLaterTxt.text = getLongTermWeatherDescription(longTerm)
     }
 
     private fun getWeatherImage(weather: Weather, currentPressure: Float): Int {
@@ -191,6 +186,26 @@ class BarometerFragment : Fragment(), Observer {
             else -> R.drawable.steady
         }
     }
+
+    private fun getShortTermWeatherDescription(weather: Weather): String {
+        return when (weather){
+            Weather.ImprovingFast -> getString(R.string.weather_improving_fast)
+            Weather.ImprovingSlow -> getString(R.string.weather_improving_slow)
+            Weather.WorseningSlow -> getString(R.string.weather_worsening_slow)
+            Weather.WorseningFast -> getString(R.string.weather_worsening_fast)
+            Weather.Storm -> getString(R.string.weather_storm_incoming)
+            else -> getString(R.string.weather_not_changing)
+        }
+    }
+
+    private fun getLongTermWeatherDescription(weather: Weather): String {
+        return when (weather){
+            Weather.ImprovingFast, Weather.ImprovingSlow -> getString(R.string.forecast_improving)
+            Weather.WorseningSlow, Weather.WorseningFast, Weather.Storm -> getString(R.string.forecast_worsening)
+            else -> ""
+        }
+    }
+
 
     private fun updateBarometerChartData() {
         val readings = PressureHistoryRepository.getAll(context!!)

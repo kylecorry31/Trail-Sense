@@ -60,4 +60,12 @@
     <string name="pref_show_current_moon_phase_title">Show current moon phase</string>
     <string name="pref_show_current_moon_phase_summary_off">Showing tonight\'s moon phase</string>
     <string name="pref_show_current_moon_phase_summary_on">Showing the current moon phase</string>
+    <string name="weather_improving_fast">Improving very soon</string>
+    <string name="weather_improving_slow">Improving soon</string>
+    <string name="weather_worsening_slow">Worsening soon</string>
+    <string name="weather_worsening_fast">Worsening very soon</string>
+    <string name="weather_storm_incoming">Storm incoming</string>
+    <string name="weather_not_changing">Not changing soon</string>
+    <string name="forecast_improving">Possibly improving later</string>
+    <string name="forecast_worsening">Possibly worsening later</string>
 </resources>
