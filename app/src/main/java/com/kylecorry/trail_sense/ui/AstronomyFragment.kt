@@ -15,11 +15,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.moon.MoonPhaseCalculator
 import com.kylecorry.trail_sense.astronomy.moon.MoonTruePhase
 import com.kylecorry.trail_sense.astronomy.sun.SunTimesCalculatorFactory
-import com.kylecorry.trail_sense.sensors.gps.GPS
+import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import java.util.*
-import com.kylecorry.trail_sense.models.Coordinate
-import com.kylecorry.trail_sense.roundPlaces
-import com.kylecorry.trail_sense.toZonedDateTime
+import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.toZonedDateTime
 import java.time.*
 import java.time.format.DateTimeFormatter
 import kotlin.concurrent.fixedRateTimer

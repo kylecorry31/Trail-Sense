@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor">
         <activity
-            android:name="com.kylecorry.trail_sense.MainActivity"
+            android:name="com.kylecorry.trail_sense.ui.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

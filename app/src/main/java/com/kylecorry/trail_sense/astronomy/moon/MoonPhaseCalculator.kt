@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.astronomy.moon
 
-import com.kylecorry.trail_sense.navigation.cosDegrees
-import com.kylecorry.trail_sense.navigation.normalizeAngle
-import com.kylecorry.trail_sense.navigation.sinDegrees
-import com.kylecorry.trail_sense.roundNearest
-import com.kylecorry.trail_sense.toUTCLocal
+import com.kylecorry.trail_sense.shared.cosDegrees
+import com.kylecorry.trail_sense.shared.normalizeAngle
+import com.kylecorry.trail_sense.shared.sinDegrees
+import com.kylecorry.trail_sense.shared.roundNearest
+import com.kylecorry.trail_sense.shared.toUTCLocal
 import java.time.*
 import kotlin.math.pow
 import kotlin.math.roundToInt
@@ -37,15 +37,29 @@ class MoonPhaseCalculator {
         val T = (JDE - 2451545) / 36525.0
 
         val D =
-            normalizeAngle(297.8501921 + 445267.1114034 * T - 0.0018819 * T.pow(2) + T.pow(3) / 545868 - T.pow(4) / 113065000)
+            normalizeAngle(
+                297.8501921 + 445267.1114034 * T - 0.0018819 * T.pow(
+                    2
+                ) + T.pow(3) / 545868 - T.pow(4) / 113065000
+            )
 
-        val M = normalizeAngle(357.5291092 + 35999.0502909 * T - 0.0001536 * T.pow(2) + T.pow(3) / 24490000)
+        val M = normalizeAngle(
+            357.5291092 + 35999.0502909 * T - 0.0001536 * T.pow(2) + T.pow(3) / 24490000
+        )
 
         val Mp =
-            normalizeAngle(134.9633964 + 477198.8675055 * T - 0.0087414 * T.pow(2) + T.pow(3) / 69699 - T.pow(4) / 14712000)
+            normalizeAngle(
+                134.9633964 + 477198.8675055 * T - 0.0087414 * T.pow(
+                    2
+                ) + T.pow(3) / 69699 - T.pow(4) / 14712000
+            )
 
         val i =
-            180 - D - 6.289 * sinDegrees(Mp) + 2.100 * sinDegrees(M) - 1.274 * sinDegrees(2 * D - Mp) - 0.658 * sinDegrees(2 * D) - 0.214 * sinDegrees(
+            180 - D - 6.289 * sinDegrees(Mp) + 2.100 * sinDegrees(
+                M
+            ) - 1.274 * sinDegrees(2 * D - Mp) - 0.658 * sinDegrees(
+                2 * D
+            ) - 0.214 * sinDegrees(
                 2 * Mp
             ) - 0.110 * sinDegrees(D)
 

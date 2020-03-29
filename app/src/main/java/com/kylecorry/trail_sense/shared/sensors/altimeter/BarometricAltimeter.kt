@@ -1,8 +1,8 @@
-package com.kylecorry.trail_sense.sensors.altimeter
+package com.kylecorry.trail_sense.shared.sensors.altimeter
 
-import com.kylecorry.trail_sense.models.AltitudeReading
-import com.kylecorry.trail_sense.sensors.ISensor
-import com.kylecorry.trail_sense.sensors.barometer.Barometer
+import com.kylecorry.trail_sense.shared.AltitudeReading
+import com.kylecorry.trail_sense.shared.sensors.ISensor
+import com.kylecorry.trail_sense.shared.sensors.barometer.Barometer
 import android.content.Context
 import android.hardware.SensorManager
 import java.time.Instant
@@ -17,7 +17,10 @@ class BarometricAltimeter(ctx: Context): IAltimeter, ISensor, Observer, Observab
     private var baseAltitude: Float? = null
 
     override val altitude: AltitudeReading
-        get() = AltitudeReading(Instant.now(), altitudeChange + (baseAltitude ?: 0f))
+        get() = AltitudeReading(
+            Instant.now(),
+            altitudeChange + (baseAltitude ?: 0f)
+        )
 
     override fun start() {
         altitudeChange = 0f

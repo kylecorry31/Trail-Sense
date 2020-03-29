@@ -1,7 +1,8 @@
 package com.kylecorry.trail_sense.navigation
 
 import android.location.Location
-import com.kylecorry.trail_sense.models.Coordinate
+import com.kylecorry.trail_sense.shared.normalizeAngle
+import com.kylecorry.trail_sense.shared.Coordinate
 import kotlin.math.*
 
 /**

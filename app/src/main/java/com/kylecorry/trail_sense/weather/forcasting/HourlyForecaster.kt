@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.weather.forcasting
 
-import com.kylecorry.trail_sense.models.PressureReading
+import com.kylecorry.trail_sense.shared.PressureReading
 import com.kylecorry.trail_sense.weather.PressureCharacteristic
 import com.kylecorry.trail_sense.weather.PressureTendencyCalculator
 import kotlin.math.abs

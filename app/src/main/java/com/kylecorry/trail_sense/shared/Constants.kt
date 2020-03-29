@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense
+package com.kylecorry.trail_sense.shared
 
 object Constants {
     const val BEACON_TABLE = "beacons"

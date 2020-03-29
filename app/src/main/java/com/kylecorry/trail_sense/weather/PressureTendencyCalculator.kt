@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.weather
 
-import com.kylecorry.trail_sense.models.PressureReading
+import com.kylecorry.trail_sense.shared.PressureReading
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.abs

@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.weather.altimeter
 
 import android.hardware.SensorManager
-import com.kylecorry.trail_sense.models.AltitudeReading
-import com.kylecorry.trail_sense.models.PressureAltitudeReading
+import com.kylecorry.trail_sense.shared.AltitudeReading
+import com.kylecorry.trail_sense.shared.PressureAltitudeReading
 import java.time.Duration
 import kotlin.math.abs
 

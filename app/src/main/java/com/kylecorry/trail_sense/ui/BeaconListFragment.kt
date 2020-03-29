@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.doTransaction
-import com.kylecorry.trail_sense.models.Beacon
-import com.kylecorry.trail_sense.database.BeaconDB
-import com.kylecorry.trail_sense.sensors.gps.GPS
+import com.kylecorry.trail_sense.shared.doTransaction
+import com.kylecorry.trail_sense.navigation.Beacon
+import com.kylecorry.trail_sense.navigation.BeaconDB
+import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 
 
 class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): Fragment() {

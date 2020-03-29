@@ -8,16 +8,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import com.kylecorry.trail_sense.sensors.gps.GPS
+import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import java.util.*
 import com.kylecorry.trail_sense.*
+import com.kylecorry.trail_sense.shared.Constants
 import com.kylecorry.trail_sense.weather.altimeter.AltitudeCalculatorFactory
 import com.kylecorry.trail_sense.weather.altimeter.BarometerAltitudeCalculator
 import com.kylecorry.trail_sense.weather.altimeter.GPSAltitudeCalculator
 import com.kylecorry.trail_sense.weather.altimeter.InitialCalibrationBarometerAltitudeCalculator
-import com.kylecorry.trail_sense.sensors.barometer.Barometer
-import com.kylecorry.trail_sense.database.PressureHistoryRepository
-import com.kylecorry.trail_sense.models.PressureAltitudeReading
+import com.kylecorry.trail_sense.shared.sensors.barometer.Barometer
+import com.kylecorry.trail_sense.weather.PressureHistoryRepository
+import com.kylecorry.trail_sense.shared.PressureAltitudeReading
+import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trail_sense.weather.*
 import com.kylecorry.trail_sense.weather.forcasting.*
 import com.kylecorry.trail_sense.weather.sealevel.AltimeterSeaLevelPressureConverter
@@ -127,7 +129,13 @@ class BarometerFragment : Fragment(), Observer {
 
         val allReadings = mutableListOf<PressureAltitudeReading>()
         allReadings.addAll(readings)
-        allReadings.add(PressureAltitudeReading(Instant.now(), barometer.pressure.value, altitude))
+        allReadings.add(
+            PressureAltitudeReading(
+                Instant.now(),
+                barometer.pressure.value,
+                altitude
+            )
+        )
 
         val convertedReadings = pressureConverter.convert(allReadings)
 

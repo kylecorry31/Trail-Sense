@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.sensors.compass
+package com.kylecorry.trail_sense.shared.sensors.compass
 
 import android.content.Context
 import android.hardware.Sensor
@@ -7,13 +7,12 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import com.kylecorry.sensorfilters.ISensorFilter
 import com.kylecorry.sensorfilters.KalmanFilter
-import com.kylecorry.trail_sense.models.Bearing
-import com.kylecorry.trail_sense.models.CompassDirection
-import com.kylecorry.trail_sense.sensors.ISensor
+import com.kylecorry.trail_sense.shared.Bearing
+import com.kylecorry.trail_sense.shared.CompassDirection
+import com.kylecorry.trail_sense.shared.sensors.ISensor
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.floor
-import kotlin.math.max
 
 /**
  * A compass sensor
@@ -51,7 +50,11 @@ class Compass (ctx: Context) : ICompass, ISensor, SensorEventListener, Observabl
             var currentAngle = (Math.toDegrees(orientation[0].toDouble()) + 360) % 360
             totalAngle += deltaAngle(totalAngle, currentAngle.toFloat())
 
-            return Bearing(azimuthKf.filter(totalAngle.toDouble()).toFloat() + declination)
+            return Bearing(
+                azimuthKf.filter(
+                    totalAngle.toDouble()
+                ).toFloat() + declination
+            )
         }
 
     /**

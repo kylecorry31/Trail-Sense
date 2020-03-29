@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.navigation
 
 import android.hardware.GeomagneticField
-import com.kylecorry.trail_sense.models.AltitudeReading
-import com.kylecorry.trail_sense.models.Coordinate
+import com.kylecorry.trail_sense.shared.AltitudeReading
+import com.kylecorry.trail_sense.shared.Coordinate
 
 class DeclinationCalculator :
     IDeclinationCalculator {

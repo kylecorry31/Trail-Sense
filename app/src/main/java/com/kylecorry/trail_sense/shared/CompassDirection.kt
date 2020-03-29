@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.models
+package com.kylecorry.trail_sense.shared
 
 enum class CompassDirection(val symbol: String, val azimuth: Float) {
     NORTH("N", 0f),

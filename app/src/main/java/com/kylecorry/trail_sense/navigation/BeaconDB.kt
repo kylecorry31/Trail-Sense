@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.database
+package com.kylecorry.trail_sense.navigation
 
 import android.content.ContentValues
 import android.content.Context
@@ -6,9 +6,8 @@ import android.database.Cursor
 import android.database.CursorWrapper
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.kylecorry.trail_sense.Constants
-import com.kylecorry.trail_sense.models.Beacon
-import com.kylecorry.trail_sense.models.Coordinate
+import com.kylecorry.trail_sense.shared.Constants
+import com.kylecorry.trail_sense.shared.Coordinate
 
 /**
  * The beacon database
@@ -79,7 +78,10 @@ class BeaconDB(ctx: Context) {
 
     private fun appendNumberToName(beacon: Beacon, number: Int): Beacon {
         val name = "${beacon.name} ($number)"
-        return Beacon(name, beacon.coordinate)
+        return Beacon(
+            name,
+            beacon.coordinate
+        )
     }
 
     private fun getContentValues(location: Beacon): ContentValues {

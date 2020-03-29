@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.sealevel
 
-import com.kylecorry.trail_sense.models.PressureAltitudeReading
-import com.kylecorry.trail_sense.models.PressureReading
+import com.kylecorry.trail_sense.shared.PressureAltitudeReading
+import com.kylecorry.trail_sense.shared.PressureReading
 import java.time.Duration
 import kotlin.math.abs
 
@@ -39,7 +39,12 @@ class DerivativeSeaLevelPressureConverter(private val maximumNaturalChange: Floa
             lastPressure = it
             lastDp = dp
 
-            output.add(PressureReading(it.time, pressure))
+            output.add(
+                PressureReading(
+                    it.time,
+                    pressure
+                )
+            )
         }
 
         return output

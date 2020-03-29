@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.models
+package com.kylecorry.trail_sense.shared
 
 import java.time.Instant
 

@@ -1,6 +1,5 @@
-package com.kylecorry.trail_sense.navigation
+package com.kylecorry.trail_sense.shared
 
-import com.kylecorry.trail_sense.toRadians
 import kotlin.math.cos
 import kotlin.math.sin
 

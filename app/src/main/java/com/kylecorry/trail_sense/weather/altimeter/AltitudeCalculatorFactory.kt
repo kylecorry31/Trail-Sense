@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.weather.altimeter
 
 import android.content.Context
 import androidx.preference.PreferenceManager
-import com.kylecorry.trail_sense.Constants
+import com.kylecorry.trail_sense.shared.Constants
 import com.kylecorry.trail_sense.R
 
 class AltitudeCalculatorFactory(private val context: Context) {
@@ -14,7 +14,8 @@ class AltitudeCalculatorFactory(private val context: Context) {
 
         return when (mode){
             Constants.ALTIMETER_MODE_GPS -> GPSAltitudeCalculator()
-            Constants.ALTIMETER_MODE_BAROMETER_GPS -> BarometerGPSAltitudeCalculator(Constants.MAXIMUM_NATURAL_PRESSURE_CHANGE)
+            Constants.ALTIMETER_MODE_BAROMETER_GPS -> BarometerGPSAltitudeCalculator(
+                Constants.MAXIMUM_NATURAL_PRESSURE_CHANGE)
             else -> GPSAltitudeCalculator()
         }
     }

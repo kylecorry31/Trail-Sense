@@ -18,8 +18,8 @@ package com.kylecorry.trail_sense.astronomy.sun
  */
 
 import android.text.format.DateUtils
-import com.kylecorry.trail_sense.models.Coordinate
-import com.kylecorry.trail_sense.toZonedDateTime
+import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.toZonedDateTime
 import java.time.*
 import kotlin.math.*
 

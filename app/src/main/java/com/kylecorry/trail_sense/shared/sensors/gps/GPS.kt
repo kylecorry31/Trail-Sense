@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps
 
 import android.content.Context
 import android.location.Location
@@ -7,9 +7,9 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.kylecorry.trail_sense.models.AltitudeReading
-import com.kylecorry.trail_sense.models.Coordinate
-import com.kylecorry.trail_sense.sensors.ISensor
+import com.kylecorry.trail_sense.shared.AltitudeReading
+import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.sensors.ISensor
 import java.time.Duration
 import java.time.Instant
 import java.util.*
@@ -49,7 +49,8 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
     override val altitude: AltitudeReading
         get() = _altitude
 
-    private var _altitude = AltitudeReading(Instant.MAX, 0F)
+    private var _altitude =
+        AltitudeReading(Instant.MAX, 0F)
     private var _location = Coordinate(0.0, 0.0)
 
     /**
@@ -90,7 +91,10 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
                 location.latitude,
                 location.longitude
             )
-            _altitude = AltitudeReading(Instant.now(), location.altitude.toFloat())
+            _altitude = AltitudeReading(
+                Instant.now(),
+                location.altitude.toFloat()
+            )
         }
         setChanged()
         notifyObservers()

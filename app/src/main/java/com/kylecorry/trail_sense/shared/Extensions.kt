@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense
+package com.kylecorry.trail_sense.shared
 
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction

@@ -1,8 +1,7 @@
-package com.kylecorry.trail_sense.database
+package com.kylecorry.trail_sense.weather
 
 import android.content.Context
-import com.kylecorry.sensorfilters.KalmanFilter
-import com.kylecorry.trail_sense.models.PressureAltitudeReading
+import com.kylecorry.trail_sense.shared.PressureAltitudeReading
 import java.time.Duration
 import java.time.Instant
 import java.util.*

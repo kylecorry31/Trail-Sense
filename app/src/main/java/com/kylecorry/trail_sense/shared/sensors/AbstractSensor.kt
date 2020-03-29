@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.sensors
+package com.kylecorry.trail_sense.shared.sensors
 
 import android.content.Context
 import android.hardware.Sensor

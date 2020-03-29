@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense
+package com.kylecorry.trail_sense.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -9,8 +9,9 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.services.BarometerService
-import com.kylecorry.trail_sense.ui.*
+import com.kylecorry.trail_sense.shared.doTransaction
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +41,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        bottomNavigation.selectedItemId = savedInstanceState.getInt("page", R.id.action_navigation)
+        bottomNavigation.selectedItemId = savedInstanceState.getInt("page",
+            R.id.action_navigation
+        )
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
