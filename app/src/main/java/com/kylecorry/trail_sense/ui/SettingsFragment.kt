@@ -10,5 +10,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
         // TODO: List open source licenses
         // Austin Andrews - weather icons
+        // Michael Irigoyen - moon icons
     }
 }

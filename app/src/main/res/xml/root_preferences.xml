@@ -48,7 +48,7 @@
             app:key="@string/pref_use_true_north"
             app:summaryOff="@string/pref_use_true_north_summary_off"
             app:summaryOn="@string/pref_use_true_north_summary_on"
-            app:title="@string/use_true_north" />
+            app:title="@string/pref_use_true_north_title" />
 
         <ListPreference
             app:defaultValue="gps"
@@ -67,7 +67,7 @@
             app:key="@string/pref_use_sea_level_pressure"
             app:summaryOff="@string/pref_use_sea_level_pressure_summary_off"
             app:summaryOn="@string/pref_use_sea_level_pressure_summary_on"
-            app:title="@string/use_sea_level_pressure" />
+            app:title="@string/pref_use_sea_level_pressure_title" />
 
         <ListPreference
             app:defaultValue="barometer_gps"
@@ -82,6 +82,19 @@
             app:key="@string/pref_send_storm_alert"
             app:title="@string/pref_send_storm_alerts_title"
             app:defaultValue="true"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory app:title="@string/pref_astronomy_header">
+
+        <ListPreference
+            app:defaultValue="actual"
+            app:entries="@array/sun_times_entries"
+            app:entryValues="@array/sun_times_values"
+            app:key="@string/pref_sun_time_mode"
+            app:title="@string/pref_sun_time_mode_title"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 

@@ -44,4 +44,18 @@
         <item>barometer</item>
     </string-array>
 
+    <string-array name="sun_times_entries">
+        <item>Actual Time</item>
+        <item>Civil Twilight</item>
+        <item>Nautical Twilight</item>
+        <item>Astronomical Twilight</item>
+    </string-array>
+
+    <string-array name="sun_times_values">
+        <item>actual</item>
+        <item>civil</item>
+        <item>nautical</item>
+        <item>astronomical</item>
+    </string-array>
+
 </resources>

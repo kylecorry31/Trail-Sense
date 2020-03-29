@@ -13,13 +13,13 @@ class HourlyForecaster : IWeatherForecaster {
 
         val isStorm = tendency.amount <= STORM_THRESHOLD
 
-        if (isStorm){
+        if (isStorm) {
             return Weather.Storm
         }
 
         val isFast = abs(tendency.amount) >= FAST_CHANGE
 
-        return when(tendency.characteristic){
+        return when (tendency.characteristic) {
             PressureCharacteristic.Falling -> if (isFast) Weather.WorseningFast else Weather.WorseningSlow
             PressureCharacteristic.Rising -> if (isFast) Weather.ImprovingFast else Weather.ImprovingSlow
             else -> Weather.NoChange

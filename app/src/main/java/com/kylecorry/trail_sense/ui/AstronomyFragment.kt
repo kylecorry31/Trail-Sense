@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.ui
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,10 +12,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.astronomy.*
+import com.kylecorry.trail_sense.astronomy.sun.SunTimesCalculatorFactory
 import com.kylecorry.trail_sense.sensors.gps.GPS
 import java.util.*
-import com.kylecorry.trail_sense.astronomy.Moon
-import com.kylecorry.trail_sense.astronomy.Sun
 import com.kylecorry.trail_sense.models.Coordinate
 import java.time.*
 import java.time.format.DateTimeFormatter
@@ -121,20 +120,26 @@ class AstronomyFragment : Fragment(), Observer {
     }
 
     private fun updateSunUI(){
-        val sunrise = Sun.getSunrise(location)
-        val sunset = Sun.getSunset(location)
+
+        val sunChartCalculator = SunTimesCalculatorFactory().create(context!!)
 
         val currentTime = LocalDateTime.now()
+        val currentDate = currentTime.toLocalDate()
+        val suntimes = sunChartCalculator.calculate(location, currentDate)
+
+        val sunrise = suntimes.up
+        val sunset = suntimes.down
+
 
         when {
             currentTime > sunset -> {
                 // Time until tomorrow's sunrise
-                val tomorrowSunrise = Sun.getSunrise(location, ZonedDateTime.now().plusDays(1))
+                val tomorrowSunrise = sunChartCalculator.calculate(location, currentDate.plusDays(1)).up
                 setNightProgress(sunset, currentTime, tomorrowSunrise)
             }
             currentTime < sunrise -> {
                 // Time until today's sunrise
-                val yesterdaySunset = Sun.getSunset(location, ZonedDateTime.now().minusDays(1))
+                val yesterdaySunset = sunChartCalculator.calculate(location, currentDate.minusDays(1)).down
                 setNightProgress(yesterdaySunset, currentTime, sunrise)
             }
             else -> {

@@ -10,7 +10,10 @@ object PressureTendencyCalculator {
 
     private const val CHANGE_THRESHOLD = 0.1f
 
-    fun getPressureTendency(readings: List<PressureReading>, duration: Duration = Duration.ofHours(3)): PressureTendency {
+    fun getPressureTendency(
+        readings: List<PressureReading>,
+        duration: Duration = Duration.ofHours(3)
+    ): PressureTendency {
         val change = getChangeAmount(readings, duration)
 
         return when {
@@ -31,7 +34,7 @@ object PressureTendencyCalculator {
         if (filtered.size < 2) return 0f
 //        val firstReading = filtered.first()
 //        val lastReading = filtered.last()
-//        return lastReading.value - firstReading.value
+//        println(lastReading.value - firstReading.value)
         return getSlope(filtered) * 60 * 60 * 3
     }
 
