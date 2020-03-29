@@ -96,6 +96,12 @@
             app:title="@string/pref_sun_time_mode_title"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            app:key="@string/pref_show_current_moon_phase"
+            app:summaryOff="@string/pref_show_current_moon_phase_summary_off"
+            app:summaryOn="@string/pref_show_current_moon_phase_summary_on"
+            app:title="@string/pref_show_current_moon_phase_title" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

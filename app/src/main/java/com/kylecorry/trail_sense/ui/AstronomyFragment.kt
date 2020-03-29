@@ -12,11 +12,14 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.*
+import com.kylecorry.trail_sense.astronomy.moon.MoonPhaseCalculator
+import com.kylecorry.trail_sense.astronomy.moon.MoonTruePhase
 import com.kylecorry.trail_sense.astronomy.sun.SunTimesCalculatorFactory
 import com.kylecorry.trail_sense.sensors.gps.GPS
 import java.util.*
 import com.kylecorry.trail_sense.models.Coordinate
+import com.kylecorry.trail_sense.roundPlaces
+import com.kylecorry.trail_sense.toZonedDateTime
 import java.time.*
 import java.time.format.DateTimeFormatter
 import kotlin.concurrent.fixedRateTimer
@@ -65,10 +68,8 @@ class AstronomyFragment : Fragment(), Observer {
 
     override fun onResume() {
         super.onResume()
-        if (!gotLocation) {
-            gps.addObserver(this)
-            gps.start()
-        }
+        gps.addObserver(this)
+        gps.updateLocation {}
         handler = Handler(Looper.getMainLooper())
         timer = fixedRateTimer(period = 1000 * 60){
             handler.post { updateUI() }
@@ -78,20 +79,9 @@ class AstronomyFragment : Fragment(), Observer {
 
     override fun onPause() {
         super.onPause()
-        gps.stop()
         gps.deleteObserver(this)
         timer.cancel()
         sunProgress.visibility = View.INVISIBLE
-    }
-
-    override fun update(o: Observable?, arg: Any?) {
-        if (context == null) return
-        if (o == gps){
-            gotLocation = true
-            location = gps.location
-            gps.stop()
-            updateUI()
-        }
     }
 
     fun updateUI(){
@@ -100,18 +90,28 @@ class AstronomyFragment : Fragment(), Observer {
     }
 
     private fun updateMoonUI(){
-        val moonPhase = Moon.getPhase()
-        moonTxt.text = moonPhase.longName
 
-        val moonImgId = when(moonPhase) {
-            Moon.Phase.FirstQuarter -> R.drawable.moon_first_quarter
-            Moon.Phase.Full -> R.drawable.moon_full
-            Moon.Phase.LastQuarter -> R.drawable.moon_last_quarter
-            Moon.Phase.New -> R.drawable.moon_new
-            Moon.Phase.WaningCrescent -> R.drawable.moon_waning_crescent
-            Moon.Phase.WaningGibbous -> R.drawable.moon_waning_gibbous
-            Moon.Phase.WaxingCrescent -> R.drawable.moon_waxing_crescent
-            Moon.Phase.WaxingGibbous -> R.drawable.moon_waxing_gibbous
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val showCurrentMoonPhase = prefs.getBoolean(getString(R.string.pref_show_current_moon_phase), false)
+
+        val time = if (showCurrentMoonPhase){
+            ZonedDateTime.now()
+        } else {
+            LocalDate.now().atTime(LocalTime.MAX).toZonedDateTime()
+        }
+
+        val moonPhase = MoonPhaseCalculator().getPhase(time)
+        moonTxt.text = "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}% illumination)"
+
+        val moonImgId = when(moonPhase.phase) {
+            MoonTruePhase.FirstQuarter -> R.drawable.moon_first_quarter
+            MoonTruePhase.Full -> R.drawable.moon_full
+            MoonTruePhase.LastQuarter -> R.drawable.moon_last_quarter
+            MoonTruePhase.New -> R.drawable.moon_new
+            MoonTruePhase.WaningCrescent -> R.drawable.moon_waning_crescent
+            MoonTruePhase.WaningGibbous -> R.drawable.moon_waning_gibbous
+            MoonTruePhase.WaxingCrescent -> R.drawable.moon_waxing_crescent
+            MoonTruePhase.WaxingGibbous -> R.drawable.moon_waxing_gibbous
         }
 
         moonImg.setImageResource(moonImgId)
@@ -205,6 +205,13 @@ class AstronomyFragment : Fragment(), Observer {
             "${minutes}m"
         } else {
             "${hours}h ${minutes}m"
+        }
+    }
+
+    override fun update(o: Observable?, arg: Any?) {
+        if (o == gps){
+            location = gps.location
+            updateUI()
         }
     }
 

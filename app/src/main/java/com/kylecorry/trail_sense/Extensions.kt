@@ -15,12 +15,32 @@ fun Float.roundPlaces(places: Int): Float {
     return newFloat.toFloat()
 }
 
+fun Double.roundPlaces(places: Int): Double {
+    return (this * 10.0.pow(places)).roundToInt() / 10.0.pow(places)
+}
+
+fun Double.toRadians(): Double {
+    return Math.toRadians(this)
+}
+
+fun Float.roundNearest(value: Float): Float {
+    return (this / value).roundToInt() * value
+}
+
 fun Instant.toZonedDateTime(): ZonedDateTime {
     return ZonedDateTime.ofInstant(this, ZoneId.systemDefault())
 }
 
 fun LocalDateTime.toZonedInstant(): Instant {
     return ZonedDateTime.of(this, ZoneId.systemDefault()).toInstant()
+}
+
+fun LocalDateTime.toZonedDateTime(): ZonedDateTime {
+    return ZonedDateTime.of(this, ZoneId.systemDefault())
+}
+
+fun ZonedDateTime.toUTCLocal(): LocalDateTime {
+    return LocalDateTime.ofInstant(this.toInstant(), ZoneId.of("UTC"))
 }
 
 fun List<Float>.median(): Float {

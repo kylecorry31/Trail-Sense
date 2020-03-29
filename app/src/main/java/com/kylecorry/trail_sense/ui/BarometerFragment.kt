@@ -69,6 +69,7 @@ class BarometerFragment : Fragment(), Observer {
         PressureHistoryRepository.addObserver(this)
         barometer.addObserver(this)
         barometer.start()
+        gps.addObserver(this)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         useSeaLevelPressure = prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), false)
@@ -83,18 +84,7 @@ class BarometerFragment : Fragment(), Observer {
 
         updateBarometerChartData()
 
-        gps.updateLocation {
-            if (context != null) {
-                gotGpsReading = true
-
-                altitude = gps.altitude.value
-
-
-                if (useSeaLevelPressure) {
-                    updatePressure()
-                }
-            }
-        }
+        gps.updateLocation {}
     }
 
     override fun onPause() {
@@ -109,12 +99,22 @@ class BarometerFragment : Fragment(), Observer {
         if (o == PressureHistoryRepository) {
             updateBarometerChartData()
         }
+        if (o == gps){
+            gotGpsReading = true
+
+            altitude = gps.altitude.value
+
+            if (useSeaLevelPressure) {
+                updatePressure()
+            }
+        }
     }
 
     private fun updatePressure(){
 
         if (useSeaLevelPressure && !gotGpsReading) return
         if (context == null) return
+        if (barometer.pressure.value == 0.0f) return
 
         val readings = PressureHistoryRepository.getAll(context!!)
 

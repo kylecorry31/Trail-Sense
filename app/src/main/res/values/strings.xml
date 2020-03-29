@@ -56,4 +56,8 @@
     <string name="pref_altitude_mode_title">Altitude mode</string>
     <string name="pref_sun_time_mode">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
+    <string name="pref_show_current_moon_phase">show_current_moon_phase</string>
+    <string name="pref_show_current_moon_phase_title">Show current moon phase</string>
+    <string name="pref_show_current_moon_phase_summary_off">Showing tonight\'s moon phase</string>
+    <string name="pref_show_current_moon_phase_summary_on">Showing the current moon phase</string>
 </resources>
