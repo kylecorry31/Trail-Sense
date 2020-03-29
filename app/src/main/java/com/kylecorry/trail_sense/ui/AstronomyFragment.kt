@@ -105,7 +105,7 @@ class AstronomyFragment : Fragment(), Observer {
         val moonImgId = when(moonPhase.phase) {
             MoonTruePhase.FirstQuarter -> R.drawable.moon_first_quarter
             MoonTruePhase.Full -> R.drawable.moon_full
-            MoonTruePhase.LastQuarter -> R.drawable.moon_last_quarter
+            MoonTruePhase.ThirdQuarter -> R.drawable.moon_last_quarter
             MoonTruePhase.New -> R.drawable.moon_new
             MoonTruePhase.WaningCrescent -> R.drawable.moon_waning_crescent
             MoonTruePhase.WaningGibbous -> R.drawable.moon_waning_gibbous

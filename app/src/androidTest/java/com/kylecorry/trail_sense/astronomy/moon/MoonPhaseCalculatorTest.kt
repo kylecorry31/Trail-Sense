@@ -19,7 +19,7 @@ class MoonPhaseCalculatorTest {
         // Main phases
         assertMoonPhases(MoonPhase(MoonTruePhase.FirstQuarter, 50f), calculator.getPhase(getDate(LocalDateTime.of(2020, Month.MARCH, 2, 14, 58))), tolerance)
         assertMoonPhases(MoonPhase(MoonTruePhase.Full, 100f), calculator.getPhase(getDate(LocalDateTime.of(2020, Month.MARCH, 9, 13, 48))), tolerance)
-        assertMoonPhases(MoonPhase(MoonTruePhase.LastQuarter, 50f), calculator.getPhase(getDate(LocalDateTime.of(2020, Month.MARCH, 16, 5, 35))), tolerance)
+        assertMoonPhases(MoonPhase(MoonTruePhase.ThirdQuarter, 50f), calculator.getPhase(getDate(LocalDateTime.of(2020, Month.MARCH, 16, 5, 35))), tolerance)
         assertMoonPhases(MoonPhase(MoonTruePhase.New, 0f), calculator.getPhase(getDate(LocalDateTime.of(2020, Month.MARCH, 24, 5, 29))), tolerance)
 
         // Intermediate phases
