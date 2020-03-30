@@ -43,7 +43,11 @@ class AstronomyFragment : Fragment(), Observer {
     private lateinit var sunChart: IStackedBarChart
     private lateinit var sunImg: ImageView
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.activity_astronomy, container, false)
 
         sunTxt = view.findViewById(R.id.remaining_time)
@@ -70,7 +74,7 @@ class AstronomyFragment : Fragment(), Observer {
         gps.addObserver(this)
         gps.updateLocation {}
         handler = Handler(Looper.getMainLooper())
-        timer = fixedRateTimer(period = 1000 * 60){
+        timer = fixedRateTimer(period = 1000 * 60) {
             handler.post { updateUI() }
         }
 
@@ -82,26 +86,28 @@ class AstronomyFragment : Fragment(), Observer {
         timer.cancel()
     }
 
-    fun updateUI(){
+    fun updateUI() {
         updateSunUI()
         updateMoonUI()
     }
 
-    private fun updateMoonUI(){
+    private fun updateMoonUI() {
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val showCurrentMoonPhase = prefs.getBoolean(getString(R.string.pref_show_current_moon_phase), false)
+        val showCurrentMoonPhase =
+            prefs.getBoolean(getString(R.string.pref_show_current_moon_phase), false)
 
-        val time = if (showCurrentMoonPhase){
+        val time = if (showCurrentMoonPhase) {
             ZonedDateTime.now()
         } else {
             LocalDate.now().atTime(LocalTime.MAX).toZonedDateTime()
         }
 
         val moonPhase = MoonPhaseCalculator().getPhase(time)
-        moonTxt.text = "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}% illumination)"
+        moonTxt.text =
+            "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}% illumination)"
 
-        val moonImgId = when(moonPhase.phase) {
+        val moonImgId = when (moonPhase.phase) {
             MoonTruePhase.FirstQuarter -> R.drawable.moon_first_quarter
             MoonTruePhase.Full -> R.drawable.moon_full
             MoonTruePhase.ThirdQuarter -> R.drawable.moon_last_quarter
@@ -117,7 +123,7 @@ class AstronomyFragment : Fragment(), Observer {
         // TODO: Calculate moon rise / set times
     }
 
-    private fun updateSunUI(){
+    private fun updateSunUI() {
         val sunChartCalculator = SunTimesCalculatorFactory().create(context!!)
 
         val currentTime = LocalDateTime.now()
@@ -135,7 +141,8 @@ class AstronomyFragment : Fragment(), Observer {
         when {
             currentTime > sunset -> {
                 // Time until tomorrow's sunrise
-                val tomorrowSunrise = sunChartCalculator.calculate(location, currentDate.plusDays(1)).up
+                val tomorrowSunrise =
+                    sunChartCalculator.calculate(location, currentDate.plusDays(1)).up
                 sunTxt.text = formatDuration(Duration.between(currentTime, tomorrowSunrise))
                 remDaylightTxt.text = getString(R.string.until_sunrise_label)
             }
@@ -153,7 +160,7 @@ class AstronomyFragment : Fragment(), Observer {
 
     private fun getAllSunTimes(date: LocalDate): List<LocalDateTime> {
         val actual = ActualTwilightCalculator().calculate(location, date)
-        val civil =  CivilTwilightCalculator().calculate(location, date)
+        val civil = CivilTwilightCalculator().calculate(location, date)
         val nautical = NauticalTwilightCalculator().calculate(location, date)
         val astronomical = AstronomicalTwilightCalculator().calculate(location, date)
 
@@ -170,7 +177,7 @@ class AstronomyFragment : Fragment(), Observer {
 
     }
 
-    private fun displayTodaySunTimes(){
+    private fun displayTodaySunTimes() {
         val now = LocalDate.now()
         val sunTimes = SunTimesCalculatorFactory().create(context!!).calculate(location, now)
 
@@ -179,7 +186,7 @@ class AstronomyFragment : Fragment(), Observer {
         sunEndTimeTxt.text = formatTime(sunTimes.down)
     }
 
-    private fun displayTomorrowSunTimes(){
+    private fun displayTomorrowSunTimes() {
         val tomorrow = LocalDate.now().plusDays(1)
         val sunTimes = SunTimesCalculatorFactory().create(context!!).calculate(location, tomorrow)
 
@@ -188,7 +195,7 @@ class AstronomyFragment : Fragment(), Observer {
         sunEndTomorrowTimeTxt.text = formatTime(sunTimes.down)
     }
 
-    private fun populateSunChart(){
+    private fun populateSunChart() {
         val currentTime = LocalDateTime.now()
         val currentDate = currentTime.toLocalDate()
         val today = getAllSunTimes(currentDate)
@@ -200,7 +207,7 @@ class AstronomyFragment : Fragment(), Observer {
         val maxDuration = Duration.ofHours(14)
 
         val timesUntil = sunTimes
-            .map{ Duration.between(currentTime, it) }
+            .map { Duration.between(currentTime, it) }
             .map { if (it <= maxDuration) it else maxDuration }
             .map { if (it.isNegative) 0 else it.seconds }
 
@@ -208,13 +215,13 @@ class AstronomyFragment : Fragment(), Observer {
 
         var cumulativeTime = 0L
 
-        for (time in timesUntil){
+        for (time in timesUntil) {
             val dt = time - cumulativeTime
             sunEventDurations.add(dt)
             cumulativeTime += dt
         }
 
-        val colors = listOf(
+        val colors = mutableListOf(
             R.color.night,
             R.color.astronomical_twilight,
             R.color.nautical_twilight,
@@ -222,13 +229,10 @@ class AstronomyFragment : Fragment(), Observer {
             R.color.day,
             R.color.civil_twilight,
             R.color.nautical_twilight,
-            R.color.astronomical_twilight,
-            R.color.night,
-            R.color.astronomical_twilight,
-            R.color.nautical_twilight,
-            R.color.civil_twilight,
-            R.color.day
+            R.color.astronomical_twilight
         )
+
+        colors.addAll(colors)
 
         sunChart.plot(sunEventDurations, colors.map { resources.getColor(it, null) })
     }
@@ -237,7 +241,7 @@ class AstronomyFragment : Fragment(), Observer {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val use24Hr = prefs.getBoolean(getString(R.string.pref_use_24_hour), false)
 
-        return if (use24Hr){
+        return if (use24Hr) {
             time.format(DateTimeFormatter.ofPattern("H:mm"))
         } else {
             time.format(DateTimeFormatter.ofPattern("h:mm a"))
@@ -256,7 +260,7 @@ class AstronomyFragment : Fragment(), Observer {
     }
 
     override fun update(o: Observable?, arg: Any?) {
-        if (o == gps){
+        if (o == gps) {
             location = gps.location
             updateUI()
         }
