@@ -117,6 +117,18 @@
         app:layout_constraintTop_toBottomOf="@+id/sun_bar"
         tools:text="12:00 PM" />
 
+
+    <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:id="@+id/sun_chart"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sun_middle_time" />
+
     <ImageView
         android:id="@+id/moon_phase_img"
         android:layout_width="32dp"

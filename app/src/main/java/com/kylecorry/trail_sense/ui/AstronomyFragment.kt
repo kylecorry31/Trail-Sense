@@ -14,8 +14,7 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.moon.MoonPhaseCalculator
 import com.kylecorry.trail_sense.astronomy.moon.MoonTruePhase
-import com.kylecorry.trail_sense.astronomy.sun.SunTimes
-import com.kylecorry.trail_sense.astronomy.sun.SunTimesCalculatorFactory
+import com.kylecorry.trail_sense.astronomy.sun.*
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import java.util.*
 import com.kylecorry.trail_sense.shared.Coordinate
@@ -29,7 +28,6 @@ class AstronomyFragment : Fragment(), Observer {
 
     private lateinit var gps: GPS
     private lateinit var location: Coordinate
-    private var gotLocation = false
 
     private lateinit var sunTxt: TextView
     private lateinit var remDaylightTxt: TextView
@@ -44,6 +42,7 @@ class AstronomyFragment : Fragment(), Observer {
     private lateinit var sunEndTimeTxt: TextView
     private lateinit var timer: Timer
     private lateinit var handler: Handler
+    private lateinit var sunChart: IStackedBarChart
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_astronomy, container, false)
@@ -59,6 +58,8 @@ class AstronomyFragment : Fragment(), Observer {
         sunStartTimeTxt = view.findViewById(R.id.sun_start_time)
         sunMiddleTimeTxt = view.findViewById(R.id.sun_middle_time)
         sunEndTimeTxt = view.findViewById(R.id.sun_end_time)
+
+        sunChart = MpStackedBarChart(view.findViewById(R.id.sun_chart))
 
         gps = GPS(context!!)
         location = gps.location
@@ -120,12 +121,13 @@ class AstronomyFragment : Fragment(), Observer {
     }
 
     private fun updateSunUI(){
-
         val sunChartCalculator = SunTimesCalculatorFactory().create(context!!)
 
         val currentTime = LocalDateTime.now()
         val currentDate = currentTime.toLocalDate()
         val suntimes = sunChartCalculator.calculate(location, currentDate)
+
+        populateSunChart()
 
         val sunrise = suntimes.up
         val sunset = suntimes.down
@@ -149,6 +151,73 @@ class AstronomyFragment : Fragment(), Observer {
 
         sunProgress.visibility = View.VISIBLE
     }
+
+    private fun getAllSunTimes(date: LocalDate): List<LocalDateTime> {
+        val actual = ActualTwilightCalculator().calculate(location, date)
+        val civil =  CivilTwilightCalculator().calculate(location, date)
+        val nautical = NauticalTwilightCalculator().calculate(location, date)
+        val astronomical = AstronomicalTwilightCalculator().calculate(location, date)
+
+        return listOf(
+            astronomical.up,
+            nautical.up,
+            civil.up,
+            actual.up,
+            actual.down,
+            civil.down,
+            nautical.down,
+            astronomical.down
+        )
+
+    }
+
+    private fun populateSunChart(){
+        val currentTime = LocalDateTime.now()
+        val currentDate = currentTime.toLocalDate()
+        val today = getAllSunTimes(currentDate)
+        val tomorrow = getAllSunTimes(currentDate.plusDays(1))
+
+        val sunTimes = today.toMutableList()
+        sunTimes.add(currentDate.plusDays(1).atStartOfDay())
+//        sunTimes.addAll(tomorrow)
+
+        val maxDuration = Duration.ofHours(24)
+
+        val timesUntil = sunTimes
+            .map{ Duration.between(currentDate.atStartOfDay(), it) }
+            .map { if (it <= maxDuration) it else maxDuration }
+            .map { if (it.isNegative) 0 else it.seconds }
+
+        val sunEventDurations = mutableListOf<Long>()
+
+        var cumulativeTime = 0L
+
+        for (time in timesUntil){
+            val dt = time - cumulativeTime
+            sunEventDurations.add(dt)
+            cumulativeTime += dt
+        }
+
+        val colors = listOf(
+            R.color.night,
+            R.color.astronomical_twilight,
+            R.color.nautical_twilight,
+            R.color.civil_twilight,
+            R.color.day,
+            R.color.civil_twilight,
+            R.color.nautical_twilight,
+            R.color.astronomical_twilight,
+            R.color.night,
+            R.color.astronomical_twilight,
+            R.color.nautical_twilight,
+            R.color.civil_twilight,
+            R.color.day
+        )
+
+        sunChart.plot(sunEventDurations, colors.map { resources.getColor(it, null) })
+
+    }
+
 
     private fun setNightProgress(sunset: LocalDateTime, current: LocalDateTime, sunrise: LocalDateTime){
         sunStartTxt.text = getString(R.string.sunset_label)
