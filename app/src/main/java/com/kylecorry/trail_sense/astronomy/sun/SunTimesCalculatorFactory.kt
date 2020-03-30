@@ -16,7 +16,15 @@ class SunTimesCalculatorFactory {
             "astronomical" -> AstronomicalTwilightCalculator()
             else -> ActualTwilightCalculator()
         }
+    }
 
+    fun getAll(): List<ISunTimesCalculator> {
+        return listOf(
+            ActualTwilightCalculator(),
+            CivilTwilightCalculator(),
+            NauticalTwilightCalculator(),
+            AstronomicalTwilightCalculator()
+        )
     }
 
 }

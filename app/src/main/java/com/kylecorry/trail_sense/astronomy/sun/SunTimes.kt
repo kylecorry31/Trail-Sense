@@ -7,6 +7,9 @@ import java.time.LocalTime
 
 class SunTimes(val up: LocalDateTime, val down: LocalDateTime) {
 
+    val noon: LocalDateTime
+        get() = getPeakTime(up, down)
+
     companion object {
         fun unknown(date: LocalDate): SunTimes {
             return SunTimes(

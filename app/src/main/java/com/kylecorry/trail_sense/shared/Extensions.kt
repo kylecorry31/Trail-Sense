@@ -1,8 +1,12 @@
 package com.kylecorry.trail_sense.shared
 
+import android.content.Context
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.preference.PreferenceManager
+import com.kylecorry.trail_sense.R
 import java.time.*
+import java.time.format.DateTimeFormatter
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -33,6 +37,28 @@ fun Instant.toZonedDateTime(): ZonedDateTime {
 
 fun LocalDateTime.toZonedInstant(): Instant {
     return ZonedDateTime.of(this, ZoneId.systemDefault()).toInstant()
+}
+
+fun LocalDateTime.toDisplayFormat(ctx: Context): String {
+    val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
+    val use24Hr = prefs.getBoolean(ctx.getString(R.string.pref_use_24_hour), false)
+
+    return if (use24Hr) {
+        this.format(DateTimeFormatter.ofPattern("H:mm"))
+    } else {
+        this.format(DateTimeFormatter.ofPattern("h:mm a"))
+    }
+}
+
+fun Duration.formatHM(): String {
+    val hours = this.toHours()
+    val minutes = this.toMinutes() % 60
+
+    return when {
+        hours == 0L -> "${minutes}m"
+        minutes == 0L -> "${hours}h"
+        else -> "${hours}h ${minutes}m"
+    }
 }
 
 fun LocalDateTime.toZonedDateTime(): ZonedDateTime {
