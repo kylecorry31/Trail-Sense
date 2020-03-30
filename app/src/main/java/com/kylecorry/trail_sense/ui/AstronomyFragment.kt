@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
@@ -33,16 +32,16 @@ class AstronomyFragment : Fragment(), Observer {
     private lateinit var remDaylightTxt: TextView
     private lateinit var moonTxt: TextView
     private lateinit var moonImg: ImageView
-    private lateinit var sunProgress: ProgressBar
-    private lateinit var sunStartTxt: TextView
-    private lateinit var sunMiddleTxt: TextView
-    private lateinit var sunEndTxt: TextView
     private lateinit var sunStartTimeTxt: TextView
     private lateinit var sunMiddleTimeTxt: TextView
     private lateinit var sunEndTimeTxt: TextView
+    private lateinit var sunStartTomorrowTimeTxt: TextView
+    private lateinit var sunMiddleTomorrowTimeTxt: TextView
+    private lateinit var sunEndTomorrowTimeTxt: TextView
     private lateinit var timer: Timer
     private lateinit var handler: Handler
     private lateinit var sunChart: IStackedBarChart
+    private lateinit var sunImg: ImageView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_astronomy, container, false)
@@ -51,14 +50,13 @@ class AstronomyFragment : Fragment(), Observer {
         moonTxt = view.findViewById(R.id.moon_phase)
         moonImg = view.findViewById(R.id.moon_phase_img)
         remDaylightTxt = view.findViewById(R.id.remaining_time_lbl)
-        sunProgress = view.findViewById(R.id.sun_bar)
-        sunStartTxt = view.findViewById(R.id.sun_start)
-        sunMiddleTxt = view.findViewById(R.id.sun_middle)
-        sunEndTxt = view.findViewById(R.id.sun_end)
         sunStartTimeTxt = view.findViewById(R.id.sun_start_time)
         sunMiddleTimeTxt = view.findViewById(R.id.sun_middle_time)
         sunEndTimeTxt = view.findViewById(R.id.sun_end_time)
-
+        sunStartTomorrowTimeTxt = view.findViewById(R.id.sun_start_time_tomorrow)
+        sunMiddleTomorrowTimeTxt = view.findViewById(R.id.sun_middle_time_tomorrow)
+        sunEndTomorrowTimeTxt = view.findViewById(R.id.sun_end_time_tomorrow)
+        sunImg = view.findViewById(R.id.sun_img)
         sunChart = MpStackedBarChart(view.findViewById(R.id.sun_chart))
 
         gps = GPS(context!!)
@@ -82,7 +80,6 @@ class AstronomyFragment : Fragment(), Observer {
         super.onPause()
         gps.deleteObserver(this)
         timer.cancel()
-        sunProgress.visibility = View.INVISIBLE
     }
 
     fun updateUI(){
@@ -132,24 +129,26 @@ class AstronomyFragment : Fragment(), Observer {
         val sunrise = suntimes.up
         val sunset = suntimes.down
 
+        displayTodaySunTimes()
+        displayTomorrowSunTimes()
 
         when {
             currentTime > sunset -> {
                 // Time until tomorrow's sunrise
                 val tomorrowSunrise = sunChartCalculator.calculate(location, currentDate.plusDays(1)).up
-                setNightProgress(sunset, currentTime, tomorrowSunrise)
+                sunTxt.text = formatDuration(Duration.between(currentTime, tomorrowSunrise))
+                remDaylightTxt.text = getString(R.string.until_sunrise_label)
             }
             currentTime < sunrise -> {
                 // Time until today's sunrise
-                val yesterdaySunset = sunChartCalculator.calculate(location, currentDate.minusDays(1)).down
-                setNightProgress(yesterdaySunset, currentTime, sunrise)
+                sunTxt.text = formatDuration(Duration.between(currentTime, sunrise))
+                remDaylightTxt.text = getString(R.string.until_sunrise_label)
             }
             else -> {
-                setDayProgress(sunrise, currentTime, sunset)
+                sunTxt.text = formatDuration(Duration.between(currentTime, sunset))
+                remDaylightTxt.text = getString(R.string.until_sunset_label)
             }
         }
-
-        sunProgress.visibility = View.VISIBLE
     }
 
     private fun getAllSunTimes(date: LocalDate): List<LocalDateTime> {
@@ -171,6 +170,24 @@ class AstronomyFragment : Fragment(), Observer {
 
     }
 
+    private fun displayTodaySunTimes(){
+        val now = LocalDate.now()
+        val sunTimes = SunTimesCalculatorFactory().create(context!!).calculate(location, now)
+
+        sunStartTimeTxt.text = formatTime(sunTimes.up)
+        sunMiddleTimeTxt.text = formatTime(SunTimes.getPeakTime(sunTimes.up, sunTimes.down))
+        sunEndTimeTxt.text = formatTime(sunTimes.down)
+    }
+
+    private fun displayTomorrowSunTimes(){
+        val tomorrow = LocalDate.now().plusDays(1)
+        val sunTimes = SunTimesCalculatorFactory().create(context!!).calculate(location, tomorrow)
+
+        sunStartTomorrowTimeTxt.text = formatTime(sunTimes.up)
+        sunMiddleTomorrowTimeTxt.text = formatTime(SunTimes.getPeakTime(sunTimes.up, sunTimes.down))
+        sunEndTomorrowTimeTxt.text = formatTime(sunTimes.down)
+    }
+
     private fun populateSunChart(){
         val currentTime = LocalDateTime.now()
         val currentDate = currentTime.toLocalDate()
@@ -178,13 +195,12 @@ class AstronomyFragment : Fragment(), Observer {
         val tomorrow = getAllSunTimes(currentDate.plusDays(1))
 
         val sunTimes = today.toMutableList()
-        sunTimes.add(currentDate.plusDays(1).atStartOfDay())
-//        sunTimes.addAll(tomorrow)
+        sunTimes.addAll(tomorrow)
 
-        val maxDuration = Duration.ofHours(24)
+        val maxDuration = Duration.ofHours(14)
 
         val timesUntil = sunTimes
-            .map{ Duration.between(currentDate.atStartOfDay(), it) }
+            .map{ Duration.between(currentTime, it) }
             .map { if (it <= maxDuration) it else maxDuration }
             .map { if (it.isNegative) 0 else it.seconds }
 
@@ -215,45 +231,7 @@ class AstronomyFragment : Fragment(), Observer {
         )
 
         sunChart.plot(sunEventDurations, colors.map { resources.getColor(it, null) })
-
     }
-
-
-    private fun setNightProgress(sunset: LocalDateTime, current: LocalDateTime, sunrise: LocalDateTime){
-        sunStartTxt.text = getString(R.string.sunset_label)
-        sunEndTxt.text = getString(R.string.sunrise_label)
-        sunMiddleTxt.text = getString(R.string.midnight_label)
-        remDaylightTxt.text = getString(R.string.until_sunrise_label)
-
-        sunProgress.progressDrawable.setTint(resources.getColor(R.color.night, null))
-
-        setSunProgress(sunset, current, sunrise)
-    }
-
-    private fun setDayProgress(sunrise: LocalDateTime, current: LocalDateTime, sunset: LocalDateTime){
-        sunStartTxt.text = getString(R.string.sunrise_label)
-        sunEndTxt.text = getString(R.string.sunset_label)
-        sunMiddleTxt.text = getString(R.string.noon_label)
-        remDaylightTxt.text = getString(R.string.until_sunset_label)
-
-        sunProgress.progressDrawable.setTint(resources.getColor(R.color.day, null))
-
-        setSunProgress(sunrise, current, sunset)
-    }
-
-
-    private fun setSunProgress(start: LocalDateTime, current: LocalDateTime, end: LocalDateTime){
-        val totalTime = Duration.between(start, end)
-        val timeRemaining = Duration.between(current, end)
-        sunProgress.progress = ((timeRemaining.seconds / totalTime.seconds.toFloat()) * 100).roundToInt()
-
-        sunStartTimeTxt.text = formatTime(start)
-        sunMiddleTimeTxt.text = formatTime(SunTimes.getPeakTime(start, end))
-        sunEndTimeTxt.text = formatTime(end)
-
-        sunTxt.text = formatDuration(timeRemaining)
-    }
-
 
     private fun formatTime(time: LocalDateTime): String {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)

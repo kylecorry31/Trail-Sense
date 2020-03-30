@@ -14,4 +14,5 @@
     <color name="nautical_twilight">#805244</color>
     <color name="astronomical_twilight">#404466</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

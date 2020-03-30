@@ -68,4 +68,6 @@
     <string name="weather_not_changing">Not changing soon</string>
     <string name="forecast_improving">Possibly improving later</string>
     <string name="forecast_worsening">Possibly worsening later</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
 </resources>
