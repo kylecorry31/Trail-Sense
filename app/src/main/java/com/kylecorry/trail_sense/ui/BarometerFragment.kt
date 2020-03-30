@@ -230,7 +230,7 @@ class BarometerFragment : Fragment(), Observer {
 
         val convertedPressures = pressureConverter.convert(readings)
 
-        val filter = LowPassFilter(0.4, convertedPressures.first().value.toDouble())
+        val filter = LowPassFilter(0.35, convertedPressures.first().value.toDouble())
 
         val chartData = convertedPressures.map {
             val date = it.time.toZonedDateTime()

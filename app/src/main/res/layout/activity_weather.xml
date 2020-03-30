@@ -41,7 +41,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weather_now_img"
-        tools:text="Expect bad weather" />
+        tools:text="@string/weather_worsening_slow" />
 
     <TextView
         android:id="@+id/textView3"
@@ -60,13 +60,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
-        android:alpha="0.5"
         android:contentDescription="Pressure tendency indicator"
         android:src="@drawable/ic_arrow_up"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/pressure"
         app:layout_constraintEnd_toStartOf="@+id/pressure"
-        app:layout_constraintTop_toTopOf="@+id/pressure" />
+        app:layout_constraintTop_toTopOf="@+id/pressure"
+        tools:srcCompat="@drawable/ic_arrow_down"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/barometer_chart_title"
@@ -93,10 +94,10 @@
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:tint="@color/colorPrimary"
-        android:alpha="0.8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pressure" />
+        app:layout_constraintTop_toBottomOf="@+id/pressure"
+        tools:srcCompat="@drawable/light_rain" />
 
     <TextView
         android:id="@+id/weather_later_lbl"
@@ -108,6 +109,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weather_now_lbl"
-        tools:text="Worsening later" />
+        tools:text="@string/forecast_worsening" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

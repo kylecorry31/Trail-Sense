@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.ui
+package com.kylecorry.trail_sense.ui.astronomy
 
 import android.os.Bundle
 import android.os.Handler
@@ -20,9 +20,8 @@ import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.formatHM
 import com.kylecorry.trail_sense.shared.toDisplayFormat
 import com.kylecorry.trail_sense.shared.toZonedDateTime
-import com.kylecorry.trail_sense.ui.astronomy.SunChart
+import com.kylecorry.trail_sense.ui.MpStackedBarChart
 import java.time.*
-import java.time.format.DateTimeFormatter
 import kotlin.concurrent.fixedRateTimer
 import kotlin.math.roundToInt
 
@@ -65,7 +64,9 @@ class AstronomyFragment : Fragment(), Observer {
         sunMiddleTomorrowTimeTxt = view.findViewById(R.id.sun_middle_time_tomorrow)
         sunEndTomorrowTimeTxt = view.findViewById(R.id.sun_end_time_tomorrow)
         sunImg = view.findViewById(R.id.sun_img)
-        sunChart = SunChart(context!!, MpStackedBarChart(view.findViewById(R.id.sun_chart)))
+        sunChart = SunChart(context!!,
+            MpStackedBarChart(view.findViewById(R.id.sun_chart))
+        )
 
         gps = GPS(context!!)
         location = gps.location

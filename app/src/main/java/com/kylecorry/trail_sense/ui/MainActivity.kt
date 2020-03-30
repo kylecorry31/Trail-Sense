@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.services.BarometerService
 import com.kylecorry.trail_sense.shared.doTransaction
+import com.kylecorry.trail_sense.ui.astronomy.AstronomyFragment
 
 
 class MainActivity : AppCompatActivity() {

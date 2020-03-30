@@ -26,6 +26,7 @@ class MpLineChart(private val chart: LineChart, private val color: Int): ILineCh
         chart.xAxis.setDrawAxisLine(false)
         chart.axisLeft.setDrawAxisLine(false)
         chart.axisRight.setDrawAxisLine(false)
+        chart.setNoDataText("")
     }
 
     override fun plot(data: List<Pair<Number, Number>>) {
