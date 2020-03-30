@@ -21,7 +21,7 @@ class MpLineChart(private val chart: LineChart, private val color: Int): ILineCh
         chart.axisRight.setDrawLabels(false)
 
         chart.xAxis.setDrawGridLines(false)
-        chart.axisLeft.setDrawGridLines(false)
+        chart.axisLeft.setDrawGridLines(true)
         chart.axisRight.setDrawGridLines(false)
         chart.xAxis.setDrawAxisLine(false)
         chart.axisLeft.setDrawAxisLine(false)
@@ -34,13 +34,14 @@ class MpLineChart(private val chart: LineChart, private val color: Int): ILineCh
         val set1 = LineDataSet(values, "Series 1")
         set1.color = color
         set1.fillAlpha = 180
-        set1.lineWidth = 2f
+        set1.lineWidth = 3f
         set1.setDrawValues(false)
         set1.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
         set1.fillColor = color
+        set1.setCircleColor(color)
         set1.setDrawCircleHole(false)
         set1.setDrawCircles(false)
-        set1.setDrawFilled(true)
+        set1.setDrawFilled(false)
 
         val lineData = LineData(set1)
         chart.data = lineData

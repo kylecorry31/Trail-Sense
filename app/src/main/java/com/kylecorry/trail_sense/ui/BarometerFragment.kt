@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
+import com.kylecorry.sensorfilters.LowPassFilter
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import java.util.*
 import com.kylecorry.trail_sense.*
@@ -229,11 +230,13 @@ class BarometerFragment : Fragment(), Observer {
 
         val convertedPressures = pressureConverter.convert(readings)
 
+        val filter = LowPassFilter(0.4, convertedPressures.first().value.toDouble())
+
         val chartData = convertedPressures.map {
             val date = it.time.toZonedDateTime()
             Pair(
                 ((date.toEpochSecond() + date.offset.totalSeconds) * 1000) as Number,
-                (WeatherUtils.convertPressureToUnits(it.value, units)) as Number
+                (WeatherUtils.convertPressureToUnits(filter.filter(it.value.toDouble()).toFloat(), units)) as Number
             )
         }
 
