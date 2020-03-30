@@ -7,8 +7,7 @@ import java.time.LocalTime
 
 class SunTimes(val up: LocalDateTime, val down: LocalDateTime) {
 
-    val noon: LocalDateTime
-        get() = getPeakTime(up, down)
+    val noon: LocalDateTime = up.plus(Duration.between(up, down).dividedBy(2))
 
     companion object {
         fun unknown(date: LocalDate): SunTimes {
@@ -17,10 +16,6 @@ class SunTimes(val up: LocalDateTime, val down: LocalDateTime) {
                     LocalTime.MIN
                 ), date.atTime(LocalTime.MAX)
             )
-        }
-
-        fun getPeakTime(start: LocalDateTime, end: LocalDateTime): LocalDateTime {
-            return start.plus(Duration.between(start, end).dividedBy(2))
         }
 
     }

@@ -68,13 +68,15 @@ class SunTimesCalculatorTest {
     }
 
     @Test
-    fun calculatePeakTime(){
-        val d1 = LocalDateTime.of(2020, 3, 29, 23, 0)
-        val d2 = LocalDateTime.of(2020, 3, 30, 1, 0)
+    fun calculatesNoon(){
+        val up = LocalDateTime.of(2020, 3, 29, 6, 0)
+        val down = LocalDateTime.of(2020, 3, 29, 20, 0)
 
-        val expected = LocalDateTime.of(2020, 3, 30, 0, 0)
+        val sunTimes = SunTimes(up, down)
 
-        assertEquals(expected, SunTimes.getPeakTime(d1, d2))
+        val expected = LocalDateTime.of(2020, 3, 29, 13, 0)
+
+        assertEquals(expected, sunTimes.noon)
     }
 
 
