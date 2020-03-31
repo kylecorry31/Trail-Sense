@@ -3,11 +3,9 @@
     <color name="colorPrimary">#FF6D00</color>
     <color name="colorPrimaryDark">#D32F2F</color>
     <color name="colorAccent">#FF9100</color>
-<!--    <color name="day">#b0dae8</color>-->
-<!--    <color name="night">#2f454d</color>-->
-<!--    <color name="civil_twilight">#96bbc9</color>-->
-<!--    <color name="nautical_twilight">#6f8f9a</color>-->
-<!--    <color name="astronomical_twilight">#586a70</color>-->
+    <color name="moon_up">#b0dae8</color>
+    <color name="moon_down">#2f454d</color>
+    <color name="moon_down2">#586a70</color>
     <color name="day">@color/colorPrimary</color>
     <color name="night">#003688</color>
     <color name="civil_twilight">#BF5F22</color>
