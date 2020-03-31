@@ -70,4 +70,6 @@
     <string name="forecast_worsening">Possibly worsening later</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
+    <string name="moonrise">Moonrise</string>
+    <string name="moonset">Moonset</string>
 </resources>

@@ -11,8 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.moon.MoonPhaseCalculator
-import com.kylecorry.trail_sense.astronomy.moon.MoonTruePhase
+import com.kylecorry.trail_sense.astronomy.moon.*
 import com.kylecorry.trail_sense.astronomy.sun.*
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import java.util.*
@@ -43,6 +42,7 @@ class AstronomyFragment : Fragment(), Observer {
     private lateinit var timer: Timer
     private lateinit var handler: Handler
     private lateinit var sunImg: ImageView
+    private lateinit var moonTimeTxt: TextView
 
     private lateinit var sunChart: SunChart
 
@@ -67,6 +67,7 @@ class AstronomyFragment : Fragment(), Observer {
         sunChart = SunChart(context!!,
             MpStackedBarChart(view.findViewById(R.id.sun_chart))
         )
+        moonTimeTxt = view.findViewById(R.id.moontime)
 
         gps = GPS(context!!)
         location = gps.location
@@ -116,6 +117,19 @@ class AstronomyFragment : Fragment(), Observer {
         }
 
         val moonPhase = MoonPhaseCalculator().getPhase(time)
+        val calculator = AltitudeMoonTimesCalculator()
+
+        val nextRise = getNextMoonTime(calculator, true)
+        val nextSet = getNextMoonTime(calculator, false)
+
+        moonTimeTxt.text = if (nextRise < nextSet){
+            // Moon is down
+             "Rises ${getCasualDate(nextRise)} at ${nextRise.toDisplayFormat(context!!)}"
+        } else {
+            // Moon is up
+            "Sets ${getCasualDate(nextSet)} at ${nextSet.toDisplayFormat(context!!)}"
+        }
+
         moonTxt.text =
             "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}% illumination)"
 
@@ -133,6 +147,34 @@ class AstronomyFragment : Fragment(), Observer {
         moonImg.setImageResource(moonImgId)
 
         // TODO: Calculate moon rise / set times
+    }
+
+    private fun getCasualDate(dateTime: LocalDateTime): String {
+        val currentDate = LocalDate.now()
+
+        return if (currentDate == dateTime.toLocalDate()){
+            "today"
+        } else {
+            "tomorrow"
+        }
+    }
+
+    private fun getNextMoonTime(calculator: IMoonTimesCalculator, isRise: Boolean): LocalDateTime {
+        val currentTime = LocalDateTime.now()
+        var day = currentTime.toLocalDate()
+        while(true){
+            val moonTimes = calculator.calculate(location, day)
+            if (isRise) {
+                if (moonTimes.up?.isAfter(currentTime) == true) {
+                    return moonTimes.up
+                }
+            } else {
+                if (moonTimes.down?.isAfter(currentTime) == true) {
+                    return moonTimes.down
+                }
+            }
+            day = day.plusDays(1)
+        }
     }
 
     private fun updateSunUI() {
