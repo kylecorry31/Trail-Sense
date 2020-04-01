@@ -30,8 +30,6 @@ class SunChart(private val ctx: Context, chart: IStackedBarChart) {
             R.color.astronomical_twilight
         )
 
-        colors.addAll(colors)
-
         timeChart.display(currentTime, times, colors.map { ctx.resources.getColor(it, null) })
     }
 

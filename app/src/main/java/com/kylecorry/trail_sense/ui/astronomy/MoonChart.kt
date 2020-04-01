@@ -25,12 +25,10 @@ class MoonChart(private val ctx: Context, chart: IStackedBarChart) {
         }
 
         val colors = if (isUp){
-            mutableListOf(R.color.moon_up, R.color.moon_down)
+            listOf(R.color.moon_up, R.color.moon_down)
         } else {
-            mutableListOf(R.color.moon_down, R.color.moon_up)
+            listOf(R.color.moon_down, R.color.moon_up)
         }
-
-        for (i in moonTimes.indices) colors.addAll(colors)
 
         timeChart.display(currentTime, times, colors.map { ctx.resources.getColor(it, null) })
     }
