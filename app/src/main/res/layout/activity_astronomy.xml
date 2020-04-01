@@ -56,8 +56,8 @@
 
     <ImageView
         android:id="@+id/sun_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginTop="8dp"
         android:scaleType="fitCenter"
         android:tint="@color/day"
@@ -267,20 +267,20 @@
 
     <ImageView
         android:id="@+id/moon_chart_cursor"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:alpha="0.85"
-        android:background="@color/white"
+        android:layout_width="2.5dp"
+        android:layout_height="40dp"
+        android:alpha="1"
+        android:background="@color/cursor_color"
         app:layout_constraintBottom_toBottomOf="@+id/moon_chart"
         app:layout_constraintStart_toStartOf="@+id/moon_chart"
         app:layout_constraintTop_toTopOf="@+id/moon_chart" />
 
     <ImageView
         android:id="@+id/sun_chart_cursor"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:alpha="0.85"
-        android:background="@color/white"
+        android:layout_width="2.5dp"
+        android:layout_height="40dp"
+        android:alpha="1"
+        android:background="@color/cursor_color"
         app:layout_constraintBottom_toBottomOf="@+id/sun_chart"
         app:layout_constraintStart_toStartOf="@+id/sun_chart"
         app:layout_constraintTop_toTopOf="@+id/sun_chart" />

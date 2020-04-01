@@ -145,7 +145,7 @@ class AstronomyFragment : Fragment(), Observer {
 
         moonChart.display(moonTimes, nextSet < nextRise, LocalDate.now().atStartOfDay())
         moonImg.x = moonChartObj.width * getPercentOfDay() + moonChartObj.x - moonImg.width / 2f
-        moonChartCursor.layoutParams.width = (moonChartObj.width * getPercentOfDay()).roundToInt()
+        moonChartCursor.x = moonChartObj.width * getPercentOfDay() + moonChartObj.x - moonChartCursor.width / 2f
 
 
         moonTxt.text =
@@ -206,7 +206,7 @@ class AstronomyFragment : Fragment(), Observer {
         val sunChartCalculator = SunTimesCalculatorFactory().create(context!!)
 
         sunImg.x = sunChartObj.width * getPercentOfDay() + sunChartObj.x - sunImg.width / 2f
-        sunChartCursor.layoutParams.width = (sunChartObj.width * getPercentOfDay()).roundToInt()
+        sunChartCursor.x = sunChartObj.width * getPercentOfDay() + sunChartObj.x - sunChartCursor.width / 2f
 
         val currentTime = LocalDateTime.now()
         val today = currentTime.toLocalDate()
