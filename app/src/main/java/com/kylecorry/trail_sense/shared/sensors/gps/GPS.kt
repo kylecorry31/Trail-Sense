@@ -100,7 +100,7 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
                 location.longitude
             )
 
-            if (location.hasAltitude()) {
+            if (location.hasAltitude() && location.altitude != 0.0) {
                 _altitude = AltitudeReading(
                     Instant.now(),
                     location.altitude.toFloat()
@@ -110,7 +110,9 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
             prefs.edit {
                 putFloat(LAST_LATITUDE, location.latitude.toFloat())
                 putFloat(LAST_LONGITUDE, location.longitude.toFloat())
-                putFloat(LAST_ALTITUDE, location.altitude.toFloat())
+                if (location.hasAltitude() && location.altitude != 0.0) {
+                    putFloat(LAST_ALTITUDE, location.altitude.toFloat())
+                }
             }
 
         }
