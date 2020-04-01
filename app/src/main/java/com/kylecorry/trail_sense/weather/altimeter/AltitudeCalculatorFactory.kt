@@ -14,8 +14,7 @@ class AltitudeCalculatorFactory(private val context: Context) {
 
         return when (mode){
             Constants.ALTIMETER_MODE_GPS -> GPSAltitudeCalculator()
-            Constants.ALTIMETER_MODE_BAROMETER_GPS -> BarometerGPSAltitudeCalculator(
-                Constants.MAXIMUM_NATURAL_PRESSURE_CHANGE)
+            Constants.ALTIMETER_MODE_BAROMETER_GPS -> BarometerGPSAltitudeCalculator(Constants.MAXIMUM_NATURAL_PRESSURE_CHANGE)
             else -> GPSAltitudeCalculator()
         }
     }

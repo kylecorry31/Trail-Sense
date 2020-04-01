@@ -1,8 +1,11 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.location.Location
 import android.os.Looper
+import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
@@ -16,6 +19,7 @@ import java.util.*
 
 class GPS(ctx: Context): IGPS, ISensor, Observable() {
 
+    private val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(ctx)
     private val locationCallback = object: LocationCallback() {
         override fun onLocationResult(result: LocationResult?) {
@@ -49,9 +53,12 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
     override val altitude: AltitudeReading
         get() = _altitude
 
-    private var _altitude =
-        AltitudeReading(Instant.MAX, 0F)
-    private var _location = Coordinate(0.0, 0.0)
+    private var _altitude = AltitudeReading(Instant.now(), prefs.getFloat(LAST_ALTITUDE, 0f))
+
+    private var _location = Coordinate(
+            prefs.getFloat(LAST_LATITUDE, 0f).toDouble(),
+            prefs.getFloat(LAST_LONGITUDE, 0f).toDouble()
+    )
 
     /**
      * Updates the current location
@@ -95,6 +102,13 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
                 Instant.now(),
                 location.altitude.toFloat()
             )
+
+            prefs.edit {
+                putFloat(LAST_LATITUDE, location.latitude.toFloat())
+                putFloat(LAST_LONGITUDE, location.longitude.toFloat())
+                putFloat(LAST_ALTITUDE, location.altitude.toFloat())
+            }
+
         }
         setChanged()
         notifyObservers()
@@ -126,6 +140,12 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
         if (!started) return
         fusedLocationClient.removeLocationUpdates(locationCallback)
         started = false
+    }
+
+    companion object {
+        private const val LAST_LATITUDE = "last_latitude";
+        private const val LAST_LONGITUDE = "last_longitude";
+        private const val LAST_ALTITUDE = "last_altitude";
     }
 
 }

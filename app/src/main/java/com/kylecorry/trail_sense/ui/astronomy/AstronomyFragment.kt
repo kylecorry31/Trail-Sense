@@ -78,7 +78,6 @@ class AstronomyFragment : Fragment(), Observer {
         moonTimeTxt = view.findViewById(R.id.moontime)
 
         gps = GPS(context!!)
-        location = gps.location
 
         return view
     }
@@ -86,12 +85,13 @@ class AstronomyFragment : Fragment(), Observer {
     override fun onResume() {
         super.onResume()
         gps.addObserver(this)
+        location = gps.location
         gps.updateLocation {}
         handler = Handler(Looper.getMainLooper())
         timer = fixedRateTimer(period = 1000 * 60) {
             handler.post { updateUI() }
         }
-
+        updateUI()
     }
 
     override fun onPause() {

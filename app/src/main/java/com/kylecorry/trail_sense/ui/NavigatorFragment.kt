@@ -116,6 +116,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         if (useBarometricAltitude){
             barometer.start()
+            barometer.setAltitude(gps.altitude.value)
             gps.updateLocation {
                 barometer.setAltitude(gps.altitude.value)
             }

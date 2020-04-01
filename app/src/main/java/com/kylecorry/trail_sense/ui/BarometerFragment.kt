@@ -36,7 +36,6 @@ class BarometerFragment : Fragment(), Observer {
 
     private var altitude = 0F
     private var useSeaLevelPressure = false
-    private var gotGpsReading = false
     private var units = Constants.PRESSURE_UNITS_HPA
     private var pressureConverter: ISeaLevelPressureConverter =
         NullPressureConverter()
@@ -54,7 +53,11 @@ class BarometerFragment : Fragment(), Observer {
     private lateinit var chart: ILineChart
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.activity_weather, container, false)
 
         barometer = Barometer(context!!)
@@ -64,7 +67,10 @@ class BarometerFragment : Fragment(), Observer {
         weatherNowTxt = view.findViewById(R.id.weather_now_lbl)
         weatherNowImg = view.findViewById(R.id.weather_now_img)
         weatherLaterTxt = view.findViewById(R.id.weather_later_lbl)
-        chart = MpLineChart(view.findViewById(R.id.chart), resources.getColor(R.color.colorPrimary, null))
+        chart = MpLineChart(
+            view.findViewById(R.id.chart),
+            resources.getColor(R.color.colorPrimary, null)
+        )
         trendImg = view.findViewById(R.id.barometer_trend)
         historyDurationTxt = view.findViewById(R.id.pressure_history_duration)
 
@@ -79,18 +85,18 @@ class BarometerFragment : Fragment(), Observer {
         gps.addObserver(this)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        useSeaLevelPressure = prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), false)
+        useSeaLevelPressure =
+            prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), false)
 
-        if (useSeaLevelPressure){
-            var calculator = AltitudeCalculatorFactory(context!!).create()
-            if (calculator is BarometerAltitudeCalculator || calculator is InitialCalibrationBarometerAltitudeCalculator) calculator = GPSAltitudeCalculator()
-            pressureConverter =
-                AltimeterSeaLevelPressureConverter(
-                    calculator
-                )
+        if (useSeaLevelPressure) {
+            val calculator = AltitudeCalculatorFactory(context!!).create()
+            pressureConverter = AltimeterSeaLevelPressureConverter(calculator)
+            altitude = gps.altitude.value
         }
 
-        units = prefs.getString(getString(R.string.pref_pressure_units), Constants.PRESSURE_UNITS_HPA) ?: Constants.PRESSURE_UNITS_HPA
+        units =
+            prefs.getString(getString(R.string.pref_pressure_units), Constants.PRESSURE_UNITS_HPA)
+                ?: Constants.PRESSURE_UNITS_HPA
 
         updateBarometerChartData()
 
@@ -109,9 +115,7 @@ class BarometerFragment : Fragment(), Observer {
         if (o == PressureHistoryRepository) {
             updateBarometerChartData()
         }
-        if (o == gps){
-            gotGpsReading = true
-
+        if (o == gps) {
             altitude = gps.altitude.value
 
             if (useSeaLevelPressure) {
@@ -120,9 +124,7 @@ class BarometerFragment : Fragment(), Observer {
         }
     }
 
-    private fun updatePressure(){
-
-        if (useSeaLevelPressure && !gotGpsReading) return
+    private fun updatePressure() {
         if (context == null) return
         if (barometer.pressure.value == 0.0f) return
 
@@ -150,12 +152,12 @@ class BarometerFragment : Fragment(), Observer {
         val format =
             WeatherUtils.getDecimalFormat(units)
 
-        pressureTxt.text = "${format.format(pressure )} $symbol"
+        pressureTxt.text = "${format.format(pressure)} $symbol"
 
         val pressureDirection = PressureTendencyCalculator.getPressureTendency(convertedReadings)
 
-        when(pressureDirection.characteristic) {
-             PressureCharacteristic.Falling -> {
+        when (pressureDirection.characteristic) {
+            PressureCharacteristic.Falling -> {
                 trendImg.setImageResource(R.drawable.ic_arrow_down)
                 trendImg.visibility = View.VISIBLE
             }
@@ -178,7 +180,7 @@ class BarometerFragment : Fragment(), Observer {
         val isLow = WeatherUtils.isLowPressure(currentPressure)
         val isHigh = WeatherUtils.isHighPressure(currentPressure)
 
-        return when (weather){
+        return when (weather) {
             Weather.ImprovingFast -> if (isLow) R.drawable.cloudy else R.drawable.sunny
             Weather.ImprovingSlow -> if (isHigh) R.drawable.sunny else R.drawable.partially_cloudy
             Weather.WorseningSlow -> if (isLow) R.drawable.light_rain else R.drawable.cloudy
@@ -189,7 +191,7 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun getShortTermWeatherDescription(weather: Weather): String {
-        return when (weather){
+        return when (weather) {
             Weather.ImprovingFast -> getString(R.string.weather_improving_fast)
             Weather.ImprovingSlow -> getString(R.string.weather_improving_slow)
             Weather.WorseningSlow -> getString(R.string.weather_worsening_slow)
@@ -200,7 +202,7 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun getLongTermWeatherDescription(weather: Weather): String {
-        return when (weather){
+        return when (weather) {
             Weather.ImprovingFast, Weather.ImprovingSlow -> getString(R.string.forecast_improving)
             Weather.WorseningSlow, Weather.WorseningFast, Weather.Storm -> getString(R.string.forecast_worsening)
             else -> ""
@@ -236,7 +238,10 @@ class BarometerFragment : Fragment(), Observer {
             val date = it.time.toZonedDateTime()
             Pair(
                 ((date.toEpochSecond() + date.offset.totalSeconds) * 1000) as Number,
-                (WeatherUtils.convertPressureToUnits(filter.filter(it.value.toDouble()).toFloat(), units)) as Number
+                (WeatherUtils.convertPressureToUnits(
+                    filter.filter(it.value.toDouble()).toFloat(),
+                    units
+                )) as Number
             )
         }
 
