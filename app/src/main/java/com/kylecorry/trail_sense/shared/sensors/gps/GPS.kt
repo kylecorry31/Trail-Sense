@@ -94,14 +94,18 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
      */
     private fun updateLastLocation(location: Location?){
         if (location != null) {
+
             this._location = Coordinate(
                 location.latitude,
                 location.longitude
             )
-            _altitude = AltitudeReading(
-                Instant.now(),
-                location.altitude.toFloat()
-            )
+
+            if (location.hasAltitude()) {
+                _altitude = AltitudeReading(
+                    Instant.now(),
+                    location.altitude.toFloat()
+                )
+            }
 
             prefs.edit {
                 putFloat(LAST_LATITUDE, location.latitude.toFloat())
