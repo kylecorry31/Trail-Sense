@@ -3,11 +3,8 @@
     <color name="colorPrimary">#FF6D00</color>
     <color name="colorPrimaryDark">#D32F2F</color>
     <color name="colorAccent">#FF9100</color>
-<!--    <color name="moon_up">#b0dae8</color>-->
-    <color name="moon_up">#bbb</color>
-    <color name="moon_down">#555</color>
-<!--    <color name="moon_down">#2f454d</color>-->
-    <color name="moon_down2">#586a70</color>
+    <color name="moon_up">#b0dae8</color>
+    <color name="moon_down">@color/night</color>
     <color name="day">@color/colorPrimary</color>
     <color name="night">#555555</color>
     <color name="civil_twilight">#D56715</color>

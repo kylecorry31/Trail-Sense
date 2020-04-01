@@ -46,6 +46,10 @@ class AstronomyFragment : Fragment(), Observer {
 
     private lateinit var sunChart: SunChart
     private lateinit var moonChart: MoonChart
+    private lateinit var sunChartObj: View
+    private lateinit var moonChartObj: View
+    private lateinit var sunChartCursor: View
+    private lateinit var moonChartCursor: View
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,6 +69,10 @@ class AstronomyFragment : Fragment(), Observer {
         sunMiddleTomorrowTimeTxt = view.findViewById(R.id.sun_middle_time_tomorrow)
         sunEndTomorrowTimeTxt = view.findViewById(R.id.sun_end_time_tomorrow)
         sunImg = view.findViewById(R.id.sun_img)
+        sunChartObj = view.findViewById(R.id.sun_chart)
+        moonChartObj = view.findViewById(R.id.moon_chart)
+        moonChartCursor = view.findViewById(R.id.moon_chart_cursor)
+        sunChartCursor = view.findViewById(R.id.sun_chart_cursor)
         sunChart = SunChart(context!!, MpStackedBarChart(view.findViewById(R.id.sun_chart)))
         moonChart = MoonChart(context!!, MpStackedBarChart(view.findViewById(R.id.moon_chart)))
         moonTimeTxt = view.findViewById(R.id.moontime)
@@ -136,6 +144,9 @@ class AstronomyFragment : Fragment(), Observer {
         }
 
         moonChart.display(moonTimes, nextSet < nextRise, LocalDate.now().atStartOfDay())
+        moonImg.x = moonChartObj.width * getPercentOfDay() + moonChartObj.x - moonImg.width / 2f
+        moonChartCursor.layoutParams.width = (moonChartObj.width * getPercentOfDay()).roundToInt()
+
 
         moonTxt.text =
             "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}% illumination)"
@@ -154,6 +165,13 @@ class AstronomyFragment : Fragment(), Observer {
         moonImg.setImageResource(moonImgId)
 
         // TODO: Calculate moon rise / set times
+    }
+
+    private fun getPercentOfDay(): Float {
+        val current = LocalDateTime.now()
+        val start = current.toLocalDate().atStartOfDay()
+        val duration = Duration.between(start, current).seconds
+        return duration / Duration.ofDays(1).seconds.toFloat()
     }
 
     private fun getCasualDate(dateTime: LocalDateTime): String {
@@ -187,6 +205,9 @@ class AstronomyFragment : Fragment(), Observer {
     private fun updateSunUI() {
         val sunChartCalculator = SunTimesCalculatorFactory().create(context!!)
 
+        sunImg.x = sunChartObj.width * getPercentOfDay() + sunChartObj.x - sunImg.width / 2f
+        sunChartCursor.layoutParams.width = (sunChartObj.width * getPercentOfDay()).roundToInt()
+
         val currentTime = LocalDateTime.now()
         val today = currentTime.toLocalDate()
         val tomorrow = today.plusDays(1)
@@ -199,7 +220,7 @@ class AstronomyFragment : Fragment(), Observer {
             )
         })
 
-        sunChart.display(sunTimes)
+        sunChart.display(sunTimes, today.atStartOfDay())
 
         val todayTimes = sunChartCalculator.calculate(location, today)
         val tomorrowTimes = sunChartCalculator.calculate(location, tomorrow)
