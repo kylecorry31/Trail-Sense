@@ -45,6 +45,7 @@ class AstronomyFragment : Fragment(), Observer {
     private lateinit var moonTimeTxt: TextView
 
     private lateinit var sunChart: SunChart
+    private lateinit var moonChart: MoonChart
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,9 +65,8 @@ class AstronomyFragment : Fragment(), Observer {
         sunMiddleTomorrowTimeTxt = view.findViewById(R.id.sun_middle_time_tomorrow)
         sunEndTomorrowTimeTxt = view.findViewById(R.id.sun_end_time_tomorrow)
         sunImg = view.findViewById(R.id.sun_img)
-        sunChart = SunChart(context!!,
-            MpStackedBarChart(view.findViewById(R.id.sun_chart))
-        )
+        sunChart = SunChart(context!!, MpStackedBarChart(view.findViewById(R.id.sun_chart)))
+        moonChart = MoonChart(context!!, MpStackedBarChart(view.findViewById(R.id.moon_chart)))
         moonTimeTxt = view.findViewById(R.id.moontime)
 
         gps = GPS(context!!)
@@ -122,13 +122,20 @@ class AstronomyFragment : Fragment(), Observer {
         val nextRise = getNextMoonTime(calculator, true)
         val nextSet = getNextMoonTime(calculator, false)
 
-        moonTimeTxt.text = if (nextRise < nextSet){
+        moonTimeTxt.text = if (nextRise < nextSet) {
             // Moon is down
-             "Rises ${getCasualDate(nextRise)} at ${nextRise.toDisplayFormat(context!!)}"
+            "Rises ${getCasualDate(nextRise)} at ${nextRise.toDisplayFormat(context!!)}"
         } else {
             // Moon is up
             "Sets ${getCasualDate(nextSet)} at ${nextSet.toDisplayFormat(context!!)}"
         }
+
+        val moonTimes = mutableListOf<MoonTimes>()
+        for (i in 0..1){
+            moonTimes.add(calculator.calculate(location, LocalDate.now().plusDays(i.toLong())))
+        }
+
+        moonChart.display(moonTimes, nextSet < nextRise, LocalDate.now().atStartOfDay())
 
         moonTxt.text =
             "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}% illumination)"
@@ -152,7 +159,7 @@ class AstronomyFragment : Fragment(), Observer {
     private fun getCasualDate(dateTime: LocalDateTime): String {
         val currentDate = LocalDate.now()
 
-        return if (currentDate == dateTime.toLocalDate()){
+        return if (currentDate == dateTime.toLocalDate()) {
             "today"
         } else {
             "tomorrow"
@@ -162,7 +169,7 @@ class AstronomyFragment : Fragment(), Observer {
     private fun getNextMoonTime(calculator: IMoonTimesCalculator, isRise: Boolean): LocalDateTime {
         val currentTime = LocalDateTime.now()
         var day = currentTime.toLocalDate()
-        while(true){
+        while (true) {
             val moonTimes = calculator.calculate(location, day)
             if (isRise) {
                 if (moonTimes.up?.isAfter(currentTime) == true) {
@@ -183,8 +190,14 @@ class AstronomyFragment : Fragment(), Observer {
         val currentTime = LocalDateTime.now()
         val today = currentTime.toLocalDate()
         val tomorrow = today.plusDays(1)
-        val sunTimes = SunTimesCalculatorFactory().getAll().map { it.calculate(location, today) }.toMutableList()
-        sunTimes.addAll(SunTimesCalculatorFactory().getAll().map { it.calculate(location, tomorrow) })
+        val sunTimes = SunTimesCalculatorFactory().getAll().map { it.calculate(location, today) }
+            .toMutableList()
+        sunTimes.addAll(SunTimesCalculatorFactory().getAll().map {
+            it.calculate(
+                location,
+                tomorrow
+            )
+        })
 
         sunChart.display(sunTimes)
 
@@ -192,12 +205,21 @@ class AstronomyFragment : Fragment(), Observer {
         val tomorrowTimes = sunChartCalculator.calculate(location, tomorrow)
 
         displaySunTimes(todayTimes, sunStartTimeTxt, sunMiddleTimeTxt, sunEndTimeTxt)
-        displaySunTimes(tomorrowTimes, sunStartTomorrowTimeTxt, sunMiddleTomorrowTimeTxt, sunEndTomorrowTimeTxt)
+        displaySunTimes(
+            tomorrowTimes,
+            sunStartTomorrowTimeTxt,
+            sunMiddleTomorrowTimeTxt,
+            sunEndTomorrowTimeTxt
+        )
 
         displayTimeUntilNextSunEvent(currentTime, todayTimes, tomorrowTimes)
     }
 
-    private fun displayTimeUntilNextSunEvent(currentTime: LocalDateTime, today: SunTimes, tomorrow: SunTimes){
+    private fun displayTimeUntilNextSunEvent(
+        currentTime: LocalDateTime,
+        today: SunTimes,
+        tomorrow: SunTimes
+    ) {
         when {
             currentTime > today.down -> {
                 // Time until tomorrow's sunrise
@@ -217,7 +239,12 @@ class AstronomyFragment : Fragment(), Observer {
     }
 
 
-    private fun displaySunTimes(sunTimes: SunTimes, upTxt: TextView, noonTxt: TextView, downTxt: TextView){
+    private fun displaySunTimes(
+        sunTimes: SunTimes,
+        upTxt: TextView,
+        noonTxt: TextView,
+        downTxt: TextView
+    ) {
         upTxt.text = sunTimes.up.toDisplayFormat(context!!)
         noonTxt.text = sunTimes.noon.toDisplayFormat(context!!)
         downTxt.text = sunTimes.down.toDisplayFormat(context!!)

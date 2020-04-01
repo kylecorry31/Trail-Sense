@@ -23,10 +23,10 @@
         android:id="@+id/moon_phase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/moontime"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moon_chart"
         tools:text="Waxing Crescent" />
 
     <TextView
@@ -53,18 +53,6 @@
 
     </com.github.mikephil.charting.charts.HorizontalBarChart>
 
-
-    <ImageView
-        android:id="@+id/moon_phase_img"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginBottom="16dp"
-        android:alpha="0.8"
-        android:tint="@color/night"
-        app:layout_constraintBottom_toTopOf="@+id/moon_phase"
-        app:layout_constraintEnd_toEndOf="@+id/moon_phase"
-        app:layout_constraintStart_toStartOf="@+id/moon_phase"
-        tools:srcCompat="@drawable/moon_full" />
 
     <ImageView
         android:id="@+id/sun_img"
@@ -231,16 +219,52 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
+
+    <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:id="@+id/moon_chart"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/moon_phase_img"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+    </com.github.mikephil.charting.charts.HorizontalBarChart>
+
     <TextView
         android:id="@+id/moontime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moon_phase"
         tools:text="Today @ 6:38 AM" />
+
+    <ImageView
+        android:id="@+id/moon_phase_img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:tint="@color/moon_up"
+        app:layout_constraintBottom_toBottomOf="@+id/moon_chart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/moon_chart"
+        tools:srcCompat="@drawable/moon_full" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="@string/moon"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
