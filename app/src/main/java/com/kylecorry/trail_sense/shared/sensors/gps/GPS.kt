@@ -31,16 +31,6 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
 
     private var started = false
 
-
-    init {
-        // Set the current location to the last location seen
-        fusedLocationClient.lastLocation.addOnSuccessListener {
-            if (it != null) {
-                updateLastLocation(it)
-            }
-        }
-    }
-
     /**
      * The last known location received by the GPS
      */
@@ -56,9 +46,19 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
     private var _altitude = AltitudeReading(Instant.now(), prefs.getFloat(LAST_ALTITUDE, 0f))
 
     private var _location = Coordinate(
-            prefs.getFloat(LAST_LATITUDE, 0f).toDouble(),
-            prefs.getFloat(LAST_LONGITUDE, 0f).toDouble()
+        prefs.getFloat(LAST_LATITUDE, 0f).toDouble(),
+        prefs.getFloat(LAST_LONGITUDE, 0f).toDouble()
     )
+
+
+    init {
+        // Set the current location to the last location seen
+        fusedLocationClient.lastLocation.addOnSuccessListener {
+            if (it != null) {
+                updateLastLocation(it)
+            }
+        }
+    }
 
     /**
      * Updates the current location
