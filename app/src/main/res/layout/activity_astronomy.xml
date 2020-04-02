@@ -40,30 +40,21 @@
         tools:text="@string/until_sunset_label" />
 
 
-    <com.github.mikephil.charting.charts.HorizontalBarChart
+    <com.kylecorry.trail_sense.ui.astronomy.DayTimeChartView
         android:id="@+id/sun_chart"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sun_img">
+        app:cursorImage="@drawable/sunny"
+        app:cursorImageColor="@color/day"
+        app:cursorLineColor="@color/cursor_color"
+        app:cursorLineWidth="3dp"
+        app:layout_constraintTop_toBottomOf="@+id/remaining_time" />
 
-    </com.github.mikephil.charting.charts.HorizontalBarChart>
-
-
-    <ImageView
-        android:id="@+id/sun_img"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        android:scaleType="fitCenter"
-        android:tint="@color/day"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/remaining_time"
-        app:srcCompat="@drawable/sunny" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -218,19 +209,20 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-
-    <com.github.mikephil.charting.charts.HorizontalBarChart
+    <com.kylecorry.trail_sense.ui.astronomy.DayTimeChartView
         android:id="@+id/moon_chart"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moon_phase_img">
-
-    </com.github.mikephil.charting.charts.HorizontalBarChart>
+        app:cursorImage="@drawable/moon_full"
+        app:cursorImageColor="@color/moon_up"
+        app:cursorLineColor="@color/cursor_color"
+        app:cursorLineWidth="3dp"
+        app:layout_constraintTop_toBottomOf="@id/textView4" />
 
     <TextView
         android:id="@+id/moontime"
@@ -244,16 +236,6 @@
         app:layout_constraintTop_toBottomOf="@+id/moon_phase"
         tools:text="Today @ 6:38 AM" />
 
-    <ImageView
-        android:id="@+id/moon_phase_img"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        android:tint="@color/moon_up"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:srcCompat="@drawable/moon_full" />
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -265,24 +247,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-    <ImageView
-        android:id="@+id/moon_chart_cursor"
-        android:layout_width="2.5dp"
-        android:layout_height="40dp"
-        android:alpha="1"
-        android:background="@color/cursor_color"
-        app:layout_constraintBottom_toBottomOf="@+id/moon_chart"
-        app:layout_constraintStart_toStartOf="@+id/moon_chart"
-        app:layout_constraintTop_toTopOf="@+id/moon_chart" />
-
-    <ImageView
-        android:id="@+id/sun_chart_cursor"
-        android:layout_width="2.5dp"
-        android:layout_height="40dp"
-        android:alpha="1"
-        android:background="@color/cursor_color"
-        app:layout_constraintBottom_toBottomOf="@+id/sun_chart"
-        app:layout_constraintStart_toStartOf="@+id/sun_chart"
-        app:layout_constraintTop_toTopOf="@+id/sun_chart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

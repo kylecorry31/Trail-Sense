@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DayTimeChartView">
+        <attr name="cursorImage" format="reference" />
+        <attr name="cursorLineColor" format="color" />
+        <attr name="cursorImageColor" format="color" />
+        <attr name="cursorLineWidth" format="dimension" />
+    </declare-styleable>
+</resources>

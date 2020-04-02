@@ -6,7 +6,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
@@ -19,7 +18,6 @@ import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.formatHM
 import com.kylecorry.trail_sense.shared.toDisplayFormat
 import com.kylecorry.trail_sense.shared.toZonedDateTime
-import com.kylecorry.trail_sense.ui.MpStackedBarChart
 import java.time.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.math.roundToInt
@@ -32,7 +30,6 @@ class AstronomyFragment : Fragment(), Observer {
     private lateinit var sunTxt: TextView
     private lateinit var remDaylightTxt: TextView
     private lateinit var moonTxt: TextView
-    private lateinit var moonImg: ImageView
     private lateinit var sunStartTimeTxt: TextView
     private lateinit var sunMiddleTimeTxt: TextView
     private lateinit var sunEndTimeTxt: TextView
@@ -55,7 +52,6 @@ class AstronomyFragment : Fragment(), Observer {
 
         sunTxt = view.findViewById(R.id.remaining_time)
         moonTxt = view.findViewById(R.id.moon_phase)
-        moonImg = view.findViewById(R.id.moon_phase_img)
         remDaylightTxt = view.findViewById(R.id.remaining_time_lbl)
         sunStartTimeTxt = view.findViewById(R.id.sun_start_time)
         sunMiddleTimeTxt = view.findViewById(R.id.sun_middle_time)
@@ -63,14 +59,8 @@ class AstronomyFragment : Fragment(), Observer {
         sunStartTomorrowTimeTxt = view.findViewById(R.id.sun_start_time_tomorrow)
         sunMiddleTomorrowTimeTxt = view.findViewById(R.id.sun_middle_time_tomorrow)
         sunEndTomorrowTimeTxt = view.findViewById(R.id.sun_end_time_tomorrow)
-        sunChart = SunChart(view.findViewById(R.id.sun_chart), listOf(
-            view.findViewById(R.id.sun_chart_cursor),
-            view.findViewById(R.id.sun_img)
-        ))
-        moonChart = MoonChart(view.findViewById(R.id.moon_chart), listOf(
-            view.findViewById(R.id.moon_chart_cursor),
-            moonImg
-        ))
+        sunChart = SunChart(view.findViewById(R.id.sun_chart))
+        moonChart = MoonChart(view.findViewById(R.id.moon_chart))
         moonTimeTxt = view.findViewById(R.id.moontime)
 
         gps = GPS(context!!)
@@ -136,23 +126,11 @@ class AstronomyFragment : Fragment(), Observer {
 
         val moonTimes = calculator.calculate(location, LocalDate.now())
         moonChart.display(moonTimes)
-
+        moonChart.setMoonImage(moonPhase.phase)
 
         moonTxt.text =
             "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}% illumination)"
 
-        val moonImgId = when (moonPhase.phase) {
-            MoonTruePhase.FirstQuarter -> R.drawable.moon_first_quarter
-            MoonTruePhase.Full -> R.drawable.moon_full
-            MoonTruePhase.ThirdQuarter -> R.drawable.moon_last_quarter
-            MoonTruePhase.New -> R.drawable.moon_new
-            MoonTruePhase.WaningCrescent -> R.drawable.moon_waning_crescent
-            MoonTruePhase.WaningGibbous -> R.drawable.moon_waning_gibbous
-            MoonTruePhase.WaxingCrescent -> R.drawable.moon_waxing_crescent
-            MoonTruePhase.WaxingGibbous -> R.drawable.moon_waxing_gibbous
-        }
-
-        moonImg.setImageResource(moonImgId)
     }
 
     private fun getCasualDate(dateTime: LocalDateTime): String {

@@ -1,23 +1,12 @@
 package com.kylecorry.trail_sense.ui.astronomy
 
-import android.view.View
-import com.github.mikephil.charting.charts.BarChart
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.sun.SunTimes
 import java.time.LocalTime
 
-class SunChart(private val chart: BarChart, cursors: List<View>) {
+class SunChart(private val chart: DayTimeChartView) {
 
-    private val timeChart = DayTimeChart(chart, cursors)
-
-    fun display(sunTimes: List<SunTimes>, current: LocalTime = LocalTime.now()){
-        val times = mutableListOf<LocalTime>()
-
-        for (t in sunTimes){
-            times.add(t.up.toLocalTime())
-            times.add(t.down.toLocalTime())
-        }
-
+    init {
         val colors = mutableListOf(
             R.color.night,
             R.color.astronomical_twilight,
@@ -29,6 +18,17 @@ class SunChart(private val chart: BarChart, cursors: List<View>) {
             R.color.astronomical_twilight
         )
 
-        timeChart.display(times, colors.map { chart.context.resources.getColor(it, null) }, current)
+        chart.setColors(colors.map { chart.context.resources.getColor(it, null) })
+    }
+
+    fun display(sunTimes: List<SunTimes>, current: LocalTime = LocalTime.now()){
+        val times = mutableListOf<LocalTime>()
+
+        for (t in sunTimes){
+            times.add(t.up.toLocalTime())
+            times.add(t.down.toLocalTime())
+        }
+
+        chart.display(times, current)
     }
 }

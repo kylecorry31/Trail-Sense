@@ -1,15 +1,27 @@
 package com.kylecorry.trail_sense.ui.astronomy
 
-import android.view.View
-import com.github.mikephil.charting.charts.BarChart
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.moon.MoonStateCalculator
 import com.kylecorry.trail_sense.astronomy.moon.MoonTimes
+import com.kylecorry.trail_sense.astronomy.moon.MoonTruePhase
 import java.time.LocalTime
 
-class MoonChart(private val chart: BarChart, cursors: List<View>) {
+class MoonChart(private val chart: DayTimeChartView) {
 
-    private val timeChart = DayTimeChart(chart, cursors)
+    fun setMoonImage(phase: MoonTruePhase){
+        val moonImgId = when (phase) {
+            MoonTruePhase.FirstQuarter -> R.drawable.moon_first_quarter
+            MoonTruePhase.Full -> R.drawable.moon_full
+            MoonTruePhase.ThirdQuarter -> R.drawable.moon_last_quarter
+            MoonTruePhase.New -> R.drawable.moon_new
+            MoonTruePhase.WaningCrescent -> R.drawable.moon_waning_crescent
+            MoonTruePhase.WaningGibbous -> R.drawable.moon_waning_gibbous
+            MoonTruePhase.WaxingCrescent -> R.drawable.moon_waxing_crescent
+            MoonTruePhase.WaxingGibbous -> R.drawable.moon_waxing_gibbous
+        }
+
+        chart.setCursorImageResource(moonImgId)
+    }
 
     fun display(moonTimes: MoonTimes, current: LocalTime = LocalTime.now()){
         val times = mutableListOf<LocalTime>()
@@ -29,7 +41,8 @@ class MoonChart(private val chart: BarChart, cursors: List<View>) {
             listOf(R.color.moon_down, R.color.moon_up)
         }
 
-        timeChart.display(times, colors.map { chart.context.resources.getColor(it, null) }, current)
+        chart.setColors(colors.map { chart.context.resources.getColor(it, null) })
+        chart.display(times, current)
     }
 
 }

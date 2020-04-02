@@ -8,7 +8,7 @@ import kotlin.math.pow
 
 object PressureTendencyCalculator {
 
-    private const val CHANGE_THRESHOLD = 0.1f
+    private const val CHANGE_THRESHOLD = 0.5f
 
     fun getPressureTendency(
         readings: List<PressureReading>,
@@ -32,9 +32,6 @@ object PressureTendencyCalculator {
     private fun getChangeAmount(readings: List<PressureReading>, duration: Duration): Float {
         val filtered = readings.filter { Duration.between(it.time, Instant.now()) <= duration }
         if (filtered.size < 2) return 0f
-//        val firstReading = filtered.first()
-//        val lastReading = filtered.last()
-//        println(lastReading.value - firstReading.value)
         return getSlope(filtered) * 60 * 60 * 3
     }
 

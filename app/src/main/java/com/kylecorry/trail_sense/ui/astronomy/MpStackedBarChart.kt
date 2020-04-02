@@ -1,13 +1,11 @@
-package com.kylecorry.trail_sense.ui
+package com.kylecorry.trail_sense.ui.astronomy
 
-import android.provider.CalendarContract
-import androidx.core.view.marginLeft
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.*
 
 
-class MpStackedBarChart(private val chart: BarChart): IStackedBarChart {
+class MpStackedBarChart(private val chart: BarChart):
+    IStackedBarChart {
 
     init {
         chart.description.isEnabled = false
