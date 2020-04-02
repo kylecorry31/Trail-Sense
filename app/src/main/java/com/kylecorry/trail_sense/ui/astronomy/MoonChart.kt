@@ -1,17 +1,17 @@
 package com.kylecorry.trail_sense.ui.astronomy
 
-import android.content.Context
+import android.view.View
+import com.github.mikephil.charting.charts.BarChart
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.moon.MoonStateCalculator
 import com.kylecorry.trail_sense.astronomy.moon.MoonTimes
-import com.kylecorry.trail_sense.ui.IStackedBarChart
 import java.time.LocalTime
 
-class MoonChart(private val ctx: Context, chart: IStackedBarChart) {
+class MoonChart(private val chart: BarChart, cursors: List<View>) {
 
-    private val timeChart = DayTimeChart(chart)
+    private val timeChart = DayTimeChart(chart, cursors)
 
-    fun display(moonTimes: MoonTimes){
+    fun display(moonTimes: MoonTimes, current: LocalTime = LocalTime.now()){
         val times = mutableListOf<LocalTime>()
 
         if (moonTimes.up != null) {
@@ -29,7 +29,7 @@ class MoonChart(private val ctx: Context, chart: IStackedBarChart) {
             listOf(R.color.moon_down, R.color.moon_up)
         }
 
-        timeChart.display(times, colors.map { ctx.resources.getColor(it, null) })
+        timeChart.display(times, colors.map { chart.context.resources.getColor(it, null) }, current)
     }
 
 }

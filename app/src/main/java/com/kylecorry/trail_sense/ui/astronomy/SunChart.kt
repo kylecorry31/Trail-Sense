@@ -1,18 +1,16 @@
 package com.kylecorry.trail_sense.ui.astronomy
 
-import android.content.Context
+import android.view.View
+import com.github.mikephil.charting.charts.BarChart
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.sun.SunTimes
-import com.kylecorry.trail_sense.ui.IStackedBarChart
-import java.time.Duration
-import java.time.LocalDateTime
 import java.time.LocalTime
 
-class SunChart(private val ctx: Context, chart: IStackedBarChart) {
+class SunChart(private val chart: BarChart, cursors: List<View>) {
 
-    private val timeChart = DayTimeChart(chart)
+    private val timeChart = DayTimeChart(chart, cursors)
 
-    fun display(sunTimes: List<SunTimes>){
+    fun display(sunTimes: List<SunTimes>, current: LocalTime = LocalTime.now()){
         val times = mutableListOf<LocalTime>()
 
         for (t in sunTimes){
@@ -31,6 +29,6 @@ class SunChart(private val ctx: Context, chart: IStackedBarChart) {
             R.color.astronomical_twilight
         )
 
-        timeChart.display(times, colors.map { ctx.resources.getColor(it, null) })
+        timeChart.display(times, colors.map { chart.context.resources.getColor(it, null) }, current)
     }
 }

@@ -1,13 +1,16 @@
 package com.kylecorry.trail_sense.ui.astronomy
 
 import android.view.View
-import com.kylecorry.trail_sense.ui.IStackedBarChart
+import com.github.mikephil.charting.charts.BarChart
+import com.kylecorry.trail_sense.ui.MpStackedBarChart
 import java.time.Duration
 import java.time.LocalTime
 
-class DayTimeChart(private val chart: IStackedBarChart) {
+class DayTimeChart(private val chart: BarChart, private val cursors: List<View>) {
 
-    fun display(times: List<LocalTime>, colors: List<Int>){
+    private val stackedChart = MpStackedBarChart(chart)
+
+    fun display(times: List<LocalTime>, colors: List<Int>, current: LocalTime = LocalTime.now()){
         val sortedTimes = times.sorted().toMutableList()
         sortedTimes.add(LocalTime.MAX)
 
@@ -25,7 +28,19 @@ class DayTimeChart(private val chart: IStackedBarChart) {
             cumulativeTime += dt
         }
 
-        chart.plot(durations, colors)
+        val pct = getPercentOfDay(current)
+
+        for (cursor in cursors){
+            cursor.x = chart.width * pct + chart.x - cursor.width / 2f
+        }
+
+        stackedChart.plot(durations, colors)
+    }
+
+
+    private fun getPercentOfDay(current: LocalTime): Float {
+        val duration = Duration.between(LocalTime.MIN, current).seconds
+        return duration / Duration.ofDays(1).seconds.toFloat()
     }
 
 }

@@ -41,15 +41,10 @@ class AstronomyFragment : Fragment(), Observer {
     private lateinit var sunEndTomorrowTimeTxt: TextView
     private lateinit var timer: Timer
     private lateinit var handler: Handler
-    private lateinit var sunImg: ImageView
     private lateinit var moonTimeTxt: TextView
 
     private lateinit var sunChart: SunChart
     private lateinit var moonChart: MoonChart
-    private lateinit var sunChartObj: View
-    private lateinit var moonChartObj: View
-    private lateinit var sunChartCursor: View
-    private lateinit var moonChartCursor: View
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,13 +63,14 @@ class AstronomyFragment : Fragment(), Observer {
         sunStartTomorrowTimeTxt = view.findViewById(R.id.sun_start_time_tomorrow)
         sunMiddleTomorrowTimeTxt = view.findViewById(R.id.sun_middle_time_tomorrow)
         sunEndTomorrowTimeTxt = view.findViewById(R.id.sun_end_time_tomorrow)
-        sunImg = view.findViewById(R.id.sun_img)
-        sunChartObj = view.findViewById(R.id.sun_chart)
-        moonChartObj = view.findViewById(R.id.moon_chart)
-        moonChartCursor = view.findViewById(R.id.moon_chart_cursor)
-        sunChartCursor = view.findViewById(R.id.sun_chart_cursor)
-        sunChart = SunChart(context!!, MpStackedBarChart(view.findViewById(R.id.sun_chart)))
-        moonChart = MoonChart(context!!, MpStackedBarChart(view.findViewById(R.id.moon_chart)))
+        sunChart = SunChart(view.findViewById(R.id.sun_chart), listOf(
+            view.findViewById(R.id.sun_chart_cursor),
+            view.findViewById(R.id.sun_img)
+        ))
+        moonChart = MoonChart(view.findViewById(R.id.moon_chart), listOf(
+            view.findViewById(R.id.moon_chart_cursor),
+            moonImg
+        ))
         moonTimeTxt = view.findViewById(R.id.moontime)
 
         gps = GPS(context!!)
@@ -140,8 +136,6 @@ class AstronomyFragment : Fragment(), Observer {
 
         val moonTimes = calculator.calculate(location, LocalDate.now())
         moonChart.display(moonTimes)
-        moonImg.x = moonChartObj.width * getPercentOfDay() + moonChartObj.x - moonImg.width / 2f
-        moonChartCursor.x = moonChartObj.width * getPercentOfDay() + moonChartObj.x - moonChartCursor.width / 2f
 
 
         moonTxt.text =
@@ -159,13 +153,6 @@ class AstronomyFragment : Fragment(), Observer {
         }
 
         moonImg.setImageResource(moonImgId)
-    }
-
-    private fun getPercentOfDay(): Float {
-        val current = LocalDateTime.now()
-        val start = current.toLocalDate().atStartOfDay()
-        val duration = Duration.between(start, current).seconds
-        return duration / Duration.ofDays(1).seconds.toFloat()
     }
 
     private fun getCasualDate(dateTime: LocalDateTime): String {
@@ -198,9 +185,6 @@ class AstronomyFragment : Fragment(), Observer {
 
     private fun updateSunUI() {
         val sunChartCalculator = SunTimesCalculatorFactory().create(context!!)
-
-        sunImg.x = sunChartObj.width * getPercentOfDay() + sunChartObj.x - sunImg.width / 2f
-        sunChartCursor.x = sunChartObj.width * getPercentOfDay() + sunChartObj.x - sunChartCursor.width / 2f
 
         val currentTime = LocalDateTime.now()
         val today = currentTime.toLocalDate()
