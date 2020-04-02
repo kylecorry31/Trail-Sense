@@ -138,12 +138,8 @@ class AstronomyFragment : Fragment(), Observer {
             "Sets ${getCasualDate(nextSet)} at ${nextSet.toDisplayFormat(context!!)}"
         }
 
-        val moonTimes = mutableListOf<MoonTimes>()
-        for (i in 0..1){
-            moonTimes.add(calculator.calculate(location, LocalDate.now().plusDays(i.toLong())))
-        }
-
-        moonChart.display(moonTimes, nextSet < nextRise, LocalDate.now().atStartOfDay())
+        val moonTimes = calculator.calculate(location, LocalDate.now())
+        moonChart.display(moonTimes)
         moonImg.x = moonChartObj.width * getPercentOfDay() + moonChartObj.x - moonImg.width / 2f
         moonChartCursor.x = moonChartObj.width * getPercentOfDay() + moonChartObj.x - moonChartCursor.width / 2f
 
@@ -163,8 +159,6 @@ class AstronomyFragment : Fragment(), Observer {
         }
 
         moonImg.setImageResource(moonImgId)
-
-        // TODO: Calculate moon rise / set times
     }
 
     private fun getPercentOfDay(): Float {
@@ -212,15 +206,7 @@ class AstronomyFragment : Fragment(), Observer {
         val today = currentTime.toLocalDate()
         val tomorrow = today.plusDays(1)
         val sunTimes = SunTimesCalculatorFactory().getAll().map { it.calculate(location, today) }
-            .toMutableList()
-        sunTimes.addAll(SunTimesCalculatorFactory().getAll().map {
-            it.calculate(
-                location,
-                tomorrow
-            )
-        })
-
-        sunChart.display(sunTimes, today.atStartOfDay())
+        sunChart.display(sunTimes)
 
         val todayTimes = sunChartCalculator.calculate(location, today)
         val tomorrowTimes = sunChartCalculator.calculate(location, tomorrow)

@@ -1,17 +1,18 @@
 package com.kylecorry.trail_sense.ui.astronomy
 
+import android.view.View
 import com.kylecorry.trail_sense.ui.IStackedBarChart
 import java.time.Duration
-import java.time.LocalDateTime
+import java.time.LocalTime
 
-class TimeChart(private val chart: IStackedBarChart, private val displayDuration: Duration) {
+class DayTimeChart(private val chart: IStackedBarChart) {
 
-    fun display(startTime: LocalDateTime, times: List<LocalDateTime>, colors: List<Int>){
-        val sortedTimes = times.sorted()
+    fun display(times: List<LocalTime>, colors: List<Int>){
+        val sortedTimes = times.sorted().toMutableList()
+        sortedTimes.add(LocalTime.MAX)
 
         val timesUntil = sortedTimes
-            .map { Duration.between(startTime, it) }
-            .map { if (it <= displayDuration) it else displayDuration }
+            .map { Duration.between(LocalTime.MIN, it) }
             .map { if (it.isNegative) 0 else it.seconds }
 
         val durations = mutableListOf<Long>()

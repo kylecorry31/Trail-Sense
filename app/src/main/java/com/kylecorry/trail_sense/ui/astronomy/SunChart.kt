@@ -6,17 +6,18 @@ import com.kylecorry.trail_sense.astronomy.sun.SunTimes
 import com.kylecorry.trail_sense.ui.IStackedBarChart
 import java.time.Duration
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class SunChart(private val ctx: Context, chart: IStackedBarChart) {
 
-    private val timeChart = TimeChart(chart, displayDuration)
+    private val timeChart = DayTimeChart(chart)
 
-    fun display(sunTimes: List<SunTimes>, currentTime: LocalDateTime = LocalDateTime.now()){
-        val times = mutableListOf<LocalDateTime>()
+    fun display(sunTimes: List<SunTimes>){
+        val times = mutableListOf<LocalTime>()
 
         for (t in sunTimes){
-            times.add(t.up)
-            times.add(t.down)
+            times.add(t.up.toLocalTime())
+            times.add(t.down.toLocalTime())
         }
 
         val colors = mutableListOf(
@@ -30,12 +31,6 @@ class SunChart(private val ctx: Context, chart: IStackedBarChart) {
             R.color.astronomical_twilight
         )
 
-        timeChart.display(currentTime, times, colors.map { ctx.resources.getColor(it, null) })
+        timeChart.display(times, colors.map { ctx.resources.getColor(it, null) })
     }
-
-
-    companion object {
-        private val displayDuration = Duration.ofHours(24)
-    }
-
 }
