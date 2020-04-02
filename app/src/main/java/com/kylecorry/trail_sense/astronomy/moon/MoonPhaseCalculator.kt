@@ -19,11 +19,16 @@ class MoonPhaseCalculator {
         val phaseAngle = getPhaseAngle(time)
         val illumination = getIllumination(phaseAngle)
 
-        val truePhaseAngle = phaseAngle.roundNearest(45f).roundToInt() % 360
-
         for (phase in MoonTruePhase.values()){
-            if (phase.phaseAngle == truePhaseAngle){
+            if (phase.startAngle <= phaseAngle && phase.endAngle >= phaseAngle){
                 return MoonPhase(phase, illumination)
+            }
+
+            // Handle new moon
+            if (phase.startAngle >= phase.endAngle){
+                if (phase.startAngle <= phaseAngle || phase.endAngle >= phaseAngle){
+                    return MoonPhase(phase, illumination)
+                }
             }
         }
 
@@ -63,7 +68,7 @@ class MoonPhaseCalculator {
                 2 * Mp
             ) - 0.110 * sinDegrees(D)
 
-        return i.toFloat() + 180
+        return (i.toFloat() + 180) % 360f
     }
 
     private fun getIllumination(phaseAngle: Float): Float {
