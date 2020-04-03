@@ -50,6 +50,13 @@
             app:summaryOn="@string/pref_use_true_north_summary_on"
             app:title="@string/pref_use_true_north_title" />
 
+        <SwitchPreferenceCompat
+            app:key="@string/pref_rotate_map"
+            app:summaryOff="@string/pref_rotate_map_summary_off"
+            app:summaryOn="@string/pref_rotate_map_summary_on"
+            app:defaultValue="false"
+            app:title="@string/pref_rotate_map_title" />
+
         <ListPreference
             app:defaultValue="gps"
             app:entries="@array/altitude_mode_entries"

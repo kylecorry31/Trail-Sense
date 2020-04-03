@@ -226,7 +226,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     /**
      * Update the compass
      */
-    private fun updateCompassUI(){
+    private fun updateCompassUI() {
         // Update the text boxes
         val azimuth = (compass.azimuth.value.roundToInt() % 360).toString().padStart(3, ' ')
         val direction = compass.direction.symbol.toUpperCase(Locale.getDefault()).padEnd(2, ' ')
@@ -235,6 +235,12 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         // Rotate the compass
         compassView.setAzimuth(compass.azimuth.value)
+
+        if (prefs.getBoolean(getString(R.string.pref_rotate_map), false)){
+            mapView.setAzimuth(compass.azimuth.value)
+        } else {
+            mapView.setAzimuth(0f)
+        }
 
         // Update the navigation
         updateNavigationUI()

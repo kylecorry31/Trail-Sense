@@ -24,7 +24,13 @@ class CustomMapView(private val map: MapView, startingLocation: Coordinate? = nu
         if (startingLocation != null) {
             showLocation(startingLocation, defaultZoom)
         }
-        map.setTileSource(TileSourceFactory.MAPNIK)
+
+        // TODO: Allow selection of tile source
+//        map.setTileSource(TileSourceFactory.MAPNIK)
+        map.setTileSource(TileSourceFactory.OpenTopo)
+//        map.setTileSource(TileSourceFactory.USGS_TOPO)
+//        map.setTileSource(TileSourceFactory.USGS_SAT)
+
         map.setMultiTouchControls(true)
 
         val mCompassOverlay = CompassOverlay(map.context, InternalCompassOrientationProvider(map.context), map)
@@ -76,6 +82,10 @@ class CustomMapView(private val map: MapView, startingLocation: Coordinate? = nu
         }
     }
 
+    fun setAzimuth(azimuth: Float){
+        map.mapOrientation = -azimuth
+    }
+
     fun setMyLocation(location: Coordinate){
         myLocationMarker.position = GeoPoint(location.latitude, location.longitude)
         myLocation = location
@@ -98,7 +108,7 @@ class CustomMapView(private val map: MapView, startingLocation: Coordinate? = nu
     }
 
     companion object {
-        private const val defaultZoom = 18.0
+        private const val defaultZoom = 15.0
 
         fun configure(context: Context?){
             Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context))
