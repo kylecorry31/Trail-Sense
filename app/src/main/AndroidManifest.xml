@@ -21,7 +21,7 @@
         android:fullBackupContent="@xml/backup_descriptor">
         <activity
             android:name="com.kylecorry.trail_sense.ui.MainActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
