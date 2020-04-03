@@ -21,12 +21,13 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import com.kylecorry.trail_sense.navigation.LocationMath
 import com.kylecorry.trail_sense.navigation.DeclinationCalculator
 import com.kylecorry.trail_sense.shared.sensors.altimeter.BarometricAltimeter
+import com.kylecorry.trail_sense.shared.sensors.compass.OrientationCompass
 import java.util.*
 import kotlin.math.roundToInt
 
 class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragment(), Observer {
 
-    private lateinit var compass: Compass
+    private lateinit var compass: OrientationCompass
     private lateinit var gps: GPS
     private lateinit var navigator: Navigator
     private lateinit var barometer: BarometricAltimeter
@@ -55,7 +56,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
-        compass = Compass(context!!)
+        compass = OrientationCompass(context!!)
         gps = GPS(context!!)
         barometer = BarometricAltimeter(context!!)
         navigator = Navigator()
