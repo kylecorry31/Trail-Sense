@@ -145,10 +145,12 @@
 
     <ImageView
         android:id="@+id/map_compass"
+        android:background="@drawable/circle"
+        android:backgroundTint="#222222"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
-        android:src="@drawable/ic_compass"
+        android:src="@drawable/ic_needle"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
