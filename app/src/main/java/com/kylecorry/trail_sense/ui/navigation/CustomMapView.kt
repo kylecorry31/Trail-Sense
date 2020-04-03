@@ -1,19 +1,22 @@
 package com.kylecorry.trail_sense.ui.navigation
 
 import android.content.Context
+import android.widget.ImageView
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.Coordinate
 import org.osmdroid.config.Configuration
+import org.osmdroid.tileprovider.tilesource.ITileSource
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.CustomZoomButtonsController
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polyline
 import org.osmdroid.views.overlay.compass.CompassOverlay
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider
 
-class CustomMapView(private val map: MapView, startingLocation: Coordinate? = null) {
+class CustomMapView(private val map: MapView, private val compass: ImageView, startingLocation: Coordinate? = null) {
 
     private var marker: Marker? = null
     private var line: Polyline? = null
@@ -25,17 +28,8 @@ class CustomMapView(private val map: MapView, startingLocation: Coordinate? = nu
             showLocation(startingLocation, defaultZoom)
         }
 
-        // TODO: Allow selection of tile source
-//        map.setTileSource(TileSourceFactory.MAPNIK)
-        map.setTileSource(TileSourceFactory.OpenTopo)
-//        map.setTileSource(TileSourceFactory.USGS_TOPO)
-//        map.setTileSource(TileSourceFactory.USGS_SAT)
-
         map.setMultiTouchControls(true)
-
-        val mCompassOverlay = CompassOverlay(map.context, InternalCompassOrientationProvider(map.context), map)
-        mCompassOverlay.enableCompass()
-        map.overlays.add(mCompassOverlay)
+        map.zoomController.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
 
         myLocationMarker = Marker(map)
         myLocationMarker.icon = map.context.getDrawable(R.drawable.ic_location)?.apply {
@@ -43,6 +37,16 @@ class CustomMapView(private val map: MapView, startingLocation: Coordinate? = nu
         }
         myLocationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
         map.overlays.add(myLocationMarker)
+    }
+
+    fun setTileSource(type: MapType){
+        val source = when(type){
+            MapType.Topo -> TileSourceFactory.OpenTopo
+            MapType.USGS_Topo -> TileSourceFactory.USGS_TOPO
+            MapType.USGS_Sat -> TileSourceFactory.USGS_SAT
+            MapType.Street -> TileSourceFactory.MAPNIK
+        }
+        map.setTileSource(source);
     }
 
     fun showLocation(location: Coordinate, zoom: Double = defaultZoom){
@@ -82,8 +86,25 @@ class CustomMapView(private val map: MapView, startingLocation: Coordinate? = nu
         }
     }
 
-    fun setAzimuth(azimuth: Float){
+    fun setMapAzimuth(azimuth: Float){
         map.mapOrientation = -azimuth
+    }
+
+    fun setCompassAzimuth(azimuth: Float){
+        compass.rotation = -azimuth
+    }
+
+    fun setMyLocationAzimuth(azimuth: Float?){
+        if (azimuth != null) {
+            myLocationMarker.rotation = -azimuth
+            myLocationMarker.icon = map.context.getDrawable(R.drawable.ic_navigation_arrow)?.apply {
+                setTint(map.context.getColor(R.color.colorPrimary))
+            }
+        } else {
+            myLocationMarker.icon = map.context.getDrawable(R.drawable.ic_location)?.apply {
+                setTint(map.context.getColor(R.color.colorPrimary))
+            }
+        }
     }
 
     fun setMyLocation(location: Coordinate){
@@ -97,6 +118,7 @@ class CustomMapView(private val map: MapView, startingLocation: Coordinate? = nu
 
     fun setVisibility(visibility: Int){
         map.visibility = visibility
+        compass.visibility = visibility
     }
 
     fun onResume(){

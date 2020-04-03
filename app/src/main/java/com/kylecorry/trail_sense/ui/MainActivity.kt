@@ -13,6 +13,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.services.BarometerService
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.ui.astronomy.AstronomyFragment
+import com.kylecorry.trail_sense.ui.navigation.NavigatorFragment
+import com.kylecorry.trail_sense.ui.weather.BarometerFragment
 
 
 class MainActivity : AppCompatActivity() {

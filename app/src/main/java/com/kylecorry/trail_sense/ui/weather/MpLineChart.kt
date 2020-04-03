@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.ui
+package com.kylecorry.trail_sense.ui.weather
 
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.LineData
@@ -7,7 +7,8 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.Entry
 
 
-class MpLineChart(private val chart: LineChart, private val color: Int): ILineChart {
+class MpLineChart(private val chart: LineChart, private val color: Int):
+    ILineChart {
 
     init {
         chart.description.isEnabled = false

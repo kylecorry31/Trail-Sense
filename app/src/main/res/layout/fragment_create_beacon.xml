@@ -68,17 +68,6 @@
         app:layout_constraintStart_toStartOf="@+id/beacon_longitude"
         app:layout_constraintTop_toBottomOf="@+id/beacon_longitude" />
 
-    <org.osmdroid.views.MapView
-        android:id="@+id/map"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/current_location_btn" />
-
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/place_beacon_btn"
         android:layout_width="wrap_content"

@@ -53,7 +53,7 @@
     <string name="pref_use_24_hour">use_24_hour</string>
     <string name="pref_use_24_hour_title">Use 24 hour format</string>
     <string name="pref_altitude_mode">altitude_mode</string>
-    <string name="pref_altitude_mode_title">Altitude mode</string>
+    <string name="pref_altitude_mode_title">Altimeter</string>
     <string name="pref_sun_time_mode">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
     <string name="pref_show_current_moon_phase">show_current_moon_phase</string>
@@ -78,4 +78,6 @@
     <string name="pref_rotate_map_summary_off">Map faces North</string>
     <string name="pref_rotate_map_summary_on">Map rotates with compass</string>
     <string name="pref_rotate_map_title">Rotate map with compass</string>
+    <string name="pref_map_type">map_type</string>
+    <string name="pref_map_type_title">Map</string>
 </resources>

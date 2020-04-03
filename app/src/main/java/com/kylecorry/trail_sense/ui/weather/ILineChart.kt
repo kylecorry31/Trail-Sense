@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.ui
+package com.kylecorry.trail_sense.ui.weather
 
 interface ILineChart {
 

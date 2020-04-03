@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.ui
+package com.kylecorry.trail_sense.ui.navigation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.Beacon
@@ -15,7 +14,6 @@ import com.kylecorry.trail_sense.navigation.BeaconDB
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
-import com.kylecorry.trail_sense.ui.navigation.CustomMapView
 
 
 class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS): Fragment() {

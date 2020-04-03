@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.ui
+package com.kylecorry.trail_sense.ui.weather
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,9 +14,6 @@ import java.util.*
 import com.kylecorry.trail_sense.*
 import com.kylecorry.trail_sense.shared.Constants
 import com.kylecorry.trail_sense.weather.altimeter.AltitudeCalculatorFactory
-import com.kylecorry.trail_sense.weather.altimeter.BarometerAltitudeCalculator
-import com.kylecorry.trail_sense.weather.altimeter.GPSAltitudeCalculator
-import com.kylecorry.trail_sense.weather.altimeter.InitialCalibrationBarometerAltitudeCalculator
 import com.kylecorry.trail_sense.shared.sensors.barometer.Barometer
 import com.kylecorry.trail_sense.weather.PressureHistoryRepository
 import com.kylecorry.trail_sense.shared.PressureAltitudeReading

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.ui
+package com.kylecorry.trail_sense.ui.navigation
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -60,7 +60,9 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): 
             itemView.setOnClickListener {
                 fragmentManager?.doTransaction {
                     this.replace(R.id.fragment_holder,
-                        NavigatorFragment(beacon)
+                        NavigatorFragment(
+                            beacon
+                        )
                     )
                 }
             }

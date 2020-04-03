@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.ui
+package com.kylecorry.trail_sense.ui.navigation
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -21,8 +21,6 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import com.kylecorry.trail_sense.navigation.LocationMath
 import com.kylecorry.trail_sense.navigation.DeclinationCalculator
 import com.kylecorry.trail_sense.shared.sensors.altimeter.BarometricAltimeter
-import com.kylecorry.trail_sense.ui.navigation.CompassView
-import com.kylecorry.trail_sense.ui.navigation.CustomMapView
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -74,7 +72,9 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         mapCompassBtn = view.findViewById(R.id.locationBtn)
         altitudeTxt = view.findViewById(R.id.altitude)
 
-        mapView = CustomMapView(view.findViewById(R.id.map), gps.location)
+        mapView = CustomMapView(view.findViewById(R.id.map), view.findViewById(R.id.map_compass), gps.location)
+        mapView.setTileSource(getMapType())
+
         compassView = CompassView(view.findViewById(R.id.needle), view.findViewById(R.id.destination_star), view.findViewById(R.id.azimuth_indicator))
 
         mapCompassBtn.setOnClickListener {
@@ -105,6 +105,16 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         }
         return view
+    }
+
+    private fun getMapType(): MapType {
+        val type = prefs.getString(getString(R.string.pref_map_type), "usgs_topo")
+        return when(type){
+            "usgs_topo" -> MapType.USGS_Topo
+            "usgs_sat" -> MapType.USGS_Sat
+            "topo" -> MapType.Topo
+            else -> MapType.Street
+        }
     }
 
     private fun showCompass(){
@@ -235,11 +245,14 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         // Rotate the compass
         compassView.setAzimuth(compass.azimuth.value)
+        mapView.setCompassAzimuth(compass.azimuth.value)
 
         if (prefs.getBoolean(getString(R.string.pref_rotate_map), false)){
-            mapView.setAzimuth(compass.azimuth.value)
+            mapView.setMapAzimuth(compass.azimuth.value)
+            mapView.setMyLocationAzimuth(0f)
         } else {
-            mapView.setAzimuth(0f)
+            mapView.setMapAzimuth(0f)
+            mapView.setMyLocationAzimuth(compass.azimuth.value)
         }
 
         // Update the navigation
