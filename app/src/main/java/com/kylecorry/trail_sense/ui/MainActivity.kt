@@ -103,10 +103,8 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         val granted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
-        if (granted){
-            // Do nothing yet
-        } else {
-            Toast.makeText(this, "Location permission is required, some features may be broken", Toast.LENGTH_LONG).show()
+        if (!granted){
+            Toast.makeText(this, "Not all permissions granted, some features may be broken", Toast.LENGTH_LONG).show()
         }
     }
 

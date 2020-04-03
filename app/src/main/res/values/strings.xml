@@ -17,14 +17,11 @@
     <string name="delete_beacon_alert_title">Delete beacon</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="air_pressure_label">Pressure</string>
-    <string name="altitude_chart_title">Altitude History</string>
     <string name="pressure_chart_title">Pressure History</string>
-    <string name="weather_now">Now</string>
     <string name="action_astronomy">Astronomy</string>
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
     <string name="noon_label">Noon</string>
-    <string name="midnight_label">Midnight</string>
     <string name="until_sunrise_label">Time until sunrise</string>
     <string name="until_sunset_label">Time until sunset</string>
 
@@ -70,8 +67,6 @@
     <string name="forecast_worsening">Possibly worsening later</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
-    <string name="moonrise">Moonrise</string>
-    <string name="moonset">Moonset</string>
     <string name="moon">Moon</string>
     <string name="pref_show_map">show_map</string>
     <string name="pref_rotate_map">rotate_map</string>

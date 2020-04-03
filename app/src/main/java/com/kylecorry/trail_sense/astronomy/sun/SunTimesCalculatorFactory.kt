@@ -8,9 +8,8 @@ class SunTimesCalculatorFactory {
 
     fun create(ctx: Context): ISunTimesCalculator {
         val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
-        val mode = prefs.getString(ctx.getString(R.string.pref_sun_time_mode), "actual")
 
-        return when (mode) {
+        return when (prefs.getString(ctx.getString(R.string.pref_sun_time_mode), "actual")) {
             "civil" -> CivilTwilightCalculator()
             "nautical" -> NauticalTwilightCalculator()
             "astronomical" -> AstronomicalTwilightCalculator()

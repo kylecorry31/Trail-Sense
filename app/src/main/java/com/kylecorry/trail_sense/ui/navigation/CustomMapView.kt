@@ -6,15 +6,12 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.Coordinate
 import org.osmdroid.config.Configuration
-import org.osmdroid.tileprovider.tilesource.ITileSource
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.CustomZoomButtonsController
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polyline
-import org.osmdroid.views.overlay.compass.CompassOverlay
-import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider
 
 class CustomMapView(private val map: MapView, private val compass: ImageView, startingLocation: Coordinate? = null) {
 
@@ -41,12 +38,12 @@ class CustomMapView(private val map: MapView, private val compass: ImageView, st
 
     fun setTileSource(type: MapType){
         val source = when(type){
-            MapType.Topo -> TileSourceFactory.OpenTopo
-            MapType.USGS_Topo -> TileSourceFactory.USGS_TOPO
-            MapType.USGS_Sat -> TileSourceFactory.USGS_SAT
+            MapType.Topographical -> TileSourceFactory.OpenTopo
+            MapType.USGSTopographical -> TileSourceFactory.USGS_TOPO
+            MapType.Satellite -> TileSourceFactory.USGS_SAT
             MapType.Street -> TileSourceFactory.MAPNIK
         }
-        map.setTileSource(source);
+        map.setTileSource(source)
     }
 
     fun showLocation(location: Coordinate, zoom: Double = defaultZoom){

@@ -51,9 +51,7 @@ object PressureTendencyCalculator {
             ssto += (readings[i].value - yBar).pow(2)
         }
 
-        val b1 = ssxy / ssxx
-
-        return b1
+        return ssxy / ssxx
     }
 
 }

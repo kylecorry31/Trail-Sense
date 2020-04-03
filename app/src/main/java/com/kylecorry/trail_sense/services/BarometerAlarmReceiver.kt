@@ -11,22 +11,21 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
-import com.kylecorry.trail_sense.shared.Constants
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.sensors.gps.GPS
-import com.kylecorry.trail_sense.shared.sensors.barometer.Barometer
+import com.kylecorry.trail_sense.shared.Constants
 import com.kylecorry.trail_sense.shared.PressureAltitudeReading
-import com.kylecorry.trail_sense.weather.PressureHistoryRepository
 import com.kylecorry.trail_sense.shared.median
-import com.kylecorry.trail_sense.weather.sealevel.DerivativeSeaLevelPressureConverter
-import com.kylecorry.trail_sense.weather.sealevel.NullPressureConverter
+import com.kylecorry.trail_sense.shared.sensors.barometer.Barometer
+import com.kylecorry.trail_sense.shared.sensors.gps.GPS
+import com.kylecorry.trail_sense.weather.PressureHistoryRepository
 import com.kylecorry.trail_sense.weather.forcasting.HourlyForecaster
 import com.kylecorry.trail_sense.weather.forcasting.Weather
+import com.kylecorry.trail_sense.weather.sealevel.DerivativeSeaLevelPressureConverter
+import com.kylecorry.trail_sense.weather.sealevel.NullPressureConverter
 import java.time.Duration
 import java.time.Instant
 import java.time.ZonedDateTime
 import java.util.*
-import kotlin.math.abs
 
 class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
 
@@ -40,7 +39,7 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     private val altitudeReadings = mutableListOf<Float>()
     private val pressureReadings = mutableListOf<Float>()
 
-    private val forcaster = HourlyForecaster()
+    private val forecaster = HourlyForecaster()
 
     private val MAX_BAROMETER_READINGS = 7
     private val MAX_GPS_READINGS = 5
@@ -77,25 +76,6 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
                 gotAllReadings()
             }
         }
-    }
-
-    private fun getBestReadings(readings: List<Float>, threshold: Float = 5f): List<Float> {
-        var bestReadings = mutableListOf<Float>()
-        for (i in readings.indices){
-            val same = mutableListOf<Float>()
-            for (j in readings.indices){
-                val diff = abs(readings[i] - readings[j])
-                if (diff <= threshold){
-                    same.add(readings[j])
-                }
-            }
-
-            if (same.size > bestReadings.size){
-                bestReadings = same
-            }
-        }
-
-        return bestReadings
     }
 
     private fun getTrueAltitude(readings: List<Float>): Float {
@@ -168,7 +148,7 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
 
         val readings = PressureHistoryRepository.getAll(context)
 
-        if (forcaster.forecast(pressureConverter.convert(readings)) == Weather.Storm){
+        if (forecaster.forecast(pressureConverter.convert(readings)) == Weather.Storm){
 
             val shouldSend = prefs.getBoolean(context.getString(R.string.pref_send_storm_alert), true)
             if (shouldSend && !sentAlert) {

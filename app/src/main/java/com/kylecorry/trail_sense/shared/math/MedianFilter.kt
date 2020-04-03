@@ -1,4 +1,4 @@
-package com.kylecorry.sensorfilters
+package com.kylecorry.trail_sense.shared.math
 
 import java.lang.RuntimeException
 

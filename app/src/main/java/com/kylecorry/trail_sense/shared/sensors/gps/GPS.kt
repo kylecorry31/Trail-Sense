@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.location.Location
 import android.os.Looper
 import androidx.core.content.edit
@@ -149,9 +148,9 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
     }
 
     companion object {
-        private const val LAST_LATITUDE = "last_latitude";
-        private const val LAST_LONGITUDE = "last_longitude";
-        private const val LAST_ALTITUDE = "last_altitude";
+        private const val LAST_LATITUDE = "last_latitude"
+        private const val LAST_LONGITUDE = "last_longitude"
+        private const val LAST_ALTITUDE = "last_altitude"
     }
 
 }

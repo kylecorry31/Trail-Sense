@@ -43,7 +43,8 @@
         android:inputType="numberSigned|numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beacon_name" />
+        app:layout_constraintTop_toBottomOf="@+id/beacon_name"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/beacon_longitude"
@@ -57,7 +58,8 @@
         android:inputType="numberSigned|numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beacon_latitude" />
+        app:layout_constraintTop_toBottomOf="@+id/beacon_latitude"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/current_location_btn"

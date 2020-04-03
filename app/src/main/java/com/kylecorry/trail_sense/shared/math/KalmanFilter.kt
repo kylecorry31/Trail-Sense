@@ -1,8 +1,7 @@
-package com.kylecorry.sensorfilters
+package com.kylecorry.trail_sense.shared.math
 
-import kotlin.math.abs
-
-class KalmanFilter(private val measurementError: Double, private val processError: Double, initialEstimate: Double = Double.NaN) : ISensorFilter {
+class KalmanFilter(private val measurementError: Double, private val processError: Double, initialEstimate: Double = Double.NaN) :
+    ISensorFilter {
 
     private var estimateError = measurementError
 
@@ -17,7 +16,7 @@ class KalmanFilter(private val measurementError: Double, private val processErro
         }
 
         // Predict
-        estimateError = estimateError + processError
+        estimateError += processError
 
         // Update
         val currentEstimate = lastEstimate + kalmanGain * (measurement - lastEstimate) // EMA

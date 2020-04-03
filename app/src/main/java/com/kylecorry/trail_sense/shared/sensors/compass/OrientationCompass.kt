@@ -5,8 +5,8 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import com.kylecorry.sensorfilters.ISensorFilter
-import com.kylecorry.sensorfilters.KalmanFilter
+import com.kylecorry.trail_sense.shared.math.ISensorFilter
+import com.kylecorry.trail_sense.shared.math.KalmanFilter
 import com.kylecorry.trail_sense.shared.Bearing
 import com.kylecorry.trail_sense.shared.CompassDirection
 import com.kylecorry.trail_sense.shared.sensors.ISensor
@@ -21,11 +21,7 @@ class OrientationCompass (ctx: Context) : ICompass, ISensor, SensorEventListener
 
     private var sensorManager: SensorManager = ctx.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
-    private var totalAngle = 0f
-
     private var started = false
-
-    private val azimuthKf = KalmanFilter(0.5, 0.0001)
 
     private var _azimuth = 0f
 
@@ -95,16 +91,6 @@ class OrientationCompass (ctx: Context) : ICompass, ISensor, SensorEventListener
     }
 
     // Private helpers
-
-    /**
-     * Apply smoothing to an array
-     */
-    private fun applySmoothing(input: FloatArray, output: FloatArray, filters: List<ISensorFilter>) {
-        if (output.size != input.size) return
-        for (i in input.indices){
-            output[i] = filters[i].filter(input[i].toDouble()).toFloat()
-        }
-    }
 
     /**
      * Detect if two angles are close to each other

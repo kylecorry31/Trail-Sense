@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import com.kylecorry.sensorfilters.LowPassFilter
+import com.kylecorry.trail_sense.shared.math.LowPassFilter
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import java.util.*
 import com.kylecorry.trail_sense.*

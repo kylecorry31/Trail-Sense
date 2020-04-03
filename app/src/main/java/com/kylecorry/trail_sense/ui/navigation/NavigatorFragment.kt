@@ -16,7 +16,6 @@ import com.kylecorry.trail_sense.navigation.Navigator
 import com.kylecorry.trail_sense.navigation.Beacon
 import com.kylecorry.trail_sense.navigation.BeaconDB
 import com.kylecorry.trail_sense.shared.normalizeAngle
-import com.kylecorry.trail_sense.shared.sensors.compass.Compass
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import com.kylecorry.trail_sense.navigation.LocationMath
 import com.kylecorry.trail_sense.navigation.DeclinationCalculator
@@ -109,11 +108,10 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     }
 
     private fun getMapType(): MapType {
-        val type = prefs.getString(getString(R.string.pref_map_type), "usgs_topo")
-        return when(type){
-            "usgs_topo" -> MapType.USGS_Topo
-            "usgs_sat" -> MapType.USGS_Sat
-            "topo" -> MapType.Topo
+        return when(prefs.getString(getString(R.string.pref_map_type), "usgs_topo")){
+            "usgs_topo" -> MapType.USGSTopographical
+            "usgs_sat" -> MapType.Satellite
+            "topo" -> MapType.Topographical
             else -> MapType.Street
         }
     }
@@ -333,10 +331,10 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     }
 
     private fun getAltitudeString(altitude: Float, units: String): String {
-        if (units == "meters"){
-            return "${altitude.roundToInt()} m"
+        return if (units == "meters"){
+            "${altitude.roundToInt()} m"
         } else {
-            return "${LocationMath.convertToBaseUnit(altitude, units).roundToInt()} ft"
+            "${LocationMath.convertToBaseUnit(altitude, units).roundToInt()} ft"
         }
     }
 
