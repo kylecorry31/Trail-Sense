@@ -7,13 +7,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.navigation.Beacon
 import com.kylecorry.trail_sense.navigation.BeaconDB
 import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
+import com.kylecorry.trail_sense.ui.navigation.CustomMapView
+
 
 class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS): Fragment() {
 
@@ -24,6 +27,7 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS):
     private lateinit var doneBtn: FloatingActionButton
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         val view = inflater.inflate(R.layout.fragment_create_beacon, container, false)
 
         beaconName = view.findViewById(R.id.beacon_name)
@@ -58,8 +62,10 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS):
 
         useCurrentLocationBtn.setOnClickListener {
             gps.updateLocation {
-                beaconLat.setText(it?.latitude.toString())
-                beaconLng.setText(it?.longitude.toString())
+                if (it != null) {
+                    beaconLat.setText(it.latitude.toString())
+                    beaconLng.setText(it.longitude.toString())
+                }
             }
         }
 

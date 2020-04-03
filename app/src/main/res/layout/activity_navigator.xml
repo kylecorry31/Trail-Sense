@@ -67,6 +67,7 @@
         tools:text="10° - 200m" />
 
     <ImageView
+        android:id="@+id/azimuth_indicator"
         android:layout_width="68dp"
         android:layout_height="50dp"
         android:layout_marginBottom="235dp"
@@ -88,6 +89,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_target" />
 
+    <org.osmdroid.views.MapView
+        android:id="@+id/map"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/locationBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navigation" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/beaconBtn"
         android:layout_width="wrap_content"
@@ -96,6 +109,7 @@
         android:layout_marginBottom="@dimen/default_bottom_margin"
         android:clickable="true"
         android:focusable="true"
+        android:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_beacon" />
@@ -114,7 +128,7 @@
         app:backgroundTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/beaconBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_location" />
+        app:srcCompat="@drawable/ic_map" />
 
     <TextView
         android:id="@+id/altitude"

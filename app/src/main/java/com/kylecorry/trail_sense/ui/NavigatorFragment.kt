@@ -19,10 +19,10 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import com.kylecorry.trail_sense.navigation.LocationMath
 import com.kylecorry.trail_sense.navigation.DeclinationCalculator
 import com.kylecorry.trail_sense.shared.sensors.altimeter.BarometricAltimeter
+import com.kylecorry.trail_sense.ui.navigation.CompassView
+import com.kylecorry.trail_sense.ui.navigation.CustomMapView
 import java.util.*
-import kotlin.math.cos
 import kotlin.math.roundToInt
-import kotlin.math.sin
 
 class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragment(), Observer {
 
@@ -38,15 +38,18 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     // UI Fields
     private lateinit var azimuthTxt: TextView
     private lateinit var directionTxt: TextView
-    private lateinit var needleImg: ImageView
-    private lateinit var destinationStar: ImageView
     private lateinit var locationTxt: TextView
     private lateinit var navigationTxt: TextView
     private lateinit var beaconBtn: FloatingActionButton
-    private lateinit var locationBtn: FloatingActionButton
+    private lateinit var mapCompassBtn: FloatingActionButton
     private lateinit var altitudeTxt: TextView
+    private lateinit var compassView: CompassView
+    private lateinit var mapView: CustomMapView
+
+    private var isMapShown = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        CustomMapView.configure(context)
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
 
         compass = Compass(context!!)
@@ -60,17 +63,21 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         // Assign the UI fields
         azimuthTxt = view.findViewById(R.id.compass_azimuth)
         directionTxt = view.findViewById(R.id.compass_direction)
-        needleImg = view.findViewById(R.id.needle)
-        destinationStar = view.findViewById(R.id.destination_star)
         locationTxt = view.findViewById(R.id.location)
         navigationTxt = view.findViewById(R.id.navigation)
         beaconBtn = view.findViewById(R.id.beaconBtn)
-        locationBtn = view.findViewById(R.id.locationBtn)
+        mapCompassBtn = view.findViewById(R.id.locationBtn)
         altitudeTxt = view.findViewById(R.id.altitude)
 
-        locationBtn.setOnClickListener {
-            gps.updateLocation {
-                gps.updateLocation()
+        mapView = CustomMapView(view.findViewById(R.id.map), gps.location)
+        compassView = CompassView(view.findViewById(R.id.needle), view.findViewById(R.id.destination_star), view.findViewById(R.id.azimuth_indicator))
+
+        mapCompassBtn.setOnClickListener {
+            isMapShown = !isMapShown
+            if (isMapShown){
+                showMap()
+            } else {
+                showCompass()
             }
         }
 
@@ -88,14 +95,34 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
                 }
             } else {
                 navigator.destination = null
+                mapView.showLocation(gps.location)
             }
 
         }
         return view
     }
 
+    private fun showCompass(){
+        if (!navigator.hasDestination) {
+            gps.stop()
+        }
+        compassView.visibility = View.VISIBLE
+        mapCompassBtn.setImageResource(R.drawable.ic_map)
+        mapView.setVisibility(View.INVISIBLE)
+        mapView.onPause()
+    }
+
+    private fun showMap(){
+        gps.start()
+        compassView.visibility = View.INVISIBLE
+        mapCompassBtn.setImageResource(R.drawable.ic_compass_icon)
+        mapView.onResume()
+        mapView.setVisibility(View.VISIBLE)
+    }
+
     override fun onResume() {
         super.onResume()
+        CustomMapView.configure(context)
         // Observer the sensors
         compass.addObserver(this)
         gps.addObserver(this)
@@ -126,6 +153,12 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
             gps.start()
         }
 
+        if (isMapShown) {
+            showMap()
+        } else {
+            showCompass()
+        }
+
         compass.start()
 
         // Update the UI
@@ -136,6 +169,9 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
     override fun onPause() {
         super.onPause()
+        if (isMapShown) {
+            mapView.onPause()
+        }
         // Stop the low level sensors
         compass.stop()
         gps.stop()
@@ -166,7 +202,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
             updateNavigationUI()
         } else {
             // Not navigating
-            if (useBarometricAltitude) {
+            if (useBarometricAltitude && !isMapShown) {
                 gps.stop()
             }
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_beacon))
@@ -185,7 +221,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         directionTxt.text = direction
 
         // Rotate the compass
-        needleImg.rotation = -compass.azimuth.value
+        compassView.setAzimuth(compass.azimuth.value)
 
         // Update the navigation
         updateNavigationUI()
@@ -198,16 +234,14 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         // Determine if the navigator is navigating
         if (!navigator.hasDestination){
             // Hide the navigation indicators
-            destinationStar.visibility = View.INVISIBLE
+            compassView.hideBeacon()
+            mapView.hideBeacon()
             navigationTxt.text = ""
             return
         }
 
         val declination = DeclinationCalculator()
             .calculateDeclination(gps.location, gps.altitude)
-
-        // Display the indicator
-        destinationStar.visibility = View.VISIBLE
 
         // Retrieve the current location and azimuth
         val location = gps.location
@@ -222,34 +256,14 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         bearing = normalizeAngle(bearing)
 
         // Display the direction indicator
-        val adjBearing = -azimuth.value - 90 + bearing
-        val imgCenterX = needleImg.x + needleImg.width / 2f
-        val imgCenterY = needleImg.y + needleImg.height / 2f
-        val radius = needleImg.width / 2f + 30
-        displayDestinationBearing(adjBearing, imgCenterX, imgCenterY, radius)
+        compassView.showBeacon(bearing)
+        val destCoordinate = navigator.destination?.coordinate
+        if (destCoordinate != null) {
+            mapView.showBeacon(destCoordinate)
+        }
 
         // Update the direction text
         navigationTxt.text = "${navigator.getDestinationName()}:    ${bearing.roundToInt()}°    -    ${LocationMath.distanceToReadableString(distance, units)}"
-    }
-
-    /**
-     * Displays the destination bearing indicator around the compass
-     * @param bearing the bearing in degrees to display the indicator at
-     * @param centerX the center X position of the compass
-     * @param centerY the center Y position of the compass
-     * @param radius the radius to display the indicator at
-     */
-    private fun displayDestinationBearing(bearing: Float, centerX: Float, centerY: Float, radius: Float){
-        // Calculate the anchor offset
-        val offsetX = -destinationStar.width / 2f
-        val offsetY = -destinationStar.height / 2f
-
-        // Update the position of the indicator
-        destinationStar.x = centerX + offsetX + radius * cos(Math.toRadians(bearing.toDouble())).toFloat()
-        destinationStar.y = centerY + offsetY + radius * sin(Math.toRadians(bearing.toDouble())).toFloat()
-
-        // Make the indicator always rotated tangent to the compass
-        destinationStar.rotation = bearing + 90
     }
 
     /**
@@ -267,6 +281,8 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
 
         val location = gps.location
+
+        mapView.setMyLocation(location)
 
         // Update the latitude, longitude display
         locationTxt.text = location.toString()
