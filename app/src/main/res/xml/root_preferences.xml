@@ -46,8 +46,6 @@
 
         <SwitchPreferenceCompat
             app:key="@string/pref_use_true_north"
-            app:summaryOff="@string/pref_use_true_north_summary_off"
-            app:summaryOn="@string/pref_use_true_north_summary_on"
             app:title="@string/pref_use_true_north_title" />
 
         <SwitchPreferenceCompat
@@ -80,8 +78,6 @@
 
         <SwitchPreferenceCompat
             app:key="@string/pref_use_sea_level_pressure"
-            app:summaryOff="@string/pref_use_sea_level_pressure_summary_off"
-            app:summaryOn="@string/pref_use_sea_level_pressure_summary_on"
             app:title="@string/pref_use_sea_level_pressure_title" />
 
         <ListPreference
