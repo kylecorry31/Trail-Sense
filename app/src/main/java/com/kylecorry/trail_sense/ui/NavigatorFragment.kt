@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.ui
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -45,12 +47,15 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var altitudeTxt: TextView
     private lateinit var compassView: CompassView
     private lateinit var mapView: CustomMapView
+    private lateinit var prefs: SharedPreferences
 
     private var isMapShown = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         CustomMapView.configure(context)
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
         compass = Compass(context!!)
         gps = GPS(context!!)
@@ -103,6 +108,10 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     }
 
     private fun showCompass(){
+        prefs.edit {
+            putBoolean(getString(R.string.pref_show_map), false)
+        }
+
         if (!navigator.hasDestination) {
             gps.stop()
         }
@@ -113,6 +122,9 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     }
 
     private fun showMap(){
+        prefs.edit {
+            putBoolean(getString(R.string.pref_show_map), true)
+        }
         gps.start()
         compassView.visibility = View.INVISIBLE
         mapCompassBtn.setImageResource(R.drawable.ic_compass_icon)
@@ -129,7 +141,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         navigator.addObserver(this)
         barometer.addObserver(this)
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         useTrueNorth = prefs.getBoolean(getString(R.string.pref_use_true_north), false)
         useBarometricAltitude = prefs.getString(getString(R.string.pref_altitude_mode), "gps") == "barometer"
         units = prefs.getString(getString(R.string.pref_distance_units), "meters") ?: "meters"
@@ -152,6 +163,8 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         } else {
             gps.start()
         }
+
+        isMapShown = prefs.getBoolean(getString(R.string.pref_show_map), false)
 
         if (isMapShown) {
             showMap()

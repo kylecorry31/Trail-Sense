@@ -9,13 +9,16 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.Polyline
 import org.osmdroid.views.overlay.compass.CompassOverlay
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider
 
 class CustomMapView(private val map: MapView, startingLocation: Coordinate? = null) {
 
     private var marker: Marker? = null
+    private var line: Polyline? = null
     private val myLocationMarker: Marker
+    private var myLocation: Coordinate? = null
 
     init {
         if (startingLocation != null) {
@@ -32,7 +35,7 @@ class CustomMapView(private val map: MapView, startingLocation: Coordinate? = nu
         myLocationMarker.icon = map.context.getDrawable(R.drawable.ic_location)?.apply {
             setTint(map.context.getColor(R.color.colorPrimary))
         }
-        myLocationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        myLocationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
         map.overlays.add(myLocationMarker)
     }
 
@@ -50,6 +53,15 @@ class CustomMapView(private val map: MapView, startingLocation: Coordinate? = nu
         marker?.position = GeoPoint(location.latitude, location.longitude)
         marker?.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
         map.overlays.add(marker)
+
+        val myLoc = myLocation
+        if (myLoc != null) {
+            line = Polyline()
+            line?.setPoints(listOf(GeoPoint(myLoc.latitude, myLoc.longitude), GeoPoint(location.latitude, location.longitude)))
+            line?.outlinePaint?.color = map.context.getColor(R.color.colorPrimary)
+            map.overlays.add(line)
+        }
+
     }
 
     fun hideBeacon(){
@@ -57,10 +69,16 @@ class CustomMapView(private val map: MapView, startingLocation: Coordinate? = nu
             map.overlays.remove(marker)
             marker = null
         }
+
+        if (line != null){
+            map.overlays.remove(line)
+            line = null
+        }
     }
 
     fun setMyLocation(location: Coordinate){
         myLocationMarker.position = GeoPoint(location.latitude, location.longitude)
+        myLocation = location
     }
 
     fun downloadCurrentMap(){
@@ -80,7 +98,7 @@ class CustomMapView(private val map: MapView, startingLocation: Coordinate? = nu
     }
 
     companion object {
-        private const val defaultZoom = 16.0
+        private const val defaultZoom = 18.0
 
         fun configure(context: Context?){
             Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context))
