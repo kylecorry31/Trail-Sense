@@ -40,7 +40,7 @@
         tools:text="@string/until_sunset_label" />
 
 
-    <com.kylecorry.trail_sense.ui.astronomy.DayTimeChartView
+    <com.kylecorry.trail_sense.astronomy.ui.DayTimeChartView
         android:id="@+id/sun_chart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -207,7 +207,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-    <com.kylecorry.trail_sense.ui.astronomy.DayTimeChartView
+    <com.kylecorry.trail_sense.astronomy.ui.DayTimeChartView
         android:id="@+id/moon_chart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

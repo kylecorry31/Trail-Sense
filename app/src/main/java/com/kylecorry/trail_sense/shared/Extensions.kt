@@ -63,10 +63,3 @@ fun List<Float>.median(): Float {
     return sortedList[this.size / 2]
 }
 
-fun List<Double>.median(): Double {
-    if (this.isEmpty()) return 0.0
-
-    val sortedList = this.sortedBy { it }
-    return sortedList[this.size / 2]
-}
-
