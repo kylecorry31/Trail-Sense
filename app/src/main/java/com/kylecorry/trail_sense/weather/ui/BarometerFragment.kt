@@ -53,7 +53,7 @@ class BarometerFragment : Fragment(), Observer {
     private lateinit var trendImg: ImageView
     private lateinit var historyDurationTxt: TextView
 
-    private lateinit var chart: ILineChart
+    private lateinit var chart: PressureChart
 
 
     override fun onCreateView(
@@ -70,7 +70,7 @@ class BarometerFragment : Fragment(), Observer {
         weatherNowTxt = view.findViewById(R.id.weather_now_lbl)
         weatherNowImg = view.findViewById(R.id.weather_now_img)
         weatherLaterTxt = view.findViewById(R.id.weather_later_lbl)
-        chart = MpLineChart(
+        chart = PressureChart(
             view.findViewById(R.id.chart),
             resources.getColor(R.color.colorPrimary, null)
         )

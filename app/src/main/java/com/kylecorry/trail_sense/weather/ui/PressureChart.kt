@@ -1,14 +1,12 @@
 package com.kylecorry.trail_sense.weather.ui
 
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 
-import com.github.mikephil.charting.data.Entry
 
-
-class MpLineChart(private val chart: LineChart, private val color: Int):
-    ILineChart {
+class PressureChart(private val chart: LineChart, private val color: Int) {
 
     init {
         chart.description.isEnabled = false
@@ -30,7 +28,7 @@ class MpLineChart(private val chart: LineChart, private val color: Int):
         chart.setNoDataText("")
     }
 
-    override fun plot(data: List<Pair<Number, Number>>) {
+    fun plot(data: List<Pair<Number, Number>>) {
         val values = data.map { Entry(it.first.toFloat(), it.second.toFloat()) }
 
         val set1 = LineDataSet(values, "Series 1")
