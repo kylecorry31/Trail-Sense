@@ -46,7 +46,8 @@
 
         <SwitchPreferenceCompat
             app:key="@string/pref_use_true_north"
-            app:title="@string/pref_use_true_north_title" />
+            app:title="@string/pref_use_true_north_title"
+            app:defaultValue="true" />
 
         <SwitchPreferenceCompat
             app:key="@string/pref_rotate_map"
@@ -56,7 +57,7 @@
             app:title="@string/pref_rotate_map_title" />
 
         <ListPreference
-            app:defaultValue="usgs_topo"
+            app:defaultValue="topo"
             app:entries="@array/map_type_entries"
             app:entryValues="@array/map_type_values"
             app:key="@string/pref_map_type"
@@ -64,7 +65,7 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="gps"
+            app:defaultValue="barometer"
             app:entries="@array/altitude_mode_entries"
             app:entryValues="@array/altitude_mode_values"
             app:key="@string/pref_altitude_mode"
@@ -78,7 +79,8 @@
 
         <SwitchPreferenceCompat
             app:key="@string/pref_use_sea_level_pressure"
-            app:title="@string/pref_use_sea_level_pressure_title" />
+            app:title="@string/pref_use_sea_level_pressure_title"
+            app:defaultValue="true"/>
 
         <ListPreference
             app:defaultValue="barometer_gps"
@@ -111,7 +113,8 @@
             app:key="@string/pref_show_current_moon_phase"
             app:summaryOff="@string/pref_show_current_moon_phase_summary_off"
             app:summaryOn="@string/pref_show_current_moon_phase_summary_on"
-            app:title="@string/pref_show_current_moon_phase_title" />
+            app:title="@string/pref_show_current_moon_phase_title"
+            app:defaultValue="true"/>
 
     </PreferenceCategory>
 

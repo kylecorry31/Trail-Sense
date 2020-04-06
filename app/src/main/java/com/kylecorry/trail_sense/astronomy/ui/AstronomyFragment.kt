@@ -10,15 +10,18 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.domain.moon.*
-import com.kylecorry.trail_sense.astronomy.domain.sun.*
-import com.kylecorry.trail_sense.shared.sensors.gps.GPS
-import java.util.*
+import com.kylecorry.trail_sense.astronomy.domain.moon.AltitudeMoonTimesCalculator
+import com.kylecorry.trail_sense.astronomy.domain.moon.IMoonTimesCalculator
+import com.kylecorry.trail_sense.astronomy.domain.moon.MoonPhaseCalculator
+import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimes
+import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesCalculatorFactory
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.formatHM
+import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import com.kylecorry.trail_sense.shared.toDisplayFormat
 import com.kylecorry.trail_sense.shared.toZonedDateTime
 import java.time.*
+import java.util.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.math.roundToInt
 
@@ -104,7 +107,7 @@ class AstronomyFragment : Fragment(), Observer {
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val showCurrentMoonPhase =
-            prefs.getBoolean(getString(R.string.pref_show_current_moon_phase), false)
+            prefs.getBoolean(getString(R.string.pref_show_current_moon_phase), true)
 
         val time = if (showCurrentMoonPhase) {
             ZonedDateTime.now()

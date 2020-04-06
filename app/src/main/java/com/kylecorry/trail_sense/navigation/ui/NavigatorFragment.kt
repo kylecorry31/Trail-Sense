@@ -5,22 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.TextView
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.doTransaction
-import com.kylecorry.trail_sense.navigation.domain.Navigator
 import com.kylecorry.trail_sense.navigation.domain.Beacon
-import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
-import com.kylecorry.trail_sense.shared.math.normalizeAngle
-import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
+import com.kylecorry.trail_sense.navigation.domain.Navigator
 import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
-import com.kylecorry.trail_sense.shared.sensors.altimeter.BarometricAltimeter
 import com.kylecorry.trail_sense.navigation.domain.compass.OrientationCompass
+import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
+import com.kylecorry.trail_sense.shared.doTransaction
+import com.kylecorry.trail_sense.shared.math.normalizeAngle
+import com.kylecorry.trail_sense.shared.sensors.altimeter.BarometricAltimeter
+import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -116,7 +116,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     }
 
     private fun getMapType(): MapType {
-        return when(prefs.getString(getString(R.string.pref_map_type), "usgs_topo")){
+        return when(prefs.getString(getString(R.string.pref_map_type), "topo")){
             "usgs_topo" -> MapType.USGSTopographical
             "usgs_sat" -> MapType.Satellite
             "topo" -> MapType.Topographical
@@ -158,8 +158,8 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         navigator.addObserver(this)
         barometer.addObserver(this)
 
-        useTrueNorth = prefs.getBoolean(getString(R.string.pref_use_true_north), false)
-        useBarometricAltitude = prefs.getString(getString(R.string.pref_altitude_mode), "gps") == "barometer"
+        useTrueNorth = prefs.getBoolean(getString(R.string.pref_use_true_north), true)
+        useBarometricAltitude = prefs.getString(getString(R.string.pref_altitude_mode), "barometer") == "barometer"
         units = prefs.getString(getString(R.string.pref_distance_units), "meters") ?: "meters"
 
         if (useTrueNorth){

@@ -89,7 +89,7 @@ class BarometerFragment : Fragment(), Observer {
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         useSeaLevelPressure =
-            prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), false)
+            prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), true)
 
         pressureConverter = SeaLevelPressureConverterFactory().create(context!!)
 
