@@ -24,16 +24,6 @@
         <item>psi</item>
     </string-array>
 
-    <string-array name="barometer_mode_entries">
-        <item>GPS only</item>
-        <item>Barometer and GPS</item>
-    </string-array>
-
-    <string-array name="barometer_mode_values">
-        <item>gps</item>
-        <item>barometer_gps</item>
-    </string-array>
-
     <string-array name="altitude_mode_entries">
         <item>GPS</item>
         <item>Barometer</item>

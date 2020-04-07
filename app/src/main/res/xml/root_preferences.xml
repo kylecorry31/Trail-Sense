@@ -56,16 +56,16 @@
             app:defaultValue="false"
             app:title="@string/pref_rotate_map_title" />
 
-        <ListPreference
-            app:defaultValue="topo"
-            app:entries="@array/map_type_entries"
-            app:entryValues="@array/map_type_values"
-            app:key="@string/pref_map_type"
-            app:title="@string/pref_map_type_title"
-            app:useSimpleSummaryProvider="true" />
+<!--        <ListPreference-->
+<!--            app:defaultValue="topo"-->
+<!--            app:entries="@array/map_type_entries"-->
+<!--            app:entryValues="@array/map_type_values"-->
+<!--            app:key="@string/pref_map_type"-->
+<!--            app:title="@string/pref_map_type_title"-->
+<!--            app:useSimpleSummaryProvider="true" />-->
 
         <ListPreference
-            app:defaultValue="barometer"
+            app:defaultValue="gps"
             app:entries="@array/altitude_mode_entries"
             app:entryValues="@array/altitude_mode_values"
             app:key="@string/pref_altitude_mode"
@@ -81,15 +81,6 @@
             app:key="@string/pref_use_sea_level_pressure"
             app:title="@string/pref_use_sea_level_pressure_title"
             app:defaultValue="true"/>
-
-        <ListPreference
-            app:defaultValue="barometer_gps"
-            app:entries="@array/barometer_mode_entries"
-            app:entryValues="@array/barometer_mode_values"
-            app:key="@string/pref_barometer_mode"
-            app:title="@string/pref_barometer_mode_title"
-            app:dependency="@string/pref_use_sea_level_pressure"
-            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
             app:key="@string/pref_send_storm_alert"
@@ -108,13 +99,6 @@
             app:key="@string/pref_sun_time_mode"
             app:title="@string/pref_sun_time_mode_title"
             app:useSimpleSummaryProvider="true" />
-
-        <SwitchPreferenceCompat
-            app:key="@string/pref_show_current_moon_phase"
-            app:summaryOff="@string/pref_show_current_moon_phase_summary_off"
-            app:summaryOn="@string/pref_show_current_moon_phase_summary_on"
-            app:title="@string/pref_show_current_moon_phase_title"
-            app:defaultValue="true"/>
 
     </PreferenceCategory>
 

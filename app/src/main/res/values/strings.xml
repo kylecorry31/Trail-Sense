@@ -40,8 +40,6 @@
     <string name="pref_weather_header">Weather</string>
     <string name="pref_send_storm_alerts_title">Storm alerts</string>
     <string name="pref_just_sent_alert">just_sent_alert</string>
-    <string name="pref_barometer_mode">barometer_mode</string>
-    <string name="pref_barometer_mode_title">Sea level calibration</string>
     <string name="pref_astronomy_header">Astronomy</string>
     <string name="pref_use_24_hour">use_24_hour</string>
     <string name="pref_use_24_hour_title">Use 24-hour format</string>
@@ -49,10 +47,6 @@
     <string name="pref_altitude_mode_title">Altimeter</string>
     <string name="pref_sun_time_mode">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
-    <string name="pref_show_current_moon_phase">show_current_moon_phase</string>
-    <string name="pref_show_current_moon_phase_title">Current moon phase</string>
-    <string name="pref_show_current_moon_phase_summary_off">Show tonight\'s moon phase</string>
-    <string name="pref_show_current_moon_phase_summary_on">Show the current moon phase</string>
     <string name="weather_improving_fast">Improving very soon</string>
     <string name="weather_improving_slow">Improving soon</string>
     <string name="weather_worsening_slow">Worsening soon</string>

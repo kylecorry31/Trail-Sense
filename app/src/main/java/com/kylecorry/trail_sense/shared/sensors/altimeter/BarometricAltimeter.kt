@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.shared.sensors.altimeter
 
+import android.content.Context
+import android.hardware.SensorManager
 import com.kylecorry.trail_sense.shared.AltitudeReading
 import com.kylecorry.trail_sense.shared.sensors.ISensor
 import com.kylecorry.trail_sense.shared.sensors.barometer.Barometer
-import android.content.Context
-import android.hardware.SensorManager
 import java.time.Instant
 import java.util.*
 
@@ -53,6 +53,12 @@ class BarometricAltimeter(ctx: Context): IAltimeter, ISensor, Observer, Observab
 
     fun setAltitude(altitudeMeters: Float){
         baseAltitude = altitudeMeters
+        setChanged()
+        notifyObservers()
+    }
+
+    fun setAltitudeFromSeaLevel(){
+        baseAltitude = null
         setChanged()
         notifyObservers()
     }

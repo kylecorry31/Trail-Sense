@@ -29,6 +29,12 @@ class CustomMapView(private val map: MapView, private val compass: ImageView, st
 
         map.setMultiTouchControls(true)
         map.zoomController.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
+        map.minZoomLevel = defaultZoom
+        map.maxZoomLevel = defaultZoom
+        map.isFlingEnabled = false
+
+        map.setTileSource(TileSourceFactory.OpenTopo)
+//        map.tileProvider.setUseDataConnection(false)
 
         myLocationMarker = Marker(map)
         myLocationMarker.icon = map.context.getDrawable(R.drawable.ic_location)?.apply {
@@ -36,16 +42,6 @@ class CustomMapView(private val map: MapView, private val compass: ImageView, st
         }
         myLocationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
         map.overlays.add(myLocationMarker)
-    }
-
-    fun setTileSource(type: MapType){
-        val source = when(type){
-            MapType.Topographical -> TileSourceFactory.OpenTopo
-            MapType.USGSTopographical -> TileSourceFactory.USGS_TOPO
-            MapType.Satellite -> TileSourceFactory.USGS_SAT
-            MapType.Street -> TileSourceFactory.MAPNIK
-        }
-        map.setTileSource(source)
     }
 
     fun showLocation(location: Coordinate, zoom: Double = defaultZoom){
@@ -129,7 +125,7 @@ class CustomMapView(private val map: MapView, private val compass: ImageView, st
     }
 
     companion object {
-        private const val defaultZoom = 15.0
+        private const val defaultZoom = 17.5
 
         fun configure(context: Context?){
             Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context))

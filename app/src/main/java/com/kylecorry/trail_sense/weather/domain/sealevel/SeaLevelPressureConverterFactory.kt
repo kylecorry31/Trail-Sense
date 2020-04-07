@@ -14,13 +14,7 @@ class SeaLevelPressureConverterFactory {
             return NullPressureConverter()
         }
 
-        val mode = prefs.getString(context.getString(R.string.pref_barometer_mode), "barometer_gps")
-
-        return if (mode == "barometer_gps"){
-            AltimeterSeaLevelPressureConverter(BarometerGPSAltitudeCalculator())
-        } else {
-            AltimeterSeaLevelPressureConverter(GPSAltitudeCalculator())
-        }
+        return AltimeterSeaLevelPressureConverter(BarometerGPSAltitudeCalculator())
     }
 
 }

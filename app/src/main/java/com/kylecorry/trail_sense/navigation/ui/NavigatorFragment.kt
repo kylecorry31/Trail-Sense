@@ -1,14 +1,11 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
-import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
@@ -17,6 +14,7 @@ import com.kylecorry.trail_sense.navigation.domain.Navigator
 import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.navigation.domain.compass.OrientationCompass
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
+import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.math.normalizeAngle
 import com.kylecorry.trail_sense.shared.sensors.altimeter.BarometricAltimeter
@@ -29,11 +27,11 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var compass: OrientationCompass
     private lateinit var gps: GPS
     private lateinit var navigator: Navigator
-    private lateinit var barometer: BarometricAltimeter
+    private lateinit var altimeter: BarometricAltimeter
 
     private var units = "meters"
     private var useTrueNorth = false
-    private var useBarometricAltitude = false
+    private var altimeterMode = NavigationPreferences.AltimeterMode.GPS
 
     // UI Fields
     private lateinit var azimuthTxt: TextView
@@ -45,7 +43,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var altitudeTxt: TextView
     private lateinit var compassView: CompassView
     private lateinit var mapView: CustomMapView
-    private lateinit var prefs: SharedPreferences
+    private lateinit var prefs: NavigationPreferences
 
     private var isMapShown = false
 
@@ -53,11 +51,11 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         CustomMapView.configure(context)
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        prefs = NavigationPreferences(context!!)
 
         compass = OrientationCompass(context!!)
         gps = GPS(context!!)
-        barometer = BarometricAltimeter(context!!)
+        altimeter = BarometricAltimeter(context!!)
         navigator = Navigator()
         if (initialDestination != null){
             navigator.destination = initialDestination
@@ -75,7 +73,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         mapView = CustomMapView(
             view.findViewById(R.id.map), view.findViewById(R.id.map_compass), gps.location
         )
-        mapView.setTileSource(getMapType())
+        mapView.setTileSource(MapType.Topographical)
 
         compassView = CompassView(
             view.findViewById(R.id.needle),
@@ -115,20 +113,8 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         return view
     }
 
-    private fun getMapType(): MapType {
-        return when(prefs.getString(getString(R.string.pref_map_type), "topo")){
-            "usgs_topo" -> MapType.USGSTopographical
-            "usgs_sat" -> MapType.Satellite
-            "topo" -> MapType.Topographical
-            else -> MapType.Street
-        }
-    }
-
     private fun showCompass(){
-        prefs.edit {
-            putBoolean(getString(R.string.pref_show_map), false)
-        }
-
+        prefs.showMap = false
         if (!navigator.hasDestination) {
             gps.stop()
         }
@@ -139,9 +125,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     }
 
     private fun showMap(){
-        prefs.edit {
-            putBoolean(getString(R.string.pref_show_map), true)
-        }
+        prefs.showMap = true
         gps.start()
         compassView.visibility = View.INVISIBLE
         mapCompassBtn.setImageResource(R.drawable.ic_compass_icon)
@@ -156,11 +140,11 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         compass.addObserver(this)
         gps.addObserver(this)
         navigator.addObserver(this)
-        barometer.addObserver(this)
+        altimeter.addObserver(this)
 
-        useTrueNorth = prefs.getBoolean(getString(R.string.pref_use_true_north), true)
-        useBarometricAltitude = prefs.getString(getString(R.string.pref_altitude_mode), "barometer") == "barometer"
-        units = prefs.getString(getString(R.string.pref_distance_units), "meters") ?: "meters"
+        useTrueNorth = prefs.useTrueNorth
+        altimeterMode = prefs.altimeter
+        units = prefs.distanceUnits
 
         if (useTrueNorth){
             compass.declination = DeclinationCalculator()
@@ -169,19 +153,22 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
             compass.declination = 0f
         }
 
-        if (useBarometricAltitude){
+        if (altimeterMode == NavigationPreferences.AltimeterMode.GPS){
             if (gps.altitude.value != 0.0f) {
-                barometer.setAltitude(gps.altitude.value)
+                altimeter.setAltitude(gps.altitude.value)
             }
-            barometer.start()
             gps.updateLocation {
-                barometer.setAltitude(gps.altitude.value)
+                gps.updateLocation {
+                    altimeter.setAltitude(gps.altitude.value)
+                }
             }
         } else {
-            gps.start()
+            altimeter.setAltitudeFromSeaLevel()
         }
 
-        isMapShown = prefs.getBoolean(getString(R.string.pref_show_map), false)
+        altimeter.start()
+
+        isMapShown = prefs.showMap
 
         if (isMapShown) {
             showMap()
@@ -205,20 +192,20 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         // Stop the low level sensors
         compass.stop()
         gps.stop()
-        barometer.stop()
+        altimeter.stop()
 
         // Remove the observers
         compass.deleteObserver(this)
         gps.deleteObserver(this)
         navigator.deleteObserver(this)
-        barometer.deleteObserver(this)
+        altimeter.deleteObserver(this)
     }
 
     override fun update(o: Observable?, arg: Any?) {
         if (o == compass) updateCompassUI()
         if (o == gps) updateLocationUI()
         if (o == navigator) updateNavigator()
-        if (o == barometer) updateLocationUI()
+        if (o == altimeter) updateLocationUI()
     }
 
     /**
@@ -232,7 +219,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
             updateNavigationUI()
         } else {
             // Not navigating
-            if (useBarometricAltitude && !isMapShown) {
+            if (!isMapShown) {
                 gps.stop()
             }
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_beacon))
@@ -254,7 +241,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         compassView.setAzimuth(compass.azimuth.value)
         mapView.setCompassAzimuth(compass.azimuth.value)
 
-        if (prefs.getBoolean(getString(R.string.pref_rotate_map), false)){
+        if (prefs.rotateMap){
             mapView.setMapAzimuth(compass.azimuth.value)
             mapView.setMyLocationAzimuth(0f)
         } else {
@@ -326,11 +313,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         // Update the latitude, longitude display
         locationTxt.text = location.toString()
 
-        val altitude = if (useBarometricAltitude){
-            barometer.altitude
-        } else {
-            gps.altitude
-        }
+        val altitude = altimeter.altitude
 
         altitudeTxt.text = "Altitude ${getAltitudeString(altitude.value, units)}"
 
