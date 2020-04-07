@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.math.LowPassFilter
 import com.kylecorry.trail_sense.shared.sensors.barometer.Barometer
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import com.kylecorry.trail_sense.shared.toZonedDateTime
-import com.kylecorry.trail_sense.weather.domain.PressureUnits
+import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
 import com.kylecorry.trail_sense.weather.domain.classifier.StandardPressureClassifier
 import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster
@@ -144,12 +144,12 @@ class BarometerFragment : Fragment(), Observer {
 
         val pressure = convertedReadings.last().value
         val symbol =
-            PressureUnits.getSymbol(
+            PressureUnitUtils.getSymbol(
                 units
             )
 
         val format =
-            PressureUnits.getDecimalFormat(units)
+            PressureUnitUtils.getDecimalFormat(units)
 
         pressureTxt.text = "${format.format(pressure)} $symbol"
 
@@ -231,13 +231,15 @@ class BarometerFragment : Fragment(), Observer {
 
         val convertedPressures = pressureConverter.convert(readings)
 
-        val filter = LowPassFilter(0.6, convertedPressures.first().value.toDouble())
+        val filter = LowPassFilter(0.5, convertedPressures.first().value.toDouble())
+
+        chart.setUnits(PressureUnitUtils.getUnits(units))
 
         val chartData = convertedPressures.map {
             val date = it.time.toZonedDateTime()
             Pair(
                 ((date.toEpochSecond() + date.offset.totalSeconds) * 1000) as Number,
-                (PressureUnits.convert(
+                (PressureUnitUtils.convert(
                     filter.filter(it.value.toDouble()).toFloat(),
                     units
                 )) as Number

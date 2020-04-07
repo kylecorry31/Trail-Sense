@@ -4,6 +4,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.kylecorry.trail_sense.weather.domain.PressureUnits
 
 
 class PressureChart(private val chart: LineChart, private val color: Int) {
@@ -28,10 +29,19 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
         chart.setNoDataText("")
     }
 
+    fun setUnits(units: PressureUnits){
+        if (units == PressureUnits.Inhg || units == PressureUnits.Inhg){
+            chart.axisLeft.granularity = 0.1f
+        } else {
+            chart.axisLeft.granularity = 1f
+        }
+    }
+
     fun plot(data: List<Pair<Number, Number>>) {
         val values = data.map { Entry(it.first.toFloat(), it.second.toFloat()) }
 
-        val set1 = LineDataSet(values, "Series 1")
+
+        val set1 = LineDataSet(values, "Pressure")
         set1.color = color
         set1.fillAlpha = 180
         set1.lineWidth = 3f
@@ -42,6 +52,7 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
         set1.setDrawCircleHole(false)
         set1.setDrawCircles(false)
         set1.setDrawFilled(false)
+
 
         val lineData = LineData(set1)
         chart.data = lineData

@@ -73,7 +73,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         mapView = CustomMapView(
             view.findViewById(R.id.map), view.findViewById(R.id.map_compass), gps.location
         )
-        mapView.setTileSource(MapType.Topographical)
 
         compassView = CompassView(
             view.findViewById(R.id.needle),

@@ -51,6 +51,11 @@ object PressureTendencyCalculator {
     }
 
     private fun getSlope(readings: List<PressureReading>): Float {
+
+        if (readings.isEmpty()){
+            return 0f
+        }
+
         val startTime = readings.first().time.epochSecond
         val xBar = readings.map { it.time.epochSecond - startTime }.average().toFloat()
         val yBar = readings.map { it.value }.average().toFloat()
