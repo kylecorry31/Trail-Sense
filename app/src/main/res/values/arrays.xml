@@ -48,4 +48,18 @@
         <item>astronomical</item>
     </string-array>
 
+    <string-array name="map_type_entries">
+        <item>Satellite</item>
+        <item>USGS Topographical</item>
+        <item>Topographical</item>
+        <item>Street</item>
+    </string-array>
+
+    <string-array name="map_type_values">
+        <item>usgs_sat</item>
+        <item>usgs_topo</item>
+        <item>topo</item>
+        <item>street</item>
+    </string-array>
+
 </resources>
