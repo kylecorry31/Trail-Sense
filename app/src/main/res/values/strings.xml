@@ -58,11 +58,4 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="moon">Moon</string>
-    <string name="pref_show_map">show_map</string>
-    <string name="pref_rotate_map">rotate_map</string>
-    <string name="pref_rotate_map_summary_off">Map faces North</string>
-    <string name="pref_rotate_map_summary_on">Map rotates with compass</string>
-    <string name="pref_rotate_map_title">Rotate map with compass</string>
-    <string name="pref_map_type">map_type</string>
-    <string name="pref_map_type_title">Map</string>
 </resources>

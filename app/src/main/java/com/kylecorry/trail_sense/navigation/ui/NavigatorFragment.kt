@@ -39,16 +39,11 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var locationTxt: TextView
     private lateinit var navigationTxt: TextView
     private lateinit var beaconBtn: FloatingActionButton
-    private lateinit var mapCompassBtn: FloatingActionButton
     private lateinit var altitudeTxt: TextView
     private lateinit var compassView: CompassView
-    private lateinit var mapView: CustomMapView
     private lateinit var prefs: NavigationPreferences
 
-    private var isMapShown = false
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        CustomMapView.configure(context)
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
 
         prefs = NavigationPreferences(context!!)
@@ -67,27 +62,13 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         locationTxt = view.findViewById(R.id.location)
         navigationTxt = view.findViewById(R.id.navigation)
         beaconBtn = view.findViewById(R.id.beaconBtn)
-        mapCompassBtn = view.findViewById(R.id.locationBtn)
         altitudeTxt = view.findViewById(R.id.altitude)
-
-        mapView = CustomMapView(
-            view.findViewById(R.id.map), view.findViewById(R.id.map_compass), gps.location
-        )
 
         compassView = CompassView(
             view.findViewById(R.id.needle),
             view.findViewById(R.id.destination_star),
             view.findViewById(R.id.azimuth_indicator)
         )
-
-        mapCompassBtn.setOnClickListener {
-            isMapShown = !isMapShown
-            if (isMapShown){
-                showMap()
-            } else {
-                showCompass()
-            }
-        }
 
         beaconBtn.setOnClickListener {
             // Open the navigation select screen
@@ -105,36 +86,14 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
                 }
             } else {
                 navigator.destination = null
-                mapView.showLocation(gps.location)
             }
 
         }
         return view
     }
 
-    private fun showCompass(){
-        prefs.showMap = false
-        if (!navigator.hasDestination) {
-            gps.stop()
-        }
-        compassView.visibility = View.VISIBLE
-        mapCompassBtn.setImageResource(R.drawable.ic_map)
-        mapView.setVisibility(View.INVISIBLE)
-        mapView.onPause()
-    }
-
-    private fun showMap(){
-        prefs.showMap = true
-        gps.start()
-        compassView.visibility = View.INVISIBLE
-        mapCompassBtn.setImageResource(R.drawable.ic_compass_icon)
-        mapView.onResume()
-        mapView.setVisibility(View.VISIBLE)
-    }
-
     override fun onResume() {
         super.onResume()
-        CustomMapView.configure(context)
         // Observer the sensors
         compass.addObserver(this)
         gps.addObserver(this)
@@ -167,14 +126,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         altimeter.start()
 
-        isMapShown = prefs.showMap
-
-        if (isMapShown) {
-            showMap()
-        } else {
-            showCompass()
-        }
-
         compass.start()
 
         // Update the UI
@@ -185,9 +136,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
     override fun onPause() {
         super.onPause()
-        if (isMapShown) {
-            mapView.onPause()
-        }
         // Stop the low level sensors
         compass.stop()
         gps.stop()
@@ -218,9 +166,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
             updateNavigationUI()
         } else {
             // Not navigating
-            if (!isMapShown) {
-                gps.stop()
-            }
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_beacon))
             updateNavigationUI()
         }
@@ -238,15 +183,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         // Rotate the compass
         compassView.setAzimuth(compass.azimuth.value)
-        mapView.setCompassAzimuth(compass.azimuth.value)
-
-        if (prefs.rotateMap){
-            mapView.setMapAzimuth(compass.azimuth.value)
-            mapView.setMyLocationAzimuth(0f)
-        } else {
-            mapView.setMapAzimuth(0f)
-            mapView.setMyLocationAzimuth(compass.azimuth.value)
-        }
 
         // Update the navigation
         updateNavigationUI()
@@ -260,7 +196,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         if (!navigator.hasDestination){
             // Hide the navigation indicators
             compassView.hideBeacon()
-            mapView.hideBeacon()
             navigationTxt.text = ""
             return
         }
@@ -282,11 +217,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         // Display the direction indicator
         compassView.showBeacon(bearing)
-        val destCoordinate = navigator.destination?.coordinate
-        if (destCoordinate != null) {
-            mapView.showBeacon(destCoordinate)
-        }
-
         // Update the direction text
         navigationTxt.text = "${navigator.getDestinationName()}:    ${bearing.roundToInt()}°    -    ${LocationMath.distanceToReadableString(distance, units)}"
     }
@@ -306,8 +236,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
 
         val location = gps.location
-
-        mapView.setMyLocation(location)
 
         // Update the latitude, longitude display
         locationTxt.text = location.toString()
