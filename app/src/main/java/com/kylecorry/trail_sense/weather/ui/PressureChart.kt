@@ -34,9 +34,9 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
 
     fun setUnits(units: PressureUnits){
         if (units == PressureUnits.Inhg || units == PressureUnits.Inhg){
-            chart.axisLeft.granularity = 0.1f
+            chart.axisLeft.granularity = 0.5f
         } else {
-            chart.axisLeft.granularity = 1f
+            chart.axisLeft.granularity = 2f
         }
     }
 
