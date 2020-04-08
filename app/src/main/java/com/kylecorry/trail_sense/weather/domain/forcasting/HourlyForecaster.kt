@@ -1,15 +1,16 @@
 package com.kylecorry.trail_sense.weather.domain.forcasting
 
 import com.kylecorry.trail_sense.shared.PressureReading
+import com.kylecorry.trail_sense.weather.domain.tendency.DropPressureTendencyCalculator
 import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
-import com.kylecorry.trail_sense.weather.domain.tendency.PressureTendencyCalculator
+import java.time.Duration
 import kotlin.math.abs
 
 class HourlyForecaster : IWeatherForecaster {
 
     override fun forecast(readings: List<PressureReading>): Weather {
 
-        val tendency = PressureTendencyCalculator.getPressureTendency(readings)
+        val tendency = DropPressureTendencyCalculator().calculate(readings, Duration.ofHours(3))
 
         val isStorm = tendency.amount <= STORM_THRESHOLD
 

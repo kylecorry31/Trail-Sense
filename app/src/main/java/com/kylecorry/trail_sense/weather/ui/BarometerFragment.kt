@@ -24,8 +24,8 @@ import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.ISeaLevelPressureConverter
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverterFactory
+import com.kylecorry.trail_sense.weather.domain.tendency.DropPressureTendencyCalculator
 import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
-import com.kylecorry.trail_sense.weather.domain.tendency.PressureTendencyCalculator
 import com.kylecorry.trail_sense.weather.infrastructure.PressureHistoryRepository
 import java.time.Duration
 import java.time.Instant
@@ -153,7 +153,7 @@ class BarometerFragment : Fragment(), Observer {
 
         pressureTxt.text = "${format.format(pressure)} $symbol"
 
-        val pressureDirection = PressureTendencyCalculator.getPressureTendency(convertedReadings)
+        val pressureDirection = DropPressureTendencyCalculator().calculate(convertedReadings)
 
         when (pressureDirection.characteristic) {
             PressureCharacteristic.Falling -> {

@@ -3,46 +3,11 @@ package com.kylecorry.trail_sense.weather.domain.tendency
 import com.kylecorry.trail_sense.shared.PressureReading
 import java.time.Duration
 import java.time.Instant
-import kotlin.math.abs
 import kotlin.math.pow
 
-object PressureTendencyCalculator {
+class SlopePressureTendencyCalculator: BasePressureTendencyCalculator() {
 
-    private const val CHANGE_THRESHOLD = 0.5f
-
-    fun getPressureTendency(
-        readings: List<PressureReading>,
-        duration: Duration = Duration.ofHours(3)
-    ): PressureTendency {
-        val change =
-            getChangeAmount(
-                readings,
-                duration
-            )
-
-        return when {
-            abs(change) < CHANGE_THRESHOLD -> {
-                PressureTendency(
-                    PressureCharacteristic.Steady,
-                    change
-                )
-            }
-            change < 0 -> {
-                PressureTendency(
-                    PressureCharacteristic.Falling,
-                    change
-                )
-            }
-            else -> {
-                PressureTendency(
-                    PressureCharacteristic.Rising,
-                    change
-                )
-            }
-        }
-    }
-
-    private fun getChangeAmount(readings: List<PressureReading>, duration: Duration): Float {
+    override fun getChangeAmount(readings: List<PressureReading>, duration: Duration): Float {
         val filtered = readings.filter { Duration.between(it.time, Instant.now()) <= duration }
         if (filtered.size < 2) return 0f
         return getSlope(
