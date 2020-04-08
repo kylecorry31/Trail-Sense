@@ -49,21 +49,6 @@
             app:title="@string/pref_use_true_north_title"
             app:defaultValue="true" />
 
-        <SwitchPreferenceCompat
-            app:key="@string/pref_rotate_map"
-            app:summaryOff="@string/pref_rotate_map_summary_off"
-            app:summaryOn="@string/pref_rotate_map_summary_on"
-            app:defaultValue="false"
-            app:title="@string/pref_rotate_map_title" />
-
-<!--        <ListPreference-->
-<!--            app:defaultValue="topo"-->
-<!--            app:entries="@array/map_type_entries"-->
-<!--            app:entryValues="@array/map_type_values"-->
-<!--            app:key="@string/pref_map_type"-->
-<!--            app:title="@string/pref_map_type_title"-->
-<!--            app:useSimpleSummaryProvider="true" />-->
-
         <ListPreference
             app:defaultValue="gps"
             app:entries="@array/altitude_mode_entries"
