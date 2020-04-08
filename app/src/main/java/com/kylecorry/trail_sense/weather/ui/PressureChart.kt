@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.weather.ui
 
+import android.graphics.Color
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -22,6 +23,8 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
 
         chart.xAxis.setDrawGridLines(false)
         chart.axisLeft.setDrawGridLines(true)
+        chart.axisLeft.gridColor = Color.valueOf(0f, 0f, 0f, 0.2f).toArgb()
+        chart.axisLeft.textColor = Color.valueOf(0f, 0f, 0f, 0.6f).toArgb()
         chart.axisRight.setDrawGridLines(false)
         chart.xAxis.setDrawAxisLine(false)
         chart.axisLeft.setDrawAxisLine(false)
