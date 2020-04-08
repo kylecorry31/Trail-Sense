@@ -13,6 +13,7 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polyline
 
+
 class CustomMapView(private val map: MapView, private val compass: ImageView, startingLocation: Coordinate? = null) {
 
     private var marker: Marker? = null
@@ -29,11 +30,12 @@ class CustomMapView(private val map: MapView, private val compass: ImageView, st
 
         map.setMultiTouchControls(true)
         map.zoomController.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
-        map.minZoomLevel = defaultZoom
-        map.maxZoomLevel = defaultZoom
+        map.minZoomLevel = minZoom
+        map.controller.zoomTo(defaultZoom)
+        map.maxZoomLevel = maxZoom
         map.isFlingEnabled = false
 
-        map.setTileSource(TileSourceFactory.OpenTopo)
+        map.setTileSource(TileSourceFactory.USGS_TOPO)
 //        map.tileProvider.setUseDataConnection(false)
 
         myLocationMarker = Marker(map)
@@ -92,7 +94,7 @@ class CustomMapView(private val map: MapView, private val compass: ImageView, st
     fun setMyLocationAzimuth(azimuth: Float?){
         if (azimuth != null) {
             myLocationMarker.rotation = -azimuth
-            myLocationMarker.icon = map.context.getDrawable(R.drawable.ic_navigation_arrow)?.apply {
+            myLocationMarker.icon = map.context.getDrawable(R.drawable.ic_navigation)?.apply {
                 setTint(map.context.getColor(R.color.colorPrimary))
             }
         } else {
@@ -125,7 +127,9 @@ class CustomMapView(private val map: MapView, private val compass: ImageView, st
     }
 
     companion object {
-        private const val defaultZoom = 17.5
+        private const val defaultZoom = 15.0
+        private const val minZoom = 15.0
+        private const val maxZoom = 17.5
 
         fun configure(context: Context?){
             Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context))
