@@ -205,7 +205,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         // Retrieve the current location and azimuth
         val location = gps.location
-        val azimuth = compass.azimuth
 
         // Get the distance to the bearing
         val distance = navigator.getDistance(location)

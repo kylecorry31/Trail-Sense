@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FF6D00</color>
-    <color name="colorPrimaryDark">#D32F2F</color>
-    <color name="colorAccent">#FF9100</color>
+    <color name="colorPrimaryDark">#c43c00</color>
+    <color name="colorPrimaryLight">#ff9e40</color>
+
+    <color name="colorAccent">#b0dae8</color>
     <color name="moon_up">#b0dae8</color>
     <color name="moon_down">@color/night</color>
     <color name="day">@color/colorPrimary</color>

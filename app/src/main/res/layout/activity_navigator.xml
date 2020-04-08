@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textSize="24sp"
+            android:textSize="32sp"
+            android:textStyle="bold"
             tools:text="120°" />
 
         <TextView
@@ -30,7 +31,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:textSize="24sp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="32sp"
+            android:textStyle="bold"
             tools:text="SE" />
     </LinearLayout>
 
