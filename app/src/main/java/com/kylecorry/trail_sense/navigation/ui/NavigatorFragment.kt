@@ -241,7 +241,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         val altitude = altimeter.altitude
 
-        altitudeTxt.text = "Altitude ${getAltitudeString(altitude.value, units)}"
+        altitudeTxt.text = getAltitudeString(altitude.value, units)
 
         // Update the navigation display
         updateNavigationUI()
