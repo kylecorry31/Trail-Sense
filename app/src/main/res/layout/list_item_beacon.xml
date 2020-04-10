@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Name" />
 
@@ -25,5 +25,16 @@
         app:layout_constraintStart_toStartOf="@+id/beacon_name_disp"
         app:layout_constraintTop_toBottomOf="@+id/beacon_name_disp"
         tools:text="42.82091382" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/beacon_location_disp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/beacon_name_disp"
+        app:srcCompat="@drawable/ic_location" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
