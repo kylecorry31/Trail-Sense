@@ -49,11 +49,11 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
         set1.fillAlpha = 180
         set1.lineWidth = 3f
         set1.setDrawValues(false)
-        set1.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
         set1.fillColor = color
         set1.setCircleColor(color)
         set1.setDrawCircleHole(false)
-        set1.setDrawCircles(false)
+        set1.setDrawCircles(true)
+        set1.circleRadius = 1.5f
         set1.setDrawFilled(false)
 
 
