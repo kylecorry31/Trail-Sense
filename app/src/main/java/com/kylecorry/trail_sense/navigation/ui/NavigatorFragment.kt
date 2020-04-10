@@ -1,10 +1,14 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
@@ -21,6 +25,7 @@ import com.kylecorry.trail_sense.shared.sensors.altimeter.BarometricAltimeter
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 import java.util.*
 import kotlin.math.roundToInt
+
 
 class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragment(), Observer {
 
@@ -69,6 +74,13 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
             view.findViewById(R.id.destination_star),
             view.findViewById(R.id.azimuth_indicator)
         )
+
+        locationTxt.setOnLongClickListener {
+            val cm = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            cm.setPrimaryClip(ClipData.newPlainText(locationTxt.text, locationTxt.text))
+            Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+            true
+        }
 
         beaconBtn.setOnClickListener {
             // Open the navigation select screen
@@ -239,6 +251,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         // Update the latitude, longitude display
         locationTxt.text = location.toString()
+        locationTxt.setTextIsSelectable(true)
 
         val altitude = altimeter.altitude
 

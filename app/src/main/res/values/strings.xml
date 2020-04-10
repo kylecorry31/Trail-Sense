@@ -58,4 +58,5 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="moon">Moon</string>
+    <string name="no_beacons">No beacons</string>
 </resources>

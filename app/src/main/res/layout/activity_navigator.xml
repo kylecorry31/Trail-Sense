@@ -125,6 +125,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:textIsSelectable="true"
         tools:text="@string/location_unknown" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

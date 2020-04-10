@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
 
 
-class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS): Fragment() {
+class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS) : Fragment() {
 
     private lateinit var beaconName: EditText
     private lateinit var beaconLat: EditText
@@ -24,7 +24,11 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS):
     private lateinit var useCurrentLocationBtn: Button
     private lateinit var doneBtn: FloatingActionButton
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val view = inflater.inflate(R.layout.fragment_create_beacon, container, false)
 
@@ -36,18 +40,17 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS):
 
         doneBtn.setOnClickListener {
             val name = beaconName.text.toString()
-            val lat = beaconLat.text.toString().toDoubleOrNull()
-            val lng = beaconLng.text.toString().toDoubleOrNull()
+            val lat = beaconLat.text.toString()
+            val lng = beaconLng.text.toString()
 
-            if (name.isNotBlank() && lat != null && lng != null){
-                // All fields supplied, create the beacon
-                val beacon = Beacon(
-                    name,
-                    Coordinate(lat, lng)
-                )
+            val coordinate = getCoordinate(lat, lng)
+
+            if (name.isNotBlank() && coordinate != null) {
+                val beacon = Beacon(name, coordinate)
                 beaconDB.create(beacon)
                 fragmentManager?.doTransaction {
-                    this.replace(R.id.fragment_holder,
+                    this.replace(
+                        R.id.fragment_holder,
                         BeaconListFragment(
                             beaconDB,
                             gps
@@ -70,6 +73,26 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS):
         }
 
         return view
+    }
+
+    private fun getCoordinate(lat: String, lon: String): Coordinate? {
+        val decimalLat = lat.toDoubleOrNull()
+        val decimalLon = lon.toDoubleOrNull()
+        if (decimalLat != null && decimalLon != null) {
+            return Coordinate(decimalLat, decimalLat)
+        }
+
+        val dms = Coordinate.degreeMinutesSeconds(lat, lon)
+        if (dms != null) {
+            return dms
+        }
+
+        val ddm = Coordinate.degreeDecimalMinutes(lat, lon)
+        if (ddm != null) {
+            return dms
+        }
+
+        return null
     }
 
 }
