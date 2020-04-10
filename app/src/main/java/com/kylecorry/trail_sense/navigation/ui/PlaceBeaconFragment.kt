@@ -79,7 +79,7 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS) 
         val decimalLat = lat.toDoubleOrNull()
         val decimalLon = lon.toDoubleOrNull()
         if (decimalLat != null && decimalLon != null) {
-            return Coordinate(decimalLat, decimalLat)
+            return Coordinate(decimalLat, decimalLon)
         }
 
         val dms = Coordinate.degreeMinutesSeconds(lat, lon)

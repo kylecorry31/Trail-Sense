@@ -1,14 +1,12 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
+import android.location.LocationManager
 import android.os.Looper
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
 import com.kylecorry.trail_sense.shared.AltitudeReading
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.sensors.ISensor
@@ -19,16 +17,10 @@ import java.util.*
 class GPS(ctx: Context): IGPS, ISensor, Observable() {
 
     private val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
-    private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(ctx)
-    private val locationCallback = object: LocationCallback() {
-        override fun onLocationResult(result: LocationResult?) {
-            result ?: return
-            result.lastLocation ?: return
-            updateLastLocation(result.lastLocation)
-        }
-    }
+    private val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
     private var started = false
+    private val locationListener = SimpleLocationListener(this::updateLastLocation)
 
     /**
      * The last known location received by the GPS
@@ -52,39 +44,21 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
 
     init {
         // Set the current location to the last location seen
-        fusedLocationClient.lastLocation.addOnSuccessListener {
-            if (it != null) {
-                updateLastLocation(it)
-            }
-        }
+        @SuppressLint("MissingPermission")
+        val lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        updateLastLocation(lastLocation)
     }
 
     /**
      * Updates the current location
      */
+    @SuppressLint("MissingPermission")
     fun updateLocation(onCompleteFunction: ((location: Coordinate?) -> Unit)? = null){
-        val callback = object: LocationCallback(){
-            override fun onLocationResult(result: LocationResult?) {
-
-                // Log the location result
-                locationCallback.onLocationResult(result)
-
-                // Stop future updates
-                fusedLocationClient.removeLocationUpdates(this)
-
-                // Notify the callback
-                val loc = location
-                if (onCompleteFunction != null) onCompleteFunction(loc)
-            }
-        }
-
-        // Request a single location update
-        val locationRequest = LocationRequest.create()?.apply {
-            numUpdates = 1
-            interval = Duration.ofSeconds(1).toMillis()
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        }
-        fusedLocationClient.requestLocationUpdates(locationRequest, callback, Looper.getMainLooper())
+        val that = this
+        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, SimpleLocationListener {
+            updateLastLocation(it)
+            onCompleteFunction?.invoke(that.location)
+        }, Looper.getMainLooper())
     }
 
     /**
@@ -126,15 +100,10 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
     /**
      * Start receiving location updates
      */
+    @SuppressLint("MissingPermission")
     fun start(interval: Duration){
         if (started) return
-        val locationRequest = LocationRequest.create()?.apply {
-            this.interval = interval.toMillis()
-            fastestInterval = interval.dividedBy(2).toMillis()
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        }
-        fusedLocationClient.requestLocationUpdates(locationRequest,
-            locationCallback, Looper.getMainLooper())
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, interval.toMillis(), 0f, locationListener)
         started = true
     }
 
@@ -143,7 +112,7 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
      */
     override fun stop(){
         if (!started) return
-        fusedLocationClient.removeLocationUpdates(locationCallback)
+        locationManager.removeUpdates(locationListener)
         started = false
     }
 
