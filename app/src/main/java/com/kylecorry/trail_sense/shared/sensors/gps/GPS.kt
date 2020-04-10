@@ -120,7 +120,7 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
     }
 
     override fun start() {
-        start(Duration.ofSeconds(8))
+        start(Duration.ofSeconds(5))
     }
 
     /**

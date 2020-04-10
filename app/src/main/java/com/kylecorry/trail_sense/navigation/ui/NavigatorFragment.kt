@@ -166,6 +166,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
             updateNavigationUI()
         } else {
             // Not navigating
+            gps.stop()
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_beacon))
             updateNavigationUI()
         }
