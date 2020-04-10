@@ -151,9 +151,12 @@ class BarometerFragment : Fragment(), Observer {
         val format =
             PressureUnitUtils.getDecimalFormat(units)
 
-        pressureTxt.text = "${format.format(pressure)} $symbol"
+        pressureTxt.text = "${format.format(PressureUnitUtils.convert(pressure, units))} $symbol"
 
-        val pressureDirection = DropPressureTendencyCalculator().calculate(convertedReadings)
+
+        val convertedPressureHistory = convertedReadings.subList(0, convertedReadings.lastIndex - 1)
+
+        val pressureDirection = DropPressureTendencyCalculator().calculate(convertedPressureHistory)
 
         when (pressureDirection.characteristic) {
             PressureCharacteristic.Falling -> {
@@ -167,8 +170,8 @@ class BarometerFragment : Fragment(), Observer {
             else -> trendImg.visibility = View.INVISIBLE
         }
 
-        val shortTerm = shortTermForecaster.forecast(convertedReadings)
-        val longTerm = longTermForecaster.forecast(convertedReadings)
+        val shortTerm = shortTermForecaster.forecast(convertedPressureHistory)
+        val longTerm = longTermForecaster.forecast(convertedPressureHistory)
 
         weatherNowTxt.text = getShortTermWeatherDescription(shortTerm)
         weatherNowImg.setImageResource(getWeatherImage(shortTerm, pressure))
