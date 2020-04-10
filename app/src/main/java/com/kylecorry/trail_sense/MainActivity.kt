@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
             //additional code
         } else {
-            supportFragmentManager.popBackStack()
+            supportFragmentManager.popBackStackImmediate()
         }
     }
 

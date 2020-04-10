@@ -53,6 +53,7 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): 
                         gps
                     )
                 )
+                addToBackStack(javaClass.name)
             }
         }
 
