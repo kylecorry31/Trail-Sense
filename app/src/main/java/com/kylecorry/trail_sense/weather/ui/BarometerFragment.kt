@@ -143,18 +143,14 @@ class BarometerFragment : Fragment(), Observer {
 
 
         val pressure = convertedReadings.last().value
-        val symbol =
-            PressureUnitUtils.getSymbol(
-                units
-            )
+        val symbol = PressureUnitUtils.getSymbol(units)
 
-        val format =
-            PressureUnitUtils.getDecimalFormat(units)
+        val format = PressureUnitUtils.getDecimalFormat(units)
 
         pressureTxt.text = "${format.format(PressureUnitUtils.convert(pressure, units))} $symbol"
 
 
-        val convertedPressureHistory = convertedReadings.subList(0, convertedReadings.lastIndex - 1)
+        val convertedPressureHistory = convertedReadings.subList(0, convertedReadings.lastIndex)
 
         val pressureDirection = DropPressureTendencyCalculator().calculate(convertedPressureHistory)
 
@@ -223,7 +219,8 @@ class BarometerFragment : Fragment(), Observer {
             val minutes = totalTime.toMinutes() % 60
 
             when (hours) {
-                0L -> historyDurationTxt.text = "Last $minutes minute${if (minutes == 1L) "" else "s"}"
+                0L -> historyDurationTxt.text =
+                    "Last $minutes minute${if (minutes == 1L) "" else "s"}"
                 else -> {
                     if (minutes >= 30) hours++
                     historyDurationTxt.text = "Last $hours hour${if (hours == 1L) "" else "s"}"
@@ -234,21 +231,23 @@ class BarometerFragment : Fragment(), Observer {
 
         val convertedPressures = pressureConverter.convert(readings)
 
-        val filter = LowPassFilter(0.5, convertedPressures.first().value.toDouble())
+        if (convertedPressures.isNotEmpty()) {
+            val filter = LowPassFilter(0.5, convertedPressures.first().value.toDouble())
 
-        chart.setUnits(PressureUnitUtils.getUnits(units))
+            chart.setUnits(PressureUnitUtils.getUnits(units))
 
-        val chartData = convertedPressures.map {
-            val date = it.time.toZonedDateTime()
-            Pair(
-                ((date.toEpochSecond() + date.offset.totalSeconds) * 1000) as Number,
-                (PressureUnitUtils.convert(
-                    filter.filter(it.value.toDouble()).toFloat(),
-                    units
-                )) as Number
-            )
+            val chartData = convertedPressures.map {
+                val date = it.time.toZonedDateTime()
+                Pair(
+                    ((date.toEpochSecond() + date.offset.totalSeconds) * 1000) as Number,
+                    (PressureUnitUtils.convert(
+                        filter.filter(it.value.toDouble()).toFloat(),
+                        units
+                    )) as Number
+                )
+            }
+
+            chart.plot(chartData)
         }
-
-        chart.plot(chartData)
     }
 }
