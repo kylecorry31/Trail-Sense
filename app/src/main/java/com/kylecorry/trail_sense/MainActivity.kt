@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
@@ -32,6 +34,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+        if (!prefs.getBoolean(getString(R.string.pref_onboarding_completed), false)){
+            startActivity(Intent(this, OnboardingActivity::class.java))
+            finish()
+            return
+        }
 
         if (!hasPermissions()){
             getPermission()

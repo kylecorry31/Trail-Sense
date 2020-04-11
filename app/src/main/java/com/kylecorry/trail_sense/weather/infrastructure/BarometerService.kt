@@ -7,8 +7,8 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.IBinder
 import android.os.Handler
+import android.os.IBinder
 import android.util.Log
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
@@ -30,9 +30,9 @@ class BarometerService: Service() {
         broadcastIntent = Intent(this, BarometerAlarmReceiver::class.java)
 
         createNotificationChannel()
-        val notification = Notification.Builder(this, "Barometer")
-            .setContentTitle("Barometer")
-            .setContentText("Monitoring barometer in the background")
+        val notification = Notification.Builder(this, "Weather")
+            .setContentTitle("Weather")
+            .setContentText("Monitoring weather in the background")
             .setSmallIcon(R.drawable.ic_weather)
             .build()
 
@@ -70,10 +70,10 @@ class BarometerService: Service() {
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Barometer"
-            val descriptionText = "Barometer recording service"
+            val name = "Weather"
+            val descriptionText = "Weather monitoring in the background"
             val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel("Barometer", name, importance).apply {
+            val channel = NotificationChannel("Weather", name, importance).apply {
                 description = descriptionText
             }
             val notificationManager: NotificationManager =

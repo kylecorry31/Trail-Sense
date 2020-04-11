@@ -59,4 +59,16 @@
     <string name="tomorrow">Tomorrow</string>
     <string name="moon">Moon</string>
     <string name="no_beacons">No beacons</string>
+    <string name="onboarding_compass">Place beacons and navigate back to them</string>
+    <string name="onboarding_weather">Get hyperlocal weather forecasts</string>
+    <string name="onboarding_weather_no_internet">* does not use an Internet connection</string>
+    <string name="onboarding_astronomy">Know when the sun/moon will rise and set</string>
+    <string name="onboarding_background_location">Trail Sense needs permission to use your GPS</string>
+    <string name="onboarding_location_weather">Allows for more accurate weather forecasts (adjusts for altitude)</string>
+    <string name="onboarding_location_navigation">Allows you to navigate to beacons</string>
+    <string name="onboarding_location_astronomy">Allows you to see sun/moon rise and set times</string>
+    <string name="onboarding_location_privacy">Trail Sense respects your privacy - location data never leaves your device</string>
+    <string name="onboarding_location_all_time">Please select \'Allow all the time\' from the permission dialog</string>
+    <string name="continue_button">CONTINUE</string>
+    <string name="pref_onboarding_completed">onboarding_completed</string>
 </resources>
