@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -14,6 +17,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
+import com.kylecorry.trail_sense.navigation.infrastructure.LocationClipboard
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
@@ -37,7 +41,14 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): 
 
         prefs = NavigationPreferences(context!!)
 
-        beaconList.layoutManager = LinearLayoutManager(context)
+        val layoutManager = LinearLayoutManager(context)
+        beaconList.layoutManager = layoutManager
+
+        val dividerItemDecoration = DividerItemDecoration(
+            context,
+            layoutManager.orientation
+        )
+        beaconList.addItemDecoration(dividerItemDecoration)
 
         val beacons = beaconDB.beacons.sortedBy { it.coordinate.distanceTo(location) }
         updateBeaconEmptyText(beacons.isNotEmpty())
@@ -73,12 +84,19 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): 
         private var nameText: TextView = itemView.findViewById(R.id.beacon_name_disp)
         private var locationText: TextView = itemView.findViewById(R.id.beacon_location_disp)
         private var distanceText: TextView = itemView.findViewById(R.id.beacon_distance_disp)
+        private var copyBtn: ImageButton = itemView.findViewById(R.id.copy_btn)
 
         fun bindToBeacon(beacon: Beacon){
             nameText.text = beacon.name
             locationText.text = beacon.coordinate.toString()
             val distance = beacon.coordinate.distanceTo(location)
             distanceText.text = LocationMath.distanceToReadableString(distance, prefs.distanceUnits)
+
+            copyBtn.setOnClickListener {
+                val sender = LocationClipboard(context!!)
+                sender.send(beacon.coordinate)
+                Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+            }
 
             itemView.setOnClickListener {
                 fragmentManager?.doTransaction {
@@ -96,7 +114,7 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): 
                     builder.apply {
                         setPositiveButton(R.string.dialog_ok) { _, _ ->
                             beaconDB.delete(beacon)
-                            adapter.beacons = beaconDB.beacons
+                            adapter.beacons = beaconDB.beacons.sortedBy { beacon -> beacon.coordinate.distanceTo(location) }
                             updateBeaconEmptyText(adapter.beacons.isNotEmpty())
                         }
                         setNegativeButton(R.string.dialog_cancel){ _, _ ->

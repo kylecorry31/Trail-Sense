@@ -1,8 +1,5 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +15,7 @@ import com.kylecorry.trail_sense.navigation.domain.Navigator
 import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.navigation.domain.compass.OrientationCompass
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
+import com.kylecorry.trail_sense.navigation.infrastructure.LocationClipboard
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.math.normalizeAngle
@@ -76,8 +74,8 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         )
 
         locationTxt.setOnLongClickListener {
-            val cm = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            cm.setPrimaryClip(ClipData.newPlainText(locationTxt.text, locationTxt.text))
+            val sender = LocationClipboard(context!!)
+            sender.send(gps.location)
             Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
             true
         }

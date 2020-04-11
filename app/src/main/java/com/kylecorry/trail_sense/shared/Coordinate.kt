@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.shared
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import java.util.*
 import kotlin.math.abs
-import kotlin.math.roundToInt
 
 data class Coordinate(val latitude: Double, val longitude: Double){
 
@@ -30,7 +29,7 @@ data class Coordinate(val latitude: Double, val longitude: Double){
     private fun dmsString(degrees: Double): String {
         val deg = abs(degrees.toInt())
         val minutes = abs((degrees % 1) * 60)
-        val seconds = abs(((minutes % 1) * 60).roundToInt())
+        val seconds = abs(((minutes % 1) * 60).roundPlaces(1))
         return "$deg°${minutes.toInt()}'$seconds\""
     }
 

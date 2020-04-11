@@ -49,4 +49,17 @@
         app:layout_constraintStart_toEndOf="@+id/beacon_location_disp"
         app:layout_constraintTop_toTopOf="@+id/beacon_location_disp" />
 
+    <ImageButton
+        android:id="@+id/copy_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0.86"
+        android:background="@color/overlay_white"
+        android:tint="@android:color/secondary_text_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_copy" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
