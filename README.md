@@ -23,3 +23,4 @@ View the sun/moon rise and set times and see the current phase of the moon at yo
 # Credits
 - Weather icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews)
 - Moon icons: [Michael Irigoyen](https://materialdesignicons.com/contributor/Michael-Irigoyen)
+- Charts: [MpAndroidChart](https://github.com/PhilJay/MPAndroidChart)
