@@ -45,8 +45,13 @@ class MainActivity : AppCompatActivity() {
 
         if (!hasPermissions()){
             getPermission()
+        } else {
+            startApp()
         }
 
+    }
+
+    private fun startApp(){
         BarometerService.start(this)
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
@@ -57,7 +62,6 @@ class MainActivity : AppCompatActivity() {
             syncFragmentWithSelection(item.itemId)
             true
         }
-
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -114,6 +118,8 @@ class MainActivity : AppCompatActivity() {
         val granted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
         if (!granted){
             Toast.makeText(this, "Not all permissions granted, some features may be broken", Toast.LENGTH_LONG).show()
+        } else {
+            startApp()
         }
     }
 
