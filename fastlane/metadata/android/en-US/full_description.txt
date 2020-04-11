@@ -1,0 +1,16 @@
+<h1>Navigation</h1>
+The compass can be used to determine the direction to North, and when combined with the GPS it can be used to navigate to predefined locations. The predefined locations, known as beacons, can be created while at a location and at any point you can use the compass to navigate back to where the beacon was placed. While there is an Internet connection, beacons can also be placed on a map (not present yet).
+
+Example beacons: home, work, trailhead, campsite
+
+<h1>Weather</h1>
+The barometer can be used to determine if the weather will change soon and if a storm is likely to occur. The barometric pressure history (last 48 hours) is displayed as a graph and an interpretation of the current reading is shown. If the pressure suddenly drops, a storm alert notification is sent.
+
+<h1>Astronomy</h1>
+View the sun/moon rise and set times and see the current phase of the moon at your exact location.
+
+<h1>Privacy</h1>
+All location data is stored on your device and the app does not use the Internet at all.
+
+<h1>Permissions</h1>
+Location (fine, background): Used for beacon navigation, True North, barometer altitude correction (in background), and sun/moon rise/set times
