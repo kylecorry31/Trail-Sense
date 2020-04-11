@@ -18,8 +18,10 @@ import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.math.normalizeAngle
-import com.kylecorry.trail_sense.shared.sensors.altimeter.BarometricAltimeter
-import com.kylecorry.trail_sense.shared.sensors.gps.GPS
+import com.kylecorry.trail_sense.shared.sensors2.Barometer
+import com.kylecorry.trail_sense.shared.sensors2.FusedAltimeter
+import com.kylecorry.trail_sense.shared.sensors2.GPS
+import com.kylecorry.trail_sense.shared.sensors2.IAltimeter
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -29,7 +31,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var compass: OrientationCompass
     private lateinit var gps: GPS
     private lateinit var navigator: Navigator
-    private lateinit var altimeter: BarometricAltimeter
+    private lateinit var altimeter: IAltimeter
 
     private var units = "meters"
     private var useTrueNorth = false
@@ -52,7 +54,11 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         compass = OrientationCompass(context!!)
         gps = GPS(context!!)
-        altimeter = BarometricAltimeter(context!!)
+        altimeter = if (prefs.altimeter == NavigationPreferences.AltimeterMode.GPS) {
+            FusedAltimeter(gps, Barometer(context!!))
+        } else {
+            Barometer(context!!)
+        }
         navigator = Navigator()
         if (initialDestination != null){
             navigator.destination = initialDestination
@@ -104,9 +110,9 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         super.onResume()
         // Observer the sensors
         compass.addObserver(this)
-        gps.addObserver(this)
+        gps.start(this::updateLocationUI)
         navigator.addObserver(this)
-        altimeter.addObserver(this)
+        altimeter.start(this::updateLocationUI)
 
         useTrueNorth = prefs.useTrueNorth
         altimeterMode = prefs.altimeter
@@ -118,21 +124,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         } else {
             compass.declination = 0f
         }
-
-        if (altimeterMode == NavigationPreferences.AltimeterMode.GPS){
-            if (gps.altitude.value != 0.0f) {
-                altimeter.setAltitude(gps.altitude.value)
-            }
-            gps.updateLocation {
-                gps.updateLocation {
-                    altimeter.setAltitude(gps.altitude.value)
-                }
-            }
-        } else {
-            altimeter.setAltitudeFromSeaLevel()
-        }
-
-        altimeter.start()
 
         compass.start()
 
@@ -146,21 +137,17 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         super.onPause()
         // Stop the low level sensors
         compass.stop()
-        gps.stop()
-        altimeter.stop()
+        gps.stop(this::updateLocationUI)
+        altimeter.stop(this::updateLocationUI)
 
         // Remove the observers
         compass.deleteObserver(this)
-        gps.deleteObserver(this)
         navigator.deleteObserver(this)
-        altimeter.deleteObserver(this)
     }
 
     override fun update(o: Observable?, arg: Any?) {
         if (o == compass) updateCompassUI()
-        if (o == gps) updateLocationUI()
         if (o == navigator) updateNavigator()
-        if (o == altimeter) updateLocationUI()
     }
 
     /**
@@ -169,12 +156,12 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private fun updateNavigator(){
         if (navigator.hasDestination) {
             // Navigating
-            gps.start()
+            gps.start(this::updateLocationUI)
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_cancel))
             updateNavigationUI()
         } else {
             // Not navigating
-            gps.stop()
+            gps.stop(this::updateLocationUI)
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_beacon))
             updateNavigationUI()
         }
@@ -249,9 +236,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         locationTxt.text = location.getFormattedString()
         locationTxt.setTextIsSelectable(true)
 
-        val altitude = altimeter.altitude
-
-        altitudeTxt.text = getAltitudeString(altitude.value, units)
+        altitudeTxt.text = getAltitudeString(altimeter.altitude, units)
 
         // Update the navigation display
         updateNavigationUI()

@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.doTransaction
-import com.kylecorry.trail_sense.shared.sensors.gps.GPS
+import com.kylecorry.trail_sense.shared.sensors2.GPS
 
 
 class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS) : Fragment() {
@@ -62,17 +62,16 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS) 
 
 
         useCurrentLocationBtn.setOnClickListener {
-            gps.updateLocation {
-                gps.updateLocation { location ->
-                    if (location != null) {
-                        beaconLat.setText(location.latitude.toString())
-                        beaconLng.setText(location.longitude.toString())
-                    }
-                }
-            }
+            gps.start(this::setLocationFromGPS)
         }
 
         return view
+    }
+
+    private fun setLocationFromGPS(){
+        beaconLat.setText(gps.location.latitude.toString())
+        beaconLng.setText(gps.location.longitude.toString())
+        gps.stop(this::setLocationFromGPS)
     }
 
     private fun getCoordinate(lat: String, lon: String): Coordinate? {
