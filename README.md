@@ -19,3 +19,7 @@ The barometer can be used to determine if the weather will change soon and if a 
 
 ## Astronomy
 View the sun/moon rise and set times and see the current phase of the moon at your exact location.
+
+# Credits
+- Weather icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews)
+- Moon icons: [Michael Irigoyen](https://materialdesignicons.com/contributor/Michael-Irigoyen)
