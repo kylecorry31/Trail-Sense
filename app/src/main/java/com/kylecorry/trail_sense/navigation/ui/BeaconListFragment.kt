@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +16,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
-import com.kylecorry.trail_sense.navigation.infrastructure.LocationClipboard
+import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.gps.GPS
@@ -88,14 +87,13 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): 
 
         fun bindToBeacon(beacon: Beacon){
             nameText.text = beacon.name
-            locationText.text = beacon.coordinate.toString()
+            locationText.text = beacon.coordinate.getFormattedString()
             val distance = beacon.coordinate.distanceTo(location)
             distanceText.text = LocationMath.distanceToReadableString(distance, prefs.distanceUnits)
 
             copyBtn.setOnClickListener {
-                val sender = LocationClipboard(context!!)
+                val sender = LocationSharesheet(context!!)
                 sender.send(beacon.coordinate)
-                Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
             }
 
             itemView.setOnClickListener {

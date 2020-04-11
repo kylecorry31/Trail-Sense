@@ -23,6 +23,10 @@ data class Coordinate(val latitude: Double, val longitude: Double){
     }
 
     override fun toString(): String {
+        return "$latitudeDMS, $longitudeDMS"
+    }
+
+    fun getFormattedString(): String {
         return "$latitudeDMS    $longitudeDMS"
     }
 

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
@@ -15,7 +14,7 @@ import com.kylecorry.trail_sense.navigation.domain.Navigator
 import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.navigation.domain.compass.OrientationCompass
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
-import com.kylecorry.trail_sense.navigation.infrastructure.LocationClipboard
+import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.math.normalizeAngle
@@ -74,9 +73,8 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         )
 
         locationTxt.setOnLongClickListener {
-            val sender = LocationClipboard(context!!)
+            val sender = LocationSharesheet(context!!)
             sender.send(gps.location)
-            Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
             true
         }
 
@@ -248,7 +246,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         val location = gps.location
 
         // Update the latitude, longitude display
-        locationTxt.text = location.toString()
+        locationTxt.text = location.getFormattedString()
         locationTxt.setTextIsSelectable(true)
 
         val altitude = altimeter.altitude
