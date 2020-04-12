@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".navigation.ui.NavigatorFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ruler"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:alpha="0.25"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
