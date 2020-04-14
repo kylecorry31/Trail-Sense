@@ -7,6 +7,7 @@ import android.location.LocationManager
 import android.os.Looper
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.AltitudeReading
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.sensors.ISensor
@@ -14,7 +15,7 @@ import java.time.Duration
 import java.time.Instant
 import java.util.*
 
-class GPS(ctx: Context): IGPS, ISensor, Observable() {
+class GPS(private val ctx: Context): IGPS, ISensor, Observable() {
 
     private val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
     private val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -74,18 +75,19 @@ class GPS(ctx: Context): IGPS, ISensor, Observable() {
             )
 
             if (location.hasAltitude() && location.altitude != 0.0) {
+                val correctedAltitude = location.altitude.toFloat() - AltitudeCorrection.getOffset(this._location, ctx)
                 _altitude = AltitudeReading(
                     Instant.now(),
-                    location.altitude.toFloat()
+                    correctedAltitude
                 )
+                prefs.edit {
+                    putFloat(LAST_ALTITUDE, correctedAltitude)
+                }
             }
 
             prefs.edit {
                 putFloat(LAST_LATITUDE, location.latitude.toFloat())
                 putFloat(LAST_LONGITUDE, location.longitude.toFloat())
-                if (location.hasAltitude() && location.altitude != 0.0) {
-                    putFloat(LAST_ALTITUDE, location.altitude.toFloat())
-                }
             }
 
         }
