@@ -6,9 +6,10 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.Coordinate
 
-class GPS(context: Context): AbstractSensor(), IGPS {
+class GPS(private val context: Context): AbstractSensor(), IGPS {
 
     override val location: Coordinate
         get() = _location
@@ -45,15 +46,15 @@ class GPS(context: Context): AbstractSensor(), IGPS {
         this._location = Coordinate(location.latitude, location.longitude)
 
         if (location.hasAltitude() && location.altitude != 0.0) {
-            _altitude = location.altitude.toFloat()
+            _altitude = location.altitude.toFloat() - AltitudeCorrection.getOffset(this._location, context)
+            prefs.edit {
+                putFloat(LAST_ALTITUDE, _altitude)
+            }
         }
 
         prefs.edit {
             putFloat(LAST_LATITUDE, location.latitude.toFloat())
             putFloat(LAST_LONGITUDE, location.longitude.toFloat())
-            if (location.hasAltitude() && location.altitude != 0.0) {
-                putFloat(LAST_ALTITUDE, location.altitude.toFloat())
-            }
         }
 
         notifyListeners()
