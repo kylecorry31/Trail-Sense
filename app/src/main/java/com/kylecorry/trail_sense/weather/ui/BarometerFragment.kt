@@ -11,10 +11,10 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.PressureAltitudeReading
 import com.kylecorry.trail_sense.shared.math.LowPassFilter
-import com.kylecorry.trail_sense.shared.sensors2.Barometer
-import com.kylecorry.trail_sense.shared.sensors2.GPS
-import com.kylecorry.trail_sense.shared.sensors2.IBarometer
-import com.kylecorry.trail_sense.shared.sensors2.IGPS
+import com.kylecorry.trail_sense.shared.sensors.Barometer
+import com.kylecorry.trail_sense.shared.sensors.GPS
+import com.kylecorry.trail_sense.shared.sensors.IBarometer
+import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification

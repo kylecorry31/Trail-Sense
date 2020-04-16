@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.sensors2
+package com.kylecorry.trail_sense.shared.sensors
 
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 

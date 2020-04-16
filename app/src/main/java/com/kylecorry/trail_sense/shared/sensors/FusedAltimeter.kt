@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.sensors2
+package com.kylecorry.trail_sense.shared.sensors
 
 class FusedAltimeter(private val gps: IGPS, private val barometer: IBarometer) : AbstractSensor(),
     IAltimeter {

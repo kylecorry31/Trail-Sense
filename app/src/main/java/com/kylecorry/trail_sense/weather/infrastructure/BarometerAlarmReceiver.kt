@@ -14,21 +14,21 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.PressureAltitudeReading
 import com.kylecorry.trail_sense.shared.median
-import com.kylecorry.trail_sense.shared.sensors.barometer.Barometer
-import com.kylecorry.trail_sense.shared.sensors.gps.GPS
+import com.kylecorry.trail_sense.shared.sensors.Barometer
+import com.kylecorry.trail_sense.shared.sensors.GPS
+import com.kylecorry.trail_sense.shared.sensors.IAltimeter
+import com.kylecorry.trail_sense.shared.sensors.IBarometer
 import com.kylecorry.trail_sense.weather.domain.forcasting.HourlyForecaster
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverterFactory
-import java.time.Duration
 import java.time.Instant
 import java.time.ZonedDateTime
-import java.util.*
 
-class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
+class BarometerAlarmReceiver: BroadcastReceiver() {
 
     private lateinit var context: Context
-    private lateinit var barometer: Barometer
-    private lateinit var gps: GPS
+    private lateinit var barometer: IBarometer
+    private lateinit var altimeter: IAltimeter
 
     private var hasLocation = false
     private var hasBarometerReading = false
@@ -44,34 +44,38 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null){
             this.context = context
-            barometer =
-                Barometer(context)
-            gps = GPS(context)
+            barometer = Barometer(context)
+            altimeter = GPS(context)
 
-            gps.addObserver(this)
-            gps.start(Duration.ofSeconds(1))
-
-            barometer.addObserver(this)
-            barometer.start()
+            altimeter.start(this::onLocationUpdate)
+            barometer.start(this::onPressureUpdate)
         }
     }
 
-    override fun update(o: Observable?, arg: Any?) {
-        if (o == barometer) recordBarometerReading()
-        if (o == gps) recordGPSReading()
-    }
-
-    private fun recordGPSReading(){
-        altitudeReadings.add(gps.altitude.value)
-
-        if (altitudeReadings.size >= MAX_GPS_READINGS) {
+    private fun onLocationUpdate(): Boolean {
+        altitudeReadings.add(altimeter.altitude)
+        return if(altitudeReadings.size >= MAX_GPS_READINGS){
             hasLocation = true
-            gps.stop()
-            gps.deleteObserver(this)
-
-            if (hasBarometerReading) {
+            if (hasBarometerReading){
                 gotAllReadings()
             }
+            false
+        } else {
+            true
+        }
+    }
+
+    private fun onPressureUpdate(): Boolean {
+        pressureReadings.add(barometer.pressure)
+
+        return if (pressureReadings.size >= MAX_BAROMETER_READINGS) {
+            hasBarometerReading = true
+            if (hasLocation) {
+                gotAllReadings()
+            }
+            false
+        } else {
+            true
         }
     }
 
@@ -102,20 +106,6 @@ class BarometerAlarmReceiver: BroadcastReceiver(), Observer {
             reading
         } else {
             lastReading
-        }
-    }
-
-    private fun recordBarometerReading(){
-        pressureReadings.add(barometer.pressure.value)
-
-        if (pressureReadings.size >= MAX_BAROMETER_READINGS) {
-            hasBarometerReading = true
-            barometer.stop()
-            barometer.deleteObserver(this)
-
-            if (hasLocation) {
-                gotAllReadings()
-            }
         }
     }
 

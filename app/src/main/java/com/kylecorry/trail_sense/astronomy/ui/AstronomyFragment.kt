@@ -16,8 +16,8 @@ import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimes
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesCalculatorFactory
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.formatHM
-import com.kylecorry.trail_sense.shared.sensors2.GPS
-import com.kylecorry.trail_sense.shared.sensors2.IGPS
+import com.kylecorry.trail_sense.shared.sensors.GPS
+import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.toDisplayFormat
 import java.time.Duration
 import java.time.LocalDate
@@ -88,6 +88,7 @@ class AstronomyFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        gps.stop(this::onLocationUpdate)
         timer.cancel()
     }
 

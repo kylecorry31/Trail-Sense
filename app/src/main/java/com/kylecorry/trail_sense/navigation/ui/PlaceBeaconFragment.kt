@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.doTransaction
-import com.kylecorry.trail_sense.shared.sensors2.IGPS
+import com.kylecorry.trail_sense.shared.sensors.IGPS
 
 
 class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: IGPS) : Fragment() {
