@@ -7,7 +7,6 @@ import android.location.LocationManager
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.shared.Coordinate
-import com.kylecorry.trail_sense.shared.sensors.gps.SimpleLocationListener
 
 class GPS(context: Context): AbstractSensor(), IGPS {
 
@@ -19,7 +18,8 @@ class GPS(context: Context): AbstractSensor(), IGPS {
 
     private val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-    private val locationListener = SimpleLocationListener(this::updateLastLocation)
+    private val locationListener =
+        SimpleLocationListener(this::updateLastLocation)
 
     private var _altitude = prefs.getFloat(LAST_ALTITUDE, 0f)
 

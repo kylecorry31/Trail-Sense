@@ -1,56 +1,47 @@
-package com.kylecorry.trail_sense.shared.sensors
+package com.kylecorry.trail_sense.shared.sensors2
 
-import android.content.Context
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
-import java.util.*
+abstract class AbstractSensor: ISensor {
 
-/**
- * A sensor
- */
-abstract class AbstractSensor(ctx: Context, private val sensorType: Int, private val sensorDelay: Int) : SensorEventListener, Observable(),
-    ISensor {
-
-    private var sensorManager: SensorManager = ctx.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-
+    private val listeners = mutableSetOf<SensorListener>()
     private var started = false
 
-    /**
-     * Start the sensor
-     */
-    override fun start(){
+    override fun start(listener: SensorListener){
+        listeners.add(listener)
         if (started) return
-        sensorManager.getDefaultSensor(sensorType)?.also { sensor ->
-            sensorManager.registerListener(
-                this,
-                sensor,
-                sensorDelay
-            )
-        }
+        startImpl()
         started = true
     }
 
-    /**
-     * Stop the compass sensor
-     */
-    override fun stop(){
+    override fun stop(listener: SensorListener?){
+        synchronized(listeners) {
+            if (listener != null) {
+                listeners.remove(listener)
+            } else {
+                listeners.clear()
+            }
+        }
+        if (listeners.isNotEmpty()) return
         if (!started) return
-        sensorManager.unregisterListener(this)
+        stopImpl()
         started = false
     }
 
+    protected abstract fun startImpl()
+    protected abstract fun stopImpl()
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        // Empty
+    protected fun notifyListeners(){
+        synchronized(listeners) {
+            val toClear = mutableListOf<SensorListener>()
+            for (listener in listeners) {
+                if (!listener.invoke()) {
+                    toClear.add(listener)
+                }
+            }
+
+            for (listener in toClear) {
+                stop(listener)
+            }
+        }
     }
 
-    override fun onSensorChanged(event: SensorEvent) {
-        handleSensorEvent(event)
-        setChanged()
-        notifyObservers()
-    }
-
-    abstract fun handleSensorEvent(event: SensorEvent)
 }

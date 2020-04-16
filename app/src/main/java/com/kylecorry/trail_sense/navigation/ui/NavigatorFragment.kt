@@ -1,10 +1,14 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
@@ -17,8 +21,9 @@ import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.math.normalizeAngle
-import com.kylecorry.trail_sense.shared.sensors2.*
+import com.kylecorry.trail_sense.shared.sensors.*
 import java.util.*
+import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 
@@ -32,6 +37,8 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private var units = "meters"
     private var useTrueNorth = false
     private var altimeterMode = NavigationPreferences.AltimeterMode.GPS
+    private var isRulerSetup = false
+    private var areRulerTextViewsAligned = false
 
     // UI Fields
     private lateinit var azimuthTxt: TextView
@@ -42,8 +49,13 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private lateinit var altitudeTxt: TextView
     private lateinit var compassView: CompassView
     private lateinit var prefs: NavigationPreferences
+    private lateinit var ruler: ConstraintLayout
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
 
         prefs = NavigationPreferences(context!!)
@@ -56,7 +68,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
             Barometer(context!!)
         }
         navigator = Navigator()
-        if (initialDestination != null){
+        if (initialDestination != null) {
             navigator.destination = initialDestination
         }
 
@@ -67,6 +79,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         navigationTxt = view.findViewById(R.id.navigation)
         beaconBtn = view.findViewById(R.id.beaconBtn)
         altitudeTxt = view.findViewById(R.id.altitude)
+        ruler = view.findViewById(R.id.ruler)
 
         compassView = CompassView(
             view.findViewById(R.id.needle),
@@ -83,10 +96,11 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         beaconBtn.setOnClickListener {
             // Open the navigation select screen
             // Allows user to choose destination from list or add a destination to the list
-            if (!navigator.hasDestination){
+            if (!navigator.hasDestination) {
                 fragmentManager?.doTransaction {
                     this.addToBackStack(null)
-                    this.replace(R.id.fragment_holder,
+                    this.replace(
+                        R.id.fragment_holder,
                         BeaconListFragment(
                             BeaconDB(
                                 context!!
@@ -113,7 +127,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         altimeterMode = prefs.altimeter
         units = prefs.distanceUnits
 
-        if (useTrueNorth){
+        if (useTrueNorth) {
             compass.declination = DeclinationCalculator()
                 .calculateDeclination(gps.location, gps.altitude)
         } else {
@@ -156,11 +170,68 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         return navigator.hasDestination
     }
 
+    private fun setupRuler() {
+        val dpi = resources.displayMetrics.densityDpi
+        val height = ruler.height / dpi.toDouble() * if (prefs.distanceUnits == "meters") 2.54 else 1.0
+
+        if (height == 0.0) {
+            return
+        }
+
+        if (!isRulerSetup) {
+            ruler.visibility = View.INVISIBLE
+            for (i in 0..ceil(height).toInt() * 8) {
+                val inches = i / 8.0
+                val tv = TextView(context)
+                val bar = ImageView(context)
+                bar.setBackgroundColor(Color.BLACK)
+                val layoutParams = ConstraintLayout.LayoutParams(1, 4)
+                bar.layoutParams = layoutParams
+                when {
+                    inches % 1.0 == 0.0 -> {
+                        bar.layoutParams.width = 48
+                        tv.text = inches.toInt().toString()
+                    }
+                    inches % 0.5 == 0.0 -> {
+                        bar.layoutParams.width = 36
+                    }
+                    inches % 0.25 == 0.0 -> {
+                        bar.layoutParams.width = 24
+                    }
+                    else -> {
+                        bar.layoutParams.width = 12
+                    }
+                }
+                bar.y = ruler.height * (inches / height).toFloat() + resources.getDimensionPixelSize(R.dimen.ruler_top)
+                if (!tv.text.isNullOrBlank()) {
+                    tv.setTextColor(Color.BLACK)
+                    ruler.addView(tv)
+                    tv.y = bar.y
+                    tv.x = bar.layoutParams.width.toFloat() + resources.getDimensionPixelSize(R.dimen.ruler_label)
+                }
+
+                ruler.addView(bar)
+            }
+        } else if (!areRulerTextViewsAligned) {
+            for (view in ruler.children) {
+                if (view.height != 0) {
+                    areRulerTextViewsAligned = true
+                }
+                view.y -= view.height / 2f
+            }
+        }
+
+        isRulerSetup = true
+
+        if (areRulerTextViewsAligned) {
+            ruler.visibility = View.VISIBLE
+        }
+    }
 
     /**
      * Update the navigator
      */
-    private fun updateNavigator(){
+    private fun updateNavigator() {
         if (navigator.hasDestination) {
             // Navigating
             gps.start(this::onLocationUpdate)
@@ -188,14 +259,15 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         // Update the navigation
         updateNavigationUI()
+        setupRuler()
     }
 
     /**
      * Update the navigation
      */
-    private fun updateNavigationUI(){
+    private fun updateNavigationUI() {
         // Determine if the navigator is navigating
-        if (!navigator.hasDestination){
+        if (!navigator.hasDestination) {
             // Hide the navigation indicators
             compassView.hideBeacon()
             navigationTxt.text = ""
@@ -219,7 +291,11 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         // Display the direction indicator
         compassView.showBeacon(bearing)
         // Update the direction text
-        navigationTxt.text = "${navigator.getDestinationName()}:    ${bearing.roundToInt()}°    -    ${LocationMath.distanceToReadableString(distance, units)}"
+        navigationTxt.text =
+            "${navigator.getDestinationName()}:    ${bearing.roundToInt()}°    -    ${LocationMath.distanceToReadableString(
+                distance,
+                units
+            )}"
     }
 
     /**
@@ -228,7 +304,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private fun updateLocationUI() {
 
         // Update the declination value
-        if (useTrueNorth){
+        if (useTrueNorth) {
             compass.declination = DeclinationCalculator()
                 .calculateDeclination(gps.location, gps.altitude)
         } else {
@@ -249,7 +325,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     }
 
     private fun getAltitudeString(altitude: Float, units: String): String {
-        return if (units == "meters"){
+        return if (units == "meters") {
             "${altitude.roundToInt()} m"
         } else {
             "${LocationMath.convertToBaseUnit(altitude, units).roundToInt()} ft"
