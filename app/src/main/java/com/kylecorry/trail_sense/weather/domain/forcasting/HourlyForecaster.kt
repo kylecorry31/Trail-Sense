@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.weather.domain.forcasting
 
-import com.kylecorry.trail_sense.shared.PressureReading
+import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.domain.tendency.DropPressureTendencyCalculator
 import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
 import java.time.Duration

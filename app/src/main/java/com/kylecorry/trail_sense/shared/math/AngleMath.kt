@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.shared.math
 
-import com.kylecorry.trail_sense.shared.toRadians
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -27,4 +26,8 @@ fun sinDegrees(angle: Double): Double {
 
 fun cosDegrees(angle: Double): Double {
     return cos(angle.toRadians())
+}
+
+fun Double.toRadians(): Double {
+    return Math.toRadians(this)
 }

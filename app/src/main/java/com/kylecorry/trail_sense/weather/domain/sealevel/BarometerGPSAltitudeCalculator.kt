@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.weather.domain.sealevel
 
 import android.hardware.SensorManager
-import com.kylecorry.trail_sense.shared.AltitudeReading
-import com.kylecorry.trail_sense.shared.PressureAltitudeReading
+import com.kylecorry.trail_sense.weather.domain.AltitudeReading
+import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import java.time.Duration
 import kotlin.math.abs
 
@@ -35,7 +35,10 @@ internal class BarometerGPSAltitudeCalculator(private val maxNaturalPressureChan
                 }
             }
             lastReading = it
-            AltitudeReading(it.time, altitude)
+            AltitudeReading(
+                it.time,
+                altitude
+            )
         }
     }
 

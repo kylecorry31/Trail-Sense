@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.domain.sealevel
 
-import com.kylecorry.trail_sense.shared.PressureAltitudeReading
-import com.kylecorry.trail_sense.shared.PressureReading
+import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
+import com.kylecorry.trail_sense.weather.domain.PressureReading
 
 internal class AltimeterSeaLevelPressureConverter(private val altitudeCalculator: IAltitudeCalculator) :
     ISeaLevelPressureConverter {

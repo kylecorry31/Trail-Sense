@@ -31,16 +31,8 @@ abstract class AbstractSensor: ISensor {
 
     protected fun notifyListeners(){
         synchronized(listeners) {
-            val toClear = mutableListOf<SensorListener>()
-            for (listener in listeners) {
-                if (!listener.invoke()) {
-                    toClear.add(listener)
-                }
-            }
-
-            for (listener in toClear) {
-                stop(listener)
-            }
+            val finishedListeners = listeners.filter { !it.invoke() }
+            finishedListeners.forEach(::stop)
         }
     }
 

@@ -18,10 +18,6 @@ fun Double.roundPlaces(places: Int): Double {
     return (this * 10.0.pow(places)).roundToInt() / 10.0.pow(places)
 }
 
-fun Double.toRadians(): Double {
-    return Math.toRadians(this)
-}
-
 fun Instant.toZonedDateTime(): ZonedDateTime {
     return ZonedDateTime.ofInstant(this, ZoneId.systemDefault())
 }

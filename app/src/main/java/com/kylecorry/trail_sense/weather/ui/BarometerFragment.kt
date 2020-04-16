@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.PressureAltitudeReading
-import com.kylecorry.trail_sense.shared.math.LowPassFilter
 import com.kylecorry.trail_sense.shared.sensors.Barometer
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IBarometer
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.toZonedDateTime
+import com.kylecorry.trail_sense.weather.domain.LowPassFilter
+import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
 import com.kylecorry.trail_sense.weather.domain.classifier.StandardPressureClassifier
@@ -236,7 +236,10 @@ class BarometerFragment : Fragment(), Observer {
         val convertedPressures = pressureConverter.convert(readings)
 
         if (convertedPressures.isNotEmpty()) {
-            val filter = LowPassFilter(0.5, convertedPressures.first().value.toDouble())
+            val filter = LowPassFilter(
+                0.5,
+                convertedPressures.first().value.toDouble()
+            )
 
             chart.setUnits(PressureUnitUtils.getUnits(units))
 

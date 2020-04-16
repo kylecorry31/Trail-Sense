@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
-import com.kylecorry.trail_sense.shared.PressureAltitudeReading
+import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 
 interface IPressureHistoryRepository {
     fun getAll(context: Context): List<PressureAltitudeReading>

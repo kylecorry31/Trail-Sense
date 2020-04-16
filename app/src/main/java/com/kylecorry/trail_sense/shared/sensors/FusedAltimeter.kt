@@ -9,7 +9,7 @@ class FusedAltimeter(private val gps: IGPS, private val barometer: IBarometer) :
     private var altitudeChange = 0f
     private var lastBarometricAltitude: Float? = null
 
-    var baseAltitude = 0f
+    private var baseAltitude = 0f
 
     private fun onGPSUpdate(): Boolean {
         baseAltitude = gps.altitude
