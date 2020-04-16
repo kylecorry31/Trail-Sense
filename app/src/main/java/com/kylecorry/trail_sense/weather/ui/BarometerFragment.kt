@@ -237,7 +237,7 @@ class BarometerFragment : Fragment(), Observer {
 
         if (convertedPressures.isNotEmpty()) {
             val filter = LowPassFilter(
-                0.5,
+                0.3,
                 convertedPressures.first().value.toDouble()
             )
 
