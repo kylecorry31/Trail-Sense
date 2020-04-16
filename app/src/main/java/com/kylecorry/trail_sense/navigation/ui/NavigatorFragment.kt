@@ -12,24 +12,20 @@ import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.Navigator
 import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
-import com.kylecorry.trail_sense.navigation.domain.compass.OrientationCompass
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.math.normalizeAngle
-import com.kylecorry.trail_sense.shared.sensors2.Barometer
-import com.kylecorry.trail_sense.shared.sensors2.FusedAltimeter
-import com.kylecorry.trail_sense.shared.sensors2.GPS
-import com.kylecorry.trail_sense.shared.sensors2.IAltimeter
+import com.kylecorry.trail_sense.shared.sensors2.*
 import java.util.*
 import kotlin.math.roundToInt
 
 
 class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragment(), Observer {
 
-    private lateinit var compass: OrientationCompass
-    private lateinit var gps: GPS
+    private lateinit var compass: ICompass
+    private lateinit var gps: IGPS
     private lateinit var navigator: Navigator
     private lateinit var altimeter: IAltimeter
 
@@ -52,7 +48,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
         prefs = NavigationPreferences(context!!)
 
-        compass = OrientationCompass(context!!)
+        compass = Compass(context!!)
         gps = GPS(context!!)
         altimeter = if (prefs.altimeter == NavigationPreferences.AltimeterMode.GPS) {
             FusedAltimeter(gps, Barometer(context!!))
@@ -108,11 +104,10 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
     override fun onResume() {
         super.onResume()
-        // Observer the sensors
-        compass.addObserver(this)
-        gps.start(this::updateLocationUI)
+        compass.start(this::onCompassUpdate)
+        gps.start(this::onLocationUpdate)
+        altimeter.start(this::onAltitudeUpdate)
         navigator.addObserver(this)
-        altimeter.start(this::updateLocationUI)
 
         useTrueNorth = prefs.useTrueNorth
         altimeterMode = prefs.altimeter
@@ -125,8 +120,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
             compass.declination = 0f
         }
 
-        compass.start()
-
         // Update the UI
         updateNavigator()
         updateCompassUI()
@@ -136,19 +129,33 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     override fun onPause() {
         super.onPause()
         // Stop the low level sensors
-        compass.stop()
-        gps.stop(this::updateLocationUI)
-        altimeter.stop(this::updateLocationUI)
+        compass.stop(this::onCompassUpdate)
+        gps.stop(this::onLocationUpdate)
+        altimeter.stop(this::onAltitudeUpdate)
 
         // Remove the observers
-        compass.deleteObserver(this)
         navigator.deleteObserver(this)
     }
 
     override fun update(o: Observable?, arg: Any?) {
-        if (o == compass) updateCompassUI()
         if (o == navigator) updateNavigator()
     }
+
+    private fun onCompassUpdate(): Boolean {
+        updateCompassUI()
+        return true
+    }
+
+    private fun onAltitudeUpdate(): Boolean {
+        updateLocationUI()
+        return true
+    }
+
+    private fun onLocationUpdate(): Boolean {
+        updateLocationUI()
+        return navigator.hasDestination
+    }
+
 
     /**
      * Update the navigator
@@ -156,12 +163,11 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private fun updateNavigator(){
         if (navigator.hasDestination) {
             // Navigating
-            gps.start(this::updateLocationUI)
+            gps.start(this::onLocationUpdate)
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_cancel))
             updateNavigationUI()
         } else {
             // Not navigating
-            gps.stop(this::updateLocationUI)
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_beacon))
             updateNavigationUI()
         }
@@ -172,13 +178,13 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
      */
     private fun updateCompassUI() {
         // Update the text boxes
-        val azimuth = (compass.azimuth.value.roundToInt() % 360).toString().padStart(3, ' ')
-        val direction = compass.direction.symbol.toUpperCase(Locale.getDefault()).padEnd(2, ' ')
+        val azimuth = (compass.bearing.value.roundToInt() % 360).toString().padStart(3, ' ')
+        val direction = compass.bearing.direction.symbol.toUpperCase(Locale.getDefault()).padEnd(2, ' ')
         azimuthTxt.text = "${azimuth}°"
         directionTxt.text = direction
 
         // Rotate the compass
-        compassView.setAzimuth(compass.azimuth.value)
+        compassView.setAzimuth(compass.bearing.value)
 
         // Update the navigation
         updateNavigationUI()
@@ -219,7 +225,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     /**
      * Update the current location
      */
-    private fun updateLocationUI(){
+    private fun updateLocationUI() {
 
         // Update the declination value
         if (useTrueNorth){

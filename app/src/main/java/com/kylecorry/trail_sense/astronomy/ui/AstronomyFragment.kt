@@ -16,7 +16,8 @@ import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimes
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesCalculatorFactory
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.formatHM
-import com.kylecorry.trail_sense.shared.sensors.gps.GPS
+import com.kylecorry.trail_sense.shared.sensors2.GPS
+import com.kylecorry.trail_sense.shared.sensors2.IGPS
 import com.kylecorry.trail_sense.shared.toDisplayFormat
 import java.time.Duration
 import java.time.LocalDate
@@ -26,9 +27,9 @@ import java.util.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.math.roundToInt
 
-class AstronomyFragment : Fragment(), Observer {
+class AstronomyFragment : Fragment() {
 
-    private lateinit var gps: GPS
+    private lateinit var gps: IGPS
     private lateinit var location: Coordinate
 
     private lateinit var sunTxt: TextView
@@ -76,9 +77,8 @@ class AstronomyFragment : Fragment(), Observer {
 
     override fun onResume() {
         super.onResume()
-        gps.addObserver(this)
         location = gps.location
-        gps.updateLocation {}
+        gps.start(this::onLocationUpdate)
         handler = Handler(Looper.getMainLooper())
         timer = fixedRateTimer(period = 1000 * 60) {
             handler.post { updateUI() }
@@ -88,15 +88,13 @@ class AstronomyFragment : Fragment(), Observer {
 
     override fun onPause() {
         super.onPause()
-        gps.deleteObserver(this)
         timer.cancel()
     }
 
-    override fun update(o: Observable?, arg: Any?) {
-        if (o == gps) {
-            location = gps.location
-            updateUI()
-        }
+    private fun onLocationUpdate(): Boolean {
+        location = gps.location
+        updateUI()
+        return false
     }
 
     private fun updateUI() {

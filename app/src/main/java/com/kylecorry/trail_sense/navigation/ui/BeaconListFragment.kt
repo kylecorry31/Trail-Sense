@@ -20,9 +20,10 @@ import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors2.GPS
+import com.kylecorry.trail_sense.shared.sensors2.IGPS
 
 
-class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: GPS): Fragment() {
+class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS): Fragment() {
 
     private lateinit var beaconList: RecyclerView
     private lateinit var createBtn: FloatingActionButton

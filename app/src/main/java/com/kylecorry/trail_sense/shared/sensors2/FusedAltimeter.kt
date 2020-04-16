@@ -11,13 +11,13 @@ class FusedAltimeter(private val gps: IGPS, private val barometer: IBarometer) :
 
     var baseAltitude = 0f
 
-    private fun onGPSUpdate() {
+    private fun onGPSUpdate(): Boolean {
         baseAltitude = gps.altitude
-        gps.stop(this::onGPSUpdate)
         notifyListeners()
+        return false
     }
 
-    private fun onBarometerUpdate() {
+    private fun onBarometerUpdate(): Boolean {
         val lastAltitude = lastBarometricAltitude
         if (lastAltitude != null) {
             altitudeChange += barometer.altitude - lastAltitude
@@ -25,6 +25,7 @@ class FusedAltimeter(private val gps: IGPS, private val barometer: IBarometer) :
 
         lastBarometricAltitude = barometer.altitude
         notifyListeners()
+        return true
     }
 
 

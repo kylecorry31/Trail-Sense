@@ -11,8 +11,10 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.PressureAltitudeReading
 import com.kylecorry.trail_sense.shared.math.LowPassFilter
-import com.kylecorry.trail_sense.shared.sensors.barometer.Barometer
-import com.kylecorry.trail_sense.shared.sensors.gps.GPS
+import com.kylecorry.trail_sense.shared.sensors2.Barometer
+import com.kylecorry.trail_sense.shared.sensors2.GPS
+import com.kylecorry.trail_sense.shared.sensors2.IBarometer
+import com.kylecorry.trail_sense.shared.sensors2.IGPS
 import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
@@ -34,8 +36,8 @@ import java.util.*
 
 class BarometerFragment : Fragment(), Observer {
 
-    private lateinit var barometer: Barometer
-    private lateinit var gps: GPS
+    private lateinit var barometer: IBarometer
+    private lateinit var gps: IGPS
 
     private var altitude = 0F
     private var useSeaLevelPressure = false
@@ -83,9 +85,8 @@ class BarometerFragment : Fragment(), Observer {
     override fun onResume() {
         super.onResume()
         PressureHistoryRepository.addObserver(this)
-        barometer.addObserver(this)
-        barometer.start()
-        gps.addObserver(this)
+        barometer.start(this::onPressureUpdate)
+        gps.start(this::onLocationUpdate)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         useSeaLevelPressure =
@@ -93,39 +94,42 @@ class BarometerFragment : Fragment(), Observer {
 
         pressureConverter = SeaLevelPressureConverterFactory().create(context!!)
 
-        altitude = gps.altitude.value
+        altitude = gps.altitude
 
         units = prefs.getString(getString(R.string.pref_pressure_units), "hpa") ?: "hpa"
 
         updateBarometerChartData()
-
-        gps.updateLocation {}
     }
 
     override fun onPause() {
         super.onPause()
-        barometer.stop()
+        barometer.stop(this::onPressureUpdate)
+        gps.stop(this::onLocationUpdate)
         PressureHistoryRepository.deleteObserver(this)
-        barometer.deleteObserver(this)
     }
 
     override fun update(o: Observable?, arg: Any?) {
-        if (o == barometer) updatePressure()
         if (o == PressureHistoryRepository) {
             updateBarometerChartData()
         }
-        if (o == gps) {
-            altitude = gps.altitude.value
+    }
 
-            if (useSeaLevelPressure) {
-                updatePressure()
-            }
+    private fun onPressureUpdate(): Boolean {
+        updatePressure()
+        return true
+    }
+
+    private fun onLocationUpdate(): Boolean {
+        altitude = gps.altitude
+        if (useSeaLevelPressure){
+            updatePressure()
         }
+        return false
     }
 
     private fun updatePressure() {
         if (context == null) return
-        if (barometer.pressure.value == 0.0f) return
+        if (barometer.pressure == 0.0f) return
 
         val readings = PressureHistoryRepository.getAll(context!!)
 
@@ -134,7 +138,7 @@ class BarometerFragment : Fragment(), Observer {
         allReadings.add(
             PressureAltitudeReading(
                 Instant.now(),
-                barometer.pressure.value,
+                barometer.pressure,
                 altitude
             )
         )

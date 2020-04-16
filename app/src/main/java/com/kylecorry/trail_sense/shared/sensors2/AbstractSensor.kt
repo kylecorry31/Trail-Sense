@@ -13,10 +13,12 @@ abstract class AbstractSensor: ISensor {
     }
 
     override fun stop(listener: SensorListener?){
-        if (listener != null) {
-            listeners.remove(listener)
-        } else {
-            listeners.clear()
+        synchronized(listeners) {
+            if (listener != null) {
+                listeners.remove(listener)
+            } else {
+                listeners.clear()
+            }
         }
         if (listeners.isNotEmpty()) return
         if (!started) return
@@ -28,8 +30,17 @@ abstract class AbstractSensor: ISensor {
     protected abstract fun stopImpl()
 
     protected fun notifyListeners(){
-        for (listener in listeners){
-            listener.invoke()
+        synchronized(listeners) {
+            val toClear = mutableListOf<SensorListener>()
+            for (listener in listeners) {
+                if (!listener.invoke()) {
+                    toClear.add(listener)
+                }
+            }
+
+            for (listener in toClear) {
+                stop(listener)
+            }
         }
     }
 

@@ -13,10 +13,10 @@ import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.doTransaction
-import com.kylecorry.trail_sense.shared.sensors2.GPS
+import com.kylecorry.trail_sense.shared.sensors2.IGPS
 
 
-class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS) : Fragment() {
+class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: IGPS) : Fragment() {
 
     private lateinit var beaconName: EditText
     private lateinit var beaconLat: EditText
@@ -68,10 +68,10 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: GPS) 
         return view
     }
 
-    private fun setLocationFromGPS(){
+    private fun setLocationFromGPS(): Boolean {
         beaconLat.setText(gps.location.latitude.toString())
         beaconLng.setText(gps.location.longitude.toString())
-        gps.stop(this::setLocationFromGPS)
+        return false
     }
 
     private fun getCoordinate(lat: String, lon: String): Coordinate? {
