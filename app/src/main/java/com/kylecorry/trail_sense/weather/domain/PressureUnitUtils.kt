@@ -23,13 +23,12 @@ object PressureUnitUtils {
      * @param units The new units for the pressure
      * @return The pressure in the new units
      */
-    fun convert(pressure: Float, units: String): Float {
+    fun convert(pressure: Float, units: PressureUnits): Float {
         return when (units) {
-            "hpa" -> pressure
-            "in" -> 0.02953f * pressure
-            "mbar" -> pressure
-            "psi" -> 0.01450f * pressure
-            else -> pressure
+            PressureUnits.Hpa -> pressure
+            PressureUnits.Inhg -> 0.02953f * pressure
+            PressureUnits.Mbar -> pressure
+            PressureUnits.Psi -> 0.01450f * pressure
         }
     }
 

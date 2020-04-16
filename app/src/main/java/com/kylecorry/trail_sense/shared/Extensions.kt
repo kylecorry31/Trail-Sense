@@ -18,6 +18,14 @@ fun Double.roundPlaces(places: Int): Double {
     return (this * 10.0.pow(places)).roundToInt() / 10.0.pow(places)
 }
 
+fun Float.roundPlaces(places: Int): Float {
+    return (this * 10f.pow(places)).roundToInt() / 10f.pow(places)
+}
+
+fun Float.roundNearest(nearest: Float): Float {
+    return (this / nearest).roundToInt() * nearest
+}
+
 fun Instant.toZonedDateTime(): ZonedDateTime {
     return ZonedDateTime.ofInstant(this, ZoneId.systemDefault())
 }

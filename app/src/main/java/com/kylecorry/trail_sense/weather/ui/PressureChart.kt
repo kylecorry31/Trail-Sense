@@ -5,10 +5,17 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.kylecorry.trail_sense.shared.roundPlaces
+import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnits
+import kotlin.math.max
+import kotlin.math.min
 
 
 class PressureChart(private val chart: LineChart, private val color: Int) {
+
+    private var minRange = 10f
+    private var granularity = 1f
 
     init {
         chart.description.isEnabled = false
@@ -25,6 +32,7 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
         chart.axisLeft.setDrawGridLines(true)
         chart.axisLeft.gridColor = Color.valueOf(0f, 0f, 0f, 0.2f).toArgb()
         chart.axisLeft.textColor = Color.valueOf(0f, 0f, 0f, 0.6f).toArgb()
+        chart.axisLeft.setLabelCount(3, true)
         chart.axisRight.setDrawGridLines(false)
         chart.xAxis.setDrawAxisLine(false)
         chart.axisLeft.setDrawAxisLine(false)
@@ -32,17 +40,24 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
         chart.setNoDataText("")
     }
 
-    fun setUnits(units: PressureUnits){
-        if (units == PressureUnits.Inhg || units == PressureUnits.Psi){
-            chart.axisLeft.granularity = 0.2f
-        } else {
-            chart.axisLeft.granularity = 2f
-        }
+    fun setUnits(units: PressureUnits) {
+        minRange = PressureUnitUtils.convert(6f, units)
+        granularity = PressureUnitUtils.convert(1f, units).roundPlaces(2)
     }
 
     fun plot(data: List<Pair<Number, Number>>) {
         val values = data.map { Entry(it.first.toFloat(), it.second.toFloat()) }
 
+        val pressures = data.map { it.second.toFloat() }
+        var minPressure = pressures.min() ?: 0f
+        var maxPressure = pressures.max() ?: 0f
+        val middle = (minPressure + maxPressure) / 2f
+        minPressure = min(minPressure - granularity, middle - minRange / 2)
+        maxPressure = max(maxPressure + granularity, middle + minRange / 2)
+
+        chart.axisLeft.axisMinimum = minPressure
+        chart.axisLeft.axisMaximum = maxPressure
+        chart.axisLeft.granularity = granularity
 
         val set1 = LineDataSet(values, "Pressure")
         set1.color = color
