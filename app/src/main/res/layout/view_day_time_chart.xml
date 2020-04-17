@@ -12,6 +12,7 @@
         android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="@id/day_chart_cursor"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_rectangle"
         app:layout_constraintStart_toStartOf="parent">
 
     </com.github.mikephil.charting.charts.HorizontalBarChart>

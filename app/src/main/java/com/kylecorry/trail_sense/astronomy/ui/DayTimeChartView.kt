@@ -28,6 +28,7 @@ class DayTimeChartView(context: Context, attrs: AttributeSet): ConstraintLayout(
 
         image = findViewById(R.id.day_chart_img)
         chartView = findViewById(R.id.chart)
+        chartView.clipToOutline = true
         chart =
             MpStackedBarChart(chartView)
         cursor = findViewById(R.id.day_chart_cursor)
