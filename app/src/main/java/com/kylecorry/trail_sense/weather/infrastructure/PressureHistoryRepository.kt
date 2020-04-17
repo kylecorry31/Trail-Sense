@@ -64,7 +64,7 @@ object PressureHistoryRepository: Observable(),
             }
         }
         loaded = true
-        PressureHistoryRepository.readings = readings
+        PressureHistoryRepository.readings = readings.sortedBy { it.time }.toMutableList()
         removeOldReadings()
         setChanged()
         notifyObservers()
