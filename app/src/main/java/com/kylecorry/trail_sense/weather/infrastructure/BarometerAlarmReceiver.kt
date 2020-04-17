@@ -12,12 +12,12 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.shared.median
 import com.kylecorry.trail_sense.shared.sensors.Barometer
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IAltimeter
 import com.kylecorry.trail_sense.shared.sensors.IBarometer
+import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.forcasting.HourlyForecaster
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverterFactory
@@ -38,8 +38,8 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
 
     private val forecaster = HourlyForecaster()
 
-    private val MAX_BAROMETER_READINGS = 7
-    private val MAX_GPS_READINGS = 5
+    private val MAX_BAROMETER_READINGS = 8
+    private val MAX_GPS_READINGS = 8
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null){
@@ -80,14 +80,15 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
     }
 
     private fun getTrueAltitude(readings: List<Float>): Float {
-        val reading = readings.median()
+        val reading = readings.average().toFloat()
         val lastReading = getLastAltitude()
 
-        val alpha = 0.8f
+//        val alpha = 0.8f
+//        if (reading != 0f && lastReading != 0f){
+//            (1 - alpha) * lastReading + alpha * reading
+//        } else
 
-        return if (reading != 0f && lastReading != 0f){
-            (1 - alpha) * lastReading + alpha * reading
-        } else if (reading != 0f){
+        return if (reading != 0f){
             reading
         } else {
             lastReading
