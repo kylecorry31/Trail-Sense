@@ -39,7 +39,7 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
     private val forecaster = HourlyForecaster()
 
     private val MAX_BAROMETER_READINGS = 8
-    private val MAX_GPS_READINGS = 8
+    private val MAX_GPS_READINGS = 5
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null){
@@ -80,15 +80,13 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
     }
 
     private fun getTrueAltitude(readings: List<Float>): Float {
-        val reading = readings.average().toFloat()
+        val reading = readings.median()
         val lastReading = getLastAltitude()
 
-//        val alpha = 0.8f
-//        if (reading != 0f && lastReading != 0f){
-//            (1 - alpha) * lastReading + alpha * reading
-//        } else
-
-        return if (reading != 0f){
+        val alpha = 0.8f
+        return if (reading != 0f && lastReading != 0f){
+            (1 - alpha) * lastReading + alpha * reading
+        } else if (reading != 0f){
             reading
         } else {
             lastReading
