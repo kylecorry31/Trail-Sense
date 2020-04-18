@@ -36,10 +36,8 @@ class AstronomyFragment : Fragment() {
     private lateinit var remDaylightTxt: TextView
     private lateinit var moonTxt: TextView
     private lateinit var sunStartTimeTxt: TextView
-    private lateinit var sunMiddleTimeTxt: TextView
     private lateinit var sunEndTimeTxt: TextView
     private lateinit var sunStartTomorrowTimeTxt: TextView
-    private lateinit var sunMiddleTomorrowTimeTxt: TextView
     private lateinit var sunEndTomorrowTimeTxt: TextView
     private lateinit var timer: Timer
     private lateinit var handler: Handler
@@ -59,10 +57,8 @@ class AstronomyFragment : Fragment() {
         moonTxt = view.findViewById(R.id.moon_phase)
         remDaylightTxt = view.findViewById(R.id.remaining_time_lbl)
         sunStartTimeTxt = view.findViewById(R.id.sun_start_time)
-        sunMiddleTimeTxt = view.findViewById(R.id.sun_middle_time)
         sunEndTimeTxt = view.findViewById(R.id.sun_end_time)
         sunStartTomorrowTimeTxt = view.findViewById(R.id.sun_start_time_tomorrow)
-        sunMiddleTomorrowTimeTxt = view.findViewById(R.id.sun_middle_time_tomorrow)
         sunEndTomorrowTimeTxt = view.findViewById(R.id.sun_end_time_tomorrow)
         sunChart =
             SunChart(view.findViewById(R.id.sun_chart))
@@ -169,13 +165,8 @@ class AstronomyFragment : Fragment() {
         val todayTimes = sunChartCalculator.calculate(location, today)
         val tomorrowTimes = sunChartCalculator.calculate(location, tomorrow)
 
-        displaySunTimes(todayTimes, sunStartTimeTxt, sunMiddleTimeTxt, sunEndTimeTxt)
-        displaySunTimes(
-            tomorrowTimes,
-            sunStartTomorrowTimeTxt,
-            sunMiddleTomorrowTimeTxt,
-            sunEndTomorrowTimeTxt
-        )
+        displaySunTimes(todayTimes, sunStartTimeTxt, sunEndTimeTxt)
+        displaySunTimes(tomorrowTimes, sunStartTomorrowTimeTxt, sunEndTomorrowTimeTxt)
 
         displayTimeUntilNextSunEvent(currentTime, todayTimes, tomorrowTimes)
     }
@@ -204,14 +195,8 @@ class AstronomyFragment : Fragment() {
     }
 
 
-    private fun displaySunTimes(
-        sunTimes: SunTimes,
-        upTxt: TextView,
-        noonTxt: TextView,
-        downTxt: TextView
-    ) {
+    private fun displaySunTimes(sunTimes: SunTimes, upTxt: TextView, downTxt: TextView) {
         upTxt.text = sunTimes.up.toDisplayFormat(context!!)
-        noonTxt.text = sunTimes.noon.toDisplayFormat(context!!)
         downTxt.text = sunTimes.down.toDisplayFormat(context!!)
     }
 

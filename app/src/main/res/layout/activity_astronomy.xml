@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="48dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,23 +81,6 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:id="@+id/sun_middle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/noon_label"
-                app:layout_constraintStart_toStartOf="@+id/sun_start"
-                app:layout_constraintTop_toBottomOf="@+id/sun_start" />
-
-            <TextView
-                android:id="@+id/sun_middle_time"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                app:layout_constraintEnd_toEndOf="@+id/sun_start_time"
-                app:layout_constraintTop_toTopOf="@+id/sun_middle"
-                tools:text="12:00 PM" />
-
-            <TextView
                 android:id="@+id/sun_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,7 +93,7 @@
                 android:id="@+id/sun_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/sun_middle_time"
+                app:layout_constraintEnd_toEndOf="@+id/sun_start_time"
                 app:layout_constraintTop_toTopOf="@+id/sun_end"
                 tools:text="8:00 PM" />
 
@@ -128,8 +111,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/sunset_label"
-                app:layout_constraintStart_toStartOf="@+id/sun_middle"
-                app:layout_constraintTop_toBottomOf="@+id/sun_middle" />
+                app:layout_constraintStart_toStartOf="@+id/sun_start"
+                app:layout_constraintTop_toBottomOf="@+id/sun_start" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
@@ -155,23 +138,6 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:id="@+id/sun_middle_tomorrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/noon_label"
-                app:layout_constraintStart_toStartOf="@+id/sun_start_tomorrow"
-                app:layout_constraintTop_toBottomOf="@+id/sun_start_tomorrow" />
-
-            <TextView
-                android:id="@+id/sun_middle_time_tomorrow"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                app:layout_constraintEnd_toEndOf="@+id/sun_start_time_tomorrow"
-                app:layout_constraintTop_toTopOf="@+id/sun_middle_tomorrow"
-                tools:text="12:00 PM" />
-
-            <TextView
                 android:id="@+id/sun_start_time_tomorrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -184,7 +150,7 @@
                 android:id="@+id/sun_end_time_tomorrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/sun_middle_time_tomorrow"
+                app:layout_constraintEnd_toEndOf="@+id/sun_start_time_tomorrow"
                 app:layout_constraintTop_toTopOf="@+id/sun_end_tomorrow"
                 tools:text="8:00 PM" />
 
@@ -202,8 +168,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/sunset_label"
-                app:layout_constraintStart_toStartOf="@+id/sun_middle_tomorrow"
-                app:layout_constraintTop_toBottomOf="@+id/sun_middle_tomorrow" />
+                app:layout_constraintStart_toStartOf="@+id/sun_start_tomorrow"
+                app:layout_constraintTop_toBottomOf="@+id/sun_start_tomorrow" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
