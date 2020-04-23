@@ -14,24 +14,23 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
-import com.kylecorry.trail_sense.navigation.domain.Navigator
+import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
-import com.kylecorry.trail_sense.shared.math.normalizeAngle
 import com.kylecorry.trail_sense.shared.sensors.*
 import java.util.*
 import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 
-class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragment(), Observer {
+class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
 
     private lateinit var compass: ICompass
     private lateinit var gps: IGPS
-    private lateinit var navigator: Navigator
+    private var destination: Beacon? = initialDestination
     private lateinit var altimeter: IAltimeter
 
     private var units = "meters"
@@ -67,10 +66,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         } else {
             Barometer(context!!)
         }
-        navigator = Navigator()
-        if (initialDestination != null) {
-            navigator.destination = initialDestination
-        }
 
         // Assign the UI fields
         azimuthTxt = view.findViewById(R.id.compass_azimuth)
@@ -96,7 +91,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         beaconBtn.setOnClickListener {
             // Open the navigation select screen
             // Allows user to choose destination from list or add a destination to the list
-            if (!navigator.hasDestination) {
+            if (destination == null) {
                 fragmentManager?.doTransaction {
                     this.addToBackStack(null)
                     this.replace(
@@ -109,7 +104,8 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
                     )
                 }
             } else {
-                navigator.destination = null
+                destination = null
+                updateNavigator();
             }
 
         }
@@ -121,15 +117,13 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         compass.start(this::onCompassUpdate)
         gps.start(this::onLocationUpdate)
         altimeter.start(this::onAltitudeUpdate)
-        navigator.addObserver(this)
 
         useTrueNorth = prefs.useTrueNorth
         altimeterMode = prefs.altimeter
         units = prefs.distanceUnits
 
         if (useTrueNorth) {
-            compass.declination = DeclinationCalculator()
-                .calculateDeclination(gps.location, gps.altitude)
+            compass.declination = DeclinationCalculator().calculate(gps.location, gps.altitude)
         } else {
             compass.declination = 0f
         }
@@ -146,13 +140,6 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         compass.stop(this::onCompassUpdate)
         gps.stop(this::onLocationUpdate)
         altimeter.stop(this::onAltitudeUpdate)
-
-        // Remove the observers
-        navigator.deleteObserver(this)
-    }
-
-    override fun update(o: Observable?, arg: Any?) {
-        if (o == navigator) updateNavigator()
     }
 
     private fun onCompassUpdate(): Boolean {
@@ -167,12 +154,13 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
 
     private fun onLocationUpdate(): Boolean {
         updateLocationUI()
-        return navigator.hasDestination
+        return destination != null
     }
 
     private fun setupRuler() {
         val dpi = resources.displayMetrics.densityDpi
-        val height = ruler.height / dpi.toDouble() * if (prefs.distanceUnits == "meters") 2.54 else 1.0
+        val height =
+            ruler.height / dpi.toDouble() * if (prefs.distanceUnits == "meters") 2.54 else 1.0
 
         if (height == 0.0) {
             return
@@ -202,12 +190,14 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
                         bar.layoutParams.width = 12
                     }
                 }
-                bar.y = ruler.height * (inches / height).toFloat() + resources.getDimensionPixelSize(R.dimen.ruler_top)
+                bar.y =
+                    ruler.height * (inches / height).toFloat() + resources.getDimensionPixelSize(R.dimen.ruler_top)
                 if (!tv.text.isNullOrBlank()) {
                     tv.setTextColor(Color.BLACK)
                     ruler.addView(tv)
                     tv.y = bar.y
-                    tv.x = bar.layoutParams.width.toFloat() + resources.getDimensionPixelSize(R.dimen.ruler_label)
+                    tv.x =
+                        bar.layoutParams.width.toFloat() + resources.getDimensionPixelSize(R.dimen.ruler_label)
                 }
 
                 ruler.addView(bar)
@@ -232,7 +222,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
      * Update the navigator
      */
     private fun updateNavigator() {
-        if (navigator.hasDestination) {
+        if (destination != null) {
             // Navigating
             gps.start(this::onLocationUpdate)
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_cancel))
@@ -250,7 +240,8 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private fun updateCompassUI() {
         // Update the text boxes
         val azimuth = (compass.bearing.value.roundToInt() % 360).toString().padStart(3, ' ')
-        val direction = compass.bearing.direction.symbol.toUpperCase(Locale.getDefault()).padEnd(2, ' ')
+        val direction =
+            compass.bearing.direction.symbol.toUpperCase(Locale.getDefault()).padEnd(2, ' ')
         azimuthTxt.text = "${azimuth}°"
         directionTxt.text = direction
 
@@ -267,7 +258,7 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
      */
     private fun updateNavigationUI() {
         // Determine if the navigator is navigating
-        if (!navigator.hasDestination) {
+        if (destination == null) {
             // Hide the navigation indicators
             compassView.hideBeacon()
             navigationTxt.text = ""
@@ -275,27 +266,23 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
         }
 
         val declination = DeclinationCalculator()
-            .calculateDeclination(gps.location, gps.altitude)
+            .calculate(gps.location, gps.altitude)
 
         // Retrieve the current location and azimuth
         val location = gps.location
 
-        // Get the distance to the bearing
-        val distance = navigator.getDistance(location)
-        var bearing = navigator.getBearing(location)
+        destination?.apply {
+            val vector = NavigationService().navigate(location, this.coordinate)
+            val bearing =
+                if (!useTrueNorth) vector.direction.withDeclination(-declination) else vector.direction
 
-        // The bearing is already in true north format, convert that to magnetic north
-        if (!useTrueNorth) bearing -= declination
-        bearing = normalizeAngle(bearing)
-
-        // Display the direction indicator
-        compassView.showBeacon(bearing)
-        // Update the direction text
-        navigationTxt.text =
-            "${navigator.getDestinationName()}:    ${bearing.roundToInt()}°    -    ${LocationMath.distanceToReadableString(
-                distance,
-                units
-            )}"
+            compassView.showBeacon(bearing.value)
+            navigationTxt.text =
+                "${this.name}:    ${bearing.value.roundToInt()}°    -    ${LocationMath.distanceToReadableString(
+                    vector.distance,
+                    units
+                )}"
+        }
     }
 
     /**
@@ -304,12 +291,8 @@ class NavigatorFragment(private val initialDestination: Beacon? = null) : Fragme
     private fun updateLocationUI() {
 
         // Update the declination value
-        if (useTrueNorth) {
-            compass.declination = DeclinationCalculator()
-                .calculateDeclination(gps.location, gps.altitude)
-        } else {
-            compass.declination = 0f
-        }
+        compass.declination =
+            if (useTrueNorth) DeclinationCalculator().calculate(gps.location, gps.altitude) else 0f
 
 
         val location = gps.location

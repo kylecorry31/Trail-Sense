@@ -18,4 +18,8 @@ class Bearing(_value: Float){
                 }
                 return CompassDirection.NORTH
             }
+
+    fun withDeclination(declination: Float): Bearing {
+        return Bearing(value + declination)
+    }
 }

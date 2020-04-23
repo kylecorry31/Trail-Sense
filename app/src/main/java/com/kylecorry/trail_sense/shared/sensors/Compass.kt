@@ -11,7 +11,7 @@ class Compass(context: Context): BaseSensor(context, Sensor.TYPE_ORIENTATION, Se
     override var declination = 0f
 
     override val bearing: Bearing
-        get() = Bearing(_bearing + declination)
+        get() = Bearing(_bearing).withDeclination(declination)
 
     private var _bearing = 0f
 
