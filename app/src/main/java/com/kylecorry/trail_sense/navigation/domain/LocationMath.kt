@@ -11,31 +11,6 @@ import kotlin.math.*
 object LocationMath {
 
     /**
-     * Get the bearing between two coordinates
-     * @param from the starting coordinate
-     * @param to the ending coordinate
-     * @return the bearing in degrees (same as Compass.azimuth)
-     */
-    fun getBearing(from: Coordinate, to: Coordinate): Float {
-        val results = FloatArray(3)
-        Location.distanceBetween(from.latitude, from.longitude, to.latitude, to.longitude, results)
-        return normalizeAngle(results[1])
-    }
-
-
-    /**
-     * Get the distance in km between two coordinates
-     * @param from the starting coordinate
-     * @param to the ending coordinate
-     * @return the distance in meters between the two coordinates
-     */
-    fun getDistance(from: Coordinate, to: Coordinate): Float {
-        val results = FloatArray(3)
-        Location.distanceBetween(from.latitude, from.longitude, to.latitude, to.longitude, results)
-        return results[0]
-    }
-
-    /**
      * Converts meters to feet
      */
     private fun convertMetersToFeet(meters: Float): Float {
