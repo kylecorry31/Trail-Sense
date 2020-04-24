@@ -5,7 +5,7 @@ import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.Coordinate
 
 class NavigationService {
-    
+
     fun getNavigationVector(from: Coordinate, to: Coordinate): NavigationVector {
         val results = FloatArray(3)
         Location.distanceBetween(from.latitude, from.longitude, to.latitude, to.longitude, results)
