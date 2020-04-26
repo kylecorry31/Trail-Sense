@@ -39,7 +39,7 @@ object LocationMath {
      */
     fun distanceToReadableString(meters: Float, units: String): String {
         if (units == "feet_miles"){
-            val feetThreshold = 500
+            val feetThreshold = 1000
             val feet =
                 convertMetersToFeet(
                     meters
@@ -55,7 +55,7 @@ object LocationMath {
                 "${feet.roundToInt()} ft"
             }
         } else {
-            val meterThreshold = 200
+            val meterThreshold = 999
             return if (meters >= meterThreshold) {
                 // Display as km
                 val km = meters / 1000f

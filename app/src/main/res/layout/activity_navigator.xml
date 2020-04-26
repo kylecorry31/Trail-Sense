@@ -64,10 +64,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:text="10° - 200m" />
+        app:lineHeight="20sp"
+        tools:text="Supply Cache    (10°)\n200m" />
 
     <ImageView
         android:id="@+id/azimuth_indicator"

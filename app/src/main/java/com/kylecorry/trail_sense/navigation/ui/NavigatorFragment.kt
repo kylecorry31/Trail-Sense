@@ -278,7 +278,7 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
 
             compassView.showBeacon(bearing.value)
             navigationTxt.text =
-                "${this.name}:    ${bearing.value.roundToInt()}°    -    ${LocationMath.distanceToReadableString(
+                "${this.name}    (${bearing.value.roundToInt()}°)\n${LocationMath.distanceToReadableString(
                     vector.distance,
                     units
                 )}"
