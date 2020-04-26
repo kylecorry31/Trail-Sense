@@ -24,12 +24,13 @@
         android:id="@+id/pressure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:textSize="48sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="32sp"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="1020 hPa" />
 
     <TextView
@@ -44,18 +45,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weather_now_img"
         tools:text="@string/weather_worsening_slow" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:text="@string/air_pressure_label"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/pressure"
-        app:layout_constraintStart_toStartOf="@+id/pressure"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/barometer_trend"

@@ -151,7 +151,7 @@ class BarometerFragment : Fragment(), Observer {
 
         val format = PressureUnitUtils.getDecimalFormat(units)
 
-        pressureTxt.text = "${format.format(PressureUnitUtils.convert(pressure, PressureUnitUtils.getUnits(units)))} $symbol"
+        pressureTxt.text = "${format.format(PressureUnitUtils.convert(pressure, PressureUnitUtils.getUnits(units)))}  $symbol"
 
 
         val convertedPressureHistory = convertedReadings.subList(0, convertedReadings.lastIndex)
