@@ -93,7 +93,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, initialPath: Path? =
         beaconBtn.setOnClickListener {
             // Open the navigation select screen
             // Allows user to choose destination from list or add a destination to the list
-            if (hasDestination()) {
+            if (getNavigationVector() == null) {
                 fragmentManager?.doTransaction {
                     this.addToBackStack(null)
                     this.replace(
