@@ -322,11 +322,11 @@ class NavigatorFragment(initialDestination: Beacon? = null, initialPath: Path? =
     private fun getNavigationVector(): NavigationVector? {
         val service = NavigationService()
         if (destination != null) {
-            return service.getNavigationVector(gps.location, destination!!.coordinate)
+            return service.navigate(gps.location, destination!!)
         }
 
         if (path != null) {
-            return service.getNavigationVector(gps.location, service.getNextDestination(gps.location, path!!))
+            return service.navigate(gps.location, path!!)
         }
 
         return null
