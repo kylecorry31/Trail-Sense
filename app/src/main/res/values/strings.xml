@@ -71,6 +71,4 @@
     <string name="onboarding_location_all_time">Please select \'Allow all the time\' from the permission dialog</string>
     <string name="continue_button">CONTINUE</string>
     <string name="pref_onboarding_completed">onboarding_completed</string>
-    <string name="no_paths">No paths</string>
-    <string name="no_waypoints">No waypoints</string>
 </resources>
