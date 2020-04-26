@@ -12,13 +12,13 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.domain.*
+import com.kylecorry.trail_sense.navigation.domain.Beacon
+import com.kylecorry.trail_sense.navigation.domain.LocationMath
+import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
-import com.kylecorry.trail_sense.navigation.infrastructure.IPathRepository
 import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
-import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.*
 import java.util.*
@@ -26,13 +26,11 @@ import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 
-class NavigatorFragment(initialDestination: Beacon? = null, initialPath: Path? = null) :
-    Fragment() {
+class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
 
     private lateinit var compass: ICompass
     private lateinit var gps: IGPS
     private var destination: Beacon? = initialDestination
-    private var path: Path? = initialPath
     private lateinit var altimeter: IAltimeter
 
     private var units = "meters"
@@ -93,7 +91,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, initialPath: Path? =
         beaconBtn.setOnClickListener {
             // Open the navigation select screen
             // Allows user to choose destination from list or add a destination to the list
-            if (getNavigationVector() == null) {
+            if (destination == null) {
                 fragmentManager?.doTransaction {
                     this.addToBackStack(null)
                     this.replace(
@@ -107,7 +105,6 @@ class NavigatorFragment(initialDestination: Beacon? = null, initialPath: Path? =
                 }
             } else {
                 destination = null
-                path = null
                 updateNavigator();
             }
 
@@ -157,7 +154,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, initialPath: Path? =
 
     private fun onLocationUpdate(): Boolean {
         updateLocationUI()
-        return hasDestination()
+        return destination != null
     }
 
     private fun setupRuler() {
@@ -225,7 +222,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, initialPath: Path? =
      * Update the navigator
      */
     private fun updateNavigator() {
-        if (hasDestination()) {
+        if (destination != null) {
             // Navigating
             gps.start(this::onLocationUpdate)
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_cancel))
@@ -261,7 +258,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, initialPath: Path? =
      */
     private fun updateNavigationUI() {
         // Determine if the navigator is navigating
-        if (!hasDestination()) {
+        if (destination == null) {
             // Hide the navigation indicators
             compassView.hideBeacon()
             navigationTxt.text = ""
@@ -271,18 +268,21 @@ class NavigatorFragment(initialDestination: Beacon? = null, initialPath: Path? =
         val declination = DeclinationCalculator()
             .calculate(gps.location, gps.altitude)
 
-        val navigationVector = getNavigationVector() ?: NavigationVector.zero
-
         // Retrieve the current location and azimuth
-        val bearing =
-            if (!useTrueNorth) navigationVector.direction.withDeclination(-declination) else navigationVector.direction
+        val location = gps.location
 
-        compassView.showBeacon(bearing.value)
-        navigationTxt.text =
-            "${bearing.value.roundToInt()}°    -    ${LocationMath.distanceToReadableString(
-                navigationVector.distance,
-                units
-            )}"
+        destination?.apply {
+            val vector = NavigationService().navigate(location, this.coordinate)
+            val bearing =
+                if (!useTrueNorth) vector.direction.withDeclination(-declination) else vector.direction
+
+            compassView.showBeacon(bearing.value)
+            navigationTxt.text =
+                "${this.name}:    ${bearing.value.roundToInt()}°    -    ${LocationMath.distanceToReadableString(
+                    vector.distance,
+                    units
+                )}"
+        }
     }
 
     /**
@@ -313,23 +313,6 @@ class NavigatorFragment(initialDestination: Beacon? = null, initialPath: Path? =
         } else {
             "${LocationMath.convertToBaseUnit(altitude, units).roundToInt()} ft"
         }
-    }
-
-    private fun hasDestination(): Boolean {
-        return destination != null || path != null
-    }
-
-    private fun getNavigationVector(): NavigationVector? {
-        val service = NavigationService()
-        if (destination != null) {
-            return service.navigate(gps.location, destination!!)
-        }
-
-        if (path != null) {
-            return service.navigate(gps.location, path!!)
-        }
-
-        return null
     }
 
 }
