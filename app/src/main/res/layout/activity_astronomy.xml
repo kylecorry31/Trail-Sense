@@ -192,7 +192,7 @@
         app:layout_constraintEnd_toEndOf="@+id/day_circle"
         app:layout_constraintStart_toStartOf="@+id/day_circle"
         app:layout_constraintTop_toTopOf="@+id/day_circle"
-        app:srcCompat="@drawable/sunny" />
+        app:srcCompat="@drawable/sun" />
 
     <ImageView
         android:id="@+id/moon_position"

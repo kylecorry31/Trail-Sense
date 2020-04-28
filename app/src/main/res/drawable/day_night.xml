@@ -10,7 +10,7 @@
         android:strokeLineCap="round" android:strokeLineJoin="round" android:strokeWidth="1"/>
     <path android:fillAlpha="1" android:fillColor="#00000000"
         android:pathData="M40.5,40.5m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0"
-        android:strokeAlpha="0.0" android:strokeColor="#ffffff"
+        android:strokeAlpha="0.1" android:strokeColor="#ffffff"
         android:strokeLineCap="round" android:strokeLineJoin="round" android:strokeWidth="1"/>
     <path android:fillAlpha="1" android:fillColor="#00000000"
         android:pathData="M40.5,40.5m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0"
