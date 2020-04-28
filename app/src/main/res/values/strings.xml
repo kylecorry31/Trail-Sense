@@ -22,8 +22,8 @@
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
     <string name="noon_label">Noon</string>
-    <string name="until_sunrise_label">Time until sunrise</string>
-    <string name="until_sunset_label">Time until sunset</string>
+    <string name="until_sunrise_label">until sunrise</string>
+    <string name="until_sunset_label">until sunset</string>
 
 
     <string name="pref_use_true_north_title">True North</string>

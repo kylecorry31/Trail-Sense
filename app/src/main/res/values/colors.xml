@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#c43c00</color>
     <color name="colorPrimaryLight">#ff9e40</color>
 
-    <color name="colorAccent">#b0dae8</color>
+    <color name="colorAccent">#a0caff</color>
+    <color name="colorSecondary">#222222</color>
     <color name="moon_up">#b0dae8</color>
     <color name="moon_down">@color/night</color>
     <color name="day">@color/colorPrimary</color>
