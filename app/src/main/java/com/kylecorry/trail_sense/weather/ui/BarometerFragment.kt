@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.shared.sensors.IBarometer
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
+import com.kylecorry.trail_sense.weather.domain.MovingAverageFilter
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
@@ -236,10 +237,7 @@ class BarometerFragment : Fragment(), Observer {
         val convertedPressures = pressureConverter.convert(readings)
 
         if (convertedPressures.isNotEmpty()) {
-            val filter = LowPassFilter(
-                0.3,
-                convertedPressures.first().value.toDouble()
-            )
+            val filter = MovingAverageFilter(5)
 
             chart.setUnits(PressureUnitUtils.getUnits(units))
 
