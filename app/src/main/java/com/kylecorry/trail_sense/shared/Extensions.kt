@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.preference.PreferenceManager
@@ -67,3 +68,10 @@ fun List<Float>.median(): Float {
     return sortedList[this.size / 2]
 }
 
+fun View.getCenterX(): Float {
+    return (left + right) / 2f
+}
+
+fun View.getCenterY(): Float {
+    return (top + bottom) / 2f
+}

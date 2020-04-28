@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesCalculatorFactory
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.formatHM
 import com.kylecorry.trail_sense.shared.math.cosDegrees
+import com.kylecorry.trail_sense.shared.math.getPercentOfDuration
 import com.kylecorry.trail_sense.shared.math.sinDegrees
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
@@ -49,6 +50,8 @@ class AstronomyFragment : Fragment() {
     private lateinit var moonPosition: ImageView
     private lateinit var sunPosition: ImageView
     private lateinit var dayCircle: ImageView
+    private lateinit var moonIconClock: IconClock
+    private lateinit var sunIconClock: IconClock
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,6 +71,8 @@ class AstronomyFragment : Fragment() {
         sunPosition = view.findViewById(R.id.sun_position)
         moonPosition = view.findViewById(R.id.moon_position)
         dayCircle = view.findViewById(R.id.day_circle)
+        moonIconClock = IconClock(dayCircle, moonPosition)
+        sunIconClock = IconClock(dayCircle, sunPosition)
 
         gps = GPS(context!!)
 
@@ -179,24 +184,18 @@ class AstronomyFragment : Fragment() {
         val yesterday = calculator.calculate(gps.location, LocalDate.now().minusDays(1))
 
         val percent = when {
-            currentTime > today.down -> {
-                val duration = Duration.between(today.down, tomorrow.up).seconds
-                val elapsed = Duration.between(today.down, currentTime).seconds
-                elapsed / duration.toFloat()
+            currentTime.isAfter(today.down) -> {
+                getPercentOfDuration(today.down, tomorrow.up, currentTime)
             }
-            currentTime > today.up -> {
-                val duration = Duration.between(today.up, today.down).seconds
-                val elapsed = Duration.between(today.up, currentTime).seconds
-                elapsed / duration.toFloat()
+            currentTime.isAfter(today.up) -> {
+                getPercentOfDuration(today.up, today.down, currentTime)
             }
             else -> {
-                val duration = Duration.between(yesterday.down, today.up).seconds
-                val elapsed = Duration.between(yesterday.down, currentTime).seconds
-                elapsed / duration.toFloat()
+                getPercentOfDuration(yesterday.down, today.up, currentTime)
             }
         }
 
-        val angle = if (currentTime > today.up && currentTime < today.down){
+        val angle = if (currentTime.isAfter(today.up) && currentTime.isBefore(today.down)){
             // Day time
             180 * percent
         } else {
@@ -204,15 +203,7 @@ class AstronomyFragment : Fragment() {
             180 + 180 * percent
         }
 
-        val radius = dayCircle.width / 2f
-        val centerX = dayCircle.left + radius - sunPosition.width / 2f
-        val centerY = dayCircle.top + radius - sunPosition.height / 2f
-
-        val newX = centerX - cosDegrees(angle.toDouble()) * radius
-        val newY = centerY - sinDegrees(angle.toDouble()) * radius
-
-        sunPosition.x = newX.toFloat()
-        sunPosition.y = newY.toFloat()
+        sunIconClock.display(angle)
     }
 
     private fun updateMoonPosition(currentTime: LocalDateTime, calculator: IMoonTimesCalculator){
@@ -227,20 +218,16 @@ class AstronomyFragment : Fragment() {
             val nextDown = if (today.down != null && today.down.isAfter(lastUp)) today.down else tomorrow.down
 
             if (lastUp != null && nextDown != null){
-                val duration = Duration.between(lastUp, nextDown).seconds
-                val elapsed = Duration.between(lastUp, currentTime).seconds
-                elapsed / duration.toFloat()
+                getPercentOfDuration(lastUp, nextDown, currentTime)
             } else {
                 0f
             }
         } else {
             val lastDown = today.down ?: yesterday.down
-            val nextUp = today.up ?: tomorrow.up
+            val nextUp = if (today.up != null && today.up.isAfter(lastDown)) today.up else tomorrow.up
 
             if (lastDown != null && nextUp != null){
-                val duration = Duration.between(lastDown, nextUp).seconds
-                val elapsed = Duration.between(lastDown, currentTime).seconds
-                elapsed / duration.toFloat()
+                getPercentOfDuration(lastDown, nextUp, currentTime)
             } else {
                 0f
             }
@@ -254,15 +241,7 @@ class AstronomyFragment : Fragment() {
             180 + 180 * percent
         }
 
-        val radius = dayCircle.width / 2f
-        val centerX = dayCircle.left + radius - moonPosition.width / 2f
-        val centerY = dayCircle.top + radius - moonPosition.height / 2f
-
-        val newX = centerX - cosDegrees(angle.toDouble()) * radius * 0.5
-        val newY = centerY - sinDegrees(angle.toDouble()) * radius * 0.5
-
-        moonPosition.x = newX.toFloat()
-        moonPosition.y = newY.toFloat()
+        moonIconClock.display(angle, 0.5f)
     }
 
     private fun getMoonImage(phase: MoonTruePhase): Int {
