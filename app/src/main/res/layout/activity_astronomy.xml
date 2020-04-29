@@ -135,8 +135,8 @@
         android:id="@+id/sun_start_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        app:layout_constraintStart_toEndOf="@+id/sun_start"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="@+id/sun_start"
         tools:text="8:00 PM" />
 
@@ -189,21 +189,22 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         android:text="@string/today"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/sun_start_time"
-        app:layout_constraintStart_toStartOf="@+id/sun_start_time"
+        app:layout_constraintStart_toStartOf="@+id/day_circle"
         app:layout_constraintTop_toBottomOf="@+id/moon_phase" />
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
         android:text="@string/tomorrow"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="@+id/sun_start_time_tomorrow"
-        app:layout_constraintStart_toStartOf="@+id/sun_start_time_tomorrow"
+        app:layout_constraintEnd_toEndOf="@+id/day_circle"
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <TextView
@@ -219,8 +220,8 @@
         android:id="@+id/sun_start_time_tomorrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        app:layout_constraintStart_toEndOf="@+id/sun_start_time"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="@+id/sun_start_time"
         tools:text="6:00 AM" />
 
