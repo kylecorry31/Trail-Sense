@@ -203,7 +203,7 @@ class AstronomyFragment : Fragment() {
             180 + 180 * percent
         }
 
-        sunIconClock.display(angle)
+        sunIconClock.display(angle, 0.98f)
     }
 
     private fun updateMoonPosition(currentTime: LocalDateTime, calculator: IMoonTimesCalculator){
