@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.math.roundToInt
@@ -38,12 +40,8 @@ class AstronomyFragment : Fragment() {
     private lateinit var moonTxt: TextView
     private lateinit var sunStartTimeTxt: TextView
     private lateinit var sunEndTimeTxt: TextView
-    private lateinit var sunStartTomorrowTimeTxt: TextView
-    private lateinit var sunEndTomorrowTimeTxt: TextView
     private lateinit var moonRiseTimeTxt: TextView
     private lateinit var moonSetTimeTxt: TextView
-    private lateinit var moonRiseTomorrowTimeTxt: TextView
-    private lateinit var moonSetTomorrowTimeTxt: TextView
     private lateinit var timer: Timer
     private lateinit var handler: Handler
     private lateinit var moonPosition: ImageView
@@ -51,6 +49,12 @@ class AstronomyFragment : Fragment() {
     private lateinit var dayCircle: ImageView
     private lateinit var moonIconClock: IconClock
     private lateinit var sunIconClock: IconClock
+
+    private lateinit var prevDateBtn: ImageButton
+    private lateinit var nextDateBtn: ImageButton
+    private lateinit var dateTxt: TextView
+
+    private lateinit var displayDate: LocalDate
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,19 +68,29 @@ class AstronomyFragment : Fragment() {
         remDaylightTxt = view.findViewById(R.id.remaining_time_lbl)
         sunStartTimeTxt = view.findViewById(R.id.sun_start_time)
         sunEndTimeTxt = view.findViewById(R.id.sun_end_time)
-        sunStartTomorrowTimeTxt = view.findViewById(R.id.sun_start_time_tomorrow)
-        sunEndTomorrowTimeTxt = view.findViewById(R.id.sun_end_time_tomorrow)
 
         moonRiseTimeTxt = view.findViewById(R.id.moon_rise_time)
         moonSetTimeTxt = view.findViewById(R.id.moon_set_time)
-        moonRiseTomorrowTimeTxt = view.findViewById(R.id.moon_rise_time_tomorrow)
-        moonSetTomorrowTimeTxt = view.findViewById(R.id.moon_set_time_tomorrow)
 
         sunPosition = view.findViewById(R.id.sun_position)
         moonPosition = view.findViewById(R.id.moon_position)
         dayCircle = view.findViewById(R.id.day_circle)
         moonIconClock = IconClock(dayCircle, moonPosition)
         sunIconClock = IconClock(dayCircle, sunPosition)
+
+        dateTxt = view.findViewById(R.id.date)
+        nextDateBtn = view.findViewById(R.id.next_date)
+        prevDateBtn = view.findViewById(R.id.prev_date)
+
+        prevDateBtn.setOnClickListener {
+            displayDate = displayDate.minusDays(1)
+            updateUI()
+        }
+
+        nextDateBtn.setOnClickListener {
+            displayDate = displayDate.plusDays(1)
+            updateUI()
+        }
 
         gps = GPS(context!!)
 
@@ -86,6 +100,7 @@ class AstronomyFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         location = gps.location
+        displayDate = LocalDate.now()
         gps.start(this::onLocationUpdate)
         handler = Handler(Looper.getMainLooper())
         timer = fixedRateTimer(period = 1000 * 60) {
@@ -107,8 +122,30 @@ class AstronomyFragment : Fragment() {
     }
 
     private fun updateUI() {
+        dateTxt.text = getDateString(displayDate)
         updateSunUI()
         updateMoonUI()
+    }
+
+    private fun getDateString(date: LocalDate): String {
+        val now = LocalDate.now()
+        return when {
+            date == now -> {
+                "Today"
+            }
+            date == now.plusDays(1) -> {
+                "Tomorrow"
+            }
+            date == now.minusDays(1) -> {
+                "Yesterday"
+            }
+            date.year == now.year -> {
+                date.format(DateTimeFormatter.ofPattern("MMMM d"))
+            }
+            else -> {
+                date.format(DateTimeFormatter.ofPattern("MMM d, YYYY"))
+            }
+        }
     }
 
     private fun updateMoonUI() {
@@ -117,13 +154,10 @@ class AstronomyFragment : Fragment() {
         val moonPhase = MoonPhaseCalculator().getPhase(time)
         val calculator = AltitudeMoonTimesCalculator()
 
-        val today = calculator.calculate(gps.location, LocalDate.now())
-        val tomorrow = calculator.calculate(gps.location, LocalDate.now().plusDays(1))
+        val today = calculator.calculate(gps.location, displayDate)
 
         moonRiseTimeTxt.text = today.up?.toDisplayFormat(context!!) ?: "-"
         moonSetTimeTxt.text = today.down?.toDisplayFormat(context!!) ?: "-"
-        moonRiseTomorrowTimeTxt.text = tomorrow.up?.toDisplayFormat(context!!) ?: "-"
-        moonSetTomorrowTimeTxt.text = tomorrow.down?.toDisplayFormat(context!!) ?: "-"
 
         moonPosition.setImageResource(getMoonImage(moonPhase.phase))
 
@@ -137,14 +171,12 @@ class AstronomyFragment : Fragment() {
         val sunChartCalculator = SunTimesCalculatorFactory().create(context!!)
 
         val currentTime = LocalDateTime.now()
-        val today = currentTime.toLocalDate()
-        val tomorrow = today.plusDays(1)
 
-        val todayTimes = sunChartCalculator.calculate(location, today)
-        val tomorrowTimes = sunChartCalculator.calculate(location, tomorrow)
+        val todayTimes = sunChartCalculator.calculate(location, currentTime.toLocalDate())
+        val tomorrowTimes = sunChartCalculator.calculate(location, LocalDate.now().plusDays(1))
 
-        displaySunTimes(todayTimes, sunStartTimeTxt, sunEndTimeTxt)
-        displaySunTimes(tomorrowTimes, sunStartTomorrowTimeTxt, sunEndTomorrowTimeTxt)
+        val displayDateTimes = sunChartCalculator.calculate(location, displayDate)
+        displaySunTimes(displayDateTimes, sunStartTimeTxt, sunEndTimeTxt)
 
         displayTimeUntilNextSunEvent(currentTime, todayTimes, tomorrowTimes)
 
