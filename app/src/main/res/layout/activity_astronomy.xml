@@ -13,7 +13,6 @@
         android:layout_marginTop="32dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/remaining_time_lbl"
         app:srcCompat="@drawable/day_night" />
@@ -27,7 +26,6 @@
         android:textStyle="bold"
         android:layout_marginTop="@dimen/default_top_margin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="5h 33m" />
