@@ -71,4 +71,6 @@
     <string name="onboarding_location_all_time">Please select \'Allow all the time\' from the permission dialog</string>
     <string name="continue_button">CONTINUE</string>
     <string name="pref_onboarding_completed">onboarding_completed</string>
+    <string name="moon_rise">Moonrise</string>
+    <string name="moon_set">Moonset</string>
 </resources>

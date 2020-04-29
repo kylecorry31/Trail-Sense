@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.moon.*
@@ -17,9 +16,7 @@ import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimes
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesCalculatorFactory
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.formatHM
-import com.kylecorry.trail_sense.shared.math.cosDegrees
 import com.kylecorry.trail_sense.shared.math.getPercentOfDuration
-import com.kylecorry.trail_sense.shared.math.sinDegrees
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.toDisplayFormat
@@ -30,7 +27,6 @@ import java.time.ZonedDateTime
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.math.roundToInt
-import kotlin.math.sin
 
 class AstronomyFragment : Fragment() {
 
@@ -44,9 +40,12 @@ class AstronomyFragment : Fragment() {
     private lateinit var sunEndTimeTxt: TextView
     private lateinit var sunStartTomorrowTimeTxt: TextView
     private lateinit var sunEndTomorrowTimeTxt: TextView
+    private lateinit var moonRiseTimeTxt: TextView
+    private lateinit var moonSetTimeTxt: TextView
+    private lateinit var moonRiseTomorrowTimeTxt: TextView
+    private lateinit var moonSetTomorrowTimeTxt: TextView
     private lateinit var timer: Timer
     private lateinit var handler: Handler
-    private lateinit var moonTimeTxt: TextView
     private lateinit var moonPosition: ImageView
     private lateinit var sunPosition: ImageView
     private lateinit var dayCircle: ImageView
@@ -67,7 +66,12 @@ class AstronomyFragment : Fragment() {
         sunEndTimeTxt = view.findViewById(R.id.sun_end_time)
         sunStartTomorrowTimeTxt = view.findViewById(R.id.sun_start_time_tomorrow)
         sunEndTomorrowTimeTxt = view.findViewById(R.id.sun_end_time_tomorrow)
-        moonTimeTxt = view.findViewById(R.id.moontime)
+
+        moonRiseTimeTxt = view.findViewById(R.id.moon_rise_time)
+        moonSetTimeTxt = view.findViewById(R.id.moon_set_time)
+        moonRiseTomorrowTimeTxt = view.findViewById(R.id.moon_rise_time_tomorrow)
+        moonSetTomorrowTimeTxt = view.findViewById(R.id.moon_set_time_tomorrow)
+
         sunPosition = view.findViewById(R.id.sun_position)
         moonPosition = view.findViewById(R.id.moon_position)
         dayCircle = view.findViewById(R.id.day_circle)
@@ -113,16 +117,13 @@ class AstronomyFragment : Fragment() {
         val moonPhase = MoonPhaseCalculator().getPhase(time)
         val calculator = AltitudeMoonTimesCalculator()
 
-        val nextRise = getNextMoonTime(calculator, true)
-        val nextSet = getNextMoonTime(calculator, false)
+        val today = calculator.calculate(gps.location, LocalDate.now())
+        val tomorrow = calculator.calculate(gps.location, LocalDate.now().plusDays(1))
 
-        moonTimeTxt.text = if (nextRise < nextSet) {
-            // Moon is down
-            "Rises ${getCasualDate(nextRise)} at ${nextRise.toDisplayFormat(context!!)}"
-        } else {
-            // Moon is up
-            "Sets ${getCasualDate(nextSet)} at ${nextSet.toDisplayFormat(context!!)}"
-        }
+        moonRiseTimeTxt.text = today.up?.toDisplayFormat(context!!) ?: "-"
+        moonSetTimeTxt.text = today.down?.toDisplayFormat(context!!) ?: "-"
+        moonRiseTomorrowTimeTxt.text = tomorrow.up?.toDisplayFormat(context!!) ?: "-"
+        moonSetTomorrowTimeTxt.text = tomorrow.down?.toDisplayFormat(context!!) ?: "-"
 
         moonPosition.setImageResource(getMoonImage(moonPhase.phase))
 
@@ -130,34 +131,6 @@ class AstronomyFragment : Fragment() {
             "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}% illumination)"
 
         updateMoonPosition(LocalDateTime.now(), calculator)
-    }
-
-    private fun getCasualDate(dateTime: LocalDateTime): String {
-        val currentDate = LocalDate.now()
-
-        return if (currentDate == dateTime.toLocalDate()) {
-            "today"
-        } else {
-            "tomorrow"
-        }
-    }
-
-    private fun getNextMoonTime(calculator: IMoonTimesCalculator, isRise: Boolean): LocalDateTime {
-        val currentTime = LocalDateTime.now()
-        var day = currentTime.toLocalDate()
-        while (true) {
-            val moonTimes = calculator.calculate(location, day)
-            if (isRise) {
-                if (moonTimes.up?.isAfter(currentTime) == true) {
-                    return moonTimes.up
-                }
-            } else {
-                if (moonTimes.down?.isAfter(currentTime) == true) {
-                    return moonTimes.down
-                }
-            }
-            day = day.plusDays(1)
-        }
     }
 
     private fun updateSunUI() {

@@ -34,10 +34,10 @@
         android:id="@+id/moon_phase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/day_circle"
         tools:text="Waxing Crescent" />
 
     <TextView
@@ -59,126 +59,18 @@
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day_circle">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/today"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textStyle="bold" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/today_sun_times"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <TextView
-                android:id="@+id/sun_start_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                app:layout_constraintStart_toEndOf="@+id/sun_start"
-                app:layout_constraintTop_toTopOf="@+id/sun_start"
-                tools:text="6:00 AM" />
-
-            <TextView
-                android:id="@+id/sun_end_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/sun_start_time"
-                app:layout_constraintTop_toTopOf="@+id/sun_end"
-                tools:text="8:00 PM" />
-
-            <TextView
-                android:id="@+id/sun_start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sunrise_label"
-                app:layout_constraintStart_toStartOf="@id/today_sun_times"
-                app:layout_constraintTop_toTopOf="@id/today_sun_times" />
-
-            <TextView
-                android:id="@+id/sun_end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/sunset_label"
-                app:layout_constraintStart_toStartOf="@+id/sun_start"
-                app:layout_constraintTop_toBottomOf="@+id/sun_start" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/day_circle"/>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="24dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout2">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tomorrow"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/tomorrow_sun_times"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <TextView
-                android:id="@+id/sun_start_time_tomorrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                app:layout_constraintStart_toEndOf="@+id/sun_start_tomorrow"
-                app:layout_constraintTop_toTopOf="@+id/sun_start_tomorrow"
-                tools:text="6:00 AM" />
-
-            <TextView
-                android:id="@+id/sun_end_time_tomorrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/sun_start_time_tomorrow"
-                app:layout_constraintTop_toTopOf="@+id/sun_end_tomorrow"
-                tools:text="8:00 PM" />
-
-            <TextView
-                android:id="@+id/sun_start_tomorrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sunrise_label"
-                app:layout_constraintStart_toStartOf="@id/tomorrow_sun_times"
-                app:layout_constraintTop_toTopOf="@id/tomorrow_sun_times" />
-
-            <TextView
-                android:id="@+id/sun_end_tomorrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/sunset_label"
-                app:layout_constraintStart_toStartOf="@+id/sun_start_tomorrow"
-                app:layout_constraintTop_toBottomOf="@+id/sun_start_tomorrow" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/moontime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moon_phase"
-        tools:text="Today @ 6:38 AM" />
+        app:layout_constraintTop_toTopOf="@+id/linearLayout2"/>
 
     <ImageView
         android:id="@+id/sun_position"
@@ -201,6 +93,136 @@
         app:layout_constraintStart_toStartOf="@+id/day_circle"
         app:layout_constraintTop_toTopOf="@+id/day_circle"
         app:srcCompat="@drawable/moon_waning_crescent" />
+
+    <TextView
+        android:id="@+id/sun_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/sunrise_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/sun_start2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/moon_rise"
+        app:layout_constraintStart_toStartOf="@+id/sun_end"
+        app:layout_constraintTop_toBottomOf="@+id/sun_end" />
+
+    <TextView
+        android:id="@+id/sun_start3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/moon_set"
+        app:layout_constraintStart_toStartOf="@+id/sun_end"
+        app:layout_constraintTop_toBottomOf="@+id/sun_start2" />
+
+    <TextView
+        android:id="@+id/sun_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/sunset_label"
+        app:layout_constraintStart_toStartOf="@+id/sun_start"
+        app:layout_constraintTop_toBottomOf="@+id/sun_start" />
+
+    <TextView
+        android:id="@+id/sun_start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        app:layout_constraintStart_toEndOf="@+id/sun_start"
+        app:layout_constraintTop_toTopOf="@+id/sun_start"
+        tools:text="8:00 PM" />
+
+    <TextView
+        android:id="@+id/moon_rise_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/sun_end_time"
+        app:layout_constraintStart_toStartOf="@+id/sun_end_time"
+        app:layout_constraintTop_toTopOf="@+id/sun_start2"
+        tools:text="1:00 AM" />
+
+    <TextView
+        android:id="@+id/moon_rise_time_tomorrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/sun_end_time_tomorrow"
+        app:layout_constraintStart_toStartOf="@+id/sun_end_time_tomorrow"
+        app:layout_constraintTop_toTopOf="@+id/moon_rise_time"
+        tools:text="1:00 AM" />
+
+    <TextView
+        android:id="@+id/moon_set_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/moon_rise_time"
+        app:layout_constraintStart_toStartOf="@+id/moon_rise_time"
+        app:layout_constraintTop_toTopOf="@+id/sun_start3"
+        tools:text="1:00 AM" />
+
+    <TextView
+        android:id="@+id/moon_set_time_tomorrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/moon_rise_time_tomorrow"
+        app:layout_constraintStart_toStartOf="@+id/moon_rise_time_tomorrow"
+        app:layout_constraintTop_toTopOf="@+id/moon_set_time"
+        tools:text="1:00 AM" />
+
+    <TextView
+        android:id="@+id/sun_end_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/sun_start_time"
+        app:layout_constraintStart_toStartOf="@+id/sun_start_time"
+        app:layout_constraintTop_toTopOf="@+id/sun_end"
+        tools:text="6:00 AM" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/today"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/sun_start_time"
+        app:layout_constraintStart_toStartOf="@+id/sun_start_time"
+        app:layout_constraintTop_toBottomOf="@+id/moon_phase" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tomorrow"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="@+id/sun_start_time_tomorrow"
+        app:layout_constraintStart_toStartOf="@+id/sun_start_time_tomorrow"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/sun_end_time_tomorrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/sun_start_time_tomorrow"
+        app:layout_constraintStart_toStartOf="@+id/sun_start_time_tomorrow"
+        app:layout_constraintTop_toTopOf="@+id/sun_end_time"
+        tools:text="8:00 PM" />
+
+    <TextView
+        android:id="@+id/sun_start_time_tomorrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        app:layout_constraintStart_toEndOf="@+id/sun_start_time"
+        app:layout_constraintTop_toTopOf="@+id/sun_start_time"
+        tools:text="6:00 AM" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
