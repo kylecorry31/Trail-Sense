@@ -57,7 +57,6 @@
     <string name="forecast_worsening">Possibly worsening later</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
-    <string name="moon">Moon</string>
     <string name="no_beacons">No beacons</string>
     <string name="onboarding_compass">Place beacons and navigate back to them</string>
     <string name="onboarding_weather">Get hyperlocal weather forecasts</string>
