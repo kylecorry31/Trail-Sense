@@ -237,7 +237,7 @@ class BarometerFragment : Fragment(), Observer {
         val convertedPressures = pressureConverter.convert(readings)
 
         if (convertedPressures.isNotEmpty()) {
-            val filter = MovingAverageFilter(5)
+            val filter = LowPassFilter(0.6, convertedPressures.first().value.toDouble())
 
             chart.setUnits(PressureUnitUtils.getUnits(units))
 

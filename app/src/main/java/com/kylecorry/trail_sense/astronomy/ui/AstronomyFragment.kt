@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.astronomy.domain.DateUtils
 import com.kylecorry.trail_sense.astronomy.domain.moon.*
 import com.kylecorry.trail_sense.astronomy.domain.sun.ISunTimesCalculator
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimes
@@ -219,8 +220,8 @@ class AstronomyFragment : Fragment() {
         val isUp = MoonStateCalculator().isUp(today, currentTime.toLocalTime())
 
         val percent = if (isUp){
-            val lastUp = today.up ?: yesterday.up
-            val nextDown = if (today.down != null && today.down.isAfter(lastUp)) today.down else tomorrow.down
+            val lastUp = DateUtils.getClosestPastTime(currentTime, listOf(today.up, yesterday.up))
+            val nextDown = DateUtils.getClosestFutureTime(currentTime, listOf(today.down, tomorrow.down))
 
             if (lastUp != null && nextDown != null){
                 getPercentOfDuration(lastUp, nextDown, currentTime)
@@ -228,8 +229,8 @@ class AstronomyFragment : Fragment() {
                 0f
             }
         } else {
-            val lastDown = today.down ?: yesterday.down
-            val nextUp = if (today.up != null && today.up.isAfter(lastDown)) today.up else tomorrow.up
+            val lastDown = DateUtils.getClosestPastTime(currentTime, listOf(today.down, yesterday.down))
+            val nextUp = DateUtils.getClosestFutureTime(currentTime, listOf(today.up, tomorrow.up))
 
             if (lastDown != null && nextUp != null){
                 getPercentOfDuration(lastDown, nextUp, currentTime)
