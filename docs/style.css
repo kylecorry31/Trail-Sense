@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Ubuntu", sans-serif;
+  color: #333;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+section {
+  padding: 20px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 38px;
+  margin-top: 20px;
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 36px;
+  margin-top: 20px;
+}
+
+h3 {
+  font-size: 24px;
+  line-height: 30px;
+  margin-top: 20px;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.grid {
+  display: grid;
+  grid-row-gap: 16px;
+  grid-column-gap: 16px;
+}
+
+.container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+#hero {
+  height: 100vh;
+  padding: 0;
+  background: url("background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#hero .grid {
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+
+#hero-title {
+  justify-self: center;
+  align-self: center;
+  padding: 20px 20px 220px;
+}
+
+#hero-title p {
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+#play-badge img {
+  max-width: 150px;
+  margin: -12px;
+}
+
+#hero-img img {
+  max-height: 100%;
+  max-width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#features {
+  height: 75vh;
+}
+
+#features .grid {
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 100%;
+}
+
+.feature {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  justify-self: center;
+}
+
+.feature img {
+  max-height: 50vh;
+}
+
+#privacy {
+  background-color: rgba(255, 109, 0, 0.17);
+}
