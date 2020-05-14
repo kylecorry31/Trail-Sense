@@ -62,8 +62,9 @@
             app:title="@string/pref_compass_filter_amt_title"
             app:summary="@string/pref_compass_filter_amt_summary"
             android:defaultValue="1"
-            android:max="200"
+            android:max="100"
             app:seekBarIncrement="1"
+            app:showSeekBarValue="true"
             app:min="1" />
 
     </PreferenceCategory>

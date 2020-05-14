@@ -14,7 +14,7 @@ import kotlin.math.floor
 class Compass(context: Context): BaseSensor(context, Sensor.TYPE_ORIENTATION, SensorManager.SENSOR_DELAY_FASTEST), ICompass {
 
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-    private val filterSize = prefs.getInt(context.getString(R.string.pref_compass_filter_amt), 1)
+    private val filterSize = prefs.getInt(context.getString(R.string.pref_compass_filter_amt), 1) * 2
     private val filter = MovingAverageFilter(filterSize)
 
     override var declination = 0f
