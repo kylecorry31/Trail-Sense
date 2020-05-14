@@ -1,10 +1,14 @@
 package com.kylecorry.trail_sense
 
 import android.Manifest
+import android.app.Service
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -14,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.doTransaction
+import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.BarometerService
 import com.kylecorry.trail_sense.weather.ui.BarometerFragment
 
@@ -54,9 +59,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startApp(){
-        BarometerService.start(this)
-
         bottomNavigation = findViewById(R.id.bottom_navigation)
+
+        val sensorChecker = SensorChecker(this)
+        if(!sensorChecker.hasBarometer()) {
+            val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)
+            item.isVisible = false
+        } else {
+            BarometerService.start(this)
+        }
 
         syncFragmentWithSelection(bottomNavigation.selectedItemId)
 

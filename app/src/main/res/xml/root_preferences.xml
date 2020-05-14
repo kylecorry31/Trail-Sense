@@ -59,7 +59,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/pref_weather_header">
+    <PreferenceCategory app:title="@string/pref_weather_header" app:key="@string/pref_weather_category">
 
 
         <SwitchPreferenceCompat
