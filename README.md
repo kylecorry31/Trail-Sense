@@ -37,3 +37,6 @@ Location information gathered by this application does not leave your device (as
 - Weather icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews)
 - Moon icons: [Michael Irigoyen](https://materialdesignicons.com/contributor/Michael-Irigoyen)
 - Charts: [MpAndroidChart](https://github.com/PhilJay/MPAndroidChart)
+
+[![Donate with PayPal](https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=HQEH7Z42CWNVS&item_name=Trail+Sense&currency_code=USD&source=url)
+
