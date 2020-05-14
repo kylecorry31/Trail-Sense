@@ -11,7 +11,7 @@ import kotlin.math.floor
 
 class Compass(context: Context): BaseSensor(context, Sensor.TYPE_ORIENTATION, SensorManager.SENSOR_DELAY_FASTEST), ICompass {
 
-    private val filter = MovingAverageFilter(100)
+    private val filter = MovingAverageFilter(60)
 
     override var declination = 0f
 
