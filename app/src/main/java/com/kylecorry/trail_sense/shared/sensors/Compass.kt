@@ -5,18 +5,37 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorManager
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
+import com.kylecorry.trail_sense.weather.domain.MovingAverageFilter
+import kotlin.math.abs
+import kotlin.math.floor
 
 class Compass(context: Context): BaseSensor(context, Sensor.TYPE_ORIENTATION, SensorManager.SENSOR_DELAY_FASTEST), ICompass {
+
+    private val filter = MovingAverageFilter(100)
 
     override var declination = 0f
 
     override val bearing: Bearing
-        get() = Bearing(_bearing).withDeclination(declination)
+        get() = Bearing(_filteredBearing).withDeclination(declination)
 
     private var _bearing = 0f
+    private var _filteredBearing = 0f
 
     override fun handleSensorEvent(event: SensorEvent) {
-        _bearing = event.values[0]
+        _bearing += deltaAngle(_bearing, event.values[0])
+
+        _filteredBearing = filter.filter(_bearing.toDouble()).toFloat()
+    }
+
+    private fun deltaAngle(angle1: Float, angle2: Float): Float {
+        var delta = angle2 - angle1
+        delta += 180
+        delta -= floor(delta / 360) * 360
+        delta -= 180
+        if (abs(abs(delta) - 180) <= Float.MIN_VALUE){
+            delta = 180f
+        }
+        return delta
     }
 
 }
