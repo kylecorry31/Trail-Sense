@@ -13,4 +13,3 @@
 .externalNativeBuild
 .cxx
 *.apk
-!temp_trail_sense.apk
