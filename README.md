@@ -2,6 +2,31 @@
 
 ![](https://github.com/kylecorry31/Trail-Sense/workflows/Android%20CI/badge.svg)
 
+<table>
+    <tr>
+        <th>F-Droid</th>
+        <th>Google Play</th>
+        <th>Donate</th>
+    </tr>
+    <tr>
+        <td>
+            <a href="https://f-droid.org/en/packages/com.kylecorry.trail_sense">
+                <img alt="Get it on F-Droid" src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="60" align="middle">
+            </a>
+        </td>
+        <td>
+            <a href="https://play.google.com/store/apps/details?id=com.kylecorry.trail_sense">
+                <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="60" align="middle">
+            </a>
+        </td>
+        <td id="Donate">
+         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=HQEH7Z42CWNVS&item_name=Trail+Sense&currency_code=USD&source=url">
+          <img alt="Donate using PayPal" src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" height="60" align="middle"/>
+         </a>
+        </td>
+    </tr>
+</table>
+
  An Android app which provides useful information about the environment and can be used offline (designed for hiking / mountaineering).
 
 ## Features
@@ -37,7 +62,4 @@ Location information gathered by this application does not leave your device (as
 - Weather icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews)
 - Moon icons: [Michael Irigoyen](https://materialdesignicons.com/contributor/Michael-Irigoyen)
 - Charts: [MpAndroidChart](https://github.com/PhilJay/MPAndroidChart)
-
-# Donate
-[![Donate with PayPal](https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=HQEH7Z42CWNVS&item_name=Trail+Sense&currency_code=USD&source=url)
 
