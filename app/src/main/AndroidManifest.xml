@@ -36,6 +36,9 @@
             android:name="com.kylecorry.trail_sense.weather.infrastructure.BarometerAlarmReceiver"
             android:enabled="true" />
         <receiver
+            android:name="com.kylecorry.trail_sense.weather.infrastructure.WeatherStopMonitoringReceiver"
+            android:enabled="true" />
+        <receiver
             android:name="com.kylecorry.trail_sense.weather.infrastructure.BarometerBootReceiver"
             android:enabled="true">
             <intent-filter>

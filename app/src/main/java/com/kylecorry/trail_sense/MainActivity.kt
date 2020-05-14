@@ -42,13 +42,15 @@ class MainActivity : AppCompatActivity() {
             finish()
             return
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         if (!hasPermissions()){
             getPermission()
         } else {
             startApp()
         }
-
     }
 
     private fun startApp(){

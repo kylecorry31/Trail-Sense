@@ -1,17 +1,17 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.Service
+import android.app.*
+import android.app.Notification.EXTRA_NOTIFICATION_ID
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import java.time.Duration
 import java.time.ZonedDateTime
@@ -30,10 +30,27 @@ class BarometerService: Service() {
         broadcastIntent = Intent(this, BarometerAlarmReceiver::class.java)
 
         createNotificationChannel()
+
+        val stopIntent = Intent(this, WeatherStopMonitoringReceiver::class.java)
+        val openIntent = Intent(this, MainActivity::class.java)
+
+        val stopPendingIntent: PendingIntent =
+            PendingIntent.getBroadcast(this, 0, stopIntent, 0)
+        val openPendingIntent: PendingIntent =
+            PendingIntent.getActivity(this, 0, openIntent, 0)
+
+        val stopAction = Notification.Action.Builder(
+                Icon.createWithResource("", R.drawable.ic_cancel),
+                getString(R.string.stop_monitoring),
+                stopPendingIntent)
+            .build()
+
         val notification = Notification.Builder(this, "Weather")
             .setContentTitle("Weather")
             .setContentText("Monitoring weather in the background")
             .setSmallIcon(R.drawable.ic_weather)
+            .addAction(stopAction)
+            .setContentIntent(openPendingIntent)
             .build()
 
         startForeground(1, notification)
@@ -54,6 +71,7 @@ class BarometerService: Service() {
         handler.removeCallbacks(runnable)
         stopForeground(true)
         started = false
+        Log.i("BarometerService", "Weather monitoring stopped")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
