@@ -1,6 +1,11 @@
 package com.kylecorry.trail_sense.weather.ui
 
 import android.graphics.Color
+import android.util.TypedValue
+import androidx.core.graphics.alpha
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -28,10 +33,22 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
         chart.xAxis.setDrawLabels(false)
         chart.axisRight.setDrawLabels(false)
 
+        val theme = chart.context.theme
+        val typedValue = TypedValue()
+        theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
+        val arr = chart.context.obtainStyledAttributes(typedValue.data, IntArray(1) {
+            android.R.attr.textColorPrimary
+        })
+        val primaryColor = arr.getColor(0, -1)
+        val r = primaryColor.red / 255f
+        val g = primaryColor.green / 255f
+        val b = primaryColor.blue / 255f
+        arr.recycle()
+
         chart.xAxis.setDrawGridLines(false)
         chart.axisLeft.setDrawGridLines(true)
-        chart.axisLeft.gridColor = Color.valueOf(0f, 0f, 0f, 0.2f).toArgb()
-        chart.axisLeft.textColor = Color.valueOf(0f, 0f, 0f, 0.6f).toArgb()
+        chart.axisLeft.gridColor = Color.valueOf(r, g, b, 0.2f).toArgb()
+        chart.axisLeft.textColor = Color.valueOf(r, g, b, 0.6f).toArgb()
         chart.axisLeft.setLabelCount(3, true)
         chart.axisRight.setDrawGridLines(false)
         chart.xAxis.setDrawAxisLine(false)

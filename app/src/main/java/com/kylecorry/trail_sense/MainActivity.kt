@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
@@ -38,9 +39,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+        val theme = prefs.getString(getString(R.string.pref_theme), "system") ?: "system"
+
+        val mode = when (theme){
+            "light" -> AppCompatDelegate.MODE_NIGHT_NO
+            "dark" -> AppCompatDelegate.MODE_NIGHT_YES
+            else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+        AppCompatDelegate.setDefaultNightMode(mode)
+
+        setContentView(R.layout.activity_main)
+        bottomNavigation = findViewById(R.id.bottom_navigation)
+
 
         if (!prefs.getBoolean(getString(R.string.pref_onboarding_completed), false)){
             startActivity(Intent(this, OnboardingActivity::class.java))
@@ -59,8 +72,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startApp(){
-        bottomNavigation = findViewById(R.id.bottom_navigation)
-
         val sensorChecker = SensorChecker(this)
         if(!sensorChecker.hasBarometer()) {
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)

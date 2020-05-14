@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.navigation.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -162,17 +163,27 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
         val height =
             ruler.height / dpi.toDouble() * if (prefs.distanceUnits == "meters") 2.54 else 1.0
 
-        if (height == 0.0) {
+        if (height == 0.0 || context == null) {
             return
         }
 
         if (!isRulerSetup) {
+
+            val theme = context!!.theme
+            val typedValue = TypedValue()
+            theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
+            val arr = context!!.obtainStyledAttributes(typedValue.data, IntArray(1) {
+                android.R.attr.textColorPrimary
+            })
+            val primaryColor = arr.getColor(0, -1)
+            arr.recycle()
+
             ruler.visibility = View.INVISIBLE
             for (i in 0..ceil(height).toInt() * 8) {
                 val inches = i / 8.0
                 val tv = TextView(context)
                 val bar = ImageView(context)
-                bar.setBackgroundColor(Color.BLACK)
+                bar.setBackgroundColor(primaryColor)
                 val layoutParams = ConstraintLayout.LayoutParams(1, 4)
                 bar.layoutParams = layoutParams
                 when {
@@ -193,7 +204,7 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
                 bar.y =
                     ruler.height * (inches / height).toFloat() + resources.getDimensionPixelSize(R.dimen.ruler_top)
                 if (!tv.text.isNullOrBlank()) {
-                    tv.setTextColor(Color.BLACK)
+                    tv.setTextColor(primaryColor)
                     ruler.addView(tv)
                     tv.y = bar.y
                     tv.x =

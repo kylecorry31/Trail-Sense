@@ -39,6 +39,14 @@
             app:title="@string/pref_use_24_hour_title"
             app:defaultValue="false"/>
 
+        <ListPreference
+            app:defaultValue="system"
+            app:entries="@array/theme_entries"
+            app:entryValues="@array/theme_values"
+            app:key="@string/pref_theme"
+            app:title="@string/pref_theme_title"
+            app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_navigation_header">

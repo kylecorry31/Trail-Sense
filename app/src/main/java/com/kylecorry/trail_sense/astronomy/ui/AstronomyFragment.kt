@@ -150,6 +150,10 @@ class AstronomyFragment : Fragment() {
     }
 
     private fun updateMoonUI() {
+        if (context == null){
+            return
+        }
+
         val time = ZonedDateTime.now()
 
         val moonPhase = MoonPhaseCalculator().getPhase(time)
@@ -169,6 +173,9 @@ class AstronomyFragment : Fragment() {
     }
 
     private fun updateSunUI() {
+        if (context == null){
+            return
+        }
         val sunChartCalculator = SunTimesCalculatorFactory().create(context!!)
 
         val currentTime = LocalDateTime.now()

@@ -24,6 +24,18 @@
         <item>psi</item>
     </string-array>
 
+    <string-array name="theme_entries">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>light</item>
+        <item>dark</item>
+        <item>system</item>
+    </string-array>
+
     <string-array name="altitude_mode_entries">
         <item>GPS</item>
         <item>Barometer</item>

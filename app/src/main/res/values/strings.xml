@@ -31,7 +31,7 @@
     <string name="pref_use_sea_level_pressure_title">Sea level pressure</string>
     <string name="pref_use_sea_level_pressure">use_sea_level_pressure</string>
     <string name="pref_send_storm_alert">send_storm_alert</string>
-    <string name="pref_units_header">Units</string>
+    <string name="pref_units_header">General</string>
     <string name="pref_distance_units_title">Distance</string>
     <string name="pref_pressure_units_title">Pressure</string>
     <string name="pref_pressure_units">pressure_units</string>
@@ -77,4 +77,6 @@
     <string name="pref_compass_filter_amt">pref_compass_filter_amt</string>
     <string name="pref_compass_filter_amt_title">Compass smoothing</string>
     <string name="pref_compass_filter_amt_summary">High values may reduce noise</string>
+    <string name="pref_theme">pref_theme</string>
+    <string name="pref_theme_title">Theme</string>
 </resources>
