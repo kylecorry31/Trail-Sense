@@ -4,6 +4,8 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorManager
+import androidx.preference.PreferenceManager
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.weather.domain.MovingAverageFilter
 import kotlin.math.abs
@@ -11,7 +13,9 @@ import kotlin.math.floor
 
 class Compass(context: Context): BaseSensor(context, Sensor.TYPE_ORIENTATION, SensorManager.SENSOR_DELAY_FASTEST), ICompass {
 
-    private val filter = MovingAverageFilter(60)
+    private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+    private val filterSize = prefs.getInt(context.getString(R.string.pref_compass_filter_amt), 1)
+    private val filter = MovingAverageFilter(filterSize)
 
     override var declination = 0f
 

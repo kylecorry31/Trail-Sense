@@ -74,4 +74,7 @@
     <string name="moon_set">Moonset</string>
     <string name="stop_monitoring">Stop</string>
     <string name="pref_weather_category">pref_weather_category</string>
+    <string name="pref_compass_filter_amt">pref_compass_filter_amt</string>
+    <string name="pref_compass_filter_amt_title">Compass smoothing</string>
+    <string name="pref_compass_filter_amt_summary">High values may reduce noise</string>
 </resources>

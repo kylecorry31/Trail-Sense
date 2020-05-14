@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory app:title="@string/pref_units_header">
 
@@ -56,6 +56,15 @@
             app:key="@string/pref_altitude_mode"
             app:title="@string/pref_altitude_mode_title"
             app:useSimpleSummaryProvider="true" />
+
+        <SeekBarPreference
+            app:key="@string/pref_compass_filter_amt"
+            app:title="@string/pref_compass_filter_amt_title"
+            app:summary="@string/pref_compass_filter_amt_summary"
+            android:defaultValue="1"
+            android:max="200"
+            app:seekBarIncrement="1"
+            app:min="1" />
 
     </PreferenceCategory>
 
