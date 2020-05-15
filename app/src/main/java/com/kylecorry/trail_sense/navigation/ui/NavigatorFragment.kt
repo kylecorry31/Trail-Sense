@@ -132,6 +132,14 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
         gps.start(this::onLocationUpdate)
         altimeter.start(this::onAltitudeUpdate)
 
+        val hasGPS = SensorChecker(context!!).hasGPS()
+
+        if (!hasGPS){
+            beaconBtn.hide()
+        } else {
+            beaconBtn.show()
+        }
+
         useTrueNorth = prefs.useTrueNorth
         altimeterMode = prefs.altimeter
         units = prefs.distanceUnits
