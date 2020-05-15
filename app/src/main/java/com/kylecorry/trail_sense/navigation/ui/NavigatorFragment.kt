@@ -60,7 +60,11 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
 
         prefs = NavigationPreferences(context!!)
 
-        compass = Compass(context!!)
+        compass = if (prefs.useExperimentalCompass) {
+            Compass2(context!!)
+        } else {
+            Compass(context!!)
+        }
         gps = GPS(context!!)
         altimeter = if (prefs.altimeter == NavigationPreferences.AltimeterMode.GPS) {
             FusedAltimeter(gps, Barometer(context!!))

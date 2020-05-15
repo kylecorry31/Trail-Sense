@@ -79,4 +79,6 @@
     <string name="pref_compass_filter_amt_summary">High values may reduce noise</string>
     <string name="pref_theme">pref_theme</string>
     <string name="pref_theme_title">Theme</string>
+    <string name="pref_use_experimental_compass">pref_use_experimental_compass</string>
+    <string name="pref_use_experimental_compass_title">Use experimental compass</string>
 </resources>

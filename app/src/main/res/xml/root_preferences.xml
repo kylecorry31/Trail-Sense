@@ -65,6 +65,11 @@
             app:title="@string/pref_altitude_mode_title"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            app:key="@string/pref_use_experimental_compass"
+            app:title="@string/pref_use_experimental_compass_title"
+            app:defaultValue="false"/>
+
         <SeekBarPreference
             app:key="@string/pref_compass_filter_amt"
             app:title="@string/pref_compass_filter_amt_title"
