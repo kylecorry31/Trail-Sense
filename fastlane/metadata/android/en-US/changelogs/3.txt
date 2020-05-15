@@ -1,0 +1,12 @@
+- Revamped astronomy page
+- Added dark theme
+- Fix compass stability issues on some devices
+- Add settings for compass smoothing and using an experimental compass mode
+- Made location permission optional (some features may be disabled)
+- Allow stopping weather monitoring via notification
+- Clicking the notification will now open the app
+- Location sharing will now be a link to the location in OSM rather than just a coordinate
+- Disable weather features for phones without a barometer
+- Add altitude correction to ASML
+- Add a ruler to the navigation screen
+- UI tweaks
