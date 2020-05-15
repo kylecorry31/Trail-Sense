@@ -13,10 +13,7 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.median
-import com.kylecorry.trail_sense.shared.sensors.Barometer
-import com.kylecorry.trail_sense.shared.sensors.GPS
-import com.kylecorry.trail_sense.shared.sensors.IAltimeter
-import com.kylecorry.trail_sense.shared.sensors.IBarometer
+import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.forcasting.HourlyForecaster
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
@@ -29,6 +26,7 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
     private lateinit var context: Context
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
+    private lateinit var sensorChecker: SensorChecker
 
     private var hasLocation = false
     private var hasBarometerReading = false
@@ -44,10 +42,17 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null){
             this.context = context
-            barometer = Barometer(context)
+            sensorChecker = SensorChecker(context)
+
+            barometer = if (sensorChecker.hasBarometer()) Barometer(context) else NullBarometer()
             altimeter = GPS(context)
 
-            altimeter.start(this::onLocationUpdate)
+            if (sensorChecker.hasGPS()) {
+                altimeter.start(this::onLocationUpdate)
+            } else {
+                altitudeReadings.add(altimeter.altitude)
+                hasLocation = true
+            }
             barometer.start(this::onPressureUpdate)
         }
     }

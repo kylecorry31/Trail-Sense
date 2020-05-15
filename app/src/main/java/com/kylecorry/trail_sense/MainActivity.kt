@@ -60,10 +60,7 @@ class MainActivity : AppCompatActivity() {
             finish()
             return
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
         if (!hasPermissions()){
             getPermission()
         } else {
@@ -142,6 +139,7 @@ class MainActivity : AppCompatActivity() {
         val granted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
         if (!granted){
             Toast.makeText(this, "Not all permissions granted, some features may be broken", Toast.LENGTH_LONG).show()
+            startApp()
         } else {
             startApp()
         }

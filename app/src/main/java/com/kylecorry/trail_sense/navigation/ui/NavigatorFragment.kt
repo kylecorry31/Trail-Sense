@@ -66,10 +66,19 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
             Compass(context!!)
         }
         gps = GPS(context!!)
-        altimeter = if (prefs.altimeter == NavigationPreferences.AltimeterMode.GPS) {
-            FusedAltimeter(gps, Barometer(context!!))
-        } else {
-            Barometer(context!!)
+
+        val altimeterMode = prefs.altimeter
+
+        altimeter = when (altimeterMode) {
+            NavigationPreferences.AltimeterMode.GPS -> {
+                FusedAltimeter(gps, Barometer(context!!))
+            }
+            NavigationPreferences.AltimeterMode.Barometer -> {
+                Barometer(context!!)
+            }
+            else -> {
+                NullBarometer()
+            }
         }
 
         // Assign the UI fields

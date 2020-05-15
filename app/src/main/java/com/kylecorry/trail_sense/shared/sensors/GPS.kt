@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.sensors
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
@@ -20,6 +21,7 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
 
     private val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+    private val sensorChecker = SensorChecker(context)
     private val locationListener =
         SimpleLocationListener(this::updateLastLocation)
 
@@ -30,8 +32,9 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
         prefs.getFloat(LAST_LONGITUDE, 0f).toDouble()
     )
 
+    @SuppressLint("MissingPermission")
     override fun startImpl() {
-        if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (!sensorChecker.hasGPS()) {
             return
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0f, locationListener)
