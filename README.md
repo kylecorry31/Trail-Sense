@@ -62,4 +62,5 @@ Location information gathered by this application does not leave your device (as
 - Weather icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews)
 - Moon icons: [Michael Irigoyen](https://materialdesignicons.com/contributor/Michael-Irigoyen)
 - Charts: [MpAndroidChart](https://github.com/PhilJay/MPAndroidChart)
+- Thank you to everyone who tried out this app and opened issues, suggested features, or even tested debug builds for me
 
