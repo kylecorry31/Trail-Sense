@@ -68,6 +68,7 @@
         <SwitchPreferenceCompat
             app:key="@string/pref_use_experimental_compass"
             app:title="@string/pref_use_experimental_compass_title"
+            app:summary="@string/pref_use_experimental_compass_summary"
             app:defaultValue="false"/>
 
         <SeekBarPreference

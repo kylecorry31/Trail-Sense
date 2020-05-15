@@ -81,4 +81,5 @@
     <string name="pref_theme_title">Theme</string>
     <string name="pref_use_experimental_compass">pref_use_experimental_compass</string>
     <string name="pref_use_experimental_compass_title">Use experimental compass</string>
+    <string name="pref_use_experimental_compass_summary">May fix compass issues</string>
 </resources>
