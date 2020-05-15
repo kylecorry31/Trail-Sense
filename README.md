@@ -20,7 +20,7 @@
             </a>
         </td>
         <td id="Donate">
-         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=HQEH7Z42CWNVS&item_name=Trail+Sense&currency_code=USD&source=url">
+         <a href="https://www.paypal.me/kylecorry">
           <img alt="Donate using PayPal" src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" height="60" align="middle"/>
          </a>
         </td>
