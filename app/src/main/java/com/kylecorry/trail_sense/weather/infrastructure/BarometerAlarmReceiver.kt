@@ -28,7 +28,6 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
     private lateinit var context: Context
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
-    private lateinit var sensorChecker: SensorChecker
 
     private var hasLocation = false
     private var hasBarometerReading = false
@@ -47,12 +46,11 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
             this.context = context
             userPrefs = UserPreferences(context)
             forecaster = HourlyForecaster(userPrefs.weather.stormAlertThreshold)
-            sensorChecker = SensorChecker(context)
 
-            barometer = if (sensorChecker.hasBarometer()) Barometer(context) else NullBarometer()
+            barometer = Barometer(context)
             altimeter = GPS(context)
 
-            if (sensorChecker.hasGPS()) {
+            if (userPrefs.useLocationFeatures) {
                 altimeter.start(this::onLocationUpdate)
             } else {
                 altitudeReadings.add(altimeter.altitude)

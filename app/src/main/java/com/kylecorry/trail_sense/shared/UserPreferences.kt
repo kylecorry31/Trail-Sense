@@ -5,12 +5,14 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.domain.PressureUnits
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 
 class UserPreferences(private val context: Context) {
 
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+    private val sensorChecker = SensorChecker(context)
 
     val navigation = NavigationPreferences(context)
     val weather = WeatherPreferences(context)
@@ -34,6 +36,9 @@ class UserPreferences(private val context: Context) {
                 else -> PressureUnits.Hpa
             }
         }
+
+    val useLocationFeatures: Boolean
+        get() = sensorChecker.hasGPS()
 
     val use24HourTime: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_use_24_hour), false)

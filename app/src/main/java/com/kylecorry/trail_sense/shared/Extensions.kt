@@ -4,8 +4,6 @@ import android.content.Context
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.preference.PreferenceManager
-import com.kylecorry.trail_sense.R
 import java.time.*
 import java.time.format.DateTimeFormatter
 import kotlin.math.pow
@@ -32,8 +30,8 @@ fun Instant.toZonedDateTime(): ZonedDateTime {
 }
 
 fun LocalDateTime.toDisplayFormat(ctx: Context): String {
-    val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
-    val use24Hr = prefs.getBoolean(ctx.getString(R.string.pref_use_24_hour), false)
+    val prefs = UserPreferences(ctx)
+    val use24Hr = prefs.use24HourTime
 
     return if (use24Hr) {
         this.format(DateTimeFormatter.ofPattern("H:mm"))
