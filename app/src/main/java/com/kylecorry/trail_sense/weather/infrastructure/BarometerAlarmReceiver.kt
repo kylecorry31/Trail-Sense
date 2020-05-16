@@ -12,10 +12,12 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.median
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.forcasting.HourlyForecaster
+import com.kylecorry.trail_sense.weather.domain.forcasting.IWeatherForecaster
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverterFactory
 import java.time.Instant
@@ -34,7 +36,8 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
     private val altitudeReadings = mutableListOf<Float>()
     private val pressureReadings = mutableListOf<Float>()
 
-    private val forecaster = HourlyForecaster()
+    private lateinit var userPrefs: UserPreferences
+    private lateinit var forecaster: IWeatherForecaster
 
     private val MAX_BAROMETER_READINGS = 8
     private val MAX_GPS_READINGS = 5
@@ -42,6 +45,8 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null){
             this.context = context
+            userPrefs = UserPreferences(context)
+            forecaster = HourlyForecaster(userPrefs.weather.stormAlertThreshold)
             sensorChecker = SensorChecker(context)
 
             barometer = if (sensorChecker.hasBarometer()) Barometer(context) else NullBarometer()
@@ -134,7 +139,7 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
 
         if (forecaster.forecast(pressureConverter.convert(readings)) == Weather.Storm){
 
-            val shouldSend = prefs.getBoolean(context.getString(R.string.pref_send_storm_alert), true)
+            val shouldSend = userPrefs.weather.sendStormAlerts
             if (shouldSend && !sentAlert) {
                 val builder = NotificationCompat.Builder(context, "Alerts")
                     .setSmallIcon(R.drawable.ic_alert)

@@ -1,11 +1,8 @@
 package com.kylecorry.trail_sense.shared.sensors
 
-import android.content.Context
-import android.hardware.Sensor
-import android.hardware.SensorEvent
 import android.hardware.SensorManager
 
-class NullBarometer(): AbstractSensor(), IBarometer {
+class NullBarometer : AbstractSensor(), IBarometer {
 
     override val pressure: Float
         get() = _pressure

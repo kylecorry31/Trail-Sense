@@ -1,11 +1,8 @@
 package com.kylecorry.trail_sense
 
 import android.Manifest
-import android.app.Service
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.hardware.Sensor
-import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
@@ -18,6 +15,7 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.BarometerService
@@ -40,14 +38,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val userPrefs = UserPreferences(this)
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
-        val theme = prefs.getString(getString(R.string.pref_theme), "system") ?: "system"
-
-        val mode = when (theme){
-            "light" -> AppCompatDelegate.MODE_NIGHT_NO
-            "dark" -> AppCompatDelegate.MODE_NIGHT_YES
-            else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        val mode = when (userPrefs.theme){
+            UserPreferences.Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
+            UserPreferences.Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
+            UserPreferences.Theme.System -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         }
         AppCompatDelegate.setDefaultNightMode(mode)
 

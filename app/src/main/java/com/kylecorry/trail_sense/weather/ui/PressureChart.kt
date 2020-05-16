@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.weather.ui
 
 import android.graphics.Color
 import android.util.TypedValue
-import androidx.core.graphics.alpha
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red

@@ -1,9 +1,7 @@
 package com.kylecorry.trail_sense.shared.sensors
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import androidx.core.content.edit

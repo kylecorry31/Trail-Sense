@@ -1,29 +1,19 @@
 package com.kylecorry.trail_sense.astronomy.domain.sun
 
 import android.content.Context
-import androidx.preference.PreferenceManager
-import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
+import com.kylecorry.trail_sense.shared.UserPreferences
 
 class SunTimesCalculatorFactory {
 
     fun create(ctx: Context): ISunTimesCalculator {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
+        val prefs = UserPreferences(ctx)
 
-        return when (prefs.getString(ctx.getString(R.string.pref_sun_time_mode), "actual")) {
-            "civil" -> CivilTwilightCalculator()
-            "nautical" -> NauticalTwilightCalculator()
-            "astronomical" -> AstronomicalTwilightCalculator()
-            else -> ActualTwilightCalculator()
+        return when (prefs.astronomy.sunTimesMode) {
+            AstronomyPreferences.SunTimesMode.Actual -> ActualTwilightCalculator()
+            AstronomyPreferences.SunTimesMode.Civil -> CivilTwilightCalculator()
+            AstronomyPreferences.SunTimesMode.Nautical -> NauticalTwilightCalculator()
+            AstronomyPreferences.SunTimesMode.Astronomical -> AstronomicalTwilightCalculator()
         }
     }
-
-    fun getAll(): List<ISunTimesCalculator> {
-        return listOf(
-            ActualTwilightCalculator(),
-            CivilTwilightCalculator(),
-            NauticalTwilightCalculator(),
-            AstronomicalTwilightCalculator()
-        )
-    }
-
 }

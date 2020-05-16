@@ -7,17 +7,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.Barometer
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IBarometer
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
-import com.kylecorry.trail_sense.weather.domain.MovingAverageFilter
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
+import com.kylecorry.trail_sense.weather.domain.PressureUnits
 import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
 import com.kylecorry.trail_sense.weather.domain.classifier.StandardPressureClassifier
 import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster
@@ -42,7 +42,7 @@ class BarometerFragment : Fragment(), Observer {
 
     private var altitude = 0F
     private var useSeaLevelPressure = false
-    private var units = "hpa"
+    private var units = PressureUnits.Hpa
     private var pressureConverter: ISeaLevelPressureConverter =
         NullPressureConverter()
 
@@ -89,15 +89,14 @@ class BarometerFragment : Fragment(), Observer {
         barometer.start(this::onPressureUpdate)
         gps.start(this::onLocationUpdate)
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        useSeaLevelPressure =
-            prefs.getBoolean(getString(R.string.pref_use_sea_level_pressure), true)
+        val prefs = UserPreferences(context!!)
+        useSeaLevelPressure = prefs.weather.useSeaLevelPressure
 
         pressureConverter = SeaLevelPressureConverterFactory().create(context!!)
 
         altitude = gps.altitude
 
-        units = prefs.getString(getString(R.string.pref_pressure_units), "hpa") ?: "hpa"
+        units = prefs.pressureUnits
 
         updateBarometerChartData()
     }
@@ -122,7 +121,7 @@ class BarometerFragment : Fragment(), Observer {
 
     private fun onLocationUpdate(): Boolean {
         altitude = gps.altitude
-        if (useSeaLevelPressure){
+        if (useSeaLevelPressure) {
             updatePressure()
         }
         return false
@@ -152,7 +151,7 @@ class BarometerFragment : Fragment(), Observer {
 
         val format = PressureUnitUtils.getDecimalFormat(units)
 
-        pressureTxt.text = "${format.format(PressureUnitUtils.convert(pressure, PressureUnitUtils.getUnits(units)))}  $symbol"
+        pressureTxt.text = "${format.format(PressureUnitUtils.convert(pressure, units))}  $symbol"
 
 
         val convertedPressureHistory = convertedReadings.subList(0, convertedReadings.lastIndex)
@@ -239,7 +238,7 @@ class BarometerFragment : Fragment(), Observer {
         if (convertedPressures.isNotEmpty()) {
             val filter = LowPassFilter(0.6, convertedPressures.first().value.toDouble())
 
-            chart.setUnits(PressureUnitUtils.getUnits(units))
+            chart.setUnits(units)
 
             val chartData = convertedPressures.map {
                 val date = it.time.toZonedDateTime()
@@ -247,7 +246,7 @@ class BarometerFragment : Fragment(), Observer {
                     ((date.toEpochSecond() + date.offset.totalSeconds) * 1000) as Number,
                     (PressureUnitUtils.convert(
                         filter.filter(it.value.toDouble()).toFloat(),
-                        PressureUnitUtils.getUnits(units)
+                        units
                     )) as Number
                 )
             }

@@ -1,10 +1,8 @@
 package com.kylecorry.trail_sense.weather.domain.sealevel
 
 import android.hardware.SensorManager
-import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureCalibrator
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class SeaLevelPressureCalibratorTest {
 

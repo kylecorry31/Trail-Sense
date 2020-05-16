@@ -5,7 +5,6 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorManager
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
-import com.kylecorry.trail_sense.weather.domain.MovingAverageFilter
 
 class Magnetometer(context: Context): BaseSensor(context, Sensor.TYPE_MAGNETIC_FIELD, SensorManager.SENSOR_DELAY_FASTEST) {
 

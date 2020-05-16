@@ -82,4 +82,7 @@
     <string name="pref_use_experimental_compass">pref_use_experimental_compass</string>
     <string name="pref_use_experimental_compass_title">Use experimental compass</string>
     <string name="pref_use_experimental_compass_summary">May fix compass issues</string>
+    <string name="pref_use_legacy_compass">pref_use_legacy_compass</string>
+    <string name="pref_use_legacy_compass_title">Use legacy compass</string>
+    <string name="pref_use_legacy_compass_summary">May fix compass issues</string>
 </resources>

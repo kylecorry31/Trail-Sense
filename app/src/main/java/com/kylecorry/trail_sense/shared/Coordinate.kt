@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.shared
 
-import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import java.util.*
 import kotlin.math.abs

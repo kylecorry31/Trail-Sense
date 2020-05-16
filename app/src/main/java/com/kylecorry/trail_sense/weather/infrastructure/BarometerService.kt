@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.app.*
-import android.app.Notification.EXTRA_NOTIFICATION_ID
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Icon

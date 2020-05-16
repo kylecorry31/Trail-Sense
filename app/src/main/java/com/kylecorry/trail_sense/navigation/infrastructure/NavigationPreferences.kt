@@ -31,8 +31,8 @@ class NavigationPreferences(private val context: Context) {
     val useExperimentalCompass: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_use_experimental_compass), false)
 
-    val distanceUnits: String
-        get() = prefs.getString(context.getString(R.string.pref_distance_units), "meters") ?: "meters"
+    val compassSmoothing: Int
+        get() = prefs.getInt(context.getString(R.string.pref_compass_filter_amt), 1)
 
     enum class AltimeterMode {
         Barometer,

@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
-import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 
@@ -28,7 +28,7 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
     private lateinit var createBtn: FloatingActionButton
     private lateinit var adapter: BeaconAdapter
     private lateinit var emptyTxt: TextView
-    private lateinit var prefs: NavigationPreferences
+    private lateinit var prefs: UserPreferences
     private val location = gps.location
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -38,7 +38,7 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
         createBtn = view.findViewById(R.id.create_beacon_btn)
         emptyTxt = view.findViewById(R.id.beacon_empty_text)
 
-        prefs = NavigationPreferences(context!!)
+        prefs = UserPreferences(context!!)
 
         val layoutManager = LinearLayoutManager(context)
         beaconList.layoutManager = layoutManager

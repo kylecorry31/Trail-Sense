@@ -2,23 +2,19 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.content.Context
 import android.hardware.SensorManager
-import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.MovingAverageFilter
 import kotlin.math.abs
-import kotlin.math.absoluteValue
 import kotlin.math.floor
 
-class Compass2(private val context: Context) : AbstractSensor(), ICompass {
+class Compass2(context: Context) : AbstractSensor(), ICompass {
 
     private val accelerometer = Accelerometer(context)
     private val magnetometer = Magnetometer(context)
 
-    private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-    private val filterSize = prefs.getInt(
-        context.getString(com.kylecorry.trail_sense.R.string.pref_compass_filter_amt),
-        1
-    ) * 2
+    private val prefs = UserPreferences(context)
+    private val filterSize = prefs.navigation.compassSmoothing * 2 * 2
     private val filter = MovingAverageFilter(filterSize)
 
     override var declination = 0f

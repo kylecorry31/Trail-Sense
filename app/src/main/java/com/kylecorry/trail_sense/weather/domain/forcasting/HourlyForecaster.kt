@@ -6,13 +6,13 @@ import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
 import java.time.Duration
 import kotlin.math.abs
 
-class HourlyForecaster : IWeatherForecaster {
+class HourlyForecaster(private val stormThreshold: Float = -6f) : IWeatherForecaster {
 
     override fun forecast(readings: List<PressureReading>): Weather {
 
         val tendency = DropPressureTendencyCalculator().calculate(readings, Duration.ofHours(3))
 
-        val isStorm = tendency.amount <= STORM_THRESHOLD
+        val isStorm = tendency.amount <= stormThreshold
 
         if (isStorm) {
             return Weather.Storm
@@ -29,7 +29,6 @@ class HourlyForecaster : IWeatherForecaster {
 
     companion object {
         private const val FAST_CHANGE = 2f
-        private const val STORM_THRESHOLD = -6f
     }
 
 }

@@ -47,9 +47,25 @@ object PressureUnitUtils {
         }
     }
 
+    fun getSymbol(units: PressureUnits): String {
+        return when (units) {
+            PressureUnits.Hpa -> "hPa"
+            PressureUnits.Inhg -> "in"
+            PressureUnits.Mbar -> "mbar"
+            PressureUnits.Psi -> "PSI"
+        }
+    }
+
     fun getDecimalFormat(units: String): DecimalFormat {
         return when(units){
             "hpa", "mbar" -> DecimalFormat("0")
+            else -> DecimalFormat("0.##")
+        }
+    }
+
+    fun getDecimalFormat(units: PressureUnits): DecimalFormat {
+        return when(units){
+            PressureUnits.Hpa, PressureUnits.Mbar -> DecimalFormat("0")
             else -> DecimalFormat("0.##")
         }
     }

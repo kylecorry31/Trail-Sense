@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -20,6 +19,7 @@ import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.*
 import java.util.*
@@ -34,7 +34,7 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
     private var destination: Beacon? = initialDestination
     private lateinit var altimeter: IAltimeter
 
-    private var units = "meters"
+    private var units = UserPreferences.DistanceUnits.Meters
     private var useTrueNorth = false
     private var altimeterMode = NavigationPreferences.AltimeterMode.GPS
     private var isRulerSetup = false
@@ -48,6 +48,7 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
     private lateinit var beaconBtn: FloatingActionButton
     private lateinit var altitudeTxt: TextView
     private lateinit var compassView: CompassView
+    private lateinit var userPrefs: UserPreferences
     private lateinit var prefs: NavigationPreferences
     private lateinit var ruler: ConstraintLayout
 
@@ -58,7 +59,8 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
 
-        prefs = NavigationPreferences(context!!)
+        userPrefs = UserPreferences(context!!)
+        prefs = userPrefs.navigation
 
         compass = if (prefs.useExperimentalCompass) {
             Compass2(context!!)
@@ -119,7 +121,7 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
                 }
             } else {
                 destination = null
-                updateNavigator();
+                updateNavigator()
             }
 
         }
@@ -142,7 +144,7 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
 
         useTrueNorth = prefs.useTrueNorth
         altimeterMode = prefs.altimeter
-        units = prefs.distanceUnits
+        units = userPrefs.distanceUnits
 
         if (useTrueNorth) {
             compass.declination = DeclinationCalculator().calculate(gps.location, gps.altitude)
@@ -182,7 +184,7 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
     private fun setupRuler() {
         val dpi = resources.displayMetrics.densityDpi
         val height =
-            ruler.height / dpi.toDouble() * if (prefs.distanceUnits == "meters") 2.54 else 1.0
+            ruler.height / dpi.toDouble() * if (userPrefs.distanceUnits == UserPreferences.DistanceUnits.Meters) 2.54 else 1.0
 
         if (height == 0.0 || context == null) {
             return
@@ -339,8 +341,8 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
         updateNavigationUI()
     }
 
-    private fun getAltitudeString(altitude: Float, units: String): String {
-        return if (units == "meters") {
+    private fun getAltitudeString(altitude: Float, units: UserPreferences.DistanceUnits): String {
+        return if (units == UserPreferences.DistanceUnits.Meters) {
             "${altitude.roundToInt()} m"
         } else {
             "${LocationMath.convertToBaseUnit(altitude, units).roundToInt()} ft"

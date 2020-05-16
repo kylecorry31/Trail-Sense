@@ -3,9 +3,7 @@ package com.kylecorry.trail_sense
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
-import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 
 class SettingsFragment : PreferenceFragmentCompat() {
