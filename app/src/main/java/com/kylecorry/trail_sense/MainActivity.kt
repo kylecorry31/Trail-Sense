@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment
+import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
@@ -26,6 +28,8 @@ import com.kylecorry.trail_sense.weather.ui.BarometerFragment
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigation: BottomNavigationView
+
+    private var geoIntentLocation: GeoUriParser.NamedCoordinate? = null
 
     private val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
 
@@ -80,6 +84,13 @@ class MainActivity : AppCompatActivity() {
             BarometerService.start(this)
         }
 
+        val intentData = intent.data
+        if (intent.scheme == "geo" && intentData != null) {
+            val namedCoordinate = GeoUriParser().parse(intentData)
+            geoIntentLocation = namedCoordinate
+            bottomNavigation.selectedItemId = R.id.action_navigation
+        }
+
         syncFragmentWithSelection(bottomNavigation.selectedItemId)
 
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
@@ -103,7 +114,13 @@ class MainActivity : AppCompatActivity() {
     private fun syncFragmentWithSelection(selection: Int){
         when (selection) {
             R.id.action_navigation -> {
-                switchFragment(NavigatorFragment())
+                val namedCoord = geoIntentLocation
+                if (namedCoord != null) {
+                    geoIntentLocation = null
+                    switchFragment(NavigatorFragment(null, namedCoord))
+                } else {
+                    switchFragment(NavigatorFragment())
+                }
             }
             R.id.action_weather -> {
                 switchFragment(BarometerFragment())

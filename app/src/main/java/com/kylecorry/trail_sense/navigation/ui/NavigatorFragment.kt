@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
+import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -27,7 +28,7 @@ import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 
-class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
+class NavigatorFragment(initialDestination: Beacon? = null, private val createBeacon: GeoUriParser.NamedCoordinate? = null) : Fragment() {
 
     private lateinit var compass: ICompass
     private lateinit var gps: IGPS
@@ -57,6 +58,9 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
 
         userPrefs = UserPreferences(context!!)
@@ -68,6 +72,20 @@ class NavigatorFragment(initialDestination: Beacon? = null) : Fragment() {
             Compass(context!!)
         }
         gps = GPS(context!!)
+
+        if (createBeacon != null){
+            fragmentManager?.doTransaction {
+                this.addToBackStack(null)
+                this.replace(
+                    R.id.fragment_holder,
+                    PlaceBeaconFragment(
+                        BeaconDB(
+                            context!!
+                        ), gps, createBeacon
+                    )
+                )
+            }
+        }
 
         val altimeterMode = prefs.altimeter
 

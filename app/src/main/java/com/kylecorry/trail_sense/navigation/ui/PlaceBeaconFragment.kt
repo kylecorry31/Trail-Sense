@@ -11,12 +11,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
+import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 
 
-class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: IGPS) : Fragment() {
+class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: IGPS, private val initialLocation: GeoUriParser.NamedCoordinate? = null) : Fragment() {
 
     private lateinit var beaconName: EditText
     private lateinit var beaconLat: EditText
@@ -37,6 +38,12 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: IGPS)
         beaconLng = view.findViewById(R.id.beacon_longitude)
         useCurrentLocationBtn = view.findViewById(R.id.current_location_btn)
         doneBtn = view.findViewById(R.id.place_beacon_btn)
+
+        if (initialLocation != null){
+            beaconName.setText(initialLocation.name ?: "")
+            beaconLat.setText(initialLocation.coordinate.latitude.toString())
+            beaconLng.setText(initialLocation.coordinate.longitude.toString())
+        }
 
         doneBtn.setOnClickListener {
             val name = beaconName.text.toString()
