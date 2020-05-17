@@ -72,6 +72,11 @@ class Compass2(context: Context) : AbstractSensor(), ICompass {
             }
 
             SensorManager.getOrientation(R, orientation)
+
+            if (largestAccelAxis == 1 && accelerometer.acceleration[largestAccelAxis] < 0){
+                orientation[0] = orientation[0] - Math.PI.toFloat()
+            }
+
             updateBearing(Math.toDegrees(orientation[0].toDouble()).toFloat())
             notifyListeners()
         }
