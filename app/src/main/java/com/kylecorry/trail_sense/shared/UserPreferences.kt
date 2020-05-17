@@ -48,6 +48,7 @@ class UserPreferences(private val context: Context) {
             return when (prefs.getString(context.getString(R.string.pref_theme), "system")) {
                 "light" -> Theme.Light
                 "dark" -> Theme.Dark
+                "black" -> Theme.Black
                 else -> Theme.System
             }
         }
@@ -57,7 +58,7 @@ class UserPreferences(private val context: Context) {
     }
 
     enum class Theme {
-        Light, Dark, System
+        Light, Dark, Black, System
     }
 
 }

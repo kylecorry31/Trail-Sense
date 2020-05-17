@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
@@ -44,12 +45,17 @@ class MainActivity : AppCompatActivity() {
         val mode = when (userPrefs.theme){
             UserPreferences.Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
             UserPreferences.Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
+            UserPreferences.Theme.Black -> AppCompatDelegate.MODE_NIGHT_YES
             UserPreferences.Theme.System -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         }
         AppCompatDelegate.setDefaultNightMode(mode)
-
         setContentView(R.layout.activity_main)
         bottomNavigation = findViewById(R.id.bottom_navigation)
+
+        if (userPrefs.theme == UserPreferences.Theme.Black) {
+            window.decorView.rootView.setBackgroundColor(Color.BLACK)
+            bottomNavigation.setBackgroundColor(Color.BLACK)
+        }
 
 
         if (!prefs.getBoolean(getString(R.string.pref_onboarding_completed), false)){
