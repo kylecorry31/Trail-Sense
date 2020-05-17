@@ -63,6 +63,9 @@ class OnboardingActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         pageIdx = savedInstanceState.getInt("page", 0)
+        if (pageIdx >= pages.size || pageIdx < 0){
+            pageIdx = 0
+        }
         switchFragment(pages[pageIdx])
     }
 
