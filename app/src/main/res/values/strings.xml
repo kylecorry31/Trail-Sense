@@ -85,4 +85,8 @@
     <string name="pref_use_legacy_compass">pref_use_legacy_compass</string>
     <string name="pref_use_legacy_compass_title">Use legacy compass</string>
     <string name="pref_use_legacy_compass_summary">May fix compass issues</string>
+    <string name="pref_display_multi_beacons">pref_display_multi_beacons</string>
+    <string name="pref_display_multi_beacons_title">Display nearby beacons</string>
+    <string name="pref_storm_alert_sensitivity">pref_storm_alert_sensitivity</string>
+    <string name="pref_storm_alert_sensitivity_title">Storm alert sensitivity</string>
 </resources>

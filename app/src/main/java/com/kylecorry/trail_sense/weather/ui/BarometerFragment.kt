@@ -46,7 +46,8 @@ class BarometerFragment : Fragment(), Observer {
     private var pressureConverter: ISeaLevelPressureConverter =
         NullPressureConverter()
 
-    private val shortTermForecaster: IWeatherForecaster = HourlyForecaster()
+    private lateinit var prefs: UserPreferences
+    private lateinit var shortTermForecaster: IWeatherForecaster
     private val longTermForecaster: IWeatherForecaster = DailyForecaster()
 
     private lateinit var pressureTxt: TextView
@@ -68,6 +69,9 @@ class BarometerFragment : Fragment(), Observer {
 
         barometer = Barometer(context!!)
         gps = GPS(context!!)
+        prefs = UserPreferences(context!!)
+
+        shortTermForecaster = HourlyForecaster(prefs.weather.stormAlertThreshold)
 
         pressureTxt = view.findViewById(R.id.pressure)
         weatherNowTxt = view.findViewById(R.id.weather_now_lbl)
@@ -89,7 +93,6 @@ class BarometerFragment : Fragment(), Observer {
         barometer.start(this::onPressureUpdate)
         gps.start(this::onLocationUpdate)
 
-        val prefs = UserPreferences(context!!)
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
 
         pressureConverter = SeaLevelPressureConverterFactory().create(context!!)

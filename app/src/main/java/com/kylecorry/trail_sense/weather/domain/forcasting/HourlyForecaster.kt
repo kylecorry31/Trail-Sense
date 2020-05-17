@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
 import java.time.Duration
 import kotlin.math.abs
 
-class HourlyForecaster(private val stormThreshold: Float = -6f) : IWeatherForecaster {
+class HourlyForecaster(private val stormThreshold: Float) : IWeatherForecaster {
 
     override fun forecast(readings: List<PressureReading>): Weather {
 

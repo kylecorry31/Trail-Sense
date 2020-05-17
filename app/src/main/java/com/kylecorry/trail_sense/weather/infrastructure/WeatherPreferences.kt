@@ -20,6 +20,19 @@ class WeatherPreferences(private val context: Context) {
         get() = prefs.getBoolean(context.getString(R.string.pref_send_storm_alert), true)
 
     val stormAlertThreshold: Float
-        get() = -6.0f
+        get() {
+            if (!sendStormAlerts) {
+                return -4.5f
+            }
+
+            return when (prefs.getString(
+                context.getString(R.string.pref_storm_alert_sensitivity),
+                "medium"
+            ) ?: "medium") {
+                "low" -> -6f
+                "medium" -> -4.5f
+                else -> -3f
+            }
+        }
 
 }

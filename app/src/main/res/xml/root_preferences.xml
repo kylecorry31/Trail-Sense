@@ -66,6 +66,12 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            app:key="@string/pref_display_multi_beacons"
+            app:title="@string/pref_display_multi_beacons_title"
+            app:isPreferenceVisible="false"
+            app:defaultValue="false" />
+
+        <SwitchPreferenceCompat
             app:key="@string/pref_use_experimental_compass"
             app:title="@string/pref_use_experimental_compass_title"
             app:summary="@string/pref_use_experimental_compass_summary"
@@ -95,6 +101,15 @@
             app:key="@string/pref_send_storm_alert"
             app:title="@string/pref_send_storm_alerts_title"
             app:defaultValue="true"/>
+
+        <ListPreference
+            app:defaultValue="medium"
+            app:entries="@array/storm_alert_sensitivity_entries"
+            app:entryValues="@array/storm_alert_sensitivity_values"
+            app:key="@string/pref_storm_alert_sensitivity"
+            app:title="@string/pref_storm_alert_sensitivity_title"
+            app:useSimpleSummaryProvider="true"
+            app:dependency="@string/pref_send_storm_alert"/>
 
     </PreferenceCategory>
 
