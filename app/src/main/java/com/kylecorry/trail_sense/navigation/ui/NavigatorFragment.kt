@@ -223,7 +223,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
             for (i in 0..ceil(height).toInt() * 8) {
                 val inches = i / 8.0
                 val tv = TextView(context)
-                val bar = ImageView(context)
+                val bar = View(context)
                 bar.setBackgroundColor(primaryColor)
                 val layoutParams = ConstraintLayout.LayoutParams(1, 4)
                 bar.layoutParams = layoutParams
@@ -302,7 +302,10 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
 
         // Update the navigation
         updateNavigationUI()
-        setupRuler()
+
+        if (prefs.showRuler) {
+            setupRuler()
+        }
     }
 
     /**

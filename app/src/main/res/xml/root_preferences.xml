@@ -87,6 +87,11 @@
             app:showSeekBarValue="true"
             app:min="1" />
 
+        <SwitchPreferenceCompat
+            app:key="@string/pref_show_ruler"
+            app:title="@string/pref_show_ruler_title"
+            app:defaultValue="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_weather_header" app:key="@string/pref_weather_category">
