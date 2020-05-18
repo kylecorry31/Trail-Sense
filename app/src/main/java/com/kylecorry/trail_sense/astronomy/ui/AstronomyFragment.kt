@@ -93,7 +93,7 @@ class AstronomyFragment : Fragment() {
             updateUI()
         }
 
-        gps = GPS(context!!)
+        gps = GPS(requireContext())
 
         return view
     }
@@ -161,8 +161,8 @@ class AstronomyFragment : Fragment() {
 
         val today = calculator.calculate(gps.location, displayDate)
 
-        moonRiseTimeTxt.text = today.up?.toDisplayFormat(context!!) ?: "-"
-        moonSetTimeTxt.text = today.down?.toDisplayFormat(context!!) ?: "-"
+        moonRiseTimeTxt.text = today.up?.toDisplayFormat(requireContext()) ?: "-"
+        moonSetTimeTxt.text = today.down?.toDisplayFormat(requireContext()) ?: "-"
 
         moonPosition.setImageResource(getMoonImage(moonPhase.phase))
 
@@ -176,7 +176,7 @@ class AstronomyFragment : Fragment() {
         if (context == null){
             return
         }
-        val sunChartCalculator = SunTimesCalculatorFactory().create(context!!)
+        val sunChartCalculator = SunTimesCalculatorFactory().create(requireContext())
 
         val currentTime = LocalDateTime.now()
 
@@ -295,8 +295,8 @@ class AstronomyFragment : Fragment() {
 
 
     private fun displaySunTimes(sunTimes: SunTimes, upTxt: TextView, downTxt: TextView) {
-        upTxt.text = sunTimes.up.toDisplayFormat(context!!)
-        downTxt.text = sunTimes.down.toDisplayFormat(context!!)
+        upTxt.text = sunTimes.up.toDisplayFormat(requireContext())
+        downTxt.text = sunTimes.down.toDisplayFormat(requireContext())
     }
 
 }

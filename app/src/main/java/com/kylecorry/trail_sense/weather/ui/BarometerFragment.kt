@@ -67,9 +67,9 @@ class BarometerFragment : Fragment(), Observer {
     ): View? {
         val view = inflater.inflate(R.layout.activity_weather, container, false)
 
-        barometer = Barometer(context!!)
-        gps = GPS(context!!)
-        prefs = UserPreferences(context!!)
+        barometer = Barometer(requireContext())
+        gps = GPS(requireContext())
+        prefs = UserPreferences(requireContext())
 
         shortTermForecaster = HourlyForecaster(prefs.weather.stormAlertThreshold)
 
@@ -95,7 +95,7 @@ class BarometerFragment : Fragment(), Observer {
 
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
 
-        pressureConverter = SeaLevelPressureConverterFactory().create(context!!)
+        pressureConverter = SeaLevelPressureConverterFactory().create(requireContext())
 
         altitude = gps.altitude
 
@@ -134,7 +134,7 @@ class BarometerFragment : Fragment(), Observer {
         if (context == null) return
         if (barometer.pressure == 0.0f) return
 
-        val readings = PressureHistoryRepository.getAll(context!!)
+        val readings = PressureHistoryRepository.getAll(requireContext())
 
         val allReadings = mutableListOf<PressureAltitudeReading>()
         allReadings.addAll(readings)
@@ -216,7 +216,7 @@ class BarometerFragment : Fragment(), Observer {
 
 
     private fun updateBarometerChartData() {
-        val readings = PressureHistoryRepository.getAll(context!!)
+        val readings = PressureHistoryRepository.getAll(requireContext())
 
         if (readings.size >= 2) {
             val totalTime = Duration.between(
