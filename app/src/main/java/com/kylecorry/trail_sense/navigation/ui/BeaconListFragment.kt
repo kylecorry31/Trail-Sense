@@ -38,7 +38,7 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
         createBtn = view.findViewById(R.id.create_beacon_btn)
         emptyTxt = view.findViewById(R.id.beacon_empty_text)
 
-        prefs = UserPreferences(context!!)
+        prefs = UserPreferences(requireContext())
 
         val layoutManager = LinearLayoutManager(context)
         beaconList.layoutManager = layoutManager
@@ -92,7 +92,7 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
             distanceText.text = LocationMath.distanceToReadableString(distance, prefs.distanceUnits)
 
             copyBtn.setOnClickListener {
-                val sender = LocationSharesheet(context!!)
+                val sender = LocationSharesheet(requireContext())
                 sender.send(beacon.coordinate)
             }
 
