@@ -34,6 +34,9 @@ class NavigationPreferences(private val context: Context) {
     val compassSmoothing: Int
         get() = prefs.getInt(context.getString(R.string.pref_compass_filter_amt), 1)
 
+    val showLinearCompass: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_show_linear_compass), true)
+
     val showRuler: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_show_ruler), true)
 

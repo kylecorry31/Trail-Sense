@@ -66,6 +66,17 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            app:key="@string/pref_show_ruler"
+            app:title="@string/pref_show_ruler_title"
+            app:defaultValue="true" />
+
+        <SwitchPreferenceCompat
+            app:key="@string/pref_show_linear_compass"
+            app:title="@string/pref_show_linear_compass_title"
+            app:summary="@string/pref_show_linear_compass_summary"
+            app:defaultValue="true"/>
+
+        <SwitchPreferenceCompat
             app:key="@string/pref_display_multi_beacons"
             app:title="@string/pref_display_multi_beacons_title"
             app:isPreferenceVisible="false"
@@ -86,11 +97,6 @@
             app:seekBarIncrement="1"
             app:showSeekBarValue="true"
             app:min="1" />
-
-        <SwitchPreferenceCompat
-            app:key="@string/pref_show_ruler"
-            app:title="@string/pref_show_ruler_title"
-            app:defaultValue="true" />
 
     </PreferenceCategory>
 

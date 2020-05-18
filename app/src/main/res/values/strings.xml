@@ -93,4 +93,7 @@
     <string name="pref_show_ruler_title">Show ruler</string>
     <string name="pref_show_sun_moon_compass">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">Show sun/moon on compass</string>
+    <string name="pref_show_linear_compass">pref_show_linear_compass</string>
+    <string name="pref_show_linear_compass_title">Show linear compass</string>
+    <string name="pref_show_linear_compass_summary">When the phone is vertical</string>
 </resources>

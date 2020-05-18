@@ -5,39 +5,47 @@ import android.widget.ImageView
 import kotlin.math.cos
 import kotlin.math.sin
 
-class CompassView(private val compass: ImageView, private val beaconIndicator: ImageView, private val azimuthIndicator: ImageView) {
+class CompassView(private val compass: ImageView, private val beaconIndicator: ImageView, private val azimuthIndicator: ImageView) :
+    ICompassView {
 
-    var visibility: Int
+    override var visibility: Int
         get() = compass.visibility
         set(value){
             compass.visibility = value
-            if (hasBeacon) {
+            if (beacon != null) {
                 beaconIndicator.visibility = value
             }
             azimuthIndicator.visibility = value
         }
 
-    private var lastAzimuth: Float = 0f
-    private var hasBeacon: Boolean = false
+    override var azimuth: Float = 0f
+        set(value) {
+            compass.rotation = -value
+            field = value
+        }
 
-    fun setAzimuth(azimuth: Float){
-        compass.rotation = -azimuth
-        lastAzimuth = azimuth
-    }
+    override var beacon: Float? = null
+        set(value) {
+            if (value == null){
+                hideBeacon()
+            } else {
+                showBeacon(value)
+            }
 
-    fun showBeacon(bearing: Float){
-        val adjBearing = -lastAzimuth - 90 + bearing
+            field = value
+        }
+
+    private fun showBeacon(bearing: Float){
+        val adjBearing = -azimuth - 90 + bearing
         beaconIndicator.visibility = visibility
         val imgCenterX = compass.x + compass.width / 2f
         val imgCenterY = compass.y + compass.height / 2f
         val radius = compass.width / 2f + 30
         displayDestinationBearing(adjBearing, imgCenterX, imgCenterY, radius)
-        hasBeacon = true
     }
 
-    fun hideBeacon(){
+    private fun hideBeacon(){
         beaconIndicator.visibility = View.INVISIBLE
-        hasBeacon = false
     }
 
     /**

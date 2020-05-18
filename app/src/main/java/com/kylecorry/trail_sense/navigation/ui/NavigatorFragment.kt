@@ -5,7 +5,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
@@ -25,6 +24,7 @@ import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.*
 import java.util.*
 import kotlin.math.ceil
+import kotlin.math.round
 import kotlin.math.roundToInt
 
 
@@ -32,6 +32,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
 
     private lateinit var compass: ICompass
     private lateinit var gps: IGPS
+    private lateinit var orientation: DeviceOrientation
     private var destination: Beacon? = initialDestination
     private lateinit var altimeter: IAltimeter
 
@@ -48,10 +49,13 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
     private lateinit var navigationTxt: TextView
     private lateinit var beaconBtn: FloatingActionButton
     private lateinit var altitudeTxt: TextView
-    private lateinit var compassView: CompassView
+    private lateinit var roundCompass: ICompassView
+    private lateinit var linearCompass: ICompassView
     private lateinit var userPrefs: UserPreferences
     private lateinit var prefs: NavigationPreferences
     private lateinit var ruler: ConstraintLayout
+
+    private lateinit var visibleCompass: ICompassView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,15 +67,16 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
 
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
 
-        userPrefs = UserPreferences(context!!)
+        userPrefs = UserPreferences(requireContext())
         prefs = userPrefs.navigation
 
         compass = if (prefs.useExperimentalCompass) {
-            Compass2(context!!)
+            Compass2(requireContext())
         } else {
-            Compass(context!!)
+            Compass(requireContext())
         }
-        gps = GPS(context!!)
+        orientation = DeviceOrientation(requireContext())
+        gps = GPS(requireContext())
 
         if (createBeacon != null){
             fragmentManager?.doTransaction {
@@ -80,7 +85,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
                     R.id.fragment_holder,
                     PlaceBeaconFragment(
                         BeaconDB(
-                            context!!
+                            requireContext()
                         ), gps, createBeacon
                     )
                 )
@@ -91,10 +96,10 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
 
         altimeter = when (altimeterMode) {
             NavigationPreferences.AltimeterMode.GPS -> {
-                FusedAltimeter(gps, Barometer(context!!))
+                FusedAltimeter(gps, Barometer(requireContext()))
             }
             NavigationPreferences.AltimeterMode.Barometer -> {
-                Barometer(context!!)
+                Barometer(requireContext())
             }
             else -> {
                 NullBarometer()
@@ -110,14 +115,22 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
         altitudeTxt = view.findViewById(R.id.altitude)
         ruler = view.findViewById(R.id.ruler)
 
-        compassView = CompassView(
+        roundCompass = CompassView(
             view.findViewById(R.id.needle),
             view.findViewById(R.id.destination_star),
             view.findViewById(R.id.azimuth_indicator)
         )
 
+        linearCompass = LinearCompassView(
+            view.findViewById(R.id.linear_compass),
+            view.findViewById(R.id.azimuth_indicator)
+        )
+
+        visibleCompass = linearCompass
+        setVisibleCompass(roundCompass)
+
         locationTxt.setOnLongClickListener {
-            val sender = LocationSharesheet(context!!)
+            val sender = LocationSharesheet(requireContext())
             sender.send(gps.location)
             true
         }
@@ -132,7 +145,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
                         R.id.fragment_holder,
                         BeaconListFragment(
                             BeaconDB(
-                                context!!
+                                requireContext()
                             ), gps
                         )
                     )
@@ -146,13 +159,30 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
         return view
     }
 
+    private fun setVisibleCompass(compass: ICompassView){
+        if (visibleCompass == compass){
+            if (compass != roundCompass){
+                roundCompass.visibility = View.INVISIBLE
+            } else {
+                linearCompass.visibility = View.INVISIBLE
+            }
+        }
+
+        compass.beacon = visibleCompass.beacon
+        compass.azimuth = visibleCompass.azimuth
+        visibleCompass.visibility = View.INVISIBLE
+        visibleCompass = compass
+        visibleCompass.visibility = View.VISIBLE
+    }
+
     override fun onResume() {
         super.onResume()
         compass.start(this::onCompassUpdate)
         gps.start(this::onLocationUpdate)
         altimeter.start(this::onAltitudeUpdate)
+        orientation.start(this::onOrientationUpdate)
 
-        val hasGPS = SensorChecker(context!!).hasGPS()
+        val hasGPS = SensorChecker(requireContext()).hasGPS()
 
         if (!hasGPS){
             beaconBtn.hide()
@@ -182,6 +212,16 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
         compass.stop(this::onCompassUpdate)
         gps.stop(this::onLocationUpdate)
         altimeter.stop(this::onAltitudeUpdate)
+        orientation.stop(this::onOrientationUpdate)
+    }
+
+    private fun onOrientationUpdate(): Boolean {
+        if (orientation.orientation == DeviceOrientation.Orientation.Portrait && prefs.showLinearCompass){
+            setVisibleCompass(linearCompass)
+        } else {
+            setVisibleCompass(roundCompass)
+        }
+        return true
     }
 
     private fun onCompassUpdate(): Boolean {
@@ -210,10 +250,10 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
 
         if (!isRulerSetup) {
 
-            val theme = context!!.theme
+            val theme = requireContext().theme
             val typedValue = TypedValue()
             theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
-            val arr = context!!.obtainStyledAttributes(typedValue.data, IntArray(1) {
+            val arr = requireContext().obtainStyledAttributes(typedValue.data, IntArray(1) {
                 android.R.attr.textColorPrimary
             })
             val primaryColor = arr.getColor(0, -1)
@@ -298,7 +338,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
         directionTxt.text = direction
 
         // Rotate the compass
-        compassView.setAzimuth(compass.bearing.value)
+        visibleCompass.azimuth = compass.bearing.value
 
         // Update the navigation
         updateNavigationUI()
@@ -315,7 +355,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
         // Determine if the navigator is navigating
         if (destination == null) {
             // Hide the navigation indicators
-            compassView.hideBeacon()
+            visibleCompass.beacon = null
             navigationTxt.text = ""
             return
         }
@@ -331,7 +371,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
             val bearing =
                 if (!useTrueNorth) vector.direction.withDeclination(-declination) else vector.direction
 
-            compassView.showBeacon(bearing.value)
+            visibleCompass.beacon = bearing.value
             navigationTxt.text =
                 "${this.name}    (${bearing.value.roundToInt()}°)\n${LocationMath.distanceToReadableString(
                     vector.distance,

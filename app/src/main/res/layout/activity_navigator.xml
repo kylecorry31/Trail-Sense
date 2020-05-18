@@ -6,16 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".navigation.ui.NavigatorFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ruler"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        android:alpha="0.25"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -58,6 +49,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_compass" />
+
+    <com.redinput.compassview.CompassView
+        android:id="@+id/linear_compass"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:backgroundColor="@color/colorSecondary"
+        app:degrees="0"
+        app:layout_constraintBottom_toBottomOf="@+id/needle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/needle"
+        app:markerColor="@color/white"
+        app:rangeDegrees="180.0"
+        app:showMarker="true"
+        app:lineColor="@color/white"
+        app:textColor="@color/colorPrimary"
+        app:textSize="15sp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ruler"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:alpha="0.25"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/navigation"
