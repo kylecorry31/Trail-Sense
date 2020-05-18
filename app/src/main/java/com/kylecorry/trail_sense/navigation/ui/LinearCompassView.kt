@@ -43,20 +43,20 @@ class LinearCompassView(private val compass: CompassView, private val beaconIndi
 
         val delta = deltaAngle(azimuth.roundToInt().toFloat(), bearing.roundToInt().toFloat())
 
-        if (delta < -90){
-            beaconIndicator.x = compass.left.toFloat() - beaconIndicator.height / 2f
-            beaconIndicator.rotation = -90f
-        } else if (delta > 90){
-            beaconIndicator.x = compass.right - beaconIndicator.height.toFloat()
-            beaconIndicator.rotation = 90f
-        } else {
-            val pct = (delta + 90) / 180f
-            beaconIndicator.x = pct * w - beaconIndicator.width / 2f
+        when {
+            delta < -90 -> {
+                beaconIndicator.x = compass.left.toFloat() - beaconIndicator.height / 2f
+                beaconIndicator.rotation = -90f
+            }
+            delta > 90 -> {
+                beaconIndicator.x = compass.right - beaconIndicator.height.toFloat()
+                beaconIndicator.rotation = 90f
+            }
+            else -> {
+                val pct = (delta + 90) / 180f
+                beaconIndicator.x = pct * w - beaconIndicator.width / 2f
+            }
         }
-
-        println(delta)
-
-
     }
 
     private fun hideBeacon(){
