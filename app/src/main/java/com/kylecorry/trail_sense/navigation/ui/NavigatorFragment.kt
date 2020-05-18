@@ -123,7 +123,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
 
         linearCompass = LinearCompassView(
             view.findViewById(R.id.linear_compass),
-            view.findViewById(R.id.azimuth_indicator)
+            view.findViewById(R.id.destination_star)
         )
 
         visibleCompass = linearCompass

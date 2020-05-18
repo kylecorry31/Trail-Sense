@@ -2,7 +2,9 @@ package com.kylecorry.trail_sense.navigation.ui
 
 import android.view.View
 import android.widget.ImageView
+import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.redinput.compassview.CompassView
+import kotlin.math.roundToInt
 
 class LinearCompassView(private val compass: CompassView, private val beaconIndicator: ImageView) :
     ICompassView {
@@ -11,8 +13,9 @@ class LinearCompassView(private val compass: CompassView, private val beaconIndi
         get() = compass.visibility
         set(value){
             compass.visibility = value
-            if (beacon != null) {
-                beaconIndicator.visibility = value
+            beaconIndicator.visibility = value
+            if (beacon == null) {
+                beaconIndicator.visibility = View.INVISIBLE
             }
         }
 
@@ -27,19 +30,33 @@ class LinearCompassView(private val compass: CompassView, private val beaconIndi
             if (value == null){
                 hideBeacon()
             } else {
-                // Show
+                showBeacon(value)
             }
             field = value
         }
 
     private fun showBeacon(bearing: Float){
-//        val adjBearing = -lastAzimuth - 90 + bearing
-//        beaconIndicator.visibility = visibility
-//        val imgCenterX = compass.x + compass.width / 2f
-//        val imgCenterY = compass.y + compass.height / 2f
-//        val radius = compass.width / 2f + 30
-//        displayDestinationBearing(adjBearing, imgCenterX, imgCenterY, radius)
-//        hasBeacon = true
+        beaconIndicator.rotation = 0f
+        beaconIndicator.y = compass.top.toFloat()
+
+        val w = compass.width
+
+        val delta = deltaAngle(azimuth.roundToInt().toFloat(), bearing.roundToInt().toFloat())
+
+        if (delta < -90){
+            beaconIndicator.x = compass.left.toFloat() - beaconIndicator.height / 2f
+            beaconIndicator.rotation = -90f
+        } else if (delta > 90){
+            beaconIndicator.x = compass.right - beaconIndicator.height.toFloat()
+            beaconIndicator.rotation = 90f
+        } else {
+            val pct = (delta + 90) / 180f
+            beaconIndicator.x = pct * w - beaconIndicator.width / 2f
+        }
+
+        println(delta)
+
+
     }
 
     private fun hideBeacon(){

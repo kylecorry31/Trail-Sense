@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.shared.math
 
+import kotlin.math.abs
 import kotlin.math.cos
+import kotlin.math.floor
 import kotlin.math.sin
 
 /**
@@ -30,4 +32,15 @@ fun cosDegrees(angle: Double): Double {
 
 fun Double.toRadians(): Double {
     return Math.toRadians(this)
+}
+
+fun deltaAngle(angle1: Float, angle2: Float): Float {
+    var delta = angle2 - angle1
+    delta += 180
+    delta -= floor(delta / 360) * 360
+    delta -= 180
+    if (abs(abs(delta) - 180) <= Float.MIN_VALUE) {
+        delta = 180f
+    }
+    return delta
 }

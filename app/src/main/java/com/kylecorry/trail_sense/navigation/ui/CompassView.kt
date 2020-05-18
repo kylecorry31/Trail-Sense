@@ -12,10 +12,11 @@ class CompassView(private val compass: ImageView, private val beaconIndicator: I
         get() = compass.visibility
         set(value){
             compass.visibility = value
-            if (beacon != null) {
-                beaconIndicator.visibility = value
-            }
+            beaconIndicator.visibility = value
             azimuthIndicator.visibility = value
+            if (beacon == null) {
+                beaconIndicator.visibility = View.INVISIBLE
+            }
         }
 
     override var azimuth: Float = 0f

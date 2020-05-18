@@ -4,6 +4,7 @@ import android.content.Context
 import android.hardware.SensorManager
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.kylecorry.trail_sense.weather.domain.MovingAverageFilter
 import kotlin.math.abs
 import kotlin.math.floor
@@ -34,16 +35,6 @@ class Compass2(context: Context) : AbstractSensor(), ICompass {
         _filteredBearing = filter.filter(_bearing.toDouble()).toFloat()
     }
 
-    private fun deltaAngle(angle1: Float, angle2: Float): Float {
-        var delta = angle2 - angle1
-        delta += 180
-        delta -= floor(delta / 360) * 360
-        delta -= 180
-        if (abs(abs(delta) - 180) <= Float.MIN_VALUE) {
-            delta = 180f
-        }
-        return delta
-    }
 
     private fun updateSensor(): Boolean {
         val success = SensorManager.getRotationMatrix(
