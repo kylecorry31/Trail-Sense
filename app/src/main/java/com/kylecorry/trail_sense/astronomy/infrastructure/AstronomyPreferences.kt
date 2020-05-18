@@ -20,6 +20,9 @@ class AstronomyPreferences(private val context: Context) {
             }
         }
 
+    val showOnCompass: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_show_sun_moon_compass), false)
+
     enum class SunTimesMode {
         Actual,
         Civil,

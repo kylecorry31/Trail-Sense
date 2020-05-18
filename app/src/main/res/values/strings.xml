@@ -91,4 +91,6 @@
     <string name="pref_storm_alert_sensitivity_title">Storm alert sensitivity</string>
     <string name="pref_show_ruler">pref_show_ruler</string>
     <string name="pref_show_ruler_title">Show ruler</string>
+    <string name="pref_show_sun_moon_compass">pref_show_sun_moon_compass</string>
+    <string name="pref_show_sun_moon_compass_title">Show sun/moon on compass</string>
 </resources>

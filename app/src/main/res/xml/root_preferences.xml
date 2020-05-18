@@ -129,6 +129,12 @@
             app:title="@string/pref_sun_time_mode_title"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            app:key="@string/pref_show_sun_moon_compass"
+            app:title="@string/pref_show_sun_moon_compass_title"
+            app:isPreferenceVisible="false"
+            app:defaultValue="false"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>
