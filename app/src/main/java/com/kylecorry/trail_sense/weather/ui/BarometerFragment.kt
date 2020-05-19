@@ -216,7 +216,11 @@ class BarometerFragment : Fragment(), Observer {
 
 
     private fun updateBarometerChartData() {
-        val readings = PressureHistoryRepository.getAll(requireContext())
+        val historyDuration = prefs.weather.pressureHistory
+        val now = Instant.now()
+        val readings = PressureHistoryRepository.getAll(requireContext()).filter {
+            Duration.between(it.time, now) <= historyDuration
+        }
 
         if (readings.size >= 2) {
             val totalTime = Duration.between(

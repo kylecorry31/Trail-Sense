@@ -74,4 +74,18 @@
         <item>astronomical</item>
     </string-array>
 
+    <string-array name="pressure_history_entries">
+        <item>@string/pressure_4_hours</item>
+        <item>@string/pressure_12_hours</item>
+        <item>@string/pressure_24_hours</item>
+        <item>@string/pressure_48_hours</item>
+    </string-array>
+
+    <string-array name="pressure_history_values">
+        <item>4</item>
+        <item>12</item>
+        <item>24</item>
+        <item>48</item>
+    </string-array>
+
 </resources>

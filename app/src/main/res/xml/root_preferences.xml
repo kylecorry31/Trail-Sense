@@ -108,6 +108,14 @@
             app:title="@string/pref_use_sea_level_pressure_title"
             app:defaultValue="true"/>
 
+        <ListPreference
+            app:defaultValue="48"
+            app:entries="@array/pressure_history_entries"
+            app:entryValues="@array/pressure_history_values"
+            app:key="@string/pref_pressure_history"
+            app:title="@string/pref_pressure_history_title"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreferenceCompat
             app:key="@string/pref_send_storm_alert"
             app:title="@string/pref_send_storm_alerts_title"
