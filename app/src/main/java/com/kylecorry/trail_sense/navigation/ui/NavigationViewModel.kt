@@ -21,10 +21,14 @@ class NavigationViewModel(
 ) {
 
     private val declinationCalculator = DeclinationCalculator()
+    private val useTrueNorth = prefs.navigation.useTrueNorth
+    private val distanceUnits = prefs.distanceUnits
+    private val prefShowLinearCompass = prefs.navigation.showLinearCompass
+    private val showRuler = prefs.navigation.showRuler
 
     val azimuth: Float
         get() {
-            if (prefs.navigation.useTrueNorth) {
+            if (useTrueNorth) {
                 val declination = declinationCalculator.calculate(gps.location, gps.altitude)
                 compass.declination = declination
             } else {
@@ -38,7 +42,7 @@ class NavigationViewModel(
 
     val azimuthDirection: String
         get() {
-            if (prefs.navigation.useTrueNorth) {
+            if (useTrueNorth) {
                 val declination = declinationCalculator.calculate(gps.location, gps.altitude)
                 compass.declination = declination
             } else {
@@ -52,19 +56,18 @@ class NavigationViewModel(
 
     val altitude: String
         get() {
-            val units = prefs.distanceUnits
-            return if (units == UserPreferences.DistanceUnits.Meters) {
+            return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
                 "${altimeter.altitude.roundToInt()} m"
             } else {
-                "${LocationMath.convertToBaseUnit(altimeter.altitude, units).roundToInt()} ft"
+                "${LocationMath.convertToBaseUnit(altimeter.altitude, distanceUnits).roundToInt()} ft"
             }
         }
 
     val rulerVisible: Boolean
-        get() = prefs.navigation.showRuler
+        get() = showRuler
 
     val showLinearCompass: Boolean
-        get() = prefs.navigation.showLinearCompass && orientation.orientation == DeviceOrientation.Orientation.Portrait
+        get() = prefShowLinearCompass && orientation.orientation == DeviceOrientation.Orientation.Portrait
 
     var beacon: Beacon? = null
 
@@ -72,13 +75,12 @@ class NavigationViewModel(
         get() {
             beacon?.apply {
                 val vector = NavigationService().navigate(gps.location, this.coordinate)
-                val units = prefs.distanceUnits
                 val declination = declinationCalculator.calculate(gps.location, gps.altitude)
                 val bearing =
-                    if (!prefs.navigation.useTrueNorth) vector.direction.withDeclination(-declination).value else vector.direction.value
+                    if (!useTrueNorth) vector.direction.withDeclination(-declination).value else vector.direction.value
                 return "${this.name}    (${bearing.roundToInt()}°)\n${LocationMath.distanceToReadableString(
                     vector.distance,
-                    units
+                    distanceUnits
                 )}"
             }
             return ""
@@ -89,7 +91,7 @@ class NavigationViewModel(
             beacon?.apply {
                 val vector = NavigationService().navigate(gps.location, this.coordinate)
                 val declination = declinationCalculator.calculate(gps.location, gps.altitude)
-                return if (!prefs.navigation.useTrueNorth) vector.direction.withDeclination(-declination).value else vector.direction.value
+                return if (!useTrueNorth) vector.direction.withDeclination(-declination).value else vector.direction.value
             }
             return null
         }

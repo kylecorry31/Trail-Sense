@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
@@ -18,7 +19,6 @@ import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.switchToFragment
-import kotlinx.android.synthetic.main.activity_navigator.*
 import kotlin.math.ceil
 
 class NavigatorFragment(
@@ -41,6 +41,14 @@ class NavigatorFragment(
 
     private lateinit var navigationVM: NavigationViewModel
 
+    private lateinit var locationTxt: TextView
+    private lateinit var altitudeTxt: TextView
+    private lateinit var azimuthTxt: TextView
+    private lateinit var navigationTxt: TextView
+    private lateinit var directionTxt: TextView
+    private lateinit var beaconBtn: FloatingActionButton
+    private lateinit var ruler: ConstraintLayout
+
     private lateinit var visibleCompass: ICompassView
 
     override fun onCreateView(
@@ -49,6 +57,16 @@ class NavigatorFragment(
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
+
+        // Get views
+        locationTxt = view.findViewById(R.id.location)
+        altitudeTxt = view.findViewById(R.id.altitude)
+        azimuthTxt = view.findViewById(R.id.compass_azimuth)
+        navigationTxt = view.findViewById(R.id.navigation)
+        directionTxt = view.findViewById(R.id.compass_direction)
+        beaconBtn = view.findViewById(R.id.beaconBtn)
+        ruler = view.findViewById(R.id.ruler)
+
 
         userPrefs = UserPreferences(requireContext())
 
@@ -83,6 +101,38 @@ class NavigatorFragment(
 
         navigationVM = NavigationViewModel(compass, gps, altimeter, orientation, userPrefs)
         navigationVM.beacon = initialDestination
+
+        roundCompass = CompassView(
+            view.findViewById(R.id.needle),
+            view.findViewById(R.id.destination_star),
+            view.findViewById(R.id.azimuth_indicator)
+        )
+        linearCompass = LinearCompassView(
+            view.findViewById(R.id.linear_compass),
+            view.findViewById(R.id.destination_star)
+        )
+
+        visibleCompass = linearCompass
+        setVisibleCompass(roundCompass)
+
+        locationTxt.setOnLongClickListener {
+            val sender = LocationSharesheet(requireContext())
+            sender.send(navigationVM.shareableLocation)
+            true
+        }
+
+        beaconBtn.setOnClickListener {
+            if (!navigationVM.showDestination) {
+                switchToFragment(
+                    BeaconListFragment(BeaconDB(requireContext()), gps),
+                    addToBackStack = true
+                )
+            } else {
+                navigationVM.beacon = null
+                updateNavigator()
+            }
+        }
+
         return view
     }
 
@@ -100,33 +150,6 @@ class NavigatorFragment(
         visibleCompass.visibility = View.INVISIBLE
         visibleCompass = compass
         visibleCompass.visibility = View.VISIBLE
-    }
-
-    override fun onStart() {
-        super.onStart()
-        roundCompass = CompassView(needle, destination_star, azimuth_indicator)
-        linearCompass = LinearCompassView(linear_compass, destination_star)
-
-        visibleCompass = linearCompass
-        setVisibleCompass(roundCompass)
-
-        location.setOnLongClickListener {
-            val sender = LocationSharesheet(requireContext())
-            sender.send(navigationVM.shareableLocation)
-            true
-        }
-
-        beaconBtn.setOnClickListener {
-            if (!navigationVM.showDestination) {
-                switchToFragment(
-                    BeaconListFragment(BeaconDB(requireContext()), gps),
-                    addToBackStack = true
-                )
-            } else {
-                navigationVM.beacon = null
-                updateNavigator()
-            }
-        }
     }
 
     override fun onResume() {
@@ -147,7 +170,6 @@ class NavigatorFragment(
 
         // Update the UI
         updateNavigator()
-        updateUI()
     }
 
     override fun onPause() {
@@ -158,16 +180,12 @@ class NavigatorFragment(
         orientation.stop(this::onOrientationUpdate)
     }
 
-    private fun updateUI() {
+    private fun updateUI(){
         if (navigationVM.showLinearCompass) {
             setVisibleCompass(linearCompass)
         } else {
             setVisibleCompass(roundCompass)
         }
-
-        compass_azimuth.text = navigationVM.azimuthTxt
-        compass_direction.text = navigationVM.azimuthDirection
-        visibleCompass.azimuth = navigationVM.azimuth
 
         if (navigationVM.rulerVisible) {
             setupRuler()
@@ -175,11 +193,16 @@ class NavigatorFragment(
             ruler.visibility = View.INVISIBLE
         }
 
+        azimuthTxt.text = navigationVM.azimuthTxt
+        directionTxt.text = navigationVM.azimuthDirection
+        visibleCompass.azimuth = navigationVM.azimuth
         visibleCompass.beacon = navigationVM.destinationBearing
-        navigation.text = navigationVM.destination
 
-        location.text = navigationVM.location
-        altitude.text = navigationVM.altitude
+        altitudeTxt.text = navigationVM.altitude
+
+        visibleCompass.beacon = navigationVM.destinationBearing
+        navigationTxt.text = navigationVM.destination
+        locationTxt.text = navigationVM.location
     }
 
     private fun onOrientationUpdate(): Boolean {
@@ -278,11 +301,11 @@ class NavigatorFragment(
             // Navigating
             gps.start(this::onLocationUpdate)
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_cancel))
-            updateUI()
+            onLocationUpdate()
         } else {
             // Not navigating
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_beacon))
-            updateUI()
+            onLocationUpdate()
         }
     }
 
