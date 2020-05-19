@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -9,25 +10,17 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
-import com.kylecorry.trail_sense.navigation.domain.LocationMath
-import com.kylecorry.trail_sense.navigation.domain.NavigationService
-import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.switchToFragment
-import java.util.*
+import kotlinx.android.synthetic.main.activity_navigator.*
 import kotlin.math.ceil
-import kotlin.math.round
-import kotlin.math.roundToInt
-
 
 class NavigatorFragment(
     private val initialDestination: Beacon? = null,
@@ -39,21 +32,13 @@ class NavigatorFragment(
     private lateinit var orientation: DeviceOrientation
     private lateinit var altimeter: IAltimeter
 
-    private var units = UserPreferences.DistanceUnits.Meters
+    // TODO: Extract ruler
     private var isRulerSetup = false
     private var areRulerTextViewsAligned = false
 
-    // UI Fields
-    private lateinit var azimuthTxt: TextView
-    private lateinit var directionTxt: TextView
-    private lateinit var locationTxt: TextView
-    private lateinit var navigationTxt: TextView
-    private lateinit var beaconBtn: FloatingActionButton
-    private lateinit var altitudeTxt: TextView
     private lateinit var roundCompass: ICompassView
     private lateinit var linearCompass: ICompassView
     private lateinit var userPrefs: UserPreferences
-    private lateinit var ruler: ConstraintLayout
 
     private lateinit var navigationVM: NavigationViewModel
 
@@ -64,8 +49,6 @@ class NavigatorFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
 
         userPrefs = UserPreferences(requireContext())
@@ -101,48 +84,6 @@ class NavigatorFragment(
 
         navigationVM = NavigationViewModel(compass, gps, altimeter, orientation, userPrefs)
         navigationVM.beacon = initialDestination
-
-        // Assign the UI fields
-        azimuthTxt = view.findViewById(R.id.compass_azimuth)
-        directionTxt = view.findViewById(R.id.compass_direction)
-        locationTxt = view.findViewById(R.id.location)
-        navigationTxt = view.findViewById(R.id.navigation)
-        beaconBtn = view.findViewById(R.id.beaconBtn)
-        altitudeTxt = view.findViewById(R.id.altitude)
-        ruler = view.findViewById(R.id.ruler)
-
-        roundCompass = CompassView(
-            view.findViewById(R.id.needle),
-            view.findViewById(R.id.destination_star),
-            view.findViewById(R.id.azimuth_indicator)
-        )
-
-        linearCompass = LinearCompassView(
-            view.findViewById(R.id.linear_compass),
-            view.findViewById(R.id.destination_star)
-        )
-
-        visibleCompass = linearCompass
-        setVisibleCompass(roundCompass)
-
-        locationTxt.setOnLongClickListener {
-            val sender = LocationSharesheet(requireContext())
-            sender.send(navigationVM.shareableLocation)
-            true
-        }
-
-        beaconBtn.setOnClickListener {
-            if (!navigationVM.showDestination) {
-                switchToFragment(
-                    BeaconListFragment(BeaconDB(requireContext()), gps),
-                    addToBackStack = true
-                )
-            } else {
-                navigationVM.beacon = null
-                updateNavigator()
-            }
-
-        }
         return view
     }
 
@@ -162,6 +103,33 @@ class NavigatorFragment(
         visibleCompass.visibility = View.VISIBLE
     }
 
+    override fun onStart() {
+        super.onStart()
+        roundCompass = CompassView(needle, destination_star, azimuth_indicator)
+        linearCompass = LinearCompassView(linear_compass, destination_star)
+
+        visibleCompass = linearCompass
+        setVisibleCompass(roundCompass)
+
+        location.setOnLongClickListener {
+            val sender = LocationSharesheet(requireContext())
+            sender.send(navigationVM.shareableLocation)
+            true
+        }
+
+        beaconBtn.setOnClickListener {
+            if (!navigationVM.showDestination) {
+                switchToFragment(
+                    BeaconListFragment(BeaconDB(requireContext()), gps),
+                    addToBackStack = true
+                )
+            } else {
+                navigationVM.beacon = null
+                updateNavigator()
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         compass.start(this::onCompassUpdate)
@@ -177,44 +145,61 @@ class NavigatorFragment(
             beaconBtn.show()
         }
 
-        units = userPrefs.distanceUnits
 
         // Update the UI
         updateNavigator()
-        updateCompassUI()
-        updateLocationUI()
+        updateUI()
     }
 
     override fun onPause() {
         super.onPause()
-        // Stop the low level sensors
         compass.stop(this::onCompassUpdate)
         gps.stop(this::onLocationUpdate)
         altimeter.stop(this::onAltitudeUpdate)
         orientation.stop(this::onOrientationUpdate)
     }
 
-    private fun onOrientationUpdate(): Boolean {
+    private fun updateUI() {
         if (navigationVM.showLinearCompass) {
             setVisibleCompass(linearCompass)
         } else {
             setVisibleCompass(roundCompass)
         }
+
+        compass_azimuth.text = navigationVM.azimuthTxt
+        compass_direction.text = navigationVM.azimuthDirection
+        visibleCompass.azimuth = navigationVM.azimuth
+
+        if (navigationVM.rulerVisible) {
+            setupRuler()
+        } else {
+            ruler.visibility = View.INVISIBLE
+        }
+
+        visibleCompass.beacon = navigationVM.destinationBearing
+        navigation.text = navigationVM.destination
+
+        location.text = navigationVM.location
+        altitude.text = navigationVM.altitude
+    }
+
+    private fun onOrientationUpdate(): Boolean {
+        updateUI()
         return true
     }
 
     private fun onCompassUpdate(): Boolean {
-        updateCompassUI()
+        updateUI()
         return true
     }
 
     private fun onAltitudeUpdate(): Boolean {
-        updateLocationUI()
+        updateUI()
         return true
     }
 
     private fun onLocationUpdate(): Boolean {
-        updateLocationUI()
+        updateUI()
         return navigationVM.showDestination
     }
 
@@ -289,53 +274,17 @@ class NavigatorFragment(
         }
     }
 
-    /**
-     * Update the navigator
-     */
     private fun updateNavigator() {
         if (navigationVM.showDestination) {
             // Navigating
             gps.start(this::onLocationUpdate)
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_cancel))
-            updateNavigationUI()
+            updateUI()
         } else {
             // Not navigating
             beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_beacon))
-            updateNavigationUI()
+            updateUI()
         }
-    }
-
-    /**
-     * Update the compass
-     */
-    private fun updateCompassUI() {
-        azimuthTxt.text = navigationVM.azimuthTxt
-        directionTxt.text = navigationVM.azimuthDirection
-        visibleCompass.azimuth = navigationVM.azimuth
-
-        // Update the navigation
-        updateNavigationUI()
-
-        if (navigationVM.rulerVisible) {
-            setupRuler()
-        }
-    }
-
-    /**
-     * Update the navigation
-     */
-    private fun updateNavigationUI() {
-        visibleCompass.beacon = navigationVM.destinationBearing
-        navigationTxt.text = navigationVM.destination
-    }
-
-    /**
-     * Update the current location
-     */
-    private fun updateLocationUI() {
-        locationTxt.text = navigationVM.location
-        altitudeTxt.text = navigationVM.altitude
-        updateNavigationUI()
     }
 
 }

@@ -44,7 +44,7 @@ class NavigationViewModel(
             } else {
                 compass.declination = 0f
             }
-            return compass.bearing.direction.symbol.toUpperCase()
+            return compass.bearing.direction.symbol
         }
 
     val location: String
