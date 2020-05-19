@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -54,9 +53,9 @@ class NavigatorFragment(
         userPrefs = UserPreferences(requireContext())
 
         compass = if (userPrefs.navigation.useExperimentalCompass) {
-            Compass2(requireContext())
-        } else {
             Compass(requireContext())
+        } else {
+            LegacyCompass(requireContext())
         }
         orientation = DeviceOrientation(requireContext())
         gps = GPS(requireContext())
