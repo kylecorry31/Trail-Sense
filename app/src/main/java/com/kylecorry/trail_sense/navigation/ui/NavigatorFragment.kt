@@ -139,6 +139,7 @@ class NavigatorFragment(
                 )
             } else {
                 navigationVM.beacon = null
+                updateNavigator()
             }
 
         }
