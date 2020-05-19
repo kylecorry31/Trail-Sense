@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.switchToFragment
 import java.util.*
 import kotlin.math.ceil
 import kotlin.math.round
@@ -52,7 +53,6 @@ class NavigatorFragment(
     private lateinit var roundCompass: ICompassView
     private lateinit var linearCompass: ICompassView
     private lateinit var userPrefs: UserPreferences
-    private lateinit var prefs: NavigationPreferences
     private lateinit var ruler: ConstraintLayout
 
     private lateinit var navigationVM: NavigationViewModel
@@ -69,9 +69,8 @@ class NavigatorFragment(
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
 
         userPrefs = UserPreferences(requireContext())
-        prefs = userPrefs.navigation
 
-        compass = if (prefs.useExperimentalCompass) {
+        compass = if (userPrefs.navigation.useExperimentalCompass) {
             Compass2(requireContext())
         } else {
             Compass(requireContext())
@@ -80,20 +79,13 @@ class NavigatorFragment(
         gps = GPS(requireContext())
 
         if (createBeacon != null) {
-            parentFragmentManager.doTransaction {
-                this.addToBackStack(null)
-                this.replace(
-                    R.id.fragment_holder,
-                    PlaceBeaconFragment(
-                        BeaconDB(
-                            requireContext()
-                        ), gps, createBeacon
-                    )
-                )
-            }
+            switchToFragment(
+                PlaceBeaconFragment(BeaconDB(requireContext()), gps, createBeacon),
+                addToBackStack = true
+            )
         }
 
-        val altimeterMode = prefs.altimeter
+        val altimeterMode = userPrefs.navigation.altimeter
 
         altimeter = when (altimeterMode) {
             NavigationPreferences.AltimeterMode.GPS -> {
@@ -102,7 +94,7 @@ class NavigatorFragment(
             NavigationPreferences.AltimeterMode.Barometer -> {
                 Barometer(requireContext())
             }
-            else -> {
+            NavigationPreferences.AltimeterMode.None -> {
                 NullBarometer()
             }
         }
@@ -135,24 +127,18 @@ class NavigatorFragment(
 
         locationTxt.setOnLongClickListener {
             val sender = LocationSharesheet(requireContext())
-            sender.send(gps.location)
+            sender.send(navigationVM.shareableLocation)
             true
         }
 
         beaconBtn.setOnClickListener {
-            // Open the navigation select screen
-            // Allows user to choose destination from list or add a destination to the list
             if (!navigationVM.showDestination) {
-                parentFragmentManager.doTransaction {
-                    this.addToBackStack(null)
-                    this.replace(
-                        R.id.fragment_holder,
-                        BeaconListFragment(BeaconDB(requireContext()), gps)
-                    )
-                }
+                switchToFragment(
+                    BeaconListFragment(BeaconDB(requireContext()), gps),
+                    addToBackStack = true
+                )
             } else {
                 navigationVM.beacon = null
-                updateNavigator()
             }
 
         }

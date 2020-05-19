@@ -2,8 +2,12 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
+import com.kylecorry.trail_sense.navigation.ui.BeaconListFragment
 import java.time.*
 import java.time.format.DateTimeFormatter
 import kotlin.math.pow
@@ -72,4 +76,16 @@ fun View.getCenterX(): Float {
 
 fun View.getCenterY(): Float {
     return (top + bottom) / 2f
+}
+
+fun Fragment.switchToFragment(fragment: Fragment, holderId: Int = R.id.fragment_holder, addToBackStack: Boolean = false) {
+    parentFragmentManager.doTransaction {
+        if (addToBackStack) {
+            this.addToBackStack(null)
+        }
+        this.replace(
+            holderId,
+            fragment
+        )
+    }
 }

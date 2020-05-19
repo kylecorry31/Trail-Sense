@@ -4,6 +4,7 @@ import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
+import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.DeviceOrientation
 import com.kylecorry.trail_sense.shared.sensors.IAltimeter
@@ -95,5 +96,8 @@ class NavigationViewModel(
 
     val showDestination: Boolean
         get() = beacon != null
+
+    val shareableLocation: Coordinate
+        get() = gps.location
 
 }
