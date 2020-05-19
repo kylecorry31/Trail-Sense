@@ -12,7 +12,7 @@
     <string name="beacon_latitude_hint">Latitude</string>
     <string name="beacon_longitude_hint">Longitude</string>
     <string name="beacon_use_current_location">Use current location</string>
-    <string name="beacon_title">Beacons</string>
+    <string name="beacon_title">Select Beacon</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon_alert_title">Delete beacon</string>
     <string name="dialog_cancel">Cancel</string>
