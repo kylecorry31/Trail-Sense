@@ -79,7 +79,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
         gps = GPS(requireContext())
 
         if (createBeacon != null){
-            fragmentManager?.doTransaction {
+            parentFragmentManager.doTransaction {
                 this.addToBackStack(null)
                 this.replace(
                     R.id.fragment_holder,
@@ -139,7 +139,7 @@ class NavigatorFragment(initialDestination: Beacon? = null, private val createBe
             // Open the navigation select screen
             // Allows user to choose destination from list or add a destination to the list
             if (destination == null) {
-                fragmentManager?.doTransaction {
+                parentFragmentManager.doTransaction {
                     this.addToBackStack(null)
                     this.replace(
                         R.id.fragment_holder,

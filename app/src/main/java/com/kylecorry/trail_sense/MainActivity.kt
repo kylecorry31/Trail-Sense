@@ -108,9 +108,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if (bottomNavigation != null) {
-            outState.putInt("page", bottomNavigation.selectedItemId)
-        }
+        outState.putInt("page", bottomNavigation.selectedItemId)
     }
 
     private fun syncFragmentWithSelection(selection: Int){

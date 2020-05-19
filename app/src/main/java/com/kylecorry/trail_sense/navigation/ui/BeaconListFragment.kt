@@ -56,7 +56,7 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
         beaconList.adapter = adapter
 
         createBtn.setOnClickListener {
-            fragmentManager?.doTransaction {
+            parentFragmentManager.doTransaction {
                 this.replace(R.id.fragment_holder,
                     PlaceBeaconFragment(
                         beaconDB,
@@ -97,7 +97,7 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
             }
 
             itemView.setOnClickListener {
-                fragmentManager?.doTransaction {
+                parentFragmentManager.doTransaction {
                     this.replace(R.id.fragment_holder,
                         NavigatorFragment(
                             beacon

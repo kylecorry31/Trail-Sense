@@ -55,7 +55,7 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: IGPS,
             if (name.isNotBlank() && coordinate != null) {
                 val beacon = Beacon(name, coordinate)
                 beaconDB.create(beacon)
-                fragmentManager?.doTransaction {
+                parentFragmentManager.doTransaction {
                     this.replace(
                         R.id.fragment_holder,
                         BeaconListFragment(
