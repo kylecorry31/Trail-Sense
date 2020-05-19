@@ -19,7 +19,7 @@ import kotlin.math.min
 
 class PressureChart(private val chart: LineChart, private val color: Int) {
 
-    private var minRange = 10f
+    private var minRange = MIN_RANGE
     private var granularity = 1f
 
     init {
@@ -58,7 +58,7 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
     }
 
     fun setUnits(units: PressureUnits) {
-        minRange = PressureUnitUtils.convert(6f, units)
+        minRange = PressureUnitUtils.convert(MIN_RANGE, units)
         granularity = PressureUnitUtils.convert(1f, units).roundPlaces(2)
     }
 
@@ -94,5 +94,9 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
         chart.legend.isEnabled = false
         chart.notifyDataSetChanged()
         chart.invalidate()
+    }
+
+    companion object {
+        const val MIN_RANGE = 14f
     }
 }
