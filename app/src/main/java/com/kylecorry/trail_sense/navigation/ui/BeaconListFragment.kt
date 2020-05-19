@@ -118,7 +118,7 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
                         setNegativeButton(R.string.dialog_cancel){ _, _ ->
                             // Do nothing
                         }
-                        setMessage("Are you sure you want to remove \"${beacon.name}\"?")
+                        setMessage(context.getString(R.string.delete_beacon_confirmation, beacon.name))
                         setTitle(R.string.delete_beacon_alert_title)
                     }
                     builder.create()

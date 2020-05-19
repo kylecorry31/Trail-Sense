@@ -33,7 +33,6 @@
         app:srcCompat="@drawable/sun" />
 
     <ImageView
-        android:id="@+id/imageView6"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:tint="@color/moon_up"

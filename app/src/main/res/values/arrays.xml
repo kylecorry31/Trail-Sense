@@ -1,7 +1,7 @@
 <resources>
    <string-array name="distance_unit_entries">
-        <item>Meters</item>
-        <item>Feet / Miles</item>
+        <item>@string/meters</item>
+        <item>@string/feet_miles</item>
     </string-array>
 
     <string-array name="distance_unit_values">
@@ -11,10 +11,10 @@
 
 
     <string-array name="pressure_unit_entries">
-        <item>hPa</item>
-        <item>inHg</item>
-        <item>mbar</item>
-        <item>PSI</item>
+        <item>@string/units_hpa</item>
+        <item>@string/units_inhg</item>
+        <item>@string/units_mbar</item>
+        <item>@string/units_psi</item>
     </string-array>
 
     <string-array name="pressure_unit_values">
@@ -25,10 +25,10 @@
     </string-array>
 
     <string-array name="theme_entries">
-        <item>Light</item>
-        <item>Dark</item>
-        <item>Black</item>
-        <item>System</item>
+        <item>@string/theme_light</item>
+        <item>@string/theme_dark</item>
+        <item>@string/theme_black</item>
+        <item>@string/theme_system</item>
     </string-array>
 
     <string-array name="theme_values">
@@ -39,8 +39,8 @@
     </string-array>
 
     <string-array name="altitude_mode_entries">
-        <item>GPS</item>
-        <item>Barometer</item>
+        <item>@string/gps</item>
+        <item>@string/barometer</item>
     </string-array>
 
     <string-array name="altitude_mode_values">
@@ -49,9 +49,9 @@
     </string-array>
 
     <string-array name="storm_alert_sensitivity_entries">
-        <item>Low</item>
-        <item>Medium</item>
-        <item>High</item>
+        <item>@string/sensitivity_low</item>
+        <item>@string/sensitivity_med</item>
+        <item>@string/sensitivity_high</item>
     </string-array>
 
     <string-array name="storm_alert_sensitivity_values">
@@ -61,10 +61,10 @@
     </string-array>
 
     <string-array name="sun_times_entries">
-        <item>Actual Time</item>
-        <item>Civil Twilight</item>
-        <item>Nautical Twilight</item>
-        <item>Astronomical Twilight</item>
+        <item>@string/sun_actual</item>
+        <item>@string/sun_civil</item>
+        <item>@string/sun_nautical</item>
+        <item>@string/sun_astronomical</item>
     </string-array>
 
     <string-array name="sun_times_values">

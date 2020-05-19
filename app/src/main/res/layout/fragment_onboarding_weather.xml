@@ -37,7 +37,6 @@
             app:srcCompat="@drawable/partially_cloudy" />
 
         <ImageView
-            android:id="@+id/imageView6"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:tint="@color/colorPrimary"
@@ -45,7 +44,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

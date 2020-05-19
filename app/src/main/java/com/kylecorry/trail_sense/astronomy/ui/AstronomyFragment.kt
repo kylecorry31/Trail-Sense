@@ -132,19 +132,19 @@ class AstronomyFragment : Fragment() {
         val now = LocalDate.now()
         return when {
             date == now -> {
-                "Today"
+                getString(R.string.today)
             }
             date == now.plusDays(1) -> {
-                "Tomorrow"
+                getString(R.string.tomorrow)
             }
             date == now.minusDays(1) -> {
-                "Yesterday"
+                getString(R.string.yesterday)
             }
             date.year == now.year -> {
-                date.format(DateTimeFormatter.ofPattern("MMMM d"))
+                date.format(DateTimeFormatter.ofPattern(getString(R.string.this_year_format)))
             }
             else -> {
-                date.format(DateTimeFormatter.ofPattern("MMM d, YYYY"))
+                date.format(DateTimeFormatter.ofPattern(getString(R.string.other_year_format)))
             }
         }
     }
@@ -167,7 +167,7 @@ class AstronomyFragment : Fragment() {
         moonPosition.setImageResource(getMoonImage(moonPhase.phase))
 
         moonTxt.text =
-            "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}% illumination)"
+            "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}% ${getString(R.string.illumination)})"
 
         updateMoonPosition(LocalDateTime.now(), calculator)
     }

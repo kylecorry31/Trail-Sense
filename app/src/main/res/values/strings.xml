@@ -16,36 +16,34 @@
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon_alert_title">Delete beacon</string>
     <string name="dialog_cancel">Cancel</string>
-    <string name="air_pressure_label">Pressure</string>
-    <string name="pressure_chart_title">Pressure History</string>
+    <string name="pressure_chart_title">Pressure</string>
     <string name="action_astronomy">Astronomy</string>
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
-    <string name="noon_label">Noon</string>
     <string name="until_sunrise_label">until sunrise</string>
     <string name="until_sunset_label">until sunset</string>
 
 
     <string name="pref_use_true_north_title">True North</string>
-    <string name="pref_use_true_north">use_true_north</string>
+    <string name="pref_use_true_north" translatable="false">use_true_north</string>
     <string name="pref_use_sea_level_pressure_title">Sea level pressure</string>
-    <string name="pref_use_sea_level_pressure">use_sea_level_pressure</string>
-    <string name="pref_send_storm_alert">send_storm_alert</string>
+    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
+    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
     <string name="pref_units_header">General</string>
     <string name="pref_distance_units_title">Distance</string>
     <string name="pref_pressure_units_title">Pressure</string>
-    <string name="pref_pressure_units">pressure_units</string>
-    <string name="pref_distance_units">distance_units</string>
+    <string name="pref_pressure_units" translatable="false">pressure_units</string>
+    <string name="pref_distance_units" translatable="false">distance_units</string>
     <string name="pref_navigation_header">Navigation</string>
     <string name="pref_weather_header">Weather</string>
     <string name="pref_send_storm_alerts_title">Storm alerts</string>
-    <string name="pref_just_sent_alert">just_sent_alert</string>
+    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
     <string name="pref_astronomy_header">Astronomy</string>
-    <string name="pref_use_24_hour">use_24_hour</string>
+    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">Use 24-hour format</string>
-    <string name="pref_altitude_mode">altitude_mode</string>
+    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
     <string name="pref_altitude_mode_title">Altimeter</string>
-    <string name="pref_sun_time_mode">sun_time_mode</string>
+    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
     <string name="weather_improving_fast">Improving very soon</string>
     <string name="weather_improving_slow">Improving soon</string>
@@ -55,8 +53,6 @@
     <string name="weather_not_changing">Not changing soon</string>
     <string name="forecast_improving">Possibly improving later</string>
     <string name="forecast_worsening">Possibly worsening later</string>
-    <string name="today">Today</string>
-    <string name="tomorrow">Tomorrow</string>
     <string name="no_beacons">No beacons</string>
     <string name="onboarding_compass">Place beacons and navigate back to them</string>
     <string name="onboarding_weather">Get hyperlocal weather forecasts</string>
@@ -69,31 +65,73 @@
     <string name="onboarding_location_privacy">Trail Sense respects your privacy - location data never leaves your device</string>
     <string name="onboarding_location_all_time">Please select \'Allow all the time\' from the permission dialog</string>
     <string name="continue_button">CONTINUE</string>
-    <string name="pref_onboarding_completed">onboarding_completed</string>
+    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
     <string name="moon_rise">Moonrise</string>
     <string name="moon_set">Moonset</string>
     <string name="stop_monitoring">Stop</string>
-    <string name="pref_weather_category">pref_weather_category</string>
-    <string name="pref_compass_filter_amt">pref_compass_filter_amt</string>
+    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
+    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_compass_filter_amt_title">Compass smoothing</string>
     <string name="pref_compass_filter_amt_summary">High values may reduce noise</string>
-    <string name="pref_theme">pref_theme</string>
+    <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_theme_title">Theme</string>
-    <string name="pref_use_experimental_compass">pref_use_experimental_compass</string>
+    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
     <string name="pref_use_experimental_compass_title">Use experimental compass</string>
-    <string name="pref_use_experimental_compass_summary">May fix compass issues</string>
-    <string name="pref_use_legacy_compass">pref_use_legacy_compass</string>
     <string name="pref_use_legacy_compass_title">Use legacy compass</string>
-    <string name="pref_use_legacy_compass_summary">May fix compass issues</string>
-    <string name="pref_display_multi_beacons">pref_display_multi_beacons</string>
+    <string name="pref_use_experimental_compass_summary">May fix compass issues</string>
+    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">Display nearby beacons</string>
-    <string name="pref_storm_alert_sensitivity">pref_storm_alert_sensitivity</string>
+    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Storm alert sensitivity</string>
-    <string name="pref_show_ruler">pref_show_ruler</string>
+    <string name="pref_show_ruler" translatable="false">pref_show_ruler</string>
     <string name="pref_show_ruler_title">Show ruler</string>
-    <string name="pref_show_sun_moon_compass">pref_show_sun_moon_compass</string>
+    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">Show sun/moon on compass</string>
-    <string name="pref_show_linear_compass">pref_show_linear_compass</string>
+    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">Show linear compass</string>
     <string name="pref_show_linear_compass_summary">When the phone is vertical</string>
+
+    <string name="delete_beacon_confirmation">Are you sure you want to remove "%s"?</string>
+
+    <plurals name="last_hours">
+        <item quantity="one">Last %d hour</item>
+        <item quantity="other">Last %d hours</item>
+    </plurals>
+
+    <plurals name="last_minutes">
+        <item quantity="one">Last %d minute</item>
+        <item quantity="other">Last %d minutes</item>
+    </plurals>
+
+    <string name="meters">Meters</string>
+    <string name="feet_miles">Feet / Miles</string>
+    <string name="units_hpa">hPa</string>
+    <string name="units_inhg">inHg</string>
+    <string name="units_mbar">mbar</string>
+    <string name="units_psi">PSI</string>
+
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_black">Black</string>
+    <string name="theme_system">System</string>
+
+    <string name="gps">GPS</string>
+    <string name="barometer">Barometer</string>
+
+    <string name="sensitivity_low">Low</string>
+    <string name="sensitivity_med">Medium</string>
+    <string name="sensitivity_high">High</string>
+
+    <string name="sun_actual">Actual Time</string>
+    <string name="sun_civil">Civil Twilight</string>
+    <string name="sun_nautical">Nautical Twilight</string>
+    <string name="sun_astronomical">Astronomical Twilight</string>
+    <string name="not_all_permissions_granted">Not all permissions granted, some features may be broken</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="this_year_format">MMMM d</string>
+    <string name="other_year_format">MMM d, YYYY</string>
+    <string name="illumination">illumination</string>
+    <string name="pressure_tendency_indicator_alt">Pressure tendency indicator</string>
 </resources>

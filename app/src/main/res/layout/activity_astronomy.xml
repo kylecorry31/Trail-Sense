@@ -62,7 +62,6 @@
         app:layout_constraintTop_toBottomOf="@+id/day_circle" />
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="164dp"
@@ -95,7 +94,6 @@
         app:srcCompat="@drawable/moon_waning_crescent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

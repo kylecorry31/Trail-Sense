@@ -9,6 +9,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnits
@@ -75,7 +76,7 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
         chart.axisLeft.axisMaximum = maxPressure
         chart.axisLeft.granularity = granularity
 
-        val set1 = LineDataSet(values, "Pressure")
+        val set1 = LineDataSet(values, chart.context.getString(R.string.pressure_chart_title))
         set1.color = color
         set1.fillAlpha = 180
         set1.lineWidth = 3f

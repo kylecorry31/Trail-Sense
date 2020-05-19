@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FF6D00</color>
-    <color name="colorPrimaryDark">#c43c00</color>
-    <color name="colorPrimaryLight">#ff9e40</color>
 
     <color name="colorAccent">#a0caff</color>
     <color name="colorSecondary">#222222</color>
     <color name="moon_up">#b0dae8</color>
-    <color name="moon_down">@color/night</color>
-    <color name="day">@color/colorPrimary</color>
-    <color name="night">#555555</color>
-    <color name="civil_twilight">#D56715</color>
-    <color name="nautical_twilight">#AA612B</color>
-    <color name="astronomical_twilight">#805B40</color>
     <color name="white">#FFFFFF</color>
-    <color name="overlay_white">#BBFFFFFF</color>
-    <color name="cursor_color">#333</color>
 </resources>

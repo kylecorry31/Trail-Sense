@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         val granted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
         if (!granted){
-            Toast.makeText(this, "Not all permissions granted, some features may be broken", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.not_all_permissions_granted), Toast.LENGTH_LONG).show()
             startApp()
         } else {
             startApp()

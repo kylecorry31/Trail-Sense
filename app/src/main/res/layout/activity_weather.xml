@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
-        android:contentDescription="Pressure tendency indicator"
+        android:contentDescription="@string/pressure_tendency_indicator_alt"
         android:src="@drawable/ic_arrow_up"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/pressure"

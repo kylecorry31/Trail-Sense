@@ -226,11 +226,19 @@ class BarometerFragment : Fragment(), Observer {
             val minutes = totalTime.toMinutes() % 60
 
             when (hours) {
-                0L -> historyDurationTxt.text =
-                    "Last $minutes minute${if (minutes == 1L) "" else "s"}"
+                0L -> historyDurationTxt.text = context?.resources?.getQuantityString(
+                    R.plurals.last_minutes,
+                    minutes.toInt(),
+                    minutes
+                )
                 else -> {
                     if (minutes >= 30) hours++
-                    historyDurationTxt.text = "Last $hours hour${if (hours == 1L) "" else "s"}"
+                    historyDurationTxt.text =
+                        context?.resources?.getQuantityString(
+                            R.plurals.last_hours,
+                            hours.toInt(),
+                            hours
+                        )
                 }
             }
 
