@@ -1,0 +1,144 @@
+<resources>
+<string name="app_name">Njira Yanjira</string>
+    <string name="action_navigation">Kusanthula</string>
+    <string name="action_weather">Nyengo</string>
+    <string name="action_settings">Makonda</string>
+    <string name="compass_alt">Kampasi</string>
+    <string name="direction_arrow_desc">Mzera Wotsogolera</string>
+    <string name="location_unknown">Malo osadziwika</string>
+    <string name="destination_star_desc">Kupita</string>
+    <string name="create_beacon_title">Dontho Beacon</string>
+    <string name="beacon_name_hint">Dzinalo</string>
+    <string name="beacon_latitude_hint">Kutalika</string>
+    <string name="beacon_longitude_hint">Kutalika</string>
+    <string name="beacon_use_current_location">Gwiritsani ntchito malo apano</string>
+    <string name="beacon_title">Sankhani Beacon</string>
+    <string name="dialog_ok">Chabwino</string>
+    <string name="delete_beacon_alert_title">Chotsani beacon</string>
+    <string name="dialog_cancel">Patulani</string>
+    <string name="pressure_chart_title">Kukakamizidwa</string>
+    <string name="action_astronomy">Zakuthambo</string>
+    <string name="sunrise_label">Kutuluka kwa dzuwa</string>
+    <string name="sunset_label">Dzuwa</string>
+    <string name="until_sunrise_label">mpaka kutuluka kwa dzuwa</string>
+    <string name="until_sunset_label">mpaka kulowa dzuwa</string>
+
+
+    <string name="pref_use_true_north_title">Kumpoto Kwenikweni</string>
+    <string name="pref_use_true_north" translatable="false">use_true_north</string>
+    <string name="pref_use_sea_level_pressure_title">Kupsinjika kwa nyanja</string>
+    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
+    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
+    <string name="pref_units_header">Zambiri</string>
+    <string name="pref_distance_units_title">Mtunda</string>
+    <string name="pref_pressure_units_title">Kukakamizidwa</string>
+    <string name="pref_pressure_units" translatable="false">pressure_units</string>
+    <string name="pref_distance_units" translatable="false">distance_units</string>
+    <string name="pref_navigation_header">Kusanthula</string>
+    <string name="pref_weather_header">Nyengo</string>
+    <string name="pref_send_storm_alerts_title">Chenjezo</string>
+    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
+    <string name="pref_astronomy_header">Zakuthambo</string>
+    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
+    <string name="pref_use_24_hour_title">Gwiritsani ntchito maola 24</string>
+    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
+    <string name="pref_altitude_mode_title">Altimeter</string>
+    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
+    <string name="pref_sun_time_mode_title">Kutuluka kwa dzuwa /nthawi zamadzulo</string>
+    <string name="weather_improving_fast">Kupititsa patsogolo posachedwa</string>
+    <string name="weather_improving_slow">Kupititsa patsogolo posachedwa</string>
+    <string name="weather_worsening_slow">Kukula posachedwa</string>
+    <string name="weather_worsening_fast">Kukula posachedwa</string>
+    <string name="weather_storm_incoming">Kukubwera mvula yamkuntho</string>
+    <string name="weather_not_changing">Osasintha posachedwa</string>
+    <string name="forecast_improving">Mwinanso kusintha pambuyo pake</string>
+    <string name="forecast_worsening">Mwinanso kuipiraipira pambuyo pake</string>
+    <string name="no_beacons">Palibe ma beacon</string>
+    <string name="onboarding_compass">Ikani ma beacon ndikubwerera kwa iwo</string>
+    <string name="onboarding_weather">Pezani zolosera zakutsogolo</string>
+    <string name="onboarding_weather_no_internet">* sagwiritsa ntchito intaneti</string>
+    <string name="onboarding_astronomy">Dziwani nthawi yomwe dzuwa /mwezi udzatulukira ndi kulowa</string>
+    <string name="onboarding_background_location">Trail Sense imasowa chilolezo chogwiritsa ntchito GPS yanu</string>
+    <string name="onboarding_location_weather">Amaloleza zolosera zamtsogolo molondola</string>
+    <string name="onboarding_location_navigation">Amakulolani kuti musunthe ma beacon</string>
+    <string name="onboarding_location_astronomy">Amakulolani kuti muwone dzuwa /mwezi ukukwera ndi nthawi yoikika</string>
+    <string name="onboarding_location_privacy">Trail Sense imalemekeza zachinsinsi chanu - zosowa zamalo anu sizisiya chida chanu</string>
+    <string name="onboarding_location_all_time">Chonde sankhani \'Lolani nthawi yonse \' kuchokera pa zokambirana</string>
+    <string name="continue_button">Pitilizani</string>
+    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
+    <string name="moon_rise">Kutuluka kwa mwezi</string>
+    <string name="moon_set">Moonset</string>
+    <string name="stop_monitoring">Imani</string>
+    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
+    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
+    <string name="pref_compass_filter_amt_title">Compass yosalala</string>
+    <string name="pref_compass_filter_amt_summary">Mitengo yapamwamba imatha kuchepetsa phokoso</string>
+    <string name="pref_theme" translatable="false">pref_theme</string>
+    <string name="pref_theme_title">Mutu</string>
+    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
+    <string name="pref_use_experimental_compass_title">Gwiritsani ntchito kampasi yoyesera</string>
+    <string name="pref_use_legacy_compass_title">Gwiritsani ntchito kampasi ya cholowa</string>
+    <string name="pref_use_experimental_compass_summary">Mukhoza kukonza zovuta</string>
+    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
+    <string name="pref_display_multi_beacons_title">Onetsani ma beac pafupi</string>
+    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
+    <string name="pref_storm_alert_sensitivity_title">Kuzindikira kwamkuntho</string>
+    <string name="pref_show_ruler" translatable="false">pref_show_ruler</string>
+    <string name="pref_show_ruler_title">Onetsani wolamulira</string>
+    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
+    <string name="pref_show_sun_moon_compass_title">Onetsani dzuwa /mwezi pa Kampasi</string>
+    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
+    <string name="pref_show_linear_compass_title">Onetsani kampasi yotsogola</string>
+    <string name="pref_show_linear_compass_summary">Foni ikakhala yoima</string>
+
+    <string name="delete_beacon_confirmation">Mukutsimikiza kuti mukufuna kuchotsa "%s"?</string>
+
+    <plurals name="last_hours">
+        <item quantity="one">komaliza %d ola</item>
+        <item quantity="other">komaliza %d maola</item>
+    </plurals>
+
+    <plurals name="last_minutes">
+        <item quantity="one">komaliza %d mphindi</item>
+        <item quantity="other">komaliza %d mphindi</item>
+    </plurals>
+
+    <string name="meters">Ma meters</string>
+    <string name="feet_miles">Mapazi /Miles</string>
+    <string name="units_hpa">hPa</string>
+    <string name="units_inhg">inHg</string>
+    <string name="units_mbar">mbar</string>
+    <string name="units_psi">PSI</string>
+
+    <string name="theme_light">Kuwala</string>
+    <string name="theme_dark">Mdima</string>
+    <string name="theme_black">Chakuda</string>
+    <string name="theme_system">Dongosolo</string>
+
+    <string name="gps">GPS</string>
+    <string name="barometer">Barometer</string>
+
+    <string name="sensitivity_low">Otsika</string>
+    <string name="sensitivity_med">Yapakatikati</string>
+    <string name="sensitivity_high">Pamwamba</string>
+
+    <string name="sun_actual">Nthawi Yeniyeni</string>
+    <string name="sun_civil">Usiku Wamadzulo</string>
+    <string name="sun_nautical">Madzulo Nautical</string>
+    <string name="sun_astronomical">Usiku Wam\'mawa</string>
+    <string name="not_all_permissions_granted">Osati zilolezo zonse zomwe ziloledwa, mawonekedwe ena akhoza kusweka</string>
+    <string name="today">Lero</string>
+    <string name="tomorrow">Mawa</string>
+    <string name="yesterday">Dzulo</string>
+    <string name="this_year_format">MMMM d</string>
+    <string name="other_year_format">MMM d, YYYY</string>
+    <string name="illumination">chiwalitsiro</string>
+    <string name="pressure_tendency_indicator_alt">Chizindikiro cha kupanikizika</string>
+
+    <string name="pressure_48_hours">Maola 48</string>
+    <string name="pressure_24_hours">Maola 24</string>
+    <string name="pressure_12_hours">Maola 12</string>
+    <string name="pressure_4_hours">Maola 4</string>
+    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
+    <string name="pref_pressure_history_title">Mbiri yakanema</string>
+</resources>
