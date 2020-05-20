@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimes
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesCalculatorFactory
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.formatHM
+import com.kylecorry.trail_sense.shared.getCenterX
 import com.kylecorry.trail_sense.shared.math.getPercentOfDuration
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
@@ -150,7 +151,7 @@ class AstronomyFragment : Fragment() {
     }
 
     private fun updateMoonUI() {
-        if (context == null){
+        if (context == null) {
             return
         }
 
@@ -166,14 +167,16 @@ class AstronomyFragment : Fragment() {
 
         moonPosition.setImageResource(getMoonImage(moonPhase.phase))
 
-        moonTxt.text =
-            "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}% ${getString(R.string.illumination)})"
+        moonTxt.text = "${moonPhase.phase.direction} (${moonPhase.illumination.roundToInt()}%)"
 
         updateMoonPosition(LocalDateTime.now(), calculator)
+
+        moonTxt.x = moonPosition.x - moonTxt.width / 2f + moonPosition.width / 2f
+        moonTxt.y = moonPosition.y + moonPosition.height
     }
 
     private fun updateSunUI() {
-        if (context == null){
+        if (context == null) {
             return
         }
         val sunChartCalculator = SunTimesCalculatorFactory().create(requireContext())
@@ -191,7 +194,7 @@ class AstronomyFragment : Fragment() {
         updateSunPosition(currentTime, sunChartCalculator)
     }
 
-    private fun updateSunPosition(currentTime: LocalDateTime, calculator: ISunTimesCalculator){
+    private fun updateSunPosition(currentTime: LocalDateTime, calculator: ISunTimesCalculator) {
         val today = calculator.calculate(gps.location, LocalDate.now())
         val tomorrow = calculator.calculate(gps.location, LocalDate.now().plusDays(1))
         val yesterday = calculator.calculate(gps.location, LocalDate.now().minusDays(1))
@@ -208,7 +211,7 @@ class AstronomyFragment : Fragment() {
             }
         }
 
-        val angle = if (currentTime.isAfter(today.up) && currentTime.isBefore(today.down)){
+        val angle = if (currentTime.isAfter(today.up) && currentTime.isBefore(today.down)) {
             // Day time
             180 * percent
         } else {
@@ -219,34 +222,36 @@ class AstronomyFragment : Fragment() {
         sunIconClock.display(angle, 0.98f)
     }
 
-    private fun updateMoonPosition(currentTime: LocalDateTime, calculator: IMoonTimesCalculator){
+    private fun updateMoonPosition(currentTime: LocalDateTime, calculator: IMoonTimesCalculator) {
         val today = calculator.calculate(gps.location, LocalDate.now())
         val tomorrow = calculator.calculate(gps.location, LocalDate.now().plusDays(1))
         val yesterday = calculator.calculate(gps.location, LocalDate.now().minusDays(1))
 
         val isUp = MoonStateCalculator().isUp(today, currentTime.toLocalTime())
 
-        val percent = if (isUp){
+        val percent = if (isUp) {
             val lastUp = DateUtils.getClosestPastTime(currentTime, listOf(today.up, yesterday.up))
-            val nextDown = DateUtils.getClosestFutureTime(currentTime, listOf(today.down, tomorrow.down))
+            val nextDown =
+                DateUtils.getClosestFutureTime(currentTime, listOf(today.down, tomorrow.down))
 
-            if (lastUp != null && nextDown != null){
+            if (lastUp != null && nextDown != null) {
                 getPercentOfDuration(lastUp, nextDown, currentTime)
             } else {
                 0f
             }
         } else {
-            val lastDown = DateUtils.getClosestPastTime(currentTime, listOf(today.down, yesterday.down))
+            val lastDown =
+                DateUtils.getClosestPastTime(currentTime, listOf(today.down, yesterday.down))
             val nextUp = DateUtils.getClosestFutureTime(currentTime, listOf(today.up, tomorrow.up))
 
-            if (lastDown != null && nextUp != null){
+            if (lastDown != null && nextUp != null) {
                 getPercentOfDuration(lastDown, nextUp, currentTime)
             } else {
                 0f
             }
         }
 
-        val angle = if (isUp){
+        val angle = if (isUp) {
             // Day time
             180 * percent
         } else {
