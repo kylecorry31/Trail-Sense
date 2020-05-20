@@ -97,6 +97,6 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
     }
 
     companion object {
-        const val MIN_RANGE = 14f
+        const val MIN_RANGE = 40f
     }
 }

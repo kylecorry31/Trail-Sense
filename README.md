@@ -30,9 +30,11 @@
  An Android app which provides useful information about the environment and can be used offline (designed for hiking / mountaineering).
 
 ## Features
-* Compass
-* Barometer
+* Compass navigation
+* Barometer forecasting
 * Astronomy
+
+See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/issues/59)
 
 ## Navigation
 The compass can be used to determine the direction to North, and when combined with the GPS it can be used to navigate to predefined locations. The predefined locations, known as beacons, can be created while at a location and at any point you can use the compass to navigate back to where the beacon was placed.
@@ -43,7 +45,7 @@ Example beacons: home, work, trailhead, campsite
 
 
 ## Weather
-The barometer can be used to determine if the weather will change soon and if a storm is likely to occur. The barometric pressure history (last 48 hours) is displayed as a graph and an interpretation of the current reading is shown. If the pressure suddenly drops, a storm alert notification is sent.
+The barometer can be used to determine if the weather will change soon and if a storm is likely to occur. The barometric pressure history (last 48 hours) is displayed as a graph and an interpretation of the current reading is shown. If the pressure suddenly drops, a storm alert notification is sent. Note, this feature is only available for phones which have a barometer.
 
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="Weather Screenshot" height="500"/>
 
@@ -57,6 +59,18 @@ Location information gathered by this application does not leave your device (as
 
 ## Permissions
 - Location (fine, background): Used for beacon navigation, True North, barometer altitude correction (in background), and sun/moon rise/set times 
+
+# Contributing
+- [Request a new feature](https://github.com/kylecorry31/Trail-Sense/issues/59)
+- [Submit an issue](https://github.com/kylecorry31/Trail-Sense/issues)
+- [Translate Trail Sense](https://github.com/kylecorry31/Trail-Sense/issues/72)
+- [Provide feedback on the weather forecasting](https://github.com/kylecorry31/Trail-Sense/issues/71)
+- [Test out new features](https://github.com/kylecorry31/Trail-Sense/issues/74)
+
+If you choose to write a new feature yourself, send me a message to verify that it is something that I will accept into Trail Sense before your write it (if not, you can always fork this repo and create your own version of Trail Sense!). I will conduct a code review on incoming pull requests to verify they align nicely with the rest of the code base and the feature works as intended.
+
+## Code contributors from the community
+- [sethtara](https://github.com/sethtara) - Translations
 
 # Credits
 - Weather icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews)
