@@ -1,0 +1,144 @@
+<resources>
+<string name="app_name">درب تحسس</string>
+    <string name="action_navigation">التنقل</string>
+    <string name="action_weather">طقس</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="compass_alt">بوصلة</string>
+    <string name="direction_arrow_desc">سهم الاتجاه</string>
+    <string name="location_unknown">الموقع غير معروف</string>
+    <string name="destination_star_desc">المكان المقصود</string>
+    <string name="create_beacon_title">إسقاط منارة</string>
+    <string name="beacon_name_hint">اسم</string>
+    <string name="beacon_latitude_hint">خط العرض</string>
+    <string name="beacon_longitude_hint">خط الطول</string>
+    <string name="beacon_use_current_location">استخدام الموقع الحالي</string>
+    <string name="beacon_title">حدد منارة</string>
+    <string name="dialog_ok">حسنا</string>
+    <string name="delete_beacon_alert_title">تحذف المرشد</string>
+    <string name="dialog_cancel">إلغاء</string>
+    <string name="pressure_chart_title">الضغط</string>
+    <string name="action_astronomy">الفلك</string>
+    <string name="sunrise_label">شروق الشمس</string>
+    <string name="sunset_label">غروب الشمس</string>
+    <string name="until_sunrise_label">حتى شروق الشمس</string>
+    <string name="until_sunset_label">حتى غروب الشمس</string>
+
+
+    <string name="pref_use_true_north_title">الشمال الحقيقي</string>
+    <string name="pref_use_true_north" translatable="false">use_true_north</string>
+    <string name="pref_use_sea_level_pressure_title">ضغط مستوى البحر</string>
+    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
+    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
+    <string name="pref_units_header">جنرال لواء</string>
+    <string name="pref_distance_units_title">مسافة</string>
+    <string name="pref_pressure_units_title">الضغط</string>
+    <string name="pref_pressure_units" translatable="false">pressure_units</string>
+    <string name="pref_distance_units" translatable="false">distance_units</string>
+    <string name="pref_navigation_header">التنقل</string>
+    <string name="pref_weather_header">طقس</string>
+    <string name="pref_send_storm_alerts_title">تنبيهات العاصفة</string>
+    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
+    <string name="pref_astronomy_header">الفلك</string>
+    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
+    <string name="pref_use_24_hour_title">استخدم تنسيق 24 ساعة</string>
+    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
+    <string name="pref_altitude_mode_title">مقياس الارتفاع</string>
+    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
+    <string name="pref_sun_time_mode_title">أوقات شروق /غروب الشمس</string>
+    <string name="weather_improving_fast">تتحسن قريبًا جدًا</string>
+    <string name="weather_improving_slow">تتحسن قريبًا</string>
+    <string name="weather_worsening_slow">تزداد سوءًا قريبًا</string>
+    <string name="weather_worsening_fast">تزداد سوءًا قريبًا</string>
+    <string name="weather_storm_incoming">العاصفة واردة</string>
+    <string name="weather_not_changing">لن يتغير قريبًا</string>
+    <string name="forecast_improving">ربما تتحسن لاحقًا</string>
+    <string name="forecast_worsening">ربما تزداد سوءًا لاحقًا</string>
+    <string name="no_beacons">لا توجد منارات</string>
+    <string name="onboarding_compass">ضع المنارات وانتقل إليها مرة أخرى</string>
+    <string name="onboarding_weather">احصل على توقعات الطقس المحلية</string>
+    <string name="onboarding_weather_no_internet">* لا يستخدم اتصال بالإنترنت</string>
+    <string name="onboarding_astronomy">اعرف متى ستشرق الشمس /القمر وتغيب</string>
+    <string name="onboarding_background_location">يحتاج Trail Sense إلى إذن لاستخدام GPS الخاص بك</string>
+    <string name="onboarding_location_weather">يسمح بتنبؤات الطقس أكثر دقة (يضبط الارتفاع)</string>
+    <string name="onboarding_location_navigation">يسمح لك بالانتقال إلى منارات</string>
+    <string name="onboarding_location_astronomy">يتيح لك رؤية شروق الشمس والقمر وتعيين أوقات</string>
+    <string name="onboarding_location_privacy">تحترم Trail Sense خصوصيتك - لا تترك بيانات الموقع جهازك أبدًا</string>
+    <string name="onboarding_location_all_time">يرجى تحديد \"السماح طوال الوقت \" من مربع حوار الإذن</string>
+    <string name="continue_button">استمر</string>
+    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
+    <string name="moon_rise">طلوع القمر</string>
+    <string name="moon_set">القمر</string>
+    <string name="stop_monitoring">قف</string>
+    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
+    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
+    <string name="pref_compass_filter_amt_title">تنعيم البوصلة</string>
+    <string name="pref_compass_filter_amt_summary">قد تؤدي القيم العالية إلى تقليل الضوضاء</string>
+    <string name="pref_theme" translatable="false">pref_theme</string>
+    <string name="pref_theme_title">موضوع</string>
+    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
+    <string name="pref_use_experimental_compass_title">استخدم بوصلة تجريبية</string>
+    <string name="pref_use_legacy_compass_title">استخدم بوصلة قديمة</string>
+    <string name="pref_use_experimental_compass_summary">قد إصلاح مشاكل البوصلة</string>
+    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
+    <string name="pref_display_multi_beacons_title">عرض منارات قريبة</string>
+    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
+    <string name="pref_storm_alert_sensitivity_title">حساسية تنبيه العاصفة</string>
+    <string name="pref_show_ruler" translatable="false">pref_show_ruler</string>
+    <string name="pref_show_ruler_title">إظهار المسطرة</string>
+    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
+    <string name="pref_show_sun_moon_compass_title">عرض الشمس /القمر على البوصلة</string>
+    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
+    <string name="pref_show_linear_compass_title">إظهار البوصلة الخطية</string>
+    <string name="pref_show_linear_compass_summary">عندما يكون الهاتف عموديًا</string>
+
+    <string name="delete_beacon_confirmation">هل أنت متأكد أنك تريد إزالة "٪s"؟</string>
+
+    <plurals name="last_hours">
+        <item quantity="one">الاخير %d ساعة</item>
+        <item quantity="other">الاخير %d ساعات</item>
+    </plurals>الاخير
+
+    <plurals name="last_minutes">
+        <item quantity="one">الاخير %d دقيقة</item>
+        <item quantity="other">الاخير %d الدقائق</item>
+    </plurals>
+
+    <string name="meters">أمتار</string>
+    <string name="feet_miles">قدم /ميل</string>
+    <string name="units_hpa">هبا</string>
+    <string name="units_inhg">زئبق</string>
+    <string name="units_mbar">مبار</string>
+    <string name="units_psi">PSI</string>
+
+    <string name="theme_light">ضوء</string>
+    <string name="theme_dark">داكن</string>
+    <string name="theme_black">أسود</string>
+    <string name="theme_system">النظام</string>
+
+    <string name="gps">GPS</string>
+    <string name="barometer">بارومتر</string>
+
+    <string name="sensitivity_low">منخفض</string>
+    <string name="sensitivity_med">متوسط</string>
+    <string name="sensitivity_high">عالي</string>
+
+    <string name="sun_actual">الوقت الفعلي</string>
+    <string name="sun_civil">الشفق المدني</string>
+    <string name="sun_nautical">الشفق البحري</string>
+    <string name="sun_astronomical">الشفق الفلكي</string>
+    <string name="not_all_permissions_granted">ليست كل الأذونات الممنوحة ، قد يتم كسر بعض الميزات</string>
+    <string name="today">اليوم</string>
+    <string name="tomorrow">غدا</string>
+    <string name="yesterday">في الامس</string>
+    <string name="this_year_format">ش ش ش د</string>
+    <string name="other_year_format">يوم ، شهر ، سنة</string>
+    <string name="illumination">إضاءة</string>
+    <string name="pressure_tendency_indicator_alt">مؤشر ميل الضغط</string>
+
+    <string name="pressure_48_hours">48 ساعة</string>
+    <string name="pressure_24_hours">24 ساعة</string>
+    <string name="pressure_12_hours">12 ساعة</string>
+    <string name="pressure_4_hours">4 ساعات</string>
+    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
+    <string name="pref_pressure_history_title">تاريخ الضغط</string>
+</resources>
