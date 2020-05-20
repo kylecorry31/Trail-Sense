@@ -91,7 +91,7 @@
     <string name="pref_show_linear_compass_title">Ուցադրել գծային կողմնացույց</string>
     <string name="pref_show_linear_compass_summary">Երբ հեռախոսը ուղղահայաց է</string>
 
-    <string name="delete_beacon_confirmation">Համոզվա՞ծ եք, որ ցանկանում եք հեռացնել "%s" - ը:</string>
+    <string name="delete_beacon_confirmation">Համոզվա՞ծ եք, որ ցանկանում եք հեռացնել "%s"</string>
 
     <plurals name="last_hours">
         <item quantity="one">Վերջին %d ժամ</item>
@@ -130,8 +130,8 @@
     <string name="today">Այսօր</string>
     <string name="tomorrow">Վաղը</string>
     <string name="yesterday">Երեկ</string>
-    <string name="this_year_format">MMMM դ</string>
-    <string name="other_year_format">MMM դ, YYYY</string>
+    <string name="this_year_format">MMMM d</string>
+    <string name="other_year_format">MMM d, YYYY</string>
     <string name="illumination">լուսավորություն</string>
     <string name="pressure_tendency_indicator_alt">Pressնշման հակվածության ցուցանիշը</string>
 
