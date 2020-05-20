@@ -1,0 +1,144 @@
+<resources>
+<string name="app_name">ट्रेल सेंस</string>
+    <string name="action_navigation">पथ प्रदर्शन</string>
+    <string name="action_weather">मौसम</string>
+    <string name="action_settings">समायोजन</string>
+    <string name="compass_alt">दिशा सूचक यंत्र</string>
+    <string name="direction_arrow_desc">दिक्संकेतक तीर</string>
+    <string name="location_unknown">स्थान अज्ञात है</string>
+    <string name="destination_star_desc">गंतव्य</string>
+    <string name="create_beacon_title">बीकन गिरा दो</string>
+    <string name="beacon_name_hint">नाम</string>
+    <string name="beacon_latitude_hint">अक्षांश</string>
+    <string name="beacon_longitude_hint">देशान्तर</string>
+    <string name="beacon_use_current_location">वर्तमान स्थान का उपयोग करें</string>
+    <string name="beacon_title">बीकन का चयन करें</string>
+    <string name="dialog_ok">ठीक</string>
+    <string name="delete_beacon_alert_title">बीकन को हटा दें</string>
+    <string name="dialog_cancel">रद्द करना</string>
+    <string name="pressure_chart_title">दबाव</string>
+    <string name="action_astronomy">खगोल</string>
+    <string name="sunrise_label">सूर्योदय</string>
+    <string name="sunset_label">सूर्य का अस्त होना</string>
+    <string name="until_sunrise_label">सूर्योदय तक</string>
+    <string name="until_sunset_label">सूर्यास्त तक</string>
+
+
+    <string name="pref_use_true_north_title">ट्रू नॉर्थ</string>
+    <string name="pref_use_true_north" translatable="false">use_true_north</string>
+    <string name="pref_use_sea_level_pressure_title">समुद्र तल का दबाव</string>
+    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
+    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
+    <string name="pref_units_header">सामान्य</string>
+    <string name="pref_distance_units_title">दूरी</string>
+    <string name="pref_pressure_units_title">दबाव</string>
+    <string name="pref_pressure_units" translatable="false">pressure_units</string>
+    <string name="pref_distance_units" translatable="false">distance_units</string>
+    <string name="pref_navigation_header">पथ प्रदर्शन</string>
+    <string name="pref_weather_header">मौसम</string>
+    <string name="pref_send_storm_alerts_title">तूफान का अलर्ट</string>
+    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
+    <string name="pref_astronomy_header">खगोल</string>
+    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
+    <string name="pref_use_24_hour_title">24-घंटे के प्रारूप का उपयोग करें</string>
+    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
+    <string name="pref_altitude_mode_title">altimeter</string>
+    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
+    <string name="pref_sun_time_mode_title">सूर्योदय /सूर्यास्त के समय</string>
+    <string name="weather_improving_fast">बहुत जल्द सुधार होगा</string>
+    <string name="weather_improving_slow">जल्द ही सुधार होगा</string>
+    <string name="weather_worsening_slow">जल्दी ही झड़ गया</string>
+    <string name="weather_worsening_fast">बहुत जल्द लड़खड़ा जाता है</string>
+    <string name="weather_storm_incoming">आनेवाला तूफान</string>
+    <string name="weather_not_changing">जल्द नहीं बदल रहा है</string>
+    <string name="forecast_improving">संभवतः बाद में सुधार होगा</string>
+    <string name="forecast_worsening">संभवतः बाद में बिगड़ती जा रही है</string>
+    <string name="no_beacons">कोई बीकन नहीं</string>
+    <string name="onboarding_compass">बीकन रखें और उन्हें वापस नेविगेट करें</string>
+    <string name="onboarding_weather">हाइपरलोकल मौसम पूर्वानुमान प्राप्त करें</string>
+    <string name="onboarding_weather_no_internet">* इंटरनेट कनेक्शन का उपयोग नहीं करता है</string>
+    <string name="onboarding_astronomy">जानिए सूर्य /चन्द्रमा कब उदय और अस्त होगा</string>
+    <string name="onboarding_background_location">ट्रेल सेंस को आपके जीपीएस का उपयोग करने की अनुमति चाहिए</string>
+    <string name="onboarding_location_weather">अधिक सटीक मौसम पूर्वानुमान के लिए अनुमति देता है (ऊंचाई के लिए समायोजन)</string>
+    <string name="onboarding_location_navigation">आपको बीकन पर नेविगेट करने की अनुमति देता है</string>
+    <string name="onboarding_location_astronomy">आपको सूरज /चंद्रमा को उगने और समय देखने की अनुमति देता है</string>
+    <string name="onboarding_location_privacy">ट्रेल सेंस आपकी गोपनीयता का सम्मान करता है - स्थान डेटा आपके डिवाइस को कभी नहीं छोड़ता है</string>
+    <string name="onboarding_location_all_time">कृपया अनुमति डायलॉग से \'हर समय अनुमति दें\' का चयन करें</string>
+    <string name="continue_button">जारी रखें</string>
+    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
+    <string name="moon_rise">चंद्रोदय</string>
+    <string name="moon_set">चंद्रास्त</string>
+    <string name="stop_monitoring">रुकें</string>
+    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
+    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
+    <string name="pref_compass_filter_amt_title">कम्पास चौरसाई</string>
+    <string name="pref_compass_filter_amt_summary">उच्च मूल्यों से शोर कम हो सकता है</string>
+    <string name="pref_theme" translatable="false">pref_theme</string>
+    <string name="pref_theme_title">विषय</string>
+    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
+    <string name="pref_use_experimental_compass_title">प्रयोगात्मक कम्पास का उपयोग करें</string>
+    <string name="pref_use_legacy_compass_title">विरासत कम्पास का उपयोग करें</string>
+    <string name="pref_use_experimental_compass_summary">कम्पास मुद्दों को ठीक कर सकते हैं</string>
+    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
+    <string name="pref_display_multi_beacons_title">बीकन के पास प्रदर्शित करें</string>
+    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
+    <string name="pref_storm_alert_sensitivity_title">तूफान की चेतावनी संवेदनशीलता</string>
+    <string name="pref_show_ruler" translatable="false">pref_show_ruler</string>
+    <string name="pref_show_ruler_title">शासक को दिखाएँ</string>
+    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
+    <string name="pref_show_sun_moon_compass_title">कम्पास पर सूरज /चंद्रमा दिखाएं</string>
+    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
+    <string name="pref_show_linear_compass_title">रैखिक कम्पास दिखाएं</string>
+    <string name="pref_show_linear_compass_summary">जब फोन वर्टिकल होता है</string>
+
+    <string name="delete_beacon_confirmation">क्या आप वाकई " %s" को हटाना चाहते हैं?</string>
+
+    <plurals name="last_hours">
+        <item quantity="one">अन्तिम %d घण्टा</item>
+        <item quantity="other">अन्तिम %d घण्टा</item>
+    </plurals>
+
+    <plurals name="last_minutes">
+        <item quantity="one">अन्तिम %d मिनेट</item>
+        <item quantity="other">अन्तिम %d मिनेट</item>
+    </plurals>
+
+    <string name="meters">मीटर</string>
+    <string name="feet_miles">पैर /मील</string>
+    <string name="units_hpa">hPa</string>
+    <string name="units_inhg">inHg</string>
+    <string name="units_mbar">मिलीबार</string>
+    <string name="units_psi">पीएसआई</string>
+
+    <string name="theme_light">रोशनी</string>
+    <string name="theme_dark">अंधेरा</string>
+    <string name="theme_black">काली</string>
+    <string name="theme_system">प्रणाली</string>
+
+    <string name="gps">GPS</string>
+    <string name="barometer">बैरोमीटर</string>
+
+    <string name="sensitivity_low">कम</string>
+    <string name="sensitivity_med">मध्यम</string>
+    <string name="sensitivity_high">उच्च</string>
+
+    <string name="sun_actual">असली समय</string>
+    <string name="sun_civil">सिविल गोधूलि</string>
+    <string name="sun_nautical">समुद्री गोधूलि</string>
+    <string name="sun_astronomical">खगोलीय गोधूलि</string>
+    <string name="not_all_permissions_granted">सभी अनुमतियाँ नहीं दी गई हैं, कुछ सुविधाओं को तोड़ा जा सकता है</string>
+    <string name="today">आज</string>
+    <string name="tomorrow">आने वाला कल</string>
+    <string name="yesterday">बिता कल</string>
+    <string name="this_year_format">MMMM d</string>
+    <string name="other_year_format">MMM d, YYYY</string>
+    <string name="illumination">रोशनी</string>
+    <string name="pressure_tendency_indicator_alt">दबाव प्रवृत्ति संकेतक</string>
+
+    <string name="pressure_48_hours">४८ घंटे</string>
+    <string name="pressure_24_hours">२ घंटे</string>
+    <string name="pressure_12_hours">१२ घंटे</string>
+    <string name="pressure_4_hours">४ घंटे</string>
+    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
+    <string name="pref_pressure_history_title">दबाव इतिहास</string>
+</resources>
