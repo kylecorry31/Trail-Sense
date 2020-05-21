@@ -19,6 +19,7 @@ import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
 import android.view.View
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.domain.compass.CompassDirection
 import kotlin.math.roundToInt
 
 class LinearCompassView(
@@ -54,17 +55,7 @@ class LinearCompassView(
     private var mRangeDegrees: Float
     private var mShowMarker: Boolean
     private var mDetector: GestureDetector? = null
-    private fun checkValues() {
-        if (mDegrees < 0 || mDegrees > 359) throw IndexOutOfBoundsException(
-            resources
-                .getString(R.string.out_index_degrees)
-        )
-        if (mRangeDegrees < 90 || mRangeDegrees > 360) throw IndexOutOfBoundsException(
-            resources.getString(
-                R.string.out_index_range_degrees
-            )
-        )
-    }
+
 
     private fun init() {
         mTextPaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -176,10 +167,10 @@ class LinearCompassView(
                         )
                         var coord = ""
                         when (i) {
-                            -90, 270 -> coord = resources.getString(R.string.compass_west)
-                            0, 360 -> coord = resources.getString(R.string.compass_north)
-                            90, 450 -> coord = resources.getString(R.string.compass_east)
-                            -180, 180 -> coord = resources.getString(R.string.compass_south)
+                            -90, 270 -> coord = CompassDirection.WEST.symbol
+                            0, 360 -> coord = CompassDirection.NORTH.symbol
+                            90, 450 -> CompassDirection.EAST.symbol
+                            -180, 180 -> coord = CompassDirection.SOUTH.symbol
                         }
                         canvas.drawText(
                             coord, paddingLeft + pixDeg * (i - minDegrees), (5 * unitHeight
@@ -214,10 +205,6 @@ class LinearCompassView(
     }
 
     fun setDegrees(degrees: Float) {
-        if (mDegrees < 0 || mDegrees >= 360) throw IndexOutOfBoundsException(
-            resources
-                .getString(R.string.out_index_degrees) + mDegrees
-        )
         mDegrees = degrees
         invalidate()
         requestLayout()
@@ -266,12 +253,6 @@ class LinearCompassView(
     }
 
     fun setRangeDegrees(range: Float) {
-        if (mRangeDegrees < 90 || mRangeDegrees > 360) throw IndexOutOfBoundsException(
-            resources.getString(
-                R.string.out_index_range_degrees
-            )
-                    + mRangeDegrees
-        )
         mRangeDegrees = range
         invalidate()
         requestLayout()
@@ -339,7 +320,6 @@ class LinearCompassView(
         mDegrees = a.getFloat(R.styleable.LinearCompassView_degrees, 0f)
         mRangeDegrees = a.getFloat(R.styleable.LinearCompassView_rangeDegrees, 180f)
         a.recycle()
-        checkValues()
         init()
     }
 }
