@@ -91,16 +91,24 @@
     <string name="pref_show_linear_compass_title">إظهار البوصلة الخطية</string>
     <string name="pref_show_linear_compass_summary">عندما يكون الهاتف عموديًا</string>
 
-    <string name="delete_beacon_confirmation">هل أنت متأكد أنك تريد إزالة "٪s"؟</string>
+    <string name="delete_beacon_confirmation">هل أنت متأكد أنك تريد إزالة "s%"؟</string>
 
     <plurals name="last_hours">
         <item quantity="one">الاخير %d ساعة</item>
         <item quantity="other">الاخير %d ساعات</item>
+        <item quantity="few">الاخير %d ساعات</item>
+        <item quantity="many">الاخير %d ساعات</item>
+        <item quantity="two">الاخير %d ساعات</item>
+        <item quantity="zero">0 ساعة الماضية</item>
     </plurals>الاخير
 
     <plurals name="last_minutes">
         <item quantity="one">الاخير %d دقيقة</item>
         <item quantity="other">الاخير %d الدقائق</item>
+        <item quantity="few">الاخير %d الدقائق</item>
+        <item quantity="many">الاخير %d الدقائق</item>
+        <item quantity="two">الاخير %d الدقائق</item>
+        <item quantity="zero">آخر 0 دقيقة</item>
     </plurals>
 
     <string name="meters">أمتار</string>

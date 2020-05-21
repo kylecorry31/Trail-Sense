@@ -96,11 +96,13 @@
     <plurals name="last_hours">
         <item quantity="one">Poslednja %d sat</item>
         <item quantity="other">Poslednja %d sati</item>
+        <item quantity="few">Poslednja %d sati</item>
     </plurals>
 
     <plurals name="last_minutes">
         <item quantity="one">Poslednja %d minutu</item>
         <item quantity="other">Poslednja %d minuta</item>
+        <item quantity="few">Poslednja %d minuta</item>
     </plurals>
 
     <string name="meters">Metri</string>

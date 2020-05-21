@@ -91,15 +91,13 @@
     <string name="pref_show_linear_compass_title">显示线性罗盘</string>
     <string name="pref_show_linear_compass_summary">当手机垂直时</string>
 
-    <string name="delete_beacon_confirmation">您确定要删除"％s"吗？</string>
+    <string name="delete_beacon_confirmation">您确定要删除 "%s" 吗？</string>
 
     <plurals name="last_hours">
-        <item quantity="one">持续 %d 小时</item>
         <item quantity="other">持续 %d 小时</item>
     </plurals>
 
     <plurals name="last_minutes">
-        <item quantity="one">持续 %d 分钟</item>
         <item quantity="other">持续 %d 分钟</item>
     </plurals>
 
