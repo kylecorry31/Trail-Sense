@@ -1,0 +1,144 @@
+<resources>
+<string name="app_name">Трейл Смисъл</string>
+    <string name="action_navigation">навигация</string>
+    <string name="action_weather">Метеорологично време</string>
+    <string name="action_settings">Настройки</string>
+    <string name="compass_alt">компас</string>
+    <string name="direction_arrow_desc">Стрелка на посоката</string>
+    <string name="location_unknown">Местоположението е неизвестно</string>
+    <string name="destination_star_desc">Дестинация</string>
+    <string name="create_beacon_title">Пуснете Маяк</string>
+    <string name="beacon_name_hint">име</string>
+    <string name="beacon_latitude_hint">Географска ширина</string>
+    <string name="beacon_longitude_hint">дължина</string>
+    <string name="beacon_use_current_location">Използвайте текущото местоположение</string>
+    <string name="beacon_title">Изберете маяк</string>
+    <string name="dialog_ok">Добре</string>
+    <string name="delete_beacon_alert_title">Изтриване на маяк</string>
+    <string name="dialog_cancel">Отказ</string>
+    <string name="pressure_chart_title">налягане</string>
+    <string name="action_astronomy">астрономия</string>
+    <string name="sunrise_label">изгрев</string>
+    <string name="sunset_label">залез</string>
+    <string name="until_sunrise_label">до изгрев</string>
+    <string name="until_sunset_label">до залез слънце</string>
+
+
+    <string name="pref_use_true_north_title">Истински Север</string>
+    <string name="pref_use_true_north" translatable="false">use_true_north</string>
+    <string name="pref_use_sea_level_pressure_title">Налягане на морското ниво</string>
+    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
+    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
+    <string name="pref_units_header">Общ</string>
+    <string name="pref_distance_units_title">разстояние</string>
+    <string name="pref_pressure_units_title">налягане</string>
+    <string name="pref_pressure_units" translatable="false">pressure_units</string>
+    <string name="pref_distance_units" translatable="false">distance_units</string>
+    <string name="pref_navigation_header">навигация</string>
+    <string name="pref_weather_header">Метеорологично време</string>
+    <string name="pref_send_storm_alerts_title">Сигнали за буря</string>
+    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
+    <string name="pref_astronomy_header">астрономия</string>
+    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
+    <string name="pref_use_24_hour_title">Използвайте 24-часов формат</string>
+    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
+    <string name="pref_altitude_mode_title">алтиметър</string>
+    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
+    <string name="pref_sun_time_mode_title">Време за изгрев /залез</string>
+    <string name="weather_improving_fast">Подобряване много скоро</string>
+    <string name="weather_improving_slow">Подобряване скоро</string>
+    <string name="weather_worsening_slow">Влошава се скоро</string>
+    <string name="weather_worsening_fast">Влошава се много скоро</string>
+    <string name="weather_storm_incoming">Бурята идва</string>
+    <string name="weather_not_changing">Не се променя скоро</string>
+    <string name="forecast_improving">Възможно подобрение по-късно</string>
+    <string name="forecast_worsening">Възможно влошаване по-късно</string>
+    <string name="no_beacons">Без маяци</string>
+    <string name="onboarding_compass">Поставете маяци и се придвижете обратно към тях</string>
+    <string name="onboarding_weather">Получавайте хиперлокални прогнози за времето</string>
+    <string name="onboarding_weather_no_internet">* не използва интернет връзка</string>
+    <string name="onboarding_astronomy">Знайте кога слънцето /луната ще изгрява и залязва</string>
+    <string name="onboarding_background_location">Trail Sense се нуждае от разрешение за използване на вашия GPS</string>
+    <string name="onboarding_location_weather">Позволява по-точни прогнози за времето (коригира надморската височина)</string>
+    <string name="onboarding_location_navigation">Позволява ви да навигирате до маяци</string>
+    <string name="onboarding_location_astronomy">Позволява ви да виждате изгряване на слънцето /луната и зададени времена</string>
+    <string name="onboarding_location_privacy">Trail Sense зачита вашата поверителност - данните за местоположение никога не напускат вашето устройство</string>
+    <string name="onboarding_location_all_time">Моля, изберете \"Разрешаване на всички времена \" от диалоговия прозорец на разрешенията</string>
+    <string name="continue_button">ПРОДЪЛЖИ</string>
+    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
+    <string name="moon_rise">Moonrise</string>
+    <string name="moon_set">Залез на Луната</string>
+    <string name="stop_monitoring">Спри се</string>
+    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
+    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
+    <string name="pref_compass_filter_amt_title">Изглаждане на компас</string>
+    <string name="pref_compass_filter_amt_summary">Високите стойности могат да намалят шума</string>
+    <string name="pref_theme" translatable="false">pref_theme</string>
+    <string name="pref_theme_title">тема</string>
+    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
+    <string name="pref_use_experimental_compass_title">Използвайте експериментален компас</string>
+    <string name="pref_use_legacy_compass_title">Използвайте наследен компас</string>
+    <string name="pref_use_experimental_compass_summary">Може да коригира проблеми с компаса</string>
+    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
+    <string name="pref_display_multi_beacons_title">Показване на близки маяци</string>
+    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
+    <string name="pref_storm_alert_sensitivity_title">Чувствителност към буря</string>
+    <string name="pref_show_ruler" translatable="false">pref_show_ruler</string>
+    <string name="pref_show_ruler_title">Покажете владетел</string>
+    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
+    <string name="pref_show_sun_moon_compass_title">Покажете слънце /луна на компас</string>
+    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
+    <string name="pref_show_linear_compass_title">Покажете линеен компас</string>
+    <string name="pref_show_linear_compass_summary">Когато телефонът е вертикален</string>
+
+    <string name="delete_beacon_confirmation">Сигурни ли сте, че искате да премахнете "%s"?</string>
+
+    <plurals name="last_hours">
+        <item quantity="one">последно %d час</item>
+        <item quantity="other">последно %d часa</item>
+    </plurals>
+
+    <plurals name="last_minutes">
+        <item quantity="one">последно %d минута</item>
+        <item quantity="other">последно %d минути</item>
+    </plurals>
+
+    <string name="meters">метри</string>
+    <string name="feet_miles">Крака /мили</string>
+    <string name="units_hpa">HPA</string>
+    <string name="units_inhg">inHg</string>
+    <string name="units_mbar">милибара</string>
+    <string name="units_psi">PSI</string>
+
+    <string name="theme_light">Светлина</string>
+    <string name="theme_dark">тъмен</string>
+    <string name="theme_black">черно</string>
+    <string name="theme_system">Система</string>
+
+    <string name="gps">GPS</string>
+    <string name="barometer">барометър</string>
+
+    <string name="sensitivity_low">ниско</string>
+    <string name="sensitivity_med">среда</string>
+    <string name="sensitivity_high">Високо</string>
+
+    <string name="sun_actual">Реално време</string>
+    <string name="sun_civil">Граждански здрач</string>
+    <string name="sun_nautical">Морски здрач</string>
+    <string name="sun_astronomical">Астрономически здрач</string>
+    <string name="not_all_permissions_granted">Не всички предоставени разрешения, някои функции могат да бъдат нарушени</string>
+    <string name="today">днес</string>
+    <string name="tomorrow">утре</string>
+    <string name="yesterday">Вчера</string>
+    <string name="this_year_format">MMMM d</string>
+    <string name="other_year_format">МММ d, YYYY</string>
+    <string name="illumination">осветление</string>
+    <string name="pressure_tendency_indicator_alt">Индикатор за тенденция на налягане</string>
+
+    <string name="pressure_48_hours">48 часа</string>
+    <string name="pressure_24_hours">24 часа</string>
+    <string name="pressure_12_hours">12 часа</string>
+    <string name="pressure_4_hours">4 часа</string>
+    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
+    <string name="pref_pressure_history_title">История на налягането</string>
+</resources>

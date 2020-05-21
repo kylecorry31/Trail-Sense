@@ -94,12 +94,10 @@
     <string name="delete_beacon_confirmation">「%s」を削除してもよろしいですか？</string>
 
     <plurals name="last_hours">
-        <item quantity="one">最終 %d 時間</item>
         <item quantity="other">最終 %d 時間</item>
     </plurals>
 
     <plurals name="last_minutes">
-        <item quantity="one">最終 %d 分</item>
         <item quantity="other">最終 %d 分</item>
     </plurals>
 

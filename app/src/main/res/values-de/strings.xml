@@ -1,0 +1,144 @@
+<resources>
+    <string name="app_name">Sinn der Fährte</string>
+    <string name="action_navigation">Navigation</string>
+    <string name="action_weather">Wetter</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="compass_alt">Kompass</string>
+    <string name="direction_arrow_desc">Richtungspfeil</string>
+    <string name="location_unknown">Ort unbekannt</string>
+    <string name="destination_star_desc">Reiseziel</string>
+    <string name="create_beacon_title">Abwurfbake</string>
+    <string name="beacon_name_hint">Name</string>
+    <string name="beacon_latitude_hint">Breitengrad</string>
+    <string name="beacon_longitude_hint">Längengrad</string>
+    <string name="beacon_use_current_location">Aktuellen Standort verwenden</string>
+    <string name="beacon_title">Bake auswählen</string>
+    <string name="dialog_ok">OK</string>
+    <string name="delete_beacon_alert_title">Bake löschen</string>
+    <string name="dialog_cancel">Abbrechen</string>
+    <string name="pressure_chart_title">Druck</string>
+    <string name="action_astronomy">Astronomie</string>
+    <string name="sunrise_label">Sonnenaufgang</string>
+    <string name="sunset_label">Sonnenuntergang</string>
+    <string name="until_sunrise_label">bis Sonnenaufgang</string>
+    <string name="until_sunset_label">bis Sonnenuntergang</string>
+
+
+    <string name="pref_use_true_north_title">Wahrer Norden</string>
+    <string name="pref_use_true_north" translatable="false">use_true_north</string>
+    <string name="pref_use_sea_level_pressure_title">Meeresspiegeldruck</string>
+    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
+    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
+    <string name="pref_units_header">Allgemein</string>
+    <string name="pref_distance_units_title">Entfernung</string>
+    <string name="pref_pressure_units_title">Druck</string>
+    <string name="pref_pressure_units" translatable="false">pressure_units</string>
+    <string name="pref_distance_units" translatable="false">distance_units</string>
+    <string name="pref_navigation_header">Navigation</string>
+    <string name="pref_weather_header">Wetter</string>
+    <string name="pref_send_storm_alerts_title">Sturmwarnungen</string>
+    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
+    <string name="pref_astronomy_header">Astronomie</string>
+    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
+    <string name="pref_use_24_hour_title">24-Stunden-Format verwenden</string>
+    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
+    <string name="pref_altitude_mode_title">Höhenmesser</string>
+    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
+    <string name="pref_sun_time_mode_title">Sonnenaufgangs-/Sonnenuntergangszeiten</string>
+    <string name="weather_improving_fast">Sehr bald Besserung</string>
+    <string name="weather_improving_slow">Bald besser werdend</string>
+    <string name="weather_worsening_slow">:Verschlimmert sich bald</string>
+    <string name="weather_worsening_fast">:Verschlechterung sehr bald</string>
+    <string name="weather_storm_incoming">Sturm im Anmarsch</string>
+    <string name="weather_not_changing">Nicht bald ändern</string>
+    <string name="forecast_improving">Möglicherweise später besser</string>
+    <string name="forecast_worsening">Möglicherweise Verschlechterung später</string>
+    <string name="no_beacons">Keine Baken</string>
+    <string name="onboarding_compass">Baken platzieren und zu ihnen zurück navigieren</string>
+    <string name="onboarding_weather">Hyperlokale Wettervorhersagen abrufen</string>
+    <string name="onboarding_weather_no_internet">* verwendet keine Internet-Verbindung</string>
+    <string name="onboarding_astronomy">Wissen, wann die Sonne/Mond auf- und untergehen wird</string>
+    <string name="onboarding_background_location">Trail Sense benötigt eine Erlaubnis zur Verwendung Ihres GPS</string>
+    <string name="onboarding_location_weather">Ermöglicht genauere Wettervorhersagen (passt sich der Höhe an)</string>
+    <string name="onboarding_location_navigation">Erlaubt Ihnen die Navigation zu Baken</string>
+    <string name="onboarding_location_astronomy">Erlaubt Ihnen, die Auf- und Untergangszeiten von Sonne und Mond zu sehen</string>
+    <string name="onboarding_location_privacy">Trail Sense respektiert Ihre Privatsphäre - Standortdaten verlassen niemals Ihr Gerät</string>
+    <string name="onboarding_location_all_time">Bitte wählen Sie \'Allow all the time\' aus dem Genehmigungsdialog</string>
+    <string name="continue_button">FORTGESETZT</string>
+    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
+    <string name="moon_rise">Mondaufgang</string>
+    <string name="moon_set">Monduntergang</string>
+    <string name="stop_monitoring">Halt</string>
+    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
+    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
+    <string name="pref_compass_filter_amt_title">Kompassglättung</string>
+    <string name="pref_compass_filter_amt_summary">Hohe Werte können Lärm reduzieren</string>
+    <string name="pref_theme" translatable="false">pref_theme</string>
+    <string name="pref_theme_title">Thema</string>
+    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
+    <string name="pref_use_experimental_compass_title">Experimentellen Kompass verwenden</string>
+    <string name="pref_use_legacy_compass_title">Vermächtnis-Kompass verwenden</string>
+    <string name="pref_use_experimental_compass_summary">Kann Kompassprobleme beheben</string>
+    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
+    <string name="pref_display_multi_beacons_title">Nahegelegene Baken anzeigen</string>
+    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
+    <string name="pref_storm_alert_sensitivity_title">Sturmalarm-Empfindlichkeit</string>
+    <string name="pref_show_ruler" translatable="false">pref_show_ruler</string>
+    <string name="pref_show_ruler_title">Herrscher anzeigen</string>
+    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
+    <string name="pref_show_sun_moon_compass_title">Sonne/Mond auf dem Kompass anzeigen</string>
+    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
+    <string name="pref_show_linear_compass_title">Linearen Kompass anzeigen</string>
+    <string name="pref_show_linear_compass_summary">Wenn das Telefon senkrecht steht</string>
+
+    <string name="delete_beacon_confirmation">Sind Sie sicher, dass Sie "%s" entfernen wollen?</string>
+
+    <plurals name="last_hours">
+        <item quantity="one">Letzte %d Stunde</item>
+        <item quantity="other">Letzte %d Std</item>
+    </plurals>
+
+    <plurals name="last_minutes">
+        <item quantity="one">Letzte %d Minute</item>
+        <item quantity="other">Letzte %d Protokoll</item>
+    </plurals>
+
+    <string name="meters">Meter</string>
+    <string name="feet_miles">Füße / Meilen</string>
+    <string name="units_hpa">hPa</string>
+    <string name="units_inhg">inHg</string>
+    <string name="units_mbar">mbar</string>
+    <string name="units_psi">PSI</string>
+
+    <string name="theme_light">Licht</string>
+    <string name="theme_dark">Dunkel</string>
+    <string name="theme_black">Schwarz</string>
+    <string name="theme_system">System</string>
+
+    <string name="gps">GPS</string>
+    <string name="barometer">Barometer</string>
+
+    <string name="sensitivity_low">Niedrig</string>
+    <string name="sensitivity_med">Mittel</string>
+    <string name="sensitivity_high">Hoch</string>
+
+    <string name="sun_actual">Tatsächliche Zeit</string>
+    <string name="sun_civil">Zivile Dämmerung</string>
+    <string name="sun_nautical">Nautische Dämmerung</string>
+    <string name="sun_astronomical">Astronomische Dämmerung</string>
+    <string name="not_all_permissions_granted">Nicht alle Berechtigungen werden gewährt, einige Funktionen können gebrochen sein</string>
+    <string name="today">Heute</string>
+    <string name="tomorrow">Morgen</string>
+    <string name="yesterday">Gestern</string>
+    <string name="this_year_format">MMMM d</string>
+    <string name="other_year_format">MMM d, YYYY</string>
+    <string name="illumination">Beleuchtung</string>
+    <string name="pressure_tendency_indicator_alt">Drucktendenz-Indikator</string>
+
+    <string name="pressure_48_hours">48 Stunden</string>
+    <string name="pressure_24_hours">24 Stunden</string>
+    <string name="pressure_12_hours">12 Stunden</string>
+    <string name="pressure_4_hours">4 Stunden</string>
+    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
+    <string name="pref_pressure_history_title">Druck-Geschichte</string>
+</resources>
