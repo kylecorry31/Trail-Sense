@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +19,6 @@ import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
-import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.BarometerService
 import com.kylecorry.trail_sense.weather.ui.BarometerFragment
 
@@ -30,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigation: BottomNavigationView
 
     private var geoIntentLocation: GeoUriParser.NamedCoordinate? = null
+
+    private lateinit var userPrefs: UserPreferences
 
     private val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
 
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val userPrefs = UserPreferences(this)
+        userPrefs = UserPreferences(this)
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
         val mode = when (userPrefs.theme){
@@ -76,8 +76,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startApp(){
-        val sensorChecker = SensorChecker(this)
-        if(!sensorChecker.hasBarometer()) {
+        if(!userPrefs.weather.shouldMonitorWeather) {
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)
             item.isVisible = false
         } else {

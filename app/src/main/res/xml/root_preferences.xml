@@ -102,11 +102,18 @@
 
     <PreferenceCategory app:title="@string/pref_weather_header" app:key="@string/pref_weather_category">
 
+        <SwitchPreferenceCompat
+            app:key="@string/pref_monitor_weather"
+            app:title="Monitor weather"
+            app:summary="@string/pref_monitor_weather_summary"
+            app:defaultValue="true" />
+
 
         <SwitchPreferenceCompat
             app:key="@string/pref_use_sea_level_pressure"
             app:title="@string/pref_use_sea_level_pressure_title"
-            app:defaultValue="true"/>
+            app:defaultValue="true"
+            app:dependency="@string/pref_monitor_weather"/>
 
         <ListPreference
             app:defaultValue="48"
@@ -114,12 +121,14 @@
             app:entryValues="@array/pressure_history_values"
             app:key="@string/pref_pressure_history"
             app:title="@string/pref_pressure_history_title"
-            app:useSimpleSummaryProvider="true" />
+            app:useSimpleSummaryProvider="true"
+            app:dependency="@string/pref_monitor_weather"/>
 
         <SwitchPreferenceCompat
             app:key="@string/pref_send_storm_alert"
             app:title="@string/pref_send_storm_alerts_title"
-            app:defaultValue="true"/>
+            app:defaultValue="true"
+            app:dependency="@string/pref_monitor_weather"/>
 
         <ListPreference
             app:defaultValue="medium"
