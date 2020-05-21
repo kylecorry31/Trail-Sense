@@ -1,0 +1,144 @@
+<resources>
+    <string name="app_name">Trail Sense</string>
+    <string name="action_navigation">Navigatie</string>
+    <string name="action_weather">: Weer</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="compass_alt">Kompas</string>
+    <string name="direction_arrow_desc">Richtingspijl</string>
+    <string name="location_unknown">Locatie onbekend</string>
+    <string name="destination_star_desc">Bestemming</string>
+    <string name="create_beacon_title">Drop Beacon</string>
+    <string name="beacon_name_hint">: Naam</string>
+    <string name="beacon_latitude_hint">Breedte</string>
+    <string name="beacon_longitude_hint">: Lengte</string>
+    <string name="beacon_use_current_location">Gebruik de huidige locatie</string>
+    <string name="beacon_title">Selecteer Baken</string>
+    <string name="dialog_ok">OK</string>
+    <string name="delete_beacon_alert_title">Baken verwijderen</string>
+    <string name="dialog_cancel">Annuleren</string>
+    <string name="pressure_chart_title">: Druk</string>
+    <string name="action_astronomy">Astronomie</string>
+    <string name="sunrise_label">Zonsopgang</string>
+    <string name="sunset_label">Zonsondergang</string>
+    <string name="until_sunrise_label">tot zonsopgang</string>
+    <string name="until_sunset_label">tot zonsondergang</string>
+
+
+    <string name="pref_use_true_north_title">Het ware noorden</string>
+    <string name="pref_use_true_north" translatable="false">use_true_north</string>
+    <string name="pref_use_sea_level_pressure_title">Druk op zeeniveau</string>
+    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
+    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
+    <string name="pref_units_header">Algemeen</string>
+    <string name="pref_distance_units_title">Afstand</string>
+    <string name="pref_pressure_units_title">: Druk</string>
+    <string name="pref_pressure_units" translatable="false">pressure_units</string>
+    <string name="pref_distance_units" translatable="false">distance_units</string>
+    <string name="pref_navigation_header">Navigatie</string>
+    <string name="pref_weather_header">Weer</string>
+    <string name="pref_send_storm_alerts_title">Stormwaarschuwingen</string>
+    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
+    <string name="pref_astronomy_header">Astronomie</string>
+    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
+    <string name="pref_use_24_hour_title">Gebruik het 24-uursformaat</string>
+    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
+    <string name="pref_altitude_mode_title">Hoogtemeter</string>
+    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
+    <string name="pref_sun_time_mode_title">Zonsopgang / zonsondergang tijden</string>
+    <string name="weather_improving_fast">Verbetering zeer binnenkort</string>
+    <string name="weather_improving_slow">: Binnenkort beter</string>
+    <string name="weather_worsening_slow">Binnenkort verergeren</string>
+    <string name="weather_worsening_fast">Zeer binnenkort verergeren</string>
+    <string name="weather_storm_incoming">: Storm die binnenkomt</string>
+    <string name="weather_not_changing">Niet snel veranderen</string>
+    <string name="forecast_improving">Mogelijke verbetering later</string>
+    <string name="forecast_worsening">Mogelijk later verergerend</string>
+    <string name="no_beacons">Geen bakens</string>
+    <string name="onboarding_compass">Plaats bakens en navigeer er terug naartoe</string>
+    <string name="onboarding_weather">Krijg hyperlokale weersverwachtingen</string>
+    <string name="onboarding_weather_no_internet">* maakt geen gebruik van een internetverbinding</string>
+    <string name="onboarding_astronomy">Weet wanneer de zon/maan zal opkomen en onder gaan</string>
+    <string name="onboarding_background_location">Trail Sense heeft toestemming nodig om uw GPS te gebruiken</string>
+    <string name="onboarding_location_weather">Maakt het mogelijk om nauwkeuriger weersverwachtingen te maken (aanpassingen voor de hoogte)</string>
+    <string name="onboarding_location_navigation">Laat u toe om naar bakens te navigeren</string>
+    <string name="onboarding_location_astronomy">Laat u toe om de zon/maan te zien opkomen en de tijden van de ondergang te zien.</string>
+    <string name="onboarding_location_privacy">Trail Sense respecteert uw privacy - locatiegegevens verlaten nooit uw apparaat</string>
+    <string name="onboarding_location_all_time">Selecteer alsjeblieft \'Laat alle tijd toe\' in het toestemmingsdialoogvenster</string>
+    <string name="continue_button">CONTINUE</string>
+    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
+    <string name="moon_rise">Mansopkomst</string>
+    <string name="moon_set">Moonset</string>
+    <string name="stop_monitoring">Stop</string>
+    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
+    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
+    <string name="pref_compass_filter_amt_title">Kompas gladstrijken</string>
+    <string name="pref_compass_filter_amt_summary">Hoge waarden kunnen het lawaai verminderen</string>
+    <string name="pref_theme" translatable="false">pref_theme</string>
+    <string name="pref_theme_title">Thema</string>
+    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
+    <string name="pref_use_experimental_compass_title">Gebruik experimenteel kompas</string>
+    <string name="pref_use_legacy_compass_title">: Gebruik erfeniskompas</string>
+    <string name="pref_use_experimental_compass_summary">Kan kompasproblemen oplossen</string>
+    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
+    <string name="pref_display_multi_beacons_title">: Toon bakens in de buurt</string>
+    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
+    <string name="pref_storm_alert_sensitivity_title">: Stormwaarschuwingsgevoeligheid</string>
+    <string name="pref_show_ruler" translatable="false">pref_show_ruler</string>
+    <string name="pref_show_ruler_title">Toon heerser</string>
+    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
+    <string name="pref_show_sun_moon_compass_title">Toon zon/maan op kompas</string>
+    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
+    <string name="pref_show_linear_compass_title">Toon lineair kompas</string>
+    <string name="pref_show_linear_compass_summary">Als de telefoon verticaal staat</string>
+
+    <string name="delete_beacon_confirmation">Weet u zeker dat u "%s" wilt verwijderen?</string>
+
+    <plurals name="last_hours">
+        <item quantity="one">laatste %d uur</item>
+        <item quantity="other">laatste %d uren</item>
+    </plurals>
+
+    <plurals name="last_minutes">
+        <item quantity="one">laatste %d minuut</item>
+        <item quantity="other">laatste %d minuten</item>
+    </plurals>
+
+    <string name="meters">Meters</string>
+    <string name="feet_miles">Voeten / Miles</string>
+    <string name="units_hpa">hPa</string>
+    <string name="units_inhg">inHg</string>
+    <string name="units_mbar">mbar</string>
+    <string name="units_psi">PSI</string>
+
+    <string name="theme_light">Licht</string>
+    <string name="theme_dark">Donker</string>
+    <string name="theme_black">Zwart</string>
+    <string name="theme_system">Systeem</string>
+
+    <string name="gps">GPS</string>
+    <string name="barometer">Barometer</string>
+
+    <string name="sensitivity_low">Laag</string>
+    <string name="sensitivity_med">: Medium</string>
+    <string name="sensitivity_high">Hoog</string>
+
+    <string name="sun_actual">Werkelijke tijd</string>
+    <string name="sun_civil">Burgerschemering</string>
+    <string name="sun_nautical">Nautische schemering</string>
+    <string name="sun_astronomical">Astronomische Schemering</string>
+    <string name="not_all_permissions_granted">Niet alle toegekende toestemmingen, sommige functies kunnen worden verbroken</string>
+    <string name="today">Vandaag</string>
+    <string name="tomorrow">Morgen</string>
+    <string name="yesterday">Gisteren</string>
+    <string name="this_year_format">MMMM d</string>
+    <string name="other_year_format">MMM d, YYYY</string>
+    <string name="illumination">:verlichting</string>
+    <string name="pressure_tendency_indicator_alt">: Drukverschuivingsindicator</string>
+
+    <string name="pressure_48_hours">48 uur</string>
+    <string name="pressure_24_hours">24 uur</string>
+    <string name="pressure_12_hours">12 uur</string>
+    <string name="pressure_4_hours">4 uur</string>
+    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
+    <string name="pref_pressure_history_title">: Drukgeschiedenis</string>
+</resources>
