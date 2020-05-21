@@ -91,7 +91,7 @@
     <string name="pref_show_linear_compass_title">إظهار البوصلة الخطية</string>
     <string name="pref_show_linear_compass_summary">عندما يكون الهاتف عموديًا</string>
 
-    <string name="delete_beacon_confirmation">هل أنت متأكد أنك تريد إزالة "s%"؟</string>
+    <string name="delete_beacon_confirmation">هل أنت متأكد أنك تريد إزالة "%s"؟</string>
 
     <plurals name="last_hours">
         <item quantity="one">الاخير %d ساعة</item>
