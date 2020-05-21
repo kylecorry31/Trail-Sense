@@ -104,7 +104,7 @@
 
         <SwitchPreferenceCompat
             app:key="@string/pref_monitor_weather"
-            app:title="Monitor weather"
+            app:title="@string/pref_monitor_weather_title"
             app:summary="@string/pref_monitor_weather_summary"
             app:defaultValue="true" />
 
