@@ -50,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_compass" />
 
-    <com.redinput.compassview.CompassView
+    <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
         android:id="@+id/linear_compass"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -64,7 +64,8 @@
         app:rangeDegrees="180.0"
         app:showMarker="true"
         app:lineColor="?android:textColorPrimary"
-        app:textColor="@color/colorPrimary"
+        app:textColor="?android:textColorPrimary"
+        app:cardinalLineColor="@color/colorPrimary"
         app:textSize="15sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

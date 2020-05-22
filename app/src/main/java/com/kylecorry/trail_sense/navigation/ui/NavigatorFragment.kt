@@ -108,7 +108,7 @@ class NavigatorFragment(
             view.findViewById(R.id.destination_star),
             view.findViewById(R.id.azimuth_indicator)
         )
-        linearCompass = LinearCompassView(
+        linearCompass = LinearCompassViewHldr(
             view.findViewById(R.id.linear_compass),
             view.findViewById(R.id.destination_star)
         )
