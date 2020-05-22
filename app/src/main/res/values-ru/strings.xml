@@ -83,8 +83,6 @@
     <string name="pref_display_multi_beacons_title">Показывать маячки поблизости</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Чувствительность штормового предупреждения</string>
-    <string name="pref_show_ruler" translatable="false">pref_show_ruler</string>
-    <string name="pref_show_ruler_title">Показать правителя</string>
     <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">Показать солнце/месяц на компасе</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>

@@ -24,7 +24,6 @@ class NavigationViewModel(
     private val useTrueNorth = prefs.navigation.useTrueNorth
     private val distanceUnits = prefs.distanceUnits
     private val prefShowLinearCompass = prefs.navigation.showLinearCompass
-    private val showRuler = prefs.navigation.showRuler
 
     val azimuth: Float
         get() {
@@ -62,9 +61,6 @@ class NavigationViewModel(
                 "${LocationMath.convertToBaseUnit(altimeter.altitude, distanceUnits).roundToInt()} ft"
             }
         }
-
-    val rulerVisible: Boolean
-        get() = showRuler
 
     val showLinearCompass: Boolean
         get() = prefShowLinearCompass && orientation.orientation == DeviceOrientation.Orientation.Portrait

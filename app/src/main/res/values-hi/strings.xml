@@ -83,8 +83,6 @@
     <string name="pref_display_multi_beacons_title">बीकन के पास प्रदर्शित करें</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">तूफान की चेतावनी संवेदनशीलता</string>
-    <string name="pref_show_ruler" translatable="false">pref_show_ruler</string>
-    <string name="pref_show_ruler_title">शासक को दिखाएँ</string>
     <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">कम्पास पर सूरज /चंद्रमा दिखाएं</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>

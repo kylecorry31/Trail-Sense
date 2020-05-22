@@ -66,11 +66,6 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
-            app:key="@string/pref_show_ruler"
-            app:title="@string/pref_show_ruler_title"
-            app:defaultValue="true" />
-
-        <SwitchPreferenceCompat
             app:key="@string/pref_show_linear_compass"
             app:title="@string/pref_show_linear_compass_title"
             app:summary="@string/pref_show_linear_compass_summary"

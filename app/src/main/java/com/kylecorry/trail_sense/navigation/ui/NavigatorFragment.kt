@@ -47,6 +47,7 @@ class NavigatorFragment(
     private lateinit var navigationTxt: TextView
     private lateinit var directionTxt: TextView
     private lateinit var beaconBtn: FloatingActionButton
+    private lateinit var rulerBtn: FloatingActionButton
     private lateinit var ruler: ConstraintLayout
 
     private lateinit var visibleCompass: ICompassView
@@ -65,8 +66,8 @@ class NavigatorFragment(
         navigationTxt = view.findViewById(R.id.navigation)
         directionTxt = view.findViewById(R.id.compass_direction)
         beaconBtn = view.findViewById(R.id.beaconBtn)
+        rulerBtn = view.findViewById(R.id.ruler_btn)
         ruler = view.findViewById(R.id.ruler)
-
 
         userPrefs = UserPreferences(requireContext())
 
@@ -133,6 +134,16 @@ class NavigatorFragment(
             }
         }
 
+        rulerBtn.setOnClickListener {
+            if (ruler.visibility == View.VISIBLE) {
+                rulerBtn.setImageResource(R.drawable.ruler)
+                ruler.visibility = View.INVISIBLE
+            } else {
+                rulerBtn.setImageResource(R.drawable.hide_ruler)
+                ruler.visibility = View.VISIBLE
+            }
+        }
+
         return view
     }
 
@@ -180,18 +191,14 @@ class NavigatorFragment(
         orientation.stop(this::onOrientationUpdate)
     }
 
-    private fun updateUI(){
+    private fun updateUI() {
         if (navigationVM.showLinearCompass) {
             setVisibleCompass(linearCompass)
         } else {
             setVisibleCompass(roundCompass)
         }
 
-        if (navigationVM.rulerVisible) {
-            setupRuler()
-        } else {
-            ruler.visibility = View.INVISIBLE
-        }
+        setupRuler()
 
         azimuthTxt.text = navigationVM.azimuthTxt
         directionTxt.text = navigationVM.azimuthDirection
@@ -245,7 +252,6 @@ class NavigatorFragment(
             val primaryColor = arr.getColor(0, -1)
             arr.recycle()
 
-            ruler.visibility = View.INVISIBLE
             for (i in 0..ceil(height).toInt() * 8) {
                 val inches = i / 8.0
                 val tv = TextView(context)
@@ -290,10 +296,6 @@ class NavigatorFragment(
         }
 
         isRulerSetup = true
-
-        if (areRulerTextViewsAligned) {
-            ruler.visibility = View.VISIBLE
-        }
     }
 
     private fun updateNavigator() {

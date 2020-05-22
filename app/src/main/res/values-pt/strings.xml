@@ -83,8 +83,6 @@
     <string name="pref_display_multi_beacons_title">Mostrar balizas nas proximidades</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Sensibilidade ao alerta de tempestade</string>
-    <string name="pref_show_ruler" translatable="false">pref_show_ruler</string>
-    <string name="pref_show_ruler_title">Mostrar governante</string>
     <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">:Mostrar sol/lua na bússola</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>

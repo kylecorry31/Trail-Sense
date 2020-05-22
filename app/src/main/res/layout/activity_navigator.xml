@@ -69,11 +69,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ruler"
-        android:layout_width="75dp"
+        android:layout_width="60dp"
         android:layout_height="0dp"
-        android:alpha="0.25"
+        android:visibility="invisible"
+        android:background="?android:colorBackgroundFloating"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -112,6 +114,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_target" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ruler_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:tint="@color/colorPrimary"
+        app:backgroundTint="@color/white"
+        app:rippleColor="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@id/beaconBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ruler" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/beaconBtn"

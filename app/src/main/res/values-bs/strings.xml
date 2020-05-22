@@ -83,8 +83,6 @@
     <string name="pref_display_multi_beacons_title">Prikažite svetionike u blizini</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Osjetljivost na oluju</string>
-    <string name="pref_show_ruler" translatable="false">pref_show_ruler</string>
-    <string name="pref_show_ruler_title">Prikaži vladar</string>
     <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">Pokažite sunce /mesec na kompasu</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>

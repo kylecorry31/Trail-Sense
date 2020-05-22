@@ -83,8 +83,6 @@
     <string name="pref_display_multi_beacons_title">显示附近的信标</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">风暴警报敏感性</string>
-    <string name="pref_show_ruler" translatable="false">pref_show_ruler</string>
-    <string name="pref_show_ruler_title">显示标尺</string>
     <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">在指南针上显示太阳/月亮</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
