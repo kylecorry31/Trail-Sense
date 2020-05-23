@@ -2,8 +2,7 @@ package com.kylecorry.trail_sense.navigation.ui
 
 import android.view.View
 import android.widget.ImageView
-import com.kylecorry.trail_sense.shared.Alignment
-import com.kylecorry.trail_sense.shared.alignTo
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.math.deltaAngle
 import kotlin.math.roundToInt
 
@@ -41,16 +40,33 @@ class LinearCompassViewHldr(private val compass: LinearCompassView, private val 
 
         when {
             delta < -90 -> {
-                alignTo(compass, indicator, Alignment.StartToStart, Alignment.StartToStart)
+                align(indicator,
+                    VerticalConstraint(compass, VerticalConstraintType.Top),
+                    HorizontalConstraint(compass, HorizontalConstraintType.Left),
+                    null,
+                    null
+                )
                 indicator.rotation = -90f
             }
             delta > 90 -> {
-                alignTo(compass, indicator, Alignment.StartToStart, Alignment.EndToEnd)
+                align(indicator,
+                    VerticalConstraint(compass, VerticalConstraintType.Top),
+                    null,
+                    null,
+                    HorizontalConstraint(compass, HorizontalConstraintType.Right)
+                )
                 indicator.rotation = 90f
             }
             else -> {
                 val pct = (delta + 90) / 180f
-                alignTo(compass, indicator, Alignment.StartToStart, Alignment.StartToStart, 0f, pct * compass.width - indicator.width / 2f)
+                align(indicator,
+                    VerticalConstraint(compass, VerticalConstraintType.Top),
+                    HorizontalConstraint(compass, HorizontalConstraintType.Left),
+                    null,
+                    HorizontalConstraint(compass, HorizontalConstraintType.Right),
+                    0.5f,
+                    pct
+                )
             }
         }
 

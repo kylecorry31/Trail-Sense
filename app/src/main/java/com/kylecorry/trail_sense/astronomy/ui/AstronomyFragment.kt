@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.astronomy.domain.sun.ISunTimesCalculator
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimes
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesCalculatorFactory
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.align
 import com.kylecorry.trail_sense.shared.math.getPercentOfDuration
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
@@ -168,7 +169,11 @@ class AstronomyFragment : Fragment() {
 
         updateMoonPosition(LocalDateTime.now(), calculator)
 
-        alignTo(moonPosition, moonTxt, Alignment.StartToEnd, Alignment.Center)
+        align(moonTxt,
+            VerticalConstraint(moonPosition, VerticalConstraintType.Bottom),
+            HorizontalConstraint(moonPosition, HorizontalConstraintType.Left),
+            null,
+            HorizontalConstraint(moonPosition, HorizontalConstraintType.Right))
     }
 
     private fun updateSunUI() {
