@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
@@ -49,8 +51,14 @@ class NavigatorFragment(
     private lateinit var beaconBtn: FloatingActionButton
     private lateinit var rulerBtn: FloatingActionButton
     private lateinit var ruler: ConstraintLayout
+    private lateinit var parentLayout: ConstraintLayout
+
+    private lateinit var beaconIndicator: ImageView
+    private lateinit var beaconIndicators: List<ImageView>
 
     private lateinit var visibleCompass: ICompassView
+
+    private lateinit var beaconDB: BeaconDB
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,8 +76,27 @@ class NavigatorFragment(
         beaconBtn = view.findViewById(R.id.beaconBtn)
         rulerBtn = view.findViewById(R.id.ruler_btn)
         ruler = view.findViewById(R.id.ruler)
+        beaconIndicator = view.findViewById(R.id.destination_star)
+        parentLayout = view.findViewById(R.id.navigator_layout)
+        beaconIndicators = listOf(
+            ImageView(requireContext()),
+            ImageView(requireContext()),
+            ImageView(requireContext()),
+            ImageView(requireContext()),
+            ImageView(requireContext())
+        )
+
+        val arrowImg = resources.getDrawable(R.drawable.ic_arrow_target, null)
+
+        beaconIndicators.forEach {
+            it.setImageDrawable(arrowImg)
+            it.visibility = View.INVISIBLE
+            parentLayout.addView(it)
+        }
 
         userPrefs = UserPreferences(requireContext())
+
+        beaconDB = BeaconDB(requireContext())
 
         compass = if (userPrefs.navigation.useExperimentalCompass) {
             Compass(requireContext())
@@ -81,7 +108,7 @@ class NavigatorFragment(
 
         if (createBeacon != null) {
             switchToFragment(
-                PlaceBeaconFragment(BeaconDB(requireContext()), gps, createBeacon),
+                PlaceBeaconFragment(beaconDB, gps, createBeacon),
                 addToBackStack = true
             )
         }
@@ -100,17 +127,17 @@ class NavigatorFragment(
             }
         }
 
-        navigationVM = NavigationViewModel(compass, gps, altimeter, orientation, userPrefs)
+        navigationVM = NavigationViewModel(compass, gps, altimeter, orientation, userPrefs, beaconDB)
         navigationVM.beacon = initialDestination
 
         roundCompass = CompassView(
             view.findViewById(R.id.needle),
-            view.findViewById(R.id.destination_star),
+            beaconIndicators,
             view.findViewById(R.id.azimuth_indicator)
         )
         linearCompass = LinearCompassViewHldr(
             view.findViewById(R.id.linear_compass),
-            view.findViewById(R.id.destination_star)
+            beaconIndicators
         )
 
         visibleCompass = linearCompass
@@ -125,7 +152,7 @@ class NavigatorFragment(
         beaconBtn.setOnClickListener {
             if (!navigationVM.showDestination) {
                 switchToFragment(
-                    BeaconListFragment(BeaconDB(requireContext()), gps),
+                    BeaconListFragment(beaconDB, gps),
                     addToBackStack = true
                 )
             } else {
@@ -156,7 +183,7 @@ class NavigatorFragment(
             }
         }
 
-        compass.beacon = navigationVM.destinationBearing
+        compass.beacons = navigationVM.nearestBeacons
         compass.azimuth = navigationVM.azimuth
         visibleCompass.visibility = View.INVISIBLE
         visibleCompass = compass
@@ -203,12 +230,12 @@ class NavigatorFragment(
         azimuthTxt.text = navigationVM.azimuthTxt
         directionTxt.text = navigationVM.azimuthDirection
         visibleCompass.azimuth = navigationVM.azimuth
-        visibleCompass.beacon = navigationVM.destinationBearing
+        visibleCompass.beacons = navigationVM.nearestBeacons
 
         altitudeTxt.text = navigationVM.altitude
 
-        visibleCompass.beacon = navigationVM.destinationBearing
-        navigationTxt.text = navigationVM.destination
+        visibleCompass.beacons = navigationVM.nearestBeacons
+        navigationTxt.text = navigationVM.navigation
         locationTxt.text = navigationVM.location
     }
 

@@ -37,6 +37,9 @@ class NavigationPreferences(private val context: Context) {
     val showLinearCompass: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_show_linear_compass), true)
 
+    val showMultipleBeacons: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_display_multi_beacons), false)
+
     enum class AltimeterMode {
         Barometer,
         GPS,

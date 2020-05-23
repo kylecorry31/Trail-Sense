@@ -74,7 +74,6 @@
         <SwitchPreferenceCompat
             app:key="@string/pref_display_multi_beacons"
             app:title="@string/pref_display_multi_beacons_title"
-            app:isPreferenceVisible="false"
             app:defaultValue="false" />
 
         <SwitchPreferenceCompat

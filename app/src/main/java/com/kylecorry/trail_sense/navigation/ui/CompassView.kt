@@ -5,18 +5,14 @@ import android.widget.ImageView
 import kotlin.math.cos
 import kotlin.math.sin
 
-class CompassView(private val compass: ImageView, private val beaconIndicator: ImageView, private val azimuthIndicator: ImageView) :
+class CompassView(private val compass: ImageView, private val beaconIndicators: List<ImageView>, private val azimuthIndicator: ImageView) :
     ICompassView {
 
     override var visibility: Int
         get() = compass.visibility
         set(value){
             compass.visibility = value
-            beaconIndicator.visibility = value
             azimuthIndicator.visibility = value
-            if (beacon == null) {
-                beaconIndicator.visibility = View.INVISIBLE
-            }
         }
 
     override var azimuth: Float = 0f
@@ -25,28 +21,29 @@ class CompassView(private val compass: ImageView, private val beaconIndicator: I
             field = value
         }
 
-    override var beacon: Float? = null
+    override var beacons: List<Float> = listOf()
         set(value) {
-            if (value == null){
-                hideBeacon()
-            } else {
-                showBeacon(value)
+            beaconIndicators.forEachIndexed { index, indicator ->
+                if (index < beacons.size){
+                    showBeacon(indicator, beacons[index])
+                } else {
+                    hideBeacon(indicator)
+                }
             }
-
             field = value
         }
 
-    private fun showBeacon(bearing: Float){
+    private fun showBeacon(indicator: ImageView, bearing: Float){
         val adjBearing = -azimuth - 90 + bearing
-        beaconIndicator.visibility = visibility
+        indicator.visibility = visibility
         val imgCenterX = compass.x + compass.width / 2f
         val imgCenterY = compass.y + compass.height / 2f
         val radius = compass.width / 2f + 30
-        displayDestinationBearing(adjBearing, imgCenterX, imgCenterY, radius)
+        displayDestinationBearing(indicator, adjBearing, imgCenterX, imgCenterY, radius)
     }
 
-    private fun hideBeacon(){
-        beaconIndicator.visibility = View.INVISIBLE
+    private fun hideBeacon(indicator: ImageView){
+        indicator.visibility = View.INVISIBLE
     }
 
     /**
@@ -56,7 +53,7 @@ class CompassView(private val compass: ImageView, private val beaconIndicator: I
      * @param centerY the center Y position of the compass
      * @param radius the radius to display the indicator at
      */
-    private fun displayDestinationBearing(bearing: Float, centerX: Float, centerY: Float, radius: Float){
+    private fun displayDestinationBearing(beaconIndicator: ImageView, bearing: Float, centerX: Float, centerY: Float, radius: Float){
         // Calculate the anchor offset
         val offsetX = -beaconIndicator.width / 2f
         val offsetY = -beaconIndicator.height / 2f

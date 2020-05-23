@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/navigator_layout"
     tools:context=".navigation.ui.NavigatorFragment">
-
-
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -92,6 +91,18 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:lineHeight="20sp"
         tools:text="Supply Cache    (10°)\n200m" />
+
+    <TextView
+        android:id="@+id/short_navigation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/destination_star"
+        app:layout_constraintStart_toStartOf="@+id/destination_star"
+        app:layout_constraintBottom_toTopOf="@+id/destination_star"
+        app:lineHeight="20sp"
+        tools:text="Supply Cache\n200m" />
 
     <ImageView
         android:id="@+id/azimuth_indicator"
