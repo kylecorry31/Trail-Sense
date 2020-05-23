@@ -92,18 +92,6 @@
         app:lineHeight="20sp"
         tools:text="Supply Cache    (10°)\n200m" />
 
-    <TextView
-        android:id="@+id/short_navigation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/destination_star"
-        app:layout_constraintStart_toStartOf="@+id/destination_star"
-        app:layout_constraintBottom_toTopOf="@+id/destination_star"
-        app:lineHeight="20sp"
-        tools:text="Supply Cache\n200m" />
-
     <ImageView
         android:id="@+id/azimuth_indicator"
         android:layout_width="68dp"
@@ -114,18 +102,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_arrow_bearing" />
-
-    <ImageView
-        android:id="@+id/destination_star"
-        android:layout_width="68dp"
-        android:layout_height="50dp"
-        android:contentDescription="@string/destination_star_desc"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/needle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_target" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ruler_btn"

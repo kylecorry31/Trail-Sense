@@ -53,7 +53,6 @@ class NavigatorFragment(
     private lateinit var ruler: ConstraintLayout
     private lateinit var parentLayout: ConstraintLayout
 
-    private lateinit var beaconIndicator: ImageView
     private lateinit var beaconIndicators: List<ImageView>
 
     private lateinit var visibleCompass: ICompassView
@@ -76,7 +75,6 @@ class NavigatorFragment(
         beaconBtn = view.findViewById(R.id.beaconBtn)
         rulerBtn = view.findViewById(R.id.ruler_btn)
         ruler = view.findViewById(R.id.ruler)
-        beaconIndicator = view.findViewById(R.id.destination_star)
         parentLayout = view.findViewById(R.id.navigator_layout)
         beaconIndicators = listOf(
             ImageView(requireContext()),
