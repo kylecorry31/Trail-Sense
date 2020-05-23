@@ -71,6 +71,7 @@ If you choose to write a new feature yourself, send me a message to verify that 
 
 ## Code contributors from the community
 - [sethtara](https://github.com/sethtara) - Translations
+- [paulle](https://github.com/paulle) - Translations
 
 # Credits
 - Weather icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews)
