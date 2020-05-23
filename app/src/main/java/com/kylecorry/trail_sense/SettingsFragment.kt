@@ -1,16 +1,15 @@
 package com.kylecorry.trail_sense
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
+import android.text.InputType
+import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreference
 import androidx.preference.SwitchPreferenceCompat
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.BarometerService
+
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -42,5 +41,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
             activity?.recreate()
             true
         }
+
+       preferenceScreen.findPreference<EditTextPreference>(getString(R.string.pref_ruler_calibration))?.setOnBindEditTextListener { editText ->
+           editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
+       }
     }
 }

@@ -142,4 +142,7 @@
     <string name="pref_monitor_weather" translatable="false">pref_monitor_weather</string>
     <string name="pref_monitor_weather_summary">In the background</string>
     <string name="pref_monitor_weather_title">Monitor weather</string>
+    <string name="pref_ruler_calibration" translatable="false">pref_ruler_calibration</string>
+    <string name="pref_ruler_calibration_title">Ruler scale</string>
+    <string name="pref_ruler_calibration_summary">The scale between the phone\'s ruler and a real ruler. Set to 1 to use device scale.</string>
 </resources>

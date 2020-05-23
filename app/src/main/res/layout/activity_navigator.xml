@@ -112,7 +112,7 @@
         android:clickable="true"
         android:focusable="true"
         android:tint="@color/colorPrimary"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="?android:colorBackgroundFloating"
         app:rippleColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@id/beaconBtn"
         app:layout_constraintEnd_toEndOf="parent"

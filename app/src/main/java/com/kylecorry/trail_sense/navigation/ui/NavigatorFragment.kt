@@ -267,7 +267,7 @@ class NavigatorFragment(
     private fun setupRuler() {
         val dpi = resources.displayMetrics.densityDpi
         val height =
-            ruler.height / dpi.toDouble() * if (userPrefs.distanceUnits == UserPreferences.DistanceUnits.Meters) 2.54 else 1.0
+            navigationVM.rulerScale * ruler.height / dpi.toDouble() * if (userPrefs.distanceUnits == UserPreferences.DistanceUnits.Meters) 2.54 else 1.0
 
         if (height == 0.0 || context == null) {
             return

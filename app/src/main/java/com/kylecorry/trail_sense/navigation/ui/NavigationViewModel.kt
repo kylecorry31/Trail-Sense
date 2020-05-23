@@ -31,6 +31,8 @@ class NavigationViewModel(
     private val beacons = beaconDB.beacons
     private val showNearbyBeacons = prefs.navigation.showMultipleBeacons
 
+    val rulerScale = prefs.navigation.rulerScale
+
     val azimuth: Float
         get() {
             if (useTrueNorth) {

@@ -65,16 +65,26 @@
             app:title="@string/pref_altitude_mode_title"
             app:useSimpleSummaryProvider="true" />
 
-        <SwitchPreferenceCompat
-            app:key="@string/pref_show_linear_compass"
-            app:title="@string/pref_show_linear_compass_title"
-            app:summary="@string/pref_show_linear_compass_summary"
-            app:defaultValue="true"/>
+        <EditTextPreference
+            app:key="@string/pref_ruler_calibration"
+            app:title="@string/pref_ruler_calibration_title"
+            app:useSimpleSummaryProvider="true"
+            app:dialogMessage="@string/pref_ruler_calibration_summary"
+            app:defaultValue="1"
+            android:inputType="numberDecimal"
+            android:min="0"
+            />
 
         <SwitchPreferenceCompat
             app:key="@string/pref_display_multi_beacons"
             app:title="@string/pref_display_multi_beacons_title"
             app:defaultValue="false" />
+
+        <SwitchPreferenceCompat
+            app:key="@string/pref_show_linear_compass"
+            app:title="@string/pref_show_linear_compass_title"
+            app:summary="@string/pref_show_linear_compass_summary"
+            app:defaultValue="true"/>
 
         <SwitchPreferenceCompat
             app:key="@string/pref_use_experimental_compass"

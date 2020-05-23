@@ -40,6 +40,12 @@ class NavigationPreferences(private val context: Context) {
     val showMultipleBeacons: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_display_multi_beacons), false)
 
+    val rulerScale: Float
+        get(){
+            val raw = prefs.getString(context.getString(R.string.pref_ruler_calibration), "1") ?: "1"
+            return raw.toFloat()
+        }
+
     enum class AltimeterMode {
         Barometer,
         GPS,
