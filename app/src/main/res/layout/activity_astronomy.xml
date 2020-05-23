@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/day_circle"
-        android:layout_width="225dp"
-        android:layout_height="225dp"
+        android:layout_width="@dimen/circular_display_size"
+        android:layout_height="@dimen/circular_display_size"
         android:layout_marginTop="32dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"

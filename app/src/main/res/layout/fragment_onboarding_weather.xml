@@ -31,14 +31,15 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:tint="@color/colorPrimary"
             app:srcCompat="@drawable/partially_cloudy" />
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="32dp"
             android:tint="@color/colorPrimary"
             app:srcCompat="@drawable/storm" />
     </LinearLayout>

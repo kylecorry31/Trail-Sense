@@ -40,8 +40,8 @@
 
     <ImageView
         android:id="@+id/needle"
-        android:layout_width="225dp"
-        android:layout_height="225dp"
+        android:layout_width="@dimen/circular_display_size"
+        android:layout_height="@dimen/circular_display_size"
         android:contentDescription="@string/compass_alt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,6 +97,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="215dp"
+        android:visibility="invisible"
         android:contentDescription="@string/direction_arrow_desc"
         app:layout_constraintBottom_toBottomOf="@+id/needle"
         app:layout_constraintEnd_toEndOf="parent"

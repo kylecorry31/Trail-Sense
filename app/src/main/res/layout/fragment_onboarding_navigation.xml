@@ -32,17 +32,6 @@
         app:srcCompat="@drawable/ic_compass" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="50dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
-        android:tint="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:srcCompat="@drawable/ic_location" />
-
-    <ImageView
         android:id="@+id/imageView4"
         android:layout_width="40dp"
         android:layout_height="41dp"

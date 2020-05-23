@@ -16,11 +16,18 @@ class CompassView(private val compass: ImageView, private val beaconIndicators: 
         set(value){
             compass.visibility = value
             azimuthIndicator.visibility = value
+            if (azimuthIndicator.height == 0){
+                azimuthIndicator.visibility = View.INVISIBLE
+            }
         }
 
     override var azimuth: Float = 0f
         set(value) {
             compass.rotation = -value
+            if (azimuthIndicator.height != 0){
+                azimuthIndicator.visibility = visibility
+            }
+            alignToVector(compass, azimuthIndicator, compass.width / 2f + azimuthIndicator.height / 4f, 90f)
             field = value
         }
 
@@ -39,10 +46,7 @@ class CompassView(private val compass: ImageView, private val beaconIndicators: 
     private fun showBeacon(indicator: ImageView, bearing: Float){
         val adjBearing = -azimuth - 90 + bearing
         indicator.visibility = visibility
-        val imgCenterX = compass.x + compass.width / 2f
-        val imgCenterY = compass.y + compass.height / 2f
-        val radius = compass.width / 2f + 30
-        displayDestinationBearing(indicator, adjBearing, imgCenterX, imgCenterY, radius)
+        displayDestinationBearing(indicator, adjBearing)
     }
 
     private fun hideBeacon(indicator: ImageView){
@@ -52,21 +56,10 @@ class CompassView(private val compass: ImageView, private val beaconIndicators: 
     /**
      * Displays the destination bearing indicator around the compass
      * @param bearing the bearing in degrees to display the indicator at
-     * @param centerX the center X position of the compass
-     * @param centerY the center Y position of the compass
-     * @param radius the radius to display the indicator at
      */
-    private fun displayDestinationBearing(beaconIndicator: ImageView, bearing: Float, centerX: Float, centerY: Float, radius: Float){
-        // Calculate the anchor offset
-        val offsetX = -beaconIndicator.width / 2f
-        val offsetY = -beaconIndicator.height / 2f
-
-        // Update the position of the indicator
-        beaconIndicator.x = centerX + offsetX + radius * cos(Math.toRadians(bearing.toDouble())).toFloat()
-        beaconIndicator.y = centerY + offsetY + radius * sin(Math.toRadians(bearing.toDouble())).toFloat()
-
-        // Make the indicator always rotated tangent to the compass
-        beaconIndicator.rotation = bearing + 90
+    private fun displayDestinationBearing(beaconIndicator: ImageView, bearing: Float){
+        alignToVector(compass, beaconIndicator, compass.width / 2f + beaconIndicator.height / 4f, bearing)
+        beaconIndicator.rotation = bearing - 90
     }
 
 }
