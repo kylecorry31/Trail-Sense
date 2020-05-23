@@ -2,6 +2,9 @@ package com.kylecorry.trail_sense.navigation.ui
 
 import android.view.View
 import android.widget.ImageView
+import com.kylecorry.trail_sense.shared.Alignment
+import com.kylecorry.trail_sense.shared.alignTo
+import com.kylecorry.trail_sense.shared.alignToVector
 import kotlin.math.cos
 import kotlin.math.sin
 

@@ -40,8 +40,8 @@
 
     <ImageView
         android:id="@+id/needle"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="225dp"
+        android:layout_height="225dp"
         android:contentDescription="@string/compass_alt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,9 +94,9 @@
 
     <ImageView
         android:id="@+id/azimuth_indicator"
-        android:layout_width="68dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="235dp"
+        android:layout_marginBottom="215dp"
         android:contentDescription="@string/direction_arrow_desc"
         app:layout_constraintBottom_toBottomOf="@+id/needle"
         app:layout_constraintEnd_toEndOf="parent"

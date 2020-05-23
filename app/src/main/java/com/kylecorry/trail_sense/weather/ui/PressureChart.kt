@@ -40,15 +40,15 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
             android.R.attr.textColorPrimary
         })
         val primaryColor = arr.getColor(0, -1)
-        val r = primaryColor.red / 255f
-        val g = primaryColor.green / 255f
-        val b = primaryColor.blue / 255f
+        val r = primaryColor.red
+        val g = primaryColor.green
+        val b = primaryColor.blue
         arr.recycle()
 
         chart.xAxis.setDrawGridLines(false)
         chart.axisLeft.setDrawGridLines(true)
-        chart.axisLeft.gridColor = Color.valueOf(r, g, b, 0.2f).toArgb()
-        chart.axisLeft.textColor = Color.valueOf(r, g, b, 0.6f).toArgb()
+        chart.axisLeft.gridColor = Color.argb(50, r, g, b)
+        chart.axisLeft.textColor = Color.argb(150, r, g, b)
         chart.axisLeft.setLabelCount(3, true)
         chart.axisRight.setDrawGridLines(false)
         chart.xAxis.setDrawAxisLine(false)

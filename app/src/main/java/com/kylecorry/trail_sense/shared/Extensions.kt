@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentTransaction
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.navigation.ui.BeaconListFragment
-import java.time.*
-import java.time.format.DateTimeFormatter
+import org.threeten.bp.*
+import org.threeten.bp.format.DateTimeFormatter
 import kotlin.math.pow
 import kotlin.math.roundToInt
 

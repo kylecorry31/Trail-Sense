@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.domain.moon
 
-import java.time.LocalDateTime
+import org.threeten.bp.LocalDateTime
 import kotlin.math.floor
 
 object JulianDayCalculator {

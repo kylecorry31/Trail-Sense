@@ -20,7 +20,7 @@ package com.kylecorry.trail_sense.astronomy.domain.sun
 import android.text.format.DateUtils
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.toZonedDateTime
-import java.time.*
+import org.threeten.bp.*
 import kotlin.math.*
 
 abstract class BaseSunTimesCalculator(private val sunAngleDeg: Float) :

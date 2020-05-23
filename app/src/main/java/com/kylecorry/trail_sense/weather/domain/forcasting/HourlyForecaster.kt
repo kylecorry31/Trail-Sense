@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.weather.domain.forcasting
 import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.domain.tendency.DropPressureTendencyCalculator
 import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
-import java.time.Duration
+import org.threeten.bp.Duration
 import kotlin.math.abs
 
 class HourlyForecaster(private val stormThreshold: Float) : IWeatherForecaster {

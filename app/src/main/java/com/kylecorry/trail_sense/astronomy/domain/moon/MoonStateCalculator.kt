@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.domain.moon
 
-import java.time.LocalTime
+import org.threeten.bp.LocalTime
 
 class MoonStateCalculator {
 

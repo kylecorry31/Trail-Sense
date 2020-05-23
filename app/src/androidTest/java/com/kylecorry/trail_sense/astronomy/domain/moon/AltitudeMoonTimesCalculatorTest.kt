@@ -4,7 +4,7 @@ import com.kylecorry.trail_sense.shared.Coordinate
 import org.junit.Test
 
 import org.junit.Assert.*
-import java.time.*
+import org.threeten.bp.*
 
 class AltitudeMoonTimesCalculatorTest {
 

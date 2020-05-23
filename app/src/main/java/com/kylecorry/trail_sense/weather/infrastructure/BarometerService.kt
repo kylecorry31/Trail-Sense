@@ -12,8 +12,8 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
-import java.time.Duration
-import java.time.ZonedDateTime
+import org.threeten.bp.Duration
+import org.threeten.bp.ZonedDateTime
 
 
 class BarometerService: Service() {
@@ -44,13 +44,23 @@ class BarometerService: Service() {
                 stopPendingIntent)
             .build()
 
-        val notification = Notification.Builder(this, "Weather")
-            .setContentTitle("Weather")
-            .setContentText("Monitoring weather in the background")
-            .setSmallIcon(R.drawable.ic_weather)
-            .addAction(stopAction)
-            .setContentIntent(openPendingIntent)
-            .build()
+        val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Notification.Builder(this, "Weather")
+                .setContentTitle("Weather")
+                .setContentText("Monitoring weather in the background")
+                .setSmallIcon(R.drawable.ic_weather)
+                .addAction(stopAction)
+                .setContentIntent(openPendingIntent)
+                .build()
+        } else {
+            Notification.Builder(this)
+                .setContentTitle("Weather")
+                .setContentText("Monitoring weather in the background")
+                .setSmallIcon(R.drawable.ic_weather)
+                .addAction(stopAction)
+                .setContentIntent(openPendingIntent)
+                .build()
+        }
 
         startForeground(1, notification)
 
@@ -106,7 +116,11 @@ class BarometerService: Service() {
         fun start(context: Context){
             if (started) return
 
-            context.startForegroundService(Intent(context, BarometerService::class.java))
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(Intent(context, BarometerService::class.java))
+            } else {
+                context.startService(Intent(context, BarometerService::class.java))
+            }
         }
     }
 

@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.astronomy.domain.moon
 
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.toZonedDateTime
-import java.time.LocalDate
-import java.time.LocalDateTime
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 import kotlin.math.*
 
 // Adapted from https://github.com/mourner/suncalc/blob/master/suncalc.js

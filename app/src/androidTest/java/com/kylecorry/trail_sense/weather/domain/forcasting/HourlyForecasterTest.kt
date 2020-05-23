@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.weather.domain.forcasting
 import com.kylecorry.trail_sense.weather.domain.PressureReading
 import org.junit.Assert
 import org.junit.Test
-import java.time.Duration
-import java.time.Instant
+import org.threeten.bp.Duration
+import org.threeten.bp.Instant
 
 class HourlyForecasterTest {
 
@@ -13,7 +13,7 @@ class HourlyForecasterTest {
         val pressures = listOf(
             PressureReading(
                 Instant.now().minus(
-                    Duration.ofHours(3)
+                    Duration.ofHours(3).minusMinutes(5)
                 ), 1017f
             ),
             PressureReading(
@@ -44,7 +44,7 @@ class HourlyForecasterTest {
         val pressures = listOf(
             PressureReading(
                 Instant.now().minus(
-                    Duration.ofHours(3)
+                    Duration.ofHours(3).minusMinutes(5)
                 ), 1007f
             ),
             PressureReading(
@@ -75,7 +75,7 @@ class HourlyForecasterTest {
         val pressures = listOf(
             PressureReading(
                 Instant.now().minus(
-                    Duration.ofHours(3)
+                    Duration.ofHours(3).minusMinutes(5)
                 ), 1017f
             ),
             PressureReading(
@@ -106,7 +106,7 @@ class HourlyForecasterTest {
         val pressures = listOf(
             PressureReading(
                 Instant.now().minus(
-                    Duration.ofHours(3)
+                    Duration.ofHours(3).minusMinutes(5)
                 ), 1017f
             ),
             PressureReading(
@@ -137,7 +137,7 @@ class HourlyForecasterTest {
         val pressures = listOf(
             PressureReading(
                 Instant.now().minus(
-                    Duration.ofHours(3)
+                    Duration.ofHours(3).minusMinutes(5)
                 ), 1007f
             ),
             PressureReading(
@@ -168,7 +168,7 @@ class HourlyForecasterTest {
         val pressures = listOf(
             PressureReading(
                 Instant.now().minus(
-                    Duration.ofHours(3)
+                    Duration.ofHours(3).minusMinutes(5)
                 ), 1007f
             ),
             PressureReading(
@@ -183,7 +183,7 @@ class HourlyForecasterTest {
             ),
             PressureReading(
                 Instant.now(),
-                1007.5f
+                1007.4f
             )
         )
 

@@ -20,8 +20,8 @@ import com.kylecorry.trail_sense.weather.domain.forcasting.HourlyForecaster
 import com.kylecorry.trail_sense.weather.domain.forcasting.IWeatherForecaster
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverterFactory
-import java.time.Instant
-import java.time.ZonedDateTime
+import org.threeten.bp.Instant
+import org.threeten.bp.ZonedDateTime
 
 class BarometerAlarmReceiver: BroadcastReceiver() {
 

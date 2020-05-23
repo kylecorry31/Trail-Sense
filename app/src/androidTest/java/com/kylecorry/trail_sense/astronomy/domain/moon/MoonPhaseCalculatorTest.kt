@@ -3,10 +3,10 @@ package com.kylecorry.trail_sense.astronomy.domain.moon
 import org.junit.Test
 
 import org.junit.Assert.*
-import java.time.LocalDateTime
-import java.time.Month
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.Month
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 
 class MoonPhaseCalculatorTest {
 
