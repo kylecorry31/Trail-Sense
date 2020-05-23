@@ -16,13 +16,10 @@ import com.kylecorry.trail_sense.astronomy.domain.moon.*
 import com.kylecorry.trail_sense.astronomy.domain.sun.ISunTimesCalculator
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimes
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesCalculatorFactory
-import com.kylecorry.trail_sense.shared.Coordinate
-import com.kylecorry.trail_sense.shared.formatHM
-import com.kylecorry.trail_sense.shared.getCenterX
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.math.getPercentOfDuration
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
-import com.kylecorry.trail_sense.shared.toDisplayFormat
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -171,8 +168,7 @@ class AstronomyFragment : Fragment() {
 
         updateMoonPosition(LocalDateTime.now(), calculator)
 
-        moonTxt.x = moonPosition.x - moonTxt.width / 2f + moonPosition.width / 2f
-        moonTxt.y = moonPosition.y + moonPosition.height
+        alignTo(moonPosition, moonTxt, Alignment.StartToEnd, Alignment.Center)
     }
 
     private fun updateSunUI() {

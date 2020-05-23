@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.alignTo
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.switchToFragment
 import kotlin.math.ceil
@@ -235,6 +236,12 @@ class NavigatorFragment(
         visibleCompass.beacons = navigationVM.nearestBeacons
         navigationTxt.text = navigationVM.navigation
         locationTxt.text = navigationVM.location
+
+        beaconIndicators.forEach {
+            if (it.height == 0){
+                it.visibility = View.INVISIBLE
+            }
+        }
     }
 
     private fun onOrientationUpdate(): Boolean {
