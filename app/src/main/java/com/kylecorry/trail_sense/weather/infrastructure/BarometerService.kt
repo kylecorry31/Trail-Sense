@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import androidx.core.content.edit
+import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
@@ -103,9 +104,8 @@ class BarometerService: Service() {
             val channel = NotificationChannel("Weather", name, importance).apply {
                 description = descriptionText
             }
-            val notificationManager: NotificationManager =
-                this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+            val notificationManager = getSystemService<NotificationManager>()
+            notificationManager?.createNotificationChannel(channel)
         }
     }
 

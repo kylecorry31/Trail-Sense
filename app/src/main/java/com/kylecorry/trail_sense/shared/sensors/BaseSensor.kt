@@ -5,10 +5,11 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import androidx.core.content.getSystemService
 
 abstract class BaseSensor(context: Context, private val sensorType: Int, private val sensorDelay: Int): AbstractSensor() {
 
-    private val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    private val sensorManager = context.getSystemService<SensorManager>()
     private val sensorListener = object : SensorEventListener {
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
@@ -20,7 +21,7 @@ abstract class BaseSensor(context: Context, private val sensorType: Int, private
     }
 
     override fun startImpl() {
-        sensorManager.getDefaultSensor(sensorType)?.also { sensor ->
+        sensorManager?.getDefaultSensor(sensorType)?.also { sensor ->
             sensorManager.registerListener(
                 sensorListener,
                 sensor,
@@ -30,7 +31,7 @@ abstract class BaseSensor(context: Context, private val sensorType: Int, private
     }
 
     override fun stopImpl() {
-        sensorManager.unregisterListener(sensorListener)
+        sensorManager?.unregisterListener(sensorListener)
     }
 
     protected abstract fun handleSensorEvent(event: SensorEvent)

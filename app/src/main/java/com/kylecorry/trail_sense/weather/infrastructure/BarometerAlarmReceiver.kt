@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
+import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -197,9 +198,8 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
                 description = descriptionText
             }
             // Register the channel with the system
-            val notificationManager: NotificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+            val notificationManager = context.getSystemService<NotificationManager>()
+            notificationManager?.createNotificationChannel(channel)
         }
     }
 }
