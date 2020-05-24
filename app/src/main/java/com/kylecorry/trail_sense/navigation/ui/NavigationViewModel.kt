@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.ui
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
+import com.kylecorry.trail_sense.navigation.domain.NavigationVector
 import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.shared.Coordinate
@@ -121,20 +122,31 @@ class NavigationViewModel(
                 return listOf(destinationBearing ?: 0f)
             }
 
-            if (!showNearbyBeacons){
+            if (!showNearbyBeacons) {
                 return listOf()
             }
 
             val declination = declinationCalculator.calculate(gps.location, gps.altitude)
-            val navigationService = NavigationService()
 
-            return beacons.map {
-                navigationService.navigate(gps.location, it.coordinate)
-            }.sortedBy { it.distance }.take(5).map {
-                val direction =
-                    if (!useTrueNorth) it.direction.withDeclination(-declination).value else it.direction.value
-                direction
-            }
+            return _nearestVisibleBeacons
+                .map {
+                    val direction =
+                        if (!useTrueNorth) it.second.direction.withDeclination(-declination).value else it.second.direction.value
+                    direction
+                }.toList()
+        }
+
+    private val _nearestVisibleBeacons: List<Pair<Beacon, NavigationVector>>
+        get() {
+            val navigationService = NavigationService()
+            return beacons.asSequence()
+                .filter { it.visible }
+                .map {
+                    Pair(it, navigationService.navigate(gps.location, it.coordinate))
+                }
+                .sortedBy { it.second.distance }
+                .take(5)
+                .toList()
         }
 
     val navigation: String
@@ -143,16 +155,13 @@ class NavigationViewModel(
                 return destination
             }
 
-            if (!showNearbyBeacons){
+            if (!showNearbyBeacons) {
                 return ""
             }
 
             val declination = declinationCalculator.calculate(gps.location, gps.altitude)
-            val navigationService = NavigationService()
 
-            val vectors = beacons.map {
-                Pair(it, navigationService.navigate(gps.location, it.coordinate))
-            }.sortedBy { it.second.distance }.take(5)
+            val vectors = _nearestVisibleBeacons
 
             val nearestBeacon = vectors.minBy {
                 val direction =
@@ -161,7 +170,8 @@ class NavigationViewModel(
             }
             nearestBeacon?.apply {
                 if (!isFacingBeacon(this.first)) return ""
-                val direction = if (!useTrueNorth) this.second.direction.withDeclination(-declination).value else this.second.direction.value
+                val direction =
+                    if (!useTrueNorth) this.second.direction.withDeclination(-declination).value else this.second.direction.value
                 return "${this.first.name}    (${direction.roundToInt()}°)\n${LocationMath.distanceToReadableString(
                     this.second.distance,
                     distanceUnits

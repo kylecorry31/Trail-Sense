@@ -62,4 +62,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_share" />
 
+    <ImageButton
+        android:id="@+id/visible_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:alpha="0.86"
+        android:background="@android:color/transparent"
+        android:tint="?android:textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/copy_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

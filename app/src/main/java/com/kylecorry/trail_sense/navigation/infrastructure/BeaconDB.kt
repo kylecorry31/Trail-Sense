@@ -22,17 +22,18 @@ class BeaconDB(ctx: Context) {
      * The beacons in the DB
      */
     val beacons: List<Beacon>
-        get(){
-            val cursor = query(null, null,
+        get() {
+            val cursor = query(
+                null, null,
                 BEACON_NAME
             )
             val locations: MutableList<Beacon> = mutableListOf()
             cursor.use { c ->
-                if (c.count == 0){
+                if (c.count == 0) {
                     return locations
                 }
                 c.moveToFirst()
-                while(!c.isAfterLast){
+                while (!c.isAfterLast) {
                     locations.add(c.getBeacon())
                     c.moveToNext()
                 }
@@ -43,11 +44,11 @@ class BeaconDB(ctx: Context) {
     /**
      * Create a location
      */
-    fun create(location: Beacon){
+    fun create(location: Beacon) {
 
         var beaconToCreate = location
         var uniqueNumber = 1
-        while(get(beaconToCreate.name) != null){
+        while (get(beaconToCreate.name) != null) {
             beaconToCreate = appendNumberToName(location, uniqueNumber)
             uniqueNumber++
         }
@@ -56,14 +57,25 @@ class BeaconDB(ctx: Context) {
         db.insert(BEACON_TABLE, null, values)
     }
 
+    fun update(location: Beacon) {
+        val values = getContentValues(location)
+        db.update(
+            BEACON_TABLE,
+            values,
+            "$BEACON_NAME = ?",
+            arrayOf(location.name)
+        )
+    }
+
     /**
      * Delete a location
      */
-    fun delete(location: Beacon){
+    fun delete(location: Beacon) {
         db.delete(
             BEACON_TABLE,
             "$BEACON_NAME = ?",
-            arrayOf(location.name))
+            arrayOf(location.name)
+        )
     }
 
     /**
@@ -73,7 +85,7 @@ class BeaconDB(ctx: Context) {
      */
     fun get(name: String): Beacon? {
         val cursor = query("$BEACON_NAME = ?", arrayOf(name))
-        if (cursor.count != 0){
+        if (cursor.count != 0) {
             cursor.moveToFirst()
             return cursor.getBeacon()
         }
@@ -84,7 +96,8 @@ class BeaconDB(ctx: Context) {
         val name = "${beacon.name} ($number)"
         return Beacon(
             name,
-            beacon.coordinate
+            beacon.coordinate,
+            beacon.visible
         )
     }
 
@@ -93,10 +106,15 @@ class BeaconDB(ctx: Context) {
         values.put(BEACON_NAME, location.name)
         values.put(BEACON_LAT, location.coordinate.latitude)
         values.put(BEACON_LNG, location.coordinate.longitude)
+        values.put(BEACON_VISIBLE, location.visible)
         return values
     }
 
-    private fun query(where: String?, whereArgs: Array<String>?, orderBy: String? = null): BeaconCursor {
+    private fun query(
+        where: String?,
+        whereArgs: Array<String>?,
+        orderBy: String? = null
+    ): BeaconCursor {
         val cursor = db.query(
             BEACON_TABLE,
             null,
@@ -117,31 +135,40 @@ class BeaconDB(ctx: Context) {
         const val BEACON_NAME = "name"
         const val BEACON_LAT = "lat"
         const val BEACON_LNG = "lng"
+        const val BEACON_VISIBLE = "visible"
     }
 
 
 }
 
-private class BeaconDBHelper(ctx: Context): SQLiteOpenHelper(ctx, "survive", null, 1) {
+private class BeaconDBHelper(ctx: Context) : SQLiteOpenHelper(ctx, "survive", null, 2) {
     override fun onCreate(db: SQLiteDatabase?) {
         db ?: return
-        db.execSQL("create table " + BeaconDB.BEACON_TABLE + "(" +
-                " _id integer primary key autoincrement, " +
-                BeaconDB.BEACON_NAME + ", " +
-                BeaconDB.BEACON_LAT + ", " +
-                BeaconDB.BEACON_LNG +
-                ")"
+        db.execSQL(
+            "create table if not exists " + BeaconDB.BEACON_TABLE + "(" +
+                    " _id integer primary key autoincrement, " +
+                    BeaconDB.BEACON_NAME + ", " +
+                    BeaconDB.BEACON_LAT + ", " +
+                    BeaconDB.BEACON_LNG + ", " +
+                    BeaconDB.BEACON_VISIBLE +
+                    ")"
         )
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db ?: return
-        db.execSQL("drop table " + BeaconDB.BEACON_TABLE)
+        when (oldVersion) {
+            1 -> {
+                val sql =
+                    "ALTER TABLE ${BeaconDB.BEACON_TABLE} ADD COLUMN ${BeaconDB.BEACON_VISIBLE} DEFAULT 1"
+                db.execSQL(sql)
+            }
+        }
         this.onCreate(db)
     }
 }
 
-private class BeaconCursor(cursor: Cursor): CursorWrapper(cursor) {
+private class BeaconCursor(cursor: Cursor) : CursorWrapper(cursor) {
 
     /**
      * Retrieve the beacon at the cursor location
@@ -150,14 +177,18 @@ private class BeaconCursor(cursor: Cursor): CursorWrapper(cursor) {
         var name = ""
         var lat = 0.0
         var lng = 0.0
+        var visible = false
         try {
             name = getString(getColumnIndex(BeaconDB.BEACON_NAME))
             lat = getDouble(getColumnIndex(BeaconDB.BEACON_LAT))
             lng = getDouble(getColumnIndex(BeaconDB.BEACON_LNG))
-        } catch (e: Exception){}
+            visible = getInt(getColumnIndex(BeaconDB.BEACON_VISIBLE)) == 1
+        } catch (e: Exception) {
+        }
         return Beacon(
             name,
-            Coordinate(lat, lng)
+            Coordinate(lat, lng),
+            visible
         )
     }
 }

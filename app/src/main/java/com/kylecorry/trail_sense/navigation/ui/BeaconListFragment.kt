@@ -31,6 +31,8 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
     private lateinit var prefs: UserPreferences
     private val location = gps.location
 
+    private var showMultipleBeacons = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_beacon_list, container, false)
 
@@ -39,6 +41,7 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
         emptyTxt = view.findViewById(R.id.beacon_empty_text)
 
         prefs = UserPreferences(requireContext())
+        showMultipleBeacons = prefs.navigation.showMultipleBeacons
 
         val layoutManager = LinearLayoutManager(context)
         beaconList.layoutManager = layoutManager
@@ -84,12 +87,37 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
         private var locationText: TextView = itemView.findViewById(R.id.beacon_location_disp)
         private var distanceText: TextView = itemView.findViewById(R.id.beacon_distance_disp)
         private var copyBtn: ImageButton = itemView.findViewById(R.id.copy_btn)
+        private var visibilityBtn: ImageButton = itemView.findViewById(R.id.visible_btn)
+        private var beaconVisibility = false
 
         fun bindToBeacon(beacon: Beacon){
+            beaconVisibility = beacon.visible
             nameText.text = beacon.name
             locationText.text = beacon.coordinate.getFormattedString()
             val distance = beacon.coordinate.distanceTo(location)
             distanceText.text = LocationMath.distanceToReadableString(distance, prefs.distanceUnits)
+
+
+            if (!showMultipleBeacons){
+                visibilityBtn.visibility = View.GONE
+            }
+            
+            if (beaconVisibility){
+                visibilityBtn.setImageResource(R.drawable.ic_visible)
+            } else {
+                visibilityBtn.setImageResource(R.drawable.ic_not_visible)
+            }
+
+            visibilityBtn.setOnClickListener {
+                val newBeacon = beacon.copy(visible = !beaconVisibility)
+                beaconDB.update(newBeacon)
+                beaconVisibility = newBeacon.visible
+                if (beaconVisibility){
+                    visibilityBtn.setImageResource(R.drawable.ic_visible)
+                } else {
+                    visibilityBtn.setImageResource(R.drawable.ic_not_visible)
+                }
+            }
 
             copyBtn.setOnClickListener {
                 val sender = LocationSharesheet(requireContext())
