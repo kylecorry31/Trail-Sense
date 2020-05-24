@@ -209,13 +209,11 @@ class NavigatorFragment(
         } else {
             beaconBtn.show()
             if (userPrefs.navigation.showMultipleBeacons) {
+                val that = this
                 handler = Handler(Looper.getMainLooper())
                 timer = fixedRateTimer(period = 15000) {
                     handler?.post {
-                        gps.start {
-                            updateUI()
-                            false
-                        }
+                        gps.start(that::onLocationUpdate)
                     }
                 }
             }
