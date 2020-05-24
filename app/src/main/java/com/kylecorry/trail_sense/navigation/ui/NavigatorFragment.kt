@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.navigation.ui
 
 import android.opengl.Visibility
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +23,8 @@ import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.switchToFragment
+import java.util.*
+import kotlin.concurrent.fixedRateTimer
 import kotlin.math.ceil
 
 class NavigatorFragment(
@@ -58,6 +62,9 @@ class NavigatorFragment(
     private lateinit var visibleCompass: ICompassView
 
     private lateinit var beaconDB: BeaconDB
+
+    private var timer: Timer? = null
+    private var handler: Handler? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -201,8 +208,18 @@ class NavigatorFragment(
             beaconBtn.hide()
         } else {
             beaconBtn.show()
+            if (userPrefs.navigation.showMultipleBeacons) {
+                handler = Handler(Looper.getMainLooper())
+                timer = fixedRateTimer(period = 15000) {
+                    handler?.post {
+                        gps.start {
+                            updateUI()
+                            false
+                        }
+                    }
+                }
+            }
         }
-
 
         // Update the UI
         updateNavigator()
@@ -214,9 +231,16 @@ class NavigatorFragment(
         gps.stop(this::onLocationUpdate)
         altimeter.stop(this::onAltitudeUpdate)
         orientation.stop(this::onOrientationUpdate)
+        timer?.cancel()
+        timer = null
     }
 
     private fun updateUI() {
+
+        if (context == null){
+            return
+        }
+
         if (navigationVM.showLinearCompass) {
             setVisibleCompass(linearCompass)
         } else {
