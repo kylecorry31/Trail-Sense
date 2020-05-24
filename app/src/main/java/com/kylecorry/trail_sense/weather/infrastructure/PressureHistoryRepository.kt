@@ -38,29 +38,37 @@ object PressureHistoryRepository : Observable(), IPressureHistoryRepository {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             readings.removeIf { Duration.between(it.time, Instant.now()) > keepDuration }
         } else {
-            readings.removeAll(readings.filter { Duration.between(it.time, Instant.now()) > keepDuration })
+            readings.removeAll(readings.filter {
+                Duration.between(
+                    it.time,
+                    Instant.now()
+                ) > keepDuration
+            })
         }
     }
 
     private fun loadFromFile(context: Context) {
         if (!context.getFileStreamPath(FILE_NAME).exists()) return
-        val readings = context.openFileInput(FILE_NAME).bufferedReader().useLines { lines ->
-            lines.map { it.split(",") }
-                .map {
-                    PressureAltitudeReading(
-                        Instant.ofEpochMilli(it[0].toLong()),
-                        it[1].toFloat(),
-                        it[2].toFloat()
-                    )
-                }
-                .sortedBy { it.time }
-                .toMutableList()
+        context.openFileInput(FILE_NAME).use { file ->
+            val readings = file.bufferedReader().useLines { lines ->
+                lines.map { it.split(",") }
+                    .map {
+                        PressureAltitudeReading(
+                            Instant.ofEpochMilli(it[0].toLong()),
+                            it[1].toFloat(),
+                            it[2].toFloat()
+                        )
+                    }
+                    .sortedBy { it.time }
+                    .toMutableList()
+            }
+            file.close()
+            loaded = true
+            PressureHistoryRepository.readings = readings
+            removeOldReadings()
+            setChanged()
+            notifyObservers()
         }
-        loaded = true
-        PressureHistoryRepository.readings = readings
-        removeOldReadings()
-        setChanged()
-        notifyObservers()
     }
 
     private fun saveToFile(context: Context) {
