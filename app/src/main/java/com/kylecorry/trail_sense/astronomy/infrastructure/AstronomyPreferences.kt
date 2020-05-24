@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.astronomy.infrastructure
 import android.content.Context
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
 
 class AstronomyPreferences(private val context: Context) {
 
@@ -22,12 +23,5 @@ class AstronomyPreferences(private val context: Context) {
 
     val showOnCompass: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_show_sun_moon_compass), false)
-
-    enum class SunTimesMode {
-        Actual,
-        Civil,
-        Nautical,
-        Astronomical
-    }
 
 }
