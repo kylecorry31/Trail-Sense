@@ -45,5 +45,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
        preferenceScreen.findPreference<EditTextPreference>(getString(R.string.pref_ruler_calibration))?.setOnBindEditTextListener { editText ->
            editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
        }
+
+        preferenceScreen.findPreference<EditTextPreference>(getString(R.string.pref_num_visible_beacons))?.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_NUMBER
+        }
     }
 }

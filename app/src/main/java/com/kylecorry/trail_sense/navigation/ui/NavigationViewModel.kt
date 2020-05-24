@@ -31,6 +31,7 @@ class NavigationViewModel(
     private val prefShowLinearCompass = prefs.navigation.showLinearCompass
     private val beacons = beaconDB.beacons
     private val showNearbyBeacons = prefs.navigation.showMultipleBeacons
+    private val visibleBeacons = prefs.navigation.numberOfVisibleBeacons
 
     val rulerScale = prefs.navigation.rulerScale
 
@@ -145,7 +146,7 @@ class NavigationViewModel(
                     Pair(it, navigationService.navigate(gps.location, it.coordinate))
                 }
                 .sortedBy { it.second.distance }
-                .take(5)
+                .take(visibleBeacons)
                 .toList()
         }
 

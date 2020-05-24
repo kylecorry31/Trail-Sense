@@ -80,7 +80,7 @@
     <string name="pref_use_legacy_compass_title">Use legacy compass</string>
     <string name="pref_use_experimental_compass_summary">May fix compass issues</string>
     <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
-    <string name="pref_display_multi_beacons_title">Display nearby beacons</string>
+    <string name="pref_display_multi_beacons_title">Show beacons</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Storm alert sensitivity</string>
     <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
@@ -145,4 +145,7 @@
     <string name="pref_ruler_calibration" translatable="false">pref_ruler_calibration</string>
     <string name="pref_ruler_calibration_title">Ruler scale</string>
     <string name="pref_ruler_calibration_summary">The scale between the phone\'s ruler and a real ruler. Set to 1 to use device scale.</string>
+    <string name="pref_num_visible_beacons" translatable="false">pref_num_visible_beacons</string>
+    <string name="pref_num_visible_beacons_title">Visible beacons</string>
+    <string name="pref_display_multi_beacons_summary">Show closest beacons on the compass</string>
 </resources>

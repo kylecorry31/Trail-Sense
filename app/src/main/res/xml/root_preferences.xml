@@ -72,13 +72,23 @@
             app:dialogMessage="@string/pref_ruler_calibration_summary"
             app:defaultValue="1"
             android:inputType="numberDecimal"
-            android:min="0"
+            app:min="0"
             />
 
         <SwitchPreferenceCompat
             app:key="@string/pref_display_multi_beacons"
             app:title="@string/pref_display_multi_beacons_title"
+            app:summary="@string/pref_display_multi_beacons_summary"
             app:defaultValue="false" />
+
+        <EditTextPreference
+            app:key="@string/pref_num_visible_beacons"
+            app:title="@string/pref_num_visible_beacons_title"
+            app:dependency="@string/pref_display_multi_beacons"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="5"
+            android:inputType="number"
+            app:min="0" />
 
         <SwitchPreferenceCompat
             app:key="@string/pref_show_linear_compass"
