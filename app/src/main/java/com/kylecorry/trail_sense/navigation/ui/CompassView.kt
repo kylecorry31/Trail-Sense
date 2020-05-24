@@ -40,7 +40,7 @@ class CompassView(private val compass: ImageView, private val beaconIndicators: 
         }
 
     private fun showBeacon(indicator: ImageView, bearing: Float){
-        val adjBearing = -azimuth - 90 + bearing
+        val adjBearing = bearing - azimuth + 90
         indicator.visibility = visibility
         displayDestinationBearing(indicator, adjBearing)
     }
