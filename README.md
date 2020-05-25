@@ -6,7 +6,8 @@
     <tr>
         <th>F-Droid</th>
         <th>Google Play</th>
-        <th>Donate</th>
+        <th>PayPal</th>
+        <th>Liberapay</th>
     </tr>
     <tr>
         <td>
@@ -23,6 +24,11 @@
          <a href="https://www.paypal.me/kylecorry">
           <img alt="Donate using PayPal" src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" height="60" align="middle"/>
          </a>
+        </td>
+        <td>
+            <a href="https://liberapay.com/kylecorry31/donate">
+                <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg" height="40" align="middle">
+            </a>
         </td>
     </tr>
 </table>
