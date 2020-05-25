@@ -1,0 +1,6 @@
+- New linear compass mode
+- Display nearby beacons
+- Adjusted ruler display
+- Made weather monitoring an optional feature
+- Added more customizable settings
+- UI tweaks
