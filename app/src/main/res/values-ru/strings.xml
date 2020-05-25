@@ -134,7 +134,6 @@
     <string name="yesterday">Вчера</string>
     <string name="this_year_format">MMMM d</string>
     <string name="other_year_format">MMM d, YYYYY.</string>
-    <string name="illumination">освещение</string>
     <string name="pressure_tendency_indicator_alt">Индикатор тенденции давления</string>
 
     <string name="pressure_48_hours">48 часов</string>

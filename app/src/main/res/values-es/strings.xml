@@ -130,7 +130,6 @@
     <string name="yesterday">Ayer</string>
     <string name="this_year_format">MMMM d</string>
     <string name="other_year_format">MMM d, YYYY</string>
-    <string name="illumination">iluminación</string>
     <string name="pressure_tendency_indicator_alt">Indicador de tendencia de presión</string>
 
     <string name="pressure_48_hours">48 horas</string>
@@ -139,4 +138,10 @@
     <string name="pressure_4_hours">4 horas</string>
     <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
     <string name="pref_pressure_history_title">Historial de presiones</string>
+    <string name="pref_monitor_weather_title">" Monitorear el clima"</string>
+    <string name="pref_ruler_calibration_title">Escala de la regla</string>
+    <string name="pref_ruler_calibration_summary">Establezca en 1, luego mida con una regla real e ingrese ese valor aquí.</string>
+    <string name="pref_num_visible_beacons_title">Balizas visibles</string>
+    <string name="pref_display_multi_beacons_summary">Mostrar las balizas más cercanas en la brújula</string>
+    <string name="pref_monitor_weather_summary">" En el fondo"</string>
 </resources>

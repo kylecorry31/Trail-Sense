@@ -130,7 +130,6 @@
     <string name="yesterday">Вчера</string>
     <string name="this_year_format">MMMM d</string>
     <string name="other_year_format">МММ d, YYYY</string>
-    <string name="illumination">осветление</string>
     <string name="pressure_tendency_indicator_alt">Индикатор за тенденция на налягане</string>
 
     <string name="pressure_48_hours">48 часа</string>

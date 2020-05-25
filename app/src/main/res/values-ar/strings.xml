@@ -138,7 +138,6 @@
     <string name="yesterday">في الامس</string>
     <string name="this_year_format">ش ش ش د</string>
     <string name="other_year_format">يوم ، شهر ، سنة</string>
-    <string name="illumination">إضاءة</string>
     <string name="pressure_tendency_indicator_alt">مؤشر ميل الضغط</string>
 
     <string name="pressure_48_hours">48 ساعة</string>
@@ -147,4 +146,5 @@
     <string name="pressure_4_hours">4 ساعات</string>
     <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
     <string name="pref_pressure_history_title">تاريخ الضغط</string>
+    <string name="pref_monitor_weather_title">مراقبة الطقس</string>
 </resources>

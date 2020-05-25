@@ -128,7 +128,6 @@
     <string name="yesterday">昨日</string>
     <string name="this_year_format">MMMM d</string>
     <string name="other_year_format">MMM d, YYYY</string>
-    <string name="illumination">イルミネーション</string>
     <string name="pressure_tendency_indicator_alt">圧力傾向インジケーター</string>
 
     <string name="pressure_48_hours">四十八時間</string>

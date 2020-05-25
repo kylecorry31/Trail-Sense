@@ -130,7 +130,6 @@
     <string name="yesterday">gister</string>
     <string name="this_year_format">MMMM d</string>
     <string name="other_year_format">MMM d, YYYY</string>
-    <string name="illumination">verligting</string>
     <string name="pressure_tendency_indicator_alt">Drukneiging aanwyser</string>
 
     <string name="pressure_48_hours">48 uur</string>
@@ -139,4 +138,5 @@
     <string name="pressure_4_hours">4 ure</string>
     <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
     <string name="pref_pressure_history_title">Drukgeskiedenis</string>
+    <string name="pref_monitor_weather_title">Monitor weer</string>
 </resources>

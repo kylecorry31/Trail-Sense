@@ -130,7 +130,6 @@
     <string name="yesterday">Ieri</string>
     <string name="this_year_format">MMMM d</string>
     <string name="other_year_format">MMM d, YYYY</string>
-    <string name="illumination">illuminazione</string>
     <string name="pressure_tendency_indicator_alt">Indicatore di tendenza della pressione</string>
 
     <string name="pressure_48_hours">48 ore</string>

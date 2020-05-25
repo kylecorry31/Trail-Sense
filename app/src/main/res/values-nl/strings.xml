@@ -130,7 +130,6 @@
     <string name="yesterday">Gisteren</string>
     <string name="this_year_format">MMMM d</string>
     <string name="other_year_format">MMM d, YYYY</string>
-    <string name="illumination">:verlichting</string>
     <string name="pressure_tendency_indicator_alt">: Drukverschuivingsindicator</string>
 
     <string name="pressure_48_hours">48 uur</string>
