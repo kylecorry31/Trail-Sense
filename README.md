@@ -73,6 +73,9 @@ If you choose to write a new feature yourself, send me a message to verify that 
 - [sethtara](https://github.com/sethtara) - Translations
 - [paulle](https://github.com/paulle) - Translations
 
+# Release schedule
+I will try to create a release every week with new features or bug fixes. Some features may be feature flagged (via a hidden setting) to deliver thouroughly tested features. Debug builds are updated as features are completed. 
+
 # Credits
 - Weather icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews)
 - Moon icons: [Michael Irigoyen](https://materialdesignicons.com/contributor/Michael-Irigoyen)
