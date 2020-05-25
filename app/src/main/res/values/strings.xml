@@ -147,4 +147,8 @@
     <string name="pref_num_visible_beacons" translatable="false">pref_num_visible_beacons</string>
     <string name="pref_num_visible_beacons_title">Visible beacons</string>
     <string name="pref_display_multi_beacons_summary">Show closest beacons on the compass</string>
+    <string name="sun_does_not_set">does not set</string>
+    <string name="sun_does_not_rise">does not rise</string>
+    <string name="sun_up_no_set">Sun is up</string>
+    <string name="sun_down_no_set">Sun is down</string>
 </resources>

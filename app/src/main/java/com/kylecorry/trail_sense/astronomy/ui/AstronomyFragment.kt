@@ -194,18 +194,19 @@ class AstronomyFragment : Fragment() {
         val yesterday = astronomyService.getYesterdaySunTimes(gps.location, sunTimesMode)
 
         val percent = when {
-            currentTime.isAfter(today.down) -> {
+            today.down != null && currentTime.isAfter(today.down) && tomorrow.up != null -> {
                 getPercentOfDuration(today.down, tomorrow.up, currentTime)
             }
-            currentTime.isAfter(today.up) -> {
+            today.up != null && currentTime.isAfter(today.up) && today.down != null -> {
                 getPercentOfDuration(today.up, today.down, currentTime)
             }
-            else -> {
+            yesterday.down != null && today.up != null -> {
                 getPercentOfDuration(yesterday.down, today.up, currentTime)
             }
+            else -> 0f
         }
 
-        val angle = if (currentTime.isAfter(today.up) && currentTime.isBefore(today.down)) {
+        val angle = if (today.up != null && today.down != null && currentTime.isAfter(today.up) && currentTime.isBefore(today.down)) {
             // Day time
             180 * percent
         } else {
@@ -266,27 +267,35 @@ class AstronomyFragment : Fragment() {
         val today = astronomyService.getTodaySunTimes(gps.location, sunTimesMode)
         val tomorrow = astronomyService.getTomorrowSunTimes(gps.location, sunTimesMode)
         when {
-            currentTime > today.down -> {
+            today.down != null && currentTime > today.down && tomorrow.up != null -> {
                 // Time until tomorrow's sunrise
                 sunTxt.text = Duration.between(currentTime, tomorrow.up).formatHM()
                 remDaylightTxt.text = getString(R.string.until_sunrise_label)
             }
-            currentTime < today.up -> {
+            today.up != null && currentTime < today.up -> {
                 // Time until today's sunrise
                 sunTxt.text = Duration.between(currentTime, today.up).formatHM()
                 remDaylightTxt.text = getString(R.string.until_sunrise_label)
             }
-            else -> {
+            today.down != null -> {
                 sunTxt.text = Duration.between(currentTime, today.down).formatHM()
                 remDaylightTxt.text = getString(R.string.until_sunset_label)
+            }
+            today.isAlwaysUp -> {
+                sunTxt.text = getString(R.string.sun_up_no_set)
+                remDaylightTxt.text = getString(R.string.sun_does_not_set)
+            }
+            today.isAlwaysDown -> {
+                sunTxt.text = getString(R.string.sun_down_no_set)
+                remDaylightTxt.text = getString(R.string.sun_does_not_rise)
             }
         }
     }
 
 
     private fun displaySunTimes(sunTimes: SunTimes, upTxt: TextView, downTxt: TextView) {
-        upTxt.text = sunTimes.up.toDisplayFormat(requireContext())
-        downTxt.text = sunTimes.down.toDisplayFormat(requireContext())
+        upTxt.text = sunTimes.up?.toDisplayFormat(requireContext()) ?: "-"
+        downTxt.text = sunTimes.down?.toDisplayFormat(requireContext()) ?: "-"
     }
 
 }

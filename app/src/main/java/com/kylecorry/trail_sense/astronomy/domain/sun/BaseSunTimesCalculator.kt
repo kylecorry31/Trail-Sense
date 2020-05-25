@@ -45,6 +45,7 @@ abstract class BaseSunTimesCalculator(private val sunAngleDeg: Float) :
                     + -0.0069 * sin(2 * solarLng))
         // declination of sun
         val solarDec = asin(sin(solarLng) * sin(OBLIQUITY.toDouble()))
+        println(solarDec)
         val latRad = Math.toRadians(coordinate.latitude)
         val cosHourAngle =
             (sin(Math.toRadians(sunAngleDeg.toDouble())) - sin(latRad) * sin(
@@ -52,14 +53,11 @@ abstract class BaseSunTimesCalculator(private val sunAngleDeg: Float) :
             )) / (cos(latRad) * cos(solarDec))
         // The day or night never ends for the given date and location, if this value is out of
         // range.
+        // TODO: Handle when sun rises / sets but not both
         if (cosHourAngle >= 1) {
-            return SunTimes.unknown(
-                date
-            )
+            return SunTimes.alwaysDown()
         } else if (cosHourAngle <= -1) {
-            return SunTimes.unknown(
-                date
-            )
+            return SunTimes.alwaysUp()
         }
         val hourAngle = (acos(cosHourAngle) / (2 * Math.PI)).toFloat()
         val up = Instant.ofEpochMilli(

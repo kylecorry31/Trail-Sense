@@ -67,18 +67,6 @@ class SunTimesCalculatorTest {
         assertSunTimes(date2Expected, date2Actual, tolerance)
     }
 
-    @Test
-    fun calculatesNoon(){
-        val up = LocalDateTime.of(2020, 3, 29, 6, 0)
-        val down = LocalDateTime.of(2020, 3, 29, 20, 0)
-
-        val sunTimes = SunTimes(up, down)
-
-        val expected = LocalDateTime.of(2020, 3, 29, 13, 0)
-
-        assertEquals(expected, sunTimes.noon)
-    }
-
 
     private fun assertSunTimes(expected: SunTimes, actual: SunTimes, tolerance: Duration){
 

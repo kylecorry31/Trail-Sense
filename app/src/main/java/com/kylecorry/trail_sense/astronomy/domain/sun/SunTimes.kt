@@ -1,21 +1,20 @@
 package com.kylecorry.trail_sense.astronomy.domain.sun
 
-import org.threeten.bp.Duration
-import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
-import org.threeten.bp.LocalTime
 
-class SunTimes(val up: LocalDateTime, val down: LocalDateTime) {
-
-    val noon: LocalDateTime = up.plus(Duration.between(up, down).dividedBy(2))
+class SunTimes(val up: LocalDateTime?, val down: LocalDateTime?, val isAlwaysUp: Boolean = false, val isAlwaysDown: Boolean = false) {
 
     companion object {
-        fun unknown(date: LocalDate): SunTimes {
-            return SunTimes(
-                date.atTime(
-                    LocalTime.MIN
-                ), date.atTime(LocalTime.MAX)
-            )
+        fun unknown(): SunTimes {
+            return SunTimes(null, null)
+        }
+
+        fun alwaysUp(): SunTimes {
+            return SunTimes(null, null, true)
+        }
+
+        fun alwaysDown(): SunTimes {
+            return SunTimes(null, null, false, true)
         }
 
     }
