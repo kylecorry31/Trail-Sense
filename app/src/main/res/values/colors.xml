@@ -6,4 +6,6 @@
     <color name="colorSecondary">#222222</color>
     <color name="moon_up">#b0dae8</color>
     <color name="white">#FFFFFF</color>
+    <color name="opaqueWhite">#66FFFFFF</color>
+    <color name="opaquePrimary">#66FF6D00</color>
 </resources>

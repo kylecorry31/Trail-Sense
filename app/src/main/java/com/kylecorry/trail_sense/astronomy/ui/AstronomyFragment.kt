@@ -15,7 +15,6 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.domain.moon.MoonTruePhase
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimes
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
-import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.align
 import com.kylecorry.trail_sense.shared.math.getPercentOfDuration
@@ -44,13 +43,11 @@ class AstronomyFragment : Fragment() {
     private lateinit var handler: Handler
     private lateinit var moonPosition: ImageView
     private lateinit var sunPosition: ImageView
-    private lateinit var dayCircle: ImageView
-    private lateinit var moonIconClock: IconClock
-    private lateinit var sunIconClock: IconClock
 
     private lateinit var prevDateBtn: ImageButton
     private lateinit var nextDateBtn: ImageButton
     private lateinit var dateTxt: TextView
+    private lateinit var astroChart: AstroChart
 
     private lateinit var displayDate: LocalDate
 
@@ -77,13 +74,12 @@ class AstronomyFragment : Fragment() {
 
         sunPosition = view.findViewById(R.id.sun_position)
         moonPosition = view.findViewById(R.id.moon_position)
-        dayCircle = view.findViewById(R.id.day_circle)
-        moonIconClock = IconClock(dayCircle, moonPosition)
-        sunIconClock = IconClock(dayCircle, sunPosition)
 
         dateTxt = view.findViewById(R.id.date)
         nextDateBtn = view.findViewById(R.id.next_date)
         prevDateBtn = view.findViewById(R.id.prev_date)
+
+        astroChart = AstroChart(view.findViewById(R.id.moonChart))
 
         prevDateBtn.setOnClickListener {
             displayDate = displayDate.minusDays(1)
@@ -162,17 +158,28 @@ class AstronomyFragment : Fragment() {
         moonRiseTimeTxt.text = today.up?.toDisplayFormat(requireContext()) ?: "-"
         moonSetTimeTxt.text = today.down?.toDisplayFormat(requireContext()) ?: "-"
         moonPosition.setImageResource(getMoonImage(moonPhase.phase))
-        moonTxt.text = "${moonPhase.phase.direction} (${moonPhase.illumination.roundToInt()}%)"
+        moonTxt.text = "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}%)"
 
         updateMoonPosition()
 
-        align(
-            moonTxt,
-            VerticalConstraint(moonPosition, VerticalConstraintType.Bottom),
-            HorizontalConstraint(moonPosition, HorizontalConstraintType.Left),
-            null,
-            HorizontalConstraint(moonPosition, HorizontalConstraintType.Right)
-        )
+        val altitudes = astronomyService.getTodayMoonAltitudes(gps.location)
+        val sunAltitudes = astronomyService.getTodaySunAltitudes(gps.location)
+
+        val current = altitudes.minBy { Duration.between(LocalDateTime.now(), it.time).abs() }
+        val currentIdx = altitudes.indexOf(current)
+
+        astroChart.plot(listOf(
+            AstroChart.AstroChartDataset(altitudes, resources.getColor(R.color.opaqueWhite, null)),
+            AstroChart.AstroChartDataset(sunAltitudes, resources.getColor(R.color.opaquePrimary, null))
+        ))
+
+        val point = astroChart.getPoint(1, currentIdx)
+        moonPosition.x = point.first - moonPosition.width / 2f
+        moonPosition.y = point.second - moonPosition.height / 2f
+
+        val point2 = astroChart.getPoint(2, currentIdx)
+        sunPosition.x = point2.first - sunPosition.width / 2f
+        sunPosition.y = point2.second - sunPosition.height / 2f
     }
 
     private fun updateSunUI() {
@@ -214,7 +221,7 @@ class AstronomyFragment : Fragment() {
             180 + 180 * percent
         }
 
-        sunIconClock.display(angle, 0.98f)
+//        sunIconClock.display(angle, 0.98f)
     }
 
     private fun updateMoonPosition() {
@@ -246,7 +253,7 @@ class AstronomyFragment : Fragment() {
             180 + 180 * percent
         }
 
-        moonIconClock.display(angle, 0.5f)
+//        moonIconClock.display(angle, 0.5f)
     }
 
     private fun getMoonImage(phase: MoonTruePhase): Int {

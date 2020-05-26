@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.astronomy.domain
 
 import com.kylecorry.trail_sense.astronomy.domain.moon.*
 import com.kylecorry.trail_sense.astronomy.domain.sun.*
-import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.shared.Coordinate
 import org.threeten.bp.*
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode as SunTimesMode
@@ -12,6 +11,8 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     private val moonPhaseCalculator = MoonPhaseCalculator()
     private val moonTimesCalculator = AltitudeMoonTimesCalculator()
     private val moonStateCalculator = MoonStateCalculator()
+    private val altitudeCalculator =
+        AstroAltitudeCalculator()
 
     // PUBLIC MOON PROPERTIES
 
@@ -50,6 +51,19 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         val tomorrow = getTomorrowMoonTimes(location)
         return DateUtils.getClosestFutureTime(LocalDateTime.now(clock), listOf(today.up, tomorrow.up))
     }
+
+//    fun getCurrentMoonAltitude(location: Coordinate): AstroAltitude {
+//        return moonAltitudeCalculator.getMoonAltitude(location, LocalDateTime.now(clock))
+//    }
+
+    fun getTodayMoonAltitudes(location: Coordinate): List<AstroAltitude> {
+        return altitudeCalculator.getMoonAltitudes(location, LocalDate.now(clock))
+    }
+
+    fun getTodaySunAltitudes(location: Coordinate): List<AstroAltitude> {
+        return altitudeCalculator.getSunAltitudes(location, LocalDate.now(clock))
+    }
+
 
     // PUBLIC SUN PROPERTIES
 

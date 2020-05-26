@@ -5,16 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/day_circle"
-        android:layout_width="@dimen/circular_display_size"
-        android:layout_height="@dimen/circular_display_size"
-        android:layout_marginTop="32dp"
-        android:scaleType="centerCrop"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/moonChart"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/remaining_time_lbl"
-        app:srcCompat="@drawable/day_night" />
+        app:layout_constraintTop_toBottomOf="@+id/remaining_time_lbl" />
 
     <TextView
         android:id="@+id/remaining_time"
@@ -33,13 +31,13 @@
         android:id="@+id/moon_phase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/moon_position"
-        app:layout_constraintStart_toStartOf="@+id/moon_position"
-        app:layout_constraintTop_toBottomOf="@+id/moon_position"
-        tools:text="10%" />
+        android:visibility="visible"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Waxing Crescent (10%)" />
 
     <TextView
         android:id="@+id/remaining_time_lbl"
@@ -60,7 +58,7 @@
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day_circle" />
+        app:layout_constraintTop_toBottomOf="@+id/moonChart" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -79,9 +77,9 @@
         android:rotation="0"
         android:scaleType="fitStart"
         android:tint="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="@+id/day_circle"
-        app:layout_constraintStart_toStartOf="@+id/day_circle"
-        app:layout_constraintTop_toTopOf="@+id/day_circle"
+        app:layout_constraintEnd_toEndOf="@+id/moonChart"
+        app:layout_constraintStart_toStartOf="@+id/moonChart"
+        app:layout_constraintTop_toTopOf="@+id/moonChart"
         app:srcCompat="@drawable/sun" />
 
     <ImageView
@@ -89,9 +87,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:tint="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/day_circle"
-        app:layout_constraintStart_toStartOf="@+id/day_circle"
-        app:layout_constraintTop_toTopOf="@+id/day_circle"
+        app:layout_constraintEnd_toEndOf="@+id/moonChart"
+        app:layout_constraintStart_toStartOf="@+id/moonChart"
+        app:layout_constraintTop_toTopOf="@+id/moonChart"
         app:srcCompat="@drawable/moon_waning_crescent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,9 +98,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:clipToPadding="true"
-        app:layout_constraintEnd_toEndOf="@+id/day_circle"
-        app:layout_constraintStart_toStartOf="@+id/day_circle"
-        app:layout_constraintTop_toBottomOf="@+id/day_circle">
+        app:layout_constraintEnd_toEndOf="@+id/moonChart"
+        app:layout_constraintStart_toStartOf="@+id/moonChart"
+        app:layout_constraintTop_toBottomOf="@+id/moonChart">
 
         <TextView
             android:id="@+id/sun_start"

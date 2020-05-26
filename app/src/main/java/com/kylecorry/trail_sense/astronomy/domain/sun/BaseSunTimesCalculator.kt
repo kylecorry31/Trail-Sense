@@ -45,7 +45,6 @@ abstract class BaseSunTimesCalculator(private val sunAngleDeg: Float) :
                     + -0.0069 * sin(2 * solarLng))
         // declination of sun
         val solarDec = asin(sin(solarLng) * sin(OBLIQUITY.toDouble()))
-        println(solarDec)
         val latRad = Math.toRadians(coordinate.latitude)
         val cosHourAngle =
             (sin(Math.toRadians(sunAngleDeg.toDouble())) - sin(latRad) * sin(
