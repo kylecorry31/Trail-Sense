@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.domain
 
+import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.math.toRadians
 import com.kylecorry.trail_sense.shared.toZonedDateTime
@@ -19,6 +20,19 @@ class AstroAltitudeCalculator {
         return altitudes
     }
 
+    fun getMoonAzimuth(location: Coordinate, time: LocalDateTime): Bearing {
+        val lw = Math.toRadians(-location.longitude)
+        val phi = Math.toRadians(location.latitude)
+
+        val days = time.toZonedDateTime().toEpochSecond() / dayS - 0.5 + J1970 - J2000
+
+        val c = getMoonCoordinates(days)
+
+        val H = getSiderealTime(days, lw) - c.ra
+
+        return Bearing(Math.toDegrees(calculateAzimuth(H, phi, c.declination)).toFloat())
+    }
+
     fun getMoonAltitude(location: Coordinate, time: LocalDateTime): AstroAltitude {
         val lw = Math.toRadians(-location.longitude)
         val phi = Math.toRadians(location.latitude)
@@ -32,13 +46,24 @@ class AstroAltitudeCalculator {
         return AstroAltitude(time, Math.toDegrees(calculateAltitude(H, phi, c.declination)).toFloat())
     }
 
-    fun getSunAltitudes(location: Coordinate, date: LocalDate, granularityMinutes: Int = 15): List<AstroAltitude> {
-        val totalTime = 24 * 60
+    fun getSunAltitudes(location: Coordinate, date: LocalDate, granularityMinutes: Long = 15): List<AstroAltitude> {
+        val totalTime = 24 * 60L
         val altitudes = mutableListOf<AstroAltitude>()
         for (i in 0..totalTime step granularityMinutes){
-            altitudes.add(getSunAltitude(location, date.atStartOfDay().plusMinutes(i.toLong())))
+            altitudes.add(getSunAltitude(location, date.atStartOfDay().plusMinutes(i)))
         }
         return altitudes
+    }
+
+    fun getSunAzimuth(location: Coordinate, time: LocalDateTime): Bearing {
+        val lw  = -location.longitude.toRadians()
+        val phi = location.latitude.toRadians()
+        val d = time.toZonedDateTime().toEpochSecond() / dayS - 0.5 + J1970 - J2000
+
+        val c  = getSunCoordinates(d)
+        val H  = getSiderealTime(d, lw) - c.ra;
+
+        return Bearing(Math.toDegrees(calculateAzimuth(H, phi, c.declination)).toFloat())
     }
 
     fun getSunAltitude(location: Coordinate, time: LocalDateTime): AstroAltitude {
@@ -92,6 +117,10 @@ class AstroAltitudeCalculator {
         val h = max(0.0, altitude)
         val refraction = 0.0002967 / tan(h + 0.00312536 / (h + 0.08901179))
         return altitude + refraction
+    }
+
+    private fun calculateAzimuth(H: Double, phi: Double, declination: Double): Double {
+        return atan2(sin(H), cos(H) * sin(phi) - tan(declination) * cos(phi))
     }
 
     private fun calculateRightAscension(l: Double, b: Double): Double {

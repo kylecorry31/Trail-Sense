@@ -88,13 +88,15 @@ class AstroChart(private val chart: LineChart) {
             val set1 = LineDataSet(entries, index.toString())
             set1.setDrawIcons(true)
             set1.color = colors[index]
-            set1.lineWidth = 3f
+            set1.lineWidth = 2f
             set1.setDrawValues(false)
             set1.fillColor = colors[index]
             set1.setCircleColor(colors[index])
             set1.setDrawCircleHole(false)
+            set1.mode = LineDataSet.Mode.CUBIC_BEZIER
+            set1.cubicIntensity = 0.005f
             set1.setDrawCircles(false)
-            set1.circleRadius = 1.5f
+            set1.circleRadius = 1f
             if (index == 0){
                 set1.setDrawCircles(false)
                 set1.lineWidth = 0f

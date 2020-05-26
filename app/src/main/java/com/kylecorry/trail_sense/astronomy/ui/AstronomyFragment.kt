@@ -169,8 +169,8 @@ class AstronomyFragment : Fragment() {
         val currentIdx = altitudes.indexOf(current)
 
         astroChart.plot(listOf(
-            AstroChart.AstroChartDataset(altitudes, resources.getColor(R.color.opaqueWhite, null)),
-            AstroChart.AstroChartDataset(sunAltitudes, resources.getColor(R.color.opaquePrimary, null))
+            AstroChart.AstroChartDataset(altitudes, resources.getColor(R.color.white, null)),
+            AstroChart.AstroChartDataset(sunAltitudes, resources.getColor(R.color.colorPrimary, null))
         ))
 
         val point = astroChart.getPoint(1, currentIdx)

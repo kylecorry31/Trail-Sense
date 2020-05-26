@@ -57,11 +57,11 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 //    }
 
     fun getTodayMoonAltitudes(location: Coordinate): List<AstroAltitude> {
-        return altitudeCalculator.getMoonAltitudes(location, LocalDate.now(clock))
+        return altitudeCalculator.getMoonAltitudes(location, LocalDate.now(clock), 8)
     }
 
     fun getTodaySunAltitudes(location: Coordinate): List<AstroAltitude> {
-        return altitudeCalculator.getSunAltitudes(location, LocalDate.now(clock))
+        return altitudeCalculator.getSunAltitudes(location, LocalDate.now(clock), 8)
     }
 
 
