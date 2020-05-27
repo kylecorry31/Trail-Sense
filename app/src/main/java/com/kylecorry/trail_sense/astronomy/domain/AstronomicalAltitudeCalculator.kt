@@ -9,7 +9,7 @@ import org.threeten.bp.LocalDateTime
 import kotlin.math.*
 
 // Adapted from https://github.com/mourner/suncalc/blob/master/suncalc.js
-class AstroAltitudeCalculator {
+class AstronomicalAltitudeCalculator {
 
     fun getMoonAltitudes(location: Coordinate, date: LocalDate, granularityMinutes: Int = 15): List<AstroAltitude> {
         val totalTime = 24 * 60

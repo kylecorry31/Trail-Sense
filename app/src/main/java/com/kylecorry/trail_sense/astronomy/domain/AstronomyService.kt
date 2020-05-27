@@ -6,15 +6,16 @@ import com.kylecorry.trail_sense.shared.Coordinate
 import org.threeten.bp.*
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode as SunTimesMode
 
+/**
+ * The facade for astronomy related services
+ */
 class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
     private val moonPhaseCalculator = MoonPhaseCalculator()
     private val moonTimesCalculator = AltitudeMoonTimesCalculator()
-    private val moonStateCalculator = MoonStateCalculator()
-    private val altitudeCalculator =
-        AstroAltitudeCalculator()
+    private val altitudeCalculator = AstronomicalAltitudeCalculator()
 
-    // PUBLIC MOON PROPERTIES
+    // PUBLIC MOON METHODS
 
     fun getCurrentMoonPhase(): MoonPhase {
         return moonPhaseCalculator.getPhase(ZonedDateTime.now(clock))
@@ -24,48 +25,11 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return moonTimesCalculator.calculate(location, date)
     }
 
-    fun isMoonUp(location: Coordinate): Boolean {
-        return moonStateCalculator.isUp(getTodayMoonTimes(location), LocalTime.now(clock))
-    }
-
-    fun getLastMoonSet(location: Coordinate): LocalDateTime? {
-        val today = getTodayMoonTimes(location)
-        val yesterday = getYesterdayMoonTimes(location)
-        return DateUtils.getClosestPastTime(LocalDateTime.now(clock), listOf(today.down, yesterday.down))
-    }
-
-    fun getLastMoonRise(location: Coordinate): LocalDateTime? {
-        val today = getTodayMoonTimes(location)
-        val yesterday = getYesterdayMoonTimes(location)
-        return DateUtils.getClosestPastTime(LocalDateTime.now(clock), listOf(today.up, yesterday.up))
-    }
-
-    fun getNextMoonSet(location: Coordinate): LocalDateTime? {
-        val today = getTodayMoonTimes(location)
-        val tomorrow = getTomorrowMoonTimes(location)
-        return DateUtils.getClosestFutureTime(LocalDateTime.now(clock), listOf(today.down, tomorrow.down))
-    }
-
-    fun getNextMoonRise(location: Coordinate): LocalDateTime? {
-        val today = getTodayMoonTimes(location)
-        val tomorrow = getTomorrowMoonTimes(location)
-        return DateUtils.getClosestFutureTime(LocalDateTime.now(clock), listOf(today.up, tomorrow.up))
-    }
-
-//    fun getCurrentMoonAltitude(location: Coordinate): AstroAltitude {
-//        return moonAltitudeCalculator.getMoonAltitude(location, LocalDateTime.now(clock))
-//    }
-
     fun getTodayMoonAltitudes(location: Coordinate): List<AstroAltitude> {
         return altitudeCalculator.getMoonAltitudes(location, LocalDate.now(clock), 8)
     }
 
-    fun getTodaySunAltitudes(location: Coordinate): List<AstroAltitude> {
-        return altitudeCalculator.getSunAltitudes(location, LocalDate.now(clock), 8)
-    }
-
-
-    // PUBLIC SUN PROPERTIES
+    // PUBLIC SUN METHODS
 
     fun getSunTimes(location: Coordinate, sunTimesMode: SunTimesMode, date: LocalDate): SunTimes {
         return when (sunTimesMode){
@@ -84,23 +48,25 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return getSunTimes(location, sunTimesMode, LocalDate.now(clock).plusDays(1))
     }
 
-    fun getYesterdaySunTimes(location: Coordinate, sunTimesMode: SunTimesMode): SunTimes {
-        return getSunTimes(location, sunTimesMode, LocalDate.now(clock).minusDays(1))
+    fun getTodaySunAltitudes(location: Coordinate): List<AstroAltitude> {
+        return altitudeCalculator.getSunAltitudes(location, LocalDate.now(clock), 8)
     }
 
-
-    // PRIVATE MOON PROPERTIES
-
-    private fun getTodayMoonTimes(location: Coordinate): MoonTimes {
-        return getMoonTimes(location, LocalDate.now(clock))
+    fun getNextSunset(location: Coordinate, sunTimesMode: SunTimesMode): LocalDateTime? {
+        val today = getTodaySunTimes(location, sunTimesMode)
+        val tomorrow = getTomorrowSunTimes(location, sunTimesMode)
+        return DateUtils.getClosestFutureTime(LocalDateTime.now(clock), listOf(today.down, tomorrow.down))
     }
 
-    private fun getYesterdayMoonTimes(location: Coordinate): MoonTimes {
-        return getMoonTimes(location, LocalDate.now(clock).minusDays(1))
+    fun getNextSunrise(location: Coordinate, sunTimesMode: SunTimesMode): LocalDateTime? {
+        val today = getTodaySunTimes(location, sunTimesMode)
+        val tomorrow = getTomorrowSunTimes(location, sunTimesMode)
+        return DateUtils.getClosestFutureTime(LocalDateTime.now(clock), listOf(today.up, tomorrow.up))
     }
 
-    private fun getTomorrowMoonTimes(location: Coordinate): MoonTimes {
-        return getMoonTimes(location, LocalDate.now(clock).plusDays(1))
+    fun isSunUp(location: Coordinate): Boolean {
+        val altitude = altitudeCalculator.getSunAltitude(location, LocalDateTime.now(clock))
+        return altitude.altitudeDegrees > 0
     }
 
 }

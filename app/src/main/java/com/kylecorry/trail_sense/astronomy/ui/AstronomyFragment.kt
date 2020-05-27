@@ -13,11 +13,8 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.domain.moon.MoonTruePhase
-import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimes
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.align
-import com.kylecorry.trail_sense.shared.math.getPercentOfDuration
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 import org.threeten.bp.Duration
@@ -47,7 +44,7 @@ class AstronomyFragment : Fragment() {
     private lateinit var prevDateBtn: ImageButton
     private lateinit var nextDateBtn: ImageButton
     private lateinit var dateTxt: TextView
-    private lateinit var astroChart: AstroChart
+    private lateinit var chart: AstroChart
 
     private lateinit var displayDate: LocalDate
 
@@ -79,7 +76,7 @@ class AstronomyFragment : Fragment() {
         nextDateBtn = view.findViewById(R.id.next_date)
         prevDateBtn = view.findViewById(R.id.prev_date)
 
-        astroChart = AstroChart(view.findViewById(R.id.moonChart))
+        chart = AstroChart(view.findViewById(R.id.moonChart))
 
         prevDateBtn.setOnClickListener {
             displayDate = displayDate.minusDays(1)
@@ -124,6 +121,95 @@ class AstronomyFragment : Fragment() {
         dateTxt.text = getDateString(displayDate)
         updateSunUI()
         updateMoonUI()
+        updateAstronomyChart()
+    }
+
+    private fun updateMoonUI() {
+        if (context == null) {
+            return
+        }
+
+        val moonPhase = astronomyService.getCurrentMoonPhase()
+        val today = astronomyService.getMoonTimes(gps.location, displayDate)
+
+        moonRiseTimeTxt.text = getTimeString(today.up)
+        moonSetTimeTxt.text = getTimeString(today.down)
+        moonPosition.setImageResource(getMoonImage(moonPhase.phase))
+        moonTxt.text = "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}%)"
+    }
+
+    private fun updateAstronomyChart(){
+        if (context == null) {
+            return
+        }
+
+        val altitudes = astronomyService.getTodayMoonAltitudes(gps.location)
+        val sunAltitudes = astronomyService.getTodaySunAltitudes(gps.location)
+
+        val current = altitudes.minBy { Duration.between(LocalDateTime.now(), it.time).abs() }
+        val currentIdx = altitudes.indexOf(current)
+
+        chart.plot(listOf(
+            AstroChart.AstroChartDataset(altitudes, resources.getColor(R.color.white, null)),
+            AstroChart.AstroChartDataset(sunAltitudes, resources.getColor(R.color.colorPrimary, null))
+        ))
+
+        val point = chart.getPoint(1, currentIdx)
+        moonPosition.x = point.first - moonPosition.width / 2f
+        moonPosition.y = point.second - moonPosition.height / 2f
+
+        val point2 = chart.getPoint(2, currentIdx)
+        sunPosition.x = point2.first - sunPosition.width / 2f
+        sunPosition.y = point2.second - sunPosition.height / 2f
+    }
+
+    private fun updateSunUI() {
+        if (context == null) {
+            return
+        }
+
+        val sunTimes = astronomyService.getSunTimes(gps.location, sunTimesMode, displayDate)
+        sunStartTimeTxt.text = getTimeString(sunTimes.up)
+        sunEndTimeTxt.text = getTimeString(sunTimes.down)
+
+        displayTimeUntilNextSunEvent()
+    }
+
+    private fun getMoonImage(phase: MoonTruePhase): Int {
+        return when (phase) {
+            MoonTruePhase.FirstQuarter -> R.drawable.moon_first_quarter
+            MoonTruePhase.Full -> R.drawable.moon_full
+            MoonTruePhase.ThirdQuarter -> R.drawable.moon_last_quarter
+            MoonTruePhase.New -> R.drawable.moon_new
+            MoonTruePhase.WaningCrescent -> R.drawable.moon_waning_crescent
+            MoonTruePhase.WaningGibbous -> R.drawable.moon_waning_gibbous
+            MoonTruePhase.WaxingCrescent -> R.drawable.moon_waxing_crescent
+            MoonTruePhase.WaxingGibbous -> R.drawable.moon_waxing_gibbous
+        }
+    }
+
+    private fun displayTimeUntilNextSunEvent() {
+        val currentTime = LocalDateTime.now()
+        val nextSunrise = astronomyService.getNextSunrise(gps.location, sunTimesMode)
+        val nextSunset = astronomyService.getNextSunset(gps.location, sunTimesMode)
+
+        if (nextSunrise != null && (nextSunset == null || nextSunrise.isBefore(nextSunset))){
+            sunTxt.text = Duration.between(currentTime, nextSunrise).formatHM()
+            remDaylightTxt.text = getString(R.string.until_sunrise_label)
+        } else if (nextSunset != null){
+            sunTxt.text = Duration.between(currentTime, nextSunset).formatHM()
+            remDaylightTxt.text = getString(R.string.until_sunset_label)
+        } else if (astronomyService.isSunUp(gps.location)){
+            sunTxt.text = getString(R.string.sun_up_no_set)
+            remDaylightTxt.text = getString(R.string.sun_does_not_set)
+        } else {
+            sunTxt.text = getString(R.string.sun_down_no_set)
+            remDaylightTxt.text = getString(R.string.sun_does_not_rise)
+        }
+    }
+
+    private fun getTimeString(time: LocalDateTime?): String {
+        return time?.toDisplayFormat(requireContext()) ?: "-"
     }
 
     private fun getDateString(date: LocalDate): String {
@@ -145,164 +231,6 @@ class AstronomyFragment : Fragment() {
                 date.format(DateTimeFormatter.ofPattern(getString(R.string.other_year_format)))
             }
         }
-    }
-
-    private fun updateMoonUI() {
-        if (context == null) {
-            return
-        }
-
-        val moonPhase = astronomyService.getCurrentMoonPhase()
-        val today = astronomyService.getMoonTimes(gps.location, displayDate)
-
-        moonRiseTimeTxt.text = today.up?.toDisplayFormat(requireContext()) ?: "-"
-        moonSetTimeTxt.text = today.down?.toDisplayFormat(requireContext()) ?: "-"
-        moonPosition.setImageResource(getMoonImage(moonPhase.phase))
-        moonTxt.text = "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}%)"
-
-        updateMoonPosition()
-
-        val altitudes = astronomyService.getTodayMoonAltitudes(gps.location)
-        val sunAltitudes = astronomyService.getTodaySunAltitudes(gps.location)
-
-        val current = altitudes.minBy { Duration.between(LocalDateTime.now(), it.time).abs() }
-        val currentIdx = altitudes.indexOf(current)
-
-        astroChart.plot(listOf(
-            AstroChart.AstroChartDataset(altitudes, resources.getColor(R.color.white, null)),
-            AstroChart.AstroChartDataset(sunAltitudes, resources.getColor(R.color.colorPrimary, null))
-        ))
-
-        val point = astroChart.getPoint(1, currentIdx)
-        moonPosition.x = point.first - moonPosition.width / 2f
-        moonPosition.y = point.second - moonPosition.height / 2f
-
-        val point2 = astroChart.getPoint(2, currentIdx)
-        sunPosition.x = point2.first - sunPosition.width / 2f
-        sunPosition.y = point2.second - sunPosition.height / 2f
-    }
-
-    private fun updateSunUI() {
-        if (context == null) {
-            return
-        }
-        val currentTime = LocalDateTime.now()
-
-        val displayDateTimes = astronomyService.getSunTimes(gps.location, sunTimesMode, displayDate)
-        displaySunTimes(displayDateTimes, sunStartTimeTxt, sunEndTimeTxt)
-
-        displayTimeUntilNextSunEvent()
-        updateSunPosition(currentTime)
-    }
-
-    private fun updateSunPosition(currentTime: LocalDateTime) {
-        val today = astronomyService.getTodaySunTimes(gps.location, sunTimesMode)
-        val tomorrow = astronomyService.getTomorrowSunTimes(gps.location, sunTimesMode)
-        val yesterday = astronomyService.getYesterdaySunTimes(gps.location, sunTimesMode)
-
-        val percent = when {
-            today.down != null && currentTime.isAfter(today.down) && tomorrow.up != null -> {
-                getPercentOfDuration(today.down, tomorrow.up, currentTime)
-            }
-            today.up != null && currentTime.isAfter(today.up) && today.down != null -> {
-                getPercentOfDuration(today.up, today.down, currentTime)
-            }
-            yesterday.down != null && today.up != null -> {
-                getPercentOfDuration(yesterday.down, today.up, currentTime)
-            }
-            else -> 0f
-        }
-
-        val angle = if (today.up != null && today.down != null && currentTime.isAfter(today.up) && currentTime.isBefore(today.down)) {
-            // Day time
-            180 * percent
-        } else {
-            // Night time
-            180 + 180 * percent
-        }
-
-//        sunIconClock.display(angle, 0.98f)
-    }
-
-    private fun updateMoonPosition() {
-        val isUp = astronomyService.isMoonUp(gps.location)
-
-        val percent = if (isUp) {
-            val lastUp = astronomyService.getLastMoonRise(gps.location)
-            val nextDown = astronomyService.getNextMoonSet(gps.location)
-            if (lastUp != null && nextDown != null) {
-                getPercentOfDuration(lastUp, nextDown, LocalDateTime.now())
-            } else {
-                0f
-            }
-        } else {
-            val lastDown = astronomyService.getLastMoonSet(gps.location)
-            val nextUp = astronomyService.getNextMoonRise(gps.location)
-            if (lastDown != null && nextUp != null) {
-                getPercentOfDuration(lastDown, nextUp, LocalDateTime.now())
-            } else {
-                0f
-            }
-        }
-
-        val angle = if (isUp) {
-            // Day time
-            180 * percent
-        } else {
-            // Night time
-            180 + 180 * percent
-        }
-
-//        moonIconClock.display(angle, 0.5f)
-    }
-
-    private fun getMoonImage(phase: MoonTruePhase): Int {
-        return when (phase) {
-            MoonTruePhase.FirstQuarter -> R.drawable.moon_first_quarter
-            MoonTruePhase.Full -> R.drawable.moon_full
-            MoonTruePhase.ThirdQuarter -> R.drawable.moon_last_quarter
-            MoonTruePhase.New -> R.drawable.moon_new
-            MoonTruePhase.WaningCrescent -> R.drawable.moon_waning_crescent
-            MoonTruePhase.WaningGibbous -> R.drawable.moon_waning_gibbous
-            MoonTruePhase.WaxingCrescent -> R.drawable.moon_waxing_crescent
-            MoonTruePhase.WaxingGibbous -> R.drawable.moon_waxing_gibbous
-        }
-    }
-
-    private fun displayTimeUntilNextSunEvent() {
-        val currentTime = LocalDateTime.now()
-        val today = astronomyService.getTodaySunTimes(gps.location, sunTimesMode)
-        val tomorrow = astronomyService.getTomorrowSunTimes(gps.location, sunTimesMode)
-        when {
-            today.down != null && currentTime > today.down && tomorrow.up != null -> {
-                // Time until tomorrow's sunrise
-                sunTxt.text = Duration.between(currentTime, tomorrow.up).formatHM()
-                remDaylightTxt.text = getString(R.string.until_sunrise_label)
-            }
-            today.up != null && currentTime < today.up -> {
-                // Time until today's sunrise
-                sunTxt.text = Duration.between(currentTime, today.up).formatHM()
-                remDaylightTxt.text = getString(R.string.until_sunrise_label)
-            }
-            today.down != null -> {
-                sunTxt.text = Duration.between(currentTime, today.down).formatHM()
-                remDaylightTxt.text = getString(R.string.until_sunset_label)
-            }
-            today.isAlwaysUp -> {
-                sunTxt.text = getString(R.string.sun_up_no_set)
-                remDaylightTxt.text = getString(R.string.sun_does_not_set)
-            }
-            today.isAlwaysDown -> {
-                sunTxt.text = getString(R.string.sun_down_no_set)
-                remDaylightTxt.text = getString(R.string.sun_does_not_rise)
-            }
-        }
-    }
-
-
-    private fun displaySunTimes(sunTimes: SunTimes, upTxt: TextView, downTxt: TextView) {
-        upTxt.text = sunTimes.up?.toDisplayFormat(requireContext()) ?: "-"
-        downTxt.text = sunTimes.down?.toDisplayFormat(requireContext()) ?: "-"
     }
 
 }

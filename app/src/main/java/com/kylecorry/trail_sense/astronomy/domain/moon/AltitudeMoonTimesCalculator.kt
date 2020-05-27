@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.domain.moon
 
-import com.kylecorry.trail_sense.astronomy.domain.AstroAltitudeCalculator
+import com.kylecorry.trail_sense.astronomy.domain.AstronomicalAltitudeCalculator
 import com.kylecorry.trail_sense.shared.Coordinate
 import org.threeten.bp.LocalDate
 import kotlin.math.*
@@ -9,7 +9,7 @@ import kotlin.math.*
 class AltitudeMoonTimesCalculator : IMoonTimesCalculator {
     override fun calculate(location: Coordinate, date: LocalDate): MoonTimes {
         val altitudeCalculator =
-            AstroAltitudeCalculator()
+            AstronomicalAltitudeCalculator()
         val hc = Math.toRadians(0.133)
 
         val startTime = date.atStartOfDay()
