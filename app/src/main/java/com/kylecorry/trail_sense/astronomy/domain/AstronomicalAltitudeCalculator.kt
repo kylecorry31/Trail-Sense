@@ -30,7 +30,7 @@ class AstronomicalAltitudeCalculator {
 
         val H = getSiderealTime(days, lw) - c.ra
 
-        return Bearing(360 - Math.toDegrees(calculateAzimuth(H, phi, c.declination)).toFloat())
+        return Bearing(180 + Math.toDegrees(calculateAzimuth(H, phi, c.declination)).toFloat())
     }
 
     fun getMoonAltitude(location: Coordinate, time: LocalDateTime): AstroAltitude {
@@ -63,7 +63,7 @@ class AstronomicalAltitudeCalculator {
         val c  = getSunCoordinates(d)
         val H  = getSiderealTime(d, lw) - c.ra;
 
-        return Bearing(360 - Math.toDegrees(calculateAzimuth(H, phi, c.declination)).toFloat())
+        return Bearing(180 + Math.toDegrees(calculateAzimuth(H, phi, c.declination)).toFloat())
     }
 
     fun getSunAltitude(location: Coordinate, time: LocalDateTime): AstroAltitude {
