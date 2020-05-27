@@ -9,10 +9,10 @@
         android:id="@+id/moonChart"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/remaining_time_lbl" />
+        app:layout_constraintTop_toBottomOf="@+id/moon_phase" />
 
     <TextView
         android:id="@+id/remaining_time"
@@ -31,12 +31,12 @@
         android:id="@+id/moon_phase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:textSize="12sp"
         android:visibility="visible"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/remaining_time_lbl"
         tools:text="Waxing Crescent (10%)" />
 
     <TextView
