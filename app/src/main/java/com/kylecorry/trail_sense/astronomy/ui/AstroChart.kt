@@ -21,6 +21,18 @@ import org.threeten.bp.LocalDateTime
 
 class AstroChart(private val chart: LineChart) {
 
+    val x: Float
+        get() = chart.x
+
+    val y: Float
+        get() = chart.y
+
+    val width: Int
+        get() = chart.width
+
+    val height: Int
+        get() = chart.height
+
     init {
         chart.description.isEnabled = false
         chart.setTouchEnabled(false)
@@ -72,7 +84,7 @@ class AstroChart(private val chart: LineChart) {
             Pair(((date.toEpochSecond() + date.offset.totalSeconds) * 1000) as Number, it.altitudeDegrees)
         } }.toMutableList()
 
-        val minValue = (values.map{ it.minBy { it.second }?.second ?: 0f }.min() ?: 0f).coerceAtMost(-1f)
+        val minValue = (values.map{ it.minBy { it.second }?.second ?: 0f }.min() ?: 0f).coerceAtMost(-1f) - 5f
 
         chart.axisLeft.axisMinimum = minValue
 
@@ -113,7 +125,6 @@ class AstroChart(private val chart: LineChart) {
         chart.legend.isEnabled = false
         chart.notifyDataSetChanged()
         chart.invalidate()
-
     }
 
     data class AstroChartDataset(val data: List<AstroAltitude>, val color: Int)

@@ -40,6 +40,8 @@ class AstronomyFragment : Fragment() {
     private lateinit var handler: Handler
     private lateinit var moonPosition: ImageView
     private lateinit var sunPosition: ImageView
+    private lateinit var moonPositionArrow: ImageView
+    private lateinit var moonIndicatorCircle: ImageView
 
     private lateinit var prevDateBtn: ImageButton
     private lateinit var nextDateBtn: ImageButton
@@ -71,6 +73,8 @@ class AstronomyFragment : Fragment() {
 
         sunPosition = view.findViewById(R.id.sun_position)
         moonPosition = view.findViewById(R.id.moon_position)
+        moonPositionArrow = view.findViewById(R.id.moon_position_arrow)
+        moonIndicatorCircle = view.findViewById(R.id.moon_indicator_circle)
 
         dateTxt = view.findViewById(R.id.date)
         nextDateBtn = view.findViewById(R.id.next_date)
@@ -157,10 +161,59 @@ class AstronomyFragment : Fragment() {
         val point = chart.getPoint(1, currentIdx)
         moonPosition.x = point.first - moonPosition.width / 2f
         moonPosition.y = point.second - moonPosition.height / 2f
+        moonIndicatorCircle.x = point.first - moonIndicatorCircle.width / 2f
+        moonIndicatorCircle.y = point.second - moonIndicatorCircle.height / 2f
 
         val point2 = chart.getPoint(2, currentIdx)
         sunPosition.x = point2.first - sunPosition.width / 2f
         sunPosition.y = point2.second - sunPosition.height / 2f
+
+        if (isVerticallyOverlapping(moonPosition, sunPosition)){
+            moonIndicatorCircle.visibility = View.VISIBLE
+            if (moonPosition.y > chart.y + chart.height / 2f){
+                moonPositionArrow.rotation = 0f
+                align(moonPositionArrow,
+                    null,
+                    HorizontalConstraint(sunPosition, HorizontalConstraintType.Left),
+                    VerticalConstraint(sunPosition, VerticalConstraintType.Top),
+                    HorizontalConstraint(sunPosition, HorizontalConstraintType.Right))
+                align(moonPosition,
+                    null,
+                    HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Left),
+                    VerticalConstraint(moonPositionArrow, VerticalConstraintType.Top),
+                    HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Right))
+                moonPositionArrow.visibility = View.VISIBLE
+            } else {
+                moonPositionArrow.rotation = 180f
+                align(moonPositionArrow,
+                    VerticalConstraint(sunPosition, VerticalConstraintType.Bottom),
+                    HorizontalConstraint(sunPosition, HorizontalConstraintType.Left),
+                    null,
+                    HorizontalConstraint(sunPosition, HorizontalConstraintType.Right))
+                align(moonPosition,
+                    VerticalConstraint(moonPositionArrow, VerticalConstraintType.Bottom),
+                    HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Left),
+                    null,
+                    HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Right))
+                moonPositionArrow.visibility = View.VISIBLE
+            }
+        } else {
+            moonPositionArrow.visibility = View.INVISIBLE
+            moonIndicatorCircle.visibility = View.INVISIBLE
+        }
+
+    }
+
+    private fun isVerticallyOverlapping(first: View, second: View): Boolean {
+        if (first.y > second.y && first.y > second.y + second.height){
+            return false
+        }
+
+        if (second.y > first.y && second.y > first.y + first.height){
+            return false
+        }
+
+        return true
     }
 
     private fun updateSunUI() {

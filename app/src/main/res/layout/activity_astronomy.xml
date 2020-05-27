@@ -71,6 +71,18 @@
         app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
 
     <ImageView
+        android:id="@+id/moon_indicator_circle"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:tint="@color/white"
+        tools:visibility="visible"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/moonChart"
+        app:layout_constraintStart_toStartOf="@+id/moonChart"
+        app:layout_constraintTop_toTopOf="@+id/moonChart"
+        app:srcCompat="@drawable/moon_full" />
+
+    <ImageView
         android:id="@+id/sun_position"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -91,6 +103,18 @@
         app:layout_constraintStart_toStartOf="@+id/moonChart"
         app:layout_constraintTop_toTopOf="@+id/moonChart"
         app:srcCompat="@drawable/moon_waning_crescent" />
+
+    <ImageView
+        android:id="@+id/moon_position_arrow"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:tint="@color/white"
+        tools:visibility="visible"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/moonChart"
+        app:layout_constraintStart_toStartOf="@+id/moonChart"
+        app:layout_constraintTop_toTopOf="@+id/moonChart"
+        app:srcCompat="@drawable/ic_arrow_down" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
