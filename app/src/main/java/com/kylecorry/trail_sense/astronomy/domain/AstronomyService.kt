@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.astronomy.domain
 
 import com.kylecorry.trail_sense.astronomy.domain.moon.*
 import com.kylecorry.trail_sense.astronomy.domain.sun.*
+import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.Coordinate
 import org.threeten.bp.*
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode as SunTimesMode
@@ -27,6 +28,10 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
     fun getTodayMoonAltitudes(location: Coordinate): List<AstroAltitude> {
         return altitudeCalculator.getMoonAltitudes(location, LocalDate.now(clock), 8)
+    }
+
+    fun getMoonAzimuth(location: Coordinate): Bearing {
+        return altitudeCalculator.getMoonAzimuth(location, LocalDateTime.now(clock))
     }
 
     // PUBLIC SUN METHODS
@@ -67,6 +72,10 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     fun isSunUp(location: Coordinate): Boolean {
         val altitude = altitudeCalculator.getSunAltitude(location, LocalDateTime.now(clock))
         return altitude.altitudeDegrees > 0
+    }
+
+    fun getSunAzimuth(location: Coordinate): Bearing {
+        return altitudeCalculator.getSunAzimuth(location, LocalDateTime.now(clock))
     }
 
 }

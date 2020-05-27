@@ -153,7 +153,6 @@
         <SwitchPreferenceCompat
             app:key="@string/pref_show_sun_moon_compass"
             app:title="@string/pref_show_sun_moon_compass_title"
-            app:isPreferenceVisible="false"
             app:defaultValue="false"/>
 
     </PreferenceCategory>
