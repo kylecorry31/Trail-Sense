@@ -25,7 +25,7 @@ class LinearCompassViewHldr(private val compass: LinearCompassView, private val 
         set(value) {
             beaconIndicators.forEachIndexed { index, indicator ->
                 if (index < beacons.size){
-                    showBeacon(indicator, beacons[index])
+                    showBeacon(indicator, beacons[index], index <= 1)
                 } else {
                     hideBeacon(indicator)
                 }
@@ -33,34 +33,41 @@ class LinearCompassViewHldr(private val compass: LinearCompassView, private val 
             field = value
         }
 
-    private fun showBeacon(indicator: ImageView, bearing: Float){
+    private fun showBeacon(indicator: ImageView, bearing: Float, isSunOrMoon: Boolean){
         indicator.rotation = 0f
 
         val delta = deltaAngle(azimuth.roundToInt().toFloat(), bearing.roundToInt().toFloat())
+        val margin = if (isSunOrMoon) indicator.height / 2f else 0f
 
         when {
             delta < -90 -> {
                 align(indicator,
-                    VerticalConstraint(compass, VerticalConstraintType.Top),
+                    VerticalConstraint(compass, VerticalConstraintType.Top, margin),
                     HorizontalConstraint(compass, HorizontalConstraintType.Left),
                     null,
                     null
                 )
                 indicator.rotation = -90f
+                if (isSunOrMoon){
+                    indicator.rotation = 0f
+                }
             }
             delta > 90 -> {
                 align(indicator,
-                    VerticalConstraint(compass, VerticalConstraintType.Top),
+                    VerticalConstraint(compass, VerticalConstraintType.Top, margin),
                     null,
                     null,
                     HorizontalConstraint(compass, HorizontalConstraintType.Right)
                 )
                 indicator.rotation = 90f
+                if (isSunOrMoon){
+                    indicator.rotation = 0f
+                }
             }
             else -> {
                 val pct = (delta + 90) / 180f
                 align(indicator,
-                    VerticalConstraint(compass, VerticalConstraintType.Top),
+                    VerticalConstraint(compass, VerticalConstraintType.Top, margin),
                     HorizontalConstraint(compass, HorizontalConstraintType.Left),
                     null,
                     HorizontalConstraint(compass, HorizontalConstraintType.Right),

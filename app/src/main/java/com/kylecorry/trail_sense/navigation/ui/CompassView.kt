@@ -31,7 +31,7 @@ class CompassView(private val compass: ImageView, private val beaconIndicators: 
         set(value) {
             beaconIndicators.forEachIndexed { index, indicator ->
                 if (index < beacons.size){
-                    showBeacon(indicator, beacons[index])
+                    showBeacon(indicator, beacons[index], index <= 1)
                 } else {
                     hideBeacon(indicator)
                 }
@@ -39,10 +39,10 @@ class CompassView(private val compass: ImageView, private val beaconIndicators: 
             field = value
         }
 
-    private fun showBeacon(indicator: ImageView, bearing: Float){
+    private fun showBeacon(indicator: ImageView, bearing: Float, isSunOrMoon: Boolean){
         val adjBearing = bearing - azimuth + 90
         indicator.visibility = visibility
-        displayDestinationBearing(indicator, adjBearing)
+        displayDestinationBearing(indicator, adjBearing, isSunOrMoon)
     }
 
     private fun hideBeacon(indicator: ImageView){
@@ -53,8 +53,22 @@ class CompassView(private val compass: ImageView, private val beaconIndicators: 
      * Displays the destination bearing indicator around the compass
      * @param bearing the bearing in degrees to display the indicator at
      */
-    private fun displayDestinationBearing(beaconIndicator: ImageView, bearing: Float){
-        alignToVector(compass, beaconIndicator, compass.width / 2f + beaconIndicator.height / 4f, bearing)
+    private fun displayDestinationBearing(beaconIndicator: ImageView, bearing: Float, isSunOrMoon: Boolean){
+        if (isSunOrMoon) {
+            alignToVector(
+                compass,
+                beaconIndicator,
+                compass.width / 2f + beaconIndicator.height / 2f + 16f,
+                bearing
+            )
+        } else {
+            alignToVector(
+                compass,
+                beaconIndicator,
+                compass.width / 2f + beaconIndicator.height / 4f,
+                bearing
+            )
+        }
         beaconIndicator.rotation = bearing - 90
     }
 

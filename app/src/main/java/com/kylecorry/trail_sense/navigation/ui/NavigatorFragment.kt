@@ -74,6 +74,7 @@ class NavigatorFragment(
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
 
         // Get views
+        userPrefs = UserPreferences(requireContext())
         locationTxt = view.findViewById(R.id.location)
         altitudeTxt = view.findViewById(R.id.altitude)
         azimuthTxt = view.findViewById(R.id.compass_azimuth)
@@ -83,15 +84,20 @@ class NavigatorFragment(
         rulerBtn = view.findViewById(R.id.ruler_btn)
         ruler = view.findViewById(R.id.ruler)
         parentLayout = view.findViewById(R.id.navigator_layout)
-        beaconIndicators = listOf(
-            ImageView(requireContext()),
-            ImageView(requireContext()),
-            ImageView(requireContext()),
-            ImageView(requireContext()),
-            ImageView(requireContext())
-        )
+
+        val beacons = mutableListOf<ImageView>()
+
+        for (i in 0..(userPrefs.navigation.numberOfVisibleBeacons + 3)){
+            beacons.add(ImageView(requireContext()))
+        }
+        beaconIndicators = beacons
 
         val arrowImg = resources.getDrawable(R.drawable.ic_arrow_target, null)
+        val sunImg = resources.getDrawable(R.drawable.sun, null)
+        sunImg.setTint(resources.getColor(R.color.colorPrimary, null))
+
+        val moonImg = resources.getDrawable(R.drawable.moon_waxing_crescent, null)
+        moonImg.setTint(resources.getColor(R.color.colorPrimary, null))
 
         beaconIndicators.forEach {
             it.setImageDrawable(arrowImg)
@@ -99,7 +105,9 @@ class NavigatorFragment(
             parentLayout.addView(it)
         }
 
-        userPrefs = UserPreferences(requireContext())
+        beaconIndicators[0].setImageDrawable(sunImg)
+        beaconIndicators[1].setImageDrawable(moonImg)
+
 
         beaconDB = BeaconDB(requireContext())
 
@@ -263,6 +271,9 @@ class NavigatorFragment(
                 it.visibility = View.INVISIBLE
             }
         }
+
+        beaconIndicators[0].visibility = navigationVM.sunBeaconVisibility
+        beaconIndicators[1].visibility = navigationVM.moonBeaconVisibility
     }
 
     private fun onOrientationUpdate(): Boolean {

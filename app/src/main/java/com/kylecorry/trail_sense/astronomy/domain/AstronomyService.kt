@@ -34,6 +34,11 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return altitudeCalculator.getMoonAzimuth(location, LocalDateTime.now(clock))
     }
 
+    fun isMoonUp(location: Coordinate): Boolean {
+        val altitude = altitudeCalculator.getMoonAltitude(location, LocalDateTime.now(clock))
+        return altitude.altitudeDegrees > 0
+    }
+
     // PUBLIC SUN METHODS
 
     fun getSunTimes(location: Coordinate, sunTimesMode: SunTimesMode, date: LocalDate): SunTimes {

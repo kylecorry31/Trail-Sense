@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.view.View
+import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
@@ -32,6 +34,8 @@ class NavigationViewModel(
     private val beacons = beaconDB.beacons
     private val showNearbyBeacons = prefs.navigation.showMultipleBeacons
     private val visibleBeacons = prefs.navigation.numberOfVisibleBeacons
+    private val showSunAndMoon = prefs.astronomy.showOnCompass
+    private val astronomyService = AstronomyService()
 
     val rulerScale = prefs.navigation.rulerScale
 
@@ -120,21 +124,25 @@ class NavigationViewModel(
     val nearestBeacons: List<Float>
         get() {
             if (showDestination) {
-                return listOf(destinationBearing ?: 0f)
+                return listOf(sunBearing, moonBearing, destinationBearing ?: 0f)
             }
 
             if (!showNearbyBeacons) {
-                return listOf()
+                return listOf(sunBearing, moonBearing)
             }
 
             val declination = declinationCalculator.calculate(gps.location, gps.altitude)
 
-            return _nearestVisibleBeacons
+            val sunAndMoon = listOf(sunBearing, moonBearing)
+
+            val beacons = _nearestVisibleBeacons
                 .map {
                     val direction =
                         if (!useTrueNorth) it.second.direction.withDeclination(-declination).value else it.second.direction.value
                     direction
                 }.toList()
+
+            return sunAndMoon + beacons
         }
 
     private val _nearestVisibleBeacons: List<Pair<Beacon, NavigationVector>>
@@ -173,12 +181,42 @@ class NavigationViewModel(
                 if (!isFacingBeacon(this.first)) return ""
                 val direction =
                     if (!useTrueNorth) this.second.direction.withDeclination(-declination).value else this.second.direction.value
-                return "${this.first.name}    (${direction.roundToInt()}°)\n${LocationMath.distanceToReadableString(
+                return "${this.first.name}    (${direction.roundToInt() % 360}°)\n${LocationMath.distanceToReadableString(
                     this.second.distance,
                     distanceUnits
                 )}"
             }
             return ""
+        }
+
+    val moonBeaconVisibility: Int
+        get() {
+            if (!showSunAndMoon || !astronomyService.isMoonUp(gps.location)){
+                return View.INVISIBLE
+            }
+
+            return View.VISIBLE
+        }
+
+    val sunBeaconVisibility: Int
+        get() {
+            if (!showSunAndMoon || !astronomyService.isSunUp(gps.location)){
+                return View.INVISIBLE
+            }
+
+            return View.VISIBLE
+        }
+
+    private val sunBearing: Float
+        get() {
+            val declination = if (!useTrueNorth) declinationCalculator.calculate(gps.location, gps.altitude) else 0f
+            return astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value
+        }
+
+    private val moonBearing: Float
+        get() {
+            val declination = if (!useTrueNorth) declinationCalculator.calculate(gps.location, gps.altitude) else 0f
+            return astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value
         }
 
 }
