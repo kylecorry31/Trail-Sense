@@ -266,14 +266,14 @@ class NavigatorFragment(
         navigationTxt.text = navigationVM.navigation
         locationTxt.text = navigationVM.location
 
+        beaconIndicators[0].visibility = navigationVM.sunBeaconVisibility
+        beaconIndicators[1].visibility = navigationVM.moonBeaconVisibility
+
         beaconIndicators.forEach {
             if (it.height == 0){
                 it.visibility = View.INVISIBLE
             }
         }
-
-        beaconIndicators[0].visibility = navigationVM.sunBeaconVisibility
-        beaconIndicators[1].visibility = navigationVM.moonBeaconVisibility
     }
 
     private fun onOrientationUpdate(): Boolean {
