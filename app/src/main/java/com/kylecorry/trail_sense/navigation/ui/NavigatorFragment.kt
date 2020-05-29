@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -92,12 +91,21 @@ class NavigatorFragment(
         }
         beaconIndicators = beacons
 
+        val theme = requireContext().theme
+        val typedValue = TypedValue()
+        theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
+        val arr = requireContext().obtainStyledAttributes(typedValue.data, IntArray(1) {
+            android.R.attr.textColorSecondary
+        })
+        val astronomyColor = arr.getColor(0, -1)
+        arr.recycle()
+
         val arrowImg = resources.getDrawable(R.drawable.ic_arrow_target, null)
         val sunImg = resources.getDrawable(R.drawable.sun, null)
-        sunImg.setTint(resources.getColor(R.color.colorPrimary, null))
+        sunImg.setTint(astronomyColor)
 
         val moonImg = resources.getDrawable(R.drawable.moon_waxing_crescent, null)
-        moonImg.setTint(resources.getColor(R.color.colorPrimary, null))
+        moonImg.setTint(astronomyColor)
 
         beaconIndicators.forEach {
             it.setImageDrawable(arrowImg)
