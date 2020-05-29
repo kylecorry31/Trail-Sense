@@ -1,5 +1,5 @@
 package com.kylecorry.trail_sense.weather.domain
 
-import org.threeten.bp.Instant
+import java.time.Instant
 
 data class PressureReading(val time: Instant, val value: Float)

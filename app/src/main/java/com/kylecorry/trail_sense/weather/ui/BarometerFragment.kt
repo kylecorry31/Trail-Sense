@@ -30,8 +30,8 @@ import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConvert
 import com.kylecorry.trail_sense.weather.domain.tendency.DropPressureTendencyCalculator
 import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
 import com.kylecorry.trail_sense.weather.infrastructure.PressureHistoryRepository
-import org.threeten.bp.Duration
-import org.threeten.bp.Instant
+import java.time.Duration
+import java.time.Instant
 import java.util.*
 
 

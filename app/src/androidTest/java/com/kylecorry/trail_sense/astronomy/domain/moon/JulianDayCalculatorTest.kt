@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.astronomy.domain.moon
 
 import org.junit.Assert.*
 import org.junit.Test
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.Month
+import java.time.LocalDateTime
+import java.time.Month
 
 class JulianDayCalculatorTest {
 

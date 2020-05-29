@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.astronomy.domain.moon
 
 import com.kylecorry.trail_sense.shared.Coordinate
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 interface IMoonTimesCalculator {
 

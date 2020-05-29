@@ -13,8 +13,8 @@ import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
-import org.threeten.bp.Duration
-import org.threeten.bp.ZonedDateTime
+import java.time.Duration
+import java.time.ZonedDateTime
 
 
 class BarometerService: Service() {

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.domain.tendency
 
 import com.kylecorry.trail_sense.weather.domain.PressureReading
-import org.threeten.bp.Duration
+import java.time.Duration
 
 interface IPressureTendencyCalculator {
 

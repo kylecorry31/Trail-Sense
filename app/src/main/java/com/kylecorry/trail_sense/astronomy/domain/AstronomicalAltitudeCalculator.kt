@@ -4,8 +4,8 @@ import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.math.toRadians
 import com.kylecorry.trail_sense.shared.toZonedDateTime
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
+import java.time.LocalDate
+import java.time.LocalDateTime
 import kotlin.math.*
 
 // Adapted from https://github.com/mourner/suncalc/blob/master/suncalc.js

@@ -4,7 +4,7 @@ import com.kylecorry.trail_sense.shared.math.cosDegrees
 import com.kylecorry.trail_sense.shared.math.normalizeAngle
 import com.kylecorry.trail_sense.shared.math.sinDegrees
 import com.kylecorry.trail_sense.shared.toUTCLocal
-import org.threeten.bp.ZonedDateTime
+import java.time.ZonedDateTime
 import kotlin.math.pow
 
 class MoonPhaseCalculator {

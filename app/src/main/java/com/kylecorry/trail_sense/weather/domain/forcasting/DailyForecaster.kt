@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.weather.domain.forcasting
 
 import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.domain.tendency.SlopePressureTendencyCalculator
-import org.threeten.bp.Duration
+import java.time.Duration
 
 class DailyForecaster : IWeatherForecaster {
 

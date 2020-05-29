@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.weather.domain.tendency
 
 import com.kylecorry.trail_sense.weather.domain.PressureReading
-import org.threeten.bp.Duration
-import org.threeten.bp.Instant
+import java.time.Duration
+import java.time.Instant
 
 class DropPressureTendencyCalculator: BasePressureTendencyCalculator() {
 

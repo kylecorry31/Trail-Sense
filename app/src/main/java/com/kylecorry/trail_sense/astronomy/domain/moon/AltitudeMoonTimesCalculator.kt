@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.astronomy.domain.moon
 
 import com.kylecorry.trail_sense.astronomy.domain.AstronomicalAltitudeCalculator
 import com.kylecorry.trail_sense.shared.Coordinate
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 import kotlin.math.*
 
 // Adapted from https://github.com/mourner/suncalc/blob/master/suncalc.js

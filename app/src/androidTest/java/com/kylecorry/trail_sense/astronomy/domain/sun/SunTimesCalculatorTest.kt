@@ -4,9 +4,9 @@ import com.kylecorry.trail_sense.shared.Coordinate
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.threeten.bp.Duration
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class SunTimesCalculatorTest {
 

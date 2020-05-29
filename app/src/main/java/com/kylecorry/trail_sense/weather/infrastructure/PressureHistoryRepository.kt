@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.Context
 import android.os.Build
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
-import org.threeten.bp.Duration
-import org.threeten.bp.Instant
+import java.time.Duration
+import java.time.Instant
 import java.util.*
 
 object PressureHistoryRepository : Observable(), IPressureHistoryRepository {
@@ -35,16 +35,7 @@ object PressureHistoryRepository : Observable(), IPressureHistoryRepository {
     }
 
     private fun removeOldReadings() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            readings.removeIf { Duration.between(it.time, Instant.now()) > keepDuration }
-        } else {
-            readings.removeAll(readings.filter {
-                Duration.between(
-                    it.time,
-                    Instant.now()
-                ) > keepDuration
-            })
-        }
+        readings.removeIf { Duration.between(it.time, Instant.now()) > keepDuration }
     }
 
     private fun loadFromFile(context: Context) {

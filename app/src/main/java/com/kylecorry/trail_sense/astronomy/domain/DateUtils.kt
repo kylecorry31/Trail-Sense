@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.astronomy.domain
 
-import org.threeten.bp.Duration
-import org.threeten.bp.LocalDateTime
+import java.time.Duration
+import java.time.LocalDateTime
 
 object DateUtils {
     fun getClosestPastTime(

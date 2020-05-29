@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.domain.sun
 
-import org.threeten.bp.LocalDateTime
+import java.time.LocalDateTime
 
 class SunTimes(val up: LocalDateTime?, val down: LocalDateTime?, val isAlwaysUp: Boolean = false, val isAlwaysDown: Boolean = false) {
 

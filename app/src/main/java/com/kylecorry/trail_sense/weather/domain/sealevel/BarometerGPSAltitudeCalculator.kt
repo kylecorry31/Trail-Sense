@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.weather.domain.sealevel
 import android.hardware.SensorManager
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
-import org.threeten.bp.Duration
+import java.time.Duration
 import kotlin.math.abs
 
 internal class BarometerGPSAltitudeCalculator(private val maxNaturalPressureChange: Float = 5f) :

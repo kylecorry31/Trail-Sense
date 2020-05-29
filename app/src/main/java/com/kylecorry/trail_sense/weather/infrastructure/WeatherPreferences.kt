@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
-import org.threeten.bp.Duration
+import java.time.Duration
 
 class WeatherPreferences(private val context: Context) {
 

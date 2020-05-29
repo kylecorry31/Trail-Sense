@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.math
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.threeten.bp.LocalDateTime
+import java.time.LocalDateTime
 
 class TimeMathTest {
 

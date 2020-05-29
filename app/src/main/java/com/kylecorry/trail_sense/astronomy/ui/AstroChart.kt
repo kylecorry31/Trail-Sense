@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.ui
 
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
@@ -11,12 +10,11 @@ import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.utils.MPPointD
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstroAltitude
 import com.kylecorry.trail_sense.shared.toZonedDateTime
-import org.threeten.bp.Duration
-import org.threeten.bp.LocalDateTime
+import java.time.Duration
+import java.time.LocalDateTime
 
 
 class AstroChart(private val chart: LineChart) {
