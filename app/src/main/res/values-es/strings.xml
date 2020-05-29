@@ -1,8 +1,8 @@
 <resources>
-<string name="app_name">Sentido del rastro</string>
+<string name="app_name">Sentido de orientación</string>
     <string name="action_navigation">Navegación</string>
     <string name="action_weather">Clima</string>
-    <string name="action_settings">Configuraciones</string>
+    <string name="action_settings">Ajustes</string>
     <string name="compass_alt">Brújula</string>
     <string name="direction_arrow_desc">Flecha de dirección</string>
     <string name="location_unknown">Ubicación desconocida</string>
@@ -12,16 +12,16 @@
     <string name="beacon_latitude_hint">Latitud</string>
     <string name="beacon_longitude_hint">Longitud</string>
     <string name="beacon_use_current_location">Usar ubicación actual</string>
-    <string name="beacon_title">Seleccione Beacon</string>
-    <string name="dialog_ok">Okay</string>
+    <string name="beacon_title">Seleccione baliza</string>
+    <string name="dialog_ok">Aceptar</string>
     <string name="delete_beacon_alert_title">Eliminar baliza</string>
     <string name="dialog_cancel">Cancelar</string>
     <string name="pressure_chart_title">Presión</string>
     <string name="action_astronomy">Astronomía</string>
     <string name="sunrise_label">amanecer</string>
-    <string name="sunset_label">Puesta de sol</string>
+    <string name="sunset_label">anochecer</string>
     <string name="until_sunrise_label">hasta el amanecer</string>
-    <string name="until_sunset_label">hasta el ocaso</string>
+    <string name="until_sunset_label">hasta el anochecer</string>
 
 
     <string name="pref_use_true_north_title">Norte verdadero</string>
