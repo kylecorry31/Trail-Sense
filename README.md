@@ -75,9 +75,17 @@ Location information gathered by this application does not leave your device (as
 
 If you choose to write a new feature yourself, send me a message to verify that it is something that I will accept into Trail Sense before your write it (if not, you can always fork this repo and create your own version of Trail Sense!). I will conduct a code review on incoming pull requests to verify they align nicely with the rest of the code base and the feature works as intended.
 
+## Translations
+Please feel free to translate Trail Sense to other languages and submit a pull request.
+
+Several values should not be translated:
+- Preference keys (signified by pref_name and the value will have underscores in them most likely, marked by translatable = false)
+- App name - Should remain Trail Sense
+
 ## Code contributors from the community
 - [sethtara](https://github.com/sethtara) - Translations
 - [paulle](https://github.com/paulle) - Translations
+- [sguinetti](https://github.com/sguinetti) - Translations
 
 # Release schedule
 I will try to create a release every week with new features or bug fixes. Some features may be feature flagged (via a hidden setting) to deliver thouroughly tested features. Debug builds are updated as features are completed. 
