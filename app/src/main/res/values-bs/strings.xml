@@ -1,5 +1,4 @@
 <resources>
-<string name="app_name">Trag Sense</string>
     <string name="action_navigation">Navigacija</string>
     <string name="action_weather">Weather</string>
     <string name="action_settings">Podešavanja</string>

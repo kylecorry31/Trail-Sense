@@ -1,5 +1,4 @@
 <resources>
-<string name="app_name">Трейл Смисъл</string>
     <string name="action_navigation">навигация</string>
     <string name="action_weather">Метеорологично време</string>
     <string name="action_settings">Настройки</string>

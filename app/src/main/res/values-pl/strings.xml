@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Trail Sense</string>
     <string name="action_navigation">Nawigacja</string>
     <string name="action_weather">Pogoda</string>
     <string name="action_settings">Ustawienia</string>

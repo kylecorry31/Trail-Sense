@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Sentido do Trilho</string>
     <string name="action_navigation">Navegação</string>
     <string name="action_weather">Clima</string>
     <string name="action_settings">Ajustes</string>

@@ -1,5 +1,4 @@
 <resources>
-<string name="app_name">Sentido de orientación</string>
     <string name="action_navigation">Navegación</string>
     <string name="action_weather">Clima</string>
     <string name="action_settings">Ajustes</string>

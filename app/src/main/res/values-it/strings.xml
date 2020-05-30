@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Senso del sentiero</string>
     <string name="action_navigation">Navigazione</string>
     <string name="action_weather">Meteo</string>
     <string name="action_settings">Impostazioni</string>

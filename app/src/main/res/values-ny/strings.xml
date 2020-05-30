@@ -1,5 +1,4 @@
 <resources>
-<string name="app_name">Njira Yanjira</string>
     <string name="action_navigation">Kusanthula</string>
     <string name="action_weather">Nyengo</string>
     <string name="action_settings">Makonda</string>

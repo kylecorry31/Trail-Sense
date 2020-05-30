@@ -1,5 +1,4 @@
 <resources>
-<string name="app_name">درب تحسس</string>
     <string name="action_navigation">التنقل</string>
     <string name="action_weather">طقس</string>
     <string name="action_settings">الإعدادات</string>

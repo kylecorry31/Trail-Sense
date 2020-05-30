@@ -1,5 +1,4 @@
 <resources>
-<string name="app_name">ट्रेल सेंस</string>
     <string name="action_navigation">पथ प्रदर्शन</string>
     <string name="action_weather">मौसम</string>
     <string name="action_settings">समायोजन</string>

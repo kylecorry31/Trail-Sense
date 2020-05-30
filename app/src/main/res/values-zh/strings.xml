@@ -1,5 +1,4 @@
 <resources>
-<string name="app_name">足迹感</string>
     <string name="action_navigation">导航</string>
     <string name="action_weather">天气</string>
     <string name="action_settings">设定值</string>

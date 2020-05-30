@@ -1,5 +1,4 @@
 <resources>
-<string name="app_name">トレイルセンス</string>
     <string name="action_navigation">ナビゲーション</string>
     <string name="action_weather">天気</string>
     <string name="action_settings">設定</string>

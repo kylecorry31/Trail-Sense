@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Fährtensinn</string>
     <string name="action_navigation">Navigation</string>
     <string name="action_weather">Wetter</string>
     <string name="action_settings">Einstellungen</string>

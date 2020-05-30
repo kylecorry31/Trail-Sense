@@ -1,5 +1,4 @@
 <resources>
-<string name="app_name">ট্রেইল সেন্স</string>
     <string name="action_navigation">ন্যাভিগেশন</string>
     <string name="action_weather">আবহাওয়া</string>
     <string name="action_settings">সেটিংস</string>
