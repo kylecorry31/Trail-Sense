@@ -151,4 +151,5 @@
     <string name="sun_does_not_rise">does not rise</string>
     <string name="sun_up_no_set">Sun is up</string>
     <string name="sun_down_no_set">Sun is down</string>
+    <string name="until_sun_time">until %s</string>
 </resources>

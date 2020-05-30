@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -122,7 +123,7 @@ class AstronomyFragment : Fragment() {
     }
 
     private fun updateUI() {
-        if (context == null){
+        if (context == null) {
             return
         }
         dateTxt.text = getDateString(displayDate)
@@ -143,7 +144,7 @@ class AstronomyFragment : Fragment() {
         moonTxt.text = "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}%)"
     }
 
-    private fun updateAstronomyChart(){
+    private fun updateAstronomyChart() {
         if (context == null) {
             return
         }
@@ -156,10 +157,15 @@ class AstronomyFragment : Fragment() {
         val current = altitudes.minBy { Duration.between(LocalDateTime.now(), it.time).abs() }
         val currentIdx = altitudes.indexOf(current)
 
-        chart.plot(listOf(
-            AstroChart.AstroChartDataset(altitudes, resources.getColor(R.color.white, null)),
-            AstroChart.AstroChartDataset(sunAltitudes, resources.getColor(R.color.colorPrimary, null))
-        ))
+        chart.plot(
+            listOf(
+                AstroChart.AstroChartDataset(altitudes, resources.getColor(R.color.white, null)),
+                AstroChart.AstroChartDataset(
+                    sunAltitudes,
+                    resources.getColor(R.color.colorPrimary, null)
+                )
+            )
+        )
 
         val point = chart.getPoint(1, currentIdx)
         moonPosition.x = point.first - moonPosition.width / 2f
@@ -171,33 +177,41 @@ class AstronomyFragment : Fragment() {
         sunPosition.x = point2.first - sunPosition.width / 2f
         sunPosition.y = point2.second - sunPosition.height / 2f
 
-        if (isVerticallyOverlapping(moonPosition, sunPosition)){
+        if (isVerticallyOverlapping(moonPosition, sunPosition)) {
             moonIndicatorCircle.visibility = View.VISIBLE
-            if (moonPosition.y > chart.y + chart.height / 2f){
+            if (moonPosition.y > chart.y + chart.height / 2f) {
                 moonPositionArrow.rotation = 0f
-                align(moonPositionArrow,
+                align(
+                    moonPositionArrow,
                     null,
                     HorizontalConstraint(sunPosition, HorizontalConstraintType.Left),
                     VerticalConstraint(sunPosition, VerticalConstraintType.Top),
-                    HorizontalConstraint(sunPosition, HorizontalConstraintType.Right))
-                align(moonPosition,
+                    HorizontalConstraint(sunPosition, HorizontalConstraintType.Right)
+                )
+                align(
+                    moonPosition,
                     null,
                     HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Left),
                     VerticalConstraint(moonPositionArrow, VerticalConstraintType.Top),
-                    HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Right))
+                    HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Right)
+                )
                 moonPositionArrow.visibility = View.VISIBLE
             } else {
                 moonPositionArrow.rotation = 180f
-                align(moonPositionArrow,
+                align(
+                    moonPositionArrow,
                     VerticalConstraint(sunPosition, VerticalConstraintType.Bottom),
                     HorizontalConstraint(sunPosition, HorizontalConstraintType.Left),
                     null,
-                    HorizontalConstraint(sunPosition, HorizontalConstraintType.Right))
-                align(moonPosition,
+                    HorizontalConstraint(sunPosition, HorizontalConstraintType.Right)
+                )
+                align(
+                    moonPosition,
                     VerticalConstraint(moonPositionArrow, VerticalConstraintType.Bottom),
                     HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Left),
                     null,
-                    HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Right))
+                    HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Right)
+                )
                 moonPositionArrow.visibility = View.VISIBLE
             }
         } else {
@@ -208,11 +222,11 @@ class AstronomyFragment : Fragment() {
     }
 
     private fun isVerticallyOverlapping(first: View, second: View): Boolean {
-        if (first.y > second.y && first.y > second.y + second.height){
+        if (first.y > second.y && first.y > second.y + second.height) {
             return false
         }
 
-        if (second.y > first.y && second.y > first.y + first.height){
+        if (second.y > first.y && second.y > first.y + first.height) {
             return false
         }
 
@@ -227,8 +241,8 @@ class AstronomyFragment : Fragment() {
         displayTimeUntilNextSunEvent()
     }
 
-    private fun updateRiseSetTimes(){
-        if (context == null){
+    private fun updateRiseSetTimes() {
+        if (context == null) {
             return
         }
 
@@ -236,8 +250,8 @@ class AstronomyFragment : Fragment() {
         val moonTimes = astronomyService.getMoonTimes(gps.location, displayDate)
 
         val times = listOf(
-            Pair(getString(R.string.sunrise_label), sunTimes.up),
-            Pair(getString(R.string.sunset_label), sunTimes.down),
+            Pair(getSunriseWording(), sunTimes.up),
+            Pair(getSunsetWording(), sunTimes.down),
             Pair(getString(R.string.moon_rise), moonTimes.up),
             Pair(getString(R.string.moon_set), moonTimes.down)
         ).sortedBy { it.second }
@@ -266,18 +280,34 @@ class AstronomyFragment : Fragment() {
         val nextSunrise = astronomyService.getNextSunrise(gps.location, sunTimesMode)
         val nextSunset = astronomyService.getNextSunset(gps.location, sunTimesMode)
 
-        if (nextSunrise != null && (nextSunset == null || nextSunrise.isBefore(nextSunset))){
+        if (nextSunrise != null && (nextSunset == null || nextSunrise.isBefore(nextSunset))) {
             sunTxt.text = Duration.between(currentTime, nextSunrise).formatHM()
-            remDaylightTxt.text = getString(R.string.until_sunrise_label)
-        } else if (nextSunset != null){
+            remDaylightTxt.text = getString(
+                R.string.until_sun_time, getSunriseWording().toLowerCase(
+                    getLocale()
+                )
+            )
+        } else if (nextSunset != null) {
             sunTxt.text = Duration.between(currentTime, nextSunset).formatHM()
-            remDaylightTxt.text = getString(R.string.until_sunset_label)
-        } else if (astronomyService.isSunUp(gps.location)){
+            remDaylightTxt.text = getString(
+                R.string.until_sun_time, getSunsetWording().toLowerCase(
+                    getLocale()
+                )
+            )
+        } else if (astronomyService.isSunUp(gps.location)) {
             sunTxt.text = getString(R.string.sun_up_no_set)
             remDaylightTxt.text = getString(R.string.sun_does_not_set)
         } else {
             sunTxt.text = getString(R.string.sun_down_no_set)
             remDaylightTxt.text = getString(R.string.sun_does_not_rise)
+        }
+    }
+
+    private fun getLocale(): Locale {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            resources.configuration.locales[0]
+        } else {
+            resources.configuration.locale
         }
     }
 
@@ -303,6 +333,24 @@ class AstronomyFragment : Fragment() {
             else -> {
                 date.format(DateTimeFormatter.ofPattern(getString(R.string.other_year_format)))
             }
+        }
+    }
+
+    private fun getSunsetWording(): String {
+        return when (sunTimesMode) {
+            SunTimesMode.Actual -> getString(R.string.sunset_label)
+            SunTimesMode.Civil -> getString(R.string.sun_civil)
+            SunTimesMode.Nautical -> getString(R.string.sun_nautical)
+            SunTimesMode.Astronomical -> getString(R.string.sun_astronomical)
+        }
+    }
+
+    private fun getSunriseWording(): String {
+        return when (sunTimesMode) {
+            SunTimesMode.Actual -> getString(R.string.sunrise_label)
+            SunTimesMode.Civil -> getString(R.string.sun_civil)
+            SunTimesMode.Nautical -> getString(R.string.sun_nautical)
+            SunTimesMode.Astronomical -> getString(R.string.sun_astronomical)
         }
     }
 
