@@ -32,10 +32,6 @@ class AstronomyFragment : Fragment() {
     private lateinit var sunTxt: TextView
     private lateinit var remDaylightTxt: TextView
     private lateinit var moonTxt: TextView
-    private lateinit var sunStartTimeTxt: TextView
-    private lateinit var sunEndTimeTxt: TextView
-    private lateinit var moonRiseTimeTxt: TextView
-    private lateinit var moonSetTimeTxt: TextView
     private lateinit var timer: Timer
     private lateinit var handler: Handler
     private lateinit var moonPosition: ImageView
@@ -55,6 +51,8 @@ class AstronomyFragment : Fragment() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val astronomyService = AstronomyService()
 
+    private lateinit var riseSetTimes: List<Pair<TextView, TextView>>
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,15 +60,17 @@ class AstronomyFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.activity_astronomy, container, false)
 
+
+        riseSetTimes = listOf(
+            Pair(view.findViewById(R.id.sun_start), view.findViewById(R.id.sun_start_time)),
+            Pair(view.findViewById(R.id.sun_end), view.findViewById(R.id.sun_end_time)),
+            Pair(view.findViewById(R.id.moon_start), view.findViewById(R.id.moon_rise_time)),
+            Pair(view.findViewById(R.id.moon_end), view.findViewById(R.id.moon_set_time))
+        )
+
         sunTxt = view.findViewById(R.id.remaining_time)
         moonTxt = view.findViewById(R.id.moon_phase)
         remDaylightTxt = view.findViewById(R.id.remaining_time_lbl)
-        sunStartTimeTxt = view.findViewById(R.id.sun_start_time)
-        sunEndTimeTxt = view.findViewById(R.id.sun_end_time)
-
-        moonRiseTimeTxt = view.findViewById(R.id.moon_rise_time)
-        moonSetTimeTxt = view.findViewById(R.id.moon_set_time)
-
         sunPosition = view.findViewById(R.id.sun_position)
         moonPosition = view.findViewById(R.id.moon_position)
         moonPositionArrow = view.findViewById(R.id.moon_position_arrow)
@@ -126,6 +126,7 @@ class AstronomyFragment : Fragment() {
         updateSunUI()
         updateMoonUI()
         updateAstronomyChart()
+        updateRiseSetTimes()
     }
 
     private fun updateMoonUI() {
@@ -134,10 +135,7 @@ class AstronomyFragment : Fragment() {
         }
 
         val moonPhase = astronomyService.getCurrentMoonPhase()
-        val today = astronomyService.getMoonTimes(gps.location, displayDate)
 
-        moonRiseTimeTxt.text = getTimeString(today.up)
-        moonSetTimeTxt.text = getTimeString(today.down)
         moonPosition.setImageResource(getMoonImage(moonPhase.phase))
         moonTxt.text = "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}%)"
     }
@@ -223,11 +221,28 @@ class AstronomyFragment : Fragment() {
             return
         }
 
-        val sunTimes = astronomyService.getSunTimes(gps.location, sunTimesMode, displayDate)
-        sunStartTimeTxt.text = getTimeString(sunTimes.up)
-        sunEndTimeTxt.text = getTimeString(sunTimes.down)
-
         displayTimeUntilNextSunEvent()
+    }
+
+    private fun updateRiseSetTimes(){
+        if (context == null){
+            return
+        }
+
+        val sunTimes = astronomyService.getSunTimes(gps.location, sunTimesMode, displayDate)
+        val moonTimes = astronomyService.getMoonTimes(gps.location, displayDate)
+
+        val times = listOf(
+            Pair(getString(R.string.sunrise_label), sunTimes.up),
+            Pair(getString(R.string.sunset_label), sunTimes.down),
+            Pair(getString(R.string.moon_rise), moonTimes.up),
+            Pair(getString(R.string.moon_set), moonTimes.down)
+        ).sortedBy { it.second }
+
+        times.forEachIndexed { index, time ->
+            riseSetTimes[index].first.text = time.first
+            riseSetTimes[index].second.text = getTimeString(time.second)
+        }
     }
 
     private fun getMoonImage(phase: MoonTruePhase): Int {

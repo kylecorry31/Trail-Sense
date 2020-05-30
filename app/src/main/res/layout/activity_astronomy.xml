@@ -136,7 +136,7 @@
             app:layout_constraintTop_toBottomOf="@+id/date" />
 
         <TextView
-            android:id="@+id/sun_start2"
+            android:id="@+id/moon_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -145,13 +145,13 @@
             app:layout_constraintTop_toBottomOf="@+id/sun_end" />
 
         <TextView
-            android:id="@+id/sun_start3"
+            android:id="@+id/moon_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/moon_set"
             app:layout_constraintStart_toStartOf="@+id/sun_end"
-            app:layout_constraintTop_toBottomOf="@+id/sun_start2" />
+            app:layout_constraintTop_toBottomOf="@+id/moon_start" />
 
         <TextView
             android:id="@+id/sun_end"
@@ -175,7 +175,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/sun_end_time"
-            app:layout_constraintTop_toTopOf="@+id/sun_start2"
+            app:layout_constraintTop_toTopOf="@+id/moon_start"
             tools:text="1:00 AM" />
 
         <TextView
@@ -183,7 +183,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/moon_rise_time"
-            app:layout_constraintTop_toTopOf="@+id/sun_start3"
+            app:layout_constraintTop_toTopOf="@+id/moon_end"
             tools:text="1:00 AM" />
 
         <TextView
