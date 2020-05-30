@@ -13,6 +13,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstroAltitude
 import com.kylecorry.trail_sense.shared.toZonedDateTime
+import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -76,15 +77,18 @@ class AstroChart(private val chart: LineChart) {
     }
 
     fun plot(datasets: List<AstroChartDataset>){
+        val filters = datasets.map { LowPassFilter(0.8, it.data.first().altitudeDegrees.toDouble()) }
         val colors = datasets.map { it.color }.toMutableList()
-        val values = datasets.map { it.data.map {
+        val values = datasets.mapIndexed { idx, d -> d.data.map {
             val date = it.time.toZonedDateTime()
-            Pair(((date.toEpochSecond() + date.offset.totalSeconds) * 1000) as Number, it.altitudeDegrees)
+            Pair(((date.toEpochSecond() + date.offset.totalSeconds) * 1000) as Number, filters[idx].filter(it.altitudeDegrees.toDouble()).toFloat())
         } }.toMutableList()
 
-        val minValue = (values.map{ it.minBy { it.second }?.second ?: 0f }.min() ?: 0f).coerceAtMost(-1f) - 5f
+        val minValue = (values.map{ it.minBy { it.second }?.second ?: 0f }.min() ?: 0f).coerceAtMost(-1f) - 10f
+        val maxValue = (values.map{ it.maxBy { it.second }?.second ?: 0f }.max() ?: 0f).coerceAtLeast(1f) + 10f
 
         chart.axisLeft.axisMinimum = minValue
+        chart.axisLeft.axisMaximum = maxValue
 
         values.add(0, listOf(
             Pair(values.first().first().first, minValue),

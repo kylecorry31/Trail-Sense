@@ -122,6 +122,9 @@ class AstronomyFragment : Fragment() {
     }
 
     private fun updateUI() {
+        if (context == null){
+            return
+        }
         dateTxt.text = getDateString(displayDate)
         updateSunUI()
         updateMoonUI()
