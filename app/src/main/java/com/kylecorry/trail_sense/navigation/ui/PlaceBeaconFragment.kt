@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
@@ -17,7 +18,11 @@ import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 
 
-class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: IGPS, private val initialLocation: GeoUriParser.NamedCoordinate? = null) : Fragment() {
+class PlaceBeaconFragment(
+    private val beaconDB: BeaconDB,
+    private val gps: IGPS,
+    private val initialLocation: GeoUriParser.NamedCoordinate? = null
+) : Fragment() {
 
     private lateinit var beaconName: EditText
     private lateinit var beaconLat: EditText
@@ -39,10 +44,46 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: IGPS,
         useCurrentLocationBtn = view.findViewById(R.id.current_location_btn)
         doneBtn = view.findViewById(R.id.place_beacon_btn)
 
-        if (initialLocation != null){
+        if (initialLocation != null) {
             beaconName.setText(initialLocation.name ?: "")
             beaconLat.setText(initialLocation.coordinate.latitude.toString())
             beaconLng.setText(initialLocation.coordinate.longitude.toString())
+        }
+
+        beaconName.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus && !hasValidName()) {
+                beaconName.error = "Invalid beacon name"
+            } else if (!hasFocus) {
+                beaconName.error = null
+            }
+        }
+
+        beaconLat.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus && !hasValidLatitude()) {
+                beaconLat.error = "Invalid latitude"
+            } else if (!hasFocus) {
+                beaconLat.error = null
+            }
+        }
+
+        beaconLng.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus && !hasValidLongitude()) {
+                beaconLng.error = "Invalid longitude"
+            } else if (!hasFocus) {
+                beaconLng.error = null
+            }
+        }
+
+        beaconName.addTextChangedListener {
+            updateDoneButtonState()
+        }
+
+        beaconLat.addTextChangedListener {
+            updateDoneButtonState()
+        }
+
+        beaconLng.addTextChangedListener {
+            updateDoneButtonState()
         }
 
         doneBtn.setOnClickListener {
@@ -81,24 +122,32 @@ class PlaceBeaconFragment(private val beaconDB: BeaconDB, private val gps: IGPS,
         return false
     }
 
+    private fun updateDoneButtonState() {
+        doneBtn.visibility =
+            if (hasValidName() && hasValidLatitude() && hasValidLongitude()) View.VISIBLE else View.GONE
+    }
+
+    private fun hasValidLatitude(): Boolean {
+        return Coordinate.parseLatitude(beaconLat.text.toString()) != null
+    }
+
+    private fun hasValidLongitude(): Boolean {
+        return Coordinate.parseLongitude(beaconLng.text.toString()) != null
+    }
+
+    private fun hasValidName(): Boolean {
+        return !beaconName.text.toString().isBlank()
+    }
+
     private fun getCoordinate(lat: String, lon: String): Coordinate? {
-        val decimalLat = lat.toDoubleOrNull()
-        val decimalLon = lon.toDoubleOrNull()
-        if (decimalLat != null && decimalLon != null) {
-            return Coordinate(decimalLat, decimalLon)
+        val latitude = Coordinate.parseLatitude(lat)
+        val longitude = Coordinate.parseLongitude(lon)
+
+        if (latitude == null || longitude == null) {
+            return null
         }
 
-        val dms = Coordinate.degreeMinutesSeconds(lat, lon)
-        if (dms != null) {
-            return dms
-        }
-
-        val ddm = Coordinate.degreeDecimalMinutes(lat, lon)
-        if (ddm != null) {
-            return dms
-        }
-
-        return null
+        return Coordinate(latitude, longitude)
     }
 
 }
