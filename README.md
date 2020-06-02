@@ -86,6 +86,7 @@ Several values should not be translated:
 - [sethtara](https://github.com/sethtara) - Translations
 - [paulle](https://github.com/paulle) - Translations
 - [sguinetti](https://github.com/sguinetti) - Translations
+- [swedneck](https://github.com/swedneck) - Tons of feature requests and bug finds
 
 # Release schedule
 I will try to create a release every week with new features or bug fixes. Some features may be feature flagged (via a hidden setting) to deliver thouroughly tested features. Debug builds are updated as features are completed. 
