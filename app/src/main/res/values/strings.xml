@@ -152,4 +152,12 @@
     <string name="sun_up_no_set">Sun is up</string>
     <string name="sun_down_no_set">Sun is down</string>
     <string name="until_sun_time">until %s</string>
+    <string name="new_moon">New Moon</string>
+    <string name="waning_crescent">Waning Crescent</string>
+    <string name="third_quarter">Third Quarter</string>
+    <string name="waning_gibbous">Waning Gibbous</string>
+    <string name="full_moon">Full Moon</string>
+    <string name="waxing_gibbous">Waxing Gibbous</string>
+    <string name="first_quarter">First Quarter</string>
+    <string name="waxing_crescent">Waxing Crescent</string>
 </resources>

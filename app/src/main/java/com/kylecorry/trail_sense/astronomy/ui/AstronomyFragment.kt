@@ -141,7 +141,7 @@ class AstronomyFragment : Fragment() {
         val moonPhase = astronomyService.getCurrentMoonPhase()
 
         moonPosition.setImageResource(getMoonImage(moonPhase.phase))
-        moonTxt.text = "${moonPhase.phase.longName} (${moonPhase.illumination.roundToInt()}%)"
+        moonTxt.text = "${getString(moonPhase.phase.longNameResource)} (${moonPhase.illumination.roundToInt()}%)"
     }
 
     private fun updateAstronomyChart() {
