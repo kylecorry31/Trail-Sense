@@ -152,8 +152,6 @@ class AstronomyFragment : Fragment() {
         val altitudes = astronomyService.getTodayMoonAltitudes(gps.location)
         val sunAltitudes = astronomyService.getTodaySunAltitudes(gps.location)
 
-        println(astronomyService.getSunAzimuth(gps.location).value)
-
         val current = altitudes.minBy { Duration.between(LocalDateTime.now(), it.time).abs() }
         val currentIdx = altitudes.indexOf(current)
 
