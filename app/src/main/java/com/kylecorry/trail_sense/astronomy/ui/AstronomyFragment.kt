@@ -217,6 +217,14 @@ class AstronomyFragment : Fragment() {
             moonIndicatorCircle.visibility = View.INVISIBLE
         }
 
+        if (moonPosition.height != 0){
+            moonPosition.visibility = View.VISIBLE
+        }
+
+        if (sunPosition.height != 0){
+            sunPosition.visibility = View.VISIBLE
+        }
+
     }
 
     private fun isVerticallyOverlapping(first: View, second: View): Boolean {
