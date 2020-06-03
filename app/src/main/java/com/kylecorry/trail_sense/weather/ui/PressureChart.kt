@@ -9,10 +9,13 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnits
+import java.time.Instant
 import kotlin.math.max
 import kotlin.math.min
 
@@ -24,7 +27,7 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
 
     init {
         chart.description.isEnabled = false
-        chart.setTouchEnabled(false)
+        chart.setTouchEnabled(false) // TODO: Enable this
         chart.isDragEnabled = false
         chart.setScaleEnabled(false)
         chart.setDrawGridBackground(false)
@@ -49,12 +52,27 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
         chart.axisLeft.setDrawGridLines(true)
         chart.axisLeft.gridColor = Color.argb(50, r, g, b)
         chart.axisLeft.textColor = Color.argb(150, r, g, b)
-        chart.axisLeft.setLabelCount(3, true)
+        chart.axisLeft.setLabelCount(5, true)
         chart.axisRight.setDrawGridLines(false)
         chart.xAxis.setDrawAxisLine(false)
         chart.axisLeft.setDrawAxisLine(false)
         chart.axisRight.setDrawAxisLine(false)
         chart.setNoDataText("")
+
+        chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+            override fun onNothingSelected() {
+
+            }
+
+            override fun onValueSelected(e: Entry?, h: Highlight?) {
+                e ?: return
+                val pressure = e.y
+                val date = Instant.ofEpochMilli(e.x.toLong())
+                // TODO: Display pressure and date
+                // TODO: Verify that date is calculated correctly
+            }
+
+        })
     }
 
     fun setUnits(units: PressureUnits) {
