@@ -6,7 +6,7 @@ enum class CompassDirection(val symbol: String, val azimuth: Float) {
     EAST("E", 90f),
     SOUTHEAST("SE", 135f),
     SOUTH("S", 180f),
-    SOUTHWEST("SE", 225f),
+    SOUTHWEST("SW", 225f),
     WEST("W", 270f),
     NORTHWEST("NW", 315f)
 
