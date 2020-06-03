@@ -82,7 +82,6 @@
     <string name="pref_display_multi_beacons_title">عرض منارات قريبة</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">حساسية تنبيه العاصفة</string>
-    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">عرض الشمس /القمر على البوصلة</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">إظهار البوصلة الخطية</string>
@@ -143,7 +142,6 @@
     <string name="pressure_24_hours">24 ساعة</string>
     <string name="pressure_12_hours">12 ساعة</string>
     <string name="pressure_4_hours">4 ساعات</string>
-    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
     <string name="pref_pressure_history_title">تاريخ الضغط</string>
     <string name="pref_monitor_weather_title">مراقبة الطقس</string>
 </resources>

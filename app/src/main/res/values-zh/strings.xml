@@ -82,7 +82,6 @@
     <string name="pref_display_multi_beacons_title">显示附近的信标</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">风暴警报敏感性</string>
-    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">在指南针上显示太阳/月亮</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">显示线性罗盘</string>
@@ -133,6 +132,5 @@
     <string name="pressure_24_hours">二十四小时</string>
     <string name="pressure_12_hours">十二小时</string>
     <string name="pressure_4_hours">四个小时</string>
-    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
     <string name="pref_pressure_history_title">压力历史</string>
 </resources>

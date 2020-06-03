@@ -82,7 +82,6 @@
     <string name="pref_display_multi_beacons_title">Mostrar balizas nas proximidades</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Sensibilidade ao alerta de tempestade</string>
-    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">:Mostrar sol/lua na bússola</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">Mostrar bússola linear</string>
@@ -135,6 +134,5 @@
     <string name="pressure_24_hours">24 horas</string>
     <string name="pressure_12_hours">12 horas</string>
     <string name="pressure_4_hours">4 horas</string>
-    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
     <string name="pref_pressure_history_title">Histórico de pressão</string>
 </resources>

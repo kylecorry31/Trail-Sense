@@ -276,6 +276,8 @@ class NavigatorFragment(
 
         beaconIndicators[0].visibility = navigationVM.sunBeaconVisibility
         beaconIndicators[1].visibility = navigationVM.moonBeaconVisibility
+        beaconIndicators[0].alpha = navigationVM.sunBeaconOpacity
+        beaconIndicators[1].alpha = navigationVM.moonBeaconOpacity
 
         beaconIndicators.forEach {
             if (it.height == 0){

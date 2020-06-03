@@ -82,7 +82,6 @@
     <string name="pref_display_multi_beacons_title">Wyświetlaj pobliskie nadajniki</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Wrażliwość na alarm burzowy</string>
-    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">Pokaż słońce/księżyc na kompasie</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">Pokaż kompas liniowy</string>
@@ -139,6 +138,5 @@
     <string name="pressure_24_hours">24 godziny</string>
     <string name="pressure_12_hours">12 godzin</string>
     <string name="pressure_4_hours">4 godziny</string>
-    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
     <string name="pref_pressure_history_title">Historia ciśnienia</string>
 </resources>

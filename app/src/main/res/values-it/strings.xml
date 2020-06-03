@@ -82,7 +82,6 @@
     <string name="pref_display_multi_beacons_title">Visualizzare i fari vicini</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Sensibilità all\'allarme tempesta</string>
-    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">Mostra sole/luna sulla bussola</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">Mostra bussola lineare</string>
@@ -135,6 +134,5 @@
     <string name="pressure_24_hours">24 ore</string>
     <string name="pressure_12_hours">12 ore</string>
     <string name="pressure_4_hours">4 ore</string>
-    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
     <string name="pref_pressure_history_title">Storia della pressione</string>
 </resources>

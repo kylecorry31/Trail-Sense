@@ -88,4 +88,16 @@
         <item>48</item>
     </string-array>
 
+    <string-array name="sun_moon_compass_entries">
+        <item>@string/sun_moon_compass_always</item>
+        <item>@string/sun_moon_compass_when_up</item>
+        <item>@string/sun_moon_compass_never</item>
+    </string-array>
+
+    <string-array name="sun_moon_compass_values">
+        <item>always</item>
+        <item>when_up</item>
+        <item>never</item>
+    </string-array>
+
 </resources>

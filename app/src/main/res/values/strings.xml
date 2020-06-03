@@ -83,7 +83,7 @@
     <string name="pref_display_multi_beacons_title">Show beacons</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Storm alert sensitivity</string>
-    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
+    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass_2</string>
     <string name="pref_show_sun_moon_compass_title">Show sun/moon on compass</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">Show linear compass</string>
@@ -160,4 +160,7 @@
     <string name="waxing_gibbous">Waxing Gibbous</string>
     <string name="first_quarter">First Quarter</string>
     <string name="waxing_crescent">Waxing Crescent</string>
+    <string name="sun_moon_compass_always">Always</string>
+    <string name="sun_moon_compass_when_up">When up</string>
+    <string name="sun_moon_compass_never">Never</string>
 </resources>

@@ -35,6 +35,7 @@ class NavigationViewModel(
     private val showNearbyBeacons = prefs.navigation.showMultipleBeacons
     private val visibleBeacons = prefs.navigation.numberOfVisibleBeacons
     private val showSunAndMoon = prefs.astronomy.showOnCompass
+    private val showSunAndMoonWhenDown = prefs.astronomy.showOnCompassWhenDown
     private val astronomyService = AstronomyService()
 
     val rulerScale = prefs.navigation.rulerScale
@@ -191,20 +192,42 @@ class NavigationViewModel(
 
     val moonBeaconVisibility: Int
         get() {
-            if (!showSunAndMoon || !astronomyService.isMoonUp(gps.location)){
-                return View.INVISIBLE
+            return if (showSunAndMoonWhenDown){
+                View.VISIBLE
+            } else if (!showSunAndMoon || !astronomyService.isMoonUp(gps.location)){
+                View.INVISIBLE
+            } else {
+                View.VISIBLE
             }
-
-            return View.VISIBLE
         }
 
     val sunBeaconVisibility: Int
         get() {
-            if (!showSunAndMoon || !astronomyService.isSunUp(gps.location)){
-                return View.INVISIBLE
+            return if (showSunAndMoonWhenDown){
+                View.VISIBLE
+            } else if (!showSunAndMoon || !astronomyService.isSunUp(gps.location)){
+                View.INVISIBLE
+            } else {
+                View.VISIBLE
             }
+        }
 
-            return View.VISIBLE
+    val sunBeaconOpacity: Float
+        get() {
+            return if (astronomyService.isSunUp(gps.location)){
+                1f
+            } else {
+                0.5f
+            }
+        }
+
+    val moonBeaconOpacity: Float
+        get() {
+            return if (astronomyService.isMoonUp(gps.location)){
+                1f
+            } else {
+                0.5f
+            }
         }
 
     private val sunBearing: Float

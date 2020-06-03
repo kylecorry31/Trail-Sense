@@ -82,7 +82,6 @@
     <string name="pref_display_multi_beacons_title">Nahegelegene Baken anzeigen</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Sturmalarm-Empfindlichkeit</string>
-    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass</string>
     <string name="pref_show_sun_moon_compass_title">Sonne/Mond auf dem Kompass anzeigen</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">Linearen Kompass anzeigen</string>
@@ -135,6 +134,5 @@
     <string name="pressure_24_hours">24 Stunden</string>
     <string name="pressure_12_hours">12 Stunden</string>
     <string name="pressure_4_hours">4 Stunden</string>
-    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
     <string name="pref_pressure_history_title">Luftdruckverlauf</string>
 </resources>

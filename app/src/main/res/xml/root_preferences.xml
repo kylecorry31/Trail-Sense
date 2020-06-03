@@ -150,10 +150,14 @@
             app:title="@string/pref_sun_time_mode_title"
             app:useSimpleSummaryProvider="true" />
 
-        <SwitchPreferenceCompat
+        <ListPreference
             app:key="@string/pref_show_sun_moon_compass"
+            android:entries="@array/sun_moon_compass_entries"
+            android:entryValues="@array/sun_moon_compass_values"
             app:title="@string/pref_show_sun_moon_compass_title"
-            app:defaultValue="false"/>
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="never"/>
+
 
     </PreferenceCategory>
 
