@@ -154,6 +154,7 @@ class NavigationViewModel(
                 .map {
                     Pair(it, navigationService.navigate(gps.location, it.coordinate))
                 }
+                .filter {it.second.distance >= MIN_BEACON_DISTANCE} // Don't look at really close beacons
                 .sortedBy { it.second.distance }
                 .take(visibleBeacons)
                 .toList()
@@ -241,5 +242,10 @@ class NavigationViewModel(
             val declination = if (!useTrueNorth) declinationCalculator.calculate(gps.location, gps.altitude) else 0f
             return astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value
         }
+
+
+    companion object {
+        const val MIN_BEACON_DISTANCE = 8f
+    }
 
 }
