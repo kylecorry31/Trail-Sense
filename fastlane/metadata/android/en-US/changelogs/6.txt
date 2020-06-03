@@ -1,0 +1,4 @@
+- New astronomy chart to better show the actual positions of the sun and moon
+- Setting to show sun and moon on compass when up
+- Support for locations where sun/moon doesn't rise and set regularly
+- Bug fixes
