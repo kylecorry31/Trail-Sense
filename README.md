@@ -86,6 +86,7 @@ Several values should not be translated:
 - [sethtara](https://github.com/sethtara) - Translations
 - [paulle](https://github.com/paulle) - Translations
 - [sguinetti](https://github.com/sguinetti) - Translations
+- [NassPage](https://github.com/NassPage) - Translations
 - [swedneck](https://github.com/swedneck) - Tons of feature requests and bug finds
 - [efraletti](https://github.com/efraletti) - Bug fix
 
