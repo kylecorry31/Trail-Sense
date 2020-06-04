@@ -36,9 +36,9 @@ fun align(view: View, top: VerticalConstraint?, left: HorizontalConstraint?, bot
         view.y = (if (bottom.type == VerticalConstraintType.Top) bottom.view.y  else (bottom.view.y + bottom.view.height)) + bottom.offset - view.height
     } else if (bottom != null && top != null){
         val t = (if (top.type == VerticalConstraintType.Top) top.view.y else (top.view.y + top.view.height)) + top.offset
-        val b = (if (bottom.type == VerticalConstraintType.Top) bottom.view.y  else (bottom.view.y + bottom.view.height)) + bottom.offset - view.height
+        val b = (if (bottom.type == VerticalConstraintType.Top) bottom.view.y  else (bottom.view.y + bottom.view.height)) + bottom.offset
         val range = b - t
-        view.y = t + range * verticalPct
+        view.y = t + range * verticalPct - view.height / 2f
     } else {
         // Do nothing
     }
@@ -48,10 +48,10 @@ fun align(view: View, top: VerticalConstraint?, left: HorizontalConstraint?, bot
     } else if (right != null && left == null){
         view.x = (if (right.type == HorizontalConstraintType.Left) right.view.x  else (right.view.x + right.view.width)) + right.offset - view.width
     } else if (left != null && right != null){
-        val r = (if (right.type == HorizontalConstraintType.Left) right.view.x  else (right.view.x + right.view.width)) + right.offset - view.width
         val l = (if (left.type == HorizontalConstraintType.Left) left.view.x else (left.view.x + left.view.width)) + left.offset
+        val r = (if (right.type == HorizontalConstraintType.Left) right.view.x  else (right.view.x + right.view.width)) + right.offset
         val range = r - l
-        view.x = l + range * horizontalPct
+        view.x = l + range * horizontalPct - view.width / 2f
     } else {
         // Do nothing
     }

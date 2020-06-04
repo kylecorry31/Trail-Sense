@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.math.deltaAngle
+import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
 class LinearCompassViewHldr(private val compass: LinearCompassView, private val beaconIndicators: List<ImageView>) :
@@ -65,14 +66,16 @@ class LinearCompassViewHldr(private val compass: LinearCompassView, private val 
                 }
             }
             else -> {
-                val pct = (delta + 90) / 180f
+                val min = (azimuth - 90f).roundToInt().toFloat()
+                val max = (azimuth + 90f).roundToInt().toFloat()
+                val deltaMin = deltaAngle(bearing, min).absoluteValue / (max - min)
                 align(indicator,
                     VerticalConstraint(compass, VerticalConstraintType.Top, margin),
                     HorizontalConstraint(compass, HorizontalConstraintType.Left),
                     null,
                     HorizontalConstraint(compass, HorizontalConstraintType.Right),
                     0.5f,
-                    pct
+                    deltaMin
                 )
             }
         }
