@@ -52,10 +52,25 @@ class NavigationPreferences(private val context: Context) {
             return raw.toFloat()
         }
 
+    val compassMode: CompassMode
+        get(){
+            return when(prefs.getString("pref_compass_mode", "rotation")){
+                "orientation" -> CompassMode.Orientation
+                "custom" -> CompassMode.Custom
+                else -> CompassMode.RotationMatrix
+            }
+        }
+
     enum class AltimeterMode {
         Barometer,
         GPS,
         None
+    }
+
+    enum class CompassMode {
+        Orientation,
+        RotationMatrix,
+        Custom
     }
 
 }
