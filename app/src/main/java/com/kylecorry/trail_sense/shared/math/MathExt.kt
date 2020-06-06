@@ -9,7 +9,7 @@ fun FloatArray.normalize(): FloatArray {
 }
 
 fun FloatArray.magnitude(): Float {
-    return sqrt(this.reduce { acc, value -> acc + value.pow(2) })
+    return sqrt(this.fold(0f) { acc, value -> acc + value * value })
 }
 
 fun FloatArray.dot(other: FloatArray): Float {
