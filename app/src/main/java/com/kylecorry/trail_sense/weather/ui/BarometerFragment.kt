@@ -14,10 +14,7 @@ import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IBarometer
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.toZonedDateTime
-import com.kylecorry.trail_sense.weather.domain.LowPassFilter
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
-import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
-import com.kylecorry.trail_sense.weather.domain.PressureUnits
+import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
 import com.kylecorry.trail_sense.weather.domain.classifier.StandardPressureClassifier
 import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster
@@ -43,12 +40,8 @@ class BarometerFragment : Fragment(), Observer {
     private var altitude = 0F
     private var useSeaLevelPressure = false
     private var units = PressureUnits.Hpa
-    private var pressureConverter: ISeaLevelPressureConverter =
-        NullPressureConverter()
 
     private lateinit var prefs: UserPreferences
-    private lateinit var shortTermForecaster: IWeatherForecaster
-    private val longTermForecaster: IWeatherForecaster = DailyForecaster()
 
     private lateinit var pressureTxt: TextView
     private lateinit var weatherNowTxt: TextView
@@ -58,6 +51,8 @@ class BarometerFragment : Fragment(), Observer {
     private lateinit var historyDurationTxt: TextView
 
     private lateinit var chart: PressureChart
+
+    private lateinit var weatherService: WeatherService
 
 
     override fun onCreateView(
@@ -71,7 +66,7 @@ class BarometerFragment : Fragment(), Observer {
         gps = GPS(requireContext())
         prefs = UserPreferences(requireContext())
 
-        shortTermForecaster = HourlyForecaster(prefs.weather.stormAlertThreshold)
+        weatherService = WeatherService(prefs.weather.stormAlertThreshold)
 
         pressureTxt = view.findViewById(R.id.pressure)
         weatherNowTxt = view.findViewById(R.id.weather_now_lbl)
@@ -94,11 +89,7 @@ class BarometerFragment : Fragment(), Observer {
         gps.start(this::onLocationUpdate)
 
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
-
-        pressureConverter = SeaLevelPressureConverterFactory().create(requireContext())
-
         altitude = gps.altitude
-
         units = prefs.pressureUnits
 
         updateBarometerChartData()
@@ -146,8 +137,11 @@ class BarometerFragment : Fragment(), Observer {
             )
         )
 
-        val convertedReadings = pressureConverter.convert(allReadings)
-
+        val convertedReadings = if (useSeaLevelPressure) {
+            weatherService.convertToSeaLevel(allReadings)
+        } else {
+            NullPressureConverter().convert(allReadings)
+        }
 
         val pressure = convertedReadings.last().value
         val symbol = PressureUnitUtils.getSymbol(units)
@@ -156,10 +150,9 @@ class BarometerFragment : Fragment(), Observer {
 
         pressureTxt.text = "${format.format(PressureUnitUtils.convert(pressure, units))}  $symbol"
 
-
         val convertedPressureHistory = convertedReadings.subList(0, convertedReadings.lastIndex)
 
-        val pressureDirection = DropPressureTendencyCalculator().calculate(convertedPressureHistory)
+        val pressureDirection = weatherService.getTendency(convertedPressureHistory)
 
         when (pressureDirection.characteristic) {
             PressureCharacteristic.Falling -> {
@@ -173,8 +166,8 @@ class BarometerFragment : Fragment(), Observer {
             else -> trendImg.visibility = View.INVISIBLE
         }
 
-        val shortTerm = shortTermForecaster.forecast(convertedPressureHistory)
-        val longTerm = longTermForecaster.forecast(convertedPressureHistory)
+        val shortTerm = weatherService.getHourlyWeather(convertedPressureHistory)
+        val longTerm = weatherService.getDailyWeather(convertedPressureHistory)
 
         weatherNowTxt.text = getShortTermWeatherDescription(shortTerm)
         weatherNowImg.setImageResource(getWeatherImage(shortTerm, pressure))
@@ -182,8 +175,7 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun getWeatherImage(weather: Weather, currentPressure: Float): Int {
-        val classification = StandardPressureClassifier()
-            .classify(currentPressure)
+        val classification = weatherService.classifyPressure(currentPressure)
 
         return when (weather) {
             Weather.ImprovingFast -> if (classification == PressureClassification.Low) R.drawable.cloudy else R.drawable.sunny
@@ -248,7 +240,11 @@ class BarometerFragment : Fragment(), Observer {
 
         }
 
-        val convertedPressures = pressureConverter.convert(readings)
+        val convertedPressures = if (useSeaLevelPressure) {
+            weatherService.convertToSeaLevel(readings)
+        } else {
+            NullPressureConverter().convert(readings)
+        }
 
         if (convertedPressures.isNotEmpty()) {
             val filter = LowPassFilter(0.6, convertedPressures.first().value.toDouble())
