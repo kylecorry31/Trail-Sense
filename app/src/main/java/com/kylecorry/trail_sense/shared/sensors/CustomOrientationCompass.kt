@@ -11,6 +11,8 @@ import kotlin.math.acos
 import kotlin.math.atan2
 import kotlin.math.sqrt
 
+// From https://stackoverflow.com/questions/16317599/android-compass-that-can-compensate-for-tilt-and-pitch
+
 class CustomOrientationCompass(context: Context) : AbstractSensor(), ICompass {
 
     private val accelerometer = Accelerometer(context)
