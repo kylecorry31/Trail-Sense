@@ -6,16 +6,17 @@ import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstroAltitude
 import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
-import java.time.Duration
-import java.time.LocalDateTime
 
 
 class AstroChart(private val chart: LineChart) {
@@ -39,10 +40,11 @@ class AstroChart(private val chart: LineChart) {
         chart.setScaleEnabled(false)
         chart.setGridBackgroundColor(chart.resources.getColor(R.color.colorAccent, null))
         chart.setDrawGridBackground(true)
-        // TODO: Draw background
         chart.setDrawBorders(false)
 
-        chart.xAxis.setDrawLabels(false)
+        chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        chart.xAxis.valueFormatter = TimeLabelFormatter(chart.context)
+//        chart.xAxis.labelRotationAngle = 45f
         chart.axisRight.setDrawLabels(false)
         chart.axisLeft.setDrawLabels(false)
         chart.axisLeft.setDrawZeroLine(true)
@@ -61,6 +63,7 @@ class AstroChart(private val chart: LineChart) {
 
         chart.xAxis.setDrawGridLines(false)
         chart.axisLeft.setDrawGridLines(false)
+        chart.xAxis.textColor = Color.argb(150, r, g, b)
         chart.axisLeft.gridColor = Color.argb(50, r, g, b)
         chart.axisLeft.textColor = Color.argb(150, r, g, b)
         chart.axisRight.setDrawGridLines(false)
@@ -79,9 +82,10 @@ class AstroChart(private val chart: LineChart) {
     fun plot(datasets: List<AstroChartDataset>){
         val filters = datasets.map { LowPassFilter(0.8, it.data.first().altitudeDegrees.toDouble()) }
         val colors = datasets.map { it.color }.toMutableList()
-        val values = datasets.mapIndexed { idx, d -> d.data.map {
-            val date = it.time.toZonedDateTime()
-            Pair(((date.toEpochSecond() + date.offset.totalSeconds) * 1000) as Number, filters[idx].filter(it.altitudeDegrees.toDouble()).toFloat())
+        val granularity = 10
+        val values = datasets.mapIndexed { idx, d -> d.data.mapIndexed { i, a ->
+            val time = i * granularity / 60f
+            Pair(time as Number, filters[idx].filter(a.altitudeDegrees.toDouble()).toFloat())
         } }.toMutableList()
 
         val minValue = (values.map{ it.minBy { it.second }?.second ?: 0f }.min() ?: 0f).coerceAtMost(-1f) - 10f
@@ -90,9 +94,12 @@ class AstroChart(private val chart: LineChart) {
         chart.axisLeft.axisMinimum = minValue
         chart.axisLeft.axisMaximum = maxValue
 
+        val start = values.map { it.first().first }.minBy { it.toDouble() }?.toFloat() ?: 0f
+        val end = values.map { it.last().first }.maxBy { it.toDouble() }?.toFloat() ?: 0f
+
         values.add(0, listOf(
-            Pair(values.first().first().first, minValue),
-            Pair(values.first().last().first, minValue)
+            Pair(0, minValue),
+            Pair(24, minValue)
         ))
 
         colors.add(0, chart.resources.getColor(R.color.colorSecondary, null))
@@ -119,6 +126,11 @@ class AstroChart(private val chart: LineChart) {
             } else {
                 set1.setDrawFilled(false)
             }
+
+            if (index == 1){
+                set1.valueFormatter = TimeLabelFormatter(chart.context)
+            }
+
             set1
         }
 
