@@ -137,4 +137,12 @@
     <string name="pref_pressure_history_title">Luftdruckverlauf</string>
     <string name="pref_ruler_calibration_summary">Auf 1 setzen, dann gegen ein reales Lineal messen und diesen Wert hier eingeben.</string>
     <string name="pref_ruler_calibration_title">Lineal-Skala</string>
+    <string name="new_moon">Neumond</string>
+    <string name="waning_crescent">abnehmender Sichelmond</string>
+    <string name="third_quarter">Drittes Viertel</string>
+    <string name="waning_gibbous">abnehmender Dreiviertelmond</string>
+    <string name="full_moon">Vollmond</string>
+    <string name="waxing_gibbous">zunehmender Dreiviertelmond</string>
+    <string name="first_quarter">Erstes Viertel</string>
+    <string name="waxing_crescent">zunehmender Sichelmond</string>
 </resources>
