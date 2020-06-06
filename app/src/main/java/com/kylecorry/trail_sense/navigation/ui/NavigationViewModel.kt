@@ -6,7 +6,6 @@ import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.domain.NavigationVector
-import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.shared.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -27,7 +26,6 @@ class NavigationViewModel(
     beaconDB: BeaconDB
 ) {
 
-    private val declinationCalculator = DeclinationCalculator()
     private val useTrueNorth = prefs.navigation.useTrueNorth
     private val distanceUnits = prefs.distanceUnits
     private val prefShowLinearCompass = prefs.navigation.showLinearCompass
@@ -37,16 +35,16 @@ class NavigationViewModel(
     private val showSunAndMoon = prefs.astronomy.showOnCompass
     private val showSunAndMoonWhenDown = prefs.astronomy.showOnCompassWhenDown
     private val astronomyService = AstronomyService()
+    private val navigationService = NavigationService()
 
     val rulerScale = prefs.navigation.rulerScale
 
     val azimuth: Float
         get() {
-            if (useTrueNorth) {
-                val declination = declinationCalculator.calculate(gps.location, gps.altitude)
-                compass.declination = declination
+            compass.declination = if (useTrueNorth){
+                navigationService.getDeclination(gps.location, gps.altitude)
             } else {
-                compass.declination = 0f
+                0f
             }
             return compass.bearing.value
         }
@@ -56,11 +54,10 @@ class NavigationViewModel(
 
     val azimuthDirection: String
         get() {
-            if (useTrueNorth) {
-                val declination = declinationCalculator.calculate(gps.location, gps.altitude)
-                compass.declination = declination
+            compass.declination = if (useTrueNorth){
+                navigationService.getDeclination(gps.location, gps.altitude)
             } else {
-                compass.declination = 0f
+                0f
             }
             return compass.bearing.direction.symbol
         }
@@ -83,13 +80,16 @@ class NavigationViewModel(
 
     var beacon: Beacon? = null
 
-    val destination: String
+    private val destination: String
         get() {
             beacon?.apply {
-                val vector = NavigationService().navigate(gps.location, this.coordinate)
-                val declination = declinationCalculator.calculate(gps.location, gps.altitude)
-                val bearing =
-                    if (!useTrueNorth) vector.direction.withDeclination(-declination).value else vector.direction.value
+                val vector = navigationService.navigate(
+                    gps.location,
+                    this.coordinate,
+                    gps.altitude,
+                    useTrueNorth
+                )
+                val bearing = vector.direction.value
                 return "${this.name}    (${bearing.roundToInt()}°)\n${LocationMath.distanceToReadableString(
                     vector.distance,
                     distanceUnits
@@ -101,9 +101,12 @@ class NavigationViewModel(
     private val destinationBearing: Float?
         get() {
             beacon?.apply {
-                val vector = NavigationService().navigate(gps.location, this.coordinate)
-                val declination = declinationCalculator.calculate(gps.location, gps.altitude)
-                return if (!useTrueNorth) vector.direction.withDeclination(-declination).value else vector.direction.value
+                return navigationService.navigate(
+                    gps.location,
+                    this.coordinate,
+                    gps.altitude,
+                    useTrueNorth
+                ).direction.value
             }
             return null
         }
@@ -115,10 +118,12 @@ class NavigationViewModel(
         get() = gps.location
 
     private fun isFacingBeacon(beacon: Beacon): Boolean {
-        val vector = NavigationService().navigate(gps.location, beacon.coordinate)
-        val declination = declinationCalculator.calculate(gps.location, gps.altitude)
-        val direction =
-            if (!useTrueNorth) vector.direction.withDeclination(-declination).value else vector.direction.value
+        val direction = navigationService.navigate(
+            gps.location,
+            beacon.coordinate,
+            gps.altitude,
+            useTrueNorth
+        ).direction.value
         return abs(deltaAngle(direction, azimuth)) < 20
     }
 
@@ -132,15 +137,11 @@ class NavigationViewModel(
                 return listOf(sunBearing, moonBearing)
             }
 
-            val declination = declinationCalculator.calculate(gps.location, gps.altitude)
-
             val sunAndMoon = listOf(sunBearing, moonBearing)
 
             val beacons = _nearestVisibleBeacons
                 .map {
-                    val direction =
-                        if (!useTrueNorth) it.second.direction.withDeclination(-declination).value else it.second.direction.value
-                    direction
+                    it.second.direction.value
                 }.toList()
 
             return sunAndMoon + beacons
@@ -152,9 +153,17 @@ class NavigationViewModel(
             return beacons.asSequence()
                 .filter { it.visible }
                 .map {
-                    Pair(it, navigationService.navigate(gps.location, it.coordinate))
+                    Pair(
+                        it,
+                        navigationService.navigate(
+                            gps.location,
+                            it.coordinate,
+                            gps.altitude,
+                            useTrueNorth
+                        )
+                    )
                 }
-                .filter {it.second.distance >= MIN_BEACON_DISTANCE} // Don't look at really close beacons
+                .filter { it.second.distance >= MIN_BEACON_DISTANCE } // Don't look at really close beacons
                 .sortedBy { it.second.distance }
                 .take(visibleBeacons)
                 .toList()
@@ -170,19 +179,15 @@ class NavigationViewModel(
                 return ""
             }
 
-            val declination = declinationCalculator.calculate(gps.location, gps.altitude)
-
             val vectors = _nearestVisibleBeacons
 
             val nearestBeacon = vectors.minBy {
-                val direction =
-                    if (!useTrueNorth) it.second.direction.withDeclination(-declination).value else it.second.direction.value
+                val direction = it.second.direction.value
                 abs(deltaAngle(direction, azimuth))
             }
             nearestBeacon?.apply {
                 if (!isFacingBeacon(this.first)) return ""
-                val direction =
-                    if (!useTrueNorth) this.second.direction.withDeclination(-declination).value else this.second.direction.value
+                val direction = this.second.direction.value
                 return "${this.first.name}    (${direction.roundToInt() % 360}°)\n${LocationMath.distanceToReadableString(
                     this.second.distance,
                     distanceUnits
@@ -193,9 +198,9 @@ class NavigationViewModel(
 
     val moonBeaconVisibility: Int
         get() {
-            return if (showSunAndMoonWhenDown){
+            return if (showSunAndMoonWhenDown) {
                 View.VISIBLE
-            } else if (!showSunAndMoon || !astronomyService.isMoonUp(gps.location)){
+            } else if (!showSunAndMoon || !astronomyService.isMoonUp(gps.location)) {
                 View.INVISIBLE
             } else {
                 View.VISIBLE
@@ -204,9 +209,9 @@ class NavigationViewModel(
 
     val sunBeaconVisibility: Int
         get() {
-            return if (showSunAndMoonWhenDown){
+            return if (showSunAndMoonWhenDown) {
                 View.VISIBLE
-            } else if (!showSunAndMoon || !astronomyService.isSunUp(gps.location)){
+            } else if (!showSunAndMoon || !astronomyService.isSunUp(gps.location)) {
                 View.INVISIBLE
             } else {
                 View.VISIBLE
@@ -215,7 +220,7 @@ class NavigationViewModel(
 
     val sunBeaconOpacity: Float
         get() {
-            return if (astronomyService.isSunUp(gps.location)){
+            return if (astronomyService.isSunUp(gps.location)) {
                 1f
             } else {
                 0.5f
@@ -224,7 +229,7 @@ class NavigationViewModel(
 
     val moonBeaconOpacity: Float
         get() {
-            return if (astronomyService.isMoonUp(gps.location)){
+            return if (astronomyService.isMoonUp(gps.location)) {
                 1f
             } else {
                 0.5f
@@ -233,16 +238,21 @@ class NavigationViewModel(
 
     private val sunBearing: Float
         get() {
-            val declination = if (!useTrueNorth) declinationCalculator.calculate(gps.location, gps.altitude) else 0f
+            val declination = if (!useTrueNorth) navigationService.getDeclination(
+                gps.location,
+                gps.altitude
+            ) else 0f
             return astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value
         }
 
     private val moonBearing: Float
         get() {
-            val declination = if (!useTrueNorth) declinationCalculator.calculate(gps.location, gps.altitude) else 0f
+            val declination = if (!useTrueNorth) navigationService.getDeclination(
+                gps.location,
+                gps.altitude
+            ) else 0f
             return astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value
         }
-
 
     companion object {
         const val MIN_BEACON_DISTANCE = 8f
