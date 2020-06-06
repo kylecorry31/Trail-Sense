@@ -6,15 +6,14 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.math.*
 import com.kylecorry.trail_sense.shared.toDegrees
 import com.kylecorry.trail_sense.weather.domain.MovingAverageFilter
-import kotlin.math.acos
 import kotlin.math.atan2
-import kotlin.math.sqrt
 
 // From https://stackoverflow.com/questions/16317599/android-compass-that-can-compensate-for-tilt-and-pitch
 
-class CustomOrientationCompass(context: Context) : AbstractSensor(), ICompass {
+class VectorCompass(context: Context) : AbstractSensor(), ICompass {
 
-    private val accelerometer = Accelerometer(context)
+    // TODO: Check if gravity sensor is available, else use accelerometer
+    private val accelerometer = GravitySensor(context)
     private val magnetometer = Magnetometer(context)
 
     private val prefs = UserPreferences(context)
@@ -40,7 +39,7 @@ class CustomOrientationCompass(context: Context) : AbstractSensor(), ICompass {
     private fun updateSensor(): Boolean {
 
         if (!gotAccel || !gotMag) {
-            return true;
+            return true
         }
 
         // Gravity
@@ -64,7 +63,7 @@ class CustomOrientationCompass(context: Context) : AbstractSensor(), ICompass {
         val north = normMagField.minus(normGravity.scale(dotProduct))
         val normNorth = north.normalize()
 
-        // Rotation matrix
+        // Azimuth
         // NB: see https://math.stackexchange.com/questions/381649/whats-the-best-3d-angular-co-ordinate-system-for-working-with-smartfone-apps
         val sin = normEast[1] - normNorth[0]
         val cos = normEast[0] + normNorth[1]

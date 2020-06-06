@@ -80,20 +80,11 @@
             app:summary="@string/pref_show_linear_compass_summary"
             app:defaultValue="true"/>
 
-<!--        <SwitchPreferenceCompat-->
-<!--            app:key="@string/pref_use_experimental_compass"-->
-<!--            app:title="@string/pref_use_experimental_compass_title"-->
-<!--            app:summary="@string/pref_use_experimental_compass_summary"-->
-<!--            android:enabled="false"-->
-<!--            app:defaultValue="false"/>-->
-
-        <ListPreference
-            app:defaultValue="rotation"
-            app:entries="@array/compass_type_entries"
-            app:entryValues="@array/compass_type_values"
-            app:key="pref_compass_mode"
-            app:title="Compass Mode"
-            app:useSimpleSummaryProvider="true" />
+        <SwitchPreferenceCompat
+            app:key="@string/pref_use_legacy_compass"
+            app:title="@string/pref_use_legacy_compass_title"
+            app:summary="@string/pref_use_legacy_compass_summary"
+            app:defaultValue="false"/>
 
         <SeekBarPreference
             app:key="@string/pref_compass_filter_amt"

@@ -77,7 +77,7 @@
     <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
     <string name="pref_use_experimental_compass_title">Gwiritsani ntchito kampasi yoyesera</string>
     <string name="pref_use_legacy_compass_title">Gwiritsani ntchito kampasi ya cholowa</string>
-    <string name="pref_use_experimental_compass_summary">Mukhoza kukonza zovuta</string>
+    <string name="pref_use_legacy_compass_summary">Mukhoza kukonza zovuta</string>
     <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">Onetsani ma beac pafupi</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>

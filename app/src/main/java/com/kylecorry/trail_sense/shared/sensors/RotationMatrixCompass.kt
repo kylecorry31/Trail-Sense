@@ -7,11 +7,10 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.kylecorry.trail_sense.weather.domain.MovingAverageFilter
 import kotlin.math.abs
-import kotlin.math.floor
 
-class Compass(context: Context) : AbstractSensor(), ICompass {
+class RotationMatrixCompass(context: Context) : AbstractSensor(), ICompass {
 
-    private val accelerometer = Accelerometer(context)
+    private val accelerometer = GravitySensor(context)
     private val magnetometer = Magnetometer(context)
 
     private val prefs = UserPreferences(context)

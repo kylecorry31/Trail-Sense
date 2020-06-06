@@ -77,7 +77,7 @@
     <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
     <string name="pref_use_experimental_compass_title">प्रयोगात्मक कम्पास का उपयोग करें</string>
     <string name="pref_use_legacy_compass_title">विरासत कम्पास का उपयोग करें</string>
-    <string name="pref_use_experimental_compass_summary">कम्पास मुद्दों को ठीक कर सकते हैं</string>
+    <string name="pref_use_legacy_compass_summary">कम्पास मुद्दों को ठीक कर सकते हैं</string>
     <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">बीकन के पास प्रदर्शित करें</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>

@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.shared.math
 
-import kotlin.math.pow
 import kotlin.math.sqrt
 
 fun FloatArray.normalize(): FloatArray {

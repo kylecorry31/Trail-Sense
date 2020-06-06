@@ -77,7 +77,7 @@
     <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
     <string name="pref_use_experimental_compass_title">পরীক্ষামূলক কম্পাস ব্যবহার করুন</string>
     <string name="pref_use_legacy_compass_title">লিগ্যাসি কম্পাস ব্যবহার করুন</string>
-    <string name="pref_use_experimental_compass_summary">কম্পাস সমস্যা সমাধান করতে পারে</string>
+    <string name="pref_use_legacy_compass_summary">কম্পাস সমস্যা সমাধান করতে পারে</string>
     <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">কাছাকাছি বীকন প্রদর্শন করুন</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>

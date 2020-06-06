@@ -77,7 +77,7 @@
     <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
     <string name="pref_use_experimental_compass_title">実験的なコンパスを使用する</string>
     <string name="pref_use_legacy_compass_title">従来のコンパスを使用する</string>
-    <string name="pref_use_experimental_compass_summary">コンパスの問題を修正する場合があります</string>
+    <string name="pref_use_legacy_compass_summary">コンパスの問題を修正する場合があります</string>
     <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">近くのビーコンを表示</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>

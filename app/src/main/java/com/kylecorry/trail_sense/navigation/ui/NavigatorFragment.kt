@@ -119,10 +119,10 @@ class NavigatorFragment(
 
         beaconDB = BeaconDB(requireContext())
 
-        compass = when (userPrefs.navigation.compassMode) {
-            NavigationPreferences.CompassMode.Orientation -> LegacyCompass(requireContext())
-            NavigationPreferences.CompassMode.RotationMatrix -> Compass(requireContext())
-            NavigationPreferences.CompassMode.Custom -> CustomOrientationCompass(requireContext())
+        compass = if (userPrefs.navigation.useLegacyCompass) {
+            LegacyCompass(requireContext())
+        } else {
+            VectorCompass(requireContext())
         }
 
         orientation = DeviceOrientation(requireContext())

@@ -77,7 +77,7 @@
     <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
     <string name="pref_use_experimental_compass_title">Utiliser une boussole expérimentale</string>
     <string name="pref_use_legacy_compass_title">Utiliser la boussole héritée</string>
-    <string name="pref_use_experimental_compass_summary">Peut résoudre les problèmes de boussole</string>
+    <string name="pref_use_legacy_compass_summary">Peut résoudre les problèmes de boussole</string>
     <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">Afficher les balises à proximité</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
