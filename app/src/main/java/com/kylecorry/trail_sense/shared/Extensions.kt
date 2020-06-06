@@ -89,3 +89,7 @@ fun Fragment.switchToFragment(fragment: Fragment, holderId: Int = R.id.fragment_
         )
     }
 }
+
+fun Float.toDegrees(): Float {
+    return Math.toDegrees(this.toDouble()).toFloat()
+}
