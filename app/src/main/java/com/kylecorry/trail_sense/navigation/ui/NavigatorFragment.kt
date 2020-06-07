@@ -31,6 +31,8 @@ class NavigatorFragment(
     private val createBeacon: GeoUriParser.NamedCoordinate? = null
 ) : Fragment() {
 
+    constructor(): this(null, null)
+
     private lateinit var compass: ICompass
     private lateinit var gps: IGPS
     private lateinit var orientation: DeviceOrientation
@@ -71,7 +73,7 @@ class NavigatorFragment(
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
-
+        
         // Get views
         userPrefs = UserPreferences(requireContext())
         locationTxt = view.findViewById(R.id.location)

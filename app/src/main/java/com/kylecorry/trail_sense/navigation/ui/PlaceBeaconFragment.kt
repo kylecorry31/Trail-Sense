@@ -15,14 +15,20 @@ import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.doTransaction
+import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 
 
 class PlaceBeaconFragment(
-    private val beaconDB: BeaconDB,
-    private val gps: IGPS,
+    private val _beaconDB: BeaconDB?,
+    private val _gps: IGPS?,
     private val initialLocation: GeoUriParser.NamedCoordinate? = null
 ) : Fragment() {
+
+    private lateinit var beaconDB: BeaconDB
+    private lateinit var gps: IGPS
+
+    constructor(): this(null, null, null)
 
     private lateinit var beaconName: EditText
     private lateinit var beaconLat: EditText
@@ -35,8 +41,10 @@ class PlaceBeaconFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.fragment_create_beacon, container, false)
+
+        beaconDB = _beaconDB ?: BeaconDB(requireContext())
+        gps = _gps ?: GPS(requireContext())
 
         beaconName = view.findViewById(R.id.beacon_name)
         beaconLat = view.findViewById(R.id.beacon_latitude)

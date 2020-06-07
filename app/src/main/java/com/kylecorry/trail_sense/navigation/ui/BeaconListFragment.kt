@@ -22,10 +22,17 @@ import com.kylecorry.trail_sense.navigation.infrastructure.LocationClipboard
 import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
+import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 
 
-class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS): Fragment() {
+class BeaconListFragment(private val _beaconDB: BeaconDB?, private val _gps: IGPS?): Fragment() {
+
+    private lateinit var beaconDB: BeaconDB
+    private lateinit var gps: IGPS
+
+    constructor(): this(null, null)
 
     private lateinit var beaconList: RecyclerView
     private lateinit var createBtn: FloatingActionButton
@@ -33,7 +40,7 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
     private lateinit var emptyTxt: TextView
     private lateinit var shareSheet: LinearLayout
     private lateinit var prefs: UserPreferences
-    private val location = gps.location
+    private lateinit var location: Coordinate
 
     private var selectedBeacon: Beacon? = null
 
@@ -41,6 +48,10 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_beacon_list, container, false)
+
+        beaconDB = _beaconDB ?: BeaconDB(requireContext())
+        gps = _gps ?: GPS(requireContext())
+        location = gps.location
 
         beaconList = view.findViewById(R.id.beacon_recycler)
         createBtn = view.findViewById(R.id.create_beacon_btn)
