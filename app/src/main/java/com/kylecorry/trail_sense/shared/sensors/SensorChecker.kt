@@ -20,4 +20,14 @@ class SensorChecker(private val context: Context) {
         return context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
+    fun hasGravity(): Boolean {
+        val sensors = sensorManager?.getSensorList(Sensor.TYPE_GRAVITY)
+        return sensors?.isNotEmpty() ?: false
+    }
+
+    fun hasRotationVector(): Boolean {
+        val sensors = sensorManager?.getSensorList(Sensor.TYPE_ROTATION_VECTOR)
+        return sensors?.isNotEmpty() ?: false
+    }
+
 }

@@ -13,7 +13,8 @@ import kotlin.math.atan2
 class VectorCompass(context: Context) : AbstractSensor(), ICompass {
 
     // TODO: Check if gravity sensor is available, else use accelerometer
-    private val accelerometer = GravitySensor(context)
+    private val sensorChecker = SensorChecker(context)
+    private val accelerometer: IAccelerometer = if (sensorChecker.hasGravity()) GravitySensor(context) else LowPassAccelerometer(context)
     private val magnetometer = Magnetometer(context)
 
     private val prefs = UserPreferences(context)
