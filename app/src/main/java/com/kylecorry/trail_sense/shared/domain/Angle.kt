@@ -31,7 +31,7 @@ data class Angle(val degrees: Float) {
         return tan(radians)
     }
 
-    operator fun minus(other: Angle): Angle {
+    operator fun minus(other: Angle): Float {
         var delta = other.degrees - degrees
         delta += 180
         delta -= floor(delta / 360) * 360
@@ -39,7 +39,7 @@ data class Angle(val degrees: Float) {
         if (abs(abs(delta) - 180) <= Float.MIN_VALUE) {
             delta = 180f
         }
-        return Angle(delta)
+        return delta
     }
 
     companion object {
