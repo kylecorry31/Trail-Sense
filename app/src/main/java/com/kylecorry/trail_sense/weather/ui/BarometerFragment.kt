@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.formatHM
 import com.kylecorry.trail_sense.shared.sensors.Barometer
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IBarometer
@@ -49,6 +50,7 @@ class BarometerFragment : Fragment(), Observer {
     private lateinit var weatherLaterTxt: TextView
     private lateinit var trendImg: ImageView
     private lateinit var historyDurationTxt: TextView
+    private lateinit var pressureMarkerTxt: TextView
 
     private lateinit var chart: PressureChart
 
@@ -72,12 +74,26 @@ class BarometerFragment : Fragment(), Observer {
         weatherNowTxt = view.findViewById(R.id.weather_now_lbl)
         weatherNowImg = view.findViewById(R.id.weather_now_img)
         weatherLaterTxt = view.findViewById(R.id.weather_later_lbl)
+        pressureMarkerTxt = view.findViewById(R.id.pressure_marker)
         chart = PressureChart(
             view.findViewById(R.id.chart),
-            resources.getColor(R.color.colorPrimary, null)
+            resources.getColor(R.color.colorPrimary, null),
+            object : IPressureChartSelectedListener {
+                override fun onNothingSelected() {
+                    pressureMarkerTxt.text = ""
+                }
+
+                override fun onValueSelected(timeAgo: Duration, pressure: Float) {
+                    val symbol = PressureUnitUtils.getSymbol(units)
+                    val format = PressureUnitUtils.getDecimalFormat(units)
+                    pressureMarkerTxt.text = "${format.format(pressure)}  $symbol - ${timeAgo.formatHM(true)} ago"
+                }
+
+            }
         )
         trendImg = view.findViewById(R.id.barometer_trend)
         historyDurationTxt = view.findViewById(R.id.pressure_history_duration)
+
 
         return view
     }
@@ -252,9 +268,9 @@ class BarometerFragment : Fragment(), Observer {
             chart.setUnits(units)
 
             val chartData = convertedPressures.map {
-                val date = it.time.toZonedDateTime()
+                val timeAgo = Duration.between(Instant.now(), it.time).seconds / (60f * 60f)
                 Pair(
-                    ((date.toEpochSecond() + date.offset.totalSeconds) * 1000) as Number,
+                   timeAgo as Number,
                     (PressureUnitUtils.convert(
                         filter.filter(it.value.toDouble()).toFloat(),
                         units

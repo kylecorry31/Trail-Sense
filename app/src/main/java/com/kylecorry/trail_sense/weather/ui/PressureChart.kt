@@ -15,19 +15,20 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnits
-import java.time.Instant
+import java.time.Duration
+import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
 
 
-class PressureChart(private val chart: LineChart, private val color: Int) {
+class PressureChart(private val chart: LineChart, private val color: Int, private val selectionListener: IPressureChartSelectedListener? = null) {
 
     private var minRange = MIN_RANGE
     private var granularity = 1f
 
     init {
         chart.description.isEnabled = false
-        chart.setTouchEnabled(false) // TODO: Enable this
+        chart.setTouchEnabled(true)
         chart.isDragEnabled = false
         chart.setScaleEnabled(false)
         chart.setDrawGridBackground(false)
@@ -61,15 +62,14 @@ class PressureChart(private val chart: LineChart, private val color: Int) {
 
         chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
             override fun onNothingSelected() {
-
+                selectionListener?.onNothingSelected()
             }
 
             override fun onValueSelected(e: Entry?, h: Highlight?) {
                 e ?: return
-                val pressure = e.y
-                val date = Instant.ofEpochMilli(e.x.toLong())
-                // TODO: Display pressure and date
-                // TODO: Verify that date is calculated correctly
+                val seconds = e.x * 60 * 60
+                val duration = Duration.ofSeconds(seconds.absoluteValue.toLong())
+                selectionListener?.onValueSelected(duration, e.y)
             }
 
         })

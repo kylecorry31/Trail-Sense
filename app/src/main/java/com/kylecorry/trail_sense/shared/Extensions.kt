@@ -63,14 +63,21 @@ fun LocalTime.toDisplayFormat(ctx: Context, hourOnly: Boolean = false): String {
     }
 }
 
-fun Duration.formatHM(): String {
+fun Duration.formatHM(short: Boolean = false): String {
     val hours = this.toHours()
     val minutes = this.toMinutes() % 60
 
-    return when {
-        hours == 0L -> "${minutes}m"
-        minutes == 0L -> "${hours}h"
-        else -> "${hours}h ${minutes}m"
+    return if (short){
+        when (hours) {
+            0L -> "${minutes}m"
+            else -> "${hours}h"
+        }
+    } else {
+        when {
+            hours == 0L -> "${minutes}m"
+            minutes == 0L -> "${hours}h"
+            else -> "${hours}h ${minutes}m"
+        }
     }
 }
 
