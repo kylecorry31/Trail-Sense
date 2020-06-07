@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -23,12 +24,15 @@ import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverterFactory
 import java.time.Instant
 import java.time.ZonedDateTime
+import java.util.*
+import kotlin.concurrent.timer
 
 class BarometerAlarmReceiver: BroadcastReceiver() {
 
     private lateinit var context: Context
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
+    private lateinit var timer: Timer
 
     private var hasLocation = false
     private var hasBarometerReading = false
@@ -50,6 +54,16 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
 
             barometer = Barometer(context)
             altimeter = GPS(context)
+
+            val that = this
+            timer = timer(period = (5000 * (MAX_GPS_READINGS + 1)).toLong()){
+                if (!hasLocation) {
+                    altimeter.stop(that::onLocationUpdate)
+                    altitudeReadings.add(altimeter.altitude)
+                    hasLocation = true
+                }
+                cancel()
+            }
 
             if (userPrefs.useLocationFeatures) {
                 altimeter.start(this::onLocationUpdate)
@@ -118,6 +132,7 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
     }
 
     private fun gotAllReadings(){
+        timer.cancel()
         PressureHistoryRepository.add(
             context,
             PressureAltitudeReading(
