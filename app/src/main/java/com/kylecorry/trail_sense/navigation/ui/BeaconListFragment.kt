@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,6 +18,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
+import com.kylecorry.trail_sense.navigation.infrastructure.LocationClipboard
 import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
@@ -28,8 +31,11 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
     private lateinit var createBtn: FloatingActionButton
     private lateinit var adapter: BeaconAdapter
     private lateinit var emptyTxt: TextView
+    private lateinit var shareSheet: LinearLayout
     private lateinit var prefs: UserPreferences
     private val location = gps.location
+
+    private var selectedBeacon: Beacon? = null
 
     private var showMultipleBeacons = false
 
@@ -39,6 +45,7 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
         beaconList = view.findViewById(R.id.beacon_recycler)
         createBtn = view.findViewById(R.id.create_beacon_btn)
         emptyTxt = view.findViewById(R.id.beacon_empty_text)
+        shareSheet = view.findViewById(R.id.share_sheet)
 
         prefs = UserPreferences(requireContext())
         showMultipleBeacons = prefs.navigation.showMultipleBeacons
@@ -68,6 +75,26 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
                 )
                 addToBackStack(javaClass.name)
             }
+        }
+
+        shareSheet.findViewById<Button>(R.id.cancel_button).setOnClickListener {
+            shareSheet.visibility = View.GONE
+        }
+
+        shareSheet.findViewById<LinearLayout>(R.id.share_action_send).setOnClickListener {
+            selectedBeacon?.apply {
+                val sender = LocationSharesheet(requireContext())
+                sender.send(this.coordinate)
+            }
+            shareSheet.visibility = View.GONE
+        }
+
+        shareSheet.findViewById<LinearLayout>(R.id.share_action_copy_coordinates).setOnClickListener {
+            selectedBeacon?.apply {
+                val sender = LocationClipboard(requireContext())
+                sender.send(this.coordinate)
+            }
+            shareSheet.visibility = View.GONE
         }
 
         return view
@@ -120,8 +147,8 @@ class BeaconListFragment(private val beaconDB: BeaconDB, private val gps: IGPS):
             }
 
             copyBtn.setOnClickListener {
-                val sender = LocationSharesheet(requireContext())
-                sender.send(beacon.coordinate)
+                shareSheet.visibility = View.VISIBLE
+                selectedBeacon = beacon
             }
 
             itemView.setOnClickListener {

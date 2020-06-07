@@ -164,4 +164,9 @@
     <string name="sun_moon_compass_when_up">When up</string>
     <string name="sun_moon_compass_never">Never</string>
     <string name="pref_use_legacy_compass" translatable="false">pref_use_legacy_compass</string>
+    <string name="share_action_send">Send</string>
+    <string name="share_action_copy">Copy</string>
+    <string name="share_action_copy_beacon">Copy beacon</string>
+    <string name="share_action_copy_coordinates">Copy coordinates</string>
+    <string name="share_action_geo">geo:</string>
 </resources>
