@@ -5,7 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.widget.Toast
 import androidx.core.content.getSystemService
-import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 
 class LocationClipboard(private val context: Context) : ILocationSender {
 

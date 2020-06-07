@@ -8,7 +8,7 @@ import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
-import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 
 class GPS(private val context: Context): AbstractSensor(), IGPS {
 
@@ -48,7 +48,10 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
             return
         }
 
-        this._location = Coordinate(location.latitude, location.longitude)
+        this._location = Coordinate(
+            location.latitude,
+            location.longitude
+        )
 
         if (location.hasAltitude() && location.altitude != 0.0) {
             _altitude = location.altitude.toFloat() - AltitudeCorrection.getOffset(this._location, context)

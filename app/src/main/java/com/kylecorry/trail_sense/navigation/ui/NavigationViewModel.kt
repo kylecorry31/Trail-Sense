@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.domain.NavigationVector
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
-import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.kylecorry.trail_sense.shared.sensors.DeviceOrientation

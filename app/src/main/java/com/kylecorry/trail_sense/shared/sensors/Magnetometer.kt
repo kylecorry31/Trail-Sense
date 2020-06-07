@@ -4,22 +4,27 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorManager
+import com.kylecorry.trail_sense.shared.domain.Vector3
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 
 class Magnetometer(context: Context): BaseSensor(context, Sensor.TYPE_MAGNETIC_FIELD, SensorManager.SENSOR_DELAY_FASTEST) {
 
-    val filterSize = 0.03
+    val filterSize = 0.03f
     val filters = listOf(
         LowPassFilter(filterSize),
         LowPassFilter(filterSize),
         LowPassFilter(filterSize)
     )
 
-    var magneticField = FloatArray(3)
+    var magneticField = Vector3.zero
         private set
 
     override fun handleSensorEvent(event: SensorEvent) {
-        magneticField = event.values.mapIndexed { index, value -> filters[index].filter(value.toDouble()).toFloat() }.toFloatArray()
+        magneticField = Vector3(
+            filters[0].filter(event.values[0]),
+            filters[1].filter(event.values[1]),
+            filters[2].filter(event.values[2])
+        )
     }
 
 }

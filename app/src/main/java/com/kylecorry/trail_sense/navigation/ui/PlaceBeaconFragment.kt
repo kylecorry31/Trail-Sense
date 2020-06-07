@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
 import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
-import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 
@@ -147,7 +147,10 @@ class PlaceBeaconFragment(
             return null
         }
 
-        return Coordinate(latitude, longitude)
+        return Coordinate(
+            latitude,
+            longitude
+        )
     }
 
 }

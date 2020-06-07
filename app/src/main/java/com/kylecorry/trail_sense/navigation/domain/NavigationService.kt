@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.navigation.domain
 import android.location.Location
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
-import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 
 class NavigationService {
 

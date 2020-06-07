@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.navigation.domain.compass
 
 import android.hardware.GeomagneticField
-import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 
 class DeclinationCalculator : IDeclinationCalculator {
     override fun calculate(location: Coordinate, altitude: Float): Float {

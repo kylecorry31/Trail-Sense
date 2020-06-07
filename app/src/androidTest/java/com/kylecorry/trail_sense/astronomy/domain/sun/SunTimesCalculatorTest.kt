@@ -1,18 +1,18 @@
 package com.kylecorry.trail_sense.astronomy.domain.sun
 
-import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 import org.junit.Test
 
 import org.junit.Assert.*
 import java.time.Duration
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 class SunTimesCalculatorTest {
 
     private val date1 = LocalDate.of(2020, 3, 29)
     private val date2 = LocalDate.of(2020, 1, 1)
-    private val coordinates = Coordinate(41.91, -71.67)
+    private val coordinates =
+        Coordinate(41.91, -71.67)
     private val tolerance = Duration.ofMinutes(2).plusSeconds(30)
 
     @Test

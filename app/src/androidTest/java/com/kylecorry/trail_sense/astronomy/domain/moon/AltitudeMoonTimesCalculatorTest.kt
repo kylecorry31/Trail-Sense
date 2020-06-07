@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.domain.moon
 
-import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -8,7 +8,8 @@ import java.time.*
 
 class AltitudeMoonTimesCalculatorTest {
 
-    private val location = Coordinate(41.817,-71.491)
+    private val location =
+        Coordinate(41.817, -71.491)
     private val threshold = Duration.ofMinutes(20)
 
     @Test

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.navigation.infrastructure
 
 import android.net.Uri
-import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 
 class GeoUriParser {
 
@@ -14,7 +14,8 @@ class GeoUriParser {
         if (matches != null){
             val lat = matches.groupValues[1].toDouble()
             val lng = matches.groupValues[2].toDouble()
-            val coord = Coordinate(lat, lng)
+            val coord =
+                Coordinate(lat, lng)
             val label = Uri.decode(matches.groupValues[3]).replace('+', ' ')
             val address = Uri.decode(matches.groupValues[4]).replace('+', ' ')
 

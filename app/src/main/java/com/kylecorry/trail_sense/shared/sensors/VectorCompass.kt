@@ -61,13 +61,13 @@ class VectorCompass(context: Context) : AbstractSensor(), ICompass {
 
         // North vector
         val dotProduct = normGravity.dot(normMagField)
-        val north = normMagField.minus(normGravity.scale(dotProduct))
+        val north = normMagField.minus(normGravity * dotProduct)
         val normNorth = north.normalize()
 
         // Azimuth
         // NB: see https://math.stackexchange.com/questions/381649/whats-the-best-3d-angular-co-ordinate-system-for-working-with-smartfone-apps
-        val sin = normEast[1] - normNorth[0]
-        val cos = normEast[0] + normNorth[1]
+        val sin = normEast.y - normNorth.x
+        val cos = normEast.x + normNorth.y
         val azimuth = if (sin != 0f && cos != 0f) atan2(sin, cos) else 0f
 
         if (azimuth.isNaN()){

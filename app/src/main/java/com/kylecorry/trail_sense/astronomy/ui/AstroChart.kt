@@ -80,12 +80,12 @@ class AstroChart(private val chart: LineChart) {
     }
 
     fun plot(datasets: List<AstroChartDataset>){
-        val filters = datasets.map { LowPassFilter(0.8, it.data.first().altitudeDegrees.toDouble()) }
+        val filters = datasets.map { LowPassFilter(0.8f, it.data.first().altitudeDegrees) }
         val colors = datasets.map { it.color }.toMutableList()
         val granularity = 10
         val values = datasets.mapIndexed { idx, d -> d.data.mapIndexed { i, a ->
             val time = i * granularity / 60f
-            Pair(time as Number, filters[idx].filter(a.altitudeDegrees.toDouble()).toFloat())
+            Pair(time as Number, filters[idx].filter(a.altitudeDegrees))
         } }.toMutableList()
 
         val minValue = (values.map{ it.minBy { it.second }?.second ?: 0f }.min() ?: 0f).coerceAtMost(-1f) - 10f

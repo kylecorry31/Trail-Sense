@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.astronomy.domain
 
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
-import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.math.toRadians
 import com.kylecorry.trail_sense.shared.toZonedDateTime
 import java.time.LocalDate

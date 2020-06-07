@@ -7,7 +7,7 @@ import android.database.CursorWrapper
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.kylecorry.trail_sense.navigation.domain.Beacon
-import com.kylecorry.trail_sense.shared.Coordinate
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 
 /**
  * The beacon database

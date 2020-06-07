@@ -263,7 +263,7 @@ class BarometerFragment : Fragment(), Observer {
         }
 
         if (convertedPressures.isNotEmpty()) {
-            val filter = LowPassFilter(0.6, convertedPressures.first().value.toDouble())
+            val filter = LowPassFilter(0.6f, convertedPressures.first().value)
 
             chart.setUnits(units)
 
@@ -272,7 +272,7 @@ class BarometerFragment : Fragment(), Observer {
                 Pair(
                    timeAgo as Number,
                     (PressureUnitUtils.convert(
-                        filter.filter(it.value.toDouble()).toFloat(),
+                        filter.filter(it.value),
                         units
                     )) as Number
                 )
