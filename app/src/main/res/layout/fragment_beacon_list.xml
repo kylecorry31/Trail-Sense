@@ -173,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:tint="?android:textColorPrimary"
-                android:src="@drawable/ic_share"/>
+                android:src="@drawable/ic_geo"/>
 
             <TextView
                 android:layout_width="wrap_content"
