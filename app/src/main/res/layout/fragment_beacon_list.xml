@@ -123,7 +123,6 @@
             android:layout_marginBottom="8dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:visibility="gone"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="wrap_content"
@@ -168,7 +167,6 @@
             android:layout_marginBottom="8dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:visibility="gone"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="wrap_content"

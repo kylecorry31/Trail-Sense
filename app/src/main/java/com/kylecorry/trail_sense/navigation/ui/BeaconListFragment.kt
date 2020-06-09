@@ -17,9 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
-import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
-import com.kylecorry.trail_sense.navigation.infrastructure.LocationClipboard
-import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
+import com.kylecorry.trail_sense.navigation.infrastructure.*
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.domain.Coordinate
@@ -94,16 +92,32 @@ class BeaconListFragment(private val _beaconDB: BeaconDB?, private val _gps: IGP
 
         shareSheet.findViewById<LinearLayout>(R.id.share_action_send).setOnClickListener {
             selectedBeacon?.apply {
-                val sender = LocationSharesheet(requireContext())
-                sender.send(this.coordinate)
+                val sender = BeaconSharesheet(requireContext())
+                sender.send(this)
             }
             shareSheet.visibility = View.GONE
         }
 
         shareSheet.findViewById<LinearLayout>(R.id.share_action_copy_coordinates).setOnClickListener {
             selectedBeacon?.apply {
-                val sender = LocationClipboard(requireContext())
-                sender.send(this.coordinate)
+                val sender = BeaconCoordinatesCopy(Clipboard(requireContext()))
+                sender.send(this)
+            }
+            shareSheet.visibility = View.GONE
+        }
+
+        shareSheet.findViewById<LinearLayout>(R.id.share_action_copy_beacon).setOnClickListener {
+            selectedBeacon?.apply {
+                val sender = BeaconCopy(Clipboard(requireContext()))
+                sender.send(this)
+            }
+            shareSheet.visibility = View.GONE
+        }
+
+        shareSheet.findViewById<LinearLayout>(R.id.share_action_geo).setOnClickListener {
+            selectedBeacon?.apply {
+                val sender = BeaconGeoSender(requireContext())
+                sender.send(this)
             }
             shareSheet.visibility = View.GONE
         }
