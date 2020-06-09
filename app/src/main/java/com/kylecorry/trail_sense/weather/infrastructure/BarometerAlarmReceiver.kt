@@ -132,6 +132,8 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
     }
 
     private fun gotAllReadings(){
+        altimeter.stop(this::onLocationUpdate)
+        barometer.stop(this::onPressureUpdate)
         timer.cancel()
         PressureHistoryRepository.add(
             context,
