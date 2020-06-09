@@ -56,7 +56,7 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
             altimeter = GPS(context)
 
             val that = this
-            timer = timer(period = (5000 * (MAX_GPS_READINGS + 1)).toLong()){
+            timer = timer(period = (5000 * (MAX_GPS_READINGS + 2)).toLong()){
                 if (!hasLocation) {
                     altimeter.stop(that::onLocationUpdate)
                     altitudeReadings.add(altimeter.altitude)
@@ -77,7 +77,7 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
 
     private fun onLocationUpdate(): Boolean {
         altitudeReadings.add(altimeter.altitude)
-        return if(altitudeReadings.size >= MAX_GPS_READINGS){
+        return if(hasLocation || altitudeReadings.size >= MAX_GPS_READINGS){
             hasLocation = true
             if (hasBarometerReading){
                 gotAllReadings()
