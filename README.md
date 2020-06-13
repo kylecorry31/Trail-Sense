@@ -82,6 +82,8 @@ Several values should not be translated:
 - Preference keys (signified by pref_name and the value will have underscores in them most likely, marked by translatable = false)
 - App name - Should remain Trail Sense
 
+If you find an issue with a translation, please post it as a comment to [this issue](https://github.com/kylecorry31/Trail-Sense/issues/72) rather than creating a new issue for it. Issues created for individual translations will be moved to that issue.
+
 ## Code contributors from the community
 - [sethtara](https://github.com/sethtara) - Translations
 - [paulle](https://github.com/paulle) - Translations
