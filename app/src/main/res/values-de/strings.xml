@@ -6,14 +6,14 @@
     <string name="direction_arrow_desc">Richtungspfeil</string>
     <string name="location_unknown">Ort unbekannt</string>
     <string name="destination_star_desc">Zielort</string>
-    <string name="create_beacon_title">Bake erstellen</string>
+    <string name="create_beacon_title">Wegpunkt erstellen</string>
     <string name="beacon_name_hint">Name</string>
     <string name="beacon_latitude_hint">Breitengrad</string>
     <string name="beacon_longitude_hint">Längengrad</string>
     <string name="beacon_use_current_location">Aktuellen Standort verwenden</string>
-    <string name="beacon_title">Bake auswählen</string>
+    <string name="beacon_title">Wegpunkt auswählen</string>
     <string name="dialog_ok">OK</string>
-    <string name="delete_beacon_alert_title">Bake löschen</string>
+    <string name="delete_beacon_alert_title">Wegpunkt löschen</string>
     <string name="dialog_cancel">Abbrechen</string>
     <string name="pressure_chart_title">Luftdruck</string>
     <string name="action_astronomy">Astronomie</string>
@@ -52,14 +52,14 @@
     <string name="weather_not_changing">Keine baldige Wetteränderung</string>
     <string name="forecast_improving">Möglicherweise spätere Wetterbesserung</string>
     <string name="forecast_worsening">Möglicherweise spatere Wetterverschlechterung</string>
-    <string name="no_beacons">Keine Baken</string>
-    <string name="onboarding_compass">Baken platzieren und zu ihnen zurücknavigieren</string>
+    <string name="no_beacons">Keine Wegpunkte</string>
+    <string name="onboarding_compass">Wegpunkte platzieren und zu ihnen zurücknavigieren</string>
     <string name="onboarding_weather">Hyperlokale Wettervorhersagen abrufen</string>
     <string name="onboarding_weather_no_internet">* verwendet keine Internet-Verbindung</string>
     <string name="onboarding_astronomy">Wissen, wann die Sonne/Mond auf- und untergehen wird</string>
     <string name="onboarding_background_location">Trail Sense benötigt eine Erlaubnis zur Verwendung Ihres GPS</string>
     <string name="onboarding_location_weather">Ermöglicht genauere Wettervorhersagen (passt sich der Höhe an)</string>
-    <string name="onboarding_location_navigation">Erlaubt Ihnen die Navigation zu Baken</string>
+    <string name="onboarding_location_navigation">Erlaubt Ihnen die Navigation zu Wegpunkten</string>
     <string name="onboarding_location_astronomy">Erlaubt Ihnen, die Auf- und Untergangszeiten von Sonne und Mond zu sehen</string>
     <string name="onboarding_location_privacy">Trail Sense respektiert Ihre Privatsphäre - Standortdaten verlassen niemals Ihr Gerät</string>
     <string name="onboarding_location_all_time">Bitte wählen Sie \'Allow all the time\' aus dem Genehmigungsdialog</string>
@@ -79,7 +79,8 @@
     <string name="pref_use_legacy_compass_title">Altsystem-Kompass verwenden</string>
     <string name="pref_use_legacy_compass_summary">Kann Kompassprobleme beheben</string>
     <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
-    <string name="pref_display_multi_beacons_title">Nahegelegene Baken anzeigen</string>
+    <string name="pref_display_multi_beacons_title">Nahegelegene Wegpunkte anzeigen</string>
+    <string name="pref_display_multi_beacons_summary">Zeigt nahegelegene Wegpunkte auf dem Kompass an</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Sturmalarm-Empfindlichkeit</string>
     <string name="pref_show_sun_moon_compass_title">Sonne/Mond auf dem Kompass anzeigen</string>
@@ -137,6 +138,7 @@
     <string name="pref_pressure_history_title">Luftdruckverlauf</string>
     <string name="pref_ruler_calibration_summary">Auf 1 setzen, dann gegen ein reales Lineal messen und diesen Wert hier eingeben.</string>
     <string name="pref_ruler_calibration_title">Lineal-Skala</string>
+    <string name="pref_num_visible_beacons_title">Anzahl sichtbarer Wegpunkte</string>
     <string name="new_moon">Neumond</string>
     <string name="waning_crescent">abnehmender Sichelmond</string>
     <string name="third_quarter">Drittes Viertel</string>
