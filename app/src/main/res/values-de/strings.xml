@@ -145,4 +145,5 @@
     <string name="waxing_gibbous">zunehmender Dreiviertelmond</string>
     <string name="first_quarter">Erstes Viertel</string>
     <string name="waxing_crescent">zunehmender Sichelmond</string>
+    <string name="until_sun_time">bis %</string>
 </resources>
