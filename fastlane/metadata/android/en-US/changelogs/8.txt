@@ -1,0 +1,7 @@
+- Change default compass algorithm (added legacy compass setting)
+- Add more beacon sharing options
+- Add hours to astronomy chart
+- Astronomy chart reflects selected date
+- See what the pressure was at a point on the graph
+- Don't show beacons within 8 meters
+- Bug fixes
