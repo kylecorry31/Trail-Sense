@@ -44,7 +44,7 @@ class OnboardingActivity : AppCompatActivity() {
             if (!hasBarometer && pageIdx == pages.indexOf(R.layout.fragment_onboarding_weather)){
                 pageIdx++
             }
-            if (pageIdx == pages.size) {
+            if (pageIdx >= pages.size) {
                 navigateToApp()
             } else {
                 switchFragment(pages[pageIdx])
