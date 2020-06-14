@@ -149,15 +149,12 @@ class AstronomyFragment : Fragment() {
             return
         }
 
-        val altitudes = astronomyService.getTodayMoonAltitudes(gps.location)
-        val sunAltitudes = astronomyService.getTodaySunAltitudes(gps.location)
-
-        val current = altitudes.minBy { Duration.between(LocalDateTime.now(), it.time).abs() }
-        val currentIdx = altitudes.indexOf(current)
+        val moonAltitudes = astronomyService.getMoonAltitudes(gps.location, displayDate)
+        val sunAltitudes = astronomyService.getSunAltitudes(gps.location, displayDate)
 
         chart.plot(
             listOf(
-                AstroChart.AstroChartDataset(altitudes, resources.getColor(R.color.white, null)),
+                AstroChart.AstroChartDataset(moonAltitudes, resources.getColor(R.color.white, null)),
                 AstroChart.AstroChartDataset(
                     sunAltitudes,
                     resources.getColor(R.color.colorPrimary, null)
@@ -165,64 +162,75 @@ class AstronomyFragment : Fragment() {
             )
         )
 
-        val point = chart.getPoint(1, currentIdx)
-        moonPosition.x = point.first - moonPosition.width / 2f
-        moonPosition.y = point.second - moonPosition.height / 2f
-        moonIndicatorCircle.x = point.first - moonIndicatorCircle.width / 2f
-        moonIndicatorCircle.y = point.second - moonIndicatorCircle.height / 2f
+        if (displayDate == LocalDate.now()) {
+            val current =
+                moonAltitudes.minBy { Duration.between(LocalDateTime.now(), it.time).abs() }
+            val currentIdx = moonAltitudes.indexOf(current)
+            val point = chart.getPoint(1, currentIdx)
+            moonPosition.x = point.first - moonPosition.width / 2f
+            moonPosition.y = point.second - moonPosition.height / 2f
+            moonIndicatorCircle.x = point.first - moonIndicatorCircle.width / 2f
+            moonIndicatorCircle.y = point.second - moonIndicatorCircle.height / 2f
 
-        val point2 = chart.getPoint(2, currentIdx)
-        sunPosition.x = point2.first - sunPosition.width / 2f
-        sunPosition.y = point2.second - sunPosition.height / 2f
+            val point2 = chart.getPoint(2, currentIdx)
+            sunPosition.x = point2.first - sunPosition.width / 2f
+            sunPosition.y = point2.second - sunPosition.height / 2f
 
-        if (isVerticallyOverlapping(moonPosition, sunPosition)) {
-            moonIndicatorCircle.visibility = View.VISIBLE
-            if (moonPosition.y > chart.y + chart.height / 2f) {
-                moonPositionArrow.rotation = 0f
-                align(
-                    moonPositionArrow,
-                    null,
-                    HorizontalConstraint(sunPosition, HorizontalConstraintType.Left),
-                    VerticalConstraint(sunPosition, VerticalConstraintType.Top),
-                    HorizontalConstraint(sunPosition, HorizontalConstraintType.Right)
-                )
-                align(
-                    moonPosition,
-                    null,
-                    HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Left),
-                    VerticalConstraint(moonPositionArrow, VerticalConstraintType.Top),
-                    HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Right)
-                )
-                moonPositionArrow.visibility = View.VISIBLE
+            if (isVerticallyOverlapping(moonPosition, sunPosition)) {
+                moonIndicatorCircle.visibility = View.VISIBLE
+                if (moonPosition.y > chart.y + chart.height / 2f) {
+                    moonPositionArrow.rotation = 0f
+                    align(
+                        moonPositionArrow,
+                        null,
+                        HorizontalConstraint(sunPosition, HorizontalConstraintType.Left),
+                        VerticalConstraint(sunPosition, VerticalConstraintType.Top),
+                        HorizontalConstraint(sunPosition, HorizontalConstraintType.Right)
+                    )
+                    align(
+                        moonPosition,
+                        null,
+                        HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Left),
+                        VerticalConstraint(moonPositionArrow, VerticalConstraintType.Top),
+                        HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Right)
+                    )
+                    moonPositionArrow.visibility = View.VISIBLE
+                } else {
+                    moonPositionArrow.rotation = 180f
+                    align(
+                        moonPositionArrow,
+                        VerticalConstraint(sunPosition, VerticalConstraintType.Bottom),
+                        HorizontalConstraint(sunPosition, HorizontalConstraintType.Left),
+                        null,
+                        HorizontalConstraint(sunPosition, HorizontalConstraintType.Right)
+                    )
+                    align(
+                        moonPosition,
+                        VerticalConstraint(moonPositionArrow, VerticalConstraintType.Bottom),
+                        HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Left),
+                        null,
+                        HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Right)
+                    )
+                    moonPositionArrow.visibility = View.VISIBLE
+                }
             } else {
-                moonPositionArrow.rotation = 180f
-                align(
-                    moonPositionArrow,
-                    VerticalConstraint(sunPosition, VerticalConstraintType.Bottom),
-                    HorizontalConstraint(sunPosition, HorizontalConstraintType.Left),
-                    null,
-                    HorizontalConstraint(sunPosition, HorizontalConstraintType.Right)
-                )
-                align(
-                    moonPosition,
-                    VerticalConstraint(moonPositionArrow, VerticalConstraintType.Bottom),
-                    HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Left),
-                    null,
-                    HorizontalConstraint(moonPositionArrow, HorizontalConstraintType.Right)
-                )
-                moonPositionArrow.visibility = View.VISIBLE
+                moonPositionArrow.visibility = View.INVISIBLE
+                moonIndicatorCircle.visibility = View.INVISIBLE
             }
+
+            if (moonPosition.height != 0) {
+                moonPosition.visibility = View.VISIBLE
+            }
+
+            if (sunPosition.height != 0) {
+                sunPosition.visibility = View.VISIBLE
+            }
+
         } else {
-            moonPositionArrow.visibility = View.INVISIBLE
+            sunPosition.visibility = View.INVISIBLE
+            moonPosition.visibility = View.INVISIBLE
             moonIndicatorCircle.visibility = View.INVISIBLE
-        }
-
-        if (moonPosition.height != 0){
-            moonPosition.visibility = View.VISIBLE
-        }
-
-        if (sunPosition.height != 0){
-            sunPosition.visibility = View.VISIBLE
+            moonPositionArrow.visibility = View.INVISIBLE
         }
 
     }

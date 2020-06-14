@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moon_phase" />
+        app:layout_constraintTop_toBottomOf="@+id/date" />
 
     <TextView
         android:id="@+id/remaining_time"
@@ -124,7 +124,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:clipToPadding="true"
         app:layout_constraintEnd_toEndOf="@+id/moonChart"
         app:layout_constraintStart_toStartOf="@+id/moonChart"
@@ -198,41 +198,42 @@
             app:layout_constraintTop_toTopOf="@+id/sun_end"
             tools:text="6:00 AM" />
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/today"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toEndOf="@+id/sun_start_time"
-            app:layout_constraintStart_toStartOf="@+id/sun_start"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/next_date"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="16dp"
-            android:background="@android:color/transparent"
-            android:tint="?android:textColorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/date"
-            app:srcCompat="@drawable/ic_next" />
-
-        <ImageButton
-            android:id="@+id/prev_date"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:background="@android:color/transparent"
-            android:tint="?android:textColorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/date"
-            app:srcCompat="@drawable/ic_prev" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/today"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moon_phase" />
+
+    <ImageButton
+        android:id="@+id/prev_date"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:tint="?android:textColorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/date"
+        app:layout_constraintEnd_toStartOf="@+id/date"
+        app:layout_constraintTop_toTopOf="@+id/date"
+        app:srcCompat="@drawable/ic_prev" />
+
+    <ImageButton
+        android:id="@+id/next_date"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
+        android:tint="?android:textColorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/date"
+        app:layout_constraintStart_toEndOf="@+id/date"
+        app:layout_constraintTop_toTopOf="@+id/date"
+        app:srcCompat="@drawable/ic_next" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
