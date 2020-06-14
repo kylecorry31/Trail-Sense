@@ -161,7 +161,7 @@
     <string name="sun_does_not_rise">طلوع نمی کند</string>
     <string name="sun_up_no_set">آفتاب طلوع کرده</string>
     <string name="sun_down_no_set">آفتاب غروب کرده</string>
-    <string name="until_sun_time">تا %s</string>
+    <string name="until_sun_time">تا s%</string>
     <string name="new_moon">ماه جدید</string>
     <string name="waning_crescent">Waning crescent</string>
     <string name="third_quarter">ربع سوم</string>
