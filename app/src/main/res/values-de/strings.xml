@@ -70,7 +70,7 @@
     <string name="stop_monitoring">Halt</string>
     <string name="pref_weather_category" translatable="false">pref_weather_category</string>
     <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
-    <string name="pref_compass_filter_amt_title">Kompassglättung</string>
+    <string name="pref_compass_filter_amt_title">Kompassrauschen</string>
     <string name="pref_compass_filter_amt_summary">Hohe Werte können Signalrauschen reduzieren</string>
     <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_theme_title">Thema</string>
