@@ -169,4 +169,6 @@
     <string name="share_action_copy_beacon">Copy beacon</string>
     <string name="share_action_copy_coordinates">Copy coordinates</string>
     <string name="share_action_geo">geo:</string>
+    <string name="pref_center_sun_and_moon">pref_center_sun_and_moon</string>
+    <string name="pref_center_sun_and_moon_title">Keep sun/moon centered</string>
 </resources>

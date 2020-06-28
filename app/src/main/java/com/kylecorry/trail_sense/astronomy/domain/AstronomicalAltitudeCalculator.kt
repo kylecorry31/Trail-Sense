@@ -4,6 +4,7 @@ import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.math.toRadians
 import com.kylecorry.trail_sense.shared.toZonedDateTime
+import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import kotlin.math.*
@@ -16,6 +17,14 @@ class AstronomicalAltitudeCalculator {
         val altitudes = mutableListOf<AstroAltitude>()
         for (i in 0..totalTime step granularityMinutes){
             altitudes.add(getMoonAltitude(location, date.atStartOfDay().plusMinutes(i.toLong())))
+        }
+        return altitudes
+    }
+
+    fun getMoonAltitudes(location: Coordinate, startTime: LocalDateTime, duration: Duration, granularityMinutes: Long = 15): List<AstroAltitude> {
+        val altitudes = mutableListOf<AstroAltitude>()
+        for (i in 0..duration.toMinutes() step granularityMinutes){
+            altitudes.add(getMoonAltitude(location, startTime.plusMinutes(i)))
         }
         return altitudes
     }
@@ -51,6 +60,14 @@ class AstronomicalAltitudeCalculator {
         val altitudes = mutableListOf<AstroAltitude>()
         for (i in 0..totalTime step granularityMinutes){
             altitudes.add(getSunAltitude(location, date.atStartOfDay().plusMinutes(i)))
+        }
+        return altitudes
+    }
+
+    fun getSunAltitudes(location: Coordinate, startTime: LocalDateTime, duration: Duration, granularityMinutes: Long = 15): List<AstroAltitude> {
+        val altitudes = mutableListOf<AstroAltitude>()
+        for (i in 0..duration.toMinutes() step granularityMinutes){
+            altitudes.add(getSunAltitude(location, startTime.plusMinutes(i)))
         }
         return altitudes
     }

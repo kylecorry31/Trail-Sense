@@ -4,6 +4,8 @@ import com.kylecorry.trail_sense.astronomy.domain.moon.*
 import com.kylecorry.trail_sense.astronomy.domain.sun.*
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trail_sense.shared.roundNearest
+import com.kylecorry.trail_sense.shared.roundNearestMinute
 import java.time.*
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode as SunTimesMode
 
@@ -24,6 +26,11 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
     fun getMoonTimes(location: Coordinate, date: LocalDate): MoonTimes {
         return moonTimesCalculator.calculate(location, date)
+    }
+
+    fun getCenteredMoonAltitudes(location: Coordinate, time: LocalDateTime): List<AstroAltitude> {
+        val startTime = time.roundNearestMinute(10).minusHours(12)
+        return altitudeCalculator.getMoonAltitudes(location, startTime, Duration.ofDays(1), 10)
     }
 
     fun getMoonAltitudes(location: Coordinate, date: LocalDate): List<AstroAltitude> {
@@ -50,16 +57,21 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         }
     }
 
-    fun getTodaySunTimes(location: Coordinate, sunTimesMode: SunTimesMode): SunTimes {
+    private fun getTodaySunTimes(location: Coordinate, sunTimesMode: SunTimesMode): SunTimes {
         return getSunTimes(location, sunTimesMode, LocalDate.now(clock))
     }
 
-    fun getTomorrowSunTimes(location: Coordinate, sunTimesMode: SunTimesMode): SunTimes {
+    private fun getTomorrowSunTimes(location: Coordinate, sunTimesMode: SunTimesMode): SunTimes {
         return getSunTimes(location, sunTimesMode, LocalDate.now(clock).plusDays(1))
     }
 
     fun getSunAltitudes(location: Coordinate, date: LocalDate): List<AstroAltitude> {
         return altitudeCalculator.getSunAltitudes(location, date, 10)
+    }
+
+    fun getCenteredSunAltitudes(location: Coordinate, time: LocalDateTime): List<AstroAltitude> {
+        val startTime = time.roundNearestMinute(10).minusHours(12)
+        return altitudeCalculator.getSunAltitudes(location, startTime, Duration.ofDays(1), 10)
     }
 
     fun getNextSunset(location: Coordinate, sunTimesMode: SunTimesMode): LocalDateTime? {

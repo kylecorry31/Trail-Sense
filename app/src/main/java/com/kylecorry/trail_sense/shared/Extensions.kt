@@ -119,3 +119,11 @@ fun Fragment.switchToFragment(fragment: Fragment, holderId: Int = R.id.fragment_
 fun Float.toDegrees(): Float {
     return Math.toDegrees(this.toDouble()).toFloat()
 }
+
+fun LocalDateTime.roundNearestMinute(minutes: Long): LocalDateTime {
+    val minute = this.minute
+    val newMinute = (minute / minutes) * minutes
+
+    val diff = newMinute - minute
+    return this.plusMinutes(diff)
+}

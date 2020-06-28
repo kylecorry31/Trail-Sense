@@ -21,6 +21,11 @@ class AstronomyPreferences(private val context: Context) {
             }
         }
 
+    val centerSunAndMoon: Boolean
+        get(){
+            return prefs.getBoolean(context.getString(R.string.pref_center_sun_and_moon), false)
+        }
+
     val showOnCompass: Boolean
         get(){
             val raw = prefs.getString(context.getString(R.string.pref_show_sun_moon_compass), "never")

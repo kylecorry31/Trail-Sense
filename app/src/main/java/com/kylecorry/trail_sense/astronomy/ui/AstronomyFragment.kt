@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.astronomy.domain.AstroAltitude
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.domain.moon.MoonTruePhase
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
@@ -149,17 +150,40 @@ class AstronomyFragment : Fragment() {
             return
         }
 
-        val moonAltitudes = astronomyService.getMoonAltitudes(gps.location, displayDate)
-        val sunAltitudes = astronomyService.getSunAltitudes(gps.location, displayDate)
+        val moonAltitudes: List<AstroAltitude>
+        val sunAltitudes: List<AstroAltitude>
+        val startHour: Float
+
+        if (displayDate == LocalDate.now() && prefs.astronomy.centerSunAndMoon) {
+            val startTime = LocalDateTime.now().roundNearestMinute(10).minusHours(12)
+            startHour = startTime.hour + startTime.minute / 60f
+
+            moonAltitudes = astronomyService.getCenteredMoonAltitudes(
+                gps.location,
+                LocalDateTime.now()
+            )
+            sunAltitudes = astronomyService.getCenteredSunAltitudes(
+                gps.location,
+                LocalDateTime.now()
+            )
+        } else {
+            startHour = 0f
+            moonAltitudes = astronomyService.getMoonAltitudes(gps.location, displayDate)
+            sunAltitudes = astronomyService.getSunAltitudes(gps.location, displayDate)
+        }
 
         chart.plot(
             listOf(
-                AstroChart.AstroChartDataset(moonAltitudes, resources.getColor(R.color.white, null)),
+                AstroChart.AstroChartDataset(
+                    moonAltitudes,
+                    resources.getColor(R.color.white, null)
+                ),
                 AstroChart.AstroChartDataset(
                     sunAltitudes,
                     resources.getColor(R.color.colorPrimary, null)
                 )
-            )
+            ),
+            startHour
         )
 
         if (displayDate == LocalDate.now()) {

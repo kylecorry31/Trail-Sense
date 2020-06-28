@@ -79,12 +79,12 @@ class AstroChart(private val chart: LineChart) {
         return Pair(point.x.toFloat() + chart.x, point.y.toFloat() + chart.y)
     }
 
-    fun plot(datasets: List<AstroChartDataset>){
+    fun plot(datasets: List<AstroChartDataset>, startHour: Float = 0f){
         val filters = datasets.map { LowPassFilter(0.8f, it.data.first().altitudeDegrees) }
         val colors = datasets.map { it.color }.toMutableList()
         val granularity = 10
         val values = datasets.mapIndexed { idx, d -> d.data.mapIndexed { i, a ->
-            val time = i * granularity / 60f
+            val time = startHour + i * granularity / 60f
             Pair(time as Number, filters[idx].filter(a.altitudeDegrees))
         } }.toMutableList()
 
@@ -98,8 +98,8 @@ class AstroChart(private val chart: LineChart) {
         val end = values.map { it.last().first }.maxBy { it.toDouble() }?.toFloat() ?: 0f
 
         values.add(0, listOf(
-            Pair(0, minValue),
-            Pair(24, minValue)
+            Pair(start, minValue),
+            Pair(end, minValue)
         ))
 
         colors.add(0, chart.resources.getColor(R.color.colorSecondary, null))

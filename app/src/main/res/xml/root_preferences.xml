@@ -150,6 +150,11 @@
             app:title="@string/pref_sun_time_mode_title"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            app:key="@string/pref_center_sun_and_moon"
+            app:title="@string/pref_center_sun_and_moon_title"
+            app:defaultValue="false"/>
+
         <ListPreference
             app:key="@string/pref_show_sun_moon_compass"
             android:entries="@array/sun_moon_compass_entries"
