@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
+import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.*
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
@@ -39,6 +40,7 @@ class BeaconListFragment(private val _beaconDB: BeaconDB?, private val _gps: IGP
     private lateinit var shareSheet: LinearLayout
     private lateinit var prefs: UserPreferences
     private lateinit var location: Coordinate
+    private lateinit var navigationService: NavigationService
 
     private var selectedBeacon: Beacon? = null
 
@@ -50,6 +52,7 @@ class BeaconListFragment(private val _beaconDB: BeaconDB?, private val _gps: IGP
         beaconDB = _beaconDB ?: BeaconDB(requireContext())
         gps = _gps ?: GPS(requireContext())
         location = gps.location
+        navigationService = NavigationService()
 
         beaconList = view.findViewById(R.id.beacon_recycler)
         createBtn = view.findViewById(R.id.create_beacon_btn)
@@ -68,7 +71,7 @@ class BeaconListFragment(private val _beaconDB: BeaconDB?, private val _gps: IGP
         )
         beaconList.addItemDecoration(dividerItemDecoration)
 
-        val beacons = beaconDB.beacons.sortedBy { it.coordinate.distanceTo(location) }
+        val beacons = beaconDB.beacons.sortedBy { navigationService.navigate(it.coordinate, location).distance }
         updateBeaconEmptyText(beacons.isNotEmpty())
 
         adapter = BeaconAdapter(beacons)
@@ -146,7 +149,7 @@ class BeaconListFragment(private val _beaconDB: BeaconDB?, private val _gps: IGP
             beaconVisibility = beacon.visible
             nameText.text = beacon.name
             locationText.text = beacon.coordinate.getFormattedString()
-            val distance = beacon.coordinate.distanceTo(location)
+            val distance = navigationService.navigate(beacon.coordinate, location).distance
             distanceText.text = LocationMath.distanceToReadableString(distance, prefs.distanceUnits)
 
 
@@ -192,7 +195,7 @@ class BeaconListFragment(private val _beaconDB: BeaconDB?, private val _gps: IGP
                     builder.apply {
                         setPositiveButton(R.string.dialog_ok) { _, _ ->
                             beaconDB.delete(beacon)
-                            adapter.beacons = beaconDB.beacons.sortedBy { beacon -> beacon.coordinate.distanceTo(location) }
+                            adapter.beacons = beaconDB.beacons.sortedBy { beacon -> navigationService.navigate(beacon.coordinate, location).distance }
                             updateBeaconEmptyText(adapter.beacons.isNotEmpty())
                         }
                         setNegativeButton(R.string.dialog_cancel){ _, _ ->
