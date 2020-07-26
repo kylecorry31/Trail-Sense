@@ -122,6 +122,10 @@ class BarometerService: Service() {
                 context.startService(Intent(context, BarometerService::class.java))
             }
         }
+
+        fun stop(context: Context){
+            context.stopService(Intent(context, BarometerService::class.java))
+        }
     }
 
 }

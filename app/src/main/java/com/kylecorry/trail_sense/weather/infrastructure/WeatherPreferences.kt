@@ -12,7 +12,7 @@ class WeatherPreferences(private val context: Context) {
     private val sensorChecker = SensorChecker(context)
 
     val shouldMonitorWeather: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_monitor_weather), true) && sensorChecker.hasBarometer()
+        get() = sensorChecker.hasBarometer() && prefs.getBoolean(context.getString(R.string.pref_monitor_weather), true)
 
     val useSeaLevelPressure: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_use_sea_level_pressure), true)

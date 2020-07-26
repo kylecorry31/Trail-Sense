@@ -31,10 +31,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceScreen.findPreference<SwitchPreferenceCompat>(getString(R.string.pref_monitor_weather))?.setOnPreferenceChangeListener { _, value ->
             val shouldMonitorWeather = value as Boolean
             context?.apply {
-                if (!shouldMonitorWeather){
-                    this.stopService(Intent(this, BarometerService::class.java))
-                } else {
+                if (shouldMonitorWeather){
                     BarometerService.start(this)
+                } else {
+                    BarometerService.stop(this)
                 }
             }
 

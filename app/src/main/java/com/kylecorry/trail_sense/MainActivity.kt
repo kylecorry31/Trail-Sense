@@ -76,11 +76,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startApp(){
-        if(!userPrefs.weather.shouldMonitorWeather) {
+        if(userPrefs.weather.shouldMonitorWeather) {
+            BarometerService.start(this)
+        } else {
+            BarometerService.stop(this)
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)
             item.isVisible = false
-        } else {
-            BarometerService.start(this)
         }
 
         val intentData = intent.data
