@@ -7,6 +7,17 @@
     android:id="@+id/navigator_layout"
     tools:context=".navigation.ui.NavigatorFragment">
 
+    <TextView
+        android:id="@+id/accuracy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/ruler"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="GPS HIGH\nCompass LOW" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"

@@ -8,9 +8,13 @@ import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
+import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 
 class GPS(private val context: Context): AbstractSensor(), IGPS {
+
+    override val accuracy: Accuracy
+        get() = _accuracy
 
     override val location: Coordinate
         get() = _location
@@ -25,7 +29,7 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
         SimpleLocationListener(this::updateLastLocation)
 
     private var _altitude = prefs.getFloat(LAST_ALTITUDE, 0f)
-
+    private var _accuracy: Accuracy = Accuracy.Unknown
     private var _location = Coordinate(
         prefs.getFloat(LAST_LATITUDE, 0f).toDouble(),
         prefs.getFloat(LAST_LONGITUDE, 0f).toDouble()
@@ -46,6 +50,14 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
     private fun updateLastLocation(location: Location?){
         if (location == null){
             return
+        }
+
+        if (location.hasAccuracy()) {
+            this._accuracy = when {
+                location.accuracy < 8 -> Accuracy.High
+                location.accuracy < 16 -> Accuracy.Medium
+                else -> Accuracy.Low
+            }
         }
 
         this._location = Coordinate(

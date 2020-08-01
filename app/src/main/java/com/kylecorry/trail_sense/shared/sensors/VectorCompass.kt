@@ -3,14 +3,20 @@ package com.kylecorry.trail_sense.shared.sensors
 import android.content.Context
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.math.*
 import com.kylecorry.trail_sense.shared.toDegrees
 import com.kylecorry.trail_sense.weather.domain.MovingAverageFilter
 import kotlin.math.atan2
+import kotlin.math.min
 
 // From https://stackoverflow.com/questions/16317599/android-compass-that-can-compensate-for-tilt-and-pitch
 
 class VectorCompass(context: Context) : AbstractSensor(), ICompass {
+
+    override val accuracy: Accuracy
+        get() = _accuracy
+    private var _accuracy: Accuracy = Accuracy.Unknown
 
     // TODO: Check if gravity sensor is available, else use accelerometer
     private val sensorChecker = SensorChecker(context)
@@ -46,6 +52,11 @@ class VectorCompass(context: Context) : AbstractSensor(), ICompass {
         // Gravity
         val normGravity = accelerometer.acceleration.normalize()
         val normMagField = magnetometer.magneticField.normalize()
+
+        val accelAccuracy = accelerometer.accuracy
+        val magAccuracy = magnetometer.accuracy
+
+        _accuracy = Accuracy.values()[min(accelAccuracy.ordinal, magAccuracy.ordinal)]
 
         // East vector
         val east = normMagField.cross(normGravity)

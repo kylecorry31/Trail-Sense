@@ -57,6 +57,7 @@ class NavigatorFragment(
     private lateinit var rulerBtn: FloatingActionButton
     private lateinit var ruler: ConstraintLayout
     private lateinit var parentLayout: ConstraintLayout
+    private lateinit var accuracyTxt: TextView
 
     private lateinit var beaconIndicators: List<ImageView>
 
@@ -85,6 +86,7 @@ class NavigatorFragment(
         rulerBtn = view.findViewById(R.id.ruler_btn)
         ruler = view.findViewById(R.id.ruler)
         parentLayout = view.findViewById(R.id.navigator_layout)
+        accuracyTxt = view.findViewById(R.id.accuracy)
 
         val beacons = mutableListOf<ImageView>()
 
@@ -257,6 +259,8 @@ class NavigatorFragment(
         if (context == null){
             return
         }
+
+        accuracyTxt.text = "Compass: ${navigationVM.compassAccuracy}\nGPS: ${navigationVM.gpsAccuracy}"
 
         if (navigationVM.showLinearCompass) {
             setVisibleCompass(linearCompass)

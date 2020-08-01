@@ -1,6 +1,10 @@
 package com.kylecorry.trail_sense.shared.sensors
 
+import com.kylecorry.trail_sense.shared.domain.Accuracy
+
 abstract class AbstractSensor: ISensor {
+
+    override val accuracy = Accuracy.Unknown
 
     private val listeners = mutableSetOf<SensorListener>()
     private var started = false

@@ -236,6 +236,16 @@ class NavigationViewModel(
             }
         }
 
+    val compassAccuracy: String
+        get() {
+            return compass.accuracy.toString()
+        }
+
+    val gpsAccuracy: String
+        get() {
+            return gps.accuracy.toString()
+        }
+
     private val sunBearing: Float
         get() {
             val declination = if (!useTrueNorth) navigationService.getDeclination(
