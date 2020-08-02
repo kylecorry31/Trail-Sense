@@ -7,17 +7,6 @@
     android:id="@+id/navigator_layout"
     tools:context=".navigation.ui.NavigatorFragment">
 
-    <TextView
-        android:id="@+id/accuracy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="10sp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        app:layout_constraintBottom_toBottomOf="@+id/ruler"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="GPS HIGH\nCompass LOW" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
@@ -53,11 +42,11 @@
         android:id="@+id/needle"
         android:layout_width="@dimen/circular_display_size"
         android:layout_height="@dimen/circular_display_size"
+        android:layout_marginTop="64dp"
         android:contentDescription="@string/compass_alt"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location"
         app:srcCompat="@drawable/ic_compass" />
 
     <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
@@ -95,11 +84,11 @@
         android:id="@+id/navigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:textAlignment="center"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:lineHeight="20sp"
         tools:text="Supply Cache    (10°)\n200m" />
 
@@ -169,12 +158,69 @@
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:layout_marginTop="8dp"
+        android:textIsSelectable="true"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textIsSelectable="true"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:text="@string/location_unknown" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:layout_marginStart="8dp"
+        android:alpha="0.6"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/gps_accuracy_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/gps_accuracy_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/satellite"
+                android:tint="?android:textColorSecondary" />
+            <TextView
+                android:id="@+id/gps_accuracy_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="High"
+                android:textSize="10sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/compass_accuracy_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/compass_accuracy_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_compass_icon"
+                android:tint="?android:textColorSecondary"/>
+            <TextView
+                android:id="@+id/compass_accuracy_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="High"
+                android:textSize="10sp"
+                />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

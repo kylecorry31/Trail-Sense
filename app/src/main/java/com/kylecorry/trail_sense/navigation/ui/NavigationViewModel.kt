@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.navigation.domain.NavigationVector
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconRepo
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.kylecorry.trail_sense.shared.sensors.DeviceOrientation
 import com.kylecorry.trail_sense.shared.sensors.IAltimeter
@@ -41,7 +42,7 @@ class NavigationViewModel(
 
     val azimuth: Float
         get() {
-            compass.declination = if (useTrueNorth){
+            compass.declination = if (useTrueNorth) {
                 navigationService.getDeclination(gps.location, gps.altitude)
             } else {
                 0f
@@ -54,7 +55,7 @@ class NavigationViewModel(
 
     val azimuthDirection: String
         get() {
-            compass.declination = if (useTrueNorth){
+            compass.declination = if (useTrueNorth) {
                 navigationService.getDeclination(gps.location, gps.altitude)
             } else {
                 0f
@@ -101,7 +102,7 @@ class NavigationViewModel(
                     useTrueNorth
                 )
                 val bearing = vector.direction.value
-                return "${this.name}    (${bearing.roundToInt()}°${if(elevation != null) "  ·  $beaconAltitude" else ""})\n${LocationMath.distanceToReadableString(
+                return "${this.name}    (${bearing.roundToInt()}°${if (elevation != null) "  ·  $beaconAltitude" else ""})\n${LocationMath.distanceToReadableString(
                     vector.distance,
                     distanceUnits
                 )}${if (this.comment != null) "\nView Notes" else ""}"
@@ -256,15 +257,17 @@ class NavigationViewModel(
             }
         }
 
+    val showCompassAccuracy: Boolean
+        get() = compass.accuracy != Accuracy.Unknown
+
     val compassAccuracy: String
-        get() {
-            return compass.accuracy.toString()
-        }
+        get() = compass.accuracy.toString()
+
+    val showGpsAccuracy: Boolean
+        get() = gps.accuracy != Accuracy.Unknown
 
     val gpsAccuracy: String
-        get() {
-            return gps.accuracy.toString()
-        }
+        get() = gps.accuracy.toString()
 
     private val sunBearing: Float
         get() {

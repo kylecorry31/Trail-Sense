@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -56,7 +56,10 @@ class NavigatorFragment(
     private lateinit var rulerBtn: FloatingActionButton
     private lateinit var ruler: ConstraintLayout
     private lateinit var parentLayout: ConstraintLayout
-    private lateinit var accuracyTxt: TextView
+    private lateinit var gpsAccuracyTxt: TextView
+    private lateinit var compassAccuracyTxt: TextView
+    private lateinit var gpsAccuracy: LinearLayout
+    private lateinit var compassAccuracy: LinearLayout
 
     private lateinit var beaconIndicators: List<ImageView>
 
@@ -85,7 +88,10 @@ class NavigatorFragment(
         rulerBtn = view.findViewById(R.id.ruler_btn)
         ruler = view.findViewById(R.id.ruler)
         parentLayout = view.findViewById(R.id.navigator_layout)
-        accuracyTxt = view.findViewById(R.id.accuracy)
+        gpsAccuracyTxt = view.findViewById(R.id.gps_accuracy_text)
+        compassAccuracyTxt = view.findViewById(R.id.compass_accuracy_text)
+        gpsAccuracy = view.findViewById(R.id.gps_accuracy_view)
+        compassAccuracy = view.findViewById(R.id.compass_accuracy_view)
 
         val beacons = mutableListOf<ImageView>()
 
@@ -280,8 +286,20 @@ class NavigatorFragment(
             return
         }
 
-        accuracyTxt.text =
-            "Compass: ${navigationVM.compassAccuracy}\nGPS: ${navigationVM.gpsAccuracy}"
+        gpsAccuracyTxt.text = navigationVM.gpsAccuracy
+        compassAccuracyTxt.text = navigationVM.compassAccuracy
+
+        if (navigationVM.showCompassAccuracy){
+            compassAccuracy.visibility = View.VISIBLE
+        } else {
+            compassAccuracy.visibility = View.INVISIBLE
+        }
+
+        if (navigationVM.showGpsAccuracy){
+            gpsAccuracy.visibility = View.VISIBLE
+        } else {
+            gpsAccuracy.visibility = View.INVISIBLE
+        }
 
         if (navigationVM.showLinearCompass) {
             setVisibleCompass(linearCompass)
