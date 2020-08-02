@@ -11,12 +11,12 @@ class BeaconRepo(context: Context) {
     init {
         conn = DatabaseConnection(context, "survive", 2, { conn ->
             conn.transaction {
-                conn.execute("create table if not exists beacons (_id integer primary key autoincrement, name, lat, lng, visible)")
+                conn.execute("CREATE TABLE IF NOT EXISTS beacons (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, lat REAL NOT NULL, lng REAL NOT NULL, visible INTEGER NOT NULL)")
             }
         }, { conn, oldVersion, _ ->
             conn.transaction {
                 when (oldVersion) {
-                    1 -> conn.execute("ALTER TABLE beacons ADD COLUMN visible DEFAULT 1")
+                    1 -> conn.execute("ALTER TABLE beacons ADD COLUMN visible INTEGER NOT NULL DEFAULT 1")
                 }
             }
         })
