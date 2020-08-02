@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/navigator_layout"
     tools:context=".navigation.ui.NavigatorFragment">
 
     <LinearLayout
@@ -54,28 +54,28 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         app:backgroundColor="?android:colorBackground"
+        app:cardinalLineColor="@color/colorPrimary"
         app:degrees="0"
         app:layout_constraintBottom_toBottomOf="@+id/needle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/needle"
+        app:lineColor="?android:textColorPrimary"
         app:markerColor="?android:textColorPrimary"
         app:rangeDegrees="180.0"
         app:showMarker="true"
-        app:lineColor="?android:textColorPrimary"
         app:textColor="?android:textColorPrimary"
-        app:cardinalLineColor="@color/colorPrimary"
         app:textSize="15sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ruler"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="?android:colorBackgroundFloating"
+        android:elevation="4dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -85,8 +85,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="215dp"
-        android:visibility="invisible"
         android:contentDescription="@string/direction_arrow_desc"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/needle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,9 +102,9 @@
         android:focusable="true"
         android:tint="@color/colorPrimary"
         app:backgroundTint="?android:colorBackgroundFloating"
-        app:rippleColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@id/beaconBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/ruler" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -134,7 +134,7 @@
         android:id="@+id/imageView"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/ic_altitude"
         android:tint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="@+id/altitude"
@@ -214,23 +214,23 @@
         android:id="@+id/navigation_sheet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="?android:colorBackgroundFloating"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="?android:colorBackgroundFloating">
+        app:layout_constraintStart_toStartOf="parent">
 
 
-            <TextView
-                android:id="@+id/beacon_name"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.75"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                tools:text="Beacon Name" />
+        <TextView
+            android:id="@+id/beacon_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:text="Beacon Name" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -255,8 +255,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:text="@string/distance_away" />
+                    android:text="@string/distance_away"
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -297,10 +297,10 @@
                     <ImageView
                         android:layout_width="16dp"
                         android:layout_height="16dp"
-                        android:alpha="0.5"
                         android:layout_marginEnd="8dp"
-                        android:tint="?android:textColorSecondary"
-                        android:src="@drawable/ic_altitude" />
+                        android:alpha="0.5"
+                        android:src="@drawable/ic_altitude"
+                        android:tint="?android:textColorSecondary" />
 
                     <TextView
                         android:id="@+id/beacon_elevation"
@@ -326,8 +326,8 @@
                 android:layout_weight="1"
                 android:alpha="0.5"
                 android:background="@android:color/transparent"
-                android:tint="?android:textColorSecondary"
-                android:src="@drawable/ic_note" />
+                android:src="@drawable/ic_note"
+                android:tint="?android:textColorSecondary" />
         </LinearLayout>
     </LinearLayout>
 

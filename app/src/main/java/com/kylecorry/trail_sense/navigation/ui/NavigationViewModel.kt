@@ -82,36 +82,18 @@ class NavigationViewModel(
 
     var beacon: Beacon? = null
 
-    private val destination: String
-        get() {
-            beacon?.apply {
-                val vector = navigationService.navigate(
-                    gps.location,
-                    this.coordinate,
-                    gps.altitude,
-                    useTrueNorth
-                )
-                val bearing = vector.direction.value
-                return "${this.name}    (${bearing.roundToInt()}°${if (elevation != null) "  ·  $beaconElevation" else ""})\n${LocationMath.distanceToReadableString(
-                    vector.distance,
-                    distanceUnits
-                )}${if (this.comment != null) "\nView Notes" else ""}"
-            }
-            return ""
-        }
-
     val hasComment: Boolean
-        get() = beacon?.comment != null
+        get() = visibleBeacon?.comment != null
 
     val comment: String
-        get() = beacon?.comment ?: ""
+        get() = visibleBeacon?.comment ?: ""
 
     val commentTitle: String
-        get() = beacon?.name ?: ""
+        get() = visibleBeacon?.name ?: ""
 
     private val destinationBearing: Float?
         get() {
-            beacon?.apply {
+            visibleBeacon?.apply {
                 return navigationService.navigate(
                     gps.location,
                     this.coordinate,
@@ -124,6 +106,9 @@ class NavigationViewModel(
 
     val showDestination: Boolean
         get() = beacon != null
+
+    val showNavigationSheet: Boolean
+        get() = visibleBeacon != null
 
     val shareableLocation: Coordinate
         get() = gps.location
@@ -182,7 +167,7 @@ class NavigationViewModel(
 
     val beaconDistance: String
         get() {
-            beacon?.apply {
+            visibleBeacon?.apply {
                 val vector = navigationService.navigate(
                     gps.location,
                     this.coordinate,
@@ -195,11 +180,11 @@ class NavigationViewModel(
         }
 
     val beaconName: String
-        get() = beacon?.name ?: ""
+        get() = visibleBeacon?.name ?: ""
 
     val beaconDirection: String
-        get(){
-            beacon?.apply {
+        get() {
+            visibleBeacon?.apply {
                 val vector = navigationService.navigate(
                     gps.location,
                     this.coordinate,
@@ -213,8 +198,8 @@ class NavigationViewModel(
         }
 
     val beaconCardinalDirection: String
-        get(){
-            beacon?.apply {
+        get() {
+            visibleBeacon?.apply {
                 val vector = navigationService.navigate(
                     gps.location,
                     this.coordinate,
@@ -227,22 +212,22 @@ class NavigationViewModel(
         }
 
     val showBeaconElevation: Boolean
-        get() = beacon?.elevation != null
+        get() = visibleBeacon?.elevation != null
 
     val beaconElevation: String
         get() {
-            beacon ?: return ""
+            visibleBeacon ?: return ""
             return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
-                "${beacon?.elevation?.roundToInt() ?: 0} m"
+                "${visibleBeacon?.elevation?.roundToInt() ?: 0} m"
             } else {
-                "${LocationMath.convertToBaseUnit(beacon?.elevation ?: 0f, distanceUnits)
+                "${LocationMath.convertToBaseUnit(visibleBeacon?.elevation ?: 0f, distanceUnits)
                     .roundToInt()} ft"
             }
         }
 
     val beaconElevationDiffColor: Int
-        get(){
-            val elevation = beacon?.elevation ?: 0f
+        get() {
+            val elevation = visibleBeacon?.elevation ?: 0f
             val diff = elevation - gps.altitude
             return when {
                 diff >= 0 -> {
@@ -255,42 +240,48 @@ class NavigationViewModel(
         }
 
     val beaconElevationDiff: String
-        get(){
-            val elevation = beacon?.elevation ?: 0f
+        get() {
+            val elevation = visibleBeacon?.elevation ?: 0f
             val diff = elevation - gps.altitude
             return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
-                "${if (diff.roundToInt() > 0) "+" else "" }${diff.roundToInt()} m"
+                "${if (diff.roundToInt() > 0) "+" else ""}${diff.roundToInt()} m"
             } else {
-                "${if (LocationMath.convertToBaseUnit(diff, distanceUnits).roundToInt() > 0) "+" else "" }${LocationMath.convertToBaseUnit(diff, distanceUnits).roundToInt()} ft"
+                "${if (LocationMath.convertToBaseUnit(diff, distanceUnits)
+                        .roundToInt() > 0
+                ) "+" else ""}${LocationMath.convertToBaseUnit(diff, distanceUnits)
+                    .roundToInt()} ft"
             }
         }
 
-    val navigation: String
-        get() {
-            if (showDestination) {
-                return destination
-            }
-
-            if (!showNearbyBeacons) {
-                return ""
-            }
-
-            val vectors = _nearestVisibleBeacons
-
-            val nearestBeacon = vectors.minBy {
-                val direction = it.second.direction.value
-                abs(deltaAngle(direction, azimuth))
-            }
-            nearestBeacon?.apply {
-                if (!isFacingBeacon(this.first)) return ""
-                val direction = this.second.direction.value
-                return "${this.first.name}    (${direction.roundToInt() % 360}°)\n${LocationMath.distanceToReadableString(
-                    this.second.distance,
-                    distanceUnits
-                )}"
-            }
-            return ""
+    fun updateVisibleBeacon(){
+        if (beacon != null){
+            visibleBeacon = beacon
+            return
         }
+
+        if (!showNearbyBeacons){
+            visibleBeacon = null
+            return
+        }
+
+        val vectors = _nearestVisibleBeacons
+
+        val nearestBeacon = vectors.minBy {
+            val direction = it.second.direction.value
+            abs(deltaAngle(direction, azimuth))
+        }
+
+        nearestBeacon?.apply {
+            if (isFacingBeacon(first)) {
+                visibleBeacon = first
+                return
+            }
+        }
+
+        visibleBeacon = null
+    }
+
+    private var visibleBeacon: Beacon? = null
 
     val moonBeaconVisibility: Int
         get() {

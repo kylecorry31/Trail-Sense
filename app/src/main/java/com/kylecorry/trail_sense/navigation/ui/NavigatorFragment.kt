@@ -302,7 +302,9 @@ class NavigatorFragment(
             return
         }
 
-        if (navigationVM.showDestination){
+        navigationVM.updateVisibleBeacon()
+
+        if (navigationVM.showNavigationSheet){
             navigationSheet.visibility = View.VISIBLE
         } else {
             navigationSheet.visibility = View.GONE
