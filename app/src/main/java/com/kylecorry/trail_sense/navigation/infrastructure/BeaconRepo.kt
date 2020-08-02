@@ -13,16 +13,20 @@ class BeaconRepo(context: Context) {
             conn.transaction {
                 createTables(conn)
             }
-        }, { conn, oldVersion, _ ->
+        }, { conn, oldVersion, newVersion ->
             conn.transaction {
-                when (oldVersion) {
-                    1 -> conn.execute("ALTER TABLE beacons ADD COLUMN visible INTEGER NOT NULL DEFAULT 1")
-                    2 -> {
-                        conn.execute("ALTER TABLE beacons ADD COLUMN comment TEXT NULL DEFAULT NULL")
-                        conn.execute("ALTER TABLE beacons ADD COLUMN beacon_group_id INTEGER NULL DEFAULT NULL")
-                    }
-                    3 -> {
-                        conn.execute("ALTER TABLE beacons ADD COLUMN elevation REAL NULL DEFAULT NULL")
+                for (i in oldVersion..newVersion){
+                    when (i + 1) {
+                        2 -> {
+                            conn.execute("ALTER TABLE beacons ADD COLUMN visible INTEGER NOT NULL DEFAULT 1")
+                        }
+                        3 -> {
+                            conn.execute("ALTER TABLE beacons ADD COLUMN comment TEXT NULL DEFAULT NULL")
+                            conn.execute("ALTER TABLE beacons ADD COLUMN beacon_group_id INTEGER NULL DEFAULT NULL")
+                        }
+                        4 -> {
+                            conn.execute("ALTER TABLE beacons ADD COLUMN elevation REAL NULL DEFAULT NULL")
+                        }
                     }
                 }
                 createTables(conn)

@@ -11,7 +11,7 @@ import kotlin.math.pow
 import kotlin.math.roundToInt
 
 inline fun FragmentManager.doTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
-    beginTransaction().func().commit()
+    beginTransaction().func().commitAllowingStateLoss()
 }
 
 fun Double.roundPlaces(places: Int): Double {
