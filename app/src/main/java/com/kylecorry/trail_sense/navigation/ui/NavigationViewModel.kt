@@ -83,7 +83,7 @@ class NavigationViewModel(
     var beacon: Beacon? = null
 
     val hasComment: Boolean
-        get() = visibleBeacon?.comment != null
+        get() = !visibleBeacon?.comment.isNullOrBlank()
 
     val comment: String
         get() = visibleBeacon?.comment ?: ""
