@@ -228,7 +228,7 @@ class NavigationViewModel(
     val beaconElevationDiffColor: Int
         get() {
             val elevation = visibleBeacon?.elevation ?: 0f
-            val diff = elevation - gps.altitude
+            val diff = elevation - altimeter.altitude
             return when {
                 diff >= 0 -> {
                     R.color.positive
@@ -242,7 +242,7 @@ class NavigationViewModel(
     val beaconElevationDiff: String
         get() {
             val elevation = visibleBeacon?.elevation ?: 0f
-            val diff = elevation - gps.altitude
+            val diff = elevation - altimeter.altitude
             return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
                 "${if (diff.roundToInt() > 0) "+" else ""}${diff.roundToInt()} m"
             } else {
