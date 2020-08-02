@@ -93,10 +93,19 @@ class NavigationViewModel(
                 return "${this.name}    (${bearing.roundToInt()}°)\n${LocationMath.distanceToReadableString(
                     vector.distance,
                     distanceUnits
-                )}"
+                )}${if (this.comment != null) "\nView Notes" else ""}"
             }
             return ""
         }
+
+    val hasComment: Boolean
+        get() = beacon?.comment != null
+
+    val comment: String
+        get() = beacon?.comment ?: ""
+
+    val commentTitle: String
+        get() = beacon?.name ?: ""
 
     private val destinationBearing: Float?
         get() {

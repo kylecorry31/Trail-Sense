@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
@@ -28,7 +30,7 @@ class NavigatorFragment(
     private val createBeacon: GeoUriParser.NamedCoordinate? = null
 ) : Fragment() {
 
-    constructor(): this(null, null)
+    constructor() : this(null, null)
 
     private lateinit var compass: ICompass
     private lateinit var gps: IGPS
@@ -71,7 +73,7 @@ class NavigatorFragment(
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
-        
+
         // Get views
         userPrefs = UserPreferences(requireContext())
         locationTxt = view.findViewById(R.id.location)
@@ -87,7 +89,7 @@ class NavigatorFragment(
 
         val beacons = mutableListOf<ImageView>()
 
-        for (i in 0..(userPrefs.navigation.numberOfVisibleBeacons + 3)){
+        for (i in 0..(userPrefs.navigation.numberOfVisibleBeacons + 3)) {
             beacons.add(ImageView(requireContext()))
         }
         beaconIndicators = beacons
@@ -150,7 +152,8 @@ class NavigatorFragment(
             }
         }
 
-        navigationVM = NavigationViewModel(compass, gps, altimeter, orientation, userPrefs, beaconRepo)
+        navigationVM =
+            NavigationViewModel(compass, gps, altimeter, orientation, userPrefs, beaconRepo)
         navigationVM.beacon = initialDestination
 
         roundCompass = CompassView(
@@ -191,6 +194,26 @@ class NavigatorFragment(
             } else {
                 rulerBtn.setImageResource(R.drawable.hide_ruler)
                 ruler.visibility = View.VISIBLE
+            }
+        }
+
+        navigationTxt.setOnClickListener {
+            if (navigationVM.hasComment) {
+                val builder: AlertDialog.Builder? = activity?.let {
+                    AlertDialog.Builder(it)
+                }
+                builder?.apply {
+                    setMessage(navigationVM.comment)
+                    setTitle(navigationVM.commentTitle)
+                    setPositiveButton(
+                        R.string.dialog_ok
+                    ) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                }
+
+                val dialog: AlertDialog? = builder?.create()
+                dialog?.show()
             }
         }
 
@@ -253,11 +276,12 @@ class NavigatorFragment(
 
     private fun updateUI() {
 
-        if (context == null){
+        if (context == null) {
             return
         }
 
-        accuracyTxt.text = "Compass: ${navigationVM.compassAccuracy}\nGPS: ${navigationVM.gpsAccuracy}"
+        accuracyTxt.text =
+            "Compass: ${navigationVM.compassAccuracy}\nGPS: ${navigationVM.gpsAccuracy}"
 
         if (navigationVM.showLinearCompass) {
             setVisibleCompass(linearCompass)
@@ -284,7 +308,7 @@ class NavigatorFragment(
         beaconIndicators[1].alpha = navigationVM.moonBeaconOpacity
 
         beaconIndicators.forEach {
-            if (it.height == 0){
+            if (it.height == 0) {
                 it.visibility = View.INVISIBLE
             }
         }

@@ -33,6 +33,7 @@ class PlaceBeaconFragment(
     private lateinit var beaconName: EditText
     private lateinit var beaconLat: EditText
     private lateinit var beaconLng: EditText
+    private lateinit var commentTxt: EditText
     private lateinit var useCurrentLocationBtn: Button
     private lateinit var doneBtn: FloatingActionButton
 
@@ -49,6 +50,7 @@ class PlaceBeaconFragment(
         beaconName = view.findViewById(R.id.beacon_name)
         beaconLat = view.findViewById(R.id.beacon_latitude)
         beaconLng = view.findViewById(R.id.beacon_longitude)
+        commentTxt = view.findViewById(R.id.comment)
         useCurrentLocationBtn = view.findViewById(R.id.current_location_btn)
         doneBtn = view.findViewById(R.id.place_beacon_btn)
 
@@ -98,11 +100,12 @@ class PlaceBeaconFragment(
             val name = beaconName.text.toString()
             val lat = beaconLat.text.toString()
             val lng = beaconLng.text.toString()
+            val comment = commentTxt.text.toString()
 
             val coordinate = getCoordinate(lat, lng)
 
             if (name.isNotBlank() && coordinate != null) {
-                val beacon = Beacon(0, name, coordinate)
+                val beacon = Beacon(0, name, coordinate, true, comment)
                 beaconRepo.add(beacon)
                 parentFragmentManager.doTransaction {
                     this.replace(

@@ -12,7 +12,9 @@ class BeaconDto : Dto<Beacon>() {
             Pair("name", SqlType.String),
             Pair("lat", SqlType.Double),
             Pair("lng", SqlType.Double),
-            Pair("visible", SqlType.Boolean)
+            Pair("visible", SqlType.Boolean),
+            Pair("comment", SqlType.NullableString),
+            Pair("beacon_group_id", SqlType.NullableInt)
         )
     }
 
@@ -24,7 +26,9 @@ class BeaconDto : Dto<Beacon>() {
                 finalProperties["lat"] as Double,
                 finalProperties["lng"] as Double
             ),
-            finalProperties["visible"] as Boolean
+            finalProperties["visible"] as Boolean,
+            finalProperties["comment"] as String?,
+            finalProperties["beacon_group_id"] as Int?
         )
     }
 }

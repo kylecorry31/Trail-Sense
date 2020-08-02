@@ -50,7 +50,7 @@ class DatabaseConnection(
         }
     }
 
-    fun execute(sql: String, args: Array<String>? = null) {
+    fun execute(sql: String, args: Array<String?>? = null) {
         guardClosedDb()
         if (args == null){
             database?.execSQL(sql)
@@ -59,7 +59,7 @@ class DatabaseConnection(
         }
     }
 
-    fun <T> query(dtoFactory: () -> Dto<T>, sql: String, args: Array<String>? = null): T? {
+    fun <T> query(dtoFactory: () -> Dto<T>, sql: String, args: Array<String?>? = null): T? {
         guardClosedDb()
         val cursor = database?.rawQuery(sql, args)
         var dto: Dto<T>? = null
@@ -73,7 +73,7 @@ class DatabaseConnection(
         return dto?.toObject()
     }
 
-    fun <T> queryAll(dtoFactory: () -> Dto<T>, sql: String, args: Array<String>? = null): Collection<T> {
+    fun <T> queryAll(dtoFactory: () -> Dto<T>, sql: String, args: Array<String?>? = null): Collection<T> {
         guardClosedDb()
         val cursor = database?.rawQuery(sql, args)
         val list = mutableListOf<T>()
