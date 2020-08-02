@@ -174,4 +174,5 @@
     <string name="beacon_comment">Notes (Optional)</string>
     <string name="beacon_elevation_hint_feet">Elevation feet (Optional)</string>
     <string name="beacon_elevation_hint_meters">Elevation meters (Optional)</string>
+    <string name="distance_away">away</string>
 </resources>

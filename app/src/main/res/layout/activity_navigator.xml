@@ -80,18 +80,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/navigation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:lineHeight="20sp"
-        tools:text="Supply Cache    (10°)\n200m" />
-
     <ImageView
         android:id="@+id/azimuth_indicator"
         android:layout_width="50dp"
@@ -128,7 +116,7 @@
         android:clickable="true"
         android:focusable="true"
         android:tint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_beacon" />
 
@@ -146,11 +134,10 @@
         android:id="@+id/imageView"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/ic_altitude"
         android:tint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="@+id/altitude"
-        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="@+id/altitude"
         app:layout_constraintTop_toBottomOf="@+id/needle" />
 
@@ -169,20 +156,20 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
         android:alpha="0.6"
         android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:id="@+id/gps_accuracy_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_marginBottom="8dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageView
@@ -191,13 +178,13 @@
                 android:layout_height="16dp"
                 android:src="@drawable/satellite"
                 android:tint="?android:textColorSecondary" />
+
             <TextView
                 android:id="@+id/gps_accuracy_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="High"
-                android:textSize="10sp"
-                />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -212,14 +199,135 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_compass_icon"
-                android:tint="?android:textColorSecondary"/>
+                android:tint="?android:textColorSecondary" />
+
             <TextView
                 android:id="@+id/compass_accuracy_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="High"
-                android:textSize="10sp"
-                />
+                android:textSize="10sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/navigation_sheet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="?android:colorBackgroundFloating">
+
+
+            <TextView
+                android:id="@+id/beacon_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.75"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                tools:text="Beacon Name" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/beacon_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    tools:text="1000m" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/distance_away" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/beacon_direction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    tools:text="234°" />
+
+                <TextView
+                    android:id="@+id/beacon_direction_cardinal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    tools:text="SE" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/beacon_elevation_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:alpha="0.5"
+                        android:layout_marginEnd="8dp"
+                        android:tint="?android:textColorSecondary"
+                        android:src="@drawable/ic_altitude" />
+
+                    <TextView
+                        android:id="@+id/beacon_elevation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="1000m" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/beacon_elevation_diff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/positive"
+                    tools:text="+100m" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/beacon_comment_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:alpha="0.5"
+                android:background="@android:color/transparent"
+                android:tint="?android:textColorSecondary"
+                android:src="@drawable/ic_note" />
         </LinearLayout>
     </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.view.View
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
@@ -76,17 +77,6 @@ class NavigationViewModel(
             }
         }
 
-    val beaconAltitude: String
-        get() {
-            beacon ?: ""
-            return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
-                "${beacon?.elevation?.roundToInt() ?: 0} m MSL"
-            } else {
-                "${LocationMath.convertToBaseUnit(beacon?.elevation ?: 0f, distanceUnits)
-                    .roundToInt()} ft MSL"
-            }
-        }
-
     val showLinearCompass: Boolean
         get() = prefShowLinearCompass && orientation.orientation == DeviceOrientation.Orientation.Portrait
 
@@ -102,7 +92,7 @@ class NavigationViewModel(
                     useTrueNorth
                 )
                 val bearing = vector.direction.value
-                return "${this.name}    (${bearing.roundToInt()}°${if (elevation != null) "  ·  $beaconAltitude" else ""})\n${LocationMath.distanceToReadableString(
+                return "${this.name}    (${bearing.roundToInt()}°${if (elevation != null) "  ·  $beaconElevation" else ""})\n${LocationMath.distanceToReadableString(
                     vector.distance,
                     distanceUnits
                 )}${if (this.comment != null) "\nView Notes" else ""}"
@@ -188,6 +178,91 @@ class NavigationViewModel(
                 .sortedBy { it.second.distance }
                 .take(visibleBeacons)
                 .toList()
+        }
+
+    val beaconDistance: String
+        get() {
+            beacon?.apply {
+                val vector = navigationService.navigate(
+                    gps.location,
+                    this.coordinate,
+                    gps.altitude,
+                    useTrueNorth
+                )
+                return LocationMath.distanceToReadableString(vector.distance, distanceUnits)
+            }
+            return ""
+        }
+
+    val beaconName: String
+        get() = beacon?.name ?: ""
+
+    val beaconDirection: String
+        get(){
+            beacon?.apply {
+                val vector = navigationService.navigate(
+                    gps.location,
+                    this.coordinate,
+                    gps.altitude,
+                    useTrueNorth
+                )
+                val bearing = vector.direction.value
+                return "${bearing.roundToInt()}°"
+            }
+            return ""
+        }
+
+    val beaconCardinalDirection: String
+        get(){
+            beacon?.apply {
+                val vector = navigationService.navigate(
+                    gps.location,
+                    this.coordinate,
+                    gps.altitude,
+                    useTrueNorth
+                )
+                return vector.direction.direction.symbol
+            }
+            return ""
+        }
+
+    val showBeaconElevation: Boolean
+        get() = beacon?.elevation != null
+
+    val beaconElevation: String
+        get() {
+            beacon ?: return ""
+            return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
+                "${beacon?.elevation?.roundToInt() ?: 0} m"
+            } else {
+                "${LocationMath.convertToBaseUnit(beacon?.elevation ?: 0f, distanceUnits)
+                    .roundToInt()} ft"
+            }
+        }
+
+    val beaconElevationDiffColor: Int
+        get(){
+            val elevation = beacon?.elevation ?: 0f
+            val diff = elevation - gps.altitude
+            return when {
+                diff >= 0 -> {
+                    R.color.positive
+                }
+                else -> {
+                    R.color.negative
+                }
+            }
+        }
+
+    val beaconElevationDiff: String
+        get(){
+            val elevation = beacon?.elevation ?: 0f
+            val diff = elevation - gps.altitude
+            return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
+                "${if (diff.roundToInt() > 0) "+" else "" }${diff.roundToInt()} m"
+            } else {
+                "${if (LocationMath.convertToBaseUnit(diff, distanceUnits).roundToInt() > 0) "+" else "" }${LocationMath.convertToBaseUnit(diff, distanceUnits).roundToInt()} ft"
+            }
         }
 
     val navigation: String

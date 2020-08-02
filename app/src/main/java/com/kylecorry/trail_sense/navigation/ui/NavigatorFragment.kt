@@ -7,9 +7,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
@@ -50,7 +48,6 @@ class NavigatorFragment(
     private lateinit var locationTxt: TextView
     private lateinit var altitudeTxt: TextView
     private lateinit var azimuthTxt: TextView
-    private lateinit var navigationTxt: TextView
     private lateinit var directionTxt: TextView
     private lateinit var beaconBtn: FloatingActionButton
     private lateinit var rulerBtn: FloatingActionButton
@@ -60,6 +57,16 @@ class NavigatorFragment(
     private lateinit var compassAccuracyTxt: TextView
     private lateinit var gpsAccuracy: LinearLayout
     private lateinit var compassAccuracy: LinearLayout
+
+    private lateinit var navigationSheet: LinearLayout
+    private lateinit var beaconName: TextView
+    private lateinit var beaconComments: ImageButton
+    private lateinit var beaconDistance: TextView
+    private lateinit var beaconDirection: TextView
+    private lateinit var beaconDirectionCardinal: TextView
+    private lateinit var beaconElevationView: LinearLayout
+    private lateinit var beaconElevation: TextView
+    private lateinit var beaconElevationDiff: TextView
 
     private lateinit var beaconIndicators: List<ImageView>
 
@@ -82,7 +89,6 @@ class NavigatorFragment(
         locationTxt = view.findViewById(R.id.location)
         altitudeTxt = view.findViewById(R.id.altitude)
         azimuthTxt = view.findViewById(R.id.compass_azimuth)
-        navigationTxt = view.findViewById(R.id.navigation)
         directionTxt = view.findViewById(R.id.compass_direction)
         beaconBtn = view.findViewById(R.id.beaconBtn)
         rulerBtn = view.findViewById(R.id.ruler_btn)
@@ -92,6 +98,16 @@ class NavigatorFragment(
         compassAccuracyTxt = view.findViewById(R.id.compass_accuracy_text)
         gpsAccuracy = view.findViewById(R.id.gps_accuracy_view)
         compassAccuracy = view.findViewById(R.id.compass_accuracy_view)
+
+        navigationSheet = view.findViewById(R.id.navigation_sheet)
+        beaconName = view.findViewById(R.id.beacon_name)
+        beaconComments = view.findViewById(R.id.beacon_comment_btn)
+        beaconDistance = view.findViewById(R.id.beacon_distance)
+        beaconDirection = view.findViewById(R.id.beacon_direction)
+        beaconDirectionCardinal = view.findViewById(R.id.beacon_direction_cardinal)
+        beaconElevationView = view.findViewById(R.id.beacon_elevation_view)
+        beaconElevation = view.findViewById(R.id.beacon_elevation)
+        beaconElevationDiff = view.findViewById(R.id.beacon_elevation_diff)
 
         val beacons = mutableListOf<ImageView>()
 
@@ -203,7 +219,7 @@ class NavigatorFragment(
             }
         }
 
-        navigationTxt.setOnClickListener {
+        beaconComments.setOnClickListener {
             if (navigationVM.hasComment) {
                 val builder: AlertDialog.Builder? = activity?.let {
                     AlertDialog.Builder(it)
@@ -286,6 +302,33 @@ class NavigatorFragment(
             return
         }
 
+        if (navigationVM.showDestination){
+            navigationSheet.visibility = View.VISIBLE
+        } else {
+            navigationSheet.visibility = View.GONE
+        }
+
+        if (navigationVM.hasComment){
+            beaconComments.visibility = View.VISIBLE
+        } else {
+            beaconComments.visibility = View.GONE
+        }
+
+        beaconDistance.text = navigationVM.beaconDistance
+        beaconName.text = navigationVM.beaconName
+        beaconDirection.text = navigationVM.beaconDirection
+        beaconDirectionCardinal.text = navigationVM.beaconCardinalDirection
+
+        if (navigationVM.showBeaconElevation){
+            beaconElevationView.visibility = View.VISIBLE
+        } else {
+            beaconElevationView.visibility = View.GONE
+        }
+
+        beaconElevation.text = navigationVM.beaconElevation
+        beaconElevationDiff.text = navigationVM.beaconElevationDiff
+        beaconElevationDiff.setTextColor(requireContext().getColor(navigationVM.beaconElevationDiffColor))
+
         gpsAccuracyTxt.text = navigationVM.gpsAccuracy
         compassAccuracyTxt.text = navigationVM.compassAccuracy
 
@@ -317,7 +360,6 @@ class NavigatorFragment(
         altitudeTxt.text = navigationVM.altitude
 
         visibleCompass.beacons = navigationVM.nearestBeacons
-        navigationTxt.text = navigationVM.navigation
         locationTxt.text = navigationVM.location
 
         beaconIndicators[0].visibility = navigationVM.sunBeaconVisibility
