@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.domain.NavigationVector
-import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
+import com.kylecorry.trail_sense.navigation.infrastructure.BeaconRepo
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.math.deltaAngle
@@ -23,13 +23,13 @@ class NavigationViewModel(
     private val altimeter: IAltimeter,
     private val orientation: DeviceOrientation,
     prefs: UserPreferences,
-    beaconDB: BeaconDB
+    beaconRepo: BeaconRepo
 ) {
 
     private val useTrueNorth = prefs.navigation.useTrueNorth
     private val distanceUnits = prefs.distanceUnits
     private val prefShowLinearCompass = prefs.navigation.showLinearCompass
-    private val beacons = beaconDB.beacons
+    private val beacons = beaconRepo.get()
     private val showNearbyBeacons = prefs.navigation.showMultipleBeacons
     private val visibleBeacons = prefs.navigation.numberOfVisibleBeacons
     private val showSunAndMoon = prefs.astronomy.showOnCompass

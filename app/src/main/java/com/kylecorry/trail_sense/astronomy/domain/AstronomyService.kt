@@ -4,7 +4,6 @@ import com.kylecorry.trail_sense.astronomy.domain.moon.*
 import com.kylecorry.trail_sense.astronomy.domain.sun.*
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.domain.Coordinate
-import com.kylecorry.trail_sense.shared.roundNearest
 import com.kylecorry.trail_sense.shared.roundNearestMinute
 import java.time.*
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode as SunTimesMode

@@ -15,10 +15,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
-import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
-import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
-import com.kylecorry.trail_sense.navigation.infrastructure.LocationSharesheet
-import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.navigation.infrastructure.*
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.switchToFragment
@@ -63,7 +60,7 @@ class NavigatorFragment(
 
     private lateinit var visibleCompass: ICompassView
 
-    private lateinit var beaconDB: BeaconDB
+    private lateinit var beaconRepo: BeaconRepo
 
     private var timer: Timer? = null
     private var handler: Handler? = null
@@ -121,7 +118,7 @@ class NavigatorFragment(
         beaconIndicators[1].setImageDrawable(moonImg)
 
 
-        beaconDB = BeaconDB(requireContext())
+        beaconRepo = BeaconRepo(requireContext())
 
         compass = if (userPrefs.navigation.useLegacyCompass) {
             LegacyCompass(requireContext())
@@ -134,7 +131,7 @@ class NavigatorFragment(
 
         if (createBeacon != null) {
             switchToFragment(
-                PlaceBeaconFragment(beaconDB, gps, createBeacon),
+                PlaceBeaconFragment(beaconRepo, gps, createBeacon),
                 addToBackStack = true
             )
         }
@@ -153,7 +150,7 @@ class NavigatorFragment(
             }
         }
 
-        navigationVM = NavigationViewModel(compass, gps, altimeter, orientation, userPrefs, beaconDB)
+        navigationVM = NavigationViewModel(compass, gps, altimeter, orientation, userPrefs, beaconRepo)
         navigationVM.beacon = initialDestination
 
         roundCompass = CompassView(
@@ -178,7 +175,7 @@ class NavigatorFragment(
         beaconBtn.setOnClickListener {
             if (!navigationVM.showDestination) {
                 switchToFragment(
-                    BeaconListFragment(beaconDB, gps),
+                    BeaconListFragment(beaconRepo, gps),
                     addToBackStack = true
                 )
             } else {

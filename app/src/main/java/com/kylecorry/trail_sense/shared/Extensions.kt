@@ -1,13 +1,10 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
-import com.kylecorry.trail_sense.navigation.ui.BeaconListFragment
 import java.time.*
 import java.time.format.DateTimeFormatter
 import kotlin.math.pow
@@ -23,10 +20,6 @@ fun Double.roundPlaces(places: Int): Double {
 
 fun Float.roundPlaces(places: Int): Float {
     return (this * 10f.pow(places)).roundToInt() / 10f.pow(places)
-}
-
-fun Float.roundNearest(nearest: Float): Float {
-    return (this / nearest).roundToInt() * nearest
 }
 
 fun Instant.toZonedDateTime(): ZonedDateTime {
@@ -94,14 +87,6 @@ fun List<Float>.median(): Float {
 
     val sortedList = this.sortedBy { it }
     return sortedList[this.size / 2]
-}
-
-fun View.getCenterX(): Float {
-    return (left + right) / 2f
-}
-
-fun View.getCenterY(): Float {
-    return (top + bottom) / 2f
 }
 
 fun Fragment.switchToFragment(fragment: Fragment, holderId: Int = R.id.fragment_holder, addToBackStack: Boolean = false) {

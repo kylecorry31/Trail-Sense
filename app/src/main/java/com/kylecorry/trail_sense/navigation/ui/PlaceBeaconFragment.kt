@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
-import com.kylecorry.trail_sense.navigation.infrastructure.BeaconDB
+import com.kylecorry.trail_sense.navigation.infrastructure.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.doTransaction
@@ -20,12 +20,12 @@ import com.kylecorry.trail_sense.shared.sensors.IGPS
 
 
 class PlaceBeaconFragment(
-    private val _beaconDB: BeaconDB?,
+    private val _repo: BeaconRepo?,
     private val _gps: IGPS?,
     private val initialLocation: GeoUriParser.NamedCoordinate? = null
 ) : Fragment() {
 
-    private lateinit var beaconDB: BeaconDB
+    private lateinit var beaconRepo: BeaconRepo
     private lateinit var gps: IGPS
 
     constructor(): this(null, null, null)
@@ -43,7 +43,7 @@ class PlaceBeaconFragment(
     ): View? {
         val view = inflater.inflate(R.layout.fragment_create_beacon, container, false)
 
-        beaconDB = _beaconDB ?: BeaconDB(requireContext())
+        beaconRepo = _repo ?: BeaconRepo(requireContext())
         gps = _gps ?: GPS(requireContext())
 
         beaconName = view.findViewById(R.id.beacon_name)
@@ -102,13 +102,13 @@ class PlaceBeaconFragment(
             val coordinate = getCoordinate(lat, lng)
 
             if (name.isNotBlank() && coordinate != null) {
-                val beacon = Beacon(name, coordinate)
-                beaconDB.create(beacon)
+                val beacon = Beacon(0, name, coordinate)
+                beaconRepo.add(beacon)
                 parentFragmentManager.doTransaction {
                     this.replace(
                         R.id.fragment_holder,
                         BeaconListFragment(
-                            beaconDB,
+                            beaconRepo,
                             gps
                         )
                     )
