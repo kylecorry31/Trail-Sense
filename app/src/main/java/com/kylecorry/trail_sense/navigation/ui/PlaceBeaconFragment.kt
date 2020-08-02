@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +12,13 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
+import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.infrastructure.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.doTransaction
+import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 
@@ -33,9 +37,12 @@ class PlaceBeaconFragment(
     private lateinit var beaconName: EditText
     private lateinit var beaconLat: EditText
     private lateinit var beaconLng: EditText
+    private lateinit var beaconElevation: EditText
     private lateinit var commentTxt: EditText
     private lateinit var useCurrentLocationBtn: Button
     private lateinit var doneBtn: FloatingActionButton
+
+    private lateinit var units: UserPreferences.DistanceUnits
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,9 +54,13 @@ class PlaceBeaconFragment(
         beaconRepo = _repo ?: BeaconRepo(requireContext())
         gps = _gps ?: GPS(requireContext())
 
+        val prefs = UserPreferences(requireContext())
+        units = prefs.distanceUnits
+
         beaconName = view.findViewById(R.id.beacon_name)
         beaconLat = view.findViewById(R.id.beacon_latitude)
         beaconLng = view.findViewById(R.id.beacon_longitude)
+        beaconElevation = view.findViewById(R.id.beacon_elevation)
         commentTxt = view.findViewById(R.id.comment)
         useCurrentLocationBtn = view.findViewById(R.id.current_location_btn)
         doneBtn = view.findViewById(R.id.place_beacon_btn)
@@ -60,7 +71,7 @@ class PlaceBeaconFragment(
             beaconLng.setText(initialLocation.coordinate.longitude.toString())
         }
 
-        beaconName.setOnFocusChangeListener { v, hasFocus ->
+        beaconName.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && !hasValidName()) {
                 beaconName.error = "Invalid beacon name"
             } else if (!hasFocus) {
@@ -68,7 +79,7 @@ class PlaceBeaconFragment(
             }
         }
 
-        beaconLat.setOnFocusChangeListener { v, hasFocus ->
+        beaconLat.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && !hasValidLatitude()) {
                 beaconLat.error = "Invalid latitude"
             } else if (!hasFocus) {
@@ -76,11 +87,19 @@ class PlaceBeaconFragment(
             }
         }
 
-        beaconLng.setOnFocusChangeListener { v, hasFocus ->
+        beaconLng.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && !hasValidLongitude()) {
                 beaconLng.error = "Invalid longitude"
             } else if (!hasFocus) {
                 beaconLng.error = null
+            }
+        }
+
+        beaconElevation.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && !hasValidElevation()) {
+                beaconElevation.error = "Invalid elevation"
+            } else if (!hasFocus) {
+                beaconElevation.error = null
             }
         }
 
@@ -96,16 +115,26 @@ class PlaceBeaconFragment(
             updateDoneButtonState()
         }
 
+        beaconElevation.addTextChangedListener {
+            updateDoneButtonState()
+        }
+
         doneBtn.setOnClickListener {
             val name = beaconName.text.toString()
             val lat = beaconLat.text.toString()
             val lng = beaconLng.text.toString()
             val comment = commentTxt.text.toString()
+            val rawElevation = beaconElevation.text.toString().toFloatOrNull()
+            val elevation = if (rawElevation == null){
+                null
+            } else {
+                LocationMath.convertToMeters(rawElevation, units)
+            }
 
             val coordinate = getCoordinate(lat, lng)
 
             if (name.isNotBlank() && coordinate != null) {
-                val beacon = Beacon(0, name, coordinate, true, comment)
+                val beacon = Beacon(0, name, coordinate, true, comment, null, elevation)
                 beaconRepo.add(beacon)
                 parentFragmentManager.doTransaction {
                     this.replace(
@@ -119,6 +148,11 @@ class PlaceBeaconFragment(
             }
         }
 
+        if (units == UserPreferences.DistanceUnits.Feet){
+            beaconElevation.hint = getString(R.string.beacon_elevation_hint_feet)
+        } else {
+            beaconElevation.hint = getString(R.string.beacon_elevation_hint_meters)
+        }
 
         useCurrentLocationBtn.setOnClickListener {
             gps.start(this::setLocationFromGPS)
@@ -130,12 +164,18 @@ class PlaceBeaconFragment(
     private fun setLocationFromGPS(): Boolean {
         beaconLat.setText(gps.location.latitude.toString())
         beaconLng.setText(gps.location.longitude.toString())
+
+        if (units == UserPreferences.DistanceUnits.Meters) {
+            beaconElevation.setText(gps.altitude.roundPlaces(1).toString())
+        } else {
+            beaconElevation.setText(LocationMath.convertToBaseUnit(gps.altitude, units).roundPlaces(1).toString())
+        }
         return false
     }
 
     private fun updateDoneButtonState() {
         doneBtn.visibility =
-            if (hasValidName() && hasValidLatitude() && hasValidLongitude()) View.VISIBLE else View.GONE
+            if (hasValidName() && hasValidLatitude() && hasValidLongitude() && hasValidElevation()) View.VISIBLE else View.GONE
     }
 
     private fun hasValidLatitude(): Boolean {
@@ -144,6 +184,10 @@ class PlaceBeaconFragment(
 
     private fun hasValidLongitude(): Boolean {
         return Coordinate.parseLongitude(beaconLng.text.toString()) != null
+    }
+
+    private fun hasValidElevation(): Boolean {
+        return beaconElevation.text.isNullOrBlank() || beaconElevation.text.toString().toFloatOrNull() != null
     }
 
     private fun hasValidName(): Boolean {

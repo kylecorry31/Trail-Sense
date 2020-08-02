@@ -55,13 +55,29 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/beacon_longitude_hint"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beacon_latitude"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/beacon_latitude" />
+
+    <EditText
+        android:id="@+id/beacon_elevation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/beacon_elevation_hint_meters"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beacon_longitude" />
 
     <Button
         android:id="@+id/current_location_btn"
@@ -70,7 +86,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/beacon_use_current_location"
         app:layout_constraintStart_toStartOf="@+id/beacon_longitude"
-        app:layout_constraintTop_toBottomOf="@+id/beacon_longitude" />
+        app:layout_constraintTop_toBottomOf="@+id/beacon_elevation" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/place_beacon_btn"

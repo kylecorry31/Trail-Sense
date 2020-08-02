@@ -9,7 +9,7 @@ class BeaconRepo(context: Context) {
     private val conn: DatabaseConnection
 
     init {
-        conn = DatabaseConnection(context, "survive", 3, { conn ->
+        conn = DatabaseConnection(context, "survive", 4, { conn ->
             conn.transaction {
                 createTables(conn)
             }
@@ -20,6 +20,9 @@ class BeaconRepo(context: Context) {
                     2 -> {
                         conn.execute("ALTER TABLE beacons ADD COLUMN comment TEXT NULL DEFAULT NULL")
                         conn.execute("ALTER TABLE beacons ADD COLUMN beacon_group_id INTEGER NULL DEFAULT NULL")
+                    }
+                    3 -> {
+                        conn.execute("ALTER TABLE beacons ADD COLUMN elevation REAL NULL DEFAULT NULL")
                     }
                 }
                 createTables(conn)
@@ -48,20 +51,21 @@ class BeaconRepo(context: Context) {
             if (beacon.id == 0) {
                 // Create a new beacon
                 conn.execute(
-                    "insert into beacons (name, lat, lng, visible, comment, beacon_group_id) values (?, ?, ?, ?, ?, ?)",
+                    "insert into beacons (name, lat, lng, visible, comment, beacon_group_id, elevation) values (?, ?, ?, ?, ?, ?, ?)",
                     arrayOf(
                         beacon.name,
                         beacon.coordinate.latitude.toString(),
                         beacon.coordinate.longitude.toString(),
                         if (beacon.visible) "1" else "0",
                         beacon.comment,
-                        beacon.beaconGroupId?.toString()
+                        beacon.beaconGroupId?.toString(),
+                        beacon.elevation?.toString()
                     )
                 )
             } else {
                 // Update an existing beacon
                 conn.execute(
-                    "update beacons set name = ?, lat = ?, lng = ?, visible = ?, comment = ?, beacon_group_id = ? where _id = ?",
+                    "update beacons set name = ?, lat = ?, lng = ?, visible = ?, comment = ?, beacon_group_id = ? , elevation = ? where _id = ?",
                     arrayOf(
                         beacon.name,
                         beacon.coordinate.latitude.toString(),
@@ -69,7 +73,8 @@ class BeaconRepo(context: Context) {
                         if (beacon.visible) "1" else "0",
                         beacon.id.toString(),
                         beacon.comment,
-                        beacon.beaconGroupId?.toString()
+                        beacon.beaconGroupId?.toString(),
+                        beacon.elevation?.toString()
                     )
                 )
             }
@@ -78,7 +83,7 @@ class BeaconRepo(context: Context) {
     }
 
     private fun createTables(conn: DatabaseConnection) {
-        conn.execute("CREATE TABLE IF NOT EXISTS beacons (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, lat REAL NOT NULL, lng REAL NOT NULL, visible INTEGER NOT NULL)")
+        conn.execute("CREATE TABLE IF NOT EXISTS beacons (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, lat REAL NOT NULL, lng REAL NOT NULL, visible INTEGER NOT NULL, comment TEXT NULL, beacon_group_id INTEGER NULL, elevation REAL NULL)")
         conn.execute("CREATE TABLE IF NOT EXISTS beacon_groups (beacon_group_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, group_name TEXT NOT NULL)")
     }
 

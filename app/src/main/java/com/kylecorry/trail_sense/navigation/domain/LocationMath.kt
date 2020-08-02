@@ -17,6 +17,13 @@ object LocationMath {
     }
 
     /**
+     * Converts feet to meters
+     */
+    private fun convertFeetToMeters(feet: Float): Float {
+        return feet / 3.28084f
+    }
+
+    /**
      * Converts feet to miles
      */
     private fun convertFeetToMiles(feet: Float): Float {
@@ -33,13 +40,11 @@ object LocationMath {
         }
     }
 
-    fun convertToBaseUnit(meters: Float, units: String): Float {
-        return if (units == "feet_miles"){
-            convertMetersToFeet(
-                meters
-            )
+    fun convertToMeters(distance: Float, units: UserPreferences.DistanceUnits): Float {
+        return if (units == UserPreferences.DistanceUnits.Meters){
+            distance
         } else {
-            meters
+            convertFeetToMeters(distance)
         }
     }
 

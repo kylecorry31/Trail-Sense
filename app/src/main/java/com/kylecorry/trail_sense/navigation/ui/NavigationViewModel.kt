@@ -75,6 +75,17 @@ class NavigationViewModel(
             }
         }
 
+    val beaconAltitude: String
+        get() {
+            beacon ?: ""
+            return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
+                "${beacon?.elevation?.roundToInt() ?: 0} m MSL"
+            } else {
+                "${LocationMath.convertToBaseUnit(beacon?.elevation ?: 0f, distanceUnits)
+                    .roundToInt()} ft MSL"
+            }
+        }
+
     val showLinearCompass: Boolean
         get() = prefShowLinearCompass && orientation.orientation == DeviceOrientation.Orientation.Portrait
 
@@ -90,7 +101,7 @@ class NavigationViewModel(
                     useTrueNorth
                 )
                 val bearing = vector.direction.value
-                return "${this.name}    (${bearing.roundToInt()}°)\n${LocationMath.distanceToReadableString(
+                return "${this.name}    (${bearing.roundToInt()}°${if(elevation != null) "  ·  $beaconAltitude" else ""})\n${LocationMath.distanceToReadableString(
                     vector.distance,
                     distanceUnits
                 )}${if (this.comment != null) "\nView Notes" else ""}"
