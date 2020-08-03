@@ -175,4 +175,6 @@
     <string name="beacon_elevation_hint_feet">Elevation feet (Optional)</string>
     <string name="beacon_elevation_hint_meters">Elevation meters (Optional)</string>
     <string name="distance_away">away</string>
+    <string name="pref_forecast_sensitivity">pref_forecast_sensitivity</string>
+    <string name="pref_forecast_sensitivity_title">Forecast Sensitivity</string>
 </resources>

@@ -50,7 +50,7 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
         if (context != null){
             this.context = context
             userPrefs = UserPreferences(context)
-            forecaster = HourlyForecaster(userPrefs.weather.stormAlertThreshold)
+            forecaster = HourlyForecaster(userPrefs.weather.stormAlertThreshold, userPrefs.weather.hourlyForecastFastThreshold)
 
             barometer = Barometer(context)
             altimeter = GPS(context)

@@ -4,22 +4,17 @@ import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.domain.tendency.SlopePressureTendencyCalculator
 import java.time.Duration
 
-class DailyForecaster : IWeatherForecaster {
+class DailyForecaster(private val slowThreshold: Float) : IWeatherForecaster {
 
     override fun forecast(readings: List<PressureReading>): Weather {
 
         val slope = SlopePressureTendencyCalculator().calculate(readings, Duration.ofHours(48)).amount
 
         return when {
-            slope <= -CHANGE_THRESHOLD -> Weather.WorseningSlow
-            slope >= CHANGE_THRESHOLD -> Weather.ImprovingSlow
+            slope <= -slowThreshold -> Weather.WorseningSlow
+            slope >= slowThreshold -> Weather.ImprovingSlow
             else -> Weather.Unknown
         }
 
     }
-
-    companion object {
-        private const val CHANGE_THRESHOLD = 0.5f
-    }
-
 }

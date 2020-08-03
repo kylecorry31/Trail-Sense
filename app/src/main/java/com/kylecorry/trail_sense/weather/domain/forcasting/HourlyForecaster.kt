@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
 import java.time.Duration
 import kotlin.math.abs
 
-class HourlyForecaster(private val stormThreshold: Float) : IWeatherForecaster {
+class HourlyForecaster(private val stormThreshold: Float, private val fastThreshold: Float) : IWeatherForecaster {
 
     override fun forecast(readings: List<PressureReading>): Weather {
 
@@ -18,7 +18,7 @@ class HourlyForecaster(private val stormThreshold: Float) : IWeatherForecaster {
             return Weather.Storm
         }
 
-        val isFast = abs(tendency.amount) >= FAST_CHANGE
+        val isFast = abs(tendency.amount) >= fastThreshold
 
         return when (tendency.characteristic) {
             PressureCharacteristic.Falling -> if (isFast) Weather.WorseningFast else Weather.WorseningSlow
@@ -26,9 +26,4 @@ class HourlyForecaster(private val stormThreshold: Float) : IWeatherForecaster {
             else -> Weather.NoChange
         }
     }
-
-    companion object {
-        private const val FAST_CHANGE = 2f
-    }
-
 }

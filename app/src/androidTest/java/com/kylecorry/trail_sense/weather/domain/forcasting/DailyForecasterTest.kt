@@ -32,7 +32,7 @@ class DailyForecasterTest {
             )
         )
 
-        val forecaster = DailyForecaster()
+        val forecaster = DailyForecaster(0.5f)
 
         val prediction = forecaster.forecast(pressures)
 
@@ -63,7 +63,7 @@ class DailyForecasterTest {
             )
         )
 
-        val forecaster = DailyForecaster()
+        val forecaster = DailyForecaster(0.5f)
 
         val prediction = forecaster.forecast(pressures)
 
@@ -94,7 +94,7 @@ class DailyForecasterTest {
             )
         )
 
-        val forecaster = DailyForecaster()
+        val forecaster = DailyForecaster(0.5f)
 
         val prediction = forecaster.forecast(pressures)
 

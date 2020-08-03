@@ -68,7 +68,7 @@ class BarometerFragment : Fragment(), Observer {
         gps = GPS(requireContext())
         prefs = UserPreferences(requireContext())
 
-        weatherService = WeatherService(prefs.weather.stormAlertThreshold)
+        weatherService = WeatherService(prefs.weather.stormAlertThreshold, prefs.weather.dailyForecastSlowThreshold, prefs.weather.hourlyForecastFastThreshold)
 
         pressureTxt = view.findViewById(R.id.pressure)
         weatherNowTxt = view.findViewById(R.id.weather_now_lbl)

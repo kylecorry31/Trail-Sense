@@ -10,10 +10,10 @@ import com.kylecorry.trail_sense.weather.domain.sealevel.BarometerGPSAltitudeCal
 import com.kylecorry.trail_sense.weather.domain.tendency.DropPressureTendencyCalculator
 import com.kylecorry.trail_sense.weather.domain.tendency.PressureTendency
 
-class WeatherService(stormThreshold: Float) {
+class WeatherService(stormThreshold: Float, dailyForecastSlowThreshold: Float, hourlyForecastFastThreshold: Float) {
 
-    private val shortTermForecaster = HourlyForecaster(stormThreshold)
-    private val longTermForecaster = DailyForecaster()
+    private val shortTermForecaster = HourlyForecaster(stormThreshold, hourlyForecastFastThreshold)
+    private val longTermForecaster = DailyForecaster(dailyForecastSlowThreshold)
     private val tendencyCalculator = DropPressureTendencyCalculator()
     private val pressureClassifier = StandardPressureClassifier()
     private val seaLevelConverter = AltimeterSeaLevelPressureConverter(
