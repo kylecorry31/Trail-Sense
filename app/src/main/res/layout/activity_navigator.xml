@@ -154,6 +154,7 @@
         tools:text="@string/location_unknown" />
 
     <LinearLayout
+        android:id="@+id/accuracy_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

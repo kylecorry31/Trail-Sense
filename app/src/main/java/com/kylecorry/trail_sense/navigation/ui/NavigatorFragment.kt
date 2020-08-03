@@ -16,6 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.infrastructure.*
+import com.kylecorry.trail_sense.shared.UiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.switchToFragment
@@ -53,6 +54,7 @@ class NavigatorFragment(
     private lateinit var rulerBtn: FloatingActionButton
     private lateinit var ruler: ConstraintLayout
     private lateinit var parentLayout: ConstraintLayout
+    private lateinit var accuracyView: LinearLayout
     private lateinit var gpsAccuracyTxt: TextView
     private lateinit var compassAccuracyTxt: TextView
     private lateinit var gpsAccuracy: LinearLayout
@@ -94,6 +96,7 @@ class NavigatorFragment(
         rulerBtn = view.findViewById(R.id.ruler_btn)
         ruler = view.findViewById(R.id.ruler)
         parentLayout = view.findViewById(R.id.navigator_layout)
+        accuracyView = view.findViewById(R.id.accuracy_view)
         gpsAccuracyTxt = view.findViewById(R.id.gps_accuracy_text)
         compassAccuracyTxt = view.findViewById(R.id.compass_accuracy_text)
         gpsAccuracy = view.findViewById(R.id.gps_accuracy_view)
@@ -221,22 +224,12 @@ class NavigatorFragment(
 
         beaconComments.setOnClickListener {
             if (navigationVM.hasComment) {
-                val builder: AlertDialog.Builder? = activity?.let {
-                    AlertDialog.Builder(it)
-                }
-                builder?.apply {
-                    setMessage(navigationVM.comment)
-                    setTitle(navigationVM.commentTitle)
-                    setPositiveButton(
-                        R.string.dialog_ok
-                    ) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                }
-
-                val dialog: AlertDialog? = builder?.create()
-                dialog?.show()
+                UiUtils.alert(requireContext(), navigationVM.commentTitle, navigationVM.comment)
             }
+        }
+
+        accuracyView.setOnClickListener {
+            UiUtils.alert(requireContext(), getString(R.string.accuracy_info_title), getString(R.string.accuracy_info))
         }
 
         return view
