@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
@@ -69,6 +68,7 @@ class NavigatorFragment(
     private lateinit var beaconElevationView: LinearLayout
     private lateinit var beaconElevation: TextView
     private lateinit var beaconElevationDiff: TextView
+    private lateinit var beaconEta: TextView
 
     private lateinit var beaconIndicators: List<ImageView>
 
@@ -111,6 +111,7 @@ class NavigatorFragment(
         beaconElevationView = view.findViewById(R.id.beacon_elevation_view)
         beaconElevation = view.findViewById(R.id.beacon_elevation)
         beaconElevationDiff = view.findViewById(R.id.beacon_elevation_diff)
+        beaconEta = view.findViewById(R.id.beacon_eta)
 
         val beacons = mutableListOf<ImageView>()
 
@@ -323,6 +324,9 @@ class NavigatorFragment(
         beaconElevation.text = navigationVM.beaconElevation
         beaconElevationDiff.text = navigationVM.beaconElevationDiff
         beaconElevationDiff.setTextColor(requireContext().getColor(navigationVM.beaconElevationDiffColor))
+
+        val eta = navigationVM.beaconEta
+        beaconEta.text = if (eta == null) getString(R.string.distance_away) else getString(R.string.eta, eta)
 
         gpsAccuracyTxt.text = navigationVM.gpsAccuracy
         compassAccuracyTxt.text = navigationVM.compassAccuracy

@@ -11,13 +11,16 @@ import com.kylecorry.trail_sense.navigation.infrastructure.BeaconRepo
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.Accuracy
+import com.kylecorry.trail_sense.shared.formatHM
 import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.kylecorry.trail_sense.shared.sensors.DeviceOrientation
 import com.kylecorry.trail_sense.shared.sensors.IAltimeter
 import com.kylecorry.trail_sense.shared.sensors.ICompass
 import com.kylecorry.trail_sense.shared.sensors.IGPS
+import java.time.Duration
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 class NavigationViewModel(
     private val compass: ICompass,
@@ -251,6 +254,27 @@ class NavigationViewModel(
                 ) "+" else ""}${LocationMath.convertToBaseUnit(diff, distanceUnits)
                     .roundToInt()} ft"
             }
+        }
+
+    val beaconEta: String?
+        get() {
+            val speed = gps.speed
+            if (speed == 0f){
+                return null
+            }
+
+            visibleBeacon?.apply {
+                val vector = navigationService.navigate(
+                    gps.location,
+                    this.coordinate,
+                    gps.altitude,
+                    useTrueNorth
+                )
+                val time = Duration.ofSeconds((vector.distance / speed).roundToLong())
+                return time.formatHM()
+            }
+
+            return null
         }
 
     fun updateVisibleBeacon(){

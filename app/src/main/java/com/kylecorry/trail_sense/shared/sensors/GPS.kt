@@ -19,6 +19,9 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
     override val location: Coordinate
         get() = _location
 
+    override val speed: Float
+        get() = _speed
+
     override val altitude: Float
         get() = _altitude
 
@@ -30,6 +33,7 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
 
     private var _altitude = prefs.getFloat(LAST_ALTITUDE, 0f)
     private var _accuracy: Accuracy = Accuracy.Unknown
+    private var _speed: Float = prefs.getFloat(LAST_SPEED, 0f)
     private var _location = Coordinate(
         prefs.getFloat(LAST_LATITUDE, 0f).toDouble(),
         prefs.getFloat(LAST_LONGITUDE, 0f).toDouble()
@@ -60,6 +64,13 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
             }
         }
 
+        if (location.hasSpeed()){
+            this._speed = location.speed
+            prefs.edit {
+                putFloat(LAST_SPEED, _speed)
+            }
+        }
+
         this._location = Coordinate(
             location.latitude,
             location.longitude
@@ -84,6 +95,7 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
         private const val LAST_LATITUDE = "last_latitude"
         private const val LAST_LONGITUDE = "last_longitude"
         private const val LAST_ALTITUDE = "last_altitude"
+        private const val LAST_SPEED = "last_speed"
     }
 
 }

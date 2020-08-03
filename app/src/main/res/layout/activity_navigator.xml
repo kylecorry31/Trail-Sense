@@ -134,7 +134,7 @@
         android:id="@+id/imageView"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/ic_altitude"
         android:tint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="@+id/altitude"
@@ -254,9 +254,10 @@
                     tools:text="1000m" />
 
                 <TextView
+                    android:id="@+id/beacon_eta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/distance_away"
+                    android:text="@string/eta"
                     android:textAlignment="center" />
             </LinearLayout>
 
