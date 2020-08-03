@@ -15,7 +15,7 @@ class BeaconRepo(context: Context) {
             }
         }, { conn, oldVersion, newVersion ->
             conn.transaction {
-                for (i in oldVersion..newVersion){
+                for (i in oldVersion..newVersion) {
                     when (i + 1) {
                         2 -> {
                             conn.execute("ALTER TABLE beacons ADD COLUMN visible INTEGER NOT NULL DEFAULT 1")
@@ -69,16 +69,16 @@ class BeaconRepo(context: Context) {
             } else {
                 // Update an existing beacon
                 conn.execute(
-                    "update beacons set name = ?, lat = ?, lng = ?, visible = ?, comment = ?, beacon_group_id = ? , elevation = ? where _id = ?",
+                    "update beacons set name = ?, lat = ?, lng = ?, visible = ?, comment = ?, beacon_group_id = ?, elevation = ? where _id = ?",
                     arrayOf(
                         beacon.name,
                         beacon.coordinate.latitude.toString(),
                         beacon.coordinate.longitude.toString(),
                         if (beacon.visible) "1" else "0",
-                        beacon.id.toString(),
                         beacon.comment,
                         beacon.beaconGroupId?.toString(),
-                        beacon.elevation?.toString()
+                        beacon.elevation?.toString(),
+                        beacon.id.toString()
                     )
                 )
             }
