@@ -390,6 +390,7 @@ class NavigatorFragment(
 
     private fun onLocationUpdate(): Boolean {
         updateUI()
+        navigationVM.onLocationUpdate()
         return navigationVM.showDestination
     }
 

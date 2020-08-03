@@ -41,6 +41,7 @@ class NavigationViewModel(
     private val showSunAndMoonWhenDown = prefs.astronomy.showOnCompassWhenDown
     private val astronomyService = AstronomyService()
     private val navigationService = NavigationService()
+    private var speed = 0f
 
     val rulerScale = prefs.navigation.rulerScale
 
@@ -258,7 +259,6 @@ class NavigationViewModel(
 
     val beaconEta: String?
         get() {
-            val speed = gps.speed
             if (speed == 0f){
                 return null
             }
@@ -276,6 +276,14 @@ class NavigationViewModel(
 
             return null
         }
+
+    fun onLocationUpdate(){
+        speed = if (speed == 0f){
+            gps.speed
+        } else {
+            speed * 0.4f + gps.speed * 0.6f
+        }
+    }
 
     fun updateVisibleBeacon(){
         if (beacon != null){
