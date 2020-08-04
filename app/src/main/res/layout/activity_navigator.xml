@@ -121,27 +121,6 @@
         app:srcCompat="@drawable/ic_beacon" />
 
     <TextView
-        android:id="@+id/altitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="@+id/needle"
-        app:layout_constraintStart_toStartOf="@+id/needle"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:text="180 ft" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/ic_altitude"
-        android:tint="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="@+id/altitude"
-        app:layout_constraintStart_toStartOf="@+id/altitude"
-        app:layout_constraintTop_toBottomOf="@+id/needle" />
-
-    <TextView
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -330,6 +309,61 @@
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_note"
                 android:tint="?android:textColorSecondary" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintVertical_bias="0.33"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/needle">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="64dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_altitude"
+                android:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/altitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                tools:text="180 ft" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_speed"
+                android:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/speed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                tools:text="180 ft/s" />
         </LinearLayout>
     </LinearLayout>
 

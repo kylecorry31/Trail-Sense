@@ -259,7 +259,7 @@ class NavigationViewModel(
 
     val beaconEta: String?
         get() {
-            if (speed == 0f){
+            if (speed == 0f) {
                 return null
             }
 
@@ -277,21 +277,35 @@ class NavigationViewModel(
             return null
         }
 
-    fun onLocationUpdate(){
-        speed = if (speed == 0f){
+    val currentSpeed: String
+        get() {
+            val s = gps.speed
+            return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
+                "${s.roundToInt()} m/s"
+            } else {
+                "${LocationMath.convertToBaseUnit(s, distanceUnits).roundToInt()} ft/s"
+            }
+        }
+
+    fun onLocationUpdate() {
+        if (gps.speed == 0f) {
+            return
+        }
+
+        speed = if (speed == 0f) {
             gps.speed
         } else {
             speed * 0.4f + gps.speed * 0.6f
         }
     }
 
-    fun updateVisibleBeacon(){
-        if (beacon != null){
+    fun updateVisibleBeacon() {
+        if (beacon != null) {
             visibleBeacon = beacon
             return
         }
 
-        if (!showNearbyBeacons){
+        if (!showNearbyBeacons) {
             visibleBeacon = null
             return
         }

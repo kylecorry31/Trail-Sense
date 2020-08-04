@@ -58,6 +58,7 @@ class NavigatorFragment(
     private lateinit var compassAccuracyTxt: TextView
     private lateinit var gpsAccuracy: LinearLayout
     private lateinit var compassAccuracy: LinearLayout
+    private lateinit var speedTxt: TextView
 
     private lateinit var navigationSheet: LinearLayout
     private lateinit var beaconName: TextView
@@ -101,6 +102,7 @@ class NavigatorFragment(
         compassAccuracyTxt = view.findViewById(R.id.compass_accuracy_text)
         gpsAccuracy = view.findViewById(R.id.gps_accuracy_view)
         compassAccuracy = view.findViewById(R.id.compass_accuracy_view)
+        speedTxt = view.findViewById(R.id.speed)
 
         navigationSheet = view.findViewById(R.id.navigation_sheet)
         beaconName = view.findViewById(R.id.beacon_name)
@@ -342,6 +344,8 @@ class NavigatorFragment(
         } else {
             gpsAccuracy.visibility = View.INVISIBLE
         }
+
+        speedTxt.text = navigationVM.currentSpeed
 
         if (navigationVM.showLinearCompass) {
             setVisibleCompass(linearCompass)
