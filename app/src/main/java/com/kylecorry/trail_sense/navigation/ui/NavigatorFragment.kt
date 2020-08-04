@@ -232,7 +232,11 @@ class NavigatorFragment(
         }
 
         accuracyView.setOnClickListener {
-            UiUtils.alert(requireContext(), getString(R.string.accuracy_info_title), getString(R.string.accuracy_info))
+            UiUtils.alert(
+                requireContext(),
+                getString(R.string.accuracy_info_title),
+                getString(R.string.accuracy_info)
+            )
         }
 
         return view
@@ -300,13 +304,13 @@ class NavigatorFragment(
 
         navigationVM.updateVisibleBeacon()
 
-        if (navigationVM.showNavigationSheet){
+        if (navigationVM.showNavigationSheet) {
             navigationSheet.visibility = View.VISIBLE
         } else {
             navigationSheet.visibility = View.GONE
         }
 
-        if (navigationVM.hasComment){
+        if (navigationVM.hasComment) {
             beaconComments.visibility = View.VISIBLE
         } else {
             beaconComments.visibility = View.GONE
@@ -317,7 +321,7 @@ class NavigatorFragment(
         beaconDirection.text = navigationVM.beaconDirection
         beaconDirectionCardinal.text = navigationVM.beaconCardinalDirection
 
-        if (navigationVM.showBeaconElevation){
+        if (navigationVM.showBeaconElevation) {
             beaconElevationView.visibility = View.VISIBLE
         } else {
             beaconElevationView.visibility = View.GONE
@@ -328,24 +332,29 @@ class NavigatorFragment(
         beaconElevationDiff.setTextColor(requireContext().getColor(navigationVM.beaconElevationDiffColor))
 
         val eta = navigationVM.beaconEta
-        beaconEta.text = if (eta == null) getString(R.string.distance_away) else getString(R.string.eta, eta)
+        beaconEta.text =
+            if (eta == null) getString(R.string.distance_away) else getString(R.string.eta, eta)
 
         gpsAccuracyTxt.text = navigationVM.gpsAccuracy
         compassAccuracyTxt.text = navigationVM.compassAccuracy
 
-        if (navigationVM.showCompassAccuracy){
+        if (navigationVM.showCompassAccuracy) {
             compassAccuracy.visibility = View.VISIBLE
         } else {
             compassAccuracy.visibility = View.INVISIBLE
         }
 
-        if (navigationVM.showGpsAccuracy){
+        if (navigationVM.showGpsAccuracy) {
             gpsAccuracy.visibility = View.VISIBLE
         } else {
             gpsAccuracy.visibility = View.INVISIBLE
         }
 
-        speedTxt.text = navigationVM.currentSpeed
+        speedTxt.text = getString(
+            R.string.speed_format,
+            navigationVM.currentSpeed,
+            getString(navigationVM.speedUnit)
+        )
 
         if (navigationVM.showLinearCompass) {
             setVisibleCompass(linearCompass)

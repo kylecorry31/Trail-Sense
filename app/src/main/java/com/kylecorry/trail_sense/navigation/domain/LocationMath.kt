@@ -30,18 +30,38 @@ object LocationMath {
         return feet / 5280f
     }
 
+    private fun convertUnitPerSecondsToUnitPerHours(unitPerSecond: Float): Float {
+        return unitPerSecond * 60 * 60
+    }
+
+    private fun convertMetersToKilometers(meters: Float): Float {
+        return meters / 1000f
+    }
+
     fun convertToBaseUnit(meters: Float, units: UserPreferences.DistanceUnits): Float {
-        return if (units == UserPreferences.DistanceUnits.Feet){
-            convertMetersToFeet(
-                meters
-            )
+        return if (units == UserPreferences.DistanceUnits.Feet) {
+            convertMetersToFeet(meters)
         } else {
             meters
         }
     }
 
+    fun convertToBaseSpeed(metersPerSecond: Float, units: UserPreferences.DistanceUnits): Float {
+        return if (units == UserPreferences.DistanceUnits.Feet) {
+            convertUnitPerSecondsToUnitPerHours(
+                convertFeetToMiles(
+                    convertMetersToFeet(
+                        metersPerSecond
+                    )
+                )
+            )
+        } else {
+            convertUnitPerSecondsToUnitPerHours(convertMetersToKilometers(metersPerSecond))
+        }
+    }
+
     fun convertToMeters(distance: Float, units: UserPreferences.DistanceUnits): Float {
-        return if (units == UserPreferences.DistanceUnits.Meters){
+        return if (units == UserPreferences.DistanceUnits.Meters) {
             distance
         } else {
             convertFeetToMeters(distance)
@@ -49,7 +69,7 @@ object LocationMath {
     }
 
     fun distanceToReadableString(meters: Float, units: UserPreferences.DistanceUnits): String {
-        if (units == UserPreferences.DistanceUnits.Feet){
+        if (units == UserPreferences.DistanceUnits.Feet) {
             val feetThreshold = 1000
             val feet =
                 convertMetersToFeet(
@@ -60,7 +80,8 @@ object LocationMath {
                 "${round(
                     convertFeetToMiles(
                         feet
-                    ) * 100f) / 100f} mi"
+                    ) * 100f
+                ) / 100f} mi"
             } else {
                 // Display as feet
                 "${feet.roundToInt()} ft"
@@ -70,7 +91,7 @@ object LocationMath {
             return if (meters >= meterThreshold) {
                 // Display as km
                 val km = meters / 1000f
-                "${round( km * 100f) / 100f} km"
+                "${round(km * 100f) / 100f} km"
             } else {
                 // Display as meters
                 "${meters.roundToInt()} m"
@@ -82,7 +103,7 @@ object LocationMath {
      * Converts a distance in meters to a readable string in the given unit system
      */
     fun distanceToReadableString(meters: Float, units: String): String {
-        if (units == "feet_miles"){
+        if (units == "feet_miles") {
             val feetThreshold = 1000
             val feet =
                 convertMetersToFeet(
@@ -93,7 +114,8 @@ object LocationMath {
                 "${round(
                     convertFeetToMiles(
                         feet
-                    ) * 100f) / 100f} mi"
+                    ) * 100f
+                ) / 100f} mi"
             } else {
                 // Display as feet
                 "${feet.roundToInt()} ft"
@@ -103,7 +125,7 @@ object LocationMath {
             return if (meters >= meterThreshold) {
                 // Display as km
                 val km = meters / 1000f
-                "${round( km * 100f) / 100f} km"
+                "${round(km * 100f) / 100f} km"
             } else {
                 // Display as meters
                 "${meters.roundToInt()} m"

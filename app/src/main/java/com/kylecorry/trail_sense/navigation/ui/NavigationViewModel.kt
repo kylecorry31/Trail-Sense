@@ -279,11 +279,15 @@ class NavigationViewModel(
 
     val currentSpeed: String
         get() {
-            val s = gps.speed
-            return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
-                "${s.roundToInt()} m/s"
+            return LocationMath.convertToBaseUnit(gps.speed, distanceUnits).roundToInt().toString()
+        }
+
+    val speedUnit: Int
+        get() {
+            return if (distanceUnits == UserPreferences.DistanceUnits.Meters){
+                R.string.kilometers_per_hour
             } else {
-                "${LocationMath.convertToBaseUnit(s, distanceUnits).roundToInt()} ft/s"
+                R.string.miles_per_hour
             }
         }
 

@@ -180,4 +180,7 @@
     <string name="pref_forecast_sensitivity_title">Forecast sensitivity</string>
     <string name="accuracy_info_title">Tips for improving accuracy</string>
     <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\nCompass: Rotate device in a figure 8 pattern and move away from metal.</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="speed_format">%s %s</string>
 </resources>
