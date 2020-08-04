@@ -298,13 +298,19 @@ class NavigationViewModel(
             return
         }
 
-        speed = if (speed == 0f) {
-            gps.speed
+        if (gps.speed > 3f){
+            // If traveling by running, bike or car
+            speed = gps.speed
         } else {
-            speed * 0.4f + gps.speed * 0.6f
-        }
+            val lastSpeed = prefs.navigation.averageSpeed
+            speed = if (lastSpeed == 0f) {
+                gps.speed
+            } else {
+                lastSpeed * 0.4f + gps.speed * 0.6f
+            }
 
-        prefs.navigation.setAverageSpeed(speed)
+            prefs.navigation.setAverageSpeed(speed)
+        }
     }
 
     fun updateVisibleBeacon() {

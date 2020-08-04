@@ -5,6 +5,7 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
+import kotlin.math.min
 
 class NavigationPreferences(private val context: Context) {
 
@@ -58,7 +59,7 @@ class NavigationPreferences(private val context: Context) {
 
     fun setAverageSpeed(metersPerSecond: Float){
         prefs.edit {
-            putFloat(context.getString(R.string.pref_average_speed), metersPerSecond)
+            putFloat(context.getString(R.string.pref_average_speed), min(metersPerSecond, 3f))
         }
     }
 
