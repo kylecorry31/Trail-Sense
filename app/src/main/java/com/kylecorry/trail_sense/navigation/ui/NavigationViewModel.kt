@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.formatHM
 import com.kylecorry.trail_sense.shared.math.deltaAngle
+import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.shared.sensors.DeviceOrientation
 import com.kylecorry.trail_sense.shared.sensors.IAltimeter
 import com.kylecorry.trail_sense.shared.sensors.ICompass
@@ -27,7 +28,7 @@ class NavigationViewModel(
     private val gps: IGPS,
     private val altimeter: IAltimeter,
     private val orientation: DeviceOrientation,
-    prefs: UserPreferences,
+    private val prefs: UserPreferences,
     beaconRepo: BeaconRepo
 ) {
 
@@ -41,7 +42,7 @@ class NavigationViewModel(
     private val showSunAndMoonWhenDown = prefs.astronomy.showOnCompassWhenDown
     private val astronomyService = AstronomyService()
     private val navigationService = NavigationService()
-    private var speed = 0f
+    private var speed = prefs.navigation.averageSpeed
 
     val rulerScale = prefs.navigation.rulerScale
 
@@ -270,7 +271,8 @@ class NavigationViewModel(
                     gps.altitude,
                     useTrueNorth
                 )
-                val time = Duration.ofSeconds((vector.distance / speed).roundToLong())
+                val distance = vector.distance * Math.PI / 2.0 // Used to estimate non-linear distance within 2 standard deviations
+                val time = Duration.ofSeconds((distance / speed).roundToLong())
                 return time.formatHM()
             }
 
@@ -279,7 +281,7 @@ class NavigationViewModel(
 
     val currentSpeed: String
         get() {
-            return LocationMath.convertToBaseUnit(gps.speed, distanceUnits).roundToInt().toString()
+            return LocationMath.convertToBaseSpeed(gps.speed, distanceUnits).roundPlaces(1).toString()
         }
 
     val speedUnit: Int
@@ -301,6 +303,8 @@ class NavigationViewModel(
         } else {
             speed * 0.4f + gps.speed * 0.6f
         }
+
+        prefs.navigation.setAverageSpeed(speed)
     }
 
     fun updateVisibleBeacon() {

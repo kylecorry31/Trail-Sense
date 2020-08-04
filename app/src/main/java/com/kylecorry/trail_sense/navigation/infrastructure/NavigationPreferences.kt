@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.infrastructure
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
@@ -51,6 +52,15 @@ class NavigationPreferences(private val context: Context) {
             val raw = prefs.getString(context.getString(R.string.pref_ruler_calibration), "1") ?: "1"
             return raw.toFloat()
         }
+
+    val averageSpeed: Float
+        get() = prefs.getFloat(context.getString(R.string.pref_average_speed), 0f)
+
+    fun setAverageSpeed(metersPerSecond: Float){
+        prefs.edit {
+            putFloat(context.getString(R.string.pref_average_speed), metersPerSecond)
+        }
+    }
 
     enum class AltimeterMode {
         Barometer,
