@@ -342,6 +342,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 tools:text="180 ft" />
         </LinearLayout>
 
@@ -363,7 +365,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                tools:text="180 ft/s" />
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="1.8 mph" />
         </LinearLayout>
     </LinearLayout>
 
