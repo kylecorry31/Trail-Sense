@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.CountDownTimer
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -18,7 +17,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.median
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
-import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
 import com.kylecorry.trail_sense.weather.domain.forcasting.HourlyForecaster
 import com.kylecorry.trail_sense.weather.domain.forcasting.IWeatherForecaster
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
@@ -28,7 +26,7 @@ import java.time.ZonedDateTime
 import java.util.*
 import kotlin.concurrent.timer
 
-class BarometerAlarmReceiver: BroadcastReceiver() {
+class BarometerAlarmReceiver : BroadcastReceiver() {
 
     private lateinit var context: Context
     private lateinit var barometer: IBarometer
@@ -48,16 +46,19 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
     private val MAX_GPS_READINGS = 5
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        if (context != null){
+        if (context != null) {
             this.context = context
             userPrefs = UserPreferences(context)
-            forecaster = HourlyForecaster(userPrefs.weather.stormAlertThreshold, userPrefs.weather.hourlyForecastFastThreshold)
+            forecaster = HourlyForecaster(
+                userPrefs.weather.stormAlertThreshold,
+                userPrefs.weather.hourlyForecastFastThreshold
+            )
 
             barometer = Barometer(context)
             altimeter = GPS(context)
 
             val that = this
-            timer = timer(period = (5000 * (MAX_GPS_READINGS + 2)).toLong()){
+            timer = timer(period = (5000 * (MAX_GPS_READINGS + 2)).toLong()) {
                 if (!hasLocation) {
                     altimeter.stop(that::onLocationUpdate)
                     altitudeReadings.add(altimeter.altitude)
@@ -78,9 +79,9 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
 
     private fun onLocationUpdate(): Boolean {
         altitudeReadings.add(altimeter.altitude)
-        return if(hasLocation || altitudeReadings.size >= MAX_GPS_READINGS){
+        return if (hasLocation || altitudeReadings.size >= MAX_GPS_READINGS) {
             hasLocation = true
-            if (hasBarometerReading){
+            if (hasBarometerReading) {
                 gotAllReadings()
             }
             false
@@ -108,9 +109,9 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
         val lastReading = getLastAltitude()
 
         val alpha = 0.8f
-        return if (reading != 0f && lastReading != 0f){
+        return if (reading != 0f && lastReading != 0f) {
             (1 - alpha) * lastReading + alpha * reading
-        } else if (reading != 0f){
+        } else if (reading != 0f) {
             reading
         } else {
             lastReading
@@ -123,16 +124,16 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
 
         val alpha = 0.8f
 
-        return if (reading != 0f && lastReading != 0f){
+        return if (reading != 0f && lastReading != 0f) {
             (1 - alpha) * lastReading + alpha * reading
-        } else if (reading != 0f){
+        } else if (reading != 0f) {
             reading
         } else {
             lastReading
         }
     }
 
-    private fun gotAllReadings(){
+    private fun gotAllReadings() {
         altimeter.stop(this::onLocationUpdate)
         barometer.stop(this::onPressureUpdate)
         timer.cancel()
@@ -156,7 +157,7 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
 
         val forecast = forecaster.forecast(pressureConverter.convert(readings))
 
-        if (forecast == Weather.Storm){
+        if (forecast == Weather.Storm) {
             val shouldSend = userPrefs.weather.sendStormAlerts
             if (shouldSend && !sentAlert) {
                 val builder = NotificationCompat.Builder(context, "Alerts")

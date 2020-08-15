@@ -43,6 +43,7 @@ object WeatherNotificationService {
                 .setContentText(text)
                 .setSmallIcon(icon)
                 .addAction(stopAction)
+                .setOnlyAlertOnce(true)
                 .setContentIntent(openPendingIntent)
                 .build()
         } else {
@@ -51,6 +52,7 @@ object WeatherNotificationService {
                 .setContentText(text)
                 .setSmallIcon(icon)
                 .addAction(stopAction)
+                .setOnlyAlertOnce(true)
                 .setContentIntent(openPendingIntent)
                 .build()
         }
@@ -95,6 +97,8 @@ object WeatherNotificationService {
             val importance = NotificationManager.IMPORTANCE_LOW
             val channel = NotificationChannel("Weather", name, importance).apply {
                 description = descriptionText
+                enableVibration(false)
+                setShowBadge(false)
             }
             val notificationManager = context.getSystemService<NotificationManager>()
             notificationManager?.createNotificationChannel(channel)
