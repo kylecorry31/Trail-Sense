@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +16,7 @@ import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.*
+import com.kylecorry.trail_sense.shared.UiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.domain.Coordinate
@@ -136,6 +134,10 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
             shareSheet.visibility = View.GONE
         }
 
+        if (beacons.isNotEmpty()) {
+            UiUtils.shortToast(requireContext(), getString(R.string.long_press_beacon_toast))
+        }
+
         return view
     }
 
@@ -205,7 +207,24 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
                 val dialog: AlertDialog? = activity?.let {
                     val builder = AlertDialog.Builder(it)
                     builder.apply {
-                        setPositiveButton(R.string.dialog_ok) { _, _ ->
+                        setPositiveButton(R.string.edit_beacon) { _, _ ->
+                            parentFragmentManager.doTransaction {
+                                this.replace(
+                                    R.id.fragment_holder,
+                                    PlaceBeaconFragment(
+                                        beaconRepo,
+                                        gps,
+                                        null,
+                                        beacon
+                                    )
+                                )
+                                addToBackStack(javaClass.name)
+                            }
+                        }
+                        setNeutralButton(R.string.dialog_cancel) { _, _ ->
+                            // Do nothing
+                        }
+                        setNegativeButton(R.string.delete_beacon) { _, _ ->
                             beaconRepo.delete(beacon)
                             adapter.beacons = beaconRepo.get().sortedBy { beacon ->
                                 navigationService.navigate(
@@ -215,16 +234,8 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
                             }
                             updateBeaconEmptyText(adapter.beacons.isNotEmpty())
                         }
-                        setNegativeButton(R.string.dialog_cancel) { _, _ ->
-                            // Do nothing
-                        }
-                        setMessage(
-                            context.getString(
-                                R.string.delete_beacon_confirmation,
-                                beacon.name
-                            )
-                        )
-                        setTitle(R.string.delete_beacon_alert_title)
+                        setMessage(beacon.coordinate.toString())
+                        setTitle(beacon.name)
                     }
                     builder.create()
                 }

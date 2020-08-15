@@ -13,7 +13,7 @@
     <string name="beacon_use_current_location">使用当前位置</string>
     <string name="beacon_title">选择信标</string>
     <string name="dialog_ok">好</string>
-    <string name="delete_beacon_alert_title">删除信标</string>
+    <string name="delete_beacon">删除信标</string>
     <string name="dialog_cancel">取消</string>
     <string name="pressure_chart_title">压力</string>
     <string name="action_astronomy">天文学</string>

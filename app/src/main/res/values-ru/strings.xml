@@ -13,7 +13,7 @@
     <string name="beacon_use_current_location">Использовать текущее местоположение</string>
     <string name="beacon_title">Выберите Маяк</string>
     <string name="dialog_ok">OK</string>
-    <string name="delete_beacon_alert_title">Удалить маяк</string>
+    <string name="delete_beacon">Удалить маяк</string>
     <string name="dialog_cancel">Отмена</string>
     <string name="pressure_chart_title">Давление</string>
     <string name="action_astronomy">Астрономия</string>

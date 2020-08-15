@@ -15,7 +15,7 @@
     <string name="beacon_use_current_location">از مکان فعلی استفاده کن</string>
     <string name="beacon_title">انتخاب مکان</string>
     <string name="dialog_ok">باشه</string>
-    <string name="delete_beacon_alert_title">حذف مکان</string>
+    <string name="delete_beacon">حذف مکان</string>
     <string name="dialog_cancel">لغو</string>
     <string name="pressure_chart_title">فشار</string>
     <string name="action_astronomy">ستاره شناسی</string>

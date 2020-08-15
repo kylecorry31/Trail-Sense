@@ -13,7 +13,7 @@
     <string name="beacon_use_current_location">Aktuellen Standort verwenden</string>
     <string name="beacon_title">Wegpunkt auswählen</string>
     <string name="dialog_ok">OK</string>
-    <string name="delete_beacon_alert_title">Wegpunkt löschen</string>
+    <string name="delete_beacon">Wegpunkt löschen</string>
     <string name="dialog_cancel">Abbrechen</string>
     <string name="pressure_chart_title">Luftdruck</string>
     <string name="action_astronomy">Astronomie</string>

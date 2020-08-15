@@ -13,7 +13,7 @@
     <string name="beacon_use_current_location">हालको स्थान प्रयोग गर्नुहोस्</string>
     <string name="beacon_title">बीकन चयन गर्नुहोस्</string>
     <string name="dialog_ok">ठिक छ</string>
-    <string name="delete_beacon_alert_title">बीकन मेटाउनुहोस्</string>
+    <string name="delete_beacon">बीकन मेटाउनुहोस्</string>
     <string name="dialog_cancel">रद्द गर्नुहोस्</string>
     <string name="pressure_chart_title">दवाव</string>
     <string name="action_astronomy">खगोल विज्ञान</string>

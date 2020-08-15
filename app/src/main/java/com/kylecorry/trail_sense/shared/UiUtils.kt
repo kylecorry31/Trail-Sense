@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kylecorry.trail_sense.R
 
@@ -22,6 +23,14 @@ object UiUtils {
         val dialog = builder.create()
         dialog.show()
         return dialog
+    }
+
+    fun longToast(context: Context, text: String){
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+    }
+
+    fun shortToast(context: Context, text: String){
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 
 }

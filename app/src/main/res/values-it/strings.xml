@@ -13,7 +13,7 @@
     <string name="beacon_use_current_location">Utilizzare la posizione corrente</string>
     <string name="beacon_title">Selezionare Beacon</string>
     <string name="dialog_ok">OK</string>
-    <string name="delete_beacon_alert_title">Cancellare il segnalatore</string>
+    <string name="delete_beacon">Cancellare il segnalatore</string>
     <string name="dialog_cancel">Annulla</string>
     <string name="pressure_chart_title">Pressione</string>
     <string name="action_astronomy">Astronomia</string>

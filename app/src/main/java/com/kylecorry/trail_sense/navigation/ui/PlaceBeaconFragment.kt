@@ -26,7 +26,8 @@ import com.kylecorry.trail_sense.shared.sensors.IGPS
 class PlaceBeaconFragment(
     private val _repo: BeaconRepo?,
     private val _gps: IGPS?,
-    private val initialLocation: GeoUriParser.NamedCoordinate? = null
+    private val initialLocation: GeoUriParser.NamedCoordinate? = null,
+    private val editingBeacon: Beacon? = null
 ) : Fragment() {
 
     private lateinit var beaconRepo: BeaconRepo
@@ -69,6 +70,16 @@ class PlaceBeaconFragment(
             beaconName.setText(initialLocation.name ?: "")
             beaconLat.setText(initialLocation.coordinate.latitude.toString())
             beaconLng.setText(initialLocation.coordinate.longitude.toString())
+            updateDoneButtonState()
+        }
+
+        if (editingBeacon != null) {
+            beaconName.setText(editingBeacon.name)
+            beaconLat.setText(editingBeacon.coordinate.latitude.toString())
+            beaconLng.setText(editingBeacon.coordinate.longitude.toString())
+            beaconElevation.setText(editingBeacon.elevation?.toString() ?: "")
+            commentTxt.setText(editingBeacon.comment ?: "")
+            updateDoneButtonState()
         }
 
         beaconName.setOnFocusChangeListener { _, hasFocus ->
@@ -134,7 +145,11 @@ class PlaceBeaconFragment(
             val coordinate = getCoordinate(lat, lng)
 
             if (name.isNotBlank() && coordinate != null) {
-                val beacon = Beacon(0, name, coordinate, true, comment, null, elevation)
+                val beacon = if (editingBeacon == null ) {
+                    Beacon(0, name, coordinate, true, comment, null, elevation)
+                } else {
+                    Beacon(editingBeacon.id, name, coordinate, editingBeacon.visible, comment, editingBeacon.beaconGroupId, elevation)
+                }
                 beaconRepo.add(beacon)
                 parentFragmentManager.doTransaction {
                     this.replace(

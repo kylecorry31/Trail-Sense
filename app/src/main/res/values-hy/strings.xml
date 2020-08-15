@@ -13,7 +13,7 @@
     <string name="beacon_use_current_location">Օգտագործեք ներկայիս գտնվելու վայրը</string>
     <string name="beacon_title">Ընտրեք փարոս</string>
     <string name="dialog_ok">լավ</string>
-    <string name="delete_beacon_alert_title">Deleteնջել փարոսը</string>
+    <string name="delete_beacon">Deleteնջել փարոսը</string>
     <string name="dialog_cancel">Չեղարկել</string>
     <string name="pressure_chart_title">ճնշում</string>
     <string name="action_astronomy">Աստղագիտություն</string>

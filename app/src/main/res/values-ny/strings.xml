@@ -13,7 +13,7 @@
     <string name="beacon_use_current_location">Gwiritsani ntchito malo apano</string>
     <string name="beacon_title">Sankhani Beacon</string>
     <string name="dialog_ok">Chabwino</string>
-    <string name="delete_beacon_alert_title">Chotsani beacon</string>
+    <string name="delete_beacon">Chotsani beacon</string>
     <string name="dialog_cancel">Patulani</string>
     <string name="pressure_chart_title">Kukakamizidwa</string>
     <string name="action_astronomy">Zakuthambo</string>

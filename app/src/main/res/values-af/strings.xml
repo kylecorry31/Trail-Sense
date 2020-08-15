@@ -13,7 +13,7 @@
     <string name="beacon_use_current_location">Gebruik die huidige ligging</string>
     <string name="beacon_title">Kies Beacon</string>
     <string name="dialog_ok">OK</string>
-    <string name="delete_beacon_alert_title">Skrap baken</string>
+    <string name="delete_beacon">Skrap baken</string>
     <string name="dialog_cancel">kanselleer</string>
     <string name="pressure_chart_title">druk</string>
     <string name="action_astronomy">Sterrekunde</string>

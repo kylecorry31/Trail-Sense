@@ -14,7 +14,8 @@
     <string name="beacon_use_current_location">Use current location</string>
     <string name="beacon_title">Select Beacon</string>
     <string name="dialog_ok">OK</string>
-    <string name="delete_beacon_alert_title">Delete beacon</string>
+    <string name="delete_beacon">Delete beacon</string>
+    <string name="edit_beacon">Edit beacon</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="pressure_chart_title">Pressure</string>
     <string name="action_astronomy">Astronomy</string>
@@ -184,4 +185,5 @@
     <string name="kilometers_per_hour">km/h</string>
     <string name="speed_format">%s %s</string>
     <string name="pref_average_speed" translatable="false">pref_average_speed</string>
+    <string name="long_press_beacon_toast">Long press a beacon to view options.</string>
 </resources>

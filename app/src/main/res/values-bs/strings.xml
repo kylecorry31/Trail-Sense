@@ -13,7 +13,7 @@
     <string name="beacon_use_current_location">Koristite trenutnu lokaciju</string>
     <string name="beacon_title">Odaberite Beacon</string>
     <string name="dialog_ok">uredu</string>
-    <string name="delete_beacon_alert_title">Izbriši маяlo</string>
+    <string name="delete_beacon">Izbriši маяlo</string>
     <string name="dialog_cancel">Otkaži</string>
     <string name="pressure_chart_title">Pritisak</string>
     <string name="action_astronomy">Astronomija</string>

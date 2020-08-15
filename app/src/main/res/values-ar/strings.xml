@@ -13,7 +13,7 @@
     <string name="beacon_use_current_location">استخدام الموقع الحالي</string>
     <string name="beacon_title">حدد منارة</string>
     <string name="dialog_ok">حسنا</string>
-    <string name="delete_beacon_alert_title">تحذف المرشد</string>
+    <string name="delete_beacon">تحذف المرشد</string>
     <string name="dialog_cancel">إلغاء</string>
     <string name="pressure_chart_title">الضغط</string>
     <string name="action_astronomy">الفلك</string>

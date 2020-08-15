@@ -13,7 +13,7 @@
     <string name="beacon_use_current_location">現在地を使用</string>
     <string name="beacon_title">ビーコンを選択</string>
     <string name="dialog_ok">OK</string>
-    <string name="delete_beacon_alert_title">ビーコンを削除</string>
+    <string name="delete_beacon">ビーコンを削除</string>
     <string name="dialog_cancel">キャンセル</string>
     <string name="pressure_chart_title">圧力</string>
     <string name="action_astronomy">天文学</string>

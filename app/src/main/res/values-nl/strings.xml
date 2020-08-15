@@ -13,7 +13,7 @@
     <string name="beacon_use_current_location">Gebruik de huidige locatie</string>
     <string name="beacon_title">Selecteer Baken</string>
     <string name="dialog_ok">OK</string>
-    <string name="delete_beacon_alert_title">Baken verwijderen</string>
+    <string name="delete_beacon">Baken verwijderen</string>
     <string name="dialog_cancel">Annuleren</string>
     <string name="pressure_chart_title">: Druk</string>
     <string name="action_astronomy">Astronomie</string>
