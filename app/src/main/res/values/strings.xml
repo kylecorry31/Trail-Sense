@@ -186,4 +186,5 @@
     <string name="speed_format">%s %s</string>
     <string name="pref_average_speed" translatable="false">pref_average_speed</string>
     <string name="long_press_beacon_toast">Long press a beacon to view options.</string>
+    <string name="extra_action" translatable="false">extra_action</string>
 </resources>

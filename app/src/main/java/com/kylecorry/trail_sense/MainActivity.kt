@@ -91,6 +91,11 @@ class MainActivity : AppCompatActivity() {
             bottomNavigation.selectedItemId = R.id.action_navigation
         }
 
+        if (intent.hasExtra(getString(R.string.extra_action))){
+            val desiredAction = intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
+            bottomNavigation.selectedItemId = desiredAction
+        }
+
         syncFragmentWithSelection(bottomNavigation.selectedItemId)
 
         bottomNavigation.setOnNavigationItemSelectedListener { item ->

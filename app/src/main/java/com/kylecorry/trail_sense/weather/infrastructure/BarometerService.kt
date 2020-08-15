@@ -33,11 +33,12 @@ class BarometerService: Service() {
 
         val stopIntent = Intent(this, WeatherStopMonitoringReceiver::class.java)
         val openIntent = Intent(this, MainActivity::class.java)
+        openIntent.putExtra(getString(R.string.extra_action), R.id.action_weather)
 
         val stopPendingIntent: PendingIntent =
             PendingIntent.getBroadcast(this, 0, stopIntent, 0)
         val openPendingIntent: PendingIntent =
-            PendingIntent.getActivity(this, 0, openIntent, 0)
+            PendingIntent.getActivity(this, 0, openIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val stopAction = Notification.Action.Builder(
                 Icon.createWithResource("", R.drawable.ic_cancel),
