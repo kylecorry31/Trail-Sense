@@ -29,42 +29,9 @@ class BarometerService: Service() {
         handler = Handler()
         broadcastIntent = Intent(this, BarometerAlarmReceiver::class.java)
 
-        createNotificationChannel()
+        val notification = WeatherNotificationService.getDefaultNotification(this)
 
-        val stopIntent = Intent(this, WeatherStopMonitoringReceiver::class.java)
-        val openIntent = Intent(this, MainActivity::class.java)
-        openIntent.putExtra(getString(R.string.extra_action), R.id.action_weather)
-
-        val stopPendingIntent: PendingIntent =
-            PendingIntent.getBroadcast(this, 0, stopIntent, 0)
-        val openPendingIntent: PendingIntent =
-            PendingIntent.getActivity(this, 0, openIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-        val stopAction = Notification.Action.Builder(
-                Icon.createWithResource("", R.drawable.ic_cancel),
-                getString(R.string.stop_monitoring),
-                stopPendingIntent)
-            .build()
-
-        val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Notification.Builder(this, "Weather")
-                .setContentTitle("Weather")
-                .setContentText("Monitoring weather in the background")
-                .setSmallIcon(R.drawable.ic_weather)
-                .addAction(stopAction)
-                .setContentIntent(openPendingIntent)
-                .build()
-        } else {
-            Notification.Builder(this)
-                .setContentTitle("Weather")
-                .setContentText("Monitoring weather in the background")
-                .setSmallIcon(R.drawable.ic_weather)
-                .addAction(stopAction)
-                .setContentIntent(openPendingIntent)
-                .build()
-        }
-
-        startForeground(1, notification)
+        startForeground(WeatherNotificationService.WEATHER_NOTIFICATION_ID, notification)
 
         val delay = INTERVAL.toMillis()
 
@@ -95,19 +62,6 @@ class BarometerService: Service() {
 
     override fun onBind(intent: Intent): IBinder? {
         return null
-    }
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Weather"
-            val descriptionText = "Weather monitoring in the background"
-            val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel("Weather", name, importance).apply {
-                description = descriptionText
-            }
-            val notificationManager = getSystemService<NotificationManager>()
-            notificationManager?.createNotificationChannel(channel)
-        }
     }
 
     companion object {

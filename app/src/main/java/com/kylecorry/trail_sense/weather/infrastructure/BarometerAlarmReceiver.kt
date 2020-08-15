@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.median
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
+import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
 import com.kylecorry.trail_sense.weather.domain.forcasting.HourlyForecaster
 import com.kylecorry.trail_sense.weather.domain.forcasting.IWeatherForecaster
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
@@ -153,14 +154,15 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
 
         val readings = PressureHistoryRepository.getAll(context)
 
-        if (forecaster.forecast(pressureConverter.convert(readings)) == Weather.Storm){
+        val forecast = forecaster.forecast(pressureConverter.convert(readings))
 
+        if (forecast == Weather.Storm){
             val shouldSend = userPrefs.weather.sendStormAlerts
             if (shouldSend && !sentAlert) {
                 val builder = NotificationCompat.Builder(context, "Alerts")
                     .setSmallIcon(R.drawable.ic_alert)
-                    .setContentTitle("Storm Alert")
-                    .setContentText("A storm might be approaching")
+                    .setContentTitle(context.getString(R.string.notification_storm_alert_title))
+                    .setContentText(context.getString(R.string.notification_storm_alert_text))
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
 
                 with(NotificationManagerCompat.from(context)) {
@@ -179,6 +181,7 @@ class BarometerAlarmReceiver: BroadcastReceiver() {
             }
         }
 
+        WeatherNotificationService.updateNotificationForecast(context, forecast)
 
         Log.i("BarometerAlarmReceiver", "Got all readings recorded at ${ZonedDateTime.now()}")
 

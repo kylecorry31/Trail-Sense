@@ -187,4 +187,7 @@
     <string name="pref_average_speed" translatable="false">pref_average_speed</string>
     <string name="long_press_beacon_toast">Long press a beacon to view options.</string>
     <string name="extra_action" translatable="false">extra_action</string>
+    <string name="notification_monitoring_weather">Monitoring weather in the background</string>
+    <string name="notification_storm_alert_text">A storm might be approaching</string>
+    <string name="notification_storm_alert_title">Storm Alert</string>
 </resources>
