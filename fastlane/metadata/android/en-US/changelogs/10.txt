@@ -1,0 +1,9 @@
+- Show velocity on the navigation tab
+- Show approx. time to beacons
+- Reorganized the navigation tab
+- Show GPS/Compass accuracy
+- Add notes and elevation to beacons
+- Add ability to edit beacons
+- Add setting for forecast sensitivity
+- Add weather info to notification
+- Improve sea level pressure calculation
