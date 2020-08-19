@@ -63,6 +63,9 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
                     altimeter.stop(that::onLocationUpdate)
                     altitudeReadings.add(altimeter.altitude)
                     hasLocation = true
+                    if (hasBarometerReading){
+                        gotAllReadings()
+                    }
                 }
                 cancel()
             }

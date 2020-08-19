@@ -19,6 +19,7 @@
         <activity
             android:name="com.kylecorry.trail_sense.MainActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +28,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <data android:scheme="geo" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.kylecorry.trail_sense.WEATHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.kylecorry.trail_sense.ASTRONOMY" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

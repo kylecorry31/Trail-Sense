@@ -21,13 +21,12 @@ object WeatherNotificationService {
         createNotificationChannel(context)
 
         val stopIntent = Intent(context, WeatherStopMonitoringReceiver::class.java)
-        val openIntent = Intent(context, MainActivity::class.java)
-        openIntent.putExtra(context.getString(R.string.extra_action), R.id.action_weather)
+        val openIntent = MainActivity.weatherIntent(context)
 
         val stopPendingIntent: PendingIntent =
             PendingIntent.getBroadcast(context, 0, stopIntent, 0)
         val openPendingIntent: PendingIntent =
-            PendingIntent.getActivity(context, 0, openIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getActivity(context, 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val stopAction = Notification.Action.Builder(
             Icon.createWithResource("", R.drawable.ic_cancel),

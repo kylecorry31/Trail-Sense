@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -96,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (intent.hasExtra(getString(R.string.extra_action))){
+            println("HAS EXTRA")
             val desiredAction = intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
             bottomNavigation.selectedItemId = desiredAction
         }
@@ -106,6 +108,20 @@ class MainActivity : AppCompatActivity() {
             syncFragmentWithSelection(item.itemId)
             true
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        if (intent == null){
+            return
+        }
+
+        if (intent.hasExtra(getString(R.string.extra_action))){
+            val desiredAction = intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
+            bottomNavigation.selectedItemId = desiredAction
+        }
+
+        syncFragmentWithSelection(bottomNavigation.selectedItemId)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -189,6 +205,25 @@ class MainActivity : AppCompatActivity() {
             permissions.toTypedArray(),
             1
         )
+    }
+
+    companion object {
+
+        fun weatherIntent(context: Context): Intent {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra(context.getString(R.string.extra_action), R.id.action_weather)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_SINGLE_TOP
+            return intent
+        }
+
+        fun astronomyIntent(context: Context): Intent {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra(context.getString(R.string.extra_action), R.id.action_astronomy)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_SINGLE_TOP
+            return intent
+        }
     }
     
 }

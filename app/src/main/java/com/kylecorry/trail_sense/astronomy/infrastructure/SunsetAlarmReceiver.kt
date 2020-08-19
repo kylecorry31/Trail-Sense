@@ -53,6 +53,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             if (!hasLocation) {
                 gps.stop(that::onLocationUpdate)
                 hasLocation = true
+                gotReading()
             }
             cancel()
         }
@@ -61,21 +62,21 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             gps.start(this::onLocationUpdate)
         } else {
             hasLocation = true
-            gotAllReadings()
+            gotReading()
         }
     }
 
     private fun onLocationUpdate(): Boolean {
         return if (hasLocation) {
             hasLocation = true
-            gotAllReadings()
+            gotReading()
             false
         } else {
             true
         }
     }
 
-    private fun gotAllReadings() {
+    private fun gotReading() {
         gpsTimeout.cancel()
 
         val alertMinutes = userPrefs.astronomy.sunsetAlertMinutesBefore
@@ -138,11 +139,10 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
 
         val formattedTime = sunset.toDisplayFormat(context)
 
-        val openIntent = Intent(context, MainActivity::class.java)
-        openIntent.putExtra(context.getString(R.string.extra_action), R.id.action_astronomy)
+        val openIntent = MainActivity.astronomyIntent(context)
 
         val openPendingIntent: PendingIntent =
-            PendingIntent.getActivity(context, 0, openIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getActivity(context, NOTIFICATION_ID, openIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.moon_waning_crescent)
@@ -153,6 +153,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
                     formattedTime
                 )
             )
+            .setAutoCancel(false)
             .setContentIntent(openPendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
@@ -188,6 +189,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
 
         const val TAG = "SunsetAlarmReceiver"
         const val NOTIFICATION_ID = 1231
+        private const val PI_ID = 8309
         const val NOTIFICATION_CHANNEL_ID = "Sunset alert"
 
         fun intent(context: Context): Intent {
@@ -196,7 +198,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
 
         fun pendingIntent(context: Context): PendingIntent {
             return PendingIntent.getBroadcast(
-                context, 1, intent(context), 0
+                context, PI_ID, intent(context), 0
             )
         }
     }
