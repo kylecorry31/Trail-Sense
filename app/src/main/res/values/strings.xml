@@ -190,4 +190,12 @@
     <string name="notification_monitoring_weather">Monitoring weather in the background</string>
     <string name="notification_storm_alert_text">A storm might be approaching</string>
     <string name="notification_storm_alert_title">Storm Alert</string>
+    <string name="coordinate_format_decimal_degrees">Decimal Degrees</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Degrees Decimal Minutes</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Degrees Minutes Seconds</string>
+    <string name="pref_coordinate_format" translatable="false">pref_coordinate_format</string>
+    <string name="pref_coordinate_format_title">Coordinate format</string>
+    <string name="coordinate_format_string_ddm">%s\u0020\u0020\u0020\u0020%s</string>
+    <string name="coordinate_format_string_dms">%s\u0020\u0020\u0020\u0020%s</string>
+    <string name="coordinate_format_string_dd">%s,\u0020\u0020%s</string>
 </resources>

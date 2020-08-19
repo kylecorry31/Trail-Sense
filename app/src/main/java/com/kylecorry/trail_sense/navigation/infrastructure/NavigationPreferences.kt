@@ -4,6 +4,11 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.domain.locationformat.ILocationFormatter
+import com.kylecorry.trail_sense.navigation.domain.locationformat.LocationDecimalDegreesFormatter
+import com.kylecorry.trail_sense.navigation.domain.locationformat.LocationDegreesDecimalMinuteFormatter
+import com.kylecorry.trail_sense.navigation.domain.locationformat.LocationDegreesMinuteSecondFormatter
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import kotlin.math.min
 
@@ -62,6 +67,35 @@ class NavigationPreferences(private val context: Context) {
             putFloat(context.getString(R.string.pref_average_speed), min(metersPerSecond, 3f))
         }
     }
+
+    fun formatLocation(location: Coordinate): String {
+        val formatter = locationFormatter
+        val lat = formatter.formatLatitude(location)
+        val lng = formatter.formatLongitude(location)
+        return getFormattedLocation(lat, lng)
+    }
+
+    private fun getFormattedLocation(latitude: String, longitude: String): String {
+        return context.getString(locationFormat, latitude, longitude)
+    }
+
+    private val locationFormat: Int
+    get() {
+        return when(prefs.getString(context.getString(R.string.pref_coordinate_format), "dms")){
+            "dd" -> R.string.coordinate_format_string_dd
+            "ddm" -> R.string.coordinate_format_string_ddm
+            else -> R.string.coordinate_format_string_dms
+        }
+    }
+
+    private val locationFormatter: ILocationFormatter
+        get() {
+            return when(prefs.getString(context.getString(R.string.pref_coordinate_format), "dms")){
+                "dd" -> LocationDecimalDegreesFormatter()
+                "ddm" -> LocationDegreesDecimalMinuteFormatter()
+                else -> LocationDegreesMinuteSecondFormatter()
+            }
+        }
 
     enum class AltimeterMode {
         Barometer,

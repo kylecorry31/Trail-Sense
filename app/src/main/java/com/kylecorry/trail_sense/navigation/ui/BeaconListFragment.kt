@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
+import com.kylecorry.trail_sense.navigation.domain.locationformat.ILocationFormatter
 import com.kylecorry.trail_sense.navigation.infrastructure.*
 import com.kylecorry.trail_sense.shared.UiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -112,7 +113,7 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
         shareSheet.findViewById<LinearLayout>(R.id.share_action_copy_coordinates)
             .setOnClickListener {
                 selectedBeacon?.apply {
-                    val sender = BeaconCoordinatesCopy(Clipboard(requireContext()))
+                    val sender = BeaconCoordinatesCopy(Clipboard(requireContext()), prefs)
                     sender.send(this)
                 }
                 shareSheet.visibility = View.GONE
@@ -120,7 +121,7 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
 
         shareSheet.findViewById<LinearLayout>(R.id.share_action_copy_beacon).setOnClickListener {
             selectedBeacon?.apply {
-                val sender = BeaconCopy(Clipboard(requireContext()))
+                val sender = BeaconCopy(Clipboard(requireContext()), prefs)
                 sender.send(this)
             }
             shareSheet.visibility = View.GONE
@@ -161,7 +162,8 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
         fun bindToBeacon(beacon: Beacon) {
             beaconVisibility = beacon.visible
             nameText.text = beacon.name
-            locationText.text = beacon.coordinate.getFormattedString()
+
+            locationText.text = prefs.navigation.formatLocation(beacon.coordinate)
             val distance = navigationService.navigate(beacon.coordinate, location).distance
             distanceText.text = LocationMath.distanceToReadableString(distance, prefs.distanceUnits)
 
@@ -234,7 +236,7 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
                             }
                             updateBeaconEmptyText(adapter.beacons.isNotEmpty())
                         }
-                        setMessage(beacon.coordinate.toString())
+                        setMessage(prefs.navigation.formatLocation(beacon.coordinate))
                         setTitle(beacon.name)
                     }
                     builder.create()

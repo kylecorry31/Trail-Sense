@@ -24,10 +24,6 @@ data class Coordinate(val latitude: Double, val longitude: Double) {
         return "$latitudeDMS, $longitudeDMS"
     }
 
-    fun getFormattedString(): String {
-        return "$latitudeDMS    $longitudeDMS"
-    }
-
     private fun dmsString(degrees: Double): String {
         val deg = abs(degrees.toInt())
         val minutes = abs((degrees % 1) * 60)

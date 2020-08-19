@@ -14,14 +14,6 @@ class CoordinateTest {
     }
 
     @Test
-    fun canConvertToFormattedString(){
-        assertEquals("10°2'5.0\" N    77°30'30.0\" E", Coordinate(10.03472, 77.508333).getFormattedString())
-        assertEquals("10°2'5.0\" S    77°30'30.0\" E", Coordinate(-10.03472, 77.508333).getFormattedString())
-        assertEquals("10°2'5.0\" N    77°30'30.0\" W", Coordinate(10.03472, -77.508333).getFormattedString())
-        assertEquals("10°2'5.0\" S    77°30'30.0\" W", Coordinate(-10.03472, -77.508333).getFormattedString())
-    }
-
-    @Test
     fun canParseLongitude(){
         val cases = listOf(
             // DMS

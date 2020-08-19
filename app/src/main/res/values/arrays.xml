@@ -112,4 +112,16 @@
         <item>never</item>
     </string-array>
 
+    <string-array name="coordinate_format_entries">
+        <item>@string/coordinate_format_decimal_degrees</item>
+        <item>@string/coordinate_format_degrees_decimal_minutes</item>
+        <item>@string/coordinate_format_degrees_minutes_seconds</item>
+    </string-array>
+
+    <string-array name="coordinate_format_values">
+        <item>dd</item>
+        <item>ddm</item>
+        <item>dms</item>
+    </string-array>
+
 </resources>

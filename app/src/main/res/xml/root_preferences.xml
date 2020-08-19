@@ -18,6 +18,14 @@
             app:title="@string/pref_pressure_units_title"
             app:useSimpleSummaryProvider="true" />
 
+        <ListPreference
+            app:defaultValue="dms"
+            app:entries="@array/coordinate_format_entries"
+            app:entryValues="@array/coordinate_format_values"
+            app:key="@string/pref_coordinate_format"
+            app:title="@string/pref_coordinate_format_title"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreferenceCompat
             app:key="@string/pref_use_24_hour"
             app:title="@string/pref_use_24_hour_title"
@@ -34,7 +42,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_navigation_header">
-
 
         <SwitchPreferenceCompat
             app:key="@string/pref_use_true_north"

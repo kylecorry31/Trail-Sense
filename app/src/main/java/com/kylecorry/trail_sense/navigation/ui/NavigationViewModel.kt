@@ -70,7 +70,7 @@ class NavigationViewModel(
         }
 
     val location: String
-        get() = gps.location.getFormattedString()
+        get() = prefs.navigation.formatLocation(gps.location)
 
     val altitude: String
         get() {
@@ -271,7 +271,8 @@ class NavigationViewModel(
                     gps.altitude,
                     useTrueNorth
                 )
-                val distance = vector.distance * Math.PI / 2.0 // Used to estimate non-linear distance within 2 standard deviations
+                val distance =
+                    vector.distance * Math.PI / 2.0 // Used to estimate non-linear distance within 2 standard deviations
                 val time = Duration.ofSeconds((distance / speed).roundToLong())
                 return time.formatHM()
             }
@@ -281,12 +282,13 @@ class NavigationViewModel(
 
     val currentSpeed: String
         get() {
-            return LocationMath.convertToBaseSpeed(gps.speed, distanceUnits).roundPlaces(1).toString()
+            return LocationMath.convertToBaseSpeed(gps.speed, distanceUnits).roundPlaces(1)
+                .toString()
         }
 
     val speedUnit: Int
         get() {
-            return if (distanceUnits == UserPreferences.DistanceUnits.Meters){
+            return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
                 R.string.kilometers_per_hour
             } else {
                 R.string.miles_per_hour
@@ -298,7 +300,7 @@ class NavigationViewModel(
             return
         }
 
-        if (gps.speed > 3f){
+        if (gps.speed > 3f) {
             // If traveling by running, bike or car
             speed = gps.speed
         } else {
