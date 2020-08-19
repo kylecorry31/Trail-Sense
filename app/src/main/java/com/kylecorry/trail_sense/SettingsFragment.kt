@@ -1,14 +1,16 @@
 package com.kylecorry.trail_sense
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.shared.AndroidUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.BarometerService
+import java.time.LocalDateTime
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -39,6 +41,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
 
             activity?.recreate()
+            true
+        }
+
+        preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_sunset_alert_time))?.setOnPreferenceChangeListener { _, value ->
+            context?.apply {
+                sendBroadcast(SunsetAlarmReceiver.intent(this))
+            }
             true
         }
 

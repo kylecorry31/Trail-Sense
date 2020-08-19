@@ -167,6 +167,20 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            app:key="@string/pref_sunset_alerts"
+            app:title="@string/pref_sunset_alerts_title"
+            app:defaultValue="true" />
+
+        <ListPreference
+            app:defaultValue="60"
+            app:entries="@array/sunset_alert_time_entries"
+            app:entryValues="@array/sunset_alert_time_values"
+            app:key="@string/pref_sunset_alert_time"
+            app:title="@string/pref_sunset_alert_time_title"
+            app:useSimpleSummaryProvider="true"
+            android:dependency="@string/pref_sunset_alerts"/>
+
+        <SwitchPreferenceCompat
             app:key="@string/pref_center_sun_and_moon"
             app:title="@string/pref_center_sun_and_moon_title"
             app:defaultValue="false"/>

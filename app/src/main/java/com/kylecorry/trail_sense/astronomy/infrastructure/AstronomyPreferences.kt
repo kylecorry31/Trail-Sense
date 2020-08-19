@@ -1,9 +1,11 @@
 package com.kylecorry.trail_sense.astronomy.infrastructure
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
+import java.time.LocalDate
 
 class AstronomyPreferences(private val context: Context) {
 
@@ -37,5 +39,25 @@ class AstronomyPreferences(private val context: Context) {
             val raw = prefs.getString(context.getString(R.string.pref_show_sun_moon_compass), "never")
             return raw == "always"
         }
+
+    val sendSunsetAlerts: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_sunset_alerts), true)
+
+    val sunsetAlertMinutesBefore: Long
+        get() {
+            return prefs.getString(context.getString(R.string.pref_sunset_alert_time), "60")?.toLong() ?: 60
+        }
+
+    val sunsetAlertLastSent: LocalDate
+        get() {
+            val raw = prefs.getString("sunset_alert_last_sent_date", LocalDate.MIN.toString()) ?: LocalDate.MIN.toString()
+            return LocalDate.parse(raw)
+        }
+
+    fun setSunsetAlertLastSentDate(date: LocalDate){
+        prefs.edit {
+            putString("sunset_alert_last_sent_date", date.toString())
+        }
+    }
 
 }

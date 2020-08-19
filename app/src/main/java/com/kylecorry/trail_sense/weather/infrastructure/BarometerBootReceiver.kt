@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.shared.AndroidUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 
@@ -15,6 +17,8 @@ class BarometerBootReceiver: BroadcastReceiver() {
             } else {
                 BarometerService.stop(context)
             }
+
+            context.sendBroadcast(SunsetAlarmReceiver.intent(context))
         }
     }
 }
