@@ -56,11 +56,11 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         }
     }
 
-    private fun getTodaySunTimes(location: Coordinate, sunTimesMode: SunTimesMode): SunTimes {
+    fun getTodaySunTimes(location: Coordinate, sunTimesMode: SunTimesMode): SunTimes {
         return getSunTimes(location, sunTimesMode, LocalDate.now(clock))
     }
 
-    private fun getTomorrowSunTimes(location: Coordinate, sunTimesMode: SunTimesMode): SunTimes {
+    fun getTomorrowSunTimes(location: Coordinate, sunTimesMode: SunTimesMode): SunTimes {
         return getSunTimes(location, sunTimesMode, LocalDate.now(clock).plusDays(1))
     }
 

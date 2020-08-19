@@ -202,4 +202,8 @@
     <string name="pref_sunset_alerts_title">Sunset alerts</string>
     <string name="pref_sunset_alert_time">pref_sunset_alert_time</string>
     <string name="pref_sunset_alert_time_title">Sunset alert time</string>
+    <string name="sunset_alert_notification_title">Sun is setting soon</string>
+    <string name="sunset_alert_notification_text">The sun will set at %s</string>
+    <string name="sunset_alert_channel_description">Sunset alerts</string>
+    <string name="sunset_alert_channel_title">Sunset alert</string>
 </resources>

@@ -18,12 +18,10 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment
 import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.shared.AndroidUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.weather.infrastructure.BarometerService
 import com.kylecorry.trail_sense.weather.ui.BarometerFragment
-import java.time.LocalDateTime
 
 
 class MainActivity : AppCompatActivity() {
