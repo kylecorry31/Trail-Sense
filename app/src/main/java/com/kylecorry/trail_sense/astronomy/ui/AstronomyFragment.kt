@@ -1,9 +1,12 @@
 package com.kylecorry.trail_sense.astronomy.ui
 
+import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +14,13 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstroAltitude
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.domain.moon.MoonTruePhase
+import com.kylecorry.trail_sense.astronomy.domain.moon.Tide
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.GPS
@@ -33,13 +39,14 @@ class AstronomyFragment : Fragment() {
 
     private lateinit var sunTxt: TextView
     private lateinit var remDaylightTxt: TextView
-    private lateinit var moonTxt: TextView
     private lateinit var timer: Timer
     private lateinit var handler: Handler
     private lateinit var moonPosition: ImageView
     private lateinit var sunPosition: ImageView
     private lateinit var moonPositionArrow: ImageView
     private lateinit var moonIndicatorCircle: ImageView
+    private lateinit var detailList: RecyclerView
+    private lateinit var adapter: DetailAdapter
 
     private lateinit var prevDateBtn: ImageButton
     private lateinit var nextDateBtn: ImageButton
@@ -53,8 +60,6 @@ class AstronomyFragment : Fragment() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val astronomyService = AstronomyService()
 
-    private lateinit var riseSetTimes: List<Pair<TextView, TextView>>
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,16 +67,20 @@ class AstronomyFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.activity_astronomy, container, false)
 
+        detailList = view.findViewById(R.id.astronomy_detail_list)
+        val layoutManager = LinearLayoutManager(context)
+        detailList.layoutManager = layoutManager
 
-        riseSetTimes = listOf(
-            Pair(view.findViewById(R.id.sun_start), view.findViewById(R.id.sun_start_time)),
-            Pair(view.findViewById(R.id.sun_end), view.findViewById(R.id.sun_end_time)),
-            Pair(view.findViewById(R.id.moon_start), view.findViewById(R.id.moon_rise_time)),
-            Pair(view.findViewById(R.id.moon_end), view.findViewById(R.id.moon_set_time))
-        )
+//        val dividerItemDecoration = DividerItemDecoration(
+//            context,
+//            layoutManager.orientation
+//        )
+//        detailList.addItemDecoration(dividerItemDecoration)
+
+        adapter = DetailAdapter(listOf())
+        detailList.adapter = adapter
 
         sunTxt = view.findViewById(R.id.remaining_time)
-        moonTxt = view.findViewById(R.id.moon_phase)
         remDaylightTxt = view.findViewById(R.id.remaining_time_lbl)
         sunPosition = view.findViewById(R.id.sun_position)
         moonPosition = view.findViewById(R.id.moon_position)
@@ -131,7 +140,7 @@ class AstronomyFragment : Fragment() {
         updateSunUI()
         updateMoonUI()
         updateAstronomyChart()
-        updateRiseSetTimes()
+        updateAstronomyDetails()
     }
 
     private fun updateMoonUI() {
@@ -140,9 +149,7 @@ class AstronomyFragment : Fragment() {
         }
 
         val moonPhase = astronomyService.getCurrentMoonPhase()
-
         moonPosition.setImageResource(getMoonImage(moonPhase.phase))
-        moonTxt.text = "${getString(moonPhase.phase.longNameResource)} (${moonPhase.illumination.roundToInt()}%)"
     }
 
     private fun updateAstronomyChart() {
@@ -279,24 +286,66 @@ class AstronomyFragment : Fragment() {
         displayTimeUntilNextSunEvent()
     }
 
-    private fun updateRiseSetTimes() {
+    private fun updateAstronomyDetails() {
         if (context == null) {
             return
         }
 
+        // Rise / set times
         val sunTimes = astronomyService.getSunTimes(gps.location, sunTimesMode, displayDate)
         val moonTimes = astronomyService.getMoonTimes(gps.location, displayDate)
 
         val times = listOf(
-            Pair(getSunriseWording(), sunTimes.up),
-            Pair(getSunsetWording(), sunTimes.down),
-            Pair(getString(R.string.moon_rise), moonTimes.up),
-            Pair(getString(R.string.moon_set), moonTimes.down)
-        ).sortedBy { it.second }
+            Pair(Pair(Pair(R.drawable.weather_sunset_up, R.color.colorPrimary), getSunriseWording()), sunTimes.up),
+            Pair(Pair(Pair(R.drawable.weather_sunset_down, R.color.colorPrimary), getSunsetWording()), sunTimes.down),
+            // TODO: Get moon icons
+            Pair(Pair(Pair(R.drawable.moon_waning_crescent, null), getString(R.string.moon_rise)), moonTimes.up),
+            Pair(Pair(Pair(R.drawable.moon_waning_crescent, null), getString(R.string.moon_set)), moonTimes.down)
+        ).sortedBy { it.second }.map {
+            AstroDetail(it.first.first.first, it.first.second, getTimeString(it.second), it.first.first.second)
+        }.toMutableList()
 
-        times.forEachIndexed { index, time ->
-            riseSetTimes[index].first.text = time.first
-            riseSetTimes[index].second.text = getTimeString(time.second)
+        val solarNoon = astronomyService.getSolarNoon(gps.location, displayDate)
+        val lunarNoon = astronomyService.getLunarNoon(gps.location, displayDate)
+
+        if (solarNoon != null){
+            times.add(AstroDetail(R.drawable.sun, "Solar noon", getTimeString(solarNoon), R.color.colorPrimary))
+        }
+
+        if (lunarNoon != null){
+            times.add(AstroDetail(R.drawable.moon_waning_crescent, "Lunar noon", getTimeString(lunarNoon)))
+        }
+
+        if (displayDate == LocalDate.now()){
+            // Moon phase
+            val moonPhase = astronomyService.getCurrentMoonPhase()
+
+            times.add(AstroDetail(getMoonImage(moonPhase.phase), "Moon phase", getString(moonPhase.phase.longNameResource)))
+            times.add(AstroDetail(R.drawable.illumination, "Moon illumination", "${moonPhase.illumination.roundToInt()}%"))
+
+            val moonAltitude = astronomyService.getMoonAltitude(gps.location, LocalDateTime.now()).altitudeDegrees.roundToInt()
+            val sunAltitude = astronomyService.getSunAltitude(gps.location, LocalDateTime.now()).altitudeDegrees.roundToInt()
+
+            // TODO: Add icons
+            times.add(AstroDetail(R.drawable.sun, "Sun altitude", "$sunAltitude°", R.color.colorPrimary))
+            times.add(AstroDetail(R.drawable.moon_waning_crescent, "Moon altitude", "$moonAltitude°"))
+        } else {
+            val moonPhase = astronomyService.getMoonPhase(displayDate)
+            times.add(AstroDetail(getMoonImage(moonPhase.phase), "Moon phase", getString(moonPhase.phase.longNameResource)))
+            times.add(AstroDetail(R.drawable.illumination, "Moon illumination", "${moonPhase.illumination.roundToInt()}%"))
+        }
+
+        val tide = astronomyService.getTides(displayDate)
+        times.add(AstroDetail(R.drawable.tides, getString(R.string.tidal_range), getTideString(tide), R.color.colorAccent))
+
+        adapter.details = times
+    }
+
+    private fun getTideString(tide: Tide): String {
+        return when(tide){
+            Tide.Neap -> getString(R.string.tide_neap)
+            Tide.Spring -> getString(R.string.tide_spring)
+            Tide.Normal -> getString(R.string.tide_normal)
         }
     }
 
@@ -391,5 +440,59 @@ class AstronomyFragment : Fragment() {
             SunTimesMode.Astronomical -> getString(R.string.sun_astronomical)
         }
     }
+
+    data class AstroDetail(val icon: Int, val name: String, val value: String, val tint: Int? = null)
+
+    inner class DetailHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private var nameText: TextView = itemView.findViewById(R.id.astronomy_detail_name)
+        private var valueText: TextView = itemView.findViewById(R.id.astronomy_detail_value)
+        private var iconView: ImageView = itemView.findViewById(R.id.astronomy_detail_icon)
+
+        fun bindToDetail(detail: AstroDetail) {
+            nameText.text = detail.name
+            valueText.text = detail.value
+            iconView.setImageResource(detail.icon)
+            if (detail.tint != null){
+                iconView.imageTintList = ColorStateList.valueOf(resources.getColor(detail.tint, null))
+            } else {
+                val theme = requireContext().theme
+                val typedValue = TypedValue()
+                theme.resolveAttribute(android.R.attr.textColorSecondary, typedValue, true)
+                val arr = requireContext().obtainStyledAttributes(typedValue.data, IntArray(1) {
+                    android.R.attr.textColorSecondary
+                })
+                val secondaryColor = arr.getColor(0, -1)
+                arr.recycle()
+                iconView.imageTintList = ColorStateList.valueOf(secondaryColor)
+            }
+        }
+    }
+
+
+    inner class DetailAdapter(mDetails: List<AstroDetail>) : RecyclerView.Adapter<DetailHolder>() {
+
+        var details: List<AstroDetail> = mDetails
+            set(value) {
+                field = value
+                notifyDataSetChanged()
+            }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailHolder {
+            val view = layoutInflater.inflate(R.layout.list_item_astronomy_detail, parent, false)
+            return DetailHolder(view)
+        }
+
+        override fun getItemCount(): Int {
+            return details.size
+        }
+
+        override fun onBindViewHolder(holder: DetailHolder, position: Int) {
+            val detail = details[position]
+            holder.bindToDetail(detail)
+        }
+
+    }
+
 
 }

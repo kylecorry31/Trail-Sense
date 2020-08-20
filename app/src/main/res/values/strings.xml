@@ -206,4 +206,8 @@
     <string name="sunset_alert_notification_text">The sun will set at %s</string>
     <string name="sunset_alert_channel_description">Sunset alerts</string>
     <string name="sunset_alert_channel_title">Sunset alert</string>
+    <string name="tidal_range">Tidal range</string>
+    <string name="tide_neap">Neap</string>
+    <string name="tide_spring">Spring</string>
+    <string name="tide_normal">Normal</string>
 </resources>
