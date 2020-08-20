@@ -243,6 +243,8 @@ class AstronomyFragment : Fragment() {
         // Rise / set times
         val sunTimes = astronomyService.getSunTimes(gps.location, sunTimesMode, displayDate)
         val moonTimes = astronomyService.getMoonTimes(gps.location, displayDate)
+        val solarNoon = astronomyService.getSolarNoon(gps.location, displayDate)
+        val lunarNoon = astronomyService.getLunarNoon(gps.location, displayDate)
 
         val details = listOf(
             Pair(
@@ -265,6 +267,15 @@ class AstronomyFragment : Fragment() {
             Pair(
                 Pair(Pair(R.drawable.moon_waning_crescent, null), getString(R.string.moon_set)),
                 moonTimes.down
+            ),
+            // TODO: Get solar/lunar noon images
+            Pair(
+                Pair(Pair(R.drawable.sun, R.color.colorPrimary), getString(R.string.solar_noon)),
+                solarNoon
+            ),
+            Pair(
+                Pair(Pair(R.drawable.moon_full, null), getString(R.string.lunar_noon)),
+                lunarNoon
             )
         ).sortedBy { it.second }.map {
             AstroDetail(
@@ -276,34 +287,6 @@ class AstronomyFragment : Fragment() {
         }.toMutableList()
 
         details.add(AstroDetail.spacer())
-
-        val solarNoon = astronomyService.getSolarNoon(gps.location, displayDate)
-        val lunarNoon = astronomyService.getLunarNoon(gps.location, displayDate)
-
-        if (solarNoon != null) {
-            details.add(
-                AstroDetail(
-                    R.drawable.sun,
-                    getString(R.string.solar_noon),
-                    getTimeString(solarNoon),
-                    R.color.colorPrimary
-                )
-            )
-        }
-
-        if (lunarNoon != null) {
-            details.add(
-                AstroDetail(
-                    R.drawable.moon_waning_crescent,
-                    getString(R.string.lunar_noon),
-                    getTimeString(lunarNoon)
-                )
-            )
-        }
-
-        if (solarNoon != null || lunarNoon != null) {
-            details.add(AstroDetail.spacer())
-        }
 
         if (displayDate == LocalDate.now()) {
             // Moon phase
