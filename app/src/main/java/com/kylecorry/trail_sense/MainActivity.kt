@@ -86,8 +86,8 @@ class MainActivity : AppCompatActivity() {
             item.isVisible = false
         }
 
-        val intent = SunsetAlarmReceiver.intent(applicationContext)
-        sendBroadcast(intent)
+        val sunsetIntent = SunsetAlarmReceiver.intent(applicationContext)
+        sendBroadcast(sunsetIntent)
 
         val intentData = intent.data
         if (intent.scheme == "geo" && intentData != null) {
@@ -97,7 +97,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (intent.hasExtra(getString(R.string.extra_action))){
-            println("HAS EXTRA")
             val desiredAction = intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
             bottomNavigation.selectedItemId = desiredAction
         }
@@ -115,6 +114,8 @@ class MainActivity : AppCompatActivity() {
         if (intent == null){
             return
         }
+
+        setIntent(intent)
 
         if (intent.hasExtra(getString(R.string.extra_action))){
             val desiredAction = intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
@@ -212,16 +213,14 @@ class MainActivity : AppCompatActivity() {
         fun weatherIntent(context: Context): Intent {
             val intent = Intent(context, MainActivity::class.java)
             intent.putExtra(context.getString(R.string.extra_action), R.id.action_weather)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
-                    Intent.FLAG_ACTIVITY_SINGLE_TOP
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
             return intent
         }
 
         fun astronomyIntent(context: Context): Intent {
             val intent = Intent(context, MainActivity::class.java)
             intent.putExtra(context.getString(R.string.extra_action), R.id.action_astronomy)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
-                    Intent.FLAG_ACTIVITY_SINGLE_TOP
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
             return intent
         }
     }

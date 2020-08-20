@@ -142,10 +142,10 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         val openIntent = MainActivity.astronomyIntent(context)
 
         val openPendingIntent: PendingIntent =
-            PendingIntent.getActivity(context, NOTIFICATION_ID, openIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getActivity(context, NOTIFICATION_ID, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.drawable.moon_waning_crescent)
+            .setSmallIcon(R.drawable.weather_sunset_down)
             .setContentTitle(context.getString(R.string.sunset_alert_notification_title))
             .setContentText(
                 context.getString(
