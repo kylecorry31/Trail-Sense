@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -122,14 +121,7 @@ class NavigatorFragment(
         }
         beaconIndicators = beacons
 
-        val theme = requireContext().theme
-        val typedValue = TypedValue()
-        theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
-        val arr = requireContext().obtainStyledAttributes(typedValue.data, IntArray(1) {
-            android.R.attr.textColorSecondary
-        })
-        val astronomyColor = arr.getColor(0, -1)
-        arr.recycle()
+        val astronomyColor = UiUtils.androidTextColorPrimary(requireContext())
 
         val arrowImg = resources.getDrawable(R.drawable.ic_arrow_target, null)
         val sunImg = resources.getDrawable(R.drawable.sun, null)
@@ -417,15 +409,7 @@ class NavigatorFragment(
         }
 
         if (!isRulerSetup) {
-
-            val theme = requireContext().theme
-            val typedValue = TypedValue()
-            theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
-            val arr = requireContext().obtainStyledAttributes(typedValue.data, IntArray(1) {
-                android.R.attr.textColorPrimary
-            })
-            val primaryColor = arr.getColor(0, -1)
-            arr.recycle()
+            val primaryColor = UiUtils.androidTextColorPrimary(requireContext())
 
             for (i in 0..ceil(height).toInt() * 8) {
                 val inches = i / 8.0

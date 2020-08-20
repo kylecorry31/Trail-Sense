@@ -210,4 +210,12 @@
     <string name="tide_neap">Neap</string>
     <string name="tide_spring">Spring</string>
     <string name="tide_normal">Normal</string>
+    <string name="solar_noon">Solar noon</string>
+    <string name="lunar_noon">Lunar noon</string>
+    <string name="moon_phase">Moon phase</string>
+    <string name="moon_illumination">Moon illumination</string>
+    <string name="sun_altitude">Sun altitude</string>
+    <string name="moon_altitude">Moon altitude</string>
+    <string name="degree_format">%d°</string>
+    <string name="percent_format">%d%%</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.weather.ui
 
 import android.graphics.Color
-import android.util.TypedValue
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
@@ -12,6 +11,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UiUtils
 import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnits
@@ -37,17 +37,10 @@ class PressureChart(private val chart: LineChart, private val color: Int, privat
         chart.xAxis.setDrawLabels(false)
         chart.axisRight.setDrawLabels(false)
 
-        val theme = chart.context.theme
-        val typedValue = TypedValue()
-        theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
-        val arr = chart.context.obtainStyledAttributes(typedValue.data, IntArray(1) {
-            android.R.attr.textColorPrimary
-        })
-        val primaryColor = arr.getColor(0, -1)
+        val primaryColor = UiUtils.androidTextColorPrimary(chart.context)
         val r = primaryColor.red
         val g = primaryColor.green
         val b = primaryColor.blue
-        arr.recycle()
 
         chart.xAxis.setDrawGridLines(false)
         chart.axisLeft.setDrawGridLines(true)

@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.ui
 
 import android.graphics.Color
-import android.util.TypedValue
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
@@ -11,11 +10,9 @@ import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstroAltitude
-import com.kylecorry.trail_sense.shared.toZonedDateTime
+import com.kylecorry.trail_sense.shared.UiUtils
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 
 
@@ -49,17 +46,10 @@ class AstroChart(private val chart: LineChart) {
         chart.axisLeft.setDrawLabels(false)
         chart.axisLeft.setDrawZeroLine(true)
 
-        val theme = chart.context.theme
-        val typedValue = TypedValue()
-        theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
-        val arr = chart.context.obtainStyledAttributes(typedValue.data, IntArray(1) {
-            android.R.attr.textColorPrimary
-        })
-        val primaryColor = arr.getColor(0, -1)
+        val primaryColor = UiUtils.androidTextColorPrimary(chart.context)
         val r = primaryColor.red
         val g = primaryColor.green
         val b = primaryColor.blue
-        arr.recycle()
 
         chart.xAxis.setDrawGridLines(false)
         chart.axisLeft.setDrawGridLines(false)
