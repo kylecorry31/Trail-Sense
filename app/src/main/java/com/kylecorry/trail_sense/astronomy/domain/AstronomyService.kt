@@ -59,28 +59,30 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getLunarNoon(location: Coordinate, date: LocalDate = LocalDate.now()): LocalDateTime? {
-        val moonTimes = getMoonTimes(location, date)
-        if (moonTimes.down == null || moonTimes.up == null){
-            return null
+        val altitudes = mutableListOf<AstroAltitude>()
+        var time = date.atStartOfDay()
+        while (time.toLocalDate() == date){
+            time = time.plusMinutes(1)
+            val altitude = getMoonAltitude(location, time)
+            altitudes.add(altitude)
         }
 
-        val approxNoon = moonTimes.up.plus(Duration.between(moonTimes.up, moonTimes.down).dividedBy(2))
-        val hourBeforeNoon = approxNoon.minusHours(1)
+        for (i in 1 until altitudes.size) {
+            val prev = altitudes[i - 1]
+            val current = altitudes[i]
+            val next = altitudes[i + 1]
 
-        var maxAltitude: AstroAltitude? = null
-        for (i in 0..(60 * 2 + 1)){
-            val altitude = getMoonAltitude(location, hourBeforeNoon.plusMinutes(i.toLong()))
-            if (maxAltitude == null || altitude.altitudeDegrees > maxAltitude.altitudeDegrees){
-                maxAltitude = altitude
+            if (current.altitudeDegrees >= prev.altitudeDegrees && current.altitudeDegrees >= next.altitudeDegrees) {
+                return current.time
             }
         }
 
-        return maxAltitude?.time
+        return null
     }
 
     fun getTides(date: LocalDate = LocalDate.now()): Tide {
         val phase = getMoonPhase(date)
-        return when(phase.phase){
+        return when (phase.phase) {
             MoonTruePhase.New, MoonTruePhase.Full -> Tide.Spring
             MoonTruePhase.FirstQuarter, MoonTruePhase.ThirdQuarter -> Tide.Neap
             else -> Tide.Normal
@@ -90,7 +92,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     // PUBLIC SUN METHODS
 
     fun getSunTimes(location: Coordinate, sunTimesMode: SunTimesMode, date: LocalDate): SunTimes {
-        return when (sunTimesMode){
+        return when (sunTimesMode) {
             SunTimesMode.Actual -> ActualTwilightCalculator().calculate(location, date)
             SunTimesMode.Civil -> CivilTwilightCalculator().calculate(location, date)
             SunTimesMode.Nautical -> NauticalTwilightCalculator().calculate(location, date)
@@ -118,13 +120,19 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     fun getNextSunset(location: Coordinate, sunTimesMode: SunTimesMode): LocalDateTime? {
         val today = getTodaySunTimes(location, sunTimesMode)
         val tomorrow = getTomorrowSunTimes(location, sunTimesMode)
-        return DateUtils.getClosestFutureTime(LocalDateTime.now(clock), listOf(today.down, tomorrow.down))
+        return DateUtils.getClosestFutureTime(
+            LocalDateTime.now(clock),
+            listOf(today.down, tomorrow.down)
+        )
     }
 
     fun getNextSunrise(location: Coordinate, sunTimesMode: SunTimesMode): LocalDateTime? {
         val today = getTodaySunTimes(location, sunTimesMode)
         val tomorrow = getTomorrowSunTimes(location, sunTimesMode)
-        return DateUtils.getClosestFutureTime(LocalDateTime.now(clock), listOf(today.up, tomorrow.up))
+        return DateUtils.getClosestFutureTime(
+            LocalDateTime.now(clock),
+            listOf(today.up, tomorrow.up)
+        )
     }
 
     fun isSunUp(location: Coordinate): Boolean {
@@ -137,23 +145,25 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getSolarNoon(location: Coordinate, date: LocalDate = LocalDate.now()): LocalDateTime? {
-        val sunTimes = getSunTimes(location, SunTimesMode.Actual, date)
-        if (sunTimes.down == null || sunTimes.up == null || sunTimes.down.isBefore(sunTimes.up)){
-            return null
+        val altitudes = mutableListOf<AstroAltitude>()
+        var time = date.atStartOfDay()
+        while (time.toLocalDate() == date){
+            time = time.plusMinutes(1)
+            val altitude = getSunAltitude(location, time)
+            altitudes.add(altitude)
         }
 
-        val approxNoon = sunTimes.up.plus(Duration.between(sunTimes.up, sunTimes.down).dividedBy(2))
-        val hourBeforeNoon = approxNoon.minusHours(1)
+        for (i in 1 until altitudes.size) {
+            val prev = altitudes[i - 1]
+            val current = altitudes[i]
+            val next = altitudes[i + 1]
 
-        var maxAltitude: AstroAltitude? = null
-        for (i in 0..(60 * 2 + 1)){
-            val altitude = getSunAltitude(location, hourBeforeNoon.plusMinutes(i.toLong()))
-            if (maxAltitude == null || altitude.altitudeDegrees > maxAltitude.altitudeDegrees){
-                maxAltitude = altitude
+            if (current.altitudeDegrees >= prev.altitudeDegrees && current.altitudeDegrees >= next.altitudeDegrees) {
+                return current.time
             }
         }
 
-        return maxAltitude?.time
+      return null
     }
 
     fun getSunAltitude(location: Coordinate, time: LocalDateTime): AstroAltitude {

@@ -14,6 +14,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.trail_sense.R
@@ -71,11 +72,11 @@ class AstronomyFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         detailList.layoutManager = layoutManager
 
-//        val dividerItemDecoration = DividerItemDecoration(
-//            context,
-//            layoutManager.orientation
-//        )
-//        detailList.addItemDecoration(dividerItemDecoration)
+        val dividerItemDecoration = DividerItemDecoration(
+            context,
+            layoutManager.orientation
+        )
+        detailList.addItemDecoration(dividerItemDecoration)
 
         adapter = DetailAdapter(listOf())
         detailList.adapter = adapter
