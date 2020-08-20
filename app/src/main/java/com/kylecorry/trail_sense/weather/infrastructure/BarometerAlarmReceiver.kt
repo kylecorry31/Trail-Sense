@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverterFactory
+import java.lang.Exception
 import java.time.Instant
 import java.time.ZonedDateTime
 import java.util.*
@@ -29,7 +30,7 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
 
     private lateinit var context: Context
     private lateinit var barometer: IBarometer
-    private lateinit var altimeter: IAltimeter
+    private lateinit var gps: IGPS
     private lateinit var timer: Timer
 
     private var hasLocation = false
@@ -48,13 +49,13 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
             weatherService = WeatherService(userPrefs.weather.stormAlertThreshold, userPrefs.weather.dailyForecastSlowThreshold, userPrefs.weather.hourlyForecastFastThreshold)
 
             barometer = Barometer(context)
-            altimeter = GPS(context)
+            gps = GPS(context)
 
             val that = this
             timer = timer(period = (5000 * (Companion.MAX_GPS_READINGS + 2)).toLong()) {
                 if (!hasLocation) {
-                    altimeter.stop(that::onLocationUpdate)
-                    altitudeReadings.add(altimeter.altitude)
+                    gps.stop(that::onLocationUpdate)
+                    altitudeReadings.add(gps.altitude)
                     hasLocation = true
                     if (hasBarometerReading){
                         gotAllReadings()
@@ -64,9 +65,9 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
             }
 
             if (userPrefs.useLocationFeatures) {
-                altimeter.start(this::onLocationUpdate)
+                gps.start(this::onLocationUpdate)
             } else {
-                altitudeReadings.add(altimeter.altitude)
+                altitudeReadings.add(gps.altitude)
                 hasLocation = true
             }
             barometer.start(this::onPressureUpdate)
@@ -74,7 +75,8 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
     }
 
     private fun onLocationUpdate(): Boolean {
-        altitudeReadings.add(altimeter.altitude)
+        altitudeReadings.add(gps.altitude)
+        updateAverageSpeed()
         return if (hasLocation || altitudeReadings.size >= Companion.MAX_GPS_READINGS) {
             hasLocation = true
             if (hasBarometerReading) {
@@ -130,7 +132,7 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
     }
 
     private fun gotAllReadings() {
-        altimeter.stop(this::onLocationUpdate)
+        gps.stop(this::onLocationUpdate)
         barometer.stop(this::onPressureUpdate)
         timer.cancel()
         PressureHistoryRepository.add(
@@ -217,6 +219,27 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
             // Register the channel with the system
             val notificationManager = context.getSystemService<NotificationManager>()
             notificationManager?.createNotificationChannel(channel)
+        }
+    }
+
+    private fun updateAverageSpeed(){
+        try {
+            if (gps.speed == 0f) {
+                return
+            }
+
+            if (gps.speed <= 3f) {
+                val lastSpeed = userPrefs.navigation.averageSpeed
+                val speed = if (lastSpeed == 0f) {
+                    gps.speed
+                } else {
+                    lastSpeed * 0.4f + gps.speed * 0.6f
+                }
+
+                userPrefs.navigation.setAverageSpeed(speed)
+            }
+        } catch (e: Exception){
+            // Don't do anything
         }
     }
 
