@@ -11,10 +11,16 @@ import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 
-class GPS(private val context: Context): AbstractSensor(), IGPS {
+class GPS(private val context: Context) : AbstractSensor(), IGPS {
 
     override val accuracy: Accuracy
         get() = _accuracy
+
+    override val horizontalAccuracy: Float?
+        get() = _horizontalAccuracy
+
+    override val verticalAccuracy: Float?
+        get() = _verticalAccuracy
 
     override val location: Coordinate
         get() = _location
@@ -33,6 +39,8 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
 
     private var _altitude = prefs.getFloat(LAST_ALTITUDE, 0f)
     private var _accuracy: Accuracy = Accuracy.Unknown
+    private var _horizontalAccuracy: Float? = null
+    private var _verticalAccuracy: Float? = null
     private var _speed: Float = prefs.getFloat(LAST_SPEED, 0f)
     private var _location = Coordinate(
         prefs.getFloat(LAST_LATITUDE, 0f).toDouble(),
@@ -44,15 +52,20 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
         if (!sensorChecker.hasGPS()) {
             return
         }
-        locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0f, locationListener)
+        locationManager?.requestLocationUpdates(
+            LocationManager.GPS_PROVIDER,
+            5000,
+            0f,
+            locationListener
+        )
     }
 
     override fun stopImpl() {
         locationManager?.removeUpdates(locationListener)
     }
 
-    private fun updateLastLocation(location: Location?){
-        if (location == null){
+    private fun updateLastLocation(location: Location?) {
+        if (location == null) {
             return
         }
 
@@ -62,9 +75,16 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
                 location.accuracy < 16 -> Accuracy.Medium
                 else -> Accuracy.Low
             }
+            this._horizontalAccuracy = location.accuracy
         }
 
-        if (location.hasSpeed()){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            if (location.hasVerticalAccuracy()) {
+                this._verticalAccuracy = location.verticalAccuracyMeters
+            }
+        }
+
+        if (location.hasSpeed()) {
             this._speed = location.speed
             prefs.edit {
                 putFloat(LAST_SPEED, _speed)
@@ -77,7 +97,8 @@ class GPS(private val context: Context): AbstractSensor(), IGPS {
         )
 
         if (location.hasAltitude() && location.altitude != 0.0) {
-            _altitude = location.altitude.toFloat() - AltitudeCorrection.getOffset(this._location, context)
+            _altitude =
+                location.altitude.toFloat() - AltitudeCorrection.getOffset(this._location, context)
             prefs.edit {
                 putFloat(LAST_ALTITUDE, _altitude)
             }

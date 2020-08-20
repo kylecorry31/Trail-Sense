@@ -397,6 +397,32 @@ class NavigationViewModel(
     val gpsAccuracy: String
         get() = gps.accuracy.toString()
 
+    val gpsHorizontalAccuracy: String
+        get(){
+            if (gps.horizontalAccuracy == null){
+                return "?"
+            }
+            return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
+                "± ${gps.horizontalAccuracy?.roundToInt() ?: 0} m"
+            } else {
+                "± ${LocationMath.convertToBaseUnit(gps.horizontalAccuracy ?: 0f, distanceUnits)
+                    .roundToInt()} ft"
+            }
+        }
+
+    val gpsVerticalAccuracy: String
+        get(){
+            if (gps.verticalAccuracy == null){
+                return "?"
+            }
+            return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
+                "± ${gps.verticalAccuracy?.roundToInt() ?: 0} m"
+            } else {
+                "± ${LocationMath.convertToBaseUnit(gps.verticalAccuracy ?: 0f, distanceUnits)
+                    .roundToInt()} ft"
+            }
+        }
+
     private val sunBearing: Float
         get() {
             val declination = if (!useTrueNorth) navigationService.getDeclination(
