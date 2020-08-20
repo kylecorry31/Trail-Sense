@@ -249,23 +249,23 @@ class AstronomyFragment : Fragment() {
         val details = listOf(
             Pair(
                 Pair(
-                    Pair(R.drawable.weather_sunset_up, R.color.colorPrimary),
+                    Pair(R.drawable.sunrise, R.color.colorPrimary),
                     getSunriseWording()
                 ), sunTimes.up
             ),
             Pair(
                 Pair(
-                    Pair(R.drawable.weather_sunset_down, R.color.colorPrimary),
+                    Pair(R.drawable.sunset, R.color.colorPrimary),
                     getSunsetWording()
                 ), sunTimes.down
             ),
             // TODO: Get moon icons
             Pair(
-                Pair(Pair(R.drawable.moon_waning_crescent, null), getString(R.string.moon_rise)),
+                Pair(Pair(R.drawable.moonrise, null), getString(R.string.moon_rise)),
                 moonTimes.up
             ),
             Pair(
-                Pair(Pair(R.drawable.moon_waning_crescent, null), getString(R.string.moon_set)),
+                Pair(Pair(R.drawable.moonset, null), getString(R.string.moon_set)),
                 moonTimes.down
             ),
             // TODO: Get solar/lunar noon images
@@ -329,7 +329,7 @@ class AstronomyFragment : Fragment() {
             )
             details.add(
                 AstroDetail(
-                    R.drawable.moon_waning_crescent,
+                    R.drawable.moon_full,
                     getString(R.string.moon_altitude),
                     getString(R.string.degree_format, moonAltitude)
                 )
@@ -501,7 +501,8 @@ class AstronomyFragment : Fragment() {
                 iconView.imageTintList =
                     ColorStateList.valueOf(resources.getColor(detail.tint, null))
             } else {
-                iconView.imageTintList = ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
+                iconView.imageTintList =
+                    ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
             }
         }
     }
