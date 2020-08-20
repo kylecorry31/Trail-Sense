@@ -27,7 +27,7 @@ class BarometerService: Service() {
 
     override fun onCreate() {
         handler = Handler()
-        broadcastIntent = Intent(this, BarometerAlarmReceiver::class.java)
+        broadcastIntent = BarometerAlarmReceiver.intent(this)
 
         val notification = WeatherNotificationService.getDefaultNotification(this)
 

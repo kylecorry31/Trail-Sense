@@ -226,4 +226,10 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
             notificationManager?.createNotificationChannel(channel)
         }
     }
+
+    companion object {
+        fun intent(context: Context): Intent {
+            return Intent(context, BarometerAlarmReceiver::class.java)
+        }
+    }
 }
