@@ -17,8 +17,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.median
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
-import com.kylecorry.trail_sense.weather.domain.forcasting.HourlyForecaster
-import com.kylecorry.trail_sense.weather.domain.forcasting.IWeatherForecaster
+import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverterFactory
 import java.time.Instant
@@ -40,25 +39,19 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
     private val pressureReadings = mutableListOf<Float>()
 
     private lateinit var userPrefs: UserPreferences
-    private lateinit var forecaster: IWeatherForecaster
-
-    private val MAX_BAROMETER_READINGS = 8
-    private val MAX_GPS_READINGS = 5
+    private lateinit var weatherService: WeatherService
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null) {
             this.context = context
             userPrefs = UserPreferences(context)
-            forecaster = HourlyForecaster(
-                userPrefs.weather.stormAlertThreshold,
-                userPrefs.weather.hourlyForecastFastThreshold
-            )
+            weatherService = WeatherService(userPrefs.weather.stormAlertThreshold, userPrefs.weather.dailyForecastSlowThreshold, userPrefs.weather.hourlyForecastFastThreshold)
 
             barometer = Barometer(context)
             altimeter = GPS(context)
 
             val that = this
-            timer = timer(period = (5000 * (MAX_GPS_READINGS + 2)).toLong()) {
+            timer = timer(period = (5000 * (Companion.MAX_GPS_READINGS + 2)).toLong()) {
                 if (!hasLocation) {
                     altimeter.stop(that::onLocationUpdate)
                     altitudeReadings.add(altimeter.altitude)
@@ -82,7 +75,7 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
 
     private fun onLocationUpdate(): Boolean {
         altitudeReadings.add(altimeter.altitude)
-        return if (hasLocation || altitudeReadings.size >= MAX_GPS_READINGS) {
+        return if (hasLocation || altitudeReadings.size >= Companion.MAX_GPS_READINGS) {
             hasLocation = true
             if (hasBarometerReading) {
                 gotAllReadings()
@@ -96,7 +89,7 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
     private fun onPressureUpdate(): Boolean {
         pressureReadings.add(barometer.pressure)
 
-        return if (pressureReadings.size >= MAX_BAROMETER_READINGS) {
+        return if (pressureReadings.size >= Companion.MAX_BAROMETER_READINGS) {
             hasBarometerReading = true
             if (hasLocation) {
                 gotAllReadings()
@@ -158,7 +151,7 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
 
         val readings = PressureHistoryRepository.getAll(context)
 
-        val forecast = forecaster.forecast(pressureConverter.convert(readings))
+        val forecast = weatherService.getHourlyWeather(pressureConverter.convert(readings))
 
         if (forecast == Weather.Storm) {
             val shouldSend = userPrefs.weather.sendStormAlerts
@@ -231,5 +224,8 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
         fun intent(context: Context): Intent {
             return Intent(context, BarometerAlarmReceiver::class.java)
         }
+
+        private val MAX_BAROMETER_READINGS = 8
+        private val MAX_GPS_READINGS = 5
     }
 }
