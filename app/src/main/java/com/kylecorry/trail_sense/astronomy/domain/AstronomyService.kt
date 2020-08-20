@@ -67,7 +67,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             altitudes.add(altitude)
         }
 
-        for (i in 1 until altitudes.size) {
+        for (i in 1 until (altitudes.size - 1)) {
             val prev = altitudes[i - 1]
             val current = altitudes[i]
             val next = altitudes[i + 1]
@@ -153,7 +153,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             altitudes.add(altitude)
         }
 
-        for (i in 1 until altitudes.size) {
+        for (i in 1 until (altitudes.size - 1)) {
             val prev = altitudes[i - 1]
             val current = altitudes[i]
             val next = altitudes[i + 1]
