@@ -45,7 +45,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return altitudeCalculator.getMoonAltitudes(location, date, 10)
     }
 
-    fun getMoonAltitude(location: Coordinate, time: LocalDateTime): AstroAltitude {
+    fun getMoonAltitude(location: Coordinate, time: LocalDateTime = LocalDateTime.now()): AstroAltitude {
         return altitudeCalculator.getMoonAltitude(location, time)
     }
 
@@ -166,7 +166,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
       return null
     }
 
-    fun getSunAltitude(location: Coordinate, time: LocalDateTime): AstroAltitude {
+    fun getSunAltitude(location: Coordinate, time: LocalDateTime = LocalDateTime.now()): AstroAltitude {
         return altitudeCalculator.getSunAltitude(location, time)
     }
 

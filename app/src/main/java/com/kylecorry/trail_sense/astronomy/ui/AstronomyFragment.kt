@@ -277,7 +277,7 @@ class AstronomyFragment : Fragment() {
                 Pair(Pair(R.drawable.moon_full, null), getString(R.string.lunar_noon)),
                 lunarNoon
             )
-        ).sortedBy { it.second }.map {
+        ).filterNot { it.second == null }.sortedBy { it.second?.toLocalTime() }.map {
             AstroDetail(
                 it.first.first.first,
                 it.first.second,
@@ -285,6 +285,7 @@ class AstronomyFragment : Fragment() {
                 it.first.first.second
             )
         }.toMutableList()
+
 
         details.add(AstroDetail.spacer())
 
@@ -309,14 +310,10 @@ class AstronomyFragment : Fragment() {
 
             details.add(AstroDetail.spacer())
 
-            val moonAltitude = astronomyService.getMoonAltitude(
-                gps.location,
-                LocalDateTime.now()
-            ).altitudeDegrees.roundToInt()
-            val sunAltitude = astronomyService.getSunAltitude(
-                gps.location,
-                LocalDateTime.now()
-            ).altitudeDegrees.roundToInt()
+            val moonAltitude =
+                astronomyService.getMoonAltitude(gps.location).altitudeDegrees.roundToInt()
+            val sunAltitude =
+                astronomyService.getSunAltitude(gps.location).altitudeDegrees.roundToInt()
 
             // TODO: Add icons
             details.add(
@@ -334,6 +331,13 @@ class AstronomyFragment : Fragment() {
                     getString(R.string.degree_format, moonAltitude)
                 )
             )
+
+            val sunAzimuth = astronomyService.getSunAzimuth(gps.location).value.roundToInt()
+            val moonAzimuth = astronomyService.getMoonAzimuth(gps.location).value.roundToInt()
+
+            details.add(AstroDetail(R.drawable.sun, "Sun azimuth", getString(R.string.degree_format, sunAzimuth), R.color.colorPrimary))
+            details.add(AstroDetail(R.drawable.moon_full, "Moon azimuth", getString(R.string.degree_format, moonAzimuth)))
+
         } else {
             val moonPhase = astronomyService.getMoonPhase(displayDate)
             details.add(
