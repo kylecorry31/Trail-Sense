@@ -46,7 +46,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <receiver
-            android:name="com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateReceiver"
+            android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="com.kylecorry.trail_sense.ALARM_UPDATE_WEATHER"/>
@@ -54,7 +54,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmReceiver"
+            android:name="com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="com.kylecorry.trail_sense.ALARM_SUNSET"/>
@@ -62,17 +62,17 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.kylecorry.trail_sense.weather.infrastructure.WeatherStopMonitoringReceiver"
+            android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver"
             android:enabled="true" />
         <receiver
-            android:name="com.kylecorry.trail_sense.BootReceiver"
+            android:name="com.kylecorry.trail_sense.receivers.BootReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.kylecorry.trail_sense.PackageReplacedReceiver"
+            android:name="com.kylecorry.trail_sense.receivers.PackageReplacedReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />

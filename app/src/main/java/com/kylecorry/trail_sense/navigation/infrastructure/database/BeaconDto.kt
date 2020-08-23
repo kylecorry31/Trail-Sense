@@ -1,8 +1,8 @@
-package com.kylecorry.trail_sense.navigation.infrastructure
+package com.kylecorry.trail_sense.navigation.infrastructure.database
 
 import com.kylecorry.trail_sense.navigation.domain.Beacon
-import com.kylecorry.trail_sense.shared.Dto
-import com.kylecorry.trail_sense.shared.SqlType
+import com.kylecorry.trail_sense.shared.database.Dto
+import com.kylecorry.trail_sense.shared.database.SqlType
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 
 class BeaconDto : Dto<Beacon>() {

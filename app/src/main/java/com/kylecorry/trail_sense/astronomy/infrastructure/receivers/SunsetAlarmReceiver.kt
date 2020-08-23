@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.astronomy.infrastructure
+package com.kylecorry.trail_sense.astronomy.infrastructure.receivers
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
-import com.kylecorry.trail_sense.utils.AlarmUtils
+import com.kylecorry.trail_sense.shared.system.AlarmUtils
 import java.time.*
 import java.util.*
 import kotlin.concurrent.timer

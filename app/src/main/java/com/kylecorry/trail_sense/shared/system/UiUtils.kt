@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.utils
+package com.kylecorry.trail_sense.shared.system
 
 import android.content.Context
 import android.util.TypedValue

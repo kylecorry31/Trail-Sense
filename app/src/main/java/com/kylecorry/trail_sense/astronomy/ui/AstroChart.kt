@@ -12,7 +12,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstroAltitude
-import com.kylecorry.trail_sense.utils.UiUtils
+import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 
 

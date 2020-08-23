@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.utils
+package com.kylecorry.trail_sense.shared.system
 
 import android.app.PendingIntent
 import android.content.Context

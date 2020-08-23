@@ -1,7 +1,6 @@
-package com.kylecorry.trail_sense.weather.infrastructure
+package com.kylecorry.trail_sense.weather.infrastructure.database
 
 import android.content.Context
-import android.os.Build
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import java.time.Duration
 import java.time.Instant

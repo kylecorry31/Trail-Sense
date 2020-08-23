@@ -1,15 +1,15 @@
-package com.kylecorry.trail_sense
+package com.kylecorry.trail_sense.receivers
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 
-class PackageReplacedReceiver : BroadcastReceiver() {
+class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        if (intent?.action == Intent.ACTION_PACKAGE_REPLACED && context != null) {
+        if (intent?.action == Intent.ACTION_BOOT_COMPLETED && context != null) {
             startWeatherMonitoring(context)
             startSunsetAlarm(context)
         }

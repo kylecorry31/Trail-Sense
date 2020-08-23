@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassificatio
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
 import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
-import com.kylecorry.trail_sense.weather.infrastructure.PressureHistoryRepository
+import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
 import java.time.Duration
 import java.time.Instant
 import java.util.*

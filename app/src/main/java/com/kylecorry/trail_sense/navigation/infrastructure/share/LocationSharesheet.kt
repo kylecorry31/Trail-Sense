@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.navigation.infrastructure
+package com.kylecorry.trail_sense.navigation.infrastructure.share
 
 import android.content.Context
 import android.content.Intent

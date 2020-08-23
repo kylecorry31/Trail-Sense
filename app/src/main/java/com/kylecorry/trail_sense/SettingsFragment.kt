@@ -6,9 +6,9 @@ import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
-import com.kylecorry.trail_sense.utils.NotificationUtils
+import com.kylecorry.trail_sense.shared.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 

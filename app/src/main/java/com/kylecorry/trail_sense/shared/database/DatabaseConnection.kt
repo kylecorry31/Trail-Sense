@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared
+package com.kylecorry.trail_sense.shared.database
 
 import android.content.Context
 import android.database.Cursor

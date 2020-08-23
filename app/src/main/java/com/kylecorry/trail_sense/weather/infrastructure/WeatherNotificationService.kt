@@ -11,8 +11,9 @@ import android.os.Build
 import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.utils.NotificationUtils
+import com.kylecorry.trail_sense.shared.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
+import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
 
 object WeatherNotificationService {
 
