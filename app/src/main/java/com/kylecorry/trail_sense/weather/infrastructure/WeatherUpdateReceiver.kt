@@ -13,6 +13,7 @@ import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.SystemUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.median
 import com.kylecorry.trail_sense.shared.sensors.*
@@ -26,7 +27,7 @@ import java.time.ZonedDateTime
 import java.util.*
 import kotlin.concurrent.timer
 
-class BarometerAlarmReceiver : BroadcastReceiver() {
+class WeatherUpdateReceiver : BroadcastReceiver() {
 
     private lateinit var context: Context
     private lateinit var barometer: IBarometer
@@ -43,6 +44,7 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
     private lateinit var weatherService: WeatherService
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        Log.i(TAG, "Broadcast received at ${ZonedDateTime.now()}")
         if (context != null) {
             this.context = context
             userPrefs = UserPreferences(context)
@@ -158,31 +160,31 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
         if (forecast == Weather.Storm) {
             val shouldSend = userPrefs.weather.sendStormAlerts
             if (shouldSend && !sentAlert) {
-                val builder = NotificationCompat.Builder(context, "Alerts")
+                val notification = NotificationCompat.Builder(context, "Alerts")
                     .setSmallIcon(R.drawable.ic_alert)
                     .setContentTitle(context.getString(R.string.notification_storm_alert_title))
                     .setContentText(context.getString(R.string.notification_storm_alert_text))
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .build()
 
-                with(NotificationManagerCompat.from(context)) {
-                    notify(0, builder.build())
-                }
+                SystemUtils.sendNotification(context, 0, notification)
+
                 prefs.edit {
                     putBoolean(context.getString(R.string.pref_just_sent_alert), true)
                 }
             }
         } else {
-            with(NotificationManagerCompat.from(context)) {
-                cancel(0)
-            }
+            SystemUtils.cancelNotification(context, 0)
             prefs.edit {
                 putBoolean(context.getString(R.string.pref_just_sent_alert), false)
             }
         }
 
-        WeatherNotificationService.updateNotificationForecast(context, forecast)
+        if (userPrefs.weather.shouldShowWeatherNotification) {
+            WeatherNotificationService.updateNotificationForecast(context, forecast)
+        }
 
-        Log.i("BarometerAlarmReceiver", "Got all readings recorded at ${ZonedDateTime.now()}")
+        Log.i(TAG, "Got all readings recorded at ${ZonedDateTime.now()}")
 
     }
 
@@ -244,8 +246,11 @@ class BarometerAlarmReceiver : BroadcastReceiver() {
     }
 
     companion object {
+
+        private const val TAG = "WeatherUpdateReceiver";
+
         fun intent(context: Context): Intent {
-            return Intent(context, BarometerAlarmReceiver::class.java)
+            return Intent(context, WeatherUpdateReceiver::class.java)
         }
 
         private val MAX_BAROMETER_READINGS = 8

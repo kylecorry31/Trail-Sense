@@ -113,6 +113,11 @@
             app:summary="@string/pref_monitor_weather_summary"
             app:defaultValue="true" />
 
+        <SwitchPreferenceCompat
+            app:key="@string/pref_show_weather_notification"
+            app:title="@string/pref_show_weather_notification_title"
+            app:defaultValue="true"
+            app:dependency="@string/pref_monitor_weather"/>
 
         <SwitchPreferenceCompat
             app:key="@string/pref_use_sea_level_pressure"

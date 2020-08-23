@@ -21,7 +21,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
-import com.kylecorry.trail_sense.weather.infrastructure.BarometerService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.ui.BarometerFragment
 
 
@@ -79,9 +79,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun startApp(){
         if(userPrefs.weather.shouldMonitorWeather) {
-            BarometerService.start(this)
+            WeatherAlarmScheduler.start(this)
         } else {
-            BarometerService.stop(this)
+            WeatherAlarmScheduler.stop(this)
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)
             item.isVisible = false
         }

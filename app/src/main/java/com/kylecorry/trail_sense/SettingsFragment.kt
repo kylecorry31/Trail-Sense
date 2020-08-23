@@ -7,8 +7,10 @@ import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.shared.SystemUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
-import com.kylecorry.trail_sense.weather.infrastructure.BarometerService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -32,13 +34,27 @@ class SettingsFragment : PreferenceFragmentCompat() {
             val shouldMonitorWeather = value as Boolean
             context?.apply {
                 if (shouldMonitorWeather){
-                    BarometerService.start(this)
+                    WeatherAlarmScheduler.start(this)
                 } else {
-                    BarometerService.stop(this)
+                    WeatherAlarmScheduler.stop(this)
                 }
             }
 
             activity?.recreate()
+            true
+        }
+
+        preferenceScreen.findPreference<SwitchPreferenceCompat>(getString(R.string.pref_show_weather_notification))?.setOnPreferenceChangeListener { _, value ->
+            val shouldShowWeatherNotification = value as Boolean
+            context?.apply {
+                if (shouldShowWeatherNotification){
+                    val notification = WeatherNotificationService.getDefaultNotification(this)
+                    SystemUtils.sendNotification(this, WeatherNotificationService.WEATHER_NOTIFICATION_ID, notification)
+                } else {
+                    SystemUtils.cancelNotification(this, WeatherNotificationService.WEATHER_NOTIFICATION_ID)
+                }
+            }
+
             true
         }
 

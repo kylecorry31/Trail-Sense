@@ -11,6 +11,7 @@ import android.os.Build
 import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.SystemUtils
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 
 object WeatherNotificationService {
@@ -85,8 +86,7 @@ object WeatherNotificationService {
     }
 
     private fun updateNotificationText(context: Context, notification: Notification){
-        val notificationManager = context.getSystemService<NotificationManager>()
-        notificationManager?.notify(WEATHER_NOTIFICATION_ID, notification)
+        SystemUtils.sendNotification(context, WEATHER_NOTIFICATION_ID, notification)
     }
 
     private fun createNotificationChannel(context: Context) {

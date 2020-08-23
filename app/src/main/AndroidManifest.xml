@@ -46,7 +46,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <receiver
-            android:name="com.kylecorry.trail_sense.weather.infrastructure.BarometerAlarmReceiver"
+            android:name="com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateReceiver"
             android:enabled="true" />
         <receiver
             android:name="com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmReceiver"
@@ -61,8 +61,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-        <service android:name="com.kylecorry.trail_sense.weather.infrastructure.BarometerService" />
     </application>
 
 </manifest>

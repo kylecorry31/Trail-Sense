@@ -1,10 +1,13 @@
 package com.kylecorry.trail_sense.shared
 
 import android.app.AlarmManager
+import android.app.Notification
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.util.Log
 import androidx.core.content.getSystemService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -78,6 +81,19 @@ object SystemUtils {
         }
     }
 
+    fun sendNotification(context: Context, notificationId: Int, notification: Notification){
+        val notificationManager = getNotificationManager(context)
+        notificationManager?.notify(notificationId, notification)
+    }
+
+    fun cancelNotification(context: Context, notificationId: Int){
+        val notificationManager = getNotificationManager(context)
+        notificationManager?.cancel(notificationId)
+    }
+
+    private fun getNotificationManager(context: Context): NotificationManager? {
+        return context.getSystemService()
+    }
 
     private fun getAlarmManager(context: Context): AlarmManager? {
         return context.getSystemService()

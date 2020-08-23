@@ -3,15 +3,12 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import androidx.core.content.edit
-import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
-import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import java.time.Duration
 import java.time.ZonedDateTime
@@ -27,7 +24,7 @@ class BarometerService: Service() {
 
     override fun onCreate() {
         handler = Handler()
-        broadcastIntent = BarometerAlarmReceiver.intent(this)
+        broadcastIntent = WeatherUpdateReceiver.intent(this)
 
         val notification = WeatherNotificationService.getDefaultNotification(this)
 
