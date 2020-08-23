@@ -1,8 +1,9 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
-import com.kylecorry.trail_sense.utils.AlarmUtils
-import com.kylecorry.trail_sense.utils.NotificationUtils
+import com.kylecorry.trail_sense.shared.system.AlarmUtils
+import com.kylecorry.trail_sense.shared.system.NotificationUtils
+import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateReceiver
 
 object WeatherAlarmScheduler {
     fun start(context: Context) {
