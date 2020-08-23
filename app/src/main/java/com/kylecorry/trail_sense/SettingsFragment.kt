@@ -41,7 +41,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             }
 
-            activity?.recreate()
             true
         }
 

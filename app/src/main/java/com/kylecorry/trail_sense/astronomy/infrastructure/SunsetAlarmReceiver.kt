@@ -179,9 +179,11 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
     }
 
     private fun setAlarm(time: LocalDateTime) {
-        val pi = pendingIntent(context)
-        SystemUtils.cancelAlarm(context, pi)
-        SystemUtils.alarm(context, time, pi)
+        val lastPi = pendingIntent(context)
+        SystemUtils.cancelAlarm(context, lastPi)
+
+        val newPi = pendingIntent(context)
+        SystemUtils.alarm(context, time, newPi)
         Log.i(TAG, "Set next sunset alarm at $time")
     }
 
@@ -193,12 +195,15 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         const val NOTIFICATION_CHANNEL_ID = "Sunset alert"
 
         fun intent(context: Context): Intent {
-            return Intent(context, SunsetAlarmReceiver::class.java)
+            val i = Intent("com.kylecorry.trail_sense.ALARM_SUNSET")
+            i.`package` = context.packageName
+            i.addCategory("android.intent.category.DEFAULT")
+            return i
         }
 
         fun pendingIntent(context: Context): PendingIntent {
             return PendingIntent.getBroadcast(
-                context, PI_ID, intent(context), 0
+                context, PI_ID, intent(context), PendingIntent.FLAG_UPDATE_CURRENT
             )
         }
     }

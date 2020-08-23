@@ -2,16 +2,9 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.shared.SystemUtils
-import com.kylecorry.trail_sense.shared.UserPreferences
 
 object WeatherAlarmScheduler {
     fun start(context: Context) {
-        val prefs = UserPreferences(context).weather
-
-        if (!prefs.shouldMonitorWeather) {
-            return
-        }
-
         context.sendBroadcast(WeatherUpdateReceiver.intent(context))
     }
 
