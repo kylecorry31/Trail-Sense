@@ -220,4 +220,6 @@
     <string name="percent_format">%d%%</string>
     <string name="pref_show_weather_notification">pref_show_weather_notification</string>
     <string name="pref_show_weather_notification_title">Show weather notification</string>
+    <string name="notification_storm_alert_channel_name">Alerts</string>
+    <string name="notification_storm_alert_channel_desc">Storm alerts</string>
 </resources>

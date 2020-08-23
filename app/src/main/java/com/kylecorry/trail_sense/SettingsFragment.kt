@@ -7,8 +7,8 @@ import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmReceiver
-import com.kylecorry.trail_sense.shared.SystemUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
+import com.kylecorry.trail_sense.utils.NotificationUtils
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 
@@ -49,7 +49,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 if (shouldShowWeatherNotification){
                     WeatherAlarmScheduler.start(this)
                 } else {
-                    SystemUtils.cancelNotification(this, WeatherNotificationService.WEATHER_NOTIFICATION_ID)
+                    NotificationUtils.cancel(this, WeatherNotificationService.WEATHER_NOTIFICATION_ID)
                 }
             }
 

@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.navigation.ui
 
 import android.view.View
 import android.widget.ImageView
-import com.kylecorry.trail_sense.shared.alignToVector
+import com.kylecorry.trail_sense.utils.alignToVector
 
 class CompassView(private val compass: ImageView, private val beaconIndicators: List<ImageView>, private val azimuthIndicator: ImageView) :
     ICompassView {

@@ -1,7 +1,8 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
-import com.kylecorry.trail_sense.shared.SystemUtils
+import com.kylecorry.trail_sense.utils.AlarmUtils
+import com.kylecorry.trail_sense.utils.NotificationUtils
 
 object WeatherAlarmScheduler {
     fun start(context: Context) {
@@ -10,8 +11,8 @@ object WeatherAlarmScheduler {
 
     fun stop(context: Context) {
         val pi = WeatherUpdateReceiver.pendingIntent(context)
-        SystemUtils.cancelAlarm(context, pi)
+        AlarmUtils.cancel(context, pi)
 
-        SystemUtils.cancelNotification(context, WeatherNotificationService.WEATHER_NOTIFICATION_ID)
+        NotificationUtils.cancel(context, WeatherNotificationService.WEATHER_NOTIFICATION_ID)
     }
 }

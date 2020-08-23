@@ -15,9 +15,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
-import com.kylecorry.trail_sense.navigation.domain.locationformat.ILocationFormatter
 import com.kylecorry.trail_sense.navigation.infrastructure.*
-import com.kylecorry.trail_sense.shared.UiUtils
+import com.kylecorry.trail_sense.utils.UiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.domain.Coordinate

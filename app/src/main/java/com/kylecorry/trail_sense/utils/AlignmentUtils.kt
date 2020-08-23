@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared
+package com.kylecorry.trail_sense.utils
 
 import android.view.View
 import com.kylecorry.trail_sense.shared.math.cosDegrees

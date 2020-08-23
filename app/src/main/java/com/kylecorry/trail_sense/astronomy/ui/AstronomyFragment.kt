@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
+import com.kylecorry.trail_sense.utils.UiUtils
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime

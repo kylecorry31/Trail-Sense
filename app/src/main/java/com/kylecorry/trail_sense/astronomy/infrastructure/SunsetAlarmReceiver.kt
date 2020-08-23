@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.utils.AlarmUtils
 import java.time.*
 import java.util.*
 import kotlin.concurrent.timer
@@ -180,10 +181,10 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
 
     private fun setAlarm(time: LocalDateTime) {
         val lastPi = pendingIntent(context)
-        SystemUtils.cancelAlarm(context, lastPi)
+        AlarmUtils.cancel(context, lastPi)
 
         val newPi = pendingIntent(context)
-        SystemUtils.alarm(context, time, newPi, exact = true, allowWhileIdle = true)
+        AlarmUtils.set(context, time, newPi, exact = true, allowWhileIdle = true)
         Log.i(TAG, "Set next sunset alarm at $time")
     }
 

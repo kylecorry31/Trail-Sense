@@ -13,10 +13,12 @@ import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.SystemUtils
+import com.kylecorry.trail_sense.utils.AlarmUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.median
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.utils.IntentUtils
+import com.kylecorry.trail_sense.utils.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
@@ -44,7 +46,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.i(TAG, "Broadcast received at ${ZonedDateTime.now()}")
-        if (context == null){
+        if (context == null) {
             return
         }
 
@@ -58,7 +60,11 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
         scheduleNextAlarm(intent)
 
-        if (!SystemUtils.isNotificationActive(context, WeatherNotificationService.WEATHER_NOTIFICATION_ID)){
+        if (!NotificationUtils.isNotificationActive(
+                context,
+                WeatherNotificationService.WEATHER_NOTIFICATION_ID
+            )
+        ) {
             sendWeatherNotification()
         }
 
@@ -132,7 +138,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         Log.i(TAG, "Got all readings recorded at ${ZonedDateTime.now()}")
     }
 
-    private fun addNewPressureReading(){
+    private fun addNewPressureReading() {
         PressureHistoryRepository.add(
             context,
             PressureAltitudeReading(
@@ -143,7 +149,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         )
     }
 
-    private fun sendStormAlert(){
+    private fun sendStormAlert() {
         createNotificationChannel()
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val sentAlert = prefs.getBoolean(context.getString(R.string.pref_just_sent_alert), false)
@@ -155,28 +161,28 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         if (forecast == Weather.Storm) {
             val shouldSend = userPrefs.weather.sendStormAlerts
             if (shouldSend && !sentAlert) {
-                val notification = NotificationCompat.Builder(context, "Alerts")
+                val notification = NotificationCompat.Builder(context, STORM_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_alert)
                     .setContentTitle(context.getString(R.string.notification_storm_alert_title))
                     .setContentText(context.getString(R.string.notification_storm_alert_text))
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .build()
 
-                SystemUtils.sendNotification(context, STORM_ALERT_NOTIFICATION_ID, notification)
+                NotificationUtils.send(context, STORM_ALERT_NOTIFICATION_ID, notification)
 
                 prefs.edit {
                     putBoolean(context.getString(R.string.pref_just_sent_alert), true)
                 }
             }
         } else {
-            SystemUtils.cancelNotification(context, STORM_ALERT_NOTIFICATION_ID)
+            NotificationUtils.cancel(context, STORM_ALERT_NOTIFICATION_ID)
             prefs.edit {
                 putBoolean(context.getString(R.string.pref_just_sent_alert), false)
             }
         }
     }
 
-    private fun sendWeatherNotification(){
+    private fun sendWeatherNotification() {
         val pressureConverter = SeaLevelPressureConverterFactory().create(context)
         val readings = PressureHistoryRepository.getAll(context)
         val forecast = weatherService.getHourlyWeather(pressureConverter.convert(readings))
@@ -187,7 +193,12 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun scheduleNextAlarm(receivedIntent: Intent?) {
-        if (receivedIntent?.action != INTENT_ACTION && SystemUtils.isAlarmRunning(context, PI_ID, alarmIntent(context))) {
+        if (receivedIntent?.action != INTENT_ACTION && AlarmUtils.isAlarmRunning(
+                context,
+                PI_ID,
+                alarmIntent(context)
+            )
+        ) {
             Log.i(TAG, "Next alarm already scheduled, not setting a new one")
             return
         }
@@ -196,14 +207,14 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
         Log.i(TAG, "Next alarm set for ${LocalDateTime.now().plusMinutes(alarmMinutes)}")
 
-        val oldPi = pendingIntent(context)
-        SystemUtils.cancelAlarm(context, oldPi)
+        // Cancel existing alarm (if any)
+        AlarmUtils.cancel(context, pendingIntent(context))
 
-        val newPi = pendingIntent(context)
-        SystemUtils.alarm(
+        // Schedule the new alarm
+        AlarmUtils.set(
             context,
             LocalDateTime.now().plusMinutes(alarmMinutes),
-            newPi,
+            pendingIntent(context),
             exact = false,
             allowWhileIdle = true
         )
@@ -259,19 +270,12 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Alerts"
-            val descriptionText = "Storm alerts"
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel("Alerts", name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager = context.getSystemService<NotificationManager>()
-            notificationManager?.createNotificationChannel(channel)
-        }
+        NotificationUtils.createChannel(
+            context, STORM_CHANNEL_ID,
+            context.getString(R.string.notification_storm_alert_channel_name),
+            context.getString(R.string.notification_storm_alert_channel_desc),
+            NotificationUtils.CHANNEL_IMPORTANCE_HIGH
+        )
     }
 
     private fun updateAverageSpeed() {
@@ -318,6 +322,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
     companion object {
 
+        private const val STORM_CHANNEL_ID = "Alerts";
         private const val TAG = "WeatherUpdateReceiver"
         private const val INTENT_ACTION = "com.kylecorry.trail_sense.ALARM_UPDATE_WEATHER"
         const val PI_ID = 84097413
@@ -337,10 +342,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         }
 
         private fun alarmIntent(context: Context): Intent {
-            val i = Intent(INTENT_ACTION)
-            i.`package` = context.packageName
-            i.addCategory("android.intent.category.DEFAULT")
-            return i
+            return IntentUtils.localIntent(context, INTENT_ACTION)
         }
 
         private val MAX_BAROMETER_READINGS = 8
