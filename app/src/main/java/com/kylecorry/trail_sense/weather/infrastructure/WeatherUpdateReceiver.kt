@@ -192,7 +192,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             return
         }
 
-        val alarmMinutes = 1L
+        val alarmMinutes = 15L
 
         Log.i(TAG, "Next alarm set for ${LocalDateTime.now().plusMinutes(alarmMinutes)}")
 
