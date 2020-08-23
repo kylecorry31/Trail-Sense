@@ -325,7 +325,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         }
 
         fun intent(context: Context): Intent {
-            val i = Intent("com.kylecorry.trail_sense.UPDATE_WEATHER")
+            val i = Intent("com.kylecorry.trail_sense.ALARM_UPDATE_WEATHER")
             i.`package` = context.packageName
             i.addCategory("android.intent.category.DEFAULT")
             return i
