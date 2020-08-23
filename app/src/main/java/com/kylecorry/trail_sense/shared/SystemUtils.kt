@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.SystemClock
 import android.util.Log
 import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
@@ -25,13 +26,22 @@ object SystemUtils {
         context: Context,
         time: LocalDateTime,
         pendingIntent: PendingIntent,
-        exact: Boolean = true
+        exact: Boolean = true,
+        allowWhileIdle: Boolean = false
     ) {
         val alarmManager = getAlarmManager(context)
-        if (exact) {
-            alarmManager?.setExact(AlarmManager.RTC_WAKEUP, time.toEpochMillis(), pendingIntent)
+        if (!allowWhileIdle) {
+            if (exact) {
+                alarmManager?.setExact(AlarmManager.RTC_WAKEUP, time.toEpochMillis(), pendingIntent)
+            } else {
+                alarmManager?.set(AlarmManager.RTC_WAKEUP, time.toEpochMillis(), pendingIntent)
+            }
         } else {
-            alarmManager?.set(AlarmManager.RTC_WAKEUP, time.toEpochMillis(), pendingIntent)
+            if (exact) {
+                alarmManager?.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time.toEpochMillis(), pendingIntent)
+            } else {
+                alarmManager?.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time.toEpochMillis(), pendingIntent)
+            }
         }
     }
 

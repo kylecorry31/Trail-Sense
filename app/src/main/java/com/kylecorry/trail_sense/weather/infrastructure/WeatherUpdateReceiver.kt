@@ -192,13 +192,14 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             return
         }
 
-        Log.i(TAG, "Next alarm set for ${LocalDateTime.now().plusMinutes(10)}")
+        Log.i(TAG, "Next alarm set for ${LocalDateTime.now().plusMinutes(15)}")
         val pi = pendingIntent(context)
-        SystemUtils.windowedAlarm(
+        SystemUtils.alarm(
             context,
-            LocalDateTime.now().plusMinutes(10),
-            Duration.ofMinutes(10),
-            pi
+            LocalDateTime.now().plusMinutes(15),
+            pi,
+            exact = false,
+            allowWhileIdle = true
         )
     }
 

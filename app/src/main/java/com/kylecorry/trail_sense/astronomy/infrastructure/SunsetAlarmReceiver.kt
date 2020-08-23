@@ -183,7 +183,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         SystemUtils.cancelAlarm(context, lastPi)
 
         val newPi = pendingIntent(context)
-        SystemUtils.alarm(context, time, newPi)
+        SystemUtils.alarm(context, time, newPi, exact = true, allowWhileIdle = true)
         Log.i(TAG, "Set next sunset alarm at $time")
     }
 
