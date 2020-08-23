@@ -11,7 +11,6 @@ import com.kylecorry.trail_sense.shared.SystemUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateReceiver
 
 
 class SettingsFragment : PreferenceFragmentCompat() {

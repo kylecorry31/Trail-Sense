@@ -195,6 +195,10 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         const val NOTIFICATION_CHANNEL_ID = "Sunset alert"
 
         fun intent(context: Context): Intent {
+            return Intent(context, SunsetAlarmReceiver::class.java)
+        }
+
+        private fun alarmIntent(context: Context): Intent {
             val i = Intent("com.kylecorry.trail_sense.ALARM_SUNSET")
             i.`package` = context.packageName
             i.addCategory("android.intent.category.DEFAULT")
@@ -203,7 +207,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
 
         fun pendingIntent(context: Context): PendingIntent {
             return PendingIntent.getBroadcast(
-                context, PI_ID, intent(context), PendingIntent.FLAG_UPDATE_CURRENT
+                context, PI_ID, alarmIntent(context), PendingIntent.FLAG_UPDATE_CURRENT
             )
         }
     }

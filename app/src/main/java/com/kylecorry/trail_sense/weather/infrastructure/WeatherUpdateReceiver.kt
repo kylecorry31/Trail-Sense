@@ -56,7 +56,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             userPrefs.weather.hourlyForecastFastThreshold
         )
 
-        scheduleNextAlarm()
+        scheduleNextAlarm(intent)
 
         if (!SystemUtils.isNotificationActive(context, WeatherNotificationService.WEATHER_NOTIFICATION_ID)){
             sendWeatherNotification()
@@ -186,18 +186,24 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun scheduleNextAlarm() {
-        if (SystemUtils.isAlarmRunning(context, PI_ID, intent(context))) {
+    private fun scheduleNextAlarm(receivedIntent: Intent?) {
+        if (receivedIntent?.action != INTENT_ACTION && SystemUtils.isAlarmRunning(context, PI_ID, alarmIntent(context))) {
             Log.i(TAG, "Next alarm already scheduled, not setting a new one")
             return
         }
 
-        Log.i(TAG, "Next alarm set for ${LocalDateTime.now().plusMinutes(15)}")
-        val pi = pendingIntent(context)
+        val alarmMinutes = 1L
+
+        Log.i(TAG, "Next alarm set for ${LocalDateTime.now().plusMinutes(alarmMinutes)}")
+
+        val oldPi = pendingIntent(context)
+        SystemUtils.cancelAlarm(context, oldPi)
+
+        val newPi = pendingIntent(context)
         SystemUtils.alarm(
             context,
-            LocalDateTime.now().plusMinutes(15),
-            pi,
+            LocalDateTime.now().plusMinutes(alarmMinutes),
+            newPi,
             exact = false,
             allowWhileIdle = true
         )
@@ -313,6 +319,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     companion object {
 
         private const val TAG = "WeatherUpdateReceiver"
+        private const val INTENT_ACTION = "com.kylecorry.trail_sense.ALARM_UPDATE_WEATHER"
         const val PI_ID = 84097413
         private const val STORM_ALERT_NOTIFICATION_ID = 74309823
 
@@ -320,13 +327,17 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             return PendingIntent.getBroadcast(
                 context,
                 PI_ID,
-                intent(context),
+                alarmIntent(context),
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
         }
 
         fun intent(context: Context): Intent {
-            val i = Intent("com.kylecorry.trail_sense.ALARM_UPDATE_WEATHER")
+            return Intent(context, WeatherUpdateReceiver::class.java)
+        }
+
+        private fun alarmIntent(context: Context): Intent {
+            val i = Intent(INTENT_ACTION)
             i.`package` = context.packageName
             i.addCategory("android.intent.category.DEFAULT")
             return i
