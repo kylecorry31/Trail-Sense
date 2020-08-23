@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.shared.SystemUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateReceiver
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -48,8 +49,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             val shouldShowWeatherNotification = value as Boolean
             context?.apply {
                 if (shouldShowWeatherNotification){
-                    val notification = WeatherNotificationService.getDefaultNotification(this)
-                    SystemUtils.sendNotification(this, WeatherNotificationService.WEATHER_NOTIFICATION_ID, notification)
+                    WeatherAlarmScheduler.start(this)
                 } else {
                     SystemUtils.cancelNotification(this, WeatherNotificationService.WEATHER_NOTIFICATION_ID)
                 }

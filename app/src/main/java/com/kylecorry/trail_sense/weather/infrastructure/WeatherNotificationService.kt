@@ -44,6 +44,7 @@ object WeatherNotificationService {
                 .setSmallIcon(icon)
                 .addAction(stopAction)
                 .setOnlyAlertOnce(true)
+                .setAutoCancel(false)
                 .setContentIntent(openPendingIntent)
                 .build()
         } else {
@@ -53,6 +54,7 @@ object WeatherNotificationService {
                 .setSmallIcon(icon)
                 .addAction(stopAction)
                 .setOnlyAlertOnce(true)
+                .setAutoCancel(false)
                 .setContentIntent(openPendingIntent)
                 .build()
         }
@@ -79,10 +81,6 @@ object WeatherNotificationService {
 
         val newNotification = getNotification(context, description, icon)
         updateNotificationText(context, newNotification)
-    }
-
-    fun getDefaultNotification(context: Context): Notification {
-        return getNotification(context, context.getString(R.string.notification_monitoring_weather), R.drawable.ic_weather)
     }
 
     private fun updateNotificationText(context: Context, notification: Notification){

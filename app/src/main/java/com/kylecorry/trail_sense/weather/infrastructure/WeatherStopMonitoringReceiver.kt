@@ -8,7 +8,10 @@ class WeatherStopMonitoringReceiver: BroadcastReceiver() {
 
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        context?.stopService(Intent(context, BarometerService::class.java))
+        if (context == null){
+            return
+        }
+        WeatherAlarmScheduler.stop(context)
     }
 
 }

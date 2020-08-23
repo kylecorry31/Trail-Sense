@@ -2,13 +2,13 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
@@ -22,8 +22,7 @@ import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverterFactory
 import java.lang.Exception
-import java.time.Instant
-import java.time.ZonedDateTime
+import java.time.*
 import java.util.*
 import kotlin.concurrent.timer
 
@@ -32,7 +31,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     private lateinit var context: Context
     private lateinit var barometer: IBarometer
     private lateinit var gps: IGPS
-    private lateinit var timer: Timer
+    private lateinit var gpsTimeout: Timer
 
     private var hasLocation = false
     private var hasBarometerReading = false
@@ -45,41 +44,60 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.i(TAG, "Broadcast received at ${ZonedDateTime.now()}")
-        if (context != null) {
-            this.context = context
-            userPrefs = UserPreferences(context)
-            weatherService = WeatherService(userPrefs.weather.stormAlertThreshold, userPrefs.weather.dailyForecastSlowThreshold, userPrefs.weather.hourlyForecastFastThreshold)
+        if (context == null){
+            return
+        }
 
-            barometer = Barometer(context)
-            gps = GPS(context)
+        this.context = context
+        userPrefs = UserPreferences(context)
+        weatherService = WeatherService(
+            userPrefs.weather.stormAlertThreshold,
+            userPrefs.weather.dailyForecastSlowThreshold,
+            userPrefs.weather.hourlyForecastFastThreshold
+        )
 
-            val that = this
-            timer = timer(period = (5000 * (Companion.MAX_GPS_READINGS + 2)).toLong()) {
-                if (!hasLocation) {
-                    gps.stop(that::onLocationUpdate)
-                    altitudeReadings.add(gps.altitude)
-                    hasLocation = true
-                    if (hasBarometerReading){
-                        gotAllReadings()
-                    }
-                }
-                cancel()
-            }
+        scheduleNextAlarm()
 
-            if (userPrefs.useLocationFeatures) {
-                gps.start(this::onLocationUpdate)
-            } else {
+        if (!SystemUtils.isNotificationActive(context, WeatherNotificationService.WEATHER_NOTIFICATION_ID)){
+            sendWeatherNotification()
+        }
+
+        if (!canRun()) {
+            Log.i(TAG, "Not updating weather, called too soon")
+            return
+        }
+
+        setLastUpdatedTime()
+
+        barometer = Barometer(context)
+        gps = GPS(context)
+
+        val that = this
+        gpsTimeout = timer(period = (5000 * (MAX_GPS_READINGS + 2)).toLong()) {
+            if (!hasLocation) {
+                gps.stop(that::onLocationUpdate)
                 altitudeReadings.add(gps.altitude)
                 hasLocation = true
+                if (hasBarometerReading) {
+                    gotAllReadings()
+                }
             }
-            barometer.start(this::onPressureUpdate)
+            cancel()
         }
+
+        if (userPrefs.useLocationFeatures) {
+            gps.start(this::onLocationUpdate)
+        } else {
+            altitudeReadings.add(gps.altitude)
+            hasLocation = true
+        }
+        barometer.start(this::onPressureUpdate)
     }
 
     private fun onLocationUpdate(): Boolean {
         altitudeReadings.add(gps.altitude)
         updateAverageSpeed()
-        return if (hasLocation || altitudeReadings.size >= Companion.MAX_GPS_READINGS) {
+        return if (hasLocation || altitudeReadings.size >= MAX_GPS_READINGS) {
             hasLocation = true
             if (hasBarometerReading) {
                 gotAllReadings()
@@ -93,7 +111,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     private fun onPressureUpdate(): Boolean {
         pressureReadings.add(barometer.pressure)
 
-        return if (pressureReadings.size >= Companion.MAX_BAROMETER_READINGS) {
+        return if (pressureReadings.size >= MAX_BAROMETER_READINGS) {
             hasBarometerReading = true
             if (hasLocation) {
                 gotAllReadings()
@@ -102,6 +120,86 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         } else {
             true
         }
+    }
+
+    private fun gotAllReadings() {
+        gps.stop(this::onLocationUpdate)
+        barometer.stop(this::onPressureUpdate)
+        gpsTimeout.cancel()
+        addNewPressureReading()
+        sendStormAlert()
+        sendWeatherNotification()
+        Log.i(TAG, "Got all readings recorded at ${ZonedDateTime.now()}")
+    }
+
+    private fun addNewPressureReading(){
+        PressureHistoryRepository.add(
+            context,
+            PressureAltitudeReading(
+                Instant.now(),
+                getTruePressure(pressureReadings),
+                getTrueAltitude(altitudeReadings)
+            )
+        )
+    }
+
+    private fun sendStormAlert(){
+        createNotificationChannel()
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val sentAlert = prefs.getBoolean(context.getString(R.string.pref_just_sent_alert), false)
+
+        val pressureConverter = SeaLevelPressureConverterFactory().create(context)
+        val readings = PressureHistoryRepository.getAll(context)
+        val forecast = weatherService.getHourlyWeather(pressureConverter.convert(readings))
+
+        if (forecast == Weather.Storm) {
+            val shouldSend = userPrefs.weather.sendStormAlerts
+            if (shouldSend && !sentAlert) {
+                val notification = NotificationCompat.Builder(context, "Alerts")
+                    .setSmallIcon(R.drawable.ic_alert)
+                    .setContentTitle(context.getString(R.string.notification_storm_alert_title))
+                    .setContentText(context.getString(R.string.notification_storm_alert_text))
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .build()
+
+                SystemUtils.sendNotification(context, STORM_ALERT_NOTIFICATION_ID, notification)
+
+                prefs.edit {
+                    putBoolean(context.getString(R.string.pref_just_sent_alert), true)
+                }
+            }
+        } else {
+            SystemUtils.cancelNotification(context, STORM_ALERT_NOTIFICATION_ID)
+            prefs.edit {
+                putBoolean(context.getString(R.string.pref_just_sent_alert), false)
+            }
+        }
+    }
+
+    private fun sendWeatherNotification(){
+        val pressureConverter = SeaLevelPressureConverterFactory().create(context)
+        val readings = PressureHistoryRepository.getAll(context)
+        val forecast = weatherService.getHourlyWeather(pressureConverter.convert(readings))
+
+        if (userPrefs.weather.shouldShowWeatherNotification) {
+            WeatherNotificationService.updateNotificationForecast(context, forecast)
+        }
+    }
+
+    private fun scheduleNextAlarm() {
+        if (SystemUtils.isAlarmRunning(context, PI_ID, intent(context))) {
+            Log.i(TAG, "Next alarm already scheduled, not setting a new one")
+            return
+        }
+
+        Log.i(TAG, "Next alarm set for ${LocalDateTime.now().plusMinutes(10)}")
+        val pi = pendingIntent(context)
+        SystemUtils.windowedAlarm(
+            context,
+            LocalDateTime.now().plusMinutes(10),
+            Duration.ofMinutes(10),
+            pi
+        )
     }
 
     private fun getTrueAltitude(readings: List<Float>): Float {
@@ -131,61 +229,6 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         } else {
             lastReading
         }
-    }
-
-    private fun gotAllReadings() {
-        gps.stop(this::onLocationUpdate)
-        barometer.stop(this::onPressureUpdate)
-        timer.cancel()
-        PressureHistoryRepository.add(
-            context,
-            PressureAltitudeReading(
-                Instant.now(),
-                getTruePressure(pressureReadings),
-                getTrueAltitude(altitudeReadings)
-            )
-        )
-
-        createNotificationChannel()
-
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val sentAlert = prefs.getBoolean(context.getString(R.string.pref_just_sent_alert), false)
-
-        val pressureConverter = SeaLevelPressureConverterFactory().create(context)
-
-        val readings = PressureHistoryRepository.getAll(context)
-
-        val forecast = weatherService.getHourlyWeather(pressureConverter.convert(readings))
-
-        if (forecast == Weather.Storm) {
-            val shouldSend = userPrefs.weather.sendStormAlerts
-            if (shouldSend && !sentAlert) {
-                val notification = NotificationCompat.Builder(context, "Alerts")
-                    .setSmallIcon(R.drawable.ic_alert)
-                    .setContentTitle(context.getString(R.string.notification_storm_alert_title))
-                    .setContentText(context.getString(R.string.notification_storm_alert_text))
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .build()
-
-                SystemUtils.sendNotification(context, 0, notification)
-
-                prefs.edit {
-                    putBoolean(context.getString(R.string.pref_just_sent_alert), true)
-                }
-            }
-        } else {
-            SystemUtils.cancelNotification(context, 0)
-            prefs.edit {
-                putBoolean(context.getString(R.string.pref_just_sent_alert), false)
-            }
-        }
-
-        if (userPrefs.weather.shouldShowWeatherNotification) {
-            WeatherNotificationService.updateNotificationForecast(context, forecast)
-        }
-
-        Log.i(TAG, "Got all readings recorded at ${ZonedDateTime.now()}")
-
     }
 
     private fun getLastAltitude(): Float {
@@ -224,7 +267,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun updateAverageSpeed(){
+    private fun updateAverageSpeed() {
         try {
             if (gps.speed == 0f) {
                 return
@@ -240,20 +283,57 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
                 userPrefs.navigation.setAverageSpeed(speed)
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             // Don't do anything
+        }
+    }
+
+    private fun canRun(): Boolean {
+        val threshold = Duration.ofMinutes(9)
+        val lastCalled = Duration.between(getLastUpdatedTime(), LocalDateTime.now())
+
+        return lastCalled >= threshold
+    }
+
+    private fun getLastUpdatedTime(): LocalDateTime {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val raw = prefs.getString(LAST_CALLED_KEY, LocalDateTime.MIN.toString())
+            ?: LocalDateTime.MIN.toString()
+        return LocalDateTime.parse(raw)
+    }
+
+    private fun setLastUpdatedTime() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        prefs.edit {
+            putString(LAST_CALLED_KEY, LocalDateTime.now().toString())
         }
     }
 
     companion object {
 
-        private const val TAG = "WeatherUpdateReceiver";
+        private const val TAG = "WeatherUpdateReceiver"
+        const val PI_ID = 84097413
+        private const val STORM_ALERT_NOTIFICATION_ID = 74309823
+
+        fun pendingIntent(context: Context): PendingIntent {
+            return PendingIntent.getBroadcast(
+                context,
+                PI_ID,
+                intent(context),
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        }
 
         fun intent(context: Context): Intent {
-            return Intent(context, WeatherUpdateReceiver::class.java)
+            val i = Intent("com.kylecorry.trail_sense.UPDATE_WEATHER")
+            i.`package` = context.packageName
+            i.addCategory("android.intent.category.DEFAULT")
+            return i
         }
 
         private val MAX_BAROMETER_READINGS = 8
         private val MAX_GPS_READINGS = 5
+
+        private const val LAST_CALLED_KEY = "weatherLastUpdated"
     }
 }

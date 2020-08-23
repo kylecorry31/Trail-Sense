@@ -5,6 +5,7 @@ import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
@@ -32,6 +33,16 @@ object SystemUtils {
         } else {
             alarmManager?.set(AlarmManager.RTC_WAKEUP, time.toEpochMillis(), pendingIntent)
         }
+    }
+
+    fun windowedAlarm(
+        context: Context,
+        time: LocalDateTime,
+        window: Duration,
+        pendingIntent: PendingIntent
+    ){
+        val alarmManager = getAlarmManager(context)
+        alarmManager?.setWindow(AlarmManager.RTC_WAKEUP, time.toEpochMillis(), window.toMillis(), pendingIntent)
     }
 
     /**
@@ -76,17 +87,31 @@ object SystemUtils {
         try {
             val alarmManager = getAlarmManager(context)
             alarmManager?.cancel(pendingIntent)
+            pendingIntent.cancel()
         } catch (e: Exception) {
             Log.e("SystemUtils", "Could not cancel alarm", e)
         }
     }
 
-    fun sendNotification(context: Context, notificationId: Int, notification: Notification){
+    fun isAlarmRunning(context: Context, requestCode: Int, intent: Intent): Boolean {
+        return PendingIntent.getBroadcast(
+            context, requestCode,
+            intent,
+            PendingIntent.FLAG_NO_CREATE
+        ) != null
+    }
+
+    fun isNotificationActive(context: Context, notificationId: Int): Boolean {
+        val notificationManager = getNotificationManager(context)
+        return notificationManager?.activeNotifications?.any { it.id == notificationId } ?: false
+    }
+
+    fun sendNotification(context: Context, notificationId: Int, notification: Notification) {
         val notificationManager = getNotificationManager(context)
         notificationManager?.notify(notificationId, notification)
     }
 
-    fun cancelNotification(context: Context, notificationId: Int){
+    fun cancelNotification(context: Context, notificationId: Int) {
         val notificationManager = getNotificationManager(context)
         notificationManager?.cancel(notificationId)
     }

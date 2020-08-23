@@ -47,7 +47,12 @@
 
         <receiver
             android:name="com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateReceiver"
-            android:enabled="true" />
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.kylecorry.trail_sense.UPDATE_WEATHER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
         <receiver
             android:name="com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmReceiver"
             android:enabled="true" />
