@@ -210,7 +210,7 @@ class NavigatorFragment(
         rulerBtn.setOnClickListener {
             if (ruler.visibility == View.VISIBLE) {
                 rulerBtn.setImageResource(R.drawable.ruler)
-                ruler.visibility = View.INVISIBLE
+                ruler.visibility = View.GONE
             } else {
                 rulerBtn.setImageResource(R.drawable.hide_ruler)
                 ruler.visibility = View.VISIBLE
