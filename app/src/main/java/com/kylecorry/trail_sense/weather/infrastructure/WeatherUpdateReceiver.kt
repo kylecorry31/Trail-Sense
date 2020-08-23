@@ -192,7 +192,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             return
         }
 
-        val alarmMinutes = 15L
+        val alarmMinutes = 20L
 
         Log.i(TAG, "Next alarm set for ${LocalDateTime.now().plusMinutes(alarmMinutes)}")
 
@@ -296,7 +296,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun canRun(): Boolean {
-        val threshold = Duration.ofMinutes(9)
+        val threshold = Duration.ofMinutes(5)
         val lastCalled = Duration.between(getLastUpdatedTime(), LocalDateTime.now())
 
         return lastCalled >= threshold
