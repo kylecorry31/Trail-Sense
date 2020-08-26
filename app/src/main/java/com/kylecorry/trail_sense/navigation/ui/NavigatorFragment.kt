@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +13,7 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.flashlight.infrastructure.Flashlight
 import com.kylecorry.trail_sense.flashlight.infrastructure.FlashlightOffReceiver
 import com.kylecorry.trail_sense.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.flashlight.infrastructure.SosService
@@ -216,31 +218,43 @@ class NavigatorFragment(
 
         rulerBtn.setOnClickListener {
             if (ruler.visibility == View.VISIBLE) {
-                rulerBtn.setImageResource(R.drawable.ruler)
+                rulerBtn.imageTintList = ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
+                rulerBtn.backgroundTintList = ColorStateList.valueOf(UiUtils.androidBackgroundColorSecondary(requireContext()))
                 ruler.visibility = View.GONE
             } else {
-                rulerBtn.setImageResource(R.drawable.hide_ruler)
+                rulerBtn.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
+                rulerBtn.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
                 ruler.visibility = View.VISIBLE
             }
+        }
+
+        if (!Flashlight.hasFlashlight(requireContext())){
+            flashlightBtn.visibility = View.GONE
         }
 
         flashlightBtn.setOnClickListener {
             when {
                 FlashlightService.isOn(requireContext()) -> {
                     // Move to SOS
-                    flashlightBtn.setImageResource(R.drawable.flashlight_off)
+//                    flashlightBtn.setImageResource(R.drawable.flashlight_off)
+                    flashlightBtn.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
+                    flashlightBtn.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
                     FlashlightService.stop(requireContext().applicationContext)
                     SosService.start(requireContext().applicationContext)
                 }
                 SosService.isOn(requireContext()) -> {
                     // Move to off
-                    flashlightBtn.setImageResource(R.drawable.flashlight)
+                    flashlightBtn.imageTintList = ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
+                    flashlightBtn.backgroundTintList = ColorStateList.valueOf(UiUtils.androidBackgroundColorSecondary(requireContext()))
+//                    flashlightBtn.setImageResource(R.drawable.flashlight)
                     FlashlightService.stop(requireContext().applicationContext)
                     SosService.stop(requireContext().applicationContext)
                 }
                 else -> {
                     // Move to on
-                    flashlightBtn.setImageResource(R.drawable.flashlight)
+//                    flashlightBtn.setImageResource(R.drawable.flashlight)
+                    flashlightBtn.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
+                    flashlightBtn.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
                     SosService.stop(requireContext().applicationContext)
                     FlashlightService.start(requireContext().applicationContext)
                 }

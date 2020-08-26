@@ -40,6 +40,14 @@ object UiUtils {
         return getAndroidColorAttr(context, android.R.attr.textColorPrimary)
     }
 
+    fun androidBackgroundColorPrimary(context: Context): Int {
+        return getAndroidColorAttr(context, android.R.attr.colorBackground)
+    }
+
+    fun androidBackgroundColorSecondary(context: Context): Int {
+        return getAndroidColorAttr(context, android.R.attr.colorBackgroundFloating)
+    }
+
     fun androidTextColorSecondary(context: Context): Int {
         return getAndroidColorAttr(context, android.R.attr.textColorSecondary)
     }
