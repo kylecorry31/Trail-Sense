@@ -137,7 +137,7 @@
     <string name="pressure_4_hours">4 Stunden</string>
     <string name="pref_pressure_history_title">Luftdruckverlauf</string>
     <string name="pref_ruler_calibration_summary">Auf 1 setzen, dann gegen ein reales Lineal messen und diesen Wert hier eingeben.</string>
-    <string name="pref_ruler_calibration_title">Lineal-Skala</string>
+    <string name="pref_ruler_calibration_title">Linealskala</string>
     <string name="pref_num_visible_beacons_title">Anzahl sichtbarer Wegpunkte</string>
     <string name="new_moon">Neumond</string>
     <string name="waning_crescent">abnehmender Sichelmond</string>
