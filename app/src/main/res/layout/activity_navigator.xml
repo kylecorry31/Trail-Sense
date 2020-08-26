@@ -109,6 +109,22 @@
         app:srcCompat="@drawable/ruler" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/flashlight_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:tint="@color/colorPrimary"
+        app:backgroundTint="?android:colorBackgroundFloating"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/colorPrimary"
+        app:srcCompat="@drawable/flashlight" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/beaconBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
         android:allowBackup="true"
@@ -45,6 +46,9 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
+        <service android:name=".flashlight.infrastructure.FlashlightService"/>
+        <service android:name=".flashlight.infrastructure.SosService"/>
+
         <receiver
             android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateReceiver"
             android:enabled="true">
@@ -63,6 +67,9 @@
         </receiver>
         <receiver
             android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name="com.kylecorry.trail_sense.flashlight.infrastructure.FlashlightOffReceiver"
             android:enabled="true" />
         <receiver
             android:name="com.kylecorry.trail_sense.receivers.BootReceiver"

@@ -12,6 +12,9 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.flashlight.infrastructure.FlashlightOffReceiver
+import com.kylecorry.trail_sense.flashlight.infrastructure.FlashlightService
+import com.kylecorry.trail_sense.flashlight.infrastructure.SosService
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.infrastructure.*
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
@@ -52,6 +55,7 @@ class NavigatorFragment(
     private lateinit var directionTxt: TextView
     private lateinit var beaconBtn: FloatingActionButton
     private lateinit var rulerBtn: FloatingActionButton
+    private lateinit var flashlightBtn: FloatingActionButton
     private lateinit var ruler: ConstraintLayout
     private lateinit var parentLayout: ConstraintLayout
     private lateinit var accuracyView: LinearLayout
@@ -96,6 +100,7 @@ class NavigatorFragment(
         directionTxt = view.findViewById(R.id.compass_direction)
         beaconBtn = view.findViewById(R.id.beaconBtn)
         rulerBtn = view.findViewById(R.id.ruler_btn)
+        flashlightBtn = view.findViewById(R.id.flashlight_btn)
         ruler = view.findViewById(R.id.ruler)
         parentLayout = view.findViewById(R.id.navigator_layout)
         accuracyView = view.findViewById(R.id.accuracy_view)
@@ -216,6 +221,29 @@ class NavigatorFragment(
             } else {
                 rulerBtn.setImageResource(R.drawable.hide_ruler)
                 ruler.visibility = View.VISIBLE
+            }
+        }
+
+        flashlightBtn.setOnClickListener {
+            when {
+                FlashlightService.isOn(requireContext()) -> {
+                    // Move to SOS
+                    flashlightBtn.setImageResource(R.drawable.flashlight_off)
+                    FlashlightService.stop(requireContext().applicationContext)
+                    SosService.start(requireContext().applicationContext)
+                }
+                SosService.isOn(requireContext()) -> {
+                    // Move to off
+                    flashlightBtn.setImageResource(R.drawable.flashlight)
+                    FlashlightService.stop(requireContext().applicationContext)
+                    SosService.stop(requireContext().applicationContext)
+                }
+                else -> {
+                    // Move to on
+                    flashlightBtn.setImageResource(R.drawable.flashlight)
+                    SosService.stop(requireContext().applicationContext)
+                    FlashlightService.start(requireContext().applicationContext)
+                }
             }
         }
 
