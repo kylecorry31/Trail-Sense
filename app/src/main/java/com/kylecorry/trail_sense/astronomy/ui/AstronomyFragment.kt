@@ -400,16 +400,12 @@ class AstronomyFragment : Fragment() {
         if (nextSunrise != null && (nextSunset == null || nextSunrise.isBefore(nextSunset))) {
             sunTxt.text = Duration.between(currentTime, nextSunrise).formatHM()
             remDaylightTxt.text = getString(
-                R.string.until_sun_time, getSunriseWording().toLowerCase(
-                    getLocale()
-                )
+                R.string.until_sun_time, getSunriseWording()
             )
         } else if (nextSunset != null) {
             sunTxt.text = Duration.between(currentTime, nextSunset).formatHM()
             remDaylightTxt.text = getString(
-                R.string.until_sun_time, getSunsetWording().toLowerCase(
-                    getLocale()
-                )
+                R.string.until_sun_time, getSunsetWording()
             )
         } else if (astronomyService.isSunUp(gps.location)) {
             sunTxt.text = getString(R.string.sun_up_no_set)

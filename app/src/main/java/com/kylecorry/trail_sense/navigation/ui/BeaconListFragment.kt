@@ -135,8 +135,9 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
             shareSheet.visibility = View.GONE
         }
 
-        if (beacons.isNotEmpty()) {
+        if (beacons.isNotEmpty() && prefs.navigation.showBeaconListToast) {
             UiUtils.shortToast(requireContext(), getString(R.string.long_press_beacon_toast))
+            prefs.navigation.showBeaconListToast = false
         }
 
         return view

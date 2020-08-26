@@ -125,12 +125,12 @@
     </string-array>
 
     <string-array name="sunset_alert_time_entries">
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>1 hour 30 minutes</item>
-        <item>2 hours</item>
-        <item>2 hours 30 minutes</item>
-        <item>3 hours</item>
+        <item>@string/sunset_alert_30_minutes</item>
+        <item>@string/sunset_alert_1_hour</item>
+        <item>@string/sunset_alert_1_hour_30_minutes</item>
+        <item>@string/sunset_alert_2_hours</item>
+        <item>@string/sunset_alert_2_hours_30_minutes</item>
+        <item>@string/sunset_alert_3_hours</item>
     </string-array>
 
     <string-array name="sunset_alert_time_values">

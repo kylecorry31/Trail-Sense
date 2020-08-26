@@ -198,9 +198,9 @@
     <string name="coordinate_format_string_ddm">%s\u0020\u0020\u0020\u0020%s</string>
     <string name="coordinate_format_string_dms">%s\u0020\u0020\u0020\u0020%s</string>
     <string name="coordinate_format_string_dd">%s,\u0020\u0020%s</string>
-    <string name="pref_sunset_alerts">pref_sunset_alerts</string>
+    <string name="pref_sunset_alerts" translatable="false">pref_sunset_alerts</string>
     <string name="pref_sunset_alerts_title">Sunset alerts</string>
-    <string name="pref_sunset_alert_time">pref_sunset_alert_time</string>
+    <string name="pref_sunset_alert_time" translatable="false">pref_sunset_alert_time</string>
     <string name="pref_sunset_alert_time_title">Sunset alert time</string>
     <string name="sunset_alert_notification_title">Sun is setting soon</string>
     <string name="sunset_alert_notification_text">The sun will set at %s</string>
@@ -222,4 +222,10 @@
     <string name="pref_show_weather_notification_title">Show weather notification</string>
     <string name="notification_storm_alert_channel_name">Alerts</string>
     <string name="notification_storm_alert_channel_desc">Storm alerts</string>
+    <string name="sunset_alert_30_minutes">30 minutes</string>
+    <string name="sunset_alert_1_hour">1 hour</string>
+    <string name="sunset_alert_1_hour_30_minutes">1 hour 30 minutes</string>
+    <string name="sunset_alert_2_hours">2 hours</string>
+    <string name="sunset_alert_2_hours_30_minutes">2 hours 30 hours</string>
+    <string name="sunset_alert_3_hours">3 hours</string>
 </resources>
