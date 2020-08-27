@@ -34,6 +34,8 @@
 </table>
 
  An Android app which provides useful information about the environment and can be used offline (designed for hiking / mountaineering).
+ 
+ Note: Trail Sense may be abbreviated as TS in the issues
 
 ## Features
 * Compass navigation
