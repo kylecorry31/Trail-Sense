@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.location.GpsStatus
 import android.location.Location
 import android.location.LocationManager
 import androidx.core.content.edit
@@ -11,7 +12,11 @@ import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 
+
 class GPS(private val context: Context) : AbstractSensor(), IGPS {
+
+    override val satellites: Int
+        get() = _satellites
 
     override val accuracy: Accuracy
         get() = _accuracy
@@ -40,6 +45,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
     private var _accuracy: Accuracy = Accuracy.Unknown
     private var _horizontalAccuracy: Float? = null
     private var _verticalAccuracy: Float? = null
+    private var _satellites: Int = 0
     private var _speed: Float = prefs.getFloat(LAST_SPEED, 0f)
     private var _location = Coordinate(
         prefs.getFloat(LAST_LATITUDE, 0f).toDouble(),
@@ -48,11 +54,16 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
 
     private var lastLocation: Location? = null
 
+    private var fixStart: Long = 0L
+    private val maxFixTime = 8000L
+
     @SuppressLint("MissingPermission")
     override fun startImpl() {
         if (!sensorChecker.hasGPS()) {
             return
         }
+
+        fixStart = System.currentTimeMillis()
 
         if (lastLocation == null) {
             updateLastLocation(
@@ -63,7 +74,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
 
         locationManager?.requestLocationUpdates(
             LocationManager.GPS_PROVIDER,
-            5000,
+            20,
             0f,
             locationListener
         )
@@ -78,11 +89,20 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
             return
         }
 
+        val satellites = location.extras.getInt("satellites")
+        val dt = System.currentTimeMillis() - fixStart
+
+        if (satellites < 4 && dt < maxFixTime){
+            return
+        }
+
         if (!useNewLocation(lastLocation, location)) {
             if (notify) notifyListeners()
             return
         }
 
+        fixStart = System.currentTimeMillis()
+        _satellites = satellites
         lastLocation = location
 
         if (location.hasAccuracy()) {
@@ -147,7 +167,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
 
         val accuracyDelta = (newLocation.accuracy - current.accuracy).toInt()
         val isMoreAccurate = accuracyDelta < 0
-        val isSignificantlyLessAccurate = accuracyDelta > 200
+        val isSignificantlyLessAccurate = accuracyDelta > 30
 
         if (isMoreAccurate) {
             return true

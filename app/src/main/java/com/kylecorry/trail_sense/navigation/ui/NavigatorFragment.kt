@@ -263,7 +263,7 @@ class NavigatorFragment(
             UiUtils.alert(
                 requireContext(),
                 getString(R.string.accuracy_info_title),
-                getString(R.string.accuracy_info, navigationVM.gpsHorizontalAccuracy, navigationVM.gpsVerticalAccuracy)
+                getString(R.string.accuracy_info, navigationVM.gpsHorizontalAccuracy, navigationVM.gpsVerticalAccuracy, gps.satellites)
             )
         }
 

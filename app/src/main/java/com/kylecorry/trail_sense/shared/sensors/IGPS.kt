@@ -7,4 +7,5 @@ interface IGPS: ISensor, IAltimeter {
     val speed: Float
     val verticalAccuracy: Float?
     val horizontalAccuracy: Float?
+    val satellites: Int
 }

@@ -344,7 +344,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         }
 
         private val MAX_BAROMETER_READINGS = 8
-        private val MAX_GPS_READINGS = 5
+        private val MAX_GPS_READINGS = 1
 
         private const val LAST_CALLED_KEY = "weatherLastUpdated"
     }

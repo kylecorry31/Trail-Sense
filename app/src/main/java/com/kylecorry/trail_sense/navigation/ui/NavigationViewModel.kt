@@ -423,6 +423,9 @@ class NavigationViewModel(
             }
         }
 
+    val gpsSatellites: String
+        get() = gps.satellites.toString()
+
     private val sunBearing: Float
         get() {
             val declination = if (!useTrueNorth) navigationService.getDeclination(
