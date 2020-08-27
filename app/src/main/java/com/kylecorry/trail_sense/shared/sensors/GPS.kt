@@ -34,8 +34,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
     private val locationManager = context.getSystemService<LocationManager>()
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
     private val sensorChecker = SensorChecker(context)
-    private val locationListener =
-        SimpleLocationListener(this::updateLastLocation)
+    private val locationListener = SimpleLocationListener { updateLastLocation(it, true) }
 
     private var _altitude = prefs.getFloat(LAST_ALTITUDE, 0f)
     private var _accuracy: Accuracy = Accuracy.Unknown
@@ -47,11 +46,21 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         prefs.getFloat(LAST_LONGITUDE, 0f).toDouble()
     )
 
+    private var lastLocation: Location? = null
+
     @SuppressLint("MissingPermission")
     override fun startImpl() {
         if (!sensorChecker.hasGPS()) {
             return
         }
+
+        if (lastLocation == null) {
+            updateLastLocation(
+                locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER),
+                false
+            )
+        }
+
         locationManager?.requestLocationUpdates(
             LocationManager.GPS_PROVIDER,
             5000,
@@ -64,10 +73,17 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         locationManager?.removeUpdates(locationListener)
     }
 
-    private fun updateLastLocation(location: Location?) {
+    private fun updateLastLocation(location: Location?, notify: Boolean = true) {
         if (location == null) {
             return
         }
+
+        if (!useNewLocation(lastLocation, location)) {
+            if (notify) notifyListeners()
+            return
+        }
+
+        lastLocation = location
 
         if (location.hasAccuracy()) {
             this._accuracy = when {
@@ -109,7 +125,35 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
             putFloat(LAST_LONGITUDE, location.longitude.toFloat())
         }
 
-        notifyListeners()
+        if (notify) notifyListeners()
+    }
+
+    private fun useNewLocation(current: Location?, newLocation: Location): Boolean {
+        // Modified from https://stackoverflow.com/questions/10588982/retrieving-of-satellites-used-in-gps-fix-from-android
+        if (current == null) {
+            return true
+        }
+
+        val timeDelta = newLocation.time - current.time
+        val isSignificantlyNewer: Boolean = timeDelta > 1000 * 60 * 2
+        val isSignificantlyOlder: Boolean = timeDelta < -1000 * 60 * 2
+        val isNewer = timeDelta > 0
+
+        if (isSignificantlyNewer) {
+            return true
+        } else if (isSignificantlyOlder) {
+            return false
+        }
+
+        val accuracyDelta = (newLocation.accuracy - current.accuracy).toInt()
+        val isMoreAccurate = accuracyDelta < 0
+        val isSignificantlyLessAccurate = accuracyDelta > 200
+
+        if (isMoreAccurate) {
+            return true
+        }
+
+        return isNewer && !isSignificantlyLessAccurate
     }
 
     companion object {
@@ -118,5 +162,4 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         private const val LAST_ALTITUDE = "last_altitude"
         private const val LAST_SPEED = "last_speed"
     }
-
 }
