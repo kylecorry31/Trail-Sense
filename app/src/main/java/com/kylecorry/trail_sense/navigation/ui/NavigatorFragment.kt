@@ -363,7 +363,7 @@ class NavigatorFragment(
 
     private fun updateUI() {
 
-        if (System.currentTimeMillis() - lastUpdated < 20){
+        if (System.currentTimeMillis() - lastUpdated < 16){
             return
         }
         lastUpdated = System.currentTimeMillis()
