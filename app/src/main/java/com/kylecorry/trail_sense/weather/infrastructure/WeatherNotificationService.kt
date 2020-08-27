@@ -46,6 +46,7 @@ object WeatherNotificationService {
                 .addAction(stopAction)
                 .setOnlyAlertOnce(true)
                 .setAutoCancel(false)
+                .setOngoing(true)
                 .setContentIntent(openPendingIntent)
                 .build()
         } else {
@@ -56,6 +57,7 @@ object WeatherNotificationService {
                 .addAction(stopAction)
                 .setOnlyAlertOnce(true)
                 .setAutoCancel(false)
+                .setOngoing(true)
                 .setContentIntent(openPendingIntent)
                 .build()
         }

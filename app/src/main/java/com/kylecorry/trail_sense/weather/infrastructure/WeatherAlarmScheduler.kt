@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateR
 
 object WeatherAlarmScheduler {
     fun start(context: Context) {
-        context.sendBroadcast(WeatherUpdateReceiver.intent(context))
+        context.sendBroadcast(WeatherUpdateReceiver.intent(context.applicationContext))
     }
 
     fun stop(context: Context) {

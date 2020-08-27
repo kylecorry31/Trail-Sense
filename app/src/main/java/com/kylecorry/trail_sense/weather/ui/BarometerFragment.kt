@@ -133,7 +133,12 @@ class BarometerFragment : Fragment(), Observer {
         if (context == null) return
         if (barometer.pressure == 0.0f) return
 
-        val readings = PressureHistoryRepository.getAll(requireContext())
+        val historyDuration = prefs.weather.pressureHistory
+        val now = Instant.now()
+
+        val readings = PressureHistoryRepository.getAll(requireContext()).filter {
+            Duration.between(it.time, now) <= historyDuration
+        }
 
         val allReadings = mutableListOf<PressureAltitudeReading>()
         allReadings.addAll(readings)
