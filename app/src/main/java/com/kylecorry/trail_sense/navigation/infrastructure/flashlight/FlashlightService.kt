@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.system.NotificationUtils
 
@@ -52,9 +53,9 @@ class FlashlightService: Service() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        stopForeground(true)
         flashlight.off()
-        NotificationUtils.cancel(this, NOTIFICATION_ID)
+        super.onDestroy()
     }
 
     companion object {
@@ -67,11 +68,7 @@ class FlashlightService: Service() {
 
         fun start(context: Context){
             try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    context.startForegroundService(intent(context))
-                } else {
-                    context.startService(intent(context))
-                }
+                ContextCompat.startForegroundService(context, intent(context))
             } catch (e: Exception){
                 // Don't do anything
             }
