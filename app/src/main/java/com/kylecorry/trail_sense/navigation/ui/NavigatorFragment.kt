@@ -41,6 +41,8 @@ class NavigatorFragment(
     private lateinit var orientation: DeviceOrientation
     private lateinit var altimeter: IAltimeter
 
+    private var lastUpdated = System.currentTimeMillis()
+
     // TODO: Extract ruler
     private var isRulerSetup = false
     private var areRulerTextViewsAligned = false
@@ -236,7 +238,7 @@ class NavigatorFragment(
             when {
                 FlashlightService.isOn(requireContext()) -> {
                     // Move to SOS
-//                    flashlightBtn.setImageResource(R.drawable.flashlight_off)
+                    flashlightBtn.setImageResource(R.drawable.flashlight_sos)
                     flashlightBtn.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
                     flashlightBtn.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
                     FlashlightService.stop(requireContext().applicationContext)
@@ -246,13 +248,13 @@ class NavigatorFragment(
                     // Move to off
                     flashlightBtn.imageTintList = ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
                     flashlightBtn.backgroundTintList = ColorStateList.valueOf(UiUtils.androidBackgroundColorSecondary(requireContext()))
-//                    flashlightBtn.setImageResource(R.drawable.flashlight)
+                    flashlightBtn.setImageResource(R.drawable.flashlight)
                     FlashlightService.stop(requireContext().applicationContext)
                     SosService.stop(requireContext().applicationContext)
                 }
                 else -> {
                     // Move to on
-//                    flashlightBtn.setImageResource(R.drawable.flashlight)
+                    flashlightBtn.setImageResource(R.drawable.flashlight)
                     flashlightBtn.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
                     flashlightBtn.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
                     SosService.stop(requireContext().applicationContext)
@@ -276,6 +278,32 @@ class NavigatorFragment(
         }
 
         return view
+    }
+
+    private fun updateFlashlightUI() {
+        when {
+            FlashlightService.isOn(requireContext()) -> {
+                flashlightBtn.setImageResource(R.drawable.flashlight)
+                flashlightBtn.imageTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
+                flashlightBtn.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
+            }
+            SosService.isOn(requireContext()) -> {
+                flashlightBtn.imageTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
+                flashlightBtn.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
+                flashlightBtn.setImageResource(R.drawable.flashlight_sos)
+            }
+            else -> {
+                flashlightBtn.setImageResource(R.drawable.flashlight)
+                flashlightBtn.imageTintList =
+                    ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
+                flashlightBtn.backgroundTintList =
+                    ColorStateList.valueOf(UiUtils.androidBackgroundColorSecondary(requireContext()))
+            }
+        }
     }
 
     private fun setVisibleCompass(compass: ICompassView) {
@@ -320,6 +348,7 @@ class NavigatorFragment(
 
         // Update the UI
         updateNavigator()
+        updateFlashlightUI()
     }
 
     override fun onPause() {
@@ -333,6 +362,11 @@ class NavigatorFragment(
     }
 
     private fun updateUI() {
+
+        if (System.currentTimeMillis() - lastUpdated < 20){
+            return
+        }
+        lastUpdated = System.currentTimeMillis()
 
         if (context == null) {
             return
