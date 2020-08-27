@@ -13,10 +13,9 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.flashlight.infrastructure.Flashlight
-import com.kylecorry.trail_sense.flashlight.infrastructure.FlashlightOffReceiver
-import com.kylecorry.trail_sense.flashlight.infrastructure.FlashlightService
-import com.kylecorry.trail_sense.flashlight.infrastructure.SosService
+import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.Flashlight
+import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.FlashlightService
+import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.SosService
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.infrastructure.*
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
@@ -238,25 +237,16 @@ class NavigatorFragment(
             when {
                 FlashlightService.isOn(requireContext()) -> {
                     // Move to SOS
-                    flashlightBtn.setImageResource(R.drawable.flashlight_sos)
-                    flashlightBtn.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
-                    flashlightBtn.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
                     FlashlightService.stop(requireContext().applicationContext)
                     SosService.start(requireContext().applicationContext)
                 }
                 SosService.isOn(requireContext()) -> {
                     // Move to off
-                    flashlightBtn.imageTintList = ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
-                    flashlightBtn.backgroundTintList = ColorStateList.valueOf(UiUtils.androidBackgroundColorSecondary(requireContext()))
-                    flashlightBtn.setImageResource(R.drawable.flashlight)
                     FlashlightService.stop(requireContext().applicationContext)
                     SosService.stop(requireContext().applicationContext)
                 }
                 else -> {
                     // Move to on
-                    flashlightBtn.setImageResource(R.drawable.flashlight)
-                    flashlightBtn.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
-                    flashlightBtn.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
                     SosService.stop(requireContext().applicationContext)
                     FlashlightService.start(requireContext().applicationContext)
                 }
@@ -348,7 +338,6 @@ class NavigatorFragment(
 
         // Update the UI
         updateNavigator()
-        updateFlashlightUI()
     }
 
     override fun onPause() {
@@ -371,6 +360,8 @@ class NavigatorFragment(
         if (context == null) {
             return
         }
+
+        updateFlashlightUI()
 
         navigationVM.updateVisibleBeacon()
 

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.flashlight.infrastructure
+package com.kylecorry.trail_sense.navigation.infrastructure.flashlight
 
 import android.app.Notification
 import android.app.Service
@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.shared.system.NotificationUtils
 import java.lang.Exception
 import kotlin.concurrent.thread
 
-class SosService: Service() {
+class SosService : Service() {
 
     lateinit var flashlight: Flashlight
     lateinit var thread: Thread
@@ -26,25 +26,31 @@ class SosService: Service() {
     }
 
     override fun onCreate() {
-        if (isOn(this)){
+        if (isOn(this)) {
             // Already on
             return
         }
 
-        NotificationUtils.createChannel(this, CHANNEL_ID, "Flashlight", "Flashlight", NotificationUtils.CHANNEL_IMPORTANCE_LOW)
+        NotificationUtils.createChannel(
+            this,
+            CHANNEL_ID,
+            "Flashlight",
+            "Flashlight",
+            NotificationUtils.CHANNEL_IMPORTANCE_LOW
+        )
 
         val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Notification.Builder(this, CHANNEL_ID)
                 .setContentTitle("SOS")
                 .setContentText("Tap to turn off")
-                .setSmallIcon(R.drawable.flashlight)
+                .setSmallIcon(R.drawable.flashlight_sos)
                 .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
                 .build()
         } else {
             Notification.Builder(this)
                 .setContentTitle("SOS")
                 .setContentText("Tap to turn off")
-                .setSmallIcon(R.drawable.flashlight)
+                .setSmallIcon(R.drawable.flashlight_sos)
                 .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
                 .build()
         }
@@ -56,7 +62,7 @@ class SosService: Service() {
         running = true
 
         thread = thread {
-            while (running){
+            while (running) {
                 try {
                     dot()
                     space()
@@ -76,7 +82,7 @@ class SosService: Service() {
                     space()
                     dot()
                     Thread.sleep(1400)
-                } catch (e: Exception){
+                } catch (e: Exception) {
                     // Ignore
                 }
             }
@@ -93,8 +99,8 @@ class SosService: Service() {
         NotificationUtils.cancel(this, NOTIFICATION_ID)
     }
 
-    private fun dot(){
-        if (!running){
+    private fun dot() {
+        if (!running) {
             return
         }
         flashlight.on()
@@ -102,22 +108,22 @@ class SosService: Service() {
         flashlight.off()
     }
 
-    private fun letterSpace(){
-        if (!running){
+    private fun letterSpace() {
+        if (!running) {
             return
         }
         Thread.sleep(600)
     }
 
-    private fun space(){
-        if (!running){
+    private fun space() {
+        if (!running) {
             return
         }
         Thread.sleep(200)
     }
 
-    private fun dash(){
-        if (!running){
+    private fun dash() {
+        if (!running) {
             return
         }
         flashlight.on()
@@ -133,15 +139,19 @@ class SosService: Service() {
             return Intent(context, SosService::class.java)
         }
 
-        fun start(context: Context){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(intent(context))
-            } else {
-                context.startService(intent(context))
+        fun start(context: Context) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(intent(context))
+                } else {
+                    context.startService(intent(context))
+                }
+            } catch (e: Exception) {
+                // Don't do anything
             }
         }
 
-        fun stop(context: Context){
+        fun stop(context: Context) {
             context.stopService(intent(context))
         }
 

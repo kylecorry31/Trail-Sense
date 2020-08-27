@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.flashlight.infrastructure
+package com.kylecorry.trail_sense.navigation.infrastructure.flashlight
 
 import android.app.PendingIntent
 import android.content.BroadcastReceiver

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.flashlight.infrastructure
+package com.kylecorry.trail_sense.navigation.infrastructure.flashlight
 
 import android.app.Notification
 import android.app.Service
@@ -66,10 +66,14 @@ class FlashlightService: Service() {
         }
 
         fun start(context: Context){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(intent(context))
-            } else {
-                context.startService(intent(context))
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(intent(context))
+                } else {
+                    context.startService(intent(context))
+                }
+            } catch (e: Exception){
+                // Don't do anything
             }
         }
 

@@ -228,4 +228,5 @@
     <string name="sunset_alert_2_hours">2 hours</string>
     <string name="sunset_alert_2_hours_30_minutes">2 hours 30 hours</string>
     <string name="sunset_alert_3_hours">3 hours</string>
+    <string name="onboarding_navigation_flashlight">And easily access your flashlight</string>
 </resources>
