@@ -41,12 +41,13 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/pref_navigation_header">
+    <PreferenceCategory app:title="Sensors">
+        <Preference
+            android:key="pref_compass_calibration"
+            android:title="Compass"/>
+    </PreferenceCategory>
 
-        <SwitchPreferenceCompat
-            app:key="@string/pref_use_true_north"
-            app:title="@string/pref_use_true_north_title"
-            app:defaultValue="true" />
+    <PreferenceCategory app:title="@string/pref_navigation_header">
 
         <ListPreference
             app:defaultValue="gps"
@@ -86,12 +87,6 @@
             app:title="@string/pref_show_linear_compass_title"
             app:summary="@string/pref_show_linear_compass_summary"
             app:defaultValue="true"/>
-
-        <SwitchPreferenceCompat
-            app:key="@string/pref_use_legacy_compass"
-            app:title="@string/pref_use_legacy_compass_title"
-            app:summary="@string/pref_use_legacy_compass_summary"
-            app:defaultValue="false"/>
 
         <SeekBarPreference
             app:key="@string/pref_compass_filter_amt"

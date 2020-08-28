@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
@@ -52,6 +53,20 @@ class UserPreferences(private val context: Context) {
                 else -> Theme.System
             }
         }
+
+    // Calibration
+
+    var useAutoDeclination: Boolean
+        get() = prefs.getBoolean("pref_auto_declination", true)
+        set(value) = prefs.edit { putBoolean("pref_auto_declination", value) }
+
+    var declinationOverride: Float
+        get() = prefs.getFloat("pref_declination_override", 0.0f)
+        set(value) = prefs.edit { putFloat("pref_declination_override", value) }
+
+    var azimuthOffset: Double
+        get() = prefs.getFloat("pref_azimuth_offset", 0.0f).toDouble()
+        set(value) = prefs.edit { putFloat("pref_azimuth_offset", value.toFloat()) }
 
     enum class DistanceUnits {
         Meters, Feet

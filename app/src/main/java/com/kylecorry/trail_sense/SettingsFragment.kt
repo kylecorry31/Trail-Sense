@@ -2,12 +2,11 @@ package com.kylecorry.trail_sense
 
 import android.os.Bundle
 import android.text.InputType
-import androidx.preference.EditTextPreference
-import androidx.preference.ListPreference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreferenceCompat
+import androidx.preference.*
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
+import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.shared.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
@@ -23,6 +22,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val sensorChecker = SensorChecker(requireContext())
         if (!sensorChecker.hasBarometer()) {
             preferenceScreen.removePreferenceRecursively(getString(R.string.pref_weather_category))
+        }
+
+        preferenceScreen.findPreference<Preference>("pref_compass_calibration")?.setOnPreferenceClickListener { _ ->
+            // Launch intent
+            switchToFragment(CalibrateCompassFragment())
+            false
         }
 
         preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_theme))?.setOnPreferenceChangeListener { _, _ ->
