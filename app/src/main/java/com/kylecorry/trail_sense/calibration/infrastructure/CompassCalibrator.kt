@@ -29,14 +29,6 @@ class CompassCalibrator(context: Context) {
         return declinationCalculator.calculate(coordinate, altitude)
     }
 
-    fun setDeclinationAuto(){
-        prefs.useAutoDeclination = true
-    }
-
-    fun isDeclinationAuto(): Boolean {
-        return prefs.useAutoDeclination
-    }
-
     fun setAzimuthOffset(offset: Double){
         prefs.azimuthOffset = offset
     }
@@ -49,16 +41,6 @@ class CompassCalibrator(context: Context) {
         val sunAzimuth = astronomyService.getSunAzimuth(coordinate)
         val diff = sunAzimuth.value - azimuth.toFloat()
         setAzimuthOffset(diff.toDouble())
-    }
-
-    fun setAzimuthOffsetFromMoon(azimuth: Double, coordinate: Coordinate){
-        val moonAzimuth = astronomyService.getMoonAzimuth(coordinate)
-        val diff = moonAzimuth.value - azimuth.toFloat()
-        setAzimuthOffset(diff.toDouble())
-    }
-
-    fun clearAzimuthOffset(){
-        setAzimuthOffset(0.0)
     }
 
 }

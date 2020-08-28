@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.weather.domain
 
-class MovingAverageFilter(private val size: Int) {
+class MovingAverageFilter(var size: Int) {
 
     private val window = mutableListOf<Double>()
 

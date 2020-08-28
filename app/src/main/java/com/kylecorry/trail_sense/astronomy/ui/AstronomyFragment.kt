@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.domain.moon.MoonTruePhase
 import com.kylecorry.trail_sense.astronomy.domain.moon.Tide
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
+import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
@@ -333,8 +334,15 @@ class AstronomyFragment : Fragment() {
                 )
             )
 
-            val sunAzimuth = astronomyService.getSunAzimuth(gps.location).value.roundToInt()
-            val moonAzimuth = astronomyService.getMoonAzimuth(gps.location).value.roundToInt()
+            val declination = if (!prefs.navigation.useTrueNorth){
+                if (prefs.useAutoDeclination) DeclinationCalculator().calculate(
+                    gps.location,
+                    gps.altitude
+                ) else prefs.declinationOverride
+            } else 0f
+
+            val sunAzimuth = astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value.roundToInt()
+            val moonAzimuth = astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value.roundToInt()
 
             details.add(AstroDetail(R.drawable.sun, "Sun azimuth", getString(R.string.degree_format, sunAzimuth), R.color.colorPrimary))
             details.add(AstroDetail(R.drawable.moon_full, "Moon azimuth", getString(R.string.degree_format, moonAzimuth)))

@@ -24,7 +24,7 @@ class VectorCompass(context: Context) : AbstractSensor(), ICompass {
     private val magnetometer = Magnetometer(context)
 
     private val prefs = UserPreferences(context)
-    private val filterSize = prefs.navigation.compassSmoothing * 2 * 2
+    private var filterSize = prefs.navigation.compassSmoothing * 2 * 2
     private val filter = MovingAverageFilter(filterSize)
 
     override var declination = 0f
@@ -37,6 +37,11 @@ class VectorCompass(context: Context) : AbstractSensor(), ICompass {
 
     private var gotMag = false;
     private var gotAccel = false;
+
+    override fun setSmoothing(smoothing: Int) {
+        filterSize = smoothing * 2 * 2
+        filter.size = filterSize
+    }
 
     private fun updateBearing(newBearing: Float) {
         _bearing += deltaAngle(_bearing, newBearing)

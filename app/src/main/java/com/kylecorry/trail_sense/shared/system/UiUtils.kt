@@ -28,6 +28,30 @@ object UiUtils {
         return dialog
     }
 
+    fun alertWithCancel(context: Context, title: String, content: String, onClose: ((cancelled: Boolean) -> Unit)? = null): AlertDialog {
+        val builder = AlertDialog.Builder(context)
+        builder.apply {
+            setMessage(content)
+            setTitle(title)
+            setPositiveButton(
+                R.string.dialog_ok
+            ) { dialog, _ ->
+                onClose?.invoke(false)
+                dialog.dismiss()
+            }
+            setNegativeButton(
+                R.string.dialog_cancel
+            ) { dialog, _ ->
+                onClose?.invoke(true)
+                dialog.dismiss()
+            }
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+        return dialog
+    }
+
     fun longToast(context: Context, text: String){
         Toast.makeText(context, text, Toast.LENGTH_LONG).show()
     }
