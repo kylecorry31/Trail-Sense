@@ -14,10 +14,11 @@ import com.kylecorry.trail_sense.shared.sensors.*
 
 class CalibrateAltimeterFragment : Fragment() {
 
-    private var barometer: IBarometer? = null
+    private lateinit var barometer: IBarometer
     private lateinit var altimeterCalibrator: AltimeterCalibrator
-    private lateinit var gps: IGPS
+    private lateinit var altimeter: IAltimeter
     private lateinit var prefs: UserPreferences
+    private lateinit var sensorService: SensorService
     private val throttle = Throttle(20)
     private var gpsStarted = false
 
@@ -26,11 +27,14 @@ class CalibrateAltimeterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_sensor_compass, container, false)
+        val view = inflater.inflate(R.layout.fragment_sensor_altimeter, container, false)
 
         prefs = UserPreferences(requireContext())
-        barometer = if (prefs.weather.hasBarometer) Barometer(requireContext()) else null
-        gps = GPS(requireContext())
+        sensorService = SensorService(requireContext())
+
+        barometer = sensorService.getBarometer()
+        altimeter = sensorService.getAltimeter()
+
         altimeterCalibrator = AltimeterCalibrator(requireContext())
 
         return view
@@ -38,15 +42,13 @@ class CalibrateAltimeterFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        barometer?.start(this::updateBarometer)
-        if (prefs.useLocationFeatures) {
-            startGps()
-        }
+        barometer.start(this::updateBarometer)
+        startGps()
     }
 
     override fun onPause() {
         super.onPause()
-        barometer?.stop(this::updateBarometer)
+        barometer.stop(this::updateBarometer)
         stopGps()
     }
 
@@ -55,12 +57,12 @@ class CalibrateAltimeterFragment : Fragment() {
             return
         }
         gpsStarted = true
-        gps.start(this::updateGps)
+        altimeter.start(this::updateGps)
     }
 
     private fun stopGps() {
         gpsStarted = false
-        gps.stop(this::updateGps)
+        altimeter.stop(this::updateGps)
     }
 
 

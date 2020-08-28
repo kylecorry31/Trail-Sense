@@ -245,4 +245,7 @@
     <string name="compass_azimuth">Azimuth</string>
     <string name="compass_declination">Declination</string>
     <string name="compass_true_north">True North</string>
+    <string name="altimeter">Altimeter</string>
+    <string name="pref_altimeter_calibration">pref_altimeter_calibration</string>
+    <string name="pref_altimeter_calibration_title">Altimeter</string>
 </resources>

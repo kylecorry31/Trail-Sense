@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.InputType
 import androidx.preference.*
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.calibration.ui.CalibrateAltimeterFragment
 import com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.shared.switchToFragment
@@ -27,6 +28,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceScreen.findPreference<Preference>("pref_compass_calibration")?.setOnPreferenceClickListener { _ ->
             // Launch intent
             switchToFragment(CalibrateCompassFragment(), addToBackStack = true)
+            false
+        }
+
+        preferenceScreen.findPreference<Preference>("pref_altimeter_calibration")?.setOnPreferenceClickListener { _ ->
+            // Launch intent
+            switchToFragment(CalibrateAltimeterFragment(), addToBackStack = true)
             false
         }
 

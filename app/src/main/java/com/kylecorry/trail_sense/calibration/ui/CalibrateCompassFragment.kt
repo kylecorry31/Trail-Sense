@@ -37,6 +37,7 @@ class CalibrateCompassFragment : Fragment() {
     private lateinit var smoothingTxt: TextView
     private lateinit var azimuthOffsetEdit: EditText
     private lateinit var fromSunBtn: Button
+    private lateinit var sensorService: SensorService
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,10 +47,10 @@ class CalibrateCompassFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_sensor_compass, container, false)
 
         prefs = UserPreferences(requireContext())
+        sensorService = SensorService(requireContext())
         useLegacyCompass = prefs.navigation.useLegacyCompass
-        compass =
-            if (useLegacyCompass) LegacyCompass(requireContext()) else VectorCompass(requireContext())
-        gps = GPS(requireContext())
+        compass = sensorService.getCompass()
+        gps = sensorService.getGPS()
         compassCalibrator = CompassCalibrator(requireContext())
 
         compassValueTxt = view.findViewById(R.id.compass_value)
@@ -174,9 +175,7 @@ class CalibrateCompassFragment : Fragment() {
         if (useLegacyCompass != prefs.navigation.useLegacyCompass) {
             useLegacyCompass = prefs.navigation.useLegacyCompass
             compass.stop(this::updateCompass)
-            compass = if (useLegacyCompass) LegacyCompass(requireContext()) else VectorCompass(
-                requireContext()
-            )
+            compass = sensorService.getCompass()
             compass.start(this::updateCompass)
         }
 

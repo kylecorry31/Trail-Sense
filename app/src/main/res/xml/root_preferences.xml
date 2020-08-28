@@ -46,6 +46,9 @@
             android:key="@string/pref_compass_sensor"
             android:title="@string/pref_compass_sensor_title"/>
 
+        <Preference
+            android:key="@string/pref_altimeter_calibration"
+            android:title="@string/pref_altimeter_calibration_title"/>
 
         <EditTextPreference
             app:key="@string/pref_ruler_calibration"
