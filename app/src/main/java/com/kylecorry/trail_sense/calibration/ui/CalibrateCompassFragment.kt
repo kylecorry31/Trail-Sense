@@ -98,11 +98,11 @@ class CalibrateCompassFragment : Fragment() {
             gps.start(this::updateManualDeclinationFromGps)
         }
 
-        fromSunBtn.setOnClickListener { _ ->
+        fromSunBtn.setOnClickListener {
             UiUtils.alertWithCancel(
                 requireContext(),
-                "Align with sun",
-                "Place a straight stick into the ground, then align your phone with the stick's shadow with the top of you phone facing the stick."
+                getString(R.string.compass_calibration_sun_title),
+                getString(R.string.compass_calibration_sun)
             ) { cancelled ->
                 if (!cancelled) {
                     gps.start(this::updateAzimuthOffsetFromSun)

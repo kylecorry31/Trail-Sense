@@ -41,10 +41,22 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Sensors">
+    <PreferenceCategory app:title="@string/pref_category_sensors_title">
         <Preference
-            android:key="pref_compass_calibration"
-            android:title="Compass"/>
+            android:key="@string/pref_compass_sensor"
+            android:title="@string/pref_compass_sensor_title"/>
+
+
+        <EditTextPreference
+            app:key="@string/pref_ruler_calibration"
+            app:title="@string/pref_ruler_calibration_title"
+            app:useSimpleSummaryProvider="true"
+            app:dialogMessage="@string/pref_ruler_calibration_summary"
+            app:defaultValue="1"
+            android:inputType="numberDecimal"
+            app:min="0"
+            />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_navigation_header">
@@ -57,15 +69,6 @@
             app:title="@string/pref_altitude_mode_title"
             app:useSimpleSummaryProvider="true" />
 
-        <EditTextPreference
-            app:key="@string/pref_ruler_calibration"
-            app:title="@string/pref_ruler_calibration_title"
-            app:useSimpleSummaryProvider="true"
-            app:dialogMessage="@string/pref_ruler_calibration_summary"
-            app:defaultValue="1"
-            android:inputType="numberDecimal"
-            app:min="0"
-            />
 
         <SwitchPreferenceCompat
             app:key="@string/pref_display_multi_beacons"
@@ -87,16 +90,6 @@
             app:title="@string/pref_show_linear_compass_title"
             app:summary="@string/pref_show_linear_compass_summary"
             app:defaultValue="true"/>
-
-        <SeekBarPreference
-            app:key="@string/pref_compass_filter_amt"
-            app:title="@string/pref_compass_filter_amt_title"
-            app:summary="@string/pref_compass_filter_amt_summary"
-            android:defaultValue="1"
-            android:max="100"
-            app:seekBarIncrement="1"
-            app:showSeekBarValue="true"
-            app:min="1" />
 
     </PreferenceCategory>
 

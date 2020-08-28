@@ -229,4 +229,20 @@
     <string name="sunset_alert_2_hours_30_minutes">2 hours 30 hours</string>
     <string name="sunset_alert_3_hours">3 hours</string>
     <string name="onboarding_navigation_flashlight">And easily access your flashlight</string>
+    <string name="compass_calibration_sun">Place a straight stick into the ground, then align your phone with the stick\'s shadow with the top of you phone facing the stick and lying flat on the ground.</string>
+    <string name="compass_calibration_sun_title">Align with sun</string>
+    <string name="pref_compass_sensor">pref_compass_calibration</string>
+    <string name="pref_compass_sensor_title">Compass</string>
+    <string name="pref_category_sensors_title">Calibration</string>
+    <string name="compass_smoothing">Smoothing</string>
+    <string name="compass_azimuth_offset">Azimuth offset</string>
+    <string name="compass_from_sun">From Sun</string>
+    <string name="compass_legacy_mode">Legacy mode</string>
+    <string name="compass">Compass</string>
+    <string name="compass_from_gps">From GPS</string>
+    <string name="compass_declination_override">Declination override</string>
+    <string name="compass_auto_declination">Auto declination</string>
+    <string name="compass_azimuth">Azimuth</string>
+    <string name="compass_declination">Declination</string>
+    <string name="compass_true_north">True North</string>
 </resources>

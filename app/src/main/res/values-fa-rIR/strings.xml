@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Trail Sense</string>
     <string name="action_navigation">جهت یابی</string>
     <string name="action_weather">آب و هوا</string>
     <string name="action_settings">تنظیمات</string>
@@ -26,25 +25,16 @@
 
 
     <string name="pref_use_true_north_title">شمال جغرافیایی</string>
-    <string name="pref_use_true_north" translatable="false">use_true_north</string>
     <string name="pref_use_sea_level_pressure_title">فشار سطح دریا</string>
-    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
-    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
     <string name="pref_units_header">عمومی</string>
     <string name="pref_distance_units_title">فاصله</string>
     <string name="pref_pressure_units_title">فشار</string>
-    <string name="pref_pressure_units" translatable="false">pressure_units</string>
-    <string name="pref_distance_units" translatable="false">distance_units</string>
     <string name="pref_navigation_header">جهت یابی</string>
     <string name="pref_weather_header">آب و هوا</string>
     <string name="pref_send_storm_alerts_title">هشدار طوفان</string>
-    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
     <string name="pref_astronomy_header">ستاره شناسی</string>
-    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">از قالب 24 ساعته استفاده کنید</string>
-    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
     <string name="pref_altitude_mode_title">ارتفاع سنج</string>
-    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">زمان طلوع آفتاب / غروب خورشید</string>
     <string name="weather_improving_fast">خیلی زود بهبود می یابیم</string>
     <string name="weather_improving_slow">به زودی بهبود می یابیم</string>
@@ -75,17 +65,12 @@
 را انتخاب کنید
     </string>
     <string name="continue_button">ادامه</string>
-    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
     <string name="moon_rise">طلوع ماه</string>
     <string name="moon_set">غروب ماه</string>
     <string name="stop_monitoring">متوقف کردن</string>
-    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
-    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_compass_filter_amt_title">تنظیم قطب نما</string>
     <string name="pref_compass_filter_amt_summary">مقادیر زیاد میتواند نویز را کاهش دهد</string>
-    <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_theme_title">تم</string>
-    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
     <string name="pref_use_experimental_compass_title">از قطب نما آزمایشی استفاده کنید</string>
     <string name="pref_use_legacy_compass_title">از قطب نما قدیمی استفاده کنید</string>
     <string name="pref_use_legacy_compass_summary">ممکن است مشکلات قطب نما را برطرف کند</string>
@@ -93,9 +78,7 @@
     <string name="pref_display_multi_beacons_title">نمایش مکان</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">حساسیت هشدار طوفان</string>
-    <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass_2</string>
     <string name="pref_show_sun_moon_compass_title">خورشید / ماه را در قطب نما نشان دهید</string>
-    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">نمایش قطب نما خطی</string>
     <string name="pref_show_linear_compass_summary">وقتی تلفن عمودی است</string>
 
@@ -146,15 +129,11 @@
     <string name="pressure_24_hours">24 ساعته</string>
     <string name="pressure_12_hours">12 ساعته</string>
     <string name="pressure_4_hours">4 ساعته</string>
-    <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
     <string name="pref_pressure_history_title">تاریخچه فشار</string>
-    <string name="pref_monitor_weather" translatable="false">pref_monitor_weather</string>
     <string name="pref_monitor_weather_summary">در پس زمینه</string>
     <string name="pref_monitor_weather_title">نظارت بر هوا</string>
-    <string name="pref_ruler_calibration" translatable="false">pref_ruler_calibration</string>
     <string name="pref_ruler_calibration_title">مقیاس خطکش</string>
     <string name="pref_ruler_calibration_summary">روی 1 تنظیم کنید ، سپس در برابر یک خط کش واقعی اندازه بگیرید و آن مقدار را در اینجا وارد کنید.</string>
-    <string name="pref_num_visible_beacons" translatable="false">pref_num_visible_beacons</string>
     <string name="pref_num_visible_beacons_title">مکان قابل مشاهده</string>
     <string name="pref_display_multi_beacons_summary">نزدیکترین مکان را روی قطب نما نشان دهید</string>
     <string name="sun_does_not_set">غروب نمی کند</string>
