@@ -137,12 +137,13 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         if (location.hasAltitude() && location.altitude != 0.0) {
             _altitude = location.altitude.toFloat()
 
-            if (userPrefs.useAltitudeOffsets){
-                _altitude -= AltitudeCorrection.getOffset(this._location, context)
-            }
-
             prefs.edit {
                 putFloat(LAST_ALTITUDE, _altitude)
+            }
+
+            if (userPrefs.useAltitudeOffsets && userPrefs.useAutoAltitude){
+                val offset = AltitudeCorrection.getOffset(this._location, context)
+                _altitude -= offset
             }
         }
 

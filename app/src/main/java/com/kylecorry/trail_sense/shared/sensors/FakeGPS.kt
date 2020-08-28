@@ -48,7 +48,7 @@ class FakeGPS(private val context: Context) : AbstractSensor(), IGPS {
             )
             _altitude = if (userPrefs.useAutoAltitude) prefs.getFloat(LAST_ALTITUDE, 0f) else userPrefs.altitudeOverride
 
-            if (userPrefs.useAltitudeOffsets){
+            if (userPrefs.useAutoAltitude && userPrefs.useAltitudeOffsets){
                 _altitude -= AltitudeCorrection.getOffset(this._location, context)
             }
 

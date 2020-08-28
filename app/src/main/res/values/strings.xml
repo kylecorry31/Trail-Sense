@@ -248,4 +248,10 @@
     <string name="altimeter">Altimeter</string>
     <string name="pref_altimeter_calibration">pref_altimeter_calibration</string>
     <string name="pref_altimeter_calibration_title">Altimeter</string>
+    <string name="altitude">Altitude</string>
+    <string name="auto_altitude">Auto altitude</string>
+    <string name="add_elevation_offsets">Add elevation corrections</string>
+    <string name="altitude_from_gps">From GPS</string>
+    <string name="altitude_from_pressure">From barometer</string>
+    <string name="fine_tune_using_barometer">Fine tune using barometer</string>
 </resources>
