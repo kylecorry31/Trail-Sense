@@ -26,7 +26,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         preferenceScreen.findPreference<Preference>("pref_compass_calibration")?.setOnPreferenceClickListener { _ ->
             // Launch intent
-            switchToFragment(CalibrateCompassFragment())
+            switchToFragment(CalibrateCompassFragment(), addToBackStack = true)
             false
         }
 
