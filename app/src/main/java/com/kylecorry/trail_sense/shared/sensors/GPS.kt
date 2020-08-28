@@ -9,6 +9,7 @@ import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 
@@ -38,6 +39,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
 
     private val locationManager = context.getSystemService<LocationManager>()
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+    private val userPrefs = UserPreferences(context)
     private val sensorChecker = SensorChecker(context)
     private val locationListener = SimpleLocationListener { updateLastLocation(it, true) }
 
@@ -133,8 +135,12 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         )
 
         if (location.hasAltitude() && location.altitude != 0.0) {
-            _altitude =
-                location.altitude.toFloat() - AltitudeCorrection.getOffset(this._location, context)
+            _altitude = location.altitude.toFloat()
+
+            if (userPrefs.useAltitudeOffsets){
+                _altitude -= AltitudeCorrection.getOffset(this._location, context)
+            }
+
             prefs.edit {
                 putFloat(LAST_ALTITUDE, _altitude)
             }

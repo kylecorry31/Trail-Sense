@@ -85,6 +85,8 @@ class NavigatorFragment(
 
     private lateinit var beaconRepo: BeaconRepo
 
+    private lateinit var sensorService: SensorService
+
     private var timer: Timer? = null
     private var handler: Handler? = null
 
@@ -94,6 +96,8 @@ class NavigatorFragment(
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
+
+        sensorService = SensorService(requireContext())
 
         // Get views
         userPrefs = UserPreferences(requireContext())
@@ -149,17 +153,11 @@ class NavigatorFragment(
         beaconIndicators[0].setImageDrawable(sunImg)
         beaconIndicators[1].setImageDrawable(moonImg)
 
-
         beaconRepo = BeaconRepo(requireContext())
 
-        compass = if (userPrefs.navigation.useLegacyCompass) {
-            LegacyCompass(requireContext())
-        } else {
-            VectorCompass(requireContext())
-        }
-
-        orientation = DeviceOrientation(requireContext())
-        gps = GPS(requireContext())
+        compass = sensorService.getCompass()
+        orientation = sensorService.getDeviceOrientation()
+        gps = sensorService.getGPS()
 
         if (createBeacon != null) {
             switchToFragment(
@@ -168,19 +166,7 @@ class NavigatorFragment(
             )
         }
 
-        val altimeterMode = userPrefs.navigation.altimeter
-
-        altimeter = when (altimeterMode) {
-            NavigationPreferences.AltimeterMode.GPS -> {
-                FusedAltimeter(gps, Barometer(requireContext()))
-            }
-            NavigationPreferences.AltimeterMode.Barometer -> {
-                Barometer(requireContext())
-            }
-            NavigationPreferences.AltimeterMode.None -> {
-                NullBarometer()
-            }
-        }
+        altimeter = sensorService.getAltimeter(gps)
 
         navigationVM =
             NavigationViewModel(compass, gps, altimeter, orientation, userPrefs, beaconRepo)

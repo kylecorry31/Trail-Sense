@@ -68,6 +68,22 @@ class UserPreferences(private val context: Context) {
         get() = prefs.getFloat("pref_azimuth_offset", 0.0f).toDouble()
         set(value) = prefs.edit { putFloat("pref_azimuth_offset", value.toFloat()) }
 
+    var altitudeOverride: Float
+        get() = prefs.getFloat("pref_altitude_override", 0.0f)
+        set(value) = prefs.edit { putFloat("pref_altitude_override", value) }
+
+    var useAutoAltitude: Boolean
+        get() = prefs.getBoolean("pref_auto_altitude", true)
+        set(value) = prefs.edit { putBoolean("pref_auto_altitude", value) }
+
+    var useFineTuneAltitude: Boolean
+        get() = prefs.getBoolean("pref_fine_tune_altitude", true)
+        set(value) = prefs.edit { putBoolean("pref_fine_tune_altitude", value) }
+
+    var useAltitudeOffsets: Boolean
+        get() = prefs.getBoolean("pref_altitude_offsets", true)
+        set(value) = prefs.edit { putBoolean("pref_altitude_offsets", value) }
+
     enum class DistanceUnits {
         Meters, Feet
     }
