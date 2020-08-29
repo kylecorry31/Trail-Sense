@@ -22,8 +22,8 @@ import com.kylecorry.trail_sense.astronomy.domain.moon.Tide
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
 import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.system.UiUtils
 import java.time.Duration
 import java.time.LocalDate
@@ -55,6 +55,7 @@ class AstronomyFragment : Fragment() {
 
     private lateinit var sunTimesMode: SunTimesMode
 
+    private val sensorService by lazy { SensorService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val astronomyService = AstronomyService()
 
@@ -68,12 +69,6 @@ class AstronomyFragment : Fragment() {
         detailList = view.findViewById(R.id.astronomy_detail_list)
         val layoutManager = LinearLayoutManager(context)
         detailList.layoutManager = layoutManager
-
-//        val dividerItemDecoration = DividerItemDecoration(
-//            context,
-//            layoutManager.orientation
-//        )
-//        detailList.addItemDecoration(dividerItemDecoration)
 
         adapter = DetailAdapter(listOf())
         detailList.adapter = adapter
@@ -99,7 +94,7 @@ class AstronomyFragment : Fragment() {
             updateUI()
         }
 
-        gps = GPS(requireContext())
+        gps = sensorService.getGPS()
 
         sunTimesMode = prefs.astronomy.sunTimesMode
 
@@ -109,7 +104,7 @@ class AstronomyFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         displayDate = LocalDate.now()
-        gps.start(this::onLocationUpdate)
+        requestLocationUpdate()
         handler = Handler(Looper.getMainLooper())
         timer = fixedRateTimer(period = 1000 * 60) {
             handler.post { updateUI() }
@@ -121,6 +116,14 @@ class AstronomyFragment : Fragment() {
         super.onPause()
         gps.stop(this::onLocationUpdate)
         timer.cancel()
+    }
+
+    private fun requestLocationUpdate() {
+        if (gps.hasValidReading){
+            onLocationUpdate()
+        } else {
+            gps.start(this::onLocationUpdate)
+        }
     }
 
     private fun onLocationUpdate(): Boolean {

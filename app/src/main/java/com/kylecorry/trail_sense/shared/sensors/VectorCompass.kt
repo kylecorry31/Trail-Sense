@@ -14,6 +14,10 @@ import kotlin.math.min
 
 class VectorCompass(context: Context) : AbstractSensor(), ICompass {
 
+    override val hasValidReading: Boolean
+        get() = gotReading
+    private var gotReading = false
+
     override val accuracy: Accuracy
         get() = _accuracy
     private var _accuracy: Accuracy = Accuracy.Unknown
@@ -91,6 +95,7 @@ class VectorCompass(context: Context) : AbstractSensor(), ICompass {
         }
 
         updateBearing(azimuth.toDegrees())
+        gotReading = true
         notifyListeners()
         return true
     }

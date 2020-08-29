@@ -16,6 +16,9 @@ import com.kylecorry.trail_sense.shared.domain.Coordinate
 
 class GPS(private val context: Context) : AbstractSensor(), IGPS {
 
+    override val hasValidReading: Boolean
+        get() = hadRecentValidReading()
+
     override val satellites: Int
         get() = _satellites
 
@@ -107,6 +110,10 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         _satellites = satellites
         lastLocation = location
 
+        prefs.edit {
+            putLong(LAST_UPDATE, fixStart)
+        }
+
         if (location.hasAccuracy()) {
             this._accuracy = when {
                 location.accuracy < 8 -> Accuracy.High
@@ -155,6 +162,13 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         if (notify) notifyListeners()
     }
 
+    private fun hadRecentValidReading(): Boolean {
+        val last = prefs.getLong(LAST_UPDATE, 0L)
+        val now = System.currentTimeMillis()
+        val recentThreshold = 1000 * 60 * 2L
+        return now - last <= recentThreshold
+    }
+
     private fun useNewLocation(current: Location?, newLocation: Location): Boolean {
         // Modified from https://stackoverflow.com/questions/10588982/retrieving-of-satellites-used-in-gps-fix-from-android
         if (current == null) {
@@ -184,9 +198,10 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
     }
 
     companion object {
-        private const val LAST_LATITUDE = "last_latitude"
-        private const val LAST_LONGITUDE = "last_longitude"
-        private const val LAST_ALTITUDE = "last_altitude"
-        private const val LAST_SPEED = "last_speed"
+        const val LAST_LATITUDE = "last_latitude"
+        const val LAST_LONGITUDE = "last_longitude"
+        const val LAST_ALTITUDE = "last_altitude"
+        const val LAST_SPEED = "last_speed"
+        const val LAST_UPDATE = "last_update"
     }
 }

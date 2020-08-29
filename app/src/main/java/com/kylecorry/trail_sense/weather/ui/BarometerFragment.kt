@@ -22,7 +22,6 @@ import java.time.Duration
 import java.time.Instant
 import java.util.*
 
-
 class BarometerFragment : Fragment(), Observer {
 
     private lateinit var barometer: IBarometer
@@ -94,8 +93,7 @@ class BarometerFragment : Fragment(), Observer {
     override fun onResume() {
         super.onResume()
         PressureHistoryRepository.addObserver(this)
-        barometer.start(this::onPressureUpdate)
-        altimeter.start(this::onLocationUpdate)
+        startSensors()
 
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
         altitude = altimeter.altitude
@@ -104,10 +102,20 @@ class BarometerFragment : Fragment(), Observer {
         update()
     }
 
+    private fun startSensors(){
+        barometer.start(this::onPressureUpdate)
+
+        if (altimeter.hasValidReading){
+            onAltitudeUpdate()
+        } else {
+            altimeter.start(this::onAltitudeUpdate)
+        }
+    }
+
     override fun onPause() {
         super.onPause()
         barometer.stop(this::onPressureUpdate)
-        altimeter.stop(this::onLocationUpdate)
+        altimeter.stop(this::onAltitudeUpdate)
         PressureHistoryRepository.deleteObserver(this)
     }
 
@@ -122,7 +130,7 @@ class BarometerFragment : Fragment(), Observer {
         return true
     }
 
-    private fun onLocationUpdate(): Boolean {
+    private fun onAltitudeUpdate(): Boolean {
         update()
         return false
     }

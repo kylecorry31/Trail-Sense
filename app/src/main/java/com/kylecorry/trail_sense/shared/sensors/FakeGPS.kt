@@ -11,6 +11,9 @@ import com.kylecorry.trail_sense.shared.domain.Coordinate
 
 class FakeGPS(private val context: Context) : AbstractSensor(), IGPS {
 
+    override val hasValidReading: Boolean
+        get() = true
+
     override val satellites: Int = 0
     override val accuracy: Accuracy = Accuracy.Unknown
     override val horizontalAccuracy: Float? = null

@@ -10,6 +10,10 @@ import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 class GravitySensor(context: Context) :
     BaseSensor(context, Sensor.TYPE_GRAVITY, SensorManager.SENSOR_DELAY_FASTEST), IAccelerometer {
 
+    override val hasValidReading: Boolean
+        get() = gotReading
+    private var gotReading = false
+
     private val filterSize = 0.03f
     private val filters = listOf(
         LowPassFilter(filterSize),
@@ -28,6 +32,7 @@ class GravitySensor(context: Context) :
             filters[1].filter(event.values[1]),
             filters[2].filter(event.values[2])
         )
+        gotReading = true
     }
 
 }

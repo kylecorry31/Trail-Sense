@@ -12,6 +12,10 @@ import kotlin.math.floor
 
 class LegacyCompass(context: Context): BaseSensor(context, Sensor.TYPE_ORIENTATION, SensorManager.SENSOR_DELAY_FASTEST), ICompass {
 
+    override val hasValidReading: Boolean
+        get() = gotReading
+    private var gotReading = false
+
     private val prefs = UserPreferences(context)
     private var filterSize = prefs.navigation.compassSmoothing * 2
     private val filter = MovingAverageFilter(filterSize)
@@ -33,6 +37,7 @@ class LegacyCompass(context: Context): BaseSensor(context, Sensor.TYPE_ORIENTATI
         _bearing += deltaAngle(_bearing, event.values[0])
 
         _filteredBearing = filter.filter(_bearing.toDouble()).toFloat()
+        gotReading = true
     }
 
     private fun deltaAngle(angle1: Float, angle2: Float): Float {

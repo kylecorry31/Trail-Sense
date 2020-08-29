@@ -26,6 +26,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
 
     private lateinit var context: Context
     private lateinit var gps: IGPS
+    private lateinit var sensorService: SensorService
     private lateinit var gpsTimeout: Timer
     private val astronomyService = AstronomyService()
 
@@ -47,37 +48,32 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             return
         }
 
-        gps = GPS(context)
+        sensorService = SensorService(context)
+        gps = sensorService.getGPS()
 
-        val that = this
         gpsTimeout = timer(period = 10000L) {
             if (!hasLocation) {
-                gps.stop(that::onLocationUpdate)
                 hasLocation = true
                 gotReading()
             }
             cancel()
         }
 
-        if (userPrefs.useLocationFeatures) {
-            gps.start(this::onLocationUpdate)
+        if (gps.hasValidReading){
+            onLocationUpdate()
         } else {
-            hasLocation = true
-            gotReading()
+            gps.start(this::onLocationUpdate)
         }
     }
 
     private fun onLocationUpdate(): Boolean {
-        return if (hasLocation) {
-            hasLocation = true
-            gotReading()
-            false
-        } else {
-            true
-        }
+        hasLocation = true
+        gotReading()
+        return false
     }
 
     private fun gotReading() {
+        gps.stop(this::onLocationUpdate)
         gpsTimeout.cancel()
 
         val alertMinutes = userPrefs.astronomy.sunsetAlertMinutesBefore

@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.content.Context
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
+import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 
 class SensorService(private val context: Context) {
 
@@ -17,11 +19,11 @@ class SensorService(private val context: Context) {
 
     fun getAltimeter(existingGps: IGPS? = null): IAltimeter {
         if (!userPrefs.useAutoAltitude){
-            return FakeGPS(context) // TODO: Replace with override altimeter
+            return OverrideAltimeter(context)
         }
 
         if (!userPrefs.useLocationFeatures){
-            return FakeGPS(context) // TODO: Replace with altimeter cache then override
+            return CachedAltimeter(context)
         }
 
         val gps = if (existingGps is GPS) existingGps else GPS(context)

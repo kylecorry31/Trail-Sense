@@ -9,9 +9,7 @@ class WeatherStopMonitoringReceiver: BroadcastReceiver() {
 
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        if (context == null){
-            return
-        }
+        context ?: return
         WeatherAlarmScheduler.stop(context)
     }
 
