@@ -8,20 +8,28 @@ class SensorService(private val context: Context) {
     private val userPrefs = UserPreferences(context)
 
     fun getGPS(): IGPS {
+        // TODO:
+        // If !location auto return override location
+        // If location enabled, return GPS
+        // Else return GPS cache / override location
        return if (userPrefs.useLocationFeatures) GPS(context) else FakeGPS(context)
     }
 
     fun getAltimeter(existingGps: IGPS? = null): IAltimeter {
-        return if (userPrefs.useAutoAltitude && userPrefs.useLocationFeatures){
-            if (userPrefs.weather.hasBarometer && userPrefs.useFineTuneAltitude) {
-                FusedAltimeter(if (existingGps is GPS) existingGps else GPS(context), Barometer(context))
-            } else {
-                if (existingGps is GPS) existingGps else GPS(context)
-            }
-        } else if (userPrefs.useAutoAltitude && userPrefs.weather.hasBarometer){
-            Barometer(context)
+        if (!userPrefs.useAutoAltitude){
+            return FakeGPS(context) // TODO: Replace with override altimeter
+        }
+
+        if (!userPrefs.useLocationFeatures){
+            return FakeGPS(context) // TODO: Replace with altimeter cache then override
+        }
+
+        val gps = if (existingGps is GPS) existingGps else GPS(context)
+
+        return if (userPrefs.useFineTuneAltitude && userPrefs.weather.hasBarometer){
+            FusedAltimeter(gps, Barometer(context))
         } else {
-            FakeGPS(context)
+            gps
         }
     }
 
