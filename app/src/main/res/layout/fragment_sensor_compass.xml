@@ -52,7 +52,7 @@
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/azimuth_offset" />
+        app:layout_constraintTop_toBottomOf="@+id/compass_value" />
 
     <TextView
         android:id="@+id/declination_value"
@@ -159,28 +159,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/smoothing"
         tools:text="10" />
-
-    <EditText
-        android:id="@+id/azimuth_offset"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="@string/compass_azimuth_offset"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toStartOf="@+id/from_sun"
-        app:layout_constraintStart_toStartOf="@+id/compass_value"
-        app:layout_constraintTop_toBottomOf="@+id/compass_value" />
-
-    <Button
-        android:id="@+id/from_sun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/compass_from_sun"
-        app:layout_constraintBottom_toBottomOf="@+id/azimuth_offset"
-        app:layout_constraintEnd_toEndOf="@+id/true_north"
-        app:layout_constraintTop_toTopOf="@+id/azimuth_offset" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

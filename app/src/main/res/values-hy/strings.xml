@@ -40,8 +40,6 @@
     <string name="pref_astronomy_header">Աստղագիտություն</string>
     <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">Օգտագործեք 24-ժամյա ձևաչափ</string>
-    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
-    <string name="pref_altitude_mode_title">բարձրաչափ</string>
     <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Արևածագ /մայրամուտի ժամերը</string>
     <string name="weather_improving_fast">Շատ շուտով բարելավվում է</string>

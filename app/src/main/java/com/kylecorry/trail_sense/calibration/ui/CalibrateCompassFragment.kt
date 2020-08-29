@@ -35,8 +35,6 @@ class CalibrateCompassFragment : Fragment() {
     private lateinit var legacyCompassSwitch: SwitchCompat
     private lateinit var smoothingBar: SeekBar
     private lateinit var smoothingTxt: TextView
-    private lateinit var azimuthOffsetEdit: EditText
-    private lateinit var fromSunBtn: Button
     private lateinit var sensorService: SensorService
 
     override fun onCreateView(
@@ -54,8 +52,6 @@ class CalibrateCompassFragment : Fragment() {
         compassCalibrator = CompassCalibrator(requireContext())
 
         compassValueTxt = view.findViewById(R.id.compass_value)
-        azimuthOffsetEdit = view.findViewById(R.id.azimuth_offset)
-        fromSunBtn = view.findViewById(R.id.from_sun)
         declinationValueTxt = view.findViewById(R.id.declination_value)
         trueNorthSwitch = view.findViewById(R.id.true_north)
         autoDeclinationSwitch = view.findViewById(R.id.auto_declination)
@@ -69,7 +65,6 @@ class CalibrateCompassFragment : Fragment() {
         }
 
         trueNorthSwitch.isChecked = prefs.navigation.useTrueNorth
-        azimuthOffsetEdit.setText(prefs.azimuthOffset.toString())
         autoDeclinationSwitch.isChecked = prefs.useAutoDeclination
         declinationOverrideEdit.setText(prefs.declinationOverride.toString())
         declinationOverrideEdit.isEnabled = !prefs.useAutoDeclination
@@ -97,18 +92,6 @@ class CalibrateCompassFragment : Fragment() {
 
         fromGpsBtn.setOnClickListener { _ ->
             gps.start(this::updateManualDeclinationFromGps)
-        }
-
-        fromSunBtn.setOnClickListener {
-            UiUtils.alertWithCancel(
-                requireContext(),
-                getString(R.string.compass_calibration_sun_title),
-                getString(R.string.compass_calibration_sun)
-            ) { cancelled ->
-                if (!cancelled) {
-                    gps.start(this::updateAzimuthOffsetFromSun)
-                }
-            }
         }
 
         legacyCompassSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -144,20 +127,11 @@ class CalibrateCompassFragment : Fragment() {
         gpsStarted = false
         gps.stop(this::updateGps)
         gps.stop(this::updateManualDeclinationFromGps)
-        gps.stop(this::updateAzimuthOffsetFromSun)
     }
 
     private fun updateManualDeclinationFromGps(): Boolean {
         compassCalibrator.setDeclinationManual(gps.location, gps.altitude)
         declinationOverrideEdit.setText(compassCalibrator.getDeclinationManual().toString())
-        return false
-    }
-
-    private fun updateAzimuthOffsetFromSun(): Boolean {
-        val bearing = compass.bearing.value - compass.declination
-        val declination = compassCalibrator.getDeclinationAuto(gps.location, gps.altitude)
-        compassCalibrator.setAzimuthOffsetFromSun(bearing.toDouble() + declination, gps.location)
-        azimuthOffsetEdit.setText(compassCalibrator.getAzimuthOffset().toString())
         return false
     }
 
@@ -200,19 +174,10 @@ class CalibrateCompassFragment : Fragment() {
             compassCalibrator.getDeclinationManual()
         }
 
-        val azimuthEditTxtVal = if (azimuthOffsetEdit.text.isNullOrEmpty()) {
-            0.0
-        } else {
-            azimuthOffsetEdit.text.toString().toDoubleOrNull()
-        }
-        if (azimuthEditTxtVal != null) {
-            compassCalibrator.setAzimuthOffset(azimuthEditTxtVal)
-        }
-
         if (prefs.navigation.useTrueNorth) {
-            compass.declination = declination + compassCalibrator.getAzimuthOffset().toFloat()
+            compass.declination = declination
         } else {
-            compass.declination = compassCalibrator.getAzimuthOffset().toFloat()
+            compass.declination = 0.0f
         }
 
         declinationValueTxt.text = getString(R.string.degree_format, declination.roundToInt())

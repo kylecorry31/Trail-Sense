@@ -40,8 +40,6 @@
     <string name="pref_astronomy_header">الفلك</string>
     <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">استخدم تنسيق 24 ساعة</string>
-    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
-    <string name="pref_altitude_mode_title">مقياس الارتفاع</string>
     <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">أوقات شروق /غروب الشمس</string>
     <string name="weather_improving_fast">تتحسن قريبًا جدًا</string>

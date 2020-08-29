@@ -38,16 +38,6 @@
         <item>system</item>
     </string-array>
 
-    <string-array name="altitude_mode_entries">
-        <item>@string/gps</item>
-        <item>@string/barometer</item>
-    </string-array>
-
-    <string-array name="altitude_mode_values">
-        <item>gps</item>
-        <item>barometer</item>
-    </string-array>
-
     <string-array name="storm_alert_sensitivity_entries">
         <item>@string/sensitivity_low</item>
         <item>@string/sensitivity_med</item>

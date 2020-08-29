@@ -34,7 +34,6 @@
     <string name="pref_send_storm_alerts_title">هشدار طوفان</string>
     <string name="pref_astronomy_header">ستاره شناسی</string>
     <string name="pref_use_24_hour_title">از قالب 24 ساعته استفاده کنید</string>
-    <string name="pref_altitude_mode_title">ارتفاع سنج</string>
     <string name="pref_sun_time_mode_title">زمان طلوع آفتاب / غروب خورشید</string>
     <string name="weather_improving_fast">خیلی زود بهبود می یابیم</string>
     <string name="weather_improving_slow">به زودی بهبود می یابیم</string>

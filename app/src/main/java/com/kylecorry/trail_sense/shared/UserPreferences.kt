@@ -6,6 +6,7 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.domain.PressureUnits
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
@@ -64,9 +65,26 @@ class UserPreferences(private val context: Context) {
         get() = prefs.getFloat("pref_declination_override", 0.0f)
         set(value) = prefs.edit { putFloat("pref_declination_override", value) }
 
-    var azimuthOffset: Double
-        get() = prefs.getFloat("pref_azimuth_offset", 0.0f).toDouble()
-        set(value) = prefs.edit { putFloat("pref_azimuth_offset", value.toFloat()) }
+    var useAutoLocation: Boolean
+        get() = prefs.getBoolean("pref_auto_location", true)
+        set(value) = prefs.edit { putBoolean("pref_auto_location", value) }
+
+    var locationOverride: Coordinate
+        get() {
+            val latStr = prefs.getString("pref_latitude_override", "0.0") ?: "0.0"
+            val lngStr = prefs.getString("pref_longitude_override", "0.0") ?: "0.0"
+
+            val lat = latStr.toDoubleOrNull() ?: 0.0
+            val lng = lngStr.toDoubleOrNull() ?: 0.0
+
+            return Coordinate(lat, lng)
+        }
+        set(value) {
+            prefs.edit {
+                putString("pref_latitude_override", value.latitude.toString())
+                putString("pref_longitude_override", value.longitude.toString())
+            }
+        }
 
     var altitudeOverride: Float
         get() = prefs.getFloat("pref_altitude_override", 0.0f)

@@ -44,7 +44,6 @@ class NavigationViewModel(
     private val navigationService = NavigationService()
     private var speed = prefs.navigation.averageSpeed
     private var declinationOverride = prefs.declinationOverride
-    private var azimuthOffset = prefs.azimuthOffset.toFloat()
     private var useAutoDeclination = prefs.useAutoDeclination
 
     val rulerScale = prefs.navigation.rulerScale
@@ -59,12 +58,12 @@ class NavigationViewModel(
         get() {
             return if (useTrueNorth) {
                 if (useAutoDeclination) {
-                    navigationService.getDeclination(gps.location, gps.altitude) + azimuthOffset
+                    navigationService.getDeclination(gps.location, gps.altitude)
                 } else {
-                    declinationOverride + azimuthOffset
+                    declinationOverride
                 }
             } else {
-                azimuthOffset
+                0f
             }
         }
 

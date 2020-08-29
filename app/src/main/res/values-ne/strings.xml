@@ -40,8 +40,6 @@
     <string name="pref_astronomy_header">खगोल विज्ञान</string>
     <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">२--घण्टा ढाँचा प्रयोग गर्नुहोस्</string>
-    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
-    <string name="pref_altitude_mode_title">Altimeter</string>
     <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">सूर्योदय /सूर्यास्त समय</string>
     <string name="weather_improving_fast">धेरै चाँडै सुधार हुँदैछ</string>

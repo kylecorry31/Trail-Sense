@@ -47,8 +47,18 @@
             android:title="@string/pref_compass_sensor_title"/>
 
         <Preference
+            android:key="@string/pref_gps_calibration"
+            android:title="@string/gps"
+            android:enabled="false"/>
+
+        <Preference
             android:key="@string/pref_altimeter_calibration"
             android:title="@string/pref_altimeter_calibration_title"/>
+
+        <Preference
+            android:key="@string/pref_barometer_calibration"
+            android:title="@string/barometer"
+            android:enabled="false"/>
 
         <EditTextPreference
             app:key="@string/pref_ruler_calibration"
@@ -63,15 +73,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_navigation_header">
-
-        <ListPreference
-            app:defaultValue="gps"
-            app:entries="@array/altitude_mode_entries"
-            app:entryValues="@array/altitude_mode_values"
-            app:key="@string/pref_altitude_mode"
-            app:title="@string/pref_altitude_mode_title"
-            app:useSimpleSummaryProvider="true" />
-
 
         <SwitchPreferenceCompat
             app:key="@string/pref_display_multi_beacons"

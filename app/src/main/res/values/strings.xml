@@ -42,8 +42,6 @@
     <string name="pref_astronomy_header">Astronomy</string>
     <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">Use 24-hour format</string>
-    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
-    <string name="pref_altitude_mode_title">Altimeter</string>
     <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
     <string name="weather_improving_fast">Improving very soon</string>
@@ -229,11 +227,9 @@
     <string name="sunset_alert_2_hours_30_minutes">2 hours 30 hours</string>
     <string name="sunset_alert_3_hours">3 hours</string>
     <string name="onboarding_navigation_flashlight">And easily access your flashlight</string>
-    <string name="compass_calibration_sun">Place a straight stick into the ground, then align your phone with the stick\'s shadow with the top of you phone facing the stick and lying flat on the ground.</string>
-    <string name="compass_calibration_sun_title">Align with sun</string>
     <string name="pref_compass_sensor">pref_compass_calibration</string>
     <string name="pref_compass_sensor_title">Compass</string>
-    <string name="pref_category_sensors_title">Calibration</string>
+    <string name="pref_category_sensors_title">Sensors</string>
     <string name="compass_smoothing">Smoothing</string>
     <string name="compass_azimuth_offset">Azimuth offset</string>
     <string name="compass_from_sun">From Sun</string>
@@ -254,4 +250,6 @@
     <string name="altitude_from_gps">From GPS</string>
     <string name="altitude_from_pressure">From barometer</string>
     <string name="fine_tune_using_barometer">Fine tune using barometer</string>
+    <string name="pref_gps_calibration">pref_gps_calibration</string>
+    <string name="pref_barometer_calibration">pref_barometer_calibration</string>
 </resources>

@@ -17,21 +17,6 @@ class NavigationPreferences(private val context: Context) {
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
     private val sensorChecker = SensorChecker(context)
 
-    val altimeter: AltimeterMode
-        get() {
-            val hasBarometer = sensorChecker.hasBarometer()
-            val hasGPS = sensorChecker.hasGPS()
-
-            val modePref = prefs.getString(context.getString(R.string.pref_altitude_mode), "gps")
-            return if (modePref == "gps" && hasGPS) {
-                AltimeterMode.GPS
-            } else if (hasBarometer) {
-                AltimeterMode.Barometer
-            } else {
-                AltimeterMode.None
-            }
-        }
-
     var useTrueNorth: Boolean
         get() = prefs.getBoolean(
             context.getString(R.string.pref_use_true_north),
@@ -128,11 +113,5 @@ class NavigationPreferences(private val context: Context) {
                 else -> LocationDegreesMinuteSecondFormatter()
             }
         }
-
-    enum class AltimeterMode {
-        Barometer,
-        GPS,
-        None
-    }
 
 }
