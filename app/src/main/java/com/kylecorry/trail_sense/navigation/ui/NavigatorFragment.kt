@@ -23,6 +23,8 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesh
 import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.declination.AutoDeclinationProvider
+import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
 import com.kylecorry.trail_sense.shared.switchToFragment
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
@@ -37,6 +39,7 @@ class NavigatorFragment(
 
     private lateinit var compass: ICompass
     private lateinit var gps: IGPS
+    private lateinit var declinationProvider: IDeclinationProvider
     private lateinit var orientation: DeviceOrientation
     private lateinit var altimeter: IAltimeter
 
@@ -158,6 +161,7 @@ class NavigatorFragment(
         compass = sensorService.getCompass()
         orientation = sensorService.getDeviceOrientation()
         gps = sensorService.getGPS()
+        declinationProvider = sensorService.getDeclinationProvider()
 
         if (createBeacon != null) {
             switchToFragment(
@@ -166,7 +170,7 @@ class NavigatorFragment(
             )
         }
 
-        altimeter = sensorService.getAltimeter(gps)
+        altimeter = sensorService.getAltimeter()
 
         navigationVM =
             NavigationViewModel(compass, gps, altimeter, orientation, userPrefs, beaconRepo)
@@ -305,6 +309,12 @@ class NavigatorFragment(
         altimeter.start(this::onAltitudeUpdate)
         orientation.start(this::onOrientationUpdate)
 
+        if (declinationProvider.hasValidReading) {
+            onDeclinationUpdate()
+        } else {
+            declinationProvider.start(this::onDeclinationUpdate)
+        }
+
         val hasGPS = SensorChecker(requireContext()).hasGPS()
 
         if (!hasGPS) {
@@ -332,6 +342,7 @@ class NavigatorFragment(
         gps.stop(this::onLocationUpdate)
         altimeter.stop(this::onAltitudeUpdate)
         orientation.stop(this::onOrientationUpdate)
+        declinationProvider.stop(this::onDeclinationUpdate)
         timer?.cancel()
         timer = null
     }
@@ -441,6 +452,12 @@ class NavigatorFragment(
     private fun onCompassUpdate(): Boolean {
         updateUI()
         return true
+    }
+
+    private fun onDeclinationUpdate(): Boolean {
+        navigationVM.declination = declinationProvider.declination
+        updateUI()
+        return false
     }
 
     private fun onAltitudeUpdate(): Boolean {

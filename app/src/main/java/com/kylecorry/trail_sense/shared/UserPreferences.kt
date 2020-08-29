@@ -58,12 +58,12 @@ class UserPreferences(private val context: Context) {
     // Calibration
 
     var useAutoDeclination: Boolean
-        get() = prefs.getBoolean("pref_auto_declination", true)
-        set(value) = prefs.edit { putBoolean("pref_auto_declination", value) }
+        get() = prefs.getBoolean(getString(R.string.pref_auto_declination), true)
+        set(value) = prefs.edit { putBoolean(getString(R.string.pref_auto_declination), value) }
 
     var declinationOverride: Float
-        get() = prefs.getFloat("pref_declination_override", 0.0f)
-        set(value) = prefs.edit { putFloat("pref_declination_override", value) }
+        get() = prefs.getString(getString(R.string.pref_declination_override), "0.0")?.toFloatOrNull() ?: 0.0f
+        set(value) = prefs.edit { putString(getString(R.string.pref_declination_override), value.toString()) }
 
     var useAutoLocation: Boolean
         get() = prefs.getBoolean("pref_auto_location", true)

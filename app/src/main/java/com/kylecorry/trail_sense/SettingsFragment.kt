@@ -24,6 +24,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val sensorChecker = SensorChecker(requireContext())
         if (!sensorChecker.hasBarometer()) {
             preferenceScreen.removePreferenceRecursively(getString(R.string.pref_weather_category))
+            preferenceScreen.removePreferenceRecursively(getString(R.string.pref_barometer_calibration))
         }
 
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_compass_sensor))?.setOnPreferenceClickListener { _ ->

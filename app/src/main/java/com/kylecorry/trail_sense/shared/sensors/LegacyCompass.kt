@@ -20,10 +20,18 @@ class LegacyCompass(context: Context): BaseSensor(context, Sensor.TYPE_ORIENTATI
     private var filterSize = prefs.navigation.compassSmoothing * 2
     private val filter = MovingAverageFilter(filterSize)
 
+    private val useTrueNorth = prefs.navigation.useTrueNorth
+
     override var declination = 0f
 
     override val bearing: Bearing
-        get() = Bearing(_filteredBearing).withDeclination(declination)
+        get(){
+        return if (useTrueNorth) {
+            Bearing(_filteredBearing).withDeclination(declination)
+        } else {
+            Bearing(_filteredBearing)
+        }
+    }
 
     private var _bearing = 0f
     private var _filteredBearing = 0f

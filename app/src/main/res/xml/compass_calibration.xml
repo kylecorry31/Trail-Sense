@@ -1,0 +1,70 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_compass_sensor_title">
+
+        <Preference
+            android:summary="-"
+            android:title="@string/compass_azimuth"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_holder_azimuth" />
+
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_use_legacy_compass_summary"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_use_legacy_compass"
+            app:title="@string/pref_use_legacy_compass_title" />
+
+        <SeekBarPreference
+            android:defaultValue="1"
+            android:max="100"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_compass_filter_amt"
+            app:min="1"
+            app:seekBarIncrement="1"
+            app:showSeekBarValue="true"
+            app:summary="@string/pref_compass_filter_amt_summary"
+            app:title="@string/pref_compass_filter_amt_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_use_true_north"
+            app:title="@string/pref_use_true_north_title" />
+
+        <Preference
+            android:summary="-"
+            android:title="@string/compass_declination"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_holder_declination" />
+
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_use_true_north"
+            android:disableDependentsState="true"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            android:summary="@string/pref_auto_declination_summary"
+            app:key="@string/pref_auto_declination"
+            app:title="@string/compass_auto_declination" />
+
+        <EditTextPreference
+            android:defaultValue="0.0"
+            android:dependency="@string/pref_auto_declination"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_declination_override"
+            app:title="@string/compass_declination_override" />
+
+        <Preference
+            android:dependency="@string/pref_auto_declination"
+            android:title="@string/compass_from_gps"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_declination_override_gps_btn" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

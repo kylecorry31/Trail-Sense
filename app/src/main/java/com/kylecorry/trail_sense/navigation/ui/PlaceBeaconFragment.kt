@@ -56,7 +56,7 @@ class PlaceBeaconFragment(
 
         beaconRepo = _repo ?: BeaconRepo(requireContext())
         gps = _gps ?: sensorService.getGPS()
-        altimeter = sensorService.getAltimeter(gps)
+        altimeter = sensorService.getAltimeter()
 
         val prefs = UserPreferences(requireContext())
         units = prefs.distanceUnits

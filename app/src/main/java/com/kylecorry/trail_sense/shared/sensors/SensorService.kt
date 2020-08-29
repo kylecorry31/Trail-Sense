@@ -2,6 +2,9 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.content.Context
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.declination.AutoDeclinationProvider
+import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
+import com.kylecorry.trail_sense.shared.sensors.declination.OverrideDeclination
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
@@ -23,7 +26,7 @@ class SensorService(private val context: Context) {
         return CachedGPS(context)
     }
 
-    fun getAltimeter(existingGps: IGPS? = null): IAltimeter {
+    fun getAltimeter(): IAltimeter {
         if (!userPrefs.useAutoAltitude){
             return OverrideAltimeter(context)
         }
@@ -32,13 +35,24 @@ class SensorService(private val context: Context) {
             return CachedAltimeter(context)
         }
 
-        val gps = if (existingGps is GPS) existingGps else getGPS()
+        val gps = getGPS()
 
         return if (userPrefs.useFineTuneAltitude && userPrefs.weather.hasBarometer){
             FusedAltimeter(gps, Barometer(context))
         } else {
             gps
         }
+    }
+
+    fun getDeclinationProvider(): IDeclinationProvider {
+        if (!userPrefs.useAutoDeclination){
+            return OverrideDeclination(context)
+        }
+
+        val gps = getGPS()
+        val altimeter = getAltimeter()
+
+        return AutoDeclinationProvider(gps, altimeter)
     }
 
     fun getCompass(): ICompass {

@@ -54,18 +54,7 @@ class NavigationViewModel(
             return compass.bearing.value
         }
 
-    private val declination: Float
-        get() {
-            return if (useTrueNorth) {
-                if (useAutoDeclination) {
-                    navigationService.getDeclination(gps.location, gps.altitude)
-                } else {
-                    declinationOverride
-                }
-            } else {
-                0f
-            }
-        }
+    var declination: Float = 0f
 
     val azimuthTxt: String
         get() = "${(azimuth.roundToInt() % 360).toString().padStart(3, ' ')}°"
@@ -433,21 +422,15 @@ class NavigationViewModel(
     val gpsSatellites: String
         get() = gps.satellites.toString()
 
-    private val declinationValue: Float
-    get() = if (useAutoDeclination) navigationService.getDeclination(
-        gps.location,
-        gps.altitude
-    ) else declinationOverride
-
     private val sunBearing: Float
         get() {
-            val declination = if (!useTrueNorth) declinationValue else 0f
+            val declination = if (!useTrueNorth) this.declination else 0f
             return astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value
         }
 
     private val moonBearing: Float
         get() {
-            val declination = if (!useTrueNorth) declinationValue else 0f
+            val declination = if (!useTrueNorth) this.declination else 0f
             return astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value
         }
 

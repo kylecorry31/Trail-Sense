@@ -12,6 +12,7 @@
             app:key="@string/pref_holder_altitude" />
 
         <SwitchPreferenceCompat
+            android:summary="@string/pref_auto_altitude_summary"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_auto_altitude"
@@ -38,15 +39,16 @@
 
         <EditTextPreference
             android:defaultValue="0.0"
+            android:dialogMessage="@string/pref_altitude_override_sea_level_dialog_msg"
+            android:dialogTitle="@string/pref_altitude_override_sea_level_dialog_title"
             android:inputType="numberDecimal"
             app:iconSpaceReserved="false"
-            android:dialogTitle="@string/pref_altitude_override_sea_level_dialog_title"
-            android:dialogMessage="@string/pref_altitude_override_sea_level_dialog_msg"
             app:key="@string/pref_altitude_override_sea_level"
             app:title="@string/altitude_from_pressure" />
 
         <SwitchPreferenceCompat
             android:dependency="@string/pref_auto_altitude"
+            android:summary="@string/pref_altitude_offsets_summary"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_altitude_offsets"
@@ -54,6 +56,7 @@
 
         <SwitchPreferenceCompat
             android:dependency="@string/pref_auto_altitude"
+            android:summary="@string/pref_fine_tune_altitude_summary"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_fine_tune_altitude"

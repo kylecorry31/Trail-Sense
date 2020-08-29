@@ -232,12 +232,11 @@
     <string name="pref_category_sensors_title">Sensors</string>
     <string name="compass_smoothing">Smoothing</string>
     <string name="compass_azimuth_offset">Azimuth offset</string>
-    <string name="compass_from_sun">From Sun</string>
     <string name="compass_legacy_mode">Legacy mode</string>
     <string name="compass">Compass</string>
-    <string name="compass_from_gps">From GPS</string>
+    <string name="compass_from_gps">Set override from GPS</string>
     <string name="compass_declination_override">Declination override</string>
-    <string name="compass_auto_declination">Auto declination</string>
+    <string name="compass_auto_declination">Auto adjust declination</string>
     <string name="compass_azimuth">Azimuth</string>
     <string name="compass_declination">Declination</string>
     <string name="compass_true_north">True North</string>
@@ -245,7 +244,7 @@
     <string name="pref_altimeter_calibration" translatable="false">pref_altimeter_calibration</string>
     <string name="pref_altimeter_calibration_title">Altimeter</string>
     <string name="altitude">Altitude</string>
-    <string name="auto_altitude">Auto altitude</string>
+    <string name="auto_altitude">Auto adjust altitude</string>
     <string name="add_elevation_offsets">Add elevation corrections</string>
     <string name="altitude_from_gps">Set override from GPS</string>
     <string name="altitude_from_pressure">Set override from barometer</string>
@@ -254,6 +253,7 @@
     <string name="pref_barometer_calibration" translatable="false">pref_barometer_calibration</string>
     <string name="pref_altitude_override_title">Altitude override</string>
     <string name="altitude_override_updated_toast">Altitude override updated</string>
+    <string name="declination_override_updated_toast">Declination override updated</string>
     <string name="pref_holder_altitude" translatable="false">pref_holder_altitude</string>
     <string name="pref_auto_altitude" translatable="false">pref_auto_altitude</string>
     <string name="pref_altitude_offsets" translatable="false">pref_altitude_offsets</string>
@@ -264,4 +264,13 @@
     <string name="pref_altitude_override_sea_level" translatable="false">pref_altitude_override_sea_level</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Enter the current pressure at sea level in hPa</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Enter sea level pressure</string>
+    <string name="pref_holder_azimuth">pref_holder_azimuth</string>
+    <string name="pref_holder_declination">pref_holder_declination</string>
+    <string name="pref_declination_override">pref_declination_override</string>
+    <string name="pref_auto_declination">pref_auto_declination</string>
+    <string name="pref_declination_override_gps_btn">pref_declination_override_gps_btn</string>
+    <string name="pref_auto_declination_summary">Based on your current location</string>
+    <string name="pref_altitude_offsets_summary">Based on your current location</string>
+    <string name="pref_fine_tune_altitude_summary">Detects smaller changes in altitude</string>
+    <string name="pref_auto_altitude_summary">Based on your current location</string>
 </resources>

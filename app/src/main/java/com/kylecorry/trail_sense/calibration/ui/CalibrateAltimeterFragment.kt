@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.calibration.ui
 import android.app.AlertDialog
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +55,7 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
 
         gps = GPS(requireContext())
         barometer = sensorService.getBarometer()
-        altimeter = sensorService.getAltimeter(gps)
+        altimeter = sensorService.getAltimeter()
 
         altimeterCalibrator = AltimeterCalibrator(requireContext())
 
@@ -81,6 +82,15 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
         altitudeOverrideBarometerEdit.isEnabled = !prefs.useAutoAltitude
         altitudeOverrideBarometerEdit.isVisible = prefs.weather.hasBarometer
         fineTuneSwitch.isVisible = prefs.weather.hasBarometer
+        altitudeOverrideBarometerEdit.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL).or(InputType.TYPE_NUMBER_FLAG_SIGNED)
+        }
+        altitudeOverrideEdit.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL).or(InputType.TYPE_NUMBER_FLAG_SIGNED)
+        }
+        altitudeOverrideFeetEdit.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL).or(InputType.TYPE_NUMBER_FLAG_SIGNED)
+        }
 
         altitudeOverrideGpsBtn.setOnPreferenceClickListener {
             updateElevationFromGPS()
@@ -137,7 +147,7 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
                     putString(
                         "pref_altitude_override_feet",
                         LocationMath.convertToBaseUnit(
-                            prefs.altitudeOverride,
+                            newValue.toString().toFloatOrNull() ?: 0f,
                             UserPreferences.DistanceUnits.Feet
                         ).toString()
                     )
@@ -168,7 +178,7 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
 
     private fun restartAltimeter(){
         stopAltimeter()
-        altimeter = sensorService.getAltimeter(gps)
+        altimeter = sensorService.getAltimeter()
         startAltimeter()
         updateAltitude()
     }
