@@ -58,7 +58,6 @@
             app:iconSpaceReserved="false" />
 
         <Preference
-            android:enabled="false"
             android:key="@string/pref_gps_calibration"
             android:title="@string/gps"
             app:iconSpaceReserved="false" />
@@ -69,7 +68,6 @@
             app:iconSpaceReserved="false" />
 
         <Preference
-            android:enabled="false"
             android:key="@string/pref_barometer_calibration"
             android:title="@string/barometer"
             app:iconSpaceReserved="false" />
@@ -134,13 +132,6 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_weather_notification"
             app:title="@string/pref_show_weather_notification_title" />
-
-        <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:dependency="@string/pref_monitor_weather"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_use_sea_level_pressure"
-            app:title="@string/pref_use_sea_level_pressure_title" />
 
         <ListPreference
             app:defaultValue="48"

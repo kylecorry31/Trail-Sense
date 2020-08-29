@@ -273,4 +273,19 @@
     <string name="pref_altitude_offsets_summary">Based on your current location</string>
     <string name="pref_fine_tune_altitude_summary">Detects smaller changes in altitude</string>
     <string name="pref_auto_altitude_summary">Based on your current location</string>
+    <string name="pref_barometer_pressure_title">Pressure</string>
+    <string name="pref_holder_pressure">pref_holder_pressure</string>
+    <string name="gps_location">Location</string>
+    <string name="pref_holder_location">pref_holder_location</string>
+    <string name="pref_auto_location">pref_auto_location</string>
+    <string name="pref_auto_location_title">Auto adjust location</string>
+    <string name="pref_gps_request_permission_title">Request permission</string>
+    <string name="pref_gps_request_permission">pref_gps_request_permission</string>
+    <string name="pref_latitude_override">pref_latitude_override</string>
+    <string name="pref_longitude_override">pref_longitude_override</string>
+    <string name="gps_only_support_decimal_degree">Only decimal degree format is supported (ex. 0.0000)</string>
+    <string name="pref_latitude_override_title">Latitude override</string>
+    <string name="pref_longitude_override_title">Longitude override</string>
+    <string name="pref_gps_override_btn_title">Set override from GPS</string>
+    <string name="pref_gps_override_btn">pref_gps_override_btn</string>
 </resources>

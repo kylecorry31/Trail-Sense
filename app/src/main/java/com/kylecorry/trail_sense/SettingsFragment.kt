@@ -5,7 +5,9 @@ import android.text.InputType
 import androidx.preference.*
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.calibration.ui.CalibrateAltimeterFragment
+import com.kylecorry.trail_sense.calibration.ui.CalibrateBarometerFragment
 import com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment
+import com.kylecorry.trail_sense.calibration.ui.CalibrateGPSFragment
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.shared.system.NotificationUtils
@@ -41,13 +43,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_gps_calibration))?.setOnPreferenceClickListener { _ ->
             // Launch intent
-            UiUtils.shortToast(requireContext(), "Coming soon!")
+            switchToFragment(CalibrateGPSFragment(), addToBackStack = true)
             false
         }
 
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_barometer_calibration))?.setOnPreferenceClickListener { _ ->
             // Launch intent
-            UiUtils.shortToast(requireContext(), "Coming soon!")
+            switchToFragment(CalibrateBarometerFragment(), addToBackStack = true)
             false
         }
 

@@ -1,0 +1,51 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/gps">
+
+        <Preference
+            android:summary="-"
+            android:title="@string/gps_location"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_holder_location" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_auto_location"
+            app:title="@string/pref_auto_location_title" />
+
+        <Preference
+            android:title="@string/pref_gps_request_permission_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_gps_request_permission" />
+
+        <EditTextPreference
+            android:defaultValue="0.0"
+            android:dialogMessage="@string/gps_only_support_decimal_degree"
+            android:dialogTitle="@string/pref_latitude_override_title"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_latitude_override"
+            app:title="@string/pref_latitude_override_title" />
+
+        <EditTextPreference
+            android:defaultValue="0.0"
+            android:dialogMessage="@string/gps_only_support_decimal_degree"
+            android:dialogTitle="@string/pref_longitude_override_title"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_longitude_override"
+            app:title="@string/pref_longitude_override_title" />
+
+        <Preference
+            android:title="@string/pref_gps_override_btn_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_gps_override_btn" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

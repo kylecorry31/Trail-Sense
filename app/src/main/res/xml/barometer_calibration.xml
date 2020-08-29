@@ -1,0 +1,22 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/barometer">
+
+        <Preference
+            android:summary="-"
+            android:title="@string/pref_barometer_pressure_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_holder_pressure" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_use_sea_level_pressure"
+            app:title="@string/pref_use_sea_level_pressure_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

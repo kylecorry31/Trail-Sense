@@ -66,13 +66,13 @@ class UserPreferences(private val context: Context) {
         set(value) = prefs.edit { putString(getString(R.string.pref_declination_override), value.toString()) }
 
     var useAutoLocation: Boolean
-        get() = prefs.getBoolean("pref_auto_location", true)
-        set(value) = prefs.edit { putBoolean("pref_auto_location", value) }
+        get() = prefs.getBoolean(getString(R.string.pref_auto_location), true)
+        set(value) = prefs.edit { putBoolean(getString(R.string.pref_auto_location), value) }
 
     var locationOverride: Coordinate
         get() {
-            val latStr = prefs.getString("pref_latitude_override", "0.0") ?: "0.0"
-            val lngStr = prefs.getString("pref_longitude_override", "0.0") ?: "0.0"
+            val latStr = prefs.getString(getString(R.string.pref_latitude_override), "0.0") ?: "0.0"
+            val lngStr = prefs.getString(getString(R.string.pref_longitude_override), "0.0") ?: "0.0"
 
             val lat = latStr.toDoubleOrNull() ?: 0.0
             val lng = lngStr.toDoubleOrNull() ?: 0.0
@@ -81,8 +81,8 @@ class UserPreferences(private val context: Context) {
         }
         set(value) {
             prefs.edit {
-                putString("pref_latitude_override", value.latitude.toString())
-                putString("pref_longitude_override", value.longitude.toString())
+                putString(getString(R.string.pref_latitude_override), value.latitude.toString())
+                putString(getString(R.string.pref_longitude_override), value.longitude.toString())
             }
         }
 
