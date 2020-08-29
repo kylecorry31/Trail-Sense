@@ -216,7 +216,7 @@
     <string name="moon_altitude">Moon altitude</string>
     <string name="degree_format">%d°</string>
     <string name="percent_format">%d%%</string>
-    <string name="pref_show_weather_notification">pref_show_weather_notification</string>
+    <string name="pref_show_weather_notification" translatable="false">pref_show_weather_notification</string>
     <string name="pref_show_weather_notification_title">Show weather notification</string>
     <string name="notification_storm_alert_channel_name">Alerts</string>
     <string name="notification_storm_alert_channel_desc">Storm alerts</string>
@@ -227,7 +227,7 @@
     <string name="sunset_alert_2_hours_30_minutes">2 hours 30 hours</string>
     <string name="sunset_alert_3_hours">3 hours</string>
     <string name="onboarding_navigation_flashlight">And easily access your flashlight</string>
-    <string name="pref_compass_sensor">pref_compass_calibration</string>
+    <string name="pref_compass_sensor" translatable="false">pref_compass_calibration</string>
     <string name="pref_compass_sensor_title">Compass</string>
     <string name="pref_category_sensors_title">Sensors</string>
     <string name="compass_smoothing">Smoothing</string>
@@ -242,15 +242,26 @@
     <string name="compass_declination">Declination</string>
     <string name="compass_true_north">True North</string>
     <string name="altimeter">Altimeter</string>
-    <string name="pref_altimeter_calibration">pref_altimeter_calibration</string>
+    <string name="pref_altimeter_calibration" translatable="false">pref_altimeter_calibration</string>
     <string name="pref_altimeter_calibration_title">Altimeter</string>
     <string name="altitude">Altitude</string>
     <string name="auto_altitude">Auto altitude</string>
     <string name="add_elevation_offsets">Add elevation corrections</string>
-    <string name="altitude_from_gps">From GPS</string>
-    <string name="altitude_from_pressure">From barometer</string>
+    <string name="altitude_from_gps">Set override from GPS</string>
+    <string name="altitude_from_pressure">Set override from barometer</string>
     <string name="fine_tune_using_barometer">Fine tune using barometer</string>
-    <string name="pref_gps_calibration">pref_gps_calibration</string>
-    <string name="pref_barometer_calibration">pref_barometer_calibration</string>
+    <string name="pref_gps_calibration" translatable="false">pref_gps_calibration</string>
+    <string name="pref_barometer_calibration" translatable="false">pref_barometer_calibration</string>
     <string name="pref_altitude_override_title">Altitude override</string>
+    <string name="altitude_override_updated_toast">Altitude override updated</string>
+    <string name="pref_holder_altitude" translatable="false">pref_holder_altitude</string>
+    <string name="pref_auto_altitude" translatable="false">pref_auto_altitude</string>
+    <string name="pref_altitude_offsets" translatable="false">pref_altitude_offsets</string>
+    <string name="pref_fine_tune_altitude" translatable="false">pref_fine_tune_altitude</string>
+    <string name="pref_altitude_override" translatable="false">pref_altitude_override</string>
+    <string name="pref_altitude_override_feet" translatable="false">pref_altitude_override_feet</string>
+    <string name="pref_altitude_from_gps_btn" translatable="false">pref_altitude_from_gps_btn</string>
+    <string name="pref_altitude_override_sea_level" translatable="false">pref_altitude_override_sea_level</string>
+    <string name="pref_altitude_override_sea_level_dialog_msg">Enter the current pressure at sea level in hPa</string>
+    <string name="pref_altitude_override_sea_level_dialog_title">Enter sea level pressure</string>
 </resources>

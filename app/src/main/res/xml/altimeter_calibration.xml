@@ -9,54 +9,54 @@
             android:summary="-"
             android:title="@string/altitude"
             app:iconSpaceReserved="false"
-            app:key="pref_holder_altitude" />
+            app:key="@string/pref_holder_altitude" />
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:key="pref_auto_altitude"
+            app:key="@string/pref_auto_altitude"
             app:title="@string/auto_altitude" />
 
         <EditTextPreference
             android:defaultValue="0.0"
             android:inputType="numberDecimal"
             app:iconSpaceReserved="false"
-            app:key="pref_altitude_override"
+            app:key="@string/pref_altitude_override"
             app:title="@string/pref_altitude_override_title" />
 
         <EditTextPreference
             android:defaultValue="0.0"
             android:inputType="numberDecimal"
             app:iconSpaceReserved="false"
-            app:key="pref_altitude_override_feet"
+            app:key="@string/pref_altitude_override_feet"
             app:title="@string/pref_altitude_override_title" />
 
         <Preference
-            android:title="Set override from GPS"
+            android:title="@string/altitude_from_gps"
             app:iconSpaceReserved="false"
-            app:key="pref_altitude_from_gps_btn" />
+            app:key="@string/pref_altitude_from_gps_btn" />
 
         <EditTextPreference
             android:defaultValue="0.0"
             android:inputType="numberDecimal"
             app:iconSpaceReserved="false"
-            android:dialogTitle="Enter sea level pressure"
-            android:dialogMessage="Enter the current pressure at sea level in hPa"
-            app:key="pref_altitude_override_sea_level"
-            app:title="Set override from barometer" />
+            android:dialogTitle="@string/pref_altitude_override_sea_level_dialog_title"
+            android:dialogMessage="@string/pref_altitude_override_sea_level_dialog_msg"
+            app:key="@string/pref_altitude_override_sea_level"
+            app:title="@string/altitude_from_pressure" />
 
         <SwitchPreferenceCompat
-            android:dependency="pref_auto_altitude"
+            android:dependency="@string/pref_auto_altitude"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:key="pref_altitude_offsets"
+            app:key="@string/pref_altitude_offsets"
             app:title="@string/add_elevation_offsets" />
 
         <SwitchPreferenceCompat
-            android:dependency="pref_auto_altitude"
+            android:dependency="@string/pref_auto_altitude"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:key="pref_fine_tune_altitude"
+            app:key="@string/pref_fine_tune_altitude"
             app:title="@string/fine_tune_using_barometer" />
 
 

@@ -64,14 +64,14 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
     }
 
     private fun bindPreferences(){
-        altitudeTxt = findPreference("pref_holder_altitude")!!
-        autoAltitudeSwitch = findPreference("pref_auto_altitude")!!
-        elevationCorrectionSwitch = findPreference("pref_altitude_offsets")!!
-        fineTuneSwitch = findPreference("pref_fine_tune_altitude")!!
-        altitudeOverrideEdit = findPreference("pref_altitude_override")!!
-        altitudeOverrideFeetEdit = findPreference("pref_altitude_override_feet")!!
-        altitudeOverrideGpsBtn = findPreference("pref_altitude_from_gps_btn")!!
-        altitudeOverrideBarometerEdit = findPreference("pref_altitude_override_sea_level")!!
+        altitudeTxt = findPreference(getString(R.string.pref_holder_altitude))!!
+        autoAltitudeSwitch = findPreference(getString(R.string.pref_auto_altitude))!!
+        elevationCorrectionSwitch = findPreference(getString(R.string.pref_altitude_offsets))!!
+        fineTuneSwitch = findPreference(getString(R.string.pref_fine_tune_altitude))!!
+        altitudeOverrideEdit = findPreference(getString(R.string.pref_altitude_override))!!
+        altitudeOverrideFeetEdit = findPreference(getString(R.string.pref_altitude_override_feet))!!
+        altitudeOverrideGpsBtn = findPreference(getString(R.string.pref_altitude_from_gps_btn))!!
+        altitudeOverrideBarometerEdit = findPreference(getString(R.string.pref_altitude_override_sea_level))!!
 
         altitudeOverrideEdit.summary = getAltitudeOverrideString()
         altitudeOverrideFeetEdit.summary = getAltitudeOverrideFeetString()
@@ -194,7 +194,7 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
         prefs.altitudeOverride = elevation
         preferenceManager.sharedPreferences.edit {
             putString(
-                "pref_altitude_override_feet",
+                getString(R.string.pref_altitude_override_feet),
                 LocationMath.convertToBaseUnit(
                     prefs.altitudeOverride,
                     UserPreferences.DistanceUnits.Feet
@@ -202,7 +202,7 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
             )
         }
         updateAltitude()
-        UiUtils.shortToast(requireContext(), "Altitude override updated")
+        UiUtils.shortToast(requireContext(), getString(R.string.altitude_override_updated_toast))
         return false
     }
 
@@ -229,7 +229,7 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
         prefs.altitudeOverride = elevation
         preferenceManager.sharedPreferences.edit {
             putString(
-                "pref_altitude_override_feet",
+                getString(R.string.pref_altitude_override_feet),
                 LocationMath.convertToBaseUnit(
                     prefs.altitudeOverride,
                     UserPreferences.DistanceUnits.Feet
@@ -237,7 +237,7 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
             )
         }
         updateAltitude()
-        UiUtils.shortToast(requireContext(), "Altitude override updated")
+        UiUtils.shortToast(requireContext(), getString(R.string.altitude_override_updated_toast))
         return false
     }
 

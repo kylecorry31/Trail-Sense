@@ -87,20 +87,24 @@ class UserPreferences(private val context: Context) {
         }
 
     var altitudeOverride: Float
-        get() = (prefs.getString("pref_altitude_override", "0.0") ?: "0.0").toFloatOrNull() ?: 0.0f
-        set(value) = prefs.edit { putString("pref_altitude_override", value.toString()) }
+        get() = (prefs.getString(getString(R.string.pref_altitude_override), "0.0") ?: "0.0").toFloatOrNull() ?: 0.0f
+        set(value) = prefs.edit { putString(getString(R.string.pref_altitude_override), value.toString()) }
 
     var useAutoAltitude: Boolean
-        get() = prefs.getBoolean("pref_auto_altitude", true)
-        set(value) = prefs.edit { putBoolean("pref_auto_altitude", value) }
+        get() = prefs.getBoolean(getString(R.string.pref_auto_altitude), true)
+        set(value) = prefs.edit { putBoolean(getString(R.string.pref_auto_altitude), value) }
 
     var useFineTuneAltitude: Boolean
-        get() = prefs.getBoolean("pref_fine_tune_altitude", true)
-        set(value) = prefs.edit { putBoolean("pref_fine_tune_altitude", value) }
+        get() = prefs.getBoolean(getString(R.string.pref_fine_tune_altitude), true)
+        set(value) = prefs.edit { putBoolean(getString(R.string.pref_fine_tune_altitude), value) }
 
     var useAltitudeOffsets: Boolean
-        get() = prefs.getBoolean("pref_altitude_offsets", true)
-        set(value) = prefs.edit { putBoolean("pref_altitude_offsets", value) }
+        get() = prefs.getBoolean(getString(R.string.pref_altitude_offsets), true)
+        set(value) = prefs.edit { putBoolean(getString(R.string.pref_altitude_offsets), value) }
+
+    private fun getString(id: Int): String {
+        return context.getString(id)
+    }
 
     enum class DistanceUnits {
         Meters, Feet
