@@ -28,7 +28,7 @@ class FusedAltimeter(private val gps: IGPS, private val barometer: IBarometer) :
         baseAltitude = gps.altitude
         gotGps = true
         notifyListeners()
-        return started
+        return false
     }
 
     private fun onBarometerUpdate(): Boolean {

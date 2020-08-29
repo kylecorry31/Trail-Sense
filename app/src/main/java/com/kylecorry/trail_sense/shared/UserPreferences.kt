@@ -87,8 +87,8 @@ class UserPreferences(private val context: Context) {
         }
 
     var altitudeOverride: Float
-        get() = prefs.getFloat("pref_altitude_override", 0.0f)
-        set(value) = prefs.edit { putFloat("pref_altitude_override", value) }
+        get() = (prefs.getString("pref_altitude_override", "0.0") ?: "0.0").toFloatOrNull() ?: 0.0f
+        set(value) = prefs.edit { putString("pref_altitude_override", value.toString()) }
 
     var useAutoAltitude: Boolean
         get() = prefs.getBoolean("pref_auto_altitude", true)

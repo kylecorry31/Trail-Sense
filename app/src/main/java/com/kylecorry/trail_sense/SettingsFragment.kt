@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.shared.system.NotificationUtils
+import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 
@@ -25,15 +26,27 @@ class SettingsFragment : PreferenceFragmentCompat() {
             preferenceScreen.removePreferenceRecursively(getString(R.string.pref_weather_category))
         }
 
-        preferenceScreen.findPreference<Preference>("pref_compass_calibration")?.setOnPreferenceClickListener { _ ->
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_compass_sensor))?.setOnPreferenceClickListener { _ ->
             // Launch intent
             switchToFragment(CalibrateCompassFragment(), addToBackStack = true)
             false
         }
 
-        preferenceScreen.findPreference<Preference>("pref_altimeter_calibration")?.setOnPreferenceClickListener { _ ->
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_altimeter_calibration))?.setOnPreferenceClickListener { _ ->
             // Launch intent
             switchToFragment(CalibrateAltimeterFragment(), addToBackStack = true)
+            false
+        }
+
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_gps_calibration))?.setOnPreferenceClickListener { _ ->
+            // Launch intent
+            UiUtils.shortToast(requireContext(), "Coming soon!")
+            false
+        }
+
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_barometer_calibration))?.setOnPreferenceClickListener { _ ->
+            // Launch intent
+            UiUtils.shortToast(requireContext(), "Coming soon!")
             false
         }
 
