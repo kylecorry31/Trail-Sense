@@ -1,0 +1,8 @@
+- Receive a notification X hours before sunset (configurable in settings)
+- Added more details to the astronomy tab (peak positions, altitude, azimuth, tidal range)
+- Moon phase now reflects the selected date
+- Add flashlight and SOS to navigation tab
+- Show raw GPS accuracy when icons clicked
+- Configure your coordinate format in settings
+- Fix lag when opening navigation tab
+- UI enhancements
