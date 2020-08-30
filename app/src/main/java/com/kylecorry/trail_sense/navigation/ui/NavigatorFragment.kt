@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.Flashlight
 import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.FlashlightService
 import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.SosService
 import com.kylecorry.trail_sense.navigation.domain.Beacon
+import com.kylecorry.trail_sense.navigation.domain.FlashlightState
 import com.kylecorry.trail_sense.navigation.infrastructure.*
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
@@ -84,6 +85,7 @@ class NavigatorFragment(
     private lateinit var visibleCompass: ICompassView
 
     private lateinit var beaconRepo: BeaconRepo
+    private var flashlightState = FlashlightState.Off
 
     private var timer: Timer? = null
     private var handler: Handler? = null
@@ -234,21 +236,19 @@ class NavigatorFragment(
         }
 
         flashlightBtn.setOnClickListener {
-            when {
-                FlashlightService.isOn(requireContext()) -> {
-                    // Move to SOS
+            flashlightState = getNextFlashlightState(flashlightState)
+            when(flashlightState) {
+                FlashlightState.On -> {
+                    SosService.stop(requireContext().applicationContext)
+                    FlashlightService.start(requireContext().applicationContext)
+                }
+                FlashlightState.SOS -> {
                     FlashlightService.stop(requireContext().applicationContext)
                     SosService.start(requireContext().applicationContext)
                 }
-                SosService.isOn(requireContext()) -> {
-                    // Move to off
+                FlashlightState.Off -> {
+                    SosService.stop(requireContext().applicationContext)
                     FlashlightService.stop(requireContext().applicationContext)
-                    SosService.stop(requireContext().applicationContext)
-                }
-                else -> {
-                    // Move to on
-                    SosService.stop(requireContext().applicationContext)
-                    FlashlightService.start(requireContext().applicationContext)
                 }
             }
         }
@@ -270,16 +270,32 @@ class NavigatorFragment(
         return view
     }
 
+    private fun getFlashlightState(): FlashlightState {
+        return when {
+            FlashlightService.isOn(requireContext()) -> FlashlightState.On
+            SosService.isOn(requireContext()) -> FlashlightState.SOS
+            else -> FlashlightState.Off
+        }
+    }
+
+    private fun getNextFlashlightState(currentState: FlashlightState) : FlashlightState {
+        return when(currentState){
+            FlashlightState.On -> FlashlightState.SOS
+            FlashlightState.SOS -> FlashlightState.Off
+            FlashlightState.Off -> FlashlightState.On
+        }
+    }
+
     private fun updateFlashlightUI() {
-        when {
-            FlashlightService.isOn(requireContext()) -> {
+        when(flashlightState) {
+            FlashlightState.On -> {
                 flashlightBtn.setImageResource(R.drawable.flashlight)
                 flashlightBtn.imageTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
                 flashlightBtn.backgroundTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
             }
-            SosService.isOn(requireContext()) -> {
+            FlashlightState.SOS -> {
                 flashlightBtn.imageTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
                 flashlightBtn.backgroundTintList =
@@ -314,6 +330,7 @@ class NavigatorFragment(
 
     override fun onResume() {
         super.onResume()
+        flashlightState = getFlashlightState()
         compass.start(this::onCompassUpdate)
         gps.start(this::onLocationUpdate)
         altimeter.start(this::onAltitudeUpdate)
