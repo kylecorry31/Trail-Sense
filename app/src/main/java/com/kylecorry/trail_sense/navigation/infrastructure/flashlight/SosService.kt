@@ -5,6 +5,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.Handler
 import android.os.IBinder
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.R
@@ -14,9 +15,59 @@ import kotlin.concurrent.thread
 
 class SosService : Service() {
 
-    lateinit var flashlight: Flashlight
-    lateinit var thread: Thread
-    var running = false
+    private lateinit var flashlight: Flashlight
+    private var running = false
+    private val handler = Handler()
+
+    private val code = listOf(
+        MorseState.Dot, MorseState.Space, MorseState.Dot, MorseState.Space, MorseState.Dot,
+        MorseState.LetterSpace,
+        MorseState.Dash, MorseState.Space, MorseState.Dash, MorseState.Space, MorseState.Dash,
+        MorseState.LetterSpace,
+        MorseState.Dot, MorseState.Space, MorseState.Dot, MorseState.Space, MorseState.Dot,
+        MorseState.WordSpace
+    )
+
+    private var codeIdx = 0
+
+    private var runnable = Runnable {
+        runNextState()
+    }
+
+    private fun runNextState() {
+        if (!running){
+            codeIdx = 0
+            flashlight.off()
+            return
+        }
+
+        codeIdx %= code.size
+        val state = code[codeIdx]
+
+        when(state){
+            MorseState.Dash, MorseState.Dot -> flashlight.on()
+            else -> flashlight.off()
+        }
+
+        codeIdx++
+
+        if (!running){
+            codeIdx = 0
+            flashlight.off()
+            return
+        }
+        handler.postDelayed(runnable, getStateTime(state))
+    }
+
+    private fun getStateTime(state: MorseState): Long {
+        return when(state){
+            MorseState.Dot -> 200
+            MorseState.Dash -> 600
+            MorseState.Space -> 200
+            MorseState.LetterSpace -> 600
+            MorseState.WordSpace -> 1400
+        }
+    }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -59,79 +110,18 @@ class SosService : Service() {
         startForeground(NOTIFICATION_ID, notification)
 
         flashlight = Flashlight(this)
-
         running = true
-
-        thread = thread {
-            while (running) {
-                try {
-                    dot()
-                    space()
-                    dot()
-                    space()
-                    dot()
-                    letterSpace()
-                    dash()
-                    space()
-                    dash()
-                    space()
-                    dash()
-                    letterSpace()
-                    dot()
-                    space()
-                    dot()
-                    space()
-                    dot()
-                    Thread.sleep(1400)
-                } catch (e: Exception) {
-                    // Ignore
-                }
-            }
-        }
-
-
+        handler.post(runnable)
     }
 
     override fun onDestroy() {
         stopForeground(true)
         running = false
-        thread.interrupt()
+        handler.removeCallbacks(runnable)
         flashlight.off()
         super.onDestroy()
     }
-
-    private fun dot() {
-        if (!running) {
-            return
-        }
-        flashlight.on()
-        Thread.sleep(200)
-        flashlight.off()
-    }
-
-    private fun letterSpace() {
-        if (!running) {
-            return
-        }
-        Thread.sleep(600)
-    }
-
-    private fun space() {
-        if (!running) {
-            return
-        }
-        Thread.sleep(200)
-    }
-
-    private fun dash() {
-        if (!running) {
-            return
-        }
-        flashlight.on()
-        Thread.sleep(600)
-        flashlight.off()
-    }
-
+    
     companion object {
         const val CHANNEL_ID = "Flashlight"
         const val NOTIFICATION_ID = 647354
@@ -155,5 +145,10 @@ class SosService : Service() {
         fun isOn(context: Context): Boolean {
             return NotificationUtils.isNotificationActive(context, NOTIFICATION_ID)
         }
+
+        private enum class MorseState {
+            Dot, Dash, Space, LetterSpace, WordSpace
+        }
+
     }
 }
