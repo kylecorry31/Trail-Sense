@@ -1,6 +1,7 @@
 <h4>Navigation</h4>
 <p>The compass can be used to determine the direction to North, and when combined with the GPS it can be used to navigate to predefined locations. The predefined locations, known as beacons, can be created while at a location and at any point you can use the compass to navigate back to where the beacon was placed.</p>
 <p>Example beacons: home, work, trailhead, campsite</p>
+<p>The flashlight can also be easily accessed on the navigation tab (torch or SOS mode).</p>
 
 <h4>Weather</h4>
 <p>The barometer can be used to determine if the weather will change soon and if a storm is likely to occur. The barometric pressure history (last 48 hours) is displayed as a graph and an interpretation of the current reading is shown. If the pressure suddenly drops, a storm alert notification is sent.</p>
@@ -13,3 +14,4 @@
 
 <h4>Permissions</h4>
 <p>Location (fine, background): Used for beacon navigation, True North, barometer altitude correction (in background), and sun/moon rise/set times</p>
+<p>Flashlight: Used for the flashlight feature on the navigation tab.</p>
