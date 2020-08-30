@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.edit
 import androidx.core.widget.doAfterTextChanged
@@ -19,6 +20,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.calibration.infrastructure.AltimeterCalibrator
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.declination.AutoDeclinationProvider
 import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
@@ -40,10 +42,13 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
     private lateinit var autoDeclinationSwitch: SwitchPreferenceCompat
     private lateinit var declinationOverrideEdit: EditTextPreference
     private lateinit var declinationFromGpsBtn: Preference
+    private lateinit var calibrateBtn: Preference
 
     private lateinit var compass: ICompass
     private lateinit var declinationProvider: IDeclinationProvider
     private lateinit var realDeclinationProvider: IDeclinationProvider
+
+    private var prevAccuracy = Accuracy.Unknown
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.compass_calibration, rootKey)
@@ -69,6 +74,7 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
         declinationOverrideEdit = findPreference(getString(R.string.pref_declination_override))!!
         declinationFromGpsBtn =
             findPreference(getString(R.string.pref_declination_override_gps_btn))!!
+        calibrateBtn = findPreference(getString(R.string.pref_calibrate_compass_btn))!!
 
         declinationOverrideEdit.summary =
             getString(R.string.degree_format, prefs.declinationOverride.roundToInt())
@@ -100,6 +106,12 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
 
         compassSmoothingBar.setOnPreferenceChangeListener { _, newValue ->
             compass.setSmoothing(newValue.toString().toIntOrNull() ?: 0)
+            true
+        }
+
+        calibrateBtn.setOnPreferenceClickListener {
+            UiUtils.alert(requireContext(), getString(R.string.calibrate_compass_dialog_title), getString(
+                            R.string.calibrate_compass_dialog_content, getString(R.string.dialog_ok)))
             true
         }
     }
@@ -176,12 +188,30 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
             return
         }
 
+        if (prevAccuracy != Accuracy.Unknown && prevAccuracy != compass.accuracy){
+            if (compass.accuracy.ordinal > prevAccuracy.ordinal) {
+                UiUtils.shortToast(requireContext(), getString(R.string.compass_accuracy_improved, getCompassAccuracy()))
+            }
+            prevAccuracy = compass.accuracy
+        }
+
         compass.declination = declinationProvider.declination
 
+        calibrateBtn.summary = getString(R.string.compass_reported_accuracy, getCompassAccuracy())
         azimuthTxt.summary = getString(R.string.degree_format, compass.bearing.value.roundToInt())
         declinationTxt.summary = getString(R.string.degree_format, compass.declination.roundToInt())
         declinationOverrideEdit.summary =
             getString(R.string.degree_format, prefs.declinationOverride.roundToInt())
+    }
+
+
+    private fun getCompassAccuracy(): String {
+        return when(compass.accuracy){
+            Accuracy.Low -> getString(R.string.accuracy_low)
+            Accuracy.Medium -> getString(R.string.accuracy_medium)
+            Accuracy.High -> getString(R.string.accuracy_high)
+            Accuracy.Unknown -> getString(R.string.accuracy_unknown)
+        }
     }
 
 

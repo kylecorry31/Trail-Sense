@@ -288,4 +288,14 @@
     <string name="pref_longitude_override_title">Longitude override</string>
     <string name="pref_gps_override_btn_title">Set override from GPS</string>
     <string name="pref_gps_override_btn">pref_gps_override_btn</string>
+    <string name="pref_calibrate_compass_btn">pref_calibrate_compass_btn</string>
+    <string name="pref_calibrate_compass_btn_title">Calibrate</string>
+    <string name="calibrate_compass_dialog_title">Calibrate compass</string>
+    <string name="calibrate_compass_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.</string>
+    <string name="accuracy_low">Low</string>
+    <string name="accuracy_medium">Medium</string>
+    <string name="accuracy_high">High</string>
+    <string name="accuracy_unknown">Unknown</string>
+    <string name="compass_reported_accuracy">Reported accuracy: %s</string>
+    <string name="compass_accuracy_improved">Compass accuracy improved to %s</string>
 </resources>

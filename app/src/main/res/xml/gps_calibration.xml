@@ -20,6 +20,7 @@
         <Preference
             android:title="@string/pref_gps_request_permission_title"
             app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
             app:key="@string/pref_gps_request_permission" />
 
         <EditTextPreference

@@ -11,6 +11,11 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_holder_azimuth" />
 
+        <Preference
+            android:title="@string/pref_calibrate_compass_btn_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_calibrate_compass_btn" />
+
         <SwitchPreferenceCompat
             android:summary="@string/pref_use_legacy_compass_summary"
             app:defaultValue="true"
