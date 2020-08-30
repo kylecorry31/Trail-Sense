@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
 
 
 class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?) : Fragment() {
@@ -78,7 +79,8 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
         val beacons = beaconRepo.get().sortedBy {
             navigationService.navigate(
                 it.coordinate,
-                location
+                location,
+                0f
             ).distance
         }
         updateBeaconEmptyText(beacons.isNotEmpty())
@@ -166,7 +168,7 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
             nameText.text = beacon.name
 
             locationText.text = prefs.navigation.formatLocation(beacon.coordinate)
-            val distance = navigationService.navigate(beacon.coordinate, location).distance
+            val distance = navigationService.navigate(beacon.coordinate, location, 0f).distance
             distanceText.text = LocationMath.distanceToReadableString(distance, prefs.distanceUnits)
 
 
@@ -233,7 +235,8 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
                             adapter.beacons = beaconRepo.get().sortedBy { beacon ->
                                 navigationService.navigate(
                                     beacon.coordinate,
-                                    location
+                                    location,
+                                    0f
                                 ).distance
                             }
                             updateBeaconEmptyText(adapter.beacons.isNotEmpty())

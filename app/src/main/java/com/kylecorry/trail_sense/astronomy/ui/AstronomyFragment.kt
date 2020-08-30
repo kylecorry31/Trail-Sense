@@ -20,10 +20,10 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.domain.moon.MoonTruePhase
 import com.kylecorry.trail_sense.astronomy.domain.moon.Tide
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
-import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
 import com.kylecorry.trail_sense.shared.system.UiUtils
 import java.time.Duration
 import java.time.LocalDate
@@ -36,6 +36,7 @@ import kotlin.math.roundToInt
 class AstronomyFragment : Fragment() {
 
     private lateinit var gps: IGPS
+    private lateinit var declinationProvider: IDeclinationProvider
 
     private lateinit var sunTxt: TextView
     private lateinit var remDaylightTxt: TextView
@@ -95,6 +96,7 @@ class AstronomyFragment : Fragment() {
         }
 
         gps = sensorService.getGPS()
+        declinationProvider = sensorService.getDeclinationProvider()
 
         sunTimesMode = prefs.astronomy.sunTimesMode
 
@@ -105,8 +107,11 @@ class AstronomyFragment : Fragment() {
         super.onResume()
         displayDate = LocalDate.now()
         requestLocationUpdate()
+        if (!declinationProvider.hasValidReading){
+            declinationProvider.start(this::onDeclinationUpdate)
+        }
         handler = Handler(Looper.getMainLooper())
-        timer = fixedRateTimer(period = 1000 * 60) {
+        timer = fixedRateTimer(period = 1000) {
             handler.post { updateUI() }
         }
         updateUI()
@@ -115,6 +120,7 @@ class AstronomyFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         gps.stop(this::onLocationUpdate)
+        declinationProvider.stop(this::onDeclinationUpdate)
         timer.cancel()
     }
 
@@ -124,6 +130,11 @@ class AstronomyFragment : Fragment() {
         } else {
             gps.start(this::onLocationUpdate)
         }
+    }
+
+    private fun onDeclinationUpdate(): Boolean {
+        updateUI()
+        return false
     }
 
     private fun onLocationUpdate(): Boolean {
@@ -337,12 +348,7 @@ class AstronomyFragment : Fragment() {
                 )
             )
 
-            val declination = if (!prefs.navigation.useTrueNorth){
-                if (prefs.useAutoDeclination) DeclinationCalculator().calculate(
-                    gps.location,
-                    gps.altitude
-                ) else prefs.declinationOverride
-            } else 0f
+            val declination = if (!prefs.navigation.useTrueNorth) declinationProvider.declination else 0f
 
             val sunAzimuth = astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value.roundToInt()
             val moonAzimuth = astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value.roundToInt()

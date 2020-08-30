@@ -15,7 +15,7 @@ class NavigationServiceTest {
         val end = Coordinate(10.0, -8.0)
         val service = NavigationService()
 
-        val vector = service.navigate(start, end)
+        val vector = service.navigate(start, end, 0f)
 
         val expected = FloatArray(3)
         Location.distanceBetween(0.0, 1.0, 10.0, -8.0, expected)
