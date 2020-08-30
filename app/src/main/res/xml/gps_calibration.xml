@@ -8,7 +8,7 @@
         <Preference
             android:summary="-"
             android:title="@string/gps_location"
-            app:iconSpaceReserved="false"
+            app:icon="@drawable/satellite"
             app:key="@string/pref_holder_location" />
 
         <SwitchPreferenceCompat

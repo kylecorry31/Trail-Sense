@@ -8,7 +8,7 @@
         <Preference
             android:summary="-"
             android:title="@string/altitude"
-            app:iconSpaceReserved="false"
+            android:icon="@drawable/ic_altitude"
             app:key="@string/pref_holder_altitude" />
 
         <SwitchPreferenceCompat
@@ -43,11 +43,11 @@
             android:dialogTitle="@string/pref_altitude_override_sea_level_dialog_title"
             android:inputType="numberDecimal"
             app:iconSpaceReserved="false"
+            android:summary="@string/pref_altitude_override_sea_level_title"
             app:key="@string/pref_altitude_override_sea_level"
             app:title="@string/altitude_from_pressure" />
 
         <SwitchPreferenceCompat
-            android:dependency="@string/pref_auto_altitude"
             android:summary="@string/pref_altitude_offsets_summary"
             app:defaultValue="true"
             app:iconSpaceReserved="false"

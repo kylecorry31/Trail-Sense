@@ -245,7 +245,7 @@
     <string name="pref_altimeter_calibration_title">Altimeter</string>
     <string name="altitude">Altitude</string>
     <string name="auto_altitude">Auto adjust altitude</string>
-    <string name="add_elevation_offsets">Add elevation corrections</string>
+    <string name="add_elevation_offsets">Use AMSL elevation</string>
     <string name="altitude_from_gps">Set override from GPS</string>
     <string name="altitude_from_pressure">Set override from barometer</string>
     <string name="fine_tune_using_barometer">Fine tune using barometer</string>
@@ -270,7 +270,7 @@
     <string name="pref_auto_declination">pref_auto_declination</string>
     <string name="pref_declination_override_gps_btn">pref_declination_override_gps_btn</string>
     <string name="pref_auto_declination_summary">Based on your current location</string>
-    <string name="pref_altitude_offsets_summary">Based on your current location</string>
+    <string name="pref_altitude_offsets_summary">Corrects GPS altitude to above mean sea level</string>
     <string name="pref_fine_tune_altitude_summary">Detects smaller changes in altitude</string>
     <string name="pref_auto_altitude_summary">Based on your current location</string>
     <string name="pref_barometer_pressure_title">Pressure</string>
@@ -298,4 +298,5 @@
     <string name="accuracy_unknown">Unknown</string>
     <string name="compass_reported_accuracy">Reported accuracy: %s</string>
     <string name="compass_accuracy_improved">Compass accuracy improved to %s</string>
+    <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
 </resources>

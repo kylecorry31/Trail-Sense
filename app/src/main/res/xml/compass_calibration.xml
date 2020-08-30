@@ -6,9 +6,9 @@
         app:title="@string/pref_compass_sensor_title">
 
         <Preference
+            android:icon="@drawable/ic_compass_icon"
             android:summary="-"
             android:title="@string/compass_azimuth"
-            app:iconSpaceReserved="false"
             app:key="@string/pref_holder_azimuth" />
 
         <Preference
@@ -41,17 +41,18 @@
             app:title="@string/pref_use_true_north_title" />
 
         <Preference
+            android:dependency="@string/pref_use_true_north"
+            android:icon="@drawable/ic_compass_icon"
             android:summary="-"
             android:title="@string/compass_declination"
-            app:iconSpaceReserved="false"
             app:key="@string/pref_holder_declination" />
 
         <SwitchPreferenceCompat
             android:dependency="@string/pref_use_true_north"
             android:disableDependentsState="true"
+            android:summary="@string/pref_auto_declination_summary"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
-            android:summary="@string/pref_auto_declination_summary"
             app:key="@string/pref_auto_declination"
             app:title="@string/compass_auto_declination" />
 

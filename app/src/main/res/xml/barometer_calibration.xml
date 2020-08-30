@@ -8,7 +8,7 @@
         <Preference
             android:summary="-"
             android:title="@string/pref_barometer_pressure_title"
-            app:iconSpaceReserved="false"
+            app:icon="@drawable/barometer"
             app:key="@string/pref_holder_pressure" />
 
         <SwitchPreferenceCompat
