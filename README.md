@@ -129,7 +129,7 @@ If you find an issue with a translation, please post it as a comment to [this is
 - Charts: [MpAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 - Thank you to everyone who tried out this app and opened issues, suggested features, provided translations, or tested debug builds for me
 
-# Licence
+# License
 
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://badges.mit-license.org)
 
