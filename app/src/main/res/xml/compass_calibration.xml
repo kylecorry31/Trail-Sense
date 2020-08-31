@@ -41,14 +41,12 @@
             app:title="@string/pref_use_true_north_title" />
 
         <Preference
-            android:dependency="@string/pref_use_true_north"
             android:icon="@drawable/ic_compass_icon"
             android:summary="-"
             android:title="@string/compass_declination"
             app:key="@string/pref_holder_declination" />
 
         <SwitchPreferenceCompat
-            android:dependency="@string/pref_use_true_north"
             android:disableDependentsState="true"
             android:summary="@string/pref_auto_declination_summary"
             app:defaultValue="true"

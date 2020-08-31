@@ -81,10 +81,8 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
         declinationOverrideEdit.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL).or(InputType.TYPE_NUMBER_FLAG_SIGNED)
         }
-        declinationOverrideEdit.isEnabled = prefs.navigation.useTrueNorth
 
         trueNorthSwitch.setOnPreferenceClickListener {
-            declinationOverrideEdit.isEnabled = prefs.navigation.useTrueNorth
             resetCompass()
             true
         }

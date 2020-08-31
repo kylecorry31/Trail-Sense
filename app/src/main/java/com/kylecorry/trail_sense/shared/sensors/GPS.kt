@@ -136,7 +136,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
                 } else {
                     0f
                 }
-                
+
                 prefs.edit {
                     putFloat(LAST_SPEED, _speed)
                 }
