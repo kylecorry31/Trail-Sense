@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmR
 import com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment
 import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
+import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private var geoIntentLocation: GeoUriParser.NamedCoordinate? = null
 
     private lateinit var userPrefs: UserPreferences
+    private lateinit var disclaimer: DisclaimerMessage
 
     private val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
 
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         userPrefs = UserPreferences(this)
+        disclaimer = DisclaimerMessage(this)
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
         val mode = when (userPrefs.theme){
@@ -79,6 +82,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startApp(){
+
+        if (disclaimer.shouldShow()){
+            disclaimer.show()
+        }
+
         if(userPrefs.weather.shouldMonitorWeather) {
             WeatherAlarmScheduler.start(this)
         } else {

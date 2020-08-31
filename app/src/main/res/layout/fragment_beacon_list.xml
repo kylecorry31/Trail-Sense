@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        android:text="@string/beacon_title"
+        android:text="@string/beacon_list_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="32sp"
         android:textStyle="bold"

@@ -33,7 +33,7 @@ class PlaceBeaconFragment(
     private lateinit var beaconRepo: BeaconRepo
     private lateinit var gps: IGPS
 
-    constructor(): this(null, null, null)
+    constructor() : this(null, null, null)
 
     private lateinit var beaconName: EditText
     private lateinit var beaconLat: EditText
@@ -87,7 +87,7 @@ class PlaceBeaconFragment(
 
         beaconName.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && !hasValidName()) {
-                beaconName.error = "Invalid beacon name"
+                beaconName.error = getString(R.string.beacon_invalid_name)
             } else if (!hasFocus) {
                 beaconName.error = null
             }
@@ -95,7 +95,7 @@ class PlaceBeaconFragment(
 
         beaconLat.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && !hasValidLatitude()) {
-                beaconLat.error = "Invalid latitude"
+                beaconLat.error = getString(R.string.beacon_invalid_latitude)
             } else if (!hasFocus) {
                 beaconLat.error = null
             }
@@ -103,7 +103,7 @@ class PlaceBeaconFragment(
 
         beaconLng.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && !hasValidLongitude()) {
-                beaconLng.error = "Invalid longitude"
+                beaconLng.error = getString(R.string.beacon_invalid_longitude)
             } else if (!hasFocus) {
                 beaconLng.error = null
             }
@@ -111,7 +111,7 @@ class PlaceBeaconFragment(
 
         beaconElevation.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && !hasValidElevation()) {
-                beaconElevation.error = "Invalid elevation"
+                beaconElevation.error = getString(R.string.beacon_invalid_elevation)
             } else if (!hasFocus) {
                 beaconElevation.error = null
             }
@@ -139,7 +139,7 @@ class PlaceBeaconFragment(
             val lng = beaconLng.text.toString()
             val comment = commentTxt.text.toString()
             val rawElevation = beaconElevation.text.toString().toFloatOrNull()
-            val elevation = if (rawElevation == null){
+            val elevation = if (rawElevation == null) {
                 null
             } else {
                 LocationMath.convertToMeters(rawElevation, units)
@@ -148,10 +148,18 @@ class PlaceBeaconFragment(
             val coordinate = getCoordinate(lat, lng)
 
             if (name.isNotBlank() && coordinate != null) {
-                val beacon = if (editingBeacon == null ) {
+                val beacon = if (editingBeacon == null) {
                     Beacon(0, name, coordinate, true, comment, null, elevation)
                 } else {
-                    Beacon(editingBeacon.id, name, coordinate, editingBeacon.visible, comment, editingBeacon.beaconGroupId, elevation)
+                    Beacon(
+                        editingBeacon.id,
+                        name,
+                        coordinate,
+                        editingBeacon.visible,
+                        comment,
+                        editingBeacon.beaconGroupId,
+                        elevation
+                    )
                 }
                 beaconRepo.add(beacon)
                 parentFragmentManager.doTransaction {
@@ -166,7 +174,7 @@ class PlaceBeaconFragment(
             }
         }
 
-        if (units == UserPreferences.DistanceUnits.Feet){
+        if (units == UserPreferences.DistanceUnits.Feet) {
             beaconElevation.hint = getString(R.string.beacon_elevation_hint_feet)
         } else {
             beaconElevation.hint = getString(R.string.beacon_elevation_hint_meters)
@@ -190,7 +198,9 @@ class PlaceBeaconFragment(
         if (units == UserPreferences.DistanceUnits.Meters) {
             beaconElevation.setText(altimeter.altitude.roundPlaces(1).toString())
         } else {
-            beaconElevation.setText(LocationMath.convertToBaseUnit(altimeter.altitude, units).roundPlaces(1).toString())
+            beaconElevation.setText(
+                LocationMath.convertToBaseUnit(altimeter.altitude, units).roundPlaces(1).toString()
+            )
         }
         return false
     }
@@ -215,7 +225,8 @@ class PlaceBeaconFragment(
     }
 
     private fun hasValidElevation(): Boolean {
-        return beaconElevation.text.isNullOrBlank() || beaconElevation.text.toString().toFloatOrNull() != null
+        return beaconElevation.text.isNullOrBlank() || beaconElevation.text.toString()
+            .toFloatOrNull() != null
     }
 
     private fun hasValidName(): Boolean {

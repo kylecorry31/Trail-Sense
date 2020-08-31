@@ -1,28 +1,115 @@
 <resources>
     <string name="app_name" translatable="false">Trail Sense</string>
+
+    <!--Tabs-->
     <string name="action_navigation">Navigation</string>
     <string name="action_weather">Weather</string>
     <string name="action_settings">Settings</string>
-    <string name="compass_alt">Compass</string>
-    <string name="direction_arrow_desc">Direction Arrow</string>
-    <string name="location_unknown">Location unknown</string>
-    <string name="destination_star_desc">Destination</string>
+    <string name="action_astronomy">Astronomy</string>
+
+    <!--Dialogs-->
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+
+    <!--Disclaimer-->
+    <string name="disclaimer_message_title">Disclaimer</string>
+    <string name="disclaimer_message_content">Trail Sense is a tool which can be used in a survival situation, but you should not rely solely upon it. Please validate it\'s accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
+
+    <!--Navigation Tab - Unit Formats-->
+    <string name="feet_format">%d ft</string>
+    <string name="miles_format">%.2f mi</string>
+    <string name="meters_format">%d m</string>
+    <string name="kilometers_format">%.2f km</string>
+    <string name="kilometers_per_hour_format">%.1f km/h</string>
+    <string name="miles_per_hour_format">%.1f mph</string>
+
+    <!--Navigation Tab - Accuracy-->
+    <string name="accuracy_low">Low</string>
+    <string name="accuracy_medium">Medium</string>
+    <string name="accuracy_high">High</string>
+    <string name="accuracy_unknown">Unknown</string>
+    <string name="accuracy_info_title">Tips for improving accuracy</string>
+    <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\u0020\u0020\u0020\u0020%s of actual location\n\u0020\u0020\u0020\u0020%s of actual altitude\n\u0020\u0020\u0020\u0020%s satellites\n\nCompass: Rotate device in a figure 8 pattern and move away from metal.</string>
+
+    <!--Navigation Tab - Destination Panel-->
+    <string name="eta">~ %s away</string>
+    <string name="distance_away">away</string>
+
+    <!--Navigation Tab - Beacon List-->
+    <string name="beacon_list_title">Select Beacon</string>
+    <string name="delete_beacon">Delete beacon</string>
+    <string name="edit_beacon">Edit beacon</string>
+    <string name="no_beacons">No beacons</string>
+
+    <!--Navigation Tab - Beacon List - Sharesheet-->
+    <string name="share_action_send">Send</string>
+    <string name="share_action_copy">Copy</string>
+    <string name="share_action_copy_beacon">Copy beacon</string>
+    <string name="share_action_copy_coordinates">Copy coordinates</string>
+    <string name="share_action_geo">geo:</string>
+
+    <!--Navigation Tab - Create beacon-->
     <string name="create_beacon_title">Drop Beacon</string>
     <string name="beacon_name_hint">Name</string>
     <string name="beacon_latitude_hint">Latitude</string>
     <string name="beacon_longitude_hint">Longitude</string>
+    <string name="beacon_invalid_name">Invalid name</string>
+    <string name="beacon_invalid_latitude">Invalid latitude</string>
+    <string name="beacon_invalid_longitude">Invalid longitude</string>
+    <string name="beacon_invalid_elevation">Invalid elevation</string>
     <string name="beacon_use_current_location">Use current location</string>
-    <string name="beacon_title">Select Beacon</string>
-    <string name="dialog_ok">OK</string>
-    <string name="delete_beacon">Delete beacon</string>
-    <string name="edit_beacon">Edit beacon</string>
-    <string name="dialog_cancel">Cancel</string>
-    <string name="pressure_chart_title">Pressure</string>
-    <string name="action_astronomy">Astronomy</string>
-    <string name="sunrise_label">Sunrise</string>
-    <string name="sunset_label">Sunset</string>
+    <string name="beacon_elevation_hint_feet">Elevation feet (Optional)</string>
+    <string name="beacon_elevation_hint_meters">Elevation meters (Optional)</string>
+    <string name="beacon_comment">Notes (Optional)</string>
+
+    <!--Weather Tab-->
+    <string name="units_hpa">hPa</string>
+    <string name="units_inhg">inHg</string>
+    <string name="units_inhg_short">in</string>
+    <string name="units_mbar">mbar</string>
+    <string name="units_psi">PSI</string>
+
+    <string name="pressure_tendency_format">%s %s / 3h</string>
+    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">%s %s - %s ago</string>
+
+    <!--Weather Tab - Forecasts-->
+    <string name="weather_improving_fast">Improving very soon</string>
+    <string name="weather_improving_slow">Improving soon</string>
+    <string name="weather_worsening_slow">Worsening soon</string>
+    <string name="weather_worsening_fast">Worsening very soon</string>
+    <string name="weather_storm_incoming">Storm incoming</string>
+    <string name="weather_not_changing">Not changing soon</string>
+    <string name="forecast_improving">Possibly improving later</string>
+    <string name="forecast_worsening">Possibly worsening later</string>
+
+    <plurals name="last_hours">
+        <item quantity="one">Last %d hour</item>
+        <item quantity="other">Last %d hours</item>
+    </plurals>
+    <plurals name="last_minutes">
+        <item quantity="one">Last %d minute</item>
+        <item quantity="other">Last %d minutes</item>
+    </plurals>
+
+    <!--Astronomy Tab-->
+    <string name="duration_format_h_m">%dh %dm</string>
+    <string name="duration_format_h">%dh</string>
+    <string name="duration_format_m">%dm</string>
+    <string name="sun_does_not_set">does not set</string>
+    <string name="sun_does_not_rise">does not rise</string>
+    <string name="sun_up_no_set">Sun is up</string>
+    <string name="sun_down_no_set">Sun is down</string>
     <string name="until_sunrise_label">until sunrise</string>
     <string name="until_sunset_label">until sunset</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="this_year_format">MMMM d</string>
+    <string name="other_year_format">MMM d, YYYY</string>
+
+    <string name="sunrise_label">Sunrise</string>
+    <string name="sunset_label">Sunset</string>
 
 
     <string name="pref_use_true_north_title">True North</string>
@@ -44,15 +131,6 @@
     <string name="pref_use_24_hour_title">Use 24-hour format</string>
     <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
-    <string name="weather_improving_fast">Improving very soon</string>
-    <string name="weather_improving_slow">Improving soon</string>
-    <string name="weather_worsening_slow">Worsening soon</string>
-    <string name="weather_worsening_fast">Worsening very soon</string>
-    <string name="weather_storm_incoming">Storm incoming</string>
-    <string name="weather_not_changing">Not changing soon</string>
-    <string name="forecast_improving">Possibly improving later</string>
-    <string name="forecast_worsening">Possibly worsening later</string>
-    <string name="no_beacons">No beacons</string>
     <string name="onboarding_compass">Place beacons and navigate back to them</string>
     <string name="onboarding_weather">Get hyperlocal weather forecasts</string>
     <string name="onboarding_weather_no_internet">* does not use an Internet connection</string>
@@ -90,23 +168,9 @@
 
     <string name="delete_beacon_confirmation">Are you sure you want to remove "%s"?</string>
 
-    <plurals name="last_hours">
-        <item quantity="one">Last %d hour</item>
-        <item quantity="other">Last %d hours</item>
-    </plurals>
-
-    <plurals name="last_minutes">
-        <item quantity="one">Last %d minute</item>
-        <item quantity="other">Last %d minutes</item>
-    </plurals>
-
     <string name="meters">Meters</string>
     <string name="feet_miles">Feet / Miles</string>
-    <string name="units_hpa">hPa</string>
-    <string name="units_inhg">inHg</string>
-    <string name="units_inhg_short">in</string>
-    <string name="units_mbar">mbar</string>
-    <string name="units_psi">PSI</string>
+
 
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
@@ -125,11 +189,6 @@
     <string name="sun_nautical">Nautical Twilight</string>
     <string name="sun_astronomical">Astronomical Twilight</string>
     <string name="not_all_permissions_granted">Not all permissions granted, some features may be broken</string>
-    <string name="today">Today</string>
-    <string name="tomorrow">Tomorrow</string>
-    <string name="yesterday">Yesterday</string>
-    <string name="this_year_format">MMMM d</string>
-    <string name="other_year_format">MMM d, YYYY</string>
     <string name="pressure_tendency_indicator_alt">Pressure tendency indicator</string>
 
     <string name="pressure_48_hours">48 hours</string>
@@ -147,10 +206,6 @@
     <string name="pref_num_visible_beacons" translatable="false">pref_num_visible_beacons</string>
     <string name="pref_num_visible_beacons_title">Visible beacons</string>
     <string name="pref_display_multi_beacons_summary">Show closest beacons on the compass</string>
-    <string name="sun_does_not_set">does not set</string>
-    <string name="sun_does_not_rise">does not rise</string>
-    <string name="sun_up_no_set">Sun is up</string>
-    <string name="sun_down_no_set">Sun is down</string>
     <string name="until_sun_time">until %s</string>
     <string name="new_moon">New Moon</string>
     <string name="waning_crescent">Waning Crescent</string>
@@ -164,22 +219,10 @@
     <string name="sun_moon_compass_when_up">When up</string>
     <string name="sun_moon_compass_never">Never</string>
     <string name="pref_use_legacy_compass" translatable="false">pref_use_legacy_compass</string>
-    <string name="share_action_send">Send</string>
-    <string name="share_action_copy">Copy</string>
-    <string name="share_action_copy_beacon">Copy beacon</string>
-    <string name="share_action_copy_coordinates">Copy coordinates</string>
-    <string name="share_action_geo">geo:</string>
     <string name="pref_center_sun_and_moon">pref_center_sun_and_moon</string>
     <string name="pref_center_sun_and_moon_title">Keep sun/moon centered</string>
-    <string name="beacon_comment">Notes (Optional)</string>
-    <string name="beacon_elevation_hint_feet">Elevation feet (Optional)</string>
-    <string name="beacon_elevation_hint_meters">Elevation meters (Optional)</string>
-    <string name="eta">~ %s away</string>
-    <string name="distance_away">away</string>
     <string name="pref_forecast_sensitivity" translatable="false">pref_forecast_sensitivity</string>
     <string name="pref_forecast_sensitivity_title">Forecast sensitivity</string>
-    <string name="accuracy_info_title">Tips for improving accuracy</string>
-    <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\u0020\u0020\u0020\u0020%s of actual location\n\u0020\u0020\u0020\u0020%s of actual altitude\n\u0020\u0020\u0020\u0020%s satellites\n\nCompass: Rotate device in a figure 8 pattern and move away from metal.</string>
     <string name="miles_per_hour">mph</string>
     <string name="kilometers_per_hour">km/h</string>
     <string name="speed_format">%s %s</string>
@@ -293,14 +336,7 @@
     <string name="pref_calibrate_compass_btn_title">Calibrate</string>
     <string name="calibrate_compass_dialog_title">Calibrate compass</string>
     <string name="calibrate_compass_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.</string>
-    <string name="accuracy_low">Low</string>
-    <string name="accuracy_medium">Medium</string>
-    <string name="accuracy_high">High</string>
-    <string name="accuracy_unknown">Unknown</string>
     <string name="compass_reported_accuracy">Reported accuracy: %s</string>
     <string name="compass_accuracy_improved">Compass accuracy improved to %s</string>
     <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
-    <string name="pressure_format">%s %s</string>
-    <string name="pressure_reading_time_ago">%s %s - %s ago</string>
 </resources>

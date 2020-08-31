@@ -43,7 +43,6 @@
         android:layout_width="@dimen/circular_display_size"
         android:layout_height="@dimen/circular_display_size"
         android:layout_marginTop="64dp"
-        android:contentDescription="@string/compass_alt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location"
@@ -85,7 +84,6 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="215dp"
-        android:contentDescription="@string/direction_arrow_desc"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/needle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -147,7 +145,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:text="@string/location_unknown" />
+        tools:text="0.0, 0.0" />
 
     <LinearLayout
         android:id="@+id/accuracy_view"

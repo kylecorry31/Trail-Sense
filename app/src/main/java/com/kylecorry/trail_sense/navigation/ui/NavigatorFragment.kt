@@ -425,11 +425,7 @@ class NavigatorFragment(
             gpsAccuracy.visibility = View.INVISIBLE
         }
 
-        speedTxt.text = getString(
-            R.string.speed_format,
-            navigationVM.currentSpeed,
-            getString(navigationVM.speedUnit)
-        )
+        speedTxt.text = getString(navigationVM.speedUnit, navigationVM.currentSpeed)
 
         if (navigationVM.showLinearCompass) {
             setVisibleCompass(linearCompass)

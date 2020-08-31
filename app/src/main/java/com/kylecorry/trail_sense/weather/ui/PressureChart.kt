@@ -87,7 +87,7 @@ class PressureChart(private val chart: LineChart, private val color: Int, privat
         chart.axisLeft.axisMaximum = maxPressure
         chart.axisLeft.granularity = granularity
 
-        val set1 = LineDataSet(values, chart.context.getString(R.string.pressure_chart_title))
+        val set1 = LineDataSet(values, "Pressure")
         set1.color = color
         set1.fillAlpha = 180
         set1.lineWidth = 3f
