@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.system.IntentUtils
 
 
 class CalibrateGPSFragment : PreferenceFragmentCompat() {
@@ -84,9 +85,7 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
         }
 
         permissionBtn.setOnPreferenceClickListener {
-            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-            val uri = Uri.fromParts("package", requireContext().packageName, null)
-            intent.data = uri
+            val intent = IntentUtils.appSettings(requireContext())
             startActivityForResult(intent, 1000)
             true
         }

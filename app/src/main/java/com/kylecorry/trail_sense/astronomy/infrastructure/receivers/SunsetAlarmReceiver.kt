@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.system.AlarmUtils
+import com.kylecorry.trail_sense.shared.system.PackageUtils
 import java.time.*
 import java.util.*
 import kotlin.concurrent.timer
@@ -197,7 +198,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
 
         private fun alarmIntent(context: Context): Intent {
             val i = Intent("com.kylecorry.trail_sense.ALARM_SUNSET")
-            i.`package` = context.packageName
+            i.`package` = PackageUtils.getPackageName(context)
             i.addCategory("android.intent.category.DEFAULT")
             return i
         }

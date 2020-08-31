@@ -13,7 +13,9 @@ import com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment
 import com.kylecorry.trail_sense.calibration.ui.CalibrateGPSFragment
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.shared.switchToFragment
+import com.kylecorry.trail_sense.shared.system.IntentUtils
 import com.kylecorry.trail_sense.shared.system.NotificationUtils
+import com.kylecorry.trail_sense.shared.system.PackageUtils
 import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
@@ -143,8 +145,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_github))
             ?.setOnPreferenceClickListener {
-                val i = Intent(Intent.ACTION_VIEW)
-                i.data = Uri.parse(it.summary.toString())
+                val i = IntentUtils.url(it.summary.toString())
                 startActivity(i)
                 true
             }
@@ -152,20 +153,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_email))
             ?.setOnPreferenceClickListener {
 
-                val intent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:")
-                    putExtra(Intent.EXTRA_EMAIL, it.summary.toString())
-                    putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
-                }
-
+                val intent = IntentUtils.email(it.summary.toString(), getString(R.string.app_name))
                 startActivity(Intent.createChooser(intent, it.title.toString()))
                 true
             }
 
-        val version = requireContext().packageManager.getPackageInfo(
-            requireContext().packageName,
-            0
-        ).versionName
+        val version = PackageUtils.getVersionName(requireContext())
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_app_version))?.summary =
             version
     }

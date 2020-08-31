@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense.shared.system
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 
 object IntentUtils {
 
@@ -19,6 +21,28 @@ object IntentUtils {
             intent,
             PendingIntent.FLAG_NO_CREATE
         ) != null
+    }
+
+    fun email(to: String, subject: String, body: String = ""): Intent {
+        return Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, to)
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, body)
+        }
+    }
+
+    fun url(url: String): Intent {
+        return Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
+        }
+    }
+
+    fun appSettings(context: Context): Intent {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri = Uri.fromParts("package", PackageUtils.getPackageName(context), null)
+        intent.data = uri
+        return intent
     }
 
 }
