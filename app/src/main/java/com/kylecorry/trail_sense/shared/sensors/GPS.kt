@@ -136,9 +136,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
                 } else {
                     0f
                 }
-
-                println("${location.speed} - ${location.speedAccuracyMetersPerSecond}")
-
+                
                 prefs.edit {
                     putFloat(LAST_SPEED, _speed)
                 }
