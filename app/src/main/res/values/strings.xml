@@ -355,4 +355,5 @@
     <string name="pref_category_licenses">pref_category_licenses</string>
     <string name="pref_show_calibrate_on_navigate_dialog">pref_show_calibrate_on_navigate_dialog</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrate before navigating</string>
+    <string name="dash">-</string>
 </resources>

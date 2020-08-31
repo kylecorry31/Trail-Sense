@@ -293,8 +293,8 @@ class NavigationViewModel(
             return
         }
 
-        if (gps.speed > 3f) {
-            // If traveling by running, bike or car
+        if (gps.speed > 3f || gps.speed < 0.2f) {
+            // If traveling by running, bike or car or sitting still
             speed = gps.speed
         } else {
             val lastSpeed = prefs.navigation.averageSpeed

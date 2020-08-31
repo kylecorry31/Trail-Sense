@@ -97,7 +97,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         val satellites = location.extras.getInt("satellites")
         val dt = System.currentTimeMillis() - fixStart
 
-        if (satellites < 4 && dt < maxFixTime){
+        if (satellites < 4 && dt < maxFixTime) {
             return
         }
 
@@ -130,10 +130,26 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         }
 
         if (location.hasSpeed()) {
-            this._speed = location.speed
-            prefs.edit {
-                putFloat(LAST_SPEED, _speed)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && location.hasSpeedAccuracy()) {
+                _speed = if (location.speedAccuracyMetersPerSecond < location.speed) {
+                    location.speed
+                } else {
+                    0f
+                }
+
+                println("${location.speed} - ${location.speedAccuracyMetersPerSecond}")
+
+                prefs.edit {
+                    putFloat(LAST_SPEED, _speed)
+                }
+            } else {
+                this._speed = location.speed
+                prefs.edit {
+                    putFloat(LAST_SPEED, _speed)
+                }
             }
+
+
         }
 
         this._location = Coordinate(
@@ -148,7 +164,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
                 putFloat(LAST_ALTITUDE, _altitude)
             }
 
-            if (userPrefs.useAltitudeOffsets){
+            if (userPrefs.useAltitudeOffsets) {
                 _altitude -= AltitudeCorrection.getOffset(this._location, context)
             }
         }

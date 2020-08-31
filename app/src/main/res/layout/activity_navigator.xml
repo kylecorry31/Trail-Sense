@@ -172,7 +172,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/satellite"
-                android:tint="?android:textColorSecondary" />
+                app:tint="?android:textColorSecondary" />
 
             <TextView
                 android:id="@+id/gps_accuracy_text"
@@ -194,7 +194,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_compass_icon"
-                android:tint="?android:textColorSecondary" />
+                app:tint="?android:textColorSecondary" />
 
             <TextView
                 android:id="@+id/compass_accuracy_text"
@@ -296,7 +296,7 @@
                         android:layout_marginEnd="8dp"
                         android:alpha="0.5"
                         android:src="@drawable/ic_altitude"
-                        android:tint="?android:textColorSecondary" />
+                        app:tint="?android:textColorSecondary" />
 
                     <TextView
                         android:id="@+id/beacon_elevation"
@@ -349,7 +349,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_altitude"
-                android:tint="@color/colorPrimary" />
+                app:tint="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/altitude"
@@ -357,6 +357,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textSize="20sp"
+                android:textAlignment="center"
                 android:textStyle="bold"
                 tools:text="180 ft" />
         </LinearLayout>
@@ -372,7 +373,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_speed"
-                android:tint="@color/colorPrimary" />
+                app:tint="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/speed"
@@ -381,6 +382,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:textAlignment="center"
                 tools:text="1.8 mph" />
         </LinearLayout>
     </LinearLayout>

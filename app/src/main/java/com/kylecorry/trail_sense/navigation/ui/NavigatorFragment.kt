@@ -31,6 +31,7 @@ import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.declination.AutoDeclinationProvider
 import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
 import com.kylecorry.trail_sense.shared.switchToFragment
+import kotlinx.android.synthetic.main.activity_navigator.*
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.math.ceil
@@ -99,7 +100,7 @@ class NavigatorFragment(
 
     private var timer: Timer? = null
     private var handler: Handler? = null
-    
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -441,7 +442,11 @@ class NavigatorFragment(
             gpsAccuracy.visibility = View.INVISIBLE
         }
 
-        speedTxt.text = getString(navigationVM.speedUnit, navigationVM.currentSpeed)
+        if (navigationVM.currentSpeed == 0.0f) {
+            speedTxt.text = getString(R.string.dash)
+        } else {
+            speedTxt.text = getString(navigationVM.speedUnit, navigationVM.currentSpeed)
+        }
 
         if (navigationVM.showLinearCompass) {
             setVisibleCompass(linearCompass)
