@@ -111,11 +111,11 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
     private fun sendWeatherNotification() {
         val pressureConverter = SeaLevelPressureConverterFactory().create(context)
-        val readings = PressureHistoryRepository.getAll(context)
-        val forecast = weatherService.getHourlyWeather(pressureConverter.convert(readings))
+        val readings = pressureConverter.convert(PressureHistoryRepository.getAll(context))
+        val forecast = weatherService.getHourlyWeather(readings)
 
         if (userPrefs.weather.shouldShowWeatherNotification) {
-            WeatherNotificationService.updateNotificationForecast(context, forecast)
+            WeatherNotificationService.updateNotificationForecast(context, forecast, readings)
         }
     }
 

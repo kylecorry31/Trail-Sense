@@ -29,74 +29,101 @@ class SettingsFragment : PreferenceFragmentCompat() {
             preferenceScreen.removePreferenceRecursively(getString(R.string.pref_barometer_calibration))
         }
 
-        preferenceScreen.findPreference<Preference>(getString(R.string.pref_compass_sensor))?.setOnPreferenceClickListener { _ ->
-            // Launch intent
-            switchToFragment(CalibrateCompassFragment(), addToBackStack = true)
-            false
-        }
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_compass_sensor))
+            ?.setOnPreferenceClickListener { _ ->
+                // Launch intent
+                switchToFragment(CalibrateCompassFragment(), addToBackStack = true)
+                false
+            }
 
-        preferenceScreen.findPreference<Preference>(getString(R.string.pref_altimeter_calibration))?.setOnPreferenceClickListener { _ ->
-            // Launch intent
-            switchToFragment(CalibrateAltimeterFragment(), addToBackStack = true)
-            false
-        }
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_altimeter_calibration))
+            ?.setOnPreferenceClickListener { _ ->
+                // Launch intent
+                switchToFragment(CalibrateAltimeterFragment(), addToBackStack = true)
+                false
+            }
 
-        preferenceScreen.findPreference<Preference>(getString(R.string.pref_gps_calibration))?.setOnPreferenceClickListener { _ ->
-            // Launch intent
-            switchToFragment(CalibrateGPSFragment(), addToBackStack = true)
-            false
-        }
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_gps_calibration))
+            ?.setOnPreferenceClickListener { _ ->
+                // Launch intent
+                switchToFragment(CalibrateGPSFragment(), addToBackStack = true)
+                false
+            }
 
-        preferenceScreen.findPreference<Preference>(getString(R.string.pref_barometer_calibration))?.setOnPreferenceClickListener { _ ->
-            // Launch intent
-            switchToFragment(CalibrateBarometerFragment(), addToBackStack = true)
-            false
-        }
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_barometer_calibration))
+            ?.setOnPreferenceClickListener { _ ->
+                // Launch intent
+                switchToFragment(CalibrateBarometerFragment(), addToBackStack = true)
+                false
+            }
 
-        preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_theme))?.setOnPreferenceChangeListener { _, _ ->
-            activity?.recreate()
-            true
-        }
+        preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_theme))
+            ?.setOnPreferenceChangeListener { _, _ ->
+                activity?.recreate()
+                true
+            }
 
-        preferenceScreen.findPreference<SwitchPreferenceCompat>(getString(R.string.pref_monitor_weather))?.setOnPreferenceChangeListener { _, value ->
-            val shouldMonitorWeather = value as Boolean
-            context?.apply {
-                if (shouldMonitorWeather){
-                    WeatherAlarmScheduler.start(this)
-                } else {
-                    WeatherAlarmScheduler.stop(this)
+        preferenceScreen.findPreference<SwitchPreferenceCompat>(getString(R.string.pref_monitor_weather))
+            ?.setOnPreferenceChangeListener { _, value ->
+                val shouldMonitorWeather = value as Boolean
+                context?.apply {
+                    if (shouldMonitorWeather) {
+                        WeatherAlarmScheduler.start(this)
+                    } else {
+                        WeatherAlarmScheduler.stop(this)
+                    }
                 }
+
+                true
             }
 
-            true
-        }
-
-        preferenceScreen.findPreference<SwitchPreferenceCompat>(getString(R.string.pref_show_weather_notification))?.setOnPreferenceChangeListener { _, value ->
-            val shouldShowWeatherNotification = value as Boolean
-            context?.apply {
-                if (shouldShowWeatherNotification){
-                    WeatherAlarmScheduler.start(this)
-                } else {
-                    NotificationUtils.cancel(this, WeatherNotificationService.WEATHER_NOTIFICATION_ID)
+        preferenceScreen.findPreference<SwitchPreferenceCompat>(getString(R.string.pref_show_weather_notification))
+            ?.setOnPreferenceChangeListener { _, value ->
+                val shouldShowWeatherNotification = value as Boolean
+                context?.apply {
+                    if (shouldShowWeatherNotification) {
+                        WeatherAlarmScheduler.start(this)
+                    } else {
+                        NotificationUtils.cancel(
+                            this,
+                            WeatherNotificationService.WEATHER_NOTIFICATION_ID
+                        )
+                    }
                 }
+
+                true
             }
 
-            true
-        }
+        preferenceScreen.findPreference<SwitchPreferenceCompat>(getString(R.string.pref_show_pressure_in_notification))
+            ?.setOnPreferenceClickListener {
+                context?.apply {
+                    NotificationUtils.cancel(
+                        this,
+                        WeatherNotificationService.WEATHER_NOTIFICATION_ID
+                    )
+                    WeatherAlarmScheduler.start(this)
+                }
 
-        preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_sunset_alert_time))?.setOnPreferenceChangeListener { _, value ->
-            context?.apply {
-                sendBroadcast(SunsetAlarmReceiver.intent(this))
+                true
             }
-            true
-        }
 
-       preferenceScreen.findPreference<EditTextPreference>(getString(R.string.pref_ruler_calibration))?.setOnBindEditTextListener { editText ->
-           editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
-       }
+        preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_sunset_alert_time))
+            ?.setOnPreferenceChangeListener { _, value ->
+                context?.apply {
+                    sendBroadcast(SunsetAlarmReceiver.intent(this))
+                }
+                true
+            }
 
-        preferenceScreen.findPreference<EditTextPreference>(getString(R.string.pref_num_visible_beacons))?.setOnBindEditTextListener { editText ->
-            editText.inputType = InputType.TYPE_CLASS_NUMBER
-        }
+        preferenceScreen.findPreference<EditTextPreference>(getString(R.string.pref_ruler_calibration))
+            ?.setOnBindEditTextListener { editText ->
+                editText.inputType =
+                    InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
+            }
+
+        preferenceScreen.findPreference<EditTextPreference>(getString(R.string.pref_num_visible_beacons))
+            ?.setOnBindEditTextListener { editText ->
+                editText.inputType = InputType.TYPE_CLASS_NUMBER
+            }
     }
 }

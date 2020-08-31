@@ -20,6 +20,9 @@ class WeatherPreferences(private val context: Context) {
     val shouldShowWeatherNotification: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_show_weather_notification), true)
 
+    val shouldShowPressureInNotification: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_show_pressure_in_notification), false)
+
     val useSeaLevelPressure: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_use_sea_level_pressure), true)
 

@@ -82,6 +82,7 @@
     <string name="weather_not_changing">Not changing soon</string>
     <string name="forecast_improving">Possibly improving later</string>
     <string name="forecast_worsening">Possibly worsening later</string>
+    <string name="weather_notification_desc_format">%s · %s (%s)</string>
 
     <plurals name="last_hours">
         <item quantity="one">Last %d hour</item>
@@ -339,4 +340,6 @@
     <string name="compass_reported_accuracy">Reported accuracy: %s</string>
     <string name="compass_accuracy_improved">Compass accuracy improved to %s</string>
     <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
+    <string name="pref_show_pressure_in_notification">pref_show_pressure_in_notification</string>
+    <string name="pref_show_pressure_in_notification_title">Show pressure in notification</string>
 </resources>

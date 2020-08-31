@@ -133,6 +133,13 @@
             app:key="@string/pref_show_weather_notification"
             app:title="@string/pref_show_weather_notification_title" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:dependency="@string/pref_show_weather_notification"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_pressure_in_notification"
+            app:title="@string/pref_show_pressure_in_notification_title" />
+
         <ListPreference
             app:defaultValue="48"
             app:dependency="@string/pref_monitor_weather"
