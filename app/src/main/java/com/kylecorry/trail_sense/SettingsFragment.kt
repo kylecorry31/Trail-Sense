@@ -1,7 +1,10 @@
 package com.kylecorry.trail_sense
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
+import androidx.core.app.ShareCompat
 import androidx.preference.*
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.calibration.ui.CalibrateAltimeterFragment
@@ -125,5 +128,45 @@ class SettingsFragment : PreferenceFragmentCompat() {
             ?.setOnBindEditTextListener { editText ->
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             }
+
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_open_source_licenses))
+            ?.setOnPreferenceClickListener {
+                UiUtils.alert(
+                    requireContext(),
+                    getString(R.string.pref_open_source_licenses_title),
+                    getString(
+                        R.string.licenses
+                    )
+                )
+                true
+            }
+
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_github))
+            ?.setOnPreferenceClickListener {
+                val i = Intent(Intent.ACTION_VIEW)
+                i.data = Uri.parse(it.summary.toString())
+                startActivity(i)
+                true
+            }
+
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_email))
+            ?.setOnPreferenceClickListener {
+
+                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:")
+                    putExtra(Intent.EXTRA_EMAIL, it.summary.toString())
+                    putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
+                }
+
+                startActivity(Intent.createChooser(intent, it.title.toString()))
+                true
+            }
+
+        val version = requireContext().packageManager.getPackageInfo(
+            requireContext().packageName,
+            0
+        ).versionName
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_app_version))?.summary =
+            version
     }
 }

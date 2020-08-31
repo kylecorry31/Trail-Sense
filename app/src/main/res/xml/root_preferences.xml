@@ -227,4 +227,31 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/pref_category_about" app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="@string/pref_app_version"
+            android:title="@string/pref_app_version_title"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            app:key="@string/pref_email"
+            android:title="@string/pref_email_title"
+            android:summary="kylecorry31@gmail.com"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            app:key="@string/pref_github"
+            android:title="@string/pref_github_title"
+            android:summary="https://github.com/kylecorry31/Trail-Sense"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="@string/pref_open_source_licenses"
+            android:title="@string/pref_open_source_licenses_title"
+            app:iconSpaceReserved="false" />
+
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

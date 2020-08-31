@@ -342,4 +342,14 @@
     <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
     <string name="pref_show_pressure_in_notification">pref_show_pressure_in_notification</string>
     <string name="pref_show_pressure_in_notification_title">Show pressure in notification</string>
+    <string name="pref_open_source_licenses">pref_open_source_licenses</string>
+    <string name="pref_open_source_licenses_title">Licenses</string>
+    <string name="licenses">Material Design Icons: SIL Open Font License\n\nMPAndroidChart: Apache License, Version 2.0\n\nvectorstofinal/geoid_heights: MIT</string>
+    <string name="pref_category_about">About</string>
+    <string name="pref_app_version">pref_app_version</string>
+    <string name="pref_app_version_title">Version</string>
+    <string name="pref_github">pref_github</string>
+    <string name="pref_github_title">GitHub</string>
+    <string name="pref_email">pref_email</string>
+    <string name="pref_email_title">Email developer</string>
 </resources>
