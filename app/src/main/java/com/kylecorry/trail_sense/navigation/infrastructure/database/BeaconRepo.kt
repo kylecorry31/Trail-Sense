@@ -34,6 +34,13 @@ class BeaconRepo(context: Context) {
         })
     }
 
+    fun get(id: Int): Beacon? {
+        conn.open()
+        val beacon = conn.query({ BeaconDto() }, "select * from beacons where _id = ?", arrayOf<String?>(id.toString()))
+        conn.close()
+        return beacon
+    }
+
     fun get(): Collection<Beacon> {
         conn.open()
         val beacons = conn.queryAll({ BeaconDto() }, "select * from beacons")

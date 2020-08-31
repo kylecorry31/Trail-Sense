@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
@@ -9,8 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.edit
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.Flashlight
@@ -53,6 +56,7 @@ class NavigatorFragment(
     private lateinit var roundCompass: ICompassView
     private lateinit var linearCompass: ICompassView
     private lateinit var userPrefs: UserPreferences
+    private lateinit var prefs: SharedPreferences
 
     private lateinit var navigationVM: NavigationViewModel
 
@@ -106,6 +110,7 @@ class NavigatorFragment(
 
         // Get views
         userPrefs = UserPreferences(requireContext())
+        prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         locationTxt = view.findViewById(R.id.location)
         altitudeTxt = view.findViewById(R.id.altitude)
         azimuthTxt = view.findViewById(R.id.compass_azimuth)
@@ -177,6 +182,10 @@ class NavigatorFragment(
         navigationVM =
             NavigationViewModel(compass, gps, altimeter, orientation, userPrefs, beaconRepo)
         navigationVM.beacon = initialDestination
+        val beacon = navigationVM.beacon?.id
+        if (beacon != null) {
+            prefs.edit { putInt("last_beacon_id", beacon) }
+        }
 
         roundCompass = CompassView(
             view.findViewById(R.id.needle),
@@ -205,6 +214,7 @@ class NavigatorFragment(
                 )
             } else {
                 navigationVM.beacon = null
+                prefs.edit { remove("last_beacon_id") }
                 updateNavigator()
             }
         }
@@ -320,6 +330,10 @@ class NavigatorFragment(
 
     override fun onResume() {
         super.onResume()
+        if (prefs.contains("last_beacon_id")){
+            val beaconId = prefs.getInt("last_beacon_id", 0)
+            navigationVM.beacon = beaconRepo.get(beaconId)
+        }
         flashlightState = getFlashlightState()
         compass.start(this::onCompassUpdate)
         gps.start(this::onLocationUpdate)

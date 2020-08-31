@@ -109,7 +109,7 @@ class DatabaseConnection(
             ?: throw Exception("Database is closed, please call DatabaseConnection.open() before using.")
     }
 
-    private inner class MyCursor<T>(private val dtoFactory: () -> Dto<T>, cursor: Cursor) : CursorWrapper(cursor) {
+    private class MyCursor<T>(private val dtoFactory: () -> Dto<T>, cursor: Cursor) : CursorWrapper(cursor) {
 
         fun getDto(): Dto<T> {
             val dto = dtoFactory.invoke()
