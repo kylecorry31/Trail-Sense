@@ -1,0 +1,8 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:key="@string/pref_category_licenses"
+        app:title="@string/pref_open_source_licenses_title" />
+
+</PreferenceScreen>

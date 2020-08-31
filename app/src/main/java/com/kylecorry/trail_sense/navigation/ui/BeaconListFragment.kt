@@ -23,8 +23,6 @@ import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
-
 
 class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?) : Fragment() {
 

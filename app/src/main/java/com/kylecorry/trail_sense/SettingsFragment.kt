@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.calibration.ui.CalibrateAltimeterFragment
 import com.kylecorry.trail_sense.calibration.ui.CalibrateBarometerFragment
 import com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment
 import com.kylecorry.trail_sense.calibration.ui.CalibrateGPSFragment
+import com.kylecorry.trail_sense.licenses.LicenseFragment
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.shared.system.IntentUtils
@@ -25,9 +26,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
-        // TODO: List open source licenses
-        // Austin Andrews - weather icons
-        // Michael Irigoyen - moon icons
         val sensorChecker = SensorChecker(requireContext())
         if (!sensorChecker.hasBarometer()) {
             preferenceScreen.removePreferenceRecursively(getString(R.string.pref_weather_category))
@@ -133,14 +131,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_open_source_licenses))
             ?.setOnPreferenceClickListener {
-                UiUtils.alert(
-                    requireContext(),
-                    getString(R.string.pref_open_source_licenses_title),
-                    getString(
-                        R.string.licenses
-                    )
-                )
-                true
+                switchToFragment(LicenseFragment(), addToBackStack = true)
+                false
             }
 
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_github))
