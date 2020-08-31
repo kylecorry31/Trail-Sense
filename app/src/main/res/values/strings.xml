@@ -337,6 +337,7 @@
     <string name="pref_calibrate_compass_btn_title">Calibrate</string>
     <string name="calibrate_compass_dialog_title">Calibrate compass</string>
     <string name="calibrate_compass_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished. Disable this alert in settings.</string>
     <string name="compass_reported_accuracy">Reported accuracy: %s</string>
     <string name="compass_accuracy_improved">Compass accuracy improved to %s</string>
     <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
@@ -352,4 +353,6 @@
     <string name="pref_email">pref_email</string>
     <string name="pref_email_title">Email developer</string>
     <string name="pref_category_licenses">pref_category_licenses</string>
+    <string name="pref_show_calibrate_on_navigate_dialog">pref_show_calibrate_on_navigate_dialog</string>
+    <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrate before navigating</string>
 </resources>

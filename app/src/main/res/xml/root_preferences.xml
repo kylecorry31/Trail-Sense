@@ -89,6 +89,12 @@
         app:title="@string/pref_navigation_header">
 
         <SwitchPreferenceCompat
+            android:title="@string/pref_show_calibrate_on_navigate_dialog_title"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_calibrate_on_navigate_dialog" />
+
+        <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_display_multi_beacons"
@@ -227,7 +233,9 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_category_about" app:iconSpaceReserved="false">
+    <PreferenceCategory
+        android:title="@string/pref_category_about"
+        app:iconSpaceReserved="false">
 
         <Preference
             android:key="@string/pref_app_version"
@@ -235,16 +243,16 @@
             app:iconSpaceReserved="false" />
 
         <Preference
-            app:key="@string/pref_email"
-            android:title="@string/pref_email_title"
             android:summary="kylecorry31@gmail.com"
-            app:iconSpaceReserved="false" />
+            android:title="@string/pref_email_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_email" />
 
         <Preference
-            app:key="@string/pref_github"
-            android:title="@string/pref_github_title"
             android:summary="https://github.com/kylecorry31/Trail-Sense"
-            app:iconSpaceReserved="false" />
+            android:title="@string/pref_github_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_github" />
 
         <Preference
             android:key="@string/pref_open_source_licenses"

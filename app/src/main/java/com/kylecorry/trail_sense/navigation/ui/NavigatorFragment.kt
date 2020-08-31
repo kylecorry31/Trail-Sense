@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.declination.AutoDeclinationProvider
 import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
@@ -98,7 +99,7 @@ class NavigatorFragment(
 
     private var timer: Timer? = null
     private var handler: Handler? = null
-
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -184,6 +185,7 @@ class NavigatorFragment(
         navigationVM.beacon = initialDestination
         val beacon = navigationVM.beacon?.id
         if (beacon != null) {
+            showCalibrationDialog()
             prefs.edit { putInt("last_beacon_id", beacon) }
         }
 
@@ -468,6 +470,17 @@ class NavigatorFragment(
             if (it.height == 0) {
                 it.visibility = View.INVISIBLE
             }
+        }
+    }
+
+    private fun showCalibrationDialog(){
+        if (userPrefs.navigation.showCalibrationOnNavigateDialog) {
+            UiUtils.alert(
+                requireContext(), getString(R.string.calibrate_compass_dialog_title), getString(
+                    R.string.calibrate_compass_on_navigate_dialog_content,
+                    getString(R.string.dialog_ok)
+                )
+            )
         }
     }
 

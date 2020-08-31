@@ -29,6 +29,9 @@ class NavigationPreferences(private val context: Context) {
             )
         }
 
+    val showCalibrationOnNavigateDialog: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_show_calibrate_on_navigate_dialog), true)
+
     var useLegacyCompass: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_use_legacy_compass), false)
         set(value) = prefs.edit {
