@@ -9,6 +9,10 @@ import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 
 class Magnetometer(context: Context): BaseSensor(context, Sensor.TYPE_MAGNETIC_FIELD, SensorManager.SENSOR_DELAY_FASTEST) {
 
+    override val hasValidReading: Boolean
+        get() = gotReading
+    private var gotReading = false
+
     val filterSize = 0.03f
     val filters = listOf(
         LowPassFilter(filterSize),
@@ -25,6 +29,7 @@ class Magnetometer(context: Context): BaseSensor(context, Sensor.TYPE_MAGNETIC_F
             filters[1].filter(event.values[1]),
             filters[2].filter(event.values[2])
         )
+        gotReading = true
     }
 
 }

@@ -9,11 +9,15 @@ import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 
 
 class GPS(private val context: Context) : AbstractSensor(), IGPS {
+
+    override val hasValidReading: Boolean
+        get() = hadRecentValidReading()
 
     override val satellites: Int
         get() = _satellites
@@ -38,6 +42,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
 
     private val locationManager = context.getSystemService<LocationManager>()
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+    private val userPrefs = UserPreferences(context)
     private val sensorChecker = SensorChecker(context)
     private val locationListener = SimpleLocationListener { updateLastLocation(it, true) }
 
@@ -105,6 +110,10 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         _satellites = satellites
         lastLocation = location
 
+        prefs.edit {
+            putLong(LAST_UPDATE, fixStart)
+        }
+
         if (location.hasAccuracy()) {
             this._accuracy = when {
                 location.accuracy < 8 -> Accuracy.High
@@ -133,10 +142,14 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         )
 
         if (location.hasAltitude() && location.altitude != 0.0) {
-            _altitude =
-                location.altitude.toFloat() - AltitudeCorrection.getOffset(this._location, context)
+            _altitude = location.altitude.toFloat()
+
             prefs.edit {
                 putFloat(LAST_ALTITUDE, _altitude)
+            }
+
+            if (userPrefs.useAltitudeOffsets){
+                _altitude -= AltitudeCorrection.getOffset(this._location, context)
             }
         }
 
@@ -146,6 +159,13 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         }
 
         if (notify) notifyListeners()
+    }
+
+    private fun hadRecentValidReading(): Boolean {
+        val last = prefs.getLong(LAST_UPDATE, 0L)
+        val now = System.currentTimeMillis()
+        val recentThreshold = 1000 * 60 * 2L
+        return now - last <= recentThreshold
     }
 
     private fun useNewLocation(current: Location?, newLocation: Location): Boolean {
@@ -177,9 +197,10 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
     }
 
     companion object {
-        private const val LAST_LATITUDE = "last_latitude"
-        private const val LAST_LONGITUDE = "last_longitude"
-        private const val LAST_ALTITUDE = "last_altitude"
-        private const val LAST_SPEED = "last_speed"
+        const val LAST_LATITUDE = "last_latitude"
+        const val LAST_LONGITUDE = "last_longitude"
+        const val LAST_ALTITUDE = "last_altitude"
+        const val LAST_SPEED = "last_speed"
+        const val LAST_UPDATE = "last_update"
     }
 }

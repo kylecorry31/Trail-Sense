@@ -10,7 +10,9 @@ abstract class AbstractSensor: ISensor {
     private var started = false
 
     override fun start(listener: SensorListener){
-        listeners.add(listener)
+        synchronized(listeners) {
+            listeners.add(listener)
+        }
         if (started) return
         startImpl()
         started = true

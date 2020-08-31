@@ -24,6 +24,8 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesh
 import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.declination.AutoDeclinationProvider
+import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
 import com.kylecorry.trail_sense.shared.switchToFragment
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
@@ -38,6 +40,7 @@ class NavigatorFragment(
 
     private lateinit var compass: ICompass
     private lateinit var gps: IGPS
+    private lateinit var declinationProvider: IDeclinationProvider
     private lateinit var orientation: DeviceOrientation
     private lateinit var altimeter: IAltimeter
 
@@ -87,6 +90,8 @@ class NavigatorFragment(
     private lateinit var beaconRepo: BeaconRepo
     private var flashlightState = FlashlightState.Off
 
+    private lateinit var sensorService: SensorService
+
     private var timer: Timer? = null
     private var handler: Handler? = null
 
@@ -96,6 +101,8 @@ class NavigatorFragment(
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
+
+        sensorService = SensorService(requireContext())
 
         // Get views
         userPrefs = UserPreferences(requireContext())
@@ -151,17 +158,12 @@ class NavigatorFragment(
         beaconIndicators[0].setImageDrawable(sunImg)
         beaconIndicators[1].setImageDrawable(moonImg)
 
-
         beaconRepo = BeaconRepo(requireContext())
 
-        compass = if (userPrefs.navigation.useLegacyCompass) {
-            LegacyCompass(requireContext())
-        } else {
-            VectorCompass(requireContext())
-        }
-
-        orientation = DeviceOrientation(requireContext())
-        gps = GPS(requireContext())
+        compass = sensorService.getCompass()
+        orientation = sensorService.getDeviceOrientation()
+        gps = sensorService.getGPS()
+        declinationProvider = sensorService.getDeclinationProvider()
 
         if (createBeacon != null) {
             switchToFragment(
@@ -170,19 +172,7 @@ class NavigatorFragment(
             )
         }
 
-        val altimeterMode = userPrefs.navigation.altimeter
-
-        altimeter = when (altimeterMode) {
-            NavigationPreferences.AltimeterMode.GPS -> {
-                FusedAltimeter(gps, Barometer(requireContext()))
-            }
-            NavigationPreferences.AltimeterMode.Barometer -> {
-                Barometer(requireContext())
-            }
-            NavigationPreferences.AltimeterMode.None -> {
-                NullBarometer()
-            }
-        }
+        altimeter = sensorService.getAltimeter()
 
         navigationVM =
             NavigationViewModel(compass, gps, altimeter, orientation, userPrefs, beaconRepo)
@@ -336,6 +326,12 @@ class NavigatorFragment(
         altimeter.start(this::onAltitudeUpdate)
         orientation.start(this::onOrientationUpdate)
 
+        if (declinationProvider.hasValidReading) {
+            onDeclinationUpdate()
+        } else {
+            declinationProvider.start(this::onDeclinationUpdate)
+        }
+
         val hasGPS = SensorChecker(requireContext()).hasGPS()
 
         if (!hasGPS) {
@@ -363,6 +359,7 @@ class NavigatorFragment(
         gps.stop(this::onLocationUpdate)
         altimeter.stop(this::onAltitudeUpdate)
         orientation.stop(this::onOrientationUpdate)
+        declinationProvider.stop(this::onDeclinationUpdate)
         timer?.cancel()
         timer = null
     }
@@ -472,6 +469,12 @@ class NavigatorFragment(
     private fun onCompassUpdate(): Boolean {
         updateUI()
         return true
+    }
+
+    private fun onDeclinationUpdate(): Boolean {
+        navigationVM.declination = declinationProvider.declination
+        updateUI()
+        return false
     }
 
     private fun onAltitudeUpdate(): Boolean {

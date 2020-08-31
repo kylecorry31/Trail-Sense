@@ -2,13 +2,16 @@ package com.kylecorry.trail_sense
 
 import android.os.Bundle
 import android.text.InputType
-import androidx.preference.EditTextPreference
-import androidx.preference.ListPreference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreferenceCompat
+import androidx.preference.*
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.calibration.ui.CalibrateAltimeterFragment
+import com.kylecorry.trail_sense.calibration.ui.CalibrateBarometerFragment
+import com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment
+import com.kylecorry.trail_sense.calibration.ui.CalibrateGPSFragment
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
+import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.shared.system.NotificationUtils
+import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 
@@ -23,6 +26,31 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val sensorChecker = SensorChecker(requireContext())
         if (!sensorChecker.hasBarometer()) {
             preferenceScreen.removePreferenceRecursively(getString(R.string.pref_weather_category))
+            preferenceScreen.removePreferenceRecursively(getString(R.string.pref_barometer_calibration))
+        }
+
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_compass_sensor))?.setOnPreferenceClickListener { _ ->
+            // Launch intent
+            switchToFragment(CalibrateCompassFragment(), addToBackStack = true)
+            false
+        }
+
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_altimeter_calibration))?.setOnPreferenceClickListener { _ ->
+            // Launch intent
+            switchToFragment(CalibrateAltimeterFragment(), addToBackStack = true)
+            false
+        }
+
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_gps_calibration))?.setOnPreferenceClickListener { _ ->
+            // Launch intent
+            switchToFragment(CalibrateGPSFragment(), addToBackStack = true)
+            false
+        }
+
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_barometer_calibration))?.setOnPreferenceClickListener { _ ->
+            // Launch intent
+            switchToFragment(CalibrateBarometerFragment(), addToBackStack = true)
+            false
         }
 
         preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_theme))?.setOnPreferenceChangeListener { _, _ ->

@@ -1,0 +1,68 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_altimeter_calibration_title">
+
+        <Preference
+            android:summary="-"
+            android:title="@string/altitude"
+            android:icon="@drawable/ic_altitude"
+            app:key="@string/pref_holder_altitude" />
+
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_auto_altitude_summary"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_auto_altitude"
+            app:title="@string/auto_altitude" />
+
+        <EditTextPreference
+            android:defaultValue="0.0"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_altitude_override"
+            app:title="@string/pref_altitude_override_title" />
+
+        <EditTextPreference
+            android:defaultValue="0.0"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_altitude_override_feet"
+            app:title="@string/pref_altitude_override_title" />
+
+        <Preference
+            android:title="@string/altitude_from_gps"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_altitude_from_gps_btn" />
+
+        <EditTextPreference
+            android:defaultValue="0.0"
+            android:dialogMessage="@string/pref_altitude_override_sea_level_dialog_msg"
+            android:dialogTitle="@string/pref_altitude_override_sea_level_dialog_title"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            android:summary="@string/pref_altitude_override_sea_level_title"
+            app:key="@string/pref_altitude_override_sea_level"
+            app:title="@string/altitude_from_pressure" />
+
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_altitude_offsets_summary"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_altitude_offsets"
+            app:title="@string/add_elevation_offsets" />
+
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_auto_altitude"
+            android:summary="@string/pref_fine_tune_altitude_summary"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_fine_tune_altitude"
+            app:title="@string/fine_tune_using_barometer" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

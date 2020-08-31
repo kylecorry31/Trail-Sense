@@ -7,23 +7,17 @@ import com.kylecorry.trail_sense.shared.domain.Coordinate
 
 class NavigationService {
 
-    private val declinationCalculator = DeclinationCalculator()
-
-    fun navigate(from: Coordinate, to: Coordinate, currentAltitude: Float = 0f, usingTrueNorth: Boolean = true): NavigationVector {
+    fun navigate(from: Coordinate, to: Coordinate, declination: Float, usingTrueNorth: Boolean = true): NavigationVector {
         val results = FloatArray(3)
         Location.distanceBetween(from.latitude, from.longitude, to.latitude, to.longitude, results)
 
         val declinationAdjustment = if (usingTrueNorth){
             0f
         } else {
-            -getDeclination(from, currentAltitude)
+            -declination
         }
 
         return NavigationVector(Bearing(results[1]).withDeclination(declinationAdjustment), results[0])
-    }
-
-    fun getDeclination(location: Coordinate, altitude: Float): Float {
-        return declinationCalculator.calculate(location, altitude)
     }
 
 }

@@ -14,6 +14,10 @@ import kotlin.math.min
 
 class VectorCompass(context: Context) : AbstractSensor(), ICompass {
 
+    override val hasValidReading: Boolean
+        get() = gotReading
+    private var gotReading = false
+
     override val accuracy: Accuracy
         get() = _accuracy
     private var _accuracy: Accuracy = Accuracy.Unknown
@@ -24,19 +28,32 @@ class VectorCompass(context: Context) : AbstractSensor(), ICompass {
     private val magnetometer = Magnetometer(context)
 
     private val prefs = UserPreferences(context)
-    private val filterSize = prefs.navigation.compassSmoothing * 2 * 2
+    private var filterSize = prefs.navigation.compassSmoothing * 2 * 2
     private val filter = MovingAverageFilter(filterSize)
+
+    private val useTrueNorth = prefs.navigation.useTrueNorth
 
     override var declination = 0f
 
     override val bearing: Bearing
-        get() = Bearing(_filteredBearing).withDeclination(declination)
+        get(){
+            return if (useTrueNorth) {
+                Bearing(_filteredBearing).withDeclination(declination)
+            } else {
+                Bearing(_filteredBearing)
+            }
+        }
 
     private var _bearing = 0f
     private var _filteredBearing = 0f
 
     private var gotMag = false;
     private var gotAccel = false;
+
+    override fun setSmoothing(smoothing: Int) {
+        filterSize = smoothing * 2 * 2
+        filter.size = filterSize
+    }
 
     private fun updateBearing(newBearing: Float) {
         _bearing += deltaAngle(_bearing, newBearing)
@@ -86,6 +103,7 @@ class VectorCompass(context: Context) : AbstractSensor(), ICompass {
         }
 
         updateBearing(azimuth.toDegrees())
+        gotReading = true
         notifyListeners()
         return true
     }

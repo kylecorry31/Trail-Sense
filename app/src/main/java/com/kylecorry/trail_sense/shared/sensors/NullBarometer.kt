@@ -4,6 +4,10 @@ import android.hardware.SensorManager
 
 class NullBarometer : AbstractSensor(), IBarometer {
 
+    override val hasValidReading: Boolean
+        get() = gotReading
+    private var gotReading = true
+
     override val pressure: Float
         get() = _pressure
 

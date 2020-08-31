@@ -11,6 +11,9 @@ class WeatherPreferences(private val context: Context) {
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
     private val sensorChecker = SensorChecker(context)
 
+    val hasBarometer: Boolean
+        get() = sensorChecker.hasBarometer()
+
     val shouldMonitorWeather: Boolean
         get() = sensorChecker.hasBarometer() && prefs.getBoolean(context.getString(R.string.pref_monitor_weather), true)
 

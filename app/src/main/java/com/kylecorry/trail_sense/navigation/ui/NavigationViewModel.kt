@@ -48,24 +48,18 @@ class NavigationViewModel(
 
     val azimuth: Float
         get() {
-            compass.declination = if (useTrueNorth) {
-                navigationService.getDeclination(gps.location, gps.altitude)
-            } else {
-                0f
-            }
+            compass.declination = declination
             return compass.bearing.value
         }
+
+    var declination: Float = 0f
 
     val azimuthTxt: String
         get() = "${(azimuth.roundToInt() % 360).toString().padStart(3, ' ')}°"
 
     val azimuthDirection: String
         get() {
-            compass.declination = if (useTrueNorth) {
-                navigationService.getDeclination(gps.location, gps.altitude)
-            } else {
-                0f
-            }
+            compass.declination = declination
             return compass.bearing.direction.symbol
         }
 
@@ -102,7 +96,7 @@ class NavigationViewModel(
                 return navigationService.navigate(
                     gps.location,
                     this.coordinate,
-                    gps.altitude,
+                    declination,
                     useTrueNorth
                 ).direction.value
             }
@@ -122,7 +116,7 @@ class NavigationViewModel(
         val direction = navigationService.navigate(
             gps.location,
             beacon.coordinate,
-            gps.altitude,
+            declination,
             useTrueNorth
         ).direction.value
         return abs(deltaAngle(direction, azimuth)) < 20
@@ -159,7 +153,7 @@ class NavigationViewModel(
                         navigationService.navigate(
                             gps.location,
                             it.coordinate,
-                            gps.altitude,
+                            declination,
                             useTrueNorth
                         )
                     )
@@ -176,7 +170,7 @@ class NavigationViewModel(
                 val vector = navigationService.navigate(
                     gps.location,
                     this.coordinate,
-                    gps.altitude,
+                    declination,
                     useTrueNorth
                 )
                 return LocationMath.distanceToReadableString(vector.distance, distanceUnits)
@@ -193,7 +187,7 @@ class NavigationViewModel(
                 val vector = navigationService.navigate(
                     gps.location,
                     this.coordinate,
-                    gps.altitude,
+                    declination,
                     useTrueNorth
                 )
                 val bearing = vector.direction.value
@@ -208,7 +202,7 @@ class NavigationViewModel(
                 val vector = navigationService.navigate(
                     gps.location,
                     this.coordinate,
-                    gps.altitude,
+                    declination,
                     useTrueNorth
                 )
                 return vector.direction.direction.symbol
@@ -268,7 +262,7 @@ class NavigationViewModel(
                 val vector = navigationService.navigate(
                     gps.location,
                     this.coordinate,
-                    gps.altitude,
+                    declination,
                     useTrueNorth
                 )
                 val distance =
@@ -428,19 +422,13 @@ class NavigationViewModel(
 
     private val sunBearing: Float
         get() {
-            val declination = if (!useTrueNorth) navigationService.getDeclination(
-                gps.location,
-                gps.altitude
-            ) else 0f
+            val declination = if (!useTrueNorth) this.declination else 0f
             return astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value
         }
 
     private val moonBearing: Float
         get() {
-            val declination = if (!useTrueNorth) navigationService.getDeclination(
-                gps.location,
-                gps.altitude
-            ) else 0f
+            val declination = if (!useTrueNorth) this.declination else 0f
             return astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value
         }
 

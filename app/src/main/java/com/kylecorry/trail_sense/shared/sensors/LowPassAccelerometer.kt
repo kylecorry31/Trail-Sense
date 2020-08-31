@@ -12,6 +12,10 @@ class LowPassAccelerometer(context: Context) :
     BaseSensor(context, Sensor.TYPE_ACCELEROMETER, SensorManager.SENSOR_DELAY_FASTEST),
     IAccelerometer {
 
+    override val hasValidReading: Boolean
+        get() = gotReading
+    private var gotReading = false
+
     private val filterSize = 0.05f
     private val filters = listOf(
         LowPassFilter(filterSize),
@@ -30,6 +34,7 @@ class LowPassAccelerometer(context: Context) :
             filters[1].filter(event.values[1]),
             filters[2].filter(event.values[2])
         )
+        gotReading = true
     }
 
 }

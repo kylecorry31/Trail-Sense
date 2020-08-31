@@ -1,11 +1,15 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/pref_units_header">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_units_header">
 
         <ListPreference
             app:defaultValue="meters"
             app:entries="@array/distance_unit_entries"
             app:entryValues="@array/distance_unit_values"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_distance_units"
             app:title="@string/pref_distance_units_title"
             app:useSimpleSummaryProvider="true" />
@@ -14,6 +18,7 @@
             app:defaultValue="hpa"
             app:entries="@array/pressure_unit_entries"
             app:entryValues="@array/pressure_unit_values"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_pressure_units"
             app:title="@string/pref_pressure_units_title"
             app:useSimpleSummaryProvider="true" />
@@ -22,181 +27,195 @@
             app:defaultValue="dms"
             app:entries="@array/coordinate_format_entries"
             app:entryValues="@array/coordinate_format_values"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_coordinate_format"
             app:title="@string/pref_coordinate_format_title"
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_use_24_hour"
-            app:title="@string/pref_use_24_hour_title"
-            app:defaultValue="false"/>
+            app:title="@string/pref_use_24_hour_title" />
 
         <ListPreference
             app:defaultValue="system"
             app:entries="@array/theme_entries"
             app:entryValues="@array/theme_values"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_theme"
             app:title="@string/pref_theme_title"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/pref_navigation_header">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_category_sensors_title">
+        <Preference
+            android:key="@string/pref_compass_sensor"
+            android:title="@string/pref_compass_sensor_title"
+            app:iconSpaceReserved="false" />
 
-        <SwitchPreferenceCompat
-            app:key="@string/pref_use_true_north"
-            app:title="@string/pref_use_true_north_title"
-            app:defaultValue="true" />
+        <Preference
+            android:key="@string/pref_gps_calibration"
+            android:title="@string/gps"
+            app:iconSpaceReserved="false" />
 
-        <ListPreference
-            app:defaultValue="gps"
-            app:entries="@array/altitude_mode_entries"
-            app:entryValues="@array/altitude_mode_values"
-            app:key="@string/pref_altitude_mode"
-            app:title="@string/pref_altitude_mode_title"
-            app:useSimpleSummaryProvider="true" />
+        <Preference
+            android:key="@string/pref_altimeter_calibration"
+            android:title="@string/pref_altimeter_calibration_title"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="@string/pref_barometer_calibration"
+            android:title="@string/barometer"
+            app:iconSpaceReserved="false" />
 
         <EditTextPreference
-            app:key="@string/pref_ruler_calibration"
-            app:title="@string/pref_ruler_calibration_title"
-            app:useSimpleSummaryProvider="true"
-            app:dialogMessage="@string/pref_ruler_calibration_summary"
-            app:defaultValue="1"
             android:inputType="numberDecimal"
+            app:defaultValue="1"
+            app:dialogMessage="@string/pref_ruler_calibration_summary"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_ruler_calibration"
             app:min="0"
-            />
-
-        <SwitchPreferenceCompat
-            app:key="@string/pref_display_multi_beacons"
-            app:title="@string/pref_display_multi_beacons_title"
-            app:summary="@string/pref_display_multi_beacons_summary"
-            app:defaultValue="false" />
-
-        <EditTextPreference
-            app:key="@string/pref_num_visible_beacons"
-            app:title="@string/pref_num_visible_beacons_title"
-            app:dependency="@string/pref_display_multi_beacons"
-            app:useSimpleSummaryProvider="true"
-            app:defaultValue="5"
-            android:inputType="number"
-            app:min="0" />
-
-        <SwitchPreferenceCompat
-            app:key="@string/pref_show_linear_compass"
-            app:title="@string/pref_show_linear_compass_title"
-            app:summary="@string/pref_show_linear_compass_summary"
-            app:defaultValue="true"/>
-
-        <SwitchPreferenceCompat
-            app:key="@string/pref_use_legacy_compass"
-            app:title="@string/pref_use_legacy_compass_title"
-            app:summary="@string/pref_use_legacy_compass_summary"
-            app:defaultValue="false"/>
-
-        <SeekBarPreference
-            app:key="@string/pref_compass_filter_amt"
-            app:title="@string/pref_compass_filter_amt_title"
-            app:summary="@string/pref_compass_filter_amt_summary"
-            android:defaultValue="1"
-            android:max="100"
-            app:seekBarIncrement="1"
-            app:showSeekBarValue="true"
-            app:min="1" />
+            app:title="@string/pref_ruler_calibration_title"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/pref_weather_header" app:key="@string/pref_weather_category">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_navigation_header">
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_display_multi_beacons"
+            app:summary="@string/pref_display_multi_beacons_summary"
+            app:title="@string/pref_display_multi_beacons_title" />
+
+        <EditTextPreference
+            android:inputType="number"
+            app:defaultValue="5"
+            app:dependency="@string/pref_display_multi_beacons"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_num_visible_beacons"
+            app:min="0"
+            app:title="@string/pref_num_visible_beacons_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_linear_compass"
+            app:summary="@string/pref_show_linear_compass_summary"
+            app:title="@string/pref_show_linear_compass_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:key="@string/pref_weather_category"
+        app:title="@string/pref_weather_header">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_monitor_weather"
-            app:title="@string/pref_monitor_weather_title"
             app:summary="@string/pref_monitor_weather_summary"
-            app:defaultValue="true" />
+            app:title="@string/pref_monitor_weather_title" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:dependency="@string/pref_monitor_weather"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_show_weather_notification"
-            app:title="@string/pref_show_weather_notification_title"
-            app:defaultValue="true"
-            app:dependency="@string/pref_monitor_weather"/>
-
-        <SwitchPreferenceCompat
-            app:key="@string/pref_use_sea_level_pressure"
-            app:title="@string/pref_use_sea_level_pressure_title"
-            app:defaultValue="true"
-            app:dependency="@string/pref_monitor_weather"/>
+            app:title="@string/pref_show_weather_notification_title" />
 
         <ListPreference
             app:defaultValue="48"
+            app:dependency="@string/pref_monitor_weather"
             app:entries="@array/pressure_history_entries"
             app:entryValues="@array/pressure_history_values"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_pressure_history"
             app:title="@string/pref_pressure_history_title"
-            app:useSimpleSummaryProvider="true"
-            app:dependency="@string/pref_monitor_weather"/>
+            app:useSimpleSummaryProvider="true" />
 
         <ListPreference
             app:defaultValue="medium"
+            app:dependency="@string/pref_monitor_weather"
             app:entries="@array/forecast_sensitivity_entries"
             app:entryValues="@array/forecast_sensitivity_values"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_forecast_sensitivity"
             app:title="@string/pref_forecast_sensitivity_title"
-            app:useSimpleSummaryProvider="true"
-            app:dependency="@string/pref_monitor_weather"/>
+            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
-            app:key="@string/pref_send_storm_alert"
-            app:title="@string/pref_send_storm_alerts_title"
             app:defaultValue="true"
-            app:dependency="@string/pref_monitor_weather"/>
+            app:dependency="@string/pref_monitor_weather"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_send_storm_alert"
+            app:title="@string/pref_send_storm_alerts_title" />
 
         <ListPreference
             app:defaultValue="medium"
+            app:dependency="@string/pref_send_storm_alert"
             app:entries="@array/storm_alert_sensitivity_entries"
             app:entryValues="@array/storm_alert_sensitivity_values"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_storm_alert_sensitivity"
             app:title="@string/pref_storm_alert_sensitivity_title"
-            app:useSimpleSummaryProvider="true"
-            app:dependency="@string/pref_send_storm_alert"/>
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
 
-    <PreferenceCategory app:title="@string/pref_astronomy_header">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_astronomy_header">
 
         <ListPreference
             app:defaultValue="actual"
             app:entries="@array/sun_times_entries"
             app:entryValues="@array/sun_times_values"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_sun_time_mode"
             app:title="@string/pref_sun_time_mode_title"
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_sunset_alerts"
-            app:title="@string/pref_sunset_alerts_title"
-            app:defaultValue="true" />
+            app:title="@string/pref_sunset_alerts_title" />
 
         <ListPreference
+            android:dependency="@string/pref_sunset_alerts"
             app:defaultValue="60"
             app:entries="@array/sunset_alert_time_entries"
             app:entryValues="@array/sunset_alert_time_values"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_sunset_alert_time"
             app:title="@string/pref_sunset_alert_time_title"
-            app:useSimpleSummaryProvider="true"
-            android:dependency="@string/pref_sunset_alerts"/>
+            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_center_sun_and_moon"
-            app:title="@string/pref_center_sun_and_moon_title"
-            app:defaultValue="false"/>
+            app:title="@string/pref_center_sun_and_moon_title" />
 
         <ListPreference
-            app:key="@string/pref_show_sun_moon_compass"
             android:entries="@array/sun_moon_compass_entries"
             android:entryValues="@array/sun_moon_compass_values"
+            app:defaultValue="never"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_sun_moon_compass"
             app:title="@string/pref_show_sun_moon_compass_title"
-            app:useSimpleSummaryProvider="true"
-            app:defaultValue="never"/>
+            app:useSimpleSummaryProvider="true" />
 
 
     </PreferenceCategory>

@@ -12,22 +12,40 @@ import kotlin.math.floor
 
 class LegacyCompass(context: Context): BaseSensor(context, Sensor.TYPE_ORIENTATION, SensorManager.SENSOR_DELAY_FASTEST), ICompass {
 
+    override val hasValidReading: Boolean
+        get() = gotReading
+    private var gotReading = false
+
     private val prefs = UserPreferences(context)
-    private val filterSize = prefs.navigation.compassSmoothing * 2
+    private var filterSize = prefs.navigation.compassSmoothing * 2
     private val filter = MovingAverageFilter(filterSize)
+
+    private val useTrueNorth = prefs.navigation.useTrueNorth
 
     override var declination = 0f
 
     override val bearing: Bearing
-        get() = Bearing(_filteredBearing).withDeclination(declination)
+        get(){
+        return if (useTrueNorth) {
+            Bearing(_filteredBearing).withDeclination(declination)
+        } else {
+            Bearing(_filteredBearing)
+        }
+    }
 
     private var _bearing = 0f
     private var _filteredBearing = 0f
+
+    override fun setSmoothing(smoothing: Int) {
+        filterSize = smoothing * 2
+        filter.size = filterSize
+    }
 
     override fun handleSensorEvent(event: SensorEvent) {
         _bearing += deltaAngle(_bearing, event.values[0])
 
         _filteredBearing = filter.filter(_bearing.toDouble()).toFloat()
+        gotReading = true
     }
 
     private fun deltaAngle(angle1: Float, angle2: Float): Float {

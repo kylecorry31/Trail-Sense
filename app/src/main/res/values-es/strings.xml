@@ -33,7 +33,6 @@
     <string name="pref_send_storm_alerts_title">Alertas de tormenta</string>
     <string name="pref_astronomy_header">Astronomía</string>
     <string name="pref_use_24_hour_title">Usar el formato de 24 horas</string>
-    <string name="pref_altitude_mode_title">Altímetro</string>
     <string name="pref_sun_time_mode_title">Amanecer / atardecer</string>
     <string name="weather_improving_fast">Mejorará muy pronto</string>
     <string name="weather_improving_slow">Mejorará pronto</string>

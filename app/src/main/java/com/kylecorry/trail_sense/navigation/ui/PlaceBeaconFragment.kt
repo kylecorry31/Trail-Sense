@@ -18,8 +18,9 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.roundPlaces
-import com.kylecorry.trail_sense.shared.sensors.GPS
+import com.kylecorry.trail_sense.shared.sensors.IAltimeter
 import com.kylecorry.trail_sense.shared.sensors.IGPS
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 
 class PlaceBeaconFragment(
@@ -41,8 +42,10 @@ class PlaceBeaconFragment(
     private lateinit var commentTxt: EditText
     private lateinit var useCurrentLocationBtn: Button
     private lateinit var doneBtn: FloatingActionButton
+    private lateinit var altimeter: IAltimeter
 
     private lateinit var units: UserPreferences.DistanceUnits
+    private val sensorService by lazy { SensorService(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +55,8 @@ class PlaceBeaconFragment(
         val view = inflater.inflate(R.layout.fragment_create_beacon, container, false)
 
         beaconRepo = _repo ?: BeaconRepo(requireContext())
-        gps = _gps ?: GPS(requireContext())
+        gps = _gps ?: sensorService.getGPS()
+        altimeter = sensorService.getAltimeter()
 
         val prefs = UserPreferences(requireContext())
         units = prefs.distanceUnits
@@ -170,20 +174,30 @@ class PlaceBeaconFragment(
 
         useCurrentLocationBtn.setOnClickListener {
             gps.start(this::setLocationFromGPS)
+            altimeter.start(this::setElevationFromAltimeter)
         }
 
         return view
     }
 
+    override fun onDestroy() {
+        gps.stop(this::setLocationFromGPS)
+        altimeter.stop(this::setElevationFromAltimeter)
+        super.onDestroy()
+    }
+
+    private fun setElevationFromAltimeter(): Boolean {
+        if (units == UserPreferences.DistanceUnits.Meters) {
+            beaconElevation.setText(altimeter.altitude.roundPlaces(1).toString())
+        } else {
+            beaconElevation.setText(LocationMath.convertToBaseUnit(altimeter.altitude, units).roundPlaces(1).toString())
+        }
+        return false
+    }
+
     private fun setLocationFromGPS(): Boolean {
         beaconLat.setText(gps.location.latitude.toString())
         beaconLng.setText(gps.location.longitude.toString())
-
-        if (units == UserPreferences.DistanceUnits.Meters) {
-            beaconElevation.setText(gps.altitude.roundPlaces(1).toString())
-        } else {
-            beaconElevation.setText(LocationMath.convertToBaseUnit(gps.altitude, units).roundPlaces(1).toString())
-        }
         return false
     }
 

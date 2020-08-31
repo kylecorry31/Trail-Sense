@@ -11,8 +11,13 @@ import kotlin.math.withSign
 class DeviceOrientation(context: Context) :
     BaseSensor(context, Sensor.TYPE_GRAVITY, SensorManager.SENSOR_DELAY_UI) {
 
+    override val hasValidReading: Boolean
+        get() = gotReading
+
     var orientation: Orientation = Orientation.Flat
         private set
+
+    private var gotReading = false
 
     override fun handleSensorEvent(event: SensorEvent) {
         val acceleration = event.values
@@ -34,6 +39,8 @@ class DeviceOrientation(context: Context) :
             2 -> Orientation.Portrait
             else -> Orientation.Flat
         }
+
+        gotReading = true
     }
 
     enum class Orientation {

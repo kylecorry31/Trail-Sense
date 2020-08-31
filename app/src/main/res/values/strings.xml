@@ -42,8 +42,6 @@
     <string name="pref_astronomy_header">Astronomy</string>
     <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">Use 24-hour format</string>
-    <string name="pref_altitude_mode" translatable="false">altitude_mode</string>
-    <string name="pref_altitude_mode_title">Altimeter</string>
     <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
     <string name="weather_improving_fast">Improving very soon</string>
@@ -218,7 +216,7 @@
     <string name="moon_altitude">Moon altitude</string>
     <string name="degree_format">%d°</string>
     <string name="percent_format">%d%%</string>
-    <string name="pref_show_weather_notification">pref_show_weather_notification</string>
+    <string name="pref_show_weather_notification" translatable="false">pref_show_weather_notification</string>
     <string name="pref_show_weather_notification_title">Show weather notification</string>
     <string name="notification_storm_alert_channel_name">Alerts</string>
     <string name="notification_storm_alert_channel_desc">Storm alerts</string>
@@ -229,4 +227,76 @@
     <string name="sunset_alert_2_hours_30_minutes">2 hours 30 hours</string>
     <string name="sunset_alert_3_hours">3 hours</string>
     <string name="onboarding_navigation_flashlight">And easily access your flashlight</string>
+    <string name="pref_compass_sensor" translatable="false">pref_compass_calibration</string>
+    <string name="pref_compass_sensor_title">Compass</string>
+    <string name="pref_category_sensors_title">Sensors</string>
+    <string name="compass_smoothing">Smoothing</string>
+    <string name="compass_azimuth_offset">Azimuth offset</string>
+    <string name="compass_legacy_mode">Legacy mode</string>
+    <string name="compass">Compass</string>
+    <string name="compass_from_gps">Set override from GPS</string>
+    <string name="compass_declination_override">Declination override</string>
+    <string name="compass_auto_declination">Auto adjust declination</string>
+    <string name="compass_azimuth">Azimuth</string>
+    <string name="compass_declination">Declination</string>
+    <string name="compass_true_north">True North</string>
+    <string name="altimeter">Altimeter</string>
+    <string name="pref_altimeter_calibration" translatable="false">pref_altimeter_calibration</string>
+    <string name="pref_altimeter_calibration_title">Altimeter</string>
+    <string name="altitude">Altitude</string>
+    <string name="auto_altitude">Auto adjust altitude</string>
+    <string name="add_elevation_offsets">Use AMSL elevation</string>
+    <string name="altitude_from_gps">Set override from GPS</string>
+    <string name="altitude_from_pressure">Set override from barometer</string>
+    <string name="fine_tune_using_barometer">Fine tune using barometer</string>
+    <string name="pref_gps_calibration" translatable="false">pref_gps_calibration</string>
+    <string name="pref_barometer_calibration" translatable="false">pref_barometer_calibration</string>
+    <string name="pref_altitude_override_title">Altitude override</string>
+    <string name="altitude_override_updated_toast">Altitude override updated</string>
+    <string name="declination_override_updated_toast">Declination override updated</string>
+    <string name="pref_holder_altitude" translatable="false">pref_holder_altitude</string>
+    <string name="pref_auto_altitude" translatable="false">pref_auto_altitude</string>
+    <string name="pref_altitude_offsets" translatable="false">pref_altitude_offsets</string>
+    <string name="pref_fine_tune_altitude" translatable="false">pref_fine_tune_altitude</string>
+    <string name="pref_altitude_override" translatable="false">pref_altitude_override</string>
+    <string name="pref_altitude_override_feet" translatable="false">pref_altitude_override_feet</string>
+    <string name="pref_altitude_from_gps_btn" translatable="false">pref_altitude_from_gps_btn</string>
+    <string name="pref_altitude_override_sea_level" translatable="false">pref_altitude_override_sea_level</string>
+    <string name="pref_altitude_override_sea_level_dialog_msg">Enter the current pressure at sea level in hPa</string>
+    <string name="pref_altitude_override_sea_level_dialog_title">Enter sea level pressure</string>
+    <string name="pref_holder_azimuth">pref_holder_azimuth</string>
+    <string name="pref_holder_declination">pref_holder_declination</string>
+    <string name="pref_declination_override">pref_declination_override</string>
+    <string name="pref_auto_declination">pref_auto_declination</string>
+    <string name="pref_declination_override_gps_btn">pref_declination_override_gps_btn</string>
+    <string name="pref_auto_declination_summary">Based on your current location</string>
+    <string name="pref_altitude_offsets_summary">Corrects GPS altitude to above mean sea level</string>
+    <string name="pref_fine_tune_altitude_summary">Detects smaller changes in altitude</string>
+    <string name="pref_auto_altitude_summary">Based on your current location</string>
+    <string name="pref_barometer_pressure_title">Pressure</string>
+    <string name="pref_holder_pressure">pref_holder_pressure</string>
+    <string name="gps_location">Location</string>
+    <string name="pref_holder_location">pref_holder_location</string>
+    <string name="pref_auto_location">pref_auto_location</string>
+    <string name="pref_auto_location_title">Auto adjust location</string>
+    <string name="pref_gps_request_permission_title">Request permission</string>
+    <string name="pref_gps_request_permission">pref_gps_request_permission</string>
+    <string name="pref_latitude_override">pref_latitude_override</string>
+    <string name="pref_longitude_override">pref_longitude_override</string>
+    <string name="gps_only_support_decimal_degree">Only decimal degree format is supported (ex. 0.0000)</string>
+    <string name="pref_latitude_override_title">Latitude override</string>
+    <string name="pref_longitude_override_title">Longitude override</string>
+    <string name="pref_gps_override_btn_title">Set override from GPS</string>
+    <string name="pref_gps_override_btn">pref_gps_override_btn</string>
+    <string name="pref_calibrate_compass_btn">pref_calibrate_compass_btn</string>
+    <string name="pref_calibrate_compass_btn_title">Calibrate</string>
+    <string name="calibrate_compass_dialog_title">Calibrate compass</string>
+    <string name="calibrate_compass_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.</string>
+    <string name="accuracy_low">Low</string>
+    <string name="accuracy_medium">Medium</string>
+    <string name="accuracy_high">High</string>
+    <string name="accuracy_unknown">Unknown</string>
+    <string name="compass_reported_accuracy">Reported accuracy: %s</string>
+    <string name="compass_accuracy_improved">Compass accuracy improved to %s</string>
+    <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
 </resources>
