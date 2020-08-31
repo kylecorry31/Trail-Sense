@@ -39,6 +39,7 @@
 
 ## Features
 * Compass navigation
+* Flashlight and SOS
 * Barometer forecasting
 * Astronomy
 
@@ -50,7 +51,6 @@ The compass can be used to determine the direction to North, and when combined w
 Example beacons: home, work, trailhead, campsite
 
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="Navigation Screenshot" height="500"/>
-
 
 ## Weather
 The barometer can be used to determine if the weather will change soon and if a storm is likely to occur. The barometric pressure history (last 48 hours) is displayed as a graph and an interpretation of the current reading is shown. If the pressure suddenly drops, a storm alert notification is sent. Note, this feature is only available for phones which have a barometer.
@@ -68,6 +68,14 @@ Location information gathered by this application does not leave your device (as
 ## Permissions
 - Location (fine, background): Used for beacon navigation, True North, barometer altitude correction (in background), and sun/moon rise/set times 
 
+# FAQ
+- **Will there be an iOS version?**
+    - No - unfortunately I don't have a Mac or iPhone, and wouldn't be able to develop and test an iOS version (at least, there won't be an iOS version from me)
+- **Can I request a new feature?**
+    - Of course! See the Contributing section below for more details - I will consider every feature request, and it will be more likely that your feature gets included if you provide some rational behind how it could benefit TS users in wilderness treks or survival situations. Even if your feature idea is beneficial to only a small percent of users, I may still include it (even if it is in an experimental tab, or unlockable through settings)
+- **When can I expect new releases?**
+    - I will try to create a release every week or two with new features or bug fixes. Some features may be feature flagged (via a hidden setting) to deliver thouroughly tested features. Debug builds are updated as features are completed. I can't gaurantee this will always be the case, work/life may get in the way.
+
 # Contributing
 - [Request a new feature](https://github.com/kylecorry31/Trail-Sense/issues/59)
 - [Submit an issue](https://github.com/kylecorry31/Trail-Sense/issues)
@@ -81,25 +89,13 @@ If you choose to write a new feature yourself, send me a message to verify that 
 Please feel free to translate Trail Sense to other languages and submit a pull request.
 
 Several values should not be translated:
-- Preference keys (signified by pref_name and the value will have underscores in them most likely, marked by translatable = false)
+- Preference keys (marked by translatable = false)
 - App name - Should remain Trail Sense
 
 If you find an issue with a translation, please post it as a comment to [this issue](https://github.com/kylecorry31/Trail-Sense/issues/72) rather than creating a new issue for it. Issues created for individual translations will be moved to that issue.
 
-## Code contributors from the community
-- [sethtara](https://github.com/sethtara) - Translations
-- [paulle](https://github.com/paulle) - Translations
-- [sguinetti](https://github.com/sguinetti) - Translations
-- [NassPage](https://github.com/NassPage) - Translations
-- [swedneck](https://github.com/swedneck) - Tons of feature requests and bug finds
-- [efraletti](https://github.com/efraletti) - Bug fix
-
-# Release schedule
-I will try to create a release every week with new features or bug fixes. Some features may be feature flagged (via a hidden setting) to deliver thouroughly tested features. Debug builds are updated as features are completed. 
-
-# Credits
-- Weather icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews)
-- Moon icons: [Michael Irigoyen](https://materialdesignicons.com/contributor/Michael-Irigoyen)
+# Open Source Credits
+- Icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews) and [Michael Irigoyen](https://materialdesignicons.com/contributor/Michael-Irigoyen)
 - Charts: [MpAndroidChart](https://github.com/PhilJay/MPAndroidChart)
-- Thank you to everyone who tried out this app and opened issues, suggested features, or even tested debug builds for me
+- Thank you to everyone who tried out this app and opened issues, suggested features, provided translations, or tested debug builds for me
 
