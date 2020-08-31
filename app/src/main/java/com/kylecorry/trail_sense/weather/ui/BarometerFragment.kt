@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.formatHM
+import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
@@ -18,6 +19,7 @@ import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
 import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
+import kotlinx.android.synthetic.main.activity_weather.*
 import java.time.Duration
 import java.time.Instant
 import java.util.*
@@ -40,6 +42,7 @@ class BarometerFragment : Fragment(), Observer {
     private lateinit var trendImg: ImageView
     private lateinit var historyDurationTxt: TextView
     private lateinit var pressureMarkerTxt: TextView
+    private lateinit var tendencyAmountTxt: TextView
 
     private lateinit var chart: PressureChart
 
@@ -67,6 +70,7 @@ class BarometerFragment : Fragment(), Observer {
         weatherNowImg = view.findViewById(R.id.weather_now_img)
         weatherLaterTxt = view.findViewById(R.id.weather_later_lbl)
         pressureMarkerTxt = view.findViewById(R.id.pressure_marker)
+        tendencyAmountTxt = view.findViewById(R.id.tendency_amount)
         chart = PressureChart(
             view.findViewById(R.id.chart),
             resources.getColor(R.color.colorPrimary, null),
@@ -78,7 +82,7 @@ class BarometerFragment : Fragment(), Observer {
                 override fun onValueSelected(timeAgo: Duration, pressure: Float) {
                     val symbol = PressureUnitUtils.getSymbol(units)
                     val format = PressureUnitUtils.getDecimalFormat(units)
-                    pressureMarkerTxt.text = "${format.format(pressure)}  $symbol - ${timeAgo.formatHM(true)} ago"
+                    pressureMarkerTxt.text = getString(R.string.pressure_reading_time_ago, format.format(pressure), symbol, timeAgo.formatHM(true))
                 }
 
             }
@@ -218,6 +222,12 @@ class BarometerFragment : Fragment(), Observer {
 
     private fun updateTendency(readings: List<PressureReading>){
         val tendency = weatherService.getTendency(readings)
+
+        val symbol = getPressureUnitString(units)
+        val format = PressureUnitUtils.getDecimalFormat(units)
+        val formattedTendencyAmount = format.format(PressureUnitUtils.convert(tendency.amount, units))
+        tendencyAmountTxt.text = getString(R.string.pressure_tendency_format, formattedTendencyAmount, symbol)
+
         when (tendency.characteristic) {
             PressureCharacteristic.Falling -> {
                 trendImg.setImageResource(R.drawable.ic_arrow_down)
@@ -250,9 +260,9 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun updatePressure(pressure: Float){
-        val symbol = PressureUnitUtils.getSymbol(units)
+        val symbol = getPressureUnitString(units)
         val format = PressureUnitUtils.getDecimalFormat(units)
-        pressureTxt.text = "${format.format(PressureUnitUtils.convert(pressure, units))}  $symbol"
+        pressureTxt.text = getString(R.string.pressure_format, format.format(PressureUnitUtils.convert(pressure, units)), symbol)
     }
 
     private fun getReadingHistory(): List<PressureAltitudeReading> {
@@ -291,4 +301,14 @@ class BarometerFragment : Fragment(), Observer {
             else -> ""
         }
     }
+
+    private fun getPressureUnitString(unit: PressureUnits): String {
+        return when(unit){
+            PressureUnits.Hpa -> getString(R.string.units_hpa)
+            PressureUnits.Mbar -> getString(R.string.units_mbar)
+            PressureUnits.Inhg -> getString(R.string.units_inhg_short)
+            PressureUnits.Psi -> getString(R.string.units_psi)
+        }
+    }
+
 }

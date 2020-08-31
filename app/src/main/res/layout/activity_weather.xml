@@ -34,6 +34,18 @@
         tools:text="1020 hPa" />
 
     <TextView
+        android:id="@+id/tendency_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textIsSelectable="true"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pressure"
+        tools:text="0 hPa / 3h" />
+
+    <TextView
         android:id="@+id/weather_now_lbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +53,6 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weather_now_img"
         tools:text="@string/weather_worsening_slow" />
@@ -72,11 +83,11 @@
         android:id="@+id/weather_now_img"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:tint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pressure"
+        app:layout_constraintTop_toBottomOf="@+id/tendency_amount"
         tools:srcCompat="@drawable/light_rain" />
 
     <TextView
