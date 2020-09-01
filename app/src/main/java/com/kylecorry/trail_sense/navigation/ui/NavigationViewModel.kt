@@ -32,7 +32,7 @@ class NavigationViewModel(
     beaconRepo: BeaconRepo
 ) {
 
-    private val useTrueNorth = prefs.navigation.useTrueNorth
+    val useTrueNorth = prefs.navigation.useTrueNorth
     private val distanceUnits = prefs.distanceUnits
     private val prefShowLinearCompass = prefs.navigation.showLinearCompass
     private val beacons = beaconRepo.get()
@@ -42,7 +42,7 @@ class NavigationViewModel(
     private val showSunAndMoonWhenDown = prefs.astronomy.showOnCompassWhenDown
     private val astronomyService = AstronomyService()
     private val navigationService = NavigationService()
-    private var speed = prefs.navigation.averageSpeed
+    var speed = prefs.navigation.averageSpeed
 
     val rulerScale = prefs.navigation.rulerScale
 
@@ -336,7 +336,7 @@ class NavigationViewModel(
         visibleBeacon = null
     }
 
-    private var visibleBeacon: Beacon? = null
+    var visibleBeacon: Beacon? = null
 
     val moonBeaconVisibility: Int
         get() {

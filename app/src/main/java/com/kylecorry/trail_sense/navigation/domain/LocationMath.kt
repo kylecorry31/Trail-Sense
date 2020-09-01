@@ -9,6 +9,25 @@ import kotlin.math.roundToInt
  */
 object LocationMath {
 
+    fun convert(distance: Float, fromUnits: DistanceUnits, toUnits: DistanceUnits): Float {
+        val meters = convertToMeters(distance, fromUnits)
+        return when(toUnits){
+            DistanceUnits.Meters -> meters
+            DistanceUnits.Kilometers -> convertMetersToKilometers(meters)
+            DistanceUnits.Feet -> convertMetersToFeet(meters)
+            DistanceUnits.Miles -> convertFeetToMiles(convertMetersToFeet(meters))
+        }
+    }
+
+    fun convertToMeters(distance: Float, fromUnits: DistanceUnits): Float {
+        return when(fromUnits){
+            DistanceUnits.Meters -> distance
+            DistanceUnits.Kilometers -> distance * 1000
+            DistanceUnits.Miles -> convertFeetToMeters(distance * 5280f)
+            DistanceUnits.Feet -> convertFeetToMeters(distance)
+        }
+    }
+
     /**
      * Converts meters to feet
      */

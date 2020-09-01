@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.domain
 
+import android.location.Location
 import com.kylecorry.trail_sense.shared.roundPlaces
 import java.lang.Exception
 import java.util.*
@@ -22,6 +23,13 @@ data class Coordinate(val latitude: Double, val longitude: Double) {
 
     override fun toString(): String {
         return "$latitudeDMS, $longitudeDMS"
+    }
+
+
+    fun distanceTo(other: Coordinate): Float {
+        val results = FloatArray(3)
+        Location.distanceBetween(latitude, longitude, other.latitude, other.longitude, results)
+        return results[0]
     }
 
     private fun dmsString(degrees: Double): String {
