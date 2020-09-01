@@ -48,8 +48,8 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         userPrefs = UserPreferences(context)
         weatherService = WeatherService(
             userPrefs.weather.stormAlertThreshold,
-            userPrefs.weather.dailyForecastSlowThreshold,
-            userPrefs.weather.hourlyForecastFastThreshold
+            userPrefs.weather.dailyForecastChangeThreshold,
+            userPrefs.weather.hourlyForecastChangeThreshold
         )
 
         sensorService = SensorService(context)
@@ -140,7 +140,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun setAltimeterTimeout(millis: Long){
+    private fun setAltimeterTimeout(millis: Long) {
         timeout = timer(period = millis) {
             if (!hasAltitude) {
                 hasAltitude = true
@@ -152,8 +152,8 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun startSensors(){
-        if (altimeter.hasValidReading){
+    private fun startSensors() {
+        if (altimeter.hasValidReading) {
             onAltitudeUpdate()
         } else {
             altimeter.start(this::onAltitudeUpdate)
@@ -163,7 +163,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
     private fun onAltitudeUpdate(): Boolean {
         hasAltitude = true
-        if (hasBarometerReading){
+        if (hasBarometerReading) {
             gotAllReadings()
         }
         return false
@@ -186,12 +186,12 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         Log.i(TAG, "Got all readings recorded at ${ZonedDateTime.now()}")
     }
 
-    private fun stopSensors(){
+    private fun stopSensors() {
         altimeter.stop(this::onAltitudeUpdate)
         barometer.stop(this::onPressureUpdate)
     }
 
-    private fun stopTimeout(){
+    private fun stopTimeout() {
         timeout.cancel()
     }
 

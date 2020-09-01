@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
+import androidx.annotation.ArrayRes
+import androidx.annotation.IdRes
 import androidx.core.app.ShareCompat
 import androidx.preference.*
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
@@ -12,12 +14,14 @@ import com.kylecorry.trail_sense.calibration.ui.CalibrateBarometerFragment
 import com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment
 import com.kylecorry.trail_sense.calibration.ui.CalibrateGPSFragment
 import com.kylecorry.trail_sense.licenses.LicenseFragment
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
 import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.shared.system.IntentUtils
 import com.kylecorry.trail_sense.shared.system.NotificationUtils
 import com.kylecorry.trail_sense.shared.system.PackageUtils
 import com.kylecorry.trail_sense.shared.system.UiUtils
+import com.kylecorry.trail_sense.weather.domain.PressureUnits
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 
@@ -27,6 +31,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
         val sensorChecker = SensorChecker(requireContext())
+        val userPrefs = UserPreferences(requireContext())
         if (!sensorChecker.hasBarometer()) {
             preferenceScreen.removePreferenceRecursively(getString(R.string.pref_weather_category))
             preferenceScreen.removePreferenceRecursively(getString(R.string.pref_barometer_calibration))
@@ -150,8 +155,53 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
 
+        val forecastSensitivity =
+            preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_forecast_sensitivity))
+        forecastSensitivity?.setEntries(getForecastSensitivityArray(userPrefs.pressureUnits))
+
+        val stormSensitivity =
+            preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_storm_alert_sensitivity))
+        stormSensitivity?.setEntries(getStormSensitivityArray(userPrefs.pressureUnits))
+
+        preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_pressure_units))
+            ?.setOnPreferenceChangeListener { _, newValue ->
+                val mapped = when (newValue) {
+                    "hpa" -> PressureUnits.Hpa
+                    "mbar" -> PressureUnits.Mbar
+                    "in" -> PressureUnits.Inhg
+                    else -> PressureUnits.Psi
+                }
+
+                forecastSensitivity?.setEntries(getForecastSensitivityArray(mapped))
+                stormSensitivity?.setEntries(getStormSensitivityArray(mapped))
+
+                true
+            }
+
+
         val version = PackageUtils.getVersionName(requireContext())
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_app_version))?.summary =
             version
     }
+
+    @ArrayRes
+    private fun getForecastSensitivityArray(units: PressureUnits): Int {
+        return when (units) {
+            PressureUnits.Hpa -> R.array.forecast_sensitivity_entries_hpa
+            PressureUnits.Inhg -> R.array.forecast_sensitivity_entries_in
+            PressureUnits.Psi -> R.array.forecast_sensitivity_entries_psi
+            else -> R.array.forecast_sensitivity_entries_mbar
+        }
+    }
+
+    @ArrayRes
+    private fun getStormSensitivityArray(units: PressureUnits): Int {
+        return when (units) {
+            PressureUnits.Hpa -> R.array.storm_sensitivity_entries_hpa
+            PressureUnits.Inhg -> R.array.storm_sensitivity_entries_in
+            PressureUnits.Psi -> R.array.storm_sensitivity_entries_psi
+            else -> R.array.storm_sensitivity_entries_mbar
+        }
+    }
+
 }

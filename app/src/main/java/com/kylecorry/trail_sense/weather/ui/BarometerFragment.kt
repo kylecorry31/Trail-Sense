@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.formatHM
-import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
@@ -19,7 +18,6 @@ import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
 import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
-import kotlinx.android.synthetic.main.activity_weather.*
 import java.time.Duration
 import java.time.Instant
 import java.util.*
@@ -63,7 +61,11 @@ class BarometerFragment : Fragment(), Observer {
         altimeter = sensorService.getAltimeter()
         prefs = UserPreferences(requireContext())
 
-        weatherService = WeatherService(prefs.weather.stormAlertThreshold, prefs.weather.dailyForecastSlowThreshold, prefs.weather.hourlyForecastFastThreshold)
+        weatherService = WeatherService(
+            prefs.weather.stormAlertThreshold,
+            prefs.weather.dailyForecastChangeThreshold,
+            prefs.weather.hourlyForecastChangeThreshold
+        )
 
         pressureTxt = view.findViewById(R.id.pressure)
         weatherNowTxt = view.findViewById(R.id.weather_now_lbl)
@@ -82,7 +84,12 @@ class BarometerFragment : Fragment(), Observer {
                 override fun onValueSelected(timeAgo: Duration, pressure: Float) {
                     val symbol = PressureUnitUtils.getSymbol(units)
                     val format = PressureUnitUtils.getDecimalFormat(units)
-                    pressureMarkerTxt.text = getString(R.string.pressure_reading_time_ago, format.format(pressure), symbol, timeAgo.formatHM(true))
+                    pressureMarkerTxt.text = getString(
+                        R.string.pressure_reading_time_ago,
+                        format.format(pressure),
+                        symbol,
+                        timeAgo.formatHM(true)
+                    )
                 }
 
             }
@@ -106,10 +113,10 @@ class BarometerFragment : Fragment(), Observer {
         update()
     }
 
-    private fun startSensors(){
+    private fun startSensors() {
         barometer.start(this::onPressureUpdate)
 
-        if (altimeter.hasValidReading){
+        if (altimeter.hasValidReading) {
             onAltitudeUpdate()
         } else {
             altimeter.start(this::onAltitudeUpdate)
@@ -139,11 +146,11 @@ class BarometerFragment : Fragment(), Observer {
         return false
     }
 
-    private fun update(){
+    private fun update() {
         if (context == null) return
         if (barometer.pressure == 0.0f) return
 
-        val readings = if (useSeaLevelPressure){
+        val readings = if (useSeaLevelPressure) {
             getSeaLevelPressureHistory()
         } else {
             getPressureHistory()
@@ -159,16 +166,28 @@ class BarometerFragment : Fragment(), Observer {
 
     private fun getSeaLevelPressureHistory(includeCurrent: Boolean = false): List<PressureReading> {
         val readings = getReadingHistory().toMutableList()
-        if (includeCurrent){
-            readings.add(PressureAltitudeReading(Instant.now(), barometer.pressure, altimeter.altitude))
+        if (includeCurrent) {
+            readings.add(
+                PressureAltitudeReading(
+                    Instant.now(),
+                    barometer.pressure,
+                    altimeter.altitude
+                )
+            )
         }
         return weatherService.convertToSeaLevel(readings)
     }
 
     private fun getPressureHistory(includeCurrent: Boolean = false): List<PressureReading> {
         val readings = getReadingHistory().toMutableList()
-        if (includeCurrent){
-            readings.add(PressureAltitudeReading(Instant.now(), barometer.pressure, altimeter.altitude))
+        if (includeCurrent) {
+            readings.add(
+                PressureAltitudeReading(
+                    Instant.now(),
+                    barometer.pressure,
+                    altimeter.altitude
+                )
+            )
         }
         return NullPressureConverter().convert(readings)
     }
@@ -220,13 +239,15 @@ class BarometerFragment : Fragment(), Observer {
         }
     }
 
-    private fun updateTendency(readings: List<PressureReading>){
+    private fun updateTendency(readings: List<PressureReading>) {
         val tendency = weatherService.getTendency(readings)
 
         val symbol = getPressureUnitString(units)
-        val format = PressureUnitUtils.getDecimalFormat(units)
-        val formattedTendencyAmount = format.format(PressureUnitUtils.convert(tendency.amount, units))
-        tendencyAmountTxt.text = getString(R.string.pressure_tendency_format, formattedTendencyAmount, symbol)
+        val format = PressureUnitUtils.getTendencyDecimalFormat(units)
+        val formattedTendencyAmount =
+            format.format(PressureUnitUtils.convert(tendency.amount, units))
+        tendencyAmountTxt.text =
+            getString(R.string.pressure_tendency_format, formattedTendencyAmount, symbol)
 
         when (tendency.characteristic) {
             PressureCharacteristic.Falling -> {
@@ -241,17 +262,22 @@ class BarometerFragment : Fragment(), Observer {
         }
     }
 
-    private fun updateForecast(readings: List<PressureReading>){
+    private fun updateForecast(readings: List<PressureReading>) {
         val shortTerm = weatherService.getHourlyWeather(readings)
         val longTerm = weatherService.getDailyWeather(readings)
 
         weatherNowTxt.text = getShortTermWeatherDescription(shortTerm)
-        weatherNowImg.setImageResource(getWeatherImage(shortTerm, readings.lastOrNull()?.value ?: SensorManager.PRESSURE_STANDARD_ATMOSPHERE))
+        weatherNowImg.setImageResource(
+            getWeatherImage(
+                shortTerm,
+                readings.lastOrNull()?.value ?: SensorManager.PRESSURE_STANDARD_ATMOSPHERE
+            )
+        )
         weatherLaterTxt.text = getLongTermWeatherDescription(longTerm)
     }
 
     private fun getCurrentPressure(): Float {
-        val readings = if (useSeaLevelPressure){
+        val readings = if (useSeaLevelPressure) {
             getSeaLevelPressureHistory(true)
         } else {
             getPressureHistory(true)
@@ -259,14 +285,18 @@ class BarometerFragment : Fragment(), Observer {
         return readings.last().value
     }
 
-    private fun updatePressure(pressure: Float){
+    private fun updatePressure(pressure: Float) {
         val symbol = getPressureUnitString(units)
         val format = PressureUnitUtils.getDecimalFormat(units)
-        pressureTxt.text = getString(R.string.pressure_format, format.format(PressureUnitUtils.convert(pressure, units)), symbol)
+        pressureTxt.text = getString(
+            R.string.pressure_format,
+            format.format(PressureUnitUtils.convert(pressure, units)),
+            symbol
+        )
     }
 
     private fun getReadingHistory(): List<PressureAltitudeReading> {
-        return  PressureHistoryRepository.getAll(requireContext())
+        return PressureHistoryRepository.getAll(requireContext())
             .filter { Duration.between(it.time, Instant.now()) <= prefs.weather.pressureHistory }
     }
 
@@ -303,7 +333,7 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun getPressureUnitString(unit: PressureUnits): String {
-        return when(unit){
+        return when (unit) {
             PressureUnits.Hpa -> getString(R.string.units_hpa)
             PressureUnits.Mbar -> getString(R.string.units_mbar)
             PressureUnits.Inhg -> getString(R.string.units_inhg_short)

@@ -38,10 +38,28 @@
         <item>system</item>
     </string-array>
 
-    <string-array name="storm_alert_sensitivity_entries">
-        <item>@string/sensitivity_low</item>
-        <item>@string/sensitivity_med</item>
-        <item>@string/sensitivity_high</item>
+    <string-array name="storm_sensitivity_entries_hpa">
+        <item>@string/storm_sensitivity_low_hpa</item>
+        <item>@string/storm_sensitivity_med_hpa</item>
+        <item>@string/storm_sensitivity_high_hpa</item>
+    </string-array>
+
+    <string-array name="storm_sensitivity_entries_mbar">
+        <item>@string/storm_sensitivity_low_mbar</item>
+        <item>@string/storm_sensitivity_med_mbar</item>
+        <item>@string/storm_sensitivity_high_mbar</item>
+    </string-array>
+
+    <string-array name="storm_sensitivity_entries_psi">
+        <item>@string/storm_sensitivity_low_psi</item>
+        <item>@string/storm_sensitivity_med_psi</item>
+        <item>@string/storm_sensitivity_high_psi</item>
+    </string-array>
+
+    <string-array name="storm_sensitivity_entries_in">
+        <item>@string/storm_sensitivity_low_in</item>
+        <item>@string/storm_sensitivity_med_in</item>
+        <item>@string/storm_sensitivity_high_in</item>
     </string-array>
 
     <string-array name="storm_alert_sensitivity_values">
@@ -50,10 +68,28 @@
         <item>high</item>
     </string-array>
 
-    <string-array name="forecast_sensitivity_entries">
-        <item>@string/sensitivity_low</item>
-        <item>@string/sensitivity_med</item>
-        <item>@string/sensitivity_high</item>
+    <string-array name="forecast_sensitivity_entries_hpa">
+        <item>@string/forecast_sensitivity_low_hpa</item>
+        <item>@string/forecast_sensitivity_med_hpa</item>
+        <item>@string/forecast_sensitivity_high_hpa</item>
+    </string-array>
+
+    <string-array name="forecast_sensitivity_entries_mbar">
+        <item>@string/forecast_sensitivity_low_mbar</item>
+        <item>@string/forecast_sensitivity_med_mbar</item>
+        <item>@string/forecast_sensitivity_high_mbar</item>
+    </string-array>
+
+    <string-array name="forecast_sensitivity_entries_psi">
+        <item>@string/forecast_sensitivity_low_psi</item>
+        <item>@string/forecast_sensitivity_med_psi</item>
+        <item>@string/forecast_sensitivity_high_psi</item>
+    </string-array>
+
+    <string-array name="forecast_sensitivity_entries_in">
+        <item>@string/forecast_sensitivity_low_in</item>
+        <item>@string/forecast_sensitivity_med_in</item>
+        <item>@string/forecast_sensitivity_high_in</item>
     </string-array>
 
     <string-array name="forecast_sensitivity_values">

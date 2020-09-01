@@ -159,7 +159,7 @@
         <ListPreference
             app:defaultValue="medium"
             app:dependency="@string/pref_monitor_weather"
-            app:entries="@array/forecast_sensitivity_entries"
+            app:entries="@array/forecast_sensitivity_entries_hpa"
             app:entryValues="@array/forecast_sensitivity_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_forecast_sensitivity"
@@ -176,7 +176,7 @@
         <ListPreference
             app:defaultValue="medium"
             app:dependency="@string/pref_send_storm_alert"
-            app:entries="@array/storm_alert_sensitivity_entries"
+            app:entries="@array/storm_sensitivity_entries_hpa"
             app:entryValues="@array/storm_alert_sensitivity_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_storm_alert_sensitivity"

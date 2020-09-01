@@ -35,7 +35,7 @@ class WeatherPreferences(private val context: Context) {
     val sendStormAlerts: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_send_storm_alert), true)
 
-    val dailyForecastSlowThreshold: Float
+    val dailyForecastChangeThreshold: Float
         get() {
             return when (prefs.getString(
                 context.getString(R.string.pref_forecast_sensitivity),
@@ -47,15 +47,15 @@ class WeatherPreferences(private val context: Context) {
             }
         }
 
-    val hourlyForecastFastThreshold: Float
+    val hourlyForecastChangeThreshold: Float
         get() {
             return when (prefs.getString(
                 context.getString(R.string.pref_forecast_sensitivity),
                 "medium"
             ) ?: "medium") {
-                "low" -> 3f
-                "medium" -> 2f
-                else -> 1f
+                "low" -> 2.5f
+                "medium" -> 1.5f
+                else -> 0.5f
             }
         }
 

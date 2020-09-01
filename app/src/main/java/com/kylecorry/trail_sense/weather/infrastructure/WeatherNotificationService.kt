@@ -142,7 +142,7 @@ object WeatherNotificationService {
         units: PressureUnits
     ): String {
         val symbol = getPressureUnitString(context, units)
-        val format = PressureUnitUtils.getDecimalFormat(units)
+        val format = PressureUnitUtils.getTendencyDecimalFormat(units)
         val formattedTendencyAmount =
             format.format(PressureUnitUtils.convert(tendency.amount, units))
         return context.getString(R.string.pressure_tendency_format, formattedTendencyAmount, symbol)

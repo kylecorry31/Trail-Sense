@@ -131,10 +131,10 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
 
         if (location.hasSpeed()) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && location.hasSpeedAccuracy()) {
-                _speed = if (location.speedAccuracyMetersPerSecond < location.speed) {
-                    location.speed
-                } else {
+                _speed = if (location.speed < location.speedAccuracyMetersPerSecond * 0.68){
                     0f
+                } else {
+                    location.speed
                 }
 
                 prefs.edit {
