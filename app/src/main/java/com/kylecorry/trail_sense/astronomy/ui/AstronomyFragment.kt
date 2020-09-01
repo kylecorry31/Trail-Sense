@@ -327,9 +327,9 @@ class AstronomyFragment : Fragment() {
             details.add(AstroDetail.spacer())
 
             val moonAltitude =
-                astronomyService.getMoonAltitude(gps.location).altitudeDegrees.roundToInt()
+                astronomyService.getMoonAltitude(gps.location).altitudeDegrees
             val sunAltitude =
-                astronomyService.getSunAltitude(gps.location).altitudeDegrees.roundToInt()
+                astronomyService.getSunAltitude(gps.location).altitudeDegrees
 
             // TODO: Add icons
             details.add(
@@ -350,8 +350,8 @@ class AstronomyFragment : Fragment() {
 
             val declination = if (!prefs.navigation.useTrueNorth) declinationProvider.declination else 0f
 
-            val sunAzimuth = astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value.roundToInt()
-            val moonAzimuth = astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value.roundToInt()
+            val sunAzimuth = astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value
+            val moonAzimuth = astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value
 
             details.add(AstroDetail(R.drawable.sun, "Sun azimuth", getString(R.string.degree_format, sunAzimuth), R.color.colorPrimary))
             details.add(AstroDetail(R.drawable.moon_full, "Moon azimuth", getString(R.string.degree_format, moonAzimuth)))
