@@ -44,8 +44,6 @@ class NavigationViewModel(
     private val navigationService = NavigationService()
     var speed = prefs.navigation.averageSpeed
 
-    val rulerScale = prefs.navigation.rulerScale
-
     val azimuth: Float
         get() {
             compass.declination = declination
@@ -80,15 +78,6 @@ class NavigationViewModel(
         get() = prefShowLinearCompass && orientation.orientation == DeviceOrientation.Orientation.Portrait
 
     var beacon: Beacon? = null
-
-    val hasComment: Boolean
-        get() = !visibleBeacon?.comment.isNullOrBlank()
-
-    val comment: String
-        get() = visibleBeacon?.comment ?: ""
-
-    val commentTitle: String
-        get() = visibleBeacon?.name ?: ""
 
     private val destinationBearing: Float?
         get() {
@@ -162,116 +151,6 @@ class NavigationViewModel(
                 .sortedBy { it.second.distance }
                 .take(visibleBeacons)
                 .toList()
-        }
-
-    val beaconDistance: String
-        get() {
-            visibleBeacon?.apply {
-                val vector = navigationService.navigate(
-                    gps.location,
-                    this.coordinate,
-                    declination,
-                    useTrueNorth
-                )
-                return LocationMath.distanceToReadableString(vector.distance, distanceUnits)
-            }
-            return ""
-        }
-
-    val beaconName: String
-        get() = visibleBeacon?.name ?: ""
-
-    val beaconDirection: String
-        get() {
-            visibleBeacon?.apply {
-                val vector = navigationService.navigate(
-                    gps.location,
-                    this.coordinate,
-                    declination,
-                    useTrueNorth
-                )
-                val bearing = vector.direction.value
-                return "${bearing.roundToInt()}°"
-            }
-            return ""
-        }
-
-    val beaconCardinalDirection: String
-        get() {
-            visibleBeacon?.apply {
-                val vector = navigationService.navigate(
-                    gps.location,
-                    this.coordinate,
-                    declination,
-                    useTrueNorth
-                )
-                return vector.direction.direction.symbol
-            }
-            return ""
-        }
-
-    val showBeaconElevation: Boolean
-        get() = visibleBeacon?.elevation != null
-
-    val beaconElevation: String
-        get() {
-            visibleBeacon ?: return ""
-            return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
-                "${visibleBeacon?.elevation?.roundToInt() ?: 0} m"
-            } else {
-                "${LocationMath.convertToBaseUnit(visibleBeacon?.elevation ?: 0f, distanceUnits)
-                    .roundToInt()} ft"
-            }
-        }
-
-    val beaconElevationDiffColor: Int
-        get() {
-            val elevation = visibleBeacon?.elevation ?: 0f
-            val diff = elevation - altimeter.altitude
-            return when {
-                diff >= 0 -> {
-                    R.color.positive
-                }
-                else -> {
-                    R.color.negative
-                }
-            }
-        }
-
-    val beaconElevationDiff: String
-        get() {
-            val elevation = visibleBeacon?.elevation ?: 0f
-            val diff = elevation - altimeter.altitude
-            return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
-                "${if (diff.roundToInt() > 0) "+" else ""}${diff.roundToInt()} m"
-            } else {
-                "${if (LocationMath.convertToBaseUnit(diff, distanceUnits)
-                        .roundToInt() > 0
-                ) "+" else ""}${LocationMath.convertToBaseUnit(diff, distanceUnits)
-                    .roundToInt()} ft"
-            }
-        }
-
-    val beaconEta: String?
-        get() {
-            if (speed == 0f) {
-                return null
-            }
-
-            visibleBeacon?.apply {
-                val vector = navigationService.navigate(
-                    gps.location,
-                    this.coordinate,
-                    declination,
-                    useTrueNorth
-                )
-                val distance =
-                    vector.distance * Math.PI / 2.0 // Used to estimate non-linear distance within 2 standard deviations
-                val time = Duration.ofSeconds((distance / speed).roundToLong())
-                return time.formatHM()
-            }
-
-            return null
         }
 
     val currentSpeed: Float

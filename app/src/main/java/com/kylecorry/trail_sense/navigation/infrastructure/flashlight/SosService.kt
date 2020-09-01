@@ -11,11 +11,10 @@ import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.system.NotificationUtils
 import java.lang.Exception
-import kotlin.concurrent.thread
 
 class SosService : Service() {
 
-    private lateinit var flashlight: Flashlight
+    private lateinit var flashlight: FlashlightProxy
     private var running = false
     private val handler = Handler()
 
@@ -109,7 +108,7 @@ class SosService : Service() {
 
         startForeground(NOTIFICATION_ID, notification)
 
-        flashlight = Flashlight(this)
+        flashlight = FlashlightProxy(this)
         running = true
         handler.post(runnable)
     }

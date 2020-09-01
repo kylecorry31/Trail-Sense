@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.content.SharedPreferences
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,32 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.edit
-import androidx.core.view.children
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.Flashlight
-import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.FlashlightService
-import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.SosService
+import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.FlashlightProxy
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.FlashlightState
 import com.kylecorry.trail_sense.navigation.domain.Position
 import com.kylecorry.trail_sense.navigation.infrastructure.*
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
+import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.Flashlight
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
+import com.kylecorry.trail_sense.shared.Cache
+import com.kylecorry.trail_sense.shared.Throttle
 import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.sensors.*
-import com.kylecorry.trail_sense.shared.sensors.declination.AutoDeclinationProvider
 import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
 import com.kylecorry.trail_sense.shared.switchToFragment
-import kotlinx.android.synthetic.main.activity_navigator.*
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
-import kotlin.math.ceil
 
 class NavigatorFragment(
     private val initialDestination: Beacon? = null,
@@ -50,16 +43,9 @@ class NavigatorFragment(
     private lateinit var orientation: DeviceOrientation
     private lateinit var altimeter: IAltimeter
 
-    private var lastUpdated = System.currentTimeMillis()
-
-    // TODO: Extract ruler
-    private var isRulerSetup = false
-    private var areRulerTextViewsAligned = false
-
     private lateinit var roundCompass: ICompassView
     private lateinit var linearCompass: ICompassView
     private lateinit var userPrefs: UserPreferences
-    private lateinit var prefs: SharedPreferences
 
     private lateinit var navigationVM: NavigationViewModel
 
@@ -70,7 +56,7 @@ class NavigatorFragment(
     private lateinit var beaconBtn: FloatingActionButton
     private lateinit var rulerBtn: FloatingActionButton
     private lateinit var flashlightBtn: FloatingActionButton
-    private lateinit var ruler: ConstraintLayout
+    private lateinit var ruler: Ruler
     private lateinit var parentLayout: ConstraintLayout
     private lateinit var accuracyView: LinearLayout
     private lateinit var gpsAccuracyTxt: TextView
@@ -89,6 +75,9 @@ class NavigatorFragment(
     private var flashlightState = FlashlightState.Off
 
     private lateinit var sensorService: SensorService
+    private val flashlight by lazy { Flashlight(requireContext()) }
+    private val cache by lazy { Cache(requireContext()) }
+    private val throttle = Throttle(16)
 
     private var timer: Timer? = null
     private var handler: Handler? = null
@@ -104,7 +93,6 @@ class NavigatorFragment(
 
         // Get views
         userPrefs = UserPreferences(requireContext())
-        prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         locationTxt = view.findViewById(R.id.location)
         altitudeTxt = view.findViewById(R.id.altitude)
         azimuthTxt = view.findViewById(R.id.compass_azimuth)
@@ -112,7 +100,7 @@ class NavigatorFragment(
         beaconBtn = view.findViewById(R.id.beaconBtn)
         rulerBtn = view.findViewById(R.id.ruler_btn)
         flashlightBtn = view.findViewById(R.id.flashlight_btn)
-        ruler = view.findViewById(R.id.ruler)
+        ruler = Ruler(view.findViewById(R.id.ruler))
         parentLayout = view.findViewById(R.id.navigator_layout)
         accuracyView = view.findViewById(R.id.accuracy_view)
         gpsAccuracyTxt = view.findViewById(R.id.gps_accuracy_text)
@@ -132,12 +120,12 @@ class NavigatorFragment(
 
         val astronomyColor = UiUtils.androidTextColorPrimary(requireContext())
 
-        val arrowImg = resources.getDrawable(R.drawable.ic_arrow_target, null)
-        val sunImg = resources.getDrawable(R.drawable.sun, null)
-        sunImg.setTint(astronomyColor)
+        val arrowImg = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_target, null)
+        val sunImg = ResourcesCompat.getDrawable(resources, R.drawable.sun, null)
+        sunImg?.setTint(astronomyColor)
 
-        val moonImg = resources.getDrawable(R.drawable.moon_waxing_crescent, null)
-        moonImg.setTint(astronomyColor)
+        val moonImg = ResourcesCompat.getDrawable(resources, R.drawable.moon_waxing_crescent, null)
+        moonImg?.setTint(astronomyColor)
 
         beaconIndicators.forEach {
             it.setImageDrawable(arrowImg)
@@ -170,7 +158,7 @@ class NavigatorFragment(
         val beacon = navigationVM.beacon?.id
         if (beacon != null) {
             showCalibrationDialog()
-            prefs.edit { putInt("last_beacon_id", beacon) }
+            cache.putInt(Cache.LAST_BEACON_ID, beacon)
         }
 
         roundCompass = CompassView(
@@ -200,94 +188,65 @@ class NavigatorFragment(
                 )
             } else {
                 navigationVM.beacon = null
-                prefs.edit { remove("last_beacon_id") }
+                cache.remove(Cache.LAST_BEACON_ID)
                 updateNavigator()
             }
         }
 
         rulerBtn.setOnClickListener {
-            if (ruler.visibility == View.VISIBLE) {
-                rulerBtn.imageTintList = ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
-                rulerBtn.backgroundTintList = ColorStateList.valueOf(UiUtils.androidBackgroundColorSecondary(requireContext()))
-                ruler.visibility = View.GONE
+            if (ruler.visible) {
+                UiUtils.setButtonState(rulerBtn, false)
+                ruler.hide()
             } else {
-                rulerBtn.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
-                rulerBtn.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
-                ruler.visibility = View.VISIBLE
+                UiUtils.setButtonState(rulerBtn, true)
+                ruler.show()
             }
         }
 
-        if (!Flashlight.hasFlashlight(requireContext())){
+        if (!FlashlightProxy.hasFlashlight(requireContext())) {
             flashlightBtn.visibility = View.GONE
         }
 
         flashlightBtn.setOnClickListener {
             flashlightState = getNextFlashlightState(flashlightState)
-            when(flashlightState) {
-                FlashlightState.On -> {
-                    SosService.stop(requireContext().applicationContext)
-                    FlashlightService.start(requireContext().applicationContext)
-                }
-                FlashlightState.SOS -> {
-                    FlashlightService.stop(requireContext().applicationContext)
-                    SosService.start(requireContext().applicationContext)
-                }
-                FlashlightState.Off -> {
-                    SosService.stop(requireContext().applicationContext)
-                    FlashlightService.stop(requireContext().applicationContext)
-                }
-            }
+            flashlight.set(flashlightState)
         }
 
-        accuracyView.setOnClickListener {
-            UiUtils.alert(
-                requireContext(),
-                getString(R.string.accuracy_info_title),
-                getString(R.string.accuracy_info, navigationVM.gpsHorizontalAccuracy, navigationVM.gpsVerticalAccuracy, navigationVM.gpsSatellites)
-            )
-        }
+        accuracyView.setOnClickListener { displayAccuracyTips() }
 
         return view
     }
 
-    private fun getFlashlightState(): FlashlightState {
-        return when {
-            FlashlightService.isOn(requireContext()) -> FlashlightState.On
-            SosService.isOn(requireContext()) -> FlashlightState.SOS
-            else -> FlashlightState.Off
-        }
+    private fun displayAccuracyTips() {
+        UiUtils.alert(
+            requireContext(),
+            getString(R.string.accuracy_info_title),
+            getString(
+                R.string.accuracy_info,
+                navigationVM.gpsHorizontalAccuracy,
+                navigationVM.gpsVerticalAccuracy,
+                navigationVM.gpsSatellites
+            )
+        )
     }
 
-    private fun getNextFlashlightState(currentState: FlashlightState) : FlashlightState {
-        return when(currentState){
-            FlashlightState.On -> FlashlightState.SOS
-            FlashlightState.SOS -> FlashlightState.Off
-            FlashlightState.Off -> FlashlightState.On
-        }
+    private fun getNextFlashlightState(currentState: FlashlightState): FlashlightState {
+        return flashlight.getNextState(currentState)
     }
 
     private fun updateFlashlightUI() {
-        when(flashlightState) {
+        when (flashlightState) {
             FlashlightState.On -> {
                 flashlightBtn.setImageResource(R.drawable.flashlight)
-                flashlightBtn.imageTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
-                flashlightBtn.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
+                UiUtils.setButtonState(flashlightBtn, true)
             }
             FlashlightState.SOS -> {
-                flashlightBtn.imageTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorSecondary, null))
-                flashlightBtn.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, null))
                 flashlightBtn.setImageResource(R.drawable.flashlight_sos)
+                UiUtils.setButtonState(flashlightBtn, true)
             }
             else -> {
                 flashlightBtn.setImageResource(R.drawable.flashlight)
-                flashlightBtn.imageTintList =
-                    ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
-                flashlightBtn.backgroundTintList =
-                    ColorStateList.valueOf(UiUtils.androidBackgroundColorSecondary(requireContext()))
+                UiUtils.setButtonState(flashlightBtn, false)
             }
         }
     }
@@ -310,11 +269,11 @@ class NavigatorFragment(
 
     override fun onResume() {
         super.onResume()
-        if (prefs.contains("last_beacon_id")){
-            val beaconId = prefs.getInt("last_beacon_id", 0)
-            navigationVM.beacon = beaconRepo.get(beaconId)
+        val lastBeaconId = cache.getInt(Cache.LAST_BEACON_ID)
+        if (lastBeaconId != null) {
+            navigationVM.beacon = beaconRepo.get(lastBeaconId)
         }
-        flashlightState = getFlashlightState()
+        flashlightState = flashlight.getState()
         compass.start(this::onCompassUpdate)
         gps.start(this::onLocationUpdate)
         altimeter.start(this::onAltitudeUpdate)
@@ -326,9 +285,7 @@ class NavigatorFragment(
             declinationProvider.start(this::onDeclinationUpdate)
         }
 
-        val hasGPS = SensorChecker(requireContext()).hasGPS()
-
-        if (!hasGPS) {
+        if (!userPrefs.useLocationFeatures) {
             beaconBtn.hide()
         } else {
             beaconBtn.show()
@@ -360,12 +317,7 @@ class NavigatorFragment(
 
     private fun updateUI() {
 
-        if (System.currentTimeMillis() - lastUpdated < 16){
-            return
-        }
-        lastUpdated = System.currentTimeMillis()
-
-        if (context == null) {
+        if (throttle.isThrottled() || context == null) {
             return
         }
 
@@ -373,7 +325,7 @@ class NavigatorFragment(
 
         navigationVM.updateVisibleBeacon()
 
-        if (navigationVM.showNavigationSheet){
+        if (navigationVM.showNavigationSheet) {
             val beacon = navigationVM.visibleBeacon
             if (beacon != null) {
                 destinationPanel.show(
@@ -386,7 +338,6 @@ class NavigatorFragment(
         } else {
             destinationPanel.hide()
         }
-
 
         gpsAccuracyTxt.text = navigationVM.gpsAccuracy
         compassAccuracyTxt.text = navigationVM.compassAccuracy
@@ -415,8 +366,6 @@ class NavigatorFragment(
             setVisibleCompass(roundCompass)
         }
 
-        setupRuler()
-
         azimuthTxt.text = navigationVM.azimuthTxt
         directionTxt.text = navigationVM.azimuthDirection
         visibleCompass.azimuth = navigationVM.azimuth
@@ -443,7 +392,7 @@ class NavigatorFragment(
         return Position(gps.location, altimeter.altitude, compass.bearing, navigationVM.speed)
     }
 
-    private fun showCalibrationDialog(){
+    private fun showCalibrationDialog() {
         if (userPrefs.navigation.showCalibrationOnNavigateDialog) {
             UiUtils.alert(
                 requireContext(), getString(R.string.calibrate_compass_dialog_title), getString(
@@ -481,73 +430,15 @@ class NavigatorFragment(
         return navigationVM.showDestination
     }
 
-    private fun setupRuler() {
-        val dpi = resources.displayMetrics.densityDpi
-        val height =
-            navigationVM.rulerScale * ruler.height / dpi.toDouble() * if (userPrefs.distanceUnits == UserPreferences.DistanceUnits.Meters) 2.54 else 1.0
-
-        if (height == 0.0 || context == null) {
-            return
-        }
-
-        if (!isRulerSetup) {
-            val primaryColor = UiUtils.androidTextColorPrimary(requireContext())
-
-            for (i in 0..ceil(height).toInt() * 8) {
-                val inches = i / 8.0
-                val tv = TextView(context)
-                val bar = View(context)
-                bar.setBackgroundColor(primaryColor)
-                val layoutParams = ConstraintLayout.LayoutParams(1, 4)
-                bar.layoutParams = layoutParams
-                when {
-                    inches % 1.0 == 0.0 -> {
-                        bar.layoutParams.width = 48
-                        tv.text = inches.toInt().toString()
-                    }
-                    inches % 0.5 == 0.0 -> {
-                        bar.layoutParams.width = 36
-                    }
-                    inches % 0.25 == 0.0 -> {
-                        bar.layoutParams.width = 24
-                    }
-                    else -> {
-                        bar.layoutParams.width = 12
-                    }
-                }
-                bar.y =
-                    ruler.height * (inches / height).toFloat() + resources.getDimensionPixelSize(R.dimen.ruler_top)
-                if (!tv.text.isNullOrBlank()) {
-                    tv.setTextColor(primaryColor)
-                    ruler.addView(tv)
-                    tv.y = bar.y
-                    tv.x =
-                        bar.layoutParams.width.toFloat() + resources.getDimensionPixelSize(R.dimen.ruler_label)
-                }
-
-                ruler.addView(bar)
-            }
-        } else if (!areRulerTextViewsAligned) {
-            for (view in ruler.children) {
-                if (view.height != 0) {
-                    areRulerTextViewsAligned = true
-                }
-                view.y -= view.height / 2f
-            }
-        }
-
-        isRulerSetup = true
-    }
-
     private fun updateNavigator() {
         if (navigationVM.showDestination) {
             // Navigating
             gps.start(this::onLocationUpdate)
-            beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_cancel))
+            beaconBtn.setImageResource(R.drawable.ic_cancel)
             onLocationUpdate()
         } else {
             // Not navigating
-            beaconBtn.setImageDrawable(context?.getDrawable(R.drawable.ic_beacon))
+            beaconBtn.setImageResource(R.drawable.ic_beacon)
             onLocationUpdate()
         }
     }
