@@ -44,4 +44,8 @@ class Flashlight(private val context: Context) : IFlashlight {
         }
     }
 
+    override fun isAvailable(): Boolean {
+        return FlashlightProxy.hasFlashlight(context)
+    }
+
 }

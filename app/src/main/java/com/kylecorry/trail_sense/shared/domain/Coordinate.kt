@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.domain
 
 import android.location.Location
+import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.roundPlaces
 import java.lang.Exception
 import java.util.*
@@ -30,6 +31,15 @@ data class Coordinate(val latitude: Double, val longitude: Double) {
         val results = FloatArray(3)
         Location.distanceBetween(latitude, longitude, other.latitude, other.longitude, results)
         return results[0]
+    }
+
+    /**
+     * Get the bearing to the other coordinate (using True North)
+     */
+    fun bearingTo(other: Coordinate): Bearing {
+        val results = FloatArray(3)
+        Location.distanceBetween(latitude, longitude, other.latitude, other.longitude, results)
+        return Bearing(results[1])
     }
 
     private fun dmsString(degrees: Double): String {

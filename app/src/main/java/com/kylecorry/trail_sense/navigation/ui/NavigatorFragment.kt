@@ -15,7 +15,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.FlashlightProxy
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.FlashlightState
+import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.domain.Position
+import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.navigation.infrastructure.*
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.Flashlight
@@ -79,6 +81,8 @@ class NavigatorFragment(
     private val cache by lazy { Cache(requireContext()) }
     private val throttle = Throttle(16)
 
+    private lateinit var beacons: Collection<Beacon>
+
     private var timer: Timer? = null
     private var handler: Handler? = null
 
@@ -120,11 +124,11 @@ class NavigatorFragment(
 
         val astronomyColor = UiUtils.androidTextColorPrimary(requireContext())
 
-        val arrowImg = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_target, null)
-        val sunImg = ResourcesCompat.getDrawable(resources, R.drawable.sun, null)
+        val arrowImg = UiUtils.drawable(requireContext(), R.drawable.ic_arrow_target)
+        val sunImg = UiUtils.drawable(requireContext(), R.drawable.sun)
         sunImg?.setTint(astronomyColor)
 
-        val moonImg = ResourcesCompat.getDrawable(resources, R.drawable.moon_waxing_crescent, null)
+        val moonImg = UiUtils.drawable(requireContext(), R.drawable.moon_waxing_crescent)
         moonImg?.setTint(astronomyColor)
 
         beaconIndicators.forEach {
@@ -142,6 +146,7 @@ class NavigatorFragment(
         orientation = sensorService.getDeviceOrientation()
         gps = sensorService.getGPS()
         declinationProvider = sensorService.getDeclinationProvider()
+        altimeter = sensorService.getAltimeter()
 
         if (createBeacon != null) {
             switchToFragment(
@@ -149,8 +154,6 @@ class NavigatorFragment(
                 addToBackStack = true
             )
         }
-
-        altimeter = sensorService.getAltimeter()
 
         navigationVM =
             NavigationViewModel(compass, gps, altimeter, orientation, userPrefs, beaconRepo)
@@ -203,13 +206,13 @@ class NavigatorFragment(
             }
         }
 
-        if (!FlashlightProxy.hasFlashlight(requireContext())) {
+        if (!flashlight.isAvailable()) {
             flashlightBtn.visibility = View.GONE
-        }
-
-        flashlightBtn.setOnClickListener {
-            flashlightState = getNextFlashlightState(flashlightState)
-            flashlight.set(flashlightState)
+        } else {
+            flashlightBtn.setOnClickListener {
+                flashlightState = getNextFlashlightState(flashlightState)
+                flashlight.set(flashlightState)
+            }
         }
 
         accuracyView.setOnClickListener { displayAccuracyTips() }
@@ -260,8 +263,9 @@ class NavigatorFragment(
             }
         }
 
+
         compass.beacons = navigationVM.nearestBeacons
-        compass.azimuth = navigationVM.azimuth
+        compass.azimuth = this.compass.bearing.value
         visibleCompass.visibility = View.INVISIBLE
         visibleCompass = compass
         visibleCompass.visibility = View.VISIBLE
@@ -269,10 +273,15 @@ class NavigatorFragment(
 
     override fun onResume() {
         super.onResume()
+        // Load the latest beacons
+        beacons = beaconRepo.get()
+
+        // Resume navigation
         val lastBeaconId = cache.getInt(Cache.LAST_BEACON_ID)
         if (lastBeaconId != null) {
             navigationVM.beacon = beaconRepo.get(lastBeaconId)
         }
+
         flashlightState = flashlight.getState()
         compass.start(this::onCompassUpdate)
         gps.start(this::onLocationUpdate)
@@ -313,6 +322,11 @@ class NavigatorFragment(
         declinationProvider.stop(this::onDeclinationUpdate)
         timer?.cancel()
         timer = null
+    }
+
+    private fun getNearbyBeacons(): Collection<Beacon> {
+        val service = NavigationService()
+        return service.getNearbyBeacons(gps.location, beacons, userPrefs.navigation.numberOfVisibleBeacons, NavigationViewModel.MIN_BEACON_DISTANCE)
     }
 
     private fun updateUI() {
@@ -414,6 +428,7 @@ class NavigatorFragment(
     }
 
     private fun onDeclinationUpdate(): Boolean {
+        compass.declination = declinationProvider.declination
         navigationVM.declination = declinationProvider.declination
         updateUI()
         return false

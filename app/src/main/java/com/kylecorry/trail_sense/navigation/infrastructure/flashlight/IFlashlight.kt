@@ -9,4 +9,5 @@ interface IFlashlight {
     fun set(state: FlashlightState)
     fun getState(): FlashlightState
     fun getNextState(currentState: FlashlightState? = null): FlashlightState
+    fun isAvailable(): Boolean
 }
