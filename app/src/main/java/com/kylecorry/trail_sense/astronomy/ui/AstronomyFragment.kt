@@ -112,7 +112,7 @@ class AstronomyFragment : Fragment() {
             declinationProvider.start(this::onDeclinationUpdate)
         }
         handler = Handler(Looper.getMainLooper())
-        timer = fixedRateTimer(period = 1000) {
+        timer = fixedRateTimer(period = 60 * 1000) {
             handler.post { updateUI() }
         }
         updateUI()

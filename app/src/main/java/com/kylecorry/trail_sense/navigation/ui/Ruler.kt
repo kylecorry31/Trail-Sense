@@ -28,12 +28,15 @@ class Ruler(private val view: ConstraintLayout) {
     private fun onUpdate(){
         if (!isRulerSetup || !areRulerTextViewsAligned){
             update()
-            view.post(runnable)
+            if (view.visibility == View.VISIBLE) {
+                view.post(runnable)
+            }
         }
     }
 
     fun show(){
         view.visibility = View.VISIBLE
+        onUpdate()
     }
 
     fun hide(){

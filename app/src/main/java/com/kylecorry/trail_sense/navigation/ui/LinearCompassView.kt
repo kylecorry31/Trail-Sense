@@ -20,24 +20,13 @@ import android.view.MotionEvent
 import android.view.View
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.compass.CompassDirection
+import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.roundToInt
 
 class LinearCompassView(
     context: Context,
     attrs: AttributeSet?
 ) : View(context, attrs) {
-    var mListener: OnCompassDragListener? =
-        null
-
-    interface OnCompassDragListener {
-        /**
-         * Indicates when a drag event has ocurred
-         *
-         * @param degrees Actual value of the compass
-         */
-        fun onCompassDragListener(degrees: Float)
-    }
-
     private var mTextPaint: Paint? = null
     private var mMainLinePaint: Paint? = null
     private var mSecondaryLinePaint: Paint? = null
@@ -54,7 +43,7 @@ class LinearCompassView(
     private var mTextSize: Float
     private var mRangeDegrees: Float
     private var mShowMarker: Boolean
-    private var mDetector: GestureDetector? = null
+    private val formatService = FormatService(context)
 
 
     private fun init() {
@@ -71,10 +60,6 @@ class LinearCompassView(
         mMarkerPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         mMarkerPaint!!.style = Paint.Style.FILL
         pathMarker = Path()
-        mDetector = GestureDetector(
-            context,
-            mGestureListener()
-        )
     }
 
     override fun onSaveInstanceState(): Parcelable? {
@@ -162,15 +147,17 @@ class LinearCompassView(
                     i % 90 == 0 -> {
                         canvas.drawLine(
                             paddingLeft + pixDeg * (i - minDegrees),
-                            height - paddingBottom.toFloat(), paddingLeft + pixDeg * (i - minDegrees),
-                            6 * unitHeight + paddingTop.toFloat(), paint
+                            height - paddingBottom.toFloat(),
+                            paddingLeft + pixDeg * (i - minDegrees),
+                            6 * unitHeight + paddingTop.toFloat(),
+                            paint
                         )
-                        var coord = ""
-                        when (i) {
-                            -90, 270 -> coord = CompassDirection.WEST.symbol
-                            0, 360 -> coord = CompassDirection.NORTH.symbol
-                            90, 450 -> CompassDirection.EAST.symbol
-                            -180, 180 -> coord = CompassDirection.SOUTH.symbol
+                        val coord = when (i) {
+                            -90, 270 -> formatService.formatDirection(CompassDirection.West)
+                            0, 360 -> formatService.formatDirection(CompassDirection.North)
+                            90, 450 -> formatService.formatDirection(CompassDirection.East)
+                            -180, 180 -> formatService.formatDirection(CompassDirection.South)
+                            else -> ""
                         }
                         canvas.drawText(
                             coord, paddingLeft + pixDeg * (i - minDegrees), (5 * unitHeight
@@ -180,15 +167,19 @@ class LinearCompassView(
                     i % 15 == 0 -> {
                         canvas.drawLine(
                             paddingLeft + pixDeg * (i - minDegrees),
-                            height - paddingBottom.toFloat(), paddingLeft + pixDeg * (i - minDegrees),
-                            8 * unitHeight + paddingTop.toFloat(), paint
+                            height - paddingBottom.toFloat(),
+                            paddingLeft + pixDeg * (i - minDegrees),
+                            8 * unitHeight + paddingTop.toFloat(),
+                            paint
                         )
                     }
                     else -> {
                         canvas.drawLine(
                             paddingLeft + pixDeg * (i - minDegrees),
-                            height - paddingBottom.toFloat(), paddingLeft + pixDeg * (i - minDegrees),
-                            10 * unitHeight + paddingTop.toFloat(), paint
+                            height - paddingBottom.toFloat(),
+                            paddingLeft + pixDeg * (i - minDegrees),
+                            10 * unitHeight + paddingTop.toFloat(),
+                            paint
                         )
                     }
                 }
@@ -216,91 +207,6 @@ class LinearCompassView(
         requestLayout()
     }
 
-    fun setLineColor(color: Int) {
-        mLineColor = color
-        invalidate()
-        requestLayout()
-    }
-
-    fun setCardinalLineColor(color: Int){
-        mCardinalLineColor = color
-        invalidate()
-        requestLayout()
-    }
-
-    fun setMarkerColor(color: Int) {
-        mMarkerColor = color
-        invalidate()
-        requestLayout()
-    }
-
-    fun setTextColor(color: Int) {
-        mTextColor = color
-        invalidate()
-        requestLayout()
-    }
-
-    fun setShowMarker(show: Boolean) {
-        mShowMarker = show
-        invalidate()
-        requestLayout()
-    }
-
-    fun setTextSize(size: Int) {
-        mTextSize = size.toFloat()
-        invalidate()
-        requestLayout()
-    }
-
-    fun setRangeDegrees(range: Float) {
-        mRangeDegrees = range
-        invalidate()
-        requestLayout()
-    }
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        return if (mListener != null) {
-            var result = mDetector!!.onTouchEvent(event)
-            if (!result) {
-                if (event.action == MotionEvent.ACTION_UP) {
-                    result = true
-                }
-            }
-            result
-        } else {
-            true
-        }
-    }
-
-    private inner class mGestureListener : SimpleOnGestureListener() {
-        override fun onDown(e: MotionEvent): Boolean {
-            return true
-        }
-
-        override fun onScroll(
-            e1: MotionEvent,
-            e2: MotionEvent,
-            distanceX: Float,
-            distanceY: Float
-        ): Boolean {
-            mDegrees += distanceX / 5
-            if (mDegrees < 0) {
-                mDegrees += 360f
-            } else if (mDegrees >= 360) {
-                mDegrees -= 360f
-            }
-            if (mListener != null) {
-                mListener!!.onCompassDragListener(mDegrees)
-            }
-            postInvalidate()
-            return true
-        }
-    }
-
-    fun setOnCompassDragListener(onCompassDragListener: OnCompassDragListener?) {
-        mListener = onCompassDragListener
-    }
-
     init {
         val a =
             context.theme.obtainStyledAttributes(attrs, R.styleable.LinearCompassView, 0, 0)
@@ -310,7 +216,8 @@ class LinearCompassView(
         mShowMarker = a.getBoolean(R.styleable.LinearCompassView_showMarker, true)
         mLineColor =
             a.getColor(R.styleable.LinearCompassView_lineColor, Color.WHITE)
-        mCardinalLineColor = a.getColor(R.styleable.LinearCompassView_cardinalLineColor, Color.WHITE)
+        mCardinalLineColor =
+            a.getColor(R.styleable.LinearCompassView_cardinalLineColor, Color.WHITE)
         mTextColor =
             a.getColor(R.styleable.LinearCompassView_textColor, Color.WHITE)
         mTextSize = a.getDimension(

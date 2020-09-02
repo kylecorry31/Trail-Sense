@@ -18,8 +18,16 @@ class FormatService(private val context: Context) {
     }
 
     fun formatDirection(direction: CompassDirection): String {
-        // TODO: Load from strings
-        return direction.symbol
+        return when (direction) {
+            CompassDirection.North -> context.getString(R.string.direction_north)
+            CompassDirection.South -> context.getString(R.string.direction_south)
+            CompassDirection.East -> context.getString(R.string.direction_east)
+            CompassDirection.West -> context.getString(R.string.direction_west)
+            CompassDirection.NorthEast -> context.getString(R.string.direction_north_east)
+            CompassDirection.SouthEast -> context.getString(R.string.direction_south_east)
+            CompassDirection.NorthWest -> context.getString(R.string.direction_north_west)
+            CompassDirection.SouthWest -> context.getString(R.string.direction_south_west)
+        }
     }
 
     fun formatDuration(duration: Duration, short: Boolean = false): String {
@@ -86,8 +94,12 @@ class FormatService(private val context: Context) {
 
     fun formatLocation(location: Coordinate): String {
         val formatter = prefs.navigation.locationFormatter
-        val lat = formatter.formatLatitude(location)
-        val lng = formatter.formatLongitude(location)
+        val lat =
+            formatter.formatLatitude(location).replace("N", formatDirection(CompassDirection.North))
+                .replace("S", formatDirection(CompassDirection.South))
+        val lng =
+            formatter.formatLongitude(location).replace("E", formatDirection(CompassDirection.East))
+                .replace("W", formatDirection(CompassDirection.West))
         return getFormattedLocation(lat, lng)
     }
 
