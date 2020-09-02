@@ -8,7 +8,6 @@ import com.kylecorry.trail_sense.navigation.domain.compass.CompassDirection
 import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import java.time.Duration
-import java.time.LocalDateTime
 
 class FormatService(private val context: Context) {
 
@@ -19,6 +18,7 @@ class FormatService(private val context: Context) {
     }
 
     fun formatDirection(direction: CompassDirection): String {
+        // TODO: Load from strings
         return direction.symbol
     }
 
@@ -26,7 +26,7 @@ class FormatService(private val context: Context) {
         val hours = duration.toHours()
         val minutes = duration.toMinutes() % 60
 
-        return if (short){
+        return if (short) {
             when (hours) {
                 0L -> context.getString(R.string.duration_minute_format, minutes)
                 else -> context.getString(R.string.duration_hour_format, hours)
@@ -59,11 +59,14 @@ class FormatService(private val context: Context) {
 
     fun formatLargeDistance(distanceMeters: Float): String {
         val units = getLargeDistanceUnits(distanceMeters)
-        return formatDistance(LocationMath.convert(distanceMeters, DistanceUnits.Meters, units), units)
+        return formatDistance(
+            LocationMath.convert(distanceMeters, DistanceUnits.Meters, units),
+            units
+        )
     }
 
     fun formatAccuracy(accuracy: Accuracy): String {
-        return when(accuracy){
+        return when (accuracy) {
             Accuracy.Low -> context.getString(R.string.accuracy_low)
             Accuracy.Medium -> context.getString(R.string.accuracy_medium)
             Accuracy.High -> context.getString(R.string.accuracy_high)

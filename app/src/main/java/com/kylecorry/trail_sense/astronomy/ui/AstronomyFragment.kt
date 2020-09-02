@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -107,7 +108,7 @@ class AstronomyFragment : Fragment() {
         super.onResume()
         displayDate = LocalDate.now()
         requestLocationUpdate()
-        if (!declinationProvider.hasValidReading){
+        if (!declinationProvider.hasValidReading) {
             declinationProvider.start(this::onDeclinationUpdate)
         }
         handler = Handler(Looper.getMainLooper())
@@ -125,7 +126,7 @@ class AstronomyFragment : Fragment() {
     }
 
     private fun requestLocationUpdate() {
-        if (gps.hasValidReading){
+        if (gps.hasValidReading) {
             onLocationUpdate()
         } else {
             gps.start(this::onLocationUpdate)
@@ -229,18 +230,6 @@ class AstronomyFragment : Fragment() {
             moonPosition.visibility = View.INVISIBLE
         }
 
-    }
-
-    private fun isVerticallyOverlapping(first: View, second: View): Boolean {
-        if (first.y > second.y && first.y > second.y + second.height) {
-            return false
-        }
-
-        if (second.y > first.y && second.y > first.y + first.height) {
-            return false
-        }
-
-        return true
     }
 
     private fun updateSunUI() {
@@ -348,13 +337,29 @@ class AstronomyFragment : Fragment() {
                 )
             )
 
-            val declination = if (!prefs.navigation.useTrueNorth) declinationProvider.declination else 0f
+            val declination =
+                if (!prefs.navigation.useTrueNorth) declinationProvider.declination else 0f
 
-            val sunAzimuth = astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value
-            val moonAzimuth = astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value
+            val sunAzimuth =
+                astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value
+            val moonAzimuth =
+                astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value
 
-            details.add(AstroDetail(R.drawable.sun, "Sun azimuth", getString(R.string.degree_format, sunAzimuth), R.color.colorPrimary))
-            details.add(AstroDetail(R.drawable.moon_full, "Moon azimuth", getString(R.string.degree_format, moonAzimuth)))
+            details.add(
+                AstroDetail(
+                    R.drawable.sun,
+                    "Sun azimuth",
+                    getString(R.string.degree_format, sunAzimuth),
+                    R.color.colorPrimary
+                )
+            )
+            details.add(
+                AstroDetail(
+                    R.drawable.moon_full,
+                    "Moon azimuth",
+                    getString(R.string.degree_format, moonAzimuth)
+                )
+            )
 
         } else {
             val moonPhase = astronomyService.getMoonPhase(displayDate)
@@ -433,35 +438,29 @@ class AstronomyFragment : Fragment() {
         }
     }
 
-    private fun getLocale(): Locale {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            resources.configuration.locales[0]
-        } else {
-            resources.configuration.locale
-        }
-    }
-
     private fun getTimeString(time: LocalDateTime?): String {
         return time?.toDisplayFormat(requireContext()) ?: "-"
     }
 
     private fun getDateString(date: LocalDate): String {
         val now = LocalDate.now()
-        return when {
-            date == now -> {
+
+        return when (date) {
+            now -> {
                 getString(R.string.today)
             }
-            date == now.plusDays(1) -> {
+            now.plusDays(1) -> {
                 getString(R.string.tomorrow)
             }
-            date == now.minusDays(1) -> {
+            now.minusDays(1) -> {
                 getString(R.string.yesterday)
             }
-            date.year == now.year -> {
-                date.format(DateTimeFormatter.ofPattern(getString(R.string.this_year_format)))
-            }
             else -> {
-                date.format(DateTimeFormatter.ofPattern(getString(R.string.other_year_format)))
+                DateUtils.formatDateTime(
+                    requireContext(),
+                    date.atStartOfDay().toEpochMillis(),
+                    DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_RELATIVE
+                )
             }
         }
     }

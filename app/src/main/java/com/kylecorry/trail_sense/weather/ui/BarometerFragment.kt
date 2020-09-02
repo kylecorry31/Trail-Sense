@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.weather.ui
 
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
