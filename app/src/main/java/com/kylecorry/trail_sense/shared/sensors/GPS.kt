@@ -9,6 +9,7 @@ import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
+import com.kylecorry.trail_sense.shared.Cache
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.domain.Coordinate
@@ -41,20 +42,20 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         get() = _altitude
 
     private val locationManager = context.getSystemService<LocationManager>()
-    private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+    private val cache = Cache(context)
     private val userPrefs = UserPreferences(context)
     private val sensorChecker = SensorChecker(context)
     private val locationListener = SimpleLocationListener { updateLastLocation(it, true) }
 
-    private var _altitude = prefs.getFloat(LAST_ALTITUDE, 0f)
+    private var _altitude = cache.getFloat(LAST_ALTITUDE) ?: 0f
     private var _accuracy: Accuracy = Accuracy.Unknown
     private var _horizontalAccuracy: Float? = null
     private var _verticalAccuracy: Float? = null
     private var _satellites: Int = 0
-    private var _speed: Float = prefs.getFloat(LAST_SPEED, 0f)
+    private var _speed: Float = cache.getFloat(LAST_SPEED) ?: 0f
     private var _location = Coordinate(
-        prefs.getFloat(LAST_LATITUDE, 0f).toDouble(),
-        prefs.getFloat(LAST_LONGITUDE, 0f).toDouble()
+        cache.getFloat(LAST_LATITUDE)?.toDouble() ?: 0.0,
+        cache.getFloat(LAST_LONGITUDE)?.toDouble() ?: 0.0
     )
 
     private var lastLocation: Location? = null
@@ -110,9 +111,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         _satellites = satellites
         lastLocation = location
 
-        prefs.edit {
-            putLong(LAST_UPDATE, fixStart)
-        }
+        cache.putLong(LAST_UPDATE, fixStart)
 
         if (location.hasAccuracy()) {
             this._accuracy = when {
@@ -131,20 +130,16 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
 
         if (location.hasSpeed()) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && location.hasSpeedAccuracy()) {
-                _speed = if (location.speed < location.speedAccuracyMetersPerSecond * 0.68){
+                _speed = if (location.speed < location.speedAccuracyMetersPerSecond * 0.68) {
                     0f
                 } else {
                     location.speed
                 }
 
-                prefs.edit {
-                    putFloat(LAST_SPEED, _speed)
-                }
+                cache.putFloat(LAST_SPEED, _speed)
             } else {
                 this._speed = location.speed
-                prefs.edit {
-                    putFloat(LAST_SPEED, _speed)
-                }
+                cache.putFloat(LAST_SPEED, _speed)
             }
 
 
@@ -158,25 +153,21 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         if (location.hasAltitude() && location.altitude != 0.0) {
             _altitude = location.altitude.toFloat()
 
-            prefs.edit {
-                putFloat(LAST_ALTITUDE, _altitude)
-            }
+            cache.putFloat(LAST_ALTITUDE, _altitude)
 
             if (userPrefs.useAltitudeOffsets) {
                 _altitude -= AltitudeCorrection.getOffset(this._location, context)
             }
         }
 
-        prefs.edit {
-            putFloat(LAST_LATITUDE, location.latitude.toFloat())
-            putFloat(LAST_LONGITUDE, location.longitude.toFloat())
-        }
+        cache.putFloat(LAST_LATITUDE, location.latitude.toFloat())
+        cache.putFloat(LAST_LONGITUDE, location.longitude.toFloat())
 
         if (notify) notifyListeners()
     }
 
     private fun hadRecentValidReading(): Boolean {
-        val last = prefs.getLong(LAST_UPDATE, 0L)
+        val last = cache.getLong(LAST_UPDATE) ?: 0L
         val now = System.currentTimeMillis()
         val recentThreshold = 1000 * 60 * 2L
         return now - last <= recentThreshold
