@@ -84,6 +84,7 @@ class NavigatorFragment(
     private var averageSpeed = 0f
 
     private lateinit var beacons: Collection<Beacon>
+    private var nearbyBeacons: Collection<Beacon> = listOf<Beacon>()
 
     private var timer: Timer? = null
     private var handler: Handler? = null
@@ -188,7 +189,7 @@ class NavigatorFragment(
         }
 
         beaconBtn.setOnClickListener {
-            if (beacon == null) {
+            if (destination == null) {
                 switchToFragment(
                     BeaconListFragment(beaconRepo, gps),
                     addToBackStack = true
@@ -415,8 +416,7 @@ class NavigatorFragment(
 
         updateFlashlightUI()
 
-        val nearby = getNearbyBeacons()
-        val selectedBeacon = getSelectedBeacon(nearby)
+        val selectedBeacon = getSelectedBeacon(nearbyBeacons)
 
         if (selectedBeacon != null) {
             destinationPanel.show(
@@ -450,7 +450,7 @@ class NavigatorFragment(
 
         // Compass
         visibleCompass.azimuth = compass.bearing.value
-        visibleCompass.beacons = getCompassMarkers(nearby).map { it.value }
+        visibleCompass.beacons = getCompassMarkers(nearbyBeacons).map { it.value }
 
         // Altitude
         altitudeTxt.text = formatService.formatSmallDistance(altimeter.altitude)
@@ -469,6 +469,8 @@ class NavigatorFragment(
                 it.visibility = View.INVISIBLE
             }
         }
+
+        updateNavigationButton()
     }
 
     private fun shouldShowLinearCompass(): Boolean {
@@ -548,6 +550,7 @@ class NavigatorFragment(
     }
 
     private fun onLocationUpdate(): Boolean {
+        nearbyBeacons = getNearbyBeacons()
         updateAverageSpeed()
         updateUI()
         return destination != null
@@ -573,17 +576,25 @@ class NavigatorFragment(
         }
     }
 
+    private fun updateNavigationButton(){
+        if (destination != null) {
+            beaconBtn.setImageResource(R.drawable.ic_cancel)
+        } else {
+            beaconBtn.setImageResource(R.drawable.ic_beacon)
+        }
+    }
+
     private fun updateNavigator() {
         if (destination != null) {
             // Navigating
             gps.start(this::onLocationUpdate)
-            beaconBtn.setImageResource(R.drawable.ic_cancel)
             onLocationUpdate()
         } else {
             // Not navigating
-            beaconBtn.setImageResource(R.drawable.ic_beacon)
             onLocationUpdate()
         }
+
+        updateNavigationButton()
     }
 
 }

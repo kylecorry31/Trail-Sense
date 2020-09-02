@@ -7,6 +7,8 @@ import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.compass.CompassDirection
 import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.domain.Coordinate
+import java.time.Duration
+import java.time.LocalDateTime
 
 class FormatService(private val context: Context) {
 
@@ -18,6 +20,24 @@ class FormatService(private val context: Context) {
 
     fun formatDirection(direction: CompassDirection): String {
         return direction.symbol
+    }
+
+    fun formatDuration(duration: Duration, short: Boolean = false): String {
+        val hours = duration.toHours()
+        val minutes = duration.toMinutes() % 60
+
+        return if (short){
+            when (hours) {
+                0L -> context.getString(R.string.duration_minute_format, minutes)
+                else -> context.getString(R.string.duration_hour_format, hours)
+            }
+        } else {
+            when {
+                hours == 0L -> context.getString(R.string.duration_minute_format, minutes)
+                minutes == 0L -> context.getString(R.string.duration_hour_format, hours)
+                else -> context.getString(R.string.duration_hour_minute_format, hours, minutes)
+            }
+        }
     }
 
     fun formatDistance(distance: Float, units: DistanceUnits): String {
@@ -38,11 +58,17 @@ class FormatService(private val context: Context) {
     }
 
     fun formatLargeDistance(distanceMeters: Float): String {
-        return formatSmallDistance(distanceMeters) // TODO
+        val units = getLargeDistanceUnits(distanceMeters)
+        return formatDistance(LocationMath.convert(distanceMeters, DistanceUnits.Meters, units), units)
     }
 
     fun formatAccuracy(accuracy: Accuracy): String {
-        return accuracy.toString()
+        return when(accuracy){
+            Accuracy.Low -> context.getString(R.string.accuracy_low)
+            Accuracy.Medium -> context.getString(R.string.accuracy_medium)
+            Accuracy.High -> context.getString(R.string.accuracy_high)
+            else -> context.getString(R.string.accuracy_unknown)
+        }
     }
 
     fun formatSpeed(metersPerSecond: Float): String {
@@ -72,6 +98,27 @@ class FormatService(private val context: Context) {
             DistanceUnits.Feet
         } else {
             DistanceUnits.Meters
+        }
+    }
+
+    private fun getLargeDistanceUnits(meters: Float): DistanceUnits {
+        val units = prefs.distanceUnits
+
+        if (units == UserPreferences.DistanceUnits.Feet) {
+            val feetThreshold = 1000
+            val feet = LocationMath.convert(meters, DistanceUnits.Meters, DistanceUnits.Feet)
+            return if (feet >= feetThreshold) {
+                DistanceUnits.Miles
+            } else {
+                DistanceUnits.Feet
+            }
+        } else {
+            val meterThreshold = 999
+            return if (meters >= meterThreshold) {
+                DistanceUnits.Kilometers
+            } else {
+                DistanceUnits.Meters
+            }
         }
     }
 

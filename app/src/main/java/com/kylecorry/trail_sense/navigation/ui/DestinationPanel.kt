@@ -7,8 +7,7 @@ import android.widget.TextView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.*
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.formatHM
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.system.UiUtils
 
 class DestinationPanel(private val view: View) {
@@ -24,9 +23,9 @@ class DestinationPanel(private val view: View) {
     private val beaconElevationDiff = view.findViewById<TextView>(R.id.beacon_elevation_diff)
     private val beaconEta = view.findViewById<TextView>(R.id.beacon_eta)
     private val navigationService = NavigationService()
+    private val formatService = FormatService(view.context)
     private val context = view.context
     private var beacon: Beacon? = null
-    private var prefs = UserPreferences(view.context)
 
     init {
         beaconComments.setOnClickListener {
@@ -66,37 +65,26 @@ class DestinationPanel(private val view: View) {
     }
 
     private fun updateDestinationDirection(azimuth: Bearing) {
-        beaconDirection.text = context.getString(R.string.degree_format, azimuth.value)
-        beaconDirectionCardinal.text = azimuth.direction.symbol
+        beaconDirection.text = formatService.formatDegrees(azimuth.value)
+        beaconDirectionCardinal.text = formatService.formatDirection(azimuth.direction)
     }
 
     private fun updateDestinationEta(distance: Float, speed: Float) {
-        beaconDistance.text =
-            formatDistance(
-                toUnits(distance, getDistanceUnits(distance)),
-                getDistanceUnits(distance)
-            )
-        val eta = navigationService.eta(distance, speed)?.formatHM(true)
-        beaconEta.text =
-            if (eta == null) context.getString(R.string.distance_away) else context.getString(
-                R.string.eta,
-                eta
-            )
+        beaconDistance.text = formatService.formatLargeDistance(distance)
+        val eta = navigationService.eta(distance, speed)
+        if (eta == null) {
+            beaconEta.text = context.getString(R.string.distance_away)
+        } else {
+            beaconEta.text =
+                context.getString(R.string.eta, formatService.formatDuration(eta, true))
+        }
     }
 
     private fun updateDestinationElevation(destinationElevation: Float?, elevationChange: Float?) {
         if (elevationChange != null && destinationElevation != null) {
             beaconElevationView.visibility = View.VISIBLE
-            // TODO: Get actual distance units
 
-            val desiredUnits = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) {
-                DistanceUnits.Meters
-            } else {
-                DistanceUnits.Feet
-            }
-
-            beaconElevation.text =
-                formatDistance(toUnits(destinationElevation, desiredUnits), desiredUnits)
+            beaconElevation.text = formatService.formatSmallDistance(destinationElevation)
 
             val direction = when {
                 elevationChange == 0.0f -> ""
@@ -107,7 +95,7 @@ class DestinationPanel(private val view: View) {
             beaconElevationDiff.text = context.getString(
                 R.string.elevation_diff_format,
                 direction,
-                formatDistance(toUnits(elevationChange, desiredUnits), desiredUnits)
+                formatService.formatSmallDistance(elevationChange)
             )
             val changeColor = when {
                 elevationChange >= 0 -> {
@@ -117,43 +105,9 @@ class DestinationPanel(private val view: View) {
                     R.color.negative
                 }
             }
-            beaconElevationDiff.setTextColor(context.resources.getColor(changeColor, null))
+            beaconElevationDiff.setTextColor(UiUtils.color(context, changeColor))
         } else {
             beaconElevationView.visibility = View.GONE
-        }
-    }
-
-    private fun toUnits(meters: Float, units: DistanceUnits): Float {
-        return LocationMath.convert(meters, DistanceUnits.Meters, units)
-    }
-
-    private fun formatDistance(distance: Float, units: DistanceUnits): String {
-        return when (units) {
-            DistanceUnits.Meters -> context.getString(R.string.meters_format, distance)
-            DistanceUnits.Kilometers -> context.getString(R.string.kilometers_format, distance)
-            DistanceUnits.Feet -> context.getString(R.string.feet_format, distance)
-            DistanceUnits.Miles -> context.getString(R.string.miles_format, distance)
-        }
-    }
-
-    private fun getDistanceUnits(meters: Float): DistanceUnits {
-        val units = prefs.distanceUnits
-
-        if (units == UserPreferences.DistanceUnits.Feet) {
-            val feetThreshold = 1000
-            val feet = LocationMath.convert(meters, DistanceUnits.Meters, DistanceUnits.Feet)
-            return if (feet >= feetThreshold) {
-                DistanceUnits.Miles
-            } else {
-                DistanceUnits.Feet
-            }
-        } else {
-            val meterThreshold = 999
-            return if (meters >= meterThreshold) {
-                DistanceUnits.Kilometers
-            } else {
-                DistanceUnits.Meters
-            }
         }
     }
 
