@@ -22,13 +22,11 @@ import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.Flashlight
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
-import kotlin.math.abs
 
 class NavigatorFragment(
     private val initialDestination: Beacon? = null,
@@ -84,12 +82,13 @@ class NavigatorFragment(
     private var averageSpeed = 0f
 
     private lateinit var beacons: Collection<Beacon>
-    private var nearbyBeacons: Collection<Beacon> = listOf<Beacon>()
+    private var nearbyBeacons: Collection<Beacon> = listOf()
 
     private var timer: Timer? = null
     private var handler: Handler? = null
 
     private var destination: Beacon? = null
+    private var useTrueNorth = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -290,6 +289,7 @@ class NavigatorFragment(
 
     override fun onResume() {
         super.onResume()
+        useTrueNorth = userPrefs.navigation.useTrueNorth
         // Load the latest beacons
         beacons = beaconRepo.get()
 
@@ -373,7 +373,7 @@ class NavigatorFragment(
     }
 
     private fun transformTrueNorthBearing(bearing: Bearing): Bearing {
-        return if (userPrefs.navigation.useTrueNorth) {
+        return if (useTrueNorth) {
             bearing
         } else {
             bearing.withDeclination(-declinationProvider.declination)
@@ -381,11 +381,12 @@ class NavigatorFragment(
     }
 
     private fun getFacingBeacon(nearby: Collection<Beacon>): Beacon? {
-        return nearby.map {
-            Pair(it, gps.location.bearingTo(it.coordinate))
-        }.filter {
-            abs(deltaAngle(it.second.value, compass.bearing.value)) < 20
-        }.minBy { it.second.value }?.first
+        return navigationService.getFacingBeacon(
+            getPosition(),
+            nearby,
+            declinationProvider.declination,
+            useTrueNorth
+        )
     }
 
     private fun getCompassMarkers(nearby: Collection<Beacon>): Collection<Bearing> {
@@ -436,12 +437,6 @@ class NavigatorFragment(
             speedTxt.text = getString(R.string.dash)
         } else {
             speedTxt.text = formatService.formatSpeed(gps.speed)
-        }
-
-        if (shouldShowLinearCompass()) {
-            setVisibleCompass(linearCompass)
-        } else {
-            setVisibleCompass(roundCompass)
         }
 
         // Azimuth
@@ -529,6 +524,11 @@ class NavigatorFragment(
     }
 
     private fun onOrientationUpdate(): Boolean {
+        if (shouldShowLinearCompass()) {
+            setVisibleCompass(linearCompass)
+        } else {
+            setVisibleCompass(roundCompass)
+        }
         updateUI()
         return true
     }
@@ -576,7 +576,7 @@ class NavigatorFragment(
         }
     }
 
-    private fun updateNavigationButton(){
+    private fun updateNavigationButton() {
         if (destination != null) {
             beaconBtn.setImageResource(R.drawable.ic_cancel)
         } else {

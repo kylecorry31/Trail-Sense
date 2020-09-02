@@ -4,7 +4,9 @@ import android.location.Location
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trail_sense.shared.math.deltaAngle
 import java.time.Duration
+import kotlin.math.abs
 import kotlin.math.roundToLong
 
 class NavigationService {
@@ -64,6 +66,23 @@ class NavigationService {
             .take(numNearby)
             .map { it.first }
             .toList()
+    }
+
+    fun isFacingBearing(azimuth: Bearing, bearing: Bearing): Boolean {
+        return abs(deltaAngle(bearing.value, azimuth.value)) < 20
+    }
+
+    fun getFacingBeacon(position: Position, beacons: Collection<Beacon>, declination: Float, usingTrueNorth: Boolean = true): Beacon? {
+        return beacons.map {
+            val declinationAdjustment = if (usingTrueNorth) {
+                0f
+            } else {
+                -declination
+            }
+            Pair(it, position.location.bearingTo(it.coordinate).withDeclination(declinationAdjustment))
+        }.filter {
+            isFacingBearing(position.bearing, it.second)
+        }.minBy { it.second.value }?.first
     }
 
     fun getBaseUnit(prefUnits: UserPreferences.DistanceUnits): DistanceUnits {
