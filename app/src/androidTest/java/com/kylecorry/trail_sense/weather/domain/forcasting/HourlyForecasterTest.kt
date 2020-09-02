@@ -32,7 +32,7 @@ class HourlyForecasterTest {
             )
         )
 
-        val forecaster = HourlyForecaster(-6f, 2f)
+        val forecaster = HourlyForecaster(-6f, 0.5f)
 
         val prediction = forecaster.forecast(pressures)
 
@@ -63,7 +63,7 @@ class HourlyForecasterTest {
             )
         )
 
-        val forecaster = HourlyForecaster(-6f, 2f)
+        val forecaster = HourlyForecaster(-6f, 0.5f)
 
         val prediction = forecaster.forecast(pressures)
 
@@ -94,7 +94,7 @@ class HourlyForecasterTest {
             )
         )
 
-        val forecaster = HourlyForecaster(-6f, 2f)
+        val forecaster = HourlyForecaster(-6f, 0.5f)
 
         val prediction = forecaster.forecast(pressures)
 
@@ -156,7 +156,7 @@ class HourlyForecasterTest {
             )
         )
 
-        val forecaster = HourlyForecaster(-6f, 2f)
+        val forecaster = HourlyForecaster(-6f, 0.5f)
 
         val prediction = forecaster.forecast(pressures)
 
