@@ -2,8 +2,7 @@ package com.kylecorry.trail_sense.navigation.domain
 
 import android.location.Location
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
-import com.kylecorry.trail_sense.navigation.domain.compass.DeclinationCalculator
-import com.kylecorry.trail_sense.navigation.ui.NavigationViewModel
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import java.time.Duration
 import kotlin.math.roundToLong
@@ -58,12 +57,44 @@ class NavigationService {
         maxDistance: Float = Float.POSITIVE_INFINITY
     ): Collection<Beacon> {
         return beacons.asSequence()
+            .filter { it.visible }
             .map { Pair(it, location.distanceTo(it.coordinate)) }
             .filter { it.second in minDistance..maxDistance }
             .sortedBy { it.second }
             .take(numNearby)
             .map { it.first }
             .toList()
+    }
+
+    fun getBaseUnit(prefUnits: UserPreferences.DistanceUnits): DistanceUnits {
+        return if (prefUnits == UserPreferences.DistanceUnits.Feet){
+            DistanceUnits.Feet
+        } else {
+            DistanceUnits.Meters
+        }
+    }
+
+    fun toUnits(meters: Float, units: DistanceUnits): Float {
+        return LocationMath.convert(meters, DistanceUnits.Meters, units)
+    }
+
+    fun getDistanceUnits(meters: Float, prefUnits: UserPreferences.DistanceUnits): DistanceUnits {
+        if (prefUnits == UserPreferences.DistanceUnits.Feet) {
+            val feetThreshold = 1000
+            val feet = LocationMath.convert(meters, DistanceUnits.Meters, DistanceUnits.Feet)
+            return if (feet >= feetThreshold) {
+                DistanceUnits.Miles
+            } else {
+                DistanceUnits.Feet
+            }
+        } else {
+            val meterThreshold = 999
+            return if (meters >= meterThreshold) {
+                DistanceUnits.Kilometers
+            } else {
+                DistanceUnits.Meters
+            }
+        }
     }
 
 }

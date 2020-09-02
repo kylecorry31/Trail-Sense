@@ -386,5 +386,7 @@
     <string name="storm_sensitivity_low_in">Low (0.177 in / 3h)</string>
     <string name="storm_sensitivity_med_in">Medium (0.133 in / 3h)</string>
     <string name="storm_sensitivity_high_in">High (0.089 in / 3h)</string>
+    <string name="accuracy_distance_unknown">\?</string>
+    <string name="accuracy_distance_format">± %s</string>
 
 </resources>

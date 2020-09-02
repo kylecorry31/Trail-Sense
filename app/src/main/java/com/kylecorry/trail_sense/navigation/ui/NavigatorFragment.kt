@@ -8,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.FlashlightProxy
+import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.FlashlightState
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
@@ -22,15 +21,14 @@ import com.kylecorry.trail_sense.navigation.infrastructure.*
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.Flashlight
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
-import com.kylecorry.trail_sense.shared.Cache
-import com.kylecorry.trail_sense.shared.Throttle
+import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.kylecorry.trail_sense.shared.system.UiUtils
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
-import com.kylecorry.trail_sense.shared.switchToFragment
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
+import kotlin.math.abs
 
 class NavigatorFragment(
     private val initialDestination: Beacon? = null,
@@ -48,8 +46,6 @@ class NavigatorFragment(
     private lateinit var roundCompass: ICompassView
     private lateinit var linearCompass: ICompassView
     private lateinit var userPrefs: UserPreferences
-
-    private lateinit var navigationVM: NavigationViewModel
 
     private lateinit var locationTxt: TextView
     private lateinit var altitudeTxt: TextView
@@ -81,10 +77,18 @@ class NavigatorFragment(
     private val cache by lazy { Cache(requireContext()) }
     private val throttle = Throttle(16)
 
+    private val navigationService = NavigationService()
+    private val astronomyService = AstronomyService()
+    private val formatService by lazy { FormatService(requireContext()) }
+
+    private var averageSpeed = 0f
+
     private lateinit var beacons: Collection<Beacon>
 
     private var timer: Timer? = null
     private var handler: Handler? = null
+
+    private var destination: Beacon? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -148,6 +152,8 @@ class NavigatorFragment(
         declinationProvider = sensorService.getDeclinationProvider()
         altimeter = sensorService.getAltimeter()
 
+        averageSpeed = userPrefs.navigation.averageSpeed
+
         if (createBeacon != null) {
             switchToFragment(
                 PlaceBeaconFragment(beaconRepo, gps, createBeacon),
@@ -155,10 +161,8 @@ class NavigatorFragment(
             )
         }
 
-        navigationVM =
-            NavigationViewModel(compass, gps, altimeter, orientation, userPrefs, beaconRepo)
-        navigationVM.beacon = initialDestination
-        val beacon = navigationVM.beacon?.id
+        destination = initialDestination
+        val beacon = destination?.id
         if (beacon != null) {
             showCalibrationDialog()
             cache.putInt(Cache.LAST_BEACON_ID, beacon)
@@ -179,18 +183,18 @@ class NavigatorFragment(
 
         locationTxt.setOnLongClickListener {
             val sender = LocationSharesheet(requireContext())
-            sender.send(navigationVM.shareableLocation)
+            sender.send(gps.location)
             true
         }
 
         beaconBtn.setOnClickListener {
-            if (!navigationVM.showDestination) {
+            if (beacon == null) {
                 switchToFragment(
                     BeaconListFragment(beaconRepo, gps),
                     addToBackStack = true
                 )
             } else {
-                navigationVM.beacon = null
+                destination = null
                 cache.remove(Cache.LAST_BEACON_ID)
                 updateNavigator()
             }
@@ -221,14 +225,29 @@ class NavigatorFragment(
     }
 
     private fun displayAccuracyTips() {
+
+        val gpsHorizontalAccuracy = gps.horizontalAccuracy
+        val gpsVerticalAccuracy = gps.horizontalAccuracy
+
+        val gpsHAccuracyStr =
+            if (gpsHorizontalAccuracy == null) getString(R.string.accuracy_distance_unknown) else getString(
+                R.string.accuracy_distance_format,
+                formatService.formatSmallDistance(gpsHorizontalAccuracy)
+            )
+        val gpsVAccuracyStr =
+            if (gpsVerticalAccuracy == null) getString(R.string.accuracy_distance_unknown) else getString(
+                R.string.accuracy_distance_format,
+                formatService.formatSmallDistance(gpsVerticalAccuracy)
+            )
+
         UiUtils.alert(
             requireContext(),
             getString(R.string.accuracy_info_title),
             getString(
                 R.string.accuracy_info,
-                navigationVM.gpsHorizontalAccuracy,
-                navigationVM.gpsVerticalAccuracy,
-                navigationVM.gpsSatellites
+                gpsHAccuracyStr,
+                gpsVAccuracyStr,
+                gps.satellites.toString()
             )
         )
     }
@@ -263,9 +282,6 @@ class NavigatorFragment(
             }
         }
 
-
-        compass.beacons = navigationVM.nearestBeacons
-        compass.azimuth = this.compass.bearing.value
         visibleCompass.visibility = View.INVISIBLE
         visibleCompass = compass
         visibleCompass.visibility = View.VISIBLE
@@ -279,7 +295,7 @@ class NavigatorFragment(
         // Resume navigation
         val lastBeaconId = cache.getInt(Cache.LAST_BEACON_ID)
         if (lastBeaconId != null) {
-            navigationVM.beacon = beaconRepo.get(lastBeaconId)
+            destination = beaconRepo.get(lastBeaconId)
         }
 
         flashlightState = flashlight.getState()
@@ -325,8 +341,70 @@ class NavigatorFragment(
     }
 
     private fun getNearbyBeacons(): Collection<Beacon> {
-        val service = NavigationService()
-        return service.getNearbyBeacons(gps.location, beacons, userPrefs.navigation.numberOfVisibleBeacons, NavigationViewModel.MIN_BEACON_DISTANCE)
+
+        if (!userPrefs.navigation.showMultipleBeacons) {
+            return listOf()
+        }
+
+        return navigationService.getNearbyBeacons(
+            gps.location,
+            beacons,
+            userPrefs.navigation.numberOfVisibleBeacons,
+            8f
+        )
+    }
+
+    private fun getSunBearing(): Bearing {
+        return astronomyService.getSunAzimuth(gps.location)
+    }
+
+    private fun getMoonBearing(): Bearing {
+        return astronomyService.getMoonAzimuth(gps.location)
+    }
+
+    private fun getDestinationBearing(): Bearing? {
+        val destLocation = destination?.coordinate ?: return null
+        return gps.location.bearingTo(destLocation)
+    }
+
+    private fun getSelectedBeacon(nearby: Collection<Beacon>): Beacon? {
+        return destination ?: getFacingBeacon(nearby)
+    }
+
+    private fun transformTrueNorthBearing(bearing: Bearing): Bearing {
+        return if (userPrefs.navigation.useTrueNorth) {
+            bearing
+        } else {
+            bearing.withDeclination(-declinationProvider.declination)
+        }
+    }
+
+    private fun getFacingBeacon(nearby: Collection<Beacon>): Beacon? {
+        return nearby.map {
+            Pair(it, gps.location.bearingTo(it.coordinate))
+        }.filter {
+            abs(deltaAngle(it.second.value, compass.bearing.value)) < 20
+        }.minBy { it.second.value }?.first
+    }
+
+    private fun getCompassMarkers(nearby: Collection<Beacon>): Collection<Bearing> {
+        if (destination != null) {
+            return listOf(
+                getSunBearing(),
+                getMoonBearing(),
+                getDestinationBearing() ?: Bearing(0f)
+            ).map { transformTrueNorthBearing(it) }
+        }
+
+        if (!userPrefs.navigation.showMultipleBeacons) {
+            return listOf(getSunBearing(), getMoonBearing()).map { transformTrueNorthBearing(it) }
+        }
+
+        val sunAndMoon = listOf(getSunBearing(), getMoonBearing())
+
+        val beacons = nearby.map { gps.location.bearingTo(it.coordinate) }
+
+        return (sunAndMoon + beacons).map { transformTrueNorthBearing(it) }
     }
 
     private fun updateUI() {
@@ -337,63 +415,54 @@ class NavigatorFragment(
 
         updateFlashlightUI()
 
-        navigationVM.updateVisibleBeacon()
+        val nearby = getNearbyBeacons()
+        val selectedBeacon = getSelectedBeacon(nearby)
 
-        if (navigationVM.showNavigationSheet) {
-            val beacon = navigationVM.visibleBeacon
-            if (beacon != null) {
-                destinationPanel.show(
-                    getPosition(),
-                    beacon,
-                    navigationVM.declination,
-                    navigationVM.useTrueNorth
-                )
-            }
+        if (selectedBeacon != null) {
+            destinationPanel.show(
+                getPosition(),
+                selectedBeacon,
+                declinationProvider.declination,
+                userPrefs.navigation.useTrueNorth
+            )
         } else {
             destinationPanel.hide()
         }
 
-        gpsAccuracyTxt.text = navigationVM.gpsAccuracy
-        compassAccuracyTxt.text = navigationVM.compassAccuracy
+        gpsAccuracyTxt.text = formatService.formatAccuracy(gps.accuracy)
+        compassAccuracyTxt.text = formatService.formatAccuracy(compass.accuracy)
 
-        if (navigationVM.showCompassAccuracy) {
-            compassAccuracy.visibility = View.VISIBLE
-        } else {
-            compassAccuracy.visibility = View.INVISIBLE
-        }
-
-        if (navigationVM.showGpsAccuracy) {
-            gpsAccuracy.visibility = View.VISIBLE
-        } else {
-            gpsAccuracy.visibility = View.INVISIBLE
-        }
-
-        if (navigationVM.currentSpeed == 0.0f) {
+        if (gps.speed == 0.0f) {
             speedTxt.text = getString(R.string.dash)
         } else {
-            speedTxt.text = getString(navigationVM.speedUnit, navigationVM.currentSpeed)
+            speedTxt.text = formatService.formatSpeed(gps.speed)
         }
 
-        if (navigationVM.showLinearCompass) {
+        if (shouldShowLinearCompass()) {
             setVisibleCompass(linearCompass)
         } else {
             setVisibleCompass(roundCompass)
         }
 
-        azimuthTxt.text = navigationVM.azimuthTxt
-        directionTxt.text = navigationVM.azimuthDirection
-        visibleCompass.azimuth = navigationVM.azimuth
-        visibleCompass.beacons = navigationVM.nearestBeacons
+        // Azimuth
+        azimuthTxt.text = formatService.formatDegrees(compass.bearing.value)
+        directionTxt.text = formatService.formatDirection(compass.bearing.direction)
 
-        altitudeTxt.text = navigationVM.altitude
+        // Compass
+        visibleCompass.azimuth = compass.bearing.value
+        visibleCompass.beacons = getCompassMarkers(nearby).map { it.value }
 
-        visibleCompass.beacons = navigationVM.nearestBeacons
-        locationTxt.text = navigationVM.location
+        // Altitude
+        altitudeTxt.text = formatService.formatSmallDistance(altimeter.altitude)
 
-        beaconIndicators[0].visibility = navigationVM.sunBeaconVisibility
-        beaconIndicators[1].visibility = navigationVM.moonBeaconVisibility
-        beaconIndicators[0].alpha = navigationVM.sunBeaconOpacity
-        beaconIndicators[1].alpha = navigationVM.moonBeaconOpacity
+        // Location
+        locationTxt.text = formatService.formatLocation(gps.location)
+
+        // Sun and moon
+        beaconIndicators[0].visibility = getSunBeaconVisibility()
+        beaconIndicators[1].visibility = getMoonBeaconVisibility()
+        beaconIndicators[0].alpha = getSunBeaconOpacity()
+        beaconIndicators[1].alpha = getMoonBeaconOpacity()
 
         beaconIndicators.forEach {
             if (it.height == 0) {
@@ -402,8 +471,48 @@ class NavigatorFragment(
         }
     }
 
+    private fun shouldShowLinearCompass(): Boolean {
+        return userPrefs.navigation.showLinearCompass && orientation.orientation == DeviceOrientation.Orientation.Portrait
+    }
+
+    private fun getSunBeaconOpacity(): Float {
+        return if (astronomyService.isSunUp(gps.location)) {
+            1f
+        } else {
+            0.5f
+        }
+    }
+
+    private fun getMoonBeaconOpacity(): Float {
+        return if (astronomyService.isMoonUp(gps.location)) {
+            1f
+        } else {
+            0.5f
+        }
+    }
+
+    private fun getSunBeaconVisibility(): Int {
+        return if (userPrefs.astronomy.showOnCompassWhenDown) {
+            View.VISIBLE
+        } else if (!userPrefs.astronomy.showOnCompass || !astronomyService.isSunUp(gps.location)) {
+            View.INVISIBLE
+        } else {
+            View.VISIBLE
+        }
+    }
+
+    private fun getMoonBeaconVisibility(): Int {
+        return if (userPrefs.astronomy.showOnCompassWhenDown) {
+            View.VISIBLE
+        } else if (!userPrefs.astronomy.showOnCompass || !astronomyService.isMoonUp(gps.location)) {
+            View.INVISIBLE
+        } else {
+            View.VISIBLE
+        }
+    }
+
     private fun getPosition(): Position {
-        return Position(gps.location, altimeter.altitude, compass.bearing, navigationVM.speed)
+        return Position(gps.location, altimeter.altitude, compass.bearing, averageSpeed)
     }
 
     private fun showCalibrationDialog() {
@@ -429,7 +538,6 @@ class NavigatorFragment(
 
     private fun onDeclinationUpdate(): Boolean {
         compass.declination = declinationProvider.declination
-        navigationVM.declination = declinationProvider.declination
         updateUI()
         return false
     }
@@ -440,13 +548,33 @@ class NavigatorFragment(
     }
 
     private fun onLocationUpdate(): Boolean {
+        updateAverageSpeed()
         updateUI()
-        navigationVM.onLocationUpdate()
-        return navigationVM.showDestination
+        return destination != null
+    }
+
+    private fun updateAverageSpeed() {
+        if (gps.speed == 0f) {
+            return
+        }
+
+        if (gps.speed > 3f || gps.speed < 0.2f) {
+            // If traveling by running, bike or car or sitting still
+            averageSpeed = gps.speed
+        } else {
+            val lastSpeed = userPrefs.navigation.averageSpeed
+            averageSpeed = if (lastSpeed == 0f) {
+                gps.speed
+            } else {
+                lastSpeed * 0.4f + gps.speed * 0.6f
+            }
+
+            userPrefs.navigation.setAverageSpeed(averageSpeed)
+        }
     }
 
     private fun updateNavigator() {
-        if (navigationVM.showDestination) {
+        if (destination != null) {
             // Navigating
             gps.start(this::onLocationUpdate)
             beaconBtn.setImageResource(R.drawable.ic_cancel)

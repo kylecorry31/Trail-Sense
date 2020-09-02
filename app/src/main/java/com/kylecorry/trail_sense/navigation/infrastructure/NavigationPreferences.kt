@@ -93,7 +93,7 @@ class NavigationPreferences(private val context: Context) {
         return context.getString(locationFormat, latitude, longitude)
     }
 
-    private val locationFormat: Int
+    val locationFormat: Int
         get() {
             return when (prefs.getString(
                 context.getString(R.string.pref_coordinate_format),
@@ -105,7 +105,7 @@ class NavigationPreferences(private val context: Context) {
             }
         }
 
-    private val locationFormatter: ILocationFormatter
+    val locationFormatter: ILocationFormatter
         get() {
             return when (prefs.getString(
                 context.getString(R.string.pref_coordinate_format),
