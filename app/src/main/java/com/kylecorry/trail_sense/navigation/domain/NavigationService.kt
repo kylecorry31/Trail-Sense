@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.math.deltaAngle
 import java.time.Duration
 import kotlin.math.abs
+import kotlin.math.absoluteValue
 import kotlin.math.roundToLong
 
 class NavigationService {
@@ -82,38 +83,7 @@ class NavigationService {
             Pair(it, position.location.bearingTo(it.coordinate).withDeclination(declinationAdjustment))
         }.filter {
             isFacingBearing(position.bearing, it.second)
-        }.minBy { it.second.value }?.first
-    }
-
-    fun getBaseUnit(prefUnits: UserPreferences.DistanceUnits): DistanceUnits {
-        return if (prefUnits == UserPreferences.DistanceUnits.Feet){
-            DistanceUnits.Feet
-        } else {
-            DistanceUnits.Meters
-        }
-    }
-
-    fun toUnits(meters: Float, units: DistanceUnits): Float {
-        return LocationMath.convert(meters, DistanceUnits.Meters, units)
-    }
-
-    fun getDistanceUnits(meters: Float, prefUnits: UserPreferences.DistanceUnits): DistanceUnits {
-        if (prefUnits == UserPreferences.DistanceUnits.Feet) {
-            val feetThreshold = 1000
-            val feet = LocationMath.convert(meters, DistanceUnits.Meters, DistanceUnits.Feet)
-            return if (feet >= feetThreshold) {
-                DistanceUnits.Miles
-            } else {
-                DistanceUnits.Feet
-            }
-        } else {
-            val meterThreshold = 999
-            return if (meters >= meterThreshold) {
-                DistanceUnits.Kilometers
-            } else {
-                DistanceUnits.Meters
-            }
-        }
+        }.minBy { abs(deltaAngle(it.second.value, position.bearing.value)) }?.first
     }
 
 }
