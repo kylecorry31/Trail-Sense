@@ -76,7 +76,7 @@ class DestinationPanel(private val view: View) {
             beaconEta.text = context.getString(R.string.distance_away)
         } else {
             beaconEta.text =
-                context.getString(R.string.eta, formatService.formatDuration(eta, true))
+                context.getString(R.string.eta, formatService.formatDuration(eta, false))
         }
     }
 

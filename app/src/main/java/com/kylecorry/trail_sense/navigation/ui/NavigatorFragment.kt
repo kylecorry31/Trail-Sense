@@ -252,7 +252,7 @@ class NavigatorFragment(
     private fun displayAccuracyTips() {
 
         val gpsHorizontalAccuracy = gps.horizontalAccuracy
-        val gpsVerticalAccuracy = gps.horizontalAccuracy
+        val gpsVerticalAccuracy = gps.verticalAccuracy
 
         val gpsHAccuracyStr =
             if (gpsHorizontalAccuracy == null) getString(R.string.accuracy_distance_unknown) else getString(
@@ -592,11 +592,11 @@ class NavigatorFragment(
     }
 
     private fun updateAverageSpeed() {
-        if (gps.speed == 0f) {
+        if (gps.speed < 0.2f) {
             return
         }
 
-        if (gps.speed > 3f || gps.speed < 0.2f) {
+        if (gps.speed > 2f) {
             // If traveling by running, bike or car or sitting still
             averageSpeed = gps.speed
         } else {
