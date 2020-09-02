@@ -49,6 +49,10 @@ class CompassView(private val compass: ImageView, private val beaconIndicators: 
         indicator.visibility = View.INVISIBLE
     }
 
+    override fun setOnClickListener(fn: () -> Unit) {
+        compass.setOnClickListener { fn.invoke() }
+    }
+
     /**
      * Displays the destination bearing indicator around the compass
      * @param bearing the bearing in degrees to display the indicator at

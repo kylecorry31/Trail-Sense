@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -88,6 +89,7 @@ class NavigatorFragment(
     private var handler: Handler? = null
 
     private var destination: Beacon? = null
+    private var destinationBearing: Bearing? = null
     private var useTrueNorth = false
 
     override fun onCreateView(
@@ -121,7 +123,7 @@ class NavigatorFragment(
 
         val beacons = mutableListOf<ImageView>()
 
-        for (i in 0..(userPrefs.navigation.numberOfVisibleBeacons + 3)) {
+        for (i in 0..(userPrefs.navigation.numberOfVisibleBeacons + 4)) {
             beacons.add(ImageView(requireContext()))
         }
         beaconIndicators = beacons
@@ -129,6 +131,7 @@ class NavigatorFragment(
         val astronomyColor = UiUtils.androidTextColorPrimary(requireContext())
 
         val arrowImg = UiUtils.drawable(requireContext(), R.drawable.ic_arrow_target)
+        val destinationBearingImg = UiUtils.drawable(requireContext(), R.drawable.ic_arrow_target)
         val sunImg = UiUtils.drawable(requireContext(), R.drawable.sun)
         sunImg?.setTint(astronomyColor)
 
@@ -143,6 +146,9 @@ class NavigatorFragment(
 
         beaconIndicators[0].setImageDrawable(sunImg)
         beaconIndicators[1].setImageDrawable(moonImg)
+        beaconIndicators[2].setImageDrawable(destinationBearingImg)
+        beaconIndicators[2].imageTintList =
+            ColorStateList.valueOf(UiUtils.color(requireContext(), R.color.colorAccent))
 
         beaconRepo = BeaconRepo(requireContext())
 
@@ -220,6 +226,25 @@ class NavigatorFragment(
         }
 
         accuracyView.setOnClickListener { displayAccuracyTips() }
+
+        roundCompass.setOnClickListener {
+            if (destinationBearing == null) {
+                destinationBearing = compass.bearing
+                cache.putFloat(Cache.LAST_DEST_BEARING, compass.bearing.value)
+            } else {
+                destinationBearing = null
+                cache.remove(Cache.LAST_DEST_BEARING)
+            }
+        }
+        linearCompass.setOnClickListener {
+            if (destinationBearing == null) {
+                destinationBearing = compass.bearing
+                cache.putFloat(Cache.LAST_DEST_BEARING, compass.bearing.value)
+            } else {
+                destinationBearing = null
+                cache.remove(Cache.LAST_DEST_BEARING)
+            }
+        }
 
         return view
     }
@@ -299,6 +324,11 @@ class NavigatorFragment(
             destination = beaconRepo.get(lastBeaconId)
         }
 
+        val lastDestBearing = cache.getFloat(Cache.LAST_DEST_BEARING)
+        if (lastDestBearing != null){
+            destinationBearing = Bearing(lastDestBearing)
+        }
+
         flashlightState = flashlight.getState()
         compass.start(this::onCompassUpdate)
         gps.start(this::onLocationUpdate)
@@ -356,16 +386,16 @@ class NavigatorFragment(
     }
 
     private fun getSunBearing(): Bearing {
-        return astronomyService.getSunAzimuth(gps.location)
+        return transformTrueNorthBearing(astronomyService.getSunAzimuth(gps.location))
     }
 
     private fun getMoonBearing(): Bearing {
-        return astronomyService.getMoonAzimuth(gps.location)
+        return transformTrueNorthBearing(astronomyService.getMoonAzimuth(gps.location))
     }
 
     private fun getDestinationBearing(): Bearing? {
         val destLocation = destination?.coordinate ?: return null
-        return gps.location.bearingTo(destLocation)
+        return transformTrueNorthBearing(gps.location.bearingTo(destLocation))
     }
 
     private fun getSelectedBeacon(nearby: Collection<Beacon>): Beacon? {
@@ -394,19 +424,22 @@ class NavigatorFragment(
             return listOf(
                 getSunBearing(),
                 getMoonBearing(),
+                destinationBearing ?: compass.bearing,
                 getDestinationBearing() ?: Bearing(0f)
-            ).map { transformTrueNorthBearing(it) }
+            )
         }
 
         if (!userPrefs.navigation.showMultipleBeacons) {
-            return listOf(getSunBearing(), getMoonBearing()).map { transformTrueNorthBearing(it) }
+            return listOf(getSunBearing(), getMoonBearing(), destinationBearing ?: compass.bearing)
         }
 
-        val sunAndMoon = listOf(getSunBearing(), getMoonBearing())
+        val sunAndMoon =
+            listOf(getSunBearing(), getMoonBearing(), destinationBearing ?: compass.bearing)
 
-        val beacons = nearby.map { gps.location.bearingTo(it.coordinate) }
+        val beacons =
+            nearby.map { transformTrueNorthBearing(gps.location.bearingTo(it.coordinate)) }
 
-        return (sunAndMoon + beacons).map { transformTrueNorthBearing(it) }
+        return sunAndMoon + beacons
     }
 
     private fun updateUI() {
@@ -458,6 +491,8 @@ class NavigatorFragment(
         beaconIndicators[1].visibility = getMoonBeaconVisibility()
         beaconIndicators[0].alpha = getSunBeaconOpacity()
         beaconIndicators[1].alpha = getMoonBeaconOpacity()
+        beaconIndicators[2].visibility =
+            if (destination != null || destinationBearing == null) View.INVISIBLE else View.VISIBLE
 
         beaconIndicators.forEach {
             if (it.height == 0) {

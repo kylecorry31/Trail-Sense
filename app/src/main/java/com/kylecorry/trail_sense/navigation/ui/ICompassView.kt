@@ -4,4 +4,6 @@ interface ICompassView {
     var visibility: Int
     var azimuth: Float
     var beacons: List<Float>
+
+    fun setOnClickListener(fn: () -> Unit)
 }

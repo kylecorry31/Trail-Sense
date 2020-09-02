@@ -85,6 +85,7 @@ class Cache(context: Context) {
 
     companion object {
         const val LAST_BEACON_ID = "last_beacon_id"
+        const val LAST_DEST_BEARING = "last_dest_bearing"
     }
 
 }
