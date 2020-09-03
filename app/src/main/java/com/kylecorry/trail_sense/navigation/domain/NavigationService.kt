@@ -4,11 +4,10 @@ import android.location.Location
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trail_sense.shared.math.MathUtils
 import com.kylecorry.trail_sense.shared.math.deltaAngle
 import java.time.Duration
-import kotlin.math.abs
-import kotlin.math.absoluteValue
-import kotlin.math.roundToLong
+import kotlin.math.*
 
 class NavigationService {
 
@@ -44,12 +43,17 @@ class NavigationService {
         return originalVector.copy(altitudeChange = altitudeChange)
     }
 
-    fun eta(distance: Float, speed: Float): Duration? {
-        if (speed == 0f) {
-            return null
-        }
+    fun eta(from: Position, to: Beacon, nonLinear: Boolean = false): Duration {
+        val speed =
+            if (from.speed < 3) MathUtils.clamp(from.speed, 0.89408f, 1.78816f) else from.speed
+        val elevationGain =
+            max(if (to.elevation == null) 0f else (to.elevation - from.altitude), 0f)
+        val distance = from.location.distanceTo(to.coordinate) * (if (nonLinear) PI.toFloat() / 2f else 1f)
 
-        return Duration.ofSeconds((distance / speed).roundToLong())
+        val baseTime = distance / speed
+        val elevationMinutes = (elevationGain / 300f) * 30f * 60f
+
+        return Duration.ofSeconds(baseTime.toLong()).plusSeconds(elevationMinutes.toLong())
     }
 
     fun getNearbyBeacons(
@@ -73,14 +77,22 @@ class NavigationService {
         return abs(deltaAngle(bearing.value, azimuth.value)) < 20
     }
 
-    fun getFacingBeacon(position: Position, beacons: Collection<Beacon>, declination: Float, usingTrueNorth: Boolean = true): Beacon? {
+    fun getFacingBeacon(
+        position: Position,
+        beacons: Collection<Beacon>,
+        declination: Float,
+        usingTrueNorth: Boolean = true
+    ): Beacon? {
         return beacons.map {
             val declinationAdjustment = if (usingTrueNorth) {
                 0f
             } else {
                 -declination
             }
-            Pair(it, position.location.bearingTo(it.coordinate).withDeclination(declinationAdjustment))
+            Pair(
+                it,
+                position.location.bearingTo(it.coordinate).withDeclination(declinationAdjustment)
+            )
         }.filter {
             isFacingBearing(position.bearing, it.second)
         }.minBy { abs(deltaAngle(it.second.value, position.bearing.value)) }?.first

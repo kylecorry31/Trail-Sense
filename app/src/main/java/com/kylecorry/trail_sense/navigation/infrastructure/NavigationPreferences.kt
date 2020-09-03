@@ -117,4 +117,8 @@ class NavigationPreferences(private val context: Context) {
             }
         }
 
+
+    val factorInNonLinearDistance: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_non_linear_distances), true)
+
 }

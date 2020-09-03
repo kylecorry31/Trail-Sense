@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.*
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.system.UiUtils
 
 class DestinationPanel(private val view: View) {
@@ -24,6 +25,8 @@ class DestinationPanel(private val view: View) {
     private val beaconEta = view.findViewById<TextView>(R.id.beacon_eta)
     private val navigationService = NavigationService()
     private val formatService = FormatService(view.context)
+    private val prefs = UserPreferences(view.context)
+    private val nonLinearDistances = prefs.navigation.factorInNonLinearDistance
     private val context = view.context
     private var beacon: Beacon? = null
 
@@ -56,7 +59,7 @@ class DestinationPanel(private val view: View) {
         beaconName.text = destination.name
         updateDestinationDirection(vector.direction)
         updateDestinationElevation(destination.elevation, vector.altitudeChange)
-        updateDestinationEta(vector.distance, position.speed)
+        updateDestinationEta(position, destination)
     }
 
     fun hide() {
@@ -69,15 +72,11 @@ class DestinationPanel(private val view: View) {
         beaconDirectionCardinal.text = formatService.formatDirection(azimuth.direction)
     }
 
-    private fun updateDestinationEta(distance: Float, speed: Float) {
-        beaconDistance.text = formatService.formatLargeDistance(distance)
-        val eta = navigationService.eta(distance, speed)
-        if (eta == null) {
-            beaconEta.text = context.getString(R.string.distance_away)
-        } else {
-            beaconEta.text =
-                context.getString(R.string.eta, formatService.formatDuration(eta, false))
-        }
+    private fun updateDestinationEta(position: Position, beacon: Beacon) {
+        beaconDistance.text =
+            formatService.formatLargeDistance(position.location.distanceTo(beacon.coordinate))
+        val eta = navigationService.eta(position, beacon, nonLinearDistances)
+        beaconEta.text = context.getString(R.string.eta, formatService.formatDuration(eta, false))
     }
 
     private fun updateDestinationElevation(destinationElevation: Float?, elevationChange: Float?) {
