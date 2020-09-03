@@ -7,10 +7,19 @@ import kotlin.math.absoluteValue
 class AvalancheRiskClassifier {
 
     fun classify(inclination: Float): AvalancheRisk {
+
+        val absAngle = inclination.absoluteValue
+
         return when {
-            inclination.absoluteValue < 30 -> AvalancheRisk.NotSteepEnough
-            inclination.absoluteValue <= 45 -> AvalancheRisk.MostAvalanches
-            else -> AvalancheRisk.SlabsLessCommon
+            absAngle < 20 -> {
+                AvalancheRisk.Low
+            }
+            absAngle in 30.0..50.0 -> {
+                AvalancheRisk.High
+            }
+            else -> {
+                AvalancheRisk.Moderate
+            }
         }
     }
 

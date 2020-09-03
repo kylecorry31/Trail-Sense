@@ -103,7 +103,7 @@ class InclinometerFragment : Fragment() {
         )
 
         avalancheImg.visibility =
-            if (avalancheRisk == AvalancheRisk.NotSteepEnough) View.INVISIBLE else View.VISIBLE
+            if (avalancheRisk == AvalancheRisk.Low) View.INVISIBLE else View.VISIBLE
         lockImg.visibility = if (slopeAngle != null) View.VISIBLE else View.INVISIBLE
 
         inclineTxt.text = getString(R.string.degree_format, slopeAngle ?: inclinometer.angle)
@@ -141,9 +141,9 @@ class InclinometerFragment : Fragment() {
 
     private fun getAvalancheRiskString(risk: AvalancheRisk): String {
         return when (risk) {
-            AvalancheRisk.NotSteepEnough -> getString(R.string.avalanche_risk_low)
-            AvalancheRisk.SlabsLessCommon -> getString(R.string.avalanche_risk_med)
-            AvalancheRisk.MostAvalanches -> getString(R.string.avalanche_risk_high)
+            AvalancheRisk.Low -> getString(R.string.avalanche_risk_low)
+            AvalancheRisk.Moderate -> getString(R.string.avalanche_risk_med)
+            AvalancheRisk.High -> getString(R.string.avalanche_risk_high)
         }
     }
 
