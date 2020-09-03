@@ -2,14 +2,16 @@ package com.kylecorry.trail_sense.shared.sensors
 
 object MathUtils {
     fun wrap(value: Float, min: Float, max: Float): Float {
+        val range = max - min
+
         var newValue = value
 
-        while(newValue < min){
-            newValue += min
+        while (newValue > max) {
+            newValue -= range
         }
 
-        while (newValue > max){
-            newValue -= max
+        while (newValue < min) {
+            newValue += range
         }
 
         return newValue

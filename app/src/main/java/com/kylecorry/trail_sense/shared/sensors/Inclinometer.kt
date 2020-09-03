@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.sensors
 
 import android.content.Context
+import com.kylecorry.trail_sense.experimental.inclinometer.domain.InclinationCalculator
 import com.kylecorry.trail_sense.shared.domain.Accuracy
 import kotlin.math.atan2
 import kotlin.math.sqrt
@@ -29,11 +30,9 @@ class Inclinometer(context: Context) : AbstractSensor(), IInclinometer {
     private fun updateSensor(): Boolean {
 
         // Gravity
-        val normGravity = accelerometer.acceleration.normalize()
+        val gravity = accelerometer.acceleration
 
-        _angle = MathUtils.wrap(Math.toDegrees(atan2(normGravity.y.toDouble(), normGravity.x.toDouble())).toFloat(), -90f, 90f)
-            //Math.toDegrees(atan2(-normGravity.x.toDouble(), magnitude(normGravity.y.toDouble(), normGravity.z.toDouble()))).toFloat()
-            //Math.toDegrees(atan2(normGravity.y.toDouble(), normGravity.z.toDouble())).toFloat()
+        _angle = InclinationCalculator.calculate(gravity)
 
         gotReading = true
         notifyListeners()

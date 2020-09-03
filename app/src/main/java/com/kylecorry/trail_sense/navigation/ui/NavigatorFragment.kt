@@ -157,11 +157,6 @@ class NavigatorFragment(
         gps = sensorService.getGPS()
         declinationProvider = sensorService.getDeclinationProvider()
         altimeter = sensorService.getAltimeter()
-        val inclinometer = sensorService.getInclinometer()
-        inclinometer.start {
-            println(inclinometer.angle)
-            true
-        }
 
         averageSpeed = userPrefs.navigation.averageSpeed
 
