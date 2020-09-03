@@ -399,12 +399,12 @@
     <string name="storm_sensitivity_low_in">Low (0.177 in / 3h)</string>
     <string name="storm_sensitivity_med_in">Medium (0.133 in / 3h)</string>
     <string name="storm_sensitivity_high_in">High (0.089 in / 3h)</string>
-    <string name="experimental_tools_title">Experimental tools</string>
+    <string name="experimental_tools_title">Experimental features</string>
     <string name="inclinometer_title">Inclinometer</string>
-    <string name="experimental_tool_inclinometer">experimental_tool_inclinometer</string>
-    <string name="experimental_tool_inclinometer_summary">Estimate avalanche risks and the height of objects</string>
+    <string name="tool_inclinometer">tool_inclinometer</string>
+    <string name="tool_inclinometer_summary">Estimate avalanche risks and the height of objects</string>
     <string name="current_incline">current incline</string>
-    <string name="action_experimental_tools">Tools</string>
+    <string name="action_tools">Tools</string>
     <string name="pref_enable_experimental">pref_enable_experimental</string>
 
     <string name="avalanche_risk_low">Low avalanche risk</string>

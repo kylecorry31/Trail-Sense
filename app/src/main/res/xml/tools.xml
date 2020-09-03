@@ -3,13 +3,13 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:title="@string/experimental_tools_title">
+        app:title="@string/action_tools">
 
         <Preference
-            android:summary="@string/experimental_tool_inclinometer_summary"
+            android:summary="@string/tool_inclinometer_summary"
             android:title="@string/inclinometer_title"
             android:icon="@drawable/inclinometer"
-            app:key="@string/experimental_tool_inclinometer" />
+            app:key="@string/tool_inclinometer" />
 
 
     </PreferenceCategory>

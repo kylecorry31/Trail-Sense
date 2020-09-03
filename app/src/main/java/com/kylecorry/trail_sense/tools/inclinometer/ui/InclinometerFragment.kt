@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.experimental.inclinometer.ui
+package com.kylecorry.trail_sense.tools.inclinometer.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.experimental.inclinometer.domain.AvalancheRisk
-import com.kylecorry.trail_sense.experimental.inclinometer.domain.InclinationService
+import com.kylecorry.trail_sense.tools.inclinometer.domain.AvalancheRisk
+import com.kylecorry.trail_sense.tools.inclinometer.domain.InclinationService
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.DeviceOrientation

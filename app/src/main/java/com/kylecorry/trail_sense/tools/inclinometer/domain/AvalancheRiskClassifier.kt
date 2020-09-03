@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.experimental.inclinometer.domain
+package com.kylecorry.trail_sense.tools.inclinometer.domain
 
 import kotlin.math.absoluteValue
 

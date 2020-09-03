@@ -12,13 +12,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment
-import com.kylecorry.trail_sense.experimental.ui.ExperimentalToolsFragment
+import com.kylecorry.trail_sense.tools.ui.ToolsFragment
 import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
@@ -170,7 +169,7 @@ class MainActivity : AppCompatActivity() {
                 switchFragment(AstronomyFragment())
             }
             R.id.action_experimental_tools -> {
-                switchFragment(ExperimentalToolsFragment())
+                switchFragment(ToolsFragment())
             }
             R.id.action_settings -> {
                 switchFragment(SettingsFragment())
