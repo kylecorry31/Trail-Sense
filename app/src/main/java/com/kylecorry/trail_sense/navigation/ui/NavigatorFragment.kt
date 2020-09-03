@@ -157,6 +157,11 @@ class NavigatorFragment(
         gps = sensorService.getGPS()
         declinationProvider = sensorService.getDeclinationProvider()
         altimeter = sensorService.getAltimeter()
+        val inclinometer = sensorService.getInclinometer()
+        inclinometer.start {
+            println(inclinometer.angle)
+            true
+        }
 
         averageSpeed = userPrefs.navigation.averageSpeed
 
@@ -325,7 +330,7 @@ class NavigatorFragment(
         }
 
         val lastDestBearing = cache.getFloat(Cache.LAST_DEST_BEARING)
-        if (lastDestBearing != null){
+        if (lastDestBearing != null) {
             destinationBearing = Bearing(lastDestBearing)
         }
 
