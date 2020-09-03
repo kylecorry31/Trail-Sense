@@ -1,55 +1,40 @@
 package com.kylecorry.trail_sense.experimental.inclinometer.ui
 
-import android.content.res.ColorStateList
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.domain.AstroAltitude
-import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.astronomy.domain.moon.MoonTruePhase
-import com.kylecorry.trail_sense.astronomy.domain.moon.Tide
-import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
 import com.kylecorry.trail_sense.experimental.inclinometer.domain.AvalancheRisk
 import com.kylecorry.trail_sense.experimental.inclinometer.domain.InclinationService
+import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.DeviceOrientation
-import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
-import com.kylecorry.trail_sense.shared.system.UiUtils
-import java.time.Duration
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.concurrent.fixedRateTimer
-import kotlin.math.roundToInt
 
 class InclinometerFragment : Fragment() {
 
     private lateinit var inclineContainer: ConstraintLayout
+    private lateinit var heightTxt: TextView
+    private lateinit var distanceEdit: EditText
+    private lateinit var phoneHeightEdit: EditText
+
     private lateinit var inclineTxt: TextView
     private lateinit var avalancheRiskTxt: TextView
     private lateinit var lockImg: ImageView
+    private lateinit var avalancheImg: ImageView
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val inclinometer by lazy { sensorService.getInclinometer() }
     private val deviceOrientation by lazy { sensorService.getDeviceOrientation() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val inclinationService = InclinationService()
+    private val formatService by lazy { FormatService(requireContext()) }
     private val throttle = Throttle(20)
 
     private var slopeAngle: Float? = null
@@ -61,10 +46,19 @@ class InclinometerFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_inclinometer, container, false)
 
+        heightTxt = view.findViewById(R.id.estimated_height)
+        distanceEdit = view.findViewById(R.id.object_distance)
+        phoneHeightEdit = view.findViewById(R.id.phone_height)
+        avalancheImg = view.findViewById(R.id.avalanche_alert)
         inclineTxt = view.findViewById(R.id.incline)
         avalancheRiskTxt = view.findViewById(R.id.avalanche_risk)
         inclineContainer = view.findViewById(R.id.incline_container)
         lockImg = view.findViewById(R.id.incline_lock)
+
+        if (prefs.distanceUnits == UserPreferences.DistanceUnits.Feet) {
+            distanceEdit.hint = getString(R.string.object_distance_ft)
+            phoneHeightEdit.hint = getString(R.string.your_height_ft)
+        }
 
         inclineContainer.setOnClickListener {
             slopeAngle = if (slopeAngle == null && isOrientationValid()) {
@@ -72,6 +66,7 @@ class InclinometerFragment : Fragment() {
             } else {
                 null
             }
+            lockImg.visibility = if (slopeAngle != null) View.VISIBLE else View.INVISIBLE
         }
 
         return view
@@ -97,6 +92,7 @@ class InclinometerFragment : Fragment() {
 
         if (!isOrientationValid() && slopeAngle == null) {
             // Display rotate icon / message
+            avalancheImg.visibility = View.INVISIBLE
             inclineTxt.text = getString(R.string.dash)
             avalancheRiskTxt.text = getString(R.string.inclinometer_rotate_device)
             return
@@ -106,11 +102,41 @@ class InclinometerFragment : Fragment() {
             slopeAngle ?: inclinometer.angle
         )
 
+        avalancheImg.visibility =
+            if (avalancheRisk == AvalancheRisk.NotSteepEnough) View.INVISIBLE else View.VISIBLE
         lockImg.visibility = if (slopeAngle != null) View.VISIBLE else View.INVISIBLE
 
         inclineTxt.text = getString(R.string.degree_format, slopeAngle ?: inclinometer.angle)
         avalancheRiskTxt.text = getAvalancheRiskString(avalancheRisk)
 
+        updateObjectHeight()
+    }
+
+    private fun updateObjectHeight() {
+        val incline = slopeAngle ?: inclinometer.angle
+
+        val units = prefs.distanceUnits
+
+        val distance = distanceEdit.text.toString().toFloatOrNull()
+        val phoneHeight =
+            phoneHeightEdit.text.toString().toFloatOrNull() ?: LocationMath.convertToBaseUnit(
+                1.5f,
+                units
+            )
+
+        if (distance == null) {
+            heightTxt.text = getString(R.string.dash)
+        } else {
+            val distMeters = LocationMath.convertToMeters(distance, units)
+            val heightMeters = LocationMath.convertToMeters(phoneHeight, units)
+            heightTxt.text = formatService.formatSmallDistance(
+                inclinationService.estimateHeight(
+                    distMeters,
+                    incline,
+                    heightMeters
+                )
+            )
+        }
     }
 
     private fun getAvalancheRiskString(risk: AvalancheRisk): String {

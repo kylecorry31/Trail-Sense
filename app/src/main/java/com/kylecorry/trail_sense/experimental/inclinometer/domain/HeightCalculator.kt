@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.experimental.inclinometer.domain
 
-import kotlin.math.tan
+import com.kylecorry.trail_sense.shared.math.tanDegrees
 
 class HeightCalculator {
 
@@ -10,7 +10,7 @@ class HeightCalculator {
             return 0f
         }
 
-        val heightFromPhone = tan(inclination) * distance
+        val heightFromPhone = tanDegrees(inclination) * distance
 
         return heightFromPhone + phoneHeight
     }

@@ -1,8 +1,6 @@
 package com.kylecorry.trail_sense.shared.math
 
-import kotlin.math.abs
-import kotlin.math.cos
-import kotlin.math.floor
+import kotlin.math.*
 import kotlin.math.sin
 
 /**
@@ -26,12 +24,24 @@ fun sinDegrees(angle: Double): Double {
     return sin(angle.toRadians())
 }
 
+fun tanDegrees(angle: Double): Double {
+    return tan(angle.toRadians())
+}
+
+fun tanDegrees(angle: Float): Float {
+    return tan(angle.toRadians())
+}
+
 fun cosDegrees(angle: Double): Double {
     return cos(angle.toRadians())
 }
 
 fun Double.toRadians(): Double {
     return Math.toRadians(this)
+}
+
+fun Float.toRadians(): Float {
+    return Math.toRadians(this.toDouble()).toFloat()
 }
 
 fun deltaAngle(angle1: Float, angle2: Float): Float {

@@ -399,7 +399,7 @@
     <string name="storm_sensitivity_low_in">Low (0.177 in / 3h)</string>
     <string name="storm_sensitivity_med_in">Medium (0.133 in / 3h)</string>
     <string name="storm_sensitivity_high_in">High (0.089 in / 3h)</string>
-    <string name="experimental_tools_title">Experimental Tools</string>
+    <string name="experimental_tools_title">Experimental tools</string>
     <string name="inclinometer_title">Inclinometer</string>
     <string name="experimental_tool_inclinometer">experimental_tool_inclinometer</string>
     <string name="experimental_tool_inclinometer_summary">Estimate avalanche risks and the height of objects</string>
@@ -412,5 +412,10 @@
     <string name="avalanche_risk_high">High avalanche risk</string>
     <string name="inclinometer_rotate_device">Hold your phone vertically to measure inclination</string>
     <string name="set_inclination_instructions">Tap anywhere to set/unset inclination angle</string>
+    <string name="estimated_height">estimated height</string>
+    <string name="object_distance_m">Distance (m)</string>
+    <string name="your_height_m">Your height (m)</string>
+    <string name="object_distance_ft">Distance (ft)</string>
+    <string name="your_height_ft">Your height (ft)</string>
 
 </resources>
