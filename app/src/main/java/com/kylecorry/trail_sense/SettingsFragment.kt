@@ -71,6 +71,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
 
+        preferenceScreen.findPreference<SwitchPreferenceCompat>(getString(R.string.pref_enable_experimental))
+            ?.setOnPreferenceClickListener {
+                activity?.recreate()
+                true
+            }
+
         preferenceScreen.findPreference<SwitchPreferenceCompat>(getString(R.string.pref_monitor_weather))
             ?.setOnPreferenceChangeListener { _, value ->
                 val shouldMonitorWeather = value as Boolean

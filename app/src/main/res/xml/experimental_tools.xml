@@ -1,0 +1,17 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/experimental_tools_title">
+
+        <Preference
+            android:summary="@string/experimental_tool_inclinometer_summary"
+            android:title="@string/inclinometer_title"
+            android:icon="@drawable/inclinometer"
+            app:key="@string/experimental_tool_inclinometer" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

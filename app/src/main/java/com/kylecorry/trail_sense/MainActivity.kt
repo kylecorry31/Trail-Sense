@@ -18,6 +18,7 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment
+import com.kylecorry.trail_sense.experimental.ui.ExperimentalToolsFragment
 import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
@@ -95,6 +96,11 @@ class MainActivity : AppCompatActivity() {
             item.isVisible = false
         }
 
+        if (!userPrefs.experimentalEnabled){
+            val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_experimental_tools)
+            item.isVisible = false
+        }
+
         val sunsetIntent = SunsetAlarmReceiver.intent(applicationContext)
         sendBroadcast(sunsetIntent)
 
@@ -162,6 +168,9 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_astronomy -> {
                 switchFragment(AstronomyFragment())
+            }
+            R.id.action_experimental_tools -> {
+                switchFragment(ExperimentalToolsFragment())
             }
             R.id.action_settings -> {
                 switchFragment(SettingsFragment())
