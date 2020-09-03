@@ -62,13 +62,13 @@
         android:id="@+id/moon_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="@color/white"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/moonChart"
         app:layout_constraintStart_toStartOf="@+id/moonChart"
         app:layout_constraintTop_toTopOf="@+id/moonChart"
         app:srcCompat="@drawable/moon_waning_crescent"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        app:tint="@color/white" />
 
     <ImageView
         android:id="@+id/sun_position"
@@ -76,13 +76,13 @@
         android:layout_height="32dp"
         android:rotation="0"
         android:scaleType="fitStart"
-        android:tint="@color/colorPrimary"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/moonChart"
         app:layout_constraintStart_toStartOf="@+id/moonChart"
         app:layout_constraintTop_toTopOf="@+id/moonChart"
         app:srcCompat="@drawable/sun"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        app:tint="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/date"

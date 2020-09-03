@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/incline_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/estimated_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/dash"
+        tools:text="10 m" />
+
+    <TextView
+        android:id="@+id/estimated_height_lbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/estimated_height"
+        app:layout_constraintEnd_toEndOf="@+id/estimated_height"
+        app:layout_constraintStart_toStartOf="@+id/estimated_height"
+        app:layout_constraintTop_toBottomOf="@+id/estimated_height" />
+
+    <TextView
+        android:id="@+id/incline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="32" />
+
+    <TextView
+        android:id="@+id/avalanche_risk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/incline"
+        app:layout_constraintStart_toStartOf="@+id/incline"
+        app:layout_constraintTop_toBottomOf="@+id/incline"
+        tools:text="Low avalanche risk" />
+
+    <TextView
+        android:id="@+id/set_inclination_instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/set_inclination_instructions"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/incline_lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:tint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/incline"
+        app:layout_constraintStart_toEndOf="@+id/incline"
+        app:layout_constraintTop_toTopOf="@+id/incline"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        app:srcCompat="@drawable/lock" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/estimated_height_lbl">
+
+        <EditText
+            android:id="@+id/object_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/object_distance_m"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/phone_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/your_height_m"
+            android:inputType="numberDecimal"
+            tools:ignore="TextFields" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/avalanche_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:tint="@color/colorAccent"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/incline"
+        app:layout_constraintEnd_toStartOf="@+id/incline"
+        app:layout_constraintTop_toTopOf="@+id/incline"
+        app:srcCompat="@drawable/avalanche"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -325,7 +325,7 @@ class NavigatorFragment(
         }
 
         val lastDestBearing = cache.getFloat(Cache.LAST_DEST_BEARING)
-        if (lastDestBearing != null){
+        if (lastDestBearing != null) {
             destinationBearing = Bearing(lastDestBearing)
         }
 

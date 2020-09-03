@@ -55,6 +55,9 @@ class UserPreferences(private val context: Context) {
             }
         }
 
+    val experimentalEnabled: Boolean
+        get() = prefs.getBoolean(getString(R.string.pref_enable_experimental), false)
+
     // Calibration
 
     var useAutoDeclination: Boolean

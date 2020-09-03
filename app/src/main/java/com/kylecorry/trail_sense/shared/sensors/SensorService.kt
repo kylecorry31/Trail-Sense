@@ -67,4 +67,8 @@ class SensorService(private val context: Context) {
         return if (userPrefs.weather.hasBarometer) Barometer(context) else NullBarometer()
     }
 
+    fun getInclinometer(): IInclinometer {
+        return Inclinometer(context)
+    }
+
 }

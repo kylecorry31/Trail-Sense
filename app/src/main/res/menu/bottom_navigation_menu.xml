@@ -22,6 +22,12 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_experimental_tools"
+        android:title="@string/action_tools"
+        android:icon="@drawable/inclinometer"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:icon="@drawable/ic_settings"
