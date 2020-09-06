@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.flashlight
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.hardware.camera2.CameraMetadata
@@ -9,10 +10,10 @@ import java.lang.Exception
 
 class FlashlightProxy(private val context: Context) {
 
-    private val cameraService = context.getSystemService<CameraManager>()
+    private val cameraService = getCameraManager(context)
 
     fun on() {
-        if (!hasFlashlight(context)){
+        if (!hasFlashlight(context)) {
             return
         }
         try {
@@ -32,23 +33,44 @@ class FlashlightProxy(private val context: Context) {
 
     companion object {
 
+        private fun getCameraManager(context: Context): CameraManager? {
+            return try {
+                context.getSystemService()
+            } catch (e: Exception) {
+                null
+            }
+        }
+
         fun hasFlashlight(context: Context): Boolean {
-            val cs = context.getSystemService<CameraManager>()
-            val rearCamera = getRearCameraId(context)
-            if (rearCamera.isEmpty() || cs == null){
-                return false
+
+            try {
+                if (!context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+                    return false
+                }
+            } catch (e: Exception) {
+                // Could not check the package manager - do nothing
             }
 
-            val hasFlash = cs.getCameraCharacteristics(rearCamera)
-                .get(CameraCharacteristics.FLASH_INFO_AVAILABLE)
-            val facing = cs.getCameraCharacteristics(rearCamera)
-                .get(CameraCharacteristics.LENS_FACING)
+            try {
+                val cs = getCameraManager(context)
+                val rearCamera = getRearCameraId(context)
+                if (rearCamera.isEmpty() || cs == null) {
+                    return false
+                }
 
-            return hasFlash != null && hasFlash && facing != null && facing == CameraMetadata.LENS_FACING_BACK
+                val hasFlash = cs.getCameraCharacteristics(rearCamera)
+                    .get(CameraCharacteristics.FLASH_INFO_AVAILABLE)
+                val facing = cs.getCameraCharacteristics(rearCamera)
+                    .get(CameraCharacteristics.LENS_FACING)
+
+                return hasFlash != null && hasFlash && facing != null && facing == CameraMetadata.LENS_FACING_BACK
+            } catch (e: Exception) {
+                return false
+            }
         }
 
         private fun getRearCameraId(context: Context): String {
-            val cs = context.getSystemService<CameraManager>()
+            val cs = getCameraManager(context)
             val cameraList = cs?.cameraIdList
             if (cameraList == null || cameraList.isEmpty()) return ""
             for (camera in cameraList) {
