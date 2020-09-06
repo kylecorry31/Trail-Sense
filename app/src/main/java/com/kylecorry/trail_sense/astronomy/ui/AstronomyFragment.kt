@@ -379,16 +379,18 @@ class AstronomyFragment : Fragment() {
             )
         }
 
-        details.add(AstroDetail.spacer())
-        val tide = astronomyService.getTides(displayDate)
-        details.add(
-            AstroDetail(
-                R.drawable.tides,
-                getString(R.string.tidal_range),
-                getTideString(tide),
-                R.color.colorAccent
+        if (prefs.experimentalEnabled) {
+            details.add(AstroDetail.spacer())
+            val tide = astronomyService.getTides(displayDate)
+            details.add(
+                AstroDetail(
+                    R.drawable.tides,
+                    getString(R.string.tidal_range),
+                    getTideString(tide),
+                    R.color.colorAccent
+                )
             )
-        )
+        }
 
         adapter.details = details
     }

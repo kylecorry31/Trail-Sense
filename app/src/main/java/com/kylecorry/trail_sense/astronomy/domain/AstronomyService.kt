@@ -81,12 +81,23 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getTides(date: LocalDate = LocalDate.now()): Tide {
-        val phase = getMoonPhase(date)
-        return when (phase.phase) {
-            MoonTruePhase.New, MoonTruePhase.Full -> Tide.Spring
-            MoonTruePhase.FirstQuarter, MoonTruePhase.ThirdQuarter -> Tide.Neap
-            else -> Tide.Normal
+        for (i in 0..3){
+            val phase = getMoonPhase(date.minusDays(i.toLong()))
+
+            when(phase.phase){
+                MoonTruePhase.New, MoonTruePhase.Full -> {
+                    return Tide.Spring
+                }
+                MoonTruePhase.FirstQuarter, MoonTruePhase.ThirdQuarter -> {
+                    return Tide.Neap
+                }
+                else -> {
+                    // Do nothing
+                }
+            }
         }
+
+        return Tide.Normal
     }
 
     // PUBLIC SUN METHODS
