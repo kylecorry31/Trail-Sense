@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.weather.domain.forcasting.HourlyForecaster
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.AltimeterSeaLevelPressureConverter
 import com.kylecorry.trail_sense.weather.domain.sealevel.BarometerGPSAltitudeCalculator2
+import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverter
 import com.kylecorry.trail_sense.weather.domain.tendency.DropPressureTendencyCalculator
 import com.kylecorry.trail_sense.weather.domain.tendency.PressureTendency
 
@@ -16,9 +17,7 @@ class WeatherService(stormThreshold: Float, dailyForecastChangeThreshold: Float,
     private val longTermForecaster = DailyForecaster(dailyForecastChangeThreshold)
     private val tendencyCalculator = DropPressureTendencyCalculator()
     private val pressureClassifier = StandardPressureClassifier()
-    private val seaLevelConverter = AltimeterSeaLevelPressureConverter(
-        BarometerGPSAltitudeCalculator2()
-    )
+    private val seaLevelConverter = SeaLevelPressureConverter()
 
     fun getHourlyWeather(readings: List<PressureReading>): Weather {
         return shortTermForecaster.forecast(readings)
