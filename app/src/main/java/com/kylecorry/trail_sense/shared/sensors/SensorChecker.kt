@@ -12,8 +12,7 @@ class SensorChecker(private val context: Context) {
     private val sensorManager = context.getSystemService<SensorManager>()
 
     fun hasBarometer(): Boolean {
-        val sensors = sensorManager?.getSensorList(Sensor.TYPE_PRESSURE) ?: return false
-        return sensors.isNotEmpty()
+        return hasSensor(Sensor.TYPE_PRESSURE)
     }
 
     fun hasGPS(): Boolean {
@@ -21,8 +20,25 @@ class SensorChecker(private val context: Context) {
     }
 
     fun hasGravity(): Boolean {
-        val sensors = sensorManager?.getSensorList(Sensor.TYPE_GRAVITY)
+        return hasSensor(Sensor.TYPE_GRAVITY)
+    }
+
+    fun hasThermometer(): Boolean {
+        return true
+    }
+
+    fun hasHygrometer(): Boolean {
+        return hasSensor(Sensor.TYPE_RELATIVE_HUMIDITY)
+    }
+
+    fun hasSensor(sensorCode: Int): Boolean {
+        val sensors = sensorManager?.getSensorList(sensorCode)
         return sensors?.isNotEmpty() ?: false
+    }
+
+    fun hasSensorLike(name: String): Boolean {
+        val sensors = sensorManager?.getSensorList(Sensor.TYPE_ALL)
+        return sensors?.any { it.name.contains(name, true) } ?: false
     }
 
 }

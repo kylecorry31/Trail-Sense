@@ -1,5 +1,5 @@
 <resources>
-   <string-array name="distance_unit_entries">
+    <string-array name="distance_unit_entries">
         <item>@string/meters</item>
         <item>@string/feet_miles</item>
     </string-array>
@@ -22,6 +22,16 @@
         <item>in</item>
         <item>mbar</item>
         <item>psi</item>
+    </string-array>
+
+    <string-array name="temperature_unit_entries">
+        <item>@string/celsius</item>
+        <item>@string/fahrenheit</item>
+    </string-array>
+
+    <string-array name="temperature_unit_values">
+        <item>c</item>
+        <item>f</item>
     </string-array>
 
     <string-array name="theme_entries">

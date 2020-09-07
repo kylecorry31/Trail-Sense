@@ -2,17 +2,18 @@ package com.kylecorry.trail_sense.weather.ui
 
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.formatHM
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
@@ -42,6 +43,7 @@ class BarometerFragment : Fragment(), Observer {
     private lateinit var historyDurationTxt: TextView
     private lateinit var pressureMarkerTxt: TextView
     private lateinit var tendencyAmountTxt: TextView
+    private lateinit var temperatureBtn: FloatingActionButton
 
     private lateinit var chart: PressureChart
 
@@ -74,6 +76,7 @@ class BarometerFragment : Fragment(), Observer {
         weatherLaterTxt = view.findViewById(R.id.weather_later_lbl)
         pressureMarkerTxt = view.findViewById(R.id.pressure_marker)
         tendencyAmountTxt = view.findViewById(R.id.tendency_amount)
+        temperatureBtn = view.findViewById(R.id.temperature_btn)
         chart = PressureChart(
             view.findViewById(R.id.chart),
             resources.getColor(R.color.colorPrimary, null),
@@ -97,6 +100,16 @@ class BarometerFragment : Fragment(), Observer {
         )
         trendImg = view.findViewById(R.id.barometer_trend)
         historyDurationTxt = view.findViewById(R.id.pressure_history_duration)
+
+        if (prefs.experimentalEnabled) {
+            temperatureBtn.visibility = View.VISIBLE
+        } else {
+            temperatureBtn.visibility = View.GONE
+        }
+
+        temperatureBtn.setOnClickListener {
+            switchToFragment(ThermometerFragment(), addToBackStack = true)
+        }
 
 
         return view

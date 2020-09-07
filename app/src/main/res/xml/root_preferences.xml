@@ -24,6 +24,15 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
+            app:defaultValue="c"
+            app:entries="@array/temperature_unit_entries"
+            app:entryValues="@array/temperature_unit_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_temperature_units"
+            app:title="@string/pref_temperature_units_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
             app:defaultValue="dms"
             app:entries="@array/coordinate_format_entries"
             app:entryValues="@array/coordinate_format_values"
