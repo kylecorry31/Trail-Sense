@@ -1,0 +1,8 @@
+- Manual overrides for location, altitude, and declination
+- Improved GPS accuracy
+- Calibration reminder
+- Pressure tendency display (in tab and notification)
+- Ability to force pressure readings at a set interval
+- Experimental features: inclinometer and tidal range (enable in settings)
+- About section in settings
+- Bug fixes
