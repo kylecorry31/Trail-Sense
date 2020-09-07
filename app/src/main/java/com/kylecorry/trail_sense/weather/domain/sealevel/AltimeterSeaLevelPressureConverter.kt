@@ -14,7 +14,8 @@ internal class AltimeterSeaLevelPressureConverter(private val altitudeCalculator
                 reading.time,
                 SeaLevelPressureCalibrator.calibrate(
                     reading.pressure,
-                    altitudeHistory[index].value
+                    altitudeHistory[index].value,
+                    reading.temperature ?: 16f
                 )
             )
         }
