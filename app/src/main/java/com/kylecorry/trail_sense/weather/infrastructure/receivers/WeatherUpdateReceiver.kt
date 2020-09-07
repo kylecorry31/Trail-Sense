@@ -135,7 +135,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val raw = prefs.getString(LAST_CALLED_KEY, LocalDateTime.MIN.toString())
             ?: LocalDateTime.MIN.toString()
-        return LocalDateTime.MIN //parse(raw)
+        return LocalDateTime.parse(raw)
     }
 
     private fun setLastUpdatedTime() {
