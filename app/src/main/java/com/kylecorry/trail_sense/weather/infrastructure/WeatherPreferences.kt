@@ -14,6 +14,9 @@ class WeatherPreferences(private val context: Context) {
     val hasBarometer: Boolean
         get() = sensorChecker.hasBarometer()
 
+    val hasThermometer: Boolean
+        get() = sensorChecker.hasThermometer()
+
     val shouldMonitorWeather: Boolean
         get() = sensorChecker.hasBarometer() && prefs.getBoolean(context.getString(R.string.pref_monitor_weather), true)
 

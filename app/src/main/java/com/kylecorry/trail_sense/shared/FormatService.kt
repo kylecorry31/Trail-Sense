@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.compass.CompassDirection
 import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trail_sense.weather.domain.TemperatureUnits
 import java.time.Duration
 
 class FormatService(private val context: Context) {
@@ -15,6 +16,19 @@ class FormatService(private val context: Context) {
 
     fun formatDegrees(degrees: Float): String {
         return context.getString(R.string.degree_format, degrees)
+    }
+
+    fun formatTemperature(degreesC: Float, units: TemperatureUnits): String {
+        return if (units == TemperatureUnits.C) {
+            context.getString(R.string.temp_c_format, degreesC)
+        } else {
+            val f = degreesC * 9 / 5f + 32
+            context.getString(R.string.temp_f_format, f)
+        }
+    }
+
+    fun formatHumidity(humidity: Float): String {
+        return context.getString(R.string.humidity_format, humidity)
     }
 
     fun formatDirection(direction: CompassDirection): String {
