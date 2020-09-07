@@ -141,7 +141,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun setAltimeterTimeout(millis: Long) {
-        timeout = timer(period = millis) {
+        timeout = timer(initialDelay = millis, period = millis) {
             if (!hasAltitude) {
                 hasAltitude = true
                 if (hasBarometerReading) {
