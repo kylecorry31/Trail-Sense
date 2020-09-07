@@ -152,6 +152,14 @@
             app:key="@string/pref_show_pressure_in_notification"
             app:title="@string/pref_show_pressure_in_notification_title" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_force_weather_updates"
+            app:title="@string/pref_force_weather_updates_title"
+            android:summary="@string/pref_force_weather_updates_summary"
+            android:dependency="@string/pref_monitor_weather"/>
+
         <ListPreference
             app:defaultValue="48"
             app:dependency="@string/pref_monitor_weather"

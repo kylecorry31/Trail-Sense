@@ -98,6 +98,21 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         val satellites = location.extras.getInt("satellites")
         val dt = System.currentTimeMillis() - fixStart
 
+        if (useNewLocation(
+                lastLocation,
+                location
+            ) && location.hasAltitude() && location.altitude != 0.0
+        ) {
+            // Forces an altitude update irrespective of the satellite count - helps when the GPS is being polled in the background
+            _altitude = location.altitude.toFloat()
+
+            cache.putFloat(LAST_ALTITUDE, _altitude)
+
+            if (userPrefs.useAltitudeOffsets) {
+                _altitude -= AltitudeCorrection.getOffset(this._location, context)
+            }
+        }
+
         if (satellites < 4 && dt < maxFixTime) {
             return
         }

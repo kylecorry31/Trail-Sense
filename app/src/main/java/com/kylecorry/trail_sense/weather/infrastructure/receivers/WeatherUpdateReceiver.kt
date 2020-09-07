@@ -97,7 +97,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             context,
             LocalDateTime.now().plusMinutes(alarmMinutes),
             pendingIntent(context),
-            exact = false,
+            exact = userPrefs.weather.forceUpdates,
             allowWhileIdle = true
         )
     }

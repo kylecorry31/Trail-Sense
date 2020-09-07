@@ -32,6 +32,9 @@ class WeatherPreferences(private val context: Context) {
             return Duration.ofHours(raw.toLong())
         }
 
+    val forceUpdates: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_force_weather_updates), false)
+
     val sendStormAlerts: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_send_storm_alert), true)
 
