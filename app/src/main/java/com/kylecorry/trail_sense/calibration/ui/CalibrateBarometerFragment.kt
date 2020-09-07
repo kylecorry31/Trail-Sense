@@ -5,6 +5,7 @@ import androidx.preference.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.temperature.IThermometer
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnits
@@ -22,6 +23,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
 
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
+    private lateinit var thermometer: IThermometer
 
     private val weatherService = WeatherService(0f, 0f, 0f)
     private lateinit var units: PressureUnits
@@ -35,6 +37,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
 
         barometer = sensorService.getBarometer()
         altimeter = sensorService.getAltimeter()
+        thermometer = sensorService.getThermometer()
 
         bindPreferences()
     }
@@ -54,6 +57,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     override fun onResume() {
         super.onResume()
         startBarometer()
+        thermometer.start(this::updateTemperature)
         if (prefs.weather.useSeaLevelPressure && !altimeter.hasValidReading) {
             altimeter.start(this::updateAltitude)
         }
@@ -63,11 +67,17 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
         super.onPause()
         stopBarometer()
         altimeter.stop(this::updateAltitude)
+        thermometer.stop(this::updateTemperature)
     }
 
     private fun updateAltitude(): Boolean {
         update()
         return false
+    }
+
+    private fun updateTemperature(): Boolean {
+        update()
+        return true
     }
 
     private fun startBarometer() {
@@ -96,7 +106,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
             weatherService.convertToSeaLevel(
                 listOf(
                     PressureAltitudeReading(
-                        Instant.now(), barometer.pressure, altimeter.altitude
+                        Instant.now(), barometer.pressure, altimeter.altitude, thermometer.temperature
                     )
                 )
             ).first().value

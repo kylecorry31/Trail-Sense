@@ -46,7 +46,8 @@ object PressureHistoryRepository : Observable(), IPressureHistoryRepository {
                         PressureAltitudeReading(
                             Instant.ofEpochMilli(it[0].toLong()),
                             it[1].toFloat(),
-                            it[2].toFloat()
+                            it[2].toFloat(),
+                            if (it.size > 3) it[3].toFloat() else 16f
                         )
                     }
                     .sortedBy { it.time }
@@ -64,7 +65,7 @@ object PressureHistoryRepository : Observable(), IPressureHistoryRepository {
     private fun saveToFile(context: Context) {
         context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE).use {
             val output = readings.joinToString("\n") { reading ->
-                "${reading.time.toEpochMilli()},${reading.pressure},${reading.altitude}"
+                "${reading.time.toEpochMilli()},${reading.pressure},${reading.altitude},${reading.temperature}"
             }.toByteArray()
             it.write(output)
         }
@@ -121,7 +122,7 @@ object PressureHistoryRepository : Observable(), IPressureHistoryRepository {
                 "1,1008\n" +
                 "0,1007.6").split("\n").map { it.split(",") }
             .map {
-                PressureAltitudeReading(Instant.now().minusSeconds(it[0].toLong() * 60 * 60), it[1].toFloat(), 0f) }
+                PressureAltitudeReading(Instant.now().minusSeconds(it[0].toLong() * 60 * 60), it[1].toFloat(), 0f, 0f) }
     }
 
 }
