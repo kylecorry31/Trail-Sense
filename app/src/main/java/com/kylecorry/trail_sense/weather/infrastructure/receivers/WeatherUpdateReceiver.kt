@@ -9,6 +9,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.Intervalometer
 import com.kylecorry.trail_sense.shared.system.AlarmUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
@@ -30,7 +31,14 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
     private lateinit var sensorService: SensorService
-    private lateinit var timeout: Timer
+    private val timeout = Intervalometer(Runnable {
+        if (!hasAltitude) {
+            hasAltitude = true
+            if (hasBarometerReading) {
+                gotAllReadings()
+            }
+        }
+    })
 
     private var hasAltitude = false
     private var hasBarometerReading = false
@@ -141,15 +149,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun setAltimeterTimeout(millis: Long) {
-        timeout = timer(initialDelay = millis, period = millis) {
-            if (!hasAltitude) {
-                hasAltitude = true
-                if (hasBarometerReading) {
-                    gotAllReadings()
-                }
-            }
-            cancel()
-        }
+        timeout.once(millis)
     }
 
     private fun startSensors() {
@@ -192,7 +192,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun stopTimeout() {
-        timeout.cancel()
+        timeout.stop()
     }
 
     private fun addNewPressureReading() {
