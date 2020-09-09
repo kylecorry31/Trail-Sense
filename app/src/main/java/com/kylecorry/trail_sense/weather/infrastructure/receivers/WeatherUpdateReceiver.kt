@@ -11,10 +11,9 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.Intervalometer
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.IAltimeter
-import com.kylecorry.trail_sense.shared.sensors.IBarometer
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.system.AlarmUtils
+import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.temperature.IThermometer
 import com.kylecorry.trail_sense.shared.system.IntentUtils
 import com.kylecorry.trail_sense.shared.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
@@ -27,12 +26,17 @@ import java.time.Duration
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
+import java.time.*
+import java.util.*
+import kotlin.concurrent.timer
+import kotlin.math.absoluteValue
 
 class WeatherUpdateReceiver : BroadcastReceiver() {
 
     private lateinit var context: Context
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
+    private lateinit var thermometer: IThermometer
     private lateinit var sensorService: SensorService
     private val timeout = Intervalometer(Runnable {
         if (!hasAltitude) {
@@ -45,6 +49,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
     private var hasAltitude = false
     private var hasBarometerReading = false
+    private var hasTemperatureReading = false
 
     private lateinit var userPrefs: UserPreferences
     private lateinit var weatherService: WeatherService
@@ -66,6 +71,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         sensorService = SensorService(context)
         barometer = sensorService.getBarometer()
         altimeter = sensorService.getAltimeter()
+        thermometer = sensorService.getThermometer()
 
         start(intent)
     }
@@ -81,7 +87,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         }
 
         setLastUpdatedTime()
-        setAltimeterTimeout(10000L)
+        setSensorTimeout(10000L)
         startSensors()
     }
 
@@ -162,25 +168,31 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             altimeter.start(this::onAltitudeUpdate)
         }
         barometer.start(this::onPressureUpdate)
+        thermometer.start(this::onTemperatureUpdate)
     }
 
     private fun onAltitudeUpdate(): Boolean {
         hasAltitude = true
-        if (hasBarometerReading) {
-            gotAllReadings()
-        }
+        gotAllReadings()
         return false
     }
 
     private fun onPressureUpdate(): Boolean {
         hasBarometerReading = true
-        if (hasAltitude) {
-            gotAllReadings()
-        }
+        gotAllReadings()
+        return false
+    }
+
+    private fun onTemperatureUpdate(): Boolean {
+        hasTemperatureReading = true
+        gotAllReadings()
         return false
     }
 
     private fun gotAllReadings() {
+        if (!hasAltitude || !hasBarometerReading || !hasTemperatureReading){
+            return
+        }
         stopSensors()
         stopTimeout()
         addNewPressureReading()
@@ -192,6 +204,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     private fun stopSensors() {
         altimeter.stop(this::onAltitudeUpdate)
         barometer.stop(this::onPressureUpdate)
+        thermometer.stop(this::onTemperatureUpdate)
     }
 
     private fun stopTimeout() {
@@ -204,7 +217,8 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             PressureAltitudeReading(
                 Instant.now(),
                 barometer.pressure,
-                altimeter.altitude
+                altimeter.altitude,
+                if (thermometer.temperature.isNaN()) 16f else thermometer.temperature
             )
         )
     }
