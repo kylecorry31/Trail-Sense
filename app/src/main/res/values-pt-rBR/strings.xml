@@ -403,7 +403,6 @@
     <string name="inclinometer_title">Inclinômetro</string>
     <string name="tool_inclinometer">tool_inclinometer</string>
     <string name="tool_inclinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
-    <string name="current_incline">inclinação atual</string>
     <string name="action_tools">Ferramentas</string>
     <string name="pref_enable_experimental">pref_enable_experimental</string>
 

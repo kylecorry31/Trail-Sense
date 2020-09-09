@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
+import java.time.Duration
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 
@@ -85,8 +86,9 @@ class NavigatorFragment(
     private lateinit var beacons: Collection<Beacon>
     private var nearbyBeacons: Collection<Beacon> = listOf()
 
-    private var timer: Timer? = null
-    private var handler: Handler? = null
+    private val intervalometer = Intervalometer(Runnable {
+        gps.start(this::onLocationUpdate)
+    })
 
     private var destination: Beacon? = null
     private var destinationBearing: Bearing? = null
@@ -341,19 +343,9 @@ class NavigatorFragment(
             declinationProvider.start(this::onDeclinationUpdate)
         }
 
-        if (!userPrefs.useLocationFeatures) {
-            beaconBtn.hide()
-        } else {
-            beaconBtn.show()
-            if (userPrefs.navigation.showMultipleBeacons) {
-                val that = this
-                handler = Handler(Looper.getMainLooper())
-                timer = fixedRateTimer(period = 15000) {
-                    handler?.post {
-                        gps.start(that::onLocationUpdate)
-                    }
-                }
-            }
+        beaconBtn.show()
+        if (userPrefs.navigation.showMultipleBeacons) {
+            intervalometer.interval(Duration.ofSeconds(15))
         }
 
         // Update the UI
@@ -367,8 +359,7 @@ class NavigatorFragment(
         altimeter.stop(this::onAltitudeUpdate)
         orientation.stop(this::onOrientationUpdate)
         declinationProvider.stop(this::onDeclinationUpdate)
-        timer?.cancel()
-        timer = null
+        intervalometer.stop()
     }
 
     private fun getNearbyBeacons(): Collection<Beacon> {
