@@ -258,6 +258,10 @@
     <string name="pref_barometer_pressure_title">Pressure</string>
     <string name="pref_use_sea_level_pressure_title">Sea level pressure</string>
     <string name="barometer">Barometer</string>
+    <string name="pref_adjust_for_temperature_title">Factor in temperature</string>
+    <string name="pref_adjust_for_temperature_summary">Use the temperature in sea level pressure conversions</string>
+    <string name="pref_sea_level_use_rapid_title">Factor in rapid pressure changes</string>
+    <string name="pref_sea_level_use_rapid_summary">Use rapid pressure changes in sea level pressure conversions</string>
 
     <!--Settings - Navigation-->
     <string name="pref_navigation_header">Navigation</string>
@@ -419,4 +423,6 @@
     <string name="pref_non_linear_distances" translatable="false">pref_non_linear_distances</string>
     <string name="pref_force_weather_updates" translatable="false">pref_force_weather_updates</string>
     <string name="pref_temperature_units" translatable="false">pref_temperature_units</string>
+    <string name="pref_adjust_for_temperature" translatable="false">pref_adjust_for_temperature</string>
+    <string name="pref_sea_level_use_rapid" translatable="false">pref_sea_level_use_rapid</string>
 </resources>

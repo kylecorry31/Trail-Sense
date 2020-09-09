@@ -18,20 +18,33 @@ class WeatherPreferences(private val context: Context) {
         get() = sensorChecker.hasThermometer()
 
     val shouldMonitorWeather: Boolean
-        get() = sensorChecker.hasBarometer() && prefs.getBoolean(context.getString(R.string.pref_monitor_weather), true)
+        get() = sensorChecker.hasBarometer() && prefs.getBoolean(
+            context.getString(R.string.pref_monitor_weather),
+            true
+        )
 
     val shouldShowWeatherNotification: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_show_weather_notification), true)
 
     val shouldShowPressureInNotification: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_show_pressure_in_notification), false)
+        get() = prefs.getBoolean(
+            context.getString(R.string.pref_show_pressure_in_notification),
+            false
+        )
 
     val useSeaLevelPressure: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_use_sea_level_pressure), true)
 
+    val seaLevelFactorInTemp: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_adjust_for_temperature), false)
+
+    val seaLevelFactorInRapidChanges: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_sea_level_use_rapid), true)
+
     val pressureHistory: Duration
-        get(){
-            val raw = prefs.getString(context.getString(R.string.pref_pressure_history), "48") ?: "48"
+        get() {
+            val raw =
+                prefs.getString(context.getString(R.string.pref_pressure_history), "48") ?: "48"
             return Duration.ofHours(raw.toLong())
         }
 

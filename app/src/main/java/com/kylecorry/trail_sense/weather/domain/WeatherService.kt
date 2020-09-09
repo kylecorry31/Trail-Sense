@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.weather.domain.tendency.PressureTendency
 import kotlin.math.abs
 import kotlin.math.ln
 
-class WeatherService(stormThreshold: Float, dailyForecastChangeThreshold: Float, hourlyForecastChangeThreshold: Float) {
+class WeatherService(stormThreshold: Float, dailyForecastChangeThreshold: Float, hourlyForecastChangeThreshold: Float, adjustSeaLevelWithBarometer: Boolean = true, adjustSeaLevelWithTemp: Boolean = false) {
 
     private val shortTermForecaster = HourlyForecaster(stormThreshold, hourlyForecastChangeThreshold)
     private val longTermForecaster = DailyForecaster(dailyForecastChangeThreshold)
