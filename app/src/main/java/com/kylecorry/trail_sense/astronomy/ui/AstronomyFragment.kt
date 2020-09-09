@@ -29,9 +29,6 @@ import com.kylecorry.trail_sense.shared.system.UiUtils
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.concurrent.fixedRateTimer
 import kotlin.math.roundToInt
 
 class AstronomyFragment : Fragment() {
@@ -41,8 +38,6 @@ class AstronomyFragment : Fragment() {
 
     private lateinit var sunTxt: TextView
     private lateinit var remDaylightTxt: TextView
-    private lateinit var timer: Timer
-    private lateinit var handler: Handler
     private lateinit var moonPosition: ImageView
     private lateinit var sunPosition: ImageView
     private lateinit var detailList: RecyclerView
@@ -60,6 +55,10 @@ class AstronomyFragment : Fragment() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val astronomyService = AstronomyService()
+
+    private val intervalometer = Intervalometer(Runnable {
+        updateUI()
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -111,10 +110,7 @@ class AstronomyFragment : Fragment() {
         if (!declinationProvider.hasValidReading) {
             declinationProvider.start(this::onDeclinationUpdate)
         }
-        handler = Handler(Looper.getMainLooper())
-        timer = fixedRateTimer(period = 60 * 1000) {
-            handler.post { updateUI() }
-        }
+        intervalometer.interval(Duration.ofMinutes(1))
         updateUI()
     }
 
@@ -122,7 +118,7 @@ class AstronomyFragment : Fragment() {
         super.onPause()
         gps.stop(this::onLocationUpdate)
         declinationProvider.stop(this::onDeclinationUpdate)
-        timer.cancel()
+        intervalometer.stop()
     }
 
     private fun requestLocationUpdate() {

@@ -14,7 +14,7 @@ import java.lang.Exception
 
 class SosService : Service() {
 
-    private lateinit var flashlight: FlashlightProxy
+    private var flashlight: FlashlightProxy? = null
     private var running = false
     private val handler = Handler()
 
@@ -34,32 +34,32 @@ class SosService : Service() {
     }
 
     private fun runNextState() {
-        if (!running){
+        if (!running) {
             codeIdx = 0
-            flashlight.off()
+            flashlight?.off()
             return
         }
 
         codeIdx %= code.size
         val state = code[codeIdx]
 
-        when(state){
-            MorseState.Dash, MorseState.Dot -> flashlight.on()
-            else -> flashlight.off()
+        when (state) {
+            MorseState.Dash, MorseState.Dot -> flashlight?.on()
+            else -> flashlight?.off()
         }
 
         codeIdx++
 
-        if (!running){
+        if (!running) {
             codeIdx = 0
-            flashlight.off()
+            flashlight?.off()
             return
         }
         handler.postDelayed(runnable, getStateTime(state))
     }
 
     private fun getStateTime(state: MorseState): Long {
-        return when(state){
+        return when (state) {
             MorseState.Dot -> 200
             MorseState.Dash -> 600
             MorseState.Space -> 200
@@ -117,10 +117,10 @@ class SosService : Service() {
         stopForeground(true)
         running = false
         handler.removeCallbacks(runnable)
-        flashlight.off()
+        flashlight?.off()
         super.onDestroy()
     }
-    
+
     companion object {
         const val CHANNEL_ID = "Flashlight"
         const val NOTIFICATION_ID = 647354
