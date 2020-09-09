@@ -78,7 +78,7 @@ class AstronomicalAltitudeCalculator {
         val d = time.toZonedDateTime().toEpochSecond() / dayS - 0.5 + J1970 - J2000
 
         val c  = getSunCoordinates(d)
-        val H  = getSiderealTime(d, lw) - c.ra;
+        val H  = getSiderealTime(d, lw) - c.ra
 
         return Bearing(180 + Math.toDegrees(calculateAzimuth(H, phi, c.declination)).toFloat())
     }
@@ -89,7 +89,7 @@ class AstronomicalAltitudeCalculator {
         val d = time.toZonedDateTime().toEpochSecond() / dayS - 0.5 + J1970 - J2000
 
         val c  = getSunCoordinates(d)
-        val H  = getSiderealTime(d, lw) - c.ra;
+        val H  = getSiderealTime(d, lw) - c.ra
 
         return AstroAltitude(time, Math.toDegrees(calculateAltitude(H, phi, c.declination)).toFloat())
     }

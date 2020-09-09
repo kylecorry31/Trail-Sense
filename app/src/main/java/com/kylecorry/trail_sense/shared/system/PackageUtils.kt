@@ -13,13 +13,4 @@ object PackageUtils {
         return packageManager.getPackageInfo(getPackageName(context), 0).versionName
     }
 
-    fun getVersionCode(context: Context): Long {
-        val packageManager = context.packageManager
-        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-            packageManager.getPackageInfo(getPackageName(context), 0).longVersionCode
-        } else {
-            packageManager.getPackageInfo(getPackageName(context), 0).versionCode.toLong()
-        }
-    }
-
 }

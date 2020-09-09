@@ -14,28 +14,19 @@
     <string name="action_astronomy">天文学</string>
     <string name="sunrise_label">日出</string>
     <string name="sunset_label">日落</string>
-    <string name="until_sunrise_label">直到日出</string>
     <string name="until_sunset_label">直到日落</string>
 
 
     <string name="pref_use_true_north_title">真北</string>
-    <string name="pref_use_true_north" translatable="false">use_true_north</string>
     <string name="pref_use_sea_level_pressure_title">海平面压力</string>
-    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
-    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
     <string name="pref_units_header">一般</string>
     <string name="pref_distance_units_title">距离</string>
     <string name="pref_pressure_units_title">压力</string>
-    <string name="pref_pressure_units" translatable="false">pressure_units</string>
-    <string name="pref_distance_units" translatable="false">distance_units</string>
     <string name="pref_navigation_header">导航</string>
     <string name="pref_weather_header">天气</string>
     <string name="pref_send_storm_alerts_title">风暴警报</string>
-    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
     <string name="pref_astronomy_header">天文学</string>
-    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">使用24小时制</string>
-    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">日出/日落时间</string>
     <string name="weather_improving_fast">很快改进</string>
     <string name="weather_improving_slow">很快改善</string>
@@ -57,30 +48,19 @@
     <string name="onboarding_location_privacy">Trail Sense尊重您的隐私-位置数据永远不会离开您的设备</string>
     <string name="onboarding_location_all_time">请从权限对话框中选择 \'始终允许\'</string>
     <string name="continue_button">继续</string>
-    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
     <string name="moon_rise">月出</string>
     <string name="moon_set">月落</string>
     <string name="stop_monitoring">停止</string>
-    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
-    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_compass_filter_amt_title">指南针平滑</string>
     <string name="pref_compass_filter_amt_summary">高值可以减少噪音</string>
-    <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_theme_title">主题</string>
-    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
-    <string name="pref_use_experimental_compass_title">使用实验指南针</string>
     <string name="pref_use_legacy_compass_title">使用旧式指南针</string>
     <string name="pref_use_legacy_compass_summary">可能解决指南针问题</string>
-    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">显示附近的信标</string>
-    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">风暴警报敏感性</string>
     <string name="pref_show_sun_moon_compass_title">在指南针上显示太阳/月亮</string>
-    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">显示线性罗盘</string>
     <string name="pref_show_linear_compass_summary">当手机垂直时</string>
-
-    <string name="delete_beacon_confirmation">您确定要删除 "%s" 吗？</string>
 
     <plurals name="last_hours">
         <item quantity="other">持续 %d 小时</item>
@@ -105,10 +85,6 @@
     <string name="gps">全球定位系统</string>
     <string name="barometer">晴雨表</string>
 
-    <string name="sensitivity_low">低</string>
-    <string name="sensitivity_med">介质</string>
-    <string name="sensitivity_high">高</string>
-
     <string name="sun_actual">实际时间</string>
     <string name="sun_civil">暮光之城</string>
     <string name="sun_nautical">航海暮光之城</string>
@@ -117,8 +93,6 @@
     <string name="today">今天</string>
     <string name="tomorrow">明天</string>
     <string name="yesterday">昨天</string>
-    <string name="this_year_format">MMMM d</string>
-    <string name="other_year_format">MMM d，YYYY</string>
     <string name="pressure_tendency_indicator_alt">压力趋势指示器</string>
 
     <string name="pressure_48_hours">四十八小时</string>

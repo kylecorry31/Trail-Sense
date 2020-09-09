@@ -2,12 +2,13 @@ package com.kylecorry.trail_sense.navigation.domain
 
 import android.location.Location
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.math.MathUtils
 import com.kylecorry.trail_sense.shared.math.deltaAngle
 import java.time.Duration
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.abs
+import kotlin.math.max
 
 class NavigationService {
 

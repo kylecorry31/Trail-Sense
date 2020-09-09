@@ -14,28 +14,19 @@
     <string name="action_astronomy">জ্যোতির্বিদ্যা</string>
     <string name="sunrise_label">সূর্যোদয়</string>
     <string name="sunset_label">সূর্যাস্ত</string>
-    <string name="until_sunrise_label">সূর্যোদয় পর্যন্ত</string>
     <string name="until_sunset_label">সূর্যাস্ত পর্যন্ত</string>
 
 
     <string name="pref_use_true_north_title">প্রকৃত উত্তর</string>
-    <string name="pref_use_true_north" translatable="false">use_true_north</string>
     <string name="pref_use_sea_level_pressure_title">সমুদ্রপৃষ্ঠের চাপ</string>
-    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
-    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
     <string name="pref_units_header">সাধারণ</string>
     <string name="pref_distance_units_title">দূরত্ব</string>
     <string name="pref_pressure_units_title">চাপ</string>
-    <string name="pref_pressure_units" translatable="false">pressure_units</string>
-    <string name="pref_distance_units" translatable="false">distance_units</string>
     <string name="pref_navigation_header">ন্যাভিগেশন</string>
     <string name="pref_weather_header">আবহাওয়া</string>
     <string name="pref_send_storm_alerts_title">ঝড় সতর্কতা</string>
-    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
     <string name="pref_astronomy_header">জ্যোতির্বিদ্যা</string>
-    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">24 ঘন্টা বিন্যাস ব্যবহার করুন</string>
-    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">সূর্যোদয় /সূর্যাস্তের সময়</string>
     <string name="weather_improving_fast">খুব শীঘ্রই উন্নতি হচ্ছে</string>
     <string name="weather_improving_slow">শীঘ্রই উন্নতি হচ্ছে</string>
@@ -57,30 +48,19 @@
     <string name="onboarding_location_privacy">ট্রেল সেন্স আপনার গোপনীয়তার প্রতি শ্রদ্ধা জানায় - অবস্থানের ডেটা কখনই আপনার ডিভাইসটি ছাড়বে না</string>
     <string name="onboarding_location_all_time">অনুমতি সংলাপ থেকে দয়া করে all \'সব সময় মঞ্জুরি দিন select\' নির্বাচন করুন</string>
     <string name="continue_button">চালিয়ে</string>
-    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
     <string name="moon_rise">চন্দ্রোদয়</string>
     <string name="moon_set">Moonset</string>
     <string name="stop_monitoring">স্টপ</string>
-    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
-    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_compass_filter_amt_title">কম্পাস স্মুথিং</string>
     <string name="pref_compass_filter_amt_summary">উচ্চ মানগুলি শব্দ কমিয়ে দিতে পারে</string>
-    <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_theme_title">বিষয়</string>
-    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
-    <string name="pref_use_experimental_compass_title">পরীক্ষামূলক কম্পাস ব্যবহার করুন</string>
     <string name="pref_use_legacy_compass_title">লিগ্যাসি কম্পাস ব্যবহার করুন</string>
     <string name="pref_use_legacy_compass_summary">কম্পাস সমস্যা সমাধান করতে পারে</string>
-    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">কাছাকাছি বীকন প্রদর্শন করুন</string>
-    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">ঝড় সতর্কতা সংবেদনশীলতা</string>
     <string name="pref_show_sun_moon_compass_title">কম্পাসে সূর্য /চাঁদ দেখান</string>
-    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">লিনিয়ার কম্পাস দেখান</string>
     <string name="pref_show_linear_compass_summary">ফোনটি উল্লম্ব হলে</string>
-
-    <string name="delete_beacon_confirmation">আপনি কি "%s" মুছে ফেলার বিষয়ে নিশ্চিত?</string>
 
     <plurals name="last_hours">
         <item quantity="one">গত %d ঘন্টা</item>
@@ -107,10 +87,6 @@
     <string name="gps">জিপিএস</string>
     <string name="barometer">আবহমানযন্ত্র</string>
 
-    <string name="sensitivity_low">কম</string>
-    <string name="sensitivity_med">মধ্যম</string>
-    <string name="sensitivity_high">উচ্চ</string>
-
     <string name="sun_actual">প্রকৃত সময়</string>
     <string name="sun_civil">সিভিল গোধূলি</string>
     <string name="sun_nautical">নটিকাল গোধূলি</string>
@@ -119,8 +95,6 @@
     <string name="today">আজ</string>
     <string name="tomorrow">আগামীকাল</string>
     <string name="yesterday">গতকাল</string>
-    <string name="this_year_format">এমএমএমএম ডি</string>
-    <string name="other_year_format">এমএমএম ডি, ওয়াইওয়াই</string>
     <string name="pressure_tendency_indicator_alt">চাপ প্রবণতা সূচক</string>
 
     <string name="pressure_48_hours">48 ঘন্টা</string>

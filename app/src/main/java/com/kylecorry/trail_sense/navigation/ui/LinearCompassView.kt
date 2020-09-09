@@ -14,13 +14,12 @@ import android.graphics.Path
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.AttributeSet
-import android.view.GestureDetector
-import android.view.GestureDetector.SimpleOnGestureListener
-import android.view.MotionEvent
 import android.view.View
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.compass.CompassDirection
 import com.kylecorry.trail_sense.shared.FormatService
+import kotlin.math.floor
+import kotlin.math.min
 import kotlin.math.roundToInt
 
 class LinearCompassView(
@@ -88,13 +87,13 @@ class LinearCompassView(
         val specMode = MeasureSpec.getMode(measureSpec)
         val specSize = MeasureSpec.getSize(measureSpec)
         val minWidth =
-            Math.floor(50 * resources.displayMetrics.density.toDouble()).toInt()
+            floor(50 * resources.displayMetrics.density.toDouble()).toInt()
         if (specMode == MeasureSpec.EXACTLY) {
             result = specSize
         } else {
             result = minWidth + paddingLeft + paddingRight
             if (specMode == MeasureSpec.AT_MOST) {
-                result = Math.min(result, specSize)
+                result = min(result, specSize)
             }
         }
         return result
@@ -105,13 +104,13 @@ class LinearCompassView(
         val specMode = MeasureSpec.getMode(measureSpec)
         val specSize = MeasureSpec.getSize(measureSpec)
         val minHeight =
-            Math.floor(30 * resources.displayMetrics.density.toDouble()).toInt()
+            floor(30 * resources.displayMetrics.density.toDouble()).toInt()
         if (specMode == MeasureSpec.EXACTLY) {
             result = specSize
         } else {
             result = minHeight + paddingTop + paddingBottom
             if (specMode == MeasureSpec.AT_MOST) {
-                result = Math.min(result, specSize)
+                result = min(result, specSize)
             }
         }
         return result

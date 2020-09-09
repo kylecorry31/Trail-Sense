@@ -14,28 +14,19 @@
     <string name="action_astronomy">Աստղագիտություն</string>
     <string name="sunrise_label">Արևածագ</string>
     <string name="sunset_label">Մայրամուտ</string>
-    <string name="until_sunrise_label">մինչև արևածագ</string>
     <string name="until_sunset_label">մինչև մայրամուտ</string>
 
 
     <string name="pref_use_true_north_title">Իսկական Հյուսիս</string>
-    <string name="pref_use_true_north" translatable="false">use_true_north</string>
     <string name="pref_use_sea_level_pressure_title">Ծովի մակարդակի ճնշում</string>
-    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
-    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
     <string name="pref_units_header">Գեներալ</string>
     <string name="pref_distance_units_title">Հեռավորությունը</string>
     <string name="pref_pressure_units_title">Նշում</string>
-    <string name="pref_pressure_units" translatable="false">pressure_units</string>
-    <string name="pref_distance_units" translatable="false">distance_units</string>
     <string name="pref_navigation_header">Նավիգացիա</string>
     <string name="pref_weather_header">Եղանակ</string>
     <string name="pref_send_storm_alerts_title">Փոթորիկ ազդանշաններ</string>
-    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
     <string name="pref_astronomy_header">Աստղագիտություն</string>
-    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">Օգտագործեք 24-ժամյա ձևաչափ</string>
-    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Արևածագ /մայրամուտի ժամերը</string>
     <string name="weather_improving_fast">Շատ շուտով բարելավվում է</string>
     <string name="weather_improving_slow">բարելավելով շուտով</string>
@@ -57,30 +48,19 @@
     <string name="onboarding_location_privacy">Trail Sense- ը հարգում է ձեր գաղտնիությունը. Գտնվելու վայրի տվյալները երբեք չեն թողնում ձեր սարքը</string>
     <string name="onboarding_location_all_time">Թույլտվության երկխոսությունից ընտրեք Թույլ տուր ամբողջ ժամանակը &gt;&gt;</string>
     <string name="continue_button">ՇԱՐՈՒՆԱԿԵԼ</string>
-    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
     <string name="moon_rise">Լուսաբաց</string>
     <string name="moon_set">Moonset</string>
     <string name="stop_monitoring">Դադարեցրեք</string>
-    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
-    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_compass_filter_amt_title">Կոմպասի հարթեցում</string>
     <string name="pref_compass_filter_amt_summary">Բարձր արժեքները կարող են նվազեցնել աղմուկը</string>
-    <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_theme_title">Թեման</string>
-    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
-    <string name="pref_use_experimental_compass_title">Օգտագործեք փորձնական կողմնացույց</string>
     <string name="pref_use_legacy_compass_title">Օգտագործեք ժառանգական կողմնացույց</string>
     <string name="pref_use_legacy_compass_summary">Կարող է շտկել կողմնացույցի խնդիրները</string>
-    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">Nearbyուցադրել մոտակա փնջերը</string>
-    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Փոթորիկ ազդանշանային զգայունություն</string>
     <string name="pref_show_sun_moon_compass_title">Sunուցադրել արևը /լուսինը կողմնացույցի վրա</string>
-    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">Ուցադրել գծային կողմնացույց</string>
     <string name="pref_show_linear_compass_summary">Երբ հեռախոսը ուղղահայաց է</string>
-
-    <string name="delete_beacon_confirmation">Համոզվա՞ծ եք, որ ցանկանում եք հեռացնել "%s"</string>
 
     <plurals name="last_hours">
         <item quantity="one">Վերջին %d ժամ</item>
@@ -107,10 +87,6 @@
     <string name="gps">GPS</string>
     <string name="barometer">Բարոմետր</string>
 
-    <string name="sensitivity_low">Ածր է</string>
-    <string name="sensitivity_med">Միջին</string>
-    <string name="sensitivity_high">Բարձր</string>
-
     <string name="sun_actual">Իրական ժամանակը</string>
     <string name="sun_civil">Քաղաքացիական մթնշաղ</string>
     <string name="sun_nautical">Ծովային մթնշաղ</string>
@@ -119,8 +95,6 @@
     <string name="today">Այսօր</string>
     <string name="tomorrow">Վաղը</string>
     <string name="yesterday">Երեկ</string>
-    <string name="this_year_format">MMMM d</string>
-    <string name="other_year_format">MMM d, YYYY</string>
     <string name="pressure_tendency_indicator_alt">Pressնշման հակվածության ցուցանիշը</string>
 
     <string name="pressure_48_hours">48 ժամ</string>

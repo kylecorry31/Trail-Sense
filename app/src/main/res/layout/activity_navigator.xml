@@ -168,7 +168,6 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/gps_accuracy_icon"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/satellite"
@@ -178,7 +177,7 @@
                 android:id="@+id/gps_accuracy_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="High"
+                android:text="@string/accuracy_unknown"
                 android:textSize="10sp" />
         </LinearLayout>
 
@@ -190,7 +189,6 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/compass_accuracy_icon"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_compass_icon"
@@ -200,7 +198,7 @@
                 android:id="@+id/compass_accuracy_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="High"
+                android:text="@string/accuracy_unknown"
                 android:textSize="10sp" />
         </LinearLayout>
     </LinearLayout>
@@ -345,7 +343,6 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_altitude"
@@ -369,7 +366,6 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView6"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_speed"

@@ -47,8 +47,8 @@ class VectorCompass(context: Context) : AbstractSensor(), ICompass {
     private var _bearing = 0f
     private var _filteredBearing = 0f
 
-    private var gotMag = false;
-    private var gotAccel = false;
+    private var gotMag = false
+    private var gotAccel = false
 
     override fun setSmoothing(smoothing: Int) {
         filterSize = smoothing * 2 * 2

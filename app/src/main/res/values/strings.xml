@@ -15,7 +15,7 @@
 
     <!--Disclaimer-->
     <string name="disclaimer_message_title">Disclaimer</string>
-    <string name="disclaimer_message_content">Trail Sense is a tool which can be used in a survival situation, but you should not rely solely upon it. Please validate it\'s accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
+    <string name="disclaimer_message_content">Trail Sense is a tool that can be used in a survival situation, but you should not rely solely upon it. Please validate it\'s accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
 
     <!--Navigation Tab - Unit Formats-->
     <string name="feet_format">%.0f ft</string>
@@ -35,9 +35,6 @@
     <string name="direction_south_east">SE</string>
     <string name="direction_north_west">NW</string>
     <string name="direction_south_west">SW</string>
-    <string name="miles_per_hour">mph</string>
-    <string name="kilometers_per_hour">km/h</string>
-    <string name="speed_format">%s %s</string>
     <string name="increase">+</string>
     <string name="decrease">-</string>
     <string name="elevation_diff_format">%s%s</string>
@@ -60,15 +57,14 @@
 
     <!--Navigation Tab - Destination Panel-->
     <string name="eta">~ %s away</string>
-    <string name="distance_away">away</string>
 
     <!--Navigation Tab - Beacon List-->
     <string name="beacon_list_title">Select Beacon</string>
     <string name="delete_beacon">Delete beacon</string>
     <string name="edit_beacon">Edit beacon</string>
     <string name="no_beacons">No beacons</string>
-    <string name="delete_beacon_confirmation">Are you sure you want to remove "%s"?</string>
     <string name="long_press_beacon_toast">Long press a beacon to view options.</string>
+    <string name="dot" translatable="false">•</string>
 
     <!--Navigation Tab - Beacon List - Sharesheet-->
     <string name="share_action_send">Send</string>
@@ -127,20 +123,14 @@
     <string name="forecast_worsening">Possibly worsening later</string>
 
     <!--Astronomy Tab-->
-    <string name="duration_format_h_m">%dh %dm</string>
-    <string name="duration_format_h">%dh</string>
-    <string name="duration_format_m">%dm</string>
     <string name="sun_does_not_set">does not set</string>
     <string name="sun_does_not_rise">does not rise</string>
     <string name="sun_up_no_set">Sun is up</string>
     <string name="sun_down_no_set">Sun is down</string>
-    <string name="until_sunrise_label">until sunrise</string>
     <string name="until_sunset_label">until sunset</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="yesterday">Yesterday</string>
-    <string name="this_year_format">MMMM d</string>
-    <string name="other_year_format">MMM d, YYYY</string>
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
     <string name="moon_rise">Moonrise</string>
@@ -215,16 +205,11 @@
     <string name="pref_compass_filter_amt_summary">High values may reduce noise</string>
     <string name="pref_use_legacy_compass_title">Use legacy compass</string>
     <string name="pref_use_legacy_compass_summary">May fix compass issues</string>
-    <string name="compass_smoothing">Smoothing</string>
-    <string name="compass_azimuth_offset">Azimuth offset</string>
-    <string name="compass_legacy_mode">Legacy mode</string>
-    <string name="compass">Compass</string>
     <string name="compass_from_gps">Set override from GPS</string>
     <string name="compass_declination_override">Declination override</string>
     <string name="compass_auto_declination">Auto adjust declination</string>
     <string name="compass_azimuth">Azimuth</string>
     <string name="compass_declination">Declination</string>
-    <string name="compass_true_north">True North</string>
     <string name="declination_override_updated_toast">Declination override updated</string>
     <string name="pref_auto_declination_summary">Based on your current location</string>
     <string name="pref_calibrate_compass_btn_title">Calibrate</string>
@@ -245,7 +230,6 @@
     <string name="pref_gps_override_btn_title">Set override from GPS</string>
 
     <!--Settings - Sensors - Altimeter-->
-    <string name="altimeter">Altimeter</string>
     <string name="pref_altimeter_calibration_title">Altimeter</string>
     <string name="altitude">Altitude</string>
     <string name="auto_altitude">Auto adjust altitude</string>
@@ -280,9 +264,6 @@
     <string name="pref_weather_header">Weather</string>
     <string name="pref_send_storm_alerts_title">Storm alerts</string>
     <string name="pref_storm_alert_sensitivity_title">Storm alert sensitivity</string>
-    <string name="sensitivity_low">Low</string>
-    <string name="sensitivity_med">Medium</string>
-    <string name="sensitivity_high">High</string>
     <string name="pref_pressure_history_title">Pressure history</string>
     <string name="pressure_48_hours">48 hours</string>
     <string name="pressure_24_hours">24 hours</string>
@@ -376,7 +357,6 @@
     <string name="pref_weather_category" translatable="false">pref_weather_category</string>
     <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_theme" translatable="false">pref_theme</string>
-    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
     <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass_2</string>

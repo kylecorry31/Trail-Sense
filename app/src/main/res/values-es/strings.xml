@@ -14,7 +14,6 @@
     <string name="action_astronomy">Astronomía</string>
     <string name="sunrise_label">amanecer</string>
     <string name="sunset_label">anochecer</string>
-    <string name="until_sunrise_label">hasta el amanecer</string>
     <string name="until_sunset_label">hasta el anochecer</string>
 
 
@@ -55,7 +54,6 @@
     <string name="pref_compass_filter_amt_title">Alisado de brújula</string>
     <string name="pref_compass_filter_amt_summary">Los valores altos pueden reducir el ruido.</string>
     <string name="pref_theme_title">Tema</string>
-    <string name="pref_use_experimental_compass_title">Usar brújula experimental</string>
     <string name="pref_use_legacy_compass_title">Usar brújula heredada</string>
     <string name="pref_use_legacy_compass_summary">Puede solucionar problemas de brújula</string>
     <string name="pref_display_multi_beacons_title">Mostrar balizas cercanas</string>
@@ -63,8 +61,6 @@
     <string name="pref_show_sun_moon_compass_title">Mostrar sol / luna en la brújula</string>
     <string name="pref_show_linear_compass_title">Mostrar brújula lineal</string>
     <string name="pref_show_linear_compass_summary">Cuando el teléfono es vertical</string>
-
-    <string name="delete_beacon_confirmation">¿Seguro que quieres eliminar " %s"?</string>
 
     <plurals name="last_hours">
         <item quantity="one">Última %d hora</item>
@@ -91,10 +87,6 @@
     <string name="gps">GPS</string>
     <string name="barometer">Barómetro</string>
 
-    <string name="sensitivity_low">Bajo</string>
-    <string name="sensitivity_med">Medio</string>
-    <string name="sensitivity_high">Alto</string>
-
     <string name="sun_actual">Tiempo actual</string>
     <string name="sun_civil">Crepúsculo civil</string>
     <string name="sun_nautical">Crepúsculo náutico</string>
@@ -103,8 +95,6 @@
     <string name="today">Hoy</string>
     <string name="tomorrow">Mañana</string>
     <string name="yesterday">Ayer</string>
-    <string name="this_year_format">MMMM d</string>
-    <string name="other_year_format">MMM d, YYYY</string>
     <string name="pressure_tendency_indicator_alt">Indicador de tendencia de presión</string>
 
     <string name="pressure_48_hours">48 horas</string>

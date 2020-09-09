@@ -38,10 +38,6 @@ class Inclinometer(context: Context) : AbstractSensor(), IInclinometer {
         return true
     }
 
-    private fun magnitude(a: Double, b: Double): Double {
-        return sqrt(a * a + b * b)
-    }
-
     override fun startImpl() {
         accelerometer.start(this::updateSensor)
     }

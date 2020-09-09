@@ -1,10 +1,7 @@
 package com.kylecorry.trail_sense.astronomy.ui
 
 import android.content.res.ColorStateList
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View

@@ -51,7 +51,6 @@
         tools:text="Low avalanche risk" />
 
     <TextView
-        android:id="@+id/set_inclination_instructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -111,12 +110,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:tint="@color/colorAccent"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/incline"
         app:layout_constraintEnd_toStartOf="@+id/incline"
         app:layout_constraintTop_toTopOf="@+id/incline"
         app:srcCompat="@drawable/avalanche"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        app:tint="@color/colorAccent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

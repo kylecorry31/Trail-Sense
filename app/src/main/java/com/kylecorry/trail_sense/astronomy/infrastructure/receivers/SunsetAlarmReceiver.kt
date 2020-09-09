@@ -15,13 +15,17 @@ import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
-import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.Intervalometer
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.IGPS
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.system.AlarmUtils
 import com.kylecorry.trail_sense.shared.system.PackageUtils
-import java.time.*
-import java.util.*
-import kotlin.concurrent.timer
+import com.kylecorry.trail_sense.shared.toDisplayFormat
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 class SunsetAlarmReceiver : BroadcastReceiver() {
 
