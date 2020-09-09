@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="•"
+        android:text="@string/dot"
         app:layout_constraintBottom_toBottomOf="@+id/beacon_location_disp"
         app:layout_constraintStart_toEndOf="@+id/beacon_location_disp"
         app:layout_constraintTop_toTopOf="@+id/beacon_location_disp" />

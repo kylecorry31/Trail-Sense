@@ -14,28 +14,19 @@
     <string name="action_astronomy">Astronomie</string>
     <string name="sunrise_label">Sonnenaufgang</string>
     <string name="sunset_label">Sonnenuntergang</string>
-    <string name="until_sunrise_label">bis Sonnenaufgang</string>
     <string name="until_sunset_label">bis Sonnenuntergang</string>
 
 
     <string name="pref_use_true_north_title">Geographischer Norden</string>
-    <string name="pref_use_true_north" translatable="false">use_true_north</string>
     <string name="pref_use_sea_level_pressure_title">Luftdruck auf Meereshöhe</string>
-    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
-    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
     <string name="pref_units_header">Allgemein</string>
     <string name="pref_distance_units_title">Entfernung</string>
     <string name="pref_pressure_units_title">Luftdruck</string>
-    <string name="pref_pressure_units" translatable="false">pressure_units</string>
-    <string name="pref_distance_units" translatable="false">distance_units</string>
     <string name="pref_navigation_header">Navigation</string>
     <string name="pref_weather_header">Wetter</string>
     <string name="pref_send_storm_alerts_title">Sturmwarnungen</string>
-    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
     <string name="pref_astronomy_header">Astronomie</string>
-    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">24 Stundenformat verwenden</string>
-    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Sonnenaufgangs-/Sonnenuntergangszeiten</string>
     <string name="weather_improving_fast">Sehr bald Besserung</string>
     <string name="weather_improving_slow">Bald besser werdend</string>
@@ -57,31 +48,20 @@
     <string name="onboarding_location_privacy">Trail Sense respektiert Ihre Privatsphäre - Standortdaten verlassen niemals Ihr Gerät</string>
     <string name="onboarding_location_all_time">Bitte wählen Sie \'Allow all the time\' aus dem Genehmigungsdialog</string>
     <string name="continue_button">FORTGESETZT</string>
-    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
     <string name="moon_rise">Mondaufgang</string>
     <string name="moon_set">Monduntergang</string>
     <string name="stop_monitoring">Halt</string>
-    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
-    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_compass_filter_amt_title">Kompassrauschen</string>
     <string name="pref_compass_filter_amt_summary">Hohe Werte können Signalrauschen reduzieren</string>
-    <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_theme_title">Thema</string>
-    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
-    <string name="pref_use_experimental_compass_title">Experimentellen Kompass verwenden</string>
     <string name="pref_use_legacy_compass_title">Altsystem-Kompass verwenden</string>
     <string name="pref_use_legacy_compass_summary">Kann Kompassprobleme beheben</string>
-    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">Nahegelegene Wegpunkte anzeigen</string>
     <string name="pref_display_multi_beacons_summary">Zeigt nahegelegene Wegpunkte auf dem Kompass an</string>
-    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Sturmalarm-Empfindlichkeit</string>
     <string name="pref_show_sun_moon_compass_title">Sonne/Mond auf dem Kompass anzeigen</string>
-    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">Linearen Kompass anzeigen</string>
     <string name="pref_show_linear_compass_summary">Wenn das Telefon senkrecht steht</string>
-
-    <string name="delete_beacon_confirmation">Sind Sie sicher, dass Sie "%s" entfernen wollen?</string>
 
     <plurals name="last_hours">
         <item quantity="one">Letzte %d Stunde</item>
@@ -108,10 +88,6 @@
     <string name="gps">GPS</string>
     <string name="barometer">Barometer</string>
 
-    <string name="sensitivity_low">Niedrig</string>
-    <string name="sensitivity_med">Mittel</string>
-    <string name="sensitivity_high">Hoch</string>
-
     <string name="sun_actual">Tatsächliche Zeit</string>
     <string name="sun_civil">Zivile Dämmerung</string>
     <string name="sun_nautical">Nautische Dämmerung</string>
@@ -120,8 +96,6 @@
     <string name="today">Heute</string>
     <string name="tomorrow">Morgen</string>
     <string name="yesterday">Gestern</string>
-    <string name="this_year_format">MMMM d</string>
-    <string name="other_year_format">MMM d, YYYY</string>
     <string name="pressure_tendency_indicator_alt">Drucktendenz-Indikator</string>
 
     <string name="pressure_48_hours">48 Stunden</string>
@@ -181,4 +155,22 @@
     <string name="tide_neap">Nippzeit</string>
     <string name="tide_spring">Springzeit</string>
     <string name="tide_normal">Mittzeit</string>
+    <string name="action_tools">Werkzeuge</string>
+    <string name="disclaimer_message_title">Haftungsausschluss</string>
+    <string name="accuracy_low">Niedrig</string>
+    <string name="accuracy_medium">Mittel</string>
+    <string name="accuracy_high">Hoch</string>
+    <string name="accuracy_unknown">Unbekannt</string>
+    <string name="edit_beacon">Wegpunkt bearbeiten</string>
+    <string name="share_action_send">Senden</string>
+    <string name="share_action_copy">Kopieren</string>
+    <string name="share_action_copy_beacon">Wegpunkt kopieren</string>
+    <string name="share_action_copy_coordinates">Koordinaten kopieren</string>
+    <string name="share_action_geo">Karten</string>
+    <string name="beacon_invalid_name">Ungültiger Name</string>
+    <string name="units_inhg_short">in</string>
+    <string name="inclinometer_title">Neigungsmesser</string>
+    <string name="estimated_height">geschätzte Höhe</string>
+    <string name="pref_category_sensors_title">Sensoren</string>
+    <string name="pref_compass_sensor_title">Kompass</string>
 </resources>

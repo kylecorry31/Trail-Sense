@@ -43,7 +43,7 @@ class Ruler(private val view: ConstraintLayout) {
         view.visibility = View.GONE
     }
 
-    fun update() {
+    private fun update() {
         val dpi = context.resources.displayMetrics.densityDpi
         val scale = userPrefs.navigation.rulerScale
         val height =

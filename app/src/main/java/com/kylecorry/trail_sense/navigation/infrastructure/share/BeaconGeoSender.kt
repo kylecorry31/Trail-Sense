@@ -9,7 +9,7 @@ class BeaconGeoSender(private val context: Context): IBeaconSender {
 
     override fun send(beacon: Beacon) {
         val uri = Uri.parse("geo:${beacon.coordinate.latitude},${beacon.coordinate.longitude}")
-        val intent = Intent(Intent.ACTION_VIEW, uri);
+        val intent = Intent(Intent.ACTION_VIEW, uri)
         context.startActivity(intent)
     }
 }

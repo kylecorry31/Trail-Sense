@@ -1,12 +1,9 @@
 package com.kylecorry.trail_sense
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import androidx.annotation.ArrayRes
-import androidx.annotation.IdRes
-import androidx.core.app.ShareCompat
 import androidx.preference.*
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.calibration.ui.CalibrateAltimeterFragment
@@ -20,7 +17,6 @@ import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.shared.system.IntentUtils
 import com.kylecorry.trail_sense.shared.system.NotificationUtils
 import com.kylecorry.trail_sense.shared.system.PackageUtils
-import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnits
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService

@@ -4,7 +4,6 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorManager
-import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 import kotlin.math.abs
 import kotlin.math.withSign
 

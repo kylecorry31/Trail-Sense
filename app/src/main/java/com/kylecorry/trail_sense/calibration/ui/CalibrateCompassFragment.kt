@@ -1,31 +1,17 @@
 package com.kylecorry.trail_sense.calibration.ui
 
-import android.app.AlertDialog
-import android.hardware.SensorManager
 import android.os.Bundle
 import android.text.InputType
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.widget.SwitchCompat
-import androidx.core.content.edit
-import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.Fragment
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.calibration.infrastructure.AltimeterCalibrator
-import com.kylecorry.trail_sense.navigation.domain.LocationMath
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.Throttle
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.Accuracy
-import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.ICompass
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.declination.AutoDeclinationProvider
 import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
 import com.kylecorry.trail_sense.shared.system.UiUtils
-import kotlin.math.roundToInt
 
 
 class CalibrateCompassFragment : PreferenceFragmentCompat() {

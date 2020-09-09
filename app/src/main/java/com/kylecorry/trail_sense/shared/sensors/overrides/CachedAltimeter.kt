@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.overrides
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Handler
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.shared.UserPreferences

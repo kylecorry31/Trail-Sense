@@ -13,8 +13,8 @@ class Magnetometer(context: Context): BaseSensor(context, Sensor.TYPE_MAGNETIC_F
         get() = gotReading
     private var gotReading = false
 
-    val filterSize = 0.03f
-    val filters = listOf(
+    private val filterSize = 0.03f
+    private val filters = listOf(
         LowPassFilter(filterSize),
         LowPassFilter(filterSize),
         LowPassFilter(filterSize)

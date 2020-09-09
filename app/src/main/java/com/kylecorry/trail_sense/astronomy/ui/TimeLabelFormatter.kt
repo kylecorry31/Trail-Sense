@@ -5,9 +5,6 @@ import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.kylecorry.trail_sense.shared.toDisplayFormat
 import java.time.LocalTime
-import kotlin.math.absoluteValue
-import kotlin.math.ceil
-import kotlin.math.floor
 import kotlin.math.roundToInt
 
 

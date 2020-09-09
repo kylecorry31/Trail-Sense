@@ -2,12 +2,12 @@ package com.kylecorry.trail_sense.navigation.ui
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -18,16 +18,15 @@ import com.kylecorry.trail_sense.navigation.domain.FlashlightState
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.domain.Position
 import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
-import com.kylecorry.trail_sense.navigation.infrastructure.*
+import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.Flashlight
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
-import java.util.*
-import kotlin.concurrent.fixedRateTimer
+import com.kylecorry.trail_sense.shared.system.UiUtils
+import java.time.Duration
 
 class NavigatorFragment(
     private val initialDestination: Beacon? = null,
@@ -85,8 +84,9 @@ class NavigatorFragment(
     private lateinit var beacons: Collection<Beacon>
     private var nearbyBeacons: Collection<Beacon> = listOf()
 
-    private var timer: Timer? = null
-    private var handler: Handler? = null
+    private val intervalometer = Intervalometer(Runnable {
+        gps.start(this::onLocationUpdate)
+    })
 
     private var destination: Beacon? = null
     private var destinationBearing: Bearing? = null
@@ -341,19 +341,9 @@ class NavigatorFragment(
             declinationProvider.start(this::onDeclinationUpdate)
         }
 
-        if (!userPrefs.useLocationFeatures) {
-            beaconBtn.hide()
-        } else {
-            beaconBtn.show()
-            if (userPrefs.navigation.showMultipleBeacons) {
-                val that = this
-                handler = Handler(Looper.getMainLooper())
-                timer = fixedRateTimer(period = 15000) {
-                    handler?.post {
-                        gps.start(that::onLocationUpdate)
-                    }
-                }
-            }
+        beaconBtn.show()
+        if (userPrefs.navigation.showMultipleBeacons) {
+            intervalometer.interval(Duration.ofSeconds(15))
         }
 
         // Update the UI
@@ -367,8 +357,7 @@ class NavigatorFragment(
         altimeter.stop(this::onAltitudeUpdate)
         orientation.stop(this::onOrientationUpdate)
         declinationProvider.stop(this::onDeclinationUpdate)
-        timer?.cancel()
-        timer = null
+        intervalometer.stop()
     }
 
     private fun getNearbyBeacons(): Collection<Beacon> {

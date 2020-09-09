@@ -14,28 +14,19 @@
     <string name="action_astronomy">Astronomie</string>
     <string name="sunrise_label">Zonsopgang</string>
     <string name="sunset_label">Zonsondergang</string>
-    <string name="until_sunrise_label">tot zonsopgang</string>
     <string name="until_sunset_label">tot zonsondergang</string>
 
 
     <string name="pref_use_true_north_title">Het ware noorden</string>
-    <string name="pref_use_true_north" translatable="false">use_true_north</string>
     <string name="pref_use_sea_level_pressure_title">Druk op zeeniveau</string>
-    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
-    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
     <string name="pref_units_header">Algemeen</string>
     <string name="pref_distance_units_title">Afstand</string>
     <string name="pref_pressure_units_title">: Druk</string>
-    <string name="pref_pressure_units" translatable="false">pressure_units</string>
-    <string name="pref_distance_units" translatable="false">distance_units</string>
     <string name="pref_navigation_header">Navigatie</string>
     <string name="pref_weather_header">Weer</string>
     <string name="pref_send_storm_alerts_title">Stormwaarschuwingen</string>
-    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
     <string name="pref_astronomy_header">Astronomie</string>
-    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">Gebruik het 24-uursformaat</string>
-    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Zonsopgang / zonsondergang tijden</string>
     <string name="weather_improving_fast">Verbetering zeer binnenkort</string>
     <string name="weather_improving_slow">: Binnenkort beter</string>
@@ -57,30 +48,19 @@
     <string name="onboarding_location_privacy">Trail Sense respecteert uw privacy - locatiegegevens verlaten nooit uw apparaat</string>
     <string name="onboarding_location_all_time">Selecteer alsjeblieft \'Laat alle tijd toe\' in het toestemmingsdialoogvenster</string>
     <string name="continue_button">CONTINUE</string>
-    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
     <string name="moon_rise">Mansopkomst</string>
     <string name="moon_set">Moonset</string>
     <string name="stop_monitoring">Stop</string>
-    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
-    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_compass_filter_amt_title">Kompas gladstrijken</string>
     <string name="pref_compass_filter_amt_summary">Hoge waarden kunnen het lawaai verminderen</string>
-    <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_theme_title">Thema</string>
-    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
-    <string name="pref_use_experimental_compass_title">Gebruik experimenteel kompas</string>
     <string name="pref_use_legacy_compass_title">: Gebruik erfeniskompas</string>
     <string name="pref_use_legacy_compass_summary">Kan kompasproblemen oplossen</string>
-    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">: Toon bakens in de buurt</string>
-    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">: Stormwaarschuwingsgevoeligheid</string>
     <string name="pref_show_sun_moon_compass_title">Toon zon/maan op kompas</string>
-    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">Toon lineair kompas</string>
     <string name="pref_show_linear_compass_summary">Als de telefoon verticaal staat</string>
-
-    <string name="delete_beacon_confirmation">Weet u zeker dat u "%s" wilt verwijderen?</string>
 
     <plurals name="last_hours">
         <item quantity="one">laatste %d uur</item>
@@ -107,10 +87,6 @@
     <string name="gps">GPS</string>
     <string name="barometer">Barometer</string>
 
-    <string name="sensitivity_low">Laag</string>
-    <string name="sensitivity_med">: Medium</string>
-    <string name="sensitivity_high">Hoog</string>
-
     <string name="sun_actual">Werkelijke tijd</string>
     <string name="sun_civil">Burgerschemering</string>
     <string name="sun_nautical">Nautische schemering</string>
@@ -119,8 +95,6 @@
     <string name="today">Vandaag</string>
     <string name="tomorrow">Morgen</string>
     <string name="yesterday">Gisteren</string>
-    <string name="this_year_format">MMMM d</string>
-    <string name="other_year_format">MMM d, YYYY</string>
     <string name="pressure_tendency_indicator_alt">: Drukverschuivingsindicator</string>
 
     <string name="pressure_48_hours">48 uur</string>

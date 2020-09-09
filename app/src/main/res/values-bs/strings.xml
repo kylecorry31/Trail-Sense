@@ -14,28 +14,19 @@
     <string name="action_astronomy">Astronomija</string>
     <string name="sunrise_label">Izlazak sunca</string>
     <string name="sunset_label">Zalazak sunca</string>
-    <string name="until_sunrise_label">do izlaska sunca</string>
     <string name="until_sunset_label">do zalaska sunca</string>
 
 
     <string name="pref_use_true_north_title">Pravi sjever</string>
-    <string name="pref_use_true_north" translatable="false">use_true_north</string>
     <string name="pref_use_sea_level_pressure_title">Pritisak na nivou mora</string>
-    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
-    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
     <string name="pref_units_header">Opšte</string>
     <string name="pref_distance_units_title">Razdaljina</string>
     <string name="pref_pressure_units_title">Pritisak</string>
-    <string name="pref_pressure_units" translatable="false">pressure_units</string>
-    <string name="pref_distance_units" translatable="false">distance_units</string>
     <string name="pref_navigation_header">Navigacija</string>
     <string name="pref_weather_header">Weather</string>
     <string name="pref_send_storm_alerts_title">Oluje upozorenja</string>
-    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
     <string name="pref_astronomy_header">Astronomija</string>
-    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">Koristite 24-satni format</string>
-    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Vremena izlaska /zalaska Sunca</string>
     <string name="weather_improving_fast">Poboljšanje se vrlo brzo</string>
     <string name="weather_improving_slow">Uskoro se poboljšava</string>
@@ -57,30 +48,19 @@
     <string name="onboarding_location_privacy">Trail Sense poštuje vašu privatnost - podaci o lokaciji nikada ne napuštaju vaš uređaj</string>
     <string name="onboarding_location_all_time">Molimo odaberite \"Dozvoli sve vrijeme \" iz dijaloškog okvira dozvola</string>
     <string name="continue_button">NASTAVAK</string>
-    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
     <string name="moon_rise">Moonrise</string>
     <string name="moon_set">Mjesečev zalazak</string>
     <string name="stop_monitoring">Stani</string>
-    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
-    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_compass_filter_amt_title">Kompas zaglađivanje</string>
     <string name="pref_compass_filter_amt_summary">Visoke vrednosti mogu umanjiti buku</string>
-    <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_theme_title">Tema</string>
-    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
-    <string name="pref_use_experimental_compass_title">Koristite eksperimentalni kompas</string>
     <string name="pref_use_legacy_compass_title">Upotrijebite naslijeđeni kompas</string>
     <string name="pref_use_legacy_compass_summary">Može popraviti probleme sa kompasom</string>
-    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">Prikažite svetionike u blizini</string>
-    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Osjetljivost na oluju</string>
     <string name="pref_show_sun_moon_compass_title">Pokažite sunce /mesec na kompasu</string>
-    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">Pokaži linearni kompas</string>
     <string name="pref_show_linear_compass_summary">Kad je telefon okomit</string>
-
-    <string name="delete_beacon_confirmation">Jeste li sigurni da želite ukloniti "%s"?</string>
 
     <plurals name="last_hours">
         <item quantity="one">Poslednja %d sat</item>
@@ -109,10 +89,6 @@
     <string name="gps">GPS</string>
     <string name="barometer">Barometar</string>
 
-    <string name="sensitivity_low">Nizak</string>
-    <string name="sensitivity_med">Srednja</string>
-    <string name="sensitivity_high">Visokog</string>
-
     <string name="sun_actual">Stvarno vrijeme</string>
     <string name="sun_civil">Civilni sumrak</string>
     <string name="sun_nautical">Nautički sumrak</string>
@@ -121,8 +97,6 @@
     <string name="today">Danas</string>
     <string name="tomorrow">Sutra</string>
     <string name="yesterday">Juče</string>
-    <string name="this_year_format">MMMM d</string>
-    <string name="other_year_format">MMM d, YYYY</string>
     <string name="pressure_tendency_indicator_alt">Indikator tendencionog pritiska</string>
 
     <string name="pressure_48_hours">48 sati</string>

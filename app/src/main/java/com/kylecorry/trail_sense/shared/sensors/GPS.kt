@@ -2,12 +2,9 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.location.GpsStatus
 import android.location.Location
 import android.location.LocationManager
-import androidx.core.content.edit
 import androidx.core.content.getSystemService
-import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.Cache
 import com.kylecorry.trail_sense.shared.UserPreferences

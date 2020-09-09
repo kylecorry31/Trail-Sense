@@ -14,28 +14,19 @@
     <string name="action_astronomy">Astronomia</string>
     <string name="sunrise_label">Wschód słońca</string>
     <string name="sunset_label">Zachód słońca</string>
-    <string name="until_sunrise_label">Do wschodu słońca</string>
     <string name="until_sunset_label">do zachodu słońca</string>
 
 
     <string name="pref_use_true_north_title">Prawdziwa Północ</string>
-    <string name="pref_use_true_north" translatable="false">use_true_north</string>
     <string name="pref_use_sea_level_pressure_title">Ciśnienie na poziomie morza</string>
-    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
-    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
     <string name="pref_units_header">Ogólne</string>
     <string name="pref_distance_units_title">Odległość</string>
     <string name="pref_pressure_units_title">Ciśnienie</string>
-    <string name="pref_pressure_units" translatable="false">pressure_units</string>
-    <string name="pref_distance_units" translatable="false">distance_units</string>
     <string name="pref_navigation_header">Nawigacja</string>
     <string name="pref_weather_header">Pogoda</string>
     <string name="pref_send_storm_alerts_title">Alarmy burzowe</string>
-    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
     <string name="pref_astronomy_header">Astronomia</string>
-    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">Użyj formatu 24-godzinnego</string>
-    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">Czas wschodu/zachodu słońca</string>
     <string name="weather_improving_fast">Poprawa bardzo szybko</string>
     <string name="weather_improving_slow">Wkrótce poprawa</string>
@@ -57,30 +48,19 @@
     <string name="onboarding_location_privacy">Trail Sense szanuje Twoją prywatność - dane dotyczące lokalizacji nigdy nie opuszczają urządzenia</string>
     <string name="onboarding_location_all_time">Proszę wybrać \'Allow all the time\' z okna dialogowego pozwolenia</string>
     <string name="continue_button">CONTINUE</string>
-    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
     <string name="moon_rise">Wschód księżyca</string>
     <string name="moon_set">Moonset</string>
     <string name="stop_monitoring">Stop</string>
-    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
-    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_compass_filter_amt_title">Wygładzanie kompasu</string>
     <string name="pref_compass_filter_amt_summary">Wysokie wartości mogą redukować hałas</string>
-    <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_theme_title">Theme</string>
-    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
-    <string name="pref_use_experimental_compass_title">Użyj kompasu doświadczalnego</string>
     <string name="pref_use_legacy_compass_title">Używaj starego kompasu</string>
     <string name="pref_use_legacy_compass_summary">Może naprawić problemy z kompasem</string>
-    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">Wyświetlaj pobliskie nadajniki</string>
-    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">Wrażliwość na alarm burzowy</string>
     <string name="pref_show_sun_moon_compass_title">Pokaż słońce/księżyc na kompasie</string>
-    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">Pokaż kompas liniowy</string>
     <string name="pref_show_linear_compass_summary">Kiedy telefon jest pionowy</string>
-
-    <string name="delete_beacon_confirmation">Czy na pewno chcesz usunąć "%s"?</string>
 
     <plurals name="last_hours">
         <item quantity="one">ostatnia %d godzina</item>
@@ -111,10 +91,6 @@
     <string name="gps">GPS</string>
     <string name="barometer">Barometr</string>
 
-    <string name="sensitivity_low">Niski</string>
-    <string name="sensitivity_med">Medium</string>
-    <string name="sensitivity_high">Wysoka</string>
-
     <string name="sun_actual">Czas rzeczywisty</string>
     <string name="sun_civil">Cywilny Zmierzch</string>
     <string name="sun_nautical">Nautical Twilight</string>
@@ -123,8 +99,6 @@
     <string name="today">Dziś</string>
     <string name="tomorrow">Jutro</string>
     <string name="yesterday">Wczoraj</string>
-    <string name="this_year_format">MMMM d</string>
-    <string name="other_year_format">MMM d, YYYY</string>
     <string name="pressure_tendency_indicator_alt">Wskaźnik tendencji do zmiany ciśnienia</string>
 
     <string name="pressure_48_hours">48 godzin</string>

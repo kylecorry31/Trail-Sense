@@ -10,9 +10,11 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.Intervalometer
-import com.kylecorry.trail_sense.shared.system.AlarmUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.IAltimeter
+import com.kylecorry.trail_sense.shared.sensors.IBarometer
+import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.system.AlarmUtils
 import com.kylecorry.trail_sense.shared.system.IntentUtils
 import com.kylecorry.trail_sense.shared.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
@@ -21,9 +23,10 @@ import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverterFactory
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
-import java.time.*
-import java.util.*
-import kotlin.concurrent.timer
+import java.time.Duration
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 class WeatherUpdateReceiver : BroadcastReceiver() {
 
@@ -250,7 +253,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
     companion object {
 
-        private const val STORM_CHANNEL_ID = "Alerts";
+        private const val STORM_CHANNEL_ID = "Alerts"
         private const val TAG = "WeatherUpdateReceiver"
         private const val INTENT_ACTION = "com.kylecorry.trail_sense.ALARM_UPDATE_WEATHER"
         const val PI_ID = 84097413
@@ -272,9 +275,6 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         private fun alarmIntent(context: Context): Intent {
             return IntentUtils.localIntent(context, INTENT_ACTION)
         }
-
-        private val MAX_BAROMETER_READINGS = 8
-        private val MAX_GPS_READINGS = 1
 
         private const val LAST_CALLED_KEY = "weatherLastUpdated"
     }

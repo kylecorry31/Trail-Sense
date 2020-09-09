@@ -14,28 +14,19 @@
     <string name="action_astronomy">खगोल विज्ञान</string>
     <string name="sunrise_label">सूर्योदय</string>
     <string name="sunset_label">सूर्यास्त</string>
-    <string name="until_sunrise_label">सूर्योदय नभएसम्म</string>
     <string name="until_sunset_label">सूर्यास्त नभएसम्म</string>
 
 
     <string name="pref_use_true_north_title">साँचो उत्तर</string>
-    <string name="pref_use_true_north" translatable="false">use_true_north</string>
     <string name="pref_use_sea_level_pressure_title">समुद्री सतह दबाव</string>
-    <string name="pref_use_sea_level_pressure" translatable="false">use_sea_level_pressure</string>
-    <string name="pref_send_storm_alert" translatable="false">send_storm_alert</string>
     <string name="pref_units_header">सामान्य</string>
     <string name="pref_distance_units_title">दूरी</string>
     <string name="pref_pressure_units_title">दवाव</string>
-    <string name="pref_pressure_units" translatable="false">pressure_units</string>
-    <string name="pref_distance_units" translatable="false">distance_units</string>
     <string name="pref_navigation_header">नेभिगेसन</string>
     <string name="pref_weather_header">मौसम</string>
     <string name="pref_send_storm_alerts_title">आँधी चेतावनी</string>
-    <string name="pref_just_sent_alert" translatable="false">just_sent_alert</string>
     <string name="pref_astronomy_header">खगोल विज्ञान</string>
-    <string name="pref_use_24_hour" translatable="false">use_24_hour</string>
     <string name="pref_use_24_hour_title">२--घण्टा ढाँचा प्रयोग गर्नुहोस्</string>
-    <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_sun_time_mode_title">सूर्योदय /सूर्यास्त समय</string>
     <string name="weather_improving_fast">धेरै चाँडै सुधार हुँदैछ</string>
     <string name="weather_improving_slow">चाँडै सुधार हुँदैछ</string>
@@ -57,30 +48,19 @@
     <string name="onboarding_location_privacy">ट्रेल सेन्सेजले तपाईंको गोपनीयतालाई आदर गर्दछ - स्थान डाटा कहिले पनि तपाईंको उपकरण छोड्दैन</string>
     <string name="onboarding_location_all_time">कृपया अनुमति संवादबाट सबै समय अनुमति दिनुहोस् चयन गर्नुहोस्</string>
     <string name="continue_button">जारी राख्नुहोस्</string>
-    <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
     <string name="moon_rise">मून्रोइज</string>
     <string name="moon_set">मूनसेट</string>
     <string name="stop_monitoring">रोक</string>
-    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
-    <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_compass_filter_amt_title">कम्पास स्मूथिंग</string>
     <string name="pref_compass_filter_amt_summary">उच्च मानले आवाज कम गर्न सक्दछ</string>
-    <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_theme_title">विषयवस्तु</string>
-    <string name="pref_use_experimental_compass" translatable="false">pref_use_experimental_compass</string>
-    <string name="pref_use_experimental_compass_title">प्रयोगात्मक कम्पास प्रयोग गर्नुहोस्</string>
     <string name="pref_use_legacy_compass_title">लिगेसी कम्पास प्रयोग गर्नुहोस्</string>
     <string name="pref_use_legacy_compass_summary">कम्पास मुद्दाहरूको समाधान गर्न सक्छ</string>
-    <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_display_multi_beacons_title">नजिकैको बीकनहरू प्रदर्शन गर्नुहोस्</string>
-    <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_storm_alert_sensitivity_title">आँधी चेतावनी संवेदनशीलता</string>
     <string name="pref_show_sun_moon_compass_title">कम्पासमा सूर्य /चन्द्रमा देखाउनुहोस्</string>
-    <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
     <string name="pref_show_linear_compass_title">रैखिक कम्पास देखाउनुहोस्</string>
     <string name="pref_show_linear_compass_summary">जब फोन ठाडो हुन्छ</string>
-
-    <string name="delete_beacon_confirmation">के तपाईं " %s" हटाउन निश्चित हुनुहुन्छ?</string>
 
     <plurals name="last_hours">
         <item quantity="one">अन्तिम %d घण्टा</item>
@@ -107,10 +87,6 @@
     <string name="gps">जीपीएस</string>
     <string name="barometer">ब्यारोमीटर</string>
 
-    <string name="sensitivity_low">कम</string>
-    <string name="sensitivity_med">मध्यम</string>
-    <string name="sensitivity_high">उच्च</string>
-
     <string name="sun_actual">वास्तविक समय</string>
     <string name="sun_civil">नागरिक गोधूलि</string>
     <string name="sun_nautical">समुद्री गोधूलि</string>
@@ -119,8 +95,6 @@
     <string name="today">आज</string>
     <string name="tomorrow">भोली</string>
     <string name="yesterday">हिजो</string>
-    <string name="this_year_format">MMMM d</string>
-    <string name="other_year_format">MMM d, YYYY</string>
     <string name="pressure_tendency_indicator_alt">दबाव प्रवृत्ति सूचक</string>
 
     <string name="pressure_48_hours"> ४८ घण्टा</string>

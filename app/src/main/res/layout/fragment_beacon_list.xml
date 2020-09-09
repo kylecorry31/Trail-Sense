@@ -83,8 +83,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:tint="?android:textColorPrimary"
-                android:src="@drawable/ic_send"/>
+                android:src="@drawable/ic_send"
+                app:tint="?android:textColorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -93,7 +93,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/share_action_copy"
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:layout_marginTop="8dp"
@@ -106,8 +105,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:tint="?android:textColorPrimary"
-                android:src="@drawable/ic_copy"/>
+                android:src="@drawable/ic_copy"
+                app:tint="?android:textColorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -128,8 +127,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:tint="?android:textColorPrimary"
-                android:src="@drawable/ic_copy"/>
+                android:src="@drawable/ic_copy"
+                app:tint="?android:textColorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -150,8 +149,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:tint="?android:textColorPrimary"
-                android:src="@drawable/ic_copy"/>
+                android:src="@drawable/ic_copy"
+                app:tint="?android:textColorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -172,8 +171,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:tint="?android:textColorPrimary"
-                android:src="@drawable/ic_geo"/>
+                android:src="@drawable/ic_geo"
+                app:tint="?android:textColorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
