@@ -46,12 +46,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         userPrefs = UserPreferences(this)
-        disclaimer = DisclaimerMessage(this)
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-
         val mode = when (userPrefs.theme){
             UserPreferences.Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
             UserPreferences.Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
@@ -59,6 +54,11 @@ class MainActivity : AppCompatActivity() {
             UserPreferences.Theme.System -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         }
         AppCompatDelegate.setDefaultNightMode(mode)
+        super.onCreate(savedInstanceState)
+
+        disclaimer = DisclaimerMessage(this)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+
         setContentView(R.layout.activity_main)
         bottomNavigation = findViewById(R.id.bottom_navigation)
 

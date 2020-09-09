@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.system.NotificationUtils
 
 class FlashlightService: Service() {
 
-    lateinit var flashlight: FlashlightProxy
+    private var flashlight: FlashlightProxy? = null
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -49,12 +49,12 @@ class FlashlightService: Service() {
         startForeground(NOTIFICATION_ID, notification)
 
         flashlight = FlashlightProxy(this)
-        flashlight.on()
+        flashlight?.on()
     }
 
     override fun onDestroy() {
         stopForeground(true)
-        flashlight.off()
+        flashlight?.off()
         super.onDestroy()
     }
 

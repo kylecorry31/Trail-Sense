@@ -86,13 +86,6 @@ fun ZonedDateTime.toUTCLocal(): LocalDateTime {
     return LocalDateTime.ofInstant(this.toInstant(), ZoneId.of("UTC"))
 }
 
-fun List<Float>.median(): Float {
-    if (this.isEmpty()) return 0f
-
-    val sortedList = this.sortedBy { it }
-    return sortedList[this.size / 2]
-}
-
 fun Fragment.switchToFragment(fragment: Fragment, holderId: Int = R.id.fragment_holder, addToBackStack: Boolean = false) {
     parentFragmentManager.doTransaction {
         if (addToBackStack) {
