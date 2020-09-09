@@ -70,10 +70,12 @@ class BarometerFragment : Fragment(), Observer {
         thermometer = sensorService.getThermometer()
         prefs = UserPreferences(requireContext())
 
-        weatherService = WeatherService(
+        weatherService =  WeatherService(
             prefs.weather.stormAlertThreshold,
             prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold
+            prefs.weather.hourlyForecastChangeThreshold,
+            prefs.weather.seaLevelFactorInRapidChanges,
+            prefs.weather.seaLevelFactorInTemp
         )
 
         pressureTxt = view.findViewById(R.id.pressure)

@@ -7,18 +7,29 @@ import com.kylecorry.trail_sense.weather.domain.forcasting.HourlyForecaster
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.sealevel.AltimeterSeaLevelPressureConverter
 import com.kylecorry.trail_sense.weather.domain.sealevel.BarometerGPSAltitudeCalculator
+import com.kylecorry.trail_sense.weather.domain.sealevel.GPSAltitudeCalculator
 import com.kylecorry.trail_sense.weather.domain.tendency.DropPressureTendencyCalculator
 import com.kylecorry.trail_sense.weather.domain.tendency.PressureTendency
 import kotlin.math.abs
 import kotlin.math.ln
 
-class WeatherService(stormThreshold: Float, dailyForecastChangeThreshold: Float, hourlyForecastChangeThreshold: Float, adjustSeaLevelWithBarometer: Boolean = true, adjustSeaLevelWithTemp: Boolean = false) {
+class WeatherService(
+    stormThreshold: Float,
+    dailyForecastChangeThreshold: Float,
+    hourlyForecastChangeThreshold: Float,
+    adjustSeaLevelWithBarometer: Boolean = true,
+    adjustSeaLevelWithTemp: Boolean = false
+) {
 
-    private val shortTermForecaster = HourlyForecaster(stormThreshold, hourlyForecastChangeThreshold)
+    private val shortTermForecaster =
+        HourlyForecaster(stormThreshold, hourlyForecastChangeThreshold)
     private val longTermForecaster = DailyForecaster(dailyForecastChangeThreshold)
     private val tendencyCalculator = DropPressureTendencyCalculator()
     private val pressureClassifier = StandardPressureClassifier()
-    private val seaLevelConverter = AltimeterSeaLevelPressureConverter(BarometerGPSAltitudeCalculator())
+    private val seaLevelConverter = AltimeterSeaLevelPressureConverter(
+        if (adjustSeaLevelWithBarometer) BarometerGPSAltitudeCalculator() else GPSAltitudeCalculator(),
+        adjustSeaLevelWithTemp
+    )
 
     fun getHourlyWeather(readings: List<PressureReading>): Weather {
         return shortTermForecaster.forecast(readings)

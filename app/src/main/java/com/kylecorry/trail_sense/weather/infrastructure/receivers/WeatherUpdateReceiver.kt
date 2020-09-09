@@ -19,17 +19,12 @@ import com.kylecorry.trail_sense.shared.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
-import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverterFactory
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
-import java.time.*
-import java.util.*
-import kotlin.concurrent.timer
-import kotlin.math.absoluteValue
 
 class WeatherUpdateReceiver : BroadcastReceiver() {
 
@@ -39,11 +34,11 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     private lateinit var thermometer: IThermometer
     private lateinit var sensorService: SensorService
     private val timeout = Intervalometer(Runnable {
-        if (!hasAltitude) {
+        if (!hasAltitude || !hasTemperatureReading || !hasBarometerReading) {
             hasAltitude = true
-            if (hasBarometerReading) {
-                gotAllReadings()
-            }
+            hasTemperatureReading = true
+            hasBarometerReading = true
+            gotAllReadings()
         }
     })
 
@@ -65,7 +60,9 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         weatherService = WeatherService(
             userPrefs.weather.stormAlertThreshold,
             userPrefs.weather.dailyForecastChangeThreshold,
-            userPrefs.weather.hourlyForecastChangeThreshold
+            userPrefs.weather.hourlyForecastChangeThreshold,
+            userPrefs.weather.seaLevelFactorInRapidChanges,
+            userPrefs.weather.seaLevelFactorInTemp
         )
 
         sensorService = SensorService(context)
@@ -127,8 +124,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun sendWeatherNotification() {
-        val pressureConverter = SeaLevelPressureConverterFactory().create(context)
-        val readings = pressureConverter.convert(PressureHistoryRepository.getAll(context))
+        val readings = weatherService.convertToSeaLevel(PressureHistoryRepository.getAll(context))
         val forecast = weatherService.getHourlyWeather(readings)
 
         if (userPrefs.weather.shouldShowWeatherNotification) {
@@ -157,7 +153,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun setAltimeterTimeout(millis: Long) {
+    private fun setSensorTimeout(millis: Long) {
         timeout.once(millis)
     }
 
@@ -190,7 +186,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun gotAllReadings() {
-        if (!hasAltitude || !hasBarometerReading || !hasTemperatureReading){
+        if (!hasAltitude || !hasBarometerReading || !hasTemperatureReading) {
             return
         }
         stopSensors()
@@ -228,9 +224,8 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val sentAlert = prefs.getBoolean(context.getString(R.string.pref_just_sent_alert), false)
 
-        val pressureConverter = SeaLevelPressureConverterFactory().create(context)
         val readings = PressureHistoryRepository.getAll(context)
-        val forecast = weatherService.getHourlyWeather(pressureConverter.convert(readings))
+        val forecast = weatherService.getHourlyWeather(weatherService.convertToSeaLevel(readings))
 
         if (forecast == Weather.Storm) {
             val shouldSend = userPrefs.weather.sendStormAlerts

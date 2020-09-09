@@ -27,7 +27,15 @@ class ThermometerFragment : Fragment() {
     private val hygrometer by lazy { sensorService.getHygrometer() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
-    private val weatherService = WeatherService(0f, 0f, 0f)
+    private val weatherService by lazy {
+        WeatherService(
+            prefs.weather.stormAlertThreshold,
+            prefs.weather.dailyForecastChangeThreshold,
+            prefs.weather.hourlyForecastChangeThreshold,
+            prefs.weather.seaLevelFactorInRapidChanges,
+            prefs.weather.seaLevelFactorInTemp
+        )
+    }
 
     private var heatAlertTitle = ""
     private var heatAlertContent = ""

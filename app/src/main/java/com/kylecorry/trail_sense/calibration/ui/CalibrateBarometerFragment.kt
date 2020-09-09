@@ -25,7 +25,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     private lateinit var altimeter: IAltimeter
     private lateinit var thermometer: IThermometer
 
-    private val weatherService = WeatherService(0f, 0f, 0f)
+    private lateinit var weatherService: WeatherService
     private lateinit var units: PressureUnits
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -42,6 +42,16 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
         bindPreferences()
     }
 
+    private fun refreshWeatherService() {
+        weatherService = WeatherService(
+            prefs.weather.stormAlertThreshold,
+            prefs.weather.dailyForecastChangeThreshold,
+            prefs.weather.hourlyForecastChangeThreshold,
+            prefs.weather.seaLevelFactorInRapidChanges,
+            prefs.weather.seaLevelFactorInTemp
+        )
+    }
+
     private fun bindPreferences() {
         pressureTxt = findPreference(getString(R.string.pref_holder_pressure))!!
         seaLevelSwitch = findPreference(getString(R.string.pref_use_sea_level_pressure))!!
@@ -50,12 +60,14 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
             if (!altimeter.hasValidReading) {
                 altimeter.start(this::updateAltitude)
             }
+            refreshWeatherService()
             true
         }
     }
 
     override fun onResume() {
         super.onResume()
+        refreshWeatherService()
         startBarometer()
         thermometer.start(this::updateTemperature)
         if (prefs.weather.useSeaLevelPressure && !altimeter.hasValidReading) {
@@ -106,7 +118,10 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
             weatherService.convertToSeaLevel(
                 listOf(
                     PressureAltitudeReading(
-                        Instant.now(), barometer.pressure, altimeter.altitude, thermometer.temperature
+                        Instant.now(),
+                        barometer.pressure,
+                        altimeter.altitude,
+                        thermometer.temperature
                     )
                 )
             ).first().value
