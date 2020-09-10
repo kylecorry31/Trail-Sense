@@ -128,14 +128,14 @@
     <string name="forecast_worsening">Possibly worsening later</string>
     <string name="heat_alert_heat_danger_title">Heat danger</string>
     <string name="heat_alert_heat_message">Heat exhaustion/stroke risk. Be sure to stay hydrated, stay indoors or in shade, limit exercise, and watch for signs of heat exhaustion or stroke.</string>
-    <string name="heat_alert_frostbite_message">Frostbite/hypothermia risk. Be sure to stay hydrated, dress warm and limit exposed skin, and watch for signs of hypothermia or frostbite.</string>
+    <string name="heat_alert_frostbite_message">Hypothermia/frostbite risk. Be sure to stay hydrated, dress warm and limit exposed skin, and watch for signs of hypothermia or frostbite.</string>
     <string name="heat_alert_heat_alert_title">Heat alert</string>
     <string name="heat_alert_heat_warning_title">Heat warning</string>
     <string name="heat_alert_heat_caution_title">Heat caution</string>
     <string name="heat_alert_normal_title">No temperature warning</string>
-    <string name="heat_alert_frostbite_caution_title">Frostbite caution</string>
-    <string name="heat_alert_frostbite_warning_title">Frostbite warning</string>
-    <string name="heat_alert_frostbite_danger_title">Frostbite danger</string>
+    <string name="heat_alert_frostbite_caution_title">Hypothermia caution</string>
+    <string name="heat_alert_frostbite_warning_title">Hypothermia warning</string>
+    <string name="heat_alert_frostbite_danger_title">Hypothermia danger</string>
 
 
     <!--Astronomy Tab-->
