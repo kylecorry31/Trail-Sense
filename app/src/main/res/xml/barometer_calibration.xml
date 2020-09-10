@@ -17,6 +17,22 @@
             app:key="@string/pref_use_sea_level_pressure"
             app:title="@string/pref_use_sea_level_pressure_title" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            android:dependency="@string/pref_use_sea_level_pressure"
+            app:key="@string/pref_adjust_for_temperature"
+            app:title="@string/pref_adjust_for_temperature_title"
+            android:summary="@string/pref_adjust_for_temperature_summary"/>
+
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_use_sea_level_pressure"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_sea_level_use_rapid"
+            app:title="@string/pref_sea_level_use_rapid_title"
+            android:summary="@string/pref_sea_level_use_rapid_summary"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

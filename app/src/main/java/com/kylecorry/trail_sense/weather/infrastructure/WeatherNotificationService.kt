@@ -77,9 +77,15 @@ object WeatherNotificationService {
         forecast: Weather,
         readings: List<PressureReading>
     ) {
-        val weatherService = WeatherService(0f, 0f, 0f)
-        val tendency = weatherService.getTendency(readings)
         val prefs = UserPreferences(context)
+        val weatherService = WeatherService(
+            prefs.weather.stormAlertThreshold,
+            prefs.weather.dailyForecastChangeThreshold,
+            prefs.weather.hourlyForecastChangeThreshold,
+            prefs.weather.seaLevelFactorInRapidChanges,
+            prefs.weather.seaLevelFactorInTemp
+        )
+        val tendency = weatherService.getTendency(readings)
         val units = prefs.pressureUnits
         val pressure = readings.lastOrNull()?.value
         val classification = weatherService.classifyPressure(

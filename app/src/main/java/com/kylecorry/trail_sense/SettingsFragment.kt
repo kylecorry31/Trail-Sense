@@ -67,6 +67,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
 
+        preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_temperature_units))?.isVisible =
+            userPrefs.experimentalEnabled
+
         preferenceScreen.findPreference<SwitchPreferenceCompat>(getString(R.string.pref_enable_experimental))
             ?.setOnPreferenceClickListener {
                 activity?.recreate()

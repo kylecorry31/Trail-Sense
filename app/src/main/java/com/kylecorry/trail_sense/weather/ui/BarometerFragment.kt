@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.Throttle
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.formatHM
-import com.kylecorry.trail_sense.shared.sensors.IAltimeter
-import com.kylecorry.trail_sense.shared.sensors.IBarometer
-import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.temperature.IThermometer
+import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
@@ -28,6 +30,7 @@ class BarometerFragment : Fragment(), Observer {
 
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
+    private lateinit var thermometer: IThermometer
 
     private var altitude = 0F
     private var useSeaLevelPressure = false
@@ -43,11 +46,14 @@ class BarometerFragment : Fragment(), Observer {
     private lateinit var historyDurationTxt: TextView
     private lateinit var pressureMarkerTxt: TextView
     private lateinit var tendencyAmountTxt: TextView
+    private lateinit var temperatureBtn: FloatingActionButton
 
     private lateinit var chart: PressureChart
 
     private lateinit var weatherService: WeatherService
     private lateinit var sensorService: SensorService
+
+    private val throttle = Throttle(20)
 
 
     override fun onCreateView(
@@ -61,12 +67,15 @@ class BarometerFragment : Fragment(), Observer {
 
         barometer = sensorService.getBarometer()
         altimeter = sensorService.getAltimeter()
+        thermometer = sensorService.getThermometer()
         prefs = UserPreferences(requireContext())
 
-        weatherService = WeatherService(
+        weatherService =  WeatherService(
             prefs.weather.stormAlertThreshold,
             prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold
+            prefs.weather.hourlyForecastChangeThreshold,
+            prefs.weather.seaLevelFactorInRapidChanges,
+            prefs.weather.seaLevelFactorInTemp
         )
 
         pressureTxt = view.findViewById(R.id.pressure)
@@ -75,6 +84,7 @@ class BarometerFragment : Fragment(), Observer {
         weatherLaterTxt = view.findViewById(R.id.weather_later_lbl)
         pressureMarkerTxt = view.findViewById(R.id.pressure_marker)
         tendencyAmountTxt = view.findViewById(R.id.tendency_amount)
+        temperatureBtn = view.findViewById(R.id.temperature_btn)
         chart = PressureChart(
             view.findViewById(R.id.chart),
             resources.getColor(R.color.colorPrimary, null),
@@ -98,6 +108,16 @@ class BarometerFragment : Fragment(), Observer {
         )
         trendImg = view.findViewById(R.id.barometer_trend)
         historyDurationTxt = view.findViewById(R.id.pressure_history_duration)
+
+        if (prefs.experimentalEnabled) {
+            temperatureBtn.visibility = View.VISIBLE
+        } else {
+            temperatureBtn.visibility = View.GONE
+        }
+
+        temperatureBtn.setOnClickListener {
+            switchToFragment(ThermometerFragment(), addToBackStack = true)
+        }
 
 
         return view
@@ -123,12 +143,15 @@ class BarometerFragment : Fragment(), Observer {
         } else {
             altimeter.start(this::onAltitudeUpdate)
         }
+
+        thermometer.start(this::onTemperatureUpdate)
     }
 
     override fun onPause() {
         super.onPause()
         barometer.stop(this::onPressureUpdate)
         altimeter.stop(this::onAltitudeUpdate)
+        thermometer.stop(this::onTemperatureUpdate)
         PressureHistoryRepository.deleteObserver(this)
     }
 
@@ -143,6 +166,11 @@ class BarometerFragment : Fragment(), Observer {
         return true
     }
 
+    private fun onTemperatureUpdate(): Boolean {
+        update()
+        return true
+    }
+
     private fun onAltitudeUpdate(): Boolean {
         update()
         return false
@@ -151,6 +179,10 @@ class BarometerFragment : Fragment(), Observer {
     private fun update() {
         if (context == null) return
         if (barometer.pressure == 0.0f) return
+
+        if (throttle.isThrottled()) {
+            return
+        }
 
         val readings = if (useSeaLevelPressure) {
             getSeaLevelPressureHistory()
@@ -173,7 +205,8 @@ class BarometerFragment : Fragment(), Observer {
                 PressureAltitudeReading(
                     Instant.now(),
                     barometer.pressure,
-                    altimeter.altitude
+                    altimeter.altitude,
+                    thermometer.temperature
                 )
             )
         }
@@ -187,7 +220,8 @@ class BarometerFragment : Fragment(), Observer {
                 PressureAltitudeReading(
                     Instant.now(),
                     barometer.pressure,
-                    altimeter.altitude
+                    altimeter.altitude,
+                    thermometer.temperature
                 )
             )
         }

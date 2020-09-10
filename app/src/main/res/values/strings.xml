@@ -111,6 +111,11 @@
         <item quantity="one">Last %d minute</item>
         <item quantity="other">Last %d minutes</item>
     </plurals>
+    <string name="temp_f_format">%.0f °F</string>
+    <string name="temp_c_format">%.0f °C</string>
+    <string name="humidity_format">%.0f%% humidity</string>
+    <string name="no_humidity_data">No humidity data</string>
+    <string name="dew_point">Dew point %s</string>
 
     <!--Weather Tab - Forecasts-->
     <string name="weather_improving_fast">Improving very soon</string>
@@ -190,6 +195,9 @@
     <string name="coordinate_format_degrees_decimal_minutes">Degrees Decimal Minutes</string>
     <string name="coordinate_format_degrees_minutes_seconds">Degrees Minutes Seconds</string>
     <string name="pref_coordinate_format_title">Coordinate format</string>
+    <string name="fahrenheit">Fahrenheit</string>
+    <string name="celsius">Celsius</string>
+    <string name="pref_temperature_units_title">Temperature</string>
 
     <!--Settings - Sensors-->
     <string name="pref_category_sensors_title">Sensors</string>
@@ -250,6 +258,10 @@
     <string name="pref_barometer_pressure_title">Pressure</string>
     <string name="pref_use_sea_level_pressure_title">Sea level pressure</string>
     <string name="barometer">Barometer</string>
+    <string name="pref_adjust_for_temperature_title">Factor in temperature</string>
+    <string name="pref_adjust_for_temperature_summary">Use the temperature in sea level pressure conversions</string>
+    <string name="pref_sea_level_use_rapid_title">Factor in rapid pressure changes</string>
+    <string name="pref_sea_level_use_rapid_summary">Use rapid pressure changes in sea level pressure conversions</string>
 
     <!--Settings - Navigation-->
     <string name="pref_navigation_header">Navigation</string>
@@ -410,4 +422,7 @@
     <string name="pref_enable_experimental" translatable="false">pref_enable_experimental</string>
     <string name="pref_non_linear_distances" translatable="false">pref_non_linear_distances</string>
     <string name="pref_force_weather_updates" translatable="false">pref_force_weather_updates</string>
+    <string name="pref_temperature_units" translatable="false">pref_temperature_units</string>
+    <string name="pref_adjust_for_temperature" translatable="false">pref_adjust_for_temperature</string>
+    <string name="pref_sea_level_use_rapid" translatable="false">pref_sea_level_use_rapid</string>
 </resources>

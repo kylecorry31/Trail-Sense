@@ -6,11 +6,10 @@
         app:title="@string/action_tools">
 
         <Preference
+            android:icon="@drawable/inclinometer"
             android:summary="@string/tool_inclinometer_summary"
             android:title="@string/inclinometer_title"
-            android:icon="@drawable/inclinometer"
             app:key="@string/tool_inclinometer" />
-
 
     </PreferenceCategory>
 

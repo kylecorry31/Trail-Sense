@@ -11,16 +11,14 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.Intervalometer
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.IAltimeter
-import com.kylecorry.trail_sense.shared.sensors.IBarometer
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.system.AlarmUtils
+import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.temperature.IThermometer
 import com.kylecorry.trail_sense.shared.system.IntentUtils
 import com.kylecorry.trail_sense.shared.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
-import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelPressureConverterFactory
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
 import java.time.Duration
@@ -33,18 +31,20 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     private lateinit var context: Context
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
+    private lateinit var thermometer: IThermometer
     private lateinit var sensorService: SensorService
     private val timeout = Intervalometer(Runnable {
-        if (!hasAltitude) {
+        if (!hasAltitude || !hasTemperatureReading || !hasBarometerReading) {
             hasAltitude = true
-            if (hasBarometerReading) {
-                gotAllReadings()
-            }
+            hasTemperatureReading = true
+            hasBarometerReading = true
+            gotAllReadings()
         }
     })
 
     private var hasAltitude = false
     private var hasBarometerReading = false
+    private var hasTemperatureReading = false
 
     private lateinit var userPrefs: UserPreferences
     private lateinit var weatherService: WeatherService
@@ -60,12 +60,15 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         weatherService = WeatherService(
             userPrefs.weather.stormAlertThreshold,
             userPrefs.weather.dailyForecastChangeThreshold,
-            userPrefs.weather.hourlyForecastChangeThreshold
+            userPrefs.weather.hourlyForecastChangeThreshold,
+            userPrefs.weather.seaLevelFactorInRapidChanges,
+            userPrefs.weather.seaLevelFactorInTemp
         )
 
         sensorService = SensorService(context)
         barometer = sensorService.getBarometer()
         altimeter = sensorService.getAltimeter()
+        thermometer = sensorService.getThermometer()
 
         start(intent)
     }
@@ -81,7 +84,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         }
 
         setLastUpdatedTime()
-        setAltimeterTimeout(10000L)
+        setSensorTimeout(10000L)
         startSensors()
     }
 
@@ -121,8 +124,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun sendWeatherNotification() {
-        val pressureConverter = SeaLevelPressureConverterFactory().create(context)
-        val readings = pressureConverter.convert(PressureHistoryRepository.getAll(context))
+        val readings = weatherService.convertToSeaLevel(PressureHistoryRepository.getAll(context))
         val forecast = weatherService.getHourlyWeather(readings)
 
         if (userPrefs.weather.shouldShowWeatherNotification) {
@@ -151,7 +153,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun setAltimeterTimeout(millis: Long) {
+    private fun setSensorTimeout(millis: Long) {
         timeout.once(millis)
     }
 
@@ -162,25 +164,31 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             altimeter.start(this::onAltitudeUpdate)
         }
         barometer.start(this::onPressureUpdate)
+        thermometer.start(this::onTemperatureUpdate)
     }
 
     private fun onAltitudeUpdate(): Boolean {
         hasAltitude = true
-        if (hasBarometerReading) {
-            gotAllReadings()
-        }
+        gotAllReadings()
         return false
     }
 
     private fun onPressureUpdate(): Boolean {
         hasBarometerReading = true
-        if (hasAltitude) {
-            gotAllReadings()
-        }
+        gotAllReadings()
+        return false
+    }
+
+    private fun onTemperatureUpdate(): Boolean {
+        hasTemperatureReading = true
+        gotAllReadings()
         return false
     }
 
     private fun gotAllReadings() {
+        if (!hasAltitude || !hasBarometerReading || !hasTemperatureReading) {
+            return
+        }
         stopSensors()
         stopTimeout()
         addNewPressureReading()
@@ -192,6 +200,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     private fun stopSensors() {
         altimeter.stop(this::onAltitudeUpdate)
         barometer.stop(this::onPressureUpdate)
+        thermometer.stop(this::onTemperatureUpdate)
     }
 
     private fun stopTimeout() {
@@ -204,7 +213,8 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             PressureAltitudeReading(
                 Instant.now(),
                 barometer.pressure,
-                altimeter.altitude
+                altimeter.altitude,
+                if (thermometer.temperature.isNaN()) 16f else thermometer.temperature
             )
         )
     }
@@ -214,9 +224,8 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val sentAlert = prefs.getBoolean(context.getString(R.string.pref_just_sent_alert), false)
 
-        val pressureConverter = SeaLevelPressureConverterFactory().create(context)
         val readings = PressureHistoryRepository.getAll(context)
-        val forecast = weatherService.getHourlyWeather(pressureConverter.convert(readings))
+        val forecast = weatherService.getHourlyWeather(weatherService.convertToSeaLevel(readings))
 
         if (forecast == Weather.Storm) {
             val shouldSend = userPrefs.weather.sendStormAlerts

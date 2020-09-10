@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.domain.Coordinate
 import com.kylecorry.trail_sense.shared.sensors.SensorChecker
+import com.kylecorry.trail_sense.weather.domain.TemperatureUnits
 import com.kylecorry.trail_sense.weather.domain.PressureUnits
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 
@@ -39,6 +40,14 @@ class UserPreferences(private val context: Context) {
             }
         }
 
+    val temperatureUnits: TemperatureUnits
+        get() {
+            return when (prefs.getString(getString(R.string.pref_temperature_units), "c")) {
+                "f" -> TemperatureUnits.F
+                else -> TemperatureUnits.C
+            }
+        }
+
     val useLocationFeatures: Boolean
         get() = sensorChecker.hasGPS()
 
@@ -65,8 +74,14 @@ class UserPreferences(private val context: Context) {
         set(value) = prefs.edit { putBoolean(getString(R.string.pref_auto_declination), value) }
 
     var declinationOverride: Float
-        get() = prefs.getString(getString(R.string.pref_declination_override), "0.0")?.toFloatOrNull() ?: 0.0f
-        set(value) = prefs.edit { putString(getString(R.string.pref_declination_override), value.toString()) }
+        get() = prefs.getString(getString(R.string.pref_declination_override), "0.0")
+            ?.toFloatOrNull() ?: 0.0f
+        set(value) = prefs.edit {
+            putString(
+                getString(R.string.pref_declination_override),
+                value.toString()
+            )
+        }
 
     var useAutoLocation: Boolean
         get() = prefs.getBoolean(getString(R.string.pref_auto_location), true)
@@ -75,7 +90,8 @@ class UserPreferences(private val context: Context) {
     var locationOverride: Coordinate
         get() {
             val latStr = prefs.getString(getString(R.string.pref_latitude_override), "0.0") ?: "0.0"
-            val lngStr = prefs.getString(getString(R.string.pref_longitude_override), "0.0") ?: "0.0"
+            val lngStr =
+                prefs.getString(getString(R.string.pref_longitude_override), "0.0") ?: "0.0"
 
             val lat = latStr.toDoubleOrNull() ?: 0.0
             val lng = lngStr.toDoubleOrNull() ?: 0.0
@@ -90,8 +106,14 @@ class UserPreferences(private val context: Context) {
         }
 
     var altitudeOverride: Float
-        get() = (prefs.getString(getString(R.string.pref_altitude_override), "0.0") ?: "0.0").toFloatOrNull() ?: 0.0f
-        set(value) = prefs.edit { putString(getString(R.string.pref_altitude_override), value.toString()) }
+        get() = (prefs.getString(getString(R.string.pref_altitude_override), "0.0")
+            ?: "0.0").toFloatOrNull() ?: 0.0f
+        set(value) = prefs.edit {
+            putString(
+                getString(R.string.pref_altitude_override),
+                value.toString()
+            )
+        }
 
     var useAutoAltitude: Boolean
         get() = prefs.getBoolean(getString(R.string.pref_auto_altitude), true)
