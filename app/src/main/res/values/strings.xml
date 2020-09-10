@@ -136,7 +136,7 @@
     <string name="heat_alert_frostbite_caution_title">Hypothermia caution</string>
     <string name="heat_alert_frostbite_warning_title">Hypothermia warning</string>
     <string name="heat_alert_frostbite_danger_title">Hypothermia danger</string>
-
+    <string name="temperature_disclaimer">Temperature accuracy is affected by your phone\'s heat.</string>
 
     <!--Astronomy Tab-->
     <string name="sun_does_not_set">does not set</string>
@@ -268,11 +268,13 @@
     <!--Settings - Sensors - Barometer-->
     <string name="pref_barometer_pressure_title">Pressure</string>
     <string name="pref_use_sea_level_pressure_title">Sea level pressure</string>
-    <string name="barometer">Barometer</string>
+    <string name="barometer_thermometer">Barometer and thermometer</string>
     <string name="pref_adjust_for_temperature_title">Factor in temperature</string>
     <string name="pref_adjust_for_temperature_summary">Use the temperature in sea level pressure conversions</string>
     <string name="pref_sea_level_use_rapid_title">Factor in rapid pressure changes</string>
     <string name="pref_sea_level_use_rapid_summary">Use rapid pressure changes in sea level pressure conversions</string>
+    <string name="pref_temperature_adjustment_title">Temperature adjustment</string>
+    <string name="pref_temperature_holder_title">Temperature</string>
 
     <!--Settings - Navigation-->
     <string name="pref_navigation_header">Navigation</string>
@@ -436,4 +438,7 @@
     <string name="pref_temperature_units" translatable="false">pref_temperature_units</string>
     <string name="pref_adjust_for_temperature" translatable="false">pref_adjust_for_temperature</string>
     <string name="pref_sea_level_use_rapid" translatable="false">pref_sea_level_use_rapid</string>
+    <string name="pref_temperature_adjustment_c" translatable="false">pref_temperature_adjustment_c</string>
+    <string name="pref_temperature_adjustment_f" translatable="false">pref_temperature_adjustment_f</string>
+    <string name="pref_temperature_holder" translatable="false">pref_temperature_holder</string>
 </resources>

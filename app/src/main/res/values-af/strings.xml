@@ -85,7 +85,6 @@
     <string name="theme_system">stelsel</string>
 
     <string name="gps">GPS</string>
-    <string name="barometer">barometer</string>
 
     <string name="sun_actual">Werklike tyd</string>
     <string name="sun_civil">Civil Twilight</string>

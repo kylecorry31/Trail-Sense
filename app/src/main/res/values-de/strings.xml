@@ -86,7 +86,6 @@
     <string name="theme_system">System</string>
 
     <string name="gps">GPS</string>
-    <string name="barometer">Barometer</string>
 
     <string name="sun_actual">Tatsächliche Zeit</string>
     <string name="sun_civil">Zivile Dämmerung</string>

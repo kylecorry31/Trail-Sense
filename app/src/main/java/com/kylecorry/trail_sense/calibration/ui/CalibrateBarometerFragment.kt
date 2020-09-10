@@ -1,16 +1,16 @@
 package com.kylecorry.trail_sense.calibration.ui
 
 import android.os.Bundle
+import androidx.core.content.edit
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.temperature.IThermometer
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
-import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
-import com.kylecorry.trail_sense.weather.domain.PressureUnits
-import com.kylecorry.trail_sense.weather.domain.WeatherService
+import com.kylecorry.trail_sense.weather.domain.*
 import java.time.Instant
+import kotlin.math.roundToInt
 
 class CalibrateBarometerFragment : PreferenceFragmentCompat() {
 
@@ -19,7 +19,10 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     private val throttle = Throttle(20)
 
     private lateinit var pressureTxt: Preference
+    private lateinit var temperatureTxt: Preference
     private lateinit var seaLevelSwitch: SwitchPreferenceCompat
+    private lateinit var cSeekBar: SeekBarPreference
+    private lateinit var fSeekBar: SeekBarPreference
 
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
@@ -27,6 +30,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
 
     private lateinit var weatherService: WeatherService
     private lateinit var units: PressureUnits
+    private val formatService by lazy { FormatService(requireContext()) }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.barometer_calibration, rootKey)
@@ -55,6 +59,40 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     private fun bindPreferences() {
         pressureTxt = findPreference(getString(R.string.pref_holder_pressure))!!
         seaLevelSwitch = findPreference(getString(R.string.pref_use_sea_level_pressure))!!
+        temperatureTxt = findPreference(getString(R.string.pref_temperature_holder))!!
+        cSeekBar = findPreference(getString(R.string.pref_temperature_adjustment_c))!!
+        fSeekBar = findPreference(getString(R.string.pref_temperature_adjustment_f))!!
+
+        if (prefs.temperatureUnits == TemperatureUnits.C) {
+            fSeekBar.isVisible = false
+            fSeekBar.isEnabled = false
+        } else {
+            cSeekBar.isVisible = false
+            cSeekBar.isEnabled = false
+        }
+
+        if (fSeekBar.isEnabled) {
+            fSeekBar.setOnPreferenceChangeListener { _, newValue ->
+                val temp = (newValue as Int).toFloat()
+                prefs.weather.temperatureAdjustment = (temp * 5 / 9f).roundToInt()
+                update()
+                true
+            }
+        }
+
+        if (cSeekBar.isEnabled) {
+            cSeekBar.setOnPreferenceChangeListener { _, newValue ->
+                val temp = (newValue as Int).toFloat()
+                preferenceManager.sharedPreferences.edit {
+                    putInt(
+                        getString(R.string.pref_temperature_adjustment_f),
+                        (temp * 9 / 5f).roundToInt()
+                    )
+                }
+                update()
+                true
+            }
+        }
 
         seaLevelSwitch.setOnPreferenceClickListener {
             if (!altimeter.hasValidReading) {
@@ -129,10 +167,10 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
             barometer.pressure
         }
 
-        val symbol = PressureUnitUtils.getSymbol(units)
-        val format = PressureUnitUtils.getDecimalFormat(units)
         pressureTxt.summary =
-            "${format.format(PressureUnitUtils.convert(pressure, units))}  $symbol"
+            formatService.formatPressure(PressureUnitUtils.convert(pressure, units), units)
+        temperatureTxt.summary =
+            formatService.formatTemperature(thermometer.temperature, prefs.temperatureUnits)
     }
 
 

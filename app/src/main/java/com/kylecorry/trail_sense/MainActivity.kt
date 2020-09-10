@@ -95,11 +95,6 @@ class MainActivity : AppCompatActivity() {
             item.isVisible = false
         }
 
-        if (!userPrefs.experimentalEnabled){
-            val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_experimental_tools)
-            item.isVisible = false
-        }
-
         val sunsetIntent = SunsetAlarmReceiver.intent(applicationContext)
         sendBroadcast(sunsetIntent)
 

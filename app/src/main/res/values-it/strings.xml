@@ -85,7 +85,6 @@
     <string name="theme_system">Sistema</string>
 
     <string name="gps">GPS</string>
-    <string name="barometer">Barometro</string>
 
     <string name="sun_actual">Tempo effettivo</string>
     <string name="sun_civil">Crepuscolo civile</string>

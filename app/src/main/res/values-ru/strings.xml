@@ -89,7 +89,6 @@
     <string name="theme_system">Система</string>
 
     <string name="gps">GPS</string>
-    <string name="barometer">Барометр</string>
 
     <string name="sun_actual">Фактическое время</string>
     <string name="sun_civil">Гражданские сумерки</string>

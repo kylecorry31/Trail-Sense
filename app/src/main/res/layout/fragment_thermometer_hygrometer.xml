@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/temperature"
@@ -23,23 +23,23 @@
         android:id="@+id/humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="10% humidity"
         app:layout_constraintEnd_toEndOf="@+id/temperature"
         app:layout_constraintStart_toStartOf="@+id/temperature"
-        app:layout_constraintTop_toBottomOf="@+id/temperature" />
+        app:layout_constraintTop_toBottomOf="@+id/temperature"
+        tools:text="10% humidity" />
 
     <ImageView
         android:id="@+id/heat_alert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/temperature"
         app:layout_constraintEnd_toStartOf="@+id/temperature"
         app:layout_constraintTop_toTopOf="@+id/temperature"
+        app:srcCompat="@drawable/ic_alert"
         app:tint="@color/colorPrimary"
-        android:visibility="invisible"
-        tools:visibility="visible"
-        app:srcCompat="@drawable/ic_alert" />
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/dew_point"
@@ -50,5 +50,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/humidity"
         tools:text="Dew point: 10 °F" />
+
+    <TextView
+        android:id="@+id/temp_disclaimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:text="@string/temperature_disclaimer"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

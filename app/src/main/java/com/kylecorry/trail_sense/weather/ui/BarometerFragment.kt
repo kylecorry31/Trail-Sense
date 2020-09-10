@@ -109,12 +109,6 @@ class BarometerFragment : Fragment(), Observer {
         trendImg = view.findViewById(R.id.barometer_trend)
         historyDurationTxt = view.findViewById(R.id.pressure_history_duration)
 
-        if (prefs.experimentalEnabled) {
-            temperatureBtn.visibility = View.VISIBLE
-        } else {
-            temperatureBtn.visibility = View.GONE
-        }
-
         temperatureBtn.setOnClickListener {
             switchToFragment(ThermometerFragment(), addToBackStack = true)
         }

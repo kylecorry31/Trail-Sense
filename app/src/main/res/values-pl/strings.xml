@@ -89,7 +89,6 @@
     <string name="theme_system">System</string>
 
     <string name="gps">GPS</string>
-    <string name="barometer">Barometr</string>
 
     <string name="sun_actual">Czas rzeczywisty</string>
     <string name="sun_civil">Cywilny Zmierzch</string>

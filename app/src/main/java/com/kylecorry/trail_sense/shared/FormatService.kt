@@ -7,6 +7,8 @@ import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.compass.CompassDirection
 import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
+import com.kylecorry.trail_sense.weather.domain.PressureUnits
 import com.kylecorry.trail_sense.weather.domain.TemperatureUnits
 import java.time.Duration
 
@@ -148,6 +150,22 @@ class FormatService(private val context: Context) {
             } else {
                 DistanceUnits.Meters
             }
+        }
+    }
+
+    fun formatPressure(pressure: Float, unit: PressureUnits): String {
+        val symbol = getPressureUnitString(unit)
+        val format = PressureUnitUtils.getTendencyDecimalFormat(unit)
+        val amt = format.format(pressure)
+        return context.getString(R.string.pressure_format, amt, symbol)
+    }
+
+    private fun getPressureUnitString(unit: PressureUnits): String {
+        return when (unit) {
+            PressureUnits.Hpa -> context.getString(R.string.units_hpa)
+            PressureUnits.Mbar -> context.getString(R.string.units_mbar)
+            PressureUnits.Inhg -> context.getString(R.string.units_inhg_short)
+            PressureUnits.Psi -> context.getString(R.string.units_psi)
         }
     }
 

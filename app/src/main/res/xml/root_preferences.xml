@@ -84,7 +84,7 @@
 
         <Preference
             android:key="@string/pref_barometer_calibration"
-            android:title="@string/barometer"
+            android:title="@string/barometer_thermometer"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference

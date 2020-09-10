@@ -3,10 +3,10 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:title="@string/barometer">
+        app:title="@string/barometer_thermometer">
 
         <Preference
-            android:summary="-"
+            android:summary="@string/dash"
             android:title="@string/pref_barometer_pressure_title"
             app:icon="@drawable/barometer"
             app:key="@string/pref_holder_pressure" />
@@ -32,6 +32,32 @@
             app:key="@string/pref_sea_level_use_rapid"
             app:title="@string/pref_sea_level_use_rapid_title"
             android:summary="@string/pref_sea_level_use_rapid_summary"/>
+
+        <Preference
+            android:summary="@string/dash"
+            android:title="@string/pref_temperature_holder_title"
+            app:icon="@drawable/thermometer_colored"
+            app:key="@string/pref_temperature_holder" />
+
+        <SeekBarPreference
+            android:defaultValue="0"
+            android:max="30"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_temperature_adjustment_c"
+            app:min="-30"
+            app:seekBarIncrement="1"
+            app:showSeekBarValue="true"
+            app:title="@string/pref_temperature_adjustment_title" />
+
+        <SeekBarPreference
+            android:defaultValue="0"
+            android:max="54"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_temperature_adjustment_f"
+            app:min="-54"
+            app:seekBarIncrement="1"
+            app:showSeekBarValue="true"
+            app:title="@string/pref_temperature_adjustment_title" />
 
     </PreferenceCategory>
 

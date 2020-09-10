@@ -59,8 +59,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:rippleColor="@color/colorPrimary"
-        android:visibility="gone"
-        tools:visibility="visible"
         app:srcCompat="@drawable/thermometer" />
 
     <TextView

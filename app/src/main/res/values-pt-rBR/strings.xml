@@ -164,7 +164,6 @@
     <string name="theme_system">Sistema</string>
 
     <string name="gps">GPS</string>
-    <string name="barometer">Barômetro</string>
 
     <string name="sun_actual">Hora Real</string>
     <string name="sun_civil">Crepúsculo Civil</string>
