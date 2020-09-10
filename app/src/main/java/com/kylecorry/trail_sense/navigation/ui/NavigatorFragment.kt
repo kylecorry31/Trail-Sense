@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.Flashlight
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
 import com.kylecorry.trail_sense.shared.system.UiUtils
@@ -60,6 +61,8 @@ class NavigatorFragment(
     private lateinit var gpsAccuracy: LinearLayout
     private lateinit var compassAccuracy: LinearLayout
     private lateinit var speedTxt: TextView
+
+    private var acquiredLock = false
 
     private lateinit var destinationPanel: DestinationPanel
 
@@ -452,7 +455,11 @@ class NavigatorFragment(
             destinationPanel.hide()
         }
 
-        gpsAccuracyTxt.text = formatService.formatAccuracy(gps.accuracy)
+        if (!acquiredLock){
+            gpsAccuracyTxt.text = formatService.formatAccuracy(Accuracy.Unknown)
+        } else {
+            gpsAccuracyTxt.text = formatService.formatAccuracy(gps.accuracy)
+        }
         compassAccuracyTxt.text = formatService.formatAccuracy(compass.accuracy)
 
         if (gps.speed == 0.0f) {
@@ -577,6 +584,12 @@ class NavigatorFragment(
         nearbyBeacons = getNearbyBeacons()
         updateAverageSpeed()
         updateUI()
+
+        if (!acquiredLock && gps.satellites > 0){
+            UiUtils.shortToast(requireContext(), getString(R.string.gps_lock_acquired))
+            acquiredLock = true
+        }
+
         return destination != null
     }
 
