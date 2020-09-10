@@ -132,8 +132,29 @@ class ThermometerFragment : Fragment() {
 
         heatAlertImg.imageTintList = ColorStateList.valueOf(alertColor)
 
-        heatAlertTitle = alert.toString()
-        heatAlertContent = alert.toString()
+        heatAlertTitle = getHeatAlertTitle(alert)
+        heatAlertContent = getHeatAlertMessage(alert)
+    }
+
+    private fun getHeatAlertTitle(alert: HeatAlert): String {
+        return when (alert){
+            HeatAlert.HeatDanger -> getString(R.string.heat_alert_heat_danger_title)
+            HeatAlert.HeatAlert -> getString(R.string.heat_alert_heat_alert_title)
+            HeatAlert.HeatCaution -> getString(R.string.heat_alert_heat_caution_title)
+            HeatAlert.HeatWarning -> getString(R.string.heat_alert_heat_warning_title)
+            HeatAlert.FrostbiteWarning -> getString(R.string.heat_alert_frostbite_warning_title)
+            HeatAlert.FrostbiteCaution -> getString(R.string.heat_alert_frostbite_caution_title)
+            HeatAlert.FrostbiteDanger -> getString(R.string.heat_alert_frostbite_danger_title)
+            else -> getString(R.string.heat_alert_normal_title)
+        }
+    }
+
+    private fun getHeatAlertMessage(alert: HeatAlert): String {
+        return when(alert){
+            HeatAlert.HeatWarning, HeatAlert.HeatCaution, HeatAlert.HeatAlert, HeatAlert.HeatDanger -> getString(R.string.heat_alert_heat_message)
+            HeatAlert.FrostbiteWarning, HeatAlert.FrostbiteCaution, HeatAlert.FrostbiteDanger -> getString(R.string.heat_alert_frostbite_message)
+            else -> ""
+        }
     }
 
     private fun onTemperatureUpdate(): Boolean {

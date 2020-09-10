@@ -53,7 +53,7 @@ class WeatherService(
 
     fun getHeatIndex(tempCelsius: Float, relativeHumidity: Float): Float {
 
-        if (celsiusToFahrenheit(tempCelsius) < 80) return tempCelsius
+        if (tempCelsius < 27) return tempCelsius
 
         val c1 = -8.78469475556
         val c2 = 1.61139411
@@ -80,13 +80,13 @@ class WeatherService(
 
     fun getHeatAlert(heatIndex: Float): HeatAlert {
         return when {
-            heatIndex <= -30 -> HeatAlert.FrostbiteDanger
-            heatIndex <= -10 -> HeatAlert.FrostbiteWarning
-            heatIndex <= 0 -> HeatAlert.FrostbiteCaution
-            heatIndex < 80 -> HeatAlert.Normal
-            heatIndex <= 90 -> HeatAlert.HeatCaution
-            heatIndex <= 103 -> HeatAlert.HeatWarning
-            heatIndex <= 125 -> HeatAlert.HeatAlert
+            heatIndex <= -25 -> HeatAlert.FrostbiteDanger
+            heatIndex <= -17 -> HeatAlert.FrostbiteWarning
+            heatIndex <= 5 -> HeatAlert.FrostbiteCaution
+            heatIndex < 27 -> HeatAlert.Normal
+            heatIndex <= 32.5 -> HeatAlert.HeatCaution
+            heatIndex <= 39 -> HeatAlert.HeatWarning
+            heatIndex <= 50 -> HeatAlert.HeatAlert
             else -> HeatAlert.HeatDanger
         }
     }
@@ -102,10 +102,6 @@ class WeatherService(
         if (bottom == 0.0) bottom = 0.00001
         val dewPoint = tn * top / bottom
         return dewPoint.toFloat()
-    }
-
-    fun celsiusToFahrenheit(tempCelsius: Float): Float {
-        return tempCelsius * 9 / 5f + 32
     }
 
     fun getHumidityComfortLevel(dewPoint: Float): HumidityComfortLevel {
