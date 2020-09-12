@@ -147,6 +147,16 @@
             app:summary="@string/pref_monitor_weather_summary"
             app:title="@string/pref_monitor_weather_title" />
 
+        <ListPreference
+            app:defaultValue="15"
+            app:dependency="@string/pref_monitor_weather"
+            app:entries="@array/weather_update_frequency_entries"
+            app:entryValues="@array/weather_update_frequency_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_update_frequency"
+            app:title="@string/pref_weather_update_frequency_title"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:dependency="@string/pref_monitor_weather"

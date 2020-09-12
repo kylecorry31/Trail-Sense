@@ -345,6 +345,10 @@
     <string name="sunset_alert_2_hours">2 hours</string>
     <string name="sunset_alert_2_hours_30_minutes">2 hours 30 minutes</string>
     <string name="sunset_alert_3_hours">3 hours</string>
+    <string name="weather_update_15_minutes">15 minutes</string>
+    <string name="weather_update_30_minutes">30 minutes</string>
+    <string name="weather_update_45_minutes">45 minutes</string>
+    <string name="weather_update_60_minutes">1 hour</string>
     <string name="pref_sunset_alerts_title">Sunset alerts</string>
     <string name="pref_sunset_alert_time_title">Sunset alert time</string>
 
@@ -446,4 +450,6 @@
     <string name="flashlight_title">Flashlight</string>
     <string name="turn_off_flashlight">Tap to turn off</string>
     <string name="sos">SOS</string>
+    <string name="pref_weather_update_frequency">pref_weather_update_frequency</string>
+    <string name="pref_weather_update_frequency_title">Weather update frequency</string>
 </resources>

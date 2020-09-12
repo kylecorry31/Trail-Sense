@@ -28,6 +28,12 @@ class WeatherPreferences(private val context: Context) {
             true
         )
 
+    val weatherUpdateFrequency: Duration
+        get(){
+            val raw = prefs.getString(context.getString(R.string.pref_weather_update_frequency), null) ?: "15"
+            return Duration.ofMinutes(raw.toLongOrNull() ?: 15)
+        }
+
     val shouldShowWeatherNotification: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_show_weather_notification), true)
 

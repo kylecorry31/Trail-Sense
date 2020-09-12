@@ -101,9 +101,9 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             return
         }
 
-        val alarmMinutes = 20L
+        val alarmFrequency = userPrefs.weather.weatherUpdateFrequency
 
-        Log.i(TAG, "Next alarm set for ${LocalDateTime.now().plusMinutes(alarmMinutes)}")
+        Log.i(TAG, "Next alarm set for ${LocalDateTime.now().plus(alarmFrequency)}")
 
         // Cancel existing alarm (if any)
         AlarmUtils.cancel(context, pendingIntent(context))
@@ -111,7 +111,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         // Schedule the new alarm
         AlarmUtils.set(
             context,
-            LocalDateTime.now().plusMinutes(alarmMinutes),
+            LocalDateTime.now().plus(alarmFrequency),
             pendingIntent(context),
             exact = userPrefs.weather.forceUpdates,
             allowWhileIdle = true

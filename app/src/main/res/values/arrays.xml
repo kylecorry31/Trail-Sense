@@ -178,4 +178,18 @@
         <item>180</item>
     </string-array>
 
+    <string-array name="weather_update_frequency_entries">
+        <item>@string/weather_update_15_minutes</item>
+        <item>@string/weather_update_30_minutes</item>
+        <item>@string/weather_update_45_minutes</item>
+        <item>@string/weather_update_60_minutes</item>
+    </string-array>
+
+    <string-array name="weather_update_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+    </string-array>
+
 </resources>
