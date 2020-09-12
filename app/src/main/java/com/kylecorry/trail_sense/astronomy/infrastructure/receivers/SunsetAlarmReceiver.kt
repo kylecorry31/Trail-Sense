@@ -15,13 +15,13 @@ import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
-import com.kylecorry.trail_sense.shared.Intervalometer
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.system.AlarmUtils
 import com.kylecorry.trail_sense.shared.system.PackageUtils
 import com.kylecorry.trail_sense.shared.toDisplayFormat
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -32,12 +32,12 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
     private lateinit var context: Context
     private lateinit var gps: IGPS
     private lateinit var sensorService: SensorService
-    private val gpsTimeout = Intervalometer(Runnable {
+    private val gpsTimeout = Intervalometer {
         if (!hasLocation) {
             hasLocation = true
             gotReading()
         }
-    })
+    }
     private val astronomyService = AstronomyService()
 
     private var hasLocation = false

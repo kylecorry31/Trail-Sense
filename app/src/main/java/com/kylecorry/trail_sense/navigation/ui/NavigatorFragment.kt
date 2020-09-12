@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.shared.domain.Accuracy
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
 import com.kylecorry.trail_sense.shared.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
 
 class NavigatorFragment(
@@ -87,9 +88,9 @@ class NavigatorFragment(
     private lateinit var beacons: Collection<Beacon>
     private var nearbyBeacons: Collection<Beacon> = listOf()
 
-    private val intervalometer = Intervalometer(Runnable {
+    private val intervalometer = Intervalometer {
         gps.start(this::onLocationUpdate)
-    })
+    }
 
     private var destination: Beacon? = null
     private var destinationBearing: Bearing? = null

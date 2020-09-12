@@ -85,18 +85,18 @@ class NavigationService {
         usingTrueNorth: Boolean = true
     ): Beacon? {
         return beacons.map {
-            val declinationAdjustment = if (usingTrueNorth) {
-                0f
-            } else {
-                -declination
-            }
-            Pair(
-                it,
-                position.location.bearingTo(it.coordinate).withDeclination(declinationAdjustment)
-            )
-        }.filter {
-            isFacingBearing(position.bearing, it.second)
-        }.minBy { abs(deltaAngle(it.second.value, position.bearing.value)) }?.first
+                val declinationAdjustment = if (usingTrueNorth) {
+                    0f
+                } else {
+                    -declination
+                }
+                Pair(
+                    it,
+                    position.location.bearingTo(it.coordinate).withDeclination(declinationAdjustment)
+                )
+            }.filter {
+                isFacingBearing(position.bearing, it.second)
+            }.minByOrNull { abs(deltaAngle(it.second.value, position.bearing.value)) }?.first
     }
 
 }

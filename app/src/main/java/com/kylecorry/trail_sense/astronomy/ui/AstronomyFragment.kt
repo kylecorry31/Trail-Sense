@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
 import com.kylecorry.trail_sense.shared.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -53,9 +54,9 @@ class AstronomyFragment : Fragment() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val astronomyService = AstronomyService()
 
-    private val intervalometer = Intervalometer(Runnable {
+    private val intervalometer = Intervalometer {
         updateUI()
-    })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
