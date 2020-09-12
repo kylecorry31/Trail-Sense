@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.database
 
 import android.content.Context
-import com.kylecorry.trail_sense.navigation.domain.Beacon
-import com.kylecorry.trail_sense.shared.database.DatabaseConnection
+import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.infrastructure.persistence.DatabaseConnection
 
 class BeaconRepo(context: Context) {
 

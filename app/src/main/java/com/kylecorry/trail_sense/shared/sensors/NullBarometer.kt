@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.shared.sensors
 
 import android.hardware.SensorManager
+import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 
 class NullBarometer : AbstractSensor(), IBarometer {
 

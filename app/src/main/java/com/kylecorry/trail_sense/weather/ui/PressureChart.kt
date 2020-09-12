@@ -11,9 +11,9 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.kylecorry.trail_sense.shared.roundPlaces
-import com.kylecorry.trail_sense.shared.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
-import com.kylecorry.trail_sense.weather.domain.PressureUnits
+import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import java.time.Duration
 import kotlin.math.absoluteValue
 import kotlin.math.max
@@ -76,8 +76,8 @@ class PressureChart(private val chart: LineChart, private val color: Int, privat
         val values = data.map { Entry(it.first.toFloat(), it.second.toFloat()) }
 
         val pressures = data.map { it.second.toFloat() }
-        var minPressure = pressures.min() ?: 0f
-        var maxPressure = pressures.max() ?: 0f
+        var minPressure = pressures.minOrNull() ?: 0f
+        var maxPressure = pressures.maxOrNull() ?: 0f
         val middle = (minPressure + maxPressure) / 2f
         minPressure = min(minPressure - granularity, middle - minRange / 2)
         maxPressure = max(maxPressure + granularity, middle + minRange / 2)

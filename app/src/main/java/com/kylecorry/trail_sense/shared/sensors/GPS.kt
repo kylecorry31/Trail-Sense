@@ -6,10 +6,13 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
-import com.kylecorry.trail_sense.shared.Cache
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.domain.Accuracy
-import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.Accuracy
+import com.kylecorry.trailsensecore.domain.Coordinate
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 
 
 class GPS(private val context: Context) : AbstractSensor(), IGPS {

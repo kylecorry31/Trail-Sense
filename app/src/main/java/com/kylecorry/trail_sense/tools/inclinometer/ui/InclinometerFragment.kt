@@ -10,12 +10,13 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.inclinometer.domain.AvalancheRisk
-import com.kylecorry.trail_sense.tools.inclinometer.domain.InclinationService
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.DeviceOrientation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trailsensecore.domain.inclinometer.AvalancheRisk
+import com.kylecorry.trailsensecore.domain.inclinometer.InclinationService
+import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 class InclinometerFragment : Fragment() {
 

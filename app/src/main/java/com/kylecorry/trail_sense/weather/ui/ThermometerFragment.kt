@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trail_sense.weather.domain.HeatAlert
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 
@@ -53,7 +53,7 @@ class ThermometerFragment : Fragment() {
         heatAlertImg = view.findViewById(R.id.heat_alert)
 
         heatAlertImg.setOnClickListener {
-            UiUtils.alert(requireContext(), heatAlertTitle, heatAlertContent)
+            UiUtils.alert(requireContext(), heatAlertTitle, heatAlertContent, R.string.dialog_ok)
         }
 
         return view

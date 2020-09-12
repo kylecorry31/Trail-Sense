@@ -14,13 +14,13 @@ import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.system.AlarmUtils
-import com.kylecorry.trail_sense.shared.system.PackageUtils
 import com.kylecorry.trail_sense.shared.toDisplayFormat
+import com.kylecorry.trailsensecore.domain.astronomy.sun.SunTimesMode
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
+import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
+import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
 import java.time.LocalDate
@@ -86,9 +86,9 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         val now = LocalDateTime.now()
 
         val todaySunset =
-            astronomyService.getTodaySunTimes(gps.location, SunTimesMode.Actual).down
+            astronomyService.getTodaySunTimes(gps.location, SunTimesMode.Actual).set?.toLocalDateTime()
         val tomorrowSunset =
-            astronomyService.getTomorrowSunTimes(gps.location, SunTimesMode.Actual).down
+            astronomyService.getTomorrowSunTimes(gps.location, SunTimesMode.Actual).set?.toLocalDateTime()
 
 
         if (todaySunset != null) {

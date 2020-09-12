@@ -2,8 +2,9 @@ package com.kylecorry.trail_sense.navigation.infrastructure.flashlight
 
 import android.content.Context
 import com.kylecorry.trail_sense.navigation.domain.FlashlightState
+import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 
-class Flashlight(private val context: Context) : IFlashlight {
+class FlashlightHandler(private val context: Context) : IFlashlightHandler {
 
     override fun on() {
         SosService.stop(context)
@@ -45,7 +46,7 @@ class Flashlight(private val context: Context) : IFlashlight {
     }
 
     override fun isAvailable(): Boolean {
-        return FlashlightProxy.hasFlashlight(context)
+        return Flashlight.hasFlashlight(context)
     }
 
 }

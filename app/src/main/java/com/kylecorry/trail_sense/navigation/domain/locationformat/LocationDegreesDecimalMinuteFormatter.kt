@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.navigation.domain.locationformat
 
-import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.Coordinate
 import com.kylecorry.trail_sense.shared.roundPlaces
 import kotlin.math.abs
 

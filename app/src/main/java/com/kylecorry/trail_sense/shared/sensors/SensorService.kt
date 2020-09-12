@@ -5,17 +5,30 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.declination.AutoDeclinationProvider
-import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
 import com.kylecorry.trail_sense.shared.sensors.declination.OverrideDeclination
-import com.kylecorry.trail_sense.shared.sensors.hygrometer.Hygrometer
-import com.kylecorry.trail_sense.shared.sensors.hygrometer.IHygrometer
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
-import com.kylecorry.trail_sense.shared.sensors.temperature.*
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
+import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.FusedAltimeter
+import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
+import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.Barometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
+import com.kylecorry.trailsensecore.infrastructure.sensors.compass.LegacyCompass
+import com.kylecorry.trailsensecore.infrastructure.sensors.compass.VectorCompass
+import com.kylecorry.trailsensecore.infrastructure.sensors.declination.DeclinationProvider
+import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
+import com.kylecorry.trailsensecore.infrastructure.sensors.hygrometer.Hygrometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.hygrometer.IHygrometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.inclinometer.IInclinometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.inclinometer.Inclinometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.BatteryTemperatureSensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.Thermometer
 
 class SensorService(private val context: Context) {
 
@@ -61,12 +74,18 @@ class SensorService(private val context: Context) {
         val gps = getGPS()
         val altimeter = getAltimeter()
 
-        return AutoDeclinationProvider(gps, altimeter)
+        return DeclinationProvider(gps, altimeter)
     }
 
     fun getCompass(): ICompass {
-        return if (userPrefs.navigation.useLegacyCompass) LegacyCompass(context) else VectorCompass(
-            context
+        val smoothing = userPrefs.navigation.compassSmoothing
+        val useTrueNorth = userPrefs.navigation.useTrueNorth
+        return if (userPrefs.navigation.useLegacyCompass) LegacyCompass(
+            context,
+            smoothing,
+            useTrueNorth
+        ) else VectorCompass(
+            context, smoothing, useTrueNorth
         )
     }
 

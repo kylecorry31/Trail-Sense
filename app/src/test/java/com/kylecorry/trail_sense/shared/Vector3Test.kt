@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared
 
-import com.kylecorry.trail_sense.shared.domain.Vector3
+import com.kylecorry.trailsensecore.domain.math.Vector3
 import org.junit.Test
 
 import org.junit.Assert.*

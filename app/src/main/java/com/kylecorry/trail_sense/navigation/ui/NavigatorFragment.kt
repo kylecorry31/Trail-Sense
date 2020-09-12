@@ -13,21 +13,26 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.FlashlightState
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
-import com.kylecorry.trail_sense.navigation.domain.Position
-import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
-import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
+import com.kylecorry.trailsensecore.domain.Bearing
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
-import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.Flashlight
+import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.FlashlightHandler
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.domain.Accuracy
+import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trail_sense.shared.sensors.*
-import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
-import com.kylecorry.trail_sense.shared.system.UiUtils
+import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.Position
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
+import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
+import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
+import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import java.time.Duration
 
 class NavigatorFragment(
@@ -75,7 +80,7 @@ class NavigatorFragment(
     private var flashlightState = FlashlightState.Off
 
     private lateinit var sensorService: SensorService
-    private val flashlight by lazy { Flashlight(requireContext()) }
+    private val flashlight by lazy { FlashlightHandler(requireContext()) }
     private val cache by lazy { Cache(requireContext()) }
     private val throttle = Throttle(16)
 
@@ -175,7 +180,7 @@ class NavigatorFragment(
         val beacon = destination?.id
         if (beacon != null) {
             showCalibrationDialog()
-            cache.putInt(Cache.LAST_BEACON_ID, beacon)
+            cache.putInt(LAST_BEACON_ID, beacon)
         }
 
         roundCompass = CompassView(
@@ -205,17 +210,27 @@ class NavigatorFragment(
                 )
             } else {
                 destination = null
-                cache.remove(Cache.LAST_BEACON_ID)
+                cache.remove(LAST_BEACON_ID)
                 updateNavigator()
             }
         }
 
         rulerBtn.setOnClickListener {
             if (ruler.visible) {
-                UiUtils.setButtonState(rulerBtn, false)
+                UiUtils.setButtonState(
+                    rulerBtn,
+                    false,
+                    UiUtils.color(requireContext(), R.color.colorPrimary),
+                    UiUtils.color(requireContext(), R.color.colorSecondary)
+                )
                 ruler.hide()
             } else {
-                UiUtils.setButtonState(rulerBtn, true)
+                UiUtils.setButtonState(
+                    rulerBtn,
+                    true,
+                    UiUtils.color(requireContext(), R.color.colorPrimary),
+                    UiUtils.color(requireContext(), R.color.colorSecondary)
+                )
                 ruler.show()
             }
         }
@@ -234,19 +249,19 @@ class NavigatorFragment(
         roundCompass.setOnClickListener {
             if (destinationBearing == null) {
                 destinationBearing = compass.bearing
-                cache.putFloat(Cache.LAST_DEST_BEARING, compass.bearing.value)
+                cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
             } else {
                 destinationBearing = null
-                cache.remove(Cache.LAST_DEST_BEARING)
+                cache.remove(LAST_DEST_BEARING)
             }
         }
         linearCompass.setOnClickListener {
             if (destinationBearing == null) {
                 destinationBearing = compass.bearing
-                cache.putFloat(Cache.LAST_DEST_BEARING, compass.bearing.value)
+                cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
             } else {
                 destinationBearing = null
-                cache.remove(Cache.LAST_DEST_BEARING)
+                cache.remove(LAST_DEST_BEARING)
             }
         }
 
@@ -277,7 +292,8 @@ class NavigatorFragment(
                 gpsHAccuracyStr,
                 gpsVAccuracyStr,
                 gps.satellites.toString()
-            )
+            ),
+            R.string.dialog_ok
         )
     }
 
@@ -289,15 +305,30 @@ class NavigatorFragment(
         when (flashlightState) {
             FlashlightState.On -> {
                 flashlightBtn.setImageResource(R.drawable.flashlight)
-                UiUtils.setButtonState(flashlightBtn, true)
+                UiUtils.setButtonState(
+                    flashlightBtn,
+                    true,
+                    UiUtils.color(requireContext(), R.color.colorPrimary),
+                    UiUtils.color(requireContext(), R.color.colorSecondary)
+                )
             }
             FlashlightState.SOS -> {
                 flashlightBtn.setImageResource(R.drawable.flashlight_sos)
-                UiUtils.setButtonState(flashlightBtn, true)
+                UiUtils.setButtonState(
+                    flashlightBtn,
+                    true,
+                    UiUtils.color(requireContext(), R.color.colorPrimary),
+                    UiUtils.color(requireContext(), R.color.colorSecondary)
+                )
             }
             else -> {
                 flashlightBtn.setImageResource(R.drawable.flashlight)
-                UiUtils.setButtonState(flashlightBtn, false)
+                UiUtils.setButtonState(
+                    flashlightBtn,
+                    false,
+                    UiUtils.color(requireContext(), R.color.colorPrimary),
+                    UiUtils.color(requireContext(), R.color.colorSecondary)
+                )
             }
         }
     }
@@ -323,12 +354,12 @@ class NavigatorFragment(
         beacons = beaconRepo.get()
 
         // Resume navigation
-        val lastBeaconId = cache.getInt(Cache.LAST_BEACON_ID)
+        val lastBeaconId = cache.getInt(LAST_BEACON_ID)
         if (lastBeaconId != null) {
             destination = beaconRepo.get(lastBeaconId)
         }
 
-        val lastDestBearing = cache.getFloat(Cache.LAST_DEST_BEARING)
+        val lastDestBearing = cache.getFloat(LAST_DEST_BEARING)
         if (lastDestBearing != null) {
             destinationBearing = Bearing(lastDestBearing)
         }
@@ -456,7 +487,7 @@ class NavigatorFragment(
             destinationPanel.hide()
         }
 
-        if (!acquiredLock){
+        if (!acquiredLock) {
             gpsAccuracyTxt.text = formatService.formatAccuracy(Accuracy.Unknown)
         } else {
             gpsAccuracyTxt.text = formatService.formatAccuracy(gps.accuracy)
@@ -550,7 +581,7 @@ class NavigatorFragment(
                 requireContext(), getString(R.string.calibrate_compass_dialog_title), getString(
                     R.string.calibrate_compass_on_navigate_dialog_content,
                     getString(R.string.dialog_ok)
-                )
+                ), R.string.dialog_ok
             )
         }
     }
@@ -586,7 +617,7 @@ class NavigatorFragment(
         updateAverageSpeed()
         updateUI()
 
-        if (!acquiredLock && gps.satellites > 0){
+        if (!acquiredLock && gps.satellites > 0) {
             UiUtils.shortToast(requireContext(), getString(R.string.gps_lock_acquired))
             acquiredLock = true
         }
@@ -633,6 +664,11 @@ class NavigatorFragment(
         }
 
         updateNavigationButton()
+    }
+
+    companion object {
+        const val LAST_BEACON_ID = "last_beacon_id"
+        const val LAST_DEST_BEARING = "last_dest_bearing"
     }
 
 }

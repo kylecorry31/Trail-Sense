@@ -8,8 +8,8 @@ import com.kylecorry.trail_sense.navigation.domain.locationformat.ILocationForma
 import com.kylecorry.trail_sense.navigation.domain.locationformat.LocationDecimalDegreesFormatter
 import com.kylecorry.trail_sense.navigation.domain.locationformat.LocationDegreesDecimalMinuteFormatter
 import com.kylecorry.trail_sense.navigation.domain.locationformat.LocationDegreesMinuteSecondFormatter
-import com.kylecorry.trail_sense.shared.domain.Coordinate
-import com.kylecorry.trail_sense.shared.sensors.SensorChecker
+import com.kylecorry.trailsensecore.domain.Coordinate
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import kotlin.math.min
 
 class NavigationPreferences(private val context: Context) {

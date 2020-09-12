@@ -442,4 +442,8 @@
     <string name="pref_temperature_adjustment_f" translatable="false">pref_temperature_adjustment_f</string>
     <string name="pref_temperature_holder" translatable="false">pref_temperature_holder</string>
     <string name="gps_lock_acquired">GPS lock acquired</string>
+    <string name="copied_to_clipboard_toast">Copied to clipboard</string>
+    <string name="flashlight_title">Flashlight</string>
+    <string name="turn_off_flashlight">Tap to turn off</string>
+    <string name="sos">SOS</string>
 </resources>

@@ -1,34 +1,26 @@
 package com.kylecorry.trail_sense.weather.domain.forcasting
 
-import com.kylecorry.trail_sense.weather.domain.PressureReading
-import com.kylecorry.trail_sense.weather.domain.tendency.DropPressureTendencyCalculator
-import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
+import com.kylecorry.trailsensecore.domain.weather.PressureReading
+import com.kylecorry.trailsensecore.domain.weather.Weather
+import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import java.time.Duration
-import kotlin.math.abs
+import java.time.Instant
+import kotlin.math.absoluteValue
 
 class HourlyForecaster(private val stormThreshold: Float, private val changeThreshold: Float) : IWeatherForecaster {
 
+    private val service = WeatherService()
+
     override fun forecast(readings: List<PressureReading>): Weather {
 
-        val tendency = DropPressureTendencyCalculator().calculate(readings, Duration.ofHours(3))
+        val currentReading = readings.lastOrNull()
+        val prevReading = readings.minByOrNull { Duration.between(it.time, Instant.now().minus(Duration.ofHours(3))).seconds.absoluteValue }
 
-        val isStorm = tendency.amount <= stormThreshold
-
-        if (isStorm) {
-            return Weather.Storm
+        if (currentReading != null && prevReading != null){
+            val tendency = service.getTendency(prevReading, currentReading, changeThreshold)
+            return service.forecast(tendency, currentReading, stormThreshold)
         }
 
-        val isSteady = abs(tendency.amount) < changeThreshold
-        if (isSteady){
-            return Weather.NoChange
-        }
-
-        val isFast = abs(tendency.amount) >= changeThreshold + 2
-
-        return when (tendency.characteristic) {
-            PressureCharacteristic.Falling -> if (isFast) Weather.WorseningFast else Weather.WorseningSlow
-            PressureCharacteristic.Rising -> if (isFast) Weather.ImprovingFast else Weather.ImprovingSlow
-            else -> Weather.NoChange
-        }
+        return Weather.NoChange
     }
 }

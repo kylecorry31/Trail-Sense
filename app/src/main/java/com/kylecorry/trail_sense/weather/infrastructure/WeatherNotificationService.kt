@@ -13,15 +13,15 @@ import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.system.NotificationUtils
-import com.kylecorry.trail_sense.weather.domain.PressureReading
+import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
-import com.kylecorry.trail_sense.weather.domain.PressureUnits
 import com.kylecorry.trail_sense.weather.domain.WeatherService
-import com.kylecorry.trail_sense.weather.domain.classifier.PressureClassification
-import com.kylecorry.trail_sense.weather.domain.forcasting.Weather
 import com.kylecorry.trail_sense.weather.domain.tendency.PressureTendency
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
+import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.trailsensecore.domain.weather.PressureClassification
+import com.kylecorry.trailsensecore.domain.weather.PressureReading
+import com.kylecorry.trailsensecore.domain.weather.Weather
 
 object WeatherNotificationService {
 
@@ -59,6 +59,7 @@ object WeatherNotificationService {
                 .setContentIntent(openPendingIntent)
                 .build()
         } else {
+            @Suppress("DEPRECATION")
             Notification.Builder(context)
                 .setContentTitle(title)
                 .setContentText(text)

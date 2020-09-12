@@ -10,17 +10,17 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
-import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.Coordinate
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.roundPlaces
-import com.kylecorry.trail_sense.shared.sensors.IAltimeter
-import com.kylecorry.trail_sense.shared.sensors.IGPS
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
+import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
 
 
 class PlaceBeaconFragment(

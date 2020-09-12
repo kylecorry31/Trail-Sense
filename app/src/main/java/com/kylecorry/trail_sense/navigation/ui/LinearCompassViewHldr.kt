@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.view.View
 import android.widget.ImageView
 import com.kylecorry.trail_sense.shared.math.deltaAngle
-import com.kylecorry.trail_sense.shared.system.*
+import com.kylecorry.trailsensecore.infrastructure.system.*
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 

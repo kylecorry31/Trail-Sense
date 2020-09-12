@@ -4,11 +4,16 @@ import android.os.Bundle
 import androidx.core.content.edit
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
-import com.kylecorry.trail_sense.shared.sensors.temperature.IThermometer
 import com.kylecorry.trail_sense.weather.domain.*
+import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
+import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
+import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
+import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
+import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import java.time.Instant
 import kotlin.math.roundToInt
 

@@ -1,27 +1,30 @@
 package com.kylecorry.trail_sense.astronomy.domain
 
-import com.kylecorry.trail_sense.astronomy.domain.moon.*
-import com.kylecorry.trail_sense.astronomy.domain.sun.*
-import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
-import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.Bearing
+import com.kylecorry.trailsensecore.domain.Coordinate
 import com.kylecorry.trail_sense.shared.roundNearestMinute
 import com.kylecorry.trail_sense.shared.toZonedDateTime
+import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
+import com.kylecorry.trailsensecore.domain.astronomy.IAstronomyService
+import com.kylecorry.trailsensecore.domain.astronomy.RiseSetTransitTimes
+import com.kylecorry.trailsensecore.domain.astronomy.TideService
+import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonPhase
+import com.kylecorry.trailsensecore.domain.astronomy.moon.Tide
+import com.kylecorry.trailsensecore.domain.astronomy.sun.SunTimesMode
 import java.time.*
-import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode as SunTimesMode
 
 /**
  * The facade for astronomy related services
  */
 class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
-    private val moonPhaseCalculator = MoonPhaseCalculator()
-    private val moonTimesCalculator = AltitudeMoonTimesCalculator()
-    private val altitudeCalculator = AstronomicalAltitudeCalculator()
+    private val newAstronomyService: IAstronomyService = AstronomyService()
+    private val tideService = TideService()
 
     // PUBLIC MOON METHODS
 
     fun getCurrentMoonPhase(): MoonPhase {
-        return moonPhaseCalculator.getPhase(ZonedDateTime.now(clock))
+        return newAstronomyService.getMoonPhase(ZonedDateTime.now(clock))
     }
 
     /**
@@ -29,156 +32,145 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
      */
     fun getMoonPhase(date: LocalDate): MoonPhase {
         val time = date.atTime(12, 0).toZonedDateTime()
-        return moonPhaseCalculator.getPhase(time)
+        return newAstronomyService.getMoonPhase(time)
     }
 
-    fun getMoonTimes(location: Coordinate, date: LocalDate): MoonTimes {
-        return moonTimesCalculator.calculate(location, date)
+    fun getMoonTimes(location: Coordinate, date: LocalDate): RiseSetTransitTimes {
+        return newAstronomyService.getMoonEvents(date.atStartOfDay().toZonedDateTime(), location)
     }
 
-    fun getCenteredMoonAltitudes(location: Coordinate, time: LocalDateTime): List<AstroAltitude> {
+    fun getCenteredMoonAltitudes(
+        location: Coordinate,
+        time: LocalDateTime
+    ): List<Pair<LocalDateTime, Float>> {
         val startTime = time.roundNearestMinute(10).minusHours(12)
-        return altitudeCalculator.getMoonAltitudes(location, startTime, Duration.ofDays(1), 10)
+        val granularityMinutes = 10L
+        val altitudes = mutableListOf<Pair<LocalDateTime, Float>>()
+        for (i in 0..Duration.ofDays(1).toMinutes() step granularityMinutes) {
+            altitudes.add(
+                Pair(
+                    startTime.plusMinutes(i),
+                    getMoonAltitude(location, startTime.plusMinutes(i))
+                )
+            )
+        }
+        return altitudes
     }
 
-    fun getMoonAltitudes(location: Coordinate, date: LocalDate): List<AstroAltitude> {
-        return altitudeCalculator.getMoonAltitudes(location, date, 10)
+    fun getMoonAltitudes(location: Coordinate, date: LocalDate): List<Pair<LocalDateTime, Float>> {
+        val totalTime = 24 * 60
+        val granularityMinutes = 10
+        val altitudes = mutableListOf<Pair<LocalDateTime, Float>>()
+        for (i in 0..totalTime step granularityMinutes) {
+            altitudes.add(
+                Pair(
+                    date.atStartOfDay().plusMinutes(i.toLong()),
+                    getMoonAltitude(location, date.atStartOfDay().plusMinutes(i.toLong()))
+                )
+            )
+        }
+        return altitudes
     }
 
-    fun getMoonAltitude(location: Coordinate, time: LocalDateTime = LocalDateTime.now()): AstroAltitude {
-        return altitudeCalculator.getMoonAltitude(location, time)
+    fun getMoonAltitude(location: Coordinate, time: LocalDateTime = LocalDateTime.now()): Float {
+        return newAstronomyService.getMoonAltitude(time.toZonedDateTime(), location)
     }
 
     fun getMoonAzimuth(location: Coordinate): Bearing {
-        return altitudeCalculator.getMoonAzimuth(location, LocalDateTime.now(clock))
+        return newAstronomyService.getMoonAzimuth(ZonedDateTime.now(clock), location)
     }
 
     fun isMoonUp(location: Coordinate): Boolean {
-        val altitude = altitudeCalculator.getMoonAltitude(location, LocalDateTime.now(clock))
-        return altitude.altitudeDegrees > 0
+        return newAstronomyService.isMoonUp(ZonedDateTime.now(clock), location)
     }
 
     fun getLunarNoon(location: Coordinate, date: LocalDate = LocalDate.now()): LocalDateTime? {
-        val altitudes = mutableListOf<AstroAltitude>()
-        var time = date.atStartOfDay()
-        while (time.toLocalDate() == date){
-            time = time.plusMinutes(1)
-            val altitude = getMoonAltitude(location, time)
-            altitudes.add(altitude)
-        }
-
-        for (i in 1 until (altitudes.size - 1)) {
-            val prev = altitudes[i - 1]
-            val current = altitudes[i]
-            val next = altitudes[i + 1]
-
-            if (current.altitudeDegrees >= prev.altitudeDegrees && current.altitudeDegrees >= next.altitudeDegrees) {
-                return current.time
-            }
-        }
-
-        return null
+        return getMoonTimes(location, date).transit?.toLocalDateTime()
     }
 
     fun getTides(date: LocalDate = LocalDate.now()): Tide {
-        for (i in 0..3){
-            val phase = getMoonPhase(date.minusDays(i.toLong()))
-
-            when(phase.phase){
-                MoonTruePhase.New, MoonTruePhase.Full -> {
-                    return Tide.Spring
-                }
-                MoonTruePhase.FirstQuarter, MoonTruePhase.ThirdQuarter -> {
-                    return Tide.Neap
-                }
-                else -> {
-                    // Do nothing
-                }
-            }
-        }
-
-        return Tide.Normal
+        return tideService.getTidalRange(date.atStartOfDay().toZonedDateTime())
     }
 
     // PUBLIC SUN METHODS
 
-    fun getSunTimes(location: Coordinate, sunTimesMode: SunTimesMode, date: LocalDate): SunTimes {
-        return when (sunTimesMode) {
-            SunTimesMode.Actual -> ActualTwilightCalculator().calculate(location, date)
-            SunTimesMode.Civil -> CivilTwilightCalculator().calculate(location, date)
-            SunTimesMode.Nautical -> NauticalTwilightCalculator().calculate(location, date)
-            SunTimesMode.Astronomical -> AstronomicalTwilightCalculator().calculate(location, date)
-        }
+    fun getSunTimes(
+        location: Coordinate,
+        sunTimesMode: SunTimesMode,
+        date: LocalDate
+    ): RiseSetTransitTimes {
+        return newAstronomyService.getSunEvents(
+            date.atStartOfDay().toZonedDateTime(),
+            location,
+            sunTimesMode
+        )
     }
 
-    fun getTodaySunTimes(location: Coordinate, sunTimesMode: SunTimesMode): SunTimes {
+    fun getTodaySunTimes(location: Coordinate, sunTimesMode: SunTimesMode): RiseSetTransitTimes {
         return getSunTimes(location, sunTimesMode, LocalDate.now(clock))
     }
 
-    fun getTomorrowSunTimes(location: Coordinate, sunTimesMode: SunTimesMode): SunTimes {
+    fun getTomorrowSunTimes(location: Coordinate, sunTimesMode: SunTimesMode): RiseSetTransitTimes {
         return getSunTimes(location, sunTimesMode, LocalDate.now(clock).plusDays(1))
     }
 
-    fun getSunAltitudes(location: Coordinate, date: LocalDate): List<AstroAltitude> {
-        return altitudeCalculator.getSunAltitudes(location, date, 10)
+    fun getSunAltitudes(location: Coordinate, date: LocalDate): List<Pair<LocalDateTime, Float>> {
+        val totalTime = 24 * 60L
+        val granularityMinutes = 10L
+        val altitudes = mutableListOf<Pair<LocalDateTime, Float>>()
+        for (i in 0..totalTime step granularityMinutes) {
+            altitudes.add(
+                Pair(
+                    date.atStartOfDay().plusMinutes(i),
+                    getSunAltitude(location, date.atStartOfDay().plusMinutes(i))
+                )
+            )
+        }
+        return altitudes
     }
 
-    fun getCenteredSunAltitudes(location: Coordinate, time: LocalDateTime): List<AstroAltitude> {
+    fun getCenteredSunAltitudes(
+        location: Coordinate,
+        time: LocalDateTime
+    ): List<Pair<LocalDateTime, Float>> {
         val startTime = time.roundNearestMinute(10).minusHours(12)
-        return altitudeCalculator.getSunAltitudes(location, startTime, Duration.ofDays(1), 10)
+        val granularityMinutes = 10L
+        val altitudes = mutableListOf<Pair<LocalDateTime, Float>>()
+        for (i in 0..Duration.ofDays(1).toMinutes() step granularityMinutes) {
+            altitudes.add(
+                Pair(
+                    startTime.plusMinutes(i),
+                    getSunAltitude(location, startTime.plusMinutes(i))
+                )
+            )
+        }
+        return altitudes
     }
 
     fun getNextSunset(location: Coordinate, sunTimesMode: SunTimesMode): LocalDateTime? {
-        val today = getTodaySunTimes(location, sunTimesMode)
-        val tomorrow = getTomorrowSunTimes(location, sunTimesMode)
-        return DateUtils.getClosestFutureTime(
-            LocalDateTime.now(clock),
-            listOf(today.down, tomorrow.down)
-        )
+        return newAstronomyService.getNextSunset(ZonedDateTime.now(clock), location, sunTimesMode)
+            ?.toLocalDateTime()
     }
 
     fun getNextSunrise(location: Coordinate, sunTimesMode: SunTimesMode): LocalDateTime? {
-        val today = getTodaySunTimes(location, sunTimesMode)
-        val tomorrow = getTomorrowSunTimes(location, sunTimesMode)
-        return DateUtils.getClosestFutureTime(
-            LocalDateTime.now(clock),
-            listOf(today.up, tomorrow.up)
-        )
+        return newAstronomyService.getNextSunrise(ZonedDateTime.now(clock), location, sunTimesMode)
+            ?.toLocalDateTime()
     }
 
     fun isSunUp(location: Coordinate): Boolean {
-        val altitude = altitudeCalculator.getSunAltitude(location, LocalDateTime.now(clock))
-        return altitude.altitudeDegrees > 0
+        return newAstronomyService.isSunUp(ZonedDateTime.now(clock), location)
     }
 
     fun getSunAzimuth(location: Coordinate): Bearing {
-        return altitudeCalculator.getSunAzimuth(location, LocalDateTime.now(clock))
+        return newAstronomyService.getSunAzimuth(ZonedDateTime.now(clock), location)
     }
 
     fun getSolarNoon(location: Coordinate, date: LocalDate = LocalDate.now()): LocalDateTime? {
-        val altitudes = mutableListOf<AstroAltitude>()
-        var time = date.atStartOfDay()
-        while (time.toLocalDate() == date){
-            time = time.plusMinutes(1)
-            val altitude = getSunAltitude(location, time)
-            altitudes.add(altitude)
-        }
-
-        for (i in 1 until (altitudes.size - 1)) {
-            val prev = altitudes[i - 1]
-            val current = altitudes[i]
-            val next = altitudes[i + 1]
-
-            if (current.altitudeDegrees >= prev.altitudeDegrees && current.altitudeDegrees >= next.altitudeDegrees) {
-                return current.time
-            }
-        }
-
-      return null
+        return getSunTimes(location, SunTimesMode.Actual, date).transit?.toLocalDateTime()
     }
 
-    fun getSunAltitude(location: Coordinate, time: LocalDateTime = LocalDateTime.now()): AstroAltitude {
-        return altitudeCalculator.getSunAltitude(location, time)
+    fun getSunAltitude(location: Coordinate, time: LocalDateTime = LocalDateTime.now()): Float {
+        return newAstronomyService.getSunAltitude(time.toZonedDateTime(), location)
     }
 
 }

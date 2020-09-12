@@ -18,13 +18,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment
 import com.kylecorry.trail_sense.tools.ui.ToolsFragment
-import com.kylecorry.trail_sense.navigation.infrastructure.GeoUriParser
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.ui.BarometerFragment
+import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
 
 
 class MainActivity : AppCompatActivity() {

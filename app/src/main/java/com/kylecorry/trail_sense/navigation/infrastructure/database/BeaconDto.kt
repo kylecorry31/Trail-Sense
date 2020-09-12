@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.database
 
-import com.kylecorry.trail_sense.navigation.domain.Beacon
-import com.kylecorry.trail_sense.shared.database.Dto
-import com.kylecorry.trail_sense.shared.database.SqlType
-import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.infrastructure.persistence.Dto
+import com.kylecorry.trailsensecore.infrastructure.persistence.SqlType
 
 class BeaconDto : Dto<Beacon>() {
     override fun getProperties(): Map<String, SqlType> {

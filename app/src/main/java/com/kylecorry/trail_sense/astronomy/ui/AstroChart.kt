@@ -11,9 +11,9 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.domain.AstroAltitude
-import com.kylecorry.trail_sense.shared.system.UiUtils
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import java.time.LocalDateTime
 
 
 class AstroChart(private val chart: LineChart) {
@@ -70,22 +70,22 @@ class AstroChart(private val chart: LineChart) {
     }
 
     fun plot(datasets: List<AstroChartDataset>, startHour: Float = 0f){
-        val filters = datasets.map { LowPassFilter(0.8f, it.data.first().altitudeDegrees) }
+        val filters = datasets.map { LowPassFilter(0.8f, it.data.first().second) }
         val colors = datasets.map { it.color }.toMutableList()
         val granularity = 10
         val values = datasets.mapIndexed { idx, d -> d.data.mapIndexed { i, a ->
             val time = startHour + i * granularity / 60f
-            Pair(time as Number, filters[idx].filter(a.altitudeDegrees))
+            Pair(time as Number, filters[idx].filter(a.second))
         } }.toMutableList()
 
-        val minValue = (values.map{ it.minBy { it.second }?.second ?: 0f }.min() ?: 0f).coerceAtMost(-1f) - 10f
-        val maxValue = (values.map{ it.maxBy { it.second }?.second ?: 0f }.max() ?: 0f).coerceAtLeast(1f) + 10f
+        val minValue = (values.map{ it.minByOrNull { it.second }?.second ?: 0f }.minOrNull() ?: 0f).coerceAtMost(-1f) - 10f
+        val maxValue = (values.map{ it.maxByOrNull { it.second }?.second ?: 0f }.maxOrNull() ?: 0f).coerceAtLeast(1f) + 10f
 
         chart.axisLeft.axisMinimum = minValue
         chart.axisLeft.axisMaximum = maxValue
 
-        val start = values.map { it.first().first }.minBy { it.toDouble() }?.toFloat() ?: 0f
-        val end = values.map { it.last().first }.maxBy { it.toDouble() }?.toFloat() ?: 0f
+        val start = values.map { it.first().first }.minByOrNull { it.toDouble() }?.toFloat() ?: 0f
+        val end = values.map { it.last().first }.maxByOrNull { it.toDouble() }?.toFloat() ?: 0f
 
         values.add(0, listOf(
             Pair(start, minValue),
@@ -95,7 +95,7 @@ class AstroChart(private val chart: LineChart) {
         colors.add(0, chart.resources.getColor(R.color.colorSecondary, null))
 
         val sets = values.mapIndexed { index, data ->
-            val entries = data.mapIndexed { idx, value -> Entry(value.first.toFloat(), value.second) }
+            val entries = data.map { Entry(it.first.toFloat(), it.second) }
             val set1 = LineDataSet(entries, index.toString())
             set1.setDrawIcons(true)
             set1.color = colors[index]
@@ -131,5 +131,5 @@ class AstroChart(private val chart: LineChart) {
         chart.invalidate()
     }
 
-    data class AstroChartDataset(val data: List<AstroAltitude>, val color: Int)
+    data class AstroChartDataset(val data: List<Pair<LocalDateTime, Float>>, val color: Int)
 }

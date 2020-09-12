@@ -9,7 +9,7 @@ import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.shared.doTransaction
-import com.kylecorry.trail_sense.shared.sensors.SensorChecker
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 
 
 class OnboardingActivity : AppCompatActivity() {

@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.navigation.infrastructure.share
 
 import android.content.Context
 import android.content.Intent
-import com.kylecorry.trail_sense.navigation.domain.Beacon
-import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.navigation.Beacon
 
 class BeaconSharesheet(private val context: Context): IBeaconSender {
     override fun send(beacon: Beacon) {

@@ -3,11 +3,12 @@ package com.kylecorry.trail_sense.shared.sensors.overrides
 import android.content.Context
 import android.os.Handler
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.domain.Coordinate
-import com.kylecorry.trail_sense.shared.sensors.AbstractSensor
-import com.kylecorry.trail_sense.shared.sensors.IGPS
+import com.kylecorry.trailsensecore.domain.Coordinate
+import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 
-class OverrideGPS(context: Context, private val updateFrequency: Long = 20L): AbstractSensor(), IGPS {
+class OverrideGPS(context: Context, private val updateFrequency: Long = 20L): AbstractSensor(),
+    IGPS {
 
     override val location: Coordinate
         get() = userPrefs.locationOverride

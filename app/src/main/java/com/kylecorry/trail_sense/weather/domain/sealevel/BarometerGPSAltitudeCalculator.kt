@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.weather.domain.sealevel
 
 import android.hardware.SensorManager
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
+import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import java.time.Duration
 import kotlin.math.abs
 

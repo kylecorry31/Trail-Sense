@@ -13,16 +13,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.domain.AstroAltitude
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.astronomy.domain.moon.MoonTruePhase
-import com.kylecorry.trail_sense.astronomy.domain.moon.Tide
-import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.sensors.IGPS
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
-import com.kylecorry.trail_sense.shared.system.UiUtils
+import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
+import com.kylecorry.trailsensecore.domain.astronomy.moon.Tide
+import com.kylecorry.trailsensecore.domain.astronomy.sun.SunTimesMode
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
 import java.time.LocalDate
@@ -162,8 +161,8 @@ class AstronomyFragment : Fragment() {
             return
         }
 
-        val moonAltitudes: List<AstroAltitude>
-        val sunAltitudes: List<AstroAltitude>
+        val moonAltitudes: List<Pair<LocalDateTime, Float>>
+        val sunAltitudes: List<Pair<LocalDateTime, Float>>
         val startHour: Float
 
         if (displayDate == LocalDate.now() && prefs.astronomy.centerSunAndMoon) {
@@ -200,7 +199,7 @@ class AstronomyFragment : Fragment() {
 
         if (displayDate == LocalDate.now()) {
             val current =
-                moonAltitudes.minBy { Duration.between(LocalDateTime.now(), it.time).abs() }
+                moonAltitudes.minByOrNull { Duration.between(LocalDateTime.now(), it.first).abs() }
             val currentIdx = moonAltitudes.indexOf(current)
             val point = chart.getPoint(1, currentIdx)
             moonPosition.x = point.first - moonPosition.width / 2f
@@ -250,22 +249,22 @@ class AstronomyFragment : Fragment() {
                 Pair(
                     Pair(R.drawable.sunrise, R.color.colorPrimary),
                     getSunriseWording()
-                ), sunTimes.up
+                ), sunTimes.rise?.toLocalDateTime()
             ),
             Pair(
                 Pair(
                     Pair(R.drawable.sunset, R.color.colorPrimary),
                     getSunsetWording()
-                ), sunTimes.down
+                ), sunTimes.set?.toLocalDateTime()
             ),
             // TODO: Get moon icons
             Pair(
                 Pair(Pair(R.drawable.moonrise, null), getString(R.string.moon_rise)),
-                moonTimes.up
+                moonTimes.rise?.toLocalDateTime()
             ),
             Pair(
                 Pair(Pair(R.drawable.moonset, null), getString(R.string.moon_set)),
-                moonTimes.down
+                moonTimes.set?.toLocalDateTime()
             ),
             // TODO: Get solar/lunar noon images
             Pair(
@@ -296,7 +295,7 @@ class AstronomyFragment : Fragment() {
                 AstroDetail(
                     getMoonImage(moonPhase.phase),
                     getString(R.string.moon_phase),
-                    getString(moonPhase.phase.longNameResource)
+                    getMoonPhaseString(moonPhase.phase)
                 )
             )
             details.add(
@@ -310,9 +309,9 @@ class AstronomyFragment : Fragment() {
             details.add(AstroDetail.spacer())
 
             val moonAltitude =
-                astronomyService.getMoonAltitude(gps.location).altitudeDegrees
+                astronomyService.getMoonAltitude(gps.location)
             val sunAltitude =
-                astronomyService.getSunAltitude(gps.location).altitudeDegrees
+                astronomyService.getSunAltitude(gps.location)
 
             // TODO: Add icons
             details.add(
@@ -361,7 +360,7 @@ class AstronomyFragment : Fragment() {
                 AstroDetail(
                     getMoonImage(moonPhase.phase),
                     getString(R.string.moon_phase),
-                    getString(moonPhase.phase.longNameResource)
+                    getMoonPhaseString(moonPhase.phase)
                 )
             )
             details.add(
@@ -408,6 +407,21 @@ class AstronomyFragment : Fragment() {
             MoonTruePhase.WaxingCrescent -> R.drawable.moon_waxing_crescent
             MoonTruePhase.WaxingGibbous -> R.drawable.moon_waxing_gibbous
         }
+    }
+
+    private fun getMoonPhaseString(phase: MoonTruePhase): String {
+        return getString(
+            when (phase) {
+                MoonTruePhase.FirstQuarter -> R.string.first_quarter
+                MoonTruePhase.Full -> R.string.full_moon
+                MoonTruePhase.ThirdQuarter -> R.string.third_quarter
+                MoonTruePhase.New -> R.string.new_moon
+                MoonTruePhase.WaningCrescent -> R.string.waning_crescent
+                MoonTruePhase.WaningGibbous -> R.string.waning_gibbous
+                MoonTruePhase.WaxingCrescent -> R.string.waxing_crescent
+                MoonTruePhase.WaxingGibbous -> R.string.waxing_gibbous
+            }
+        )
     }
 
     private fun displayTimeUntilNextSunEvent() {

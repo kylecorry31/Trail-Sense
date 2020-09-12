@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.domain.sun.SunTimesMode
+import com.kylecorry.trailsensecore.domain.astronomy.sun.SunTimesMode
 import java.time.LocalDate
 
 class AstronomyPreferences(private val context: Context) {

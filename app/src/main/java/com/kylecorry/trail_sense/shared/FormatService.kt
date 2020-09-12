@@ -2,14 +2,14 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.domain.DistanceUnits
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
-import com.kylecorry.trail_sense.navigation.domain.compass.CompassDirection
-import com.kylecorry.trail_sense.shared.domain.Accuracy
-import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.CompassDirection
+import com.kylecorry.trailsensecore.domain.Accuracy
+import com.kylecorry.trailsensecore.domain.Coordinate
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
-import com.kylecorry.trail_sense.weather.domain.PressureUnits
-import com.kylecorry.trail_sense.weather.domain.TemperatureUnits
+import com.kylecorry.trailsensecore.domain.units.DistanceUnits
+import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import java.time.Duration
 
 class FormatService(private val context: Context) {

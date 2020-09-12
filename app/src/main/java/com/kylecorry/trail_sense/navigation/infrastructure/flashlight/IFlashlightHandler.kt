@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.navigation.infrastructure.flashlight
 
 import com.kylecorry.trail_sense.navigation.domain.FlashlightState
 
-interface IFlashlight {
+interface IFlashlightHandler {
     fun on()
     fun off()
     fun sos()

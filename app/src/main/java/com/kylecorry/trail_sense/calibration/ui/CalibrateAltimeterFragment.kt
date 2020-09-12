@@ -11,11 +11,14 @@ import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.calibration.infrastructure.AltimeterCalibrator
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
-import com.kylecorry.trail_sense.shared.Throttle
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.shared.sensors.*
-import com.kylecorry.trail_sense.shared.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
+import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
+import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 
 class CalibrateAltimeterFragment : PreferenceFragmentCompat() {

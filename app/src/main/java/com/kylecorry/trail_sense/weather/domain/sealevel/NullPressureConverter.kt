@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.domain.sealevel
 
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
-import com.kylecorry.trail_sense.weather.domain.PressureReading
+import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
+import com.kylecorry.trailsensecore.domain.weather.PressureReading
 
 internal class NullPressureConverter :
     ISeaLevelPressureConverter {

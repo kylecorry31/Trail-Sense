@@ -4,11 +4,12 @@ import android.content.Context
 import android.os.Handler
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.AbstractSensor
 import com.kylecorry.trail_sense.shared.sensors.GPS
-import com.kylecorry.trail_sense.shared.sensors.IAltimeter
+import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 
-class CachedAltimeter(context: Context, private val updateFrequency: Long = 20L): AbstractSensor(), IAltimeter {
+class CachedAltimeter(context: Context, private val updateFrequency: Long = 20L): AbstractSensor(),
+    IAltimeter {
 
     override val hasValidReading: Boolean
         get() = gotReading

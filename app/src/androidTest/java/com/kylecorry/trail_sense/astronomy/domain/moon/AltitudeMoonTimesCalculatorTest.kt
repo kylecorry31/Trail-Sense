@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.domain.moon
 
-import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.Coordinate
 import org.junit.Test
 
 import org.junit.Assert.*

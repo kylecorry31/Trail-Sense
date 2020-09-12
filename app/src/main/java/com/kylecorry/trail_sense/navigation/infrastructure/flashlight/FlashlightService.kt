@@ -8,11 +8,13 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.system.NotificationUtils
+import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
+import com.kylecorry.trailsensecore.infrastructure.flashlight.IFlashlight
+import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 
 class FlashlightService: Service() {
 
-    private var flashlight: FlashlightProxy? = null
+    private var flashlight: IFlashlight? = null
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -28,19 +30,20 @@ class FlashlightService: Service() {
             return
         }
 
-        NotificationUtils.createChannel(this, CHANNEL_ID, "Flashlight", "Flashlight", NotificationUtils.CHANNEL_IMPORTANCE_LOW)
+        NotificationUtils.createChannel(this, CHANNEL_ID, getString(R.string.flashlight_title), getString(R.string.flashlight_title), NotificationUtils.CHANNEL_IMPORTANCE_LOW)
 
         val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Notification.Builder(this, CHANNEL_ID)
-                .setContentTitle("Flashlight")
-                .setContentText("Tap to turn off")
+                .setContentTitle(getString(R.string.flashlight_title))
+                .setContentText(getString(R.string.turn_off_flashlight))
                 .setSmallIcon(R.drawable.flashlight)
                 .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
                 .build()
         } else {
+            @Suppress("DEPRECATION")
             Notification.Builder(this)
-                .setContentTitle("Flashlight")
-                .setContentText("Tap to turn off")
+                .setContentTitle(getString(R.string.flashlight_title))
+                .setContentText(getString(R.string.turn_off_flashlight))
                 .setSmallIcon(R.drawable.flashlight)
                 .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
                 .build()
@@ -48,7 +51,7 @@ class FlashlightService: Service() {
 
         startForeground(NOTIFICATION_ID, notification)
 
-        flashlight = FlashlightProxy(this)
+        flashlight = Flashlight(this)
         flashlight?.on()
     }
 

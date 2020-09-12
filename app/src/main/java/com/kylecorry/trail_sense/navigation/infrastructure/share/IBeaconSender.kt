@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.share
 
-import com.kylecorry.trail_sense.navigation.domain.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.Beacon
 
 interface IBeaconSender {
 

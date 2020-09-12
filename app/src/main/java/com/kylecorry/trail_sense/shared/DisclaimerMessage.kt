@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class DisclaimerMessage(private val context: Context) {
 
@@ -18,7 +18,7 @@ class DisclaimerMessage(private val context: Context) {
         prefs.edit { putBoolean(PREF_KEY, false) }
 
         UiUtils.alert(context, context.getString(R.string.disclaimer_message_title), context.getString(
-                    R.string.disclaimer_message_content))
+                    R.string.disclaimer_message_content), R.string.dialog_ok)
     }
 
 

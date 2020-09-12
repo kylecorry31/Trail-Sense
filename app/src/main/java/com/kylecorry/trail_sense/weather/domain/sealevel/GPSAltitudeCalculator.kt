@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.domain.sealevel
 
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
+import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 
 internal class GPSAltitudeCalculator :
     IAltitudeCalculator {

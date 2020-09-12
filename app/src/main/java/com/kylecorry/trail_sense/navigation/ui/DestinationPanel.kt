@@ -6,10 +6,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.*
-import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
+import com.kylecorry.trailsensecore.domain.Bearing
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.system.UiUtils
+import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.Position
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class DestinationPanel(private val view: View) {
 
@@ -33,7 +35,7 @@ class DestinationPanel(private val view: View) {
     init {
         beaconComments.setOnClickListener {
             if (beacon?.comment != null) {
-                UiUtils.alert(context, beacon?.name ?: "", beacon?.comment ?: "")
+                UiUtils.alert(context, beacon?.name ?: "", beacon?.comment ?: "", R.string.dialog_ok)
             }
         }
     }

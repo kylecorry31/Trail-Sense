@@ -1,10 +1,13 @@
 package com.kylecorry.trail_sense.navigation.domain
 
 import android.location.Location
-import com.kylecorry.trail_sense.navigation.domain.compass.Bearing
-import com.kylecorry.trail_sense.shared.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.Bearing
+import com.kylecorry.trailsensecore.domain.Coordinate
 import com.kylecorry.trail_sense.shared.math.MathUtils
 import com.kylecorry.trail_sense.shared.math.deltaAngle
+import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.NavigationVector
+import com.kylecorry.trailsensecore.domain.navigation.Position
 import java.time.Duration
 import kotlin.math.PI
 import kotlin.math.abs
@@ -40,7 +43,7 @@ class NavigationService {
         usingTrueNorth: Boolean = true
     ): NavigationVector {
         val originalVector = navigate(from.location, to.coordinate, declination, usingTrueNorth)
-        val altitudeChange = if (to.elevation != null) to.elevation - from.altitude else null
+        val altitudeChange = if (to.elevation != null) to.elevation!! - from.altitude else null
         return originalVector.copy(altitudeChange = altitudeChange)
     }
 
@@ -48,7 +51,7 @@ class NavigationService {
         val speed =
             if (from.speed < 3) MathUtils.clamp(from.speed, 0.89408f, 1.78816f) else from.speed
         val elevationGain =
-            max(if (to.elevation == null) 0f else (to.elevation - from.altitude), 0f)
+            max(if (to.elevation == null) 0f else (to.elevation!! - from.altitude), 0f)
         val distance = from.location.distanceTo(to.coordinate) * (if (nonLinear) PI.toFloat() / 2f else 1f)
 
         val baseTime = distance / speed

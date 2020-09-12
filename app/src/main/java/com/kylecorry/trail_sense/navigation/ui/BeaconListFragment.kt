@@ -12,17 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.*
-import com.kylecorry.trail_sense.shared.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
-import com.kylecorry.trail_sense.shared.domain.Coordinate
-import com.kylecorry.trail_sense.shared.sensors.IGPS
+import com.kylecorry.trailsensecore.domain.Coordinate
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 
 class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?) : Fragment() {
 
@@ -114,7 +115,7 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
         shareSheet.findViewById<LinearLayout>(R.id.share_action_copy_coordinates)
             .setOnClickListener {
                 selectedBeacon?.apply {
-                    val sender = BeaconCoordinatesCopy(Clipboard(requireContext()), prefs)
+                    val sender = BeaconCoordinatesCopy(requireContext(), Clipboard(requireContext()), prefs)
                     sender.send(this)
                 }
                 shareSheet.visibility = View.GONE
@@ -122,7 +123,7 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
 
         shareSheet.findViewById<LinearLayout>(R.id.share_action_copy_beacon).setOnClickListener {
             selectedBeacon?.apply {
-                val sender = BeaconCopy(Clipboard(requireContext()), prefs)
+                val sender = BeaconCopy(requireContext(), Clipboard(requireContext()), prefs)
                 sender.send(this)
             }
             shareSheet.visibility = View.GONE

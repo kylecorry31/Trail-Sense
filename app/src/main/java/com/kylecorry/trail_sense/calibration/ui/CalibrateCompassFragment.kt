@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.text.InputType
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.Throttle
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.domain.Accuracy
-import com.kylecorry.trail_sense.shared.sensors.ICompass
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.declination.AutoDeclinationProvider
-import com.kylecorry.trail_sense.shared.sensors.declination.IDeclinationProvider
-import com.kylecorry.trail_sense.shared.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.domain.Accuracy
+import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
+import com.kylecorry.trailsensecore.infrastructure.sensors.declination.DeclinationProvider
+import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 
 class CalibrateCompassFragment : PreferenceFragmentCompat() {
@@ -45,7 +45,7 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
         compass = sensorService.getCompass()
         declinationProvider = sensorService.getDeclinationProvider()
         realDeclinationProvider =
-            AutoDeclinationProvider(sensorService.getGPS(), sensorService.getAltimeter())
+            DeclinationProvider(sensorService.getGPS(), sensorService.getAltimeter())
 
         bindPreferences()
     }
@@ -89,8 +89,8 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
             true
         }
 
-        compassSmoothingBar.setOnPreferenceChangeListener { _, newValue ->
-            compass.setSmoothing(newValue.toString().toIntOrNull() ?: 0)
+        compassSmoothingBar.setOnPreferenceClickListener { _ ->
+            resetCompass()
             true
         }
 
@@ -98,7 +98,8 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
             UiUtils.alert(
                 requireContext(), getString(R.string.calibrate_compass_dialog_title), getString(
                     R.string.calibrate_compass_dialog_content, getString(R.string.dialog_ok)
-                )
+                ),
+                R.string.dialog_ok
             )
             true
         }

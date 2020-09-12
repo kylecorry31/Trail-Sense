@@ -6,11 +6,11 @@ import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
-import com.kylecorry.trail_sense.shared.domain.Coordinate
-import com.kylecorry.trail_sense.shared.sensors.SensorChecker
-import com.kylecorry.trail_sense.weather.domain.TemperatureUnits
-import com.kylecorry.trail_sense.weather.domain.PressureUnits
+import com.kylecorry.trailsensecore.domain.Coordinate
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
+import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 
 class UserPreferences(private val context: Context) {
 

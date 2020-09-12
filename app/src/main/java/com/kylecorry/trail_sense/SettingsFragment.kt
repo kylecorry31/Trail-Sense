@@ -12,14 +12,14 @@ import com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment
 import com.kylecorry.trail_sense.calibration.ui.CalibrateGPSFragment
 import com.kylecorry.trail_sense.licenses.LicenseFragment
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.SensorChecker
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.shared.switchToFragment
-import com.kylecorry.trail_sense.shared.system.IntentUtils
-import com.kylecorry.trail_sense.shared.system.NotificationUtils
-import com.kylecorry.trail_sense.shared.system.PackageUtils
-import com.kylecorry.trail_sense.weather.domain.PressureUnits
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
+import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
+import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -118,7 +118,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
 
         preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_sunset_alert_time))
-            ?.setOnPreferenceChangeListener { _, value ->
+            ?.setOnPreferenceClickListener { _ ->
                 context?.apply {
                     sendBroadcast(SunsetAlarmReceiver.intent(this))
                 }

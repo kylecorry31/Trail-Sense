@@ -16,8 +16,8 @@ import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.domain.compass.CompassDirection
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trailsensecore.domain.CompassDirection
 import kotlin.math.floor
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -69,13 +69,13 @@ class LinearCompassView(
     }
 
     override fun onRestoreInstanceState(state: Parcelable) {
-        var state: Parcelable? = state
-        if (state is Bundle) {
-            val b = state
+        var s: Parcelable? = state
+        if (s is Bundle) {
+            val b = s
             mDegrees = b.getFloat("degrees", 0f)
-            state = b.getParcelable("instanceState")
+            s = b.getParcelable("instanceState")
         }
-        super.onRestoreInstanceState(state)
+        super.onRestoreInstanceState(s)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -83,7 +83,7 @@ class LinearCompassView(
     }
 
     private fun measureWidth(measureSpec: Int): Int {
-        var result = 0
+        var result: Int
         val specMode = MeasureSpec.getMode(measureSpec)
         val specSize = MeasureSpec.getSize(measureSpec)
         val minWidth =
@@ -100,7 +100,7 @@ class LinearCompassView(
     }
 
     private fun measureHeight(measureSpec: Int): Int {
-        var result = 0
+        var result: Int
         val specMode = MeasureSpec.getMode(measureSpec)
         val specSize = MeasureSpec.getSize(measureSpec)
         val minHeight =

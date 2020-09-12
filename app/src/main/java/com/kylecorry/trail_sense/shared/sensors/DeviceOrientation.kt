@@ -4,6 +4,7 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorManager
+import com.kylecorry.trailsensecore.infrastructure.sensors.BaseSensor
 import kotlin.math.abs
 import kotlin.math.withSign
 

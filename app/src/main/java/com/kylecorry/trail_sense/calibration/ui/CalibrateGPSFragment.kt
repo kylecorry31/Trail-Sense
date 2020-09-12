@@ -8,12 +8,12 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.locationformat.LocationDecimalDegreesFormatter
-import com.kylecorry.trail_sense.shared.Throttle
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.GPS
-import com.kylecorry.trail_sense.shared.sensors.IGPS
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.system.IntentUtils
+import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 
 class CalibrateGPSFragment : PreferenceFragmentCompat() {

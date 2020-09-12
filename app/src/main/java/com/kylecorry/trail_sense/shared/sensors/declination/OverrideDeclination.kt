@@ -3,9 +3,11 @@ package com.kylecorry.trail_sense.shared.sensors.declination
 import android.content.Context
 import android.os.Handler
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.AbstractSensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 
-class OverrideDeclination(context: Context, private val updateFrequency: Long = 20L): AbstractSensor(), IDeclinationProvider {
+class OverrideDeclination(context: Context, private val updateFrequency: Long = 20L): AbstractSensor(),
+    IDeclinationProvider {
     override val declination: Float
         get() = userPrefs.declinationOverride
 
