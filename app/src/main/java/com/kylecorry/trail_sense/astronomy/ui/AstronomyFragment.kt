@@ -239,22 +239,24 @@ class AstronomyFragment : Fragment() {
         }
 
         // Rise / set times
-        val sunTimes = astronomyService.getSunTimes(gps.location, sunTimesMode, displayDate)
+        val sunTimes = astronomyService.getSunTimes(gps.location, SunTimesMode.Actual, displayDate)
+        val duskDawn = astronomyService.getSunTimes(gps.location, SunTimesMode.Civil, displayDate)
         val moonTimes = astronomyService.getMoonTimes(gps.location, displayDate)
         val solarNoon = astronomyService.getSolarNoon(gps.location, displayDate)
         val lunarNoon = astronomyService.getLunarNoon(gps.location, displayDate)
 
+        // Sun and moon times
         val details = listOf(
             Pair(
                 Pair(
                     Pair(R.drawable.sunrise, R.color.colorPrimary),
-                    getSunriseWording()
+                    getString(R.string.sunrise_label)
                 ), sunTimes.rise?.toLocalDateTime()
             ),
             Pair(
                 Pair(
                     Pair(R.drawable.sunset, R.color.colorPrimary),
-                    getSunsetWording()
+                    getString(R.string.sunset_label)
                 ), sunTimes.set?.toLocalDateTime()
             ),
             // TODO: Get moon icons
@@ -284,9 +286,39 @@ class AstronomyFragment : Fragment() {
             )
         }.toMutableList()
 
+        val duskDawnDetails = listOf(
+            Pair(
+                Pair(
+                    Pair(R.drawable.sunrise, R.color.colorPrimary),
+                    getString(R.string.sun_dawn)
+                ),
+                duskDawn.rise?.toLocalDateTime()
+            ),
+            Pair(
+                Pair(
+                    Pair(R.drawable.sunset, R.color.colorPrimary),
+                    getString(R.string.sun_dusk)
+                ),
+                duskDawn.set?.toLocalDateTime()
+            )
+        ).filterNot { it.second == null }.sortedBy { it.second?.toLocalTime() }.map {
+            AstroDetail(
+                it.first.first.first,
+                it.first.second,
+                getTimeString(it.second),
+                it.first.first.second
+            )
+        }
+
+        // Add dusk and dawn
+        if (duskDawnDetails.isNotEmpty()) {
+            details.add(AstroDetail.spacer())
+            details.addAll(duskDawnDetails)
+        }
 
         details.add(AstroDetail.spacer())
 
+        // Add the moon phase
         if (displayDate == LocalDate.now()) {
             // Moon phase
             val moonPhase = astronomyService.getCurrentMoonPhase()
@@ -305,9 +337,28 @@ class AstronomyFragment : Fragment() {
                     getString(R.string.percent_format, moonPhase.illumination.roundToInt())
                 )
             )
+        } else {
+            val moonPhase = astronomyService.getMoonPhase(displayDate)
+            details.add(
+                AstroDetail(
+                    getMoonImage(moonPhase.phase),
+                    getString(R.string.moon_phase),
+                    getMoonPhaseString(moonPhase.phase)
+                )
+            )
+            details.add(
+                AstroDetail(
+                    R.drawable.illumination,
+                    getString(R.string.moon_illumination),
+                    getString(R.string.percent_format, moonPhase.illumination.roundToInt())
+                )
+            )
+        }
 
-            details.add(AstroDetail.spacer())
+        details.add(AstroDetail.spacer())
 
+        // Altitude and azimuth
+        if (displayDate == LocalDate.now()) {
             val moonAltitude =
                 astronomyService.getMoonAltitude(gps.location)
             val sunAltitude =
@@ -354,22 +405,6 @@ class AstronomyFragment : Fragment() {
                 )
             )
 
-        } else {
-            val moonPhase = astronomyService.getMoonPhase(displayDate)
-            details.add(
-                AstroDetail(
-                    getMoonImage(moonPhase.phase),
-                    getString(R.string.moon_phase),
-                    getMoonPhaseString(moonPhase.phase)
-                )
-            )
-            details.add(
-                AstroDetail(
-                    R.drawable.illumination,
-                    getString(R.string.moon_illumination),
-                    getString(R.string.percent_format, moonPhase.illumination.roundToInt())
-                )
-            )
         }
 
         if (prefs.experimentalEnabled) {

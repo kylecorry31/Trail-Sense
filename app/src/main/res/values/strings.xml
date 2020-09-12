@@ -452,4 +452,6 @@
     <string name="sos">SOS</string>
     <string name="pref_weather_update_frequency">pref_weather_update_frequency</string>
     <string name="pref_weather_update_frequency_title">Weather update frequency</string>
+    <string name="sun_dawn">Dawn</string>
+    <string name="sun_dusk">Dusk</string>
 </resources>
