@@ -67,8 +67,12 @@ img {
   font-weight: bold;
 }
 
+.text-center {
+  text-align: center;
+}
+
 #hero {
-  height: 100vh;
+  min-height: 100vh;
   padding: 0;
   background: url("background.jpg");
   background-repeat: no-repeat;
@@ -105,7 +109,7 @@ img {
 }
 
 #features {
-  height: 75vh;
+  min-height: 75vh;
 }
 
 #features .grid {
@@ -124,6 +128,15 @@ img {
 
 .feature img {
   max-height: 50vh;
+}
+
+#other-features {
+  margin-top: 64px;
+}
+
+#disclaimer {
+  color: rgba(255, 255, 255, 0.86);
+  background-color: #222222;
 }
 
 #privacy {
