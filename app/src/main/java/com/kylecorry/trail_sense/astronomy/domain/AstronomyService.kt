@@ -7,8 +7,8 @@ import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.astronomy.*
 import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonPhase
-import com.kylecorry.trailsensecore.domain.astronomy.moon.Tide
-import com.kylecorry.trailsensecore.domain.astronomy.sun.SunTimesMode
+import com.kylecorry.trailsensecore.domain.astronomy.tides.Tide
+import com.kylecorry.trailsensecore.domain.astronomy.tides.TideService
 import java.time.*
 
 /**
@@ -16,7 +16,7 @@ import java.time.*
  */
 class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
-    private val newAstronomyService: IAstronomyService = AstronomyServiceV2()
+    private val newAstronomyService: IAstronomyService = AstronomyService()
     private val tideService = TideService()
 
     // PUBLIC MOON METHODS
