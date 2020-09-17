@@ -27,6 +27,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import kotlinx.android.synthetic.main.activity_weather.*
 import java.time.Duration
 import java.time.Instant
 import java.util.*
@@ -60,6 +61,10 @@ class BarometerFragment : Fragment(), Observer {
 
     private val throttle = Throttle(20)
 
+    private var pressureSetpoint: PressureAltitudeReading? = null
+
+    private var valueSelectedTime = 0L
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,7 +80,7 @@ class BarometerFragment : Fragment(), Observer {
         thermometer = sensorService.getThermometer()
         prefs = UserPreferences(requireContext())
 
-        weatherService =  WeatherService(
+        weatherService = WeatherService(
             prefs.weather.stormAlertThreshold,
             prefs.weather.dailyForecastChangeThreshold,
             prefs.weather.hourlyForecastChangeThreshold,
@@ -95,7 +100,9 @@ class BarometerFragment : Fragment(), Observer {
             resources.getColor(R.color.colorPrimary, null),
             object : IPressureChartSelectedListener {
                 override fun onNothingSelected() {
-                    pressureMarkerTxt.text = ""
+                    if (pressureSetpoint == null) {
+                        pressureMarkerTxt.text = ""
+                    }
                 }
 
                 override fun onValueSelected(timeAgo: Duration, pressure: Float) {
@@ -107,6 +114,7 @@ class BarometerFragment : Fragment(), Observer {
                         symbol,
                         timeAgo.formatHM(true)
                     )
+                    valueSelectedTime = System.currentTimeMillis()
                 }
 
             }
@@ -116,6 +124,23 @@ class BarometerFragment : Fragment(), Observer {
 
         temperatureBtn.setOnClickListener {
             switchToFragment(ThermometerFragment(), addToBackStack = true)
+        }
+
+        pressureTxt.setOnLongClickListener {
+            pressureSetpoint = if (pressureSetpoint == null) {
+                PressureAltitudeReading(
+                    Instant.now(),
+                    barometer.pressure,
+                    altimeter.altitude,
+                    thermometer.temperature
+                )
+            } else {
+                null
+            }
+
+            prefs.weather.pressureSetpoint = pressureSetpoint
+
+            true
         }
 
 
@@ -130,6 +155,8 @@ class BarometerFragment : Fragment(), Observer {
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
         altitude = altimeter.altitude
         units = prefs.pressureUnits
+
+        pressureSetpoint = prefs.weather.pressureSetpoint
 
         update()
     }
@@ -195,6 +222,27 @@ class BarometerFragment : Fragment(), Observer {
 
         val pressure = getCurrentPressure()
         updatePressure(pressure)
+
+        val setpoint = pressureSetpoint
+        if (setpoint != null && System.currentTimeMillis() - valueSelectedTime > 2000) {
+            updateSetpoint(setpoint)
+        } else if (System.currentTimeMillis() - valueSelectedTime > 2000) {
+            pressureMarkerTxt.text = ""
+        }
+    }
+
+    private fun updateSetpoint(setpoint: PressureAltitudeReading) {
+        val pressure = if (useSeaLevelPressure) weatherService.convertToSeaLevel(listOf(setpoint))
+            .first().value else setpoint.pressure
+        val symbol = getPressureUnitString(units)
+        val format = PressureUnitUtils.getDecimalFormat(units)
+        val timeAgo = Duration.between(setpoint.time, Instant.now())
+        pressureMarkerTxt.text = getString(
+            R.string.pressure_setpoint_format,
+            format.format(PressureUnitUtils.convert(pressure, units)),
+            symbol,
+            timeAgo.formatHM(true)
+        )
     }
 
     private fun getSeaLevelPressureHistory(includeCurrent: Boolean = false): List<PressureReading> {

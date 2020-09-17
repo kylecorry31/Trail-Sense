@@ -4,13 +4,17 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import java.time.Duration
+import java.time.Instant
 
 class WeatherPreferences(private val context: Context) {
 
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
     private val sensorChecker = SensorChecker(context)
+    private val cache = Cache(context)
 
     val hasBarometer: Boolean
         get() = sensorChecker.hasBarometer()
@@ -20,7 +24,12 @@ class WeatherPreferences(private val context: Context) {
 
     var temperatureAdjustment: Int
         get() = prefs.getInt(context.getString(R.string.pref_temperature_adjustment_c), 0)
-        set(value) = prefs.edit { putInt(context.getString(R.string.pref_temperature_adjustment_c), value) }
+        set(value) = prefs.edit {
+            putInt(
+                context.getString(R.string.pref_temperature_adjustment_c),
+                value
+            )
+        }
 
     val shouldMonitorWeather: Boolean
         get() = sensorChecker.hasBarometer() && prefs.getBoolean(
@@ -29,8 +38,10 @@ class WeatherPreferences(private val context: Context) {
         )
 
     val weatherUpdateFrequency: Duration
-        get(){
-            val raw = prefs.getString(context.getString(R.string.pref_weather_update_frequency), null) ?: "15"
+        get() {
+            val raw =
+                prefs.getString(context.getString(R.string.pref_weather_update_frequency), null)
+                    ?: "15"
             return Duration.ofMinutes(raw.toLongOrNull() ?: 15)
         }
 
@@ -103,6 +114,29 @@ class WeatherPreferences(private val context: Context) {
                 "medium" -> -4.5f
                 else -> -3f
             }
+        }
+
+    var pressureSetpoint: PressureAltitudeReading?
+        get() {
+            val pressure = cache.getFloat("cache_pressure_setpoint") ?: return null
+            val altitude = cache.getFloat("cache_pressure_setpoint_altitude") ?: 0f
+            val temperature = cache.getFloat("cache_pressure_setpoint_temperature") ?: 16f
+            val time = Instant.ofEpochMilli(
+                cache.getLong("cache_pressure_setpoint_time") ?: Instant.MIN.toEpochMilli()
+            )
+
+            return PressureAltitudeReading(time, pressure, altitude, temperature)
+        }
+        set(value) {
+            if (value == null) {
+                cache.remove("cache_pressure_setpoint")
+                return
+            }
+
+            cache.putFloat("cache_pressure_setpoint", value.pressure)
+            cache.putFloat("cache_pressure_setpoint_altitude", value.altitude)
+            cache.putFloat("cache_pressure_setpoint_temperature", value.temperature)
+            cache.putLong("cache_pressure_setpoint_time", value.time.toEpochMilli())
         }
 
 }
