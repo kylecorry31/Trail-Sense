@@ -32,7 +32,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.Thermomet
 
 class SensorService(private val context: Context) {
 
-    private val userPrefs = UserPreferences(context)
+    private val userPrefs = UserPreferences(context.applicationContext)
     private val sensorChecker = SensorChecker(context)
     private val sensorManager = context.getSystemService<SensorManager>()
 
@@ -49,20 +49,25 @@ class SensorService(private val context: Context) {
     }
 
     fun getAltimeter(): IAltimeter {
-        if (!userPrefs.useAutoAltitude) {
+
+        val mode = userPrefs.altimeterMode
+
+        if (mode == UserPreferences.AltimeterMode.Override){
             return OverrideAltimeter(context)
-        }
-
-        if (!userPrefs.useLocationFeatures) {
-            return CachedAltimeter(context)
-        }
-
-        val gps = getGPS()
-
-        return if (userPrefs.useFineTuneAltitude && userPrefs.weather.hasBarometer) {
-            FusedAltimeter(gps, Barometer(context))
+        } else if (mode == UserPreferences.AltimeterMode.Barometer && sensorChecker.hasBarometer()){
+            return BarometricAltimeter(getBarometer()) { userPrefs.seaLevelPressureOverride }
         } else {
-            gps
+            if (!userPrefs.useLocationFeatures) {
+                return CachedAltimeter(context)
+            }
+
+            val gps = getGPS()
+
+            return if (mode == UserPreferences.AltimeterMode.GPSBarometer && sensorChecker.hasBarometer()) {
+                FusedAltimeter(gps, Barometer(context))
+            } else {
+                gps
+            }
         }
     }
 

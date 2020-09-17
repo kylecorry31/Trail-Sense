@@ -192,4 +192,28 @@
         <item>60</item>
     </string-array>
 
+    <string-array name="altimeter_mode_entries">
+        <item>@string/altimeter_mode_gps_barometer</item>
+        <item>@string/altimeter_mode_gps</item>
+        <item>@string/altimeter_mode_barometer</item>
+        <item>@string/altimeter_mode_override</item>
+    </string-array>
+
+    <string-array name="altimeter_mode_values">
+        <item>gps_barometer</item>
+        <item>gps</item>
+        <item>barometer</item>
+        <item>override</item>
+    </string-array>
+
+    <string-array name="altimeter_mode_no_barometer_entries">
+        <item>@string/altimeter_mode_gps</item>
+        <item>@string/altimeter_mode_override</item>
+    </string-array>
+
+    <string-array name="altimeter_mode_no_barometer_values">
+        <item>gps</item>
+        <item>override</item>
+    </string-array>
+
 </resources>

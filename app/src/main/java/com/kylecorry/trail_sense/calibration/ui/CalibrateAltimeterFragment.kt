@@ -4,27 +4,26 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.text.InputType
 import androidx.core.content.edit
-import androidx.preference.EditTextPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreferenceCompat
+import androidx.preference.*
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.calibration.infrastructure.AltimeterCalibrator
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.weather.domain.WeatherService
+import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import java.time.Instant
 
 
 class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
 
     private lateinit var barometer: IBarometer
-    private lateinit var altimeterCalibrator: AltimeterCalibrator
     private lateinit var gps: IGPS
     private lateinit var altimeter: IAltimeter
     private lateinit var prefs: UserPreferences
@@ -34,13 +33,15 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
     private lateinit var distanceUnits: UserPreferences.DistanceUnits
 
     private lateinit var altitudeTxt: Preference
-    private lateinit var autoAltitudeSwitch: SwitchPreferenceCompat
+    private lateinit var calibrationModeList: ListPreference
     private lateinit var elevationCorrectionSwitch: SwitchPreferenceCompat
-    private lateinit var fineTuneSwitch: SwitchPreferenceCompat
     private lateinit var altitudeOverrideEdit: EditTextPreference
     private lateinit var altitudeOverrideFeetEdit: EditTextPreference
     private lateinit var altitudeOverrideGpsBtn: Preference
     private lateinit var altitudeOverrideBarometerEdit: EditTextPreference
+
+    private lateinit var lastMode: UserPreferences.AltimeterMode
+    private val intervalometer = Intervalometer(this::updateAltitude)
 
     private var seaLevelPressure = SensorManager.PRESSURE_STANDARD_ATMOSPHERE
 
@@ -54,57 +55,44 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
         barometer = sensorService.getBarometer()
         altimeter = sensorService.getAltimeter()
 
-        altimeterCalibrator = AltimeterCalibrator(requireContext())
-
         distanceUnits = prefs.distanceUnits
 
         bindPreferences()
     }
 
-    private fun bindPreferences(){
+    private fun bindPreferences() {
         altitudeTxt = findPreference(getString(R.string.pref_holder_altitude))!!
-        autoAltitudeSwitch = findPreference(getString(R.string.pref_auto_altitude))!!
+        calibrationModeList = findPreference(getString(R.string.pref_altimeter_calibration_mode))!!
         elevationCorrectionSwitch = findPreference(getString(R.string.pref_altitude_offsets))!!
-        fineTuneSwitch = findPreference(getString(R.string.pref_fine_tune_altitude))!!
         altitudeOverrideEdit = findPreference(getString(R.string.pref_altitude_override))!!
         altitudeOverrideFeetEdit = findPreference(getString(R.string.pref_altitude_override_feet))!!
         altitudeOverrideGpsBtn = findPreference(getString(R.string.pref_altitude_from_gps_btn))!!
-        altitudeOverrideBarometerEdit = findPreference(getString(R.string.pref_altitude_override_sea_level))!!
+        altitudeOverrideBarometerEdit =
+            findPreference(getString(R.string.pref_altitude_override_sea_level))!!
 
         altitudeOverrideEdit.summary = getAltitudeOverrideString()
         altitudeOverrideFeetEdit.summary = getAltitudeOverrideFeetString()
-        altitudeOverrideFeetEdit.isEnabled = !prefs.useAutoAltitude
-        altitudeOverrideEdit.isEnabled = !prefs.useAutoAltitude
-        altitudeOverrideGpsBtn.isEnabled = !prefs.useAutoAltitude
-        altitudeOverrideBarometerEdit.isEnabled = !prefs.useAutoAltitude
+        setOverrideStates()
         altitudeOverrideBarometerEdit.isVisible = prefs.weather.hasBarometer
-        fineTuneSwitch.isVisible = prefs.weather.hasBarometer
+        if (!prefs.weather.hasBarometer) {
+            calibrationModeList.setEntries(R.array.altimeter_mode_no_barometer_entries)
+            calibrationModeList.setEntryValues(R.array.altimeter_mode_no_barometer_values)
+        }
         altitudeOverrideBarometerEdit.setOnBindEditTextListener { editText ->
-            editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL).or(InputType.TYPE_NUMBER_FLAG_SIGNED)
+            editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
+                .or(InputType.TYPE_NUMBER_FLAG_SIGNED)
         }
         altitudeOverrideEdit.setOnBindEditTextListener { editText ->
-            editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL).or(InputType.TYPE_NUMBER_FLAG_SIGNED)
+            editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
+                .or(InputType.TYPE_NUMBER_FLAG_SIGNED)
         }
         altitudeOverrideFeetEdit.setOnBindEditTextListener { editText ->
-            editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL).or(InputType.TYPE_NUMBER_FLAG_SIGNED)
+            editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
+                .or(InputType.TYPE_NUMBER_FLAG_SIGNED)
         }
 
         altitudeOverrideGpsBtn.setOnPreferenceClickListener {
             updateElevationFromGPS()
-            true
-        }
-
-        autoAltitudeSwitch.setOnPreferenceClickListener {
-            restartAltimeter()
-            altitudeOverrideFeetEdit.isEnabled = !prefs.useAutoAltitude
-            altitudeOverrideEdit.isEnabled = !prefs.useAutoAltitude
-            altitudeOverrideGpsBtn.isEnabled = !prefs.useAutoAltitude
-            altitudeOverrideBarometerEdit.isEnabled = !prefs.useAutoAltitude
-            true
-        }
-
-        fineTuneSwitch.setOnPreferenceClickListener {
-            restartAltimeter()
             true
         }
 
@@ -113,7 +101,7 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
             true
         }
 
-        if (distanceUnits == UserPreferences.DistanceUnits.Feet){
+        if (distanceUnits == UserPreferences.DistanceUnits.Feet) {
             altitudeOverrideEdit.isVisible = false
             altitudeOverrideFeetEdit.isVisible = true
         } else {
@@ -153,6 +141,23 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
                 true
             }
         }
+
+        if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
+            updateElevationFromBarometer(prefs.seaLevelPressureOverride)
+        }
+
+        lastMode = prefs.altimeterMode
+    }
+
+    private fun setOverrideStates() {
+        val mode = prefs.altimeterMode
+        val enabled =
+            mode == UserPreferences.AltimeterMode.Barometer || mode == UserPreferences.AltimeterMode.Override
+
+        altitudeOverrideFeetEdit.isEnabled = enabled
+        altitudeOverrideEdit.isEnabled = enabled
+        altitudeOverrideGpsBtn.isEnabled = enabled
+        altitudeOverrideBarometerEdit.isEnabled = enabled
     }
 
     private fun getAltitudeOverrideFeetString(): String {
@@ -170,10 +175,11 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
         return LocationMath.convertToBaseUnit(
             altimeter.altitude,
             distanceUnits
-        ).roundPlaces(1).toString() + if (distanceUnits == UserPreferences.DistanceUnits.Feet) " ft" else " m"
+        ).roundPlaces(1)
+            .toString() + if (distanceUnits == UserPreferences.DistanceUnits.Feet) " ft" else " m"
     }
 
-    private fun restartAltimeter(){
+    private fun restartAltimeter() {
         stopAltimeter()
         altimeter = sensorService.getAltimeter()
         startAltimeter()
@@ -183,13 +189,16 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
     override fun onResume() {
         super.onResume()
         startAltimeter()
+        intervalometer.interval(20)
     }
 
     override fun onPause() {
         super.onPause()
         barometer.stop(this::onElevationFromBarometerCallback)
+        barometer.stop(this::onSeaLevelPressureOverrideCallback)
         gps.stop(this::onElevationFromGPSCallback)
         stopAltimeter()
+        intervalometer.stop()
     }
 
     private fun updateElevationFromGPS() {
@@ -208,6 +217,7 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
                 ).toString()
             )
         }
+        updateSeaLevelPressureOverride()
         updateAltitude()
         UiUtils.shortToast(requireContext(), getString(R.string.altitude_override_updated_toast))
         return false
@@ -224,6 +234,26 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
     private fun stopAltimeter() {
         altimeterStarted = false
         altimeter.stop(this::updateAltitude)
+    }
+
+    private fun updateSeaLevelPressureOverride() {
+        barometer.start(this::onSeaLevelPressureOverrideCallback)
+    }
+
+    private fun onSeaLevelPressureOverrideCallback(): Boolean {
+        val altitude = prefs.altitudeOverride
+        val seaLevel = WeatherService(0f, 0f, 0f).convertToSeaLevel(
+            listOf(
+                PressureAltitudeReading(
+                    Instant.now(),
+                    barometer.pressure,
+                    altitude,
+                    16f
+                )
+            )
+        ).first()
+        prefs.seaLevelPressureOverride = seaLevel.value
+        return prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer
     }
 
     private fun updateElevationFromBarometer(seaLevelPressure: Float) {
@@ -243,6 +273,7 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
                 ).toString()
             )
         }
+        updateSeaLevelPressureOverride()
         updateAltitude()
         UiUtils.shortToast(requireContext(), getString(R.string.altitude_override_updated_toast))
         return false
@@ -255,6 +286,15 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
         }
 
         altitudeTxt.summary = getAltitudeString()
+
+        if (lastMode != prefs.altimeterMode) {
+            lastMode = prefs.altimeterMode
+            restartAltimeter()
+            setOverrideStates()
+            if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
+                updateSeaLevelPressureOverride()
+            }
+        }
 
         altitudeOverrideFeetEdit.summary = getAltitudeOverrideFeetString()
         altitudeOverrideEdit.summary = getAltitudeOverrideString()

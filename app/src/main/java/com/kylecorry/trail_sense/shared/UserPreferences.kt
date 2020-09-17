@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import android.hardware.SensorManager
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
@@ -115,11 +116,36 @@ class UserPreferences(private val context: Context) {
             )
         }
 
-    var useAutoAltitude: Boolean
+    val altimeterMode: AltimeterMode
+        get() {
+            var raw = prefs.getString(getString(R.string.pref_altimeter_calibration_mode), null)
+
+            if (raw == null){
+                if (useAutoAltitude && useFineTuneAltitude && weather.hasBarometer){
+                    raw = "gps_barometer"
+                } else if (useAutoAltitude){
+                    raw = "gps"
+                }
+            }
+
+            return when (raw){
+                "gps" -> AltimeterMode.GPS
+                "gps_barometer" -> AltimeterMode.GPSBarometer
+                "barometer" -> AltimeterMode.Barometer
+                else -> AltimeterMode.Override
+            }
+
+        }
+
+    var seaLevelPressureOverride: Float
+        get() = prefs.getFloat(getString(R.string.pref_sea_level_pressure_override), SensorManager.PRESSURE_STANDARD_ATMOSPHERE)
+        set(value) = prefs.edit { putFloat(getString(R.string.pref_sea_level_pressure_override), value)}
+
+    private var useAutoAltitude: Boolean
         get() = prefs.getBoolean(getString(R.string.pref_auto_altitude), true)
         set(value) = prefs.edit { putBoolean(getString(R.string.pref_auto_altitude), value) }
 
-    var useFineTuneAltitude: Boolean
+    private var useFineTuneAltitude: Boolean
         get() = prefs.getBoolean(getString(R.string.pref_fine_tune_altitude), true)
         set(value) = prefs.edit { putBoolean(getString(R.string.pref_fine_tune_altitude), value) }
 
@@ -137,6 +163,13 @@ class UserPreferences(private val context: Context) {
 
     enum class Theme {
         Light, Dark, Black, System
+    }
+
+    enum class AltimeterMode {
+        GPS,
+        GPSBarometer,
+        Barometer,
+        Override
     }
 
 }

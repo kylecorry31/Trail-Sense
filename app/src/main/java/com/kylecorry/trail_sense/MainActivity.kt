@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
@@ -36,12 +37,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userPrefs: UserPreferences
     private lateinit var disclaimer: DisclaimerMessage
 
+    private var requestedBackgroundLocation = false
+
     private val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, "android.permission.FLASHLIGHT")
 
     init {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
             permissions.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
         }
+        requestedBackgroundLocation = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
     }
 
 
@@ -199,7 +203,14 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, getString(R.string.not_all_permissions_granted), Toast.LENGTH_LONG).show()
             startApp()
         } else {
-            startApp()
+            if (!requestedBackgroundLocation){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    requestedBackgroundLocation = true
+                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), 2)
+                }
+            } else {
+                startApp()
+            }
         }
     }
 

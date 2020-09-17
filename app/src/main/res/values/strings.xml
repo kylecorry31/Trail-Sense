@@ -264,6 +264,10 @@
     <string name="pref_fine_tune_altitude_summary">Detects smaller changes in altitude</string>
     <string name="pref_auto_altitude_summary">Based on your current location</string>
     <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
+    <string name="altimeter_mode_gps">GPS</string>
+    <string name="altimeter_mode_barometer">Barometer</string>
+    <string name="altimeter_mode_gps_barometer">GPS + Barometer</string>
+    <string name="altimeter_mode_override">Never</string>
 
     <!--Settings - Sensors - Barometer-->
     <string name="pref_barometer_pressure_title">Pressure</string>
@@ -454,4 +458,7 @@
     <string name="pref_weather_update_frequency_title">Weather update frequency</string>
     <string name="sun_dawn">Dawn</string>
     <string name="sun_dusk">Dusk</string>
+    <string name="pref_altimeter_calibration_mode">pref_altimeter_calibration_mode</string>
+    <string name="pref_altimeter_calibration_mode_title">Auto-calibration</string>
+    <string name="pref_sea_level_pressure_override">pref_sea_level_pressure_override</string>
 </resources>

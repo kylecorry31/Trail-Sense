@@ -11,12 +11,14 @@
             android:icon="@drawable/ic_altitude"
             app:key="@string/pref_holder_altitude" />
 
-        <SwitchPreferenceCompat
-            android:summary="@string/pref_auto_altitude_summary"
-            app:defaultValue="true"
+        <ListPreference
+            app:defaultValue="gps_barometer"
+            app:entries="@array/altimeter_mode_entries"
+            app:entryValues="@array/altimeter_mode_values"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_auto_altitude"
-            app:title="@string/auto_altitude" />
+            app:key="@string/pref_altimeter_calibration_mode"
+            app:title="@string/pref_altimeter_calibration_mode_title"
+            app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:defaultValue="0.0"
@@ -53,14 +55,6 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_altitude_offsets"
             app:title="@string/add_elevation_offsets" />
-
-        <SwitchPreferenceCompat
-            android:dependency="@string/pref_auto_altitude"
-            android:summary="@string/pref_fine_tune_altitude_summary"
-            app:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_fine_tune_altitude"
-            app:title="@string/fine_tune_using_barometer" />
 
 
     </PreferenceCategory>
