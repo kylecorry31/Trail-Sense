@@ -176,6 +176,9 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun onPressureUpdate(): Boolean {
+        if (barometer.pressure == 0f){
+            return true
+        }
         hasBarometerReading = true
         gotAllReadings()
         return false
