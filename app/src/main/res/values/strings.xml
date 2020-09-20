@@ -463,4 +463,6 @@
     <string name="pref_altimeter_calibration_mode">pref_altimeter_calibration_mode</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibration</string>
     <string name="pref_sea_level_pressure_override">pref_sea_level_pressure_override</string>
+    <string name="calibration_mode_barometer_alert_msg">Using the barometer as an altimeter may reduce weather forecasting accuracy.</string>
+    <string name="calibration_mode_barometer_alert_title">Barometer</string>
 </resources>

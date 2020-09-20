@@ -78,6 +78,20 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
             calibrationModeList.setEntries(R.array.altimeter_mode_no_barometer_entries)
             calibrationModeList.setEntryValues(R.array.altimeter_mode_no_barometer_values)
         }
+
+
+        calibrationModeList.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue == "barometer") {
+                UiUtils.alert(
+                    requireContext(),
+                    getString(R.string.calibration_mode_barometer_alert_title),
+                    getString(R.string.calibration_mode_barometer_alert_msg),
+                    R.string.dialog_ok
+                )
+            }
+            true
+        }
+
         altitudeOverrideBarometerEdit.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
                 .or(InputType.TYPE_NUMBER_FLAG_SIGNED)
