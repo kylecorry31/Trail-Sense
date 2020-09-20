@@ -162,13 +162,7 @@ class BarometerFragment : Fragment(), Observer {
 
     private fun startSensors() {
         barometer.start(this::onPressureUpdate)
-
-        if (altimeter.hasValidReading) {
-            onAltitudeUpdate()
-        } else {
-            altimeter.start(this::onAltitudeUpdate)
-        }
-
+        altimeter.start(this::onAltitudeUpdate)
         thermometer.start(this::onTemperatureUpdate)
     }
 
@@ -227,22 +221,23 @@ class BarometerFragment : Fragment(), Observer {
 
         val setpoint = pressureSetpoint
         if (setpoint != null && System.currentTimeMillis() - valueSelectedTime > 2000) {
-            updateSetpoint(setpoint)
+            displaySetpoint(setpoint)
         } else if (System.currentTimeMillis() - valueSelectedTime > 2000) {
             pressureMarkerTxt.text = ""
         }
     }
 
-    private fun updateSetpoint(setpoint: PressureAltitudeReading) {
+    private fun displaySetpoint(setpoint: PressureAltitudeReading) {
         val pressure =
-            if (useSeaLevelPressure) setpoint.seaLevel(prefs.weather.seaLevelFactorInTemp).value else setpoint.pressure
-        val symbol = getPressureUnitString(units)
-        val format = PressureUnitUtils.getDecimalFormat(units)
+            if (useSeaLevelPressure) setpoint.seaLevel(prefs.weather.seaLevelFactorInTemp) else setpoint.pressureReading()
+
+        val converted = convertPressure(pressure)
+        val formatted = formatService.formatPressure(converted.value, units)
+
         val timeAgo = Duration.between(setpoint.time, Instant.now())
         pressureMarkerTxt.text = getString(
             R.string.pressure_setpoint_format,
-            format.format(PressureUnitUtils.convert(pressure, units)),
-            symbol,
+            formatted,
             timeAgo.formatHM(true)
         )
     }
