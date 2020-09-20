@@ -23,8 +23,8 @@ class WeatherService(
         adjustSeaLevelWithTemp
     )
 
-    fun getHourlyWeather(readings: List<PressureReading>): Weather {
-        val tendency = getTendency(readings)
+    fun getHourlyWeather(readings: List<PressureReading>, lastReading: PressureReading? = null): Weather {
+        val tendency = getTendency(readings, lastReading)
         val current = readings.lastOrNull() ?: return Weather.NoChange
         return newWeatherService.forecast(tendency, current, stormThreshold)
     }
@@ -33,8 +33,8 @@ class WeatherService(
         return longTermForecaster.forecast(readings)
     }
 
-    fun getTendency(readings: List<PressureReading>): PressureTendency {
-        val last = readings.minByOrNull { Duration.between(it.time, Instant.now().minusSeconds(3 * 60 * 60)).abs() }
+    fun getTendency(readings: List<PressureReading>, lastReading: PressureReading? = null): PressureTendency {
+        val last = readings.minByOrNull { Duration.between(it.time, Instant.now().minusSeconds(3 * 60 * 60)).abs() } ?: lastReading
         val current = readings.lastOrNull()
 
         if (last == null || current == null){

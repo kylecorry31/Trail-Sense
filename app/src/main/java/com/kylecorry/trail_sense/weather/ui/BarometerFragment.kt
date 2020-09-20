@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
@@ -211,15 +212,15 @@ class BarometerFragment : Fragment(), Observer {
 
         displayChart(readings)
 
-        val tendency = weatherService.getTendency(readings)
+        val setpoint = getSetpoint()
+        val tendency = weatherService.getTendency(readings, setpoint)
         displayTendency(tendency)
 
-        updateForecast(readings)
+        updateForecast(readings, setpoint)
 
         val pressure = getCurrentPressure()
         displayPressure(pressure)
 
-        val setpoint = pressureSetpoint
         if (setpoint != null && System.currentTimeMillis() - valueSelectedTime > 2000) {
             displaySetpoint(setpoint)
         } else if (System.currentTimeMillis() - valueSelectedTime > 2000) {
@@ -227,11 +228,8 @@ class BarometerFragment : Fragment(), Observer {
         }
     }
 
-    private fun displaySetpoint(setpoint: PressureAltitudeReading) {
-        val pressure =
-            if (useSeaLevelPressure) setpoint.seaLevel(prefs.weather.seaLevelFactorInTemp) else setpoint.pressureReading()
-
-        val converted = convertPressure(pressure)
+    private fun displaySetpoint(setpoint: PressureReading) {
+        val converted = convertPressure(setpoint)
         val formatted = formatService.formatPressure(converted.value, units)
 
         val timeAgo = Duration.between(setpoint.time, Instant.now())
@@ -338,8 +336,8 @@ class BarometerFragment : Fragment(), Observer {
         }
     }
 
-    private fun updateForecast(readings: List<PressureReading>) {
-        val shortTerm = weatherService.getHourlyWeather(readings)
+    private fun updateForecast(readings: List<PressureReading>, setpoint: PressureReading?) {
+        val shortTerm = weatherService.getHourlyWeather(readings, setpoint)
         val longTerm = weatherService.getDailyWeather(readings)
 
         weatherNowTxt.text = getShortTermWeatherDescription(shortTerm)
@@ -350,6 +348,15 @@ class BarometerFragment : Fragment(), Observer {
             )
         )
         weatherLaterTxt.text = getLongTermWeatherDescription(longTerm)
+    }
+
+    private fun getSetpoint(): PressureReading? {
+        val setpoint = pressureSetpoint
+        return if (useSeaLevelPressure) {
+            setpoint?.seaLevel(prefs.weather.seaLevelFactorInTemp)
+        } else {
+            setpoint?.pressureReading()
+        }
     }
 
     private fun getCurrentPressure(): PressureReading {
