@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.navigation.infrastructure.share
 
 import android.content.Context
 import android.content.Intent
-import com.kylecorry.trailsensecore.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 
 class LocationSharesheet(private val context: Context): ILocationSender {
     override fun send(location: Coordinate) {

@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.weather.ui
 
-import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,19 +14,15 @@ import com.kylecorry.trail_sense.shared.formatHM
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.weather.domain.*
+import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
-import com.kylecorry.trail_sense.weather.domain.tendency.PressureCharacteristic
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
-import com.kylecorry.trailsensecore.domain.weather.PressureClassification
-import com.kylecorry.trailsensecore.domain.weather.PressureReading
-import com.kylecorry.trailsensecore.domain.weather.Weather
+import com.kylecorry.trailsensecore.domain.weather.*
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
-import kotlinx.android.synthetic.main.activity_weather.*
 import java.time.Duration
 import java.time.Instant
 import java.util.*
@@ -232,8 +227,8 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun updateSetpoint(setpoint: PressureAltitudeReading) {
-        val pressure = if (useSeaLevelPressure) weatherService.convertToSeaLevel(listOf(setpoint))
-            .first().value else setpoint.pressure
+        val pressure =
+            if (useSeaLevelPressure) setpoint.seaLevel(prefs.weather.seaLevelFactorInTemp).value else setpoint.pressure
         val symbol = getPressureUnitString(units)
         val format = PressureUnitUtils.getDecimalFormat(units)
         val timeAgo = Duration.between(setpoint.time, Instant.now())
@@ -353,27 +348,33 @@ class BarometerFragment : Fragment(), Observer {
         weatherNowImg.setImageResource(
             getWeatherImage(
                 shortTerm,
-                readings.lastOrNull()?.value ?: SensorManager.PRESSURE_STANDARD_ATMOSPHERE
+                readings.lastOrNull() ?: PressureReading(Instant.now(), barometer.pressure)
             )
         )
         weatherLaterTxt.text = getLongTermWeatherDescription(longTerm)
     }
 
-    private fun getCurrentPressure(): Float {
-        val readings = if (useSeaLevelPressure) {
-            getSeaLevelPressureHistory(true)
+    private fun getCurrentPressure(): PressureReading {
+        val reading = PressureAltitudeReading(
+            Instant.now(),
+            barometer.pressure,
+            altimeter.altitude,
+            thermometer.temperature
+        )
+
+        return if (useSeaLevelPressure) {
+            reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
         } else {
-            getPressureHistory(true)
+            reading.pressureReading()
         }
-        return readings.last().value
     }
 
-    private fun updatePressure(pressure: Float) {
+    private fun updatePressure(pressure: PressureReading) {
         val symbol = getPressureUnitString(units)
         val format = PressureUnitUtils.getDecimalFormat(units)
         pressureTxt.text = getString(
             R.string.pressure_format,
-            format.format(PressureUnitUtils.convert(pressure, units)),
+            format.format(PressureUnitUtils.convert(pressure.value, units)),
             symbol
         )
     }
@@ -383,14 +384,12 @@ class BarometerFragment : Fragment(), Observer {
             .filter { Duration.between(it.time, Instant.now()) <= prefs.weather.pressureHistory }
     }
 
-    private fun getWeatherImage(weather: Weather, currentPressure: Float): Int {
-        val classification = weatherService.classifyPressure(currentPressure)
-
+    private fun getWeatherImage(weather: Weather, currentPressure: PressureReading): Int {
         return when (weather) {
-            Weather.ImprovingFast -> if (classification == PressureClassification.Low) R.drawable.cloudy else R.drawable.sunny
-            Weather.ImprovingSlow -> if (classification == PressureClassification.High) R.drawable.sunny else R.drawable.partially_cloudy
-            Weather.WorseningSlow -> if (classification == PressureClassification.Low) R.drawable.light_rain else R.drawable.cloudy
-            Weather.WorseningFast -> if (classification == PressureClassification.Low) R.drawable.heavy_rain else R.drawable.light_rain
+            Weather.ImprovingFast -> if (currentPressure.isLow()) R.drawable.cloudy else R.drawable.sunny
+            Weather.ImprovingSlow -> if (currentPressure.isHigh()) R.drawable.sunny else R.drawable.partially_cloudy
+            Weather.WorseningSlow -> if (currentPressure.isLow()) R.drawable.light_rain else R.drawable.cloudy
+            Weather.WorseningFast -> if (currentPressure.isLow()) R.drawable.heavy_rain else R.drawable.light_rain
             Weather.Storm -> R.drawable.storm
             else -> R.drawable.steady
         }

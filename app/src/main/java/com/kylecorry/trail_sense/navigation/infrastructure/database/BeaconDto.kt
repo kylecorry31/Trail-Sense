@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.database
 
-import com.kylecorry.trailsensecore.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.infrastructure.persistence.Dto
 import com.kylecorry.trailsensecore.infrastructure.persistence.SqlType

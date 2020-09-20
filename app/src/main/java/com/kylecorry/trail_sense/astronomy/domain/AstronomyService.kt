@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.astronomy.domain
 
-import com.kylecorry.trailsensecore.domain.Bearing
-import com.kylecorry.trailsensecore.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trail_sense.shared.roundNearestMinute
 import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.astronomy.*

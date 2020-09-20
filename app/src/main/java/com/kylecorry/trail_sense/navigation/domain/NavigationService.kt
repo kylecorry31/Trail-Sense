@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.navigation.domain
 
 import android.location.Location
-import com.kylecorry.trailsensecore.domain.Bearing
-import com.kylecorry.trailsensecore.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trail_sense.shared.math.MathUtils
 import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.kylecorry.trailsensecore.domain.navigation.Beacon

@@ -12,8 +12,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trail_sense.weather.domain.HeatAlert
 import com.kylecorry.trail_sense.weather.domain.WeatherService
+import com.kylecorry.trailsensecore.domain.weather.HeatAlert
 
 class ThermometerFragment : Fragment() {
 

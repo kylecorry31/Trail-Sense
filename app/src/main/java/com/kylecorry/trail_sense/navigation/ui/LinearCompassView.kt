@@ -17,7 +17,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trailsensecore.domain.CompassDirection
+import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import kotlin.math.floor
 import kotlin.math.min
 import kotlin.math.roundToInt

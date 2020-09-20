@@ -16,12 +16,12 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
-import com.kylecorry.trail_sense.weather.domain.tendency.PressureTendency
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.domain.weather.PressureClassification
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
+import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
+import java.time.Instant
 
 object WeatherNotificationService {
 
@@ -88,16 +88,15 @@ object WeatherNotificationService {
         )
         val tendency = weatherService.getTendency(readings)
         val units = prefs.pressureUnits
-        val pressure = readings.lastOrNull()?.value
-        val classification = weatherService.classifyPressure(
-            pressure ?: SensorManager.PRESSURE_STANDARD_ATMOSPHERE
+        val pressure = readings.lastOrNull() ?: PressureReading(
+            Instant.now(),
+            SensorManager.PRESSURE_STANDARD_ATMOSPHERE
         )
-
         val icon = when (forecast) {
-            Weather.ImprovingFast -> if (classification == PressureClassification.Low) R.drawable.cloudy else R.drawable.sunny
-            Weather.ImprovingSlow -> if (classification == PressureClassification.High) R.drawable.sunny else R.drawable.partially_cloudy
-            Weather.WorseningSlow -> if (classification == PressureClassification.Low) R.drawable.light_rain else R.drawable.cloudy
-            Weather.WorseningFast -> if (classification == PressureClassification.Low) R.drawable.heavy_rain else R.drawable.light_rain
+            Weather.ImprovingFast -> if (pressure.isLow()) R.drawable.cloudy else R.drawable.sunny
+            Weather.ImprovingSlow -> if (pressure.isHigh()) R.drawable.sunny else R.drawable.partially_cloudy
+            Weather.WorseningSlow -> if (pressure.isLow()) R.drawable.light_rain else R.drawable.cloudy
+            Weather.WorseningFast -> if (pressure.isLow()) R.drawable.heavy_rain else R.drawable.light_rain
             Weather.Storm -> R.drawable.storm
             else -> R.drawable.steady
         }
@@ -118,7 +117,7 @@ object WeatherNotificationService {
             if (prefs.weather.shouldShowPressureInNotification) context.getString(
                 R.string.weather_notification_desc_format,
                 description,
-                getPressureString(context, pressure, units),
+                getPressureString(context, pressure.value, units),
                 getTendencyString(context, tendency, units)
             ) else description,
             icon

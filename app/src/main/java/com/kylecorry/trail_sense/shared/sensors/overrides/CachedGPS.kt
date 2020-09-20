@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Handler
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.Coordinate
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS

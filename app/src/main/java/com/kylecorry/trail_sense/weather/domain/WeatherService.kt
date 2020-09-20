@@ -1,28 +1,22 @@
 package com.kylecorry.trail_sense.weather.domain
 
 import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster
-import com.kylecorry.trail_sense.weather.domain.forcasting.HourlyForecaster
 import com.kylecorry.trail_sense.weather.domain.sealevel.AltimeterSeaLevelPressureConverter
 import com.kylecorry.trail_sense.weather.domain.sealevel.BarometerGPSAltitudeCalculator
 import com.kylecorry.trail_sense.weather.domain.sealevel.GPSAltitudeCalculator
-import com.kylecorry.trail_sense.weather.domain.tendency.DropPressureTendencyCalculator
-import com.kylecorry.trail_sense.weather.domain.tendency.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.*
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
+import java.time.Duration
 import java.time.Instant
 
 class WeatherService(
-    stormThreshold: Float,
+    private val stormThreshold: Float,
     dailyForecastChangeThreshold: Float,
-    hourlyForecastChangeThreshold: Float,
+    private val hourlyForecastChangeThreshold: Float,
     adjustSeaLevelWithBarometer: Boolean = true,
     adjustSeaLevelWithTemp: Boolean = false
 ) {
-
-    private val shortTermForecaster =
-        HourlyForecaster(stormThreshold, hourlyForecastChangeThreshold)
     private val longTermForecaster = DailyForecaster(dailyForecastChangeThreshold)
-    private val tendencyCalculator = DropPressureTendencyCalculator()
     private val newWeatherService: IWeatherService = WeatherService()
     private val seaLevelConverter = AltimeterSeaLevelPressureConverter(
         if (adjustSeaLevelWithBarometer) BarometerGPSAltitudeCalculator() else GPSAltitudeCalculator(),
@@ -30,7 +24,9 @@ class WeatherService(
     )
 
     fun getHourlyWeather(readings: List<PressureReading>): Weather {
-        return shortTermForecaster.forecast(readings)
+        val tendency = getTendency(readings)
+        val current = readings.lastOrNull() ?: return Weather.NoChange
+        return newWeatherService.forecast(tendency, current, stormThreshold)
     }
 
     fun getDailyWeather(readings: List<PressureReading>): Weather {
@@ -38,11 +34,14 @@ class WeatherService(
     }
 
     fun getTendency(readings: List<PressureReading>): PressureTendency {
-        return tendencyCalculator.calculate(readings)
-    }
+        val last = readings.minByOrNull { Duration.between(it.time, Instant.now().minusSeconds(3 * 60 * 60)).abs() }
+        val current = readings.lastOrNull()
 
-    fun classifyPressure(pressure: Float): PressureClassification {
-        return newWeatherService.classifyPressure(PressureReading(Instant.now(), pressure))
+        if (last == null || current == null){
+            return PressureTendency(PressureCharacteristic.Steady, 0f)
+        }
+
+        return newWeatherService.getTendency(last, current, hourlyForecastChangeThreshold)
     }
 
     fun convertToSeaLevel(readings: List<PressureAltitudeReading>): List<PressureReading> {
@@ -60,10 +59,4 @@ class WeatherService(
     fun getDewPoint(tempCelsius: Float, relativeHumidity: Float): Float {
        return newWeatherService.getDewPoint(tempCelsius, relativeHumidity)
     }
-
-    fun getHumidityComfortLevel(dewPoint: Float): HumidityComfortLevel {
-        return newWeatherService.getHumidityComfortLevel(dewPoint)
-    }
-
-
 }
