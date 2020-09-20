@@ -95,6 +95,7 @@
     <string name="units_psi">PSI</string>
     <string name="stop_monitoring">Stop</string>
     <string name="pressure_tendency_format">%s %s / 3h</string>
+    <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_setpoint_format">Set: %s %s - %s ago</string>
     <string name="pressure_reading_time_ago">%s %s - %s ago</string>

@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.formatHM
 import com.kylecorry.trail_sense.shared.sensors.*
@@ -18,6 +19,7 @@ import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.*
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
@@ -53,6 +55,8 @@ class BarometerFragment : Fragment(), Observer {
 
     private lateinit var weatherService: WeatherService
     private lateinit var sensorService: SensorService
+    private val unitService = UnitService()
+    private val formatService by lazy { FormatService(requireContext()) }
 
     private val throttle = Throttle(20)
 
@@ -212,11 +216,14 @@ class BarometerFragment : Fragment(), Observer {
         }
 
         displayChart(readings)
-        updateTendency(readings)
+
+        val tendency = weatherService.getTendency(readings)
+        displayTendency(tendency)
+
         updateForecast(readings)
 
         val pressure = getCurrentPressure()
-        updatePressure(pressure)
+        displayPressure(pressure)
 
         val setpoint = pressureSetpoint
         if (setpoint != null && System.currentTimeMillis() - valueSelectedTime > 2000) {
@@ -317,22 +324,18 @@ class BarometerFragment : Fragment(), Observer {
         }
     }
 
-    private fun updateTendency(readings: List<PressureReading>) {
-        val tendency = weatherService.getTendency(readings)
-
-        val symbol = getPressureUnitString(units)
-        val format = PressureUnitUtils.getTendencyDecimalFormat(units)
-        val formattedTendencyAmount =
-            format.format(PressureUnitUtils.convert(tendency.amount, units))
+    private fun displayTendency(tendency: PressureTendency) {
+        val converted = convertPressure(PressureReading(Instant.now(), tendency.amount))
+        val formatted = formatService.formatPressure(converted.value, units)
         tendencyAmountTxt.text =
-            getString(R.string.pressure_tendency_format, formattedTendencyAmount, symbol)
+            getString(R.string.pressure_tendency_format_2, formatted)
 
         when (tendency.characteristic) {
-            PressureCharacteristic.Falling -> {
+            PressureCharacteristic.Falling, PressureCharacteristic.FallingFast -> {
                 trendImg.setImageResource(R.drawable.ic_arrow_down)
                 trendImg.visibility = View.VISIBLE
             }
-            PressureCharacteristic.Rising -> {
+            PressureCharacteristic.Rising, PressureCharacteristic.RisingFast -> {
                 trendImg.setImageResource(R.drawable.ic_arrow_up)
                 trendImg.visibility = View.VISIBLE
             }
@@ -369,14 +372,14 @@ class BarometerFragment : Fragment(), Observer {
         }
     }
 
-    private fun updatePressure(pressure: PressureReading) {
-        val symbol = getPressureUnitString(units)
-        val format = PressureUnitUtils.getDecimalFormat(units)
-        pressureTxt.text = getString(
-            R.string.pressure_format,
-            format.format(PressureUnitUtils.convert(pressure.value, units)),
-            symbol
-        )
+    private fun displayPressure(pressure: PressureReading) {
+        val formatted = formatService.formatPressure(convertPressure(pressure).value, units)
+        pressureTxt.text = formatted
+    }
+
+    private fun convertPressure(pressure: PressureReading): PressureReading {
+        val converted = unitService.convert(pressure.value, PressureUnits.Hpa, units)
+        return pressure.copy(value = converted)
     }
 
     private fun getReadingHistory(): List<PressureAltitudeReading> {
