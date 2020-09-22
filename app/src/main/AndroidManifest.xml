@@ -86,7 +86,8 @@
             </intent-filter>
         </receiver>
         <service android:name=".weather.infrastructure.services.WeatherUpdateService"
-            android:enabled="true"/>
+            android:enabled="true"
+            android:foregroundServiceType="location"/>
     </application>
 
 </manifest>

@@ -10,7 +10,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateReceiver
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
 class WeatherUpdateService : Service() {
@@ -38,7 +37,6 @@ class WeatherUpdateService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        intervalometer.stop()
         intervalometer.interval(prefs.weather.weatherUpdateFrequency)
         return START_STICKY_COMPATIBILITY
     }

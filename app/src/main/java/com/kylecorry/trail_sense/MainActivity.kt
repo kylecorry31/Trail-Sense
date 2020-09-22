@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     private var requestedBackgroundLocation = false
 
-    private val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, "android.permission.FLASHLIGHT")
+    private val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, "android.permission.FLASHLIGHT", Manifest.permission.FOREGROUND_SERVICE)
 
     init {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
