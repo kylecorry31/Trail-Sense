@@ -100,7 +100,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         fragmentOnClick(preference(R.string.pref_gps_calibration)) { CalibrateGPSFragment() }
         fragmentOnClick(preference(R.string.pref_barometer_calibration)) { CalibrateBarometerFragment() }
         refreshOnChange(list(R.string.pref_theme))
-        refreshOnChange(list(R.string.pref_enable_experimental))
+        refreshOnChange(switch(R.string.pref_enable_experimental))
 
         prefShowPressureInNotification.setOnPreferenceClickListener {
             requireContext().sendBroadcast(WeatherUpdateReceiver.intent(requireContext()))

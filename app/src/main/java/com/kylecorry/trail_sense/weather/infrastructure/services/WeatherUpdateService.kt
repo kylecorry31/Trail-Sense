@@ -35,10 +35,11 @@ class WeatherUpdateService : Service() {
             R.drawable.ic_weather
         )
         startForeground(WeatherNotificationService.WEATHER_NOTIFICATION_ID, notification)
-        intervalometer.interval(prefs.weather.weatherUpdateFrequency)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        intervalometer.stop()
+        intervalometer.interval(prefs.weather.weatherUpdateFrequency)
         return START_STICKY_COMPATIBILITY
     }
 
