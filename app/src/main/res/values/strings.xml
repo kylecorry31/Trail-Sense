@@ -304,8 +304,8 @@
     <string name="pref_monitor_weather_summary">In the background</string>
     <string name="pref_monitor_weather_title">Monitor weather</string>
     <string name="pref_forecast_sensitivity_title">Forecast sensitivity</string>
-    <string name="pref_force_weather_updates_title">Improve weather accuracy</string>
-    <string name="pref_force_weather_updates_summary">Checks pressure every 20 minutes. May impact battery.</string>
+    <string name="pref_force_weather_updates_title">Force weather updates</string>
+    <string name="pref_force_weather_updates_summary">Wakes device while idle, may impact battery</string>
     <string name="forecast_sensitivity_low_hpa">Low (2.5 hPa / 3h)</string>
     <string name="forecast_sensitivity_med_hpa">Medium (1.5 hPa / 3h)</string>
     <string name="forecast_sensitivity_high_hpa">High (0.5 hPa / 3h)</string>
@@ -465,4 +465,7 @@
     <string name="pref_sea_level_pressure_override">pref_sea_level_pressure_override</string>
     <string name="calibration_mode_barometer_alert_msg">Using the barometer as an altimeter may reduce weather forecasting accuracy.</string>
     <string name="calibration_mode_barometer_alert_title">Barometer</string>
+    <string name="pref_weather_foreground_service">pref_weather_foreground_service</string>
+    <string name="pref_weather_foreground_service_title">Update weather in foreground</string>
+    <string name="pref_weather_foreground_service_summary">May reduce missed updates</string>
 </resources>

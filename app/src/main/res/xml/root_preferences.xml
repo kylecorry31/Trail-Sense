@@ -158,18 +158,12 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
-            app:defaultValue="true"
+            app:defaultValue="false"
             app:dependency="@string/pref_monitor_weather"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_show_weather_notification"
-            app:title="@string/pref_show_weather_notification_title" />
-
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:dependency="@string/pref_show_weather_notification"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_show_pressure_in_notification"
-            app:title="@string/pref_show_pressure_in_notification_title" />
+            app:key="@string/pref_weather_foreground_service"
+            app:title="@string/pref_weather_foreground_service_title"
+            android:summary="@string/pref_weather_foreground_service_summary"/>
 
         <SwitchPreferenceCompat
             app:defaultValue="false"
@@ -178,6 +172,19 @@
             app:title="@string/pref_force_weather_updates_title"
             android:summary="@string/pref_force_weather_updates_summary"
             android:dependency="@string/pref_monitor_weather"/>
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:dependency="@string/pref_monitor_weather"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_weather_notification"
+            app:title="@string/pref_show_weather_notification_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_pressure_in_notification"
+            app:title="@string/pref_show_pressure_in_notification_title" />
 
         <ListPreference
             app:defaultValue="48"
@@ -189,16 +196,6 @@
             app:title="@string/pref_pressure_history_title"
             app:useSimpleSummaryProvider="true" />
 
-        <ListPreference
-            app:defaultValue="medium"
-            app:dependency="@string/pref_monitor_weather"
-            app:entries="@array/forecast_sensitivity_entries_hpa"
-            app:entryValues="@array/forecast_sensitivity_values"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_forecast_sensitivity"
-            app:title="@string/pref_forecast_sensitivity_title"
-            app:useSimpleSummaryProvider="true" />
-
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:dependency="@string/pref_monitor_weather"
@@ -208,7 +205,15 @@
 
         <ListPreference
             app:defaultValue="medium"
-            app:dependency="@string/pref_send_storm_alert"
+            app:entries="@array/forecast_sensitivity_entries_hpa"
+            app:entryValues="@array/forecast_sensitivity_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_forecast_sensitivity"
+            app:title="@string/pref_forecast_sensitivity_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="medium"
             app:entries="@array/storm_sensitivity_entries_hpa"
             app:entryValues="@array/storm_alert_sensitivity_values"
             app:iconSpaceReserved="false"

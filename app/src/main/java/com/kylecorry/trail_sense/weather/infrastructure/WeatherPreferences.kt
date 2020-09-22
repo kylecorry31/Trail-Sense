@@ -73,6 +73,9 @@ class WeatherPreferences(private val context: Context) {
     val forceUpdates: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_force_weather_updates), false)
 
+    val foregroundService: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_weather_foreground_service), false)
+
     val sendStormAlerts: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_send_storm_alert), true)
 

@@ -77,9 +77,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
     private fun start(intent: Intent?) {
         scheduleNextAlarm(intent)
-        if (!hasNotification()) {
-            sendWeatherNotification()
-        }
+        sendWeatherNotification()
 
         if (!canRun()) {
             return
@@ -91,6 +89,10 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun scheduleNextAlarm(receivedIntent: Intent?) {
+        if (userPrefs.weather.foregroundService) {
+            return
+        }
+
         if (receivedIntent?.action != INTENT_ACTION && AlarmUtils.isAlarmRunning(
                 context,
                 PI_ID,
@@ -129,7 +131,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         val readings = weatherService.convertToSeaLevel(PressureHistoryRepository.getAll(context))
         val forecast = weatherService.getHourlyWeather(readings)
 
-        if (userPrefs.weather.shouldShowWeatherNotification) {
+        if (userPrefs.weather.shouldShowWeatherNotification || userPrefs.weather.foregroundService) {
             WeatherNotificationService.updateNotificationForecast(context, forecast, readings)
         }
     }
@@ -176,7 +178,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun onPressureUpdate(): Boolean {
-        if (barometer.pressure == 0f){
+        if (barometer.pressure == 0f) {
             return true
         }
         hasBarometerReading = true

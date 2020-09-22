@@ -85,6 +85,8 @@
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+        <service android:name=".weather.infrastructure.services.WeatherUpdateService"
+            android:enabled="true"/>
     </application>
 
 </manifest>
