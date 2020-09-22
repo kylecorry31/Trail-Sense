@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -18,9 +18,9 @@ class BootReceiver : BroadcastReceiver() {
     private fun startWeatherMonitoring(context: Context) {
         val prefs = UserPreferences(context)
         if (prefs.weather.shouldMonitorWeather) {
-            WeatherAlarmScheduler.start(context)
+            WeatherUpdateScheduler.start(context)
         } else {
-            WeatherAlarmScheduler.stop(context)
+            WeatherUpdateScheduler.stop(context)
         }
     }
 

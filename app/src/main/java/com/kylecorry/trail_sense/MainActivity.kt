@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
@@ -23,7 +22,7 @@ import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.doTransaction
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.ui.BarometerFragment
 import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
 
@@ -92,9 +91,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         if(userPrefs.weather.shouldMonitorWeather) {
-            WeatherAlarmScheduler.start(this)
+            WeatherUpdateScheduler.start(this)
         } else {
-            WeatherAlarmScheduler.stop(this)
+            WeatherUpdateScheduler.stop(this)
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)
             item.isVisible = false
         }

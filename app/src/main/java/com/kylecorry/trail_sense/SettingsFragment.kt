@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.licenses.LicenseFragment
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.shared.switchToFragment
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherAlarmScheduler
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
@@ -78,9 +78,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 val shouldMonitorWeather = value as Boolean
                 context?.apply {
                     if (shouldMonitorWeather) {
-                        WeatherAlarmScheduler.start(this)
+                        WeatherUpdateScheduler.start(this)
                     } else {
-                        WeatherAlarmScheduler.stop(this)
+                        WeatherUpdateScheduler.stop(this)
                     }
                 }
 
@@ -92,7 +92,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 val shouldShowWeatherNotification = value as Boolean
                 context?.apply {
                     if (shouldShowWeatherNotification) {
-                        WeatherAlarmScheduler.start(this)
+                        WeatherUpdateScheduler.start(this)
                     } else {
                         NotificationUtils.cancel(
                             this,
@@ -111,7 +111,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         this,
                         WeatherNotificationService.WEATHER_NOTIFICATION_ID
                     )
-                    WeatherAlarmScheduler.start(this)
+                    WeatherUpdateScheduler.start(this)
                 }
 
                 true

@@ -5,7 +5,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateReceiver
 
-object WeatherAlarmScheduler {
+object WeatherUpdateScheduler {
     fun start(context: Context) {
         context.sendBroadcast(WeatherUpdateReceiver.intent(context.applicationContext))
     }
