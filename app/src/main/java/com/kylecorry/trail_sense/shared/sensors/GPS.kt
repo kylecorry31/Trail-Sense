@@ -95,7 +95,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
             return
         }
 
-        val satellites = location.extras.getInt("satellites")
+        val satellites = if (location.extras.containsKey("satellites")) location.extras.getInt("satellites") else 0
         val dt = System.currentTimeMillis() - fixStart
 
         if (useNewLocation(
