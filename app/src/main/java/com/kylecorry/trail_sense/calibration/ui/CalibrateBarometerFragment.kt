@@ -158,16 +158,12 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
         val seaLevelPressure = prefs.weather.useSeaLevelPressure
 
         val pressure = if (seaLevelPressure) {
-            weatherService.convertToSeaLevel(
-                listOf(
-                    PressureAltitudeReading(
-                        Instant.now(),
-                        barometer.pressure,
-                        altimeter.altitude,
-                        thermometer.temperature
-                    )
-                )
-            ).first().value
+            PressureAltitudeReading(
+                Instant.now(),
+                barometer.pressure,
+                altimeter.altitude,
+                thermometer.temperature
+            ).seaLevel(prefs.weather.seaLevelFactorInTemp).value
         } else {
             barometer.pressure
         }
