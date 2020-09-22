@@ -34,7 +34,6 @@ class WeatherUpdateService : Service() {
             getString(R.string.notification_monitoring_weather),
             R.drawable.ic_weather
         )
-        NotificationUtils.send(applicationContext, WeatherNotificationService.WEATHER_NOTIFICATION_ID, notification)
         startForeground(WeatherNotificationService.WEATHER_NOTIFICATION_ID, notification)
         intervalometer.interval(prefs.weather.weatherUpdateFrequency)
     }
@@ -46,7 +45,6 @@ class WeatherUpdateService : Service() {
     override fun onDestroy() {
         intervalometer.stop()
         stopForeground(true)
-        NotificationUtils.cancel(applicationContext, WeatherNotificationService.WEATHER_NOTIFICATION_ID)
         started = false
         super.onDestroy()
     }

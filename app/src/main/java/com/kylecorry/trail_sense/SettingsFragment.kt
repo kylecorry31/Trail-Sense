@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.InputType
 import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import androidx.preference.*
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.calibration.ui.CalibrateAltimeterFragment
@@ -49,28 +50,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         prefStormAlerts = switch(R.string.pref_send_storm_alert)
     }
 
-    private fun updatePreferenceStates() {
-        val monitorWeather = prefs.weather.shouldMonitorWeather
-        val foreground = prefs.weather.foregroundService
-        val notification = prefs.weather.shouldShowWeatherNotification
-
-        prefWeatherUpdateFrequency.isEnabled = monitorWeather
-        prefUpdateWeatherForeground.isEnabled = monitorWeather
-        prefForceWeatherUpdates.isEnabled = monitorWeather && !foreground
-        prefShowWeatherNotification.isEnabled = monitorWeather && !foreground
-        prefShowPressureInNotification.isEnabled = monitorWeather && (foreground || notification)
-        prefPressureHistory.isEnabled = monitorWeather
-        prefStormAlerts.isEnabled = monitorWeather
-    }
-
-    private fun switch(@StringRes id: Int): SwitchPreferenceCompat {
-        return preferenceManager.findPreference(getString(id))!!
-    }
-
-    private fun list(@StringRes id: Int): ListPreference {
-        return preferenceManager.findPreference(getString(id))!!
-    }
-
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
@@ -94,8 +73,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
         prefUpdateWeatherForeground.setOnPreferenceClickListener {
-            WeatherUpdateScheduler.stop(requireContext())
-            WeatherUpdateScheduler.start(requireContext())
+            restartWeatherMonitor()
             updatePreferenceStates()
             true
         }
@@ -112,46 +90,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
             updatePreferenceStates()
             true
         }
+        prefWeatherUpdateFrequency.setOnPreferenceClickListener {
+            restartWeatherMonitor()
+            true
+        }
 
-        preferenceScreen.findPreference<Preference>(getString(R.string.pref_compass_sensor))
-            ?.setOnPreferenceClickListener { _ ->
-                // Launch intent
-                switchToFragment(CalibrateCompassFragment(), addToBackStack = true)
-                false
-            }
-
-        preferenceScreen.findPreference<Preference>(getString(R.string.pref_altimeter_calibration))
-            ?.setOnPreferenceClickListener { _ ->
-                // Launch intent
-                switchToFragment(CalibrateAltimeterFragment(), addToBackStack = true)
-                false
-            }
-
-        preferenceScreen.findPreference<Preference>(getString(R.string.pref_gps_calibration))
-            ?.setOnPreferenceClickListener { _ ->
-                // Launch intent
-                switchToFragment(CalibrateGPSFragment(), addToBackStack = true)
-                false
-            }
-
-        preferenceScreen.findPreference<Preference>(getString(R.string.pref_barometer_calibration))
-            ?.setOnPreferenceClickListener { _ ->
-                // Launch intent
-                switchToFragment(CalibrateBarometerFragment(), addToBackStack = true)
-                false
-            }
-
-        preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_theme))
-            ?.setOnPreferenceChangeListener { _, _ ->
-                activity?.recreate()
-                true
-            }
-
-        preferenceScreen.findPreference<SwitchPreferenceCompat>(getString(R.string.pref_enable_experimental))
-            ?.setOnPreferenceClickListener {
-                activity?.recreate()
-                true
-            }
+        fragmentOnClick(preference(R.string.pref_compass_sensor)) { CalibrateCompassFragment() }
+        fragmentOnClick(preference(R.string.pref_altimeter_calibration)) { CalibrateAltimeterFragment() }
+        fragmentOnClick(preference(R.string.pref_gps_calibration)) { CalibrateGPSFragment() }
+        fragmentOnClick(preference(R.string.pref_barometer_calibration)) { CalibrateBarometerFragment() }
+        refreshOnChange(list(R.string.pref_theme))
+        refreshOnChange(list(R.string.pref_enable_experimental))
 
         prefShowPressureInNotification.setOnPreferenceClickListener {
             requireContext().sendBroadcast(WeatherUpdateReceiver.intent(requireContext()))
@@ -225,6 +174,51 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val version = PackageUtils.getVersionName(requireContext())
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_app_version))?.summary =
             version
+    }
+
+    private fun fragmentOnClick(pref: Preference, fragmentFactory: () -> Fragment) {
+        pref.setOnPreferenceClickListener {
+            switchToFragment(fragmentFactory.invoke(), addToBackStack = true)
+            false
+        }
+    }
+
+    private fun refreshOnChange(pref: Preference) {
+        pref.setOnPreferenceChangeListener { _, _ ->
+            activity?.recreate()
+            true
+        }
+    }
+
+    private fun restartWeatherMonitor(){
+        WeatherUpdateScheduler.stop(requireContext())
+        WeatherUpdateScheduler.start(requireContext())
+    }
+
+    private fun updatePreferenceStates() {
+        val monitorWeather = prefs.weather.shouldMonitorWeather
+        val foreground = prefs.weather.foregroundService
+        val notification = prefs.weather.shouldShowWeatherNotification
+
+        prefWeatherUpdateFrequency.isEnabled = monitorWeather
+        prefUpdateWeatherForeground.isEnabled = monitorWeather
+        prefForceWeatherUpdates.isEnabled = monitorWeather && !foreground
+        prefShowWeatherNotification.isEnabled = monitorWeather && !foreground
+        prefShowPressureInNotification.isEnabled = monitorWeather && (foreground || notification)
+        prefPressureHistory.isEnabled = monitorWeather
+        prefStormAlerts.isEnabled = monitorWeather
+    }
+
+    private fun switch(@StringRes id: Int): SwitchPreferenceCompat {
+        return preferenceManager.findPreference(getString(id))!!
+    }
+
+    private fun list(@StringRes id: Int): ListPreference {
+        return preferenceManager.findPreference(getString(id))!!
+    }
+
+    private fun preference(@StringRes id: Int): Preference {
+        return preferenceManager.findPreference(getString(id))!!
     }
 
     @ArrayRes
