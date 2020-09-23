@@ -12,6 +12,7 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="not_all_permissions_granted">Not all permissions granted, some features may be broken</string>
+    <string name="copied_to_clipboard_toast">Copied to clipboard</string>
 
     <!--Disclaimer-->
     <string name="disclaimer_message_title">Disclaimer</string>
@@ -55,6 +56,12 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Tips for improving accuracy</string>
     <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\u0020\u0020\u0020\u0020%s of actual location\n\u0020\u0020\u0020\u0020%s of actual altitude\n\u0020\u0020\u0020\u0020%s satellites\n\nCompass: Rotate device in a figure 8 pattern and move away from metal.</string>
+    <string name="gps_lock_acquired">GPS lock acquired</string>
+
+    <!--Flashlight-->
+    <string name="flashlight_title">Flashlight</string>
+    <string name="turn_off_flashlight">Tap to turn off</string>
+    <string name="sos">SOS</string>
 
     <!--Navigation Tab - Destination Panel-->
     <string name="eta">~ %s away</string>
@@ -177,6 +184,8 @@
     <string name="moon_illumination">Moon illumination</string>
     <string name="sun_altitude">Sun altitude</string>
     <string name="moon_altitude">Moon altitude</string>
+    <string name="sun_dawn">Dawn</string>
+    <string name="sun_dusk">Dusk</string>
 
     <!--Inclinometer-->
     <string name="inclinometer_title">Inclinometer</string>
@@ -271,6 +280,9 @@
     <string name="altimeter_mode_barometer">Barometer</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometer</string>
     <string name="altimeter_mode_override">Never</string>
+    <string name="calibration_mode_barometer_alert_msg">Using the barometer as an altimeter may reduce weather forecasting accuracy.</string>
+    <string name="calibration_mode_barometer_alert_title">Barometer</string>
+    <string name="pref_altimeter_calibration_mode_title">Auto-calibration</string>
 
     <!--Settings - Sensors - Barometer-->
     <string name="pref_barometer_pressure_title">Pressure</string>
@@ -291,6 +303,9 @@
     <string name="pref_num_visible_beacons_title">Visible beacons</string>
     <string name="pref_display_multi_beacons_summary">Show closest beacons on the compass</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrate before navigating</string>
+    <string name="pref_max_beacon_distance_title">Visible beacon radius</string>
+    <string name="pref_max_beacon_distance_miles_message">Enter the maximum visible beacon radius (Miles)</string>
+    <string name="pref_max_beacon_distance_km_message">Enter the maximum visible beacon radius (Kilometers)</string>
 
     <!--Settings - Weather-->
     <string name="pref_weather_header">Weather</string>
@@ -333,6 +348,9 @@
     <string name="storm_sensitivity_high_in">High (0.089 in / 3h)</string>
     <string name="pref_show_weather_notification_title">Show weather notification</string>
     <string name="pref_show_pressure_in_notification_title">Show pressure in notification</string>
+    <string name="pref_weather_foreground_service_title">Update weather in foreground</string>
+    <string name="pref_weather_foreground_service_summary">May reduce missed updates</string>
+    <string name="pref_weather_update_frequency_title">Weather update frequency</string>
 
     <!--Settings - Astronomy-->
     <string name="pref_astronomy_header">Astronomy</string>
@@ -452,26 +470,10 @@
     <string name="pref_temperature_adjustment_c" translatable="false">pref_temperature_adjustment_c</string>
     <string name="pref_temperature_adjustment_f" translatable="false">pref_temperature_adjustment_f</string>
     <string name="pref_temperature_holder" translatable="false">pref_temperature_holder</string>
-    <string name="gps_lock_acquired">GPS lock acquired</string>
-    <string name="copied_to_clipboard_toast">Copied to clipboard</string>
-    <string name="flashlight_title">Flashlight</string>
-    <string name="turn_off_flashlight">Tap to turn off</string>
-    <string name="sos">SOS</string>
-    <string name="pref_weather_update_frequency">pref_weather_update_frequency</string>
-    <string name="pref_weather_update_frequency_title">Weather update frequency</string>
-    <string name="sun_dawn">Dawn</string>
-    <string name="sun_dusk">Dusk</string>
-    <string name="pref_altimeter_calibration_mode">pref_altimeter_calibration_mode</string>
-    <string name="pref_altimeter_calibration_mode_title">Auto-calibration</string>
-    <string name="pref_sea_level_pressure_override">pref_sea_level_pressure_override</string>
-    <string name="calibration_mode_barometer_alert_msg">Using the barometer as an altimeter may reduce weather forecasting accuracy.</string>
-    <string name="calibration_mode_barometer_alert_title">Barometer</string>
-    <string name="pref_weather_foreground_service">pref_weather_foreground_service</string>
-    <string name="pref_weather_foreground_service_title">Update weather in foreground</string>
-    <string name="pref_weather_foreground_service_summary">May reduce missed updates</string>
-    <string name="pref_max_beacon_distance">pref_max_beacon_distance</string>
-    <string name="pref_max_beacon_distance_miles">pref_max_beacon_distance_miles</string>
-    <string name="pref_max_beacon_distance_title">Visible beacon radius</string>
-    <string name="pref_max_beacon_distance_miles_message">Enter the maximum visible beacon radius (Miles)</string>
-    <string name="pref_max_beacon_distance_km_message">Enter the maximum visible beacon radius (Kilometers)</string>
+    <string name="pref_weather_update_frequency" translatable="false">pref_weather_update_frequency</string>
+    <string name="pref_altimeter_calibration_mode" translatable="false">pref_altimeter_calibration_mode</string>
+    <string name="pref_sea_level_pressure_override" translatable="false">pref_sea_level_pressure_override</string>
+    <string name="pref_weather_foreground_service" translatable="false">pref_weather_foreground_service</string>
+    <string name="pref_max_beacon_distance" translatable="false">pref_max_beacon_distance</string>
+    <string name="pref_max_beacon_distance_miles" translatable="false">pref_max_beacon_distance_miles</string>
 </resources>
