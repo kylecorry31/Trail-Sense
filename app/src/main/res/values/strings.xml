@@ -469,4 +469,9 @@
     <string name="pref_weather_foreground_service">pref_weather_foreground_service</string>
     <string name="pref_weather_foreground_service_title">Update weather in foreground</string>
     <string name="pref_weather_foreground_service_summary">May reduce missed updates</string>
+    <string name="pref_max_beacon_distance">pref_max_beacon_distance</string>
+    <string name="pref_max_beacon_distance_miles">pref_max_beacon_distance_miles</string>
+    <string name="pref_max_beacon_distance_title">Visible beacon radius</string>
+    <string name="pref_max_beacon_distance_miles_message">Enter the maximum visible beacon radius (Miles)</string>
+    <string name="pref_max_beacon_distance_km_message">Enter the maximum visible beacon radius (Kilometers)</string>
 </resources>

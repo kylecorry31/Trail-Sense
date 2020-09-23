@@ -405,7 +405,8 @@ class NavigatorFragment(
             gps.location,
             beacons,
             userPrefs.navigation.numberOfVisibleBeacons,
-            8f
+            8f,
+            userPrefs.navigation.maxBeaconDistance
         )
     }
 

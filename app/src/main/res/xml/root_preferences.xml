@@ -126,6 +126,26 @@
             app:title="@string/pref_num_visible_beacons_title"
             app:useSimpleSummaryProvider="true" />
 
+        <EditTextPreference
+            android:inputType="number"
+            app:defaultValue="100"
+            app:dependency="@string/pref_display_multi_beacons"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_max_beacon_distance"
+            app:min="0"
+            android:dialogMessage="@string/pref_max_beacon_distance_km_message"
+            app:title="@string/pref_max_beacon_distance_title" />
+
+        <EditTextPreference
+            android:inputType="number"
+            app:defaultValue="62"
+            app:dependency="@string/pref_display_multi_beacons"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_max_beacon_distance_miles"
+            app:min="0"
+            android:dialogMessage="@string/pref_max_beacon_distance_miles_message"
+            app:title="@string/pref_max_beacon_distance_title" />
+
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"

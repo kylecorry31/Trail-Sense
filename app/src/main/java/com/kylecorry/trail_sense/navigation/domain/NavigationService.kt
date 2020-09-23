@@ -6,6 +6,8 @@ import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trail_sense.shared.math.MathUtils
 import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.INavigationService
+import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import com.kylecorry.trailsensecore.domain.navigation.NavigationVector
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import java.time.Duration
@@ -15,25 +17,15 @@ import kotlin.math.max
 
 class NavigationService {
 
+    private val newNavigationService: INavigationService = NavigationService()
+
     fun navigate(
         from: Coordinate,
         to: Coordinate,
         declination: Float,
         usingTrueNorth: Boolean = true
     ): NavigationVector {
-        val results = FloatArray(3)
-        Location.distanceBetween(from.latitude, from.longitude, to.latitude, to.longitude, results)
-
-        val declinationAdjustment = if (usingTrueNorth) {
-            0f
-        } else {
-            -declination
-        }
-
-        return NavigationVector(
-            Bearing(results[1]).withDeclination(declinationAdjustment),
-            results[0]
-        )
+        return newNavigationService.navigate(from, to, declination, usingTrueNorth)
     }
 
     fun navigate(
@@ -42,22 +34,11 @@ class NavigationService {
         declination: Float,
         usingTrueNorth: Boolean = true
     ): NavigationVector {
-        val originalVector = navigate(from.location, to.coordinate, declination, usingTrueNorth)
-        val altitudeChange = if (to.elevation != null) to.elevation!! - from.altitude else null
-        return originalVector.copy(altitudeChange = altitudeChange)
+        return newNavigationService.navigate(from, to, declination, usingTrueNorth)
     }
 
     fun eta(from: Position, to: Beacon, nonLinear: Boolean = false): Duration {
-        val speed =
-            if (from.speed < 3) MathUtils.clamp(from.speed, 0.89408f, 1.78816f) else from.speed
-        val elevationGain =
-            max(if (to.elevation == null) 0f else (to.elevation!! - from.altitude), 0f)
-        val distance = from.location.distanceTo(to.coordinate) * (if (nonLinear) PI.toFloat() / 2f else 1f)
-
-        val baseTime = distance / speed
-        val elevationMinutes = (elevationGain / 300f) * 30f * 60f
-
-        return Duration.ofSeconds(baseTime.toLong()).plusSeconds(elevationMinutes.toLong())
+        return newNavigationService.eta(from, to, nonLinear)
     }
 
     fun getNearbyBeacons(
