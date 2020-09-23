@@ -20,6 +20,7 @@
     <!--Navigation Tab - Unit Formats-->
     <string name="feet_format">%.0f ft</string>
     <string name="miles_format">%.2f mi</string>
+    <string name="nautical_miles_format">%.2f nm</string>
     <string name="meters_format">%.0f m</string>
     <string name="kilometers_format">%.2f km</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>

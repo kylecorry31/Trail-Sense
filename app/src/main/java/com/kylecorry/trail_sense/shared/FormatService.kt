@@ -70,6 +70,7 @@ class FormatService(private val context: Context) {
             DistanceUnits.Kilometers -> context.getString(R.string.kilometers_format, distance)
             DistanceUnits.Feet -> context.getString(R.string.feet_format, distance)
             DistanceUnits.Miles -> context.getString(R.string.miles_format, distance)
+            DistanceUnits.NauticalMiles -> context.getString(R.string.nautical_miles_format, distance)
         }
     }
 
