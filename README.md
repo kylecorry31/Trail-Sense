@@ -77,22 +77,11 @@ Location information gathered by this application does not leave your device (as
 
 - [Request a new feature](https://github.com/kylecorry31/Trail-Sense/issues/59)
 - [Submit an issue](https://github.com/kylecorry31/Trail-Sense/issues)
-- [Translate Trail Sense](https://github.com/kylecorry31/Trail-Sense/issues/72)
+- [Translate Trail Sense on Weblate](https://hosted.weblate.org/projects/trail-sense/trail-sense-android)
 - [Provide feedback on the weather forecasting](https://github.com/kylecorry31/Trail-Sense/issues/71)
 - [Test out new features](https://github.com/kylecorry31/Trail-Sense/issues/74)
 
 If you choose to write a new feature yourself, send me a message to verify that it is something that I will accept into Trail Sense before your write it (if not, you can always fork this repo and create your own version of Trail Sense!). I will conduct a code review on incoming pull requests to verify they align nicely with the rest of the code base and the feature works as intended.
-
-## Translations
-
-Please feel free to translate Trail Sense to other languages and submit a pull request.
-
-Several values should not be translated:
-
-- Preference keys (marked by translatable = false)
-- App name - Should remain Trail Sense
-
-If you find an issue with a translation, please post it as a comment to [this issue](https://github.com/kylecorry31/Trail-Sense/issues/72) rather than creating a new issue for it. Issues created for individual translations will be moved to that issue.
 
 # FAQ
 
@@ -102,7 +91,9 @@ If you find an issue with a translation, please post it as a comment to [this is
   - Of course! See the [Contributing section](#contributing) for more details - I will consider every feature request, and it will be more likely that your feature gets included if you provide some rational behind how it could benefit TS users in wilderness treks or survival situations. Even if your feature idea is beneficial to only a small percent of users, I may still include it (even if it is in an experimental tab, or unlockable through settings)
 - **When can I expect new releases?**
   - I will try to create a release every week or two with new features or bug fixes. Some features may be feature flagged (via a hidden setting) to deliver thouroughly tested features. Debug builds are updated as features are completed. I can't gaurantee this will always be the case, work/life may get in the way.
-
+- **The pressure graph isn't populating or is very jagged, how can I fix it?**
+    - You may need to mark Trail Sense as exempt from battery optimizations [Option 1](https://www.androidpolice.com/2020/05/30/how-to-prevent-apps-sleeping-in-the-background-on-android/) [Option 2](https://android.stackexchange.com/questions/129074/is-there-a-way-to-exclude-an-app-from-doze)
+    
 # Support
 
 <table>
