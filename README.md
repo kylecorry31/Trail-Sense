@@ -3,6 +3,7 @@
 > Use your Android phone's sensors to assist with wilderness treks or survival situations. Designed for entirely offline use.
 
 ![](https://github.com/kylecorry31/Trail-Sense/workflows/Android%20CI/badge.svg)
+![](https://hosted.weblate.org/widgets/trail-sense/-/trail-sense-android/svg-badge.svg)
 
 <table>
     <tr>
