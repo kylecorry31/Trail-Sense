@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_navigation">Navegación</string>
     <string name="action_weather">Clima</string>
@@ -15,8 +16,6 @@
     <string name="sunrise_label">amanecer</string>
     <string name="sunset_label">anochecer</string>
     <string name="until_sunset_label">hasta el anochecer</string>
-
-
     <string name="pref_use_true_north_title">Norte verdadero</string>
     <string name="pref_use_sea_level_pressure_title">Presión a nivel del mar</string>
     <string name="pref_units_header">General</string>
@@ -61,31 +60,25 @@
     <string name="pref_show_sun_moon_compass_title">Mostrar sol / luna en la brújula</string>
     <string name="pref_show_linear_compass_title">Mostrar brújula lineal</string>
     <string name="pref_show_linear_compass_summary">Cuando el teléfono es vertical</string>
-
     <plurals name="last_hours">
         <item quantity="one">Última %d hora</item>
         <item quantity="other">Últimas %d horas</item>
     </plurals>
-
     <plurals name="last_minutes">
         <item quantity="one">Último %d minuto</item>
         <item quantity="other">Últimos %d minutos</item>
     </plurals>
-
     <string name="meters">Medidores</string>
     <string name="feet_miles">Pies / Millas</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">Claro</string>
     <string name="theme_dark">Oscuro</string>
     <string name="theme_black">Negro</string>
     <string name="theme_system">Sistema</string>
-
     <string name="gps">GPS</string>
-
     <string name="sun_actual">Tiempo actual</string>
     <string name="sun_civil">Crepúsculo civil</string>
     <string name="sun_nautical">Crepúsculo náutico</string>
@@ -95,7 +88,6 @@
     <string name="tomorrow">Mañana</string>
     <string name="yesterday">Ayer</string>
     <string name="pressure_tendency_indicator_alt">Indicador de tendencia de presión</string>
-
     <string name="pressure_48_hours">48 horas</string>
     <string name="pressure_24_hours">24 horas</string>
     <string name="pressure_12_hours">12 horas</string>
@@ -111,4 +103,5 @@
     <string name="sun_does_not_rise">no está de puesta</string>
     <string name="sun_up_no_set">el sol está arriba</string>
     <string name="sun_down_no_set">el sol está abajo</string>
+    <string name="action_tools">Herramientas</string>
 </resources>
