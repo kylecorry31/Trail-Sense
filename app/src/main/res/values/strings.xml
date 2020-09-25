@@ -135,7 +135,7 @@
     <string name="heat_alert_frostbite_caution_title">Hypothermia caution</string>
     <string name="heat_alert_frostbite_warning_title">Hypothermia warning</string>
     <string name="heat_alert_frostbite_danger_title">Hypothermia danger</string>
-    <string name="temperature_disclaimer">Temperature accuracy is affected by your phone\'s heat.</string>
+    <string name="temperature_disclaimer">The temperature shown may be higher due to your phone\'s heat.</string>
     <!--Astronomy Tab-->
     <string name="sun_does_not_set">does not set</string>
     <string name="sun_does_not_rise">does not rise</string>
