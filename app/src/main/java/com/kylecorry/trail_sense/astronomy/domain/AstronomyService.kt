@@ -71,7 +71,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getMoonAltitude(location: Coordinate, time: LocalDateTime = LocalDateTime.now()): Float {
-        return newAstronomyService.getMoonAltitude(time.toZonedDateTime(), location)
+        return newAstronomyService.getMoonAltitude(time.toZonedDateTime(), location, true)
     }
 
     fun getMoonAzimuth(location: Coordinate): Bearing {
@@ -168,7 +168,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getSunAltitude(location: Coordinate, time: LocalDateTime = LocalDateTime.now()): Float {
-        return newAstronomyService.getSunAltitude(time.toZonedDateTime(), location)
+        return newAstronomyService.getSunAltitude(time.toZonedDateTime(), location, true)
     }
 
 }
