@@ -232,7 +232,9 @@
     <string name="pref_calibrate_compass_btn_title">Calibrate</string>
     <string name="calibrate_compass_dialog_title">Calibrate compass</string>
     <string name="calibrate_compass_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished. Disable this alert in settings.</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.
+\n
+\nThis alert can be disabled in the app settings.</string>
     <string name="compass_reported_accuracy">Reported accuracy: %s</string>
     <string name="compass_accuracy_improved">Compass accuracy improved to %s</string>
     <!--Settings - Sensors - GPS-->
