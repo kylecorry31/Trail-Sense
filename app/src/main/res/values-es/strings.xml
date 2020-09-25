@@ -111,7 +111,7 @@
     <string name="notification_storm_alert_text">Podría estar acercándose una tormenta</string>
     <string name="notification_storm_alert_channel_desc">Alertas de tormenta</string>
     <string name="notification_storm_alert_channel_name">Alertas</string>
-    <string name="pressure_reading_time_ago">%s %s - hace %s</string>
+    <string name="pressure_reading_time_ago">%s - hace %s</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_tendency_format">%s %s / 3h</string>

@@ -106,12 +106,10 @@ class BarometerFragment : Fragment(), Observer {
                 }
 
                 override fun onValueSelected(timeAgo: Duration, pressure: Float) {
-                    val symbol = PressureUnitUtils.getSymbol(units)
-                    val format = PressureUnitUtils.getDecimalFormat(units)
+                    val formatted = formatService.formatPressure(pressure, units)
                     pressureMarkerTxt.text = getString(
                         R.string.pressure_reading_time_ago,
-                        format.format(pressure),
-                        symbol,
+                        formatted,
                         timeAgo.formatHM(true)
                     )
                     valueSelectedTime = System.currentTimeMillis()

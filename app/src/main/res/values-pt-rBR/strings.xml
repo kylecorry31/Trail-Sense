@@ -81,7 +81,7 @@
 
     <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="pressure_format">%s %s</string>
-    <string name="pressure_reading_time_ago">%s %s - %s atrás</string>
+    <string name="pressure_reading_time_ago">%s - %s atrás</string>
 
     <!--Weather Tab - Forecasts-->
     <string name="weather_improving_fast">A melhorar muito em breve</string>

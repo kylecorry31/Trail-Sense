@@ -96,7 +96,7 @@
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_setpoint_format">Set: %s - %s ago</string>
-    <string name="pressure_reading_time_ago">%s %s - %s ago</string>
+    <string name="pressure_reading_time_ago">%s - %s ago</string>
     <string name="notification_storm_alert_channel_name">Alerts</string>
     <string name="notification_storm_alert_channel_desc">Storm alerts</string>
     <string name="notification_storm_alert_text">A storm might be approaching</string>

@@ -297,7 +297,7 @@
     <string name="disclaimer_message_content">Trail Sense est un outil qui peut être utilisé dans une situation de survie, mais vous ne devez pas vous fier uniquement à lui. Veuillez valider son exactitude, éviter les situations dangereuses lorsque cela est possible, rester calme et faire preuve de bon sens.</string>
     <string name="lunar_noon">Midi lunaire</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
-    <string name="pressure_reading_time_ago">il y a %s %s - %s</string>
+    <string name="pressure_reading_time_ago">il y a %s - %s</string>
     <string name="pressure_setpoint_format">Défini : il y a %s - %s</string>
     <string name="share_action_geo">Cartes</string>
 </resources>
