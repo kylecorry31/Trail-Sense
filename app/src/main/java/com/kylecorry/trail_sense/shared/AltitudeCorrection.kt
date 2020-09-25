@@ -14,7 +14,12 @@ object AltitudeCorrection {
 
     private val table = mutableMapOf<Pair<Int, Int>, Float>()
 
-    fun getOffset(location: Coordinate, context: Context): Float {
+    fun getOffset(location: Coordinate?, context: Context?): Float {
+        if (location == null || context == null){
+            return 0f
+        }
+
+
         if (table.isEmpty()){
             loadTable(context)
         }

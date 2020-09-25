@@ -11,15 +11,12 @@ class NullBarometer : AbstractSensor(), IBarometer {
     private var gotReading = true
 
     override val pressure: Float
-        get() = _pressure
+        get() = SensorManager.PRESSURE_STANDARD_ATMOSPHERE
 
     override val altitude: Float
-        get() = SensorManager.getAltitude(SensorManager.PRESSURE_STANDARD_ATMOSPHERE, pressure)
-
-    private var _pressure = 0f
+        get() = 0f
 
     override fun startImpl() {
-        _pressure = SensorManager.PRESSURE_STANDARD_ATMOSPHERE
         notifyListeners()
     }
 

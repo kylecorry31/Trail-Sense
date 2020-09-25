@@ -32,11 +32,10 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.Thermomet
 
 class SensorService(ctx: Context) {
 
-    private val context = ctx.applicationContext
-
-    private val userPrefs = UserPreferences(context)
-    private val sensorChecker = SensorChecker(context)
-    private val sensorManager = context.getSystemService<SensorManager>()
+    private var context = ctx.applicationContext
+    private val userPrefs by lazy { UserPreferences(context) }
+    private val sensorChecker by lazy { SensorChecker(context) }
+    private val sensorManager by lazy { context.getSystemService<SensorManager>() }
 
     fun getGPS(): IGPS {
         if (!userPrefs.useAutoLocation) {

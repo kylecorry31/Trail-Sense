@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.shared.sensors.declination
 
 import android.content.Context
-import android.os.Handler
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
 class OverrideDeclination(context: Context, private val updateFrequency: Long = 20L): AbstractSensor(),
     IDeclinationProvider {
@@ -14,20 +14,14 @@ class OverrideDeclination(context: Context, private val updateFrequency: Long = 
     override val hasValidReading: Boolean
         get() = true
 
-    private val userPrefs = UserPreferences(context)
-    private val handler = Handler()
-    private lateinit var updateRunnable: Runnable
+    private val userPrefs by lazy { UserPreferences(context) }
+    private val intervalometer = Intervalometer { notifyListeners() }
 
     override fun startImpl() {
-        updateRunnable = Runnable {
-            notifyListeners()
-            handler.postDelayed(updateRunnable, updateFrequency)
-        }
-
-        handler.post(updateRunnable)
+        intervalometer.interval(updateFrequency)
     }
 
     override fun stopImpl() {
-        handler.removeCallbacks(updateRunnable)
+        intervalometer.stop()
     }
 }

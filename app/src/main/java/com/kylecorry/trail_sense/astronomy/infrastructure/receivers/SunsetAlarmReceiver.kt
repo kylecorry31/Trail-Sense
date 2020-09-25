@@ -58,7 +58,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             return
         }
 
-        sensorService = SensorService(context)
+        sensorService = SensorService(this.context)
         gps = sensorService.getGPS()
 
         gpsTimeout.once(Duration.ofSeconds(10))

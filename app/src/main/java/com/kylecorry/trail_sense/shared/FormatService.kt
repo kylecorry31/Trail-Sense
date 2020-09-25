@@ -14,7 +14,7 @@ import java.time.Duration
 
 class FormatService(private val context: Context) {
 
-    private val prefs = UserPreferences(context)
+    private val prefs by lazy { UserPreferences(context) }
 
     fun formatDegrees(degrees: Float): String {
         return context.getString(R.string.degree_format, degrees)

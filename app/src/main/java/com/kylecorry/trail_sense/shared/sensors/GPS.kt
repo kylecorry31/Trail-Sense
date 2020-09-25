@@ -41,18 +41,18 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
     override val altitude: Float
         get() = _altitude
 
-    private val locationManager = context.getSystemService<LocationManager>()
-    private val cache = Cache(context)
-    private val userPrefs = UserPreferences(context)
-    private val sensorChecker = SensorChecker(context)
+    private val locationManager by lazy { context.getSystemService<LocationManager>() }
+    private val cache by lazy { Cache(context) }
+    private val userPrefs by lazy { UserPreferences(context) }
+    private val sensorChecker by lazy { SensorChecker(context) }
     private val locationListener = SimpleLocationListener { updateLastLocation(it, true) }
 
-    private var _altitude = cache.getFloat(LAST_ALTITUDE) ?: 0f
+    private var _altitude = 0f
     private var _accuracy: Accuracy = Accuracy.Unknown
     private var _horizontalAccuracy: Float? = null
     private var _verticalAccuracy: Float? = null
     private var _satellites: Int = 0
-    private var _speed: Float = cache.getFloat(LAST_SPEED) ?: 0f
+    private var _speed: Float = 0f
     private var _location = Coordinate.zero
 
     private var lastLocation: Location? = null
@@ -65,6 +65,8 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
             cache.getFloat(LAST_LATITUDE)?.toDouble() ?: 0.0,
             cache.getFloat(LAST_LONGITUDE)?.toDouble() ?: 0.0
         )
+        _altitude = cache.getFloat(LAST_ALTITUDE) ?: 0f
+        _speed = cache.getFloat(LAST_SPEED) ?: 0f
     }
 
     @SuppressLint("MissingPermission")
@@ -175,7 +177,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
             cache.putFloat(LAST_ALTITUDE, _altitude)
 
             if (userPrefs.useAltitudeOffsets) {
-                _altitude -= AltitudeCorrection.getOffset(this._location, context)
+                _altitude -= AltitudeCorrection.getOffset(_location, context)
             }
         }
 

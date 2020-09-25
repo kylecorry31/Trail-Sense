@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
@@ -18,7 +19,7 @@ class SosService : Service() {
 
     private var flashlight: IFlashlight? = null
     private var running = false
-    private val handler = Handler()
+    private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
 
     private val code = listOf(
         MorseState.Dot, MorseState.Space, MorseState.Dot, MorseState.Space, MorseState.Dot,

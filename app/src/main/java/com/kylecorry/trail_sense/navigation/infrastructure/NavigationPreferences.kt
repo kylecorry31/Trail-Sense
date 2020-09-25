@@ -16,8 +16,8 @@ import kotlin.math.min
 
 class NavigationPreferences(private val context: Context) {
 
-    private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-    private val sensorChecker = SensorChecker(context)
+    private val prefs by lazy { PreferenceManager.getDefaultSharedPreferences(context) }
+    private val sensorChecker by lazy { SensorChecker(context) }
     private val unitService = UnitService()
 
     var useTrueNorth: Boolean

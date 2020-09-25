@@ -15,12 +15,12 @@ import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 
 class UserPreferences(private val context: Context) {
 
-    private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-    private val sensorChecker = SensorChecker(context)
+    private val prefs by lazy { PreferenceManager.getDefaultSharedPreferences(context) }
+    private val sensorChecker by lazy { SensorChecker(context) }
 
-    val navigation = NavigationPreferences(context)
-    val weather = WeatherPreferences(context)
-    val astronomy = AstronomyPreferences(context)
+    val navigation by lazy { NavigationPreferences(context) }
+    val weather by lazy { WeatherPreferences(context) }
+    val astronomy by lazy { AstronomyPreferences(context) }
 
     val distanceUnits: DistanceUnits
         get() {

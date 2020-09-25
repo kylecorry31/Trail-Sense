@@ -9,7 +9,7 @@ import java.time.LocalDate
 
 class AstronomyPreferences(private val context: Context) {
 
-    private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+    private val prefs by lazy { PreferenceManager.getDefaultSharedPreferences(context) }
 
 
     val sunTimesMode: SunTimesMode

@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.shared.sensors.overrides
 
 import android.content.Context
-import android.os.Handler
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
 class OverrideAltimeter(context: Context, private val updateFrequency: Long = 20L) :
     AbstractSensor(),
@@ -14,23 +14,17 @@ class OverrideAltimeter(context: Context, private val updateFrequency: Long = 20
         get() = gotReading
     private var gotReading = true
 
-    private val userPrefs = UserPreferences(context)
-    private val handler = Handler()
-    private lateinit var updateRunnable: Runnable
+    private val userPrefs by lazy { UserPreferences(context) }
+    private val intervalometer = Intervalometer { notifyListeners() }
 
     override val altitude: Float
         get() = userPrefs.altitudeOverride
 
     override fun startImpl() {
-        updateRunnable = Runnable {
-            notifyListeners()
-            handler.postDelayed(updateRunnable, updateFrequency)
-        }
-
-        handler.post(updateRunnable)
+        intervalometer.interval(updateFrequency)
     }
 
     override fun stopImpl() {
-        handler.removeCallbacks(updateRunnable)
+        intervalometer.stop()
     }
 }
