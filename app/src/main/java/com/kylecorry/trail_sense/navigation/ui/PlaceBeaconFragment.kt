@@ -55,8 +55,6 @@ class PlaceBeaconFragment(
         val view = inflater.inflate(R.layout.fragment_create_beacon, container, false)
 
         beaconRepo = _repo ?: BeaconRepo(requireContext())
-        gps = _gps ?: sensorService.getGPS()
-        altimeter = sensorService.getAltimeter()
 
         val prefs = UserPreferences(requireContext())
         units = prefs.distanceUnits
@@ -188,10 +186,16 @@ class PlaceBeaconFragment(
         return view
     }
 
-    override fun onDestroy() {
+    override fun onResume() {
+        super.onResume()
+        gps = _gps ?: sensorService.getGPS()
+        altimeter = sensorService.getAltimeter()
+    }
+
+    override fun onPause() {
         gps.stop(this::setLocationFromGPS)
         altimeter.stop(this::setElevationFromAltimeter)
-        super.onDestroy()
+        super.onPause()
     }
 
     private fun setElevationFromAltimeter(): Boolean {

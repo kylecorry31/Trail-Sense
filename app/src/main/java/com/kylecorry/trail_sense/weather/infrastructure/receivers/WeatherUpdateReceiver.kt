@@ -57,8 +57,8 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             return
         }
 
-        this.context = context
-        userPrefs = UserPreferences(context)
+        this.context = context.applicationContext
+        userPrefs = UserPreferences(this.context)
         weatherService = WeatherService(
             userPrefs.weather.stormAlertThreshold,
             userPrefs.weather.dailyForecastChangeThreshold,
@@ -67,7 +67,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             userPrefs.weather.seaLevelFactorInTemp
         )
 
-        sensorService = SensorService(context)
+        sensorService = SensorService(this.context)
         barometer = sensorService.getBarometer()
         altimeter = sensorService.getAltimeter()
         thermometer = sensorService.getThermometer()

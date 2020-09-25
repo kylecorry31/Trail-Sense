@@ -30,9 +30,11 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.BatteryTe
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.Thermometer
 
-class SensorService(private val context: Context) {
+class SensorService(ctx: Context) {
 
-    private val userPrefs = UserPreferences(context.applicationContext)
+    private val context = ctx.applicationContext
+
+    private val userPrefs = UserPreferences(context)
     private val sensorChecker = SensorChecker(context)
     private val sensorManager = context.getSystemService<SensorManager>()
 

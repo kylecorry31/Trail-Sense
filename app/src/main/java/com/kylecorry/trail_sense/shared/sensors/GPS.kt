@@ -53,15 +53,19 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
     private var _verticalAccuracy: Float? = null
     private var _satellites: Int = 0
     private var _speed: Float = cache.getFloat(LAST_SPEED) ?: 0f
-    private var _location = Coordinate(
-        cache.getFloat(LAST_LATITUDE)?.toDouble() ?: 0.0,
-        cache.getFloat(LAST_LONGITUDE)?.toDouble() ?: 0.0
-    )
+    private var _location = Coordinate.zero
 
     private var lastLocation: Location? = null
 
     private var fixStart: Long = 0L
     private val maxFixTime = 8000L
+
+    init {
+        _location = Coordinate(
+            cache.getFloat(LAST_LATITUDE)?.toDouble() ?: 0.0,
+            cache.getFloat(LAST_LONGITUDE)?.toDouble() ?: 0.0
+        )
+    }
 
     @SuppressLint("MissingPermission")
     override fun startImpl() {
@@ -109,7 +113,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
             cache.putFloat(LAST_ALTITUDE, _altitude)
 
             if (userPrefs.useAltitudeOffsets) {
-                _altitude -= AltitudeCorrection.getOffset(this._location, context)
+                _altitude -= AltitudeCorrection.getOffset(_location, context)
             }
         }
 

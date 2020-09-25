@@ -51,8 +51,8 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             return
         }
 
-        this.context = context
-        userPrefs = UserPreferences(context)
+        this.context = context.applicationContext
+        userPrefs = UserPreferences(this.context)
         val shouldSend = userPrefs.astronomy.sendSunsetAlerts
         if (!shouldSend) {
             return

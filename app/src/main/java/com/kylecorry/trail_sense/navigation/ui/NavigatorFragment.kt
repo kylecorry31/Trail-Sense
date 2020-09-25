@@ -349,6 +349,7 @@ class NavigatorFragment(
 
     override fun onResume() {
         super.onResume()
+
         useTrueNorth = userPrefs.navigation.useTrueNorth
         // Load the latest beacons
         beacons = beaconRepo.get()

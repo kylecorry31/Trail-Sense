@@ -40,7 +40,7 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
         sensorService = SensorService(requireContext())
 
         gps = sensorService.getGPS()
-        realGps = GPS(requireContext())
+        realGps = GPS(requireContext().applicationContext)
 
         bindPreferences()
     }
