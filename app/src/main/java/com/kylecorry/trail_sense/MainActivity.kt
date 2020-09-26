@@ -9,10 +9,10 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,12 +20,12 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmR
 import com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment
 import com.kylecorry.trail_sense.tools.ui.ToolsFragment
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.shared.DisclaimerMessage
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.doTransaction
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.ui.BarometerFragment
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,22 +36,23 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var userPrefs: UserPreferences
     private lateinit var disclaimer: DisclaimerMessage
+    private val cache by lazy { Cache(this) }
 
-    private var requestedBackgroundLocation = false
-
-    private val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, "android.permission.FLASHLIGHT", Manifest.permission.FOREGROUND_SERVICE)
+    private val permissions = mutableListOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        "android.permission.FLASHLIGHT"
+    )
 
     init {
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
-            permissions.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            permissions.add(Manifest.permission.FOREGROUND_SERVICE)
         }
-        requestedBackgroundLocation = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         userPrefs = UserPreferences(this)
-        val mode = when (userPrefs.theme){
+        val mode = when (userPrefs.theme) {
             UserPreferences.Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
             UserPreferences.Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
             UserPreferences.Theme.Black -> AppCompatDelegate.MODE_NIGHT_YES
@@ -72,26 +73,22 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        if (!prefs.getBoolean(getString(R.string.pref_onboarding_completed), false)){
+        if (!prefs.getBoolean(getString(R.string.pref_onboarding_completed), false)) {
             startActivity(Intent(this, OnboardingActivity::class.java))
             finish()
             return
         }
 
-        if (!hasPermissions()){
-            getPermission()
-        } else {
-            startApp()
-        }
+        requestPermissions(permissions)
     }
 
-    private fun startApp(){
+    private fun startApp() {
 
-        if (disclaimer.shouldShow()){
+        if (disclaimer.shouldShow()) {
             disclaimer.show()
         }
 
-        if(userPrefs.weather.shouldMonitorWeather) {
+        if (userPrefs.weather.shouldMonitorWeather) {
             WeatherUpdateScheduler.start(this)
         } else {
             WeatherUpdateScheduler.stop(this)
@@ -109,8 +106,9 @@ class MainActivity : AppCompatActivity() {
             bottomNavigation.selectedItemId = R.id.action_navigation
         }
 
-        if (intent.hasExtra(getString(R.string.extra_action))){
-            val desiredAction = intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
+        if (intent.hasExtra(getString(R.string.extra_action))) {
+            val desiredAction =
+                intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
             bottomNavigation.selectedItemId = desiredAction
         }
 
@@ -124,14 +122,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        if (intent == null){
+        if (intent == null) {
             return
         }
 
         setIntent(intent)
 
-        if (intent.hasExtra(getString(R.string.extra_action))){
-            val desiredAction = intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
+        if (intent.hasExtra(getString(R.string.extra_action))) {
+            val desiredAction =
+                intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
             bottomNavigation.selectedItemId = desiredAction
         }
 
@@ -140,7 +139,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        bottomNavigation.selectedItemId = savedInstanceState.getInt("page",
+        bottomNavigation.selectedItemId = savedInstanceState.getInt(
+            "page",
             R.id.action_navigation
         )
     }
@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity() {
         outState.putInt("page", bottomNavigation.selectedItemId)
     }
 
-    private fun syncFragmentWithSelection(selection: Int){
+    private fun syncFragmentWithSelection(selection: Int) {
         when (selection) {
             R.id.action_navigation -> {
                 val namedCoord = geoIntentLocation
@@ -176,7 +176,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun switchFragment(fragment: Fragment){
+    private fun switchFragment(fragment: Fragment) {
         supportFragmentManager.doTransaction {
             this.replace(R.id.fragment_holder, fragment)
         }
@@ -198,40 +198,46 @@ class MainActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        val granted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
-        if (!granted){
-            Toast.makeText(this, getString(R.string.not_all_permissions_granted), Toast.LENGTH_LONG).show()
-            startApp()
+        if (requestCode == 1 && shouldRequestBackgroundLocation()) {
+            requestBackgroundLocation()
         } else {
-            if (!requestedBackgroundLocation){
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    requestedBackgroundLocation = true
-                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), 2)
-                }
-            } else {
-                startApp()
-            }
+            startApp()
         }
     }
 
-    private fun hasPermissions(): Boolean {
-        for (permission in permissions){
-            if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
-                return false
-            }
-        }
-
-        return true
-    }
-
-    private fun getPermission(){
-        ActivityCompat.requestPermissions(this,
-            permissions.toTypedArray(),
-            1
+    private fun hasBackgroundLocation(): Boolean {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || PermissionUtils.hasPermission(
+            this,
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION
         )
     }
 
+    private fun shouldRequestBackgroundLocation(): Boolean {
+        return PermissionUtils.isLocationEnabled(this) &&
+                !hasBackgroundLocation() &&
+                cache.getBoolean(CACHE_BACKGROUND_LOCATION) != true
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun requestBackgroundLocation() {
+        cache.putBoolean(CACHE_BACKGROUND_LOCATION, true)
+        PermissionUtils.requestPermissionsWithRationale(
+            this,
+            listOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), PermissionRationale(
+                getString(R.string.access_background_location),
+                getString(R.string.access_background_location_rationale)
+            ),
+            2
+        )
+    }
+
+    private fun requestPermissions(permissions: List<String>, requestCode: Int = 1) {
+        PermissionUtils.requestPermissions(this, permissions, requestCode)
+    }
+
     companion object {
+
+        private val CACHE_BACKGROUND_LOCATION = "cache_requested_background_location"
 
         fun weatherIntent(context: Context): Intent {
             val intent = Intent(context, MainActivity::class.java)
@@ -247,5 +253,5 @@ class MainActivity : AppCompatActivity() {
             return intent
         }
     }
-    
+
 }

@@ -455,4 +455,8 @@
     <string name="pref_weather_foreground_service" translatable="false">pref_weather_foreground_service</string>
     <string name="pref_max_beacon_distance" translatable="false">pref_max_beacon_distance</string>
     <string name="pref_max_beacon_distance_miles" translatable="false">pref_max_beacon_distance_miles</string>
+    <string name="access_background_location">Access background location</string>
+    <string name="access_background_location_rationale">Background location improves weather monitoring and sunset alerts</string>
+    <string name="dialog_grant">Grant</string>
+    <string name="dialog_deny">Deny</string>
 </resources>

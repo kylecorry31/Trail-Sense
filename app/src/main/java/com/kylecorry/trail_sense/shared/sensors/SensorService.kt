@@ -4,6 +4,7 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import androidx.core.content.getSystemService
+import com.kylecorry.trail_sense.shared.PermissionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.declination.OverrideDeclination
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
@@ -37,19 +38,19 @@ class SensorService(ctx: Context) {
     private val sensorChecker by lazy { SensorChecker(context) }
     private val sensorManager by lazy { context.getSystemService<SensorManager>() }
 
-    fun getGPS(): IGPS {
+    fun getGPS(background: Boolean = false): IGPS {
         if (!userPrefs.useAutoLocation) {
             return OverrideGPS(context)
         }
 
-        if (userPrefs.useLocationFeatures) {
+        if ((background && PermissionUtils.isBackgroundLocationEnabled(context)) || (!background && PermissionUtils.isLocationEnabled(context))) {
             return GPS(context)
         }
 
         return CachedGPS(context)
     }
 
-    fun getAltimeter(): IAltimeter {
+    fun getAltimeter(background: Boolean = false): IAltimeter {
 
         val mode = userPrefs.altimeterMode
 
@@ -62,7 +63,7 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            val gps = getGPS()
+            val gps = getGPS(background)
 
             return if (mode == UserPreferences.AltimeterMode.GPSBarometer && sensorChecker.hasBarometer()) {
                 FusedAltimeter(gps, Barometer(context))
