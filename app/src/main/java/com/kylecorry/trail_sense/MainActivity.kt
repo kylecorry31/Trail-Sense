@@ -215,12 +215,12 @@ class MainActivity : AppCompatActivity() {
     private fun shouldRequestBackgroundLocation(): Boolean {
         return PermissionUtils.isLocationEnabled(this) &&
                 !hasBackgroundLocation() &&
-                cache.getBoolean(CACHE_BACKGROUND_LOCATION) != true
+                cache.getBoolean(Manifest.permission.ACCESS_BACKGROUND_LOCATION) != true
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun requestBackgroundLocation() {
-        cache.putBoolean(CACHE_BACKGROUND_LOCATION, true)
+        cache.putBoolean(Manifest.permission.ACCESS_BACKGROUND_LOCATION, true)
         PermissionUtils.requestPermissionsWithRationale(
             this,
             listOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), PermissionRationale(
@@ -236,8 +236,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-
-        private val CACHE_BACKGROUND_LOCATION = "cache_requested_background_location"
 
         fun weatherIntent(context: Context): Intent {
             val intent = Intent(context, MainActivity::class.java)
