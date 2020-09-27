@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_navigation">Navigazione</string>
     <string name="action_weather">Meteo</string>
@@ -15,8 +16,6 @@
     <string name="sunrise_label">Alba</string>
     <string name="sunset_label">Tramonto</string>
     <string name="until_sunset_label">fino al tramonto</string>
-
-
     <string name="pref_use_true_north_title">Vero Nord</string>
     <string name="pref_use_sea_level_pressure_title">Pressione a livello del mare</string>
     <string name="pref_units_header">Generale</string>
@@ -46,7 +45,7 @@
     <string name="onboarding_location_navigation">Permette di navigare per i fari</string>
     <string name="onboarding_location_astronomy">Permette di vedere l\'alba e il tramonto del sole e della luna</string>
     <string name="onboarding_location_privacy">Trail Sense rispetta la tua privacy - i dati di localizzazione non lasciano mai il tuo dispositivo</string>
-    <string name="onboarding_location_all_time">Selezionare \"Consenti tutto il tempo\" dalla finestra di dialogo dei permessi</string>
+    <string name="onboarding_location_all_time">Seleziona «Consenti tutto il tempo» dalla finestra di dialogo dei permessi</string>
     <string name="continue_button">CONTINUA</string>
     <string name="moon_rise">L\'alba</string>
     <string name="moon_set">Tramonto</string>
@@ -61,31 +60,25 @@
     <string name="pref_show_sun_moon_compass_title">Mostra sole/luna sulla bussola</string>
     <string name="pref_show_linear_compass_title">Mostra bussola lineare</string>
     <string name="pref_show_linear_compass_summary">Quando il telefono è verticale</string>
-
     <plurals name="last_hours">
         <item quantity="one">scorsa %d ora</item>
         <item quantity="other">scorsa %d ore</item>
     </plurals>
-
     <plurals name="last_minutes">
         <item quantity="one">scorsa %d minuta</item>
         <item quantity="other">scorsa %d minuti</item>
     </plurals>
-
     <string name="meters">Metri</string>
     <string name="feet_miles">Piedi / Miglia</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">Luce</string>
     <string name="theme_dark">Buio</string>
     <string name="theme_black">Nero</string>
     <string name="theme_system">Sistema</string>
-
     <string name="gps">GPS</string>
-
     <string name="sun_actual">Tempo effettivo</string>
     <string name="sun_civil">Crepuscolo civile</string>
     <string name="sun_nautical">Crepuscolo nautico</string>
@@ -95,7 +88,6 @@
     <string name="tomorrow">Domani</string>
     <string name="yesterday">Ieri</string>
     <string name="pressure_tendency_indicator_alt">Indicatore di tendenza della pressione</string>
-
     <string name="pressure_48_hours">48 ore</string>
     <string name="pressure_24_hours">24 ore</string>
     <string name="pressure_12_hours">12 ore</string>
