@@ -6,19 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".weather.ui.BarometerFragment">
 
+
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/pressure_marker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pressure_history_duration">
 
     </com.github.mikephil.charting.charts.LineChart>
-
 
     <TextView
         android:id="@+id/pressure"
@@ -61,18 +60,6 @@
         app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/thermometer" />
 
-    <TextView
-        android:id="@+id/weather_now_lbl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather_now_img"
-        tools:text="@string/weather_worsening_slow" />
-
     <ImageView
         android:id="@+id/barometer_trend"
         android:layout_width="wrap_content"
@@ -91,41 +78,65 @@
         android:id="@+id/pressure_history_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/chart"
-        app:layout_constraintEnd_toEndOf="@+id/chart"
-        app:layout_constraintStart_toStartOf="@+id/chart" />
-
-    <ImageView
-        android:id="@+id/weather_now_img"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/chart"
+        app:layout_constraintStart_toStartOf="@+id/chart"
         app:layout_constraintTop_toBottomOf="@+id/tendency_amount"
-        tools:srcCompat="@drawable/light_rain"
-        app:tint="@color/colorPrimary" />
-
-    <TextView
-        android:id="@+id/weather_later_lbl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather_now_lbl"
-        tools:text="@string/forecast_worsening" />
+        tools:text="Last 48 hours" />
 
     <TextView
         android:id="@+id/pressure_marker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="999 hPa, 3h ago"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/chart"
         app:layout_constraintEnd_toEndOf="@+id/chart"
-        app:layout_constraintStart_toStartOf="@+id/chart" />
+        app:layout_constraintStart_toStartOf="@+id/chart"
+        tools:text="999 hPa, 3h ago" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chart">
+
+        <ImageView
+            android:id="@+id/weather_now_img"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/colorPrimary"
+            tools:srcCompat="@drawable/light_rain" />
+
+        <TextView
+            android:id="@+id/weather_now_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/weather_now_img"
+            app:layout_constraintStart_toEndOf="@+id/weather_now_img"
+            app:layout_constraintTop_toTopOf="@+id/weather_now_img"
+            tools:text="@string/weather_worsening_slow" />
+
+        <TextView
+            android:id="@+id/weather_later_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weather_now_img"
+            tools:text="@string/forecast_worsening" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
