@@ -208,6 +208,7 @@
     <string name="theme_system">System</string>
     <string name="experimental_tools_title">Experimental features</string>
     <string name="coordinate_format_decimal_degrees">Decimal Degrees</string>
+    <!--A coordinate format as such:  X° X.XXX' N-->
     <string name="coordinate_format_degrees_decimal_minutes">Degrees Decimal Minutes</string>
     <string name="coordinate_format_degrees_minutes_seconds">Degrees Minutes Seconds</string>
     <string name="pref_coordinate_format_title">Coordinate format</string>
@@ -227,13 +228,17 @@
     <string name="pref_use_true_north_title">True North</string>
     <string name="pref_compass_filter_amt_title">Compass smoothing</string>
     <string name="pref_compass_filter_amt_summary">High values may reduce noise</string>
+    <!--    A legacy compass sensor - Google recommends not using it, but it may work better on some devices.-->
     <string name="pref_use_legacy_compass_title">Use legacy compass</string>
     <string name="pref_use_legacy_compass_summary">May fix compass issues</string>
+    <!--Button text which will use your current location to set the declination override-->
     <string name="compass_from_gps">Set override from GPS</string>
+    <!--    The title of the declination override for the compass (edit text field)-->
     <string name="compass_declination_override">Declination override</string>
     <string name="compass_auto_declination">Auto adjust declination</string>
     <string name="compass_azimuth">Azimuth</string>
     <string name="compass_declination">Declination</string>
+    <!--    A message which appears when the declination is updated from the GPS on the calibration page-->
     <string name="declination_override_updated_toast">Declination override updated</string>
     <string name="pref_auto_declination_summary">Based on your current location</string>
     <string name="pref_calibrate_compass_btn_title">Calibrate</string>
@@ -250,24 +255,34 @@
     <string name="pref_auto_location_title">Auto adjust location</string>
     <string name="pref_gps_request_permission_title">Request permission</string>
     <string name="gps_only_support_decimal_degree">Only decimal degree format is supported (ex. 0.0000)</string>
+    <!--    The title for the edit text field the user can supply their current latitude (basically mock GPS)-->
     <string name="pref_latitude_override_title">Latitude override</string>
+    <!--    The title for the edit text field the user can supply their current longitude (basically mock GPS)-->
     <string name="pref_longitude_override_title">Longitude override</string>
+    <!--    The button which can be used to update the lat/lng overrides from your current location-->
     <string name="pref_gps_override_btn_title">Set override from GPS</string>
     <!--Settings - Sensors - Altimeter-->
     <string name="pref_altimeter_calibration_title">Altimeter</string>
     <string name="altitude">Altitude</string>
     <string name="auto_altitude">Auto adjust altitude</string>
     <string name="add_elevation_offsets">Use AMSL elevation</string>
+    <!--    The button which can be used to set the current altitude override from the GPS sensor-->
     <string name="altitude_from_gps">Set override from GPS</string>
+    <!--    The button which can be used to set the current altitude override from the barometer-->
     <string name="altitude_from_pressure">Set override from barometer</string>
     <string name="fine_tune_using_barometer">Fine tune using barometer</string>
+    <!--    The title for the edit text field where the user can enter their current altitude (a manual override)-->
     <string name="pref_altitude_override_title">Altitude override</string>
+    <!--    The popup which appears when the altitude override is updated from the GPS or barometer-->
     <string name="altitude_override_updated_toast">Altitude override updated</string>
+    <!--    The content of the edit text dialog which pops up when the user clicks the set override from barometer button (asks user to enter the sea level pressure)-->
     <string name="pref_altitude_override_sea_level_dialog_msg">Enter the current pressure at sea level in hPa</string>
+    <!--    The title of the sea level pressure override edit text dialog-->
     <string name="pref_altitude_override_sea_level_dialog_title">Enter sea level pressure</string>
     <string name="pref_altitude_offsets_summary">Corrects GPS altitude to above mean sea level</string>
     <string name="pref_fine_tune_altitude_summary">Detects smaller changes in altitude</string>
     <string name="pref_auto_altitude_summary">Based on your current location</string>
+    <!--    The supporting text for the altitude_from_pressure button-->
     <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
     <string name="altimeter_mode_gps">GPS</string>
     <string name="altimeter_mode_barometer">Barometer</string>
@@ -280,8 +295,10 @@
     <string name="pref_barometer_pressure_title">Pressure</string>
     <string name="pref_use_sea_level_pressure_title">Sea level pressure</string>
     <string name="barometer_thermometer">Barometer and thermometer</string>
+    <!--    Text for using the temperature in the sea level pressure calibration formula-->
     <string name="pref_adjust_for_temperature_title">Factor in temperature</string>
     <string name="pref_adjust_for_temperature_summary">Use the temperature in sea level pressure conversions</string>
+    <!--    Text for treating rapid changes in pressure as altitude changes in the sea level pressure calibration formula-->
     <string name="pref_sea_level_use_rapid_title">Factor in rapid pressure changes</string>
     <string name="pref_sea_level_use_rapid_summary">Use rapid pressure changes in sea level pressure conversions</string>
     <string name="pref_temperature_adjustment_title">Temperature adjustment</string>
