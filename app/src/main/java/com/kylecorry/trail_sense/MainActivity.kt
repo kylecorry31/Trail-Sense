@@ -25,6 +25,8 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.ui.BarometerFragment
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
+import com.kylecorry.trailsensecore.infrastructure.system.PermissionRationale
+import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
@@ -231,7 +233,9 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.access_background_location),
                 getString(R.string.access_background_location_rationale)
             ),
-            2
+            2,
+            getString(R.string.dialog_grant),
+            getString(R.string.dialog_deny)
         )
     }
 

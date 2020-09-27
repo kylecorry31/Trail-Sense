@@ -4,7 +4,6 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import androidx.core.content.getSystemService
-import com.kylecorry.trail_sense.shared.PermissionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.declination.OverrideDeclination
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
@@ -30,6 +29,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.inclinometer.Inclinom
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.BatteryTemperatureSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.Thermometer
+import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 
 class SensorService(ctx: Context) {
 
