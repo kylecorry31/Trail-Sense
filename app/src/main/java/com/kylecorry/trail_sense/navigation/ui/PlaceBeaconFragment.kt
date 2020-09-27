@@ -30,8 +30,8 @@ class PlaceBeaconFragment(
     private val editingBeacon: Beacon? = null
 ) : Fragment() {
 
-    private lateinit var beaconRepo: BeaconRepo
-    private lateinit var gps: IGPS
+    private val beaconRepo by lazy { _repo ?: BeaconRepo(requireContext()) }
+    private val gps by lazy { _gps ?: sensorService.getGPS() }
 
     constructor() : this(null, null, null)
 
@@ -42,7 +42,7 @@ class PlaceBeaconFragment(
     private lateinit var commentTxt: EditText
     private lateinit var useCurrentLocationBtn: Button
     private lateinit var doneBtn: FloatingActionButton
-    private lateinit var altimeter: IAltimeter
+    private val altimeter by lazy { sensorService.getAltimeter() }
 
     private lateinit var units: UserPreferences.DistanceUnits
     private val sensorService by lazy { SensorService(requireContext()) }
@@ -53,8 +53,6 @@ class PlaceBeaconFragment(
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_create_beacon, container, false)
-
-        beaconRepo = _repo ?: BeaconRepo(requireContext())
 
         val prefs = UserPreferences(requireContext())
         units = prefs.distanceUnits
@@ -184,12 +182,6 @@ class PlaceBeaconFragment(
         }
 
         return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-        gps = _gps ?: sensorService.getGPS()
-        altimeter = sensorService.getAltimeter()
     }
 
     override fun onPause() {

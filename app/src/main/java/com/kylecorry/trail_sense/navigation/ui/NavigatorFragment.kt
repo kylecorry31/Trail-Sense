@@ -50,7 +50,7 @@ class NavigatorFragment(
 
     private lateinit var roundCompass: ICompassView
     private lateinit var linearCompass: ICompassView
-    private lateinit var userPrefs: UserPreferences
+    private val userPrefs by lazy { UserPreferences(requireContext()) }
 
     private lateinit var locationTxt: TextView
     private lateinit var altitudeTxt: TextView
@@ -79,7 +79,7 @@ class NavigatorFragment(
     private lateinit var beaconRepo: BeaconRepo
     private var flashlightState = FlashlightState.Off
 
-    private lateinit var sensorService: SensorService
+    private val sensorService by lazy { SensorService(requireContext()) }
     private val flashlight by lazy { FlashlightHandler(requireContext()) }
     private val cache by lazy { Cache(requireContext()) }
     private val throttle = Throttle(16)
@@ -108,10 +108,7 @@ class NavigatorFragment(
     ): View? {
         val view = inflater.inflate(R.layout.activity_navigator, container, false)
 
-        sensorService = SensorService(requireContext())
-
         // Get views
-        userPrefs = UserPreferences(requireContext())
         locationTxt = view.findViewById(R.id.location)
         altitudeTxt = view.findViewById(R.id.altitude)
         azimuthTxt = view.findViewById(R.id.compass_azimuth)
