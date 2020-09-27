@@ -1,5 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
@@ -10,6 +11,11 @@
             android:summary="@string/tool_inclinometer_summary"
             android:title="@string/inclinometer_title"
             app:key="@string/tool_inclinometer" />
+
+        <Preference
+            android:icon="@drawable/maps"
+            android:title="@string/trail_sense_maps"
+            app:key="@string/tool_trail_sense_maps" />
 
     </PreferenceCategory>
 

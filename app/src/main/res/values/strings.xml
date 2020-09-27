@@ -12,6 +12,11 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="not_all_permissions_granted">Not all permissions granted, some features may be broken</string>
     <string name="copied_to_clipboard_toast">Copied to clipboard</string>
+    <!--Permissions-->
+    <string name="access_background_location">Update location settings</string>
+    <string name="access_background_location_rationale">Allow Trail Sense to access your location all the time to improve weather monitoring and sunset alerts</string>
+    <string name="dialog_grant">Update settings</string>
+    <string name="dialog_deny">No thanks</string>
     <!--Disclaimer-->
     <string name="disclaimer_message_title">Disclaimer</string>
     <string name="disclaimer_message_content">Trail Sense is a tool that can be used in a survival situation, but you should not rely solely upon it. Please validate its accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
@@ -174,6 +179,8 @@
     <string name="moon_altitude">Moon altitude</string>
     <string name="sun_dawn">Dawn</string>
     <string name="sun_dusk">Dusk</string>
+    <!--Tools-->
+    <string name="trail_sense_maps">Offline Maps</string>
     <!--Inclinometer-->
     <string name="inclinometer_title">Inclinometer</string>
     <string name="tool_inclinometer_summary">Estimate avalanche risks and the height of objects</string>
@@ -455,8 +462,5 @@
     <string name="pref_weather_foreground_service" translatable="false">pref_weather_foreground_service</string>
     <string name="pref_max_beacon_distance" translatable="false">pref_max_beacon_distance</string>
     <string name="pref_max_beacon_distance_miles" translatable="false">pref_max_beacon_distance_miles</string>
-    <string name="access_background_location">Update location settings</string>
-    <string name="access_background_location_rationale">Allow Trail Sense to access your location all the time to improve weather monitoring and sunset alerts</string>
-    <string name="dialog_grant">Update settings</string>
-    <string name="dialog_deny">No thanks</string>
+    <string name="tool_trail_sense_maps" translatable="false">tool_trail_sense_maps</string>
 </resources>

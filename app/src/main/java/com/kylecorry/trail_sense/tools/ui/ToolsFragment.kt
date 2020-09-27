@@ -16,8 +16,19 @@ class ToolsFragment : PreferenceFragmentCompat() {
 
     private fun bindPreferences() {
         fragmentOnClick(findPreference(getString(R.string.tool_inclinometer))) { InclinometerFragment() }
+
+        val maps = findPreference<Preference>(getString(R.string.tool_trail_sense_maps))
+        maps?.isVisible = TrailSenseMaps.isInstalled(requireContext())
+        onClick(maps) { TrailSenseMaps.open(requireContext()) }
     }
 
+
+    private fun onClick(pref: Preference?, action: () -> Unit) {
+        pref?.setOnPreferenceClickListener {
+            action.invoke()
+            true
+        }
+    }
 
     private fun fragmentOnClick(pref: Preference?, fragmentFactory: () -> Fragment) {
         pref?.setOnPreferenceClickListener {
