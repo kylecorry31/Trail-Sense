@@ -45,7 +45,7 @@
     <string name="onboarding_location_navigation">Vous permet de naviguer vers les balises</string>
     <string name="onboarding_location_astronomy">Vous permet de voir le soleil /la lune se lever et régler les heures</string>
     <string name="onboarding_location_privacy">Trail Sense respecte votre vie privée - les données de localisation ne quittent jamais votre appareil</string>
-    <string name="onboarding_location_all_time">Veuillez sélectionner \'Autoriser tout le temps \' dans la boîte de dialogue des autorisations</string>
+    <string name="onboarding_location_all_time">Veuillez sélectionner « Autoriser tout le temps » dans la boîte de dialogue des autorisations</string>
     <string name="continue_button">CONTINUER</string>
     <string name="moon_rise">Lever de la lune</string>
     <string name="moon_set">Coucher de la lune</string>
@@ -355,4 +355,7 @@
     <string name="tide_normal">Amplitude de marée moyenne</string>
     <string name="tide_spring">Vives-eaux</string>
     <string name="tide_neap">Mortes-eaux</string>
+    <string name="pref_sea_level_use_rapid_title">Facteur en changements de pression rapide</string>
+    <string name="pref_adjust_for_temperature_title">Facteur en température</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Dégrés et minutes décimales</string>
 </resources>
