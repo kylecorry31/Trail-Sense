@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_navigation">Навигация</string>
     <string name="action_weather">Погода</string>
@@ -15,8 +16,6 @@
     <string name="sunrise_label">Восход солнца</string>
     <string name="sunset_label">Закат</string>
     <string name="until_sunset_label">до захода солнца</string>
-
-
     <string name="pref_use_true_north_title">истинный север</string>
     <string name="pref_use_sea_level_pressure_title">Давление на уровне моря</string>
     <string name="pref_units_header">Генерал</string>
@@ -61,35 +60,29 @@
     <string name="pref_show_sun_moon_compass_title">Показать солнце/месяц на компасе</string>
     <string name="pref_show_linear_compass_title">Показать линейный компас</string>
     <string name="pref_show_linear_compass_summary">Когда телефон вертикальный</string>
-
     <plurals name="last_hours">
         <item quantity="one">Прошлой %d час</item>
         <item quantity="other">Прошлой %d часов</item>
         <item quantity="few">Прошлой %d несколько часов</item>
         <item quantity="many">Прошлой %d много часов</item>
     </plurals>
-
     <plurals name="last_minutes">
         <item quantity="one">Прошлой %d минут</item>
         <item quantity="other">Прошлой %d минут</item>
         <item quantity="few">Прошлой %d несколько минут</item>
         <item quantity="many">Прошлой %d много минут</item>
     </plurals>
-
     <string name="meters">Метры</string>
     <string name="feet_miles">Ноги / мили</string>
     <string name="units_hpa">гПа</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">мбар</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">Свет</string>
     <string name="theme_dark">Темнота</string>
     <string name="theme_black">Черный</string>
     <string name="theme_system">Система</string>
-
     <string name="gps">GPS</string>
-
     <string name="sun_actual">Фактическое время</string>
     <string name="sun_civil">Гражданские сумерки</string>
     <string name="sun_nautical">Морские сумерки</string>
@@ -99,10 +92,103 @@
     <string name="tomorrow">Завтра</string>
     <string name="yesterday">Вчера</string>
     <string name="pressure_tendency_indicator_alt">Индикатор тенденции давления</string>
-
     <string name="pressure_48_hours">48 часов</string>
     <string name="pressure_24_hours">24 часа</string>
     <string name="pressure_12_hours">12 часа</string>
     <string name="pressure_4_hours">4 часа</string>
     <string name="pref_pressure_history_title">История давления</string>
+    <string name="accuracy_info_title">Советы по повышению точности</string>
+    <string name="pref_email_title">Написать разработчику</string>
+    <string name="pref_github_title">GitHub</string>
+    <string name="pref_app_version_title">Версия</string>
+    <string name="pref_category_about">О программе</string>
+    <string name="pref_open_source_licenses_title">Лицензии</string>
+    <string name="weather_update_60_minutes">1 час</string>
+    <string name="weather_update_45_minutes">45 минут</string>
+    <string name="weather_update_30_minutes">30 минут</string>
+    <string name="weather_update_15_minutes">15 минут</string>
+    <string name="sunset_alert_3_hours">3 часа</string>
+    <string name="sunset_alert_2_hours_30_minutes">2 часа 30 минут</string>
+    <string name="sunset_alert_2_hours">2 часа</string>
+    <string name="sunset_alert_1_hour_30_minutes">1 час 30 минут</string>
+    <string name="sunset_alert_1_hour">1 час</string>
+    <string name="sunset_alert_30_minutes">30 минут</string>
+    <string name="sun_moon_compass_never">Никогда</string>
+    <string name="sun_moon_compass_always">Всегда</string>
+    <string name="pref_weather_update_frequency_title">Частота обновления погоды</string>
+    <string name="pref_monitor_weather_title">Мониторинг погоды</string>
+    <string name="pref_show_calibrate_on_navigate_dialog_title">Калибровка перед навигацией</string>
+    <string name="pref_temperature_holder_title">Температура</string>
+    <string name="barometer_thermometer">Барометр и термометр</string>
+    <string name="pref_barometer_pressure_title">Давление</string>
+    <string name="pref_altimeter_calibration_mode_title">Автокалибровка</string>
+    <string name="calibration_mode_barometer_alert_title">Барометр</string>
+    <string name="altimeter_mode_override">Никогда</string>
+    <string name="altimeter_mode_gps_barometer">GPS + Барометр</string>
+    <string name="altimeter_mode_barometer">Барометр</string>
+    <string name="altimeter_mode_gps">GPS</string>
+    <string name="auto_altitude">Автоматическая регулировка высоты</string>
+    <string name="altitude">Высота</string>
+    <string name="pref_altimeter_calibration_title">Высотомер</string>
+    <string name="gps_location">Местоположение</string>
+    <string name="calibrate_compass_dialog_title">Калибровать компас</string>
+    <string name="pref_calibrate_compass_btn_title">Калибровать</string>
+    <string name="compass_declination">Склонение</string>
+    <string name="compass_azimuth">Азимут</string>
+    <string name="pref_compass_sensor_title">Компас</string>
+    <string name="pref_category_sensors_title">Датчики</string>
+    <string name="pref_temperature_units_title">Температура</string>
+    <string name="pref_coordinate_format_title">Формат координат</string>
+    <string name="experimental_tools_title">Экспериментальные функции</string>
+    <string name="object_distance_m">Расстояние (м)</string>
+    <string name="inclinometer_title">Инклинометр</string>
+    <string name="trail_sense_maps">Офлайн-карты</string>
+    <string name="moon_phase">Фазы Луны</string>
+    <string name="tide_spring">Весна</string>
+    <string name="full_moon">Полнолуние</string>
+    <string name="third_quarter">Третий квартал</string>
+    <string name="new_moon">Новолуние</string>
+    <string name="heat_alert_heat_danger_title">Тепловая опасность</string>
+    <string name="no_humidity_data">Нет данных о влажности</string>
+    <string name="notification_storm_alert_text">Приближается шторм</string>
+    <string name="notification_storm_alert_channel_desc">Штормовые предупреждения</string>
+    <string name="notification_storm_alert_channel_name">Предупреждения</string>
+    <string name="units_inhg_short">в</string>
+    <string name="beacon_comment">Примечания (необязательно)</string>
+    <string name="beacon_invalid_name">Неверное название</string>
+    <string name="share_action_geo">Карты</string>
+    <string name="share_action_copy_coordinates">Копировать координаты</string>
+    <string name="share_action_copy">Копировать</string>
+    <string name="share_action_send">Отправить</string>
+    <string name="sos">СОС</string>
+    <string name="turn_off_flashlight">Нажмите, чтобы выключить</string>
+    <string name="flashlight_title">Фонарик</string>
+    <string name="accuracy_distance_unknown">\?</string>
+    <string name="accuracy_unknown">Неизвестно</string>
+    <string name="accuracy_high">Высокая</string>
+    <string name="accuracy_medium">Средняя</string>
+    <string name="accuracy_low">Низкая</string>
+    <string name="dash">-</string>
+    <string name="coordinate_format_string_dd">"%s,  %s"</string>
+    <string name="coordinate_format_string_dms">"%s    %s"</string>
+    <string name="coordinate_format_string_ddm">"%s    %s"</string>
+    <string name="elevation_diff_format">%s%s</string>
+    <string name="decrease">-</string>
+    <string name="increase">+</string>
+    <string name="direction_south_west">ЮЗ</string>
+    <string name="direction_north_west">СЗ</string>
+    <string name="direction_south_east">ЮВ</string>
+    <string name="direction_north_east">СВ</string>
+    <string name="direction_west">З</string>
+    <string name="direction_east">В</string>
+    <string name="direction_south">Ю</string>
+    <string name="direction_north">С</string>
+    <string name="kilometers_per_hour_format">%.1f км/ч</string>
+    <string name="kilometers_format">%.2f км</string>
+    <string name="meters_format">%.0f м</string>
+    <string name="disclaimer_message_title">Отказ от ответственности</string>
+    <string name="dialog_deny">Нет, спасибо</string>
+    <string name="access_background_location">Обновить настройки местоположения</string>
+    <string name="copied_to_clipboard_toast">Скопировано в буфер обмена</string>
+    <string name="action_tools">Инструменты</string>
 </resources>
