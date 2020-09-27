@@ -45,8 +45,8 @@
     <string name="onboarding_location_navigation">Erlaubt Ihnen die Navigation zu Wegpunkten</string>
     <string name="onboarding_location_astronomy">Erlaubt Ihnen, die Auf- und Untergangszeiten von Sonne und Mond zu sehen</string>
     <string name="onboarding_location_privacy">Trail Sense respektiert Ihre Privatsphäre - Standortdaten verlassen niemals Ihr Gerät</string>
-    <string name="onboarding_location_all_time">Bitte wählen Sie \'Allow all the time\' aus dem Genehmigungsdialog</string>
-    <string name="continue_button">FORTGESETZT</string>
+    <string name="onboarding_location_all_time">Bitte wählen Sie „Immer zulassen“ aus dem Genehmigungsdialog</string>
+    <string name="continue_button">FORTSETZEN</string>
     <string name="moon_rise">Mondaufgang</string>
     <string name="moon_set">Monduntergang</string>
     <string name="stop_monitoring">Halt</string>
@@ -242,4 +242,16 @@
     <string name="nautical_miles_format">%.2f nm</string>
     <string name="miles_format">%.2f mi</string>
     <string name="feet_format">%.0f ft</string>
+    <string name="sun_does_not_set">kein Untergang</string>
+    <string name="percent_format">%d%%</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="coordinate_format_string_dd">"%s,  %s"</string>
+    <string name="coordinate_format_string_dms">"%s    %s"</string>
+    <string name="coordinate_format_string_ddm">"%s    %s"</string>
+    <string name="elevation_diff_format">%s%s</string>
+    <string name="pref_github_title">GitHub</string>
+    <string name="pref_app_version_title">Version</string>
+    <string name="pref_category_about">Über</string>
+    <string name="pref_open_source_licenses_title">Lizenzen</string>
+    <string name="pref_email_title">Entwickler kontaktieren</string>
 </resources>
