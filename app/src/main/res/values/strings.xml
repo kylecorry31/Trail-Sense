@@ -482,4 +482,6 @@
     <string name="tool_trail_sense_maps" translatable="false">tool_trail_sense_maps</string>
     <string name="error_occurred">An error occurred</string>
     <string name="error_occurred_message">Trail Sense ran into an error and will close. Please email the developer to get this issue fixed.</string>
+    <string name="moon_azimuth">Moon azimuth</string>
+    <string name="sun_azimuth">Sun azimuth</string>
 </resources>
