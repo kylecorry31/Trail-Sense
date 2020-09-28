@@ -46,7 +46,7 @@ class WeatherService(
         val last = readings.minByOrNull {
             Duration.between(
                 it.time,
-                Instant.now().minusSeconds(3 * 60 * 60)
+                Instant.now().minus(Duration.ofHours(3))
             ).abs()
         } ?: lastReading
         val current = readings.lastOrNull()

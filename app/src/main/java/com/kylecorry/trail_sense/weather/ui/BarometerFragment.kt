@@ -269,9 +269,16 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun displayChart(readings: List<PressureReading>) {
-        if (readings.size >= 2) {
+        val displayReadings = readings.filter {
+            Duration.between(
+                it.time,
+                Instant.now()
+            ) <= prefs.weather.pressureHistory
+        }
+
+        if (displayReadings.size >= 2) {
             val totalTime = Duration.between(
-                readings.first().time, readings.last().time
+                displayReadings.first().time, displayReadings.last().time
             )
             var hours = totalTime.toHours()
             val minutes = totalTime.toMinutes() % 60
@@ -295,17 +302,15 @@ class BarometerFragment : Fragment(), Observer {
 
         }
 
-        if (readings.isNotEmpty()) {
-            val filter = LowPassFilter(0.6f, readings.first().value)
-
+        if (displayReadings.isNotEmpty()) {
             chart.setUnits(units)
 
-            val chartData = readings.map {
+            val chartData = displayReadings.map {
                 val timeAgo = Duration.between(Instant.now(), it.time).seconds / (60f * 60f)
                 Pair(
                     timeAgo as Number,
                     (PressureUnitUtils.convert(
-                        filter.filter(it.value),
+                        it.value,
                         units
                     )) as Number
                 )
@@ -358,18 +363,24 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun getCurrentPressure(): PressureReading {
-        val reading = PressureAltitudeReading(
-            Instant.now(),
-            barometer.pressure,
-            altimeter.altitude,
-            thermometer.temperature
-        )
+//        val reading = PressureAltitudeReading(
+//            Instant.now(),
+//            barometer.pressure,
+//            altimeter.altitude,
+//            thermometer.temperature
+//        )
 
         return if (useSeaLevelPressure) {
-            reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
+            getSeaLevelPressureHistory(true)
         } else {
-            reading.pressureReading()
-        }
+            getPressureHistory(true)
+        }.last()
+
+//        return if (useSeaLevelPressure) {
+//            reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
+//        } else {
+//            reading.pressureReading()
+//        }
     }
 
     private fun displayPressure(pressure: PressureReading) {
@@ -384,7 +395,6 @@ class BarometerFragment : Fragment(), Observer {
 
     private fun getReadingHistory(): List<PressureAltitudeReading> {
         return PressureHistoryRepository.getAll(requireContext())
-            .filter { Duration.between(it.time, Instant.now()) <= prefs.weather.pressureHistory }
     }
 
     private fun getWeatherImage(weather: Weather, currentPressure: PressureReading): Int {
@@ -414,15 +424,6 @@ class BarometerFragment : Fragment(), Observer {
             Weather.ImprovingFast, Weather.ImprovingSlow -> getString(R.string.forecast_improving)
             Weather.WorseningSlow, Weather.WorseningFast, Weather.Storm -> getString(R.string.forecast_worsening)
             else -> ""
-        }
-    }
-
-    private fun getPressureUnitString(unit: PressureUnits): String {
-        return when (unit) {
-            PressureUnits.Hpa -> getString(R.string.units_hpa)
-            PressureUnits.Mbar -> getString(R.string.units_mbar)
-            PressureUnits.Inhg -> getString(R.string.units_inhg_short)
-            PressureUnits.Psi -> getString(R.string.units_psi)
         }
     }
 
