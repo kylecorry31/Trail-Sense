@@ -2,18 +2,16 @@ package com.kylecorry.trail_sense.weather.domain.sealevel
 
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
+import java.time.Duration
 import kotlin.math.abs
 
-internal class GPSAltitudeCalculator3 :
-    IAltitudeCalculator {
+internal class DwellAltitudeCalculator(private val dwellThreshold: Duration, private val changeThreshold: Float) : IAltitudeCalculator {
     override fun convert(readings: List<PressureAltitudeReading>): List<AltitudeReading> {
 
         if (readings.size <= 1) {
             return readings.map { AltitudeReading(it.time, it.altitude) }
         }
 
-        val changeThreshold = 60
-        val dwellThreshold = 3
         val groups = mutableListOf<MutableList<AltitudeReading>>()
         for (reading in readings) {
             if (groups.isEmpty()) {
@@ -22,7 +20,7 @@ internal class GPSAltitudeCalculator3 :
             }
 
             val lastGroup = groups.last()
-            if (abs(lastGroup.last().value - reading.altitude) < changeThreshold) {
+            if (abs(lastGroup.first().value - reading.altitude) < changeThreshold) {
                 lastGroup.add(AltitudeReading(reading.time, reading.altitude))
             } else {
                 groups.add(mutableListOf(AltitudeReading(reading.time, reading.altitude)))
@@ -30,7 +28,8 @@ internal class GPSAltitudeCalculator3 :
         }
 
         for (group in groups) {
-            if (group.size < dwellThreshold) {
+            val duration = Duration.between(group.first().time, group.last().time)
+            if (duration < dwellThreshold) {
                 for (i in 0 until group.size) {
                     val old = group.removeAt(i)
                     group.add(i, old.copy(value = Float.NaN))
@@ -50,35 +49,50 @@ internal class GPSAltitudeCalculator3 :
             }
         }
 
+        val first = AltitudeReading(readings.first().time, readings.first().altitude)
+        val last = AltitudeReading(readings.last().time, readings.last().altitude)
         for (i in 0 until newAltitudes.size) {
             if (newAltitudes[i].value.isNaN()) {
-                val prev = prevValid(newAltitudes, i, readings.first().altitude)
-                val next = nextValid(newAltitudes, i, readings.last().altitude)
-                // TODO: Weighted average
-                val avg = (next + prev) / 2
+                val prev = prevValid(newAltitudes, i, first)
+                val next = nextValid(newAltitudes, i, last)
+
+                val range = next.time.epochSecond - prev.time.epochSecond
+                val percentOfTime = if (range == 0L) {
+                    0f
+                } else {
+                    (newAltitudes[i].time.epochSecond - prev.time.epochSecond) / range.toFloat()
+                }
+
+                val altitudeChange = next.value - prev.value
+                val avg = prev.value + altitudeChange * percentOfTime
                 val old = newAltitudes.removeAt(i)
                 newAltitudes.add(i, old.copy(value = avg))
             }
         }
-
-
-
         return newAltitudes
     }
 
-    private fun nextValid(readings: List<AltitudeReading>, start: Int, fallback: Float): Float {
+    private fun nextValid(
+        readings: List<AltitudeReading>,
+        start: Int,
+        fallback: AltitudeReading
+    ): AltitudeReading {
         for (i in start until readings.size) {
             if (!readings[i].value.isNaN()) {
-                return readings[i].value
+                return AltitudeReading(readings[i].time, readings[i].value)
             }
         }
         return fallback
     }
 
-    private fun prevValid(readings: List<AltitudeReading>, start: Int, fallback: Float): Float {
+    private fun prevValid(
+        readings: List<AltitudeReading>,
+        start: Int,
+        fallback: AltitudeReading
+    ): AltitudeReading {
         for (i in start downTo 0) {
             if (!readings[i].value.isNaN()) {
-                return readings[i].value
+                return AltitudeReading(readings[i].time, readings[i].value)
             }
         }
         return fallback
