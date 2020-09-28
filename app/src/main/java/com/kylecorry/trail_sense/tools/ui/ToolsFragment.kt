@@ -6,6 +6,7 @@ import androidx.preference.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.inclinometer.ui.InclinometerFragment
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.tools.guide.ui.GuideFragment
 
 class ToolsFragment : PreferenceFragmentCompat() {
 
@@ -16,6 +17,7 @@ class ToolsFragment : PreferenceFragmentCompat() {
 
     private fun bindPreferences() {
         fragmentOnClick(findPreference(getString(R.string.tool_inclinometer))) { InclinometerFragment() }
+        fragmentOnClick(findPreference(getString(R.string.tool_user_guide))) { GuideFragment() }
 
         val maps = findPreference<Preference>(getString(R.string.tool_trail_sense_maps))
         maps?.isVisible = TrailSenseMaps.isInstalled(requireContext())

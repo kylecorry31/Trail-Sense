@@ -484,4 +484,7 @@
     <string name="error_occurred_message">Trail Sense ran into an error and will close. Please email the developer to get this issue fixed.</string>
     <string name="moon_azimuth">Moon azimuth</string>
     <string name="sun_azimuth">Sun azimuth</string>
+    <string name="tool_user_guide_title">User Guide</string>
+    <string name="tool_user_guide">tool_user_guide</string>
+    <string name="tool_user_guide_summary">A how-to guide for using Trail Sense</string>
 </resources>
