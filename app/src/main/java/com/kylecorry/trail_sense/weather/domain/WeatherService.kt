@@ -1,9 +1,10 @@
 package com.kylecorry.trail_sense.weather.domain
 
 import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster
+import com.kylecorry.trail_sense.weather.domain.sealevel.*
 import com.kylecorry.trail_sense.weather.domain.sealevel.AltimeterSeaLevelPressureConverter
 import com.kylecorry.trail_sense.weather.domain.sealevel.BarometerGPSAltitudeCalculator
-import com.kylecorry.trail_sense.weather.domain.sealevel.GPSAltitudeCalculator
+import com.kylecorry.trail_sense.weather.domain.sealevel.GPSAltitudeCalculator3
 import com.kylecorry.trailsensecore.domain.weather.*
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import java.time.Duration
@@ -19,7 +20,7 @@ class WeatherService(
     private val longTermForecaster = DailyForecaster(dailyForecastChangeThreshold)
     private val newWeatherService: IWeatherService = WeatherService()
     private val seaLevelConverter = AltimeterSeaLevelPressureConverter(
-        if (adjustSeaLevelWithBarometer) BarometerGPSAltitudeCalculator() else GPSAltitudeCalculator(),
+        if (adjustSeaLevelWithBarometer) BarometerGPSAltitudeCalculator() else GPSAltitudeCalculator3(),
         adjustSeaLevelWithTemp
     )
 
