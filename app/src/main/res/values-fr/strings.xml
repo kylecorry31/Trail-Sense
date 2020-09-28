@@ -276,13 +276,13 @@
     <string name="turn_off_flashlight">Appuyez pour éteindre la lampe torche</string>
     <string name="flashlight_title">Lampe torche</string>
     <string name="gps_lock_acquired">Position GPS obtenue</string>
-    <string name="accuracy_info">"GPS : Placez vous en extérieur avec une vue dégagée du ciel.
-\n    Incertitude sur la localisation : %s 
-\n    Incertitude sur l\'altitude : %s
-\n    Nombre de satellites : %s 
+    <string name="accuracy_info">GPS : Placez vous en extérieur avec une vue dégagée du ciel.
+\n\tIncertitude sur la localisation : %s
+\n\tIncertitude sur l\'altitude : %s
+\n\tNombre de satellites : %s
 \n
-\nBoussole : Déplacez votre téléphone selon une trajectoire décrivant un «8» de manière répétitive, tout en prenant soin de vous éloigner d\'objets métalliques."</string>
-    <string name="accuracy_info_title">Conseils pour améliorer la précision des données des capteurs</string>
+\nBoussole : Déplacez votre téléphone selon une trajectoire décrivant un «8» de manière répétitive, tout en prenant soin de vous éloigner d\'objets métalliques.</string>
+    <string name="accuracy_info_title">Conseils pour améliorer la précision des données issues des capteurs</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_unknown">Inconnue</string>
     <string name="accuracy_medium">Moyenne</string>
@@ -363,4 +363,8 @@
     <string name="dialog_grant">Mettre à jour les paramètres</string>
     <string name="access_background_location_rationale">Autorisez Trail Sense à accéder à la donnée de localisation n\'importe quand afin d\'améliorer l\'acquisition des données météorologiques et astronomiques</string>
     <string name="access_background_location">Paramètres de localisation</string>
+    <string name="sun_azimuth">Azimuth du soleil</string>
+    <string name="moon_azimuth">Azimuth de la lune</string>
+    <string name="error_occurred_message">Un dysfonctionnement inattendu force l\'arrêt de Trail Sense. Merci d\'envoyer un courriel au développeur afin que ce problème puisse être résolu.</string>
+    <string name="error_occurred">Une erreur est survenue</string>
 </resources>
