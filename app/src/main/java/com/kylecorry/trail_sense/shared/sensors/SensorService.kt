@@ -43,20 +43,28 @@ class SensorService(ctx: Context) {
             return OverrideGPS(context)
         }
 
-        if ((background && PermissionUtils.isBackgroundLocationEnabled(context)) || (!background && PermissionUtils.isLocationEnabled(context))) {
+        if (hasLocationPermission(background) && sensorChecker.hasGPS()) {
             return GPS(context)
         }
 
         return CachedGPS(context)
     }
 
+    private fun hasLocationPermission(background: Boolean): Boolean {
+        return if (background){
+            PermissionUtils.isBackgroundLocationEnabled(context)
+        } else {
+            PermissionUtils.isLocationEnabled(context)
+        }
+    }
+
     fun getAltimeter(background: Boolean = false): IAltimeter {
 
         val mode = userPrefs.altimeterMode
 
-        if (mode == UserPreferences.AltimeterMode.Override){
+        if (mode == UserPreferences.AltimeterMode.Override) {
             return OverrideAltimeter(context)
-        } else if (mode == UserPreferences.AltimeterMode.Barometer && sensorChecker.hasBarometer()){
+        } else if (mode == UserPreferences.AltimeterMode.Barometer && sensorChecker.hasBarometer()) {
             return BarometricAltimeter(getBarometer()) { userPrefs.seaLevelPressureOverride }
         } else {
             if (!userPrefs.useLocationFeatures) {

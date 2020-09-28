@@ -392,7 +392,7 @@ class AstronomyFragment : Fragment() {
             details.add(
                 AstroDetail(
                     R.drawable.sun,
-                    "Sun azimuth",
+                    getString(R.string.sun_azimuth),
                     getString(R.string.degree_format, sunAzimuth),
                     R.color.colorPrimary
                 )
@@ -400,7 +400,7 @@ class AstronomyFragment : Fragment() {
             details.add(
                 AstroDetail(
                     R.drawable.moon_full,
-                    "Moon azimuth",
+                    getString(R.string.moon_azimuth),
                     getString(R.string.degree_format, moonAzimuth)
                 )
             )

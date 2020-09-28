@@ -3,24 +3,28 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
         app:title="@string/pref_compass_sensor_title">
 
         <Preference
             android:icon="@drawable/ic_compass_icon"
             android:summary="-"
             android:title="@string/compass_azimuth"
-            app:key="@string/pref_holder_azimuth" />
+            app:key="@string/pref_holder_azimuth"
+            app:singleLineTitle="false" />
 
         <Preference
             android:title="@string/pref_calibrate_compass_btn_title"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_calibrate_compass_btn" />
+            app:key="@string/pref_calibrate_compass_btn"
+            app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
             android:summary="@string/pref_use_legacy_compass_summary"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_use_legacy_compass"
+            app:singleLineTitle="false"
             app:title="@string/pref_use_legacy_compass_title" />
 
         <SeekBarPreference
@@ -31,6 +35,7 @@
             app:min="1"
             app:seekBarIncrement="1"
             app:showSeekBarValue="true"
+            app:singleLineTitle="false"
             app:summary="@string/pref_compass_filter_amt_summary"
             app:title="@string/pref_compass_filter_amt_title" />
 
@@ -38,13 +43,15 @@
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_use_true_north"
+            app:singleLineTitle="false"
             app:title="@string/pref_use_true_north_title" />
 
         <Preference
             android:icon="@drawable/ic_compass_icon"
             android:summary="-"
             android:title="@string/compass_declination"
-            app:key="@string/pref_holder_declination" />
+            app:key="@string/pref_holder_declination"
+            app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
             android:disableDependentsState="true"
@@ -52,6 +59,7 @@
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_auto_declination"
+            app:singleLineTitle="false"
             app:title="@string/compass_auto_declination" />
 
         <EditTextPreference
@@ -60,13 +68,15 @@
             android:inputType="numberDecimal"
             app:iconSpaceReserved="false"
             app:key="@string/pref_declination_override"
+            app:singleLineTitle="false"
             app:title="@string/compass_declination_override" />
 
         <Preference
             android:dependency="@string/pref_auto_declination"
             android:title="@string/compass_from_gps"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_declination_override_gps_btn" />
+            app:key="@string/pref_declination_override_gps_btn"
+            app:singleLineTitle="false" />
 
 
     </PreferenceCategory>
