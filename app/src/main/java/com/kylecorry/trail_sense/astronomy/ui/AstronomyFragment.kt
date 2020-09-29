@@ -23,6 +23,7 @@ import com.kylecorry.trailsensecore.domain.astronomy.tides.Tide
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime

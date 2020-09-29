@@ -71,6 +71,10 @@
     <string name="no_beacons">No beacons</string>
     <string name="long_press_beacon_toast">Long press a beacon to view options.</string>
     <string name="dot" translatable="false">•</string>
+    <plurals name="beacon_group_summary">
+        <item quantity="one">%d beacon</item>
+        <item quantity="other">%d beacons</item>
+    </plurals>
     <!--Navigation Tab - Beacon List - Sharesheet-->
     <string name="share_action_send">Send</string>
     <string name="share_action_copy">Copy</string>
@@ -484,4 +488,12 @@
     <string name="error_occurred_message">Trail Sense ran into an error and will close. Please email the developer to get this issue fixed.</string>
     <string name="moon_azimuth">Moon azimuth</string>
     <string name="sun_azimuth">Sun azimuth</string>
+    <string name="delete_beacon_group">Delete group</string>
+    <string name="edit_beacon_group">Edit group</string>
+    <string name="beacon_create">Create</string>
+    <string name="beacon_create_beacon">Beacon</string>
+    <string name="beacon_create_group">Group</string>
+    <string name="beacon_group_name_hint">Name</string>
+    <string name="no_group">No group</string>
+    <string name="beacon_group_spinner_title">Group</string>
 </resources>

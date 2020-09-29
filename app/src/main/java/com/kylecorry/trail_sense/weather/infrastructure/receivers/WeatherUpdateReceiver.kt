@@ -122,13 +122,6 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         )
     }
 
-    private fun hasNotification(): Boolean {
-        return NotificationUtils.isNotificationActive(
-            context,
-            WeatherNotificationService.WEATHER_NOTIFICATION_ID
-        )
-    }
-
     private fun sendWeatherNotification() {
         val readings = weatherService.convertToSeaLevel(pressureRepo.get().toList())
         val forecast = weatherService.getHourlyWeather(readings)
@@ -217,6 +210,9 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun addNewPressureReading() {
+        if (barometer.pressure == 0f){
+            return
+        }
         pressureRepo.add(
             PressureAltitudeReading(
                 Instant.now(),

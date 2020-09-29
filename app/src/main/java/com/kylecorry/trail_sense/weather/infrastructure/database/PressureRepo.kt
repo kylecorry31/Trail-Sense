@@ -92,7 +92,7 @@ class PressureRepo(private val context: Context) {
             }
         }
 //        try {
-            PressureHistoryRepository.clear(context)
+        PressureHistoryRepository.clear(context)
 //        } catch (e: Exception) {
 //            // Ignore this
 //        }
