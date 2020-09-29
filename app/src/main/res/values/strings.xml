@@ -489,6 +489,7 @@
     <string name="moon_azimuth">Moon azimuth</string>
     <string name="sun_azimuth">Sun azimuth</string>
     <string name="delete_beacon_group">Delete group</string>
+    <string name="delete_beacon_group_message">%s and all its beacons will be deleted.</string>
     <string name="edit_beacon_group">Edit group</string>
     <string name="beacon_create">Create</string>
     <string name="beacon_create_beacon">Beacon</string>

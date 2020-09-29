@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class BeaconGroupListItem(
     private val view: View,
@@ -30,7 +31,8 @@ class BeaconGroupListItem(
         nameText.text = group.name
         beaconImg.setImageResource(R.drawable.ic_beacon_group)
         val count = repo.getNumberOfBeaconsInGroup(group.id)
-        summaryTxt.text = view.context.resources.getQuantityString(R.plurals.beacon_group_summary, count, count)
+        summaryTxt.text =
+            view.context.resources.getQuantityString(R.plurals.beacon_group_summary, count, count)
         visibilityBtn.visibility = View.GONE
 
         view.setOnClickListener {
@@ -43,8 +45,18 @@ class BeaconGroupListItem(
                     onEdit()
                 }
                 R.id.action_delete_beacon_group -> {
-                    repo.delete(group)
-                    onDeleted()
+                    UiUtils.alertWithCancel(
+                        view.context,
+                        view.context.getString(R.string.delete_beacon_group),
+                        view.context.getString(R.string.delete_beacon_group_message, group.name),
+                        view.context.getString(R.string.dialog_ok),
+                        view.context.getString(R.string.dialog_cancel)
+                    ) { cancelled ->
+                        if (!cancelled) {
+                            repo.delete(group)
+                            onDeleted()
+                        }
+                    }
                 }
             }
             true

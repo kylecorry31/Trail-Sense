@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class BeaconListItem(
     private val view: View,
@@ -89,8 +90,18 @@ class BeaconListItem(
                     onEdit()
                 }
                 R.id.action_delete_beacon -> {
-                    repo.delete(beacon)
-                    onDeleted()
+                    UiUtils.alertWithCancel(
+                        view.context,
+                        view.context.getString(R.string.delete_beacon),
+                        beacon.name,
+                        view.context.getString(R.string.dialog_ok),
+                        view.context.getString(R.string.dialog_cancel)
+                    ) { cancelled ->
+                        if (!cancelled){
+                            repo.delete(beacon)
+                            onDeleted()
+                        }
+                    }
                 }
             }
             true

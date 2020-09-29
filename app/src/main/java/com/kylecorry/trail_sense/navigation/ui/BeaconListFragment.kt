@@ -250,7 +250,19 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
             val groups = beaconRepo.getGroups().sortedBy {
                 it.name
             }
-            ungrouped + groups
+
+            val all = (ungrouped + groups).map {
+                if (it is Beacon) {
+                    Pair(it, it.coordinate.distanceTo(gps.location))
+                } else {
+                    val groupBeacons = beaconRepo.getByGroup(it.id).map { b ->
+                        b.coordinate.distanceTo(gps.location)
+                    }.minOrNull()
+                    Pair(it, groupBeacons ?: Float.POSITIVE_INFINITY)
+                }
+            }
+
+            all.sortedBy { it.second }.map { it.first }
         } else {
             beaconRepo.getByGroup(displayedGroup?.id).sortedBy {
                 it.coordinate.distanceTo(gps.location)
