@@ -16,7 +16,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
-import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
+import com.kylecorry.trail_sense.weather.infrastructure.database.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
@@ -50,6 +50,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
     private lateinit var userPrefs: UserPreferences
     private lateinit var weatherService: WeatherService
+    private lateinit var pressureRepo: PressureRepo
 
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.i(TAG, "Broadcast received at ${ZonedDateTime.now()}")
@@ -59,6 +60,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
         this.context = context.applicationContext
         userPrefs = UserPreferences(this.context)
+        pressureRepo = PressureRepo(this.context)
         weatherService = WeatherService(
             userPrefs.weather.stormAlertThreshold,
             userPrefs.weather.dailyForecastChangeThreshold,
@@ -128,7 +130,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun sendWeatherNotification() {
-        val readings = weatherService.convertToSeaLevel(PressureHistoryRepository.getAll(context))
+        val readings = weatherService.convertToSeaLevel(pressureRepo.get().toList())
         val forecast = weatherService.getHourlyWeather(readings)
 
         if (userPrefs.weather.shouldShowWeatherNotification || userPrefs.weather.foregroundService) {
@@ -215,8 +217,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun addNewPressureReading() {
-        PressureHistoryRepository.add(
-            context,
+        pressureRepo.add(
             PressureAltitudeReading(
                 Instant.now(),
                 barometer.pressure,
@@ -224,6 +225,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
                 if (thermometer.temperature.isNaN()) 16f else thermometer.temperature
             )
         )
+        pressureRepo.deleteOlderThan(Instant.now().minus(Duration.ofHours(48)))
     }
 
     private fun sendStormAlert() {
@@ -231,7 +233,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val sentAlert = prefs.getBoolean(context.getString(R.string.pref_just_sent_alert), false)
 
-        val readings = PressureHistoryRepository.getAll(context)
+        val readings = pressureRepo.get().toList()
         val forecast = weatherService.getHourlyWeather(weatherService.convertToSeaLevel(readings))
 
         if (forecast == Weather.Storm) {

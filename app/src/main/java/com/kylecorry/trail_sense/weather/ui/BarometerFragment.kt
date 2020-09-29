@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
@@ -19,6 +18,7 @@ import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
+import com.kylecorry.trail_sense.weather.infrastructure.database.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.*
@@ -28,9 +28,8 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermome
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import java.time.Duration
 import java.time.Instant
-import java.util.*
 
-class BarometerFragment : Fragment(), Observer {
+class BarometerFragment : Fragment() {
 
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
@@ -58,6 +57,7 @@ class BarometerFragment : Fragment(), Observer {
     private lateinit var sensorService: SensorService
     private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
+    private val pressureRepo by lazy { PressureRepo(requireContext()) }
 
     private val throttle = Throttle(20)
 
@@ -147,7 +147,6 @@ class BarometerFragment : Fragment(), Observer {
 
     override fun onResume() {
         super.onResume()
-        PressureHistoryRepository.addObserver(this)
         startSensors()
 
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
@@ -170,13 +169,6 @@ class BarometerFragment : Fragment(), Observer {
         barometer.stop(this::onPressureUpdate)
         altimeter.stop(this::onAltitudeUpdate)
         thermometer.stop(this::onTemperatureUpdate)
-        PressureHistoryRepository.deleteObserver(this)
-    }
-
-    override fun update(o: Observable?, arg: Any?) {
-        if (o == PressureHistoryRepository) {
-            update()
-        }
     }
 
     private fun onPressureUpdate(): Boolean {
@@ -394,7 +386,7 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun getReadingHistory(): List<PressureAltitudeReading> {
-        return PressureHistoryRepository.getAll(requireContext())
+        return pressureRepo.get().toList()
     }
 
     private fun getWeatherImage(weather: Weather, currentPressure: PressureReading): Int {
