@@ -202,24 +202,6 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
-            android:summary="@string/pref_weather_foreground_service_summary"
-            app:defaultValue="false"
-            app:dependency="@string/pref_monitor_weather"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_weather_foreground_service"
-            app:singleLineTitle="false"
-            app:title="@string/pref_weather_foreground_service_title" />
-
-        <SwitchPreferenceCompat
-            android:dependency="@string/pref_monitor_weather"
-            android:summary="@string/pref_force_weather_updates_summary"
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_force_weather_updates"
-            app:singleLineTitle="false"
-            app:title="@string/pref_force_weather_updates_title" />
-
-        <SwitchPreferenceCompat
             app:defaultValue="true"
             app:dependency="@string/pref_monitor_weather"
             app:iconSpaceReserved="false"
@@ -228,6 +210,7 @@
             app:title="@string/pref_show_weather_notification_title" />
 
         <SwitchPreferenceCompat
+            android:dependency="@string/pref_show_weather_notification"
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_pressure_in_notification"

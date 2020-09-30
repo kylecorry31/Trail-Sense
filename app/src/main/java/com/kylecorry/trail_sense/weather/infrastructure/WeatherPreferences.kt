@@ -69,13 +69,7 @@ class WeatherPreferences(private val context: Context) {
                 prefs.getString(context.getString(R.string.pref_pressure_history), "48") ?: "48"
             return Duration.ofHours(raw.toLong())
         }
-
-    val forceUpdates: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_force_weather_updates), false)
-
-    val foregroundService: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_weather_foreground_service), false)
-
+    
     val sendStormAlerts: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_send_storm_alert), true)
 

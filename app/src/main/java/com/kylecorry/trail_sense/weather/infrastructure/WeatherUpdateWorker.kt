@@ -2,10 +2,7 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import androidx.work.*
-import androidx.work.impl.WorkContinuationImpl
-import androidx.work.impl.WorkManagerImpl
-import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateReceiver
-import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateService
+import com.kylecorry.trail_sense.weather.infrastructure.service.WeatherUpdateService
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
@@ -16,7 +13,7 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) : Worker(c
     }
 
     companion object {
-        const val WORK_TAG = "com.kylecorry.trail_sense.WeatherUpdateWorker"
+        private const val WORK_TAG = "com.kylecorry.trail_sense.WeatherUpdateWorker"
 
         fun start(
             context: Context,
@@ -26,7 +23,6 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) : Worker(c
 
             val constraints = Constraints.Builder()
                 .setRequiresBatteryNotLow(true)
-                .setRequiresDeviceIdle(false)
                 .build()
 
             val request = PeriodicWorkRequest.Builder(

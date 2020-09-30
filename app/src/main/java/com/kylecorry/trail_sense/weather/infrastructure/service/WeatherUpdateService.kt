@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure.receivers
+package com.kylecorry.trail_sense.weather.infrastructure.service
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -99,7 +99,7 @@ class WeatherUpdateService : Service() {
         val readings = weatherService.convertToSeaLevel(pressureRepo.get().toList())
         val forecast = weatherService.getHourlyWeather(readings)
 
-        if (userPrefs.weather.shouldShowWeatherNotification || userPrefs.weather.foregroundService) {
+        if (userPrefs.weather.shouldShowWeatherNotification) {
             WeatherNotificationService.updateNotificationForecast(
                 applicationContext,
                 forecast,
@@ -217,6 +217,12 @@ class WeatherUpdateService : Service() {
                 putBoolean(applicationContext.getString(R.string.pref_just_sent_alert), false)
             }
         }
+    }
+
+    override fun onDestroy() {
+        stopForeground(true)
+        stopSelf()
+        super.onDestroy()
     }
 
     private fun createNotificationChannel() {

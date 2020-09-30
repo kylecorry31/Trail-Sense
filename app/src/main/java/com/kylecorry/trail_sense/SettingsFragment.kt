@@ -14,14 +14,12 @@ import com.kylecorry.trail_sense.calibration.ui.CalibrateBarometerFragment
 import com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment
 import com.kylecorry.trail_sense.calibration.ui.CalibrateGPSFragment
 import com.kylecorry.trail_sense.licenses.LicenseFragment
-import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
-import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateReceiver
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
@@ -29,11 +27,8 @@ import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import java.lang.Exception
-
 
 class SettingsFragment : PreferenceFragmentCompat() {
-
 
     private var prefMonitorWeather: SwitchPreferenceCompat? = null
     private var prefWeatherUpdateFrequency: ListPreference? = null
@@ -94,15 +89,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
         prefShowWeatherNotification?.setOnPreferenceClickListener {
-            val notification = prefs.weather.shouldShowWeatherNotification
-            if (notification) {
-                WeatherUpdateScheduler.start(requireContext())
-            } else {
-                NotificationUtils.cancel(
-                    requireContext(),
-                    WeatherNotificationService.WEATHER_NOTIFICATION_ID
-                )
-            }
+            restartWeatherMonitor()
             updatePreferenceStates()
             true
         }
@@ -180,7 +167,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         prefShowPressureInNotification?.setOnPreferenceClickListener {
-            requireContext().sendBroadcast(WeatherUpdateReceiver.intent(requireContext()))
+            restartWeatherMonitor()
             true
         }
 
@@ -283,18 +270,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun updatePreferenceStates() {
-        val monitorWeather = prefs.weather.shouldMonitorWeather
-        val foreground = prefs.weather.foregroundService
-        val notification = prefs.weather.shouldShowWeatherNotification
         val distanceUnits = prefs.distanceUnits
-
-        prefWeatherUpdateFrequency?.isEnabled = monitorWeather
-        prefUpdateWeatherForeground?.isEnabled = monitorWeather
-        prefForceWeatherUpdates?.isEnabled = monitorWeather && !foreground
-        prefShowWeatherNotification?.isEnabled = monitorWeather && !foreground
-        prefShowPressureInNotification?.isEnabled = monitorWeather && (foreground || notification)
-        prefPressureHistory?.isEnabled = monitorWeather
-        prefStormAlerts?.isEnabled = monitorWeather
 
         if (distanceUnits == UserPreferences.DistanceUnits.Feet) {
             prefMaxBeaconDistanceKm?.isVisible = false
