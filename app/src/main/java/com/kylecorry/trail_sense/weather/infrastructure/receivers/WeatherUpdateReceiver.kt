@@ -71,7 +71,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
         sensorService = SensorService(this.context)
         barometer = sensorService.getBarometer()
-        altimeter = sensorService.getAltimeter()
+        altimeter = sensorService.getAltimeter(true)
         thermometer = sensorService.getThermometer()
 
         start(intent)
@@ -81,12 +81,12 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         scheduleNextAlarm(intent)
         sendWeatherNotification()
 
-        if (!canRun()) {
-            return
-        }
+//        if (!canRun()) {
+//            return
+//        }
 
         setLastUpdatedTime()
-        setSensorTimeout(10000L)
+        setSensorTimeout(30000L)
         startSensors()
     }
 
@@ -95,15 +95,15 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
             return
         }
 
-        if (receivedIntent?.action != INTENT_ACTION && AlarmUtils.isAlarmRunning(
-                context,
-                PI_ID,
-                alarmIntent(context)
-            )
-        ) {
-            Log.i(TAG, "Next alarm already scheduled, not setting a new one")
-            return
-        }
+//        if (receivedIntent?.action != INTENT_ACTION && AlarmUtils.isAlarmRunning(
+//                context,
+//                PI_ID,
+//                alarmIntent(context)
+//            )
+//        ) {
+//            Log.i(TAG, "Next alarm already scheduled, not setting a new one")
+//            return
+//        }
 
         val alarmFrequency = userPrefs.weather.weatherUpdateFrequency
 
