@@ -82,8 +82,8 @@ class WeatherUpdateService : Service() {
         )
         val notification = notification(
             getString(R.string.weather_update_notification_channel),
-            getString(R.string.weather_update_notification_channel_desc),
-            R.drawable.ic_more_h
+            getString(R.string.notification_monitoring_weather),
+            R.drawable.ic_update
         )
 
         startForeground(FOREGROUND_SERVICE_ID, notification)
@@ -240,7 +240,7 @@ class WeatherUpdateService : Service() {
 
     private fun notification(title: String, content: String, @DrawableRes icon: Int): Notification {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Notification.Builder(applicationContext, "Weather")
+            Notification.Builder(applicationContext, FOREGROUND_CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setSmallIcon(icon)
@@ -284,7 +284,7 @@ class WeatherUpdateService : Service() {
 
     companion object {
 
-        private const val FOREGROUND_SERVICE_ID = 62953
+        private const val FOREGROUND_SERVICE_ID = 629579783
         private const val STORM_CHANNEL_ID = "Alerts"
         private const val FOREGROUND_CHANNEL_ID = "WeatherUpdate"
         private const val TAG = "WeatherUpdateService"

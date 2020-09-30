@@ -12,7 +12,7 @@ object TrailSenseMaps {
     fun open(context: Context) {
         if (!isInstalled(context)) return
         val intent = context.packageManager.getLaunchIntentForPackage(PACKAGE) ?: return
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }
 

@@ -497,6 +497,6 @@
     <string name="beacon_group_name_hint">Name</string>
     <string name="no_group">No group</string>
     <string name="beacon_group_spinner_title">Group</string>
-    <string name="weather_update_notification_channel">Weather Update</string>
+    <string name="weather_update_notification_channel">Weather update</string>
     <string name="weather_update_notification_channel_desc">Background weather updates</string>
 </resources>
