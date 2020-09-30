@@ -78,14 +78,14 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun start(intent: Intent?) {
-        scheduleNextAlarm(intent)
+//        scheduleNextAlarm(intent)
         sendWeatherNotification()
 
 //        if (!canRun()) {
 //            return
 //        }
 
-        setLastUpdatedTime()
+//        setLastUpdatedTime()
         setSensorTimeout(30000L)
         startSensors()
     }

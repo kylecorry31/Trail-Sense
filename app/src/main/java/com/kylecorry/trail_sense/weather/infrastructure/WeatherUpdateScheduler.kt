@@ -9,18 +9,21 @@ import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateSe
 
 object WeatherUpdateScheduler {
     fun start(context: Context) {
-        if (runInForeground(context)) {
-            WeatherUpdateService.start(context.applicationContext)
-        } else {
-            context.sendBroadcast(WeatherUpdateReceiver.intent(context.applicationContext))
-        }
+//        if (runInForeground(context)) {
+//            WeatherUpdateService.start(context.applicationContext)
+//        } else {
+//            context.sendBroadcast(WeatherUpdateReceiver.intent(context.applicationContext))
+//        }
+        val freq = UserPreferences(context).weather.weatherUpdateFrequency
+        WeatherUpdateWorker.start(context, freq)
     }
 
     fun stop(context: Context) {
-        val pi = WeatherUpdateReceiver.pendingIntent(context)
-        AlarmUtils.cancel(context, pi)
-        WeatherUpdateService.stop(context.applicationContext)
+//        val pi = WeatherUpdateReceiver.pendingIntent(context)
+//        AlarmUtils.cancel(context, pi)
+//        WeatherUpdateService.stop(context.applicationContext)
         NotificationUtils.cancel(context, WeatherNotificationService.WEATHER_NOTIFICATION_ID)
+        WeatherUpdateWorker.stop(context)
     }
 
     private fun runInForeground(context: Context): Boolean {
