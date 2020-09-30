@@ -96,7 +96,8 @@
             android:foregroundServiceType="location" />
         <service
             android:name=".weather.infrastructure.receivers.WeatherUpdateService"
-            android:enabled="true" />
+            android:enabled="true"
+            android:foregroundServiceType="location"/>
     </application>
 
 </manifest>

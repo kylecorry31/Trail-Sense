@@ -1,20 +1,22 @@
 package com.kylecorry.trail_sense.weather.infrastructure.receivers
 
-import android.app.PendingIntent
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.Service
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import androidx.core.content.edit
+import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
 import com.kylecorry.trail_sense.shared.sensors.*
-import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
@@ -27,7 +29,6 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermome
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
 import java.time.Instant
-import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 class WeatherUpdateService : Service() {
@@ -70,11 +71,28 @@ class WeatherUpdateService : Service() {
         altimeter = sensorService.getAltimeter(true)
         thermometer = sensorService.getThermometer()
 
+
+        createChannel(
+            applicationContext,
+            FOREGROUND_CHANNEL_ID,
+            getString(R.string.weather_update_notification_channel),
+            getString(R.string.weather_update_notification_channel_desc),
+            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            false
+        )
+        val notification = notification(
+            getString(R.string.weather_update_notification_channel),
+            getString(R.string.weather_update_notification_channel_desc),
+            R.drawable.ic_more_h
+        )
+
+        startForeground(FOREGROUND_SERVICE_ID, notification)
+
         sendWeatherNotification()
         setSensorTimeout(30000L)
         startSensors()
 
-        return START_STICKY_COMPATIBILITY
+        return START_NOT_STICKY
     }
 
     private fun sendWeatherNotification() {
@@ -82,28 +100,11 @@ class WeatherUpdateService : Service() {
         val forecast = weatherService.getHourlyWeather(readings)
 
         if (userPrefs.weather.shouldShowWeatherNotification || userPrefs.weather.foregroundService) {
-            WeatherNotificationService.updateNotificationForecast(applicationContext, forecast, readings)
-        }
-    }
-
-    private fun canRun(): Boolean {
-        val threshold = Duration.ofMinutes(5)
-        val lastCalled = Duration.between(getLastUpdatedTime(), LocalDateTime.now())
-
-        return lastCalled >= threshold
-    }
-
-    private fun getLastUpdatedTime(): LocalDateTime {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        val raw = prefs.getString(LAST_CALLED_KEY, LocalDateTime.MIN.toString())
-            ?: LocalDateTime.MIN.toString()
-        return LocalDateTime.parse(raw)
-    }
-
-    private fun setLastUpdatedTime() {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        prefs.edit {
-            putString(LAST_CALLED_KEY, LocalDateTime.now().toString())
+            WeatherNotificationService.updateNotificationForecast(
+                applicationContext,
+                forecast,
+                readings
+            )
         }
     }
 
@@ -152,6 +153,7 @@ class WeatherUpdateService : Service() {
         sendStormAlert()
         sendWeatherNotification()
         Log.i(TAG, "Got all readings recorded at ${ZonedDateTime.now()}")
+        stopForeground(true)
         stopSelf()
     }
 
@@ -166,7 +168,7 @@ class WeatherUpdateService : Service() {
     }
 
     private fun addNewPressureReading() {
-        if (barometer.pressure == 0f){
+        if (barometer.pressure == 0f) {
             return
         }
         pressureRepo.add(
@@ -183,7 +185,8 @@ class WeatherUpdateService : Service() {
     private fun sendStormAlert() {
         createNotificationChannel()
         val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        val sentAlert = prefs.getBoolean(applicationContext.getString(R.string.pref_just_sent_alert), false)
+        val sentAlert =
+            prefs.getBoolean(applicationContext.getString(R.string.pref_just_sent_alert), false)
 
         val readings = pressureRepo.get().toList()
         val forecast = weatherService.getHourlyWeather(weatherService.convertToSeaLevel(readings))
@@ -198,7 +201,11 @@ class WeatherUpdateService : Service() {
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .build()
 
-                NotificationUtils.send(applicationContext, STORM_ALERT_NOTIFICATION_ID, notification)
+                NotificationUtils.send(
+                    applicationContext,
+                    STORM_ALERT_NOTIFICATION_ID,
+                    notification
+                )
 
                 prefs.edit {
                     putBoolean(applicationContext.getString(R.string.pref_just_sent_alert), true)
@@ -221,9 +228,59 @@ class WeatherUpdateService : Service() {
         )
     }
 
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
+    }
+
+    private fun notification(title: String, content: String, @DrawableRes icon: Int): Notification {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Notification.Builder(applicationContext, "Weather")
+                .setContentTitle(title)
+                .setContentText(content)
+                .setSmallIcon(icon)
+                .setOnlyAlertOnce(true)
+                .setAutoCancel(false)
+                .setOngoing(false)
+                .build()
+        } else {
+            @Suppress("DEPRECATION")
+            Notification.Builder(applicationContext)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setSmallIcon(icon)
+                .setPriority(Notification.PRIORITY_LOW)
+                .setOnlyAlertOnce(true)
+                .setAutoCancel(false)
+                .setOngoing(false)
+                .build()
+        }
+    }
+
+    fun createChannel(
+        context: Context,
+        id: String,
+        name: String,
+        description: String,
+        importance: Int,
+        sound: Boolean = false
+    ) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            return
+        }
+        val channel = NotificationChannel(id, name, importance).apply {
+            this.description = description
+            if (!sound) {
+                setSound(null, null)
+            }
+        }
+        context.getSystemService<NotificationManager>()?.createNotificationChannel(channel)
+    }
+
     companion object {
 
+        private const val FOREGROUND_SERVICE_ID = 62953
         private const val STORM_CHANNEL_ID = "Alerts"
+        private const val FOREGROUND_CHANNEL_ID = "WeatherUpdate"
         private const val TAG = "WeatherUpdateService"
         private const val STORM_ALERT_NOTIFICATION_ID = 74309823
 
@@ -231,10 +288,5 @@ class WeatherUpdateService : Service() {
             return Intent(context, WeatherUpdateService::class.java)
         }
 
-        private const val LAST_CALLED_KEY = "weatherLastUpdated"
-    }
-
-    override fun onBind(intent: Intent?): IBinder? {
-        return null
     }
 }
