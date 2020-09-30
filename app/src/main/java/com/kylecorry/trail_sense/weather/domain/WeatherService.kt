@@ -21,7 +21,7 @@ class WeatherService(
     private val newWeatherService: IWeatherService = WeatherService()
     private val seaLevelConverter = AltimeterSeaLevelPressureConverter(
         if (adjustSeaLevelWithBarometer) PressureDwellAltitudeCalculator(Duration.ofHours(3),
-            60f, 5f) else DwellAltitudeCalculator(
+            60f, 1f) else DwellAltitudeCalculator(
             Duration.ofHours(3),
             60f
         ),
