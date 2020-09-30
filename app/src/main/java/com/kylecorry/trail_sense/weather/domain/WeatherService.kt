@@ -4,6 +4,7 @@ import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster
 import com.kylecorry.trail_sense.weather.domain.sealevel.AltimeterSeaLevelPressureConverter
 import com.kylecorry.trail_sense.weather.domain.sealevel.BarometerGPSAltitudeCalculator
 import com.kylecorry.trail_sense.weather.domain.sealevel.DwellAltitudeCalculator
+import com.kylecorry.trail_sense.weather.domain.sealevel.PressureDwellAltitudeCalculator
 import com.kylecorry.trailsensecore.domain.weather.*
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import java.time.Duration
@@ -19,7 +20,8 @@ class WeatherService(
     private val longTermForecaster = DailyForecaster(dailyForecastChangeThreshold)
     private val newWeatherService: IWeatherService = WeatherService()
     private val seaLevelConverter = AltimeterSeaLevelPressureConverter(
-        if (adjustSeaLevelWithBarometer) BarometerGPSAltitudeCalculator() else DwellAltitudeCalculator(
+        if (adjustSeaLevelWithBarometer) PressureDwellAltitudeCalculator(Duration.ofHours(3),
+            60f, 5f) else DwellAltitudeCalculator(
             Duration.ofHours(3),
             60f
         ),
