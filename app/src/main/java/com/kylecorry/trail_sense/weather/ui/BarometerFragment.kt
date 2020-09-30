@@ -110,7 +110,7 @@ class BarometerFragment : Fragment() {
                     pressureMarkerTxt.text = getString(
                         R.string.pressure_reading_time_ago,
                         formatted,
-                        timeAgo.formatHM(true)
+                        timeAgo.formatHM(false)
                     )
                     valueSelectedTime = System.currentTimeMillis()
                 }
@@ -355,24 +355,11 @@ class BarometerFragment : Fragment() {
     }
 
     private fun getCurrentPressure(): PressureReading {
-//        val reading = PressureAltitudeReading(
-//            Instant.now(),
-//            barometer.pressure,
-//            altimeter.altitude,
-//            thermometer.temperature
-//        )
-
         return if (useSeaLevelPressure) {
             getSeaLevelPressureHistory(true)
         } else {
             getPressureHistory(true)
         }.last()
-
-//        return if (useSeaLevelPressure) {
-//            reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
-//        } else {
-//            reading.pressureReading()
-//        }
     }
 
     private fun displayPressure(pressure: PressureReading) {
