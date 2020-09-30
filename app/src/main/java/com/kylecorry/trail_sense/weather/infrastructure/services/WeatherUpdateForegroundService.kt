@@ -9,14 +9,14 @@ import android.util.Log
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
-import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateReceiver
+import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateService
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
-class WeatherUpdateService : Service() {
+class WeatherUpdateForegroundService : Service() {
 
     private val intervalometer = Intervalometer {
-        sendBroadcast(WeatherUpdateReceiver.intent(applicationContext))
-        Log.i(WeatherUpdateService::class.simpleName, "Broadcast sent")
+        startService(WeatherUpdateService.intent(applicationContext))
+        Log.i(WeatherUpdateForegroundService::class.simpleName, "Broadcast sent")
     }
 
     private val prefs by lazy { UserPreferences(this) }
@@ -53,7 +53,7 @@ class WeatherUpdateService : Service() {
         private var started = false
 
         fun intent(context: Context): Intent {
-            return Intent(context, WeatherUpdateService::class.java)
+            return Intent(context, WeatherUpdateForegroundService::class.java)
         }
 
         fun start(context: Context) {
@@ -68,7 +68,7 @@ class WeatherUpdateService : Service() {
             }
         }
 
-        fun stop(context: Context){
+        fun stop(context: Context) {
             context.stopService(intent(context))
         }
     }
