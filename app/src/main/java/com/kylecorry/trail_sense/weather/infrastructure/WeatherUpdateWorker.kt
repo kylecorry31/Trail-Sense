@@ -12,10 +12,7 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) : Worker(c
     override fun doWork(): Result {
         applicationContext.startService(WeatherUpdateService.intent(applicationContext))
         val prefs = UserPreferences(applicationContext)
-        val intervalometer = Intervalometer {
-            start(applicationContext, prefs.weather.weatherUpdateFrequency)
-        }
-        intervalometer.once(Duration.ofSeconds(1))
+        start(applicationContext, prefs.weather.weatherUpdateFrequency)
         return Result.success()
     }
 
