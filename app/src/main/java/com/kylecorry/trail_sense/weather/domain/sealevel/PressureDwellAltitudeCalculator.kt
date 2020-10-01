@@ -30,7 +30,7 @@ internal class PressureDwellAltitudeCalculator(
             val dt = Duration.between(lastReading.time, reading.time).toMillis() * MILLIS_TO_HOURS
             val dp = (reading.pressure - lastReading.pressure) / dt
 
-            if (abs(lastGroup.first().value - reading.altitude) < changeThreshold || abs(dp) < pressureChangeThreshold) {
+            if (abs(lastGroup.first().value - reading.altitude) < changeThreshold && abs(dp) < pressureChangeThreshold) {
                 lastGroup.add(AltitudeReading(reading.time, reading.altitude))
             } else {
                 groups.add(mutableListOf(AltitudeReading(reading.time, reading.altitude)))
