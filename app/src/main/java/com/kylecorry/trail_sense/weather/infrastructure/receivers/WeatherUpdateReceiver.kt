@@ -80,12 +80,6 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     private fun start(intent: Intent?) {
         scheduleNextAlarm(intent)
         sendWeatherNotification()
-
-//        if (!canRun()) {
-//            return
-//        }
-
-        setLastUpdatedTime()
         setSensorTimeout(30000L)
         startSensors()
     }
@@ -94,16 +88,6 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         if (userPrefs.weather.foregroundService) {
             return
         }
-
-//        if (receivedIntent?.action != INTENT_ACTION && AlarmUtils.isAlarmRunning(
-//                context,
-//                PI_ID,
-//                alarmIntent(context)
-//            )
-//        ) {
-//            Log.i(TAG, "Next alarm already scheduled, not setting a new one")
-//            return
-//        }
 
         val alarmFrequency = userPrefs.weather.weatherUpdateFrequency
 
@@ -128,27 +112,6 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
         if (userPrefs.weather.shouldShowWeatherNotification || userPrefs.weather.foregroundService) {
             WeatherNotificationService.updateNotificationForecast(context, forecast, readings)
-        }
-    }
-
-    private fun canRun(): Boolean {
-        val threshold = Duration.ofMinutes(5)
-        val lastCalled = Duration.between(getLastUpdatedTime(), LocalDateTime.now())
-
-        return lastCalled >= threshold
-    }
-
-    private fun getLastUpdatedTime(): LocalDateTime {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val raw = prefs.getString(LAST_CALLED_KEY, LocalDateTime.MIN.toString())
-            ?: LocalDateTime.MIN.toString()
-        return LocalDateTime.parse(raw)
-    }
-
-    private fun setLastUpdatedTime() {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        prefs.edit {
-            putString(LAST_CALLED_KEY, LocalDateTime.now().toString())
         }
     }
 
@@ -289,7 +252,5 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         private fun alarmIntent(context: Context): Intent {
             return IntentUtils.localIntent(context, INTENT_ACTION)
         }
-
-        private const val LAST_CALLED_KEY = "weatherLastUpdated"
     }
 }
