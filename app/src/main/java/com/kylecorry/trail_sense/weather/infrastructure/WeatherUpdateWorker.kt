@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import androidx.work.*
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.service.WeatherUpdateService
 import java.time.Duration
 import java.util.concurrent.TimeUnit
@@ -9,6 +10,8 @@ import java.util.concurrent.TimeUnit
 class WeatherUpdateWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     override fun doWork(): Result {
         applicationContext.startService(WeatherUpdateService.intent(applicationContext))
+        val prefs = UserPreferences(applicationContext)
+        start(applicationContext, prefs.weather.weatherUpdateFrequency)
         return Result.success()
     }
 
@@ -25,15 +28,16 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) : Worker(c
                 .setRequiresBatteryNotLow(true)
                 .build()
 
-            val request = PeriodicWorkRequest.Builder(
-                WeatherUpdateWorker::class.java,
-                interval.toMinutes(),
-                TimeUnit.MINUTES
-            ).addTag(WORK_TAG).setConstraints(constraints).build()
+            val request = OneTimeWorkRequest
+                .Builder(WeatherUpdateWorker::class.java)
+                .addTag(WORK_TAG)
+                .setInitialDelay(interval.toMillis(), TimeUnit.MILLISECONDS)
+                .setConstraints(constraints)
+                .build()
 
-            workManager.enqueueUniquePeriodicWork(
+            workManager.enqueueUniqueWork(
                 WORK_TAG,
-                ExistingPeriodicWorkPolicy.REPLACE,
+                ExistingWorkPolicy.REPLACE,
                 request
             )
         }

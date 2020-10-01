@@ -4,11 +4,11 @@ import android.content.Context
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.service.WeatherUpdateService
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
+import java.time.Duration
 
 object WeatherUpdateScheduler {
     fun start(context: Context) {
-        val freq = UserPreferences(context).weather.weatherUpdateFrequency
-        WeatherUpdateWorker.start(context, freq)
+        WeatherUpdateWorker.start(context, Duration.ZERO)
     }
 
     fun stop(context: Context) {
