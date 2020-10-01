@@ -70,6 +70,9 @@ class WeatherPreferences(private val context: Context) {
             return Duration.ofHours(raw.toLong())
         }
 
+    val requireDwell: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_sea_level_require_dwell), false)
+
     val forceUpdates: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_force_weather_updates), false)
 

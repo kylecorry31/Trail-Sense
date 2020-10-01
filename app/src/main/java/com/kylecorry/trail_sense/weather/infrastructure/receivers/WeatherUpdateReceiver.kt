@@ -107,7 +107,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun sendWeatherNotification() {
-        val readings = weatherService.convertToSeaLevel(pressureRepo.get().toList())
+        val readings = weatherService.convertToSeaLevel(pressureRepo.get().toList(), userPrefs.weather.requireDwell)
         val forecast = weatherService.getHourlyWeather(readings)
 
         if (userPrefs.weather.shouldShowWeatherNotification || userPrefs.weather.foregroundService) {
@@ -193,7 +193,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         val sentAlert = prefs.getBoolean(context.getString(R.string.pref_just_sent_alert), false)
 
         val readings = pressureRepo.get().toList()
-        val forecast = weatherService.getHourlyWeather(weatherService.convertToSeaLevel(readings))
+        val forecast = weatherService.getHourlyWeather(weatherService.convertToSeaLevel(readings, userPrefs.weather.requireDwell))
 
         if (forecast == Weather.Storm) {
             val shouldSend = userPrefs.weather.sendStormAlerts

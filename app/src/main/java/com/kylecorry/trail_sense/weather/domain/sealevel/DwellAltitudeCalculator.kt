@@ -6,7 +6,7 @@ import java.time.Duration
 import kotlin.math.abs
 
 internal class DwellAltitudeCalculator(private val dwellThreshold: Duration, private val changeThreshold: Float) : IAltitudeCalculator {
-    override fun convert(readings: List<PressureAltitudeReading>): List<AltitudeReading> {
+    override fun convert(readings: List<PressureAltitudeReading>, interpolateAltitudeChanges: Boolean): List<AltitudeReading> {
 
         if (readings.size <= 1) {
             return readings.map { AltitudeReading(it.time, it.altitude) }
@@ -49,24 +49,26 @@ internal class DwellAltitudeCalculator(private val dwellThreshold: Duration, pri
             }
         }
 
-        val first = AltitudeReading(readings.first().time, readings.first().altitude)
-        val last = AltitudeReading(readings.last().time, readings.last().altitude)
-        for (i in 0 until newAltitudes.size) {
-            if (newAltitudes[i].value.isNaN()) {
-                val prev = prevValid(newAltitudes, i, first)
-                val next = nextValid(newAltitudes, i, last)
+        if (interpolateAltitudeChanges) {
+            val first = AltitudeReading(readings.first().time, readings.first().altitude)
+            val last = AltitudeReading(readings.last().time, readings.last().altitude)
+            for (i in 0 until newAltitudes.size) {
+                if (newAltitudes[i].value.isNaN()) {
+                    val prev = prevValid(newAltitudes, i, first)
+                    val next = nextValid(newAltitudes, i, last)
 
-                val range = next.time.epochSecond - prev.time.epochSecond
-                val percentOfTime = if (range == 0L) {
-                    0f
-                } else {
-                    (newAltitudes[i].time.epochSecond - prev.time.epochSecond) / range.toFloat()
+                    val range = next.time.epochSecond - prev.time.epochSecond
+                    val percentOfTime = if (range == 0L) {
+                        0f
+                    } else {
+                        (newAltitudes[i].time.epochSecond - prev.time.epochSecond) / range.toFloat()
+                    }
+
+                    val altitudeChange = next.value - prev.value
+                    val avg = prev.value + altitudeChange * percentOfTime
+                    val old = newAltitudes.removeAt(i)
+                    newAltitudes.add(i, old.copy(value = avg))
                 }
-
-                val altitudeChange = next.value - prev.value
-                val avg = prev.value + altitudeChange * percentOfTime
-                val old = newAltitudes.removeAt(i)
-                newAltitudes.add(i, old.copy(value = avg))
             }
         }
         return newAltitudes
