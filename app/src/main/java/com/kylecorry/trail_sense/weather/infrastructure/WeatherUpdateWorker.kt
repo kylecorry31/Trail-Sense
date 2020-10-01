@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.work.*
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.service.WeatherUpdateService
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
@@ -11,7 +12,10 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) : Worker(c
     override fun doWork(): Result {
         applicationContext.startService(WeatherUpdateService.intent(applicationContext))
         val prefs = UserPreferences(applicationContext)
-        start(applicationContext, prefs.weather.weatherUpdateFrequency)
+        val intervalometer = Intervalometer {
+            start(applicationContext, prefs.weather.weatherUpdateFrequency)
+        }
+        intervalometer.once(Duration.ofSeconds(1))
         return Result.success()
     }
 
