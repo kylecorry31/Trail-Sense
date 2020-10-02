@@ -242,7 +242,7 @@ class BarometerFragment : Fragment() {
                 )
             )
         }
-        return weatherService.convertToSeaLevel(readings)
+        return weatherService.convertToSeaLevel(readings, prefs.weather.requireDwell)
     }
 
     private fun getPressureHistory(includeCurrent: Boolean = false): List<PressureReading> {

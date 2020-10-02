@@ -45,6 +45,15 @@
             app:singleLineTitle="false"
             app:title="@string/pref_sea_level_use_rapid_title" />
 
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_use_sea_level_pressure"
+            android:summary="@string/pref_sea_level_require_dwell_summary"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_sea_level_require_dwell"
+            app:singleLineTitle="false"
+            app:title="@string/pref_sea_level_require_dwell_title" />
+
         <SeekBarPreference
             android:defaultValue="0"
             android:max="30"

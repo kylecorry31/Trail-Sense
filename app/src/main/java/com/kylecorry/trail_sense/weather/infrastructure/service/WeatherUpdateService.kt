@@ -96,7 +96,7 @@ class WeatherUpdateService : Service() {
     }
 
     private fun sendWeatherNotification() {
-        val readings = weatherService.convertToSeaLevel(pressureRepo.get().toList())
+        val readings = weatherService.convertToSeaLevel(pressureRepo.get().toList(), userPrefs.weather.requireDwell)
         val forecast = weatherService.getHourlyWeather(readings)
 
         if (userPrefs.weather.shouldShowWeatherNotification) {
@@ -189,7 +189,7 @@ class WeatherUpdateService : Service() {
             prefs.getBoolean(applicationContext.getString(R.string.pref_just_sent_alert), false)
 
         val readings = pressureRepo.get().toList()
-        val forecast = weatherService.getHourlyWeather(weatherService.convertToSeaLevel(readings))
+        val forecast = weatherService.getHourlyWeather(weatherService.convertToSeaLevel(readings, userPrefs.weather.requireDwell))
 
         if (forecast == Weather.Storm) {
             val shouldSend = userPrefs.weather.sendStormAlerts
@@ -293,6 +293,5 @@ class WeatherUpdateService : Service() {
         fun intent(context: Context): Intent {
             return Intent(context, WeatherUpdateService::class.java)
         }
-
     }
 }

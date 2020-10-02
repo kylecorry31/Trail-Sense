@@ -5,7 +5,7 @@ import com.kylecorry.trailsensecore.domain.weather.PressureReading
 
 internal class NullPressureConverter :
     ISeaLevelPressureConverter {
-    override fun convert(readings: List<PressureAltitudeReading>): List<PressureReading> {
+    override fun convert(readings: List<PressureAltitudeReading>, interpolateAltitudeChanges: Boolean): List<PressureReading> {
         return readings.map {
             PressureReading(
                 it.time,

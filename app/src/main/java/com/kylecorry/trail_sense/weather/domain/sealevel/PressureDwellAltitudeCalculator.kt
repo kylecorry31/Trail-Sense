@@ -10,7 +10,10 @@ internal class PressureDwellAltitudeCalculator(
     private val changeThreshold: Float,
     private val pressureChangeThreshold: Float
 ) : IAltitudeCalculator {
-    override fun convert(readings: List<PressureAltitudeReading>): List<AltitudeReading> {
+    override fun convert(
+        readings: List<PressureAltitudeReading>,
+        interpolateAltitudeChanges: Boolean
+    ): List<AltitudeReading> {
 
         if (readings.size <= 1) {
             return readings.map { AltitudeReading(it.time, it.altitude) }
@@ -30,10 +33,10 @@ internal class PressureDwellAltitudeCalculator(
             val dt = Duration.between(lastReading.time, reading.time).toMillis() * MILLIS_TO_HOURS
             val dp = (reading.pressure - lastReading.pressure) / dt
 
-            if (abs(lastGroup.first().value - reading.altitude) < changeThreshold && abs(dp) < pressureChangeThreshold) {
-                lastGroup.add(AltitudeReading(reading.time, reading.altitude))
-            } else {
+            if (abs(lastGroup.first().value - reading.altitude) > changeThreshold || (abs(dp) > pressureChangeThreshold && dt > 1000 * 60)) {
                 groups.add(mutableListOf(AltitudeReading(reading.time, reading.altitude)))
+            } else {
+                lastGroup.add(AltitudeReading(reading.time, reading.altitude))
             }
 
             lastReading = reading
@@ -61,24 +64,26 @@ internal class PressureDwellAltitudeCalculator(
             }
         }
 
-        val first = AltitudeReading(readings.first().time, readings.first().altitude)
-        val last = AltitudeReading(readings.last().time, readings.last().altitude)
-        for (i in 0 until newAltitudes.size) {
-            if (newAltitudes[i].value.isNaN()) {
-                val prev = prevValid(newAltitudes, i, first)
-                val next = nextValid(newAltitudes, i, last)
+        if (interpolateAltitudeChanges) {
+            val first = AltitudeReading(readings.first().time, readings.first().altitude)
+            val last = AltitudeReading(readings.last().time, readings.last().altitude)
+            for (i in 0 until newAltitudes.size) {
+                if (newAltitudes[i].value.isNaN()) {
+                    val prev = prevValid(newAltitudes, i, first)
+                    val next = nextValid(newAltitudes, i, last)
 
-                val range = next.time.epochSecond - prev.time.epochSecond
-                val percentOfTime = if (range == 0L) {
-                    0f
-                } else {
-                    (newAltitudes[i].time.epochSecond - prev.time.epochSecond) / range.toFloat()
+                    val range = next.time.epochSecond - prev.time.epochSecond
+                    val percentOfTime = if (range == 0L) {
+                        0f
+                    } else {
+                        (newAltitudes[i].time.epochSecond - prev.time.epochSecond) / range.toFloat()
+                    }
+
+                    val altitudeChange = next.value - prev.value
+                    val avg = prev.value + altitudeChange * percentOfTime
+                    val old = newAltitudes.removeAt(i)
+                    newAltitudes.add(i, old.copy(value = avg))
                 }
-
-                val altitudeChange = next.value - prev.value
-                val avg = prev.value + altitudeChange * percentOfTime
-                val old = newAltitudes.removeAt(i)
-                newAltitudes.add(i, old.copy(value = avg))
             }
         }
         return newAltitudes

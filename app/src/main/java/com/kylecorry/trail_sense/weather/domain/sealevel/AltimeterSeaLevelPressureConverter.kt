@@ -8,12 +8,16 @@ internal class AltimeterSeaLevelPressureConverter(
     private val useTemperature: Boolean
 ) : ISeaLevelPressureConverter {
 
-    override fun convert(readings: List<PressureAltitudeReading>): List<PressureReading> {
-        val altitudeHistory = altitudeCalculator.convert(readings)
+    override fun convert(
+        readings: List<PressureAltitudeReading>,
+        interpolateAltitudeChanges: Boolean
+    ): List<PressureReading> {
+        val altitudeHistory = altitudeCalculator.convert(readings, interpolateAltitudeChanges)
 
-        return readings.mapIndexed { index, reading ->
-            reading.copy(altitude = altitudeHistory[index].value).seaLevel(useTemperature)
-        }
+        return readings
+            .mapIndexed { index, reading -> reading.copy(altitude = altitudeHistory[index].value) }
+            .filterNot { it.altitude.isNaN() }
+            .map { it.seaLevel(useTemperature) }
     }
 
 }

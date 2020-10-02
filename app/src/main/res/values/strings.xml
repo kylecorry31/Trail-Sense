@@ -499,4 +499,7 @@
     <string name="beacon_group_spinner_title">Group</string>
     <string name="weather_update_notification_channel">Weather update</string>
     <string name="weather_update_notification_channel_desc">Background weather updates</string>
+    <string name="pref_sea_level_require_dwell">pref_sea_level_require_dwell</string>
+    <string name="pref_sea_level_require_dwell_summary">Only show readings when the altitude hasn\'t changed for at least an hour. Improves forecast reliability.</string>
+    <string name="pref_sea_level_require_dwell_title">Ignore rapid altitude changes</string>
 </resources>
