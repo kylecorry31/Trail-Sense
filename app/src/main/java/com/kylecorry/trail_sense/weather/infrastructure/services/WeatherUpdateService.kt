@@ -60,8 +60,7 @@ class WeatherUpdateService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.i(TAG, "Started at ${ZonedDateTime.now()}")
-        wakelock = PowerUtils.getWakelock(applicationContext, TAG)
-        wakelock?.acquire(10 * 60 * 1000L)
+        acquireWakelock()
         userPrefs = UserPreferences(applicationContext)
         pressureRepo = PressureRepo(applicationContext)
         weatherService = WeatherService(
@@ -101,6 +100,26 @@ class WeatherUpdateService : Service() {
         startSensors()
 
         return START_NOT_STICKY
+    }
+
+    private fun releaseWakelock(){
+        try {
+            if (wakelock?.isHeld == true) {
+                wakelock?.release()
+            }
+        } catch (e: Exception) {
+            // DO NOTHING
+        }
+    }
+
+    private fun acquireWakelock() {
+        try {
+            wakelock = PowerUtils.getWakelock(applicationContext, TAG)
+            releaseWakelock()
+            wakelock?.acquire(10 * 60 * 1000L)
+        } catch (e: Exception) {
+            // DO NOTHING
+        }
     }
 
     private fun sendWeatherNotification() {
@@ -164,7 +183,7 @@ class WeatherUpdateService : Service() {
         sendStormAlert()
         sendWeatherNotification()
         Log.i(TAG, "Got all readings recorded at ${ZonedDateTime.now()}")
-        wakelock?.release()
+        releaseWakelock()
         stopForeground(true)
         stopSelf()
     }
