@@ -177,7 +177,7 @@ class NavigatorFragment(
         val beacon = destination?.id
         if (beacon != null) {
             showCalibrationDialog()
-            cache.putInt(LAST_BEACON_ID, beacon)
+            cache.putLong(LAST_BEACON_ID, beacon)
         }
 
         roundCompass = CompassView(
@@ -352,7 +352,7 @@ class NavigatorFragment(
         beacons = beaconRepo.get()
 
         // Resume navigation
-        val lastBeaconId = cache.getInt(LAST_BEACON_ID)
+        val lastBeaconId = cache.getLong(LAST_BEACON_ID)
         if (lastBeaconId != null) {
             destination = beaconRepo.get(lastBeaconId)
         }
@@ -666,7 +666,7 @@ class NavigatorFragment(
     }
 
     companion object {
-        const val LAST_BEACON_ID = "last_beacon_id"
+        const val LAST_BEACON_ID = "last_beacon_id_long"
         const val LAST_DEST_BEARING = "last_dest_bearing"
     }
 

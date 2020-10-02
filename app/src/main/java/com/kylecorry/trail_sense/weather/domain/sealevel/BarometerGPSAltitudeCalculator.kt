@@ -8,7 +8,7 @@ import kotlin.math.abs
 
 internal class BarometerGPSAltitudeCalculator(private val maxNaturalPressureChange: Float = 5f) :
     IAltitudeCalculator {
-    override fun convert(readings: List<PressureAltitudeReading>): List<AltitudeReading> {
+    override fun convert(readings: List<PressureAltitudeReading>, interpolateAltitudeChanges: Boolean): List<AltitudeReading> {
 
         if (readings.isEmpty()) return listOf()
 

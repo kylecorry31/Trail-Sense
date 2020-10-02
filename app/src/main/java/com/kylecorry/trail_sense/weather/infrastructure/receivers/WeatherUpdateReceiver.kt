@@ -16,7 +16,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
-import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
+import com.kylecorry.trail_sense.weather.infrastructure.database.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
@@ -50,6 +50,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
     private lateinit var userPrefs: UserPreferences
     private lateinit var weatherService: WeatherService
+    private lateinit var pressureRepo: PressureRepo
 
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.i(TAG, "Broadcast received at ${ZonedDateTime.now()}")
@@ -59,6 +60,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
         this.context = context.applicationContext
         userPrefs = UserPreferences(this.context)
+        pressureRepo = PressureRepo(this.context)
         weatherService = WeatherService(
             userPrefs.weather.stormAlertThreshold,
             userPrefs.weather.dailyForecastChangeThreshold,
@@ -69,7 +71,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
 
         sensorService = SensorService(this.context)
         barometer = sensorService.getBarometer()
-        altimeter = sensorService.getAltimeter()
+        altimeter = sensorService.getAltimeter(true)
         thermometer = sensorService.getThermometer()
 
         start(intent)
@@ -78,28 +80,12 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     private fun start(intent: Intent?) {
         scheduleNextAlarm(intent)
         sendWeatherNotification()
-
-        if (!canRun()) {
-            return
-        }
-
-        setLastUpdatedTime()
-        setSensorTimeout(10000L)
+        setSensorTimeout(30000L)
         startSensors()
     }
 
     private fun scheduleNextAlarm(receivedIntent: Intent?) {
         if (userPrefs.weather.foregroundService) {
-            return
-        }
-
-        if (receivedIntent?.action != INTENT_ACTION && AlarmUtils.isAlarmRunning(
-                context,
-                PI_ID,
-                alarmIntent(context)
-            )
-        ) {
-            Log.i(TAG, "Next alarm already scheduled, not setting a new one")
             return
         }
 
@@ -120,40 +106,12 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         )
     }
 
-    private fun hasNotification(): Boolean {
-        return NotificationUtils.isNotificationActive(
-            context,
-            WeatherNotificationService.WEATHER_NOTIFICATION_ID
-        )
-    }
-
     private fun sendWeatherNotification() {
-        val readings = weatherService.convertToSeaLevel(PressureHistoryRepository.getAll(context))
+        val readings = weatherService.convertToSeaLevel(pressureRepo.get().toList(), userPrefs.weather.requireDwell)
         val forecast = weatherService.getHourlyWeather(readings)
 
         if (userPrefs.weather.shouldShowWeatherNotification || userPrefs.weather.foregroundService) {
             WeatherNotificationService.updateNotificationForecast(context, forecast, readings)
-        }
-    }
-
-    private fun canRun(): Boolean {
-        val threshold = Duration.ofMinutes(5)
-        val lastCalled = Duration.between(getLastUpdatedTime(), LocalDateTime.now())
-
-        return lastCalled >= threshold
-    }
-
-    private fun getLastUpdatedTime(): LocalDateTime {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val raw = prefs.getString(LAST_CALLED_KEY, LocalDateTime.MIN.toString())
-            ?: LocalDateTime.MIN.toString()
-        return LocalDateTime.parse(raw)
-    }
-
-    private fun setLastUpdatedTime() {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        prefs.edit {
-            putString(LAST_CALLED_KEY, LocalDateTime.now().toString())
         }
     }
 
@@ -215,8 +173,10 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
     }
 
     private fun addNewPressureReading() {
-        PressureHistoryRepository.add(
-            context,
+        if (barometer.pressure == 0f){
+            return
+        }
+        pressureRepo.add(
             PressureAltitudeReading(
                 Instant.now(),
                 barometer.pressure,
@@ -224,6 +184,7 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
                 if (thermometer.temperature.isNaN()) 16f else thermometer.temperature
             )
         )
+        pressureRepo.deleteOlderThan(Instant.now().minus(Duration.ofHours(48)))
     }
 
     private fun sendStormAlert() {
@@ -231,8 +192,8 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val sentAlert = prefs.getBoolean(context.getString(R.string.pref_just_sent_alert), false)
 
-        val readings = PressureHistoryRepository.getAll(context)
-        val forecast = weatherService.getHourlyWeather(weatherService.convertToSeaLevel(readings))
+        val readings = pressureRepo.get().toList()
+        val forecast = weatherService.getHourlyWeather(weatherService.convertToSeaLevel(readings, userPrefs.weather.requireDwell))
 
         if (forecast == Weather.Storm) {
             val shouldSend = userPrefs.weather.sendStormAlerts
@@ -291,7 +252,5 @@ class WeatherUpdateReceiver : BroadcastReceiver() {
         private fun alarmIntent(context: Context): Intent {
             return IntentUtils.localIntent(context, INTENT_ACTION)
         }
-
-        private const val LAST_CALLED_KEY = "weatherLastUpdated"
     }
 }

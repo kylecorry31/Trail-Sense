@@ -29,21 +29,22 @@ import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import java.lang.Exception
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
 
-    private lateinit var prefMonitorWeather: SwitchPreferenceCompat
-    private lateinit var prefWeatherUpdateFrequency: ListPreference
-    private lateinit var prefUpdateWeatherForeground: SwitchPreferenceCompat
-    private lateinit var prefForceWeatherUpdates: SwitchPreferenceCompat
-    private lateinit var prefShowWeatherNotification: SwitchPreferenceCompat
-    private lateinit var prefShowPressureInNotification: SwitchPreferenceCompat
-    private lateinit var prefPressureHistory: ListPreference
-    private lateinit var prefStormAlerts: SwitchPreferenceCompat
-    private lateinit var prefMaxBeaconDistanceKm: EditTextPreference
-    private lateinit var prefMaxBeaconDistanceMi: EditTextPreference
+    private var prefMonitorWeather: SwitchPreferenceCompat? = null
+    private var prefWeatherUpdateFrequency: ListPreference? = null
+    private var prefUpdateWeatherForeground: SwitchPreferenceCompat? = null
+    private var prefForceWeatherUpdates: SwitchPreferenceCompat? = null
+    private var prefShowWeatherNotification: SwitchPreferenceCompat? = null
+    private var prefShowPressureInNotification: SwitchPreferenceCompat? = null
+    private var prefPressureHistory: ListPreference? = null
+    private var prefStormAlerts: SwitchPreferenceCompat? = null
+    private var prefMaxBeaconDistanceKm: EditTextPreference? = null
+    private var prefMaxBeaconDistanceMi: EditTextPreference? = null
     private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val intervalometer = Intervalometer {
@@ -78,7 +79,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             preferenceScreen.removePreferenceRecursively(getString(R.string.pref_barometer_calibration))
         }
 
-        prefMonitorWeather.setOnPreferenceClickListener {
+        prefMonitorWeather?.setOnPreferenceClickListener {
             if (prefs.weather.shouldMonitorWeather) {
                 WeatherUpdateScheduler.start(requireContext())
             } else {
@@ -87,12 +88,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             updatePreferenceStates()
             true
         }
-        prefUpdateWeatherForeground.setOnPreferenceClickListener {
+        prefUpdateWeatherForeground?.setOnPreferenceClickListener {
             restartWeatherMonitor()
             updatePreferenceStates()
             true
         }
-        prefShowWeatherNotification.setOnPreferenceClickListener {
+        prefShowWeatherNotification?.setOnPreferenceClickListener {
             val notification = prefs.weather.shouldShowWeatherNotification
             if (notification) {
                 WeatherUpdateScheduler.start(requireContext())
@@ -105,7 +106,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             updatePreferenceStates()
             true
         }
-        prefWeatherUpdateFrequency.setOnPreferenceClickListener {
+        prefWeatherUpdateFrequency?.setOnPreferenceClickListener {
             restartWeatherMonitor()
             true
         }
@@ -118,14 +119,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
         refreshOnChange(switch(R.string.pref_enable_experimental))
 
         val maxDistance = prefs.navigation.maxBeaconDistance
-        prefMaxBeaconDistanceMi.summary = formatService.formatDistance(
+        prefMaxBeaconDistanceMi?.summary = formatService.formatDistance(
             unitService.convert(
                 maxDistance,
                 DistanceUnits.Meters,
                 DistanceUnits.Miles
             ), DistanceUnits.Miles
         )
-        prefMaxBeaconDistanceKm.summary = formatService.formatDistance(
+        prefMaxBeaconDistanceKm?.summary = formatService.formatDistance(
             unitService.convert(
                 maxDistance,
                 DistanceUnits.Meters,
@@ -133,21 +134,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
             ), DistanceUnits.Kilometers
         )
 
-        prefMaxBeaconDistanceMi.setOnBindEditTextListener { editText ->
+        prefMaxBeaconDistanceMi?.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
         }
 
-        prefMaxBeaconDistanceKm.setOnBindEditTextListener { editText ->
+        prefMaxBeaconDistanceKm?.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
         }
 
-        prefMaxBeaconDistanceMi.setOnPreferenceChangeListener { _, newValue ->
+        prefMaxBeaconDistanceMi?.setOnPreferenceChangeListener { _, newValue ->
             val miles = newValue.toString().toFloatOrNull() ?: 62f
             prefs.navigation.maxBeaconDistance =
                 unitService.convert(miles, DistanceUnits.Miles, DistanceUnits.Meters)
-            prefMaxBeaconDistanceMi.summary =
+            prefMaxBeaconDistanceMi?.summary =
                 formatService.formatDistance(miles, DistanceUnits.Miles)
-            prefMaxBeaconDistanceKm.summary = formatService.formatDistance(
+            prefMaxBeaconDistanceKm?.summary = formatService.formatDistance(
                 unitService.convert(
                     miles,
                     DistanceUnits.Miles,
@@ -157,7 +158,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
-        prefMaxBeaconDistanceKm.setOnPreferenceChangeListener { _, newValue ->
+        prefMaxBeaconDistanceKm?.setOnPreferenceChangeListener { _, newValue ->
             val km = newValue.toString().toFloatOrNull() ?: 100f
             preferenceManager.sharedPreferences.edit {
                 putString(
@@ -166,19 +167,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         .toString()
                 )
             }
-            prefMaxBeaconDistanceMi.summary = formatService.formatDistance(
+            prefMaxBeaconDistanceMi?.summary = formatService.formatDistance(
                 unitService.convert(
                     km,
                     DistanceUnits.Kilometers,
                     DistanceUnits.Miles
                 ), DistanceUnits.Miles
             )
-            prefMaxBeaconDistanceKm.summary =
+            prefMaxBeaconDistanceKm?.summary =
                 formatService.formatDistance(km, DistanceUnits.Kilometers)
             true
         }
 
-        prefShowPressureInNotification.setOnPreferenceClickListener {
+        prefShowPressureInNotification?.setOnPreferenceClickListener {
             requireContext().sendBroadcast(WeatherUpdateReceiver.intent(requireContext()))
             true
         }
@@ -262,15 +263,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onPause()
     }
 
-    private fun fragmentOnClick(pref: Preference, fragmentFactory: () -> Fragment) {
-        pref.setOnPreferenceClickListener {
+    private fun fragmentOnClick(pref: Preference?, fragmentFactory: () -> Fragment) {
+        pref?.setOnPreferenceClickListener {
             switchToFragment(fragmentFactory.invoke(), addToBackStack = true)
             false
         }
     }
 
-    private fun refreshOnChange(pref: Preference) {
-        pref.setOnPreferenceChangeListener { _, _ ->
+    private fun refreshOnChange(pref: Preference?) {
+        pref?.setOnPreferenceChangeListener { _, _ ->
             activity?.recreate()
             true
         }
@@ -287,37 +288,37 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val notification = prefs.weather.shouldShowWeatherNotification
         val distanceUnits = prefs.distanceUnits
 
-        prefWeatherUpdateFrequency.isEnabled = monitorWeather
-        prefUpdateWeatherForeground.isEnabled = monitorWeather
-        prefForceWeatherUpdates.isEnabled = monitorWeather && !foreground
-        prefShowWeatherNotification.isEnabled = monitorWeather && !foreground
-        prefShowPressureInNotification.isEnabled = monitorWeather && (foreground || notification)
-        prefPressureHistory.isEnabled = monitorWeather
-        prefStormAlerts.isEnabled = monitorWeather
+        prefWeatherUpdateFrequency?.isEnabled = monitorWeather
+        prefUpdateWeatherForeground?.isEnabled = monitorWeather
+        prefForceWeatherUpdates?.isEnabled = monitorWeather && !foreground
+        prefShowWeatherNotification?.isEnabled = monitorWeather && !foreground
+        prefShowPressureInNotification?.isEnabled = monitorWeather && (foreground || notification)
+        prefPressureHistory?.isEnabled = monitorWeather
+        prefStormAlerts?.isEnabled = monitorWeather
 
         if (distanceUnits == UserPreferences.DistanceUnits.Feet) {
-            prefMaxBeaconDistanceKm.isVisible = false
-            prefMaxBeaconDistanceMi.isVisible = true
+            prefMaxBeaconDistanceKm?.isVisible = false
+            prefMaxBeaconDistanceMi?.isVisible = true
         } else {
-            prefMaxBeaconDistanceKm.isVisible = true
-            prefMaxBeaconDistanceMi.isVisible = false
+            prefMaxBeaconDistanceKm?.isVisible = true
+            prefMaxBeaconDistanceMi?.isVisible = false
         }
     }
 
-    private fun switch(@StringRes id: Int): SwitchPreferenceCompat {
-        return preferenceManager.findPreference(getString(id))!!
+    private fun switch(@StringRes id: Int): SwitchPreferenceCompat? {
+        return preferenceManager.findPreference(getString(id))
     }
 
-    private fun editText(@StringRes id: Int): EditTextPreference {
-        return preferenceManager.findPreference(getString(id))!!
+    private fun editText(@StringRes id: Int): EditTextPreference? {
+        return preferenceManager.findPreference(getString(id))
     }
 
-    private fun list(@StringRes id: Int): ListPreference {
-        return preferenceManager.findPreference(getString(id))!!
+    private fun list(@StringRes id: Int): ListPreference? {
+        return preferenceManager.findPreference(getString(id))
     }
 
-    private fun preference(@StringRes id: Int): Preference {
-        return preferenceManager.findPreference(getString(id))!!
+    private fun preference(@StringRes id: Int): Preference? {
+        return preferenceManager.findPreference(getString(id))
     }
 
     @ArrayRes

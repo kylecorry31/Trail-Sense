@@ -3,13 +3,15 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
         app:title="@string/pref_altimeter_calibration_title">
 
         <Preference
+            android:icon="@drawable/ic_altitude"
             android:summary="-"
             android:title="@string/altitude"
-            android:icon="@drawable/ic_altitude"
-            app:key="@string/pref_holder_altitude" />
+            app:key="@string/pref_holder_altitude"
+            app:singleLineTitle="false" />
 
         <ListPreference
             app:defaultValue="gps_barometer"
@@ -17,6 +19,7 @@
             app:entryValues="@array/altimeter_mode_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_altimeter_calibration_mode"
+            app:singleLineTitle="false"
             app:title="@string/pref_altimeter_calibration_mode_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -25,6 +28,7 @@
             android:inputType="numberDecimal"
             app:iconSpaceReserved="false"
             app:key="@string/pref_altitude_override"
+            app:singleLineTitle="false"
             app:title="@string/pref_altitude_override_title" />
 
         <EditTextPreference
@@ -32,21 +36,24 @@
             android:inputType="numberDecimal"
             app:iconSpaceReserved="false"
             app:key="@string/pref_altitude_override_feet"
+            app:singleLineTitle="false"
             app:title="@string/pref_altitude_override_title" />
 
         <Preference
             android:title="@string/altitude_from_gps"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_altitude_from_gps_btn" />
+            app:key="@string/pref_altitude_from_gps_btn"
+            app:singleLineTitle="false" />
 
         <EditTextPreference
             android:defaultValue="0.0"
             android:dialogMessage="@string/pref_altitude_override_sea_level_dialog_msg"
             android:dialogTitle="@string/pref_altitude_override_sea_level_dialog_title"
             android:inputType="numberDecimal"
-            app:iconSpaceReserved="false"
             android:summary="@string/pref_altitude_override_sea_level_title"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_altitude_override_sea_level"
+            app:singleLineTitle="false"
             app:title="@string/altitude_from_pressure" />
 
         <SwitchPreferenceCompat
@@ -54,6 +61,7 @@
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_altitude_offsets"
+            app:singleLineTitle="false"
             app:title="@string/add_elevation_offsets" />
 
 

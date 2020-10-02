@@ -1,50 +1,43 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.domain.LocationMath
-import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
-import com.kylecorry.trail_sense.navigation.infrastructure.share.*
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.doTransaction
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
+import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
+import com.kylecorry.trailsensecore.domain.navigation.IBeacon
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
+import com.kylecorry.trailsensecore.infrastructure.view.ListView
 
-class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?) : Fragment() {
+
+class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?) :
+    Fragment() {
 
     private lateinit var beaconRepo: BeaconRepo
     private lateinit var gps: IGPS
 
     constructor() : this(null, null)
 
-    private lateinit var beaconList: RecyclerView
+    private lateinit var beaconList: ListView<IBeacon>
     private lateinit var createBtn: FloatingActionButton
-    private lateinit var adapter: BeaconAdapter
     private lateinit var emptyTxt: TextView
-    private lateinit var shareSheet: LinearLayout
-    private lateinit var prefs: UserPreferences
-    private lateinit var location: Coordinate
-    private lateinit var navigationService: NavigationService
+    private lateinit var titleTxt: TextView
     private val sensorService by lazy { SensorService(requireContext()) }
-
-    private var selectedBeacon: Beacon? = null
-
-    private var showMultipleBeacons = false
+    private var displayedGroup: BeaconGroup? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,94 +48,96 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
 
         beaconRepo = _repo ?: BeaconRepo(requireContext())
         gps = _gps ?: sensorService.getGPS()
-        location = gps.location
-        navigationService = NavigationService()
 
-        beaconList = view.findViewById(R.id.beacon_recycler)
+        val beaconRecyclerView = view.findViewById<RecyclerView>(R.id.beacon_recycler)
+        beaconList =
+            ListView(beaconRecyclerView, R.layout.list_item_beacon, this::updateBeaconListItem)
+        beaconList.addLineSeparator()
         createBtn = view.findViewById(R.id.create_beacon_btn)
         emptyTxt = view.findViewById(R.id.beacon_empty_text)
-        shareSheet = view.findViewById(R.id.share_sheet)
+        titleTxt = view.findViewById(R.id.beacon_title)
 
-        prefs = UserPreferences(requireContext())
-        showMultipleBeacons = prefs.navigation.showMultipleBeacons
-
-        val layoutManager = LinearLayoutManager(context)
-        beaconList.layoutManager = layoutManager
-
-        val dividerItemDecoration = DividerItemDecoration(
-            context,
-            layoutManager.orientation
-        )
-        beaconList.addItemDecoration(dividerItemDecoration)
-
-        val beacons = beaconRepo.get().sortedBy {
-            navigationService.navigate(
-                it.coordinate,
-                location,
-                0f
-            ).distance
-        }
-        updateBeaconEmptyText(beacons.isNotEmpty())
-
-        adapter = BeaconAdapter(beacons)
-        beaconList.adapter = adapter
+        updateBeaconList()
 
         createBtn.setOnClickListener {
-            parentFragmentManager.doTransaction {
-                this.replace(
-                    R.id.fragment_holder,
+            if (displayedGroup != null) {
+                switchToFragment(
                     PlaceBeaconFragment(
                         beaconRepo,
-                        gps
-                    )
+                        gps,
+                        initialGroup = displayedGroup
+                    ), addToBackStack = true
                 )
-                addToBackStack(javaClass.name)
-            }
-        }
-
-        shareSheet.findViewById<Button>(R.id.cancel_button).setOnClickListener {
-            shareSheet.visibility = View.GONE
-        }
-
-        shareSheet.findViewById<LinearLayout>(R.id.share_action_send).setOnClickListener {
-            selectedBeacon?.apply {
-                val sender = BeaconSharesheet(requireContext())
-                sender.send(this)
-            }
-            shareSheet.visibility = View.GONE
-        }
-
-        shareSheet.findViewById<LinearLayout>(R.id.share_action_copy_coordinates)
-            .setOnClickListener {
-                selectedBeacon?.apply {
-                    val sender = BeaconCoordinatesCopy(requireContext(), Clipboard(requireContext()), prefs)
-                    sender.send(this)
+            } else {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.apply {
+                    setTitle(getString(R.string.beacon_create))
+                    setPositiveButton(getString(R.string.beacon_create_beacon)) { dialog, _ ->
+                        switchToFragment(
+                            PlaceBeaconFragment(
+                                beaconRepo,
+                                gps
+                            ), addToBackStack = true
+                        )
+                        dialog.dismiss()
+                    }
+                    setNeutralButton(getString(R.string.dialog_cancel)) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    setNegativeButton(getString(R.string.beacon_create_group)) { dialog, _ ->
+                        editTextDialog(
+                            requireContext(),
+                            getString(R.string.beacon_create_group),
+                            getString(R.string.beacon_group_name_hint),
+                            null,
+                            null,
+                            getString(R.string.dialog_ok),
+                            getString(R.string.dialog_cancel)
+                        ) { cancelled, text ->
+                            if (!cancelled) {
+                                beaconRepo.add(BeaconGroup(0, text ?: ""))
+                                updateBeaconList()
+                            }
+                        }
+                        dialog.dismiss()
+                    }
                 }
-                shareSheet.visibility = View.GONE
-            }
 
-        shareSheet.findViewById<LinearLayout>(R.id.share_action_copy_beacon).setOnClickListener {
-            selectedBeacon?.apply {
-                val sender = BeaconCopy(requireContext(), Clipboard(requireContext()), prefs)
-                sender.send(this)
+                val dialog = builder.create()
+                dialog.show()
             }
-            shareSheet.visibility = View.GONE
         }
 
-        shareSheet.findViewById<LinearLayout>(R.id.share_action_geo).setOnClickListener {
-            selectedBeacon?.apply {
-                val sender = BeaconGeoSender(requireContext())
-                sender.send(this)
-            }
-            shareSheet.visibility = View.GONE
-        }
-
-        if (beacons.isNotEmpty() && prefs.navigation.showBeaconListToast) {
-            UiUtils.shortToast(requireContext(), getString(R.string.long_press_beacon_toast))
-            prefs.navigation.showBeaconListToast = false
+        view.isFocusableInTouchMode = true
+        view.requestFocus()
+        view.setOnKeyListener { _, keyCode, _ ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && displayedGroup != null) {
+                displayedGroup = null
+                updateBeaconList()
+                true
+            } else false
         }
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (gps.hasValidReading) {
+            onLocationUpdate()
+        } else {
+            gps.start(this::onLocationUpdate)
+        }
+    }
+
+    override fun onPause() {
+        gps.stop(this::onLocationUpdate)
+        super.onPause()
+    }
+
+    private fun onLocationUpdate(): Boolean {
+        updateBeaconList()
+        return false
     }
 
     private fun updateBeaconEmptyText(hasBeacons: Boolean) {
@@ -153,127 +148,130 @@ class BeaconListFragment(private val _repo: BeaconRepo?, private val _gps: IGPS?
         }
     }
 
-    inner class BeaconHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private var nameText: TextView = itemView.findViewById(R.id.beacon_name_disp)
-        private var locationText: TextView = itemView.findViewById(R.id.beacon_location_disp)
-        private var distanceText: TextView = itemView.findViewById(R.id.beacon_distance_disp)
-        private var copyBtn: ImageButton = itemView.findViewById(R.id.copy_btn)
-        private var visibilityBtn: ImageButton = itemView.findViewById(R.id.visible_btn)
-        private var beaconVisibility = false
-
-        fun bindToBeacon(beacon: Beacon) {
-            beaconVisibility = beacon.visible
-            nameText.text = beacon.name
-
-            locationText.text = prefs.navigation.formatLocation(beacon.coordinate)
-            val distance = navigationService.navigate(beacon.coordinate, location, 0f).distance
-            distanceText.text = LocationMath.distanceToReadableString(distance, prefs.distanceUnits)
-
-
-            if (!showMultipleBeacons) {
-                visibilityBtn.visibility = View.GONE
+    private fun updateBeaconListItem(itemView: View, beacon: IBeacon) {
+        if (beacon is Beacon) {
+            val listItem = BeaconListItem(itemView, beacon, gps.location)
+            listItem.onEdit = {
+                switchToFragment(
+                    PlaceBeaconFragment(
+                        beaconRepo,
+                        gps,
+                        null,
+                        beacon
+                    ), addToBackStack = true
+                )
             }
 
-            if (beaconVisibility) {
-                visibilityBtn.setImageResource(R.drawable.ic_visible)
-            } else {
-                visibilityBtn.setImageResource(R.drawable.ic_not_visible)
+            listItem.onNavigate = {
+                switchToFragment(NavigatorFragment(beacon))
             }
 
-            visibilityBtn.setOnClickListener {
-                val newBeacon = beacon.copy(visible = !beaconVisibility)
-                beaconRepo.add(newBeacon)
-                beaconVisibility = newBeacon.visible
-                if (beaconVisibility) {
-                    visibilityBtn.setImageResource(R.drawable.ic_visible)
-                } else {
-                    visibilityBtn.setImageResource(R.drawable.ic_not_visible)
-                }
+            listItem.onDeleted = {
+                updateBeaconList()
             }
-
-            copyBtn.setOnClickListener {
-                shareSheet.visibility = View.VISIBLE
-                selectedBeacon = beacon
+        } else if (beacon is BeaconGroup) {
+            val listItem = BeaconGroupListItem(itemView, beacon)
+            listItem.onDeleted = {
+                updateBeaconList()
             }
-
-            itemView.setOnClickListener {
-                parentFragmentManager.doTransaction {
-                    this.replace(
-                        R.id.fragment_holder,
-                        NavigatorFragment(
-                            beacon
-                        )
-                    )
-                }
-            }
-
-            itemView.setOnLongClickListener {
-                val dialog: AlertDialog? = activity?.let {
-                    val builder = AlertDialog.Builder(it)
-                    builder.apply {
-                        setPositiveButton(R.string.edit_beacon) { _, _ ->
-                            parentFragmentManager.doTransaction {
-                                this.replace(
-                                    R.id.fragment_holder,
-                                    PlaceBeaconFragment(
-                                        beaconRepo,
-                                        gps,
-                                        null,
-                                        beacon
-                                    )
-                                )
-                                addToBackStack(javaClass.name)
-                            }
-                        }
-                        setNeutralButton(R.string.dialog_cancel) { _, _ ->
-                            // Do nothing
-                        }
-                        setNegativeButton(R.string.delete_beacon) { _, _ ->
-                            beaconRepo.delete(beacon)
-                            adapter.beacons = beaconRepo.get().sortedBy { beacon ->
-                                navigationService.navigate(
-                                    beacon.coordinate,
-                                    location,
-                                    0f
-                                ).distance
-                            }
-                            updateBeaconEmptyText(adapter.beacons.isNotEmpty())
-                        }
-                        setMessage(prefs.navigation.formatLocation(beacon.coordinate))
-                        setTitle(beacon.name)
+            listItem.onEdit = {
+                editTextDialog(
+                    requireContext(),
+                    getString(R.string.beacon_create_group),
+                    getString(R.string.beacon_group_name_hint),
+                    null,
+                    beacon.name,
+                    getString(R.string.dialog_ok),
+                    getString(R.string.dialog_cancel)
+                ) { cancelled, text ->
+                    if (!cancelled) {
+                        beaconRepo.add(beacon.copy(name = text ?: ""))
+                        updateBeaconList()
                     }
-                    builder.create()
                 }
-                dialog?.show()
-                true
+            }
+            listItem.onOpen = {
+                displayedGroup = beacon
+                updateBeaconList()
             }
         }
     }
 
-    inner class BeaconAdapter(mBeacons: List<Beacon>) : RecyclerView.Adapter<BeaconHolder>() {
+    private fun editTextDialog(
+        context: Context,
+        title: String,
+        hint: String?,
+        description: String?,
+        initialInputText: String?,
+        okButton: String,
+        cancelButton: String,
+        onClose: (cancelled: Boolean, text: String?) -> Unit
+    ): AlertDialog {
+        val layout = FrameLayout(context)
+        val editTextView = EditText(context)
+        editTextView.setText(initialInputText)
+        editTextView.hint = hint
+        layout.setPadding(64, 0, 64, 0)
+        layout.addView(editTextView)
 
-        var beacons: List<Beacon> = mBeacons
-            set(value) {
-                field = value
-                notifyDataSetChanged()
+        val builder = AlertDialog.Builder(context)
+        builder.apply {
+            setTitle(title)
+            if (description != null) {
+                setMessage(description)
             }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeaconHolder {
-            val view = layoutInflater.inflate(R.layout.list_item_beacon, parent, false)
-            return BeaconHolder(view)
+            setView(layout)
+            setPositiveButton(okButton) { dialog, _ ->
+                onClose(false, editTextView.text.toString())
+                dialog.dismiss()
+            }
+            setNegativeButton(cancelButton) { dialog, _ ->
+                onClose(true, null)
+                dialog.dismiss()
+            }
         }
 
-        override fun getItemCount(): Int {
-            return beacons.size
-        }
-
-        override fun onBindViewHolder(holder: BeaconHolder, position: Int) {
-            val beacon = beacons[position]
-            holder.bindToBeacon(beacon)
-        }
-
+        val dialog = builder.create()
+        dialog.show()
+        return dialog
     }
 
+    private fun updateBeaconList() {
+        context ?: return
+
+        titleTxt.text = displayedGroup?.name ?: getString(R.string.beacon_list_title)
+
+
+        val beacons = if (displayedGroup == null) {
+            val ungrouped = beaconRepo.getByGroup(null).sortedBy {
+                it.coordinate.distanceTo(gps.location)
+            }
+
+            val groups = beaconRepo.getGroups().sortedBy {
+                it.name
+            }
+
+            val all = (ungrouped + groups).map {
+                if (it is Beacon) {
+                    Pair(it, it.coordinate.distanceTo(gps.location))
+                } else {
+                    val groupBeacons = beaconRepo.getByGroup(it.id).map { b ->
+                        b.coordinate.distanceTo(gps.location)
+                    }.minOrNull()
+                    Pair(it, groupBeacons ?: Float.POSITIVE_INFINITY)
+                }
+            }
+
+            all.sortedBy { it.second }.map { it.first }
+        } else {
+            beaconRepo.getByGroup(displayedGroup?.id).sortedBy {
+                it.coordinate.distanceTo(gps.location)
+            }
+        }
+
+        updateBeaconEmptyText(beacons.isNotEmpty())
+
+        beaconList.setData(beacons)
+    }
 }
 

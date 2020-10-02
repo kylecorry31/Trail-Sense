@@ -3,25 +3,29 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
         app:title="@string/gps">
 
         <Preference
             android:summary="-"
             android:title="@string/gps_location"
             app:icon="@drawable/satellite"
-            app:key="@string/pref_holder_location" />
+            app:key="@string/pref_holder_location"
+            app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_auto_location"
+            app:singleLineTitle="false"
             app:title="@string/pref_auto_location_title" />
 
         <Preference
             android:title="@string/pref_gps_request_permission_title"
             app:iconSpaceReserved="false"
             app:isPreferenceVisible="false"
-            app:key="@string/pref_gps_request_permission" />
+            app:key="@string/pref_gps_request_permission"
+            app:singleLineTitle="false" />
 
         <EditTextPreference
             android:defaultValue="0.0"
@@ -30,6 +34,7 @@
             android:inputType="numberDecimal"
             app:iconSpaceReserved="false"
             app:key="@string/pref_latitude_override"
+            app:singleLineTitle="false"
             app:title="@string/pref_latitude_override_title" />
 
         <EditTextPreference
@@ -39,12 +44,14 @@
             android:inputType="numberDecimal"
             app:iconSpaceReserved="false"
             app:key="@string/pref_longitude_override"
+            app:singleLineTitle="false"
             app:title="@string/pref_longitude_override_title" />
 
         <Preference
             android:title="@string/pref_gps_override_btn_title"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_gps_override_btn" />
+            app:key="@string/pref_gps_override_btn"
+            app:singleLineTitle="false" />
 
 
     </PreferenceCategory>

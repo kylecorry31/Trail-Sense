@@ -6,39 +6,18 @@ import java.time.Duration
 import java.time.Instant
 import java.util.*
 
-object PressureHistoryRepository : Observable(), IPressureHistoryRepository {
+internal object PressureHistoryRepository {
 
     private const val FILE_NAME = "pressure.csv"
     private val keepDuration: Duration = Duration.ofHours(48).plusMinutes(5)
 
-    private var readings: MutableList<PressureAltitudeReading> = mutableListOf()
-
-    private var loaded = false
-
-    override fun getAll(context: Context): List<PressureAltitudeReading> {
-        if (!loaded) {
-            loadFromFile(context)
-        }
-        return readings
-    }
-
-    override fun add(context: Context, reading: PressureAltitudeReading) {
-        if (!loaded) {
-            loadFromFile(context)
-        }
-        readings.add(reading)
-        removeOldReadings()
-        saveToFile(context)
-        setChanged()
-        notifyObservers()
-    }
-
-    private fun removeOldReadings() {
-        readings.removeIf { Duration.between(it.time, Instant.now()) > keepDuration }
-    }
-
-    private fun loadFromFile(context: Context) {
+    fun clear(context: Context) {
         if (!context.getFileStreamPath(FILE_NAME).exists()) return
+        context.deleteFile(FILE_NAME)
+    }
+
+    fun get(context: Context): List<PressureAltitudeReading> {
+        if (!context.getFileStreamPath(FILE_NAME).exists()) return listOf()
         context.openFileInput(FILE_NAME).use { file ->
             val readings = file.bufferedReader().useLines { lines ->
                 lines.map { it.split(",") }
@@ -54,20 +33,7 @@ object PressureHistoryRepository : Observable(), IPressureHistoryRepository {
                     .toMutableList()
             }
             file.close()
-            loaded = true
-            PressureHistoryRepository.readings = readings
-            removeOldReadings()
-            setChanged()
-            notifyObservers()
-        }
-    }
-
-    private fun saveToFile(context: Context) {
-        context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE).use {
-            val output = readings.joinToString("\n") { reading ->
-                "${reading.time.toEpochMilli()},${reading.pressure},${reading.altitude},${reading.temperature}"
-            }.toByteArray()
-            it.write(output)
+            return readings.filter { Duration.between(it.time, Instant.now()) <= keepDuration }
         }
     }
 

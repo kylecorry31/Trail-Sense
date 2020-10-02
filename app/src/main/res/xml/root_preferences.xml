@@ -3,6 +3,7 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
         app:title="@string/pref_units_header">
 
         <ListPreference
@@ -11,6 +12,7 @@
             app:entryValues="@array/distance_unit_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_distance_units"
+            app:singleLineTitle="false"
             app:title="@string/pref_distance_units_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -20,6 +22,7 @@
             app:entryValues="@array/pressure_unit_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_pressure_units"
+            app:singleLineTitle="false"
             app:title="@string/pref_pressure_units_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -29,6 +32,7 @@
             app:entryValues="@array/temperature_unit_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_temperature_units"
+            app:singleLineTitle="false"
             app:title="@string/pref_temperature_units_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -38,6 +42,7 @@
             app:entryValues="@array/coordinate_format_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_coordinate_format"
+            app:singleLineTitle="false"
             app:title="@string/pref_coordinate_format_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -45,6 +50,7 @@
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_use_24_hour"
+            app:singleLineTitle="false"
             app:title="@string/pref_use_24_hour_title" />
 
         <ListPreference
@@ -53,6 +59,7 @@
             app:entryValues="@array/theme_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_theme"
+            app:singleLineTitle="false"
             app:title="@string/pref_theme_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -60,32 +67,38 @@
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_enable_experimental"
+            app:singleLineTitle="false"
             app:title="@string/experimental_tools_title" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
         app:title="@string/pref_category_sensors_title">
         <Preference
             android:key="@string/pref_compass_sensor"
             android:title="@string/pref_compass_sensor_title"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <Preference
             android:key="@string/pref_gps_calibration"
             android:title="@string/gps"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <Preference
             android:key="@string/pref_altimeter_calibration"
             android:title="@string/pref_altimeter_calibration_title"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <Preference
             android:key="@string/pref_barometer_calibration"
             android:title="@string/barometer_thermometer"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <EditTextPreference
             android:inputType="numberDecimal"
@@ -94,6 +107,7 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_ruler_calibration"
             app:min="0"
+            app:singleLineTitle="false"
             app:title="@string/pref_ruler_calibration_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -101,18 +115,21 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
         app:title="@string/pref_navigation_header">
 
         <SwitchPreferenceCompat
             android:title="@string/pref_show_calibrate_on_navigate_dialog_title"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_show_calibrate_on_navigate_dialog" />
+            app:key="@string/pref_show_calibrate_on_navigate_dialog"
+            app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_display_multi_beacons"
+            app:singleLineTitle="false"
             app:summary="@string/pref_display_multi_beacons_summary"
             app:title="@string/pref_display_multi_beacons_title" />
 
@@ -123,33 +140,37 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_num_visible_beacons"
             app:min="0"
+            app:singleLineTitle="false"
             app:title="@string/pref_num_visible_beacons_title"
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
+            android:dialogMessage="@string/pref_max_beacon_distance_km_message"
             android:inputType="number"
             app:defaultValue="100"
             app:dependency="@string/pref_display_multi_beacons"
             app:iconSpaceReserved="false"
             app:key="@string/pref_max_beacon_distance"
             app:min="0"
-            android:dialogMessage="@string/pref_max_beacon_distance_km_message"
+            app:singleLineTitle="false"
             app:title="@string/pref_max_beacon_distance_title" />
 
         <EditTextPreference
+            android:dialogMessage="@string/pref_max_beacon_distance_miles_message"
             android:inputType="number"
             app:defaultValue="62"
             app:dependency="@string/pref_display_multi_beacons"
             app:iconSpaceReserved="false"
             app:key="@string/pref_max_beacon_distance_miles"
             app:min="0"
-            android:dialogMessage="@string/pref_max_beacon_distance_miles_message"
+            app:singleLineTitle="false"
             app:title="@string/pref_max_beacon_distance_title" />
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_linear_compass"
+            app:singleLineTitle="false"
             app:summary="@string/pref_show_linear_compass_summary"
             app:title="@string/pref_show_linear_compass_title" />
 
@@ -158,12 +179,14 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:key="@string/pref_weather_category"
+        app:singleLineTitle="false"
         app:title="@string/pref_weather_header">
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_monitor_weather"
+            app:singleLineTitle="false"
             app:summary="@string/pref_monitor_weather_summary"
             app:title="@string/pref_monitor_weather_title" />
 
@@ -174,36 +197,41 @@
             app:entryValues="@array/weather_update_frequency_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_weather_update_frequency"
+            app:singleLineTitle="false"
             app:title="@string/pref_weather_update_frequency_title"
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            android:summary="@string/pref_weather_foreground_service_summary"
             app:defaultValue="false"
             app:dependency="@string/pref_monitor_weather"
             app:iconSpaceReserved="false"
             app:key="@string/pref_weather_foreground_service"
-            app:title="@string/pref_weather_foreground_service_title"
-            android:summary="@string/pref_weather_foreground_service_summary"/>
+            app:singleLineTitle="false"
+            app:title="@string/pref_weather_foreground_service_title" />
 
         <SwitchPreferenceCompat
+            android:dependency="@string/pref_monitor_weather"
+            android:summary="@string/pref_force_weather_updates_summary"
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_force_weather_updates"
-            app:title="@string/pref_force_weather_updates_title"
-            android:summary="@string/pref_force_weather_updates_summary"
-            android:dependency="@string/pref_monitor_weather"/>
+            app:singleLineTitle="false"
+            app:title="@string/pref_force_weather_updates_title" />
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:dependency="@string/pref_monitor_weather"
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_weather_notification"
+            app:singleLineTitle="false"
             app:title="@string/pref_show_weather_notification_title" />
 
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_pressure_in_notification"
+            app:singleLineTitle="false"
             app:title="@string/pref_show_pressure_in_notification_title" />
 
         <ListPreference
@@ -213,6 +241,7 @@
             app:entryValues="@array/pressure_history_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_pressure_history"
+            app:singleLineTitle="false"
             app:title="@string/pref_pressure_history_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -221,6 +250,7 @@
             app:dependency="@string/pref_monitor_weather"
             app:iconSpaceReserved="false"
             app:key="@string/pref_send_storm_alert"
+            app:singleLineTitle="false"
             app:title="@string/pref_send_storm_alerts_title" />
 
         <ListPreference
@@ -229,6 +259,7 @@
             app:entryValues="@array/forecast_sensitivity_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_forecast_sensitivity"
+            app:singleLineTitle="false"
             app:title="@string/pref_forecast_sensitivity_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -238,6 +269,7 @@
             app:entryValues="@array/storm_alert_sensitivity_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_storm_alert_sensitivity"
+            app:singleLineTitle="false"
             app:title="@string/pref_storm_alert_sensitivity_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -246,6 +278,7 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
         app:title="@string/pref_astronomy_header">
 
         <ListPreference
@@ -254,6 +287,7 @@
             app:entryValues="@array/sun_times_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_sun_time_mode"
+            app:singleLineTitle="false"
             app:title="@string/pref_sun_time_mode_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -261,6 +295,7 @@
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_sunset_alerts"
+            app:singleLineTitle="false"
             app:title="@string/pref_sunset_alerts_title" />
 
         <ListPreference
@@ -270,6 +305,7 @@
             app:entryValues="@array/sunset_alert_time_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_sunset_alert_time"
+            app:singleLineTitle="false"
             app:title="@string/pref_sunset_alert_time_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -277,6 +313,7 @@
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_center_sun_and_moon"
+            app:singleLineTitle="false"
             app:title="@string/pref_center_sun_and_moon_title" />
 
         <ListPreference
@@ -285,6 +322,7 @@
             app:defaultValue="never"
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_sun_moon_compass"
+            app:singleLineTitle="false"
             app:title="@string/pref_show_sun_moon_compass_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -293,29 +331,34 @@
 
     <PreferenceCategory
         android:title="@string/pref_category_about"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false">
 
         <Preference
             android:key="@string/pref_app_version"
             android:title="@string/pref_app_version_title"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <Preference
             android:summary="kylecorry31@gmail.com"
             android:title="@string/pref_email_title"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_email" />
+            app:key="@string/pref_email"
+            app:singleLineTitle="false" />
 
         <Preference
             android:summary="https://github.com/kylecorry31/Trail-Sense"
             android:title="@string/pref_github_title"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_github" />
+            app:key="@string/pref_github"
+            app:singleLineTitle="false" />
 
         <Preference
             android:key="@string/pref_open_source_licenses"
             android:title="@string/pref_open_source_licenses_title"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
 
     </PreferenceCategory>

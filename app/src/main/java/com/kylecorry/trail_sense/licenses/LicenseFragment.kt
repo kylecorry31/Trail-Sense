@@ -18,6 +18,7 @@ class LicenseFragment : PreferenceFragmentCompat() {
             pref.title = library.name
             pref.summary = library.url
             pref.isIconSpaceReserved = false
+            pref.isSingleLineTitle = false
             pref.setOnPreferenceClickListener {
                 UiUtils.alert(requireContext(), library.name, library.license, R.string.dialog_ok)
                 true

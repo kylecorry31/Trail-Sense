@@ -55,7 +55,7 @@
     <string name="accuracy_unknown">Unknown</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="accuracy_info_title">Tips for improving accuracy</string>
+    <string name="accuracy_info_title">Tips for improving sensor data accuracy</string>
     <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\u0020\u0020\u0020\u0020%s of actual location\n\u0020\u0020\u0020\u0020%s of actual altitude\n\u0020\u0020\u0020\u0020%s satellites\n\nCompass: Rotate device in a figure 8 pattern and move away from metal.</string>
     <string name="gps_lock_acquired">GPS lock acquired</string>
     <!--Flashlight-->
@@ -71,6 +71,10 @@
     <string name="no_beacons">No beacons</string>
     <string name="long_press_beacon_toast">Long press a beacon to view options.</string>
     <string name="dot" translatable="false">•</string>
+    <plurals name="beacon_group_summary">
+        <item quantity="one">%d beacon</item>
+        <item quantity="other">%d beacons</item>
+    </plurals>
     <!--Navigation Tab - Beacon List - Sharesheet-->
     <string name="share_action_send">Send</string>
     <string name="share_action_copy">Copy</string>
@@ -480,4 +484,20 @@
     <string name="pref_max_beacon_distance" translatable="false">pref_max_beacon_distance</string>
     <string name="pref_max_beacon_distance_miles" translatable="false">pref_max_beacon_distance_miles</string>
     <string name="tool_trail_sense_maps" translatable="false">tool_trail_sense_maps</string>
+    <string name="error_occurred">An error occurred</string>
+    <string name="error_occurred_message">Trail Sense ran into an error and will close. Please email the developer to get this issue fixed.</string>
+    <string name="moon_azimuth">Moon azimuth</string>
+    <string name="sun_azimuth">Sun azimuth</string>
+    <string name="delete_beacon_group">Delete group</string>
+    <string name="delete_beacon_group_message">%s and all its beacons will be deleted.</string>
+    <string name="edit_beacon_group">Edit group</string>
+    <string name="beacon_create">Create</string>
+    <string name="beacon_create_beacon">Beacon</string>
+    <string name="beacon_create_group">Group</string>
+    <string name="beacon_group_name_hint">Name</string>
+    <string name="no_group">No group</string>
+    <string name="beacon_group_spinner_title">Group</string>
+    <string name="pref_sea_level_require_dwell">pref_sea_level_require_dwell</string>
+    <string name="pref_sea_level_require_dwell_summary">Only show readings when the altitude hasn\'t changed for at least an hour. Improves forecast reliability.</string>
+    <string name="pref_sea_level_require_dwell_title">Ignore rapid altitude changes</string>
 </resources>

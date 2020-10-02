@@ -23,6 +23,7 @@ import com.kylecorry.trailsensecore.domain.astronomy.tides.Tide
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -37,8 +38,7 @@ class AstronomyFragment : Fragment() {
     private lateinit var remDaylightTxt: TextView
     private lateinit var moonPosition: ImageView
     private lateinit var sunPosition: ImageView
-    private lateinit var detailList: RecyclerView
-    private lateinit var adapter: DetailAdapter
+    private lateinit var detailList: ListView<AstroDetail>
 
     private lateinit var prevDateBtn: ImageButton
     private lateinit var nextDateBtn: ImageButton
@@ -64,12 +64,31 @@ class AstronomyFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.activity_astronomy, container, false)
 
-        detailList = view.findViewById(R.id.astronomy_detail_list)
-        val layoutManager = LinearLayoutManager(context)
-        detailList.layoutManager = layoutManager
+        val recyclerView = view.findViewById<RecyclerView>(R.id.astronomy_detail_list)
+        detailList = ListView(recyclerView, R.layout.list_item_astronomy_detail){itemView, detail ->
+            val nameText: TextView = itemView.findViewById(R.id.astronomy_detail_name)
+            val valueText: TextView = itemView.findViewById(R.id.astronomy_detail_value)
+            val iconView: ImageView = itemView.findViewById(R.id.astronomy_detail_icon)
 
-        adapter = DetailAdapter(listOf())
-        detailList.adapter = adapter
+            if (detail.name == null) {
+                nameText.text = ""
+                valueText.text = ""
+                iconView.visibility = View.INVISIBLE
+                return@ListView
+            }
+
+            nameText.text = detail.name
+            valueText.text = detail.value
+            iconView.setImageResource(detail.icon)
+            iconView.visibility = View.VISIBLE
+            if (detail.tint != null) {
+                iconView.imageTintList =
+                    ColorStateList.valueOf(resources.getColor(detail.tint, null))
+            } else {
+                iconView.imageTintList =
+                    ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
+            }
+        }
 
         sunTxt = view.findViewById(R.id.remaining_time)
         remDaylightTxt = view.findViewById(R.id.remaining_time_lbl)
@@ -392,7 +411,7 @@ class AstronomyFragment : Fragment() {
             details.add(
                 AstroDetail(
                     R.drawable.sun,
-                    "Sun azimuth",
+                    getString(R.string.sun_azimuth),
                     getString(R.string.degree_format, sunAzimuth),
                     R.color.colorPrimary
                 )
@@ -400,7 +419,7 @@ class AstronomyFragment : Fragment() {
             details.add(
                 AstroDetail(
                     R.drawable.moon_full,
-                    "Moon azimuth",
+                    getString(R.string.moon_azimuth),
                     getString(R.string.degree_format, moonAzimuth)
                 )
             )
@@ -420,7 +439,7 @@ class AstronomyFragment : Fragment() {
             )
         }
 
-        adapter.details = details
+        detailList.setData(details)
     }
 
     private fun getTideString(tide: Tide): String {
@@ -540,59 +559,5 @@ class AstronomyFragment : Fragment() {
             }
         }
     }
-
-    inner class DetailHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private var nameText: TextView = itemView.findViewById(R.id.astronomy_detail_name)
-        private var valueText: TextView = itemView.findViewById(R.id.astronomy_detail_value)
-        private var iconView: ImageView = itemView.findViewById(R.id.astronomy_detail_icon)
-
-        fun bindToDetail(detail: AstroDetail) {
-            if (detail.name == null) {
-                nameText.text = ""
-                valueText.text = ""
-                iconView.visibility = View.INVISIBLE
-                return
-            }
-
-            nameText.text = detail.name
-            valueText.text = detail.value
-            iconView.setImageResource(detail.icon)
-            iconView.visibility = View.VISIBLE
-            if (detail.tint != null) {
-                iconView.imageTintList =
-                    ColorStateList.valueOf(resources.getColor(detail.tint, null))
-            } else {
-                iconView.imageTintList =
-                    ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
-            }
-        }
-    }
-
-
-    inner class DetailAdapter(mDetails: List<AstroDetail>) : RecyclerView.Adapter<DetailHolder>() {
-
-        var details: List<AstroDetail> = mDetails
-            set(value) {
-                field = value
-                notifyDataSetChanged()
-            }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailHolder {
-            val view = layoutInflater.inflate(R.layout.list_item_astronomy_detail, parent, false)
-            return DetailHolder(view)
-        }
-
-        override fun getItemCount(): Int {
-            return details.size
-        }
-
-        override fun onBindViewHolder(holder: DetailHolder, position: Int) {
-            val detail = details[position]
-            holder.bindToDetail(detail)
-        }
-
-    }
-
 
 }

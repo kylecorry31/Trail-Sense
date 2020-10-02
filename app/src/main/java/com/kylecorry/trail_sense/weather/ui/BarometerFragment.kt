@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
@@ -19,6 +18,7 @@ import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
+import com.kylecorry.trail_sense.weather.infrastructure.database.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.*
@@ -28,9 +28,8 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermome
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import java.time.Duration
 import java.time.Instant
-import java.util.*
 
-class BarometerFragment : Fragment(), Observer {
+class BarometerFragment : Fragment() {
 
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
@@ -58,6 +57,7 @@ class BarometerFragment : Fragment(), Observer {
     private lateinit var sensorService: SensorService
     private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
+    private val pressureRepo by lazy { PressureRepo(requireContext()) }
 
     private val throttle = Throttle(20)
 
@@ -147,7 +147,6 @@ class BarometerFragment : Fragment(), Observer {
 
     override fun onResume() {
         super.onResume()
-        PressureHistoryRepository.addObserver(this)
         startSensors()
 
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
@@ -170,13 +169,6 @@ class BarometerFragment : Fragment(), Observer {
         barometer.stop(this::onPressureUpdate)
         altimeter.stop(this::onAltitudeUpdate)
         thermometer.stop(this::onTemperatureUpdate)
-        PressureHistoryRepository.deleteObserver(this)
-    }
-
-    override fun update(o: Observable?, arg: Any?) {
-        if (o == PressureHistoryRepository) {
-            update()
-        }
     }
 
     private fun onPressureUpdate(): Boolean {
@@ -250,7 +242,7 @@ class BarometerFragment : Fragment(), Observer {
                 )
             )
         }
-        return weatherService.convertToSeaLevel(readings)
+        return weatherService.convertToSeaLevel(readings, prefs.weather.requireDwell)
     }
 
     private fun getPressureHistory(includeCurrent: Boolean = false): List<PressureReading> {
@@ -269,9 +261,16 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun displayChart(readings: List<PressureReading>) {
-        if (readings.size >= 2) {
+        val displayReadings = readings.filter {
+            Duration.between(
+                it.time,
+                Instant.now()
+            ) <= prefs.weather.pressureHistory
+        }
+
+        if (displayReadings.size >= 2) {
             val totalTime = Duration.between(
-                readings.first().time, readings.last().time
+                displayReadings.first().time, displayReadings.last().time
             )
             var hours = totalTime.toHours()
             val minutes = totalTime.toMinutes() % 60
@@ -295,17 +294,15 @@ class BarometerFragment : Fragment(), Observer {
 
         }
 
-        if (readings.isNotEmpty()) {
-            val filter = LowPassFilter(0.6f, readings.first().value)
-
+        if (displayReadings.isNotEmpty()) {
             chart.setUnits(units)
 
-            val chartData = readings.map {
+            val chartData = displayReadings.map {
                 val timeAgo = Duration.between(Instant.now(), it.time).seconds / (60f * 60f)
                 Pair(
                     timeAgo as Number,
                     (PressureUnitUtils.convert(
-                        filter.filter(it.value),
+                        it.value,
                         units
                     )) as Number
                 )
@@ -358,18 +355,24 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun getCurrentPressure(): PressureReading {
-        val reading = PressureAltitudeReading(
-            Instant.now(),
-            barometer.pressure,
-            altimeter.altitude,
-            thermometer.temperature
-        )
+//        val reading = PressureAltitudeReading(
+//            Instant.now(),
+//            barometer.pressure,
+//            altimeter.altitude,
+//            thermometer.temperature
+//        )
 
         return if (useSeaLevelPressure) {
-            reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
+            getSeaLevelPressureHistory(true)
         } else {
-            reading.pressureReading()
-        }
+            getPressureHistory(true)
+        }.last()
+
+//        return if (useSeaLevelPressure) {
+//            reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
+//        } else {
+//            reading.pressureReading()
+//        }
     }
 
     private fun displayPressure(pressure: PressureReading) {
@@ -383,8 +386,7 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun getReadingHistory(): List<PressureAltitudeReading> {
-        return PressureHistoryRepository.getAll(requireContext())
-            .filter { Duration.between(it.time, Instant.now()) <= prefs.weather.pressureHistory }
+        return pressureRepo.get().toList()
     }
 
     private fun getWeatherImage(weather: Weather, currentPressure: PressureReading): Int {
@@ -414,15 +416,6 @@ class BarometerFragment : Fragment(), Observer {
             Weather.ImprovingFast, Weather.ImprovingSlow -> getString(R.string.forecast_improving)
             Weather.WorseningSlow, Weather.WorseningFast, Weather.Storm -> getString(R.string.forecast_worsening)
             else -> ""
-        }
-    }
-
-    private fun getPressureUnitString(unit: PressureUnits): String {
-        return when (unit) {
-            PressureUnits.Hpa -> getString(R.string.units_hpa)
-            PressureUnits.Mbar -> getString(R.string.units_mbar)
-            PressureUnits.Inhg -> getString(R.string.units_inhg_short)
-            PressureUnits.Psi -> getString(R.string.units_psi)
         }
     }
 

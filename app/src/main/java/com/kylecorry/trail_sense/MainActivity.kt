@@ -3,31 +3,31 @@ package com.kylecorry.trail_sense
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment
-import com.kylecorry.trail_sense.tools.ui.ToolsFragment
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.DisclaimerMessage
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.doTransaction
+import com.kylecorry.trail_sense.tools.ui.ToolsFragment
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.ui.BarometerFragment
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
-import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
-import com.kylecorry.trailsensecore.infrastructure.system.PermissionRationale
-import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
+import com.kylecorry.trailsensecore.infrastructure.system.*
+import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity() {
@@ -57,6 +57,48 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        Thread.setDefaultUncaughtExceptionHandler { _, paramThrowable ->
+            object : Thread() {
+                override fun run() {
+                    Looper.prepare()
+                    UiUtils.alertWithCancel(
+                        this@MainActivity,
+                        getString(R.string.error_occurred),
+                        getString(R.string.error_occurred_message),
+                        getString(R.string.pref_email_title),
+                        getString(R.string.dialog_cancel)
+                    ) { cancelled ->
+                        if (cancelled) {
+                            exitProcess(2)
+                        } else {
+                            val androidVersion = Build.VERSION.SDK_INT
+                            val device = "${Build.MANUFACTURER} ${Build.PRODUCT} (${Build.MODEL})"
+                            val appVersion = PackageUtils.getVersionName(this@MainActivity)
+                            val message = paramThrowable.message ?: ""
+                            val stackTrace = paramThrowable.stackTraceToString()
+
+                            val email = "Version: ${appVersion}\nDevice: ${device}\nAndroid SDK: ${androidVersion}\nMessage: ${message}\n\n$stackTrace"
+
+                            val intent = IntentUtils.email(
+                                "kylecorry31@gmail.com",
+                                "Error in Trail Sense $appVersion",
+                                email
+                            )
+                            startActivity(intent)
+                        }
+                    }
+                    Looper.loop()
+                }
+            }.start()
+
+            try {
+                Thread.sleep(60000)
+            } catch (e: InterruptedException) {
+            }
+            exitProcess(2)
+        }
+
         userPrefs = UserPreferences(this)
         val mode = when (userPrefs.theme) {
             UserPreferences.Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
