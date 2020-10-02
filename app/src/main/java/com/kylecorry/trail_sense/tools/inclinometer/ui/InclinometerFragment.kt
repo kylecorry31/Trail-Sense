@@ -40,12 +40,8 @@ class InclinometerFragment : Fragment() {
 
     private var slopeAngle: Float? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_inclinometer, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         heightTxt = view.findViewById(R.id.estimated_height)
         distanceEdit = view.findViewById(R.id.object_distance)
@@ -70,7 +66,14 @@ class InclinometerFragment : Fragment() {
             lockImg.visibility = if (slopeAngle != null) View.VISIBLE else View.INVISIBLE
         }
 
-        return view
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_inclinometer, container, false)
     }
 
     override fun onResume() {
