@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.*
+import java.time.Duration
 import kotlin.system.exitProcess
 
 
@@ -55,47 +56,25 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        Thread.setDefaultUncaughtExceptionHandler { _, paramThrowable ->
-            object : Thread() {
-                override fun run() {
-                    Looper.prepare()
-                    UiUtils.alertWithCancel(
+        ExceptionUtils.onUncaughtException(Duration.ofMinutes(1)){
+            UiUtils.alertWithCancel(
+                this@MainActivity,
+                getString(R.string.error_occurred),
+                getString(R.string.error_occurred_message),
+                getString(R.string.pref_email_title),
+                getString(R.string.dialog_cancel)
+            ) { cancelled ->
+                if (cancelled) {
+                    exitProcess(2)
+                } else {
+                    ExceptionUtils.report(
                         this@MainActivity,
-                        getString(R.string.error_occurred),
-                        getString(R.string.error_occurred_message),
-                        getString(R.string.pref_email_title),
-                        getString(R.string.dialog_cancel)
-                    ) { cancelled ->
-                        if (cancelled) {
-                            exitProcess(2)
-                        } else {
-                            val androidVersion = Build.VERSION.SDK_INT
-                            val device = "${Build.MANUFACTURER} ${Build.PRODUCT} (${Build.MODEL})"
-                            val appVersion = PackageUtils.getVersionName(this@MainActivity)
-                            val message = paramThrowable.message ?: ""
-                            val stackTrace = paramThrowable.stackTraceToString()
-
-                            val email =
-                                "Version: ${appVersion}\nDevice: ${device}\nAndroid SDK: ${androidVersion}\nMessage: ${message}\n\n$stackTrace"
-
-                            val intent = IntentUtils.email(
-                                "kylecorry31@gmail.com",
-                                "Error in Trail Sense $appVersion",
-                                email
-                            )
-                            startActivity(intent)
-                        }
-                    }
-                    Looper.loop()
+                        it,
+                        "kylecorry31@gmail.com",
+                        getString(R.string.app_name)
+                    )
                 }
-            }.start()
-
-            try {
-                Thread.sleep(60000)
-            } catch (e: InterruptedException) {
             }
-            exitProcess(2)
         }
 
         userPrefs = UserPreferences(this)
