@@ -10,7 +10,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -20,6 +19,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.astronomy.tides.Tide
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
@@ -51,6 +51,7 @@ class AstronomyFragment : Fragment() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val cache by lazy { Cache(requireContext()) }
     private val astronomyService = AstronomyService()
 
     private val intervalometer = Intervalometer {
@@ -65,30 +66,31 @@ class AstronomyFragment : Fragment() {
         val view = inflater.inflate(R.layout.activity_astronomy, container, false)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.astronomy_detail_list)
-        detailList = ListView(recyclerView, R.layout.list_item_astronomy_detail){itemView, detail ->
-            val nameText: TextView = itemView.findViewById(R.id.astronomy_detail_name)
-            val valueText: TextView = itemView.findViewById(R.id.astronomy_detail_value)
-            val iconView: ImageView = itemView.findViewById(R.id.astronomy_detail_icon)
+        detailList =
+            ListView(recyclerView, R.layout.list_item_astronomy_detail) { itemView, detail ->
+                val nameText: TextView = itemView.findViewById(R.id.astronomy_detail_name)
+                val valueText: TextView = itemView.findViewById(R.id.astronomy_detail_value)
+                val iconView: ImageView = itemView.findViewById(R.id.astronomy_detail_icon)
 
-            if (detail.name == null) {
-                nameText.text = ""
-                valueText.text = ""
-                iconView.visibility = View.INVISIBLE
-                return@ListView
-            }
+                if (detail.name == null) {
+                    nameText.text = ""
+                    valueText.text = ""
+                    iconView.visibility = View.INVISIBLE
+                    return@ListView
+                }
 
-            nameText.text = detail.name
-            valueText.text = detail.value
-            iconView.setImageResource(detail.icon)
-            iconView.visibility = View.VISIBLE
-            if (detail.tint != null) {
-                iconView.imageTintList =
-                    ColorStateList.valueOf(resources.getColor(detail.tint, null))
-            } else {
-                iconView.imageTintList =
-                    ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
+                nameText.text = detail.name
+                valueText.text = detail.value
+                iconView.setImageResource(detail.icon)
+                iconView.visibility = View.VISIBLE
+                if (detail.tint != null) {
+                    iconView.imageTintList =
+                        ColorStateList.valueOf(resources.getColor(detail.tint, null))
+                } else {
+                    iconView.imageTintList =
+                        ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
+                }
             }
-        }
 
         sunTxt = view.findViewById(R.id.remaining_time)
         remDaylightTxt = view.findViewById(R.id.remaining_time_lbl)
@@ -116,6 +118,14 @@ class AstronomyFragment : Fragment() {
 
         sunTimesMode = prefs.astronomy.sunTimesMode
 
+        sunPosition.setOnClickListener {
+            openDetailsDialog()
+        }
+
+        moonPosition.setOnClickListener {
+            openDetailsDialog()
+        }
+
         return view
     }
 
@@ -128,6 +138,12 @@ class AstronomyFragment : Fragment() {
         }
         intervalometer.interval(Duration.ofMinutes(1))
         updateUI()
+
+        if (cache.getBoolean("cache_tap_sun_moon_shown") != true) {
+            cache.putBoolean("cache_tap_sun_moon_shown", true)
+            UiUtils.shortToast(requireContext(), getString(R.string.tap_sun_moon_hint))
+        }
+
     }
 
     override fun onPause() {
@@ -252,6 +268,32 @@ class AstronomyFragment : Fragment() {
         displayTimeUntilNextSunEvent()
     }
 
+    private fun openDetailsDialog() {
+        // Altitude and azimuth
+        val moonAltitude =
+            astronomyService.getMoonAltitude(gps.location)
+        val sunAltitude =
+            astronomyService.getSunAltitude(gps.location)
+
+        val declination =
+            if (!prefs.navigation.useTrueNorth) declinationProvider.declination else 0f
+
+        val sunAzimuth =
+            astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value
+        val moonAzimuth =
+            astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value
+
+        UiUtils.alert(
+            requireContext(), getString(R.string.sun_and_moon), getString(
+                R.string.sun_and_moon_position_details,
+                getString(R.string.degree_format, sunAltitude),
+                getString(R.string.degree_format, sunAzimuth),
+                getString(R.string.degree_format, moonAltitude),
+                getString(R.string.degree_format, moonAzimuth)
+            )
+        )
+    }
+
     private fun updateAstronomyDetails() {
         if (context == null) {
             return
@@ -372,58 +414,6 @@ class AstronomyFragment : Fragment() {
                     getString(R.string.percent_format, moonPhase.illumination.roundToInt())
                 )
             )
-        }
-
-        details.add(AstroDetail.spacer())
-
-        // Altitude and azimuth
-        if (displayDate == LocalDate.now()) {
-            val moonAltitude =
-                astronomyService.getMoonAltitude(gps.location)
-            val sunAltitude =
-                astronomyService.getSunAltitude(gps.location)
-
-            // TODO: Add icons
-            details.add(
-                AstroDetail(
-                    R.drawable.sun,
-                    getString(R.string.sun_altitude),
-                    getString(R.string.degree_format, sunAltitude),
-                    R.color.colorPrimary
-                )
-            )
-            details.add(
-                AstroDetail(
-                    R.drawable.moon_full,
-                    getString(R.string.moon_altitude),
-                    getString(R.string.degree_format, moonAltitude)
-                )
-            )
-
-            val declination =
-                if (!prefs.navigation.useTrueNorth) declinationProvider.declination else 0f
-
-            val sunAzimuth =
-                astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value
-            val moonAzimuth =
-                astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value
-
-            details.add(
-                AstroDetail(
-                    R.drawable.sun,
-                    getString(R.string.sun_azimuth),
-                    getString(R.string.degree_format, sunAzimuth),
-                    R.color.colorPrimary
-                )
-            )
-            details.add(
-                AstroDetail(
-                    R.drawable.moon_full,
-                    getString(R.string.moon_azimuth),
-                    getString(R.string.degree_format, moonAzimuth)
-                )
-            )
-
         }
 
         if (prefs.experimentalEnabled) {

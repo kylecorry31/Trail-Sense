@@ -500,4 +500,7 @@
     <string name="pref_sea_level_require_dwell">pref_sea_level_require_dwell</string>
     <string name="pref_sea_level_require_dwell_summary">Only show readings when the altitude hasn\'t changed for at least an hour. Improves forecast reliability.</string>
     <string name="pref_sea_level_require_dwell_title">Ignore rapid altitude changes</string>
+    <string name="sun_and_moon">Sun &amp; Moon Positions</string>
+    <string name="sun_and_moon_position_details">Sun\n\tAltitude: %s\n\tAzimuth: %s\n\nMoon\n\tAltitude: %s\n\tAzimuth: %s</string>
+    <string name="tap_sun_moon_hint">Tap sun or moon for position details</string>
 </resources>
