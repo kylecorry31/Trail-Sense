@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure.service
+package com.kylecorry.trail_sense.weather.infrastructure.services
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.os.PowerManager
 import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
@@ -15,11 +16,13 @@ import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.PowerUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateWorker
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.domain.weather.Weather
@@ -49,6 +52,7 @@ class WeatherUpdateService : Service() {
     private var hasAltitude = false
     private var hasBarometerReading = false
     private var hasTemperatureReading = false
+    private var wakelock: PowerManager.WakeLock? = null
 
     private lateinit var userPrefs: UserPreferences
     private lateinit var weatherService: WeatherService
@@ -56,6 +60,8 @@ class WeatherUpdateService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.i(TAG, "Started at ${ZonedDateTime.now()}")
+        wakelock = PowerUtils.getWakelock(applicationContext, TAG)
+        wakelock?.acquire(10 * 60 * 1000L)
         userPrefs = UserPreferences(applicationContext)
         pressureRepo = PressureRepo(applicationContext)
         weatherService = WeatherService(
@@ -70,6 +76,8 @@ class WeatherUpdateService : Service() {
         barometer = sensorService.getBarometer()
         altimeter = sensorService.getAltimeter(true)
         thermometer = sensorService.getThermometer()
+
+        WeatherUpdateWorker.start(applicationContext, userPrefs.weather.weatherUpdateFrequency)
 
 
         createChannel(
@@ -96,7 +104,10 @@ class WeatherUpdateService : Service() {
     }
 
     private fun sendWeatherNotification() {
-        val readings = weatherService.convertToSeaLevel(pressureRepo.get().toList(), userPrefs.weather.requireDwell)
+        val readings = weatherService.convertToSeaLevel(
+            pressureRepo.get().toList(),
+            userPrefs.weather.requireDwell
+        )
         val forecast = weatherService.getHourlyWeather(readings)
 
         if (userPrefs.weather.shouldShowWeatherNotification) {
@@ -153,6 +164,7 @@ class WeatherUpdateService : Service() {
         sendStormAlert()
         sendWeatherNotification()
         Log.i(TAG, "Got all readings recorded at ${ZonedDateTime.now()}")
+        wakelock?.release()
         stopForeground(true)
         stopSelf()
     }
@@ -189,7 +201,12 @@ class WeatherUpdateService : Service() {
             prefs.getBoolean(applicationContext.getString(R.string.pref_just_sent_alert), false)
 
         val readings = pressureRepo.get().toList()
-        val forecast = weatherService.getHourlyWeather(weatherService.convertToSeaLevel(readings, userPrefs.weather.requireDwell))
+        val forecast = weatherService.getHourlyWeather(
+            weatherService.convertToSeaLevel(
+                readings,
+                userPrefs.weather.requireDwell
+            )
+        )
 
         if (forecast == Weather.Storm) {
             val shouldSend = userPrefs.weather.sendStormAlerts
@@ -292,6 +309,14 @@ class WeatherUpdateService : Service() {
 
         fun intent(context: Context): Intent {
             return Intent(context, WeatherUpdateService::class.java)
+        }
+
+        fun start(context: Context) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent(context))
+            } else {
+                context.startService(intent(context))
+            }
         }
     }
 }

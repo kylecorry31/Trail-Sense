@@ -2,17 +2,15 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import androidx.work.*
+import androidx.work.WorkManager
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.service.WeatherUpdateService
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 class WeatherUpdateWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     override fun doWork(): Result {
-        applicationContext.startService(WeatherUpdateService.intent(applicationContext))
-        val prefs = UserPreferences(applicationContext)
-        start(applicationContext, prefs.weather.weatherUpdateFrequency)
+        WeatherUpdateService.start(applicationContext)
         return Result.success()
     }
 
