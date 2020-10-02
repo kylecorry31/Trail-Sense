@@ -10,6 +10,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -29,18 +31,12 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinat
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import java.time.Duration
 
-class NavigatorFragment(
-    private val initialDestination: Beacon? = null,
-    private val createBeacon: GeoUriParser.NamedCoordinate? = null
-) : Fragment() {
-
-    constructor() : this(null, null)
+class NavigatorFragment : Fragment() {
 
     private lateinit var compass: ICompass
     private lateinit var gps: IGPS
@@ -67,6 +63,7 @@ class NavigatorFragment(
     private lateinit var gpsAccuracy: LinearLayout
     private lateinit var compassAccuracy: LinearLayout
     private lateinit var speedTxt: TextView
+    private lateinit var navController: NavController
 
     private var acquiredLock = false
 
@@ -76,7 +73,7 @@ class NavigatorFragment(
 
     private lateinit var visibleCompass: ICompassView
 
-    private lateinit var beaconRepo: BeaconRepo
+    private val beaconRepo by lazy { BeaconRepo(requireContext()) }
     private var flashlightState = FlashlightState.Off
 
     private val sensorService by lazy { SensorService(requireContext()) }
@@ -106,9 +103,22 @@ class NavigatorFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.activity_navigator, container, false)
+        return inflater.inflate(R.layout.activity_navigator, container, false)
+    }
 
-        // Get views
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val beaconId = arguments?.getLong("destination") ?: 0L
+
+        if (beaconId != 0L) {
+            showCalibrationDialog()
+            destination = beaconRepo.get(beaconId)
+            cache.putLong(LAST_BEACON_ID, beaconId)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         locationTxt = view.findViewById(R.id.location)
         altitudeTxt = view.findViewById(R.id.altitude)
         azimuthTxt = view.findViewById(R.id.compass_azimuth)
@@ -124,6 +134,7 @@ class NavigatorFragment(
         gpsAccuracy = view.findViewById(R.id.gps_accuracy_view)
         compassAccuracy = view.findViewById(R.id.compass_accuracy_view)
         speedTxt = view.findViewById(R.id.speed)
+        navController = findNavController()
 
         destinationPanel = DestinationPanel(view.findViewById(R.id.navigation_sheet))
 
@@ -156,8 +167,6 @@ class NavigatorFragment(
         beaconIndicators[2].imageTintList =
             ColorStateList.valueOf(UiUtils.color(requireContext(), R.color.colorAccent))
 
-        beaconRepo = BeaconRepo(requireContext())
-
         compass = sensorService.getCompass()
         orientation = sensorService.getDeviceOrientation()
         gps = sensorService.getGPS()
@@ -165,20 +174,6 @@ class NavigatorFragment(
         altimeter = sensorService.getAltimeter()
 
         averageSpeed = userPrefs.navigation.averageSpeed
-
-        if (createBeacon != null) {
-            switchToFragment(
-                PlaceBeaconFragment(beaconRepo, gps, createBeacon),
-                addToBackStack = true
-            )
-        }
-
-        destination = initialDestination
-        val beacon = destination?.id
-        if (beacon != null) {
-            showCalibrationDialog()
-            cache.putLong(LAST_BEACON_ID, beacon)
-        }
 
         roundCompass = CompassView(
             view.findViewById(R.id.needle),
@@ -201,10 +196,7 @@ class NavigatorFragment(
 
         beaconBtn.setOnClickListener {
             if (destination == null) {
-                switchToFragment(
-                    BeaconListFragment(beaconRepo, gps),
-                    addToBackStack = true
-                )
+                navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment)
             } else {
                 destination = null
                 cache.remove(LAST_BEACON_ID)
@@ -261,8 +253,6 @@ class NavigatorFragment(
                 cache.remove(LAST_DEST_BEARING)
             }
         }
-
-        return view
     }
 
     private fun displayAccuracyTips() {

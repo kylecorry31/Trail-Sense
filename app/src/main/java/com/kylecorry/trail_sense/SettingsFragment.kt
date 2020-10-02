@@ -3,22 +3,19 @@ package com.kylecorry.trail_sense
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.view.View
 import androidx.annotation.ArrayRes
+import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.core.content.edit
-import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
-import com.kylecorry.trail_sense.calibration.ui.CalibrateAltimeterFragment
-import com.kylecorry.trail_sense.calibration.ui.CalibrateBarometerFragment
-import com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment
-import com.kylecorry.trail_sense.calibration.ui.CalibrateGPSFragment
 import com.kylecorry.trail_sense.licenses.LicenseFragment
-import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateReceiver
@@ -29,7 +26,6 @@ import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import java.lang.Exception
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -41,6 +37,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private var prefForceWeatherUpdates: SwitchPreferenceCompat? = null
     private var prefShowWeatherNotification: SwitchPreferenceCompat? = null
     private var prefShowPressureInNotification: SwitchPreferenceCompat? = null
+    private lateinit var navController: NavController
     private var prefPressureHistory: ListPreference? = null
     private var prefStormAlerts: SwitchPreferenceCompat? = null
     private var prefMaxBeaconDistanceKm: EditTextPreference? = null
@@ -52,6 +49,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private lateinit var prefs: UserPreferences
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = findNavController()
+    }
 
     private fun bindPreferences() {
         prefMonitorWeather = switch(R.string.pref_monitor_weather)
@@ -111,10 +113,22 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
-        fragmentOnClick(preference(R.string.pref_compass_sensor)) { CalibrateCompassFragment() }
-        fragmentOnClick(preference(R.string.pref_altimeter_calibration)) { CalibrateAltimeterFragment() }
-        fragmentOnClick(preference(R.string.pref_gps_calibration)) { CalibrateGPSFragment() }
-        fragmentOnClick(preference(R.string.pref_barometer_calibration)) { CalibrateBarometerFragment() }
+        navigateOnClick(
+            preference(R.string.pref_compass_sensor),
+            R.id.action_action_settings_to_calibrateCompassFragment
+        )
+        navigateOnClick(
+            preference(R.string.pref_altimeter_calibration),
+            R.id.action_action_settings_to_calibrateAltimeterFragment
+        )
+        navigateOnClick(
+            preference(R.string.pref_gps_calibration),
+            R.id.action_action_settings_to_calibrateGPSFragment
+        )
+        navigateOnClick(
+            preference(R.string.pref_barometer_calibration),
+            R.id.action_action_settings_to_calibrateBarometerFragment
+        )
         refreshOnChange(list(R.string.pref_theme))
         refreshOnChange(switch(R.string.pref_enable_experimental))
 
@@ -203,11 +217,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             }
 
-        preferenceScreen.findPreference<Preference>(getString(R.string.pref_open_source_licenses))
-            ?.setOnPreferenceClickListener {
-                switchToFragment(LicenseFragment(), addToBackStack = true)
-                false
-            }
+        navigateOnClick(preferenceScreen.findPreference(getString(R.string.pref_open_source_licenses)), R.id.action_action_settings_to_licenseFragment)
 
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_github))
             ?.setOnPreferenceClickListener {
@@ -263,9 +273,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onPause()
     }
 
-    private fun fragmentOnClick(pref: Preference?, fragmentFactory: () -> Fragment) {
+    private fun navigateOnClick(pref: Preference?, @IdRes action: Int, bundle: Bundle? = null) {
         pref?.setOnPreferenceClickListener {
-            switchToFragment(fragmentFactory.invoke(), addToBackStack = true)
+            navController.navigate(action, bundle)
             false
         }
     }

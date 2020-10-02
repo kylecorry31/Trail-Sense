@@ -7,17 +7,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.formatHM
 import com.kylecorry.trail_sense.shared.sensors.*
-import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
-import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
@@ -52,6 +52,7 @@ class BarometerFragment : Fragment() {
     private lateinit var temperatureBtn: FloatingActionButton
 
     private lateinit var chart: PressureChart
+    private lateinit var navController: NavController
 
     private lateinit var weatherService: WeatherService
     private lateinit var sensorService: SensorService
@@ -65,15 +66,11 @@ class BarometerFragment : Fragment() {
 
     private var valueSelectedTime = 0L
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.activity_weather, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         sensorService = SensorService(requireContext())
+        navController = findNavController()
 
         barometer = sensorService.getBarometer()
         altimeter = sensorService.getAltimeter()
@@ -121,7 +118,7 @@ class BarometerFragment : Fragment() {
         historyDurationTxt = view.findViewById(R.id.pressure_history_duration)
 
         temperatureBtn.setOnClickListener {
-            switchToFragment(ThermometerFragment(), addToBackStack = true)
+            navController.navigate(R.id.action_action_weather_to_thermometerFragment)
         }
 
         pressureTxt.setOnLongClickListener {
@@ -141,8 +138,14 @@ class BarometerFragment : Fragment() {
             true
         }
 
+    }
 
-        return view
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.activity_weather, container, false)
     }
 
     override fun onResume() {

@@ -8,35 +8,31 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
+import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trail_sense.shared.doTransaction
 import com.kylecorry.trail_sense.shared.roundPlaces
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
 
 
-class PlaceBeaconFragment(
-    private val _repo: BeaconRepo?,
-    private val _gps: IGPS?,
-    private val initialLocation: GeoUriParser.NamedCoordinate? = null,
-    private val editingBeacon: Beacon? = null,
-    private val initialGroup: BeaconGroup? = null
-) : Fragment() {
+class PlaceBeaconFragment : Fragment() {
 
-    private val beaconRepo by lazy { _repo ?: BeaconRepo(requireContext()) }
-    private val gps by lazy { _gps ?: sensorService.getGPS() }
-
-    constructor() : this(null, null, null)
+    private val beaconRepo by lazy { BeaconRepo(requireContext()) }
+    private val gps by lazy { sensorService.getGPS() }
+    private lateinit var navController: NavController
 
     private lateinit var beaconName: EditText
     private lateinit var beaconLat: EditText
@@ -53,13 +49,39 @@ class PlaceBeaconFragment(
 
     private lateinit var groups: List<BeaconGroup>
 
+    private var editingBeacon: Beacon? = null
+    private var initialGroup: BeaconGroup? = null
+    private var initialLocation: MyNamedCoordinate? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val beaconId = arguments?.getLong("edit_beacon") ?: 0L
+        val groupId = arguments?.getLong("initial_group") ?: 0L
+        initialLocation = arguments?.getParcelable("initial_location")
+
+        editingBeacon = if (beaconId == 0L) {
+            null
+        } else {
+            beaconRepo.get(beaconId)
+        }
+
+        initialGroup = if (groupId == 0L) {
+            null
+        } else {
+            beaconRepo.getGroup(groupId)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_create_beacon, container, false)
+        return inflater.inflate(R.layout.fragment_create_beacon, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val prefs = UserPreferences(requireContext())
         units = prefs.distanceUnits
 
@@ -71,8 +93,10 @@ class PlaceBeaconFragment(
         useCurrentLocationBtn = view.findViewById(R.id.current_location_btn)
         groupSpinner = view.findViewById(R.id.beacon_group_spinner)
         doneBtn = view.findViewById(R.id.place_beacon_btn)
+        navController = findNavController()
 
-        groups = listOf(BeaconGroup(0, getString(R.string.no_group))) + beaconRepo.getGroups().sortedBy { it.name }
+        groups = listOf(BeaconGroup(0, getString(R.string.no_group))) + beaconRepo.getGroups()
+            .sortedBy { it.name }
         val adapter = ArrayAdapter(
             requireContext(),
             R.layout.beacon_group_spinner_item,
@@ -81,7 +105,7 @@ class PlaceBeaconFragment(
         groupSpinner.prompt = getString(R.string.beacon_group_spinner_title)
         groupSpinner.adapter = adapter
         val idx = if (editingBeacon?.beaconGroupId != null) {
-            val g = groups.find { it.id == editingBeacon.beaconGroupId }
+            val g = groups.find { it.id == editingBeacon?.beaconGroupId }
             if (g == null) {
                 0
             } else {
@@ -101,18 +125,18 @@ class PlaceBeaconFragment(
         groupSpinner.setSelection(idx)
 
         if (initialLocation != null) {
-            beaconName.setText(initialLocation.name ?: "")
-            beaconLat.setText(initialLocation.coordinate.latitude.toString())
-            beaconLng.setText(initialLocation.coordinate.longitude.toString())
+            beaconName.setText(initialLocation!!.name ?: "")
+            beaconLat.setText(initialLocation!!.coordinate.latitude.toString())
+            beaconLng.setText(initialLocation!!.coordinate.longitude.toString())
             updateDoneButtonState()
         }
 
         if (editingBeacon != null) {
-            beaconName.setText(editingBeacon.name)
-            beaconLat.setText(editingBeacon.coordinate.latitude.toString())
-            beaconLng.setText(editingBeacon.coordinate.longitude.toString())
-            beaconElevation.setText(editingBeacon.elevation?.toString() ?: "")
-            commentTxt.setText(editingBeacon.comment ?: "")
+            beaconName.setText(editingBeacon?.name)
+            beaconLat.setText(editingBeacon?.coordinate?.latitude.toString())
+            beaconLng.setText(editingBeacon?.coordinate?.longitude.toString())
+            beaconElevation.setText(editingBeacon?.elevation?.toString() ?: "")
+            commentTxt.setText(editingBeacon?.comment ?: "")
             updateDoneButtonState()
         }
 
@@ -191,24 +215,20 @@ class PlaceBeaconFragment(
                     Beacon(0, name, coordinate, true, comment, groupId, elevation)
                 } else {
                     Beacon(
-                        editingBeacon.id,
+                        editingBeacon!!.id,
                         name,
                         coordinate,
-                        editingBeacon.visible,
+                        editingBeacon!!.visible,
                         comment,
                         groupId,
                         elevation
                     )
                 }
                 beaconRepo.add(beacon)
-                parentFragmentManager.doTransaction {
-                    this.replace(
-                        R.id.fragment_holder,
-                        BeaconListFragment(
-                            beaconRepo,
-                            gps
-                        )
-                    )
+                if (initialLocation != null){
+                    requireActivity().onBackPressed()
+                } else {
+                    navController.navigate(R.id.action_place_beacon_to_beacon_list)
                 }
             }
         }
@@ -224,7 +244,6 @@ class PlaceBeaconFragment(
             altimeter.start(this::setElevationFromAltimeter)
         }
 
-        return view
     }
 
     override fun onPause() {
