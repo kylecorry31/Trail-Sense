@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/action_navigation">
+    app:startDestination="@id/action_navigation"
+    >
 
     <fragment
         android:id="@+id/action_navigation"
@@ -18,7 +19,12 @@
 
         <action
             android:id="@+id/action_navigatorFragment_to_beaconListFragment"
-            app:destination="@id/beacon_list" />
+            app:destination="@id/beacon_list"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
     <fragment
         android:id="@+id/action_astronomy"
@@ -30,7 +36,11 @@
         android:label="ToolsFragment">
         <action
             android:id="@+id/action_toolsFragment_to_inclinometerFragment"
-            app:destination="@id/action_inclinometer" />
+            app:destination="@id/action_inclinometer"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/action_weather"
@@ -39,7 +49,11 @@
         tools:layout="@layout/activity_weather">
         <action
             android:id="@+id/action_action_weather_to_thermometerFragment"
-            app:destination="@id/thermometerFragment" />
+            app:destination="@id/thermometerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/action_settings"
@@ -47,19 +61,39 @@
         android:label="SettingsFragment">
         <action
             android:id="@+id/action_action_settings_to_calibrateAltimeterFragment"
-            app:destination="@id/calibrateAltimeterFragment" />
+            app:destination="@id/calibrateAltimeterFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_settings_to_calibrateBarometerFragment"
-            app:destination="@id/calibrateBarometerFragment" />
+            app:destination="@id/calibrateBarometerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_settings_to_calibrateCompassFragment"
-            app:destination="@id/calibrateCompassFragment" />
+            app:destination="@id/calibrateCompassFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_settings_to_calibrateGPSFragment"
-            app:destination="@id/calibrateGPSFragment" />
+            app:destination="@id/calibrateGPSFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_settings_to_licenseFragment"
-            app:destination="@id/licenseFragment" />
+            app:destination="@id/licenseFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/beacon_list"
@@ -67,10 +101,18 @@
         android:label="BeaconListFragment">
         <action
             android:id="@+id/action_beaconListFragment_to_placeBeaconFragment"
-            app:destination="@id/place_beacon" />
-      <action
+            app:destination="@id/place_beacon"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_beacon_list_to_action_navigation"
             app:destination="@id/action_navigation"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/action_navigation"
             app:popUpToInclusive="true" />
     </fragment>
@@ -97,6 +139,10 @@
         <action
             android:id="@+id/action_place_beacon_to_beacon_list"
             app:destination="@id/beacon_list"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/beacon_list"
             app:popUpToInclusive="true" />
     </fragment>
