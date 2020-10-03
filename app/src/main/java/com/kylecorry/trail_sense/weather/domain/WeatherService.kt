@@ -20,9 +20,11 @@ class WeatherService(
     private val longTermForecaster = DailyForecaster(dailyForecastChangeThreshold)
     private val newWeatherService: IWeatherService = WeatherService()
     private val seaLevelConverter = AltimeterSeaLevelPressureConverter(
-        if (adjustSeaLevelWithBarometer) PressureDwellAltitudeCalculator(Duration.ofHours(2),
-            60f, 3f) else DwellAltitudeCalculator(
-            Duration.ofHours(2),
+        if (adjustSeaLevelWithBarometer) PressureDwellAltitudeCalculator(
+            Duration.ofHours(1),
+            30f, 3f
+        ) else DwellAltitudeCalculator(
+            Duration.ofHours(1),
             60f
         ),
         adjustSeaLevelWithTemp
@@ -60,7 +62,10 @@ class WeatherService(
         return newWeatherService.getTendency(last, current, hourlyForecastChangeThreshold)
     }
 
-    fun convertToSeaLevel(readings: List<PressureAltitudeReading>, requiresDwell: Boolean): List<PressureReading> {
+    fun convertToSeaLevel(
+        readings: List<PressureAltitudeReading>,
+        requiresDwell: Boolean
+    ): List<PressureReading> {
         return seaLevelConverter.convert(readings, !requiresDwell)
     }
 
