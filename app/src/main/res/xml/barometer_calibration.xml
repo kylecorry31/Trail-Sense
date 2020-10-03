@@ -20,6 +20,16 @@
             app:key="@string/pref_temperature_holder"
             app:singleLineTitle="false" />
 
+        <ListPreference
+            app:defaultValue="48"
+            app:entries="@array/pressure_history_entries"
+            app:entryValues="@array/pressure_history_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_pressure_history"
+            app:singleLineTitle="false"
+            app:title="@string/pref_pressure_history_title"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"

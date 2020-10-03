@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/action_settings"
-        android:name="com.kylecorry.trail_sense.SettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.SettingsFragment"
         android:label="SettingsFragment">
         <action
             android:id="@+id/action_action_settings_to_calibrateAltimeterFragment"
@@ -94,6 +94,27 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_action_settings_to_weatherSettingsFragment"
+            app:destination="@id/weatherSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_action_settings_to_navigationSettingsFragment"
+            app:destination="@id/navigationSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_action_settings_to_astronomySettingsFragment"
+            app:destination="@id/astronomySettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/beacon_list"
@@ -174,4 +195,16 @@
         android:id="@+id/thermometerFragment"
         android:name="com.kylecorry.trail_sense.weather.ui.ThermometerFragment"
         android:label="ThermometerFragment" />
+    <fragment
+        android:id="@+id/weatherSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.WeatherSettingsFragment"
+        android:label="WeatherSettingsFragment" />
+    <fragment
+        android:id="@+id/navigationSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.NavigationSettingsFragment"
+        android:label="NavigationSettingsFragment" />
+    <fragment
+        android:id="@+id/astronomySettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.AstronomySettingsFragment"
+        android:label="AstronomySettingsFragment" />
 </navigation>

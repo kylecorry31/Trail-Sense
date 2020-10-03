@@ -1,0 +1,99 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/forecasts_category">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_monitor_weather"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_monitor_weather_summary"
+            app:title="@string/pref_monitor_weather_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:dependency="@string/pref_monitor_weather"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_send_storm_alert"
+            app:singleLineTitle="false"
+            app:title="@string/pref_send_storm_alerts_title" />
+
+        <ListPreference
+            app:defaultValue="medium"
+            app:entries="@array/storm_sensitivity_entries_hpa"
+            app:entryValues="@array/storm_alert_sensitivity_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_storm_alert_sensitivity"
+            app:singleLineTitle="false"
+            app:title="@string/pref_storm_alert_sensitivity_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="medium"
+            app:entries="@array/forecast_sensitivity_entries_hpa"
+            app:entryValues="@array/forecast_sensitivity_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_forecast_sensitivity"
+            app:singleLineTitle="false"
+            app:title="@string/pref_forecast_sensitivity_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:dependency="@string/pref_monitor_weather"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_weather_notification"
+            app:singleLineTitle="false"
+            app:title="@string/pref_show_weather_notification_title" />
+
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_show_weather_notification"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_pressure_in_notification"
+            app:singleLineTitle="false"
+            app:title="@string/pref_show_pressure_in_notification_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/advanced_settings_category">
+
+        <ListPreference
+            app:defaultValue="15"
+            app:dependency="@string/pref_monitor_weather"
+            app:entries="@array/weather_update_frequency_entries"
+            app:entryValues="@array/weather_update_frequency_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_update_frequency"
+            app:singleLineTitle="false"
+            app:title="@string/pref_weather_update_frequency_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_force_weather_updates_summary"
+            app:defaultValue="false"
+            app:dependency="@string/pref_monitor_weather"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_force_weather_updates"
+            app:singleLineTitle="false"
+            app:title="@string/pref_force_weather_updates_title" />
+
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_weather_foreground_service_summary"
+            app:defaultValue="true"
+            app:dependency="@string/pref_monitor_weather"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_foreground_service"
+            app:singleLineTitle="false"
+            app:title="@string/pref_weather_foreground_service_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

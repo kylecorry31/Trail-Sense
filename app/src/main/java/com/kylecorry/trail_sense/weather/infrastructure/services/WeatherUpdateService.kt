@@ -98,7 +98,7 @@ class WeatherUpdateService : Service() {
         }
 
         sendWeatherNotification()
-        setSensorTimeout(30000L)
+        setSensorTimeout(30 * 1000L)
         startSensors()
 
         return START_NOT_STICKY
@@ -124,7 +124,7 @@ class WeatherUpdateService : Service() {
         try {
             wakelock = PowerUtils.getWakelock(applicationContext, TAG)
             releaseWakelock()
-            wakelock?.acquire(10 * 60 * 1000L)
+            wakelock?.acquire(60 * 1000L)
         } catch (e: Exception) {
             // DO NOTHING
         }
@@ -266,7 +266,10 @@ class WeatherUpdateService : Service() {
     }
 
     override fun onDestroy() {
-        stopForeground(true)
+        releaseWakelock()
+        if (userPrefs.weather.foregroundService) {
+            stopForeground(true)
+        }
         stopSelf()
         super.onDestroy()
     }

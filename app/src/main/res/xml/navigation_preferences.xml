@@ -1,0 +1,82 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/pref_general_header">
+        <SwitchPreferenceCompat
+            android:title="@string/pref_show_calibrate_on_navigate_dialog_title"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_calibrate_on_navigate_dialog"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_linear_compass"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_show_linear_compass_summary"
+            app:title="@string/pref_show_linear_compass_title" />
+
+        <ListPreference
+            android:entries="@array/sun_moon_compass_entries"
+            android:entryValues="@array/sun_moon_compass_values"
+            app:defaultValue="never"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_sun_moon_compass"
+            app:singleLineTitle="false"
+            app:title="@string/pref_show_sun_moon_compass_title"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/navigation_nearby_category">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_display_multi_beacons"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_display_multi_beacons_summary"
+            app:title="@string/pref_display_multi_beacons_title" />
+
+        <EditTextPreference
+            android:inputType="number"
+            app:defaultValue="5"
+            app:dependency="@string/pref_display_multi_beacons"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_num_visible_beacons"
+            app:min="0"
+            app:singleLineTitle="false"
+            app:title="@string/pref_num_visible_beacons_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            android:dialogMessage="@string/pref_max_beacon_distance_km_message"
+            android:inputType="number"
+            app:defaultValue="100"
+            app:dependency="@string/pref_display_multi_beacons"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_max_beacon_distance"
+            app:min="0"
+            app:singleLineTitle="false"
+            app:title="@string/pref_max_beacon_distance_title" />
+
+        <EditTextPreference
+            android:dialogMessage="@string/pref_max_beacon_distance_miles_message"
+            android:inputType="number"
+            app:defaultValue="62"
+            app:dependency="@string/pref_display_multi_beacons"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_max_beacon_distance_miles"
+            app:min="0"
+            app:singleLineTitle="false"
+            app:title="@string/pref_max_beacon_distance_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

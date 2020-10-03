@@ -1,0 +1,55 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/pref_general_header">
+
+        <ListPreference
+            app:defaultValue="actual"
+            app:entries="@array/sun_times_entries"
+            app:entryValues="@array/sun_times_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_sun_time_mode"
+            app:singleLineTitle="false"
+            app:title="@string/pref_sun_time_mode_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_center_sun_and_moon"
+            app:singleLineTitle="false"
+            app:title="@string/pref_center_sun_and_moon_title" />
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/pref_sunset_alerts_title">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_sunset_alerts"
+            app:singleLineTitle="false"
+            app:title="@string/pref_sunset_alerts_title" />
+
+        <ListPreference
+            android:dependency="@string/pref_sunset_alerts"
+            app:defaultValue="60"
+            app:entries="@array/sunset_alert_time_entries"
+            app:entryValues="@array/sunset_alert_time_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_sunset_alert_time"
+            app:singleLineTitle="false"
+            app:title="@string/pref_sunset_alert_time_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+
+
+</PreferenceScreen>
