@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.Context
 import com.kylecorry.trail_sense.shared.tasks.DeferredTaskScheduler
 import com.kylecorry.trail_sense.shared.tasks.ITaskScheduler
+import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateAlarmReceiver
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import java.time.Duration
