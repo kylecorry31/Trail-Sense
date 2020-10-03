@@ -6,13 +6,13 @@ import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -34,15 +34,8 @@ class AstronomyFragment : Fragment() {
     private lateinit var gps: IGPS
     private lateinit var declinationProvider: IDeclinationProvider
 
-    private lateinit var sunTxt: TextView
-    private lateinit var remDaylightTxt: TextView
-    private lateinit var moonPosition: ImageView
-    private lateinit var sunPosition: ImageView
+    private lateinit var binding: ActivityAstronomyBinding
     private lateinit var detailList: ListView<AstroDetail>
-
-    private lateinit var prevDateBtn: ImageButton
-    private lateinit var nextDateBtn: ImageButton
-    private lateinit var dateTxt: TextView
     private lateinit var chart: AstroChart
 
     private lateinit var displayDate: LocalDate
@@ -58,14 +51,9 @@ class AstronomyFragment : Fragment() {
         updateUI()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.activity_astronomy, container, false)
-
-        val recyclerView = view.findViewById<RecyclerView>(R.id.astronomy_detail_list)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val recyclerView = binding.astronomyDetailList
         detailList =
             ListView(recyclerView, R.layout.list_item_astronomy_detail) { itemView, detail ->
                 val nameText: TextView = itemView.findViewById(R.id.astronomy_detail_name)
@@ -92,23 +80,15 @@ class AstronomyFragment : Fragment() {
                 }
             }
 
-        sunTxt = view.findViewById(R.id.remaining_time)
-        remDaylightTxt = view.findViewById(R.id.remaining_time_lbl)
-        sunPosition = view.findViewById(R.id.sun_position)
-        moonPosition = view.findViewById(R.id.moon_position)
 
-        dateTxt = view.findViewById(R.id.date)
-        nextDateBtn = view.findViewById(R.id.next_date)
-        prevDateBtn = view.findViewById(R.id.prev_date)
+        chart = AstroChart(binding.sunMoonChart)
 
-        chart = AstroChart(view.findViewById(R.id.moonChart))
-
-        prevDateBtn.setOnClickListener {
+        binding.prevDate.setOnClickListener {
             displayDate = displayDate.minusDays(1)
             updateUI()
         }
 
-        nextDateBtn.setOnClickListener {
+        binding.nextDate.setOnClickListener {
             displayDate = displayDate.plusDays(1)
             updateUI()
         }
@@ -118,15 +98,22 @@ class AstronomyFragment : Fragment() {
 
         sunTimesMode = prefs.astronomy.sunTimesMode
 
-        sunPosition.setOnClickListener {
+        binding.sunPosition.setOnClickListener {
             openDetailsDialog()
         }
 
-        moonPosition.setOnClickListener {
+        binding.moonPosition.setOnClickListener {
             openDetailsDialog()
         }
+    }
 
-        return view
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = ActivityAstronomyBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onResume() {
@@ -175,7 +162,7 @@ class AstronomyFragment : Fragment() {
         if (context == null) {
             return
         }
-        dateTxt.text = getDateString(displayDate)
+        binding.date.text = getDateString(displayDate)
         updateSunUI()
         updateMoonUI()
         updateAstronomyChart()
@@ -188,7 +175,7 @@ class AstronomyFragment : Fragment() {
         }
 
         val moonPhase = astronomyService.getCurrentMoonPhase()
-        moonPosition.setImageResource(getMoonImage(moonPhase.phase))
+        binding.moonPosition.setImageResource(getMoonImage(moonPhase.phase))
     }
 
     private fun updateAstronomyChart() {
@@ -237,25 +224,25 @@ class AstronomyFragment : Fragment() {
                 moonAltitudes.minByOrNull { Duration.between(LocalDateTime.now(), it.first).abs() }
             val currentIdx = moonAltitudes.indexOf(current)
             val point = chart.getPoint(1, currentIdx)
-            moonPosition.x = point.first - moonPosition.width / 2f
-            moonPosition.y = point.second - moonPosition.height / 2f
+            binding.moonPosition.x = point.first - binding.moonPosition.width / 2f
+            binding.moonPosition.y = point.second - binding.moonPosition.height / 2f
 
             val point2 = chart.getPoint(2, currentIdx)
-            sunPosition.x = point2.first - sunPosition.width / 2f
-            sunPosition.y = point2.second - sunPosition.height / 2f
+            binding.sunPosition.x = point2.first - binding.sunPosition.width / 2f
+            binding.sunPosition.y = point2.second - binding.sunPosition.height / 2f
 
 
-            if (moonPosition.height != 0) {
-                moonPosition.visibility = View.VISIBLE
+            if (binding.moonPosition.height != 0) {
+                binding.moonPosition.visibility = View.VISIBLE
             }
 
-            if (sunPosition.height != 0) {
-                sunPosition.visibility = View.VISIBLE
+            if (binding.sunPosition.height != 0) {
+                binding.sunPosition.visibility = View.VISIBLE
             }
 
         } else {
-            sunPosition.visibility = View.INVISIBLE
-            moonPosition.visibility = View.INVISIBLE
+            binding.sunPosition.visibility = View.INVISIBLE
+            binding.moonPosition.visibility = View.INVISIBLE
         }
 
     }
@@ -474,21 +461,21 @@ class AstronomyFragment : Fragment() {
         val nextSunset = astronomyService.getNextSunset(gps.location, sunTimesMode)
 
         if (nextSunrise != null && (nextSunset == null || nextSunrise.isBefore(nextSunset))) {
-            sunTxt.text = Duration.between(currentTime, nextSunrise).formatHM()
-            remDaylightTxt.text = getString(
+            binding.remainingTime.text = Duration.between(currentTime, nextSunrise).formatHM()
+            binding.remainingTimeLbl.text = getString(
                 R.string.until_sun_time, getSunriseWording()
             )
         } else if (nextSunset != null) {
-            sunTxt.text = Duration.between(currentTime, nextSunset).formatHM()
-            remDaylightTxt.text = getString(
+            binding.remainingTime.text = Duration.between(currentTime, nextSunset).formatHM()
+            binding.remainingTimeLbl.text = getString(
                 R.string.until_sun_time, getSunsetWording()
             )
         } else if (astronomyService.isSunUp(gps.location)) {
-            sunTxt.text = getString(R.string.sun_up_no_set)
-            remDaylightTxt.text = getString(R.string.sun_does_not_set)
+            binding.remainingTime.text = getString(R.string.sun_up_no_set)
+            binding.remainingTimeLbl.text = getString(R.string.sun_does_not_set)
         } else {
-            sunTxt.text = getString(R.string.sun_down_no_set)
-            remDaylightTxt.text = getString(R.string.sun_does_not_rise)
+            binding.remainingTime.text = getString(R.string.sun_down_no_set)
+            binding.remainingTimeLbl.text = getString(R.string.sun_does_not_rise)
         }
     }
 
