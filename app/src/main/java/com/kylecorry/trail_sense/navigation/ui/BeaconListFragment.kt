@@ -8,22 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 
 
@@ -32,10 +28,8 @@ class BeaconListFragment : Fragment() {
     private val beaconRepo by lazy { BeaconRepo(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
 
+    private lateinit var binding: FragmentBeaconListBinding
     private lateinit var beaconList: ListView<IBeacon>
-    private lateinit var createBtn: FloatingActionButton
-    private lateinit var emptyTxt: TextView
-    private lateinit var titleTxt: TextView
     private lateinit var navController: NavController
     private val sensorService by lazy { SensorService(requireContext()) }
     private var displayedGroup: BeaconGroup? = null
@@ -45,24 +39,22 @@ class BeaconListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_beacon_list, container, false)
+        binding = FragmentBeaconListBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val beaconRecyclerView = view.findViewById<RecyclerView>(R.id.beacon_recycler)
+        val beaconRecyclerView = binding.beaconRecycler
         beaconList =
             ListView(beaconRecyclerView, R.layout.list_item_beacon, this::updateBeaconListItem)
         beaconList.addLineSeparator()
-        createBtn = view.findViewById(R.id.create_beacon_btn)
-        emptyTxt = view.findViewById(R.id.beacon_empty_text)
-        titleTxt = view.findViewById(R.id.beacon_title)
         navController = findNavController()
 
         updateBeaconList()
 
-        createBtn.setOnClickListener {
+        binding.createBeaconBtn.setOnClickListener {
             if (displayedGroup != null) {
                 val bundle = bundleOf("initial_group" to displayedGroup!!.id)
                 navController.navigate(
@@ -136,9 +128,9 @@ class BeaconListFragment : Fragment() {
 
     private fun updateBeaconEmptyText(hasBeacons: Boolean) {
         if (!hasBeacons) {
-            emptyTxt.visibility = View.VISIBLE
+            binding.beaconEmptyText.visibility = View.VISIBLE
         } else {
-            emptyTxt.visibility = View.GONE
+            binding.beaconEmptyText.visibility = View.GONE
         }
     }
 
@@ -231,7 +223,7 @@ class BeaconListFragment : Fragment() {
     private fun updateBeaconList() {
         context ?: return
 
-        titleTxt.text = displayedGroup?.name ?: getString(R.string.beacon_list_title)
+        binding.beaconTitle.text = displayedGroup?.name ?: getString(R.string.beacon_list_title)
 
 
         val beacons = if (displayedGroup == null) {

@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.navigation.domain.FlashlightState
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trailsensecore.domain.geo.Bearing
@@ -48,21 +45,8 @@ class NavigatorFragment : Fragment() {
     private lateinit var linearCompass: ICompassView
     private val userPrefs by lazy { UserPreferences(requireContext()) }
 
-    private lateinit var locationTxt: TextView
-    private lateinit var altitudeTxt: TextView
-    private lateinit var azimuthTxt: TextView
-    private lateinit var directionTxt: TextView
-    private lateinit var beaconBtn: FloatingActionButton
-    private lateinit var rulerBtn: FloatingActionButton
-    private lateinit var flashlightBtn: FloatingActionButton
+    private lateinit var binding: ActivityNavigatorBinding
     private lateinit var ruler: Ruler
-    private lateinit var parentLayout: ConstraintLayout
-    private lateinit var accuracyView: LinearLayout
-    private lateinit var gpsAccuracyTxt: TextView
-    private lateinit var compassAccuracyTxt: TextView
-    private lateinit var gpsAccuracy: LinearLayout
-    private lateinit var compassAccuracy: LinearLayout
-    private lateinit var speedTxt: TextView
     private lateinit var navController: NavController
 
     private var acquiredLock = false
@@ -103,7 +87,8 @@ class NavigatorFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.activity_navigator, container, false)
+        binding = ActivityNavigatorBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,24 +104,10 @@ class NavigatorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        locationTxt = view.findViewById(R.id.location)
-        altitudeTxt = view.findViewById(R.id.altitude)
-        azimuthTxt = view.findViewById(R.id.compass_azimuth)
-        directionTxt = view.findViewById(R.id.compass_direction)
-        beaconBtn = view.findViewById(R.id.beaconBtn)
-        rulerBtn = view.findViewById(R.id.ruler_btn)
-        flashlightBtn = view.findViewById(R.id.flashlight_btn)
-        ruler = Ruler(view.findViewById(R.id.ruler))
-        parentLayout = view.findViewById(R.id.navigator_layout)
-        accuracyView = view.findViewById(R.id.accuracy_view)
-        gpsAccuracyTxt = view.findViewById(R.id.gps_accuracy_text)
-        compassAccuracyTxt = view.findViewById(R.id.compass_accuracy_text)
-        gpsAccuracy = view.findViewById(R.id.gps_accuracy_view)
-        compassAccuracy = view.findViewById(R.id.compass_accuracy_view)
-        speedTxt = view.findViewById(R.id.speed)
+        ruler = Ruler(binding.ruler)
         navController = findNavController()
 
-        destinationPanel = DestinationPanel(view.findViewById(R.id.navigation_sheet))
+        destinationPanel = DestinationPanel(binding.navigationSheet)
 
         val beacons = mutableListOf<ImageView>()
 
@@ -158,7 +129,7 @@ class NavigatorFragment : Fragment() {
         beaconIndicators.forEach {
             it.setImageDrawable(arrowImg)
             it.visibility = View.INVISIBLE
-            parentLayout.addView(it)
+            binding.root.addView(it)
         }
 
         beaconIndicators[0].setImageDrawable(sunImg)
@@ -176,25 +147,25 @@ class NavigatorFragment : Fragment() {
         averageSpeed = userPrefs.navigation.averageSpeed
 
         roundCompass = CompassView(
-            view.findViewById(R.id.needle),
+            binding.needle,
             beaconIndicators,
-            view.findViewById(R.id.azimuth_indicator)
+            binding.azimuthIndicator
         )
         linearCompass = LinearCompassViewHldr(
-            view.findViewById(R.id.linear_compass),
+            binding.linearCompass,
             beaconIndicators
         )
 
         visibleCompass = linearCompass
         setVisibleCompass(roundCompass)
 
-        locationTxt.setOnLongClickListener {
+        binding.location.setOnLongClickListener {
             val sender = LocationSharesheet(requireContext())
             sender.send(gps.location)
             true
         }
 
-        beaconBtn.setOnClickListener {
+        binding.beaconBtn.setOnClickListener {
             if (destination == null) {
                 navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment)
             } else {
@@ -204,10 +175,10 @@ class NavigatorFragment : Fragment() {
             }
         }
 
-        rulerBtn.setOnClickListener {
+        binding.rulerBtn.setOnClickListener {
             if (ruler.visible) {
                 UiUtils.setButtonState(
-                    rulerBtn,
+                    binding.rulerBtn,
                     false,
                     UiUtils.color(requireContext(), R.color.colorPrimary),
                     UiUtils.color(requireContext(), R.color.colorSecondary)
@@ -215,7 +186,7 @@ class NavigatorFragment : Fragment() {
                 ruler.hide()
             } else {
                 UiUtils.setButtonState(
-                    rulerBtn,
+                    binding.rulerBtn,
                     true,
                     UiUtils.color(requireContext(), R.color.colorPrimary),
                     UiUtils.color(requireContext(), R.color.colorSecondary)
@@ -225,15 +196,15 @@ class NavigatorFragment : Fragment() {
         }
 
         if (!flashlight.isAvailable()) {
-            flashlightBtn.visibility = View.GONE
+            binding.flashlightBtn.visibility = View.GONE
         } else {
-            flashlightBtn.setOnClickListener {
+            binding.flashlightBtn.setOnClickListener {
                 flashlightState = getNextFlashlightState(flashlightState)
                 flashlight.set(flashlightState)
             }
         }
 
-        accuracyView.setOnClickListener { displayAccuracyTips() }
+        binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
         roundCompass.setOnClickListener {
             if (destinationBearing == null) {
@@ -291,27 +262,27 @@ class NavigatorFragment : Fragment() {
     private fun updateFlashlightUI() {
         when (flashlightState) {
             FlashlightState.On -> {
-                flashlightBtn.setImageResource(R.drawable.flashlight)
+                binding.flashlightBtn.setImageResource(R.drawable.flashlight)
                 UiUtils.setButtonState(
-                    flashlightBtn,
+                    binding.flashlightBtn,
                     true,
                     UiUtils.color(requireContext(), R.color.colorPrimary),
                     UiUtils.color(requireContext(), R.color.colorSecondary)
                 )
             }
             FlashlightState.SOS -> {
-                flashlightBtn.setImageResource(R.drawable.flashlight_sos)
+                binding.flashlightBtn.setImageResource(R.drawable.flashlight_sos)
                 UiUtils.setButtonState(
-                    flashlightBtn,
+                    binding.flashlightBtn,
                     true,
                     UiUtils.color(requireContext(), R.color.colorPrimary),
                     UiUtils.color(requireContext(), R.color.colorSecondary)
                 )
             }
             else -> {
-                flashlightBtn.setImageResource(R.drawable.flashlight)
+                binding.flashlightBtn.setImageResource(R.drawable.flashlight)
                 UiUtils.setButtonState(
-                    flashlightBtn,
+                    binding.flashlightBtn,
                     false,
                     UiUtils.color(requireContext(), R.color.colorPrimary),
                     UiUtils.color(requireContext(), R.color.colorSecondary)
@@ -364,7 +335,7 @@ class NavigatorFragment : Fragment() {
             declinationProvider.start(this::onDeclinationUpdate)
         }
 
-        beaconBtn.show()
+        binding.beaconBtn.show()
         if (userPrefs.navigation.showMultipleBeacons) {
             intervalometer.interval(Duration.ofSeconds(15))
         }
@@ -477,31 +448,31 @@ class NavigatorFragment : Fragment() {
         }
 
         if (!acquiredLock) {
-            gpsAccuracyTxt.text = formatService.formatAccuracy(Accuracy.Unknown)
+            binding.gpsAccuracyText.text = formatService.formatAccuracy(Accuracy.Unknown)
         } else {
-            gpsAccuracyTxt.text = formatService.formatAccuracy(gps.accuracy)
+            binding.gpsAccuracyText.text = formatService.formatAccuracy(gps.accuracy)
         }
-        compassAccuracyTxt.text = formatService.formatAccuracy(compass.accuracy)
+        binding.compassAccuracyText.text = formatService.formatAccuracy(compass.accuracy)
 
         if (gps.speed == 0.0f) {
-            speedTxt.text = getString(R.string.dash)
+            binding.speed.text = getString(R.string.dash)
         } else {
-            speedTxt.text = formatService.formatSpeed(gps.speed)
+            binding.speed.text = formatService.formatSpeed(gps.speed)
         }
 
         // Azimuth
-        azimuthTxt.text = formatService.formatDegrees(compass.bearing.value)
-        directionTxt.text = formatService.formatDirection(compass.bearing.direction)
+        binding.compassAzimuth.text = formatService.formatDegrees(compass.bearing.value)
+        binding.compassDirection.text = formatService.formatDirection(compass.bearing.direction)
 
         // Compass
         visibleCompass.azimuth = compass.bearing.value
         visibleCompass.beacons = getCompassMarkers(nearbyBeacons).map { it.value }
 
         // Altitude
-        altitudeTxt.text = formatService.formatSmallDistance(altimeter.altitude)
+        binding.altitude.text = formatService.formatSmallDistance(altimeter.altitude)
 
         // Location
-        locationTxt.text = formatService.formatLocation(gps.location)
+        binding.location.text = formatService.formatLocation(gps.location)
 
         // Sun and moon
         beaconIndicators[0].visibility = getSunBeaconVisibility()
@@ -636,9 +607,9 @@ class NavigatorFragment : Fragment() {
 
     private fun updateNavigationButton() {
         if (destination != null) {
-            beaconBtn.setImageResource(R.drawable.ic_cancel)
+            binding.beaconBtn.setImageResource(R.drawable.ic_cancel)
         } else {
-            beaconBtn.setImageResource(R.drawable.ic_beacon)
+            binding.beaconBtn.setImageResource(R.drawable.ic_beacon)
         }
     }
 
