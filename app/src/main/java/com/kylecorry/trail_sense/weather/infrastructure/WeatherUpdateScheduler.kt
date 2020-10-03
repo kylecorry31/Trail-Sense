@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.tasks.DeferredTaskScheduler
 import com.kylecorry.trail_sense.shared.tasks.ITaskScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateAlarmReceiver
@@ -22,6 +23,11 @@ object WeatherUpdateScheduler {
     }
 
     fun getScheduler(context: Context): ITaskScheduler {
-        return WeatherUpdateWorker.scheduler(context)
+        val prefs = UserPreferences(context)
+        return if (prefs.weather.forceWeatherUpdates) {
+            WeatherUpdateAlarmReceiver.scheduler(context)
+        } else {
+            WeatherUpdateWorker.scheduler(context)
+        }
     }
 }

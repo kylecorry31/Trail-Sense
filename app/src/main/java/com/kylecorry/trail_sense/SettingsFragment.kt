@@ -92,6 +92,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             updatePreferenceStates()
             true
         }
+        prefForceWeatherUpdates?.setOnPreferenceClickListener {
+            restartWeatherMonitor()
+            updatePreferenceStates()
+            true
+        }
         prefShowWeatherNotification?.setOnPreferenceClickListener {
             restartWeatherMonitor()
             updatePreferenceStates()

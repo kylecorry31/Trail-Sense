@@ -93,7 +93,9 @@ class WeatherUpdateService : Service() {
             R.drawable.ic_update
         )
 
-        startForeground(FOREGROUND_SERVICE_ID, notification)
+        if (userPrefs.weather.foregroundService) {
+            startForeground(FOREGROUND_SERVICE_ID, notification)
+        }
 
         sendWeatherNotification()
         setSensorTimeout(30000L)
@@ -190,7 +192,9 @@ class WeatherUpdateService : Service() {
         sendWeatherNotification()
         Log.i(TAG, "Got all readings recorded at ${ZonedDateTime.now()}")
         releaseWakelock()
-        stopForeground(true)
+        if (userPrefs.weather.foregroundService) {
+            stopForeground(true)
+        }
         stopSelf()
     }
 
@@ -337,7 +341,8 @@ class WeatherUpdateService : Service() {
         }
 
         fun start(context: Context) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val prefs = UserPreferences(context)
+            if (prefs.weather.foregroundService && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 context.startForegroundService(intent(context))
             } else {
                 context.startService(intent(context))
