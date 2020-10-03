@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateWorker
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
@@ -76,8 +77,7 @@ class WeatherUpdateService : Service() {
         altimeter = sensorService.getAltimeter(true)
         thermometer = sensorService.getThermometer()
 
-        WeatherUpdateWorker.start(applicationContext, userPrefs.weather.weatherUpdateFrequency)
-
+        scheduleNextUpdate()
 
         createChannel(
             applicationContext,
@@ -102,7 +102,13 @@ class WeatherUpdateService : Service() {
         return START_NOT_STICKY
     }
 
-    private fun releaseWakelock(){
+    private fun scheduleNextUpdate() {
+        val scheduler = WeatherUpdateScheduler.getScheduler(applicationContext)
+        scheduler.cancel()
+        scheduler.schedule(userPrefs.weather.weatherUpdateFrequency)
+    }
+
+    private fun releaseWakelock() {
         try {
             if (wakelock?.isHeld == true) {
                 wakelock?.release()

@@ -2,11 +2,9 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import androidx.work.*
-import androidx.work.WorkManager
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.tasks.DeferredTaskScheduler
+import com.kylecorry.trail_sense.shared.tasks.ITaskScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
-import java.time.Duration
-import java.util.concurrent.TimeUnit
 
 class WeatherUpdateWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     override fun doWork(): Result {
@@ -17,33 +15,16 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) : Worker(c
     companion object {
         private const val WORK_TAG = "com.kylecorry.trail_sense.WeatherUpdateWorker"
 
-        fun start(
-            context: Context,
-            interval: Duration
-        ) {
-            val workManager = WorkManager.getInstance(context.applicationContext)
-
+        fun scheduler(context: Context): ITaskScheduler {
             val constraints = Constraints.Builder()
                 .setRequiresBatteryNotLow(true)
                 .build()
-
-            val request = OneTimeWorkRequest
-                .Builder(WeatherUpdateWorker::class.java)
-                .addTag(WORK_TAG)
-                .setInitialDelay(interval.toMillis(), TimeUnit.MILLISECONDS)
-                .setConstraints(constraints)
-                .build()
-
-            workManager.enqueueUniqueWork(
+            return DeferredTaskScheduler(
+                context,
+                WeatherUpdateWorker::class.java,
                 WORK_TAG,
-                ExistingWorkPolicy.REPLACE,
-                request
+                constraints
             )
-        }
-
-        fun stop(context: Context) {
-            val workManager = WorkManager.getInstance(context.applicationContext)
-            workManager.cancelUniqueWork(WORK_TAG)
         }
     }
 
