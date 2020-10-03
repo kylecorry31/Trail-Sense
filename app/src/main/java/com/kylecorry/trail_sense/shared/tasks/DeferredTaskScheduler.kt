@@ -18,13 +18,10 @@ class DeferredTaskScheduler(
         val workManager = WorkManager.getInstance(context.applicationContext)
 
         val request = OneTimeWorkRequest
-            .Builder(task).apply {
-                addTag(uniqueId)
-                setInitialDelay(delay.toMillis(), TimeUnit.MILLISECONDS)
-                if (constraints != null) {
-                    setConstraints(constraints)
-                }
-            }
+            .Builder(task)
+            .addTag(uniqueId)
+            .setInitialDelay(delay.toMillis(), TimeUnit.MILLISECONDS)
+            .setConstraints(constraints ?: Constraints.NONE)
             .build()
 
         workManager.enqueueUniqueWork(
