@@ -134,4 +134,10 @@
     <string name="action_settings">Innstillinger</string>
     <string name="action_weather">Vær</string>
     <string name="action_navigation">Navigasjon</string>
+    <string name="no_humidity_data">Ingen fuktighetsdata</string>
+    <string name="pressure_format">%s %s</string>
+    <string name="beacon_use_current_location">Bruk nåværende posisjon</string>
+    <string name="beacon_invalid_longitude">Ugyldig lengdegrad</string>
+    <string name="dialog_deny">Nei takk</string>
+    <string name="dialog_grant">Oppdater innstillinger</string>
 </resources>
