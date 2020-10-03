@@ -52,7 +52,7 @@ class WeatherSettingsFragment : PreferenceFragmentCompat() {
             restartWeatherMonitor()
             true
         }
-        prefWeatherUpdateFrequency?.setOnPreferenceClickListener {
+        prefWeatherUpdateFrequency?.setOnPreferenceChangeListener { _, _ ->
             restartWeatherMonitor()
             true
         }
