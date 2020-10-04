@@ -45,7 +45,8 @@ class NavigatorFragment : Fragment() {
     private lateinit var linearCompass: ICompassView
     private val userPrefs by lazy { UserPreferences(requireContext()) }
 
-    private lateinit var binding: ActivityNavigatorBinding
+    private var _binding: ActivityNavigatorBinding? = null
+    private val binding get() = _binding!!
     private lateinit var ruler: Ruler
     private lateinit var navController: NavController
 
@@ -87,8 +88,13 @@ class NavigatorFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ActivityNavigatorBinding.inflate(layoutInflater)
+        _binding = ActivityNavigatorBinding.inflate(layoutInflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,11 +1,9 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.view.View
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.PopupMenu
-import android.widget.TextView
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconCopy
@@ -34,36 +32,32 @@ class BeaconListItem(
     private val repo by lazy { BeaconRepo(view.context) }
 
     init {
-        val nameText: TextView = view.findViewById(R.id.beacon_name)
-        val summaryTxt: TextView = view.findViewById(R.id.beacon_summary)
-        val menuBtn: ImageButton = view.findViewById(R.id.beacon_menu_btn)
-        val beaconImg: ImageView = view.findViewById(R.id.beacon_image)
-        val visibilityBtn: ImageButton = view.findViewById(R.id.visible_btn)
+        val binding = ListItemBeaconBinding.bind(view)
 
-        nameText.text = beacon.name
-        beaconImg.setImageResource(R.drawable.ic_location)
+        binding.beaconName.text = beacon.name
+        binding.beaconImage.setImageResource(R.drawable.ic_location)
         var beaconVisibility = beacon.visible
         val distance = navigationService.navigate(beacon.coordinate, myLocation, 0f).distance
-        summaryTxt.text = formatservice.formatLargeDistance(distance)
+        binding.beaconSummary.text = formatservice.formatLargeDistance(distance)
         if (!prefs.navigation.showMultipleBeacons) {
-            visibilityBtn.visibility = View.GONE
+            binding.visibleBtn.visibility = View.GONE
         } else {
-            visibilityBtn.visibility = View.VISIBLE
+            binding.visibleBtn.visibility = View.VISIBLE
         }
         if (beaconVisibility) {
-            visibilityBtn.setImageResource(R.drawable.ic_visible)
+            binding.visibleBtn.setImageResource(R.drawable.ic_visible)
         } else {
-            visibilityBtn.setImageResource(R.drawable.ic_not_visible)
+            binding.visibleBtn.setImageResource(R.drawable.ic_not_visible)
         }
 
-        visibilityBtn.setOnClickListener {
+        binding.visibleBtn.setOnClickListener {
             val newBeacon = beacon.copy(visible = !beaconVisibility)
             repo.add(newBeacon)
             beaconVisibility = newBeacon.visible
             if (beaconVisibility) {
-                visibilityBtn.setImageResource(R.drawable.ic_visible)
+                binding.visibleBtn.setImageResource(R.drawable.ic_visible)
             } else {
-                visibilityBtn.setImageResource(R.drawable.ic_not_visible)
+                binding.visibleBtn.setImageResource(R.drawable.ic_not_visible)
             }
         }
 
@@ -97,7 +91,7 @@ class BeaconListItem(
                         view.context.getString(R.string.dialog_ok),
                         view.context.getString(R.string.dialog_cancel)
                     ) { cancelled ->
-                        if (!cancelled){
+                        if (!cancelled) {
                             repo.delete(beacon)
                             onDeleted()
                         }
@@ -107,7 +101,7 @@ class BeaconListItem(
             true
         }
 
-        menuBtn.setOnClickListener {
+        binding.beaconMenuBtn.setOnClickListener {
             val popup = PopupMenu(it.context, it)
             val inflater = popup.menuInflater
             inflater.inflate(R.menu.beacon_item_menu, popup.menu)

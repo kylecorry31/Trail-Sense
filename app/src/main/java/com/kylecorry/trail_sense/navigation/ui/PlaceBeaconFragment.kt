@@ -27,7 +27,8 @@ class PlaceBeaconFragment : Fragment() {
     private val gps by lazy { sensorService.getGPS() }
     private lateinit var navController: NavController
 
-    private lateinit var binding: FragmentCreateBeaconBinding
+    private var _binding: FragmentCreateBeaconBinding? = null
+    private val binding get() = _binding!!
     private val altimeter by lazy { sensorService.getAltimeter() }
 
     private lateinit var units: UserPreferences.DistanceUnits
@@ -63,8 +64,13 @@ class PlaceBeaconFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCreateBeaconBinding.inflate(layoutInflater)
+        _binding = FragmentCreateBeaconBinding.inflate(layoutInflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

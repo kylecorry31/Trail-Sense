@@ -34,7 +34,8 @@ class AstronomyFragment : Fragment() {
     private lateinit var gps: IGPS
     private lateinit var declinationProvider: IDeclinationProvider
 
-    private lateinit var binding: ActivityAstronomyBinding
+    private var _binding: ActivityAstronomyBinding? = null
+    private val binding get() = _binding!!
     private lateinit var detailList: ListView<AstroDetail>
     private lateinit var chart: AstroChart
 
@@ -112,8 +113,13 @@ class AstronomyFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ActivityAstronomyBinding.inflate(layoutInflater)
+        _binding = ActivityAstronomyBinding.inflate(layoutInflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onResume() {
@@ -297,32 +303,32 @@ class AstronomyFragment : Fragment() {
         val details = listOf(
             Pair(
                 Pair(
-                    Pair(R.drawable.sunrise, R.color.colorPrimary),
+                    R.drawable.sunrise to R.color.colorPrimary,
                     getString(R.string.sunrise_label)
                 ), sunTimes.rise?.toLocalDateTime()
             ),
             Pair(
                 Pair(
-                    Pair(R.drawable.sunset, R.color.colorPrimary),
+                    R.drawable.sunset to R.color.colorPrimary,
                     getString(R.string.sunset_label)
                 ), sunTimes.set?.toLocalDateTime()
             ),
             // TODO: Get moon icons
             Pair(
-                Pair(Pair(R.drawable.moonrise, null), getString(R.string.moon_rise)),
+                Pair(R.drawable.moonrise to null, getString(R.string.moon_rise)),
                 moonTimes.rise?.toLocalDateTime()
             ),
             Pair(
-                Pair(Pair(R.drawable.moonset, null), getString(R.string.moon_set)),
+                Pair(R.drawable.moonset to null, getString(R.string.moon_set)),
                 moonTimes.set?.toLocalDateTime()
             ),
             // TODO: Get solar/lunar noon images
             Pair(
-                Pair(Pair(R.drawable.sun, R.color.colorPrimary), getString(R.string.solar_noon)),
+                Pair(R.drawable.sun to R.color.colorPrimary, getString(R.string.solar_noon)),
                 solarNoon
             ),
             Pair(
-                Pair(Pair(R.drawable.moon_full, null), getString(R.string.lunar_noon)),
+                Pair(R.drawable.moon_full to null, getString(R.string.lunar_noon)),
                 lunarNoon
             )
         ).filterNot { it.second == null }.sortedBy { it.second?.toLocalTime() }.map {

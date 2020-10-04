@@ -39,7 +39,8 @@ class BarometerFragment : Fragment() {
 
     private lateinit var prefs: UserPreferences
 
-    private lateinit var binding: ActivityWeatherBinding
+    private var _binding: ActivityWeatherBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var chart: PressureChart
     private lateinit var navController: NavController
@@ -126,9 +127,13 @@ class BarometerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ActivityWeatherBinding.inflate(inflater)
+        _binding = ActivityWeatherBinding.inflate(inflater, container, false)
         return binding.root
-//        return inflater.inflate(R.layout.activity_weather, container, false)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onResume() {

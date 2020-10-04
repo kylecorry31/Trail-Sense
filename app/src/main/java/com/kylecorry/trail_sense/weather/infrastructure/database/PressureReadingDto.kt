@@ -8,12 +8,12 @@ import java.time.Instant
 class PressureReadingDto : Dto<PressureAltitudeReading>() {
     override fun getProperties(): Map<String, SqlType> {
         return mapOf(
-            Pair("_id", SqlType.Int),
-            Pair("time", SqlType.Long),
-            Pair("pressure", SqlType.Float),
-            Pair("altitude", SqlType.Float),
-            Pair("altitude_accuracy", SqlType.NullableFloat),
-            Pair("temperature", SqlType.Float)
+            "_id" to SqlType.Int,
+            "time" to SqlType.Long,
+            "pressure" to SqlType.Float,
+            "altitude" to SqlType.Float,
+            "altitude_accuracy" to SqlType.NullableFloat,
+            "temperature" to SqlType.Float
         )
     }
 

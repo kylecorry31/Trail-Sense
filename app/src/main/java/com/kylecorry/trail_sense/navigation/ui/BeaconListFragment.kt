@@ -28,7 +28,8 @@ class BeaconListFragment : Fragment() {
     private val beaconRepo by lazy { BeaconRepo(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
 
-    private lateinit var binding: FragmentBeaconListBinding
+    private var _binding: FragmentBeaconListBinding? = null
+    private val binding get() = _binding!!
     private lateinit var beaconList: ListView<IBeacon>
     private lateinit var navController: NavController
     private val sensorService by lazy { SensorService(requireContext()) }
@@ -39,8 +40,13 @@ class BeaconListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentBeaconListBinding.inflate(layoutInflater)
+        _binding = FragmentBeaconListBinding.inflate(layoutInflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -7,8 +7,8 @@ import com.kylecorry.trailsensecore.infrastructure.persistence.SqlType
 class BeaconGroupDto : Dto<BeaconGroup>() {
     override fun getProperties(): Map<String, SqlType> {
         return mapOf(
-            Pair("beacon_group_id", SqlType.Long),
-            Pair("group_name", SqlType.String)
+            "beacon_group_id" to SqlType.Long,
+            "group_name" to SqlType.String
         )
     }
 

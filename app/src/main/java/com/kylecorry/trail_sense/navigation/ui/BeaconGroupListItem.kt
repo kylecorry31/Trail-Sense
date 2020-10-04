@@ -1,11 +1,9 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.view.View
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.PopupMenu
-import android.widget.TextView
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -22,18 +20,14 @@ class BeaconGroupListItem(
     private val repo by lazy { BeaconRepo(view.context) }
 
     init {
-        val nameText: TextView = view.findViewById(R.id.beacon_name)
-        val summaryTxt: TextView = view.findViewById(R.id.beacon_summary)
-        val menuBtn: ImageButton = view.findViewById(R.id.beacon_menu_btn)
-        val beaconImg: ImageView = view.findViewById(R.id.beacon_image)
-        val visibilityBtn: ImageButton = view.findViewById(R.id.visible_btn)
+        val binding = ListItemBeaconBinding.bind(view)
 
-        nameText.text = group.name
-        beaconImg.setImageResource(R.drawable.ic_beacon_group)
+        binding.beaconName.text = group.name
+        binding.beaconImage.setImageResource(R.drawable.ic_beacon_group)
         val count = repo.getNumberOfBeaconsInGroup(group.id)
-        summaryTxt.text =
+        binding.beaconSummary.text =
             view.context.resources.getQuantityString(R.plurals.beacon_group_summary, count, count)
-        visibilityBtn.visibility = View.GONE
+        binding.visibleBtn.visibility = View.GONE
 
         view.setOnClickListener {
             onOpen()
@@ -62,7 +56,7 @@ class BeaconGroupListItem(
             true
         }
 
-        menuBtn.setOnClickListener {
+        binding.beaconMenuBtn.setOnClickListener {
             val popup = PopupMenu(it.context, it)
             val inflater = popup.menuInflater
             inflater.inflate(R.menu.beacon_group_item_menu, popup.menu)
