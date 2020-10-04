@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -23,8 +24,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.kylecorry.trail_sense.MainActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,23 +51,18 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
-        <service android:name=".navigation.infrastructure.flashlight.FlashlightService"/>
-        <service android:name=".navigation.infrastructure.flashlight.SosService"/>
+        <service android:name=".navigation.infrastructure.flashlight.FlashlightService" />
+        <service android:name=".navigation.infrastructure.flashlight.SosService" />
 
         <receiver
-            android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="com.kylecorry.trail_sense.ALARM_UPDATE_WEATHER"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </receiver>
+            android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateAlarmReceiver"
+            android:enabled="true" />
         <receiver
             android:name="com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="com.kylecorry.trail_sense.ALARM_SUNSET"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.kylecorry.trail_sense.ALARM_SUNSET" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
         <receiver
@@ -89,9 +85,11 @@
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
-        <service android:name=".weather.infrastructure.services.WeatherUpdateService"
+
+        <service
+            android:name=".weather.infrastructure.services.WeatherUpdateService"
             android:enabled="true"
-            android:foregroundServiceType="location"/>
+            android:foregroundServiceType="location" />
     </application>
 
 </manifest>

@@ -4,21 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.formatHM
 import com.kylecorry.trail_sense.shared.sensors.*
-import com.kylecorry.trail_sense.shared.switchToFragment
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
-import com.kylecorry.trail_sense.weather.infrastructure.database.PressureHistoryRepository
+import com.kylecorry.trail_sense.weather.infrastructure.database.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.*
@@ -28,9 +26,8 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermome
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import java.time.Duration
 import java.time.Instant
-import java.util.*
 
-class BarometerFragment : Fragment(), Observer {
+class BarometerFragment : Fragment() {
 
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
@@ -42,22 +39,17 @@ class BarometerFragment : Fragment(), Observer {
 
     private lateinit var prefs: UserPreferences
 
-    private lateinit var pressureTxt: TextView
-    private lateinit var weatherNowTxt: TextView
-    private lateinit var weatherNowImg: ImageView
-    private lateinit var weatherLaterTxt: TextView
-    private lateinit var trendImg: ImageView
-    private lateinit var historyDurationTxt: TextView
-    private lateinit var pressureMarkerTxt: TextView
-    private lateinit var tendencyAmountTxt: TextView
-    private lateinit var temperatureBtn: FloatingActionButton
+    private var _binding: ActivityWeatherBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var chart: PressureChart
+    private lateinit var navController: NavController
 
     private lateinit var weatherService: WeatherService
     private lateinit var sensorService: SensorService
     private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
+    private val pressureRepo by lazy { PressureRepo(requireContext()) }
 
     private val throttle = Throttle(20)
 
@@ -65,15 +57,11 @@ class BarometerFragment : Fragment(), Observer {
 
     private var valueSelectedTime = 0L
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.activity_weather, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         sensorService = SensorService(requireContext())
+        navController = findNavController()
 
         barometer = sensorService.getBarometer()
         altimeter = sensorService.getAltimeter()
@@ -88,43 +76,34 @@ class BarometerFragment : Fragment(), Observer {
             prefs.weather.seaLevelFactorInTemp
         )
 
-        pressureTxt = view.findViewById(R.id.pressure)
-        weatherNowTxt = view.findViewById(R.id.weather_now_lbl)
-        weatherNowImg = view.findViewById(R.id.weather_now_img)
-        weatherLaterTxt = view.findViewById(R.id.weather_later_lbl)
-        pressureMarkerTxt = view.findViewById(R.id.pressure_marker)
-        tendencyAmountTxt = view.findViewById(R.id.tendency_amount)
-        temperatureBtn = view.findViewById(R.id.temperature_btn)
         chart = PressureChart(
-            view.findViewById(R.id.chart),
+            binding.chart,
             resources.getColor(R.color.colorPrimary, null),
             object : IPressureChartSelectedListener {
                 override fun onNothingSelected() {
                     if (pressureSetpoint == null) {
-                        pressureMarkerTxt.text = ""
+                        binding.pressureMarker.text = ""
                     }
                 }
 
                 override fun onValueSelected(timeAgo: Duration, pressure: Float) {
                     val formatted = formatService.formatPressure(pressure, units)
-                    pressureMarkerTxt.text = getString(
+                    binding.pressureMarker.text = getString(
                         R.string.pressure_reading_time_ago,
                         formatted,
-                        timeAgo.formatHM(true)
+                        timeAgo.formatHM(false)
                     )
                     valueSelectedTime = System.currentTimeMillis()
                 }
 
             }
         )
-        trendImg = view.findViewById(R.id.barometer_trend)
-        historyDurationTxt = view.findViewById(R.id.pressure_history_duration)
 
-        temperatureBtn.setOnClickListener {
-            switchToFragment(ThermometerFragment(), addToBackStack = true)
+        binding.temperatureBtn.setOnClickListener {
+            navController.navigate(R.id.action_action_weather_to_thermometerFragment)
         }
 
-        pressureTxt.setOnLongClickListener {
+        binding.pressure.setOnLongClickListener {
             pressureSetpoint = if (pressureSetpoint == null) {
                 PressureAltitudeReading(
                     Instant.now(),
@@ -141,13 +120,24 @@ class BarometerFragment : Fragment(), Observer {
             true
         }
 
+    }
 
-        return view
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = ActivityWeatherBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onResume() {
         super.onResume()
-        PressureHistoryRepository.addObserver(this)
         startSensors()
 
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
@@ -170,13 +160,6 @@ class BarometerFragment : Fragment(), Observer {
         barometer.stop(this::onPressureUpdate)
         altimeter.stop(this::onAltitudeUpdate)
         thermometer.stop(this::onTemperatureUpdate)
-        PressureHistoryRepository.deleteObserver(this)
-    }
-
-    override fun update(o: Observable?, arg: Any?) {
-        if (o == PressureHistoryRepository) {
-            update()
-        }
     }
 
     private fun onPressureUpdate(): Boolean {
@@ -222,7 +205,7 @@ class BarometerFragment : Fragment(), Observer {
         if (setpoint != null && System.currentTimeMillis() - valueSelectedTime > 2000) {
             displaySetpoint(setpoint)
         } else if (System.currentTimeMillis() - valueSelectedTime > 2000) {
-            pressureMarkerTxt.text = ""
+            binding.pressureMarker.text = ""
         }
     }
 
@@ -231,7 +214,7 @@ class BarometerFragment : Fragment(), Observer {
         val formatted = formatService.formatPressure(converted.value, units)
 
         val timeAgo = Duration.between(setpoint.time, Instant.now())
-        pressureMarkerTxt.text = getString(
+        binding.pressureMarker.text = getString(
             R.string.pressure_setpoint_format,
             formatted,
             timeAgo.formatHM(true)
@@ -250,7 +233,7 @@ class BarometerFragment : Fragment(), Observer {
                 )
             )
         }
-        return weatherService.convertToSeaLevel(readings)
+        return weatherService.convertToSeaLevel(readings, prefs.weather.requireDwell)
     }
 
     private fun getPressureHistory(includeCurrent: Boolean = false): List<PressureReading> {
@@ -284,14 +267,14 @@ class BarometerFragment : Fragment(), Observer {
             val minutes = totalTime.toMinutes() % 60
 
             when (hours) {
-                0L -> historyDurationTxt.text = context?.resources?.getQuantityString(
+                0L -> binding.pressureHistoryDuration.text = context?.resources?.getQuantityString(
                     R.plurals.last_minutes,
                     minutes.toInt(),
                     minutes
                 )
                 else -> {
                     if (minutes >= 30) hours++
-                    historyDurationTxt.text =
+                    binding.pressureHistoryDuration.text =
                         context?.resources?.getQuantityString(
                             R.plurals.last_hours,
                             hours.toInt(),
@@ -323,19 +306,19 @@ class BarometerFragment : Fragment(), Observer {
     private fun displayTendency(tendency: PressureTendency) {
         val converted = convertPressure(PressureReading(Instant.now(), tendency.amount))
         val formatted = formatService.formatPressure(converted.value, units)
-        tendencyAmountTxt.text =
+        binding.tendencyAmount.text =
             getString(R.string.pressure_tendency_format_2, formatted)
 
         when (tendency.characteristic) {
             PressureCharacteristic.Falling, PressureCharacteristic.FallingFast -> {
-                trendImg.setImageResource(R.drawable.ic_arrow_down)
-                trendImg.visibility = View.VISIBLE
+                binding.barometerTrend.setImageResource(R.drawable.ic_arrow_down)
+                binding.barometerTrend.visibility = View.VISIBLE
             }
             PressureCharacteristic.Rising, PressureCharacteristic.RisingFast -> {
-                trendImg.setImageResource(R.drawable.ic_arrow_up)
-                trendImg.visibility = View.VISIBLE
+                binding.barometerTrend.setImageResource(R.drawable.ic_arrow_up)
+                binding.barometerTrend.visibility = View.VISIBLE
             }
-            else -> trendImg.visibility = View.INVISIBLE
+            else -> binding.barometerTrend.visibility = View.INVISIBLE
         }
     }
 
@@ -343,14 +326,14 @@ class BarometerFragment : Fragment(), Observer {
         val shortTerm = weatherService.getHourlyWeather(readings, setpoint)
         val longTerm = weatherService.getDailyWeather(readings)
 
-        weatherNowTxt.text = getShortTermWeatherDescription(shortTerm)
-        weatherNowImg.setImageResource(
+        binding.weatherNowLbl.text = getShortTermWeatherDescription(shortTerm)
+        binding.weatherNowImg.setImageResource(
             getWeatherImage(
                 shortTerm,
                 readings.lastOrNull() ?: PressureReading(Instant.now(), barometer.pressure)
             )
         )
-        weatherLaterTxt.text = getLongTermWeatherDescription(longTerm)
+        binding.weatherLaterLbl.text = getLongTermWeatherDescription(longTerm)
     }
 
     private fun getSetpoint(): PressureReading? {
@@ -363,29 +346,16 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun getCurrentPressure(): PressureReading {
-//        val reading = PressureAltitudeReading(
-//            Instant.now(),
-//            barometer.pressure,
-//            altimeter.altitude,
-//            thermometer.temperature
-//        )
-
         return if (useSeaLevelPressure) {
             getSeaLevelPressureHistory(true)
         } else {
             getPressureHistory(true)
         }.last()
-
-//        return if (useSeaLevelPressure) {
-//            reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
-//        } else {
-//            reading.pressureReading()
-//        }
     }
 
     private fun displayPressure(pressure: PressureReading) {
         val formatted = formatService.formatPressure(convertPressure(pressure).value, units)
-        pressureTxt.text = formatted
+        binding.pressure.text = formatted
     }
 
     private fun convertPressure(pressure: PressureReading): PressureReading {
@@ -394,7 +364,7 @@ class BarometerFragment : Fragment(), Observer {
     }
 
     private fun getReadingHistory(): List<PressureAltitudeReading> {
-        return PressureHistoryRepository.getAll(requireContext())
+        return pressureRepo.get().toList()
     }
 
     private fun getWeatherImage(weather: Weather, currentPressure: PressureReading): Int {

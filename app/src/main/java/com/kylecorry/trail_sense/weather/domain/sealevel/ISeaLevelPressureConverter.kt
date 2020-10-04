@@ -5,6 +5,6 @@ import com.kylecorry.trailsensecore.domain.weather.PressureReading
 
 interface ISeaLevelPressureConverter {
 
-    fun convert(readings: List<PressureAltitudeReading>): List<PressureReading>
+    fun convert(readings: List<PressureAltitudeReading>, interpolateAltitudeChanges: Boolean = false): List<PressureReading>
 
 }

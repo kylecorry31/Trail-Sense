@@ -97,14 +97,6 @@ class NavigationPreferences(private val context: Context) {
         }
     }
 
-    var showBeaconListToast: Boolean
-        get() = prefs.getBoolean("show_beacon_list_toast", true)
-        set(value) {
-            prefs.edit {
-                putBoolean("show_beacon_list_toast", value)
-            }
-        }
-
     fun formatLocation(location: Coordinate): String {
         val formatter = locationFormatter
         val lat = formatter.formatLatitude(location)

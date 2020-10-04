@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import com.kylecorry.trail_sense.shared.doTransaction
+import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
+import com.kylecorry.trailsensecore.infrastructure.system.doTransaction
 
 
 class OnboardingActivity : AppCompatActivity() {
 
-    private lateinit var nextBtn: Button
     private lateinit var prefs: SharedPreferences
 
     private val pages = listOf(
@@ -29,7 +29,8 @@ class OnboardingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_onboarding)
+        val binding = ActivityOnboardingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val hasBarometer = SensorChecker(this).hasBarometer()
 
@@ -37,9 +38,7 @@ class OnboardingActivity : AppCompatActivity() {
 
         switchFragment(pages[pageIdx])
 
-        nextBtn = findViewById(R.id.next_button)
-
-        nextBtn.setOnClickListener {
+        binding.nextButton.setOnClickListener {
             pageIdx++
             if (!hasBarometer && pageIdx == pages.indexOf(R.layout.fragment_onboarding_weather)){
                 pageIdx++

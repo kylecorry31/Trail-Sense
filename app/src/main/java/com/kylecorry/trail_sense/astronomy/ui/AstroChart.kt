@@ -88,8 +88,8 @@ class AstroChart(private val chart: LineChart) {
         val end = values.map { it.last().first }.maxByOrNull { it.toDouble() }?.toFloat() ?: 0f
 
         values.add(0, listOf(
-            Pair(start, minValue),
-            Pair(end, minValue)
+            start to minValue,
+            end to minValue
         ))
 
         colors.add(0, chart.resources.getColor(R.color.colorSecondary, null))

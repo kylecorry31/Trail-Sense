@@ -8,49 +8,28 @@
     android:paddingBottom="8dp">
 
     <TextView
-        android:id="@+id/beacon_name_disp"
+        android:id="@+id/beacon_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="?android:textColorPrimary"
+        app:layout_constraintStart_toEndOf="@+id/beacon_image"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Name" />
 
     <TextView
-        android:id="@+id/beacon_location_disp"
+        android:id="@+id/beacon_summary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/beacon_name_disp"
-        app:layout_constraintTop_toBottomOf="@+id/beacon_name_disp"
-        tools:text="42.82091382" />
-
-    <TextView
-        android:id="@+id/beacon_distance_disp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/beacon_name"
+        app:layout_constraintTop_toBottomOf="@+id/beacon_name"
         tools:text="2.5 km" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/dot"
-        app:layout_constraintBottom_toBottomOf="@+id/beacon_location_disp"
-        app:layout_constraintStart_toEndOf="@+id/beacon_location_disp"
-        app:layout_constraintTop_toTopOf="@+id/beacon_location_disp" />
-
     <ImageButton
-        android:id="@+id/copy_btn"
+        android:id="@+id/beacon_menu_btn"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="16dp"
@@ -60,7 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_share" />
+        app:srcCompat="@drawable/ic_menu_dots" />
 
     <ImageButton
         android:id="@+id/visible_btn"
@@ -71,8 +50,20 @@
         android:background="@android:color/transparent"
         android:tint="?android:textColorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/copy_btn"
+        app:layout_constraintEnd_toStartOf="@id/beacon_menu_btn"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_visible" />
+
+    <ImageView
+        android:id="@+id/beacon_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:alpha="0.86"
+        app:layout_constraintBottom_toBottomOf="@+id/beacon_summary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/beacon_name"
+        app:srcCompat="@drawable/ic_location"
+        app:tint="@color/colorPrimary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

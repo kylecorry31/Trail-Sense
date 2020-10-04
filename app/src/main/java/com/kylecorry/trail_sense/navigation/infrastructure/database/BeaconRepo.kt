@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.navigation.infrastructure.database
 
 import android.content.Context
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.infrastructure.persistence.DatabaseConnection
 
 class BeaconRepo(context: Context) {
@@ -34,11 +35,33 @@ class BeaconRepo(context: Context) {
         })
     }
 
-    fun get(id: Int): Beacon? {
+    fun get(id: Long): Beacon? {
         conn.open()
-        val beacon = conn.query({ BeaconDto() }, "select * from beacons where _id = ?", arrayOf<String?>(id.toString()))
+        val beacon = conn.query(
+            { BeaconDto() },
+            "select * from beacons where _id = ?",
+            arrayOf<String?>(id.toString())
+        )
         conn.close()
         return beacon
+    }
+
+    fun getByGroup(groupId: Long?): Collection<Beacon> {
+        conn.open()
+        val beacons = if (groupId == null) {
+            conn.queryAll(
+                { BeaconDto() },
+                "select * from beacons where beacon_group_id IS NULL"
+            )
+        } else {
+            conn.queryAll(
+                { BeaconDto() },
+                "select * from beacons where beacon_group_id = ?",
+                arrayOf(groupId.toString())
+            )
+        }
+        conn.close()
+        return beacons
     }
 
     fun get(): Collection<Beacon> {
@@ -46,6 +69,57 @@ class BeaconRepo(context: Context) {
         val beacons = conn.queryAll({ BeaconDto() }, "select * from beacons")
         conn.close()
         return beacons
+    }
+
+    fun getNumberOfBeaconsInGroup(groupId: Long?): Int {
+        conn.open()
+        val count = if (groupId == null) {
+            conn.query(
+                { BeaconCountDto() },
+                "select COUNT(_id) as cnt from beacons where beacon_group_id IS NULL"
+            )
+        } else {
+            conn.query(
+                { BeaconCountDto() },
+                "select COUNT(_id) as cnt from beacons where beacon_group_id = ?",
+                arrayOf(groupId.toString())
+            )
+        } ?: 0
+        conn.close()
+        return count
+    }
+
+    fun getGroups(): Collection<BeaconGroup> {
+        conn.open()
+        val groups = conn.queryAll({ BeaconGroupDto() }, "select * from beacon_groups")
+        conn.close()
+        return groups
+    }
+
+    fun getGroup(id: Long): BeaconGroup? {
+        conn.open()
+        val beacon = conn.query(
+            { BeaconGroupDto() },
+            "select * from beacon_groups where beacon_group_id = ?",
+            arrayOf(id.toString())
+        )
+        conn.close()
+        return beacon
+    }
+
+    fun delete(group: BeaconGroup) {
+        conn.open()
+        conn.transaction {
+            conn.execute(
+                "delete from beacons where beacon_group_id = ?",
+                arrayOf(group.id.toString())
+            )
+            conn.execute(
+                "delete from beacon_groups where beacon_group_id = ?",
+                arrayOf(group.id.toString())
+            )
+        }
+        conn.close()
     }
 
     fun delete(beacon: Beacon) {
@@ -59,7 +133,7 @@ class BeaconRepo(context: Context) {
     fun add(beacon: Beacon) {
         conn.open()
         conn.transaction {
-            if (beacon.id == 0) {
+            if (beacon.id == 0L) {
                 // Create a new beacon
                 conn.execute(
                     "insert into beacons (name, lat, lng, visible, comment, beacon_group_id, elevation) values (?, ?, ?, ?, ?, ?, ?)",
@@ -86,6 +160,29 @@ class BeaconRepo(context: Context) {
                         beacon.beaconGroupId?.toString(),
                         beacon.elevation?.toString(),
                         beacon.id.toString()
+                    )
+                )
+            }
+        }
+        conn.close()
+    }
+
+    fun add(group: BeaconGroup) {
+        conn.open()
+        conn.transaction {
+            if (group.id == 0L) {
+                // Create a new beacon
+                conn.execute(
+                    "insert into beacon_groups (group_name) values (?)",
+                    arrayOf(group.name)
+                )
+            } else {
+                // Update an existing beacon
+                conn.execute(
+                    "update beacon_groups set group_name = ? where beacon_group_id = ?",
+                    arrayOf(
+                        group.name,
+                        group.id.toString()
                     )
                 )
             }

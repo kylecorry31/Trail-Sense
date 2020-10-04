@@ -8,30 +8,29 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.Fragment
+import androidx.core.os.bundleOf
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
-import com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment
-import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
+import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.doTransaction
-import com.kylecorry.trail_sense.tools.ui.ToolsFragment
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
-import com.kylecorry.trail_sense.weather.ui.BarometerFragment
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
-import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.system.*
+import java.time.Duration
 import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var navController: NavController
     private lateinit var bottomNavigation: BottomNavigationView
 
     private var geoIntentLocation: GeoUriParser.NamedCoordinate? = null
@@ -57,46 +56,25 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        Thread.setDefaultUncaughtExceptionHandler { _, paramThrowable ->
-            object : Thread() {
-                override fun run() {
-                    Looper.prepare()
-                    UiUtils.alertWithCancel(
+        ExceptionUtils.onUncaughtException(Duration.ofMinutes(1)){
+            UiUtils.alertWithCancel(
+                this@MainActivity,
+                getString(R.string.error_occurred),
+                getString(R.string.error_occurred_message),
+                getString(R.string.pref_email_title),
+                getString(R.string.dialog_cancel)
+            ) { cancelled ->
+                if (cancelled) {
+                    exitProcess(2)
+                } else {
+                    ExceptionUtils.report(
                         this@MainActivity,
-                        getString(R.string.error_occurred),
-                        getString(R.string.error_occurred_message),
-                        getString(R.string.pref_email_title),
-                        getString(R.string.dialog_cancel)
-                    ) { cancelled ->
-                        if (cancelled) {
-                            exitProcess(2)
-                        } else {
-                            val androidVersion = Build.VERSION.SDK_INT
-                            val device = "${Build.MANUFACTURER} ${Build.PRODUCT} (${Build.MODEL})"
-                            val appVersion = PackageUtils.getVersionName(this@MainActivity)
-                            val message = paramThrowable.message ?: ""
-                            val stackTrace = paramThrowable.stackTraceToString()
-
-                            val email = "Version: ${appVersion}\nDevice: ${device}\nAndroid SDK: ${androidVersion}\nMessage: ${message}\n\n$stackTrace"
-
-                            val intent = IntentUtils.email(
-                                "kylecorry31@gmail.com",
-                                "Error in Trail Sense $appVersion",
-                                email
-                            )
-                            startActivity(intent)
-                        }
-                    }
-                    Looper.loop()
+                        it,
+                        "kylecorry31@gmail.com",
+                        getString(R.string.app_name)
+                    )
                 }
-            }.start()
-
-            try {
-                Thread.sleep(60000)
-            } catch (e: InterruptedException) {
             }
-            exitProcess(2)
         }
 
         userPrefs = UserPreferences(this)
@@ -113,7 +91,10 @@ class MainActivity : AppCompatActivity() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
         setContentView(R.layout.activity_main)
+        navController =
+            (supportFragmentManager.findFragmentById(R.id.fragment_holder) as NavHostFragment).navController
         bottomNavigation = findViewById(R.id.bottom_navigation)
+        bottomNavigation.setupWithNavController(navController)
 
         if (userPrefs.theme == UserPreferences.Theme.Black) {
             window.decorView.rootView.setBackgroundColor(Color.BLACK)
@@ -147,24 +128,24 @@ class MainActivity : AppCompatActivity() {
         val sunsetIntent = SunsetAlarmReceiver.intent(applicationContext)
         sendBroadcast(sunsetIntent)
 
+
         val intentData = intent.data
         if (intent.scheme == "geo" && intentData != null) {
             val namedCoordinate = GeoUriParser().parse(intentData)
             geoIntentLocation = namedCoordinate
             bottomNavigation.selectedItemId = R.id.action_navigation
+            if (namedCoordinate != null) {
+                navController.navigate(
+                    R.id.place_beacon,
+                    bundleOf("initial_location" to MyNamedCoordinate.from(namedCoordinate))
+                )
+            }
         }
 
         if (intent.hasExtra(getString(R.string.extra_action))) {
             val desiredAction =
                 intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
             bottomNavigation.selectedItemId = desiredAction
-        }
-
-        syncFragmentWithSelection(bottomNavigation.selectedItemId)
-
-        bottomNavigation.setOnNavigationItemSelectedListener { item ->
-            syncFragmentWithSelection(item.itemId)
-            true
         }
     }
 
@@ -181,8 +162,6 @@ class MainActivity : AppCompatActivity() {
                 intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
             bottomNavigation.selectedItemId = desiredAction
         }
-
-        syncFragmentWithSelection(bottomNavigation.selectedItemId)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -196,49 +175,6 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("page", bottomNavigation.selectedItemId)
-    }
-
-    private fun syncFragmentWithSelection(selection: Int) {
-        when (selection) {
-            R.id.action_navigation -> {
-                val namedCoord = geoIntentLocation
-                if (namedCoord != null) {
-                    geoIntentLocation = null
-                    switchFragment(NavigatorFragment(null, namedCoord))
-                } else {
-                    switchFragment(NavigatorFragment())
-                }
-            }
-            R.id.action_weather -> {
-                switchFragment(BarometerFragment())
-            }
-            R.id.action_astronomy -> {
-                switchFragment(AstronomyFragment())
-            }
-            R.id.action_experimental_tools -> {
-                switchFragment(ToolsFragment())
-            }
-            R.id.action_settings -> {
-                switchFragment(SettingsFragment())
-            }
-        }
-    }
-
-    private fun switchFragment(fragment: Fragment) {
-        supportFragmentManager.doTransaction {
-            this.replace(R.id.fragment_holder, fragment)
-        }
-    }
-
-    override fun onBackPressed() {
-        val count = supportFragmentManager.backStackEntryCount
-
-        if (count == 0) {
-            super.onBackPressed()
-            //additional code
-        } else {
-            supportFragmentManager.popBackStackImmediate()
-        }
     }
 
     override fun onRequestPermissionsResult(

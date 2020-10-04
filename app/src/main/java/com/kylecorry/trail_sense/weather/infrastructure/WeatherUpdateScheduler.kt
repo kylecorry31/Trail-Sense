@@ -2,28 +2,32 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
-import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateReceiver
+import com.kylecorry.trail_sense.shared.tasks.DeferredTaskScheduler
+import com.kylecorry.trail_sense.shared.tasks.ITaskScheduler
+import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateAlarmReceiver
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
+import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
+import java.time.Duration
 
 object WeatherUpdateScheduler {
     fun start(context: Context) {
-        if (runInForeground(context)) {
-            WeatherUpdateService.start(context.applicationContext)
-        } else {
-            context.sendBroadcast(WeatherUpdateReceiver.intent(context.applicationContext))
-        }
+        val scheduler = getScheduler(context)
+        scheduler.schedule(Duration.ZERO)
     }
 
     fun stop(context: Context) {
-        val pi = WeatherUpdateReceiver.pendingIntent(context)
-        AlarmUtils.cancel(context, pi)
-        WeatherUpdateService.stop(context.applicationContext)
         NotificationUtils.cancel(context, WeatherNotificationService.WEATHER_NOTIFICATION_ID)
+        val scheduler = getScheduler(context)
+        scheduler.cancel()
+        context.stopService(WeatherUpdateService.intent(context))
     }
 
-    private fun runInForeground(context: Context): Boolean {
-        return UserPreferences(context).weather.foregroundService
+    fun getScheduler(context: Context): ITaskScheduler {
+        val prefs = UserPreferences(context)
+        return if (prefs.weather.forceWeatherUpdates) {
+            WeatherUpdateAlarmReceiver.scheduler(context)
+        } else {
+            WeatherUpdateWorker.scheduler(context)
+        }
     }
 }

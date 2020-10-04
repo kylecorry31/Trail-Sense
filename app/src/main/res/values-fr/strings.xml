@@ -367,4 +367,17 @@
     <string name="moon_azimuth">Azimuth de la lune</string>
     <string name="error_occurred_message">Un dysfonctionnement inattendu force l\'arrêt de Trail Sense. Merci d\'envoyer un courriel au développeur afin que ce problème puisse être résolu.</string>
     <string name="error_occurred">Une erreur est survenue</string>
+    <string name="beacon_group_spinner_title">Groupe</string>
+    <string name="no_group">Pas de groupes définis</string>
+    <string name="beacon_group_name_hint">Nom</string>
+    <string name="beacon_create_group">Groupe</string>
+    <string name="beacon_create_beacon">Repère</string>
+    <string name="beacon_create">Créer</string>
+    <string name="edit_beacon_group">Éditer le groupe</string>
+    <string name="delete_beacon_group_message">%s et l\'ensemble des repères associés seront supprimés.</string>
+    <string name="delete_beacon_group">Supprimer le groupe</string>
+    <plurals name="beacon_group_summary">
+        <item quantity="one">%d repère</item>
+        <item quantity="other">%d repères</item>
+    </plurals>
 </resources>

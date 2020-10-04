@@ -10,10 +10,6 @@ import java.time.format.DateTimeFormatter
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
-inline fun FragmentManager.doTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
-    beginTransaction().func().commitAllowingStateLoss()
-}
-
 fun Double.roundPlaces(places: Int): Double {
     return (this * 10.0.pow(places)).roundToInt() / 10.0.pow(places)
 }
@@ -84,18 +80,6 @@ fun LocalDateTime.toEpochMillis(): Long {
 
 fun ZonedDateTime.toUTCLocal(): LocalDateTime {
     return LocalDateTime.ofInstant(this.toInstant(), ZoneId.of("UTC"))
-}
-
-fun Fragment.switchToFragment(fragment: Fragment, holderId: Int = R.id.fragment_holder, addToBackStack: Boolean = false) {
-    parentFragmentManager.doTransaction {
-        if (addToBackStack) {
-            this.addToBackStack(null)
-        }
-        this.replace(
-            holderId,
-            fragment
-        )
-    }
 }
 
 fun Float.toDegrees(): Float {

@@ -71,6 +71,10 @@
     <string name="no_beacons">No beacons</string>
     <string name="long_press_beacon_toast">Long press a beacon to view options.</string>
     <string name="dot" translatable="false">•</string>
+    <plurals name="beacon_group_summary">
+        <item quantity="one">%d beacon</item>
+        <item quantity="other">%d beacons</item>
+    </plurals>
     <!--Navigation Tab - Beacon List - Sharesheet-->
     <string name="share_action_send">Send</string>
     <string name="share_action_copy">Copy</string>
@@ -196,6 +200,7 @@
     <string name="your_height_ft">Your height (ft)</string>
     <!--Settings - General-->
     <string name="pref_units_header">General</string>
+    <string name="pref_general_header">General</string>
     <string name="pref_distance_units_title">Distance</string>
     <string name="meters">Meters</string>
     <string name="feet_miles">Feet / Miles</string>
@@ -305,19 +310,19 @@
     <string name="pref_temperature_holder_title">Temperature</string>
     <!--Settings - Navigation-->
     <string name="pref_navigation_header">Navigation</string>
-    <string name="pref_display_multi_beacons_title">Show beacons</string>
+    <string name="pref_display_multi_beacons_title">Show nearby beacons</string>
     <string name="pref_show_linear_compass_title">Show linear compass</string>
     <string name="pref_show_linear_compass_summary">When the phone is vertical</string>
-    <string name="pref_num_visible_beacons_title">Visible beacons</string>
+    <string name="pref_num_visible_beacons_title">Nearby beacons</string>
     <string name="pref_display_multi_beacons_summary">Show closest beacons on the compass</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrate before navigating</string>
-    <string name="pref_max_beacon_distance_title">Visible beacon radius</string>
+    <string name="pref_max_beacon_distance_title">Nearby beacon radius</string>
     <string name="pref_max_beacon_distance_miles_message">Enter the maximum visible beacon radius (Miles)</string>
     <string name="pref_max_beacon_distance_km_message">Enter the maximum visible beacon radius (Kilometers)</string>
     <!--Settings - Weather-->
     <string name="pref_weather_header">Weather</string>
     <string name="pref_send_storm_alerts_title">Storm alerts</string>
-    <string name="pref_storm_alert_sensitivity_title">Storm alert sensitivity</string>
+    <string name="pref_storm_alert_sensitivity_title">Storm sensitivity</string>
     <string name="pref_pressure_history_title">Pressure history</string>
     <string name="pressure_48_hours">48 hours</string>
     <string name="pressure_24_hours">24 hours</string>
@@ -487,4 +492,27 @@
     <string name="tool_user_guide_title">User Guide</string>
     <string name="tool_user_guide">tool_user_guide</string>
     <string name="tool_user_guide_summary">A how-to guide for using Trail Sense</string>
+    <string name="delete_beacon_group">Delete group</string>
+    <string name="delete_beacon_group_message">%s and all its beacons will be deleted.</string>
+    <string name="edit_beacon_group">Edit group</string>
+    <string name="beacon_create">Create</string>
+    <string name="beacon_create_beacon">Beacon</string>
+    <string name="beacon_create_group">Group</string>
+    <string name="beacon_group_name_hint">Name</string>
+    <string name="no_group">No group</string>
+    <string name="beacon_group_spinner_title">Group</string>
+    <string name="weather_update_notification_channel">Weather update</string>
+    <string name="weather_update_notification_channel_desc">Background weather updates</string>
+    <string name="pref_sea_level_require_dwell">pref_sea_level_require_dwell</string>
+    <string name="pref_sea_level_require_dwell_summary">Only show readings when the altitude hasn\'t changed for at least an hour. Improves forecast reliability.</string>
+    <string name="pref_sea_level_require_dwell_title">Ignore rapid altitude changes</string>
+    <string name="sun_and_moon">Sun &amp; Moon Positions</string>
+    <string name="sun_and_moon_position_details">Sun\n\tAltitude: %s\n\tAzimuth: %s\n\nMoon\n\tAltitude: %s\n\tAzimuth: %s</string>
+    <string name="tap_sun_moon_hint">Tap sun or moon for position details</string>
+    <string name="advanced_settings_category">Advanced</string>
+    <string name="forecasts_category">Forecasts</string>
+    <string name="navigation_nearby_category">Nearby</string>
+    <string name="pref_navigation_header_key">pref_navigation_header_key</string>
+    <string name="pref_astronomy_category">pref_astronomy_category</string>
+    <string name="pref_category_tabs">Tabs</string>
 </resources>

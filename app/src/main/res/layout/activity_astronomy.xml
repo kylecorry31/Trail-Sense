@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/moonChart"
+        android:id="@+id/sunMoonChart"
         android:layout_width="0dp"
         android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,16 +46,16 @@
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moonChart" />
+        app:layout_constraintTop_toBottomOf="@+id/sunMoonChart" />
 
     <ImageView
         android:id="@+id/moon_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/moonChart"
-        app:layout_constraintStart_toStartOf="@+id/moonChart"
-        app:layout_constraintTop_toTopOf="@+id/moonChart"
+        app:layout_constraintEnd_toEndOf="@+id/sunMoonChart"
+        app:layout_constraintStart_toStartOf="@+id/sunMoonChart"
+        app:layout_constraintTop_toTopOf="@+id/sunMoonChart"
         app:srcCompat="@drawable/moon_waning_crescent"
         tools:visibility="visible"
         app:tint="@color/white" />
@@ -67,9 +67,9 @@
         android:rotation="0"
         android:scaleType="fitStart"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/moonChart"
-        app:layout_constraintStart_toStartOf="@+id/moonChart"
-        app:layout_constraintTop_toTopOf="@+id/moonChart"
+        app:layout_constraintEnd_toEndOf="@+id/sunMoonChart"
+        app:layout_constraintStart_toStartOf="@+id/sunMoonChart"
+        app:layout_constraintTop_toTopOf="@+id/sunMoonChart"
         app:srcCompat="@drawable/sun"
         tools:visibility="visible"
         app:tint="@color/colorPrimary" />
@@ -119,7 +119,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/moonChart" />
+        app:layout_constraintTop_toBottomOf="@id/sunMoonChart" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

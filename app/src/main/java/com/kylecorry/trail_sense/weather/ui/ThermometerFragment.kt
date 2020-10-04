@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.databinding.FragmentThermometerHygrometerBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -17,10 +18,8 @@ import com.kylecorry.trailsensecore.domain.weather.HeatAlert
 
 class ThermometerFragment : Fragment() {
 
-    private lateinit var tempTxt: TextView
-    private lateinit var humidityTxt: TextView
-    private lateinit var dewPointTxt: TextView
-    private lateinit var heatAlertImg: ImageView
+    private var _binding: FragmentThermometerHygrometerBinding? = null
+    private val binding get() = _binding!!
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val thermometer by lazy { sensorService.getThermometer() }
@@ -45,18 +44,18 @@ class ThermometerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_thermometer_hygrometer, container, false)
+        _binding = FragmentThermometerHygrometerBinding.inflate(inflater, container, false)
 
-        tempTxt = view.findViewById(R.id.temperature)
-        humidityTxt = view.findViewById(R.id.humidity)
-        dewPointTxt = view.findViewById(R.id.dew_point)
-        heatAlertImg = view.findViewById(R.id.heat_alert)
-
-        heatAlertImg.setOnClickListener {
+        binding.heatAlert.setOnClickListener {
             UiUtils.alert(requireContext(), heatAlertTitle, heatAlertContent, R.string.dialog_ok)
         }
 
-        return view
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onResume() {
@@ -77,16 +76,16 @@ class ThermometerFragment : Fragment() {
         val hasHumidity = hygrometer.hasValidReading
 
         if (!hasTemp) {
-            tempTxt.text = getString(R.string.dash)
+            binding.temperature.text = getString(R.string.dash)
         } else {
-            tempTxt.text =
+            binding.temperature.text =
                 formatService.formatTemperature(thermometer.temperature, prefs.temperatureUnits)
         }
 
         if (!hasHumidity) {
-            humidityTxt.text = getString(R.string.no_humidity_data)
+            binding.humidity.text = getString(R.string.no_humidity_data)
         } else {
-            humidityTxt.text = formatService.formatHumidity(hygrometer.humidity)
+            binding.humidity.text = formatService.formatHumidity(hygrometer.humidity)
         }
 
 
@@ -95,7 +94,7 @@ class ThermometerFragment : Fragment() {
                 weatherService.getHeatIndex(thermometer.temperature, hygrometer.humidity)
             val alert = weatherService.getHeatAlert(heatIndex)
             val dewPoint = weatherService.getDewPoint(thermometer.temperature, hygrometer.humidity)
-            dewPointTxt.text = getString(
+            binding.dewPoint.text = getString(
                 R.string.dew_point,
                 formatService.formatTemperature(dewPoint, prefs.temperatureUnits)
             )
@@ -117,9 +116,9 @@ class ThermometerFragment : Fragment() {
 
     private fun showHeatAlert(alert: HeatAlert) {
         if (alert != HeatAlert.Normal) {
-            heatAlertImg.visibility = View.VISIBLE
+            binding.heatAlert.visibility = View.VISIBLE
         } else {
-            heatAlertImg.visibility = View.INVISIBLE
+            binding.heatAlert.visibility = View.INVISIBLE
         }
 
         val alertColor = when (alert) {
@@ -130,14 +129,14 @@ class ThermometerFragment : Fragment() {
             else -> UiUtils.color(requireContext(), R.color.colorPrimary)
         }
 
-        heatAlertImg.imageTintList = ColorStateList.valueOf(alertColor)
+        binding.heatAlert.imageTintList = ColorStateList.valueOf(alertColor)
 
         heatAlertTitle = getHeatAlertTitle(alert)
         heatAlertContent = getHeatAlertMessage(alert)
     }
 
     private fun getHeatAlertTitle(alert: HeatAlert): String {
-        return when (alert){
+        return when (alert) {
             HeatAlert.HeatDanger -> getString(R.string.heat_alert_heat_danger_title)
             HeatAlert.HeatAlert -> getString(R.string.heat_alert_heat_alert_title)
             HeatAlert.HeatCaution -> getString(R.string.heat_alert_heat_caution_title)
@@ -150,9 +149,13 @@ class ThermometerFragment : Fragment() {
     }
 
     private fun getHeatAlertMessage(alert: HeatAlert): String {
-        return when(alert){
-            HeatAlert.HeatWarning, HeatAlert.HeatCaution, HeatAlert.HeatAlert, HeatAlert.HeatDanger -> getString(R.string.heat_alert_heat_message)
-            HeatAlert.FrostbiteWarning, HeatAlert.FrostbiteCaution, HeatAlert.FrostbiteDanger -> getString(R.string.heat_alert_frostbite_message)
+        return when (alert) {
+            HeatAlert.HeatWarning, HeatAlert.HeatCaution, HeatAlert.HeatAlert, HeatAlert.HeatDanger -> getString(
+                R.string.heat_alert_heat_message
+            )
+            HeatAlert.FrostbiteWarning, HeatAlert.FrostbiteCaution, HeatAlert.FrostbiteDanger -> getString(
+                R.string.heat_alert_frostbite_message
+            )
             else -> ""
         }
     }

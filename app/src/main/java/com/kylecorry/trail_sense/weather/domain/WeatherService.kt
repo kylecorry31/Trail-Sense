@@ -4,6 +4,7 @@ import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster
 import com.kylecorry.trail_sense.weather.domain.sealevel.AltimeterSeaLevelPressureConverter
 import com.kylecorry.trail_sense.weather.domain.sealevel.BarometerGPSAltitudeCalculator
 import com.kylecorry.trail_sense.weather.domain.sealevel.DwellAltitudeCalculator
+import com.kylecorry.trail_sense.weather.domain.sealevel.PressureDwellAltitudeCalculator
 import com.kylecorry.trailsensecore.domain.weather.*
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import java.time.Duration
@@ -19,8 +20,11 @@ class WeatherService(
     private val longTermForecaster = DailyForecaster(dailyForecastChangeThreshold)
     private val newWeatherService: IWeatherService = WeatherService()
     private val seaLevelConverter = AltimeterSeaLevelPressureConverter(
-        if (adjustSeaLevelWithBarometer) BarometerGPSAltitudeCalculator() else DwellAltitudeCalculator(
-            Duration.ofHours(3),
+        if (adjustSeaLevelWithBarometer) PressureDwellAltitudeCalculator(
+            Duration.ofHours(1),
+            30f, 3f
+        ) else DwellAltitudeCalculator(
+            Duration.ofHours(1),
             60f
         ),
         adjustSeaLevelWithTemp
@@ -58,8 +62,11 @@ class WeatherService(
         return newWeatherService.getTendency(last, current, hourlyForecastChangeThreshold)
     }
 
-    fun convertToSeaLevel(readings: List<PressureAltitudeReading>): List<PressureReading> {
-        return seaLevelConverter.convert(readings)
+    fun convertToSeaLevel(
+        readings: List<PressureAltitudeReading>,
+        requiresDwell: Boolean
+    ): List<PressureReading> {
+        return seaLevelConverter.convert(readings, !requiresDwell)
     }
 
     fun getHeatIndex(tempCelsius: Float, relativeHumidity: Float): Float {

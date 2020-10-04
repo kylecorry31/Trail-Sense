@@ -20,6 +20,16 @@
             app:key="@string/pref_temperature_holder"
             app:singleLineTitle="false" />
 
+        <ListPreference
+            app:defaultValue="48"
+            app:entries="@array/pressure_history_entries"
+            app:entryValues="@array/pressure_history_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_pressure_history"
+            app:singleLineTitle="false"
+            app:title="@string/pref_pressure_history_title"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
@@ -44,6 +54,15 @@
             app:key="@string/pref_sea_level_use_rapid"
             app:singleLineTitle="false"
             app:title="@string/pref_sea_level_use_rapid_title" />
+
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_use_sea_level_pressure"
+            android:summary="@string/pref_sea_level_require_dwell_summary"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_sea_level_require_dwell"
+            app:singleLineTitle="false"
+            app:title="@string/pref_sea_level_require_dwell_title" />
 
         <SeekBarPreference
             android:defaultValue="0"
