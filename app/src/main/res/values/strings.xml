@@ -521,4 +521,6 @@
     <string name="guide_beacons_description">How to navigate using beacons</string>
     <string name="guide_weather_prediction_title">Weather prediction</string>
     <string name="guide_weather_prediction_description">How to predict weather using Trail Sense</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
