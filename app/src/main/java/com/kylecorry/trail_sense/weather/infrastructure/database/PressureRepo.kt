@@ -5,7 +5,7 @@ import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.persistence.DatabaseConnection
 import java.time.Instant
 
-class PressureRepo(private val context: Context) {
+class PressureRepo private constructor(private val context: Context) {
 
     private val conn: DatabaseConnection
 
@@ -96,6 +96,19 @@ class PressureRepo(private val context: Context) {
 //        } catch (e: Exception) {
 //            // Ignore this
 //        }
+    }
+
+
+    companion object {
+        private var instance: PressureRepo? = null
+
+        @Synchronized fun getInstance(context: Context): PressureRepo {
+            if (instance == null){
+                instance = PressureRepo(context.applicationContext)
+            }
+            return instance!!
+        }
+
     }
 
 }

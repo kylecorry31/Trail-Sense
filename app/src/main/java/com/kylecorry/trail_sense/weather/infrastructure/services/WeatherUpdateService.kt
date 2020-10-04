@@ -63,7 +63,7 @@ class WeatherUpdateService : Service() {
         Log.i(TAG, "Started at ${ZonedDateTime.now()}")
         acquireWakelock()
         userPrefs = UserPreferences(applicationContext)
-        pressureRepo = PressureRepo(applicationContext)
+        pressureRepo = PressureRepo.getInstance(applicationContext)
         weatherService = WeatherService(
             userPrefs.weather.stormAlertThreshold,
             userPrefs.weather.dailyForecastChangeThreshold,

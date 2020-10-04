@@ -23,7 +23,7 @@ import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 
 class PlaceBeaconFragment : Fragment() {
 
-    private val beaconRepo by lazy { BeaconRepo(requireContext()) }
+    private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private lateinit var navController: NavController
 

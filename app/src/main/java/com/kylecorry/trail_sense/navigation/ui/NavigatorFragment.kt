@@ -58,7 +58,7 @@ class NavigatorFragment : Fragment() {
 
     private lateinit var visibleCompass: ICompassView
 
-    private val beaconRepo by lazy { BeaconRepo(requireContext()) }
+    private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private var flashlightState = FlashlightState.Off
 
     private val sensorService by lazy { SensorService(requireContext()) }

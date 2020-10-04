@@ -25,7 +25,7 @@ import com.kylecorry.trailsensecore.infrastructure.view.ListView
 
 class BeaconListFragment : Fragment() {
 
-    private val beaconRepo by lazy { BeaconRepo(requireContext()) }
+    private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
 
     private var _binding: FragmentBeaconListBinding? = null

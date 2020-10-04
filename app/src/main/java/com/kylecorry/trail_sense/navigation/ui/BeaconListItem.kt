@@ -29,7 +29,7 @@ class BeaconListItem(
     private val navigationService = NavigationService()
     private val formatservice by lazy { FormatService(view.context) }
     private val prefs by lazy { UserPreferences(view.context) }
-    private val repo by lazy { BeaconRepo(view.context) }
+    private val repo by lazy { BeaconRepo.getInstance(view.context) }
 
     init {
         val binding = ListItemBeaconBinding.bind(view)

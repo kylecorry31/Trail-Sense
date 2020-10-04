@@ -49,7 +49,7 @@ class BarometerFragment : Fragment() {
     private lateinit var sensorService: SensorService
     private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
-    private val pressureRepo by lazy { PressureRepo(requireContext()) }
+    private val pressureRepo by lazy { PressureRepo.getInstance(requireContext()) }
 
     private val throttle = Throttle(20)
 

@@ -5,7 +5,7 @@ import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.infrastructure.persistence.DatabaseConnection
 
-class BeaconRepo(context: Context) {
+class BeaconRepo private constructor(context: Context) {
 
     private val conn: DatabaseConnection
 
@@ -193,6 +193,18 @@ class BeaconRepo(context: Context) {
     private fun createTables(conn: DatabaseConnection) {
         conn.execute("CREATE TABLE IF NOT EXISTS beacons (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, lat REAL NOT NULL, lng REAL NOT NULL, visible INTEGER NOT NULL, comment TEXT NULL, beacon_group_id INTEGER NULL, elevation REAL NULL)")
         conn.execute("CREATE TABLE IF NOT EXISTS beacon_groups (beacon_group_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, group_name TEXT NOT NULL)")
+    }
+
+
+    companion object {
+        private var instance: BeaconRepo? = null
+
+        @Synchronized fun getInstance(context: Context): BeaconRepo {
+            if (instance == null) {
+                instance = BeaconRepo(context.applicationContext)
+            }
+            return instance!!
+        }
     }
 
 }

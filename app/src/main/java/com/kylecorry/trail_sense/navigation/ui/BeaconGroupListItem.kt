@@ -17,7 +17,7 @@ class BeaconGroupListItem(
     var onDeleted: () -> Unit = {}
     var onEdit: () -> Unit = {}
 
-    private val repo by lazy { BeaconRepo(view.context) }
+    private val repo by lazy { BeaconRepo.getInstance(view.context) }
 
     init {
         val binding = ListItemBeaconBinding.bind(view)
