@@ -48,6 +48,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_action_experimental_tools_to_levelFragment"
+            app:destination="@id/levelFragment" />
     </fragment>
     <fragment
         android:id="@+id/action_weather"
@@ -242,4 +245,8 @@
             app:argType="integer" />
 
     </fragment>
+    <fragment
+        android:id="@+id/levelFragment"
+        android:name="com.kylecorry.trail_sense.tools.level.ui.LevelFragment"
+        android:label="LevelFragment" />
 </navigation>

@@ -523,4 +523,6 @@
     <string name="guide_weather_prediction_description">How to predict weather using Trail Sense</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tool_bubble_level">tool_bubble_level</string>
+    <string name="tool_bubble_level_title">Bubble level</string>
 </resources>

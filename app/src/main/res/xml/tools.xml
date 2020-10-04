@@ -13,6 +13,11 @@
             app:key="@string/tool_inclinometer"
             app:singleLineTitle="false" />
 
+        <Preference
+            android:icon="@drawable/level"
+            android:title="@string/tool_bubble_level_title"
+            app:key="@string/tool_bubble_level"
+            app:singleLineTitle="false" />
 
         <Preference
             android:icon="@drawable/ic_user_guide"

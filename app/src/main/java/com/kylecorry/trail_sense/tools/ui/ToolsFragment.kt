@@ -29,6 +29,10 @@ class ToolsFragment : PreferenceFragmentCompat() {
             R.id.action_action_experimental_tools_to_guideListFragment
         )
         navigateOnClick(
+            findPreference(getString(R.string.tool_bubble_level)),
+            R.id.action_action_experimental_tools_to_levelFragment
+        )
+        navigateOnClick(
             findPreference(getString(R.string.tool_inclinometer)),
             R.id.action_toolsFragment_to_inclinometerFragment
         )

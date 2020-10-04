@@ -36,9 +36,10 @@ class DeviceOrientationSensor(context: Context) : AbstractSensor(), IOrientation
         val gravity = accelerometer.acceleration
 
         _angle = Vector3(
-            calculate(gravity.y, gravity.x),
             calculate(gravity.x, -gravity.z),
-            calculate(gravity.y, -gravity.z)
+            -calculate(gravity.y, gravity.z),
+            calculate(gravity.y, gravity.x)
+
         )
 
         gotReading = true
