@@ -116,6 +116,10 @@ class SensorService(ctx: Context) {
         return Inclinometer(context)
     }
 
+    fun getOrientationSensor(): IOrientationSensor {
+        return DeviceOrientationSensor(context)
+    }
+
     @Suppress("DEPRECATION")
     fun getThermometer(): IThermometer {
         if (sensorChecker.hasSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)) {
