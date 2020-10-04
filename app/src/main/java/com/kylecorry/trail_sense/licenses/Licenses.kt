@@ -121,6 +121,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE."""
             "Android Jetpack", "https://github.com/androidx/androidx", apache2("year", "owner", "")
         ),
         Library(
+            "Markwon",
+            "https://github.com/noties/Markwon",
+            apache2("2019", "Dimitry Ivanov (legal@noties.io)", "")
+        ),
+        Library(
             "CompassView",
             "https://github.com/kix2902/CompassView",
             apache2(

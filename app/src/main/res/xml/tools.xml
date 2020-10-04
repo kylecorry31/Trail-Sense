@@ -13,6 +13,14 @@
             app:key="@string/tool_inclinometer"
             app:singleLineTitle="false" />
 
+
+        <Preference
+            android:icon="@drawable/ic_user_guide"
+            android:title="@string/tool_user_guide_title"
+            android:summary="@string/tool_user_guide_summary"
+            app:key="@string/tool_user_guide"
+            app:singleLineTitle="false" />
+
         <Preference
             android:icon="@drawable/maps"
             android:title="@string/trail_sense_maps"

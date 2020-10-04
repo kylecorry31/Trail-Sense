@@ -41,6 +41,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_action_experimental_tools_to_guideListFragment"
+            app:destination="@id/guideListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/action_weather"
@@ -207,4 +214,32 @@
         android:id="@+id/astronomySettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.AstronomySettingsFragment"
         android:label="AstronomySettingsFragment" />
+    <fragment
+        android:id="@+id/guideListFragment"
+        android:name="com.kylecorry.trail_sense.tools.guide.ui.GuideListFragment"
+        android:label="GuideListFragment">
+        <action
+            android:id="@+id/action_guideListFragment_to_guideFragment"
+            app:destination="@id/guideFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/guideFragment"
+        android:name="com.kylecorry.trail_sense.tools.guide.ui.GuideFragment"
+        android:label="GuideFragment">
+
+        <argument
+            android:name="guide_name"
+            android:defaultValue="@null"
+            app:argType="string" />
+
+        <argument
+            android:name="guide_contents"
+            android:defaultValue="0"
+            app:argType="integer" />
+
+    </fragment>
 </navigation>
