@@ -41,6 +41,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_action_experimental_tools_to_guideListFragment"
+            app:destination="@id/guideFragment" />
     </fragment>
     <fragment
         android:id="@+id/action_weather"
@@ -207,4 +210,8 @@
         android:id="@+id/astronomySettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.AstronomySettingsFragment"
         android:label="AstronomySettingsFragment" />
+    <fragment
+        android:id="@+id/guideFragment"
+        android:name="com.kylecorry.trail_sense.tools.guide.ui.GuideListFragment"
+        android:label="GuideFragment" />
 </navigation>

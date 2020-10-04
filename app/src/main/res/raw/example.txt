@@ -1,7 +1,0 @@
-This is an example
-
-With line breaks.
-
-1. Test
-2. Testing
-3. Testing 3

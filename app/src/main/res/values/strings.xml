@@ -515,4 +515,10 @@
     <string name="pref_navigation_header_key">pref_navigation_header_key</string>
     <string name="pref_astronomy_category">pref_astronomy_category</string>
     <string name="pref_category_tabs">Tabs</string>
+    <string name="guide_conserving_battery_title">Conserving battery</string>
+    <string name="guide_conserving_battery_description">Saving battery while using Trail Sense</string>
+    <string name="guide_beacons_title">Beacons</string>
+    <string name="guide_beacons_description">How to navigate using beacons</string>
+    <string name="guide_weather_prediction_title">Weather prediction</string>
+    <string name="guide_weather_prediction_description">How to predict weather using Trail Sense</string>
 </resources>

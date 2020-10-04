@@ -3,14 +3,11 @@ package com.kylecorry.trail_sense.tools.ui
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.IdRes
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.inclinometer.ui.InclinometerFragment
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.tools.guide.ui.GuideFragment
 
 class ToolsFragment : PreferenceFragmentCompat() {
 
@@ -27,7 +24,10 @@ class ToolsFragment : PreferenceFragmentCompat() {
     }
 
     private fun bindPreferences() {
-        //fragmentOnClick(findPreference(getString(R.string.tool_user_guide))) { GuideFragment() }
+        navigateOnClick(
+            findPreference(getString(R.string.tool_user_guide)),
+            R.id.action_action_experimental_tools_to_guideListFragment
+        )
         navigateOnClick(
             findPreference(getString(R.string.tool_inclinometer)),
             R.id.action_toolsFragment_to_inclinometerFragment

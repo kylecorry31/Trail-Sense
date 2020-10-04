@@ -4,10 +4,12 @@ import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.CharacterStyle
+import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 
 enum class Style {
+    Heading,
     Bold,
     Underline,
     Italic,
@@ -27,17 +29,18 @@ object StringStyles {
             val start = idx
             val end = idx + s.first.length
 
-            val style: CharacterStyle? = when (s.second) {
-                Style.Bold -> StyleSpan(Typeface.BOLD)
-                Style.BoldItalic -> StyleSpan(Typeface.BOLD_ITALIC)
-                Style.Italic -> StyleSpan(Typeface.ITALIC)
-                Style.Underline -> UnderlineSpan()
-                else -> null
+            val style: List<CharacterStyle> = when (s.second) {
+                Style.Bold -> listOf(StyleSpan(Typeface.BOLD))
+                Style.BoldItalic -> listOf(StyleSpan(Typeface.BOLD_ITALIC))
+                Style.Italic -> listOf(StyleSpan(Typeface.ITALIC))
+                Style.Underline -> listOf(UnderlineSpan())
+                Style.Heading -> listOf(StyleSpan(Typeface.BOLD), RelativeSizeSpan(1.15f))
+                else -> emptyList()
             }
 
-            if (style != null) {
+            for (characterStyle in style) {
                 str.setSpan(
-                    style,
+                    characterStyle,
                     start,
                     end,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -57,7 +60,7 @@ object StringStyles {
 
         for (line in lines) {
             if (line.startsWith("# ")) {
-                styles.add((line.substring(2) + "\n") to Style.Bold)
+                styles.add((line.substring(2) + "\n") to Style.Heading)
             } else {
                 styles.add((line + "\n") to Style.Normal)
             }

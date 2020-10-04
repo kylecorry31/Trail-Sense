@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.guide.ui
 
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
@@ -10,7 +11,7 @@ import com.kylecorry.trail_sense.tools.guide.infrastructure.Guides
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
-class GuideFragment : PreferenceFragmentCompat() {
+class GuideListFragment : PreferenceFragmentCompat() {
 
     private val guideService by lazy { UserGuideService(requireContext()) }
 
@@ -40,7 +41,21 @@ class GuideFragment : PreferenceFragmentCompat() {
                 guidePref.isSingleLineTitle = false
                 guidePref.isIconSpaceReserved = false
                 onClick(guidePref){
-                    UiUtils.alert(requireContext(), guide.name, guideService.load(guide), R.string.dialog_ok)
+//                    UiUtils.alert(requireContext(), guide.name, guideService.load(guide), R.string.dialog_ok)
+
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.apply {
+                        setMessage(StringStyles.markdown(guideService.load(guide)))
+                        setTitle(guide.name)
+                        setPositiveButton(
+                            R.string.dialog_ok
+                        ) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                    }
+
+                    val dialog = builder.create()
+                    dialog.show()
                 }
                 category.addPreference(guidePref)
             }
@@ -52,12 +67,6 @@ class GuideFragment : PreferenceFragmentCompat() {
         pref?.setOnPreferenceClickListener {
             action.invoke()
             true
-        }
-    }
-
-    private fun fragmentOnClick(pref: Preference?, fragmentFactory: () -> Fragment) {
-        onClick(pref) {
-            switchToFragment(fragmentFactory.invoke(), addToBackStack = true)
         }
     }
 
