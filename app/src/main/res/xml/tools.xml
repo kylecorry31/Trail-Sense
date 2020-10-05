@@ -17,6 +17,7 @@
             android:icon="@drawable/level"
             android:title="@string/tool_bubble_level_title"
             app:key="@string/tool_bubble_level"
+            android:summary="@string/tool_bubble_level_summary"
             app:singleLineTitle="false" />
 
         <Preference

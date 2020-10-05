@@ -135,9 +135,10 @@ class MainActivity : AppCompatActivity() {
             geoIntentLocation = namedCoordinate
             bottomNavigation.selectedItemId = R.id.action_navigation
             if (namedCoordinate != null) {
+                val bundle =  bundleOf("initial_location" to MyNamedCoordinate.from(namedCoordinate))
                 navController.navigate(
                     R.id.place_beacon,
-                    bundleOf("initial_location" to MyNamedCoordinate.from(namedCoordinate))
+                   bundle
                 )
             }
         }

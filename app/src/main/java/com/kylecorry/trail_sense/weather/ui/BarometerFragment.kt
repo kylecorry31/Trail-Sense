@@ -117,6 +117,10 @@ class BarometerFragment : Fragment() {
 
             prefs.weather.pressureSetpoint = pressureSetpoint
 
+            pressureSetpoint?.let {
+                pressureRepo.add(it)
+            }
+
             true
         }
 

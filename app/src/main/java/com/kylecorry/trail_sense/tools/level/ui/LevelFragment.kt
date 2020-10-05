@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.DeviceOrientation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlin.math.abs
 
 class LevelFragment : Fragment() {
@@ -19,6 +20,7 @@ class LevelFragment : Fragment() {
     private val orientationSensor by lazy { sensorService.getOrientationSensor() }
     private var _binding: FragmentLevelBinding? = null
     private val binding get() = _binding!!
+    private val throttle = Throttle(20)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +50,11 @@ class LevelFragment : Fragment() {
     }
 
     private fun onOrientationUpdate(): Boolean {
+
+        if (throttle.isThrottled()){
+            return true
+        }
+
         val x = orientationSensor.orientation.x
         val y = orientationSensor.orientation.y
 

@@ -523,4 +523,5 @@
     <string name="guide_weather_prediction_description">How to predict weather using Trail Sense</string>
     <string name="tool_bubble_level">tool_bubble_level</string>
     <string name="tool_bubble_level_title">Bubble Level</string>
+    <string name="tool_bubble_level_summary">Determine if surfaces are flat</string>
 </resources>
