@@ -57,7 +57,7 @@
     <string name="pref_use_legacy_compass_summary">Kann Kompassprobleme beheben</string>
     <string name="pref_display_multi_beacons_title">Nahegelegene Wegpunkte anzeigen</string>
     <string name="pref_display_multi_beacons_summary">Zeigt nahegelegene Wegpunkte auf dem Kompass an</string>
-    <string name="pref_storm_alert_sensitivity_title">Sturmalarm-Empfindlichkeit</string>
+    <string name="pref_storm_alert_sensitivity_title">Sturm Empfindlichkeit</string>
     <string name="pref_show_sun_moon_compass_title">Sonne/Mond auf dem Kompass anzeigen</string>
     <string name="pref_show_linear_compass_title">Linearen Kompass anzeigen</string>
     <string name="pref_show_linear_compass_summary">Wenn das Telefon senkrecht steht</string>
@@ -99,7 +99,7 @@
 \nDann das Trail-Senes-Lineal gegen eine Einheit eines realen Lineal messen.
 \nKorrekturfaktor hier eingeben.</string>
     <string name="pref_ruler_calibration_title">Linealskala</string>
-    <string name="pref_num_visible_beacons_title">Anzahl sichtbarer Wegpunkte</string>
+    <string name="pref_num_visible_beacons_title">Nahegelegene Wegpunkte</string>
     <string name="new_moon">Neumond</string>
     <string name="waning_crescent">abnehmender Sichelmond</string>
     <string name="third_quarter">Drittes Viertel</string>
@@ -208,6 +208,7 @@
 \n\\n\\u0020\\u0020\\u0020\\u0020%s der aktuellen Position
 \n\\n\\u0020\\u0020\\u0020\\u0020%s der aktuellen Höhe
 \n\\n\\u0020\\u0020\\u0020\\u0020%s Satelliten
+\n
 \n\\n\\nEntfernen Sie sich von Metallgegenständen und rotieren Sie das Gerät in Form einer 8.</string>
     <string name="altitude">Höhe</string>
     <string name="pref_altimeter_calibration_title">Höhenmesser</string>
@@ -279,7 +280,7 @@
     <string name="weather_update_15_minutes">15 Minuten</string>
     <string name="pref_max_beacon_distance_km_message">Geben Sie den maximal sichtbaren Wegmarkenradius ein (Kilometer)</string>
     <string name="pref_max_beacon_distance_miles_message">Geben Sie den maximal sichtbaren Wegmarkenradius ein (Meilen)</string>
-    <string name="pref_max_beacon_distance_title">Sichtbarer Wegmarkenradius</string>
+    <string name="pref_max_beacon_distance_title">Nahegelegener Wegmarkenradius</string>
     <string name="pref_temperature_holder_title">Temperatur</string>
     <string name="pref_temperature_adjustment_title">Temperaturanpassung</string>
     <string name="barometer_thermometer">Barometer und Thermometer</string>
@@ -324,8 +325,62 @@
     <string name="moon_azimuth">Mondazimut</string>
     <string name="error_occurred_message">Trail Sense wird geschlossen, weil ein Fehler aufgetreten ist. Bitte senden Sie eine e-mail an den Entwickler um den Fehler zu beheben.</string>
     <string name="error_occurred">Ein Fehler ist aufgetreten</string>
-    <string name="access_background_location">Ortseinstellungen aktualisieren</string>
-    <string name="access_background_location_rationale">Erlauben Sie Trail Sense den Zugriff auf Ihre Ortsdaten um Wetterbeobachtung und Sonnenuntergangsalarme zu verbessern</string>
+    <string name="access_background_location">Standortseinstellungen aktualisieren</string>
+    <string name="access_background_location_rationale">Erlauben Sie Trail Sense den Zugriff auf Ihre Standortdaten um Wetterbeobachtung und Sonnenuntergangsalarme zu verbessern</string>
     <string name="dialog_deny">Nein danke</string>
     <string name="dialog_grant">Einstellungen aktualisieren</string>
+    <string name="pref_sea_level_use_rapid_title">Faktor für schnelle Luftdruckänderungen</string>
+    <string name="pref_adjust_for_temperature_title">Faktor für Temperatur</string>
+    <string name="pref_force_weather_updates_title">Wetteraktualisierungen erzwingen</string>
+    <string name="guide_beacons_description">Navigation unter Verwendung von Wegmarken</string>
+    <string name="guide_beacons_title">Wegmarken</string>
+    <string name="pref_category_tabs">Tabulatoren</string>
+    <string name="navigation_nearby_category">Nahegelegen</string>
+    <string name="forecasts_category">Vorhesagen</string>
+    <string name="tap_sun_moon_hint">Tippe Sonne oder Mond an, um Positionseinzelheiten zu sehen</string>
+    <string name="sun_and_moon_position_details">Sonne
+\n\tHöhe: %s
+\n\tAzimut: %s
+\n
+\nMond
+\n\tHöhe: %s
+\n\tAzimut: %s</string>
+    <string name="sun_and_moon">Positionen von Sonne &amp; Mond</string>
+    <string name="weather_update_notification_channel">Wetteraktualisierung</string>
+    <string name="tool_user_guide_title">Benutzerhandbuch</string>
+    <string name="pref_weather_update_frequency_title">Häufigkeit der Wetteraktualisierungen</string>
+    <string name="pref_show_pressure_in_notification_title">Zeige den Luftdruck in den Benachrichtigungen</string>
+    <string name="storm_sensitivity_high_mbar">Hoch (3 mbar / 3h)</string>
+    <string name="storm_sensitivity_med_mbar">Mittel (4.5 mbar / 3h)</string>
+    <string name="storm_sensitivity_low_mbar">Niedrig (3 mbar / 3h)</string>
+    <string name="storm_sensitivity_high_hpa">Hoch (3 hPa / 3h)</string>
+    <string name="storm_sensitivity_med_hpa">Mittel (4.5 hPa / 3h)</string>
+    <string name="storm_sensitivity_low_hpa">Niedrig (6 hPa / 3h)</string>
+    <string name="forecast_sensitivity_high_in">Hoch (0.015 in / 3h)</string>
+    <string name="forecast_sensitivity_med_in">Mittel (0.044 in / 3h)</string>
+    <string name="forecast_sensitivity_low_in">Niedrig (0.074 in / 3h)</string>
+    <string name="forecast_sensitivity_high_psi">Hoch (0.007 PSI / 3h)</string>
+    <string name="forecast_sensitivity_med_psi">Mittel (0.022 PSI / 3h)</string>
+    <string name="forecast_sensitivity_low_psi">Niedrig (0.036 PSI / 3h)</string>
+    <string name="forecast_sensitivity_high_mbar">Hoch (0.5 mbar / 3h)</string>
+    <string name="forecast_sensitivity_med_mbar">Mittel (1.5 mbar / 3h)</string>
+    <string name="forecast_sensitivity_low_mbar">Niedrig (2.5 mbar / 3h)</string>
+    <string name="forecast_sensitivity_high_hpa">Hoch (0.5 hPa / 3h)</string>
+    <string name="forecast_sensitivity_med_hpa">Mittel (1.5 hPa / 3h)</string>
+    <string name="forecast_sensitivity_low_hpa">Niedrig (2.5 hPa / 3h)</string>
+    <string name="pref_force_weather_updates_summary">Weckt Gerät aus dem Ruhezustand, kann Auswirkungen auf den Akku haben</string>
+    <string name="pref_show_calibrate_on_navigate_dialog_title">Vor dem Navigieren kalibrieren</string>
+    <string name="pref_barometer_pressure_title">Luftdruck</string>
+    <string name="pref_altitude_override_sea_level_title">Verwendung bekannten Luftdrucks auf Meereshöhe</string>
+    <string name="pref_auto_altitude_summary">Ausgehend von Ihrem aktuellen Standort</string>
+    <string name="pref_altitude_offsets_summary">Korrigiert GPS-Höhe zu mittlerer Meereshöhe</string>
+    <string name="pref_altitude_override_sea_level_dialog_title">Geben sie den Luftdruck auf Meereshöhe ein</string>
+    <string name="altitude_from_pressure">Überschreibung durch Barometer einstellen</string>
+    <string name="altitude_from_gps">Überschreibung durch GPS einstellen</string>
+    <string name="auto_altitude">Automatische Höhenanpassung</string>
+    <string name="pref_gps_override_btn_title">Überschreibung durch GPS einstellen</string>
+    <string name="compass_reported_accuracy">Festgestellte Genauigkeit: %s</string>
+    <string name="compass_from_gps">Überschreibung durch GPS einstellen</string>
+    <string name="pref_general_header">Allgemein</string>
+    <string name="set_inclination_instructions">Tippen um den Inklinationswinkel zu setzen/löschen</string>
 </resources>
