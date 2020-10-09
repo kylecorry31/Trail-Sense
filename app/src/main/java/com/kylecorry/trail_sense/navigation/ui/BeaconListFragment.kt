@@ -143,6 +143,14 @@ class BeaconListFragment : Fragment() {
     private fun updateBeaconListItem(itemView: View, beacon: IBeacon) {
         if (beacon is Beacon) {
             val listItem = BeaconListItem(itemView, beacon, gps.location)
+            listItem.onView = {
+                val bundle = bundleOf("beacon_id" to beacon.id)
+                navController.navigate(
+                    R.id.action_beacon_list_to_beaconDetailsFragment,
+                    bundle
+                )
+            }
+
             listItem.onEdit = {
                 val bundle = bundleOf("edit_beacon" to beacon.id)
                 navController.navigate(

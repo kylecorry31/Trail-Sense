@@ -34,7 +34,7 @@ class DestinationPanel(private val view: View) {
 
     init {
         beaconComments.setOnClickListener {
-            if (beacon?.comment != null) {
+            if (!beacon?.comment.isNullOrEmpty()) {
                 UiUtils.alert(context, beacon?.name ?: "", beacon?.comment ?: "", R.string.dialog_ok)
             }
         }
@@ -52,7 +52,7 @@ class DestinationPanel(private val view: View) {
 
         beacon = destination
 
-        if (destination.comment != null) {
+        if (!beacon?.comment.isNullOrEmpty()) {
             beaconComments.visibility = View.VISIBLE
         } else {
             beaconComments.visibility = View.GONE

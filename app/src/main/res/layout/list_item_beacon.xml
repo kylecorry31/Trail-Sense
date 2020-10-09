@@ -9,11 +9,13 @@
 
     <TextView
         android:id="@+id/beacon_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="?android:textColorPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/visible_btn"
         app:layout_constraintStart_toEndOf="@+id/beacon_image"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Name" />

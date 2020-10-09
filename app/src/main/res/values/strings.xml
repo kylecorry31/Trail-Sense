@@ -524,4 +524,5 @@
     <string name="tool_bubble_level">tool_bubble_level</string>
     <string name="tool_bubble_level_title">Bubble Level</string>
     <string name="tool_bubble_level_summary">Determine if surfaces are flat</string>
+    <string name="beacon_action_view_details">View details</string>
 </resources>

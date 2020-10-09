@@ -25,6 +25,7 @@ class BeaconListItem(
     var onNavigate: () -> Unit = {}
     var onDeleted: () -> Unit = {}
     var onEdit: () -> Unit = {}
+    var onView: () -> Unit = {}
 
     private val navigationService = NavigationService()
     private val formatservice by lazy { FormatService(view.context) }
@@ -68,6 +69,9 @@ class BeaconListItem(
 
         val menuListener = PopupMenu.OnMenuItemClickListener {
             when (it.itemId) {
+                R.id.action_view_beacon -> {
+                    onView()
+                }
                 R.id.action_send -> {
                     val sender = BeaconSharesheet(view.context)
                     sender.send(beacon)
