@@ -503,7 +503,7 @@
     <string name="beacon_group_spinner_title">Group</string>
     <string name="weather_update_notification_channel">Weather update</string>
     <string name="weather_update_notification_channel_desc">Background weather updates</string>
-    <string name="pref_sea_level_require_dwell">pref_sea_level_require_dwell</string>
+    <string name="pref_sea_level_require_dwell" translatable="false">pref_sea_level_require_dwell</string>
     <string name="pref_sea_level_require_dwell_summary">Only show readings when the altitude hasn\'t changed for at least an hour. Improves forecast reliability.</string>
     <string name="pref_sea_level_require_dwell_title">Ignore rapid altitude changes</string>
     <string name="sun_and_moon">Sun &amp; Moon Positions</string>
@@ -512,7 +512,7 @@
     <string name="advanced_settings_category">Advanced</string>
     <string name="forecasts_category">Forecasts</string>
     <string name="navigation_nearby_category">Nearby</string>
-    <string name="pref_navigation_header_key">pref_navigation_header_key</string>
+    <string name="pref_navigation_header_key" translatable="false">pref_navigation_header_key</string>
     <string name="pref_astronomy_category">pref_astronomy_category</string>
     <string name="pref_category_tabs">Tabs</string>
     <string name="guide_conserving_battery_title">Conserving battery</string>
@@ -521,8 +521,12 @@
     <string name="guide_beacons_description">How to navigate using beacons</string>
     <string name="guide_weather_prediction_title">Weather prediction</string>
     <string name="guide_weather_prediction_description">How to predict weather using Trail Sense</string>
-    <string name="tool_bubble_level">tool_bubble_level</string>
+    <string name="tool_bubble_level" translatable="false">tool_bubble_level</string>
     <string name="tool_bubble_level_title">Bubble Level</string>
     <string name="tool_bubble_level_summary">Determine if surfaces are flat</string>
     <string name="beacon_action_view_details">View details</string>
+    <string name="pref_barometer_altitude_change" translatable="false">pref_barometer_altitude_change</string>
+    <string name="pref_barometer_altitude_change_title">Travelling altitude change threshold</string>
+    <string name="pref_sea_level_pressure_change_thresh">pref_sea_level_pressure_change_thresh</string>
+    <string name="pref_sea_level_pressure_change_thresh_title">Travelling pressure change threshold</string>
 </resources>

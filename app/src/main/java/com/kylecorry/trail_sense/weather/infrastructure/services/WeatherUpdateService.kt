@@ -133,7 +133,9 @@ class WeatherUpdateService : Service() {
     private fun sendWeatherNotification() {
         val readings = weatherService.convertToSeaLevel(
             pressureRepo.get().toList(),
-            userPrefs.weather.requireDwell
+            userPrefs.weather.requireDwell,
+            userPrefs.weather.maxNonTravellingAltitudeChange,
+            userPrefs.weather.maxNonTravellingPressureChange
         )
         val forecast = weatherService.getHourlyWeather(readings)
 
@@ -233,7 +235,9 @@ class WeatherUpdateService : Service() {
         val forecast = weatherService.getHourlyWeather(
             weatherService.convertToSeaLevel(
                 readings,
-                userPrefs.weather.requireDwell
+                userPrefs.weather.requireDwell,
+                userPrefs.weather.maxNonTravellingAltitudeChange,
+                userPrefs.weather.maxNonTravellingPressureChange
             )
         )
 

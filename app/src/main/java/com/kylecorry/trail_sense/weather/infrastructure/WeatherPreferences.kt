@@ -73,6 +73,12 @@ class WeatherPreferences(private val context: Context) {
     val requireDwell: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_sea_level_require_dwell), false)
 
+    val maxNonTravellingAltitudeChange: Float
+        get() = cache.getInt(context.getString(R.string.pref_barometer_altitude_change))?.toFloat() ?: 60f
+
+    val maxNonTravellingPressureChange: Float
+        get() = 20 * (cache.getInt(context.getString(R.string.pref_sea_level_pressure_change_thresh))?.toFloat() ?: 50f) / 200f
+
     val foregroundService: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_weather_foreground_service))
             ?: true

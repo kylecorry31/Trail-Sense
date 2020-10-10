@@ -265,7 +265,9 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
                     16f
                 )
             ),
-            prefs.weather.requireDwell
+            prefs.weather.requireDwell,
+            prefs.weather.maxNonTravellingAltitudeChange,
+            prefs.weather.maxNonTravellingPressureChange
         ).first()
         prefs.seaLevelPressureOverride = seaLevel.value
         return prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer

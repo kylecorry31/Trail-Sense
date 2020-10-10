@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
+import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
@@ -28,6 +29,8 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     private lateinit var seaLevelSwitch: SwitchPreferenceCompat
     private lateinit var cSeekBar: SeekBarPreference
     private lateinit var fSeekBar: SeekBarPreference
+    private lateinit var altitudeChangeSeekBar: SeekBarPreference
+    private lateinit var pressureChangeSeekBar: SeekBarPreference
 
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
@@ -36,6 +39,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     private lateinit var weatherService: WeatherService
     private lateinit var units: PressureUnits
     private val formatService by lazy { FormatService(requireContext()) }
+    private val unitService = UnitService()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.barometer_calibration, rootKey)
@@ -67,6 +71,25 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
         temperatureTxt = findPreference(getString(R.string.pref_temperature_holder))!!
         cSeekBar = findPreference(getString(R.string.pref_temperature_adjustment_c))!!
         fSeekBar = findPreference(getString(R.string.pref_temperature_adjustment_f))!!
+        altitudeChangeSeekBar = findPreference(getString(R.string.pref_barometer_altitude_change))!!
+        pressureChangeSeekBar =
+            findPreference(getString(R.string.pref_sea_level_pressure_change_thresh))!!
+
+        altitudeChangeSeekBar.summary =
+            (if (prefs.weather.maxNonTravellingAltitudeChange == 0f) "" else "± ") + formatService.formatSmallDistance(
+                prefs.weather.maxNonTravellingAltitudeChange
+            )
+
+        pressureChangeSeekBar.summary =
+            (if (prefs.weather.maxNonTravellingPressureChange == 0f) "" else "± ") + getString(
+                R.string.pressure_tendency_format_2, formatService.formatPressure(
+                    unitService.convert(
+                        prefs.weather.maxNonTravellingPressureChange,
+                        PressureUnits.Hpa,
+                        prefs.pressureUnits
+                    ), prefs.pressureUnits
+                )
+            )
 
         if (prefs.temperatureUnits == TemperatureUnits.C) {
             fSeekBar.isVisible = false
@@ -106,6 +129,34 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
             refreshWeatherService()
             true
         }
+
+        altitudeChangeSeekBar.updatesContinuously = true
+        altitudeChangeSeekBar.setOnPreferenceChangeListener { _, newValue ->
+            altitudeChangeSeekBar.summary =
+                (if (newValue.toString()
+                        .toFloat() == 0f
+                ) "" else "± ") + formatService.formatSmallDistance(
+                    newValue.toString().toFloat()
+                )
+            true
+        }
+
+        pressureChangeSeekBar.updatesContinuously = true
+        pressureChangeSeekBar.setOnPreferenceChangeListener { _, newValue ->
+            val change = 20 * newValue.toString().toFloat() / 200f
+            pressureChangeSeekBar.summary =
+                (if (change == 0f) "" else "± ") + getString(
+                    R.string.pressure_tendency_format_2, formatService.formatPressure(
+                        unitService.convert(
+                            change,
+                            PressureUnits.Hpa,
+                            prefs.pressureUnits
+                        ), prefs.pressureUnits
+                    )
+                )
+            true
+        }
+
     }
 
     override fun onResume() {
