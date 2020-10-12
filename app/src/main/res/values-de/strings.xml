@@ -292,10 +292,10 @@
     <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Geben Sie den aktuellen Luftdruck auf Meereshöhe in hPa ein</string>
     <string name="gps_only_support_decimal_degree">Nur das Dezimalgradformat ist unterstützt (Bsp.: 0.0000)</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">"Rotieren Sie das Telefon mehrfach in Form einer  8 , drücken Sie %s wenn beendet.
+    <string name="calibrate_compass_on_navigate_dialog_content">Rotieren Sie das Telefon mehrfach in Form einer 8, drücken Sie %s wenn beendet.
 \n
-\nDieser Hinweis kann in den Einstellungen deaktiviert werden."</string>
-    <string name="calibrate_compass_dialog_content">"Rotieren Sie das Telefon mehrfach in Form einer  8 , drücken Sie %s wenn beendet."</string>
+\nDieser Hinweis kann in den Einstellungen deaktiviert werden.</string>
+    <string name="calibrate_compass_dialog_content">Rotieren Sie das Telefon mehrfach in Form einer 8, drücken Sie %s wenn beendet.</string>
     <string name="pref_calibrate_compass_btn_title">Kalibrieren</string>
     <string name="compass_declination">Deklination</string>
     <string name="compass_azimuth">Azimut</string>
@@ -383,4 +383,8 @@
     <string name="compass_from_gps">Überschreibung durch GPS einstellen</string>
     <string name="pref_general_header">Allgemein</string>
     <string name="set_inclination_instructions">Tippen um den Inklinationswinkel zu setzen/löschen</string>
+    <string name="tool_user_guide_summary">Ein Handbuch für die Benutzung von Trail Sense</string>
+    <string name="tool_user_guide">Werkzeug_Benutzerhandbuch</string>
+    <string name="weather_update_notification_channel_desc">Wetteraktualisierungen im Hintergrund</string>
+    <string name="advanced_settings_category">Fortgeschritten</string>
 </resources>
