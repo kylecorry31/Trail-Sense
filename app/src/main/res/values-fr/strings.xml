@@ -56,7 +56,7 @@
     <string name="pref_use_legacy_compass_title">Utiliser la boussole basique</string>
     <string name="pref_use_legacy_compass_summary">Peut résoudre les problèmes de boussole</string>
     <string name="pref_display_multi_beacons_title">Afficher les balises à proximité</string>
-    <string name="pref_storm_alert_sensitivity_title">Sensibilité pour les alertes de tempête</string>
+    <string name="pref_storm_alert_sensitivity_title">Sensibilité pour l\'apparition des notifications de tempête</string>
     <string name="pref_show_sun_moon_compass_title">Afficher les astres sur la boussole</string>
     <string name="pref_show_linear_compass_title">Afficher la boussole linéaire</string>
     <string name="pref_show_linear_compass_summary">Lorsque le téléphone est vertical</string>
@@ -120,7 +120,7 @@
     <string name="pref_monitor_weather_summary">En tâche de fond</string>
     <string name="pref_max_beacon_distance_km_message">Saisissez la distance en-dessous de laquelle les repères deviennent visibles (km)</string>
     <string name="pref_max_beacon_distance_miles_message">Saisissez la distance en-dessous de laquelle les repères deviennent visibles (miles)</string>
-    <string name="pref_max_beacon_distance_title">Visibilité des repères</string>
+    <string name="pref_max_beacon_distance_title">Rayon de visibilité des balises de proximité</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Étalonner les capteurs avant navigation</string>
     <string name="pref_display_multi_beacons_summary">Montrer les repères les plus proches sur la boussole</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Entrez la pression au niveau de la mer en hPa</string>
@@ -338,7 +338,7 @@
     <string name="forecast_sensitivity_low_hpa">Faible (2.5 hPa / 3h)</string>
     <string name="pref_forecast_sensitivity_title">Niveau de sensibilité pour les prévisions</string>
     <string name="pref_force_weather_updates_summary">Sort temporairement l\'appareil de la veille, cela peut avoir un impact sur la batterie</string>
-    <string name="pref_num_visible_beacons_title">Repères visibles</string>
+    <string name="pref_num_visible_beacons_title">Repères à proximité</string>
     <string name="pref_altitude_override_sea_level_title">En se basant sur une valeur de pression au niveau de la mer</string>
     <string name="pref_auto_altitude_summary">Se base sur votre localisation</string>
     <string name="pref_fine_tune_altitude_summary">Permet de détecter des changements plus fin d\'altitude</string>
@@ -380,4 +380,33 @@
         <item quantity="one">%d repère</item>
         <item quantity="other">%d repères</item>
     </plurals>
+    <string name="guide_beacons_description">Comment naviguer en utilisant les balises</string>
+    <string name="guide_beacons_title">Balises</string>
+    <string name="guide_conserving_battery_description">Préserver la batterie lors de l\'utilisation de Trail Sense</string>
+    <string name="guide_conserving_battery_title">Préserver la batterie</string>
+    <string name="pref_category_tabs">Onglets</string>
+    <string name="navigation_nearby_category">À proximité</string>
+    <string name="forecasts_category">Prévisions</string>
+    <string name="advanced_settings_category">Avancé</string>
+    <string name="tap_sun_moon_hint">Appuyer sur les astres pour obtenir des détails sur leurs positions</string>
+    <string name="sun_and_moon_position_details">Soleil
+\n\tHauteur : %s
+\n\tAzimuth : %s
+\n
+\nLune
+\n\tHauteur : %s
+\n\tAzimuth: %s</string>
+    <string name="beacon_action_view_details">Voir les détails</string>
+    <string name="tool_bubble_level_summary">Permet de déterminer la planéité d\'une surface</string>
+    <string name="tool_bubble_level_title">Niveau d\'eau</string>
+    <string name="guide_weather_prediction_description">Comment utiliser Trail Sense pour obtenir des prévisions météorologiques</string>
+    <string name="guide_weather_prediction_title">Prévisions météorologiques</string>
+    <string name="sun_and_moon">Position du soleil et de la lune</string>
+    <string name="pref_sea_level_require_dwell_title">Ignorer les variations d\'altitude rapides</string>
+    <string name="pref_sea_level_require_dwell_summary">Ne fournir des informations que lorsque l\'altitude a été constante pour au moins une heure. Cela permet d\'améliorer la fiabilité des prévisions.</string>
+    <string name="weather_update_notification_channel_desc">Mise à jour des données météorologiques en tâche de fond</string>
+    <string name="weather_update_notification_channel">Mise à jour des données météorologiques</string>
+    <string name="tool_user_guide_summary">Un manuel pour la prise en main de Trail Sense</string>
+    <string name="tool_user_guide_title">Guide d\'utilisation</string>
+    <string name="pref_general_header">Général</string>
 </resources>
