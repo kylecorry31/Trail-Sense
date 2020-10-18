@@ -29,12 +29,12 @@
     <string name="pref_sun_time_mode_title">Sonnenaufgangs-/Sonnenuntergangszeiten</string>
     <string name="weather_improving_fast">Sehr bald Besserung</string>
     <string name="weather_improving_slow">Bald besser werdend</string>
-    <string name="weather_worsening_slow">:Verschlechtert sich bald</string>
-    <string name="weather_worsening_fast">:Verschlechterung sehr bald</string>
+    <string name="weather_worsening_slow">Verschlechtert sich bald</string>
+    <string name="weather_worsening_fast">Verschlechterung sehr bald</string>
     <string name="weather_storm_incoming">Sturm im Anmarsch</string>
     <string name="weather_not_changing">Keine baldige Wetteränderung</string>
     <string name="forecast_improving">Möglicherweise spätere Wetterbesserung</string>
-    <string name="forecast_worsening">Möglicherweise spatere Wetterverschlechterung</string>
+    <string name="forecast_worsening">Möglicherweise spätere Wetterverschlechterung</string>
     <string name="no_beacons">Keine Wegpunkte</string>
     <string name="onboarding_compass">Wegpunkte platzieren und zu ihnen zurücknavigieren</string>
     <string name="onboarding_weather">Hyperlokale Wettervorhersagen abrufen</string>
@@ -63,7 +63,7 @@
     <string name="pref_show_linear_compass_summary">Wenn das Telefon senkrecht steht</string>
     <plurals name="last_hours">
         <item quantity="one">Letzte %d Stunde</item>
-        <item quantity="other">Letzte %d Std</item>
+        <item quantity="other">Letzte %d Stunden</item>
     </plurals>
     <plurals name="last_minutes">
         <item quantity="one">Letzte %d Minute</item>
@@ -81,7 +81,7 @@
     <string name="theme_system">System</string>
     <string name="gps">GPS</string>
     <string name="sun_actual">Tatsächliche Zeit</string>
-    <string name="sun_civil">Zivile Dämmerung</string>
+    <string name="sun_civil">Bürgerliche Dämmerung</string>
     <string name="sun_nautical">Nautische Dämmerung</string>
     <string name="sun_astronomical">Astronomische Dämmerung</string>
     <string name="not_all_permissions_granted">Nicht alle Berechtigungen sind gewährt, einige Funktionen können deaktiviert sein</string>
@@ -190,7 +190,7 @@
     <string name="humidity_format">%0f%% Luftfeuchtigkeit</string>
     <string name="no_humidity_data">Keine Luftfeuchigkeitswerte</string>
     <string name="dew_point">Taupunkt %s</string>
-    <string name="heat_alert_heat_danger_title">Gefahr: Hitze</string>
+    <string name="heat_alert_heat_danger_title">Hitzegefahr</string>
     <string name="heat_alert_heat_message">Gefahr durch Hitzeerschöpfung/Hitzschlag. Trinken Sie genug, halten Sie sich nicht unnötig im Freien auf, bleiben Sie in Gebäuden oder im Schatten. Vermeiden Sie körperliche Anstrenungen und Sport. Achten Sie auf Zeichen von Erschöpfung oder Hitzschlag.</string>
     <string name="heat_alert_frostbite_message">Gefahr durch Unterkühlung/Erfrierungen. Trinken Sie genug, ziehen Sie sich warm an und bedecken Sie möglichst die Haut. Achten Sie auf Zeichen von Unterkühlung und Erfrierungen.</string>
     <string name="heat_alert_heat_alert_title">Alarm: Hitze</string>
@@ -204,12 +204,12 @@
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_setpoint_format">Setze %s - %s früher</string>
     <string name="pressure_reading_time_ago">%s - %s früher</string>
-    <string name="accuracy_info">GPS: gehen Sie nach draußen mit einem freien Blick auf den Himmel.
-\n\\n\\u0020\\u0020\\u0020\\u0020%s der aktuellen Position
-\n\\n\\u0020\\u0020\\u0020\\u0020%s der aktuellen Höhe
-\n\\n\\u0020\\u0020\\u0020\\u0020%s Satelliten
+    <string name="accuracy_info">"GPS: Gehen Sie nach draußen mit unverstelltem Blick zum Himmel.
+\n    %s von aktuellem Standort
+\n    %s von aktueller Höhe
+\n    %s Satelliten
 \n
-\n\\n\\nEntfernen Sie sich von Metallgegenständen und rotieren Sie das Gerät in Form einer 8.</string>
+\nKompass: Rotieren Sie das Gerät in Form einer 8 und entfernen Sie sich von Metallgegeständen."</string>
     <string name="altitude">Höhe</string>
     <string name="pref_altimeter_calibration_title">Höhenmesser</string>
     <string name="pref_gps_request_permission_title">Berechtigung anfordern</string>
@@ -292,10 +292,10 @@
     <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Geben Sie den aktuellen Luftdruck auf Meereshöhe in hPa ein</string>
     <string name="gps_only_support_decimal_degree">Nur das Dezimalgradformat ist unterstützt (Bsp.: 0.0000)</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">"Rotieren Sie das Telefon mehrfach in Form einer  8 , drücken Sie %s wenn beendet.
+    <string name="calibrate_compass_on_navigate_dialog_content">Rotieren Sie das Telefon mehrfach in Form einer 8, drücken Sie %s wenn beendet.
 \n
-\nDieser Hinweis kann in den Einstellungen deaktiviert werden."</string>
-    <string name="calibrate_compass_dialog_content">"Rotieren Sie das Telefon mehrfach in Form einer  8 , drücken Sie %s wenn beendet."</string>
+\nDieser Hinweis kann in den Einstellungen deaktiviert werden.</string>
+    <string name="calibrate_compass_dialog_content">Rotieren Sie das Telefon mehrfach in Form einer 8, drücken Sie %s wenn beendet.</string>
     <string name="pref_calibrate_compass_btn_title">Kalibrieren</string>
     <string name="compass_declination">Deklination</string>
     <string name="compass_azimuth">Azimut</string>
@@ -326,7 +326,7 @@
     <string name="error_occurred_message">Trail Sense wird geschlossen, weil ein Fehler aufgetreten ist. Bitte senden Sie eine e-mail an den Entwickler um den Fehler zu beheben.</string>
     <string name="error_occurred">Ein Fehler ist aufgetreten</string>
     <string name="access_background_location">Standortseinstellungen aktualisieren</string>
-    <string name="access_background_location_rationale">Erlauben Sie Trail Sense den Zugriff auf Ihre Standortdaten um Wetterbeobachtung und Sonnenuntergangsalarme zu verbessern</string>
+    <string name="access_background_location_rationale">Erlauben Sie Trail Sense jederzeit den Zugriff auf Ihre Ortsdaten um Wetterbeobachtung und Sonnenuntergangsalarme zu verbessern</string>
     <string name="dialog_deny">Nein danke</string>
     <string name="dialog_grant">Einstellungen aktualisieren</string>
     <string name="pref_sea_level_use_rapid_title">Faktor für schnelle Luftdruckänderungen</string>
@@ -383,4 +383,26 @@
     <string name="compass_from_gps">Überschreibung durch GPS einstellen</string>
     <string name="pref_general_header">Allgemein</string>
     <string name="set_inclination_instructions">Tippen um den Inklinationswinkel zu setzen/löschen</string>
+    <string name="tool_user_guide_summary">Ein Handbuch für die Benutzung von Trail Sense</string>
+    <string name="tool_user_guide">Werkzeug_Benutzerhandbuch</string>
+    <string name="weather_update_notification_channel_desc">Wetteraktualisierungen im Hintergrund</string>
+    <string name="advanced_settings_category">Fortgeschritten</string>
+    <string name="tool_bubble_level_summary">Feststellen, ob eine Oberfläche flach ist</string>
+    <string name="beacon_action_view_details">Zeige Details</string>
+    <string name="guide_weather_prediction_description">Wie man mit Trail Sense das Wetter vorhersagt</string>
+    <string name="guide_weather_prediction_title">Wettervorhersage</string>
+    <string name="guide_conserving_battery_description">Strom sparen während der Nutzung von Trail Sense</string>
+    <string name="guide_conserving_battery_title">Stromsparmodus</string>
+    <string name="pref_sea_level_require_dwell_title">Schnelle Höhenänderungen ignorieren</string>
+    <string name="pref_sea_level_require_dwell_summary">Zeige nur Werte, wenn sich die Höhe in der letzten Stunde nicht geändert hat. Dies verbessert die Zuverlässigkeit der Vorhersage.</string>
+    <string name="pref_weather_foreground_service_summary">Kann die Anzahl ausgelassener Aktualisierungen reduzieren</string>
+    <string name="pref_weather_foreground_service_title">Wetter als Vordergrundaktivität aktualisieren</string>
+    <string name="storm_sensitivity_high_in">Hoch (0.089 in / 3h)</string>
+    <string name="storm_sensitivity_med_in">Mittel (0.133 in / 3h)</string>
+    <string name="storm_sensitivity_low_in">Niedrig (0.177 in / 3h)</string>
+    <string name="storm_sensitivity_high_psi">Hoch (0.044 PSI / 3h)</string>
+    <string name="storm_sensitivity_med_psi">Mittel (0.065 PSI / 3h)</string>
+    <string name="storm_sensitivity_low_psi">Langsam (0.087 PSI / 3h)</string>
+    <string name="pref_sea_level_use_rapid_summary">Verwende schnelle Luftdruckänderungen für die Umrechnung auf Meereshöhe</string>
+    <string name="pref_adjust_for_temperature_summary">Nutze die Temperatur zur Umrechnung auf Meereshöhe</string>
 </resources>
