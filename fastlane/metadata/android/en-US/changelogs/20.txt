@@ -1,6 +1,6 @@
 - Beacon groups
 - 2D bubble level
-- Improved sea level pressure calculations (tuning availble in barometer calibration settings)
+- Improved sea level pressure calculations (tuning available in barometer calibration settings)
 - Improved background weather monitoring
 - User guide (more coming soon!)
 - Clicking on sun/moon shows altitude
