@@ -85,7 +85,7 @@ class NavigationPreferences(private val context: Context) {
         get() {
             val raw =
                 prefs.getString(context.getString(R.string.pref_ruler_calibration), "1") ?: "1"
-            return raw.toFloat()
+            return raw.toFloatOrNull() ?: 1f
         }
 
     val averageSpeed: Float
