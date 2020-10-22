@@ -353,11 +353,28 @@ class BarometerFragment : Fragment() {
     }
 
     private fun getCurrentPressure(): PressureReading {
-        return if (useSeaLevelPressure) {
+        val pressures = if (useSeaLevelPressure) {
             getSeaLevelPressureHistory(true)
         } else {
             getPressureHistory(true)
-        }.last()
+        }
+
+        return when {
+            pressures.isNotEmpty() -> {
+                pressures.last()
+            }
+            useSeaLevelPressure -> {
+                PressureAltitudeReading(
+                    Instant.now(),
+                    barometer.pressure,
+                    altimeter.altitude,
+                    thermometer.temperature
+                ).seaLevel(prefs.weather.seaLevelFactorInTemp)
+            }
+            else -> {
+                PressureReading(Instant.now(), barometer.pressure)
+            }
+        }
     }
 
     private fun displayPressure(pressure: PressureReading) {
