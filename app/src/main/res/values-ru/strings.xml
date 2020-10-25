@@ -353,4 +353,67 @@
     <string name="pref_force_weather_updates_summary">Пробуждает устройство в режиме ожидания, может повредить аккумулятор</string>
     <string name="pref_force_weather_updates_title">Принудительное обновление погоды</string>
     <string name="pref_forecast_sensitivity_title">Чувствительность прогноза</string>
+    <string name="pref_sea_level_pressure_change_thresh">pref_sea_level_pressure_change_thresh</string>
+    <string name="pref_astronomy_category">pref_astronomy_category</string>
+    <string name="tool_user_guide">tool_user_guide</string>
+    <string name="pref_sea_level_pressure_change_thresh_title">Порог изменения давления при движении</string>
+    <string name="pref_barometer_altitude_change_title">Порог изменения высоты движения</string>
+    <string name="beacon_action_view_details">Подробнее</string>
+    <string name="tool_bubble_level_summary">Определите, являются ли поверхности плоскими</string>
+    <string name="tool_bubble_level_title">Уровень пузыря</string>
+    <string name="navigation_nearby_category">Поблизости</string>
+    <string name="advanced_settings_category">Дополнительно</string>
+    <plurals name="beacon_group_summary">
+        <item quantity="one">%d маяк</item>
+        <item quantity="few">%d маяка</item>
+        <item quantity="many">%d маяков</item>
+        <item quantity="other">%d маяков</item>
+    </plurals>
+    <string name="pref_general_header">Основные</string>
+    <string name="forecast_sensitivity_med_in">Средняя (0,044 in / 3 ч)</string>
+    <string name="forecast_sensitivity_high_in">Высокая (0,015 in / 3 ч)</string>
+    <string name="storm_sensitivity_low_hpa">Низкая (6 гПа / 3 ч)</string>
+    <string name="storm_sensitivity_med_hpa">Средняя (4,5 гПа / 3 ч)</string>
+    <string name="storm_sensitivity_high_hpa">Высокая (3 гПа / 3 ч)</string>
+    <string name="storm_sensitivity_low_mbar">Низкая (3 мбар / 3 ч)</string>
+    <string name="storm_sensitivity_med_mbar">Средняя (4,5 мбар / 3 ч)</string>
+    <string name="storm_sensitivity_high_mbar">Высокая (3 мбар / 3 ч)</string>
+    <string name="storm_sensitivity_low_psi">Низкая (0.087 PSI / 3ч)</string>
+    <string name="storm_sensitivity_med_psi">Средняя (0.065 PSI / 3ч)</string>
+    <string name="storm_sensitivity_high_psi">Высокая (0.007 PSI / 3 ч)</string>
+    <string name="storm_sensitivity_low_in">Низкая (0,177 in / 3 ч)</string>
+    <string name="storm_sensitivity_med_in">Средняя (0,133 in / 3 ч)</string>
+    <string name="storm_sensitivity_high_in">Высокая (0,089 in / 3 ч)</string>
+    <string name="tool_user_guide_title">Руководство пользователя</string>
+    <string name="tool_user_guide_summary">Практическое руководство по использованию Trail Sense</string>
+    <string name="delete_beacon_group">Удалить группу</string>
+    <string name="delete_beacon_group_message">%s и все его маяки будут удалены.</string>
+    <string name="edit_beacon_group">Редактировать группу</string>
+    <string name="beacon_create">Создать</string>
+    <string name="beacon_create_beacon">Маяк</string>
+    <string name="beacon_create_group">Группа</string>
+    <string name="beacon_group_name_hint">Имя</string>
+    <string name="no_group">Нет группы</string>
+    <string name="beacon_group_spinner_title">Группа</string>
+    <string name="weather_update_notification_channel">Обновление погоды</string>
+    <string name="weather_update_notification_channel_desc">Фоновые обновления погоды</string>
+    <string name="pref_sea_level_require_dwell_summary">Показывать показания только тогда, когда высота не менялась в течение как минимум часа. Повышает надежность прогнозов.</string>
+    <string name="pref_sea_level_require_dwell_title">Игнорировать быстрые изменения высоты</string>
+    <string name="sun_and_moon">Положения Солнца и Луны</string>
+    <string name="sun_and_moon_position_details">Солнце
+\n\tВысота: %s
+\n\tАзимут: %s
+\n
+\nЛуна
+\n\tВысота: %s
+\n\tАзимут: %s</string>
+    <string name="tap_sun_moon_hint">Коснитесь солнца или луны, чтобы узнать о местоположении</string>
+    <string name="forecasts_category">Прогнозы</string>
+    <string name="pref_category_tabs">Вкладки</string>
+    <string name="guide_conserving_battery_title">Экономия батареи</string>
+    <string name="guide_conserving_battery_description">Экономия заряда батареи при использовании Trail Sense</string>
+    <string name="guide_beacons_title">Маяки</string>
+    <string name="guide_beacons_description">Как ориентироваться с помощью маяков</string>
+    <string name="guide_weather_prediction_title">Прогноз погоды</string>
+    <string name="guide_weather_prediction_description">Как предсказывать погоду с помощью Trail Sense</string>
 </resources>
