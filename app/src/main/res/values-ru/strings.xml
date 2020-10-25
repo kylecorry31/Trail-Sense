@@ -214,7 +214,7 @@
     <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
     <string name="access_background_location_rationale">Разрешите Trail Sense доступ к вашему местоположению для более точных прогнозов погоды и оповещениям о скором заходе солнца</string>
-    <string name="dialog_grant">Настройки обновлений</string>
+    <string name="dialog_grant">Настройки обновления</string>
     <string name="nautical_miles_format">%.2f морские мили</string>
     <string name="duration_hour_minute_format">%d ч. %d м.</string>
     <string name="duration_minute_format">%d m.</string>
