@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_navigation">导航</string>
     <string name="action_weather">天气</string>
@@ -15,8 +16,6 @@
     <string name="sunrise_label">日出</string>
     <string name="sunset_label">日落</string>
     <string name="until_sunset_label">直到日落</string>
-
-
     <string name="pref_use_true_north_title">真北</string>
     <string name="pref_use_sea_level_pressure_title">海平面压力</string>
     <string name="pref_units_header">一般</string>
@@ -61,29 +60,23 @@
     <string name="pref_show_sun_moon_compass_title">在指南针上显示太阳/月亮</string>
     <string name="pref_show_linear_compass_title">显示线性罗盘</string>
     <string name="pref_show_linear_compass_summary">当手机垂直时</string>
-
     <plurals name="last_hours">
         <item quantity="other">持续 %d 小时</item>
     </plurals>
-
     <plurals name="last_minutes">
         <item quantity="other">持续 %d 分钟</item>
     </plurals>
-
     <string name="meters">仪表</string>
-    <string name="feet_miles">脚/英里</string>
+    <string name="feet_miles">英尺/英里</string>
     <string name="units_hpa">压力</string>
     <string name="units_inhg">汞</string>
     <string name="units_mbar">毫巴</string>
     <string name="units_psi">PSI</string>
-
-    <string name="theme_light">光</string>
-    <string name="theme_dark">暗</string>
+    <string name="theme_light">明亮</string>
+    <string name="theme_dark">暗黑</string>
     <string name="theme_black">黑色</string>
     <string name="theme_system">系统</string>
-
     <string name="gps">全球定位系统</string>
-
     <string name="sun_actual">实际时间</string>
     <string name="sun_civil">暮光之城</string>
     <string name="sun_nautical">航海暮光之城</string>
@@ -93,10 +86,168 @@
     <string name="tomorrow">明天</string>
     <string name="yesterday">昨天</string>
     <string name="pressure_tendency_indicator_alt">压力趋势指示器</string>
-
     <string name="pressure_48_hours">四十八小时</string>
     <string name="pressure_24_hours">二十四小时</string>
     <string name="pressure_12_hours">十二小时</string>
     <string name="pressure_4_hours">四个小时</string>
     <string name="pref_pressure_history_title">压力历史</string>
+    <string name="altimeter_mode_override">从不</string>
+    <string name="altimeter_mode_gps_barometer">GPS + 气压表</string>
+    <string name="altimeter_mode_barometer">气压表</string>
+    <string name="altimeter_mode_gps">GPS</string>
+    <string name="pref_altitude_override_sea_level_title">使用已知的海平面气压</string>
+    <string name="pref_auto_altitude_summary">基于你当前的位置</string>
+    <string name="pref_altitude_override_sea_level_dialog_title">输入海平面气压</string>
+    <string name="pref_altitude_override_sea_level_dialog_msg">以百帕为单位输入现在海平面的气压</string>
+    <string name="auto_altitude">自动调整海拔</string>
+    <string name="altitude">海拔</string>
+    <string name="pref_altimeter_calibration_title">高度表</string>
+    <string name="pref_gps_request_permission_title">请求权限</string>
+    <string name="pref_auto_location_title">自动调整位置</string>
+    <string name="gps_location">位置</string>
+    <string name="compass_accuracy_improved">指南针的精确度提升至 %s</string>
+    <string name="compass_reported_accuracy">报告的准确度： %s</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">将你的手机以 8 字形旋转几次，完成后轻触 %s 。
+\n
+\n该警告可在应用设定内停用。</string>
+    <string name="calibrate_compass_dialog_content">将你的手机以 8 字形旋转几次，完成后轻触 %s 。</string>
+    <string name="calibrate_compass_dialog_title">校准指南针</string>
+    <string name="pref_calibrate_compass_btn_title">校准</string>
+    <string name="pref_auto_declination_summary">基于你现在的位置</string>
+    <string name="compass_azimuth">方位角</string>
+    <string name="compass_auto_declination">自动调整磁偏角</string>
+    <string name="pref_ruler_calibration_title">刻度尺比例</string>
+    <string name="your_height_m">你的身高（米）</string>
+    <string name="your_height_ft">你的身高（英尺）</string>
+    <string name="pref_ruler_calibration_summary">"校准方式：
+\n-  设置该值为1
+\n-  用标准刻度尺测量，观察在标准刻度尺上的一个单位相当于 Trail Sense 刻度尺上的多少个单位
+\n-  在此处汇报测量的值。"</string>
+    <string name="pref_compass_sensor_title">指南针</string>
+    <string name="pref_category_sensors_title">传感器</string>
+    <string name="pref_temperature_units_title">温度</string>
+    <string name="celsius">摄氏度</string>
+    <string name="fahrenheit">华氏度</string>
+    <string name="pref_coordinate_format_title">坐标格式</string>
+    <string name="experimental_tools_title">实验性功能</string>
+    <string name="pref_general_header">一般</string>
+    <string name="object_distance_ft">距离（英尺）</string>
+    <string name="object_distance_m">距离（米）</string>
+    <string name="estimated_height">预计的高度</string>
+    <string name="set_inclination_instructions">轻触任何地方以设定或复位倾斜角度</string>
+    <string name="inclinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
+    <string name="avalanche_risk_high">高雪崩风险</string>
+    <string name="avalanche_risk_med">中度雪崩风险</string>
+    <string name="avalanche_risk_low">低雪崩风险</string>
+    <string name="tool_inclinometer_summary">预估雪崩风险与物体高度</string>
+    <string name="inclinometer_title">测斜仪</string>
+    <string name="trail_sense_maps">离线地图</string>
+    <string name="sun_dusk">黄昏</string>
+    <string name="sun_dawn">黎明</string>
+    <string name="sun_altitude">太阳高度</string>
+    <string name="moon_illumination">月明亮度</string>
+    <string name="moon_phase">月相</string>
+    <string name="solar_noon"></string>
+    <string name="tide_spring">涨潮</string>
+    <string name="tide_neap">小潮</string>
+    <string name="tidal_range">潮汐范围</string>
+    <string name="sunset_alert_channel_title">日落警告</string>
+    <string name="sunset_alert_channel_description">日落警告</string>
+    <string name="sunset_alert_notification_text">太阳将于 %s 落下</string>
+    <string name="sunset_alert_notification_title">太阳即将落下</string>
+    <string name="waxing_crescent">残月</string>
+    <string name="waning_crescent">眉月</string>
+    <string name="first_quarter">上弦月</string>
+    <string name="waxing_gibbous">盈凸月</string>
+    <string name="full_moon">满月</string>
+    <string name="waning_gibbous">亏凸月</string>
+    <string name="third_quarter">下弦月</string>
+    <string name="new_moon">新月</string>
+    <string name="until_sun_time">直到 %s</string>
+    <string name="sun_up_no_set">已日出</string>
+    <string name="sun_down_no_set">已日落</string>
+    <string name="sun_does_not_rise">还未升起</string>
+    <string name="sun_does_not_set">还未落下</string>
+    <string name="temperature_disclaimer">显示的温度可能因手机发热而偏高。</string>
+    <string name="heat_alert_frostbite_danger_title">低温症威胁</string>
+    <string name="heat_alert_frostbite_warning_title">低温症警告</string>
+    <string name="heat_alert_frostbite_caution_title">低温症注意</string>
+    <string name="heat_alert_normal_title">无温度警告</string>
+    <string name="heat_alert_heat_caution_title">高温注意</string>
+    <string name="heat_alert_heat_warning_title">高温警告</string>
+    <string name="heat_alert_heat_alert_title">高温警报</string>
+    <string name="heat_alert_heat_message">存在中暑和热射病的风险。请保持水分充足，停留在室内或阴凉处，限制活动，并注意中暑和热射病的迹象。</string>
+    <string name="heat_alert_frostbite_message">存在低温症和冻伤风险。请确保水分充足，穿着暖和并且限制暴露的皮肤，并注意低温症和冻伤的迹象。</string>
+    <string name="heat_alert_heat_danger_title">酷热威胁</string>
+    <string name="dew_point">露点 %s</string>
+    <string name="no_humidity_data">无湿度数据</string>
+    <string name="humidity_format">%.0f%% 湿度</string>
+    <string name="weather_notification_desc_format">%s · %s (%s)</string>
+    <string name="notification_monitoring_weather">后台监测天气</string>
+    <string name="notification_storm_alert_title">暴风雨警报</string>
+    <string name="notification_storm_alert_text">一场暴风雨可能正在逼近</string>
+    <string name="notification_storm_alert_channel_desc">暴风雨警报</string>
+    <string name="notification_storm_alert_channel_name">警报</string>
+    <string name="units_inhg_short">英寸汞柱</string>
+    <string name="beacon_elevation_hint_feet">海拔英尺数（可选）</string>
+    <string name="accuracy_distance_unknown">\?</string>
+    <string name="beacon_elevation_hint_meters">海拔米数（可选）</string>
+    <string name="beacon_comment">备注（可选）</string>
+    <string name="beacon_invalid_elevation">无效的海拔</string>
+    <string name="beacon_invalid_longitude">无效的经度</string>
+    <string name="beacon_invalid_latitude">无效的纬度</string>
+    <string name="beacon_invalid_name">无效的名称</string>
+    <string name="share_action_geo">地图</string>
+    <string name="share_action_copy_coordinates">复制坐标</string>
+    <string name="share_action_copy_beacon">复制信标</string>
+    <string name="share_action_copy">复制</string>
+    <string name="share_action_send">发送</string>
+    <plurals name="beacon_group_summary">
+        <item quantity="other">%d 个信标</item>
+    </plurals>
+    <string name="long_press_beacon_toast">长按一个信标以查看选项。</string>
+    <string name="edit_beacon">编辑信标</string>
+    <string name="eta">还有 ~%s 远</string>
+    <string name="sos">SOS</string>
+    <string name="turn_off_flashlight">轻触以关闭</string>
+    <string name="flashlight_title">手电筒</string>
+    <string name="gps_lock_acquired">GPS 已锁定</string>
+    <string name="accuracy_info">"定位：到室外天空未被遮挡的地方。
+\n    %s 的真实位置偏差
+\n    %s 的真实海拔偏差
+\n    %s 个卫星
+\n
+\n指南针： 以 8 字形摇晃手机并远离铁质物品。"</string>
+    <string name="accuracy_info_title">提高传感器精确度的小提示</string>
+    <string name="accuracy_unknown">未知</string>
+    <string name="accuracy_high">高</string>
+    <string name="accuracy_medium">中</string>
+    <string name="accuracy_low">低</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="direction_south_west">西南</string>
+    <string name="direction_north_west">西北</string>
+    <string name="direction_south_east">东南</string>
+    <string name="direction_north_east">东北</string>
+    <string name="direction_west">西</string>
+    <string name="direction_east">东</string>
+    <string name="direction_south">南</string>
+    <string name="direction_north">北</string>
+    <string name="duration_hour_minute_format">%d 小时 %d 分钟</string>
+    <string name="duration_minute_format">%d 分钟</string>
+    <string name="duration_hour_format">%d 小时</string>
+    <string name="kilometers_per_hour_format"></string>
+    <string name="miles_per_hour_format"></string>
+    <string name="kilometers_format">%.2f 公里</string>
+    <string name="meters_format">%.0f 米</string>
+    <string name="nautical_miles_format">%.2f 海里</string>
+    <string name="miles_format">%.2f 英里</string>
+    <string name="feet_format">%.0f 英尺</string>
+    <string name="disclaimer_message_content">Trail Sense 是一个可用于生存情况下的工具，但你不能仅仅依赖它。请验证它的准确性，尽可能规避危险，保持镇静，并利用好常识。</string>
+    <string name="disclaimer_message_title">免责声明</string>
+    <string name="dialog_deny">不，谢谢</string>
+    <string name="dialog_grant">更新设置</string>
+    <string name="access_background_location_rationale">Trail Sense 在后台使用位置信息来改善天气监测和日落警报。</string>
+    <string name="access_background_location">更新位置设置</string>
+    <string name="copied_to_clipboard_toast">已复制到剪贴板</string>
+    <string name="action_tools">工具</string>
 </resources>
