@@ -147,7 +147,7 @@
     <string name="sun_altitude">太阳高度</string>
     <string name="moon_illumination">月明亮度</string>
     <string name="moon_phase">月相</string>
-    <string name="solar_noon"></string>
+    <string name="solar_noon"/>
     <string name="tide_spring">涨潮</string>
     <string name="tide_neap">小潮</string>
     <string name="tidal_range">潮汐范围</string>
@@ -235,8 +235,8 @@
     <string name="duration_hour_minute_format">%d 小时 %d 分钟</string>
     <string name="duration_minute_format">%d 分钟</string>
     <string name="duration_hour_format">%d 小时</string>
-    <string name="kilometers_per_hour_format"></string>
-    <string name="miles_per_hour_format"></string>
+    <string name="kilometers_per_hour_format"/>
+    <string name="miles_per_hour_format"/>
     <string name="kilometers_format">%.2f 公里</string>
     <string name="meters_format">%.0f 米</string>
     <string name="nautical_miles_format">%.2f 海里</string>
@@ -250,4 +250,8 @@
     <string name="access_background_location">更新位置设置</string>
     <string name="copied_to_clipboard_toast">已复制到剪贴板</string>
     <string name="action_tools">工具</string>
+    <string name="barometer_thermometer">气压计和温度计</string>
+    <string name="pref_barometer_pressure_title">气压</string>
+    <string name="pref_altimeter_calibration_mode_title">自动校准</string>
+    <string name="calibration_mode_barometer_alert_msg">将气压计用作海拔计可能降低天气预报准确性。</string>
 </resources>
