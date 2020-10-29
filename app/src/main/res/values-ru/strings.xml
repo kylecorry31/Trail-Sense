@@ -87,7 +87,7 @@
     <string name="sun_civil">Гражданские сумерки</string>
     <string name="sun_nautical">Морские сумерки</string>
     <string name="sun_astronomical">Астрономические сумерки</string>
-    <string name="not_all_permissions_granted">Не все разрешения выданы, некоторые функции могут быть нарушены.</string>
+    <string name="not_all_permissions_granted">Не все разрешения предоставлены, некоторые функции могут быть неработоспособны</string>
     <string name="today">Сегодня</string>
     <string name="tomorrow">Завтра</string>
     <string name="yesterday">Вчера</string>
@@ -213,7 +213,7 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
-    <string name="access_background_location_rationale">Разрешите Trail Sense доступ к вашему местоположению для более точных прогнозов погоды и оповещениям о скором заходе солнца</string>
+    <string name="access_background_location_rationale">Trail Sense использует данные о местоположении в фоновом режиме для улучшения мониторинга погоды и предупреждений о закате.</string>
     <string name="dialog_grant">Настройки обновлений</string>
     <string name="nautical_miles_format">%.2f морские мили</string>
     <string name="duration_hour_minute_format">%d ч. %d м.</string>

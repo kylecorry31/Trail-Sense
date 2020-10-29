@@ -233,4 +233,10 @@
     <string name="access_background_location_rationale">Tillat Trail Sense tilgang til din posisjon hele tiden for å forbedre væroversikt og solnedgangsvarsler</string>
     <string name="meters_format">%.0f m</string>
     <string name="access_background_location">Oppdater posisjonsinnstillinger</string>
+    <string name="beacon_action_view_details">Vis detaljer</string>
+    <string name="weather_update_notification_channel_desc">Væroppdateringer i bakgrunnen</string>
+    <string name="tool_user_guide_summary">En guide til bruk av Trail Sense</string>
+    <string name="tool_user_guide_title">Brukerveiledning</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="duration_hour_minute_format">%dt %dm</string>
 </resources>
