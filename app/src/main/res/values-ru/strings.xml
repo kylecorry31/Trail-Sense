@@ -197,8 +197,8 @@
     <string name="pressure_reading_time_ago">%s - %s тому назад</string>
     <string name="pressure_setpoint_format">Заданно: %s - %s тому назад</string>
     <string name="pressure_format">%s %s</string>
-    <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
+    <string name="pressure_tendency_format_2">%s / 3ч</string>
+    <string name="pressure_tendency_format">%s %s / 3ч</string>
     <string name="pref_weather_foreground_service_summary">Поможет не пропустить обновления</string>
     <string name="pref_weather_foreground_service_title">Обновлять погоду в фоне</string>
     <string name="pref_show_pressure_in_notification_title">Показывать давление в уведомлении</string>
