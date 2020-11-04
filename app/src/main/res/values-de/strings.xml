@@ -336,7 +336,7 @@
     <string name="guide_beacons_title">Wegmarken</string>
     <string name="pref_category_tabs">Tabulatoren</string>
     <string name="navigation_nearby_category">Nahegelegen</string>
-    <string name="forecasts_category">Vorhesagen</string>
+    <string name="forecasts_category">Vorhersagen</string>
     <string name="tap_sun_moon_hint">Tippe Sonne oder Mond an, um Positionseinzelheiten zu sehen</string>
     <string name="sun_and_moon_position_details">Sonne
 \n\tHöhe: %s
