@@ -7,4 +7,17 @@
     <color name="white">#FFFFFF</color>
     <color name="positive">#0F9A05</color>
     <color name="negative">#FF001E</color>
+
+    <!--Categories-->
+    <color name="category_other">#9e9e9e</color>
+    <color name="category_water">#a0caff</color>
+    <color name="category_food">#FB1631</color>
+    <color name="category_tools">#9e9e9e</color>
+    <color name="category_natural">#0F9A05</color>
+    <color name="category_clothing">#9e9e9e</color>
+    <color name="category_medical">#FB1631</color>
+    <color name="category_fire">#FF6D00</color>
+    <color name="category_shelter">#0F9A05</color>
+    <color name="category_safety">#DDCE2C</color>
+    <color name="category_navigation">#DDCE2C</color>
 </resources>

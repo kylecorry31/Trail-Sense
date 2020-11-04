@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/action_navigation"
-    >
+    app:startDestination="@id/action_navigation">
 
     <fragment
         android:id="@+id/action_navigation"
@@ -47,14 +46,21 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_levelFragment"
             app:destination="@id/levelFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_action_experimental_tools_to_action_inventory"
+            app:destination="@id/action_inventory"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/action_weather"
@@ -114,21 +120,21 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_settings_to_navigationSettingsFragment"
             app:destination="@id/navigationSettingsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_settings_to_astronomySettingsFragment"
             app:destination="@id/astronomySettingsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/beacon_list"
@@ -156,7 +162,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/place_beacon"
@@ -238,7 +244,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/guideFragment"
@@ -263,7 +269,7 @@
     <fragment
         android:id="@+id/beaconDetailsFragment"
         android:name="com.kylecorry.trail_sense.navigation.ui.BeaconDetailsFragment"
-        android:label="BeaconDetailsFragment" >
+        android:label="BeaconDetailsFragment">
 
         <argument
             android:name="beacon_id"
@@ -272,11 +278,42 @@
         <action
             android:id="@+id/action_beaconDetailsFragment_to_action_navigation"
             app:destination="@id/action_navigation"
-            app:popUpTo="@id/action_navigation"
-            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"/>
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/action_navigation"
+            app:popUpToInclusive="true" />
     </fragment>
+
+    <fragment
+        android:id="@+id/action_inventory"
+        android:name="com.kylecorry.trail_sense.tools.inventory.ui.ItemListFragment"
+        android:label="ItemListFragment">
+        <action
+            android:id="@+id/action_action_inventory_to_createItemFragment"
+            app:destination="@id/createItemFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/createItemFragment"
+        android:name="com.kylecorry.trail_sense.tools.inventory.ui.CreateItemFragment"
+        android:label="CreateItemFragment">
+        <action
+            android:id="@+id/action_createItemFragment_to_action_inventory"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/action_inventory" />
+
+        <argument
+            android:name="edit_item_id"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
+
 </navigation>

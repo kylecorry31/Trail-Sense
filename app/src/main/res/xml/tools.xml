@@ -33,6 +33,13 @@
             app:key="@string/tool_trail_sense_maps"
             app:singleLineTitle="false" />
 
+        <Preference
+            android:icon="@drawable/ic_inventory"
+            android:title="@string/action_inventory"
+            app:key="@string/tool_inventory"
+            android:summary="@string/tool_inventory_summary"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

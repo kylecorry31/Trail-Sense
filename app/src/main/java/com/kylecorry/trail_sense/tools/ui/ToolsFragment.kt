@@ -36,6 +36,10 @@ class ToolsFragment : PreferenceFragmentCompat() {
             findPreference(getString(R.string.tool_inclinometer)),
             R.id.action_toolsFragment_to_inclinometerFragment
         )
+        navigateOnClick(
+            findPreference(getString(R.string.tool_inventory)),
+            R.id.action_action_experimental_tools_to_action_inventory
+        )
 
         val maps = findPreference<Preference>(getString(R.string.tool_trail_sense_maps))
         maps?.isVisible = TrailSenseMaps.isInstalled(requireContext())
