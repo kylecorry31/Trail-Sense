@@ -361,7 +361,7 @@
     <string name="trail_sense_maps">Cartes hors-ligne</string>
     <string name="dialog_deny">Non merci</string>
     <string name="dialog_grant">Mettre à jour les paramètres</string>
-    <string name="access_background_location_rationale">Autorisez Trail Sense à accéder à la donnée de localisation n\'importe quand afin d\'améliorer l\'acquisition des données météorologiques et astronomiques</string>
+    <string name="access_background_location_rationale">Trail Sense utilise vos données de position pour améliorer les suivis météorologique et astronomique.</string>
     <string name="access_background_location">Paramètres de localisation</string>
     <string name="sun_azimuth">Azimuth du soleil</string>
     <string name="moon_azimuth">Azimuth de la lune</string>
@@ -409,4 +409,6 @@
     <string name="tool_user_guide_summary">Un manuel pour la prise en main de Trail Sense</string>
     <string name="tool_user_guide_title">Guide d\'utilisation</string>
     <string name="pref_general_header">Général</string>
+    <string name="pref_sea_level_pressure_change_thresh_title">La pression atmosphérique de voyage change le seuil</string>
+    <string name="pref_barometer_altitude_change_title">L\'altitude de voyage change le seuil</string>
 </resources>
