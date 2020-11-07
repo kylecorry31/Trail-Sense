@@ -235,8 +235,6 @@
     <string name="duration_hour_minute_format">%d 小时 %d 分钟</string>
     <string name="duration_minute_format">%d 分钟</string>
     <string name="duration_hour_format">%d 小时</string>
-    <string name="kilometers_per_hour_format"/>
-    <string name="miles_per_hour_format"/>
     <string name="kilometers_format">%.2f 公里</string>
     <string name="meters_format">%.0f 米</string>
     <string name="nautical_miles_format">%.2f 海里</string>

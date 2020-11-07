@@ -8,10 +8,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 
 class ToolsFragment : PreferenceFragmentCompat() {
 
     private lateinit var navController: NavController
+
+    private val sensorChecker by lazy { SensorChecker(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,6 +47,10 @@ class ToolsFragment : PreferenceFragmentCompat() {
         val maps = findPreference<Preference>(getString(R.string.tool_trail_sense_maps))
         maps?.isVisible = TrailSenseMaps.isInstalled(requireContext())
         onClick(maps) { TrailSenseMaps.open(requireContext()) }
+
+        val depth = findPreference<Preference>(getString(R.string.tool_depth))
+        depth?.isVisible = sensorChecker.hasBarometer()
+        navigateOnClick(depth, R.id.action_action_experimental_tools_to_toolDepthFragment)
     }
 
 

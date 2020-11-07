@@ -74,6 +74,16 @@ class FormatService(private val context: Context) {
         }
     }
 
+    fun formatDepth(distance: Float, units: DistanceUnits): String {
+        return when (units) {
+            DistanceUnits.Meters -> context.getString(R.string.depth_meters_format, distance)
+            DistanceUnits.Kilometers -> context.getString(R.string.kilometers_format, distance)
+            DistanceUnits.Feet -> context.getString(R.string.depth_feet_format, distance)
+            DistanceUnits.Miles -> context.getString(R.string.miles_format, distance)
+            DistanceUnits.NauticalMiles -> context.getString(R.string.nautical_miles_format, distance)
+        }
+    }
+
     fun formatSmallDistance(distanceMeters: Float): String {
         val base = getBaseUnit()
         return formatDistance(

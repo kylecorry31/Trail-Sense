@@ -40,6 +40,13 @@
             android:summary="@string/tool_inventory_summary"
             app:singleLineTitle="false" />
 
+        <Preference
+            android:icon="@drawable/ic_depth"
+            android:title="@string/tool_depth_title"
+            app:key="@string/tool_depth"
+            android:summary="@string/tool_depth_summary"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

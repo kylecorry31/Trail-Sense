@@ -22,9 +22,11 @@
     <string name="disclaimer_message_content">Trail Sense is a tool that can be used in a survival situation, but you should not rely solely upon it. Please validate its accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
     <!--Navigation Tab - Unit Formats-->
     <string name="feet_format">%.0f ft</string>
+    <string name="depth_feet_format">%.1f ft</string>
     <string name="miles_format">%.2f mi</string>
     <string name="nautical_miles_format">%.2f nm</string>
     <string name="meters_format">%.0f m</string>
+    <string name="depth_meters_format">%.2f m</string>
     <string name="kilometers_format">%.2f km</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="miles_per_hour_format">%.1f mph</string>
@@ -554,5 +556,9 @@
     <string name="category_safety">Safety</string>
     <string name="category_natural">Natural</string>
     <string name="category_navigation">Navigation</string>
-    <string name="tool_inventory_summary">A simple tool to keep track of items on hand.</string>
+    <string name="tool_inventory_summary">Keep track of items on hand</string>
+    <string name="tool_depth_title">Depth</string>
+    <string name="tool_depth" translatable="false">tool_depth</string>
+    <string name="tool_depth_summary">Determine water depth</string>
+    <string name="depth_disclaimer">Use at your own risk.\n\nDo not use without a waterproof case and stay within a safe diving distance if possible.</string>
 </resources>
