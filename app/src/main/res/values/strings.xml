@@ -561,4 +561,6 @@
     <string name="tool_depth" translatable="false">tool_depth</string>
     <string name="tool_depth_summary">Determine water depth</string>
     <string name="depth_disclaimer">Use at your own risk.\n\nDo not use without a waterproof case and stay within a safe diving distance if possible.</string>
+    <string name="item_name_hint">Name</string>
+    <string name="item_amount_hint">Amount</string>
 </resources>
