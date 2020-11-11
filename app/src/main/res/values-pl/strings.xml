@@ -219,4 +219,28 @@
     <string name="dialog_deny">Nie, dzięki</string>
     <string name="copied_to_clipboard_toast">Skopiowano do schowka</string>
     <string name="action_tools">Narzędzia</string>
+    <string name="access_background_location_rationale">Trail Sense wykorzystuje dane o lokalizacji w tle, aby ulepszyć monitorowanie pogody i alerty o zachodzie słońca.</string>
+    <string name="access_background_location">Zaktualizuj ustawienia lokalizacji</string>
+    <string name="third_quarter">Ostatnia kwadra</string>
+    <string name="until_sun_time">do %s</string>
+    <string name="notification_monitoring_weather">Monitorowanie pogody w tle</string>
+    <string name="notification_storm_alert_channel_name">Alerty</string>
+    <string name="units_inhg_short">in</string>
+    <string name="beacon_invalid_name">Nieprawidłowa nazwa</string>
+    <string name="share_action_copy_beacon">Kopiuj punkt nawigacyjny</string>
+    <string name="share_action_send">Wyślij</string>
+    <plurals name="beacon_group_summary">
+        <item quantity="one">%d punkt nawigacyjny</item>
+        <item quantity="few">%d punkty nawigacyjne</item>
+        <item quantity="many">%d punktów nawigacyjnych</item>
+        <item quantity="other">%d punktów nawigacyjnych</item>
+    </plurals>
+    <string name="edit_beacon">Edytuj punkt nawigacyjny</string>
+    <string name="depth_feet_format">%.1f ft</string>
+    <string name="feet_format">%.0f ft</string>
+    <string name="miles_format">%.2f mil</string>
+    <string name="nautical_miles_format">%.2f mil morskich</string>
+    <string name="miles_per_hour_format">%.1f mph</string>
+    <string name="depth_meters_format">%.2f m</string>
+    <string name="sunset_alert_notification_title">Słońce niedługo zajdzie</string>
 </resources>
