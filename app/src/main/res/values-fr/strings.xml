@@ -411,4 +411,24 @@
     <string name="pref_general_header">Général</string>
     <string name="pref_sea_level_pressure_change_thresh_title">La pression atmosphérique de voyage change le seuil</string>
     <string name="pref_barometer_altitude_change_title">L\'altitude de voyage change le seuil</string>
+    <string name="category_natural">Naturel</string>
+    <string name="category_safety">Sécurité</string>
+    <string name="category_shelter">Abri</string>
+    <string name="category_fire">Feu</string>
+    <string name="category_medical">Médical</string>
+    <string name="category_clothing">Habits</string>
+    <string name="category_tools">Outils</string>
+    <string name="category_hydration">Hydratation</string>
+    <string name="category_food">Nourriture</string>
+    <string name="category_other">Autres</string>
+    <string name="dialog_item_subtract">Soustraire</string>
+    <string name="dialog_item_amount">Quantité</string>
+    <string name="dialog_item_add">Ajouter</string>
+    <string name="spinner_category_prompt">Catégorie</string>
+    <string name="action_item_edit">Éditer</string>
+    <string name="action_item_delete">Supprimer</string>
+    <string name="action_item_subtract">Soustraire</string>
+    <string name="action_item_add">Ajouter</string>
+    <string name="action_blueprints">Plans</string>
+    <string name="action_inventory">Inventaire</string>
 </resources>
