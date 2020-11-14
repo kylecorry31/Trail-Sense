@@ -567,4 +567,5 @@
     <string name="guide_avalanche_risk">Avalanche risk estimation</string>
     <string name="object_height_guide">Estimate object heights</string>
     <string name="object_height_guide_description">How to estimate the heights of objects</string>
+    <string name="toast_destination_bearing_set">Destination bearing set</string>
 </resources>

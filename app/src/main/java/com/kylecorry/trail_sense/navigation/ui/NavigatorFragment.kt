@@ -216,6 +216,7 @@ class NavigatorFragment : Fragment() {
             if (destinationBearing == null) {
                 destinationBearing = compass.bearing
                 cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
+                UiUtils.shortToast(requireContext(), getString(R.string.toast_destination_bearing_set))
             } else {
                 destinationBearing = null
                 cache.remove(LAST_DEST_BEARING)
@@ -225,6 +226,7 @@ class NavigatorFragment : Fragment() {
             if (destinationBearing == null) {
                 destinationBearing = compass.bearing
                 cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
+                UiUtils.shortToast(requireContext(), getString(R.string.toast_destination_bearing_set))
             } else {
                 destinationBearing = null
                 cache.remove(LAST_DEST_BEARING)
