@@ -1,4 +1,3 @@
 - Inventory tool
 - Water depth meter tool
 - More user guide pages
-- Bug fixes
