@@ -309,8 +309,10 @@
     <string name="trail_sense_maps">Offlinekarten</string>
     <string name="sun_does_not_rise">geht nicht auf</string>
     <plurals name="beacon_group_summary">
-        <item quantity="one">Singular</item>
-        <item quantity="other">Plural</item>
+        <item quantity="one">Singular
+\n%d beacon</item>
+        <item quantity="other">Plural
+\n%d beacons</item>
     </plurals>
     <string name="beacon_group_spinner_title">Gruppe</string>
     <string name="no_group">Keine Gruppe</string>
@@ -326,7 +328,7 @@
     <string name="error_occurred_message">Trail Sense wird geschlossen, weil ein Fehler aufgetreten ist. Bitte senden Sie eine e-mail an den Entwickler um den Fehler zu beheben.</string>
     <string name="error_occurred">Ein Fehler ist aufgetreten</string>
     <string name="access_background_location">Standortseinstellungen aktualisieren</string>
-    <string name="access_background_location_rationale">Erlauben Sie Trail Sense jederzeit den Zugriff auf Ihre Ortsdaten um Wetterbeobachtung und Sonnenuntergangsalarme zu verbessern</string>
+    <string name="access_background_location_rationale">Erlauben Sie Trail Sense jederzeit den Zugriff auf Ihre Ortsdaten um Wetterbeobachtung und Sonnenuntergangsalarme zu verbessern.</string>
     <string name="dialog_deny">Nein danke</string>
     <string name="dialog_grant">Einstellungen aktualisieren</string>
     <string name="pref_sea_level_use_rapid_title">Faktor für schnelle Luftdruckänderungen</string>
@@ -405,4 +407,19 @@
     <string name="storm_sensitivity_low_psi">Langsam (0.087 PSI / 3h)</string>
     <string name="pref_sea_level_use_rapid_summary">Verwende schnelle Luftdruckänderungen für die Umrechnung auf Meereshöhe</string>
     <string name="pref_adjust_for_temperature_summary">Nutze die Temperatur zur Umrechnung auf Meereshöhe</string>
+    <string name="tool_bubble_level_title">Libelle</string>
+    <string name="edit_item_title">Gegenstand editieren</string>
+    <string name="create_item_title">Gegenstand kreieren</string>
+    <string name="dialog_item_subtract">Abziehen</string>
+    <string name="dialog_item_amount">Betrag</string>
+    <string name="dialog_item_add">Hinzufügen</string>
+    <string name="spinner_category_prompt">Kategorie</string>
+    <string name="action_item_edit">Editieren</string>
+    <string name="action_item_delete">Löschen</string>
+    <string name="action_item_subtract">Abziehen</string>
+    <string name="action_item_add">Hinzufügen</string>
+    <string name="action_blueprints">Blaupausen</string>
+    <string name="action_inventory">Inventar</string>
+    <string name="depth_meters_format">%.2f m</string>
+    <string name="depth_feet_format">%.1f ft</string>
 </resources>
