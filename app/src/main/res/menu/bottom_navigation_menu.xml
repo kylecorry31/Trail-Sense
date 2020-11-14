@@ -24,7 +24,7 @@
     <item
         android:id="@+id/action_experimental_tools"
         android:title="@string/action_tools"
-        android:icon="@drawable/inclinometer"
+        android:icon="@drawable/tools"
         app:showAsAction="ifRoom" />
 
     <item
