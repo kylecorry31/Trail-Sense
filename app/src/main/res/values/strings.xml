@@ -563,5 +563,8 @@
     <string name="depth_disclaimer">Use at your own risk.\n\nDo not use without a waterproof case and stay within a safe diving distance if possible.</string>
     <string name="item_name_hint">Name</string>
     <string name="item_amount_hint">Amount</string>
-    <string name="guide_inclinometer_description">How to determine avalanche risk and estimate object heights</string>
+    <string name="guide_avalanche_description">How to determine avalanche risk</string>
+    <string name="guide_avalanche_risk">Avalanche risk estimation</string>
+    <string name="object_height_guide">Estimate object heights</string>
+    <string name="object_height_guide_description">How to estimate the heights of objects</string>
 </resources>

@@ -42,9 +42,14 @@ object Guides {
         val tools = UserGuideCategory(
             context.getString(R.string.action_tools), listOf(
                 UserGuide(
-                    context.getString(R.string.inclinometer_title),
-                    context.getString(R.string.guide_inclinometer_description),
-                    R.raw.inclinometer
+                    context.getString(R.string.guide_avalanche_risk),
+                    context.getString(R.string.guide_avalanche_description),
+                    R.raw.determine_avalanche_risk
+                ),
+                UserGuide(
+                    context.getString(R.string.object_height_guide),
+                    context.getString(R.string.object_height_guide_description),
+                    R.raw.height_estimation
                 )
             )
         )
