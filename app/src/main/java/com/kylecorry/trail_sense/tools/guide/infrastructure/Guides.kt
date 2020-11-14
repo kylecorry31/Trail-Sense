@@ -39,10 +39,21 @@ object Guides {
             )
         )
 
+        val tools = UserGuideCategory(
+            context.getString(R.string.action_tools), listOf(
+                UserGuide(
+                    context.getString(R.string.inclinometer_title),
+                    context.getString(R.string.guide_inclinometer_description),
+                    R.raw.inclinometer
+                )
+            )
+        )
+
         return listOf(
             general,
             navigation,
-            weather
+            weather,
+            tools
         )
     }
 }
