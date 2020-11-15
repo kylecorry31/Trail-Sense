@@ -47,6 +47,13 @@
             android:summary="@string/tool_depth_summary"
             app:singleLineTitle="false" />
 
+        <Preference
+            android:icon="@drawable/ic_tool_cliff_height"
+            android:title="@string/tool_cliff_height_title"
+            app:key="@string/tool_cliff_height"
+            android:summary="@string/tool_cliff_height_description"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

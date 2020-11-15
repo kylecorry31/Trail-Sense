@@ -50,6 +50,11 @@ object Guides {
                     context.getString(R.string.object_height_guide),
                     context.getString(R.string.object_height_guide_description),
                     R.raw.height_estimation
+                ),
+                UserGuide(
+                    context.getString(R.string.cliff_height_guide),
+                    context.getString(R.string.cliff_height_guide_description),
+                    R.raw.cliff_height
                 )
             )
         )

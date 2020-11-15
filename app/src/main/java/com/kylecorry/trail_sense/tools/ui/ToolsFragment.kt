@@ -51,6 +51,8 @@ class ToolsFragment : PreferenceFragmentCompat() {
         val depth = findPreference<Preference>(getString(R.string.tool_depth))
         depth?.isVisible = sensorChecker.hasBarometer()
         navigateOnClick(depth, R.id.action_action_experimental_tools_to_toolDepthFragment)
+
+        navigateOnClick(findPreference(getString(R.string.tool_cliff_height)), R.id.action_action_experimental_tools_to_toolCliffHeightFragment)
     }
 
 
