@@ -15,16 +15,23 @@
 
         <Preference
             android:icon="@drawable/level"
+            android:summary="@string/tool_bubble_level_summary"
             android:title="@string/tool_bubble_level_title"
             app:key="@string/tool_bubble_level"
-            android:summary="@string/tool_bubble_level_summary"
             app:singleLineTitle="false" />
 
         <Preference
-            android:icon="@drawable/ic_user_guide"
-            android:title="@string/tool_user_guide_title"
-            android:summary="@string/tool_user_guide_summary"
-            app:key="@string/tool_user_guide"
+            android:icon="@drawable/ic_tool_cliff_height"
+            android:summary="@string/tool_cliff_height_description"
+            android:title="@string/tool_cliff_height_title"
+            app:key="@string/tool_cliff_height"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:icon="@drawable/ic_depth"
+            android:summary="@string/tool_depth_summary"
+            android:title="@string/tool_depth_title"
+            app:key="@string/tool_depth"
             app:singleLineTitle="false" />
 
         <Preference
@@ -35,24 +42,18 @@
 
         <Preference
             android:icon="@drawable/ic_inventory"
+            android:summary="@string/tool_inventory_summary"
             android:title="@string/action_inventory"
             app:key="@string/tool_inventory"
-            android:summary="@string/tool_inventory_summary"
             app:singleLineTitle="false" />
 
         <Preference
-            android:icon="@drawable/ic_depth"
-            android:title="@string/tool_depth_title"
-            app:key="@string/tool_depth"
-            android:summary="@string/tool_depth_summary"
+            android:icon="@drawable/ic_user_guide"
+            android:summary="@string/tool_user_guide_summary"
+            android:title="@string/tool_user_guide_title"
+            app:key="@string/tool_user_guide"
             app:singleLineTitle="false" />
 
-        <Preference
-            android:icon="@drawable/ic_tool_cliff_height"
-            android:title="@string/tool_cliff_height_title"
-            app:key="@string/tool_cliff_height"
-            android:summary="@string/tool_cliff_height_description"
-            app:singleLineTitle="false" />
 
     </PreferenceCategory>
 
