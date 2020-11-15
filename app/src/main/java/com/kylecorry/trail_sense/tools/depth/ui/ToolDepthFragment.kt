@@ -16,6 +16,7 @@ import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import kotlin.math.max
 
 class ToolDepthFragment: Fragment() {
 
@@ -29,6 +30,9 @@ class ToolDepthFragment: Fragment() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val throttle = Throttle(20)
+
+    private var lastDepth: Float = 0f
+    private var maxDepth: Float = 0f
 
     private lateinit var units: DistanceUnits
 
@@ -72,10 +76,22 @@ class ToolDepthFragment: Fragment() {
         }
 
         val depth = depthService.calculateDepth(barometer.pressure, SensorManager.PRESSURE_STANDARD_ATMOSPHERE)
+
+        if (lastDepth == 0f && depth > 0){
+            maxDepth = depth
+        }
+
+        lastDepth = depth
+        maxDepth = max(depth, maxDepth)
+
         val converted = unitService.convert(depth, DistanceUnits.Meters, units)
         val formatted = formatService.formatDepth(converted, units)
 
+        val convertedMax = unitService.convert(maxDepth, DistanceUnits.Meters, units)
+        val formattedMax = formatService.formatDepth(convertedMax, units)
+
         binding.depth.text = formatted
+        binding.maxDepth.text = getString(R.string.max_depth, formattedMax)
 
         return true
     }

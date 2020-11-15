@@ -576,4 +576,5 @@
     <string name="tool_cliff_height_disclaimer">Only use this tool when it is safe to do so, and be sure to check what is below the cliff to avoid injury. See the user guide for instructions.</string>
     <string name="cliff_height_guide">Estimate cliff height</string>
     <string name="cliff_height_guide_description">How to estimate the heights of cliffs or drops</string>
+    <string name="max_depth">Max: %s</string>
 </resources>
