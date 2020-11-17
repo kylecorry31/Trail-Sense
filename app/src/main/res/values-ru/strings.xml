@@ -449,4 +449,17 @@
     <string name="action_inventory">Инвентарь</string>
     <string name="depth_meters_format">%.2f м</string>
     <string name="depth_feet_format">%.1f фт</string>
+    <string name="guide_avalanche_description">Как определить риск схода лавин</string>
+    <string name="guide_avalanche_risk">Оценка риска схода лавин</string>
+    <string name="object_height_guide">Оценить высоту объекта</string>
+    <string name="object_height_guide_description">Как оценить высоту объектов</string>
+    <string name="cliff_height_start_measure">Измерение</string>
+    <string name="tool_cliff_height_title">Высота скалы</string>
+    <string name="tool_cliff_height_description">Измерьте высоту скалы или обрыва</string>
+    <string name="tool_cliff_height_disclaimer">Используйте этот инструмент только тогда, когда это безопасно, и обязательно проверяйте, что находится под скалой, чтобы избежать травм. Инструкции смотрите в руководстве пользователя.</string>
+    <string name="cliff_height_guide">Оценка высоты скалы</string>
+    <string name="tool_cliff_height">tool_cliff_height</string>
+    <string name="cliff_height_stop_measure">Стоп</string>
+    <string name="cliff_height_guide_description">Как оценить высоту скал или обрывов</string>
+    <string name="max_depth">Макс: %s</string>
 </resources>
