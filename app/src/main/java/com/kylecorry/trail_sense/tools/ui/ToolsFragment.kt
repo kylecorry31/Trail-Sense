@@ -1,14 +1,17 @@
 package com.kylecorry.trail_sense.tools.ui
 
+import android.media.*
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.preference.*
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.TrailSenseMaps
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
+
 
 class ToolsFragment : PreferenceFragmentCompat() {
 
@@ -52,9 +55,13 @@ class ToolsFragment : PreferenceFragmentCompat() {
         depth?.isVisible = sensorChecker.hasBarometer()
         navigateOnClick(depth, R.id.action_action_experimental_tools_to_toolDepthFragment)
 
-        navigateOnClick(findPreference(getString(R.string.tool_cliff_height)), R.id.action_action_experimental_tools_to_toolCliffHeightFragment)
-    }
+        navigateOnClick(
+            findPreference(getString(R.string.tool_cliff_height)),
+            R.id.action_action_experimental_tools_to_toolCliffHeightFragment
+        )
 
+        navigateOnClick(findPreference(getString(R.string.tool_whistle)), R.id.action_action_experimental_tools_to_toolWhistleFragment)
+    }
 
     private fun onClick(pref: Preference?, action: () -> Unit) {
         pref?.setOnPreferenceClickListener {

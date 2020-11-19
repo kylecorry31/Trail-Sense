@@ -41,6 +41,12 @@
             app:singleLineTitle="false" />
 
         <Preference
+            android:icon="@drawable/ic_tool_whistle"
+            android:title="@string/tool_whistle_title"
+            app:key="@string/tool_whistle"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:icon="@drawable/ic_inventory"
             android:summary="@string/tool_inventory_summary"
             android:title="@string/action_inventory"
