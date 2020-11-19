@@ -431,4 +431,34 @@
     <string name="action_item_add">Ajouter</string>
     <string name="action_blueprints">Plans</string>
     <string name="action_inventory">Inventaire</string>
+    <string name="max_depth">Max: %s</string>
+    <string name="edit_item_title">Éditer un objet</string>
+    <string name="create_item_title">Créer un objet</string>
+    <string name="tool_cliff_height_description">Mesure la hauteur d\'une falaise ou d\'une corniche</string>
+    <string name="cliff_height_guide_description">Comment estimer la hauteur d\'une falaise / corniche</string>
+    <string name="cliff_height_guide">Estimation de la hauteur d\'une chute</string>
+    <string name="tool_cliff_height_disclaimer">N\'utilisez cet outil que lorsque cela ne présente pas de danger, et vérifiez bien ce qu\'il y a au bas de la chute pour éviter toute blessure. Voir le guide pour plus d\'instructions.</string>
+    <string name="cliff_height_stop_measure">Arrêter</string>
+    <string name="tool_cliff_height">tool_cliff_height</string>
+    <string name="tool_cliff_height_title">Hauteur de falaise</string>
+    <string name="cliff_height_start_measure">Mesurer</string>
+    <string name="toast_destination_bearing_set">Orientation établie</string>
+    <string name="object_height_guide_description">Comment estimer la hauteur des objets</string>
+    <string name="object_height_guide">Estimation de la hauteur</string>
+    <string name="guide_avalanche_risk">Estimation du risque d\'avalanche</string>
+    <string name="guide_avalanche_description">Comment estimer un risque d\'avalanche</string>
+    <string name="item_amount_hint">Quantité</string>
+    <string name="item_name_hint">Nom</string>
+    <string name="depth_disclaimer">À utiliser avec précaution.
+\n
+\nN\'employer que si vous disposez d\'une coque étanche et ne plongez pas au delà d\'une profondeur qui pourrait vous mettre en danger.</string>
+    <string name="tool_depth_summary">Permet de déterminer la profondeur d\'eau</string>
+    <string name="tool_depth_title">Profondeur</string>
+    <string name="tool_inventory_summary">Notez une liste des objets dont vous disposez</string>
+    <string name="category_navigation">Navigation</string>
+    <string name="pref_sea_level_pressure_change_thresh">pref_sea_level_pressure_change_thresh</string>
+    <string name="pref_astronomy_category">pref_astronomy_category</string>
+    <string name="tool_user_guide">tool_user_guide</string>
+    <string name="depth_meters_format">%.2f m</string>
+    <string name="depth_feet_format">%.1f ft</string>
 </resources>
