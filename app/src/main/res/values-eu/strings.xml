@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="beacon_longitude_hint">Longitudea</string>
+    <string name="beacon_latitude_hint">Latitudea</string>
+    <string name="beacon_name_hint">Izena</string>
+    <string name="create_beacon_title">Baliza utzi</string>
+    <string name="share_action_geo">Mapak</string>
+    <string name="share_action_copy_coordinates">Koordenatuak kopiatu</string>
+    <string name="share_action_copy_beacon">Baliza kopiatu</string>
+    <string name="share_action_copy">Kopiatu</string>
+    <string name="share_action_send">Bidali</string>
+    <plurals name="beacon_group_summary">
+        <item quantity="one">Baliza %d</item>
+        <item quantity="other">%d baliza</item>
+    </plurals>
+    <string name="long_press_beacon_toast">Sakatu luze baliza batean aukerak ikusteko.</string>
+    <string name="no_beacons">Balizarik ez</string>
+    <string name="edit_beacon">Baliza editatu</string>
+    <string name="delete_beacon">Baliza ezabatu</string>
+    <string name="beacon_list_title">Baliza hautatu</string>
+    <string name="eta">~ %s urruti</string>
+    <string name="sos">SOS</string>
+    <string name="turn_off_flashlight">Ukitu itzaltzeko</string>
+    <string name="flashlight_title">Linterna</string>
+    <string name="accuracy_info">"GPS: Atera kanpora zeruaren ikuspegi ez oztopatua izan arte.
+\n    %s benetako kokapenetik
+\n    %s benetako altitudetik
+\n    %s satelite
+\n
+\nIparrorratza: Biratu mugikorra 8 formako patroi batean eta aldendu metaletatik."</string>
+    <string name="accuracy_info_title">Sentsoreen datuen zehaztasuna hobetzeko aholkuak</string>
+    <string name="accuracy_distance_format">± %s</string>
+    <string name="accuracy_distance_unknown">\?</string>
+    <string name="accuracy_unknown">Ezezaguna</string>
+    <string name="accuracy_high">Handia</string>
+    <string name="accuracy_medium">Tartekoa</string>
+    <string name="accuracy_low">Txikia</string>
+    <string name="dash">-</string>
+    <string name="percent_format">%%d%</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="coordinate_format_string_dd">"%s,  %s"</string>
+    <string name="coordinate_format_string_dms">"%s    %s"</string>
+    <string name="coordinate_format_string_ddm">"%s    %s"</string>
+    <string name="elevation_diff_format">%s%s</string>
+    <string name="decrease">-</string>
+    <string name="increase">+</string>
+    <string name="direction_south_west">HM</string>
+    <string name="direction_north_west">IM</string>
+    <string name="direction_south_east">HE</string>
+    <string name="direction_north_east">IE</string>
+    <string name="direction_west">M</string>
+    <string name="direction_east">E</string>
+    <string name="direction_south">H</string>
+    <string name="direction_north">I</string>
+    <string name="duration_hour_minute_format">%do %dm</string>
+    <string name="duration_minute_format">%dm</string>
+    <string name="duration_hour_format">%do</string>
+    <string name="miles_per_hour_format">%.1f mph</string>
+    <string name="kilometers_per_hour_format">%.1f km/h</string>
+    <string name="kilometers_format">%.2f km</string>
+    <string name="depth_meters_format">%.2f m</string>
+    <string name="feet_format">%.0f ft</string>
+    <string name="depth_feet_format">%.1f ft</string>
+    <string name="miles_format">%.2f mi</string>
+    <string name="meters_format">%.0f m</string>
+    <string name="nautical_miles_format">%.2f nm</string>
+    <string name="disclaimer_message_title">Lege-oharra</string>
+    <string name="dialog_deny">Ez, eskerrik asko</string>
+    <string name="dialog_grant">Ezarpenak eguneratu</string>
+    <string name="access_background_location">Kokapen ezarpenak eguneratu</string>
+    <string name="copied_to_clipboard_toast">Arbelera kopiatuta</string>
+    <string name="not_all_permissions_granted">Ez dira baimen guztiak eman, baliteke ezaugarri batzuk ez funtzionatzea</string>
+    <string name="dialog_cancel">Utzi</string>
+    <string name="dialog_ok">Ados</string>
+    <string name="action_tools">Tresnak</string>
+    <string name="action_astronomy">Astronomia</string>
+    <string name="action_settings">Ezarpenak</string>
+    <string name="action_weather">Eguraldia</string>
+    <string name="action_navigation">Nabigazioa</string>
+</resources>
