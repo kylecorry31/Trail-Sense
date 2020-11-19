@@ -105,7 +105,7 @@
     <string name="share_action_send">Send</string>
     <string name="turn_off_flashlight">Trykk for å skru av</string>
     <string name="flashlight_title">Lommelykt</string>
-    <string name="accuracy_info_title">Tips for forbedret nøyaktighet</string>
+    <string name="accuracy_info_title">Tips for å forbedre nøyaktigheten på sensordataene</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_unknown">Ukjent</string>
@@ -218,7 +218,7 @@
     <string name="beacon_invalid_latitude">Ugyldig breddegrad</string>
     <string name="eta">~ %s unna</string>
     <string name="sos">SOS</string>
-    <string name="gps_lock_acquired">GPS-tilknytning opprettet</string>
+    <string name="gps_lock_acquired">GPS-posisjon innhentet</string>
     <string name="accuracy_info">"GPS: Kom deg ut med fri sikt til himmelen.
 \n    %s av faktisk posisjon
 \n    %s av faktisk høyde
