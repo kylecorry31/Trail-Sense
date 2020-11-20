@@ -23,9 +23,9 @@ class SosService : Service() {
 
     private val code = listOf(
         MorseState.Dot, MorseState.Space, MorseState.Dot, MorseState.Space, MorseState.Dot,
-        MorseState.LetterSpace,
+        MorseState.Space,
         MorseState.Dash, MorseState.Space, MorseState.Dash, MorseState.Space, MorseState.Dash,
-        MorseState.LetterSpace,
+        MorseState.Space,
         MorseState.Dot, MorseState.Space, MorseState.Dot, MorseState.Space, MorseState.Dot,
         MorseState.WordSpace
     )
