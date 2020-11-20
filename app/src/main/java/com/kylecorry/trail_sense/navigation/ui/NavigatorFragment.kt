@@ -440,6 +440,7 @@ class NavigatorFragment : Fragment() {
             return
         }
 
+        flashlightState = flashlight.getState()
         updateFlashlightUI()
 
         val selectedBeacon = getSelectedBeacon(nearbyBeacons)
