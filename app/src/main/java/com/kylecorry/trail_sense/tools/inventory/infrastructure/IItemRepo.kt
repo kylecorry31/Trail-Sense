@@ -11,4 +11,6 @@ interface IItemRepo {
     suspend fun deleteItem(item: InventoryItem)
 
     suspend fun addItem(item: InventoryItem)
+
+    suspend fun deleteAll()
 }

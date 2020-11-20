@@ -14,6 +14,8 @@ class ItemRepo private constructor(context: Context) : IItemRepo {
 
     override suspend fun deleteItem(item: InventoryItem) = inventoryItemDao.delete(item)
 
+    override suspend fun deleteAll() = inventoryItemDao.deleteAll()
+
     override suspend fun addItem(item: InventoryItem) {
         if (item.id != 0L){
             inventoryItemDao.update(item)

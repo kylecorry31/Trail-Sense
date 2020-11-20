@@ -149,7 +149,12 @@ class ItemListFragment : Fragment() {
         listView.addLineSeparator()
 
         itemsLiveData = itemRepo.getItems()
-        itemsLiveData.observe(requireActivity()) { items ->
+        itemsLiveData.observe(viewLifecycleOwner) { items ->
+            binding.inventoryEmptyText.visibility = if (items.isEmpty()){
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
             listView.setData(
                 items.sortedWith(
                     compareBy(
@@ -163,10 +168,40 @@ class ItemListFragment : Fragment() {
         binding.addBtn.setOnClickListener {
             findNavController().navigate(R.id.action_action_inventory_to_createItemFragment)
         }
+
+        val inventoryMenuListener = PopupMenu.OnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.action_inventory_delete_all -> {
+                    UiUtils.alertWithCancel(
+                        requireContext(),
+                        getString(R.string.action_inventory_delete_all),
+                        getString(R.string.action_inventory_delete_all_confirm),
+                        getString(R.string.dialog_ok),
+                        getString(R.string.dialog_cancel)
+                    ){ cancelled ->
+                        if (!cancelled){
+                            lifecycleScope.launch {
+                                withContext(Dispatchers.IO) {
+                                    itemRepo.deleteAll()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            true
+        }
+
+        binding.inventoryMenuButton.setOnClickListener {
+            val popup = PopupMenu(it.context, it)
+            val inflater = popup.menuInflater
+            inflater.inflate(R.menu.inventory_menu, popup.menu)
+            popup.setOnMenuItemClickListener(inventoryMenuListener)
+            popup.show()
+        }
     }
 
     private fun deleteItem(item: InventoryItem){
-        // TODO: Confirmation dialog
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 itemRepo.deleteItem(item)
