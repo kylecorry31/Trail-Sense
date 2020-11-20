@@ -114,7 +114,7 @@
     <string name="pref_email_title">Adres email dewelopera</string>
     <string name="pref_github_title">GitHub</string>
     <string name="pref_app_version_title">Wersja</string>
-    <string name="pref_category_about">O</string>
+    <string name="pref_category_about">O aplikacji</string>
     <string name="weather_update_60_minutes">1 godzina</string>
     <string name="weather_update_45_minutes">45 minut</string>
     <string name="weather_update_30_minutes">30 minut</string>
