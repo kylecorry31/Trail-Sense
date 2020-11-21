@@ -60,5 +60,5 @@
         android:title="@string/tool_user_guide_title"
         app:key="@string/tool_user_guide"
         app:singleLineTitle="false" />
-    
+
 </PreferenceScreen>

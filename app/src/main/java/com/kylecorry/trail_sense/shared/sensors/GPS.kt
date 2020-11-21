@@ -42,7 +42,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         get() = _altitude
 
     private val locationManager by lazy { context.getSystemService<LocationManager>() }
-    private val cache by lazy { Cache(context) }
+    private val cache by lazy { Cache(context.applicationContext) }
     private val userPrefs by lazy { UserPreferences(context) }
     private val sensorChecker by lazy { SensorChecker(context) }
     private val locationListener = SimpleLocationListener { updateLastLocation(it, true) }
@@ -101,7 +101,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
             return
         }
 
-        val satellites = if (location.extras.containsKey("satellites")) location.extras.getInt("satellites") else 0
+        val satellites = if (location.extras?.containsKey("satellites") == true) location.extras.getInt("satellites") else 0
         val dt = System.currentTimeMillis() - fixStart
 
         if (useNewLocation(
