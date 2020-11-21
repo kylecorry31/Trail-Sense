@@ -21,6 +21,13 @@
     <string name="disclaimer_message_title">Disclaimer</string>
     <string name="disclaimer_message_content">Trail Sense is a tool that can be used in a survival situation, but you should not rely solely upon it. Please validate its accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
     <!--Navigation Tab - Unit Formats-->
+
+    <string name="precise_feet_format">%s ft</string>
+    <string name="precise_miles_format">%s mi</string>
+    <string name="precise_nautical_miles_format">%s nm</string>
+    <string name="precise_meters_format">%s m</string>
+    <string name="precise_kilometers_format">%s km</string>
+
     <string name="feet_format">%.0f ft</string>
     <string name="depth_feet_format">%.1f ft</string>
     <string name="miles_format">%.2f mi</string>
@@ -583,4 +590,14 @@
     <string name="action_inventory_delete_all_confirm">Delete all inventory items?</string>
     <string name="inventory_empty_text">No items</string>
     <string name="email" translatable="false">trailsense@protonmail.com</string>
+    <string name="tool_distance_convert_title">Distance Converter</string>
+    <string name="tool_distance_convert">tool_distance_convert</string>
+    <string name="distance_hint">Distance</string>
+    <string name="distance_from">From</string>
+    <string name="distance_to">To</string>
+    <string name="unit_meters">Meters</string>
+    <string name="unit_kilometers">Kilometers</string>
+    <string name="unit_feet">Feet</string>
+    <string name="unit_miles">Miles</string>
+    <string name="unit_nautical_miles">Nautical Miles</string>
 </resources>

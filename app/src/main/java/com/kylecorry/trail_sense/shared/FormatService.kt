@@ -74,6 +74,17 @@ class FormatService(private val context: Context) {
         }
     }
 
+    fun formatDistancePrecise(distance: Float, units: DistanceUnits): String {
+        val formatted = DecimalFormatter.format(distance.toDouble())
+        return when (units) {
+            DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, formatted)
+            DistanceUnits.Kilometers -> context.getString(R.string.precise_kilometers_format, formatted)
+            DistanceUnits.Feet -> context.getString(R.string.precise_feet_format, formatted)
+            DistanceUnits.Miles -> context.getString(R.string.precise_miles_format, formatted)
+            DistanceUnits.NauticalMiles -> context.getString(R.string.precise_nautical_miles_format, formatted)
+        }
+    }
+
     fun formatDepth(distance: Float, units: DistanceUnits): String {
         return when (units) {
             DistanceUnits.Meters -> context.getString(R.string.depth_meters_format, distance)

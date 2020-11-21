@@ -60,7 +60,15 @@ class ToolsFragment : PreferenceFragmentCompat() {
             R.id.action_action_experimental_tools_to_toolCliffHeightFragment
         )
 
-        navigateOnClick(findPreference(getString(R.string.tool_whistle)), R.id.action_action_experimental_tools_to_toolWhistleFragment)
+        navigateOnClick(
+            findPreference(getString(R.string.tool_whistle)),
+            R.id.action_action_experimental_tools_to_toolWhistleFragment
+        )
+
+        navigateOnClick(
+            findPreference(getString(R.string.tool_distance_convert)),
+            R.id.action_action_experimental_tools_to_fragmentDistanceConverter
+        )
     }
 
     private fun onClick(pref: Preference?, action: () -> Unit) {
