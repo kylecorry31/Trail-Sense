@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                     ExceptionUtils.report(
                         this@MainActivity,
                         it,
-                        "kylecorry31@gmail.com",
+                        getString(R.string.email),
                         getString(R.string.app_name)
                     )
                 }
