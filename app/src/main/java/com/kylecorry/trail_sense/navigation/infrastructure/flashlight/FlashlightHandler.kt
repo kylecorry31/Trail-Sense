@@ -13,25 +13,35 @@ import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 
 class FlashlightHandler(private val context: Context) : IFlashlightHandler {
 
+    private val torchCallback: TorchCallback
+
     init {
-        try {
-            val torchCallback: TorchCallback = object : TorchCallback() {
-                override fun onTorchModeChanged(cameraId: String, enabled: Boolean) {
+        torchCallback = object : TorchCallback() {
+            override fun onTorchModeChanged(cameraId: String, enabled: Boolean) {
+                try {
                     super.onTorchModeChanged(cameraId, enabled)
                     if (!enabled && FlashlightService.isOn(context)) {
                         off()
                     }
+
+                    if (enabled && !FlashlightService.isOn(context) && !SosService.isOn(context)){
+                        on()
+                    }
+                } catch (e: Exception){
+                    // Ignore
                 }
             }
-
-            context.getSystemService<CameraManager>()?.registerTorchCallback(
-                torchCallback, Handler(
-                    Looper.getMainLooper()
-                )
-            )
-        } catch (e: Exception) {
-            // Do nothing, this isn't a breaking error
         }
+        initialize()
+    }
+
+    override fun initialize() {
+        registerTorchCallback()
+    }
+
+    override fun release() {
+        unregisterTorchCallback()
+        off()
     }
 
     override fun on() {
@@ -75,6 +85,26 @@ class FlashlightHandler(private val context: Context) : IFlashlightHandler {
 
     override fun isAvailable(): Boolean {
         return Flashlight.hasFlashlight(context)
+    }
+
+    private fun registerTorchCallback(){
+        try {
+            context.getSystemService<CameraManager>()?.registerTorchCallback(
+                torchCallback, Handler(
+                    Looper.getMainLooper()
+                )
+            )
+        } catch (e: Exception){
+
+        }
+    }
+
+    private fun unregisterTorchCallback(){
+        try {
+            context.getSystemService<CameraManager>()?.unregisterTorchCallback(torchCallback)
+        } catch (e: Exception){
+
+        }
     }
 
 }
