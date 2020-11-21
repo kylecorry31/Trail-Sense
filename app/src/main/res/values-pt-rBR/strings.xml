@@ -308,7 +308,6 @@
     <string name="pref_force_weather_updates_title">Melhorar a precisão do tempo</string>
     <string name="pref_force_weather_updates_summary">Ativa o dispositivo enquanto ocioso, pode impactar a bateria</string>
     <string name="pref_sea_level_pressure_change_thresh_title">Limiar de mudança de pressão de viagem</string>
-    <string name="pref_sea_level_pressure_change_thresh">pref_sea_level_pressure_change_thresh</string>
     <string name="pref_barometer_altitude_change_title">Limiar de mudança de altitude de viagem</string>
     <string name="beacon_action_view_details">Ver os detalhes</string>
     <string name="tool_bubble_level_summary">Determinar se as superfícies são planas</string>

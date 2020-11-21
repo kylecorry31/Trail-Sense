@@ -353,7 +353,6 @@
     <string name="pref_force_weather_updates_summary">Пробуждает устройство в режиме ожидания, может повредить аккумулятор</string>
     <string name="pref_force_weather_updates_title">Принудительное обновление погоды</string>
     <string name="pref_forecast_sensitivity_title">Чувствительность прогноза</string>
-    <string name="pref_sea_level_pressure_change_thresh">pref_sea_level_pressure_change_thresh</string>
     <string name="pref_astronomy_category">pref_astronomy_category</string>
     <string name="tool_user_guide">tool_user_guide</string>
     <string name="pref_sea_level_pressure_change_thresh_title">Порог изменения давления при движении</string>
@@ -458,7 +457,6 @@
     <string name="tool_cliff_height_description">Измерьте высоту скалы или обрыва</string>
     <string name="tool_cliff_height_disclaimer">Используйте этот инструмент только тогда, когда это безопасно, и обязательно проверяйте, что находится под скалой, чтобы избежать травм. Инструкции смотрите в руководстве пользователя.</string>
     <string name="cliff_height_guide">Оценка высоты скалы</string>
-    <string name="tool_cliff_height">tool_cliff_height</string>
     <string name="cliff_height_stop_measure">Стоп</string>
     <string name="cliff_height_guide_description">Как оценить высоту скал или обрывов</string>
     <string name="max_depth">Макс: %s</string>

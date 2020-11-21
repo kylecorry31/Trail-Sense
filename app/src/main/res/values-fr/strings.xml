@@ -439,7 +439,6 @@
     <string name="cliff_height_guide">Estimation de la hauteur d\'une chute</string>
     <string name="tool_cliff_height_disclaimer">N\'utilisez cet outil que lorsque cela ne présente pas de danger, et vérifiez bien ce qu\'il y a au bas de la chute pour éviter toute blessure. Voir le guide pour plus d\'instructions.</string>
     <string name="cliff_height_stop_measure">Arrêter</string>
-    <string name="tool_cliff_height">tool_cliff_height</string>
     <string name="tool_cliff_height_title">Hauteur de falaise</string>
     <string name="cliff_height_start_measure">Mesurer</string>
     <string name="toast_destination_bearing_set">Orientation établie</string>
@@ -456,7 +455,6 @@
     <string name="tool_depth_title">Profondeur</string>
     <string name="tool_inventory_summary">Notez une liste des objets dont vous disposez</string>
     <string name="category_navigation">Navigation</string>
-    <string name="pref_sea_level_pressure_change_thresh">pref_sea_level_pressure_change_thresh</string>
     <string name="pref_astronomy_category">pref_astronomy_category</string>
     <string name="tool_user_guide">tool_user_guide</string>
     <string name="depth_meters_format">%.2f m</string>
