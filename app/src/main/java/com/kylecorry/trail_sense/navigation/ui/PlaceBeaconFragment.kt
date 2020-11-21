@@ -226,6 +226,7 @@ class PlaceBeaconFragment : Fragment() {
 
         binding.currentLocationBtn.setOnClickListener {
             gps.start(this::setLocationFromGPS)
+            binding.gpsLoading.visibility = View.VISIBLE
             altimeter.start(this::setElevationFromAltimeter)
         }
 
@@ -251,6 +252,7 @@ class PlaceBeaconFragment : Fragment() {
     private fun setLocationFromGPS(): Boolean {
         binding.beaconLatitude.setText(gps.location.latitude.toString())
         binding.beaconLongitude.setText(gps.location.longitude.toString())
+        binding.gpsLoading.visibility = View.INVISIBLE
         return false
     }
 

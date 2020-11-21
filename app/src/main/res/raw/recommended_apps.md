@@ -6,6 +6,6 @@ A survival guide application. This app will teach you how to use resources aroun
 
 ## OsmAnd~
 
-An offline maps application. Prior to going on a hike, download the maps you need. From Trail Sense, you can also open a beacon with this app by selecting the "Maps" option on the beacon select screen.
+An offline maps application. Prior to going on a hike, download the maps you need. From Trail Sense, you can also open a beacon with this app by selecting the "Maps" option on the beacon select screen. This app is free via F-Droid.
 
 [Download](market://details?id=net.osmand.plus)
