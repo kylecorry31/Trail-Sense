@@ -600,4 +600,6 @@
     <string name="unit_feet">Feet</string>
     <string name="unit_miles">Miles</string>
     <string name="unit_nautical_miles">Nautical Miles</string>
+    <string name="guide_recommended_apps">Recommended apps</string>
+    <string name="guide_recommended_apps_description">Useful apps for survival situations</string>
 </resources>

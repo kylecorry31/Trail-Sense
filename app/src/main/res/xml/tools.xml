@@ -1,72 +1,64 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory
-        app:iconSpaceReserved="false"
-        app:singleLineTitle="false"
-        app:title="@string/action_tools">
+    <Preference
+        android:icon="@drawable/inclinometer"
+        android:summary="@string/tool_inclinometer_summary"
+        android:title="@string/inclinometer_title"
+        app:key="@string/tool_inclinometer"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:icon="@drawable/inclinometer"
-            android:summary="@string/tool_inclinometer_summary"
-            android:title="@string/inclinometer_title"
-            app:key="@string/tool_inclinometer"
-            app:singleLineTitle="false" />
+    <Preference
+        android:icon="@drawable/level"
+        android:summary="@string/tool_bubble_level_summary"
+        android:title="@string/tool_bubble_level_title"
+        app:key="@string/tool_bubble_level"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:icon="@drawable/level"
-            android:summary="@string/tool_bubble_level_summary"
-            android:title="@string/tool_bubble_level_title"
-            app:key="@string/tool_bubble_level"
-            app:singleLineTitle="false" />
+    <Preference
+        android:icon="@drawable/ic_tool_cliff_height"
+        android:summary="@string/tool_cliff_height_description"
+        android:title="@string/tool_cliff_height_title"
+        app:key="@string/tool_cliff_height"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:icon="@drawable/ic_tool_cliff_height"
-            android:summary="@string/tool_cliff_height_description"
-            android:title="@string/tool_cliff_height_title"
-            app:key="@string/tool_cliff_height"
-            app:singleLineTitle="false" />
+    <Preference
+        android:icon="@drawable/ic_depth"
+        android:summary="@string/tool_depth_summary"
+        android:title="@string/tool_depth_title"
+        app:key="@string/tool_depth"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:icon="@drawable/ic_depth"
-            android:summary="@string/tool_depth_summary"
-            android:title="@string/tool_depth_title"
-            app:key="@string/tool_depth"
-            app:singleLineTitle="false" />
+    <Preference
+        android:icon="@drawable/ic_tool_distance_convert"
+        android:title="@string/tool_distance_convert_title"
+        app:key="@string/tool_distance_convert"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:icon="@drawable/ic_tool_distance_convert"
-            android:title="@string/tool_distance_convert_title"
-            app:key="@string/tool_distance_convert"
-            app:singleLineTitle="false" />
+    <Preference
+        android:icon="@drawable/maps"
+        android:title="@string/trail_sense_maps"
+        app:key="@string/tool_trail_sense_maps"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:icon="@drawable/maps"
-            android:title="@string/trail_sense_maps"
-            app:key="@string/tool_trail_sense_maps"
-            app:singleLineTitle="false" />
+    <Preference
+        android:icon="@drawable/ic_tool_whistle"
+        android:title="@string/tool_whistle_title"
+        app:key="@string/tool_whistle"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:icon="@drawable/ic_tool_whistle"
-            android:title="@string/tool_whistle_title"
-            app:key="@string/tool_whistle"
-            app:singleLineTitle="false" />
+    <Preference
+        android:icon="@drawable/ic_inventory"
+        android:summary="@string/tool_inventory_summary"
+        android:title="@string/action_inventory"
+        app:key="@string/tool_inventory"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:icon="@drawable/ic_inventory"
-            android:summary="@string/tool_inventory_summary"
-            android:title="@string/action_inventory"
-            app:key="@string/tool_inventory"
-            app:singleLineTitle="false" />
-
-        <Preference
-            android:icon="@drawable/ic_user_guide"
-            android:summary="@string/tool_user_guide_summary"
-            android:title="@string/tool_user_guide_title"
-            app:key="@string/tool_user_guide"
-            app:singleLineTitle="false" />
-
-
-    </PreferenceCategory>
-
+    <Preference
+        android:icon="@drawable/ic_user_guide"
+        android:summary="@string/tool_user_guide_summary"
+        android:title="@string/tool_user_guide_title"
+        app:key="@string/tool_user_guide"
+        app:singleLineTitle="false" />
+    
 </PreferenceScreen>
