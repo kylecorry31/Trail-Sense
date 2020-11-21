@@ -99,7 +99,7 @@ If you choose to write a new feature yourself, send me a message to verify that 
     - [Offline Survival Manual](https://github.com/ligi/SurvivalManual)
         - A survival guide application. This app will teach you how to use resources around you to survive in almost every environment.
     - [OsmAnd~](https://github.com/osmandapp/OsmAnd)
-        - An offline maps application. Prior to going on a hike, download the maps you need.
+        - An offline maps application. Prior to going on a hike, download the maps you need. This app is free via F-Droid.
     
 # Support
 
