@@ -95,6 +95,11 @@ If you choose to write a new feature yourself, send me a message to verify that 
     - You may need to mark Trail Sense as exempt from battery optimizations: [how to make TS exempt](https://dontkillmyapp.com/)
 - **The compass was working, but now it will not move and I haven't touched any settings. How can I fix it?**
     - Sometimes Android stops reporting compass data to apps, and you may need to reboot your device to fix the issue.
+- **What other apps would be useful in a survival situation?**
+    - [Offline Survival Manual](https://github.com/ligi/SurvivalManual)
+        - A survival guide application. This app will teach you how to use resources around you to survive in almost every environment.
+    - [OsmAnd~](https://github.com/osmandapp/OsmAnd)
+        - An offline maps application. Prior to going on a hike, download the maps you need.
     
 # Support
 
