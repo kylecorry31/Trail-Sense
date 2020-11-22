@@ -150,6 +150,13 @@
             app:singleLineTitle="false" />
 
         <Preference
+            android:summary="@string/privacy_policy_url"
+            android:title="@string/pref_privacy_policy_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_privacy_policy"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:summary="@string/email"
             android:title="@string/pref_email_title"
             app:iconSpaceReserved="false"

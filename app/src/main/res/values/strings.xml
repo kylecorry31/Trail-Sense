@@ -602,4 +602,7 @@
     <string name="unit_nautical_miles">Nautical Miles</string>
     <string name="guide_recommended_apps">Recommended apps</string>
     <string name="guide_recommended_apps_description">Useful apps for survival situations</string>
+    <string name="pref_privacy_policy_title">Privacy policy</string>
+    <string name="pref_privacy_policy" translatable="false">pref_privacy_policy</string>
+    <string name="privacy_policy_url" translatable="false">https://kylecorry.com/Trail-Sense/#privacy</string>
 </resources>

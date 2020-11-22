@@ -106,6 +106,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
 
+        preferenceScreen.findPreference<Preference>(getString(R.string.pref_privacy_policy))
+            ?.setOnPreferenceClickListener {
+                val i = IntentUtils.url(it.summary.toString())
+                startActivity(i)
+                true
+            }
+
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_email))
             ?.setOnPreferenceClickListener {
 

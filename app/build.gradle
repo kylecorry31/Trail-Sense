@@ -11,10 +11,10 @@ android {
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
         applicationId "com.kylecorry.trail_sense"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 24
-        versionName "1.2.0"
+        versionName "1.2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
