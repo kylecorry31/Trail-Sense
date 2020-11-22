@@ -17,7 +17,8 @@ class FormatService(private val context: Context) {
     private val prefs by lazy { UserPreferences(context) }
 
     fun formatDegrees(degrees: Float): String {
-        return context.getString(R.string.degree_format, degrees)
+        val formatted = context.getString(R.string.degree_format, degrees)
+        return formatted.replace("360", "0")
     }
 
     fun formatTemperature(degreesC: Float, units: TemperatureUnits): String {
