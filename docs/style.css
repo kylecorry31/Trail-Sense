@@ -100,6 +100,12 @@ img {
   margin: -12px;
 }
 
+#fdroid-badge img {
+  max-width: 150px;
+  margin: -12px;
+  margin-left: 8px;
+}
+
 #hero-img img {
   max-height: 100vh;
   max-width: 100%;
