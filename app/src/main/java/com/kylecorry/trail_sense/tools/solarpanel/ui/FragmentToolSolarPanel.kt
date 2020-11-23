@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSolarPanelBinding
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
@@ -29,7 +30,9 @@ class FragmentToolSolarPanel : Fragment() {
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
     private val orientation by lazy { sensorService.getOrientationSensor() }
+    private val declination by lazy { sensorService.getDeclinationProvider() }
     private val formatService by lazy { FormatService(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
     private val throttle = Throttle(20)
 
     private var position: SolarPanelPosition? = null
@@ -76,6 +79,9 @@ class FragmentToolSolarPanel : Fragment() {
         }
         compass.start(this::update)
         orientation.start(this::update)
+        if (!declination.hasValidReading) {
+            declination.start(this::onGPSUpdate)
+        }
     }
 
     override fun onPause() {
@@ -83,6 +89,7 @@ class FragmentToolSolarPanel : Fragment() {
         gps.stop(this::onGPSUpdate)
         compass.stop(this::update)
         orientation.stop(this::update)
+        declination.stop(this::onGPSUpdate)
     }
 
     private fun onGPSUpdate(): Boolean {
@@ -124,9 +131,20 @@ class FragmentToolSolarPanel : Fragment() {
 
         val solarPosition = position ?: return true
 
+        if (prefs.navigation.useTrueNorth) {
+            compass.declination = declination.declination
+        } else {
+            compass.declination = 0f
+        }
+
         binding.solarContent.visibility = View.VISIBLE
         binding.solarLoading.visibility = View.GONE
-        val desiredAzimuth = solarPosition.bearing.inverse()
+        val declinationOffset = if (prefs.navigation.useTrueNorth) {
+            0f
+        } else {
+            -declination.declination
+        }
+        val desiredAzimuth = solarPosition.bearing.withDeclination(declinationOffset).inverse()
         val azimuthDiff = deltaAngle(desiredAzimuth.value, compass.bearing.value)
         val azimuthAligned = azimuthDiff.absoluteValue < AZIMUTH_THRESHOLD
         binding.azimuthComplete.visibility = if (azimuthAligned) View.VISIBLE else View.INVISIBLE
