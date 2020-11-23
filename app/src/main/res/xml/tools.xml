@@ -55,6 +55,13 @@
         app:singleLineTitle="false" />
 
     <Preference
+        android:icon="@drawable/ic_tool_solar_panel"
+        android:summary="@string/tool_solar_panel_summary"
+        android:title="@string/tool_solar_panel_title"
+        app:key="@string/tool_solar_panel"
+        app:singleLineTitle="false" />
+
+    <Preference
         android:icon="@drawable/ic_user_guide"
         android:summary="@string/tool_user_guide_summary"
         android:title="@string/tool_user_guide_title"

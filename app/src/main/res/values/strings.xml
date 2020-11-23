@@ -605,4 +605,9 @@
     <string name="pref_privacy_policy_title">Privacy policy</string>
     <string name="pref_privacy_policy" translatable="false">pref_privacy_policy</string>
     <string name="privacy_policy_url" translatable="false">https://kylecorry.com/Trail-Sense/#privacy</string>
+    <string name="tool_solar_panel_summary">Position solar panels for optimal power production</string>
+    <string name="tool_solar_panel_title">Solar Panel Aligner</string>
+    <string name="tool_solar_panel" translatable="false">tool_solar_panel</string>
+    <string name="solar_align_now">Now</string>
+    <string name="solar_panel_instructions">Place your phone on the face of the solar panel to begin.</string>
 </resources>

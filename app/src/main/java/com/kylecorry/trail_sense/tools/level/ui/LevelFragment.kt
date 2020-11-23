@@ -5,10 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.sensors.DeviceOrientation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlin.math.abs

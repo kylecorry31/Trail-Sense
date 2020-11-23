@@ -9,10 +9,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentInclinometerBinding
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.sensors.DeviceOrientation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.inclinometer.AvalancheRisk
 import com.kylecorry.trailsensecore.domain.inclinometer.InclinationService
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 class InclinometerFragment : Fragment() {

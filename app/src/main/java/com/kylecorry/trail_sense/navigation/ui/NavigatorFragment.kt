@@ -28,6 +28,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinat
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle

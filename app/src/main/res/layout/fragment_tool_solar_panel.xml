@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/arrow_up"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow"
+        app:tint="@color/colorPrimary"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/arrow_left"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:rotation="270"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow"
+        app:tint="@color/colorPrimary"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/arrow_right"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="16dp"
+        android:rotation="90"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow"
+        app:tint="@color/colorPrimary"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/arrow_down"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="16dp"
+        android:rotation="180"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_arrow"
+        app:tint="@color/colorPrimary"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/solar_loading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/solar_content"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/arrow_down"
+        app:layout_constraintEnd_toStartOf="@+id/arrow_right"
+        app:layout_constraintStart_toEndOf="@+id/arrow_left"
+        app:layout_constraintTop_toBottomOf="@+id/arrow_up">
+
+        <TextView
+            android:id="@+id/current_azimuth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toBottomOf="@+id/desired_azimuth"
+            app:layout_constraintStart_toStartOf="@+id/textView14"
+            app:layout_constraintTop_toTopOf="@+id/desired_azimuth"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/desired_azimuth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="@+id/azimuth_complete"
+            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            tools:text="14" />
+
+        <TextView
+            android:id="@+id/current_altitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toBottomOf="@+id/desired_altitude"
+            app:layout_constraintStart_toStartOf="@+id/textView15"
+            app:layout_constraintTop_toTopOf="@+id/desired_altitude"
+            tools:text="12" />
+
+        <TextView
+            android:id="@+id/desired_altitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="@+id/altitude_complete"
+            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            tools:text="13" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="@string/compass_azimuth"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/desired_altitude" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/altitude"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/azimuth_complete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="24dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/textView14"
+            app:layout_constraintStart_toEndOf="@+id/textView14"
+            app:layout_constraintTop_toTopOf="@+id/textView14"
+            app:srcCompat="@drawable/ic_check"
+            app:tint="@color/positive"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/altitude_complete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="24dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/textView15"
+            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintTop_toTopOf="@+id/textView15"
+            app:srcCompat="@drawable/ic_check"
+            app:tint="@color/positive"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/solar_today_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/today"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/arrow_up"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/solar_now_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/solar_align_now"
+        app:layout_constraintEnd_toStartOf="@+id/arrow_up"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/arrow_up" />
+</androidx.constraintlayout.widget.ConstraintLayout>

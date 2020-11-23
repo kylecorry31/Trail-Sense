@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
+import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.BarometricAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.FusedAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.Barometer
@@ -26,6 +27,9 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.hygrometer.Hygrometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.hygrometer.IHygrometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.inclinometer.IInclinometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.inclinometer.Inclinometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientationSensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.IOrientationSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.BatteryTemperatureSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.Thermometer

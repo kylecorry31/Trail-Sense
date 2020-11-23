@@ -67,28 +67,35 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_toolCliffHeightFragment"
             app:destination="@id/toolCliffHeightFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_toolWhistleFragment"
             app:destination="@id/toolWhistleFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_fragmentDistanceConverter"
             app:destination="@id/fragmentDistanceConverter"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_action_experimental_tools_to_fragmentToolSolarPanel"
+            app:destination="@id/fragmentToolSolarPanel"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/action_weather"
@@ -359,5 +366,9 @@
         android:id="@+id/fragmentDistanceConverter"
         android:name="com.kylecorry.trail_sense.tools.distanceconvert.ui.FragmentDistanceConverter"
         android:label="FragmentDistanceConverter" />
+    <fragment
+        android:id="@+id/fragmentToolSolarPanel"
+        android:name="com.kylecorry.trail_sense.tools.solarpanel.ui.FragmentToolSolarPanel"
+        android:label="FragmentToolSolarPanel" />
 
 </navigation>
