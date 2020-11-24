@@ -54,6 +54,7 @@ class WaterPurificationFragment : Fragment() {
         if (!altimeter.hasValidReading || duration == null) {
             binding.boilLoading.visibility = View.VISIBLE
             binding.timeLeft.visibility = View.INVISIBLE
+            binding.boilButton.visibility = View.INVISIBLE
             altimeter.start(this::updateAltitude)
         }
 
@@ -64,6 +65,7 @@ class WaterPurificationFragment : Fragment() {
                 resume(oldDuration)
                 binding.boilLoading.visibility = View.INVISIBLE
                 binding.timeLeft.visibility = View.VISIBLE
+                binding.boilButton.visibility = View.VISIBLE
             }
         }
 
@@ -83,6 +85,9 @@ class WaterPurificationFragment : Fragment() {
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = (millisUntilFinished / 1000f).roundToInt()
                 binding.timeLeft.text = seconds.toString()
+                if (!cache.contains(WATER_PURIFICATION_END_TIME_KEY)){
+                    stop()
+                }
             }
 
             override fun onFinish() {
@@ -101,6 +106,7 @@ class WaterPurificationFragment : Fragment() {
         }
         binding.boilLoading.visibility = View.INVISIBLE
         binding.timeLeft.visibility = View.VISIBLE
+        binding.boilButton.visibility = View.VISIBLE
         return false
     }
 
@@ -121,7 +127,7 @@ class WaterPurificationFragment : Fragment() {
 
 
     companion object {
-        private const val WATER_PURIFICATION_END_TIME_KEY = "water_purification_start_time"
+        const val WATER_PURIFICATION_END_TIME_KEY = "water_purification_start_time"
     }
 
 }

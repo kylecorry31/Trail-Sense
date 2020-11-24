@@ -8,6 +8,7 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.graphics.drawable.IconCompat
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import kotlin.math.roundToInt
 
@@ -18,8 +19,11 @@ class WaterPurificationTimerService: Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val seconds = intent?.extras?.getLong(KEY_SECONDS, DEFAULT_SECONDS) ?: DEFAULT_SECONDS
+        val builder = getNotificationBuilder()
+            .setContentText(resources.getQuantityString(R.plurals.water_boil_timer_content, seconds.toInt(), seconds))
+        startForeground(NOTIFICATION_ID, builder.build())
         startTimer(seconds)
-        return START_NOT_STICKY
+        return START_STICKY_COMPATIBILITY
     }
 
     override fun onDestroy() {
@@ -28,6 +32,8 @@ class WaterPurificationTimerService: Service() {
         if (!done) {
             NotificationUtils.cancel(this, 57293759)
         }
+        stopForeground(false)
+        stopSelf()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -36,24 +42,7 @@ class WaterPurificationTimerService: Service() {
 
 
     private fun startTimer(seconds: Long){
-        NotificationUtils.createChannel(this, CHANNEL_ID, getString(R.string.water_boil_timer_channel), getString(
-                    R.string.water_boil_timer_channel_description), NotificationUtils.CHANNEL_IMPORTANCE_HIGH, false)
-
-        val stopPendingIntent = WaterPurificationCancelReceiver.pendingIntent(this)
-
-        val cancelAction = NotificationCompat.Action.Builder(
-            IconCompat.createWithResource(this, R.drawable.ic_cancel),
-            getString(R.string.dialog_cancel),
-            stopPendingIntent
-        ).build()
-
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_tool_boil)
-            .setContentTitle(getString(R.string.water_boil_timer_title))
-            .setOnlyAlertOnce(true)
-            .setNotificationSilent()
-            .addAction(cancelAction)
-            .setOngoing(true)
+        val builder = getNotificationBuilder()
 
         timer = object: CountDownTimer(seconds * ONE_SECOND, ONE_SECOND){
             override fun onTick(millisUntilFinished: Long) {
@@ -75,6 +64,27 @@ class WaterPurificationTimerService: Service() {
         }.start()
     }
 
+    private fun getNotificationBuilder(): NotificationCompat.Builder {
+        NotificationUtils.createChannel(this, CHANNEL_ID, getString(R.string.water_boil_timer_channel), getString(
+            R.string.water_boil_timer_channel_description), NotificationUtils.CHANNEL_IMPORTANCE_HIGH, false)
+
+        val stopPendingIntent = WaterPurificationCancelReceiver.pendingIntent(this)
+
+        val cancelAction = NotificationCompat.Action.Builder(
+            IconCompat.createWithResource(this, R.drawable.ic_cancel),
+            getString(R.string.dialog_cancel),
+            stopPendingIntent
+        ).build()
+
+        return NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_tool_boil)
+            .setContentTitle(getString(R.string.water_boil_timer_title))
+            .setOnlyAlertOnce(true)
+            .setNotificationSilent()
+            .addAction(cancelAction)
+            .setOngoing(true)
+    }
+
     companion object {
 
         private const val CHANNEL_ID = "Water_Boil_Timer"
@@ -90,7 +100,7 @@ class WaterPurificationTimerService: Service() {
         }
 
         fun start(context: Context, seconds: Long) {
-            context.startService(intent(context, seconds))
+            IntentUtils.startService(context, intent(context, seconds), true)
         }
 
         fun stop(context: Context){
