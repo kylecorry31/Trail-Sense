@@ -30,7 +30,7 @@ class WaterPurificationTimerService: Service() {
         super.onDestroy()
         timer?.cancel()
         if (!done) {
-            NotificationUtils.cancel(this, 57293759)
+            NotificationUtils.cancel(this, NOTIFICATION_ID)
         }
         stopForeground(false)
         stopSelf()
@@ -59,6 +59,7 @@ class WaterPurificationTimerService: Service() {
                     .setOnlyAlertOnce(false)
                 NotificationUtils.send(applicationContext, NOTIFICATION_ID, doneBuilder.build())
                 done = true
+                stopForeground(false)
             }
 
         }.start()
