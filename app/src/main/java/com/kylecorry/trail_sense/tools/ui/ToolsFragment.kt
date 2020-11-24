@@ -74,6 +74,11 @@ class ToolsFragment : PreferenceFragmentCompat() {
             findPreference(getString(R.string.tool_solar_panel)),
             R.id.action_action_experimental_tools_to_fragmentToolSolarPanel
         )
+
+        navigateOnClick(
+            findPreference(getString(R.string.tool_boil)),
+            R.id.action_action_experimental_tools_to_waterPurificationFragment
+        )
     }
 
     private fun onClick(pref: Preference?, action: () -> Unit) {

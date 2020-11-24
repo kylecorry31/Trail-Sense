@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.os.Looper
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -112,7 +111,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startApp() {
-
         if (disclaimer.shouldShow()) {
             disclaimer.show()
         }
@@ -138,7 +136,7 @@ class MainActivity : AppCompatActivity() {
                 val bundle =  bundleOf("initial_location" to MyNamedCoordinate.from(namedCoordinate))
                 navController.navigate(
                     R.id.place_beacon,
-                   bundle
+                    bundle
                 )
             }
         }

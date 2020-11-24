@@ -610,4 +610,18 @@
     <string name="tool_solar_panel" translatable="false">tool_solar_panel</string>
     <string name="solar_align_now">Now</string>
     <string name="solar_panel_instructions">Place your phone on the face of the solar panel to begin.</string>
+    <string name="water_boil_timer_channel">Water Boil Timer</string>
+    <string name="water_boil_timer_channel_description">Water is boiling</string>
+    <string name="water_boil_timer_title">Water boiling</string>
+    <string name="water_boil_timer_done_title">Water done boiling</string>
+    <string name="water_boil_timer_done_content">Your water is now potable</string>
+    <plurals name="water_boil_timer_content">
+        <item quantity="one">%d second until potable</item>
+        <item quantity="other">%d seconds until potable</item>
+    </plurals>
+    <string name="boil_start">Start</string>
+    <string name="tool_boil_summary">Tell when water is potable</string>
+    <string name="tool_boil_title">Water boil timer</string>
+    <string name="tool_boil" translatable="false">tool_boil</string>
+    <string name="tool_boil_disclaimer">Filter water and bring to a rolling boil before starting timer</string>
 </resources>
