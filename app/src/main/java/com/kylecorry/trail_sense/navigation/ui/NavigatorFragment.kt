@@ -80,8 +80,8 @@ class NavigatorFragment : Fragment() {
     private var destinationBearing: Bearing? = null
     private var useTrueNorth = false
 
-    private lateinit var leftQuickAction: QuickActionButton
-    private lateinit var rightQuickAction: QuickActionButton
+    private var leftQuickAction: QuickActionButton? = null
+    private var rightQuickAction: QuickActionButton? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -89,13 +89,15 @@ class NavigatorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = ActivityNavigatorBinding.inflate(layoutInflater, container, false)
+        rightQuickAction = QuickActionFlashlight(binding.flashlightBtn, this)
+        leftQuickAction = QuickActionRuler(binding.rulerBtn, this, binding.ruler)
         return binding.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        rightQuickAction.onDestroy()
-        leftQuickAction.onDestroy()
+        rightQuickAction?.onDestroy()
+        leftQuickAction?.onDestroy()
     }
 
     override fun onDestroyView() {
@@ -116,10 +118,8 @@ class NavigatorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rightQuickAction = QuickActionFlashlight(binding.flashlightBtn, this)
-        rightQuickAction.onCreate()
-        leftQuickAction = QuickActionRuler(binding.rulerBtn, this, binding.ruler)
-        leftQuickAction.onCreate()
+        rightQuickAction?.onCreate()
+        leftQuickAction?.onCreate()
         navController = findNavController()
 
         destinationPanel = DestinationPanel(binding.navigationSheet)
@@ -259,8 +259,8 @@ class NavigatorFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        rightQuickAction.onResume()
-        leftQuickAction.onResume()
+        rightQuickAction?.onResume()
+        leftQuickAction?.onResume()
         useTrueNorth = userPrefs.navigation.useTrueNorth
         // Load the latest beacons
         beacons = beaconRepo.get()
@@ -298,8 +298,8 @@ class NavigatorFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        rightQuickAction.onPause()
-        leftQuickAction.onPause()
+        rightQuickAction?.onPause()
+        leftQuickAction?.onPause()
         compass.stop(this::onCompassUpdate)
         gps.stop(this::onLocationUpdate)
         altimeter.stop(this::onAltitudeUpdate)

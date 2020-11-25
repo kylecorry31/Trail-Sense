@@ -1,12 +1,17 @@
 package com.kylecorry.trail_sense
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.MenuItem
+import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -23,6 +28,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.*
+import io.noties.markwon.Markwon
 import java.time.Duration
 import kotlin.system.exitProcess
 
@@ -204,11 +210,15 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun requestBackgroundLocation() {
         cache.putBoolean(Manifest.permission.ACCESS_BACKGROUND_LOCATION, true)
+
+        val markwon = Markwon.create(this)
+        val contents = markwon.toMarkdown(getString(R.string.access_background_location_rationale))
+
         PermissionUtils.requestPermissionsWithRationale(
             this,
             listOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), PermissionRationale(
                 getString(R.string.access_background_location),
-                getString(R.string.access_background_location_rationale)
+                contents
             ),
             2,
             getString(R.string.dialog_grant),

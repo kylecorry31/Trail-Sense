@@ -14,7 +14,7 @@
     <string name="copied_to_clipboard_toast">Copied to clipboard</string>
     <!--Permissions-->
     <string name="access_background_location">Update location settings</string>
-    <string name="access_background_location_rationale">Trail Sense uses location data in the background to improve weather monitoring and sunset alerts.</string>
+    <string name="access_background_location_rationale">Trail Sense uses location data in the background. It is used for sea level pressure calibration in weather monitoring and to provide more accurate sunset alerts. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="dialog_grant">Update settings</string>
     <string name="dialog_deny">No thanks</string>
     <!--Disclaimer-->
@@ -420,12 +420,11 @@
     <string name="onboarding_weather">Get hyperlocal weather forecasts</string>
     <string name="onboarding_weather_no_internet">* does not use an Internet connection</string>
     <string name="onboarding_astronomy">Know when the sun/moon will rise and set</string>
-    <string name="onboarding_background_location">Trail Sense needs permission to use your GPS</string>
-    <string name="onboarding_location_weather">Allows for more accurate weather forecasts (adjusts for altitude)</string>
+    <string name="onboarding_background_location">Trail Sense needs permission to use your location</string>
+    <string name="onboarding_location_weather">Allows for more accurate weather forecasts (adjusts for altitude - in the background)</string>
     <string name="onboarding_location_navigation">Allows you to navigate to beacons</string>
     <string name="onboarding_location_astronomy">Allows you to see sun/moon rise and set times</string>
     <string name="onboarding_location_privacy">Trail Sense respects your privacy - location data never leaves your device</string>
-    <string name="onboarding_location_all_time">Please select \'Allow all the time\' from the permission dialog</string>
     <string name="continue_button">CONTINUE</string>
     <string name="onboarding_navigation_flashlight">And easily access your flashlight</string>
     <!--Preference Keys (DO NOT TRANSLATE)-->

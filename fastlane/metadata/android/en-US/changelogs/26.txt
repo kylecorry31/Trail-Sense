@@ -1,0 +1,8 @@
+- Add flashlight to tools (SOS only available in there now)
+- Add Solar Panel Aligner tool
+- Add Water Boil Timer tool
+- Add sensor details display in About Settings
+- Bug fixes
+
+Known Issues
+- Clicking to turn off strobe or SOS can sometimes cause the regular flashlight to turn on
