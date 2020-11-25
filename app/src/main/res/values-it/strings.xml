@@ -45,7 +45,6 @@
     <string name="onboarding_location_navigation">Permette di navigare per i fari</string>
     <string name="onboarding_location_astronomy">Permette di vedere l\'alba e il tramonto del sole e della luna</string>
     <string name="onboarding_location_privacy">Trail Sense rispetta la tua privacy - i dati di localizzazione non lasciano mai il tuo dispositivo</string>
-    <string name="onboarding_location_all_time">Seleziona «Consenti tutto il tempo» dalla finestra di dialogo dei permessi</string>
     <string name="continue_button">CONTINUA</string>
     <string name="moon_rise">L\'alba</string>
     <string name="moon_set">Tramonto</string>
