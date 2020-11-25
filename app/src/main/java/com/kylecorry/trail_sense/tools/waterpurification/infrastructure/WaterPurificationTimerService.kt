@@ -23,7 +23,7 @@ class WaterPurificationTimerService: Service() {
             .setContentText(resources.getQuantityString(R.plurals.water_boil_timer_content, seconds.toInt(), seconds))
         startForeground(NOTIFICATION_ID, builder.build())
         startTimer(seconds)
-        return START_STICKY_COMPATIBILITY
+        return START_NOT_STICKY
     }
 
     override fun onDestroy() {

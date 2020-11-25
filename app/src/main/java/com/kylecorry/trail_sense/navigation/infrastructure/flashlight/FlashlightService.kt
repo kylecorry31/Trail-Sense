@@ -21,15 +21,6 @@ class FlashlightService: Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return START_STICKY_COMPATIBILITY
-    }
-
-    override fun onCreate() {
-        if (isOn(this)){
-            // Already on
-            return
-        }
-
         NotificationUtils.createChannel(this, CHANNEL_ID, getString(R.string.flashlight_title), getString(R.string.flashlight_title), NotificationUtils.CHANNEL_IMPORTANCE_LOW)
 
         val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -50,6 +41,14 @@ class FlashlightService: Service() {
         }
 
         startForeground(NOTIFICATION_ID, notification)
+        return START_STICKY_COMPATIBILITY
+    }
+
+    override fun onCreate() {
+        if (isOn(this)){
+            // Already on
+            return
+        }
 
         flashlight = Flashlight(this)
         flashlight?.on()

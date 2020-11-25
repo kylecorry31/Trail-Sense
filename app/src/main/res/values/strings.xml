@@ -621,7 +621,7 @@
     </plurals>
     <string name="boil_start">Start</string>
     <string name="tool_boil_summary">Tell when water is potable</string>
-    <string name="tool_boil_title">Water boil timer</string>
+    <string name="tool_boil_title">Water Boil Timer</string>
     <string name="tool_boil" translatable="false">tool_boil</string>
     <string name="tool_boil_disclaimer">Filter water and bring to a rolling boil before starting timer</string>
 </resources>

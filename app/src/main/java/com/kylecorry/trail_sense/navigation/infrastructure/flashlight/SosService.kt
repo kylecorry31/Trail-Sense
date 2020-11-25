@@ -76,15 +76,6 @@ class SosService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return START_STICKY_COMPATIBILITY
-    }
-
-    override fun onCreate() {
-        if (isOn(this)) {
-            // Already on
-            return
-        }
-
         NotificationUtils.createChannel(
             this,
             CHANNEL_ID,
@@ -111,6 +102,14 @@ class SosService : Service() {
         }
 
         startForeground(NOTIFICATION_ID, notification)
+        return START_STICKY_COMPATIBILITY
+    }
+
+    override fun onCreate() {
+        if (isOn(this)) {
+            // Already on
+            return
+        }
 
         flashlight = Flashlight(this)
         running = true

@@ -74,6 +74,7 @@ class WaterPurificationFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        altimeter.stop(this::updateAltitude)
         timer?.cancel()
         timer = null
     }
