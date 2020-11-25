@@ -45,7 +45,6 @@
     <string name="onboarding_location_navigation">Le permite navegar a balizas</string>
     <string name="onboarding_location_astronomy">Le permite ver la salida del sol /luna y establecer horarios</string>
     <string name="onboarding_location_privacy">Trail Sense respeta su privacidad: los datos de ubicación nunca salen de su dispositivo</string>
-    <string name="onboarding_location_all_time">Seleccione \'Permitir todo el tiempo \' en el cuadro de diálogo de permisos</string>
     <string name="continue_button">SEGUIR</string>
     <string name="moon_rise">Salida de la luna</string>
     <string name="moon_set">Puesta de la luna</string>

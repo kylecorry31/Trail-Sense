@@ -121,7 +121,6 @@
     <string name="onboarding_location_navigation">Permite navegar até os Pontos de Orientação</string>
     <string name="onboarding_location_astronomy">Permite ver o nascer do sol/lua e o pôr-do-sol</string>
     <string name="onboarding_location_privacy">Trail Sense respeita sua privacidade - os dados de localização nunca deixam seu dispositivo</string>
-    <string name="onboarding_location_all_time">Favor selecionar \'Permitir sempre\' do diálogo de permissão</string>
     <string name="continue_button">CONTINUA</string>
     <string name="moon_rise">Nascer da Lua</string>
     <string name="moon_set">Pôr da lua</string>

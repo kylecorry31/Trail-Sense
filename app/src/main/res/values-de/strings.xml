@@ -45,7 +45,6 @@
     <string name="onboarding_location_navigation">Erlaubt Ihnen die Navigation zu Wegpunkten</string>
     <string name="onboarding_location_astronomy">Erlaubt Ihnen, die Auf- und Untergangszeiten von Sonne und Mond zu sehen</string>
     <string name="onboarding_location_privacy">Trail Sense respektiert Ihre Privatsphäre - Standortdaten verlassen niemals Ihr Gerät</string>
-    <string name="onboarding_location_all_time">Bitte wählen Sie „Immer zulassen“ aus dem Genehmigungsdialog</string>
     <string name="continue_button">FORTSETZEN</string>
     <string name="moon_rise">Mondaufgang</string>
     <string name="moon_set">Monduntergang</string>

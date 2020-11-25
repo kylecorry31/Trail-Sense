@@ -45,7 +45,6 @@
     <string name="onboarding_location_navigation">Pozwala to na nawigację do punktów nawigacyjnych</string>
     <string name="onboarding_location_astronomy">Pozwala zobaczyć czasy wschodu i zachodu słońca/księżyca</string>
     <string name="onboarding_location_privacy">Trail Sense szanuje Twoją prywatność - dane dotyczące lokalizacji nigdy nie opuszczą urządzenia</string>
-    <string name="onboarding_location_all_time">Proszę wybrać \'Zawsze zezwalaj\' z okna dialogowego pozwolenia</string>
     <string name="continue_button">KONTYNUUJ</string>
     <string name="moon_rise">Wschód księżyca</string>
     <string name="moon_set">Zachód księżyca</string>
@@ -346,9 +345,7 @@
     <string name="waxing_crescent">Wzrastający Sierp</string>
     <string name="first_quarter">Pierwsza kwadra</string>
     <string name="max_depth">Maks.: %s</string>
-    <string name="tool_whistle">tool_whistle</string>
     <string name="tool_whistle_title">Gwizdek</string>
-    <string name="tool_cliff_height">tool_cliff_height</string>
     <string name="guide_avalanche_risk">Ocena ryzyka lawinowego</string>
     <string name="guide_avalanche_description">Jak określić zagrożenie lawinowe</string>
     <string name="item_amount_hint">Ilość</string>
@@ -356,7 +353,6 @@
     <string name="category_shelter">Schronienie</string>
     <string name="category_food">Jedzenie</string>
     <string name="category_other">Pozostałe</string>
-    <string name="pref_sea_level_pressure_change_thresh">pref_sea_level_pressure_change_thresh</string>
     <string name="beacon_action_view_details">Pokaż szczegóły</string>
     <string name="pref_category_tabs">Karty</string>
     <string name="tool_user_guide_title">Podręcznik użytkownika</string>

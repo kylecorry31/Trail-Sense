@@ -46,7 +46,6 @@
     <string name="onboarding_location_navigation">Թույլ է տալիս նավարկելու դեպի փարոսները</string>
     <string name="onboarding_location_astronomy">Թույլ է տալիս տեսնել արևը /լուսինը բարձրացող և ժամանակներ սահմանել</string>
     <string name="onboarding_location_privacy">Trail Sense- ը հարգում է ձեր գաղտնիությունը. Գտնվելու վայրի տվյալները երբեք չեն թողնում ձեր սարքը</string>
-    <string name="onboarding_location_all_time">Թույլտվության երկխոսությունից ընտրեք Թույլ տուր ամբողջ ժամանակը &gt;&gt;</string>
     <string name="continue_button">ՇԱՐՈՒՆԱԿԵԼ</string>
     <string name="moon_rise">Լուսաբաց</string>
     <string name="moon_set">Moonset</string>

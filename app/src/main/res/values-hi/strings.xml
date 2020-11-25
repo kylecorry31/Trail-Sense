@@ -46,7 +46,6 @@
     <string name="onboarding_location_navigation">आपको बीकन पर नेविगेट करने की अनुमति देता है</string>
     <string name="onboarding_location_astronomy">आपको सूरज /चंद्रमा को उगने और समय देखने की अनुमति देता है</string>
     <string name="onboarding_location_privacy">ट्रेल सेंस आपकी गोपनीयता का सम्मान करता है - स्थान डेटा आपके डिवाइस को कभी नहीं छोड़ता है</string>
-    <string name="onboarding_location_all_time">कृपया अनुमति डायलॉग से \'हर समय अनुमति दें\' का चयन करें</string>
     <string name="continue_button">जारी रखें</string>
     <string name="moon_rise">चंद्रोदय</string>
     <string name="moon_set">चंद्रास्त</string>

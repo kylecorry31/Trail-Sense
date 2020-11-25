@@ -46,7 +46,6 @@
     <string name="onboarding_location_navigation">আপনাকে বীকনে নেভিগেট করার অনুমতি দেয়</string>
     <string name="onboarding_location_astronomy">আপনাকে সূর্য /চাঁদ উত্থান এবং সময় নির্ধারণের অনুমতি দেয়</string>
     <string name="onboarding_location_privacy">ট্রেল সেন্স আপনার গোপনীয়তার প্রতি শ্রদ্ধা জানায় - অবস্থানের ডেটা কখনই আপনার ডিভাইসটি ছাড়বে না</string>
-    <string name="onboarding_location_all_time">অনুমতি সংলাপ থেকে দয়া করে all \'সব সময় মঞ্জুরি দিন select\' নির্বাচন করুন</string>
     <string name="continue_button">চালিয়ে</string>
     <string name="moon_rise">চন্দ্রোদয়</string>
     <string name="moon_set">Moonset</string>

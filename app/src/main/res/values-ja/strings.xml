@@ -45,7 +45,6 @@
     <string name="onboarding_location_navigation">ビーコンまで案内できるようになります</string>
     <string name="onboarding_location_astronomy">日の出/月の出と日の入り/月の入りの時刻を確認できます</string>
     <string name="onboarding_location_privacy">Trail Senseはあなたのプライバシーを尊重します-位置データが外部に送信されることはありません</string>
-    <string name="onboarding_location_all_time">権限ダイアログから「常に許可」を選択してください</string>
     <string name="continue_button">次へ</string>
     <string name="moon_rise">月の出</string>
     <string name="moon_set">月の入り</string>

@@ -46,7 +46,6 @@
     <string name="onboarding_location_navigation">Omogućuje vam navigaciju do маяca</string>
     <string name="onboarding_location_astronomy">Omogućuje vam da vidite uspon sunca /mjeseca i podešena vremena</string>
     <string name="onboarding_location_privacy">Trail Sense poštuje vašu privatnost - podaci o lokaciji nikada ne napuštaju vaš uređaj</string>
-    <string name="onboarding_location_all_time">Molimo odaberite \"Dozvoli sve vrijeme \" iz dijaloškog okvira dozvola</string>
     <string name="continue_button">NASTAVAK</string>
     <string name="moon_rise">Moonrise</string>
     <string name="moon_set">Mjesečev zalazak</string>

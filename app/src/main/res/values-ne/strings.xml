@@ -46,7 +46,6 @@
     <string name="onboarding_location_navigation">तपाईंलाई बीकनमा नेभिगेट गर्न अनुमति दिन्छ</string>
     <string name="onboarding_location_astronomy">तपाईंलाई सूर्य /चन्द्र उदय र समय सेट हेर्न अनुमति दिँदछ</string>
     <string name="onboarding_location_privacy">ट्रेल सेन्सेजले तपाईंको गोपनीयतालाई आदर गर्दछ - स्थान डाटा कहिले पनि तपाईंको उपकरण छोड्दैन</string>
-    <string name="onboarding_location_all_time">कृपया अनुमति संवादबाट सबै समय अनुमति दिनुहोस् चयन गर्नुहोस्</string>
     <string name="continue_button">जारी राख्नुहोस्</string>
     <string name="moon_rise">मून्रोइज</string>
     <string name="moon_set">मूनसेट</string>

@@ -53,10 +53,7 @@
     <string name="onboarding_location_privacy">
         Trail Sense
         به حریم خصوصی شما احترام می گذارد - داده های مکان هرگز دستگاه شما را ترک نمی کند</string>
-    <string name="onboarding_location_all_time">لطفا از دیالوگ اجازه دسترسی
-    \ "همیشه مجاز \"
-را انتخاب کنید
-    </string>
+
     <string name="continue_button">ادامه</string>
     <string name="moon_rise">طلوع ماه</string>
     <string name="moon_set">غروب ماه</string>

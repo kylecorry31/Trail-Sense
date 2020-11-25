@@ -45,7 +45,6 @@
     <string name="onboarding_location_navigation">Elle vous permettra de vous orienter vers des points de repère</string>
     <string name="onboarding_location_astronomy">Elle vous permettra de connaître les heures de lever et de coucher de la lune et du soleil</string>
     <string name="onboarding_location_privacy">Trail Sense respecte votre vie privée : les données de localisation ne sont jamais communiquées à un tiers et restent sur votre appareil</string>
-    <string name="onboarding_location_all_time">Veuillez sélectionner « Toujours autoriser » lorsque l\'autorisation d\'accéder à la localisation vous est demandée</string>
     <string name="continue_button">CONTINUER</string>
     <string name="moon_rise">Lever de la lune</string>
     <string name="moon_set">Coucher de la lune</string>

@@ -45,7 +45,6 @@
     <string name="onboarding_location_navigation">Позволяет ориентироваться и направлять в маячки</string>
     <string name="onboarding_location_astronomy">Позволяет вам узнать когда солнце/луна поднимется и зайдет за горизонт</string>
     <string name="onboarding_location_privacy">Trail Sense уважает вашу конфиденциальность - данные о местоположении никогда не покидают ваше устройство</string>
-    <string name="onboarding_location_all_time">Пожалуйста, выберите \'Разрешать всегда \' в диалоговом окне разрешения</string>
     <string name="continue_button">ДАЛЕЕ</string>
     <string name="moon_rise">Восход луны</string>
     <string name="moon_set">Луна</string>

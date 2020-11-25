@@ -46,7 +46,6 @@
     <string name="onboarding_location_navigation">Позволява ви да навигирате до маяци</string>
     <string name="onboarding_location_astronomy">Позволява ви да виждате изгряване на слънцето /луната и зададени времена</string>
     <string name="onboarding_location_privacy">Trail Sense зачита вашата поверителност - данните за местоположение никога не напускат вашето устройство</string>
-    <string name="onboarding_location_all_time">Моля, изберете \"Разрешаване на всички времена \" от диалоговия прозорец на разрешенията</string>
     <string name="continue_button">ПРОДЪЛЖИ</string>
     <string name="moon_rise">Moonrise</string>
     <string name="moon_set">Залез на Луната</string>

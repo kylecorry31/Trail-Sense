@@ -46,7 +46,6 @@
     <string name="onboarding_location_navigation">:Permite navegar até aos faróis</string>
     <string name="onboarding_location_astronomy">:Permite ver o nascer do sol/lua e o pôr-do-sol</string>
     <string name="onboarding_location_privacy">O Trail Sense respeita a sua privacidade - os dados de localização nunca deixam o seu dispositivo</string>
-    <string name="onboarding_location_all_time">Por favor, seleccione \'Permitir o tempo todo\' no diálogo de permissão</string>
     <string name="continue_button">CONTINUAR</string>
     <string name="moon_rise">Moonrise</string>
     <string name="moon_set">Moonset</string>

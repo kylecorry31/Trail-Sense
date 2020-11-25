@@ -45,7 +45,6 @@
     <string name="onboarding_location_navigation">允许您导航到信标</string>
     <string name="onboarding_location_astronomy">让您看到太阳/月亮升起和设定的时间</string>
     <string name="onboarding_location_privacy">Trail Sense尊重您的隐私-位置数据永远不会离开您的设备</string>
-    <string name="onboarding_location_all_time">请从权限对话框中选择 \'始终允许\'</string>
     <string name="continue_button">继续</string>
     <string name="moon_rise">月出</string>
     <string name="moon_set">月落</string>

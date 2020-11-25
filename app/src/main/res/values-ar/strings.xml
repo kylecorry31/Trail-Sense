@@ -46,7 +46,6 @@
     <string name="onboarding_location_navigation">يسمح لك بالانتقال إلى منارات</string>
     <string name="onboarding_location_astronomy">يتيح لك رؤية شروق الشمس والقمر وتعيين أوقات</string>
     <string name="onboarding_location_privacy">تحترم Trail Sense خصوصيتك - لا تترك بيانات الموقع جهازك أبدًا</string>
-    <string name="onboarding_location_all_time">يرجى تحديد \"السماح طوال الوقت \" من مربع حوار الإذن</string>
     <string name="continue_button">استمر</string>
     <string name="moon_rise">طلوع القمر</string>
     <string name="moon_set">القمر</string>

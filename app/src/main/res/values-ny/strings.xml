@@ -46,7 +46,6 @@
     <string name="onboarding_location_navigation">Amakulolani kuti musunthe ma beacon</string>
     <string name="onboarding_location_astronomy">Amakulolani kuti muwone dzuwa /mwezi ukukwera ndi nthawi yoikika</string>
     <string name="onboarding_location_privacy">Trail Sense imalemekeza zachinsinsi chanu - zosowa zamalo anu sizisiya chida chanu</string>
-    <string name="onboarding_location_all_time">Chonde sankhani \'Lolani nthawi yonse \' kuchokera pa zokambirana</string>
     <string name="continue_button">Pitilizani</string>
     <string name="moon_rise">Kutuluka kwa mwezi</string>
     <string name="moon_set">Moonset</string>

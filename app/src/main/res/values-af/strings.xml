@@ -46,7 +46,6 @@
     <string name="onboarding_location_navigation">Laat u toe om na bakens te navigeer</string>
     <string name="onboarding_location_astronomy">Hiermee kan u die son /maan sien opkom en vasgestelde tye</string>
     <string name="onboarding_location_privacy">Trail Sense respekteer u privaatheid - liggingsdata verlaat nooit u toestel nie</string>
-    <string name="onboarding_location_all_time">Kies \'Laat die hele tyd toe \' uit die toestemmingsdialoog</string>
     <string name="continue_button">AANHOU</string>
     <string name="moon_rise">maansopkoms</string>
     <string name="moon_set">Maansondergang</string>
