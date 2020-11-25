@@ -84,22 +84,12 @@ class SosService : Service() {
             NotificationUtils.CHANNEL_IMPORTANCE_LOW
         )
 
-        val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Notification.Builder(this, CHANNEL_ID)
+        val notification = NotificationUtils.builder(this, CHANNEL_ID)
                 .setContentTitle(getString(R.string.sos))
                 .setContentText(getString(R.string.turn_off_flashlight))
                 .setSmallIcon(R.drawable.flashlight_sos)
                 .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
                 .build()
-        } else {
-            @Suppress("DEPRECATION")
-            Notification.Builder(this)
-                .setContentTitle(getString(R.string.sos))
-                .setContentText(getString(R.string.turn_off_flashlight))
-                .setSmallIcon(R.drawable.flashlight_sos)
-                .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
-                .build()
-        }
 
         startForeground(NOTIFICATION_ID, notification)
         return START_STICKY_COMPATIBILITY
@@ -117,11 +107,12 @@ class SosService : Service() {
     }
 
     override fun onDestroy() {
-        stopForeground(true)
         running = false
         handler.removeCallbacks(runnable)
         flashlight?.off()
         super.onDestroy()
+        stopForeground(true)
+        stopSelf()
     }
 
     companion object {

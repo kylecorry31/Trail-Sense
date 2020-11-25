@@ -19,40 +19,13 @@ class QuickActionFlashlight(btn: FloatingActionButton, fragment: Fragment): Quic
         updateFlashlightUI()
     }
 
-    private fun getNextFlashlightState(currentState: FlashlightState): FlashlightState {
-        return flashlight.getNextState(currentState)
-    }
-
     private fun updateFlashlightUI() {
-        when (flashlightState) {
-            FlashlightState.On -> {
-                button.setImageResource(R.drawable.flashlight)
-                UiUtils.setButtonState(
-                    button,
-                    true,
-                    UiUtils.color(context, R.color.colorPrimary),
-                    UiUtils.color(context, R.color.colorSecondary)
-                )
-            }
-            FlashlightState.SOS -> {
-                button.setImageResource(R.drawable.flashlight_sos)
-                UiUtils.setButtonState(
-                    button,
-                    true,
-                    UiUtils.color(context, R.color.colorPrimary),
-                    UiUtils.color(context, R.color.colorSecondary)
-                )
-            }
-            else -> {
-                button.setImageResource(R.drawable.flashlight)
-                UiUtils.setButtonState(
-                    button,
-                    false,
-                    UiUtils.color(context, R.color.colorPrimary),
-                    UiUtils.color(context, R.color.colorSecondary)
-                )
-            }
-        }
+        UiUtils.setButtonState(
+            button,
+            flashlightState == FlashlightState.On,
+            UiUtils.color(context, R.color.colorPrimary),
+            UiUtils.color(context, R.color.colorSecondary)
+        )
     }
 
     override fun onCreate() {
@@ -60,8 +33,11 @@ class QuickActionFlashlight(btn: FloatingActionButton, fragment: Fragment): Quic
             button.visibility = View.GONE
         } else {
             button.setOnClickListener {
-                flashlightState = getNextFlashlightState(flashlightState)
-                flashlight.set(flashlightState)
+                if (flashlight.getState() == FlashlightState.On){
+                    flashlight.set(FlashlightState.Off)
+                } else {
+                    flashlight.set(FlashlightState.On)
+                }
             }
         }
     }

@@ -53,6 +53,7 @@
 
         <service android:name=".tools.flashlight.infrastructure.FlashlightService" />
         <service android:name=".tools.flashlight.infrastructure.SosService" />
+        <service android:name=".tools.flashlight.infrastructure.StrobeService" />
         <service android:name=".tools.waterpurification.infrastructure.WaterPurificationTimerService" />
 
         <receiver

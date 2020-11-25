@@ -30,8 +30,26 @@ class FragmentToolFlashlight: Fragment() {
     ): View? {
         _binding = FragmentToolFlashlightBinding.inflate(inflater, container, false)
         binding.flashlightBtn.setOnClickListener {
-            flashlightState = getNextFlashlightState(flashlightState)
-            flashlight.set(flashlightState)
+            if (flashlight.getState() == FlashlightState.On){
+                flashlight.set(FlashlightState.Off)
+            } else {
+                flashlight.set(FlashlightState.On)
+            }
+        }
+        binding.sosBtn.setOnClickListener {
+            if (flashlight.getState() == FlashlightState.SOS){
+                flashlight.set(FlashlightState.Off)
+            } else {
+                flashlight.set(FlashlightState.SOS)
+            }
+        }
+
+        binding.strobeBtn.setOnClickListener {
+            if (flashlight.getState() == FlashlightState.Strobe){
+                flashlight.set(FlashlightState.Off)
+            } else {
+                flashlight.set(FlashlightState.Strobe)
+            }
         }
         return binding.root
     }
@@ -53,41 +71,27 @@ class FragmentToolFlashlight: Fragment() {
         intervalometer.stop()
     }
 
-
-    private fun getNextFlashlightState(currentState: FlashlightState): FlashlightState {
-        return flashlight.getNextState(currentState)
-    }
-
     private fun updateFlashlightUI() {
-        when (flashlightState) {
-            FlashlightState.On -> {
-                binding.flashlightBtn.setImageResource(R.drawable.flashlight)
-                UiUtils.setButtonState(
-                    binding.flashlightBtn,
-                    true,
-                    UiUtils.color(requireContext(), R.color.colorPrimary),
-                    UiUtils.color(requireContext(), R.color.colorSecondary)
-                )
-            }
-            FlashlightState.SOS -> {
-                binding.flashlightBtn.setImageResource(R.drawable.flashlight_sos)
-                UiUtils.setButtonState(
-                    binding.flashlightBtn,
-                    true,
-                    UiUtils.color(requireContext(), R.color.colorPrimary),
-                    UiUtils.color(requireContext(), R.color.colorSecondary)
-                )
-            }
-            else -> {
-                binding.flashlightBtn.setImageResource(R.drawable.flashlight)
-                UiUtils.setButtonState(
-                    binding.flashlightBtn,
-                    false,
-                    UiUtils.color(requireContext(), R.color.colorPrimary),
-                    UiUtils.color(requireContext(), R.color.colorSecondary)
-                )
-            }
-        }
+        UiUtils.setButtonState(
+            binding.flashlightBtn,
+            flashlightState == FlashlightState.On,
+            UiUtils.color(requireContext(), R.color.colorPrimary),
+            UiUtils.color(requireContext(), R.color.colorSecondary)
+        )
+
+        UiUtils.setButtonState(
+            binding.sosBtn,
+            flashlightState == FlashlightState.SOS,
+            UiUtils.color(requireContext(), R.color.colorPrimary),
+            UiUtils.color(requireContext(), R.color.colorSecondary)
+        )
+
+        UiUtils.setButtonState(
+            binding.strobeBtn,
+            flashlightState == FlashlightState.Strobe,
+            UiUtils.color(requireContext(), R.color.colorPrimary),
+            UiUtils.color(requireContext(), R.color.colorSecondary)
+        )
     }
 
 

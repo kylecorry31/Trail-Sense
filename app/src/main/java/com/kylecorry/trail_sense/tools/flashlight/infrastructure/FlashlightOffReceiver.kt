@@ -11,6 +11,7 @@ class FlashlightOffReceiver: BroadcastReceiver() {
 
         context.stopService(FlashlightService.intent(context))
         context.stopService(SosService.intent(context))
+        context.stopService(StrobeService.intent(context))
     }
 
 

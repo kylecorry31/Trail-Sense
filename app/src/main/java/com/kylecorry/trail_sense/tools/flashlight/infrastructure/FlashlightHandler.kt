@@ -8,6 +8,7 @@ import android.os.Looper
 import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
 
 class FlashlightHandler(private val context: Context) : IFlashlightHandler {
@@ -23,7 +24,7 @@ class FlashlightHandler(private val context: Context) : IFlashlightHandler {
                         off()
                     }
 
-                    if (enabled && !FlashlightService.isOn(context) && !SosService.isOn(context)){
+                    if (enabled && !FlashlightService.isOn(context) && !SosService.isOn(context) && !StrobeService.isOn(context)){
                         on()
                     }
                 } catch (e: Exception){
@@ -45,17 +46,26 @@ class FlashlightHandler(private val context: Context) : IFlashlightHandler {
 
     override fun on() {
         SosService.stop(context)
+        StrobeService.stop(context)
         FlashlightService.start(context)
     }
 
     override fun off() {
         SosService.stop(context)
+        StrobeService.stop(context)
         FlashlightService.stop(context)
     }
 
     override fun sos() {
-        SosService.start(context)
+        StrobeService.stop(context)
         FlashlightService.stop(context)
+        SosService.start(context)
+    }
+
+    override fun strobe() {
+        SosService.stop(context)
+        FlashlightService.stop(context)
+        StrobeService.start(context)
     }
 
     override fun set(state: FlashlightState) {
@@ -63,6 +73,7 @@ class FlashlightHandler(private val context: Context) : IFlashlightHandler {
             FlashlightState.Off -> off()
             FlashlightState.On -> on()
             FlashlightState.SOS -> sos()
+            FlashlightState.Strobe -> strobe()
         }
     }
 
@@ -70,15 +81,8 @@ class FlashlightHandler(private val context: Context) : IFlashlightHandler {
         return when {
             FlashlightService.isOn(context) -> FlashlightState.On
             SosService.isOn(context) -> FlashlightState.SOS
+            StrobeService.isOn(context) -> FlashlightState.Strobe
             else -> FlashlightState.Off
-        }
-    }
-
-    override fun getNextState(currentState: FlashlightState?): FlashlightState {
-        return when (currentState ?: getState()) {
-            FlashlightState.On -> FlashlightState.SOS
-            FlashlightState.SOS -> FlashlightState.Off
-            FlashlightState.Off -> FlashlightState.On
         }
     }
 

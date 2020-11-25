@@ -9,8 +9,8 @@ interface IFlashlightHandler {
     fun on()
     fun off()
     fun sos()
+    fun strobe()
     fun set(state: FlashlightState)
     fun getState(): FlashlightState
-    fun getNextState(currentState: FlashlightState? = null): FlashlightState
     fun isAvailable(): Boolean
 }
