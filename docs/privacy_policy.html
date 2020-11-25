@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trail Sense - Privacy Policy</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section id="privacy-policy">
+      <div class="container">
+        <h2>Trail Sense - Privacy Policy</h2>
+        <p>
+          Location information gathered by this application does not leave your
+          device (as a matter of fact, this app doesn't use the Internet at
+          all). The altitude and pressure history for the last 48 hours is
+          stored in local app storage - this is used to determine weather
+          forecasts. The last known location is also stored in app preferences
+          to allow faster load times and support app functionality when the GPS
+          can not be reached. The beacons store their location in a local SQLite
+          database. All of this information is cleared when you clear the app
+          storage or delete it.
+        </p>
+        <p class="bold">
+          Information Collected
+        </p>
+        <p>
+          Trail Sense does not collect or share any user information outside of the app itself. The following information is used / stored by Trail Sense locally:
+        </p>
+        <ul>
+          <li><span class="bold">48 hours of altitude history</span>: When background location is enabled and the monitor weather setting is on. This is used for sea level calibration of barometer data.</li>
+          <li><span class="bold">Your last location</span>: This is used as a cache for your location when you either don't have a GPS signal or when the GPS fix is taking too long.</li>
+          <li><span class="bold">Beacon information</span>: The coordinates and other information for the beacons you create are stored on your device, so you can navigate to them in the future.</li>
+        </ul>
+        <p class="bold">Permissions</p>
+        <ul>
+          <li>
+            <span class="bold">Location</span>: Used for beacon navigation, True
+            North, barometer altitude correction (in background), and sun/moon
+            rise/set times
+          </li>
+          <li>
+            <span class="bold">Background Location</span>: Used for barometer altitude correction and sunset alerts.
+          </li>
+          <li>
+            <span class="bold">Flashlight</span>: Used for the flashlight/SOS
+            feature - available on the navigation tab.
+          </li>
+        </ul>
+      </div>
+    </section>
+  </body>
+</html>

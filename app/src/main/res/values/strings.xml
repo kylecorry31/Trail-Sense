@@ -604,7 +604,7 @@
     <string name="guide_recommended_apps_description">Useful apps for survival situations</string>
     <string name="pref_privacy_policy_title">Privacy policy</string>
     <string name="pref_privacy_policy" translatable="false">pref_privacy_policy</string>
-    <string name="privacy_policy_url" translatable="false">https://kylecorry.com/Trail-Sense/#privacy</string>
+    <string name="privacy_policy_url" translatable="false">https://kylecorry.com/Trail-Sense/privacy_policy.html</string>
     <string name="tool_solar_panel_summary">Position solar panels for optimal power production</string>
     <string name="tool_solar_panel_title">Solar Panel Aligner</string>
     <string name="tool_solar_panel" translatable="false">tool_solar_panel</string>
@@ -624,6 +624,6 @@
     <string name="tool_boil_title">Water Boil Timer</string>
     <string name="tool_boil" translatable="false">tool_boil</string>
     <string name="tool_boil_disclaimer">Filter water and bring to a rolling boil before starting timer</string>
-    <string name="pref_sensor_details">pref_sensor_details</string>
+    <string name="pref_sensor_details" translatable="false">pref_sensor_details</string>
     <string name="pref_sensor_details_title">Sensor details</string>
 </resources>
