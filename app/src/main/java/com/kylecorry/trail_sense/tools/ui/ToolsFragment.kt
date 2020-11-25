@@ -10,6 +10,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.TrailSenseMaps
+import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 
 
@@ -78,6 +79,13 @@ class ToolsFragment : PreferenceFragmentCompat() {
         navigateOnClick(
             findPreference(getString(R.string.tool_boil)),
             R.id.action_action_experimental_tools_to_waterPurificationFragment
+        )
+
+        val flashlight = findPreference<Preference>(getString(R.string.tool_flashlight))
+        flashlight?.isVisible = Flashlight.hasFlashlight(requireContext())
+        navigateOnClick(
+            flashlight,
+            R.id.action_action_experimental_tools_to_fragmentToolFlashlight
         )
     }
 

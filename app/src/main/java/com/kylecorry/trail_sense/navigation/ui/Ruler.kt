@@ -7,6 +7,7 @@ import androidx.core.view.children
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.view.ViewMeasurementUtils
 import kotlin.math.ceil
 
 class Ruler(private val view: ConstraintLayout) {
@@ -44,7 +45,7 @@ class Ruler(private val view: ConstraintLayout) {
     }
 
     private fun update() {
-        val dpi = context.resources.displayMetrics.densityDpi
+        val dpi = ViewMeasurementUtils.dpi(context)
         val scale = userPrefs.navigation.rulerScale
         val height =
             scale * view.height / dpi.toDouble() * if (userPrefs.distanceUnits == UserPreferences.DistanceUnits.Meters) 2.54 else 1.0

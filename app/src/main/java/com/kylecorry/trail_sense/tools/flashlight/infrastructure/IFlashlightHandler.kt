@@ -1,6 +1,7 @@
-package com.kylecorry.trail_sense.navigation.infrastructure.flashlight
+package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
-import com.kylecorry.trail_sense.navigation.domain.FlashlightState
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
+
 
 interface IFlashlightHandler {
     fun initialize()

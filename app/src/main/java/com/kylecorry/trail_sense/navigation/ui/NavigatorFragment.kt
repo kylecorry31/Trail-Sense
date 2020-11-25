@@ -12,15 +12,14 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
-import com.kylecorry.trail_sense.navigation.domain.FlashlightState
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
-import com.kylecorry.trail_sense.navigation.infrastructure.flashlight.FlashlightHandler
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -48,7 +47,6 @@ class NavigatorFragment : Fragment() {
 
     private var _binding: ActivityNavigatorBinding? = null
     private val binding get() = _binding!!
-    private lateinit var ruler: Ruler
     private lateinit var navController: NavController
 
     private var acquiredLock = false
@@ -60,10 +58,8 @@ class NavigatorFragment : Fragment() {
     private lateinit var visibleCompass: ICompassView
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
-    private var flashlightState = FlashlightState.Off
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val flashlight by lazy { FlashlightHandler(requireContext()) }
     private val cache by lazy { Cache(requireContext()) }
     private val throttle = Throttle(16)
 
@@ -84,6 +80,9 @@ class NavigatorFragment : Fragment() {
     private var destinationBearing: Bearing? = null
     private var useTrueNorth = false
 
+    private lateinit var leftQuickAction: QuickActionButton
+    private lateinit var rightQuickAction: QuickActionButton
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -91,6 +90,12 @@ class NavigatorFragment : Fragment() {
     ): View? {
         _binding = ActivityNavigatorBinding.inflate(layoutInflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        rightQuickAction.onDestroy()
+        leftQuickAction.onDestroy()
     }
 
     override fun onDestroyView() {
@@ -111,7 +116,10 @@ class NavigatorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ruler = Ruler(binding.ruler)
+        rightQuickAction = QuickActionFlashlight(binding.flashlightBtn, this)
+        rightQuickAction.onCreate()
+        leftQuickAction = QuickActionRuler(binding.rulerBtn, this, binding.ruler)
+        leftQuickAction.onCreate()
         navController = findNavController()
 
         destinationPanel = DestinationPanel(binding.navigationSheet)
@@ -182,35 +190,6 @@ class NavigatorFragment : Fragment() {
             }
         }
 
-        binding.rulerBtn.setOnClickListener {
-            if (ruler.visible) {
-                UiUtils.setButtonState(
-                    binding.rulerBtn,
-                    false,
-                    UiUtils.color(requireContext(), R.color.colorPrimary),
-                    UiUtils.color(requireContext(), R.color.colorSecondary)
-                )
-                ruler.hide()
-            } else {
-                UiUtils.setButtonState(
-                    binding.rulerBtn,
-                    true,
-                    UiUtils.color(requireContext(), R.color.colorPrimary),
-                    UiUtils.color(requireContext(), R.color.colorSecondary)
-                )
-                ruler.show()
-            }
-        }
-
-        if (!flashlight.isAvailable()) {
-            binding.flashlightBtn.visibility = View.GONE
-        } else {
-            binding.flashlightBtn.setOnClickListener {
-                flashlightState = getNextFlashlightState(flashlightState)
-                flashlight.set(flashlightState)
-            }
-        }
-
         binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
         roundCompass.setOnClickListener {
@@ -264,42 +243,6 @@ class NavigatorFragment : Fragment() {
         )
     }
 
-    private fun getNextFlashlightState(currentState: FlashlightState): FlashlightState {
-        return flashlight.getNextState(currentState)
-    }
-
-    private fun updateFlashlightUI() {
-        when (flashlightState) {
-            FlashlightState.On -> {
-                binding.flashlightBtn.setImageResource(R.drawable.flashlight)
-                UiUtils.setButtonState(
-                    binding.flashlightBtn,
-                    true,
-                    UiUtils.color(requireContext(), R.color.colorPrimary),
-                    UiUtils.color(requireContext(), R.color.colorSecondary)
-                )
-            }
-            FlashlightState.SOS -> {
-                binding.flashlightBtn.setImageResource(R.drawable.flashlight_sos)
-                UiUtils.setButtonState(
-                    binding.flashlightBtn,
-                    true,
-                    UiUtils.color(requireContext(), R.color.colorPrimary),
-                    UiUtils.color(requireContext(), R.color.colorSecondary)
-                )
-            }
-            else -> {
-                binding.flashlightBtn.setImageResource(R.drawable.flashlight)
-                UiUtils.setButtonState(
-                    binding.flashlightBtn,
-                    false,
-                    UiUtils.color(requireContext(), R.color.colorPrimary),
-                    UiUtils.color(requireContext(), R.color.colorSecondary)
-                )
-            }
-        }
-    }
-
     private fun setVisibleCompass(compass: ICompassView) {
         if (visibleCompass == compass) {
             if (compass != roundCompass) {
@@ -316,7 +259,8 @@ class NavigatorFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
+        rightQuickAction.onResume()
+        leftQuickAction.onResume()
         useTrueNorth = userPrefs.navigation.useTrueNorth
         // Load the latest beacons
         beacons = beaconRepo.get()
@@ -332,7 +276,6 @@ class NavigatorFragment : Fragment() {
             destinationBearing = Bearing(lastDestBearing)
         }
 
-        flashlightState = flashlight.getState()
         compass.start(this::onCompassUpdate)
         gps.start(this::onLocationUpdate)
         altimeter.start(this::onAltitudeUpdate)
@@ -355,6 +298,8 @@ class NavigatorFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        rightQuickAction.onPause()
+        leftQuickAction.onPause()
         compass.stop(this::onCompassUpdate)
         gps.stop(this::onLocationUpdate)
         altimeter.stop(this::onAltitudeUpdate)
@@ -440,9 +385,6 @@ class NavigatorFragment : Fragment() {
         if (throttle.isThrottled() || context == null) {
             return
         }
-
-        flashlightState = flashlight.getState()
-        updateFlashlightUI()
 
         val selectedBeacon = getSelectedBeacon(nearbyBeacons)
 

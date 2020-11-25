@@ -51,8 +51,8 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
-        <service android:name=".navigation.infrastructure.flashlight.FlashlightService" />
-        <service android:name=".navigation.infrastructure.flashlight.SosService" />
+        <service android:name=".tools.flashlight.infrastructure.FlashlightService" />
+        <service android:name=".tools.flashlight.infrastructure.SosService" />
         <service android:name=".tools.waterpurification.infrastructure.WaterPurificationTimerService" />
 
         <receiver
@@ -73,7 +73,7 @@
             android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver"
             android:enabled="true" />
         <receiver
-            android:name="com.kylecorry.trail_sense.navigation.infrastructure.flashlight.FlashlightOffReceiver"
+            android:name="com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightOffReceiver"
             android:enabled="true" />
         <receiver
             android:name="com.kylecorry.trail_sense.receivers.BootReceiver"

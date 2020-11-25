@@ -48,6 +48,12 @@
         app:singleLineTitle="false" />
 
     <Preference
+        android:icon="@drawable/flashlight"
+        android:title="@string/flashlight_title"
+        app:key="@string/tool_flashlight"
+        app:singleLineTitle="false" />
+
+    <Preference
         android:icon="@drawable/ic_inventory"
         android:summary="@string/tool_inventory_summary"
         android:title="@string/action_inventory"

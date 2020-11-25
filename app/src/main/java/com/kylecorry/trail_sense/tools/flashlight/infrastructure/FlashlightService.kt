@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.navigation.infrastructure.flashlight
+package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
 import android.app.Notification
 import android.app.Service
