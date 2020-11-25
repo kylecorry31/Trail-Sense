@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBinding
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.waterpurification.domain.WaterPurificationService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
+import com.kylecorry.trailsensecore.domain.water.WaterService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import java.time.Duration
 import java.time.Instant
@@ -23,7 +23,7 @@ class WaterPurificationFragment : Fragment() {
     private val cache by lazy { Cache(requireContext()) }
     private var timer: CountDownTimer? = null
     private var duration: Duration? = null
-    private val waterPurificationService = WaterPurificationService()
+    private val waterService = WaterService()
 
     private var _binding: FragmentToolWaterPurificationBinding? = null
     private val binding get() = _binding!!
@@ -101,7 +101,7 @@ class WaterPurificationFragment : Fragment() {
     }
 
     private fun updateAltitude(): Boolean {
-        duration = waterPurificationService.getPurificationTime(altimeter.altitude)
+        duration = waterService.getPurificationTime(altimeter.altitude)
         if (timer == null) {
             binding.timeLeft.text = duration?.seconds.toString()
         }

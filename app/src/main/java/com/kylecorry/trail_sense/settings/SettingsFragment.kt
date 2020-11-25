@@ -19,8 +19,10 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorDetailProvider
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -95,7 +97,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
             }
 
-        navigateOnClick(preferenceScreen.findPreference(getString(R.string.pref_open_source_licenses)),
+        navigateOnClick(
+            preferenceScreen.findPreference(getString(R.string.pref_open_source_licenses)),
             R.id.action_action_settings_to_licenseFragment
         )
 
@@ -124,6 +127,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val version = PackageUtils.getVersionName(requireContext())
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_app_version))?.summary =
             version
+
+        onClick(findPreference(getString(R.string.pref_sensor_details))) {
+            UiUtils.alert(
+                requireContext(),
+                getString(R.string.pref_sensor_details_title),
+                SensorDetailProvider().getSensorDetails(requireContext()),
+                getString(R.string.dialog_ok)
+            )
+        }
     }
 
     override fun onResume() {
@@ -140,6 +152,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         pref?.setOnPreferenceClickListener {
             navController.navigate(action, bundle)
             false
+        }
+    }
+
+    private fun onClick(pref: Preference?, action: () -> Unit) {
+        pref?.setOnPreferenceClickListener {
+            action()
+            true
         }
     }
 

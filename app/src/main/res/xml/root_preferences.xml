@@ -150,6 +150,12 @@
             app:singleLineTitle="false" />
 
         <Preference
+            android:key="@string/pref_sensor_details"
+            android:title="@string/pref_sensor_details_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:summary="@string/privacy_policy_url"
             android:title="@string/pref_privacy_policy_title"
             app:iconSpaceReserved="false"
