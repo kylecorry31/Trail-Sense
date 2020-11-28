@@ -84,18 +84,24 @@ class PressureRepo private constructor(private val context: Context) {
     }
 
     private fun createTables(conn: DatabaseConnection) {
-        val history = PressureHistoryRepository.get(context)
         conn.execute("CREATE TABLE IF NOT EXISTS pressures (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, time INTEGER NOT NULL, pressure REAL NOT NULL, altitude REAL NOT NULL, altitude_accuracy REAL NULL, temperature REAL NOT NULL)")
-        if (history.isNotEmpty()) {
-            history.forEach {
-                add(it, conn, false)
+
+        try {
+            val history = PressureHistoryRepository.get(context)
+            if (history.isNotEmpty()) {
+                history.forEach {
+                    add(it, conn, false)
+                }
             }
+        } catch (e: Exception) {
+            // Ignore this - meaning the user will lose old data
         }
-//        try {
-        PressureHistoryRepository.clear(context)
-//        } catch (e: Exception) {
-//            // Ignore this
-//        }
+        
+        try {
+            PressureHistoryRepository.clear(context)
+        } catch (e: Exception) {
+            // Ignore this
+        }
     }
 
 
