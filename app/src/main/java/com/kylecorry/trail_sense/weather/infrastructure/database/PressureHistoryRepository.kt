@@ -20,15 +20,21 @@ internal object PressureHistoryRepository {
         if (!context.getFileStreamPath(FILE_NAME).exists()) return listOf()
         context.openFileInput(FILE_NAME).use { file ->
             val readings = file.bufferedReader().useLines { lines ->
-                lines.map { it.split(",") }
+                lines
                     .map {
-                        PressureAltitudeReading(
-                            Instant.ofEpochMilli(it[0].toLong()),
-                            it[1].toFloat(),
-                            it[2].toFloat(),
-                            if (it.size > 3) it[3].toFloat() else 16f
-                        )
+                        try {
+                            val split = it.split(",")
+                            PressureAltitudeReading(
+                                Instant.ofEpochMilli(split[0].toLong()),
+                                split[1].toFloat(),
+                                split[2].toFloat(),
+                                if (split.size > 3) it[3].toFloat() else 16f
+                            )
+                        } catch (e: Exception){
+                            null
+                        }
                     }
+                    .filterNotNull()
                     .sortedBy { it.time }
                     .toMutableList()
             }
