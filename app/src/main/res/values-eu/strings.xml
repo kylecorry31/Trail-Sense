@@ -207,4 +207,23 @@
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_feet_format">%s ft</string>
+    <string name="category_food">Janaria</string>
+    <string name="category_other">Besteak</string>
+    <string name="guide_beacons_title">Balizak</string>
+    <string name="pref_category_tabs">Fitxak</string>
+    <string name="navigation_nearby_category">Hurbil</string>
+    <string name="forecasts_category">Iragarpenak</string>
+    <string name="advanced_settings_category">Aurreratua</string>
+    <string name="beacon_group_spinner_title">Taldea</string>
+    <string name="beacon_group_name_hint">Izena</string>
+    <string name="beacon_create_group">Taldea</string>
+    <string name="beacon_create_beacon">Baliza</string>
+    <string name="beacon_create">Sortu</string>
+    <string name="pref_navigation_header">Nabigazioa</string>
+    <string name="sun_dusk">Ilunsentia</string>
+    <string name="sun_dawn">Egunsentia</string>
+    <string name="tide_spring">Bizia</string>
+    <string name="tide_neap">Hila</string>
+    <string name="moon_set">Ilargia sartzea</string>
+    <string name="moon_rise">Ilargia ateratzea</string>
 </resources>
