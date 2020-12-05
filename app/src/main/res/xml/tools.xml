@@ -29,6 +29,13 @@
         app:singleLineTitle="false" />
 
     <Preference
+        android:icon="@drawable/ic_tool_lightning"
+        android:summary="@string/tool_lightning_description"
+        android:title="@string/tool_lightning_title"
+        app:key="@string/tool_lightning"
+        app:singleLineTitle="false" />
+
+    <Preference
         android:icon="@drawable/ic_depth"
         android:summary="@string/tool_depth_summary"
         android:title="@string/tool_depth_title"

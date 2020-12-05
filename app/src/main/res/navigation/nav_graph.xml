@@ -117,6 +117,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_action_experimental_tools_to_fragmentToolLightning"
+            app:destination="@id/fragmentToolLightning"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/action_weather"
@@ -403,5 +410,9 @@
         android:id="@+id/toolClockFragment"
         android:name="com.kylecorry.trail_sense.tools.clock.ui.ToolClockFragment"
         android:label="ToolClockFragment" />
+    <fragment
+        android:id="@+id/fragmentToolLightning"
+        android:name="com.kylecorry.trail_sense.tools.lightning.ui.FragmentToolLightning"
+        android:label="FragmentToolLightning" />
 
 </navigation>

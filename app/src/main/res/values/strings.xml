@@ -629,4 +629,10 @@
     <string name="utc_format">UTC %s</string>
     <string name="tool_clock">tool_clock</string>
     <string name="gps_time_toast">Time updated from GPS</string>
+    <string name="lightning">Lightning</string>
+    <string name="thunder">Thunder</string>
+    <string name="reset">Reset</string>
+    <string name="tool_lightning_description">Measure the distance from a lightning strike</string>
+    <string name="tool_lightning_title">Lightning Strike Distance</string>
+    <string name="tool_lightning">tool_lightning</string>
 </resources>
