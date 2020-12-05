@@ -627,4 +627,8 @@
     <string name="pref_sensor_details_title">Sensor details</string>
     <string name="tool_flashlight">tool_flashlight</string>
     <string name="flashlight_strobe">Strobe</string>
+    <string name="tool_clock_title">Clock</string>
+    <string name="utc_format">UTC %s</string>
+    <string name="tool_clock">tool_clock</string>
+    <string name="gps_time_toast">Time updated from GPS</string>
 </resources>

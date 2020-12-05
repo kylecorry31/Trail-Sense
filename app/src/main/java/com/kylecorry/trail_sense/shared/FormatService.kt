@@ -11,10 +11,21 @@ import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import java.time.Duration
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class FormatService(private val context: Context) {
 
     private val prefs by lazy { UserPreferences(context) }
+
+    fun formatTime(time: LocalTime): String {
+        val amPm = !prefs.use24HourTime
+        return if (amPm){
+            time.format(DateTimeFormatter.ofPattern("h:mm:ss a"))
+        } else {
+            time.format(DateTimeFormatter.ofPattern("H:mm:ss"))
+        }
+    }
 
     fun formatDegrees(degrees: Float): String {
         val formatted = context.getString(R.string.degree_format, degrees)

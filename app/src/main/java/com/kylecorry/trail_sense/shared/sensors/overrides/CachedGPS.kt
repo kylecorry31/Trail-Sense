@@ -10,6 +10,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import java.time.Instant
 
 class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : AbstractSensor(),
     IGPS {
@@ -24,6 +25,8 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : Abs
         }
     override val speed: Float
         get() = prefs.getFloat(GPS.LAST_SPEED, 0.0f)
+    override val time: Instant
+        get() = Instant.now()
     override val verticalAccuracy: Float?
         get() = null
     override val horizontalAccuracy: Float?
