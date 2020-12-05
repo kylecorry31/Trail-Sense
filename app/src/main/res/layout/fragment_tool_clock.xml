@@ -6,11 +6,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/clock_title"
+        android:id="@+id/clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        android:text="@string/tool_clock_title"
+        tools:text="10:00:00 AM"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -22,24 +22,13 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="@+id/clock"
         app:layout_constraintStart_toStartOf="@+id/clock"
-        app:layout_constraintBottom_toTopOf="@+id/clock"
+        app:layout_constraintTop_toBottomOf="@+id/clock"
         tools:text="Monday, November 5, 2020" />
 
-    <TextView
-        android:id="@+id/clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="10:00:00 AM" />
 
     <TextView
         android:id="@+id/utc_clock"
@@ -47,9 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="@+id/clock"
-        app:layout_constraintStart_toStartOf="@+id/clock"
-        app:layout_constraintTop_toBottomOf="@+id/clock"
+        app:layout_constraintEnd_toEndOf="@+id/date"
+        app:layout_constraintStart_toStartOf="@+id/date"
+        app:layout_constraintTop_toBottomOf="@+id/date"
         tools:text="UTC: 10:00:00 AM" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
