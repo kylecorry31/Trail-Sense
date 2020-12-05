@@ -19,6 +19,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="@+id/clock"
+        app:layout_constraintStart_toStartOf="@+id/clock"
+        app:layout_constraintBottom_toTopOf="@+id/clock"
+        tools:text="Monday, November 5, 2020" />
+
+    <TextView
         android:id="@+id/clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

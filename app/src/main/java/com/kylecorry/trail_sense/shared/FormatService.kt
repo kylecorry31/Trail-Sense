@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import android.text.format.DateUtils
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
@@ -11,7 +12,9 @@ import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalTime
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 class FormatService(private val context: Context) {
@@ -25,6 +28,14 @@ class FormatService(private val context: Context) {
         } else {
             time.format(DateTimeFormatter.ofPattern("H:mm:ss"))
         }
+    }
+
+    fun formatDate(date: ZonedDateTime): String {
+        return DateUtils.formatDateTime(
+            context,
+            date.toEpochSecond() * 1000,
+            DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_WEEKDAY or DateUtils.FORMAT_SHOW_YEAR
+        )
     }
 
     fun formatDegrees(degrees: Float): String {

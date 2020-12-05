@@ -65,5 +65,6 @@ class ToolClockFragment : Fragment() {
         val myTime = ZonedDateTime.ofInstant(currentTime, ZoneId.systemDefault())
         binding.utcClock.text = getString(R.string.utc_format, formatService.formatTime(utcTime.toLocalTime()))
         binding.clock.text = formatService.formatTime(myTime.toLocalTime())
+        binding.date.text = formatService.formatDate(myTime)
     }
 }
