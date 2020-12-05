@@ -15,13 +15,13 @@
     <string name="heat_alert_heat_warning_title">Hőség figyelmeztetés</string>
     <string name="heat_alert_heat_alert_title">Hőségriasztás</string>
     <string name="heat_alert_heat_danger_title">Hőségveszély</string>
-    <string name="forecast_worsening">Valószínűleg később romlani fog</string>
-    <string name="forecast_improving">Valószínűleg később javulni fog</string>
-    <string name="weather_not_changing">Nem fog hamar változni</string>
+    <string name="forecast_worsening">Később romolhat</string>
+    <string name="forecast_improving">Később javulhat</string>
+    <string name="weather_not_changing">Egyelőre nem változik</string>
     <string name="weather_storm_incoming">Közelgő vihar</string>
     <string name="weather_worsening_fast">Romlani fog nagyon hamar</string>
-    <string name="weather_improving_slow">Nemsokára javul</string>
-    <string name="weather_worsening_slow">Nemsokára romlik</string>
+    <string name="weather_improving_slow">Nemsokára javulni fog</string>
+    <string name="weather_worsening_slow">Nemsokára romlani fog</string>
     <string name="weather_improving_fast">Javulni fog nagyon hamar</string>
     <string name="no_humidity_data">Nincs páratartalom adat</string>
     <string name="humidity_format">%.0f%% páratartalom</string>
@@ -81,7 +81,7 @@
     <string name="sos">SOS</string>
     <string name="turn_off_flashlight">Érintse meg a kikapcsoláshoz</string>
     <string name="flashlight_title">Zseblámpa</string>
-    <string name="accuracy_info">"GPS: Menjen a szabadba, ahol szabad rálátás van az égboltra!
+    <string name="accuracy_info">"GPS: Menjen a szabadba, ahol nyílt rálátás van az égboltra!
 \n    %s jelenlegi helyzet
 \n    %s magasság
 \n    %s műhold
@@ -135,4 +135,52 @@
     <string name="action_settings">Beállítások</string>
     <string name="action_weather">Időjárás</string>
     <string name="action_navigation">Navigáció</string>
+    <string name="max_depth">Max: %s</string>
+    <string name="until_sun_time">múlva lesz %s</string>
+    <string name="unit_nautical_miles">Tengeri mérföld</string>
+    <string name="unit_miles">Mérföld</string>
+    <string name="feet_miles">Láb / Mérföld</string>
+    <string name="precise_miles_format">%s mi</string>
+    <string name="unit_kilometers">Kilométer</string>
+    <string name="unit_meters">Méter</string>
+    <string name="meters">Méter</string>
+    <string name="precise_kilometers_format">%s km</string>
+    <string name="precise_meters_format">%s m</string>
+    <string name="distance_to">Mibe</string>
+    <string name="distance_from">Miből</string>
+    <string name="pref_show_calibrate_on_navigate_dialog_title">Navigálás előtt kalibrálás</string>
+    <string name="depth_disclaimer">Csak saját felelősségre!
+\n
+\nNe használja vízhatlan tok nélkül! Tartózkodjon biztonságos búvárkodási távolságon belül, ha lehetséges!</string>
+    <string name="tool_depth_summary">Vízmélység mérése</string>
+    <string name="tool_depth_title">Mélység</string>
+    <string name="solar_panel_instructions">Helyezze a telefont a napelem felületére a kezdéshez!</string>
+    <string name="solar_align_now">Most</string>
+    <string name="tool_solar_panel_title">Napelem beállító</string>
+    <string name="tool_solar_panel_summary">Napelemek beállítása a megfelelő energiatermeléshez</string>
+    <string name="solar_noon">Dél</string>
+    <string name="inventory_empty_text">Nincsenek tárgyak</string>
+    <string name="action_inventory_delete_all_confirm">Összes tárgy törlése\?</string>
+    <string name="action_inventory_delete_all">Összes törlése</string>
+    <string name="action_inventory">Eszköztár</string>
+    <string name="tool_whistle_title">Síp</string>
+    <string name="tool_distance_convert_title">Távolság átváltó</string>
+    <string name="cliff_height_guide">Szikla magasságának megbecsülése</string>
+    <string name="cliff_height_stop_measure">Stop</string>
+    <string name="tool_cliff_height_title">Szikla magasság</string>
+    <string name="cliff_height_start_measure">Mérés</string>
+    <string name="tool_bubble_level_summary">Felületek dőlésének mérése</string>
+    <string name="tool_bubble_level_title">Vízmérték</string>
+    <string name="beacon_group_spinner_title">Csoport</string>
+    <string name="no_group">Nincs csoport</string>
+    <string name="beacon_group_name_hint">Név</string>
+    <string name="beacon_create_group">Csoport</string>
+    <string name="edit_beacon_group">Csoport szerkesztése</string>
+    <string name="delete_beacon_group_message">%s és az összes hozzá tartozó jelölő törölve lesz</string>
+    <string name="delete_beacon_group">Csoport törlése</string>
+    <string name="sunset_alert_channel_title">Napnyugta figyelmeztetés</string>
+    <string name="sunset_alert_channel_description">Napnyugta figyelmeztetések</string>
+    <string name="sunset_alert_notification_text">A nap %s-kor fog lenyugodni</string>
+    <string name="sunset_alert_notification_title">A nap hamarosan nyugszik</string>
+    <string name="until_sunset_label">napnyugtáig</string>
 </resources>

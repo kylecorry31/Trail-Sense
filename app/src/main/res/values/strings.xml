@@ -21,13 +21,11 @@
     <string name="disclaimer_message_title">Disclaimer</string>
     <string name="disclaimer_message_content">Trail Sense is a tool that can be used in a survival situation, but you should not rely solely upon it. Please validate its accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
     <!--Navigation Tab - Unit Formats-->
-
     <string name="precise_feet_format">%s ft</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_kilometers_format">%s km</string>
-
     <string name="feet_format">%.0f ft</string>
     <string name="depth_feet_format">%.1f ft</string>
     <string name="miles_format">%.2f mi</string>
@@ -264,7 +262,7 @@
     <string name="compass_declination_override">Declination override</string>
     <string name="compass_auto_declination">Auto adjust declination</string>
     <string name="compass_azimuth">Azimuth</string>
-    <string name="compass_declination">Declination</string>
+    <string name="compass_declination">Magnetic declination</string>
     <!--    A message which appears when the declination is updated from the GPS on the calibration page-->
     <string name="declination_override_updated_toast">Declination override updated</string>
     <string name="pref_auto_declination_summary">Based on your current location</string>

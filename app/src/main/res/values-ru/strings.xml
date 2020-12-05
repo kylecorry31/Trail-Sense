@@ -35,7 +35,7 @@
     <string name="weather_not_changing">Не изменится в ближайшее время</string>
     <string name="forecast_improving">Возможно улучшится позже</string>
     <string name="forecast_worsening">Возможно, ухудшится позже</string>
-    <string name="no_beacons">Нет точек</string>
+    <string name="no_beacons">Нет маячков</string>
     <string name="onboarding_compass">Укажите маячки и направляйтесь к ним</string>
     <string name="onboarding_weather">Получить местные прогнозы погоды</string>
     <string name="onboarding_weather_no_internet">* не использует подключение к Интернету</string>
@@ -230,9 +230,9 @@
     <string name="pref_center_sun_and_moon_title">Держать солнце/луну в центре</string>
     <string name="sun_moon_compass_when_up">Когда взошло</string>
     <string name="pref_monitor_weather_summary">В фоне</string>
-    <string name="pref_max_beacon_distance_km_message">Введите максимальный радиус для отображаемых точек (километры)</string>
-    <string name="pref_max_beacon_distance_miles_message">Введите максимальный радиус для отображаемых точек (мили)</string>
-    <string name="pref_max_beacon_distance_title">Максимальный радиус для отображаемых точек</string>
+    <string name="pref_max_beacon_distance_km_message">Введите максимальный радиус для отображаемых маячков (километры)</string>
+    <string name="pref_max_beacon_distance_miles_message">Введите максимальный радиус для отображаемых маячков (мили)</string>
+    <string name="pref_max_beacon_distance_title">Максимальный радиус для ближайших</string>
     <string name="pref_display_multi_beacons_summary">Показывать ближайшие маячки на компасе</string>
     <string name="pref_num_visible_beacons_title">Ближайших маячков</string>
     <string name="pref_temperature_adjustment_title">Смещение значений температуры</string>
@@ -411,7 +411,7 @@
     <string name="guide_conserving_battery_title">Экономия батареи</string>
     <string name="guide_conserving_battery_description">Экономия заряда батареи при использовании Trail Sense</string>
     <string name="guide_beacons_title">Маячки</string>
-    <string name="guide_beacons_description">Как ориентироваться с помощью точек</string>
+    <string name="guide_beacons_description">Как ориентироваться с помощью</string>
     <string name="guide_weather_prediction_title">Прогноз погоды</string>
     <string name="guide_weather_prediction_description">Как предсказывать погоду с помощью Trail Sense</string>
     <string name="item_amount_hint">Количество</string>
