@@ -262,7 +262,7 @@
     <string name="compass_declination_override">Declination override</string>
     <string name="compass_auto_declination">Auto adjust declination</string>
     <string name="compass_azimuth">Azimuth</string>
-    <string name="compass_declination">Magnetic declination</string>
+    <string name="compass_declination">Declination</string>
     <!--    A message which appears when the declination is updated from the GPS on the calibration page-->
     <string name="declination_override_updated_toast">Declination override updated</string>
     <string name="pref_auto_declination_summary">Based on your current location</string>
