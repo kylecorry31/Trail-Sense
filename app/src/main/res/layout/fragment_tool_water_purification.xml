@@ -41,15 +41,69 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/boil_disclaimer"
+        android:id="@+id/step_one_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/one"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/step_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/water_purification_step_1"
+        app:layout_constraintBottom_toBottomOf="@+id/step_one_label"
+        app:layout_constraintStart_toEndOf="@+id/step_one_label"
+        app:layout_constraintTop_toTopOf="@+id/step_one_label" />
+
+    <TextView
+        android:id="@+id/step_two_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/tool_boil_disclaimer"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/two"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/step_one_label" />
+
+    <TextView
+        android:id="@+id/step_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/water_purification_step_2"
+        app:layout_constraintBottom_toBottomOf="@+id/step_two_label"
+        app:layout_constraintStart_toEndOf="@+id/step_two_label"
+        app:layout_constraintTop_toTopOf="@+id/step_two_label" />
+
+    <TextView
+        android:id="@+id/step_three_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/three"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/step_two_label" />
+
+    <TextView
+        android:id="@+id/step_three"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/water_purification_step_3"
+        app:layout_constraintBottom_toBottomOf="@+id/step_three_label"
+        app:layout_constraintStart_toEndOf="@+id/step_three_label"
+        app:layout_constraintTop_toTopOf="@+id/step_three_label" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

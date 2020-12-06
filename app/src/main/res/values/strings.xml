@@ -620,7 +620,6 @@
     <string name="tool_boil_summary">Tell when water is potable</string>
     <string name="tool_boil_title">Water Boil Timer</string>
     <string name="tool_boil" translatable="false">tool_boil</string>
-    <string name="tool_boil_disclaimer">Filter water and bring to a rolling boil before starting timer</string>
     <string name="pref_sensor_details" translatable="false">pref_sensor_details</string>
     <string name="pref_sensor_details_title">Sensor details</string>
     <string name="tool_flashlight" translatable="false">tool_flashlight</string>
@@ -639,4 +638,10 @@
     <string name="precise_inches_format">%s in</string>
     <string name="tool_ruler_title">Ruler</string>
     <string name="tool_ruler" translatable="false">tool_ruler</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="water_purification_step_1">Filter the water</string>
+    <string name="water_purification_step_2">Bring water to a rolling boil</string>
+    <string name="water_purification_step_3">Start the timer</string>
 </resources>
