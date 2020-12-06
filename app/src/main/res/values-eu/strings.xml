@@ -226,4 +226,15 @@
     <string name="tide_neap">Hila</string>
     <string name="moon_set">Ilargia sartzea</string>
     <string name="moon_rise">Ilargia ateratzea</string>
+    <string name="tool_depth_title">Sakonera</string>
+    <string name="category_navigation">Nabigazioa</string>
+    <string name="category_safety">Segurtasuna</string>
+    <string name="category_shelter">Babeslekua</string>
+    <string name="category_fire">Sua</string>
+    <string name="category_medical">Medikua</string>
+    <string name="category_clothing">Arropa</string>
+    <string name="category_tools">Tresnak</string>
+    <string name="category_hydration">Hidratazioa</string>
+    <string name="pref_altimeter_calibration_mode_title">Autokalibraketa</string>
+    <string name="access_background_location_rationale">Trail Sensek kokapen datuak erabiltzen ditu atzekaldean. Eguraldiaren monitorizazioan itsas mailaren presioaren kalibraketa egiteko eta egunsenti abisu zehatzagoak emateko erabiltzen da. [Ikusi pribatutasun politika] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
 </resources>
