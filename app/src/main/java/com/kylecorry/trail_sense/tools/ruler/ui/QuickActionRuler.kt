@@ -1,15 +1,11 @@
-package com.kylecorry.trail_sense.navigation.ui
+package com.kylecorry.trail_sense.tools.ruler.ui
 
-import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.view.ViewMeasurementUtils
-import kotlin.math.roundToInt
 
 class QuickActionRuler(btn: FloatingActionButton, fragment: Fragment, private val rulerView: ConstraintLayout): QuickActionButton(btn, fragment) {
     private lateinit var ruler: Ruler

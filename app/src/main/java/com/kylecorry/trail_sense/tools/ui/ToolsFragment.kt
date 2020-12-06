@@ -91,6 +91,11 @@ class ToolsFragment : PreferenceFragmentCompat() {
             R.id.action_action_experimental_tools_to_fragmentToolLightning
         )
 
+        navigateOnClick(
+            findPreference(getString(R.string.tool_ruler)),
+            R.id.action_action_experimental_tools_to_rulerFragment
+        )
+
         val flashlight = findPreference<Preference>(getString(R.string.tool_flashlight))
         flashlight?.isVisible = Flashlight.hasFlashlight(requireContext())
         navigateOnClick(

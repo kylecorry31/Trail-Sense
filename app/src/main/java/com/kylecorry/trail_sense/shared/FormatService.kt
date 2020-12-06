@@ -97,6 +97,16 @@ class FormatService(private val context: Context) {
         }
     }
 
+    fun formatFractionalDistance(distanceCentimeters: Float): String {
+        val units = prefs.distanceUnits
+        val multiplier = if (units == UserPreferences.DistanceUnits.Meters) 1f else 0.393701f
+        val formatted = DecimalFormatter.format((distanceCentimeters * multiplier).toDouble())
+        return when(units){
+            UserPreferences.DistanceUnits.Meters -> context.getString(R.string.precise_centimeters_format, formatted)
+            UserPreferences.DistanceUnits.Feet -> context.getString(R.string.precise_inches_format, formatted)
+        }
+    }
+
     fun formatDistancePrecise(distance: Float, units: DistanceUnits): String {
         val formatted = DecimalFormatter.format(distance.toDouble())
         return when (units) {

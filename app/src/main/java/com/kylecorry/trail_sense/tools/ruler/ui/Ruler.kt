@@ -1,5 +1,6 @@
-package com.kylecorry.trail_sense.navigation.ui
+package com.kylecorry.trail_sense.tools.ruler.ui
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +17,9 @@ class Ruler(private val view: ConstraintLayout) {
     private val userPrefs = UserPreferences(context)
     private var isRulerSetup = false
     private var areRulerTextViewsAligned = false
+    private var tapBar: View? = null
+
+    var onTap: ((centimeters: Float) -> Unit)? = null
 
     val visible: Boolean
         get() = view.visibility == View.VISIBLE
@@ -44,6 +48,11 @@ class Ruler(private val view: ConstraintLayout) {
         view.visibility = View.GONE
     }
 
+    fun clearTap(){
+        tapBar?.visibility = View.INVISIBLE
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
     private fun update() {
         val dpi = ViewMeasurementUtils.dpi(context)
         val scale = userPrefs.navigation.rulerScale
@@ -97,6 +106,28 @@ class Ruler(private val view: ConstraintLayout) {
                     areRulerTextViewsAligned = true
                 }
                 view.y -= view.height / 2f
+            }
+            tapBar = View(context)
+            tapBar?.let {
+                it.setBackgroundColor(UiUtils.color(context, R.color.colorPrimary))
+                val layoutParams = ConstraintLayout.LayoutParams(1, 4)
+                it.layoutParams = layoutParams
+                it.layoutParams.width = view.width
+                it.visibility = View.INVISIBLE
+                view.addView(it)
+            }
+            view.setOnTouchListener { v, event ->
+                val tapPosition = event.y
+                val tapOffsetPosition = tapPosition - context.resources.getDimensionPixelSize(R.dimen.ruler_top)
+                val tapCm = scale * tapOffsetPosition / dpi * 2.54f
+                if (onTap != null) {
+                    onTap?.invoke(tapCm)
+                    tapBar?.visibility = View.VISIBLE
+                    tapBar?.y = tapPosition
+                } else {
+                    tapBar?.visibility = View.INVISIBLE
+                }
+                true
             }
         }
 
