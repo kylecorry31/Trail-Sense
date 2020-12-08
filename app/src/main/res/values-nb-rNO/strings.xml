@@ -433,4 +433,33 @@
     <string name="compass_declination_override">Angi misvisningsverdien manuelt</string>
     <string name="compass_auto_declination">Juster misvisning automatisk</string>
     <string name="sun_moon_compass_when_up">Når oppe</string>
+    <string name="three">3</string>
+    <string name="two">2</string>
+    <string name="one">1</string>
+    <string name="water_purification_step_2">Kok opp vannet til det fosskoker</string>
+    <string name="water_purification_step_1">Filtrer vannet</string>
+    <string name="flashlight_strobe">Blinkemodus</string>
+    <string name="tool_boil_title">Timer for vannkoking</string>
+    <string name="tool_boil_summary">Gi beskjed når vannet er drikkelig</string>
+    <string name="boil_start">Start</string>
+    <plurals name="water_boil_timer_content">
+        <item quantity="one">%d sekund til drikkelig</item>
+        <item quantity="other">%d sekunder til drikkelig</item>
+    </plurals>
+    <string name="water_boil_timer_done_title">Ferdig med vannkoking</string>
+    <string name="water_boil_timer_title">Vannkoking</string>
+    <string name="water_boil_timer_channel_description">Vannet koker</string>
+    <string name="water_boil_timer_channel">Timer for vannkoking</string>
+    <string name="water_purification_step_3">Start timer</string>
+    <string name="tool_ruler_title">Linjal</string>
+    <string name="precise_inches_format">%s \"</string>
+    <string name="precise_centimeters_format">%s cm</string>
+    <string name="tool_lightning_title">Lynavstand</string>
+    <string name="tool_lightning_description">Mål avstanden til lynet</string>
+    <string name="reset">Nullstill</string>
+    <string name="thunder">Torden</string>
+    <string name="lightning">Lyn</string>
+    <string name="gps_time_toast">Tid oppdatert fra GPS</string>
+    <string name="utc_format">UTC %s</string>
+    <string name="tool_clock_title">Klokke</string>
 </resources>
