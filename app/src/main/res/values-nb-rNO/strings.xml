@@ -459,7 +459,6 @@
     <string name="reset">Nullstill</string>
     <string name="thunder">Torden</string>
     <string name="lightning">Lyn</string>
-    <string name="gps_time_toast">Tid oppdatert fra GPS</string>
     <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Klokke</string>
 </resources>

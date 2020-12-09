@@ -627,7 +627,6 @@
     <string name="tool_clock_title">Clock</string>
     <string name="utc_format">UTC %s</string>
     <string name="tool_clock" translatable="false">tool_clock</string>
-    <string name="gps_time_toast">Time updated from GPS</string>
     <string name="lightning">Lightning</string>
     <string name="thunder">Thunder</string>
     <string name="reset">Reset</string>
@@ -644,4 +643,5 @@
     <string name="water_purification_step_1">Filter the water</string>
     <string name="water_purification_step_2">Bring water to a rolling boil</string>
     <string name="water_purification_step_3">Start the timer</string>
+    <string name="clock_waiting_for_gps">Updating time from GPS...</string>
 </resources>

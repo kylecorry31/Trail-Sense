@@ -472,7 +472,6 @@
     <string name="pressure_setpoint_format">Ustawione: %s - %s temu</string>
     <string name="beacon_elevation_hint_meters">Wysokość w metrach (opcjonalnie)</string>
     <string name="disclaimer_message_content">Trail Sense to narzędzie, które można wykorzystać w sytuacji surwiwalowej, ale nie należy polegać wyłącznie na nim. Zweryfikuj jego dokładność, jeśli to możliwe unikaj niebezpiecznych sytuacji, zachowaj spokój i kieruj się zdrowym rozsądkiem.</string>
-    <string name="gps_time_toast">Czas został zaktualizowany z GPS</string>
     <string name="tool_clock_title">Zegar</string>
     <string name="utc_format">UTC %s</string>
     <string name="lightning">Piorun</string>

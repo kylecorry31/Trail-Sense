@@ -44,6 +44,7 @@ class ToolClockFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         gps.start(this::onGPSUpdate)
+        binding.updatingClock.visibility = View.VISIBLE
         timer.interval(20)
     }
 
@@ -56,7 +57,7 @@ class ToolClockFragment : Fragment() {
     private fun onGPSUpdate(): Boolean {
         gpsTime = gps.time
         systemTime = Instant.now()
-        UiUtils.shortToast(requireContext(), getString(R.string.gps_time_toast))
+        binding.updatingClock.visibility = View.INVISIBLE
         return false
     }
 

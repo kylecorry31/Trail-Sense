@@ -63,4 +63,18 @@
         app:layout_constraintStart_toStartOf="@+id/clock"
         app:layout_constraintTop_toBottomOf="@+id/utc_clock" />
 
+    <TextView
+        android:id="@+id/updating_clock"
+        android:drawablePadding="8dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clock_waiting_for_gps"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:drawableStartCompat="@drawable/satellite"
+        app:drawableTint="?android:textColorSecondary" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
