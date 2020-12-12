@@ -1,0 +1,5 @@
+- Add GPS Clock tool
+- Add Lighting Strike Distance tool
+- Add Ruler tool (tap ruler to get more accurate measurement)
+- Improve instructions on water boil timer
+- Strobe no longer toggles the flashlight back on
