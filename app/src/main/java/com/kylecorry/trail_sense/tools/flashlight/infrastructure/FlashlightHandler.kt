@@ -8,30 +8,39 @@ import android.os.Looper
 import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
 
-class FlashlightHandler(private val context: Context) : IFlashlightHandler {
+class FlashlightHandler private constructor(private val context: Context) : IFlashlightHandler {
 
     private val torchCallback: TorchCallback
+    private val handler: Handler
+    private var isTurningOff = false
 
     init {
         torchCallback = object : TorchCallback() {
             override fun onTorchModeChanged(cameraId: String, enabled: Boolean) {
                 try {
                     super.onTorchModeChanged(cameraId, enabled)
+                    if (isTurningOff){
+                        return
+                    }
+
                     if (!enabled && FlashlightService.isOn(context)) {
                         off()
                     }
 
-                    if (enabled && !FlashlightService.isOn(context) && !SosService.isOn(context) && !StrobeService.isOn(context)){
+                    if (enabled && !FlashlightService.isOn(context) && !SosService.isOn(context) && !StrobeService.isOn(
+                            context
+                        )
+                    ) {
                         on()
                     }
-                } catch (e: Exception){
+                } catch (e: Exception) {
                     // Ignore
                 }
             }
         }
+        handler = Handler(Looper.getMainLooper())
         initialize()
     }
 
@@ -41,7 +50,9 @@ class FlashlightHandler(private val context: Context) : IFlashlightHandler {
 
     override fun release() {
         unregisterTorchCallback()
-        off()
+        SosService.stop(context)
+        StrobeService.stop(context)
+        FlashlightService.stop(context)
     }
 
     override fun on() {
@@ -54,15 +65,32 @@ class FlashlightHandler(private val context: Context) : IFlashlightHandler {
         SosService.stop(context)
         StrobeService.stop(context)
         FlashlightService.stop(context)
+        isTurningOff = true
+        forceOff(200)
+    }
+
+    private fun forceOff(millis: Long){
+        val increment = 20L
+        if ((millis - increment) < 0){
+            isTurningOff = false
+            return
+        }
+        handler.postDelayed({
+            val flashlight = Flashlight(context)
+            flashlight.off()
+            forceOff(millis - increment)
+        }, increment)
     }
 
     override fun sos() {
+//        unregisterTorchCallback()
         StrobeService.stop(context)
         FlashlightService.stop(context)
         SosService.start(context)
     }
 
     override fun strobe() {
+//        unregisterTorchCallback()
         SosService.stop(context)
         FlashlightService.stop(context)
         StrobeService.start(context)
@@ -90,23 +118,33 @@ class FlashlightHandler(private val context: Context) : IFlashlightHandler {
         return Flashlight.hasFlashlight(context)
     }
 
-    private fun registerTorchCallback(){
+    private fun registerTorchCallback() {
         try {
             context.getSystemService<CameraManager>()?.registerTorchCallback(
                 torchCallback, Handler(
                     Looper.getMainLooper()
                 )
             )
-        } catch (e: Exception){
+        } catch (e: Exception) {
 
         }
     }
 
-    private fun unregisterTorchCallback(){
+    private fun unregisterTorchCallback() {
         try {
             context.getSystemService<CameraManager>()?.unregisterTorchCallback(torchCallback)
-        } catch (e: Exception){
+        } catch (e: Exception) {
 
+        }
+    }
+
+    companion object {
+        private var instance: FlashlightHandler? = null
+        fun getInstance(context: Context): FlashlightHandler {
+            if (instance == null) {
+                instance = FlashlightHandler(context.applicationContext)
+            }
+            return instance!!
         }
     }
 

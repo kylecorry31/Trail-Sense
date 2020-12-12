@@ -13,7 +13,7 @@ import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 class QuickActionFlashlight(btn: FloatingActionButton, fragment: Fragment): QuickActionButton(btn, fragment) {
 
     private var flashlightState = FlashlightState.Off
-    private val flashlight by lazy { FlashlightHandler(context) }
+    private val flashlight by lazy { FlashlightHandler.getInstance(context) }
     private val intervalometer = Intervalometer {
         flashlightState = flashlight.getState()
         updateFlashlightUI()

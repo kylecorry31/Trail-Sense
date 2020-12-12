@@ -16,7 +16,7 @@ import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 class FragmentToolFlashlight: Fragment() {
 
     private var flashlightState = FlashlightState.Off
-    private val flashlight by lazy { FlashlightHandler(requireContext()) }
+    private val flashlight by lazy { FlashlightHandler.getInstance(requireContext()) }
     private val intervalometer = Intervalometer {
         update()
     }
