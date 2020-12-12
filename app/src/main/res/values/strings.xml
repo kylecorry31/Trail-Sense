@@ -643,5 +643,8 @@
     <string name="water_purification_step_1">Filter the water</string>
     <string name="water_purification_step_2">Bring water to a rolling boil</string>
     <string name="water_purification_step_3">Start the timer</string>
-    <string name="clock_waiting_for_gps">Updating time from GPS...</string>
+    <string name="clock_waiting_for_gps">Updating time from GPS…</string>
+    <string name="pref_fine_with_strobe" translatable="false">pref_fine_with_strobe</string>
+    <string name="strobe_warning_title">Flashing lights</string>
+    <string name="strobe_warning_content">The strobe feature contains flashing lights, which may be dangerous for some users.</string>
 </resources>

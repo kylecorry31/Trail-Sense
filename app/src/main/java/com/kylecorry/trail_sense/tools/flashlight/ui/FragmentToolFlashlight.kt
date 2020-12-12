@@ -10,16 +10,18 @@ import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
-class FragmentToolFlashlight: Fragment() {
+class FragmentToolFlashlight : Fragment() {
 
     private var flashlightState = FlashlightState.Off
     private val flashlight by lazy { FlashlightHandler.getInstance(requireContext()) }
     private val intervalometer = Intervalometer {
         update()
     }
+    private val cache by lazy { Cache(requireContext()) }
 
     private var _binding: FragmentToolFlashlightBinding? = null
     private val binding get() = _binding!!
@@ -30,14 +32,14 @@ class FragmentToolFlashlight: Fragment() {
     ): View? {
         _binding = FragmentToolFlashlightBinding.inflate(inflater, container, false)
         binding.flashlightBtn.setOnClickListener {
-            if (flashlight.getState() == FlashlightState.On){
+            if (flashlight.getState() == FlashlightState.On) {
                 flashlight.set(FlashlightState.Off)
             } else {
                 flashlight.set(FlashlightState.On)
             }
         }
         binding.sosBtn.setOnClickListener {
-            if (flashlight.getState() == FlashlightState.SOS){
+            if (flashlight.getState() == FlashlightState.SOS) {
                 flashlight.set(FlashlightState.Off)
             } else {
                 flashlight.set(FlashlightState.SOS)
@@ -45,10 +47,23 @@ class FragmentToolFlashlight: Fragment() {
         }
 
         binding.strobeBtn.setOnClickListener {
-            if (flashlight.getState() == FlashlightState.Strobe){
+            if (flashlight.getState() == FlashlightState.Strobe) {
                 flashlight.set(FlashlightState.Off)
             } else {
-                flashlight.set(FlashlightState.Strobe)
+                if (cache.getBoolean(getString(R.string.pref_fine_with_strobe)) == true) {
+                    flashlight.set(FlashlightState.Strobe)
+                } else {
+                    UiUtils.alertWithCancel(
+                        requireContext(), getString(R.string.strobe_warning_title), getString(
+                            R.string.strobe_warning_content
+                        ), getString(R.string.dialog_ok), getString(R.string.dialog_cancel)
+                    ) { cancelled ->
+                        if (!cancelled) {
+                            cache.putBoolean(getString(R.string.pref_fine_with_strobe), true)
+                            flashlight.set(FlashlightState.Strobe)
+                        }
+                    }
+                }
             }
         }
         return binding.root
@@ -95,7 +110,7 @@ class FragmentToolFlashlight: Fragment() {
     }
 
 
-    private fun update(){
+    private fun update() {
         flashlightState = flashlight.getState()
         updateFlashlightUI()
     }
