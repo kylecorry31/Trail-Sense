@@ -62,7 +62,7 @@ class NavigatorFragment : Fragment() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val cache by lazy { Cache(requireContext()) }
-    private val throttle = Throttle(16)
+    private val throttle = Throttle(20)
 
     private val navigationService = NavigationService()
     private val astronomyService = AstronomyService()
