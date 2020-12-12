@@ -471,7 +471,6 @@
     <string name="reset">Zurücksetzen</string>
     <string name="thunder">Donner</string>
     <string name="lightning">Blitze</string>
-    <string name="gps_time_toast">Zeit von GPS-Signal aktualisiert</string>
     <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Uhr</string>
     <string name="flashlight_strobe">Stroboskop</string>

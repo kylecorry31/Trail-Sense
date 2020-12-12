@@ -405,7 +405,6 @@
     <string name="action_inventory_delete_all">Usuń wszystko</string>
     <string name="guide_weather_prediction_description">Jak prognozować pogodę przy użyciu programu Trail Sense</string>
     <string name="pref_sensor_details_title">Szczegóły czujników</string>
-    <string name="tool_flashlight">tool_flashlight</string>
     <string name="pref_privacy_policy_title">Polityka prywatności</string>
     <string name="unit_nautical_miles">Mile morskie</string>
     <string name="unit_miles">Mile</string>
