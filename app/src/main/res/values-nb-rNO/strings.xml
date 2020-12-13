@@ -461,4 +461,7 @@
     <string name="lightning">Lyn</string>
     <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Klokke</string>
+    <string name="strobe_warning_content">Blinkemodusfunksjonen gir blinkende lys som kan være farlig for noen brukere.</string>
+    <string name="clock_waiting_for_gps">Oppdaterer tid fra GPS…</string>
+    <string name="strobe_warning_title">Blinkende lys</string>
 </resources>
