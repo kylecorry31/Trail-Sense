@@ -424,8 +424,6 @@
     <string name="water_purification_step_3">Starten Sie den Timer</string>
     <string name="water_purification_step_2">Bringen Sie das Wasser zum Kochen, sodass es stark sprudelt</string>
     <string name="water_purification_step_1">Filtern Sie das Wasser</string>
-    <string name="one"/>
-    <string name="two"/>
     <string name="tool_ruler_title">Lineal</string>
     <string name="distance_to">Nach</string>
     <string name="distance_from">Von</string>
