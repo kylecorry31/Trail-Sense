@@ -519,4 +519,7 @@
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_feet_format">%s ft</string>
+    <string name="strobe_warning_content">Функция стробоскопа содержит мигающие огни, которые могут быть опасны для некоторых пользователей.</string>
+    <string name="strobe_warning_title">Мигающие огни</string>
+    <string name="clock_waiting_for_gps">Обновление времени с GPS…</string>
 </resources>

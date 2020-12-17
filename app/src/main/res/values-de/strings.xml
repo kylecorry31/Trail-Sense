@@ -335,7 +335,7 @@
     <string name="pref_force_weather_updates_title">Wetteraktualisierungen erzwingen</string>
     <string name="guide_beacons_description">Navigation unter Verwendung von Wegmarken</string>
     <string name="guide_beacons_title">Wegmarken</string>
-    <string name="pref_category_tabs">Tabulatoren</string>
+    <string name="pref_category_tabs">Tabs</string>
     <string name="navigation_nearby_category">Nahegelegen</string>
     <string name="forecasts_category">Vorhersagen</string>
     <string name="tap_sun_moon_hint">Tippe Sonne oder Mond an, um Positionseinzelheiten zu sehen</string>
@@ -408,7 +408,7 @@
     <string name="pref_adjust_for_temperature_summary">Nutze die Temperatur zur Umrechnung auf Meereshöhe</string>
     <string name="tool_bubble_level_title">Libelle</string>
     <string name="edit_item_title">Gegenstand editieren</string>
-    <string name="create_item_title">Gegenstand kreieren</string>
+    <string name="create_item_title">Gegenstand erstellen</string>
     <string name="dialog_item_subtract">Abziehen</string>
     <string name="dialog_item_amount">Betrag</string>
     <string name="dialog_item_add">Hinzufügen</string>
@@ -422,15 +422,15 @@
     <string name="depth_meters_format">%.2f m</string>
     <string name="depth_feet_format">%.1f ft</string>
     <string name="water_purification_step_3">Starten Sie den Timer</string>
-    <string name="water_purification_step_2">Bringen Sie das Wasser zum Kochen bringen, sodass es stark sprudelt</string>
+    <string name="water_purification_step_2">Bringen Sie das Wasser zum Kochen, sodass es stark sprudelt</string>
     <string name="water_purification_step_1">Filtern Sie das Wasser</string>
-    <string name="one"></string>
-    <string name="two"></string>
+    <string name="one"/>
+    <string name="two"/>
     <string name="tool_ruler_title">Lineal</string>
     <string name="distance_to">Nach</string>
     <string name="distance_from">Von</string>
     <string name="distance_hint">Entfernung</string>
-    <string name="tool_distance_convert_title">Längeneinheitenumrechner</string>
+    <string name="tool_distance_convert_title">Einheitenrechner</string>
     <string name="inventory_empty_text">Keine Einträge</string>
     <string name="action_inventory_delete_all_confirm">Alle Gegenstände des Inventars löschen\?</string>
     <string name="action_inventory_delete_all">Alle löschen</string>
@@ -470,7 +470,7 @@
     <string name="tool_lightning_description">Die Entfernung eines Gewitters messen</string>
     <string name="reset">Zurücksetzen</string>
     <string name="thunder">Donner</string>
-    <string name="lightning">Blitze</string>
+    <string name="lightning">Blitz</string>
     <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Uhr</string>
     <string name="flashlight_strobe">Stroboskop</string>
@@ -489,7 +489,7 @@
     <string name="water_boil_timer_channel">Wasserkocher-Timer</string>
     <string name="solar_panel_instructions">Zum Starten Handy flach auf dem Panel positionieren.</string>
     <string name="solar_align_now">Jetzt</string>
-    <string name="tool_solar_panel_title">Solarpanel-Ausrichtungs-Tool</string>
+    <string name="tool_solar_panel_title">Solarpanel ausrichten</string>
     <string name="tool_solar_panel_summary">Solarpanels für optimale Energiegewinnung ausrichten</string>
     <string name="pref_privacy_policy_title">Datenschutzerklärung</string>
     <string name="guide_recommended_apps_description">Nützliche Apps für Überlebenssituationen</string>
