@@ -55,6 +55,11 @@
     <string name="degree_format">%.0f°</string>
     <string name="percent_format">%d%%</string>
     <string name="battery_capacity_format">%.2f mAh</string>
+    <string name="current_format">%.0f mA</string>
+    <string name="charging_fast">Charging rapidly (%s)</string>
+    <string name="charging_slow">Charging slowly (%s)</string>
+    <string name="discharging_slow">Discharging slowly (%s)</string>
+    <string name="discharging_fast">Discharging rapidly (%s)</string>
     <string name="dash">-</string>
     <!--Navigation Tab - Accuracy-->
     <string name="accuracy_low">Low</string>

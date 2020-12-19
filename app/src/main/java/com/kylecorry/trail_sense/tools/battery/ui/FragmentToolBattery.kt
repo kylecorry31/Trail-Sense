@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.shared.DecimalFormatter
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.battery.Battery
+import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
 class FragmentToolBattery: Fragment() {
@@ -19,6 +22,9 @@ class FragmentToolBattery: Fragment() {
 
     private val formatService by lazy { FormatService(requireContext()) }
     private val battery by lazy { Battery(requireContext()) }
+
+    private var currentFilter = LowPassFilter(0.1f, 0f)
+    private var lastCurrent = 0f
 
     private var lastReading = 0f
 
@@ -61,6 +67,22 @@ class FragmentToolBattery: Fragment() {
         val pct = battery.percent.roundToInt()
         binding.batteryPercentage.text = formatService.formatPercentage(pct)
         binding.batteryCapacity.text = formatService.formatBatteryCapacity(capacity)
+
+        if (battery.current != lastCurrent) {
+            if ((battery.current - lastCurrent).absoluteValue > 100 || lastCurrent == 0f){
+                currentFilter = LowPassFilter(0.2f, battery.current)
+            }
+            val current = currentFilter.filter(battery.current)
+            val formattedCurrent = formatService.formatCurrent(current.absoluteValue)
+            binding.batteryCurrent.text = when {
+                current > 500 -> getString(R.string.charging_fast, formattedCurrent)
+                current > 0 -> getString(R.string.charging_slow, formattedCurrent)
+                current < -500 -> getString(R.string.discharging_fast, formattedCurrent)
+                else -> getString(R.string.discharging_slow, formattedCurrent)
+            }
+            lastCurrent = battery.current
+        }
+
         binding.batteryLevelBar.progress = pct
 
         if (capacity - lastReading > 0){

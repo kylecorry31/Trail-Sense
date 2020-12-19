@@ -232,4 +232,8 @@ class FormatService(private val context: Context) {
         return context.getString(R.string.battery_capacity_format, capacity)
     }
 
+    fun formatCurrent(current: Float): String {
+        return context.getString(R.string.current_format, current)
+    }
+
 }
