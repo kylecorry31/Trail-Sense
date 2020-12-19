@@ -65,14 +65,15 @@ class FragmentToolBattery: Fragment() {
     private fun update() {
         val capacity = battery.capacity
         val pct = battery.percent.roundToInt()
+        val batteryCurrent = battery.current
         binding.batteryPercentage.text = formatService.formatPercentage(pct)
         binding.batteryCapacity.text = formatService.formatBatteryCapacity(capacity)
 
-        if (battery.current != lastCurrent) {
-            if ((battery.current - lastCurrent).absoluteValue > 100 || lastCurrent == 0f){
-                currentFilter = LowPassFilter(0.2f, battery.current)
+        if (batteryCurrent != lastCurrent) {
+            if ((batteryCurrent - lastCurrent).absoluteValue > 100 || lastCurrent == 0f){
+                currentFilter = LowPassFilter(0.2f, batteryCurrent)
             }
-            val current = currentFilter.filter(battery.current)
+            val current = currentFilter.filter(batteryCurrent)
             val formattedCurrent = formatService.formatCurrent(current.absoluteValue)
             binding.batteryCurrent.text = when {
                 current > 500 -> getString(R.string.charging_fast, formattedCurrent)
@@ -80,7 +81,7 @@ class FragmentToolBattery: Fragment() {
                 current < -500 -> getString(R.string.discharging_fast, formattedCurrent)
                 else -> getString(R.string.discharging_slow, formattedCurrent)
             }
-            lastCurrent = battery.current
+            lastCurrent = batteryCurrent
         }
 
         binding.batteryLevelBar.progress = pct
