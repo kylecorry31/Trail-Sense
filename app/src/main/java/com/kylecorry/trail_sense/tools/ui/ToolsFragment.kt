@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.ui
 
-import android.media.*
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.IdRes
@@ -94,6 +93,11 @@ class ToolsFragment : PreferenceFragmentCompat() {
         navigateOnClick(
             findPreference(getString(R.string.tool_ruler)),
             R.id.action_action_experimental_tools_to_rulerFragment
+        )
+
+        navigateOnClick(
+            findPreference(getString(R.string.tool_battery)),
+            R.id.action_action_experimental_tools_to_fragmentToolBattery
         )
 
         val flashlight = findPreference<Preference>(getString(R.string.tool_flashlight))

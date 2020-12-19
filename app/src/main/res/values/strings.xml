@@ -54,6 +54,7 @@
     <string name="coordinate_format_string_dd">%s,\u0020\u0020%s</string>
     <string name="degree_format">%.0f°</string>
     <string name="percent_format">%d%%</string>
+    <string name="battery_capacity_format">%.2f mAh</string>
     <string name="dash">-</string>
     <!--Navigation Tab - Accuracy-->
     <string name="accuracy_low">Low</string>
@@ -647,4 +648,6 @@
     <string name="pref_fine_with_strobe" translatable="false">pref_fine_with_strobe</string>
     <string name="strobe_warning_title">Flashing lights</string>
     <string name="strobe_warning_content">The strobe feature contains flashing lights, which may be dangerous for some users.</string>
+    <string name="tool_battery_title">Battery</string>
+    <string name="tool_battery">tool_battery</string>
 </resources>

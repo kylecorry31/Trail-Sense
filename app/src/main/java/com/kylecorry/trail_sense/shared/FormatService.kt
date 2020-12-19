@@ -224,4 +224,12 @@ class FormatService(private val context: Context) {
         }
     }
 
+    fun formatPercentage(percent: Int): String {
+        return context.getString(R.string.percent_format, percent)
+    }
+
+    fun formatBatteryCapacity(capacity: Float): String {
+        return context.getString(R.string.battery_capacity_format, capacity)
+    }
+
 }

@@ -131,6 +131,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_action_experimental_tools_to_fragmentToolBattery"
+            app:destination="@id/fragmentToolBattery"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/action_weather"
@@ -425,5 +432,9 @@
         android:id="@+id/rulerFragment"
         android:name="com.kylecorry.trail_sense.tools.ruler.ui.RulerFragment"
         android:label="RulerFragment" />
+    <fragment
+        android:id="@+id/fragmentToolBattery"
+        android:name="com.kylecorry.trail_sense.tools.battery.ui.FragmentToolBattery"
+        android:label="FragmentToolBattery" />
 
 </navigation>

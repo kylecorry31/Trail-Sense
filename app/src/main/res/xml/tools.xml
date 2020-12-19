@@ -29,6 +29,12 @@
         app:singleLineTitle="false" />
 
     <Preference
+        android:icon="@drawable/ic_tool_battery"
+        android:title="@string/tool_battery_title"
+        app:key="@string/tool_battery"
+        app:singleLineTitle="false" />
+
+    <Preference
         android:icon="@drawable/ic_tool_lightning"
         android:summary="@string/tool_lightning_description"
         android:title="@string/tool_lightning_title"
