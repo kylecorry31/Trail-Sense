@@ -654,5 +654,12 @@
     <string name="strobe_warning_title">Flashing lights</string>
     <string name="strobe_warning_content">The strobe feature contains flashing lights, which may be dangerous for some users.</string>
     <string name="tool_battery_title">Battery</string>
-    <string name="tool_battery">tool_battery</string>
+    <string name="tool_battery" translatable="false">tool_battery</string>
+    <string name="battery_health_cold">Cold</string>
+    <string name="battery_health_dead">Dead</string>
+    <string name="battery_health_good">Good</string>
+    <string name="battery_health_overheat">Overheat</string>
+    <string name="battery_health_over_voltage">Over voltage</string>
+    <string name="battery_health_unknown">Unknown</string>
+    <string name="battery_health">Health: %s</string>
 </resources>

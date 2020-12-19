@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.shared.DecimalFormatter
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.battery.Battery
+import com.kylecorry.trail_sense.shared.sensors.battery.BatteryHealth
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import kotlin.math.absoluteValue
@@ -68,6 +69,7 @@ class FragmentToolBattery: Fragment() {
         val batteryCurrent = battery.current
         binding.batteryPercentage.text = formatService.formatPercentage(pct)
         binding.batteryCapacity.text = formatService.formatBatteryCapacity(capacity)
+        binding.batteryHealth.text = getString(R.string.battery_health, getHealthString(battery.health))
 
         if (batteryCurrent != lastCurrent) {
             if ((batteryCurrent - lastCurrent).absoluteValue > 100 || lastCurrent == 0f){
@@ -97,6 +99,18 @@ class FragmentToolBattery: Fragment() {
         }
 
         lastReading = capacity
+    }
+
+
+    private fun getHealthString(health: BatteryHealth): String {
+        return when(health){
+            BatteryHealth.Cold -> getString(R.string.battery_health_cold)
+            BatteryHealth.Dead -> getString(R.string.battery_health_dead)
+            BatteryHealth.Good -> getString(R.string.battery_health_good)
+            BatteryHealth.Overheat -> getString(R.string.battery_health_overheat)
+            BatteryHealth.OverVoltage -> getString(R.string.battery_health_over_voltage)
+            BatteryHealth.Unknown -> getString(R.string.battery_health_unknown)
+        }
     }
 
 }

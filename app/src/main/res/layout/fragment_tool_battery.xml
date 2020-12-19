@@ -68,4 +68,16 @@
         app:layout_constraintTop_toBottomOf="@+id/battery_level_bar"
         tools:text="1000 mA" />
 
+    <TextView
+        android:id="@+id/battery_health"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textIsSelectable="true"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/battery_current"
+        tools:text="Health: Good" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
