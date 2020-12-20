@@ -662,4 +662,11 @@
     <string name="battery_health_over_voltage">Over voltage</string>
     <string name="battery_health_unknown">Unknown</string>
     <string name="battery_health">Health: %s</string>
+    <string name="tool_category_distance">Distance</string>
+    <string name="tool_category_power">Power</string>
+    <string name="tool_category_time">Time</string>
+    <string name="tool_category_angles">Angles</string>
+    <string name="tool_category_location">Location</string>
+    <string name="tool_category_other">Other</string>
+    <string name="tool_category_signaling">Signaling</string>
 </resources>
