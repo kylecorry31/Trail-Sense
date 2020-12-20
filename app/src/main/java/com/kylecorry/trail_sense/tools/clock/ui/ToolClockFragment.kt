@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.tools.clock.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -91,11 +93,13 @@ class ToolClockFragment : Fragment() {
         val displayTime = myTime.toLocalDateTime().truncatedTo(ChronoUnit.MINUTES).plusMinutes(1)
         val sendTime = displayTime.minus(clockError)
 
+        val formattedTime = formatService.formatTime(displayTime.toLocalTime())
+
         UiUtils.shortToast(
             requireContext(),
             getString(
                 R.string.pip_notification_scheduled,
-                formatService.formatTime(displayTime.toLocalTime())
+                formattedTime
             )
         )
 
@@ -104,11 +108,21 @@ class ToolClockFragment : Fragment() {
             sendTime,
             NextMinuteBroadcastReceiver.pendingIntent(
                 requireContext(),
-                formatService.formatTime(displayTime.toLocalTime())
+                formattedTime
             ),
             exact = true,
             allowWhileIdle = true
         )
+
+        UiUtils.alertWithCancel(
+            requireContext(),
+            getString(R.string.clock_sync_time_settings),
+            getString(R.string.clock_sync_instructions, formattedTime)
+        ) { cancelled ->
+            if (!cancelled) {
+                startActivityForResult(Intent(Settings.ACTION_DATE_SETTINGS), 0)
+            }
+        }
 
     }
 }
