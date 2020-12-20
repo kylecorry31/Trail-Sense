@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:text="10.000, 40.000" />
+
+    <ImageButton
+        android:id="@+id/copy_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/transparent"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/location"
+        app:layout_constraintStart_toEndOf="@+id/location"
+        app:layout_constraintTop_toTopOf="@+id/location"
+        app:srcCompat="@drawable/ic_copy"
+        app:tint="?android:textColorSecondary"
+        tools:visibility="visible" />
+
+    <Spinner
+        android:id="@+id/beacon_1_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toStartOf="@+id/beacon_1_compass"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beacon_1_title" />
+
+    <Button
+        android:id="@+id/beacon_1_compass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/triangulate_mark_beacon"
+        app:layout_constraintBottom_toBottomOf="@+id/beacon_1_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/beacon_1_spinner" />
+
+    <Spinner
+        android:id="@+id/beacon_2_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toStartOf="@+id/beacon_2_compass"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beacon_2_title" />
+
+    <Button
+        android:id="@+id/beacon_2_compass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/triangulate_mark_beacon"
+        app:layout_constraintBottom_toBottomOf="@+id/beacon_2_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/beacon_2_spinner" />
+
+    <TextView
+        android:id="@+id/beacon_1_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/beacon_1"
+        app:layout_constraintStart_toStartOf="@+id/beacon_1_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/location" />
+
+    <TextView
+        android:id="@+id/beacon_1_direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/beacon_1_title"
+        app:layout_constraintStart_toEndOf="@+id/beacon_1_title"
+        app:layout_constraintTop_toTopOf="@+id/beacon_1_title"
+        tools:text="13" />
+
+    <TextView
+        android:id="@+id/beacon_2_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/beacon_2"
+        app:layout_constraintStart_toStartOf="@+id/beacon_2_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/beacon_1_spinner" />
+
+    <TextView
+        android:id="@+id/beacon_2_direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/beacon_2_title"
+        app:layout_constraintStart_toEndOf="@+id/beacon_2_title"
+        app:layout_constraintTop_toTopOf="@+id/beacon_2_title"
+        tools:text="13" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_target" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

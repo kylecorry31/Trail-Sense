@@ -669,4 +669,11 @@
     <string name="tool_category_location">Location</string>
     <string name="tool_category_other">Other</string>
     <string name="tool_category_signaling">Signaling</string>
+    <string name="tool_triangulate_title">Triangulate Location</string>
+    <string name="tool_triangulate">tool_triangulate</string>
+    <string name="tool_triangulate_summary">Determine your location without GPS</string>
+    <string name="triangulate_mark_beacon">Mark</string>
+    <string name="could_not_triangulate">Could not triangulate</string>
+    <string name="beacon_1">Beacon 1</string>
+    <string name="beacon_2">Beacon 2</string>
 </resources>

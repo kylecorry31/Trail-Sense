@@ -106,6 +106,12 @@
             android:title="@string/trail_sense_maps"
             app:key="@string/tool_trail_sense_maps"
             app:singleLineTitle="false" />
+        <Preference
+            android:icon="@drawable/ic_tool_triangulate"
+            android:title="@string/tool_triangulate_title"
+            android:summary="@string/tool_triangulate_summary"
+            app:key="@string/tool_triangulate"
+            app:singleLineTitle="false" />
     </PreferenceCategory>
 
     <PreferenceCategory
