@@ -60,6 +60,9 @@
             android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateAlarmReceiver"
             android:enabled="true" />
         <receiver
+            android:name="com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver"
+            android:enabled="true" />
+        <receiver
             android:name=".tools.waterpurification.infrastructure.WaterPurificationCancelReceiver"
             android:enabled="true" />
         <receiver

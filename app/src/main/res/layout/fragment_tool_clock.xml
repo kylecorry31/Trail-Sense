@@ -77,4 +77,15 @@
         app:drawableStartCompat="@drawable/satellite"
         app:drawableTint="?android:textColorSecondary" />
 
+    <Button
+        android:id="@+id/pip_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pip_button"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/updating_clock"
+        app:layout_constraintEnd_toEndOf="@+id/updating_clock"
+        app:layout_constraintStart_toStartOf="@+id/updating_clock" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

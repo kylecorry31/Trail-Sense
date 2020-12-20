@@ -676,4 +676,9 @@
     <string name="could_not_triangulate">Could not triangulate</string>
     <string name="beacon_1">Beacon 1</string>
     <string name="beacon_2">Beacon 2</string>
+    <string name="pip_button">Notify Next Minute</string>
+    <string name="pip_notification_scheduled">Notification scheduled for %s</string>
+    <string name="notification_channel_clock_sync">Clock Sync</string>
+    <string name="notification_channel_clock_sync_description">A notification to sync your clock to GPS time</string>
+    <string name="clock_sync_notification">Clock Sync - %s</string>
 </resources>
