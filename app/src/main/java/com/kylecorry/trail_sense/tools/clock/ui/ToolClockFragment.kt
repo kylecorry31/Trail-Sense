@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastR
 import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import kotlinx.android.synthetic.main.fragment_tool_clock.*
 import java.time.*
 import java.time.temporal.ChronoUnit
 
@@ -85,15 +86,16 @@ class ToolClockFragment : Fragment() {
     private fun sendNextMinuteNotification() {
         val systemDiff = Duration.between(systemTime, Instant.now())
         val currentTime = gpsTime.plus(systemDiff)
+        val clockError = Duration.between(systemTime, gpsTime)
         val myTime = ZonedDateTime.ofInstant(currentTime, ZoneId.systemDefault())
-
-        val sendTime = myTime.toLocalDateTime().truncatedTo(ChronoUnit.MINUTES).plusMinutes(1)
+        val displayTime = myTime.toLocalDateTime().truncatedTo(ChronoUnit.MINUTES).plusMinutes(1)
+        val sendTime = displayTime.minus(clockError)
 
         UiUtils.shortToast(
             requireContext(),
             getString(
                 R.string.pip_notification_scheduled,
-                formatService.formatTime(sendTime.toLocalTime())
+                formatService.formatTime(displayTime.toLocalTime())
             )
         )
 
@@ -102,7 +104,7 @@ class ToolClockFragment : Fragment() {
             sendTime,
             NextMinuteBroadcastReceiver.pendingIntent(
                 requireContext(),
-                formatService.formatTime(sendTime.toLocalTime())
+                formatService.formatTime(displayTime.toLocalTime())
             ),
             exact = true,
             allowWhileIdle = true
