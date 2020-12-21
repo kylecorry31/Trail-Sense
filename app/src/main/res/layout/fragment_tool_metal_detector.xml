@@ -73,6 +73,16 @@
         app:layout_constraintStart_toStartOf="@+id/threshold"
         app:layout_constraintTop_toBottomOf="@+id/threshold" />
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/metal_chart"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/metal_detector_disclaimer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calibrate_btn" />
+
     <TextView
         android:id="@+id/metal_detector_disclaimer"
         android:layout_width="wrap_content"

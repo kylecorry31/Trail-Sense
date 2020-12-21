@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentInclinometerBinding
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Vibrator
 import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.Magnetometer
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
+import java.time.Instant
 import kotlin.math.roundToInt
 
 class FragmentToolMetalDetector : Fragment() {
@@ -24,7 +27,12 @@ class FragmentToolMetalDetector : Fragment() {
     private val formatService by lazy { FormatService(requireContext()) }
     private var isVibrating = false
 
+    private lateinit var chart: MetalDetectorChart
+    private var lastReadingTime = System.currentTimeMillis() + 1000L
+
     private var threshold = 65f
+
+    private val readings = mutableListOf<Float>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +40,7 @@ class FragmentToolMetalDetector : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentToolMetalDetectorBinding.inflate(layoutInflater, container, false)
+        chart = MetalDetectorChart(binding.metalChart, UiUtils.color(requireContext(), R.color.colorPrimary))
         binding.calibrateBtn.setOnClickListener {
             binding.threshold.progress = magnetometer.magneticField.magnitude().roundToInt() + 5
         }
@@ -57,6 +66,15 @@ class FragmentToolMetalDetector : Fragment() {
 
     private fun onMagnetometerUpdate(): Boolean {
         val magneticField = magnetometer.magneticField.magnitude()
+
+        if (System.currentTimeMillis() - lastReadingTime > 20 && magneticField != 0f) {
+            readings.add(magneticField)
+            if (readings.size > 150) {
+                readings.removeAt(0)
+            }
+            lastReadingTime = System.currentTimeMillis()
+            chart.plot(readings)
+        }
 
         threshold = binding.threshold.progress.toFloat()
         binding.thresholdAmount.text = formatService.formatMagneticField(threshold)
