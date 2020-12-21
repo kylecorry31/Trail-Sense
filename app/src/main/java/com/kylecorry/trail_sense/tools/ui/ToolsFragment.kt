@@ -105,6 +105,11 @@ class ToolsFragment : PreferenceFragmentCompat() {
             R.id.action_action_experimental_tools_to_fragmentToolTriangulate
         )
 
+        navigateOnClick(
+            findPreference(getString(R.string.tool_metal_detector)),
+            R.id.action_action_experimental_tools_to_fragmentToolMetalDetector
+        )
+
         val flashlight = findPreference<Preference>(getString(R.string.tool_flashlight))
         flashlight?.isVisible = Flashlight.hasFlashlight(requireContext())
         navigateOnClick(

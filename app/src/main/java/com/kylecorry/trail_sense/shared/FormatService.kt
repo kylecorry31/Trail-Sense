@@ -236,4 +236,8 @@ class FormatService(private val context: Context) {
         return context.getString(R.string.current_format, current)
     }
 
+    fun formatMagneticField(magneticField: Float): String {
+        return context.getString(R.string.magnetic_field_format, magneticField)
+    }
+
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/magnetic_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="65 uT" />
+
+    <TextView
+        android:id="@+id/metal_detected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/metal_detected"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/magnetic_field"
+        app:layout_constraintStart_toStartOf="@+id/magnetic_field"
+        app:layout_constraintTop_toBottomOf="@+id/magnetic_field"
+        tools:visibility="visible" />
+
+    <SeekBar
+        android:id="@+id/threshold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:max="125"
+        android:progress="65"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/metal_detected" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:text="@string/threshold"
+        app:layout_constraintBottom_toTopOf="@+id/threshold"
+        app:layout_constraintStart_toStartOf="@+id/threshold" />
+
+    <TextView
+        android:id="@+id/threshold_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView11"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toTopOf="@+id/textView11"
+        tools:text="65 uT" />
+
+    <Button
+        android:id="@+id/calibrate_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/metal_detector_calibrate"
+        app:layout_constraintEnd_toEndOf="@+id/threshold"
+        app:layout_constraintStart_toStartOf="@+id/threshold"
+        app:layout_constraintTop_toBottomOf="@+id/threshold" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

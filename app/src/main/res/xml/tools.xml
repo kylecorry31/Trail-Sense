@@ -108,8 +108,8 @@
             app:singleLineTitle="false" />
         <Preference
             android:icon="@drawable/ic_tool_triangulate"
-            android:title="@string/tool_triangulate_title"
             android:summary="@string/tool_triangulate_summary"
+            android:title="@string/tool_triangulate_title"
             app:key="@string/tool_triangulate"
             app:singleLineTitle="false" />
     </PreferenceCategory>
@@ -117,6 +117,11 @@
     <PreferenceCategory
         android:title="@string/tool_category_other"
         app:iconSpaceReserved="false">
+        <Preference
+            android:icon="@drawable/ic_tool_metal_detector"
+            android:title="@string/tool_metal_detector_title"
+            app:key="@string/tool_metal_detector"
+            app:singleLineTitle="false" />
         <Preference
             android:icon="@drawable/ic_inventory"
             android:summary="@string/tool_inventory_summary"

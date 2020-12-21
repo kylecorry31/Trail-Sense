@@ -683,4 +683,10 @@
     <string name="clock_sync_notification">Clock Sync - %s</string>
     <string name="clock_sync_instructions">Set the time to %s when the notification arrives</string>
     <string name="clock_sync_time_settings">Open time settings?</string>
+    <string name="metal_detected">Metal detected</string>
+    <string name="magnetic_field_format">%.0f uT</string>
+    <string name="threshold">Threshold</string>
+    <string name="tool_metal_detector_title">Metal Detector</string>
+    <string name="tool_metal_detector">tool_metal_detector</string>
+    <string name="metal_detector_calibrate">Calibrate</string>
 </resources>
