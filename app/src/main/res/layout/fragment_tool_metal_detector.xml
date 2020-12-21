@@ -73,4 +73,14 @@
         app:layout_constraintStart_toStartOf="@+id/threshold"
         app:layout_constraintTop_toBottomOf="@+id/threshold" />
 
+    <TextView
+        android:id="@+id/metal_detector_disclaimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:text="@string/metal_detector_disclaimer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

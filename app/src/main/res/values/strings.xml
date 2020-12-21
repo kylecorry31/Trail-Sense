@@ -689,4 +689,5 @@
     <string name="tool_metal_detector_title">Metal Detector</string>
     <string name="tool_metal_detector">tool_metal_detector</string>
     <string name="metal_detector_calibrate">Calibrate</string>
+    <string name="metal_detector_disclaimer">Only detects magnetic metals (ex. iron)</string>
 </resources>
