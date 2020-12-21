@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
-import com.kylecorry.trail_sense.shared.DecimalFormatter
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.sensors.battery.Battery
-import com.kylecorry.trail_sense.shared.sensors.battery.BatteryHealth
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
+import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
+import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt

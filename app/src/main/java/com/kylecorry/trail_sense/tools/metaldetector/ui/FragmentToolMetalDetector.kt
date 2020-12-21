@@ -6,15 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentInclinometerBinding
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
-import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.Vibrator
+import com.kylecorry.trailsensecore.domain.metaldetection.MetalDetectionService
 import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.Magnetometer
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.vibration.Vibrator
 import java.time.Duration
-import java.time.Instant
 import kotlin.math.roundToInt
 
 class FragmentToolMetalDetector : Fragment() {
@@ -25,6 +23,8 @@ class FragmentToolMetalDetector : Fragment() {
     private val magnetometer by lazy { Magnetometer(requireContext()) }
     private val vibrator by lazy { Vibrator(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
+    private val metalDetectionService = MetalDetectionService()
+
     private var isVibrating = false
 
     private lateinit var chart: MetalDetectorChart
@@ -40,7 +40,10 @@ class FragmentToolMetalDetector : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentToolMetalDetectorBinding.inflate(layoutInflater, container, false)
-        chart = MetalDetectorChart(binding.metalChart, UiUtils.color(requireContext(), R.color.colorPrimary))
+        chart = MetalDetectorChart(
+            binding.metalChart,
+            UiUtils.color(requireContext(), R.color.colorPrimary)
+        )
         binding.calibrateBtn.setOnClickListener {
             binding.threshold.progress = magnetometer.magneticField.magnitude().roundToInt() + 5
         }
@@ -65,7 +68,7 @@ class FragmentToolMetalDetector : Fragment() {
     }
 
     private fun onMagnetometerUpdate(): Boolean {
-        val magneticField = magnetometer.magneticField.magnitude()
+        val magneticField = metalDetectionService.getFieldStrength(magnetometer.magneticField)
 
         if (System.currentTimeMillis() - lastReadingTime > 20 && magneticField != 0f) {
             readings.add(magneticField)
@@ -79,7 +82,7 @@ class FragmentToolMetalDetector : Fragment() {
         threshold = binding.threshold.progress.toFloat()
         binding.thresholdAmount.text = formatService.formatMagneticField(threshold)
 
-        val metalDetected = magneticField >= threshold
+        val metalDetected = metalDetectionService.isMetal(magnetometer.magneticField, threshold)
         binding.magneticField.text = formatService.formatMagneticField(magneticField)
         binding.metalDetected.visibility = if (metalDetected) {
             View.VISIBLE
