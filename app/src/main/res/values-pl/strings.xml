@@ -482,4 +482,17 @@
     <string name="precise_centimeters_format">%s cm</string>
     <string name="guide_recommended_apps_description">Przydatne aplikacje w sytuacjach surwiwalowych</string>
     <string name="guide_weather_prediction_title">Przewidywanie pogody</string>
+    <string name="beacon_2">Punkt 2</string>
+    <string name="beacon_1">Punkt 1</string>
+    <string name="tool_triangulate">tool_triangulate</string>
+    <string name="tool_category_other">Inne</string>
+    <string name="tool_category_location">Lokalizacja</string>
+    <string name="tool_category_time">Czas</string>
+    <string name="tool_battery_title">Bateria</string>
+    <string name="discharging_fast">Szybkie rozładowywanie (%s)</string>
+    <string name="discharging_slow">Powolne rozładowywanie (%s)</string>
+    <string name="charging_slow">Wolne ładowanie (%s)</string>
+    <string name="charging_fast">Szybkie ładowanie (%s)</string>
+    <string name="current_format">%.0f mA</string>
+    <string name="battery_capacity_format">%.2f mAh</string>
 </resources>
