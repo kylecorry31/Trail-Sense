@@ -464,4 +464,22 @@
     <string name="strobe_warning_content">Blinkemodusfunksjonen gir blinkende lys som kan være farlig for noen brukere.</string>
     <string name="clock_waiting_for_gps">Oppdaterer tid fra GPS…</string>
     <string name="strobe_warning_title">Blinkende lys</string>
+    <string name="battery_health_over_voltage">Overspenning</string>
+    <string name="battery_health_overheat">Overoppheting</string>
+    <string name="battery_health_unknown">Ukjent</string>
+    <string name="battery_health">Batteritilstand: %s</string>
+    <string name="could_not_triangulate">Kunne ikke triangulere</string>
+    <string name="tool_triangulate_summary">Bestem posisjonen din uten GPS</string>
+    <string name="tool_triangulate_title">Triangulere posisjon</string>
+    <string name="tool_category_signaling">Signalering</string>
+    <string name="tool_category_other">Annet</string>
+    <string name="tool_category_location">Posisjon</string>
+    <string name="tool_category_angles">Vinkler</string>
+    <string name="tool_category_time">Tid</string>
+    <string name="tool_category_power">Strøm</string>
+    <string name="tool_category_distance">Distanse</string>
+    <string name="battery_health_good">Bra</string>
+    <string name="battery_health_cold">Kaldt</string>
+    <string name="battery_health_dead">Dødt</string>
+    <string name="tool_battery_title">Batteri</string>
 </resources>
