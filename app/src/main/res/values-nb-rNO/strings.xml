@@ -482,4 +482,23 @@
     <string name="battery_health_cold">Kaldt</string>
     <string name="battery_health_dead">Dødt</string>
     <string name="tool_battery_title">Batteri</string>
+    <string name="discharging_fast">Utlader raskt (%s)</string>
+    <string name="discharging_slow">Utlader sakte (%s)</string>
+    <string name="charging_slow">Lader sakte (%s)</string>
+    <string name="charging_fast">Lader raskt (%s)</string>
+    <string name="current_format">%.0f mA</string>
+    <string name="battery_capacity_format">%.2f mAh</string>
+    <string name="metal_detector_disclaimer">Oppdager bare magnetiske metaller (f.eks. jern)</string>
+    <string name="metal_detector_calibrate">Kalibrer</string>
+    <string name="tool_metal_detector_title">Metalldetektor</string>
+    <string name="threshold">Terskel</string>
+    <string name="magnetic_field_format">%.0f uT</string>
+    <string name="metal_detected">Metall oppdaget</string>
+    <string name="clock_sync_time_settings">Åpne tidsinnstillinger\?</string>
+    <string name="clock_sync_instructions">Sett tiden til %s når varselet kommer</string>
+    <string name="clock_sync_notification">Klokkesynkronisering - %s</string>
+    <string name="notification_channel_clock_sync_description">Et varsel om å synkronisere klokken din til GPS-tid</string>
+    <string name="notification_channel_clock_sync">Klokkesynkronisering</string>
+    <string name="pip_notification_scheduled">Varsling planlagt for %s</string>
+    <string name="pip_button">Oppdater systemtid</string>
 </resources>
