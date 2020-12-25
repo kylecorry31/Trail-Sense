@@ -213,7 +213,7 @@
     <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
     <string name="access_background_location_rationale">Trail Sense использует данные о местоположении в фоновом режиме. Оно используется для калибровки давления на уровне моря при мониторинге погоды и для обеспечения более точных предупреждений о заходе солнца. [Просмотреть политику конфиденциальности] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
-    <string name="dialog_grant">Настройки обновлений</string>
+    <string name="dialog_grant">Обновить настройки</string>
     <string name="nautical_miles_format">%.2f морские мили</string>
     <string name="duration_hour_minute_format">%d ч %d м</string>
     <string name="duration_minute_format">%d m.</string>
