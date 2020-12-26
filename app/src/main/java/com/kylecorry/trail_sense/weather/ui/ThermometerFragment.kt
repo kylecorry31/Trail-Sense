@@ -15,6 +15,8 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trailsensecore.domain.weather.HeatAlert
+import java.time.Duration
+import java.time.Instant
 
 class ThermometerFragment : Fragment() {
 
@@ -26,6 +28,7 @@ class ThermometerFragment : Fragment() {
     private val hygrometer by lazy { sensorService.getHygrometer() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
+    private val newWeatherService = com.kylecorry.trailsensecore.domain.weather.WeatherService()
     private val weatherService by lazy {
         WeatherService(
             prefs.weather.stormAlertThreshold,
@@ -35,6 +38,9 @@ class ThermometerFragment : Fragment() {
             prefs.weather.seaLevelFactorInTemp
         )
     }
+
+    private val readings = mutableListOf<Float>()
+    private var lastReadingTime = Instant.MIN
 
     private var heatAlertTitle = ""
     private var heatAlertContent = ""
@@ -75,9 +81,28 @@ class ThermometerFragment : Fragment() {
         val hasTemp = thermometer.hasValidReading
         val hasHumidity = hygrometer.hasValidReading
 
+        val updatedReading = if (readings.size == 90) {
+            val first = readings.subList(0, 30).average().toFloat()
+            val second = readings.subList(30, 60).average().toFloat()
+            val third = readings.subList(60, 90).average().toFloat()
+            print(second - first)
+            print(", ")
+            println(third - second)
+//            print(", ")
+//            println()
+            newWeatherService.getAmbientTemperature(
+                first, second, third
+            )
+        } else {
+            null
+        }
+
         if (!hasTemp) {
             binding.temperature.text = getString(R.string.dash)
-        } else {
+        } else if (updatedReading != null) {
+            binding.temperature.text = "O: " +formatService.formatTemperature(thermometer.temperature, prefs.temperatureUnits)  + "U: " +
+                formatService.formatTemperature(updatedReading, prefs.temperatureUnits)
+        } else if (readings.size < 3) {
             binding.temperature.text =
                 formatService.formatTemperature(thermometer.temperature, prefs.temperatureUnits)
         }
@@ -161,6 +186,13 @@ class ThermometerFragment : Fragment() {
     }
 
     private fun onTemperatureUpdate(): Boolean {
+        if (Duration.between(lastReadingTime, Instant.now()) > Duration.ofMillis(500L)) {
+            readings.add(thermometer.temperature)
+            if (readings.size > 90) {
+                readings.removeAt(0)
+            }
+            lastReadingTime = Instant.now()
+        }
         updateUI()
         return true
     }
