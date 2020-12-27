@@ -51,6 +51,16 @@
         app:layout_constraintTop_toBottomOf="@+id/humidity"
         tools:text="Dew point: 10 °F" />
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/temp_chart"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/temp_disclaimer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dew_point" />
+
     <TextView
         android:id="@+id/temp_disclaimer"
         android:layout_width="wrap_content"
