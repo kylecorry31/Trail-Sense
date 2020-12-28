@@ -61,6 +61,7 @@
     <string name="discharging_slow">Discharging slowly (%s)</string>
     <string name="discharging_fast">Discharging rapidly (%s)</string>
     <string name="dash">-</string>
+    <string name="battery_temp">Phone: %s</string>
     <!--Navigation Tab - Accuracy-->
     <string name="accuracy_low">Low</string>
     <string name="accuracy_medium">Medium</string>

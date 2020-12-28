@@ -48,8 +48,8 @@ class TemperatureChart(private val chart: LineChart, private val color: Int) {
     fun plot(data: List<Float>, units: TemperatureUnits = TemperatureUnits.C) {
         val values = data.mapIndexed { index, value -> Entry(index.toFloat(), value) }
 
-        val minimum = if (units == TemperatureUnits.C) 0f else 32f
-        val maximum = if (units == TemperatureUnits.C) 38f else 100f
+        val minimum = if (units == TemperatureUnits.C) 7f else 45f
+        val maximum = if (units == TemperatureUnits.C) 29f else 85f
 
         chart.axisLeft.axisMinimum = min(minimum, data.minOrNull() ?: minimum)
         chart.axisLeft.axisMaximum = max(maximum, data.maxOrNull() ?: maximum)

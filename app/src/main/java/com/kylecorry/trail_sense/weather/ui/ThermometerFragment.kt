@@ -5,14 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentThermometerHygrometerBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.metaldetector.ui.MetalDetectorChart
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
@@ -46,7 +43,10 @@ class ThermometerFragment : Fragment() {
     private lateinit var chart: TemperatureChart
 
     private val chartReadings = mutableListOf<Float>()
-    private val maxChartReadings = 500f
+    private val maxChartReadings = 300f
+    private lateinit var units: TemperatureUnits
+
+    private var useDifferential = false
 
     private var heatAlertTitle = ""
     private var heatAlertContent = ""
@@ -76,6 +76,7 @@ class ThermometerFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        units = prefs.temperatureUnits
         thermometer.start(this::onTemperatureUpdate)
         hygrometer.start(this::onHumidityUpdate)
     }
@@ -95,46 +96,49 @@ class ThermometerFragment : Fragment() {
         val calibrated = getCalibratedReading(thermometer.temperature)
 
         if (uncalibrated != 0f) {
-            chartReadings.add(calibrated)
+            val formattedUnit = if (units == TemperatureUnits.C) {
+                calibrated
+            } else {
+                calibrated * 9 / 5f + 32
+            }
+            chartReadings.add(formattedUnit)
             if (chartReadings.size > maxChartReadings) {
                 chartReadings.removeAt(0)
             }
-            chart.plot(chartReadings, TemperatureUnits.C)
+            chart.plot(chartReadings, units)
         }
 
-        val updatedReading = if (readings.size == 3) {
-            val first = readings[0] //readings.subList(0, 10).average().toFloat()
-            val second = readings[1]// readings.subList(10, 20).average().toFloat()
-            val third = readings[2]//readings.subList(20, 30).average().toFloat()
-            binding.humidity.text = "$first\n$second\n$third"
-            newtonLaw(
-                first, second, third
-            )
+        val reading = if (useDifferential && readings.size == 3) {
+            val first = readings[0]
+            val second = readings[1]
+            val third = readings[2]
+            newWeatherService.getAmbientTemperature(first, second, third) ?: calibrated
         } else {
-            null
+            calibrated
         }
 
         if (!hasTemp) {
             binding.temperature.text = getString(R.string.dash)
-        } else if (updatedReading != null) {
-            binding.temperature.text = "$updatedReading\n$calibrated"
-        } else if (readings.size < 3) {
+        } else {
+            binding.batteryTemp.text = getString(
+                R.string.battery_temp,
+                formatService.formatTemperature(uncalibrated, prefs.temperatureUnits)
+            )
             binding.temperature.text =
-                formatService.formatTemperature(calibrated, prefs.temperatureUnits)
+                formatService.formatTemperature(reading, prefs.temperatureUnits)
         }
 
-//        if (!hasHumidity) {
-//            binding.humidity.text = getString(R.string.no_humidity_data)
-//        } else {
-//            binding.humidity.text = formatService.formatHumidity(hygrometer.humidity)
-//        }
-
+        if (!hasHumidity) {
+            binding.humidity.text = getString(R.string.no_humidity_data)
+        } else {
+            binding.humidity.text = formatService.formatHumidity(hygrometer.humidity)
+        }
 
         if (hasTemp && hasHumidity) {
             val heatIndex =
-                weatherService.getHeatIndex(calibrated, hygrometer.humidity)
+                weatherService.getHeatIndex(reading, hygrometer.humidity)
             val alert = weatherService.getHeatAlert(heatIndex)
-            val dewPoint = weatherService.getDewPoint(calibrated, hygrometer.humidity)
+            val dewPoint = weatherService.getDewPoint(reading, hygrometer.humidity)
             binding.dewPoint.text = getString(
                 R.string.dew_point,
                 formatService.formatTemperature(dewPoint, prefs.temperatureUnits)
@@ -144,7 +148,7 @@ class ThermometerFragment : Fragment() {
             val alert =
                 weatherService.getHeatAlert(
                     weatherService.getHeatIndex(
-                        calibrated,
+                        reading,
                         50f
                     )
                 )
@@ -202,12 +206,12 @@ class ThermometerFragment : Fragment() {
     }
 
     private fun onTemperatureUpdate(): Boolean {
-        if (thermometer.temperature == 0f){
+        if (thermometer.temperature == 0f) {
             return true
         }
 
         val calibrated = getCalibratedReading(thermometer.temperature)
-        if (Duration.between(lastReadingTime, Instant.now()) > Duration.ofMillis(10000L)) {
+        if (Duration.between(lastReadingTime, Instant.now()) > Duration.ofMillis(8000L)) {
             readings.add(calibrated)
             if (readings.size > 3) {
                 readings.removeAt(0)
@@ -224,23 +228,12 @@ class ThermometerFragment : Fragment() {
     }
 
     private fun getCalibratedReading(temp: Float): Float {
-        val calibrated1 = 0f
-        val uncalibrated1 = 15f
+        // TODO: Load calibration data from prefs
+        val calibrated1 = -17f
+        val uncalibrated1 = 4f
         val calibrated2 = 22.5f
         val uncalibrated2 = 30f
 
         return calibrated1 + (calibrated2 - calibrated1) * (uncalibrated1 - temp) / (uncalibrated1 - uncalibrated2)
-    }
-
-    private fun newtonLaw(temp0: Float, temp1: Float, temp2: Float): Float {
-        val interval = 1f
-        val d1 = (temp1 - temp0) / interval
-        val d2 = (temp2 - temp1) / interval
-
-        if (d2 == d1){
-            return temp2
-        }
-
-        return (d2 * temp1 - d1 * temp2) / (d2 - d1)
     }
 }

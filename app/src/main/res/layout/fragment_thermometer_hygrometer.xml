@@ -20,12 +20,22 @@
         tools:text="10 °F" />
 
     <TextView
-        android:id="@+id/humidity"
+        android:id="@+id/battery_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/temperature"
         app:layout_constraintStart_toStartOf="@+id/temperature"
         app:layout_constraintTop_toBottomOf="@+id/temperature"
+        tools:text="Phone: 10 °F" />
+
+    <TextView
+        android:id="@+id/humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/battery_temp"
+        app:layout_constraintStart_toStartOf="@+id/battery_temp"
+        app:layout_constraintTop_toBottomOf="@+id/battery_temp"
+        android:layout_marginTop="32dp"
         tools:text="10% humidity" />
 
     <ImageView
@@ -45,7 +55,7 @@
         android:id="@+id/dew_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/humidity"
@@ -57,7 +67,6 @@
         android:layout_height="200dp"
         app:layout_constraintBottom_toTopOf="@+id/temp_disclaimer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dew_point" />
 
@@ -73,5 +82,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pref_temperature_holder_title"
+        app:layout_constraintBottom_toTopOf="@+id/temp_chart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/temp_chart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
