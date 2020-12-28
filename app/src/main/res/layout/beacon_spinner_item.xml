@@ -24,9 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:alpha="0.86"
-        app:layout_constraintBottom_toBottomOf="@+id/beacon_group_name"
+        app:layout_constraintBottom_toBottomOf="@+id/beacon_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/beacon_group_name"
+        app:layout_constraintTop_toTopOf="@+id/beacon_name"
         app:srcCompat="@drawable/ic_location"
         app:tint="@color/colorPrimary" />
 

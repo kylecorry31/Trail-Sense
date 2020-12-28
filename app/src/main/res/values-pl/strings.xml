@@ -255,7 +255,6 @@
     <string name="guide_beacons_title">Punkty nawigacyjne</string>
     <string name="guide_conserving_battery_description">Oszczędzanie baterii podczas korzystania z Trail Sense</string>
     <string name="guide_conserving_battery_title">Oszczędzanie baterii</string>
-    <string name="pref_astronomy_category">pref_astronomy_category</string>
     <string name="navigation_nearby_category">W pobliżu</string>
     <string name="forecasts_category">Prognozy</string>
     <string name="sun_and_moon_position_details">Słońce
@@ -356,7 +355,6 @@
     <string name="beacon_action_view_details">Pokaż szczegóły</string>
     <string name="pref_category_tabs">Karty</string>
     <string name="tool_user_guide_title">Podręcznik użytkownika</string>
-    <string name="tool_user_guide">tool_user_guide</string>
     <string name="pref_open_source_licenses_title">Licencje</string>
     <string name="pref_weather_update_frequency_title">Częstotliwość aktualizacji pogody</string>
     <string name="pref_show_pressure_in_notification_title">Pokaż ciśnienie w powiadomieniu</string>
@@ -411,7 +409,6 @@
     <string name="unit_feet">Stopy</string>
     <string name="unit_kilometers">Kilometry</string>
     <string name="unit_meters">Metry</string>
-    <string name="tool_distance_convert">tool_distance_convert</string>
     <string name="precise_nautical_miles_format">%s mil morskich</string>
     <string name="precise_feet_format">%s stóp</string>
     <string name="precise_miles_format">%s mil</string>
@@ -484,7 +481,6 @@
     <string name="guide_weather_prediction_title">Przewidywanie pogody</string>
     <string name="beacon_2">Punkt 2</string>
     <string name="beacon_1">Punkt 1</string>
-    <string name="tool_triangulate">tool_triangulate</string>
     <string name="tool_category_other">Inne</string>
     <string name="tool_category_location">Lokalizacja</string>
     <string name="tool_category_time">Czas</string>

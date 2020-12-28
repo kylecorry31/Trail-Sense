@@ -352,8 +352,6 @@
     <string name="pref_force_weather_updates_summary">Пробуждает устройство в режиме ожидания, может повредить аккумулятор</string>
     <string name="pref_force_weather_updates_title">Принудительное обновление погоды</string>
     <string name="pref_forecast_sensitivity_title">Чувствительность прогноза</string>
-    <string name="pref_astronomy_category">pref_astronomy_category</string>
-    <string name="tool_user_guide">tool_user_guide</string>
     <string name="pref_sea_level_pressure_change_thresh_title">Порог изменения давления при движении</string>
     <string name="pref_barometer_altitude_change_title">Порог изменения высоты движения</string>
     <string name="beacon_action_view_details">Подробнее</string>
@@ -461,7 +459,6 @@
     <string name="max_depth">Макс: %s</string>
     <string name="precise_inches_format">%s in</string>
     <string name="thunder">Гром</string>
-    <string name="tool_distance_convert">tool_distance_convert</string>
     <string name="toast_destination_bearing_set">Ориентация установлена</string>
     <string name="solar_align_now">Сейчас</string>
     <string name="unit_miles">Мили</string>
@@ -478,7 +475,6 @@
     <string name="tool_lightning_description">Измерьте расстояние от удара молнии</string>
     <string name="reset">Сброс</string>
     <string name="lightning">Молнии</string>
-    <string name="gps_time_toast">Время обновлено с GPS</string>
     <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Часы</string>
     <string name="flashlight_strobe">Стробоскоп</string>
@@ -525,7 +521,6 @@
     <string name="tool_category_power">Энергия</string>
     <string name="metal_detector_disclaimer">Обнаруживает только магнитные металлы (например, железо)</string>
     <string name="metal_detector_calibrate">Калибровать</string>
-    <string name="tool_metal_detector">tool_metal_detector</string>
     <string name="tool_metal_detector_title">Металлоискатель</string>
     <string name="threshold">Порог</string>
     <string name="magnetic_field_format">%.0f uT</string>
@@ -544,7 +539,6 @@
     <string name="tool_category_other">Другое</string>
     <string name="tool_category_location">Местоположение</string>
     <string name="tool_triangulate_summary">Определите свое местоположение без GPS</string>
-    <string name="tool_triangulate">tool_triangulate</string>
     <string name="tool_triangulate_title">Триангуляция местоположения</string>
     <string name="tool_category_signaling">Сигнал</string>
     <string name="tool_category_angles">Углы</string>

@@ -318,7 +318,6 @@
     <string name="guide_conserving_battery_description">Economia de bateria ao usar o Trail Sense</string>
     <string name="guide_conserving_battery_title">Economia de bateria</string>
     <string name="pref_category_tabs">Abas</string>
-    <string name="pref_astronomy_category">pref_astronomy_category</string>
     <string name="navigation_nearby_category">Nas proximidades</string>
     <string name="forecasts_category">Previsões</string>
     <string name="advanced_settings_category">Avançado</string>
@@ -345,7 +344,6 @@
     <string name="delete_beacon_group_message">%s e todos os seus Pontos de Orientação serão excluídos.</string>
     <string name="delete_beacon_group">Excluir o grupo</string>
     <string name="tool_user_guide_summary">Um guia de como usar o Trail Sense</string>
-    <string name="tool_user_guide">tool_user_guide</string>
     <string name="tool_user_guide_title">Guia de Usuário</string>
     <string name="sun_azimuth">Azimute solar</string>
     <string name="moon_azimuth">Azimute lunar</string>
@@ -466,7 +464,6 @@
     <string name="unit_meters">Metros</string>
     <string name="distance_to">A</string>
     <string name="distance_hint">Distância</string>
-    <string name="tool_distance_convert">tool_distance_convert</string>
     <string name="tool_distance_convert_title">Conversor de distância</string>
     <string name="inventory_empty_text">Nenhum item</string>
     <string name="action_inventory_delete_all_confirm">Excluir todos os itens do inventário\?</string>
