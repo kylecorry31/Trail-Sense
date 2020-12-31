@@ -7,14 +7,17 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.InventoryItemDao
+import com.kylecorry.trail_sense.tools.notes.domain.Note
+import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
 
 /**
  * The Room database for this app
  */
-@Database(entities = [InventoryItem::class], version = 1, exportSchema = false)
+@Database(entities = [InventoryItem::class, Note::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun inventoryItemDao(): InventoryItemDao
+    abstract fun noteDao(): NoteDao
 
     companion object {
 
