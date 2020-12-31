@@ -123,6 +123,11 @@
             app:key="@string/tool_metal_detector"
             app:singleLineTitle="false" />
         <Preference
+            android:icon="@drawable/ic_tool_notes"
+            android:title="@string/tool_notes_title"
+            app:key="@string/tool_notes"
+            app:singleLineTitle="false" />
+        <Preference
             android:icon="@drawable/ic_inventory"
             android:summary="@string/tool_inventory_summary"
             android:title="@string/action_inventory"

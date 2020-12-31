@@ -691,4 +691,9 @@
     <string name="metal_detector_disclaimer">Only detects magnetic metals (ex. iron)</string>
     <string name="update_gps_override">Update GPS override</string>
     <string name="location_override_updated">Location override updated</string>
+    <string name="notes_empty_text">No notes</string>
+    <string name="untitled_note">(untitled note)</string>
+    <string name="delete_note_title">Delete note?</string>
+    <string name="tool_notes_title">Notes</string>
+    <string name="tool_notes" translatable="false">tool_notes</string>
 </resources>
