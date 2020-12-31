@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.cliffheight.ui
 
-import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,21 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCliffHeightBinding
-import com.kylecorry.trail_sense.databinding.FragmentToolDepthBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.depth.DepthService
 import com.kylecorry.trailsensecore.domain.physics.PhysicsService
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import java.time.Duration
 import java.time.Instant
 
-class ToolCliffHeightFragment: Fragment() {
+class ToolCliffHeightFragment : Fragment() {
 
     private var _binding: FragmentToolCliffHeightBinding? = null
     private val binding get() = _binding!!
@@ -44,13 +39,25 @@ class ToolCliffHeightFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentToolCliffHeightBinding.inflate(inflater, container, false)
+        UiUtils.setButtonState(
+            binding.startBtn, false, UiUtils.color(requireContext(), R.color.colorPrimary),
+            UiUtils.color(requireContext(), R.color.colorSecondary)
+        )
         binding.startBtn.setOnClickListener {
-            if (running){
-                binding.startBtn.text = getString(R.string.cliff_height_start_measure)
+            if (running) {
+                UiUtils.setButtonState(
+                    binding.startBtn, false, UiUtils.color(requireContext(), R.color.colorPrimary),
+                    UiUtils.color(requireContext(), R.color.colorSecondary)
+                )
                 intervalometer.stop()
                 running = false
             } else {
-                binding.startBtn.text = getString(R.string.cliff_height_stop_measure)
+                UiUtils.setButtonState(
+                    binding.startBtn,
+                    true,
+                    UiUtils.color(requireContext(), R.color.colorPrimary),
+                    UiUtils.color(requireContext(), R.color.colorSecondary)
+                )
                 startTime = Instant.now()
                 intervalometer.interval(16)
                 running = true
@@ -67,12 +74,16 @@ class ToolCliffHeightFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        UiUtils.alert(requireContext(), getString(R.string.disclaimer_message_title), getString(R.string.tool_cliff_height_disclaimer))
+        UiUtils.alert(
+            requireContext(),
+            getString(R.string.disclaimer_message_title),
+            getString(R.string.tool_cliff_height_disclaimer)
+        )
     }
 
     override fun onResume() {
         super.onResume()
-        units = if (userPrefs.distanceUnits == UserPreferences.DistanceUnits.Meters){
+        units = if (userPrefs.distanceUnits == UserPreferences.DistanceUnits.Meters) {
             DistanceUnits.Meters
         } else {
             DistanceUnits.Feet
@@ -85,7 +96,7 @@ class ToolCliffHeightFragment: Fragment() {
     }
 
     fun update() {
-        if (startTime == null){
+        if (startTime == null) {
             return
         }
 
