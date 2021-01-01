@@ -5,16 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/angles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        tools:text="X: 10\nY: 25"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/bubble_outline"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:src="@drawable/bubble_outline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?android:attr/textColorSecondary" />
+        app:tint="?android:colorBackgroundFloating" />
 
     <ImageView
         android:id="@+id/bubble"
@@ -38,60 +52,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="?android:attr/textColorPrimary" />
 
-    <TextView
-        android:id="@+id/angle_y"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="90" />
-
-    <TextView
-        android:id="@+id/angle_x"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:rotation="-90"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="90" />
-
-    <TextView
-        android:id="@+id/angle_y_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:rotation="180"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="90" />
-
-    <TextView
-        android:id="@+id/angle_x_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:rotation="90"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="90" />
-
     <View
         android:id="@+id/bubble_x_background"
         android:layout_width="200dp"
         android:layout_height="48dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
         android:background="?android:colorBackgroundFloating"
+        app:layout_constraintBottom_toTopOf="@+id/bubble_outline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <ImageView
@@ -109,12 +78,10 @@
         android:id="@+id/bubble_y_background"
         android:layout_width="48dp"
         android:layout_height="200dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="8dp"
         android:background="?android:colorBackgroundFloating"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bubble_outline"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -128,6 +95,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/colorPrimary" />
 
+    <View
+        android:id="@+id/bubble_x_center"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bubble_x_background"
+        app:layout_constraintEnd_toEndOf="@+id/bubble_x_background"
+        app:layout_constraintStart_toStartOf="@+id/bubble_x_background"
+        app:layout_constraintTop_toTopOf="@+id/bubble_x_background"
+        android:background="?android:attr/textColorPrimary"/>
+
+    <View
+        android:id="@+id/bubble_y_center"
+        android:layout_height="2dp"
+        android:layout_width="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bubble_y_background"
+        app:layout_constraintEnd_toEndOf="@+id/bubble_y_background"
+        app:layout_constraintStart_toStartOf="@+id/bubble_y_background"
+        app:layout_constraintTop_toTopOf="@+id/bubble_y_background"
+        android:background="?android:attr/textColorPrimary"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -698,4 +698,5 @@
     <string name="tool_notes" translatable="false">tool_notes</string>
     <string name="note_title_hint">Title</string>
     <string name="note_content_hint">Contents</string>
+    <string name="bubble_level_angles">X: %s\nY: %s</string>
 </resources>

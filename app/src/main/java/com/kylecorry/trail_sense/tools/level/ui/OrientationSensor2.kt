@@ -36,31 +36,16 @@ class OrientationSensor2(context: Context) : AbstractSensor(), IOrientationSenso
 
         // Gravity
         val gravity = accelerometer.acceleration
-        val normalGravity = gravity.normalize()
 
         _angle = Vector3(
-            acos(normalGravity.x).toDegrees(),
-            normalGravity.y * 90f,
-            atan2(-normalGravity.y, normalGravity.x).toDegrees()
+            atan2(gravity.x, sqrt(gravity.y * gravity.y + gravity.z * gravity.z)).toDegrees(),
+            -atan2(gravity.y, sqrt(gravity.x * gravity.x + gravity.z * gravity.z)).toDegrees(),
+            atan2(sqrt(gravity.x * gravity.x + gravity.y * gravity.y), gravity.z).toDegrees(),
         )
 
         gotReading = true
         notifyListeners()
         return true
-    }
-
-    private fun calculate(y: Float, x: Float): Float {
-        var angle = Math.toDegrees(atan2(y.toDouble(), x.toDouble())).toFloat()
-
-        if (angle > 90) {
-            angle = 180 - angle
-        }
-
-        if (angle < -90) {
-            angle = -180 - angle
-        }
-
-        return angle
     }
 
     override fun startImpl() {
