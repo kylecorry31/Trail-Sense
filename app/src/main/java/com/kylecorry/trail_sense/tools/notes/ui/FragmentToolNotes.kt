@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolNotesBinding
 import com.kylecorry.trail_sense.databinding.ListItemNoteBinding
@@ -88,8 +89,7 @@ class FragmentToolNotes : Fragment() {
         }
 
         binding.addBtn.setOnClickListener {
-            // TODO: Navigate to create note fragment
-//            findNavController().navigate(R.id.action_action_inventory_to_createItemFragment)
+            findNavController().navigate(R.id.action_fragmentToolNotes_to_fragmentToolNotesCreate)
         }
     }
 
@@ -113,7 +113,6 @@ class FragmentToolNotes : Fragment() {
 
     private fun editNote(note: Note) {
         val bundle = bundleOf("edit_note_id" to note.id)
-        // TODO: Navigate to create note fragment
-//        findNavController().navigate(R.id.action_action_inventory_to_createItemFragment, bundle)
+        findNavController().navigate(R.id.action_fragmentToolNotes_to_fragmentToolNotesCreate, bundle)
     }
 }

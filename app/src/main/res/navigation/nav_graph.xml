@@ -102,63 +102,63 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_fragmentToolFlashlight"
             app:destination="@id/fragmentToolFlashlight"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_toolClockFragment"
             app:destination="@id/toolClockFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_fragmentToolLightning"
             app:destination="@id/fragmentToolLightning"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_rulerFragment"
             app:destination="@id/rulerFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_fragmentToolBattery"
             app:destination="@id/fragmentToolBattery"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_fragmentToolTriangulate"
             app:destination="@id/fragmentToolTriangulate"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_fragmentToolMetalDetector"
             app:destination="@id/fragmentToolMetalDetector"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_fragmentToolNotes"
             app:destination="@id/fragmentToolNotes"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/action_weather"
@@ -468,6 +468,31 @@
     <fragment
         android:id="@+id/fragmentToolNotes"
         android:name="com.kylecorry.trail_sense.tools.notes.ui.FragmentToolNotes"
-        android:label="FragmentToolNotes" />
+        android:label="FragmentToolNotes">
+        <action
+            android:id="@+id/action_fragmentToolNotes_to_fragmentToolNotesCreate"
+            app:destination="@id/fragmentToolNotesCreate"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentToolNotesCreate"
+        android:name="com.kylecorry.trail_sense.tools.notes.ui.FragmentToolNotesCreate"
+        android:label="FragmentToolNotesCreate">
+        <action
+            android:id="@+id/action_fragmentToolNotesCreate_to_fragmentToolNotes"
+            app:destination="@id/fragmentToolNotes"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/fragmentToolNotes" />
+        <argument
+            android:name="edit_note_id"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
 
 </navigation>

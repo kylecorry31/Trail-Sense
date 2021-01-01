@@ -696,4 +696,6 @@
     <string name="delete_note_title">Delete note?</string>
     <string name="tool_notes_title">Notes</string>
     <string name="tool_notes" translatable="false">tool_notes</string>
+    <string name="note_title_hint">Title</string>
+    <string name="note_content_hint">Contents</string>
 </resources>
