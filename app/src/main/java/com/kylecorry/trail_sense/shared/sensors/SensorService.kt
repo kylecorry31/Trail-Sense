@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trail_sense.tools.level.ui.OrientationSensor2
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.BarometricAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.FusedAltimeter
@@ -121,7 +122,7 @@ class SensorService(ctx: Context) {
     }
 
     fun getOrientationSensor(): IOrientationSensor {
-        return DeviceOrientationSensor(context)
+        return OrientationSensor2(context)
     }
 
     @Suppress("DEPRECATION")
