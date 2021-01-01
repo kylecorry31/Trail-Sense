@@ -50,8 +50,12 @@ class FragmentToolNotes : Fragment() {
 
         listView = ListView(binding.noteList, R.layout.list_item_note) { noteView, note ->
             val noteBinding = ListItemNoteBinding.bind(noteView)
-            noteBinding.title.text = note.title ?: getString(R.string.untitled_note)
-            noteBinding.contents.text = note.contents
+            noteBinding.title.text = if (note.title?.trim().isNullOrEmpty()) {
+                getString(R.string.untitled_note)
+            } else {
+                note.title
+            }
+            noteBinding.contents.text = note.contents ?: ""
 
             val menuListener = PopupMenu.OnMenuItemClickListener {
                 when (it.itemId) {
@@ -97,7 +101,11 @@ class FragmentToolNotes : Fragment() {
         UiUtils.alertWithCancel(
             requireContext(),
             getString(R.string.delete_note_title),
-            note.title ?: getString(R.string.untitled_note),
+            if (note.title?.trim().isNullOrEmpty()) {
+                getString(R.string.untitled_note)
+            } else {
+                note.title!!
+            },
             getString(R.string.dialog_ok),
             getString(R.string.dialog_cancel)
         ) { cancelled ->
@@ -113,6 +121,9 @@ class FragmentToolNotes : Fragment() {
 
     private fun editNote(note: Note) {
         val bundle = bundleOf("edit_note_id" to note.id)
-        findNavController().navigate(R.id.action_fragmentToolNotes_to_fragmentToolNotesCreate, bundle)
+        findNavController().navigate(
+            R.id.action_fragmentToolNotes_to_fragmentToolNotesCreate,
+            bundle
+        )
     }
 }
