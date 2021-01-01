@@ -1,0 +1,6 @@
+- Add metal detector tool
+- Add location triangulation tool
+- Organize the tools tab
+- Add clock sync notification (Tools > Clock)
+- Update the cliff height tool design
+- Bug fixes

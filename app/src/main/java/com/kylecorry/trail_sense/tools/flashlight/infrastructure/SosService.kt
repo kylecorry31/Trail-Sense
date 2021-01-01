@@ -76,6 +76,10 @@ class SosService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        return START_STICKY_COMPATIBILITY
+    }
+
+    override fun onCreate() {
         NotificationUtils.createChannel(
             this,
             CHANNEL_ID,
@@ -85,21 +89,13 @@ class SosService : Service() {
         )
 
         val notification = NotificationUtils.builder(this, CHANNEL_ID)
-                .setContentTitle(getString(R.string.sos))
-                .setContentText(getString(R.string.turn_off_flashlight))
-                .setSmallIcon(R.drawable.flashlight_sos)
-                .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
-                .build()
+            .setContentTitle(getString(R.string.sos))
+            .setContentText(getString(R.string.turn_off_flashlight))
+            .setSmallIcon(R.drawable.flashlight_sos)
+            .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
+            .build()
 
         startForeground(NOTIFICATION_ID, notification)
-        return START_STICKY_COMPATIBILITY
-    }
-
-    override fun onCreate() {
-        if (isOn(this)) {
-            // Already on
-            return
-        }
 
         flashlight = Flashlight(this)
         running = true
