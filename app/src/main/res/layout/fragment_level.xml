@@ -80,4 +80,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="90" />
+
+    <View
+        android:id="@+id/bubble_x_background"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="?android:colorBackgroundFloating"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/bubble_x"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/bubble"
+        app:layout_constraintBottom_toBottomOf="@+id/bubble_x_background"
+        app:layout_constraintEnd_toEndOf="@+id/bubble_x_background"
+        app:layout_constraintStart_toStartOf="@+id/bubble_x_background"
+        app:layout_constraintTop_toTopOf="@+id/bubble_x_background"
+        app:tint="@color/colorPrimary" />
+
+    <View
+        android:id="@+id/bubble_y_background"
+        android:layout_width="48dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="?android:colorBackgroundFloating"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/bubble_y"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/bubble"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bubble_y_background"
+        app:layout_constraintStart_toStartOf="@+id/bubble_y_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/colorPrimary" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

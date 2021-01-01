@@ -8,14 +8,20 @@ import android.view.ViewGroup
 import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.toDegrees
+import com.kylecorry.trailsensecore.domain.math.Vector3
+import com.kylecorry.trailsensecore.domain.math.cosDegrees
+import com.kylecorry.trailsensecore.domain.math.sinDegrees
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientationSensor
+import com.kylecorry.trailsensecore.infrastructure.system.*
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
-import kotlin.math.abs
+import kotlin.math.*
 
 class LevelFragment : Fragment() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
-    private val orientationSensor by lazy { sensorService.getOrientationSensor() }
+    private val orientationSensor by lazy { DeviceOrientationSensor(requireContext()) }
     private var _binding: FragmentLevelBinding? = null
     private val binding get() = _binding!!
     private val throttle = Throttle(20)
@@ -56,8 +62,15 @@ class LevelFragment : Fragment() {
         val x = orientationSensor.orientation.x
         val y = orientationSensor.orientation.y
 
-        binding.bubble.x = (x + 90) / 180f * binding.root.width - binding.bubble.width / 2f
-        binding.bubble.y = (y + 90) / 180f * binding.root.height - binding.bubble.height / 2f
+//        println("${orientationSensor.orientation}")
+
+        align(binding.bubbleX, null, HorizontalConstraint(binding.bubbleXBackground, HorizontalConstraintType.Left), null, HorizontalConstraint(binding.bubbleXBackground, HorizontalConstraintType.Right), 0f, (x + 90) / 180f)
+        align(binding.bubbleY, VerticalConstraint(binding.bubbleYBackground, VerticalConstraintType.Top), null, VerticalConstraint(binding.bubbleYBackground, VerticalConstraintType.Bottom), null, (y + 90) / 180f, 0f)
+
+        alignToVector(binding.crosshairs, binding.bubble, 125f * max(x.absoluteValue / 90f, y.absoluteValue / 90f), atan2(-y, x).toDegrees() + 180)
+//
+//        binding.bubble.x = (x + 90) / 180f * binding.root.width - binding.bubble.width / 2f
+//        binding.bubble.y = (y + 90) / 180f * binding.root.height - binding.bubble.height / 2f
         binding.angleX.text = formatService.formatDegrees(abs(x))
         binding.angleX2.text = formatService.formatDegrees(abs(x))
         binding.angleY.text = formatService.formatDegrees(abs(y))
