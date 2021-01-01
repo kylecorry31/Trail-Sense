@@ -12,6 +12,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.IAccele
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.IOrientationSensor
 import kotlin.math.*
 
+// Algorithm from https://www.digikey.com/en/articles/using-an-accelerometer-for-inclination-sensing
 class OrientationSensor2(context: Context) : AbstractSensor(), IOrientationSensor {
 
     override val orientation: Vector3
