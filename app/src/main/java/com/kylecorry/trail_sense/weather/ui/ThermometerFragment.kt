@@ -39,14 +39,13 @@ class ThermometerFragment : Fragment() {
     }
 
     private val readings = mutableListOf<Float>()
+    private var maxReadings = 30
+    private var readingInterval = 500L
     private var lastReadingTime = Instant.MIN
-    private lateinit var chart: TemperatureChart
 
-    private val chartReadings = mutableListOf<Float>()
-    private val maxChartReadings = 300f
     private lateinit var units: TemperatureUnits
 
-    private var useDifferential = false
+    private var useLawOfCooling = false
 
     private var heatAlertTitle = ""
     private var heatAlertContent = ""
@@ -57,13 +56,17 @@ class ThermometerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentThermometerHygrometerBinding.inflate(inflater, container, false)
-        chart = TemperatureChart(
-            binding.tempChart,
-            UiUtils.color(requireContext(), R.color.colorPrimary)
-        )
 
         binding.heatAlert.setOnClickListener {
             UiUtils.alert(requireContext(), heatAlertTitle, heatAlertContent, R.string.dialog_ok)
+        }
+
+        binding.freezingAlert.setOnClickListener {
+            UiUtils.alert(
+                requireContext(), getString(R.string.freezing_temperatures_warning), getString(
+                    R.string.freezing_temperatures_description
+                ), getString(R.string.dialog_ok)
+            )
         }
 
         return binding.root
@@ -77,6 +80,9 @@ class ThermometerFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         units = prefs.temperatureUnits
+        useLawOfCooling = prefs.weather.useLawOfCooling
+        maxReadings = prefs.weather.lawOfCoolingReadings
+        readingInterval = prefs.weather.lawOfCoolingReadingInterval
         thermometer.start(this::onTemperatureUpdate)
         hygrometer.start(this::onHumidityUpdate)
     }
@@ -95,23 +101,10 @@ class ThermometerFragment : Fragment() {
 
         val calibrated = getCalibratedReading(thermometer.temperature)
 
-        if (uncalibrated != 0f) {
-            val formattedUnit = if (units == TemperatureUnits.C) {
-                calibrated
-            } else {
-                calibrated * 9 / 5f + 32
-            }
-            chartReadings.add(formattedUnit)
-            if (chartReadings.size > maxChartReadings) {
-                chartReadings.removeAt(0)
-            }
-            chart.plot(chartReadings, units)
-        }
-
-        val reading = if (useDifferential && readings.size == 3) {
-            val first = readings[0]
-            val second = readings[1]
-            val third = readings[2]
+        val reading = if (useLawOfCooling && readings.size == maxReadings) {
+            val first = readings.subList(0, maxReadings / 3).average().toFloat()
+            val second = readings.subList(maxReadings / 3, 2 * maxReadings / 3).average().toFloat()
+            val third = readings.subList(2 * maxReadings / 3, readings.size).average().toFloat()
             newWeatherService.getAmbientTemperature(first, second, third) ?: calibrated
         } else {
             calibrated
@@ -126,6 +119,7 @@ class ThermometerFragment : Fragment() {
             )
             binding.temperature.text =
                 formatService.formatTemperature(reading, prefs.temperatureUnits)
+            binding.freezingAlert.visibility = if (reading <= 0f) View.VISIBLE else View.INVISIBLE
         }
 
         if (!hasHumidity) {
@@ -211,9 +205,9 @@ class ThermometerFragment : Fragment() {
         }
 
         val calibrated = getCalibratedReading(thermometer.temperature)
-        if (Duration.between(lastReadingTime, Instant.now()) > Duration.ofMillis(8000L)) {
+        if (Duration.between(lastReadingTime, Instant.now()) > Duration.ofMillis(readingInterval)) {
             readings.add(calibrated)
-            if (readings.size > 3) {
+            while (readings.size > maxReadings) {
                 readings.removeAt(0)
             }
             lastReadingTime = Instant.now()
@@ -228,11 +222,10 @@ class ThermometerFragment : Fragment() {
     }
 
     private fun getCalibratedReading(temp: Float): Float {
-        // TODO: Load calibration data from prefs
-        val calibrated1 = -17f
-        val uncalibrated1 = 4f
-        val calibrated2 = 22.5f
-        val uncalibrated2 = 30f
+        val calibrated1 = prefs.weather.minActualTemperature
+        val uncalibrated1 = prefs.weather.minBatteryTemperature
+        val calibrated2 = prefs.weather.maxActualTemperature
+        val uncalibrated2 = prefs.weather.maxBatteryTemperature
 
         return calibrated1 + (calibrated2 - calibrated1) * (uncalibrated1 - temp) / (uncalibrated1 - uncalibrated2)
     }

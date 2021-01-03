@@ -51,6 +51,19 @@
         app:tint="@color/colorPrimary"
         tools:visibility="visible" />
 
+    <ImageView
+        android:id="@+id/freezing_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/temperature"
+        app:layout_constraintStart_toEndOf="@+id/temperature"
+        app:layout_constraintTop_toTopOf="@+id/temperature"
+        app:srcCompat="@drawable/avalanche"
+        app:tint="@color/colorAccent"
+        tools:visibility="visible" />
+
     <TextView
         android:id="@+id/dew_point"
         android:layout_width="wrap_content"
@@ -60,15 +73,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/humidity"
         tools:text="Dew point: 10 °F" />
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/temp_chart"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        app:layout_constraintBottom_toTopOf="@+id/temp_disclaimer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dew_point" />
 
     <TextView
         android:id="@+id/temp_disclaimer"
@@ -82,14 +86,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/pref_temperature_holder_title"
-        app:layout_constraintBottom_toTopOf="@+id/temp_chart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/temp_chart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

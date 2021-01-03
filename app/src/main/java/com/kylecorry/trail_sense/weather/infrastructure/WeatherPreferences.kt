@@ -129,6 +129,31 @@ class WeatherPreferences(private val context: Context) {
             }
         }
 
+    var minBatteryTemperature: Float
+        get() = 4f
+        set(value) {}
+
+    var minActualTemperature: Float
+        get() = -17f
+        set(value) {}
+
+    var maxBatteryTemperature: Float
+        get() = 30f
+        set(value) {}
+
+    var maxActualTemperature: Float
+        get() = 22.5f
+        set(value) {}
+
+    val useLawOfCooling: Boolean
+        get() = false
+
+    val lawOfCoolingReadings: Int
+        get() = 30
+
+    val lawOfCoolingReadingInterval: Long
+        get() = 250L
+
     var pressureSetpoint: PressureAltitudeReading?
         get() {
             val pressure = cache.getFloat("cache_pressure_setpoint") ?: return null
