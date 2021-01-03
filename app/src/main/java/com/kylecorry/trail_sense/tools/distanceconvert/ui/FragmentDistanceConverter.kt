@@ -27,11 +27,13 @@ class FragmentDistanceConverter : Fragment() {
     }
 
     private val units = listOf(
+        DistanceUnits.Centimeters,
         DistanceUnits.Meters,
         DistanceUnits.Kilometers,
+        DistanceUnits.Inches,
         DistanceUnits.Feet,
         DistanceUnits.Miles,
-        DistanceUnits.NauticalMiles
+        DistanceUnits.NauticalMiles,
     )
 
     override fun onCreateView(
@@ -81,13 +83,15 @@ class FragmentDistanceConverter : Fragment() {
         binding.result.text = formatService.formatDistancePrecise(converted, to)
     }
 
-    fun getUnitName(unit: DistanceUnits): String {
+    private fun getUnitName(unit: DistanceUnits): String {
         return when(unit){
             DistanceUnits.Meters -> getString(R.string.unit_meters)
             DistanceUnits.Kilometers -> getString(R.string.unit_kilometers)
             DistanceUnits.Feet -> getString(R.string.unit_feet)
             DistanceUnits.Miles -> getString(R.string.unit_miles)
             DistanceUnits.NauticalMiles -> getString(R.string.unit_nautical_miles)
+            DistanceUnits.Centimeters -> getString(R.string.unit_centimeters)
+            DistanceUnits.Inches -> getString(R.string.unit_inches)
         }
     }
 

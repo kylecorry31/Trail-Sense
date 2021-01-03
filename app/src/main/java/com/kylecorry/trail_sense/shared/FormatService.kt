@@ -94,6 +94,8 @@ class FormatService(private val context: Context) {
             DistanceUnits.Feet -> context.getString(R.string.feet_format, distance)
             DistanceUnits.Miles -> context.getString(R.string.miles_format, distance)
             DistanceUnits.NauticalMiles -> context.getString(R.string.nautical_miles_format, distance)
+            DistanceUnits.Centimeters -> context.getString(R.string.centimeters_format, distance)
+            DistanceUnits.Inches -> context.getString(R.string.inches_format, distance)
         }
     }
 
@@ -115,6 +117,8 @@ class FormatService(private val context: Context) {
             DistanceUnits.Feet -> context.getString(R.string.precise_feet_format, formatted)
             DistanceUnits.Miles -> context.getString(R.string.precise_miles_format, formatted)
             DistanceUnits.NauticalMiles -> context.getString(R.string.precise_nautical_miles_format, formatted)
+            DistanceUnits.Inches -> context.getString(R.string.precise_inches_format, formatted)
+            DistanceUnits.Centimeters -> context.getString(R.string.precise_centimeters_format, formatted)
         }
     }
 
@@ -125,6 +129,8 @@ class FormatService(private val context: Context) {
             DistanceUnits.Feet -> context.getString(R.string.depth_feet_format, distance)
             DistanceUnits.Miles -> context.getString(R.string.miles_format, distance)
             DistanceUnits.NauticalMiles -> context.getString(R.string.nautical_miles_format, distance)
+            DistanceUnits.Inches -> context.getString(R.string.inches_format, distance)
+            DistanceUnits.Centimeters -> context.getString(R.string.centimeters_format, distance)
         }
     }
 
