@@ -149,10 +149,10 @@ class WeatherPreferences(private val context: Context) {
         get() = false
 
     val lawOfCoolingReadings: Int
-        get() = 30
+        get() = 180
 
     val lawOfCoolingReadingInterval: Long
-        get() = 250L
+        get() = 500L
 
     var pressureSetpoint: PressureAltitudeReading?
         get() {
