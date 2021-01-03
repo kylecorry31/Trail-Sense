@@ -516,7 +516,7 @@
     <string name="moon_azimuth">Moon azimuth</string>
     <string name="sun_azimuth">Sun azimuth</string>
     <string name="tool_user_guide_title">User Guide</string>
-    <string name="tool_user_guide">tool_user_guide</string>
+    <string name="tool_user_guide" translatable="false">tool_user_guide</string>
     <string name="tool_user_guide_summary">A how-to guide for using Trail Sense</string>
     <string name="delete_beacon_group">Delete group</string>
     <string name="delete_beacon_group_message">%s and all its beacons will be deleted.</string>
@@ -539,7 +539,7 @@
     <string name="forecasts_category">Forecasts</string>
     <string name="navigation_nearby_category">Nearby</string>
     <string name="pref_navigation_header_key" translatable="false">pref_navigation_header_key</string>
-    <string name="pref_astronomy_category">pref_astronomy_category</string>
+    <string name="pref_astronomy_category" translatable="false">pref_astronomy_category</string>
     <string name="pref_category_tabs">Tabs</string>
     <string name="guide_conserving_battery_title">Conserving battery</string>
     <string name="guide_conserving_battery_description">Saving battery while using Trail Sense</string>
@@ -579,7 +579,6 @@
     <string name="object_height_guide">Estimate object heights</string>
     <string name="object_height_guide_description">How to estimate the heights of objects</string>
     <string name="toast_destination_bearing_set">Destination bearing set</string>
-    <string name="cliff_height_start_measure">Measure</string>
     <string name="tool_cliff_height_title">Cliff Height</string>
     <string name="tool_cliff_height" translatable="false">tool_cliff_height</string>
     <string name="tool_cliff_height_description">Measure the height of a cliff or drop</string>
@@ -595,7 +594,7 @@
     <string name="inventory_empty_text">No items</string>
     <string name="email" translatable="false">trailsense@protonmail.com</string>
     <string name="tool_distance_convert_title">Distance Converter</string>
-    <string name="tool_distance_convert">tool_distance_convert</string>
+    <string name="tool_distance_convert" translatable="false">tool_distance_convert</string>
     <string name="distance_hint">Distance</string>
     <string name="distance_from">From</string>
     <string name="distance_to">To</string>
@@ -671,7 +670,7 @@
     <string name="tool_category_other">Other</string>
     <string name="tool_category_signaling">Signaling</string>
     <string name="tool_triangulate_title">Triangulate Location</string>
-    <string name="tool_triangulate">tool_triangulate</string>
+    <string name="tool_triangulate" translatable="false">tool_triangulate</string>
     <string name="tool_triangulate_summary">Determine your location without GPS</string>
     <string name="triangulate_mark_beacon">Mark</string>
     <string name="could_not_triangulate">Could not triangulate</string>
@@ -688,7 +687,17 @@
     <string name="magnetic_field_format">%.0f uT</string>
     <string name="threshold">Threshold</string>
     <string name="tool_metal_detector_title">Metal Detector</string>
-    <string name="tool_metal_detector">tool_metal_detector</string>
+    <string name="tool_metal_detector" translatable="false">tool_metal_detector</string>
     <string name="metal_detector_calibrate">Calibrate</string>
     <string name="metal_detector_disclaimer">Only detects magnetic metals (ex. iron)</string>
+    <string name="update_gps_override">Update GPS override</string>
+    <string name="location_override_updated">Location override updated</string>
+    <string name="notes_empty_text">No notes</string>
+    <string name="untitled_note">(untitled note)</string>
+    <string name="delete_note_title">Delete note?</string>
+    <string name="tool_notes_title">Notes</string>
+    <string name="tool_notes" translatable="false">tool_notes</string>
+    <string name="note_title_hint">Title</string>
+    <string name="note_content_hint">Contents</string>
+    <string name="bubble_level_angles">X: %s\nY: %s</string>
 </resources>

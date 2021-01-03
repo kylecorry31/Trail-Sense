@@ -385,7 +385,6 @@
     <string name="pref_general_header">Allgemein</string>
     <string name="set_inclination_instructions">Tippen um den Inklinationswinkel zu setzen/löschen</string>
     <string name="tool_user_guide_summary">Ein Handbuch für die Benutzung von Trail Sense</string>
-    <string name="tool_user_guide">Werkzeug_Benutzerhandbuch</string>
     <string name="weather_update_notification_channel_desc">Wetteraktualisierungen im Hintergrund</string>
     <string name="advanced_settings_category">Fortgeschritten</string>
     <string name="tool_bubble_level_summary">Feststellen, ob eine Oberfläche flach ist</string>

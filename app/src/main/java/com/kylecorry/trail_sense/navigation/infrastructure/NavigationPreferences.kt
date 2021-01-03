@@ -66,7 +66,7 @@ class NavigationPreferences(private val context: Context) {
         get() {
             val raw =
                 prefs.getString(context.getString(R.string.pref_num_visible_beacons), "1") ?: "1"
-            return raw.toInt()
+            return raw.toIntOrNull() ?: 1
         }
 
     var maxBeaconDistance: Float

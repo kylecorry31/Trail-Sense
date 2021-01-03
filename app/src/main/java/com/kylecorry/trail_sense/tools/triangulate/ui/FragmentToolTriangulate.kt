@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
@@ -20,7 +21,7 @@ import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
-class FragmentToolTriangulate: Fragment() {
+class FragmentToolTriangulate : Fragment() {
 
     private var _binding: FragmentToolTriangulateBinding? = null
     private val binding get() = _binding!!
@@ -32,6 +33,7 @@ class FragmentToolTriangulate: Fragment() {
     private val navigationService = NavigationService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val clipboard by lazy { Clipboard(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var beacon1: Beacon? = null
     private var beacon2: Beacon? = null
@@ -59,7 +61,17 @@ class FragmentToolTriangulate: Fragment() {
 
         binding.copyLocation.setOnClickListener {
             location?.let {
-                clipboard.copy(formatService.formatLocation(it), getString(R.string.copied_to_clipboard_toast))
+                clipboard.copy(
+                    formatService.formatLocation(it),
+                    getString(R.string.copied_to_clipboard_toast)
+                )
+            }
+        }
+
+        binding.gpsOverrideBtn.setOnClickListener {
+            location?.let { coord ->
+                prefs.locationOverride = coord
+                UiUtils.shortToast(requireContext(), getString(R.string.location_override_updated))
             }
         }
 
@@ -73,22 +85,23 @@ class FragmentToolTriangulate: Fragment() {
         binding.beacon1Spinner.prompt = getString(R.string.beacon_1)
         binding.beacon1Spinner.adapter = adapter1
 
-        binding.beacon1Spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                beacon1 = beacons[position]
-                update()
-            }
+        binding.beacon1Spinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    beacon1 = beacons[position]
+                    update()
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                beacon1 = null
-                update()
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    beacon1 = null
+                    update()
+                }
             }
-        }
 
         val adapter2 = ArrayAdapter(
             requireContext(),
@@ -98,22 +111,23 @@ class FragmentToolTriangulate: Fragment() {
         binding.beacon2Spinner.prompt = getString(R.string.beacon_2)
         binding.beacon2Spinner.adapter = adapter2
 
-        binding.beacon2Spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                beacon2 = beacons[position]
-                update()
-            }
+        binding.beacon2Spinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    beacon2 = beacons[position]
+                    update()
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                beacon2 = null
-                update()
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    beacon2 = null
+                    update()
+                }
             }
-        }
 
         return binding.root
     }
@@ -126,6 +140,9 @@ class FragmentToolTriangulate: Fragment() {
     override fun onResume() {
         super.onResume()
         compass.start(this::compassUpdate)
+        if (prefs.useAutoLocation) {
+            binding.gpsOverrideBtn.visibility = View.INVISIBLE
+        }
     }
 
     override fun onPause() {
@@ -137,7 +154,7 @@ class FragmentToolTriangulate: Fragment() {
         return true
     }
 
-    private fun update(){
+    private fun update() {
         val b1 = beacon1 ?: return
         val b2 = beacon2 ?: return
         val d1 = direction1 ?: return
@@ -150,12 +167,16 @@ class FragmentToolTriangulate: Fragment() {
 
         location = navigationService.triangulate(b1.coordinate, bearing1, b2.coordinate, bearing2)
 
-        if (location == null || location!!.latitude.isNaN() || location!!.longitude.isNaN()){
+        if (location == null || location!!.latitude.isNaN() || location!!.longitude.isNaN()) {
             binding.location.text = getString(R.string.could_not_triangulate)
             binding.copyLocation.visibility = View.INVISIBLE
+            binding.gpsOverrideBtn.visibility = View.INVISIBLE
         } else {
             binding.location.text = formatService.formatLocation(location!!)
             binding.copyLocation.visibility = View.VISIBLE
+            if (!prefs.useAutoLocation) {
+                binding.gpsOverrideBtn.visibility = View.VISIBLE
+            }
         }
     }
 
