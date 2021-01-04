@@ -21,4 +21,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_category_safety" />
+
+    <ImageButton
+        android:id="@+id/whistle_sos_btn"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/bubble"
+        android:backgroundTint="?android:colorBackgroundFloating"
+        android:cropToPadding="true"
+        android:padding="18dp"
+        android:scaleType="centerCrop"
+        android:tint="?android:textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="@+id/whistle_btn"
+        app:layout_constraintEnd_toEndOf="@+id/whistle_btn"
+        app:srcCompat="@drawable/ic_whistle_sos" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

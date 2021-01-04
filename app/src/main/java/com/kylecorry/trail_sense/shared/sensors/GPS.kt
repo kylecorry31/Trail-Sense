@@ -198,7 +198,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         val last = cache.getLong(LAST_UPDATE) ?: 0L
         val now = System.currentTimeMillis()
         val recentThreshold = 1000 * 60 * 2L
-        return now - last <= recentThreshold
+        return now - last <= recentThreshold && location != Coordinate.zero
     }
 
     private fun useNewLocation(current: Location?, newLocation: Location): Boolean {
