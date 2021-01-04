@@ -123,6 +123,12 @@
             app:key="@string/tool_metal_detector"
             app:singleLineTitle="false" />
         <Preference
+            android:icon="@drawable/ic_tool_white_noise"
+            android:title="@string/tool_white_noise_title"
+            android:summary="@string/tool_white_noise_summary"
+            app:key="@string/tool_white_noise"
+            app:singleLineTitle="false" />
+        <Preference
             android:icon="@drawable/ic_tool_notes"
             android:title="@string/tool_notes_title"
             app:key="@string/tool_notes"

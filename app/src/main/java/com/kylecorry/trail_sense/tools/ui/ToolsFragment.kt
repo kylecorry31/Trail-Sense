@@ -9,6 +9,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.TrailSenseMaps
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 
@@ -18,6 +19,7 @@ class ToolsFragment : PreferenceFragmentCompat() {
     private lateinit var navController: NavController
 
     private val sensorChecker by lazy { SensorChecker(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -114,6 +116,11 @@ class ToolsFragment : PreferenceFragmentCompat() {
             findPreference(getString(R.string.tool_notes)),
             R.id.action_action_experimental_tools_to_fragmentToolNotes
         )
+
+        val isExperimentalEnabled = prefs.experimentalEnabled
+        val whiteNoise = findPreference<Preference>(getString(R.string.tool_white_noise))
+        whiteNoise?.isVisible = isExperimentalEnabled
+        navigateOnClick(whiteNoise, R.id.action_action_experimental_tools_to_fragmentToolWhiteNoise)
 
         val flashlight = findPreference<Preference>(getString(R.string.tool_flashlight))
         flashlight?.isVisible = Flashlight.hasFlashlight(requireContext())

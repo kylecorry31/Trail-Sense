@@ -29,7 +29,7 @@ class FlashlightService: Service() {
         val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Notification.Builder(this, CHANNEL_ID)
                 .setContentTitle(getString(R.string.flashlight_title))
-                .setContentText(getString(R.string.turn_off_flashlight))
+                .setContentText(getString(R.string.tap_to_turn_off))
                 .setSmallIcon(R.drawable.flashlight)
                 .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
                 .build()
@@ -37,7 +37,7 @@ class FlashlightService: Service() {
             @Suppress("DEPRECATION")
             Notification.Builder(this)
                 .setContentTitle(getString(R.string.flashlight_title))
-                .setContentText(getString(R.string.turn_off_flashlight))
+                .setContentText(getString(R.string.tap_to_turn_off))
                 .setSmallIcon(R.drawable.flashlight)
                 .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
                 .build()

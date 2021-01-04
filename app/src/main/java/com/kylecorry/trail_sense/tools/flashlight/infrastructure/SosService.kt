@@ -1,10 +1,8 @@
 package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
-import android.app.Notification
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
@@ -90,7 +88,7 @@ class SosService : Service() {
 
         val notification = NotificationUtils.builder(this, CHANNEL_ID)
             .setContentTitle(getString(R.string.sos))
-            .setContentText(getString(R.string.turn_off_flashlight))
+            .setContentText(getString(R.string.tap_to_turn_off))
             .setSmallIcon(R.drawable.flashlight_sos)
             .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
             .build()

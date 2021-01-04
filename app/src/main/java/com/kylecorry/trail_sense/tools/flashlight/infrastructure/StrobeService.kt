@@ -62,7 +62,7 @@ class StrobeService : Service() {
 
         val notification = NotificationUtils.builder(this, CHANNEL_ID)
             .setContentTitle(getString(R.string.flashlight_strobe))
-            .setContentText(getString(R.string.turn_off_flashlight))
+            .setContentText(getString(R.string.tap_to_turn_off))
             .setSmallIcon(R.drawable.flashlight)
             .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
             .build()

@@ -208,7 +208,7 @@
     <string name="edit_beacon">编辑信标</string>
     <string name="eta">还有 ~%s 远</string>
     <string name="sos">紧急求救信号</string>
-    <string name="turn_off_flashlight">轻触以关闭</string>
+    <string name="tap_to_turn_off">轻触以关闭</string>
     <string name="flashlight_title">手电筒</string>
     <string name="gps_lock_acquired">GPS 已锁定</string>
     <string name="accuracy_info">"GPS：到室外天空未被遮挡的地方。

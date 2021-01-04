@@ -159,6 +159,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_action_experimental_tools_to_fragmentToolWhiteNoise"
+            app:destination="@id/fragmentToolWhiteNoise"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/action_weather"
@@ -494,5 +501,9 @@
             android:defaultValue="0L"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentToolWhiteNoise"
+        android:name="com.kylecorry.trail_sense.tools.whitenoise.ui.FragmentToolWhiteNoise"
+        android:label="FragmentToolWhiteNoise" />
 
 </navigation>

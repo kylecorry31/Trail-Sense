@@ -171,7 +171,7 @@
     <string name="accuracy_info_title">Tipps um die Sensorengenauigkeit zu verbessern</string>
     <string name="gps_lock_acquired">GPS Fix vorhanden</string>
     <string name="flashlight_title">Taschenlampe</string>
-    <string name="turn_off_flashlight">Tippen zum Abschalten</string>
+    <string name="tap_to_turn_off">Tippen zum Abschalten</string>
     <string name="sos">SOS</string>
     <string name="eta">~ %s entfernt</string>
     <string name="long_press_beacon_toast">Wegpunktmarkierung lang drücken um Optionen anzuzeigen.</string>

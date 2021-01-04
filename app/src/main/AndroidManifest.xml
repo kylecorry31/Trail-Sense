@@ -67,6 +67,9 @@
             android:name=".tools.waterpurification.infrastructure.WaterPurificationCancelReceiver"
             android:enabled="true" />
         <receiver
+            android:name=".tools.whitenoise.infrastructure.WhiteNoiseOffReceiver"
+            android:enabled="true" />
+        <receiver
             android:name="com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver"
             android:enabled="true">
             <intent-filter>
@@ -99,6 +102,10 @@
             android:name=".weather.infrastructure.services.WeatherUpdateService"
             android:enabled="true"
             android:foregroundServiceType="location" />
+
+        <service android:name=".tools.whitenoise.infrastructure.WhiteNoiseService"
+            android:enabled="true"
+            android:foregroundServiceType="mediaPlayback" />
     </application>
 
 </manifest>

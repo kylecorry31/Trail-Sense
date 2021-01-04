@@ -404,7 +404,7 @@
         <item quantity="other">%d Pontos de Orientação</item>
     </plurals>
     <string name="sos">SOS</string>
-    <string name="turn_off_flashlight">Toque para desligar</string>
+    <string name="tap_to_turn_off">Toque para desligar</string>
     <string name="flashlight_title">Lanterna</string>
     <string name="gps_lock_acquired">Detectada a posição de GPS</string>
     <string name="nautical_miles_format">%.2f nm</string>

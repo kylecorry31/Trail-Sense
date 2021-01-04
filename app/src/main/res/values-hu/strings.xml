@@ -79,7 +79,7 @@
     <string name="beacon_list_title">Válasszon jelölőt</string>
     <string name="eta">~ %s távolságra</string>
     <string name="sos">SOS</string>
-    <string name="turn_off_flashlight">Érintse meg a kikapcsoláshoz</string>
+    <string name="tap_to_turn_off">Érintse meg a kikapcsoláshoz</string>
     <string name="flashlight_title">Zseblámpa</string>
     <string name="accuracy_info">"GPS: Menjen a szabadba, ahol nyílt rálátás van az égboltra!
 \n    %s jelenlegi helyzet

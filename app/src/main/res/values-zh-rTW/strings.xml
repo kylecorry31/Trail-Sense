@@ -112,7 +112,7 @@
     <string name="share_action_copy_beacon">複製地標</string>
     <string name="eta">~ %s 遠</string>
     <string name="sos">求救訊號SOS</string>
-    <string name="turn_off_flashlight">輕觸以關閉</string>
+    <string name="tap_to_turn_off">輕觸以關閉</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_unknown">未知</string>

@@ -183,7 +183,7 @@
     <string name="share_action_copy_coordinates">Kopiuj współrzędne</string>
     <string name="share_action_copy">Kopiuj</string>
     <string name="sos">SOS</string>
-    <string name="turn_off_flashlight">Naciśnij, aby wyłączyć</string>
+    <string name="tap_to_turn_off">Naciśnij, aby wyłączyć</string>
     <string name="flashlight_title">Latarka</string>
     <string name="accuracy_info_title">Wskazówki dotyczące poprawy dokładności danych z czujników</string>
     <string name="accuracy_distance_format">± %s</string>

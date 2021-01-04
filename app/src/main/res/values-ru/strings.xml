@@ -160,7 +160,7 @@
     <string name="share_action_copy">Копировать</string>
     <string name="share_action_send">Отправить</string>
     <string name="sos">СОС</string>
-    <string name="turn_off_flashlight">Нажмите, чтобы выключить</string>
+    <string name="tap_to_turn_off">Нажмите, чтобы выключить</string>
     <string name="flashlight_title">Фонарик</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_unknown">Неизвестная</string>

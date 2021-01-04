@@ -76,7 +76,7 @@
     <string name="gps_lock_acquired">GPS lock acquired</string>
     <!--Flashlight-->
     <string name="flashlight_title">Flashlight</string>
-    <string name="turn_off_flashlight">Tap to turn off</string>
+    <string name="tap_to_turn_off">Tap to turn off</string>
     <string name="sos">SOS</string>
     <!--Navigation Tab - Destination Panel-->
     <string name="eta">~ %s away</string>
@@ -708,4 +708,7 @@
     <string name="unit_inches">Inches</string>
     <string name="map_distance">Map: %s</string>
     <string name="map_fractional_separator">:</string>
+    <string name="tool_white_noise_title">White Noise</string>
+    <string name="tool_white_noise" translatable="false">tool_white_noise</string>
+    <string name="tool_white_noise_summary">Helps you fall asleep</string>
 </resources>

@@ -20,7 +20,7 @@
     <string name="beacon_list_title">Baliza hautatu</string>
     <string name="eta">~ %s urruti</string>
     <string name="sos">SOS</string>
-    <string name="turn_off_flashlight">Ukitu itzaltzeko</string>
+    <string name="tap_to_turn_off">Ukitu itzaltzeko</string>
     <string name="flashlight_title">Linterna</string>
     <string name="accuracy_info">"GPS: Atera kanpora zeruaren ikuspegi ez oztopatua izan arte.
 \n    %s benetako kokapenetik
