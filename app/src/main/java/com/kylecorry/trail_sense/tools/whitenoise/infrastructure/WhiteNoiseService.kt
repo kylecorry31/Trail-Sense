@@ -23,6 +23,7 @@ class WhiteNoiseService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         whiteNoise?.off()
+        whiteNoise?.release()
     }
 
     override fun onCreate() {
