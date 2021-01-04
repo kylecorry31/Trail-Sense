@@ -541,4 +541,7 @@
     <string name="tool_category_power">Energie</string>
     <string name="battery_health_over_voltage">Überspannung</string>
     <string name="battery_health_cold">Kalt</string>
+    <string name="metal_detector_disclaimer">Erkennt nur magnetiche Metalle (z.B. Eisen)</string>
+    <string name="pip_notification_scheduled">Benachrichtigung für %s geplant</string>
+    <string name="pip_button">Systemzeit aktualisieren</string>
 </resources>
