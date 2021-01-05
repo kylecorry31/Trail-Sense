@@ -470,8 +470,8 @@
     <string name="disclaimer_message_content">Trail Sense to narzędzie, które można wykorzystać w sytuacji surwiwalowej, ale nie należy polegać wyłącznie na nim. Zweryfikuj jego dokładność, jeśli to możliwe unikaj niebezpiecznych sytuacji, zachowaj spokój i kieruj się zdrowym rozsądkiem.</string>
     <string name="tool_clock_title">Zegar</string>
     <string name="utc_format">UTC %s</string>
-    <string name="lightning">Piorun</string>
-    <string name="thunder">Burza</string>
+    <string name="lightning">Błyskawica</string>
+    <string name="thunder">Grzmot</string>
     <string name="three">3</string>
     <string name="two">2</string>
     <string name="one">1</string>
@@ -491,4 +491,18 @@
     <string name="charging_fast">Szybkie ładowanie (%s)</string>
     <string name="current_format">%.0f mA</string>
     <string name="battery_capacity_format">%.2f mAh</string>
+    <string name="compass_auto_declination">Automatyczna korekta deklinacji</string>
+    <string name="compass_declination_override">Nadpisz deklinację</string>
+    <string name="notes_empty_text">Brak notatek</string>
+    <string name="untitled_note">(notatka bez nazwy)</string>
+    <string name="delete_note_title">Usunąć notatkę\?</string>
+    <string name="tool_notes_title">Notatki</string>
+    <string name="bubble_level_angles">X: %s
+\nY: %s</string>
+    <string name="unit_centimeters">Centymetry</string>
+    <string name="unit_inches">Cale</string>
+    <string name="map_distance">Mapa: %s</string>
+    <string name="map_fractional_separator">:</string>
+    <string name="inches_format">%.2f cali</string>
+    <string name="centimeters_format">%.2f cm</string>
 </resources>
