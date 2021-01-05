@@ -95,7 +95,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/colorPrimary" />
 
-    <View
+    <ImageView
         android:id="@+id/bubble_x_center"
         android:layout_width="2dp"
         android:layout_height="0dp"
@@ -103,9 +103,10 @@
         app:layout_constraintEnd_toEndOf="@+id/bubble_x_background"
         app:layout_constraintStart_toStartOf="@+id/bubble_x_background"
         app:layout_constraintTop_toTopOf="@+id/bubble_x_background"
-        android:background="?android:attr/textColorPrimary"/>
+        app:tint="?android:textColorPrimary"
+        android:src="@drawable/rectangle"/>
 
-    <View
+    <ImageView
         android:id="@+id/bubble_y_center"
         android:layout_height="2dp"
         android:layout_width="0dp"
@@ -113,7 +114,8 @@
         app:layout_constraintEnd_toEndOf="@+id/bubble_y_background"
         app:layout_constraintStart_toStartOf="@+id/bubble_y_background"
         app:layout_constraintTop_toTopOf="@+id/bubble_y_background"
-        android:background="?android:attr/textColorPrimary"/>
+        app:tint="?android:textColorPrimary"
+        android:src="@drawable/rectangle"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
