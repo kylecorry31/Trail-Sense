@@ -714,4 +714,16 @@
     <string name="map_scale_title">Map Scale</string>
     <string name="map_scale_ratio">Ratio</string>
     <string name="map_scale_verbal">Verbal</string>
+    <string name="pref_min_uncalibrated_temp_c" translatable="false">pref_min_uncalibrated_temp_c</string>
+    <string name="pref_min_calibrated_temp_c" translatable="false">pref_min_calibrated_temp_c</string>
+    <string name="pref_max_uncalibrated_temp_c" translatable="false">pref_max_uncalibrated_temp_c</string>
+    <string name="pref_max_calibrated_temp_c" translatable="false">pref_max_calibrated_temp_c</string>
+    <string name="pref_min_uncalibrated_temp_f" translatable="false">pref_min_uncalibrated_temp_f</string>
+    <string name="pref_min_calibrated_temp_f" translatable="false">pref_min_calibrated_temp_f</string>
+    <string name="pref_max_uncalibrated_temp_f" translatable="false">pref_max_uncalibrated_temp_f</string>
+    <string name="pref_max_calibrated_temp_f" translatable="false">pref_max_calibrated_temp_f</string>
+    <string name="max_temp_calibrated">Max ambient temperature (calibrated)</string>
+    <string name="max_temp_uncalibrated">Max phone temperature (uncalibrated)</string>
+    <string name="min_temp_calibrated">Min ambient temperature (calibrated)</string>
+    <string name="min_temp_uncalibrated">Min phone temperature (uncalibrated)</string>
 </resources>

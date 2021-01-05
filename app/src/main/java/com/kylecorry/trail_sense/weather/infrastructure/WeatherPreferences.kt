@@ -130,20 +130,52 @@ class WeatherPreferences(private val context: Context) {
         }
 
     var minBatteryTemperature: Float
-        get() = 4f
-        set(value) {}
+        get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_c))?.toFloatOrNull() ?: 0f
+        set(value) {
+            cache.putString(context.getString(R.string.pref_min_uncalibrated_temp_c), value.toString())
+        }
 
     var minActualTemperature: Float
-        get() = -17f
-        set(value) {}
+        get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_c))?.toFloatOrNull() ?: 0f
+        set(value) {
+            cache.putString(context.getString(R.string.pref_min_calibrated_temp_c), value.toString())
+        }
 
     var maxBatteryTemperature: Float
-        get() = 30f
-        set(value) {}
+        get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_c))?.toFloatOrNull() ?: 100f
+        set(value) {
+            cache.putString(context.getString(R.string.pref_max_uncalibrated_temp_c), value.toString())
+        }
 
     var maxActualTemperature: Float
-        get() = 22.5f
-        set(value) {}
+        get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_c))?.toFloatOrNull() ?: 100f
+        set(value) {
+            cache.putString(context.getString(R.string.pref_max_calibrated_temp_c), value.toString())
+        }
+
+    var minBatteryTemperatureF: Float
+        get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_f))?.toFloatOrNull() ?: 32f
+        set(value) {
+            cache.putString(context.getString(R.string.pref_min_uncalibrated_temp_f), value.toString())
+        }
+
+    var minActualTemperatureF: Float
+        get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_f))?.toFloatOrNull() ?: 32f
+        set(value) {
+            cache.putString(context.getString(R.string.pref_min_calibrated_temp_f), value.toString())
+        }
+
+    var maxBatteryTemperatureF: Float
+        get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_f))?.toFloatOrNull() ?: 212f
+        set(value) {
+            cache.putString(context.getString(R.string.pref_max_uncalibrated_temp_f), value.toString())
+        }
+
+    var maxActualTemperatureF: Float
+        get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_f))?.toFloatOrNull() ?: 212f
+        set(value) {
+            cache.putString(context.getString(R.string.pref_max_calibrated_temp_f), value.toString())
+        }
 
     val useLawOfCooling: Boolean
         get() = false

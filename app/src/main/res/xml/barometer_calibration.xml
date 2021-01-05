@@ -13,13 +13,6 @@
             app:key="@string/pref_holder_pressure"
             app:singleLineTitle="false" />
 
-        <Preference
-            android:summary="@string/dash"
-            android:title="@string/pref_temperature_holder_title"
-            app:icon="@drawable/thermometer_colored"
-            app:key="@string/pref_temperature_holder"
-            app:singleLineTitle="false" />
-
         <ListPreference
             app:defaultValue="48"
             app:entries="@array/pressure_history_entries"
@@ -86,29 +79,87 @@
             app:singleLineTitle="false"
             app:title="@string/pref_adjust_for_temperature_title" />
 
-        <SeekBarPreference
-            android:defaultValue="0"
-            android:max="30"
-            app:iconSpaceReserved="false"
-            app:isPreferenceVisible="false"
-            app:key="@string/pref_temperature_adjustment_c"
-            app:min="-30"
-            app:seekBarIncrement="1"
-            app:showSeekBarValue="true"
-            app:singleLineTitle="false"
-            app:title="@string/pref_temperature_adjustment_title" />
+        <Preference
+            android:summary="@string/dash"
+            android:title="@string/pref_temperature_holder_title"
+            app:icon="@drawable/thermometer_colored"
+            app:key="@string/pref_temperature_holder"
+            app:singleLineTitle="false" />
 
-        <SeekBarPreference
-            android:defaultValue="0"
-            android:max="54"
+<!--        Celsius calibration-->
+        <EditTextPreference
+            android:defaultValue="0.0"
+            android:inputType="numberDecimal"
             app:iconSpaceReserved="false"
-            app:isPreferenceVisible="false"
-            app:key="@string/pref_temperature_adjustment_f"
-            app:min="-54"
-            app:seekBarIncrement="1"
-            app:showSeekBarValue="true"
+            app:key="@string/pref_min_uncalibrated_temp_c"
             app:singleLineTitle="false"
-            app:title="@string/pref_temperature_adjustment_title" />
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/min_temp_uncalibrated" />
+
+        <EditTextPreference
+            android:defaultValue="0.0"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_min_calibrated_temp_c"
+            app:singleLineTitle="false"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/min_temp_calibrated" />
+
+        <EditTextPreference
+            android:defaultValue="100.0"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_max_uncalibrated_temp_c"
+            app:singleLineTitle="false"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/max_temp_uncalibrated" />
+
+        <EditTextPreference
+            android:defaultValue="100.0"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_max_calibrated_temp_c"
+            app:singleLineTitle="false"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/max_temp_calibrated" />
+
+        <!--        Fahrenheit calibration-->
+        <EditTextPreference
+            android:defaultValue="32.0"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_min_uncalibrated_temp_f"
+            app:singleLineTitle="false"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/min_temp_uncalibrated" />
+
+        <EditTextPreference
+            android:defaultValue="32.0"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_min_calibrated_temp_f"
+            app:singleLineTitle="false"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/min_temp_calibrated" />
+
+        <EditTextPreference
+            android:defaultValue="212.0"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_max_uncalibrated_temp_f"
+            app:singleLineTitle="false"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/max_temp_uncalibrated" />
+
+        <EditTextPreference
+            android:defaultValue="212.0"
+            android:inputType="numberDecimal"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_max_calibrated_temp_f"
+            app:singleLineTitle="false"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/max_temp_calibrated" />
+
 
     </PreferenceCategory>
 

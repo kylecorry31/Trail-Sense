@@ -27,10 +27,16 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     private lateinit var pressureTxt: Preference
     private lateinit var temperatureTxt: Preference
     private lateinit var seaLevelSwitch: SwitchPreferenceCompat
-    private lateinit var cSeekBar: SeekBarPreference
-    private lateinit var fSeekBar: SeekBarPreference
     private lateinit var altitudeChangeSeekBar: SeekBarPreference
     private lateinit var pressureChangeSeekBar: SeekBarPreference
+    private lateinit var minTempCalibratedC: EditTextPreference
+    private lateinit var maxTempCalibratedC: EditTextPreference
+    private lateinit var minTempUncalibratedC: EditTextPreference
+    private lateinit var maxTempUncalibratedC: EditTextPreference
+    private lateinit var minTempCalibratedF: EditTextPreference
+    private lateinit var maxTempCalibratedF: EditTextPreference
+    private lateinit var minTempUncalibratedF: EditTextPreference
+    private lateinit var maxTempUncalibratedF: EditTextPreference
 
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
@@ -69,8 +75,14 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
         pressureTxt = findPreference(getString(R.string.pref_holder_pressure))!!
         seaLevelSwitch = findPreference(getString(R.string.pref_use_sea_level_pressure))!!
         temperatureTxt = findPreference(getString(R.string.pref_temperature_holder))!!
-        cSeekBar = findPreference(getString(R.string.pref_temperature_adjustment_c))!!
-        fSeekBar = findPreference(getString(R.string.pref_temperature_adjustment_f))!!
+        minTempCalibratedC = findPreference(getString(R.string.pref_min_calibrated_temp_c))!!
+        maxTempCalibratedC = findPreference(getString(R.string.pref_max_calibrated_temp_c))!!
+        minTempUncalibratedC = findPreference(getString(R.string.pref_min_uncalibrated_temp_c))!!
+        maxTempUncalibratedC = findPreference(getString(R.string.pref_max_uncalibrated_temp_c))!!
+        minTempCalibratedF = findPreference(getString(R.string.pref_min_calibrated_temp_f))!!
+        maxTempCalibratedF = findPreference(getString(R.string.pref_max_calibrated_temp_f))!!
+        minTempUncalibratedF = findPreference(getString(R.string.pref_min_uncalibrated_temp_f))!!
+        maxTempUncalibratedF = findPreference(getString(R.string.pref_max_uncalibrated_temp_f))!!
         altitudeChangeSeekBar = findPreference(getString(R.string.pref_barometer_altitude_change))!!
         pressureChangeSeekBar =
             findPreference(getString(R.string.pref_sea_level_pressure_change_thresh))!!
@@ -92,31 +104,76 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
             )
 
         if (prefs.temperatureUnits == TemperatureUnits.C) {
-            fSeekBar.isVisible = false
-            fSeekBar.isEnabled = false
-        } else {
-            cSeekBar.isVisible = false
-            cSeekBar.isEnabled = false
-        }
-
-        if (fSeekBar.isEnabled) {
-            fSeekBar.setOnPreferenceChangeListener { _, newValue ->
-                val temp = (newValue as Int).toFloat()
-                prefs.weather.temperatureAdjustment = (temp * 5 / 9f).roundToInt()
+            minTempCalibratedF.isVisible = false
+            minTempCalibratedF.isEnabled = false
+            maxTempCalibratedF.isVisible = false
+            maxTempCalibratedF.isEnabled = false
+            minTempUncalibratedF.isVisible = false
+            minTempUncalibratedF.isEnabled = false
+            maxTempUncalibratedF.isVisible = false
+            maxTempUncalibratedF.isEnabled = false
+            minTempCalibratedC.setOnPreferenceChangeListener { _, newValue ->
+                val temp = (newValue as String).toFloatOrNull() ?: 0f
+                prefs.weather.minActualTemperatureF =
+                    unitService.convert(temp, TemperatureUnits.C, TemperatureUnits.F)
                 update()
                 true
             }
-        }
-
-        if (cSeekBar.isEnabled) {
-            cSeekBar.setOnPreferenceChangeListener { _, newValue ->
-                val temp = (newValue as Int).toFloat()
-                preferenceManager.sharedPreferences.edit {
-                    putInt(
-                        getString(R.string.pref_temperature_adjustment_f),
-                        (temp * 9 / 5f).roundToInt()
-                    )
-                }
+            minTempUncalibratedC.setOnPreferenceChangeListener { _, newValue ->
+                val temp = (newValue as String).toFloatOrNull() ?: 0f
+                prefs.weather.minBatteryTemperatureF =
+                    unitService.convert(temp, TemperatureUnits.C, TemperatureUnits.F)
+                update()
+                true
+            }
+            maxTempCalibratedC.setOnPreferenceChangeListener { _, newValue ->
+                val temp = (newValue as String).toFloatOrNull() ?: 0f
+                prefs.weather.maxActualTemperatureF =
+                    unitService.convert(temp, TemperatureUnits.C, TemperatureUnits.F)
+                update()
+                true
+            }
+            maxTempUncalibratedC.setOnPreferenceChangeListener { _, newValue ->
+                val temp = (newValue as String).toFloatOrNull() ?: 0f
+                prefs.weather.maxBatteryTemperatureF =
+                    unitService.convert(temp, TemperatureUnits.C, TemperatureUnits.F)
+                update()
+                true
+            }
+        } else {
+            minTempCalibratedC.isVisible = false
+            minTempCalibratedC.isEnabled = false
+            maxTempCalibratedC.isVisible = false
+            maxTempCalibratedC.isEnabled = false
+            minTempUncalibratedC.isVisible = false
+            minTempUncalibratedC.isEnabled = false
+            maxTempUncalibratedC.isVisible = false
+            maxTempUncalibratedC.isEnabled = false
+            minTempCalibratedF.setOnPreferenceChangeListener { _, newValue ->
+                val temp = (newValue as String).toFloatOrNull() ?: 0f
+                prefs.weather.minActualTemperature =
+                    unitService.convert(temp, TemperatureUnits.F, TemperatureUnits.C)
+                update()
+                true
+            }
+            minTempUncalibratedF.setOnPreferenceChangeListener { _, newValue ->
+                val temp = (newValue as String).toFloatOrNull() ?: 0f
+                prefs.weather.minBatteryTemperature =
+                    unitService.convert(temp, TemperatureUnits.F, TemperatureUnits.C)
+                update()
+                true
+            }
+            maxTempCalibratedF.setOnPreferenceChangeListener { _, newValue ->
+                val temp = (newValue as String).toFloatOrNull() ?: 0f
+                prefs.weather.maxActualTemperature =
+                    unitService.convert(temp, TemperatureUnits.F, TemperatureUnits.C)
+                update()
+                true
+            }
+            maxTempUncalibratedF.setOnPreferenceChangeListener { _, newValue ->
+                val temp = (newValue as String).toFloatOrNull() ?: 0f
+                prefs.weather.maxBatteryTemperature =
+                    unitService.convert(temp, TemperatureUnits.F, TemperatureUnits.C)
                 update()
                 true
             }
@@ -158,6 +215,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
         }
 
     }
+
 
     override fun onResume() {
         super.onResume()
