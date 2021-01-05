@@ -60,7 +60,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:text="Ratio" />
+            android:text="@string/map_scale_ratio" />
 
         <Button
             android:id="@+id/map_verbal_btn"
@@ -69,7 +69,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:layout_weight="1"
-            android:text="Verbal" />
+            android:text="@string/map_scale_verbal" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

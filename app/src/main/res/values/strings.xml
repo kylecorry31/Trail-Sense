@@ -712,4 +712,6 @@
     <string name="tool_white_noise" translatable="false">tool_white_noise</string>
     <string name="tool_white_noise_summary">Helps you fall asleep</string>
     <string name="map_scale_title">Map Scale</string>
+    <string name="map_scale_ratio">Ratio</string>
+    <string name="map_scale_verbal">Verbal</string>
 </resources>
