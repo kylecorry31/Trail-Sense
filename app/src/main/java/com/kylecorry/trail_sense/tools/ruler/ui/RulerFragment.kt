@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolRulerBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.GeoService
@@ -28,6 +31,16 @@ class RulerFragment : Fragment() {
     private lateinit var ruler: Ruler
     private lateinit var units: UserPreferences.DistanceUnits
 
+    private val unitList = listOf(
+        DistanceUnits.Centimeters,
+        DistanceUnits.Meters,
+        DistanceUnits.Kilometers,
+        DistanceUnits.Inches,
+        DistanceUnits.Feet,
+        DistanceUnits.Miles,
+        DistanceUnits.NauticalMiles,
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +50,84 @@ class RulerFragment : Fragment() {
         ruler.onTap = this::onRulerTap
         ruler.show()
         binding.fractionalMapFrom.setText("1")
+
+        val fromAdapter = ArrayAdapter(
+            requireContext(),
+            R.layout.spinner_item_category,
+            R.id.category_name,
+            unitList.map { getUnitName(it) })
+        binding.verbalFromUnits.prompt = getString(R.string.distance_from)
+        binding.verbalFromUnits.adapter = fromAdapter
+        binding.verbalFromUnits.setSelection(0)
+
+        val toAdapter = ArrayAdapter(
+            requireContext(),
+            R.layout.spinner_item_category,
+            R.id.category_name,
+            unitList.map { getUnitName(it) })
+        binding.verbalToUnits.prompt = getString(R.string.distance_to)
+        binding.verbalToUnits.adapter = toAdapter
+        binding.verbalToUnits.setSelection(0)
+
+        CustomUiUtils.setButtonState(binding.mapRatioBtn, true)
+        CustomUiUtils.setButtonState(binding.mapVerbalBtn, false)
+
+        binding.mapRatioBtn.setOnClickListener {
+            scaleMode = MapScaleMode.Fractional
+            CustomUiUtils.setButtonState(binding.mapRatioBtn, true)
+            CustomUiUtils.setButtonState(binding.mapVerbalBtn, false)
+            binding.fractionalMapScale.visibility = View.VISIBLE
+            binding.verbalMapScale.visibility = View.INVISIBLE
+            calculateMapDistance()
+        }
+
+        binding.mapVerbalBtn.setOnClickListener {
+            scaleMode = MapScaleMode.Relational
+            CustomUiUtils.setButtonState(binding.mapRatioBtn, false)
+            CustomUiUtils.setButtonState(binding.mapVerbalBtn, true)
+            binding.fractionalMapScale.visibility = View.INVISIBLE
+            binding.verbalMapScale.visibility = View.VISIBLE
+            calculateMapDistance()
+        }
+
+        binding.verbalFromUnits.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                calculateMapDistance()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                calculateMapDistance()
+            }
+        }
+
+        binding.verbalToUnits.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                calculateMapDistance()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                calculateMapDistance()
+            }
+        }
+
+        binding.verbalScaleTo.addTextChangedListener {
+            calculateMapDistance()
+        }
+
+        binding.verbalScaleFrom.addTextChangedListener {
+            calculateMapDistance()
+        }
+
         binding.fractionalMapTo.addTextChangedListener {
             calculateMapDistance()
         }
@@ -67,10 +158,12 @@ class RulerFragment : Fragment() {
     private fun calculateMapDistance() {
         val displayDistance = when (scaleMode) {
             MapScaleMode.Relational -> {
-                val scaleFrom: Distance? = Distance(1f, DistanceUnits.Centimeters)
-                val scaleTo: Distance? = Distance(1f, DistanceUnits.Kilometers)
+                val scaleFromDist = binding.verbalScaleFrom.text.toString().toFloatOrNull()
+                val scaleToDist = binding.verbalScaleTo.text.toString().toFloatOrNull()
+                val scaleFrom = Distance(scaleFromDist ?: 0f, unitList[binding.verbalFromUnits.selectedItemPosition])
+                val scaleTo = Distance(scaleToDist ?: 0f, unitList[binding.verbalToUnits.selectedItemPosition])
 
-                if (scaleFrom == null || scaleTo == null) {
+                if (scaleFromDist == null || scaleToDist == null) {
                     null
                 } else {
                     val mapDistance = geoService.getMapDistance(currentDistance, scaleFrom, scaleTo)
@@ -95,6 +188,18 @@ class RulerFragment : Fragment() {
             ""
         } else {
             getString(R.string.map_distance, displayDistance)
+        }
+    }
+
+    private fun getUnitName(unit: DistanceUnits): String {
+        return when(unit){
+            DistanceUnits.Meters -> getString(R.string.unit_meters)
+            DistanceUnits.Kilometers -> getString(R.string.unit_kilometers)
+            DistanceUnits.Feet -> getString(R.string.unit_feet)
+            DistanceUnits.Miles -> getString(R.string.unit_miles)
+            DistanceUnits.NauticalMiles -> getString(R.string.unit_nautical_miles)
+            DistanceUnits.Centimeters -> getString(R.string.unit_centimeters)
+            DistanceUnits.Inches -> getString(R.string.unit_inches)
         }
     }
 
