@@ -186,7 +186,7 @@
     <string name="pressure_format">%s %s</string>
     <string name="temp_f_format">%.0f °F</string>
     <string name="temp_c_format">%.0f °C</string>
-    <string name="humidity_format">%0f%% Luftfeuchtigkeit</string>
+    <string name="humidity_format">%.0f%% Luftfeuchtigkeit</string>
     <string name="no_humidity_data">Keine Luftfeuchigkeitswerte</string>
     <string name="dew_point">Taupunkt %s</string>
     <string name="heat_alert_heat_danger_title">Hitzegefahr</string>
@@ -308,10 +308,8 @@
     <string name="trail_sense_maps">Offlinekarten</string>
     <string name="sun_does_not_rise">geht nicht auf</string>
     <plurals name="beacon_group_summary">
-        <item quantity="one">Singular
-\n%d beacon</item>
-        <item quantity="other">Plural
-\n%d beacons</item>
+        <item quantity="one">%d Wegpunkt</item>
+        <item quantity="other">%d Wegpunkte</item>
     </plurals>
     <string name="beacon_group_spinner_title">Gruppe</string>
     <string name="no_group">Keine Gruppe</string>
@@ -499,7 +497,7 @@
     <string name="notification_channel_clock_sync">Zeit Synchronisation</string>
     <string name="tool_category_distance">Entfernung</string>
     <string name="tool_battery_title">Batterie</string>
-    <string name="strobe_warning_content">Das Stroboskob erzeugt Blitzlicht, welches gefährlich für manche Nutzer sein könnte</string>
+    <string name="strobe_warning_content">Das Stroboskob erzeugt Blitzlicht, welches gefährlich für manche Nutzer sein könnte.</string>
     <string name="clock_waiting_for_gps">Zeit wird mittels GPS aktualisiert…</string>
     <string name="precise_inches_format">%s Zoll</string>
     <string name="precise_miles_format">%s Meilen</string>
@@ -521,4 +519,29 @@
     <string name="battery_capacity_format">%.2f mAh</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
+    <string name="unit_inches">Inch</string>
+    <string name="unit_centimeters">Zentimeter</string>
+    <string name="note_content_hint">Inhalt</string>
+    <string name="note_title_hint">Titel</string>
+    <string name="tool_notes_title">Notizen</string>
+    <string name="delete_note_title">Notiz löschen\?</string>
+    <string name="untitled_note">(unbennante Notiz)</string>
+    <string name="notes_empty_text">Keine Notizen</string>
+    <string name="tool_metal_detector_title">Metalldetektor</string>
+    <string name="threshold">Schwellenwert</string>
+    <string name="metal_detected">Metall detektiert</string>
+    <string name="clock_sync_time_settings">Zeit-Einstellungen öffnen\?</string>
+    <string name="notification_channel_clock_sync_description">Eine Benachrichtigung, um deine Uhr mit der GPS-Zeit zu synchronisieren</string>
+    <string name="beacon_2">Wegpunkt 2</string>
+    <string name="beacon_1">Wegpunkt 1</string>
+    <string name="triangulate_mark_beacon">Markieren</string>
+    <string name="tool_triangulate_title">Standort triangulieren</string>
+    <string name="tool_category_signaling">Signalisieren</string>
+    <string name="tool_category_location">Position</string>
+    <string name="tool_category_power">Energie</string>
+    <string name="battery_health_over_voltage">Überspannung</string>
+    <string name="battery_health_cold">Kalt</string>
+    <string name="metal_detector_disclaimer">Erkennt nur magnetiche Metalle (z.B. Eisen)</string>
+    <string name="pip_notification_scheduled">Benachrichtigung für %s geplant</string>
+    <string name="pip_button">Systemzeit aktualisieren</string>
 </resources>
