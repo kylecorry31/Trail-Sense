@@ -512,4 +512,18 @@
     <string name="tool_notes_title">Notater</string>
     <string name="centimeters_format">%.2f cm</string>
     <string name="battery_temp">Telefon: %s</string>
+    <string name="map_scale_verbal">Verbal</string>
+    <string name="map_fractional_separator">:</string>
+    <string name="min_temp_uncalibrated">Min. telefontemperatur (ukalibrert)</string>
+    <string name="min_temp_calibrated">Min. omgivelsestemperatur (kalibrert)</string>
+    <string name="max_temp_uncalibrated">Maks. telefontemperatur (ukalibrert)</string>
+    <string name="max_temp_calibrated">Maks. omgivelsestemperatur (kalibrert)</string>
+    <string name="map_scale_ratio">Forhold</string>
+    <string name="map_scale_title">Kartmålestokk</string>
+    <string name="tool_white_noise_summary">Hjelper deg med å sovne</string>
+    <string name="tool_white_noise_title">Hvit støy</string>
+    <string name="map_distance">Kart: %s</string>
+    <string name="unit_inches">Tomme</string>
+    <string name="freezing_temperatures_description">Vann vil fryse ute og regn kan gå over til snø</string>
+    <string name="freezing_temperatures_warning">Kuldegrader</string>
 </resources>
