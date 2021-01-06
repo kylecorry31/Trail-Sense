@@ -501,4 +501,15 @@
     <string name="notification_channel_clock_sync">Klokkesynkronisering</string>
     <string name="pip_notification_scheduled">Varsling planlagt for %s</string>
     <string name="pip_button">Oppdater systemtid</string>
+    <string name="untitled_note">(notat uten tittel)</string>
+    <string name="notes_empty_text">Ingen notater</string>
+    <string name="delete_note_title">Slette notat\?</string>
+    <string name="unit_centimeters">Centimeter</string>
+    <string name="bubble_level_angles">X: %s
+\nY: %s</string>
+    <string name="note_content_hint">Innhold</string>
+    <string name="note_title_hint">Tittel</string>
+    <string name="tool_notes_title">Notater</string>
+    <string name="centimeters_format">%.2f cm</string>
+    <string name="battery_temp">Telefon: %s</string>
 </resources>
