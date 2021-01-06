@@ -13,4 +13,8 @@
         <attr name="rangeDegrees" format="float"/>
     </declare-styleable>
 
+    <declare-styleable name="DistanceInputView">
+        <attr name="hint" format="string"/>
+    </declare-styleable>
+
 </resources>

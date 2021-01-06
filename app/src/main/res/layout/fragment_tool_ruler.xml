@@ -130,31 +130,12 @@
         app:layout_constraintTop_toTopOf="@+id/fractional_map_scale"
         tools:visibility="visible">
 
-        <LinearLayout
+        <com.kylecorry.trail_sense.shared.views.DistanceInputView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/verbal_scale_from"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:hint="@string/distance_from"
-                android:inputType="numberDecimal" />
-
-            <Spinner
-                android:id="@+id/verbal_from_units"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1" />
-        </LinearLayout>
+            android:id="@+id/verbal_map_scale_from"
+            app:hint="@string/distance_from">
+        </com.kylecorry.trail_sense.shared.views.DistanceInputView>
 
         <TextView
             android:id="@+id/verbal_map_scale_to_label"
@@ -165,31 +146,13 @@
             android:layout_marginBottom="8dp"
             android:text="@string/distance_to" />
 
-        <LinearLayout
+        <com.kylecorry.trail_sense.shared.views.DistanceInputView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/verbal_map_scale_to"
+            app:hint="@string/distance_to">
+        </com.kylecorry.trail_sense.shared.views.DistanceInputView>
 
-            <EditText
-                android:id="@+id/verbal_scale_to"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:hint="@string/distance_to"
-                android:inputType="numberDecimal" />
-
-            <Spinner
-                android:id="@+id/verbal_to_units"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1" />
-        </LinearLayout>
     </LinearLayout>
 
     <TextView

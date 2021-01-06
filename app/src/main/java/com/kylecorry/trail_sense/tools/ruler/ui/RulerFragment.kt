@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
+import kotlinx.android.synthetic.main.view_distance_input.*
 
 class RulerFragment : Fragment() {
     private var _binding: FragmentToolRulerBinding? = null
@@ -31,16 +32,6 @@ class RulerFragment : Fragment() {
     private lateinit var ruler: Ruler
     private lateinit var units: UserPreferences.DistanceUnits
 
-    private val unitList = listOf(
-        DistanceUnits.Centimeters,
-        DistanceUnits.Meters,
-        DistanceUnits.Kilometers,
-        DistanceUnits.Inches,
-        DistanceUnits.Feet,
-        DistanceUnits.Miles,
-        DistanceUnits.NauticalMiles,
-    )
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,24 +41,6 @@ class RulerFragment : Fragment() {
         ruler.onTap = this::onRulerTap
         ruler.show()
         binding.fractionalMapFrom.setText("1")
-
-        val fromAdapter = ArrayAdapter(
-            requireContext(),
-            R.layout.spinner_item_category,
-            R.id.category_name,
-            unitList.map { getUnitName(it) })
-        binding.verbalFromUnits.prompt = getString(R.string.distance_from)
-        binding.verbalFromUnits.adapter = fromAdapter
-        binding.verbalFromUnits.setSelection(0)
-
-        val toAdapter = ArrayAdapter(
-            requireContext(),
-            R.layout.spinner_item_category,
-            R.id.category_name,
-            unitList.map { getUnitName(it) })
-        binding.verbalToUnits.prompt = getString(R.string.distance_to)
-        binding.verbalToUnits.adapter = toAdapter
-        binding.verbalToUnits.setSelection(0)
 
         CustomUiUtils.setButtonState(binding.mapRatioBtn, true)
         CustomUiUtils.setButtonState(binding.mapVerbalBtn, false)
@@ -90,41 +63,24 @@ class RulerFragment : Fragment() {
             calculateMapDistance()
         }
 
-        binding.verbalFromUnits.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                calculateMapDistance()
-            }
+        binding.verbalMapScaleFrom.units = listOf(
+            DistanceUnits.Centimeters,
+            DistanceUnits.Inches
+        )
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                calculateMapDistance()
-            }
-        }
+        binding.verbalMapScaleTo.units = listOf(
+            DistanceUnits.Kilometers,
+            DistanceUnits.Miles,
+            DistanceUnits.NauticalMiles,
+            DistanceUnits.Meters,
+            DistanceUnits.Feet
+        )
 
-        binding.verbalToUnits.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                calculateMapDistance()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                calculateMapDistance()
-            }
-        }
-
-        binding.verbalScaleTo.addTextChangedListener {
+        binding.verbalMapScaleFrom.setOnDistanceChangeListener {
             calculateMapDistance()
         }
 
-        binding.verbalScaleFrom.addTextChangedListener {
+        binding.verbalMapScaleTo.setOnDistanceChangeListener {
             calculateMapDistance()
         }
 
@@ -158,12 +114,10 @@ class RulerFragment : Fragment() {
     private fun calculateMapDistance() {
         val displayDistance = when (scaleMode) {
             MapScaleMode.Relational -> {
-                val scaleFromDist = binding.verbalScaleFrom.text.toString().toFloatOrNull()
-                val scaleToDist = binding.verbalScaleTo.text.toString().toFloatOrNull()
-                val scaleFrom = Distance(scaleFromDist ?: 0f, unitList[binding.verbalFromUnits.selectedItemPosition])
-                val scaleTo = Distance(scaleToDist ?: 0f, unitList[binding.verbalToUnits.selectedItemPosition])
+                val scaleTo = binding.verbalMapScaleTo.distance
+                val scaleFrom = binding.verbalMapScaleFrom.distance
 
-                if (scaleFromDist == null || scaleToDist == null) {
+                if (scaleFrom == null || scaleTo == null) {
                     null
                 } else {
                     val mapDistance = geoService.getMapDistance(currentDistance, scaleFrom, scaleTo)
@@ -188,18 +142,6 @@ class RulerFragment : Fragment() {
             ""
         } else {
             getString(R.string.map_distance, displayDistance)
-        }
-    }
-
-    private fun getUnitName(unit: DistanceUnits): String {
-        return when(unit){
-            DistanceUnits.Meters -> getString(R.string.unit_meters)
-            DistanceUnits.Kilometers -> getString(R.string.unit_kilometers)
-            DistanceUnits.Feet -> getString(R.string.unit_feet)
-            DistanceUnits.Miles -> getString(R.string.unit_miles)
-            DistanceUnits.NauticalMiles -> getString(R.string.unit_nautical_miles)
-            DistanceUnits.Centimeters -> getString(R.string.unit_centimeters)
-            DistanceUnits.Inches -> getString(R.string.unit_inches)
         }
     }
 
