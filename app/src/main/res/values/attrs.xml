@@ -17,4 +17,7 @@
         <attr name="hint" format="string"/>
     </declare-styleable>
 
+    <declare-styleable name="BearingInputView">
+    </declare-styleable>
+
 </resources>

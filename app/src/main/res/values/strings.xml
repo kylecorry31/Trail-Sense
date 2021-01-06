@@ -726,4 +726,5 @@
     <string name="max_temp_uncalibrated">Max phone temperature (uncalibrated)</string>
     <string name="min_temp_calibrated">Min ambient temperature (calibrated)</string>
     <string name="min_temp_uncalibrated">Min phone temperature (uncalibrated)</string>
+    <string name="bearing">Bearing</string>
 </resources>
