@@ -505,4 +505,24 @@
     <string name="map_fractional_separator">:</string>
     <string name="inches_format">%.2f cali</string>
     <string name="centimeters_format">%.2f cm</string>
+    <string name="declination_override_updated_toast">Deklinacja nadpisana</string>
+    <string name="tool_category_power">Zasilanie</string>
+    <string name="tool_solar_panel_title">Pozycjonowanie paneli słonecznych</string>
+    <string name="solar_panel_instructions">Połóż telefon na powierzchni ogniwa słonecznego.</string>
+    <string name="note_content_hint">Treść</string>
+    <string name="tool_metal_detector_title">Wykrywacz metalu</string>
+    <string name="metal_detected">Wykryto metal</string>
+    <string name="magnetic_field_format">%.0f uT</string>
+    <string name="metal_detector_disclaimer">Wykrywa jedynie metale manetyczne (np. żelazo, stal)</string>
+    <string name="tool_triangulate_summary">Określ swoją lokalizację bez użycia GPS</string>
+    <string name="tool_triangulate_title">Triangulacja położenia</string>
+    <string name="tool_category_angles">Kąty</string>
+    <string name="tool_category_signaling">Sygnalizacja</string>
+    <string name="tool_category_distance">Odległość</string>
+    <string name="note_title_hint">Tytuł</string>
+    <string name="map_scale_verbal">Mianowana</string>
+    <string name="map_scale_ratio">Liczbowa</string>
+    <string name="tool_white_noise_title">Szum biały</string>
+    <string name="map_scale_title">Skala mapy</string>
+    <string name="compass_declination">Deklinacja magnetyczna</string>
 </resources>

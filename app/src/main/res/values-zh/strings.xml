@@ -543,4 +543,33 @@
     <string name="precise_nautical_miles_format">%s 海里</string>
     <string name="precise_miles_format">%s 英里</string>
     <string name="precise_feet_format">%s 英尺</string>
+    <string name="min_temp_uncalibrated">最低手机温度（未校准）</string>
+    <string name="min_temp_calibrated">最低环境温度（已校准）</string>
+    <string name="max_temp_uncalibrated">最高手机温度（未校准）</string>
+    <string name="max_temp_calibrated">最高环境温度 （已校准）</string>
+    <string name="map_scale_verbal">口头</string>
+    <string name="map_scale_ratio">比例</string>
+    <string name="map_scale_title">地图比例尺</string>
+    <string name="tool_white_noise_summary">帮助你入睡</string>
+    <string name="tool_white_noise_title">白噪音</string>
+    <string name="map_fractional_separator">:</string>
+    <string name="map_distance">地图：%s</string>
+    <string name="unit_inches">英寸</string>
+    <string name="unit_centimeters">厘米</string>
+    <string name="freezing_temperatures_description">如果被放在外面，水会结冰，且雨可能会变成雪</string>
+    <string name="freezing_temperatures_warning">冻结温度</string>
+    <string name="bubble_level_angles">X: %s
+\nY: %s</string>
+    <string name="note_content_hint">内容</string>
+    <string name="note_title_hint">标题</string>
+    <string name="tool_notes_title">附注</string>
+    <string name="delete_note_title">删除附注？</string>
+    <string name="untitled_note">（无标题附注）</string>
+    <string name="notes_empty_text">无附注</string>
+    <string name="location_override_updated">位置覆盖已更新</string>
+    <string name="update_gps_override">更新 GPS 覆盖</string>
+    <string name="compass_declination">磁偏角</string>
+    <string name="battery_temp">手机电池：%s</string>
+    <string name="centimeters_format">%.2f 厘米</string>
+    <string name="inches_format">%.2f 英寸</string>
 </resources>
