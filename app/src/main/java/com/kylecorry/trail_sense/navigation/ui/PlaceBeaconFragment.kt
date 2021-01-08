@@ -14,12 +14,17 @@ import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.trailsensecore.domain.geo.CompassDirection
+import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
+import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 
 class PlaceBeaconFragment : Fragment() {
 
@@ -33,12 +38,17 @@ class PlaceBeaconFragment : Fragment() {
 
     private lateinit var units: UserPreferences.DistanceUnits
     private val sensorService by lazy { SensorService(requireContext()) }
+    private val compass by lazy { sensorService.getCompass() }
+    private val formatService by lazy { FormatService(requireContext()) }
 
     private lateinit var groups: List<BeaconGroup>
 
     private var editingBeacon: Beacon? = null
     private var initialGroup: BeaconGroup? = null
     private var initialLocation: MyNamedCoordinate? = null
+    private val geoService = GeoService()
+
+    private var bearingTo: Bearing? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -173,10 +183,29 @@ class PlaceBeaconFragment : Fragment() {
             updateDoneButtonState()
         }
 
+        binding.createAtDistance.setOnCheckedChangeListener { _, isChecked ->
+            binding.distanceAway.visibility = if (isChecked) View.VISIBLE else View.GONE
+            binding.bearingToHolder.visibility = if (isChecked) View.VISIBLE else View.GONE
+            updateDoneButtonState()
+        }
+
+        binding.distanceAway.setOnDistanceChangeListener {
+            updateDoneButtonState()
+        }
+
+        binding.bearingToBtn.setOnClickListener {
+            bearingTo = compass.bearing
+            binding.bearingTo.text = formatService.formatDegrees(bearingTo?.value ?: 0f)
+            updateDoneButtonState()
+        }
+
         binding.placeBeaconBtn.setOnClickListener {
             val name = binding.beaconName.text.toString()
             val lat = binding.beaconLatitude.text.toString()
             val lng = binding.beaconLongitude.text.toString()
+            val createAtDistance = binding.createAtDistance.isChecked
+            val distanceTo = binding.distanceAway.distance?.convertTo(DistanceUnits.Meters)?.distance?.toDouble() ?: 0.0
+            val bearingTo = bearingTo ?: Bearing.from(CompassDirection.North)
             val comment = binding.comment.text.toString()
             val rawElevation = binding.beaconElevation.text.toString().toFloatOrNull()
             val elevation = if (rawElevation == null) {
@@ -185,7 +214,17 @@ class PlaceBeaconFragment : Fragment() {
                 LocationMath.convertToMeters(rawElevation, units)
             }
 
-            val coordinate = getCoordinate(lat, lng)
+            val coordinate = if (createAtDistance) {
+                val coord = getCoordinate(lat, lng)
+                val declination = if (coord != null){
+                    geoService.getDeclination(coord, elevation)
+                } else {
+                    0f
+                }
+                coord?.plus(distanceTo, bearingTo.withDeclination(declination))
+            } else {
+                getCoordinate(lat, lng)
+            }
 
             if (name.isNotBlank() && coordinate != null) {
                 val groupId = when (binding.beaconGroupSpinner.selectedItemPosition) {
@@ -230,12 +269,31 @@ class PlaceBeaconFragment : Fragment() {
             altimeter.start(this::setElevationFromAltimeter)
         }
 
+        binding.bearingToBtn.text = getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(0f))
+        binding.distanceAway.units = listOf(
+            DistanceUnits.Meters,
+            DistanceUnits.Kilometers,
+            DistanceUnits.Feet,
+            DistanceUnits.Miles,
+            DistanceUnits.NauticalMiles
+        )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        compass.start(this::onCompassUpdate)
     }
 
     override fun onPause() {
+        compass.stop(this::onCompassUpdate)
         gps.stop(this::setLocationFromGPS)
         altimeter.stop(this::setElevationFromAltimeter)
         super.onPause()
+    }
+
+    private fun onCompassUpdate(): Boolean {
+        binding.bearingToBtn.text = getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(compass.bearing.value))
+        return true
     }
 
     private fun setElevationFromAltimeter(): Boolean {
@@ -258,7 +316,19 @@ class PlaceBeaconFragment : Fragment() {
 
     private fun updateDoneButtonState() {
         binding.placeBeaconBtn.visibility =
-            if (hasValidName() && hasValidLatitude() && hasValidLongitude() && hasValidElevation()) View.VISIBLE else View.GONE
+            if (hasValidName() && hasValidLatitude() && hasValidLongitude() && hasValidElevation() && hasValidDistanceTo()) View.VISIBLE else View.GONE
+    }
+
+    private fun hasValidDistanceTo(): Boolean {
+        if (!binding.createAtDistance.isChecked){
+            return true
+        }
+
+        if (binding.distanceAway.distance == null){
+            return false
+        }
+
+        return bearingTo != null
     }
 
     private fun hasValidLatitude(): Boolean {
