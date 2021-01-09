@@ -64,9 +64,13 @@ class BacktrackService : Service() {
             Instant.now().toEpochMilli() - (cache.getLong("cache_last_backtrack_time")
                 ?: 0L)
 
-        if (timeSinceLast > Duration.ofMinutes(5).toMillis()) {
-            timeout.once(30 * 1000L)
-            gps.start(this::onGPSUpdate)
+        if (timeSinceLast > Duration.ofMinutes(5).toMillis() || timeSinceLast < 0) {
+            if (gps.hasValidReading){
+                onGPSUpdate()
+            } else {
+                timeout.once(30 * 1000L)
+                gps.start(this::onGPSUpdate)
+            }
         } else {
             wrapUp()
         }
