@@ -21,12 +21,12 @@ class FormatService(private val context: Context) {
 
     private val prefs by lazy { UserPreferences(context) }
 
-    fun formatTime(time: LocalTime): String {
+    fun formatTime(time: LocalTime, showSeconds: Boolean = true): String {
         val amPm = !prefs.use24HourTime
         return if (amPm){
-            time.format(DateTimeFormatter.ofPattern("h:mm:ss a"))
+            time.format(DateTimeFormatter.ofPattern("h:mm${if (showSeconds) ":ss" else ""} a"))
         } else {
-            time.format(DateTimeFormatter.ofPattern("H:mm:ss"))
+            time.format(DateTimeFormatter.ofPattern("H:mm${if (showSeconds) ":ss" else ""}"))
         }
     }
 

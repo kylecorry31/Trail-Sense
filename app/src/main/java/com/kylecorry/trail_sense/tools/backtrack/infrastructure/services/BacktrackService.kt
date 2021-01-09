@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistance.WaypointRepo
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
@@ -37,6 +38,7 @@ class BacktrackService : Service() {
     private var wakelock: PowerManager.WakeLock? = null
 
     private val prefs by lazy { UserPreferences(applicationContext) }
+    private val cache by lazy { Cache(applicationContext) }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.i(TAG, "Started at ${ZonedDateTime.now()}")
@@ -58,8 +60,16 @@ class BacktrackService : Service() {
 
         startForeground(FOREGROUND_SERVICE_ID, notification)
 
-        timeout.once(30 * 1000L)
-        gps.start(this::onGPSUpdate)
+        val timeSinceLast =
+            Instant.now().toEpochMilli() - (cache.getLong("cache_last_backtrack_time")
+                ?: 0L)
+
+        if (timeSinceLast > Duration.ofMinutes(5).toMillis()) {
+            timeout.once(30 * 1000L)
+            gps.start(this::onGPSUpdate)
+        } else {
+            wrapUp()
+        }
 
         return START_NOT_STICKY
     }
@@ -92,6 +102,7 @@ class BacktrackService : Service() {
 
     private fun onGPSUpdate(): Boolean {
         if (gps.hasValidReading) {
+            cache.putLong("cache_last_backtrack_time", Instant.now().toEpochMilli())
             recordWaypoint()
         }
         wrapUp()

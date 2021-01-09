@@ -747,4 +747,6 @@
     <string name="tool_backtrack_title">Backtrack</string>
     <string name="tool_backtrack">tool_backtrack</string>
     <string name="pref_backtrack_enabled" translatable="false">pref_backtrack_enabled</string>
+    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_beacon_title_template">%s, %s Waypoint</string>
 </resources>

@@ -8,7 +8,7 @@
     android:paddingBottom="8dp">
 
     <TextView
-        android:id="@+id/waypoint_coordinates"
+        android:id="@+id/waypoint_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -18,18 +18,18 @@
         app:layout_constraintEnd_toStartOf="@+id/waypoint_menu_btn"
         app:layout_constraintStart_toEndOf="@+id/waypoint_image"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="0.0000, 0.0000" />
+        tools:text="Saturday, 5:00" />
 
     <TextView
-        android:id="@+id/waypoint_time"
+        android:id="@+id/waypoint_coordinates"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toStartOf="@+id/waypoint_menu_btn"
-        app:layout_constraintStart_toStartOf="@+id/waypoint_coordinates"
-        app:layout_constraintTop_toBottomOf="@+id/waypoint_coordinates"
-        tools:text="January 1, 2021 5:00" />
+        app:layout_constraintStart_toStartOf="@+id/waypoint_time"
+        app:layout_constraintTop_toBottomOf="@+id/waypoint_time"
+        tools:text="0.0000, 0.0000" />
 
     <ImageButton
         android:id="@+id/waypoint_menu_btn"
@@ -51,9 +51,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:alpha="0.86"
-        app:layout_constraintBottom_toBottomOf="@+id/waypoint_time"
+        app:layout_constraintBottom_toBottomOf="@+id/waypoint_coordinates"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/waypoint_coordinates"
+        app:layout_constraintTop_toTopOf="@+id/waypoint_time"
         app:srcCompat="@drawable/ic_location"
         app:tint="@color/colorPrimary" />
 

@@ -158,7 +158,7 @@ class UserPreferences(private val context: Context) {
         get() = prefs.getBoolean(context.getString(R.string.pref_backtrack_enabled), false)
         set(value) = prefs.edit { putBoolean(context.getString(R.string.pref_backtrack_enabled), value) }
 
-    val backtrackRecordFrequency: Duration = Duration.ofMinutes(15)
+    val backtrackRecordFrequency: Duration = Duration.ofMinutes(30)
 
     private fun getString(id: Int): String {
         return context.getString(id)

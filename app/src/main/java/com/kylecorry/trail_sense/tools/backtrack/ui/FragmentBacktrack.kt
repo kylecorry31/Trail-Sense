@@ -64,8 +64,10 @@ class FragmentBacktrack : Fragment() {
                     formatService.formatLocation(waypoint.coordinate)
                 val date = waypoint.createdInstant.toZonedDateTime()
                 val time = date.toLocalTime()
-                itemBinding.waypointTime.text =
-                    "${formatService.formatDayOfWeek(date)}, ${formatService.formatTime(time)}"
+                itemBinding.waypointTime.text = getString(
+                    R.string.waypoint_time_format, formatService.formatDayOfWeek(date),
+                    formatService.formatTime(time, false)
+                )
 
                 val menuListener = PopupMenu.OnMenuItemClickListener {
                     when (it.itemId) {
@@ -92,9 +94,17 @@ class FragmentBacktrack : Fragment() {
 
         waypointsLiveData = waypointRepo.getWaypoints()
         waypointsLiveData.observe(viewLifecycleOwner) { waypoints ->
-            listView.setData(
-                waypoints.filter { it.createdInstant > Instant.now().minus(Duration.ofDays(2)) }.sortedByDescending { it.createdOn }
-            )
+            val filteredWaypoints =
+                waypoints.filter { it.createdInstant > Instant.now().minus(Duration.ofDays(2)) }
+                    .sortedByDescending { it.createdOn }
+
+            listView.setData(filteredWaypoints)
+
+            if (filteredWaypoints.isEmpty()) {
+                binding.waypointsEmptyText.visibility = View.VISIBLE
+            } else {
+                binding.waypointsEmptyText.visibility = View.INVISIBLE
+            }
         }
 
         wasEnabled = prefs.backtrackEnabled
@@ -133,12 +143,13 @@ class FragmentBacktrack : Fragment() {
         val bundle = bundleOf(
             "initial_location" to MyNamedCoordinate(
                 waypoint.coordinate,
-                "${
+                getString(
+                    R.string.waypoint_beacon_title_template,
                     formatService.formatDate(
                         date,
                         includeWeekDay = false
-                    )
-                }, ${formatService.formatTime(time)} Waypoint"
+                    ), formatService.formatTime(time, showSeconds = false)
+                )
             )
         )
         findNavController().navigate(R.id.place_beacon, bundle)
