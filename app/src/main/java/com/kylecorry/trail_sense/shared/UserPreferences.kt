@@ -154,7 +154,10 @@ class UserPreferences(private val context: Context) {
         get() = prefs.getBoolean(getString(R.string.pref_altitude_offsets), true)
         set(value) = prefs.edit { putBoolean(getString(R.string.pref_altitude_offsets), value) }
 
-    val backtrackEnabled: Boolean = true
+    var backtrackEnabled: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_backtrack_enabled), false)
+        set(value) = prefs.edit { putBoolean(context.getString(R.string.pref_backtrack_enabled), value) }
+
     val backtrackRecordFrequency: Duration = Duration.ofMinutes(15)
 
     private fun getString(id: Int): String {

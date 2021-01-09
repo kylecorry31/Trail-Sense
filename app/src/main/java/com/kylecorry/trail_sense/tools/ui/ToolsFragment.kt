@@ -117,6 +117,11 @@ class ToolsFragment : PreferenceFragmentCompat() {
             R.id.action_action_experimental_tools_to_fragmentToolNotes
         )
 
+        navigateOnClick(
+            findPreference(getString(R.string.tool_backtrack)),
+            R.id.action_action_experimental_tools_to_fragmentBacktrack
+        )
+
         val isExperimentalEnabled = prefs.experimentalEnabled
         val whiteNoise = findPreference<Preference>(getString(R.string.tool_white_noise))
         whiteNoise?.isVisible = isExperimentalEnabled

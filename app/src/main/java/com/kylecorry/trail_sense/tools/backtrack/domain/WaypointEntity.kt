@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.backtrack.domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import java.time.Instant
 
 @Entity(tableName = "waypoints")
@@ -19,5 +20,8 @@ data class WaypointEntity(
 
     val createdInstant: Instant
         get() = Instant.ofEpochMilli(createdOn)
+
+    val coordinate: Coordinate
+        get() = Coordinate(latitude, longitude)
 
 }

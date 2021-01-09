@@ -107,6 +107,12 @@
             app:key="@string/tool_trail_sense_maps"
             app:singleLineTitle="false" />
         <Preference
+            android:icon="@drawable/ic_tool_backtrack"
+            android:summary="@string/tool_backtrack_summary"
+            android:title="@string/tool_backtrack_title"
+            app:key="@string/tool_backtrack"
+            app:singleLineTitle="false" />
+        <Preference
             android:icon="@drawable/ic_tool_triangulate"
             android:summary="@string/tool_triangulate_summary"
             android:title="@string/tool_triangulate_title"

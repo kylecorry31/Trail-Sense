@@ -25,8 +25,10 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmR
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.*
 import io.noties.markwon.Markwon
 import java.time.Duration
@@ -39,6 +41,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigation: BottomNavigationView
 
     private var geoIntentLocation: GeoUriParser.NamedCoordinate? = null
+
+    private val sensorChecker by lazy { SensorChecker(this) }
 
     private lateinit var userPrefs: UserPreferences
     private lateinit var disclaimer: DisclaimerMessage
@@ -125,8 +129,17 @@ class MainActivity : AppCompatActivity() {
             WeatherUpdateScheduler.start(this)
         } else {
             WeatherUpdateScheduler.stop(this)
+        }
+
+        if (!sensorChecker.hasBarometer()){
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)
             item.isVisible = false
+        }
+
+        if (userPrefs.backtrackEnabled){
+            BacktrackScheduler.start(this)
+        } else {
+            BacktrackScheduler.stop(this)
         }
 
         val sunsetIntent = SunsetAlarmReceiver.intent(applicationContext)

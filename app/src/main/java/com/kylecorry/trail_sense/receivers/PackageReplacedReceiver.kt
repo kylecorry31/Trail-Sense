@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 
 class PackageReplacedReceiver : BroadcastReceiver() {
@@ -12,6 +13,7 @@ class PackageReplacedReceiver : BroadcastReceiver() {
         if (intent?.action == Intent.ACTION_PACKAGE_REPLACED && context != null) {
             startWeatherMonitoring(context)
             startSunsetAlarm(context)
+            startBacktrack(context)
         }
     }
 
@@ -21,6 +23,15 @@ class PackageReplacedReceiver : BroadcastReceiver() {
             WeatherUpdateScheduler.start(context)
         } else {
             WeatherUpdateScheduler.stop(context)
+        }
+    }
+
+    private fun startBacktrack(context: Context){
+        val prefs = UserPreferences(context)
+        if (prefs.backtrackEnabled) {
+            BacktrackScheduler.start(context)
+        } else {
+            BacktrackScheduler.stop(context)
         }
     }
 

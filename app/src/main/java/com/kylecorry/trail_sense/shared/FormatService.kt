@@ -30,11 +30,23 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatDate(date: ZonedDateTime): String {
+    fun formatDate(date: ZonedDateTime, includeWeekDay: Boolean = true): String {
         return DateUtils.formatDateTime(
             context,
             date.toEpochSecond() * 1000,
-            DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_WEEKDAY or DateUtils.FORMAT_SHOW_YEAR
+            if (includeWeekDay) {
+                DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_WEEKDAY or DateUtils.FORMAT_SHOW_YEAR
+            } else {
+                DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR
+            }
+        )
+    }
+
+    fun formatDayOfWeek(date: ZonedDateTime): String {
+        return DateUtils.formatDateTime(
+            context,
+            date.toEpochSecond() * 1000,
+            DateUtils.FORMAT_SHOW_WEEKDAY
         )
     }
 

@@ -740,4 +740,11 @@
     <string name="backtrack_notification_channel">Backtrack</string>
     <string name="backtrack_notification_channel_description">Backtrack location updates</string>
     <string name="backtrack_notification_description">Placing location waypoint</string>
+    <string name="waypoints_empty_text">No waypoints</string>
+    <string name="waypoint_action_delete">Delete</string>
+    <string name="action_waypoint_create_beacon">Create beacon</string>
+    <string name="tool_backtrack_summary">View location history</string>
+    <string name="tool_backtrack_title">Backtrack</string>
+    <string name="tool_backtrack">tool_backtrack</string>
+    <string name="pref_backtrack_enabled" translatable="false">pref_backtrack_enabled</string>
 </resources>

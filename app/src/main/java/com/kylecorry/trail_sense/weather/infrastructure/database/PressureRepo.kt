@@ -46,14 +46,18 @@ class PressureRepo private constructor(private val context: Context) {
     }
 
     fun deleteOlderThan(time: Instant) {
-        conn.open()
-        conn.transaction {
-            conn.execute(
-                "delete from pressures where time < ?",
-                arrayOf(time.toEpochMilli().toString())
-            )
+        try {
+            conn.open()
+            conn.transaction {
+                conn.execute(
+                    "delete from pressures where time < ?",
+                    arrayOf(time.toEpochMilli().toString())
+                )
+            }
+            conn.close()
+        } catch (e: Exception){
+            // Don't do anything - it isn't the end of the world
         }
-        conn.close()
     }
 
     fun add(
