@@ -25,6 +25,16 @@ object Guides {
                     context.getString(R.string.guide_beacons_title),
                     context.getString(R.string.guide_beacons_description),
                     R.raw.beacons
+                ),
+                UserGuide(
+                    context.getString(R.string.guide_create_beacons_title),
+                    context.getString(R.string.guide_create_beacons_description),
+                    R.raw.create_beacon
+                ),
+                UserGuide(
+                    context.getString(R.string.guide_location_no_gps_title),
+                    context.getString(R.string.guide_location_no_gps_description),
+                    R.raw.determine_location_without_gps
                 )
             )
         )

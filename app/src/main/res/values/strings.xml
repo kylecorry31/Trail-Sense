@@ -55,7 +55,9 @@
     <string name="coordinate_format_string_dms">%s\u0020\u0020\u0020\u0020%s</string>
     <string name="coordinate_format_string_dd">%s,\u0020\u0020%s</string>
     <string name="degree_format">%.0f°</string>
+    <string name="degree">%s°</string>
     <string name="percent_format">%d%%</string>
+    <string name="precise_percent_format">%s%%</string>
     <string name="battery_capacity_format">%.2f mAh</string>
     <string name="current_format">%.0f mA</string>
     <string name="charging_fast">Charging rapidly (%s)</string>
@@ -138,6 +140,8 @@
     </plurals>
     <string name="temp_f_format">%.0f °F</string>
     <string name="temp_c_format">%.0f °C</string>
+    <string name="precise_temp_f_format">%s °F</string>
+    <string name="precise_temp_c_format">%s °C</string>
     <string name="humidity_format">%.0f%% humidity</string>
     <string name="no_humidity_data">No humidity data</string>
     <string name="dew_point">Dew point %s</string>
@@ -729,4 +733,8 @@
     <string name="bearing">Bearing</string>
     <string name="create_at_distance">Create at distance</string>
     <string name="beacon_set_bearing_btn">Set bearing (%s)</string>
+    <string name="guide_create_beacons_title">Creating beacons</string>
+    <string name="guide_create_beacons_description">How to create beacons</string>
+    <string name="guide_location_no_gps_title">Determine location without GPS</string>
+    <string name="guide_location_no_gps_description">How to find your location when you don\'t have a GPS signal</string>
 </resources>
