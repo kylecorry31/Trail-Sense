@@ -12,6 +12,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
+import java.time.Duration
 
 class UserPreferences(private val context: Context) {
 
@@ -152,6 +153,9 @@ class UserPreferences(private val context: Context) {
     var useAltitudeOffsets: Boolean
         get() = prefs.getBoolean(getString(R.string.pref_altitude_offsets), true)
         set(value) = prefs.edit { putBoolean(getString(R.string.pref_altitude_offsets), value) }
+
+    val backtrackEnabled: Boolean = true
+    val backtrackRecordFrequency: Duration = Duration.ofMinutes(15)
 
     private fun getString(id: Int): String {
         return context.getString(id)

@@ -11,6 +11,7 @@ import android.util.Log
 import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.PowerUtils
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
@@ -35,7 +36,7 @@ class BacktrackService : Service() {
 
     private var wakelock: PowerManager.WakeLock? = null
 
-//    private val prefs by lazy { UserPreferences(applicationContext) }
+    private val prefs by lazy { UserPreferences(applicationContext) }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.i(TAG, "Started at ${ZonedDateTime.now()}")
@@ -66,7 +67,7 @@ class BacktrackService : Service() {
     private fun scheduleNextUpdate() {
         val scheduler = BacktrackScheduler.getScheduler(applicationContext)
         scheduler.cancel()
-        scheduler.schedule(Duration.ofMinutes(15))
+        scheduler.schedule(prefs.backtrackRecordFrequency)
     }
 
     private fun releaseWakelock() {
@@ -120,7 +121,7 @@ class BacktrackService : Service() {
     }
 
     private fun wrapUp() {
-//        gps.stop(this::onGPSUpdate)
+        gps.stop(this::onGPSUpdate)
         timeout.stop()
         releaseWakelock()
         stopForeground(true)
