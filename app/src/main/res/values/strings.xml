@@ -737,4 +737,7 @@
     <string name="guide_create_beacons_description">How to create beacons</string>
     <string name="guide_location_no_gps_title">Determine location without GPS</string>
     <string name="guide_location_no_gps_description">How to find your location when you don\'t have a GPS signal</string>
+    <string name="backtrack_notification_channel">Backtrack</string>
+    <string name="backtrack_notification_channel_description">Backtrack location updates</string>
+    <string name="backtrack_notification_description">Placing location waypoint</string>
 </resources>

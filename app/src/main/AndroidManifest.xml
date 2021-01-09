@@ -103,6 +103,11 @@
             android:enabled="true"
             android:foregroundServiceType="location" />
 
+        <service
+            android:name=".tools.backtrack.infrastructure.services.BacktrackService"
+            android:enabled="true"
+            android:foregroundServiceType="location" />
+
         <service android:name=".tools.whitenoise.infrastructure.WhiteNoiseService"
             android:enabled="true"
             android:foregroundServiceType="mediaPlayback" />
