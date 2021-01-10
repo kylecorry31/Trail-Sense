@@ -10,7 +10,7 @@ class OldBeaconRepo private constructor(context: Context) {
     private val conn: DatabaseConnection
 
     init {
-        conn = DatabaseConnection(context, "survive", 4, { conn ->
+        conn = DatabaseConnection(context, "survive", 5, { conn ->
             conn.transaction {
                 createTables(conn)
             }
@@ -27,6 +27,9 @@ class OldBeaconRepo private constructor(context: Context) {
                         }
                         4 -> {
                             conn.execute("ALTER TABLE beacons ADD COLUMN elevation REAL NULL DEFAULT NULL")
+                        }
+                        5 -> {
+                            conn.execute("ALTER TABLE beacons ADD COLUMN temporary INTEGER NOT NULL DEFAULT 0")
                         }
                     }
                 }
@@ -51,7 +54,7 @@ class OldBeaconRepo private constructor(context: Context) {
 
 
     private fun createTables(conn: DatabaseConnection) {
-        conn.execute("CREATE TABLE IF NOT EXISTS beacons (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, lat REAL NOT NULL, lng REAL NOT NULL, visible INTEGER NOT NULL, comment TEXT NULL, beacon_group_id INTEGER NULL, elevation REAL NULL)")
+        conn.execute("CREATE TABLE IF NOT EXISTS beacons (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, lat REAL NOT NULL, lng REAL NOT NULL, visible INTEGER NOT NULL, comment TEXT NULL, beacon_group_id INTEGER NULL, elevation REAL NULL, temporary INTEGER NOT NULL)")
         conn.execute("CREATE TABLE IF NOT EXISTS beacon_groups (beacon_group_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, group_name TEXT NOT NULL)")
     }
 

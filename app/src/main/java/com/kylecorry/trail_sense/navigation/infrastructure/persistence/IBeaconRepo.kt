@@ -9,6 +9,7 @@ interface IBeaconRepo {
     suspend fun getBeaconsSync(): List<BeaconEntity>
     suspend fun getBeaconsInGroup(groupId: Long?): List<BeaconEntity>
     suspend fun getBeacon(id: Long): BeaconEntity?
+    suspend fun getTemporaryBeacon(): BeaconEntity?
     suspend fun deleteBeacon(beacon: BeaconEntity)
     suspend fun addBeacon(beacon: BeaconEntity): Long
 

@@ -13,8 +13,9 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
+import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
-import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.toZonedDateTime
@@ -22,7 +23,6 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -94,25 +94,35 @@ class FragmentBacktrack : Fragment() {
                 }
 
                 itemBinding.root.setOnClickListener {
-                    val tempBeaconId = beaconRepo.getTemporaryBeacon()?.id ?: 0L
-                    val beacon = Beacon(
-                        tempBeaconId,
-                        getString(
-                            R.string.waypoint_beacon_title_template,
-                            formatService.formatDate(
-                                date,
-                                includeWeekDay = false
-                            ), formatService.formatTime(time, showSeconds = false)
-                        ),
-                        waypoint.coordinate,
-                        visible = false,
-                        elevation = waypoint.altitude,
-                        temporary = true
-                    )
-                    beaconRepo.add(beacon)
+                    lifecycleScope.launch {
+                        var newTempId = 0L
+                        withContext(Dispatchers.IO){
+                            val tempBeaconId = beaconRepo.getTemporaryBeacon()?.id ?: 0L
+                            val beacon = Beacon(
+                                tempBeaconId,
+                                getString(
+                                    R.string.waypoint_beacon_title_template,
+                                    formatService.formatDate(
+                                        date,
+                                        includeWeekDay = false
+                                    ), formatService.formatTime(time, showSeconds = false)
+                                ),
+                                waypoint.coordinate,
+                                visible = false,
+                                elevation = waypoint.altitude,
+                                temporary = true
+                            )
+                            beaconRepo.addBeacon(BeaconEntity.from(beacon))
 
-                    val newTempId = beaconRepo.getTemporaryBeacon()?.id ?: 0L
-                    findNavController().navigate(R.id.action_fragmentBacktrack_to_action_navigation, bundleOf("destination" to newTempId))
+                            newTempId = beaconRepo.getTemporaryBeacon()?.id ?: 0L
+                        }
+
+                        withContext(Dispatchers.Main){
+                            findNavController().navigate(R.id.action_fragmentBacktrack_to_action_navigation, bundleOf("destination" to newTempId))
+                        }
+
+                    }
+
                 }
 
             }

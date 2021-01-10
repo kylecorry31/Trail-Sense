@@ -59,7 +59,7 @@ class BeaconDatabaseMigrationWorker(
             cache.remove(NavigatorFragment.LAST_BEACON_ID)
 
 
-//            context.deleteDatabase("survive")
+            context.deleteDatabase("survive")
         } catch (e: Exception) {
             // Could not migrate
             return Result.failure()

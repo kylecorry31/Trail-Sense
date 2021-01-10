@@ -16,7 +16,8 @@ data class BeaconEntity(
     @ColumnInfo(name = "visible") val visible: Boolean,
     @ColumnInfo(name = "comment") val comment: String?,
     @ColumnInfo(name = "beacon_group_id") val beaconGroupId: Long?,
-    @ColumnInfo(name = "elevation") val elevation: Float?
+    @ColumnInfo(name = "elevation") val elevation: Float?,
+    @ColumnInfo(name = "temporary") val temporary: Boolean
 ) {
 
     @PrimaryKey(autoGenerate = true)
@@ -33,7 +34,7 @@ data class BeaconEntity(
 
     companion object {
         fun from(beacon: Beacon): BeaconEntity {
-            return BeaconEntity(beacon.name, beacon.coordinate.latitude, beacon.coordinate.longitude, beacon.visible, beacon.comment, beacon.beaconGroupId, beacon.elevation).also {
+            return BeaconEntity(beacon.name, beacon.coordinate.latitude, beacon.coordinate.longitude, beacon.visible, beacon.comment, beacon.beaconGroupId, beacon.elevation, beacon.temporary).also {
                 it.id = beacon.id
             }
         }

@@ -23,13 +23,14 @@ import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
 import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureDatabaseMigrationWorker
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingDao
+import java.io.File
 
 /**
  * The Room database for this app
  */
 @Database(
     entities = [InventoryItem::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class],
-    version = 5,
+    version = 6,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -54,6 +55,29 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): AppDatabase {
+
+            if (context.getDatabasePath("inventory").exists()) {
+                val dbFile = context.getDatabasePath("inventory")
+                val newDb = File(dbFile.parent, "trail_sense")
+                dbFile.renameTo(newDb)
+
+                try {
+                    val shmFile = File(dbFile.parent, "inventory-shm")
+                    val newShm = File(dbFile.parent, "trail_sense-shm")
+                    shmFile.renameTo(newShm)
+                } catch (e: Exception){
+                    // This file doesn't really matter
+                }
+
+                try {
+                    val walFile = File(dbFile.parent, "inventory-wal")
+                    val newWal = File(dbFile.parent, "trail_sense-wal")
+                    walFile.renameTo(newWal)
+                } catch (e: Exception){
+                    // This file doesn't really matter
+                }
+
+            }
 
             val MIGRATION_1_2 = object : Migration(1, 2) {
                 override fun migrate(database: SupportSQLiteDatabase) {
@@ -86,12 +110,19 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
-            return Room.databaseBuilder(context, AppDatabase::class.java, "inventory")
+            val MIGRATION_5_6 = object : Migration(5, 6) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("ALTER TABLE `beacons` ADD COLUMN `temporary` INTEGER NOT NULL DEFAULT 0")
+                }
+            }
+
+            return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
                     MIGRATION_2_3,
                     MIGRATION_3_4,
-                    MIGRATION_4_5
+                    MIGRATION_4_5,
+                    MIGRATION_5_6
                 )
                 .build()
         }
