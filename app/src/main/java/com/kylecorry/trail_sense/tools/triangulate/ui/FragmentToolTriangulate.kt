@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
-import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -20,6 +20,9 @@ import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 class FragmentToolTriangulate : Fragment() {
 
@@ -75,7 +78,12 @@ class FragmentToolTriangulate : Fragment() {
             }
         }
 
-        beacons = beaconRepo.get().sortedBy { it.name }.toList()
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                beacons =
+                    beaconRepo.getBeaconsSync().map { it.toBeacon() }.sortedBy { it.name }.toList()
+            }
+        }
 
         val adapter1 = ArrayAdapter(
             requireContext(),

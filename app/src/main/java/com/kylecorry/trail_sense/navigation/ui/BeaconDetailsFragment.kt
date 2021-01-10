@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconDetailsBinding
-import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BeaconDetailsFragment : Fragment() {
 
@@ -22,11 +26,50 @@ class BeaconDetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var beacon: Beacon? = null
+    private var beaconId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val id = requireArguments().getLong("beacon_id")
-        beacon = beaconRepo.get(id)
+        beaconId = requireArguments().getLong("beacon_id")
+    }
+
+    private fun loadBeacon(id: Long) {
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                beacon = beaconRepo.getBeacon(id)?.toBeacon()
+            }
+
+            withContext(Dispatchers.Main) {
+                beacon?.apply {
+                    binding.beaconName.text = this.name
+                    binding.locationText.text = formatService.formatLocation(this.coordinate)
+
+                    if (this.elevation != null) {
+                        binding.altitudeText.text =
+                            formatService.formatSmallDistance(this.elevation!!)
+                    } else {
+                        binding.altitudeText.visibility = View.GONE
+                        binding.altitudeIcon.visibility = View.GONE
+                    }
+
+                    if (!this.comment.isNullOrEmpty()) {
+                        binding.commentText.text = this.comment
+                    } else {
+                        binding.commentText.visibility = View.GONE
+                        binding.commentIcon.visibility = View.GONE
+                    }
+
+                    binding.navigateBtn.setOnClickListener {
+                        val bundle = bundleOf("destination" to (beacon?.id ?: 0L))
+                        findNavController().navigate(
+                            R.id.action_beaconDetailsFragment_to_action_navigation,
+                            bundle
+                        )
+                    }
+
+                }
+            }
+        }
     }
 
     override fun onCreateView(
@@ -45,29 +88,8 @@ class BeaconDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        beacon?.apply {
-            binding.beaconName.text = this.name
-            binding.locationText.text = formatService.formatLocation(this.coordinate)
-
-            if (this.elevation != null) {
-                binding.altitudeText.text = formatService.formatSmallDistance(this.elevation!!)
-            } else {
-                binding.altitudeText.visibility = View.GONE
-                binding.altitudeIcon.visibility = View.GONE
-            }
-
-            if (!this.comment.isNullOrEmpty()) {
-                binding.commentText.text = this.comment
-            } else {
-                binding.commentText.visibility = View.GONE
-                binding.commentIcon.visibility = View.GONE
-            }
-
-            binding.navigateBtn.setOnClickListener {
-                val bundle = bundleOf("destination" to (beacon?.id ?: 0L))
-                findNavController().navigate(R.id.action_beaconDetailsFragment_to_action_navigation, bundle)
-            }
-
+        if (beaconId != null) {
+            loadBeacon(beaconId!!)
         }
     }
 }

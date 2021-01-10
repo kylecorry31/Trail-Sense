@@ -11,16 +11,21 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
-import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
+import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class BeaconListFragment : Fragment() {
@@ -58,7 +63,11 @@ class BeaconListFragment : Fragment() {
         beaconList.addLineSeparator()
         navController = findNavController()
 
-        updateBeaconList()
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                updateBeaconList()
+            }
+        }
 
         binding.createBeaconBtn.setOnClickListener {
             if (displayedGroup != null) {
@@ -89,8 +98,15 @@ class BeaconListFragment : Fragment() {
                             getString(R.string.dialog_cancel)
                         ) { cancelled, text ->
                             if (!cancelled) {
-                                beaconRepo.add(BeaconGroup(0, text ?: ""))
-                                updateBeaconList()
+                                lifecycleScope.launch {
+                                    withContext(Dispatchers.IO){
+                                        beaconRepo.addBeaconGroup(BeaconGroupEntity(text ?: ""))
+                                    }
+
+                                    withContext(Dispatchers.Main){
+                                        updateBeaconList()
+                                    }
+                                }
                             }
                         }
                         dialog.dismiss()
@@ -107,7 +123,11 @@ class BeaconListFragment : Fragment() {
         view.setOnKeyListener { _, keyCode, _ ->
             if (keyCode == KeyEvent.KEYCODE_BACK && displayedGroup != null) {
                 displayedGroup = null
-                updateBeaconList()
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Main) {
+                        updateBeaconList()
+                    }
+                }
                 true
             } else false
         }
@@ -128,7 +148,11 @@ class BeaconListFragment : Fragment() {
     }
 
     private fun onLocationUpdate(): Boolean {
-        updateBeaconList()
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                updateBeaconList()
+            }
+        }
         return false
     }
 
@@ -142,7 +166,7 @@ class BeaconListFragment : Fragment() {
 
     private fun updateBeaconListItem(itemView: View, beacon: IBeacon) {
         if (beacon is Beacon) {
-            val listItem = BeaconListItem(itemView, beacon, gps.location)
+            val listItem = BeaconListItem(itemView, lifecycleScope, beacon, gps.location)
             listItem.onView = {
                 val bundle = bundleOf("beacon_id" to beacon.id)
                 navController.navigate(
@@ -165,12 +189,20 @@ class BeaconListFragment : Fragment() {
             }
 
             listItem.onDeleted = {
-                updateBeaconList()
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Main) {
+                        updateBeaconList()
+                    }
+                }
             }
         } else if (beacon is BeaconGroup) {
-            val listItem = BeaconGroupListItem(itemView, beacon)
+            val listItem = BeaconGroupListItem(itemView, lifecycleScope, beacon)
             listItem.onDeleted = {
-                updateBeaconList()
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Main) {
+                        updateBeaconList()
+                    }
+                }
             }
             listItem.onEdit = {
                 editTextDialog(
@@ -183,14 +215,24 @@ class BeaconListFragment : Fragment() {
                     getString(R.string.dialog_cancel)
                 ) { cancelled, text ->
                     if (!cancelled) {
-                        beaconRepo.add(beacon.copy(name = text ?: ""))
-                        updateBeaconList()
+                        lifecycleScope.launch {
+                            withContext(Dispatchers.IO){
+                                beaconRepo.addBeaconGroup(BeaconGroupEntity.from(beacon.copy(name = text ?: "")))
+                            }
+                            withContext(Dispatchers.Main){
+                                updateBeaconList()
+                            }
+                        }
                     }
                 }
             }
             listItem.onOpen = {
                 displayedGroup = beacon
-                updateBeaconList()
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Main) {
+                        updateBeaconList()
+                    }
+                }
             }
         }
     }
@@ -234,42 +276,45 @@ class BeaconListFragment : Fragment() {
         return dialog
     }
 
-    private fun updateBeaconList() {
+    private suspend fun updateBeaconList() {
         context ?: return
 
-        binding.beaconTitle.text = displayedGroup?.name ?: getString(R.string.beacon_list_title)
+        val beacons = withContext(Dispatchers.IO) {
+            if (displayedGroup == null) {
+                val ungrouped = beaconRepo.getBeaconsInGroup(null).sortedBy {
+                    it.coordinate.distanceTo(gps.location)
+                }.map { it.toBeacon() }
 
+                println(ungrouped)
 
-        val beacons = if (displayedGroup == null) {
-            val ungrouped = beaconRepo.getByGroup(null).sortedBy {
-                it.coordinate.distanceTo(gps.location)
-            }
+                val groups = beaconRepo.getGroupsSync().sortedBy {
+                    it.name
+                }.map { it.toBeaconGroup() }
 
-            val groups = beaconRepo.getGroups().sortedBy {
-                it.name
-            }
-
-            val all = (ungrouped + groups).map {
-                if (it is Beacon) {
-                    Pair(it, it.coordinate.distanceTo(gps.location))
-                } else {
-                    val groupBeacons = beaconRepo.getByGroup(it.id).map { b ->
-                        b.coordinate.distanceTo(gps.location)
-                    }.minOrNull()
-                    Pair(it, groupBeacons ?: Float.POSITIVE_INFINITY)
+                val all = (ungrouped + groups).map {
+                    if (it is Beacon) {
+                        Pair(it, it.coordinate.distanceTo(gps.location))
+                    } else {
+                        val groupBeacons = beaconRepo.getBeaconsInGroup(it.id).map { b ->
+                            b.coordinate.distanceTo(gps.location)
+                        }.minOrNull()
+                        Pair(it, groupBeacons ?: Float.POSITIVE_INFINITY)
+                    }
                 }
-            }
 
-            all.sortedBy { it.second }.map { it.first }
-        } else {
-            beaconRepo.getByGroup(displayedGroup?.id).sortedBy {
-                it.coordinate.distanceTo(gps.location)
+                all.sortedBy { it.second }.map { it.first }
+            } else {
+                beaconRepo.getBeaconsInGroup(displayedGroup?.id).sortedBy {
+                    it.coordinate.distanceTo(gps.location)
+                }.map { it.toBeacon() }
             }
         }
 
-        updateBeaconEmptyText(beacons.isNotEmpty())
-
-        beaconList.setData(beacons)
+        withContext(Dispatchers.Main) {
+            binding.beaconTitle.text = displayedGroup?.name ?: getString(R.string.beacon_list_title)
+            updateBeaconEmptyText(beacons.isNotEmpty())
+            beaconList.setData(beacons)
+        }
     }
 }
 

@@ -4,8 +4,9 @@ import android.view.View
 import android.widget.PopupMenu
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
+import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
-import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconSharesheet
@@ -15,9 +16,14 @@ import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BeaconListItem(
     private val view: View,
+    private val scope: CoroutineScope,
     private val beacon: Beacon,
     myLocation: Coordinate
 ) {
@@ -52,13 +58,21 @@ class BeaconListItem(
         }
 
         binding.visibleBtn.setOnClickListener {
-            val newBeacon = beacon.copy(visible = !beaconVisibility)
-            repo.add(newBeacon)
-            beaconVisibility = newBeacon.visible
-            if (beaconVisibility) {
-                binding.visibleBtn.setImageResource(R.drawable.ic_visible)
-            } else {
-                binding.visibleBtn.setImageResource(R.drawable.ic_not_visible)
+            scope.launch {
+                val newBeacon = beacon.copy(visible = !beaconVisibility)
+
+                withContext(Dispatchers.IO) {
+                    repo.addBeacon(BeaconEntity.from(newBeacon))
+                }
+
+                withContext(Dispatchers.Main) {
+                    beaconVisibility = newBeacon.visible
+                    if (beaconVisibility) {
+                        binding.visibleBtn.setImageResource(R.drawable.ic_visible)
+                    } else {
+                        binding.visibleBtn.setImageResource(R.drawable.ic_not_visible)
+                    }
+                }
             }
         }
 
@@ -96,8 +110,15 @@ class BeaconListItem(
                         view.context.getString(R.string.dialog_cancel)
                     ) { cancelled ->
                         if (!cancelled) {
-                            repo.delete(beacon)
-                            onDeleted()
+                            scope.launch {
+                                withContext(Dispatchers.IO) {
+                                    repo.deleteBeacon(BeaconEntity.from(beacon))
+                                }
+
+                                withContext(Dispatchers.Main) {
+                                    onDeleted()
+                                }
+                            }
                         }
                     }
                 }

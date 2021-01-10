@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
+import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
-import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
@@ -25,6 +27,10 @@ import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 class PlaceBeaconFragment : Fragment() {
 
@@ -59,13 +65,21 @@ class PlaceBeaconFragment : Fragment() {
         editingBeacon = if (beaconId == 0L) {
             null
         } else {
-            beaconRepo.get(beaconId)
+            runBlocking {
+                withContext(Dispatchers.IO) {
+                    beaconRepo.getBeacon(beaconId)?.toBeacon()
+                }
+            }
         }
 
         initialGroup = if (groupId == 0L) {
             null
         } else {
-            beaconRepo.getGroup(groupId)
+            runBlocking {
+                withContext(Dispatchers.IO) {
+                    beaconRepo.getGroup(groupId)?.toBeaconGroup()
+                }
+            }
         }
     }
 
@@ -90,8 +104,18 @@ class PlaceBeaconFragment : Fragment() {
 
         navController = findNavController()
 
-        groups = listOf(BeaconGroup(0, getString(R.string.no_group))) + beaconRepo.getGroups()
-            .sortedBy { it.name }
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                groups =
+                    listOf(
+                        BeaconGroup(
+                            0,
+                            getString(R.string.no_group)
+                        )
+                    ) + beaconRepo.getGroupsSync().map { it.toBeaconGroup() }
+                        .sortedBy { it.name }
+            }
+        }
         val adapter = ArrayAdapter(
             requireContext(),
             R.layout.beacon_group_spinner_item,
@@ -204,7 +228,9 @@ class PlaceBeaconFragment : Fragment() {
             val lat = binding.beaconLatitude.text.toString()
             val lng = binding.beaconLongitude.text.toString()
             val createAtDistance = binding.createAtDistance.isChecked
-            val distanceTo = binding.distanceAway.distance?.convertTo(DistanceUnits.Meters)?.distance?.toDouble() ?: 0.0
+            val distanceTo =
+                binding.distanceAway.distance?.convertTo(DistanceUnits.Meters)?.distance?.toDouble()
+                    ?: 0.0
             val bearingTo = bearingTo ?: Bearing.from(CompassDirection.North)
             val comment = binding.comment.text.toString()
             val rawElevation = binding.beaconElevation.text.toString().toFloatOrNull()
@@ -216,7 +242,7 @@ class PlaceBeaconFragment : Fragment() {
 
             val coordinate = if (createAtDistance) {
                 val coord = getCoordinate(lat, lng)
-                val declination = if (coord != null){
+                val declination = if (coord != null) {
                     geoService.getDeclination(coord, elevation)
                 } else {
                     0f
@@ -248,11 +274,18 @@ class PlaceBeaconFragment : Fragment() {
                         elevation
                     )
                 }
-                beaconRepo.add(beacon)
-                if (initialLocation != null) {
-                    requireActivity().onBackPressed()
-                } else {
-                    navController.navigate(R.id.action_place_beacon_to_beacon_list)
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO){
+                        beaconRepo.addBeacon(BeaconEntity.from(beacon))
+                    }
+
+                    withContext(Dispatchers.Main){
+                        if (initialLocation != null) {
+                            requireActivity().onBackPressed()
+                        } else {
+                            navController.navigate(R.id.action_place_beacon_to_beacon_list)
+                        }
+                    }
                 }
             }
         }
@@ -269,7 +302,8 @@ class PlaceBeaconFragment : Fragment() {
             altimeter.start(this::setElevationFromAltimeter)
         }
 
-        binding.bearingToBtn.text = getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(0f))
+        binding.bearingToBtn.text =
+            getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(0f))
         binding.distanceAway.units = listOf(
             DistanceUnits.Meters,
             DistanceUnits.Kilometers,
@@ -292,7 +326,10 @@ class PlaceBeaconFragment : Fragment() {
     }
 
     private fun onCompassUpdate(): Boolean {
-        binding.bearingToBtn.text = getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(compass.bearing.value))
+        binding.bearingToBtn.text = getString(
+            R.string.beacon_set_bearing_btn,
+            formatService.formatDegrees(compass.bearing.value)
+        )
         return true
     }
 
@@ -320,11 +357,11 @@ class PlaceBeaconFragment : Fragment() {
     }
 
     private fun hasValidDistanceTo(): Boolean {
-        if (!binding.createAtDistance.isChecked){
+        if (!binding.createAtDistance.isChecked) {
             return true
         }
 
-        if (binding.distanceAway.distance == null){
+        if (binding.distanceAway.distance == null) {
             return false
         }
 

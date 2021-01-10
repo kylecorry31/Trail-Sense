@@ -4,12 +4,18 @@ import android.view.View
 import android.widget.PopupMenu
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
-import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
+import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BeaconGroupListItem(
     private val view: View,
+    private val scope: CoroutineScope,
     private val group: BeaconGroup
 ) {
 
@@ -24,9 +30,20 @@ class BeaconGroupListItem(
 
         binding.beaconName.text = group.name
         binding.beaconImage.setImageResource(R.drawable.ic_beacon_group)
-        val count = repo.getNumberOfBeaconsInGroup(group.id)
-        binding.beaconSummary.text =
-            view.context.resources.getQuantityString(R.plurals.beacon_group_summary, count, count)
+        scope.launch {
+            val count = withContext(Dispatchers.IO) {
+                repo.getBeaconsInGroup(group.id).size
+            }
+
+            withContext(Dispatchers.Main) {
+                binding.beaconSummary.text = view.context.resources.getQuantityString(
+                    R.plurals.beacon_group_summary,
+                    count,
+                    count
+                )
+            }
+        }
+
         binding.visibleBtn.visibility = View.GONE
 
         view.setOnClickListener {
@@ -47,8 +64,16 @@ class BeaconGroupListItem(
                         view.context.getString(R.string.dialog_cancel)
                     ) { cancelled ->
                         if (!cancelled) {
-                            repo.delete(group)
-                            onDeleted()
+                            scope.launch {
+                                withContext(Dispatchers.IO){
+                                    repo.deleteBeaconGroup(BeaconGroupEntity.from(group))
+                                }
+
+                                withContext(Dispatchers.Main){
+                                    onDeleted()
+                                }
+                            }
+
                         }
                     }
                 }
@@ -65,5 +90,6 @@ class BeaconGroupListItem(
         }
 
     }
+
 
 }

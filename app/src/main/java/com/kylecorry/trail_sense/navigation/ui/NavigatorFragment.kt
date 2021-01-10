@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
@@ -14,14 +15,13 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trailsensecore.domain.geo.Bearing
-import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
-import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -33,6 +33,10 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOri
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.time.Duration
 
 class NavigatorFragment : Fragment() {
@@ -113,8 +117,12 @@ class NavigatorFragment : Fragment() {
 
         if (beaconId != 0L) {
             showCalibrationDialog()
-            destination = beaconRepo.get(beaconId)
-            cache.putLong(LAST_BEACON_ID, beaconId)
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    destination = beaconRepo.getBeacon(beaconId)?.toBeacon()
+                    cache.putLong(LAST_BEACON_ID, beaconId)
+                }
+            }
         }
     }
 
@@ -198,7 +206,10 @@ class NavigatorFragment : Fragment() {
             if (destinationBearing == null) {
                 destinationBearing = compass.bearing
                 cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
-                UiUtils.shortToast(requireContext(), getString(R.string.toast_destination_bearing_set))
+                UiUtils.shortToast(
+                    requireContext(),
+                    getString(R.string.toast_destination_bearing_set)
+                )
             } else {
                 destinationBearing = null
                 cache.remove(LAST_DEST_BEARING)
@@ -208,7 +219,10 @@ class NavigatorFragment : Fragment() {
             if (destinationBearing == null) {
                 destinationBearing = compass.bearing
                 cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
-                UiUtils.shortToast(requireContext(), getString(R.string.toast_destination_bearing_set))
+                UiUtils.shortToast(
+                    requireContext(),
+                    getString(R.string.toast_destination_bearing_set)
+                )
             } else {
                 destinationBearing = null
                 cache.remove(LAST_DEST_BEARING)
@@ -265,12 +279,18 @@ class NavigatorFragment : Fragment() {
         leftQuickAction?.onResume()
         useTrueNorth = userPrefs.navigation.useTrueNorth
         // Load the latest beacons
-        beacons = beaconRepo.get()
+        runBlocking {
+            beacons = beaconRepo.getBeaconsSync().map { it.toBeacon() }
+        }
 
         // Resume navigation
         val lastBeaconId = cache.getLong(LAST_BEACON_ID)
         if (lastBeaconId != null) {
-            destination = beaconRepo.get(lastBeaconId)
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    destination = beaconRepo.getBeacon(lastBeaconId)?.toBeacon()
+                }
+            }
         }
 
         val lastDestBearing = cache.getFloat(LAST_DEST_BEARING)
