@@ -6,11 +6,13 @@ import android.content.Intent
 import android.os.IBinder
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
+import com.kylecorry.trailsensecore.infrastructure.audio.WhiteNoise
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 
 class WhiteNoiseService : Service() {
 
-    private var whiteNoise: WhiteNoise? = null
+    private var whiteNoise: ISoundPlayer? = null
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
