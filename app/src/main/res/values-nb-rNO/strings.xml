@@ -520,4 +520,9 @@
     <string name="unit_inches">Tomme</string>
     <string name="freezing_temperatures_description">Vann vil fryse ute og regn kan gå over til snø</string>
     <string name="freezing_temperatures_warning">Kuldegrader</string>
+    <string name="pref_backtrack_enabled_summary">Ta opp posisjonshistorikk</string>
+    <string name="pref_tools_header">Verktøy</string>
+    <string name="tool_backtrack_summary">Vis posisjonshistorikk</string>
+    <string name="guide_location_no_gps_description">Hvordan finne posisjonen din når du ikke har et GPS-signal</string>
+    <string name="guide_location_no_gps_title">Bestem posisjon uten GPS</string>
 </resources>
