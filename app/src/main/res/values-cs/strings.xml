@@ -73,8 +73,8 @@
     <string name="full_moon">Úplněk</string>
     <string name="new_moon">Nov</string>
     <string name="until_sun_time">do %s</string>
-    <string name="moon_rise">Východ Měsíce</string>
-    <string name="moon_set">Západ Měsíce</string>
+    <string name="moon_rise">Východ měsíce</string>
+    <string name="moon_set">Západ měsíce</string>
     <string name="sunset_label">Západ slunce</string>
     <string name="sunrise_label">Svítání</string>
     <string name="yesterday">Včera</string>
@@ -203,4 +203,27 @@
     <string name="action_astronomy">Astronomie</string>
     <string name="action_settings">Nastavení</string>
     <string name="action_weather">Počasí</string>
+    <string name="add_elevation_offsets">Používat výšku v m n.m.</string>
+    <string name="altitude">Nadmořská výška</string>
+    <string name="pref_altimeter_calibration_title">Výškoměr</string>
+    <string name="pref_ruler_calibration_summary">Pravidla kalibrace:
+\n- Nastavte tuto hodnutu na 1.
+\n- Změřte, jaká hodnota pravítka této aplikace odpovídá jedné jednotce hmotného pravítka.
+\n- Zadejte změřenou hodnotu zde.</string>
+    <string name="sunset_alert_channel_title">Upozornění na západ slunce</string>
+    <string name="sunset_alert_channel_description">Upozornění na západ slunce</string>
+    <string name="waxing_crescent">Přibývající srpek</string>
+    <string name="waning_crescent">Ubývající srpek</string>
+    <string name="temperature_disclaimer">Zobrazovaná teplota může být vyšší kvůli teplu vytvářené telefonem.</string>
+    <string name="heat_alert_heat_message">Možné riziko vyčerpání z tepla nebo mrtvice. Udržujte se stále hydratovaní, zůstaňte uvnitř nebo ve stínu, omezte cvičení a sledujte známky vyčerpání z tepla nebo mrtvice.</string>
+    <string name="long_press_beacon_toast">Podržte maják k zobrazení možností.</string>
+    <string name="access_background_location">Změnit nastavení polohy</string>
+    <string name="tool_lightning_description">Změřit vzdálenost od místa úderu blesku</string>
+    <string name="tool_lightning_title">Vzdálenost od místa úderu blesku</string>
+    <string name="tool_ruler_title">Pravítko</string>
+    <string name="pref_ruler_calibration_title">Měřítko pravítka</string>
+    <string name="action_inventory_delete_all">Smazat vše</string>
+    <string name="tool_whistle_title">Píšťalka</string>
+    <string name="centimeters_format">%.2f cm</string>
+    <string name="inches_format">%.2f in</string>
 </resources>

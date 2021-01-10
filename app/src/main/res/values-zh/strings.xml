@@ -570,4 +570,5 @@
     <string name="battery_temp">手机电池：%s</string>
     <string name="centimeters_format">%.2f 厘米</string>
     <string name="inches_format">%.2f 英寸</string>
+    <string name="bearing">方位</string>
 </resources>

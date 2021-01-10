@@ -556,4 +556,31 @@
     <string name="charging_fast">Быстрая зарядка (%s)</string>
     <string name="current_format">%.0f мА</string>
     <string name="battery_capacity_format">%.2f мАч</string>
+    <string name="min_temp_uncalibrated">Мин. температура телефона (без калибровки)</string>
+    <string name="min_temp_calibrated">Мин. температура окружающей среды (после калибровки)</string>
+    <string name="max_temp_uncalibrated">Макс. температура телефона (без калибровки)</string>
+    <string name="max_temp_calibrated">Макс. температура окружающей среды (после калибровки)</string>
+    <string name="map_scale_verbal">Вербальный</string>
+    <string name="map_scale_ratio">Соотношение</string>
+    <string name="map_scale_title">Масштаб карты</string>
+    <string name="tool_white_noise_summary">Помогает заснуть</string>
+    <string name="tool_white_noise_title">Белый шум</string>
+    <string name="map_fractional_separator">:</string>
+    <string name="map_distance">Карта: %s</string>
+    <string name="unit_inches">Дюймы</string>
+    <string name="unit_centimeters">Сантиметры</string>
+    <string name="freezing_temperatures_description">Вода замерзнет, если её оставить, и дождь может стать снегом.</string>
+    <string name="freezing_temperatures_warning">Температура замерзания</string>
+    <string name="bubble_level_angles">X: %s
+\nY: %s</string>
+    <string name="note_content_hint">Содержание</string>
+    <string name="note_title_hint">Название</string>
+    <string name="tool_notes_title">Заметки</string>
+    <string name="delete_note_title">Удалить заметку\?</string>
+    <string name="untitled_note">(без названия)</string>
+    <string name="notes_empty_text">Нет заметок</string>
+    <string name="location_override_updated">Переопределение местоположения обновлено</string>
+    <string name="battery_temp">Телефон: %s</string>
+    <string name="centimeters_format">%.2f см</string>
+    <string name="inches_format">%.2f in</string>
 </resources>
