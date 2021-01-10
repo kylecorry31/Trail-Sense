@@ -15,7 +15,8 @@ class BeaconDto : Dto<Beacon>() {
             "visible" to SqlType.Boolean,
             "comment" to SqlType.NullableString,
             "beacon_group_id" to SqlType.NullableLong,
-            "elevation" to SqlType.NullableFloat
+            "elevation" to SqlType.NullableFloat,
+            "temporary" to SqlType.Boolean
         )
     }
 
@@ -30,7 +31,8 @@ class BeaconDto : Dto<Beacon>() {
             finalProperties["visible"] as Boolean,
             finalProperties["comment"] as String?,
             finalProperties["beacon_group_id"] as Long?,
-            finalProperties["elevation"] as Float?
+            finalProperties["elevation"] as Float?,
+            finalProperties["temporary"] as Boolean
         )
     }
 }

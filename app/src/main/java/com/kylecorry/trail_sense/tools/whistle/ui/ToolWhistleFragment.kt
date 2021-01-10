@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
-import com.kylecorry.trailsensecore.infrastructure.audio.IWhistle
+import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.Whistle
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
@@ -20,7 +20,7 @@ class ToolWhistleFragment : Fragment() {
     private var _binding: FragmentToolWhistleBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var whistle: IWhistle
+    private lateinit var whistle: ISoundPlayer
 
     private val emergencyWhistleDuration = Duration.ofMillis(500)
     private val emergencyWhistleStates = listOf(true, true, false, true, true, false, true, true, false, false, false, false)

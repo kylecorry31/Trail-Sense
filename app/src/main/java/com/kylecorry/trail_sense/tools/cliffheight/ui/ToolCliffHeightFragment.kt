@@ -102,7 +102,7 @@ class ToolCliffHeightFragment : Fragment() {
 
         val duration = Duration.between(startTime, Instant.now())
         val height = physicsService.fallHeight(duration)
-        val converted = unitService.convert(height, DistanceUnits.Meters, units)
+        val converted = height.convertTo(units).distance
         val formatted = formatService.formatDepth(converted, units)
 
         binding.height.text = formatted

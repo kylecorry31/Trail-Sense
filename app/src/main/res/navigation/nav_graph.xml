@@ -530,7 +530,17 @@
     <fragment
         android:id="@+id/fragmentBacktrack"
         android:name="com.kylecorry.trail_sense.tools.backtrack.ui.FragmentBacktrack"
-        android:label="FragmentBacktrack" />
+        android:label="FragmentBacktrack">
+        <action
+            android:id="@+id/action_fragmentBacktrack_to_action_navigation"
+            app:destination="@id/action_navigation"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/action_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/toolSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ToolSettingsFragment"

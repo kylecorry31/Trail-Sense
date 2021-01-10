@@ -13,12 +13,14 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.depth.DepthService
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
+import com.kylecorry.trailsensecore.domain.units.Pressure
+import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlin.math.max
 
-class ToolDepthFragment: Fragment() {
+class ToolDepthFragment : Fragment() {
 
     private var _binding: FragmentToolDepthBinding? = null
     private val binding get() = _binding!!
@@ -52,12 +54,16 @@ class ToolDepthFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        UiUtils.alert(requireContext(), getString(R.string.disclaimer_message_title), getString(R.string.depth_disclaimer))
+        UiUtils.alert(
+            requireContext(),
+            getString(R.string.disclaimer_message_title),
+            getString(R.string.depth_disclaimer)
+        )
     }
 
     override fun onResume() {
         super.onResume()
-        units = if (userPrefs.distanceUnits == UserPreferences.DistanceUnits.Meters){
+        units = if (userPrefs.distanceUnits == UserPreferences.DistanceUnits.Meters) {
             DistanceUnits.Meters
         } else {
             DistanceUnits.Feet
@@ -71,13 +77,16 @@ class ToolDepthFragment: Fragment() {
     }
 
     fun update(): Boolean {
-        if (throttle.isThrottled()){
+        if (throttle.isThrottled()) {
             return true
         }
 
-        val depth = depthService.calculateDepth(barometer.pressure, SensorManager.PRESSURE_STANDARD_ATMOSPHERE)
+        val depth = depthService.calculateDepth(
+            Pressure(barometer.pressure, PressureUnits.Hpa),
+            Pressure(SensorManager.PRESSURE_STANDARD_ATMOSPHERE, PressureUnits.Hpa)
+        ).distance
 
-        if (lastDepth == 0f && depth > 0){
+        if (lastDepth == 0f && depth > 0) {
             maxDepth = depth
         }
 
