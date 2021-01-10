@@ -754,6 +754,4 @@
     <string name="pref_backtrack_enabled_summary">Record location history</string>
     <string name="pref_backtrack_frequency" translatable="false">pref_backtrack_frequency</string>
     <string name="pref_backtrack_frequency_title">Backtrack interval</string>
-    <string name="navigate_to_waypoint_title">Navigate to waypoint</string>
-    <string name="navigate_to_waypoint_content">Before navigating to this waypoint, it must be turned into a beacon. Would you like to create the beacon now?</string>
 </resources>
