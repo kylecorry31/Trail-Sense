@@ -294,7 +294,7 @@
     <string name="tool_battery_title">电池</string>
     <string name="strobe_warning_content">频闪功能包含闪烁的灯光，这可能对一些用户是危险的。</string>
     <string name="strobe_warning_title">闪烁的灯光</string>
-    <string name="clock_waiting_for_gps">正从 GPS 更新时间 ...…</string>
+    <string name="clock_waiting_for_gps">正从 GPS 更新时间 …</string>
     <string name="water_purification_step_3">启动计时器</string>
     <string name="water_purification_step_2">将水煮沸</string>
     <string name="water_purification_step_1">过滤水</string>
@@ -349,7 +349,6 @@
     <string name="cliff_height_stop_measure">停止</string>
     <string name="tool_cliff_height_description">测量悬崖或瀑布的高度</string>
     <string name="tool_cliff_height_title">悬崖高度</string>
-    <string name="cliff_height_start_measure">测量</string>
     <string name="toast_destination_bearing_set">已设定目的地方位</string>
     <string name="object_height_guide_description">如何预测物体高度</string>
     <string name="object_height_guide">预测物体高度</string>

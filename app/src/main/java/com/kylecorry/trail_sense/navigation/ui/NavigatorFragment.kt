@@ -35,7 +35,6 @@ import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.time.Duration
 
@@ -75,7 +74,7 @@ class NavigatorFragment : Fragment() {
 
     private var averageSpeed = 0f
 
-    private lateinit var beacons: Collection<Beacon>
+    private var beacons: Collection<Beacon> = listOf()
     private var nearbyBeacons: Collection<Beacon> = listOf()
 
     private val intervalometer = Intervalometer {
@@ -128,18 +127,25 @@ class NavigatorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        beaconRepo.getBeacons().observe(viewLifecycleOwner){
+            beacons = it.map { it.toBeacon() }
+            nearbyBeacons = getNearbyBeacons()
+            updateUI()
+        }
+
         rightQuickAction?.onCreate()
         leftQuickAction?.onCreate()
         navController = findNavController()
 
         destinationPanel = DestinationPanel(binding.navigationSheet)
 
-        val beacons = mutableListOf<ImageView>()
+        val tmpBeaconIndicators = mutableListOf<ImageView>()
 
         for (i in 0..(userPrefs.navigation.numberOfVisibleBeacons + 4)) {
-            beacons.add(ImageView(requireContext()))
+            tmpBeaconIndicators.add(ImageView(requireContext()))
         }
-        beaconIndicators = beacons
+        beaconIndicators = tmpBeaconIndicators
 
         val astronomyColor = UiUtils.androidTextColorPrimary(requireContext())
 
@@ -228,6 +234,7 @@ class NavigatorFragment : Fragment() {
                 cache.remove(LAST_DEST_BEARING)
             }
         }
+
     }
 
     private fun displayAccuracyTips() {
@@ -278,10 +285,6 @@ class NavigatorFragment : Fragment() {
         rightQuickAction?.onResume()
         leftQuickAction?.onResume()
         useTrueNorth = userPrefs.navigation.useTrueNorth
-        // Load the latest beacons
-        runBlocking {
-            beacons = beaconRepo.getBeaconsSync().map { it.toBeacon() }
-        }
 
         // Resume navigation
         val lastBeaconId = cache.getLong(LAST_BEACON_ID)

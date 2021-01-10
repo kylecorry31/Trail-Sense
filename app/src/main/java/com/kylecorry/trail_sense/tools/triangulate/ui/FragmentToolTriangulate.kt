@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
@@ -21,7 +22,7 @@ import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class FragmentToolTriangulate : Fragment() {
@@ -78,64 +79,65 @@ class FragmentToolTriangulate : Fragment() {
             }
         }
 
-        runBlocking {
+        lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                beacons =
-                    beaconRepo.getBeaconsSync().map { it.toBeacon() }.sortedBy { it.name }.toList()
+                beacons = beaconRepo.getBeaconsSync().map { it.toBeacon() }.sortedBy { it.name }.toList()
+            }
+
+            withContext(Dispatchers.Main){
+                val adapter1 = ArrayAdapter(
+                    requireContext(),
+                    R.layout.beacon_spinner_item,
+                    R.id.beacon_name,
+                    beacons.map { it.name })
+                binding.beacon1Spinner.prompt = getString(R.string.beacon_1)
+                binding.beacon1Spinner.adapter = adapter1
+
+                binding.beacon1Spinner.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>?,
+                            view: View?,
+                            position: Int,
+                            id: Long
+                        ) {
+                            beacon1 = beacons[position]
+                            update()
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                            beacon1 = null
+                            update()
+                        }
+                    }
+
+                val adapter2 = ArrayAdapter(
+                    requireContext(),
+                    R.layout.beacon_spinner_item,
+                    R.id.beacon_name,
+                    beacons.map { it.name })
+                binding.beacon2Spinner.prompt = getString(R.string.beacon_2)
+                binding.beacon2Spinner.adapter = adapter2
+
+                binding.beacon2Spinner.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>?,
+                            view: View?,
+                            position: Int,
+                            id: Long
+                        ) {
+                            beacon2 = beacons[position]
+                            update()
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                            beacon2 = null
+                            update()
+                        }
+                    }
             }
         }
-
-        val adapter1 = ArrayAdapter(
-            requireContext(),
-            R.layout.beacon_spinner_item,
-            R.id.beacon_name,
-            beacons.map { it.name })
-        binding.beacon1Spinner.prompt = getString(R.string.beacon_1)
-        binding.beacon1Spinner.adapter = adapter1
-
-        binding.beacon1Spinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    beacon1 = beacons[position]
-                    update()
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    beacon1 = null
-                    update()
-                }
-            }
-
-        val adapter2 = ArrayAdapter(
-            requireContext(),
-            R.layout.beacon_spinner_item,
-            R.id.beacon_name,
-            beacons.map { it.name })
-        binding.beacon2Spinner.prompt = getString(R.string.beacon_2)
-        binding.beacon2Spinner.adapter = adapter2
-
-        binding.beacon2Spinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    beacon2 = beacons[position]
-                    update()
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    beacon2 = null
-                    update()
-                }
-            }
 
         return binding.root
     }

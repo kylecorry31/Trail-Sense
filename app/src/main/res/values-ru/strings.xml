@@ -447,7 +447,6 @@
     <string name="guide_avalanche_risk">Оценка риска схода лавин</string>
     <string name="object_height_guide">Оценить высоту объекта</string>
     <string name="object_height_guide_description">Как оценить высоту объектов</string>
-    <string name="cliff_height_start_measure">Измерение</string>
     <string name="tool_cliff_height_title">Высота скалы</string>
     <string name="tool_cliff_height_description">Измерьте высоту скалы или обрыва</string>
     <string name="tool_cliff_height_disclaimer">Используйте этот инструмент только тогда, когда это безопасно, и обязательно проверяйте, что находится под скалой, чтобы избежать травм. Инструкции смотрите в руководстве пользователя.</string>

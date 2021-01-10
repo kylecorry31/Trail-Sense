@@ -435,7 +435,6 @@
     <string name="cliff_height_stop_measure">Stop</string>
     <string name="tool_cliff_height_description">Die Höhe einer Klippe oder eines Sprunges messen</string>
     <string name="tool_cliff_height_title">Höhe einer Klippe</string>
-    <string name="cliff_height_start_measure">Messen</string>
     <string name="object_height_guide_description">Wie man die Höhe von Objekten abschätzt</string>
     <string name="object_height_guide">Höhe von Objekten abschätzen</string>
     <string name="guide_avalanche_risk">Lawinengefahr bestimmen</string>

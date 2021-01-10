@@ -441,7 +441,6 @@
     <string name="water_purification_step_3">Uruchom minutnik</string>
     <string name="tool_distance_convert_title">Przelicznik odległości</string>
     <string name="precise_inches_format">%s cali</string>
-    <string name="cliff_height_start_measure">Zmierz</string>
     <string name="action_inventory_delete_all_confirm">Usunąć wszystkie przedmioty z ekwipunku\?</string>
     <string name="inventory_empty_text">Brak przedmiotów</string>
     <string name="error_occurred_message">Program Trail Sence napotkał błąd i zostanie zamknięty. Wyślij wiadomość e-mail do twórcy aplikacji, aby rozwiązać ten problem.</string>
