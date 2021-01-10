@@ -161,12 +161,12 @@
     </string-array>
 
     <string-array name="sunset_alert_time_entries">
-        <item>@string/sunset_alert_30_minutes</item>
-        <item>@string/sunset_alert_1_hour</item>
-        <item>@string/sunset_alert_1_hour_30_minutes</item>
-        <item>@string/sunset_alert_2_hours</item>
-        <item>@string/sunset_alert_2_hours_30_minutes</item>
-        <item>@string/sunset_alert_3_hours</item>
+        <item>@string/update_30_minutes</item>
+        <item>@string/update_60_minutes</item>
+        <item>@string/update_90_minutes</item>
+        <item>@string/update_120_minutes</item>
+        <item>@string/update_150_minutes</item>
+        <item>@string/update_180_minutes</item>
     </string-array>
 
     <string-array name="sunset_alert_time_values">
@@ -179,10 +179,10 @@
     </string-array>
 
     <string-array name="weather_update_frequency_entries">
-        <item>@string/weather_update_15_minutes</item>
-        <item>@string/weather_update_30_minutes</item>
-        <item>@string/weather_update_45_minutes</item>
-        <item>@string/weather_update_60_minutes</item>
+        <item>@string/update_15_minutes</item>
+        <item>@string/update_30_minutes</item>
+        <item>@string/update_45_minutes</item>
+        <item>@string/update_60_minutes</item>
     </string-array>
 
     <string-array name="weather_update_frequency_values">
@@ -190,6 +190,24 @@
         <item>30</item>
         <item>45</item>
         <item>60</item>
+    </string-array>
+
+    <string-array name="backtrack_frequency_entries">
+        <item>@string/update_15_minutes</item>
+        <item>@string/update_30_minutes</item>
+        <item>@string/update_45_minutes</item>
+        <item>@string/update_60_minutes</item>
+        <item>@string/update_90_minutes</item>
+        <item>@string/update_120_minutes</item>
+    </string-array>
+
+    <string-array name="backtrack_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
     </string-array>
 
     <string-array name="altimeter_mode_entries">

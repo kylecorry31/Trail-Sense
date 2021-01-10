@@ -110,12 +110,10 @@
     <string name="pref_open_source_licenses_title">Licenses</string>
     <string name="pref_sunset_alert_time_title">日没アラートの時刻</string>
     <string name="pref_sunset_alerts_title">日没アラート</string>
-    <string name="sunset_alert_3_hours">3 時間</string>
-    <string name="sunset_alert_2_hours_30_minutes">2 時間 30 分</string>
-    <string name="sunset_alert_2_hours">2 分</string>
-    <string name="sunset_alert_1_hour_30_minutes">1 時間 30 分</string>
-    <string name="sunset_alert_1_hour">1 時間</string>
-    <string name="sunset_alert_30_minutes">30 分</string>
+    <string name="update_180_minutes">3 時間</string>
+    <string name="update_150_minutes">2 時間 30 分</string>
+    <string name="update_120_minutes">2 分</string>
+    <string name="update_90_minutes">1 時間 30 分</string>
     <string name="pref_center_sun_and_moon_title">太陽/月を常に中央に表示</string>
     <string name="sun_moon_compass_never">表示しない</string>
     <string name="sun_moon_compass_when_up">太陽/月が昇っている場合</string>

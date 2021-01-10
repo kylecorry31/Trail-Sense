@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 
-class NavigationSettingsFragment : PreferenceFragmentCompat() {
+class NavigationSettingsFragment : CustomPreferenceFragment() {
 
     private var prefMaxBeaconDistanceKm: EditTextPreference? = null
     private var prefMaxBeaconDistanceMi: EditTextPreference? = null
@@ -108,9 +108,5 @@ class NavigationSettingsFragment : PreferenceFragmentCompat() {
             ?.setOnBindEditTextListener { editText ->
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             }
-    }
-
-    private fun editText(@StringRes id: Int): EditTextPreference? {
-        return preferenceManager.findPreference(getString(id))
     }
 }

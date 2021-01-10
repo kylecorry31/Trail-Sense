@@ -17,7 +17,7 @@ object BacktrackScheduler {
         scheduler.cancel()
         context.stopService(BacktrackService.intent(context))
         val cache = Cache(context)
-        cache.remove("cache_last_backtrack_time")
+        cache.remove(BacktrackService.CACHE_LAST_LOCATION_UPDATE)
     }
 
     fun getScheduler(context: Context): ITaskScheduler {

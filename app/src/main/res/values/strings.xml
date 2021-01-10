@@ -408,16 +408,14 @@
     <string name="sun_moon_compass_when_up">When up</string>
     <string name="sun_moon_compass_never">Never</string>
     <string name="pref_center_sun_and_moon_title">Keep sun/moon centered</string>
-    <string name="sunset_alert_30_minutes">30 minutes</string>
-    <string name="sunset_alert_1_hour">1 hour</string>
-    <string name="sunset_alert_1_hour_30_minutes">1 hour 30 minutes</string>
-    <string name="sunset_alert_2_hours">2 hours</string>
-    <string name="sunset_alert_2_hours_30_minutes">2 hours 30 minutes</string>
-    <string name="sunset_alert_3_hours">3 hours</string>
-    <string name="weather_update_15_minutes">15 minutes</string>
-    <string name="weather_update_30_minutes">30 minutes</string>
-    <string name="weather_update_45_minutes">45 minutes</string>
-    <string name="weather_update_60_minutes">1 hour</string>
+    <string name="update_90_minutes">1 hour 30 minutes</string>
+    <string name="update_120_minutes">2 hours</string>
+    <string name="update_150_minutes">2 hours 30 minutes</string>
+    <string name="update_180_minutes">3 hours</string>
+    <string name="update_15_minutes">15 minutes</string>
+    <string name="update_30_minutes">30 minutes</string>
+    <string name="update_45_minutes">45 minutes</string>
+    <string name="update_60_minutes">1 hour</string>
     <string name="pref_sunset_alerts_title">Sunset alerts</string>
     <string name="pref_sunset_alert_time_title">Sunset alert time</string>
     <!--Settings - About-->
@@ -749,4 +747,9 @@
     <string name="pref_backtrack_enabled" translatable="false">pref_backtrack_enabled</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="waypoint_beacon_title_template">%s, %s Waypoint</string>
+    <string name="pref_tools_category">pref_tools_category</string>
+    <string name="pref_tools_header">Tools</string>
+    <string name="pref_backtrack_enabled_summary">Record location history</string>
+    <string name="pref_backtrack_frequency">pref_backtrack_frequency</string>
+    <string name="pref_backtrack_frequency_title">Backtrack interval</string>
 </resources>

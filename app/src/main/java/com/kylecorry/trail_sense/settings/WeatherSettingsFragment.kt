@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 
-class WeatherSettingsFragment : PreferenceFragmentCompat() {
+class WeatherSettingsFragment : CustomPreferenceFragment() {
 
     private var prefMonitorWeather: SwitchPreferenceCompat? = null
     private var prefWeatherUpdateFrequency: ListPreference? = null
@@ -73,14 +73,6 @@ class WeatherSettingsFragment : PreferenceFragmentCompat() {
     private fun restartWeatherMonitor() {
         WeatherUpdateScheduler.stop(requireContext())
         WeatherUpdateScheduler.start(requireContext())
-    }
-
-    private fun switch(@StringRes id: Int): SwitchPreferenceCompat? {
-        return preferenceManager.findPreference(getString(id))
-    }
-
-    private fun list(@StringRes id: Int): ListPreference? {
-        return preferenceManager.findPreference(getString(id))
     }
 
     @ArrayRes

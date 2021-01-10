@@ -88,6 +88,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             preference(R.string.pref_astronomy_category),
             R.id.action_action_settings_to_astronomySettingsFragment
         )
+        navigateOnClick(
+            preference(R.string.pref_tools_category),
+            R.id.action_action_settings_to_toolSettingsFragment
+        )
+
         refreshOnChange(list(R.string.pref_theme))
         refreshOnChange(switch(R.string.pref_enable_experimental))
 

@@ -61,7 +61,7 @@ class BacktrackService : Service() {
         startForeground(FOREGROUND_SERVICE_ID, notification)
 
         val timeSinceLast =
-            Instant.now().toEpochMilli() - (cache.getLong("cache_last_backtrack_time")
+            Instant.now().toEpochMilli() - (cache.getLong(CACHE_LAST_LOCATION_UPDATE)
                 ?: 0L)
 
         if (timeSinceLast > Duration.ofMinutes(5).toMillis() || timeSinceLast < 0) {
@@ -106,7 +106,7 @@ class BacktrackService : Service() {
 
     private fun onGPSUpdate(): Boolean {
         if (gps.hasValidReading) {
-            cache.putLong("cache_last_backtrack_time", Instant.now().toEpochMilli())
+            cache.putLong(CACHE_LAST_LOCATION_UPDATE, Instant.now().toEpochMilli())
             recordWaypoint()
         }
         wrapUp()
@@ -178,6 +178,7 @@ class BacktrackService : Service() {
         private const val FOREGROUND_SERVICE_ID = 76984343
         private const val FOREGROUND_CHANNEL_ID = "Backtrack"
         private const val TAG = "BacktrackService"
+        const val CACHE_LAST_LOCATION_UPDATE = "cache_last_backtrack_time"
 
         fun intent(context: Context): Intent {
             return Intent(context, BacktrackService::class.java)

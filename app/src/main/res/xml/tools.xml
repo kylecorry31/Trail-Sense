@@ -50,55 +50,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/tool_category_power"
-        app:iconSpaceReserved="false">
-        <Preference
-            android:icon="@drawable/ic_tool_battery"
-            android:title="@string/tool_battery_title"
-            app:key="@string/tool_battery"
-            app:singleLineTitle="false" />
-        <Preference
-            android:icon="@drawable/ic_tool_solar_panel"
-            android:summary="@string/tool_solar_panel_summary"
-            android:title="@string/tool_solar_panel_title"
-            app:key="@string/tool_solar_panel"
-            app:singleLineTitle="false" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/tool_category_time"
-        app:iconSpaceReserved="false">
-        <Preference
-            android:icon="@drawable/ic_tool_clock"
-            android:title="@string/tool_clock_title"
-            app:key="@string/tool_clock"
-            app:singleLineTitle="false" />
-        <Preference
-            android:icon="@drawable/ic_tool_boil"
-            android:summary="@string/tool_boil_summary"
-            android:title="@string/tool_boil_title"
-            app:key="@string/tool_boil"
-            app:singleLineTitle="false" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/tool_category_angles"
-        app:iconSpaceReserved="false">
-        <Preference
-            android:icon="@drawable/inclinometer"
-            android:summary="@string/tool_inclinometer_summary"
-            android:title="@string/inclinometer_title"
-            app:key="@string/tool_inclinometer"
-            app:singleLineTitle="false" />
-        <Preference
-            android:icon="@drawable/level"
-            android:summary="@string/tool_bubble_level_summary"
-            android:title="@string/tool_bubble_level_title"
-            app:key="@string/tool_bubble_level"
-            app:singleLineTitle="false" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:title="@string/tool_category_location"
         app:iconSpaceReserved="false">
         <Preference
@@ -121,6 +72,55 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/tool_category_angles"
+        app:iconSpaceReserved="false">
+        <Preference
+            android:icon="@drawable/inclinometer"
+            android:summary="@string/tool_inclinometer_summary"
+            android:title="@string/inclinometer_title"
+            app:key="@string/tool_inclinometer"
+            app:singleLineTitle="false" />
+        <Preference
+            android:icon="@drawable/level"
+            android:summary="@string/tool_bubble_level_summary"
+            android:title="@string/tool_bubble_level_title"
+            app:key="@string/tool_bubble_level"
+            app:singleLineTitle="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/tool_category_time"
+        app:iconSpaceReserved="false">
+        <Preference
+            android:icon="@drawable/ic_tool_clock"
+            android:title="@string/tool_clock_title"
+            app:key="@string/tool_clock"
+            app:singleLineTitle="false" />
+        <Preference
+            android:icon="@drawable/ic_tool_boil"
+            android:summary="@string/tool_boil_summary"
+            android:title="@string/tool_boil_title"
+            app:key="@string/tool_boil"
+            app:singleLineTitle="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/tool_category_power"
+        app:iconSpaceReserved="false">
+        <Preference
+            android:icon="@drawable/ic_tool_battery"
+            android:title="@string/tool_battery_title"
+            app:key="@string/tool_battery"
+            app:singleLineTitle="false" />
+        <Preference
+            android:icon="@drawable/ic_tool_solar_panel"
+            android:summary="@string/tool_solar_panel_summary"
+            android:title="@string/tool_solar_panel_title"
+            app:key="@string/tool_solar_panel"
+            app:singleLineTitle="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/tool_category_other"
         app:iconSpaceReserved="false">
         <Preference
@@ -130,8 +130,8 @@
             app:singleLineTitle="false" />
         <Preference
             android:icon="@drawable/ic_tool_white_noise"
-            android:title="@string/tool_white_noise_title"
             android:summary="@string/tool_white_noise_summary"
+            android:title="@string/tool_white_noise_title"
             app:key="@string/tool_white_noise"
             app:singleLineTitle="false" />
         <Preference

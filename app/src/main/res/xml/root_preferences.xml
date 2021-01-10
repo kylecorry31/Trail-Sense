@@ -95,6 +95,12 @@
             app:singleLineTitle="false"
             app:title="@string/pref_astronomy_header" />
 
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_tools_category"
+            app:singleLineTitle="false"
+            app:title="@string/pref_tools_header" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
