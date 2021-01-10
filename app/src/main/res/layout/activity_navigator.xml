@@ -91,7 +91,7 @@
         app:srcCompat="@drawable/ic_arrow_bearing" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/ruler_btn"
+        android:id="@+id/navigation_left_quick_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -107,7 +107,7 @@
         app:srcCompat="@drawable/ruler" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/flashlight_btn"
+        android:id="@+id/navigation_right_quick_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

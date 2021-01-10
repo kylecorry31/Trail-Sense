@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesh
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -90,8 +91,8 @@ class NavigatorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = ActivityNavigatorBinding.inflate(layoutInflater, container, false)
-        rightQuickAction = QuickActionFlashlight(binding.flashlightBtn, this)
-        leftQuickAction = QuickActionRuler(binding.rulerBtn, this, binding.ruler)
+        rightQuickAction = QuickActionFlashlight(binding.navigationRightQuickAction, this)
+        leftQuickAction = QuickActionBacktrack(binding.navigationLeftQuickAction, this)
         return binding.root
     }
 
