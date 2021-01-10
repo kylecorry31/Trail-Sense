@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure.database
+package com.kylecorry.trail_sense.weather.infrastructure.persistence
 
 import android.content.Context
 import com.kylecorry.trail_sense.shared.AppDatabase

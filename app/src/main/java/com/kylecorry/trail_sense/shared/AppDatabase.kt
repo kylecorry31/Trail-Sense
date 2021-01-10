@@ -16,8 +16,8 @@ import com.kylecorry.trail_sense.tools.inventory.infrastructure.InventoryItemDao
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
 import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
-import com.kylecorry.trail_sense.weather.infrastructure.database.PressureDatabaseMigrationWorker
-import com.kylecorry.trail_sense.weather.infrastructure.database.PressureReadingDao
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureDatabaseMigrationWorker
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingDao
 
 /**
  * The Room database for this app

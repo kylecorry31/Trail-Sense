@@ -24,7 +24,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
-import com.kylecorry.trail_sense.weather.infrastructure.database.PressureRepo
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer

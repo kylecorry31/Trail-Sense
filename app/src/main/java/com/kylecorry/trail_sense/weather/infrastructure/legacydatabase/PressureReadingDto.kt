@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure.database
+package com.kylecorry.trail_sense.weather.infrastructure.legacydatabase
 
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.persistence.Dto

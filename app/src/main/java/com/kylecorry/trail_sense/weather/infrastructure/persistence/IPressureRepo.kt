@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure.database
+package com.kylecorry.trail_sense.weather.infrastructure.persistence
 
 import androidx.lifecycle.LiveData
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity

@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
-import com.kylecorry.trail_sense.weather.infrastructure.database.PressureRepo
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.*
