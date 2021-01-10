@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
+import com.kylecorry.trail_sense.navigation.infrastructure.database.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.toZonedDateTime
@@ -37,6 +38,7 @@ class FragmentBacktrack : Fragment() {
     private lateinit var waypointsLiveData: LiveData<List<WaypointEntity>>
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
 
     private var wasEnabled = false
 
@@ -92,17 +94,25 @@ class FragmentBacktrack : Fragment() {
                 }
 
                 itemBinding.root.setOnClickListener {
-                    UiUtils.alertWithCancel(
-                        requireContext(),
-                        getString(R.string.navigate_to_waypoint_title),
-                        getString(R.string.navigate_to_waypoint_content),
-                        getString(R.string.dialog_yes),
-                        getString(R.string.dialog_no)
-                    ) { cancelled ->
-                        if (!cancelled) {
-                            createBeacon(waypoint)
-                        }
-                    }
+                    val tempBeaconId = beaconRepo.getTemporaryBeacon()?.id ?: 0L
+                    val beacon = Beacon(
+                        tempBeaconId,
+                        getString(
+                            R.string.waypoint_beacon_title_template,
+                            formatService.formatDate(
+                                date,
+                                includeWeekDay = false
+                            ), formatService.formatTime(time, showSeconds = false)
+                        ),
+                        waypoint.coordinate,
+                        visible = false,
+                        elevation = waypoint.altitude,
+                        temporary = true
+                    )
+                    beaconRepo.add(beacon)
+
+                    val newTempId = beaconRepo.getTemporaryBeacon()?.id ?: 0L
+                    findNavController().navigate(R.id.action_fragmentBacktrack_to_action_navigation, bundleOf("destination" to newTempId))
                 }
 
             }

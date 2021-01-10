@@ -10,6 +10,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBinding
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
+import com.kylecorry.trailsensecore.domain.units.Distance
+import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.water.WaterService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import java.time.Duration
@@ -86,7 +88,7 @@ class WaterPurificationFragment : Fragment() {
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = (millisUntilFinished / 1000f).roundToInt()
                 binding.timeLeft.text = seconds.toString()
-                if (!cache.contains(WATER_PURIFICATION_END_TIME_KEY)){
+                if (!cache.contains(WATER_PURIFICATION_END_TIME_KEY)) {
                     stop()
                 }
             }
@@ -101,7 +103,9 @@ class WaterPurificationFragment : Fragment() {
     }
 
     private fun updateAltitude(): Boolean {
-        duration = waterService.getPurificationTime(altimeter.altitude)
+        duration = waterService.getPurificationTime(
+            Distance(altimeter.altitude, DistanceUnits.Meters)
+        )
         if (timer == null) {
             binding.timeLeft.text = duration?.seconds.toString()
         }
@@ -113,7 +117,10 @@ class WaterPurificationFragment : Fragment() {
 
     private fun start() {
         val totalTime = duration ?: return
-        cache.putLong(WATER_PURIFICATION_END_TIME_KEY, System.currentTimeMillis() + totalTime.toMillis())
+        cache.putLong(
+            WATER_PURIFICATION_END_TIME_KEY,
+            System.currentTimeMillis() + totalTime.toMillis()
+        )
         WaterPurificationTimerService.start(requireContext(), totalTime.seconds)
         resume(totalTime)
     }

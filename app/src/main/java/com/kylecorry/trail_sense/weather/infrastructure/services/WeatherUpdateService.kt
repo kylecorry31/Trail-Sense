@@ -136,7 +136,7 @@ class WeatherUpdateService : Service() {
         runBlocking {
             withContext(Dispatchers.IO){
                 val readings = weatherService.convertToSeaLevel(
-                    pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() },
+                    pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }.sortedBy { it.time },
                     userPrefs.weather.requireDwell,
                     userPrefs.weather.maxNonTravellingAltitudeChange,
                     userPrefs.weather.maxNonTravellingPressureChange
@@ -250,7 +250,7 @@ class WeatherUpdateService : Service() {
 
 
                 val readings =
-                    pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }
+                    pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }.sortedBy { it.time }
                 val forecast = weatherService.getHourlyWeather(
                     weatherService.convertToSeaLevel(
                         readings,
