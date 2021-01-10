@@ -28,6 +28,7 @@ class PressureDatabaseMigrationWorker(private val context: Context,
             db.deleteOlderThan(Instant.now().minus(Duration.ofDays(2)))
 
             context.deleteDatabase("weather")
+            context.deleteFile("pressure.csv")
         } catch (e: Exception){
             // Do nothing - could not migrate DB, so user will lose their pressure history
         }
