@@ -9,6 +9,8 @@
     <string name="action_tools">Tools</string>
     <!--Dialogs-->
     <string name="dialog_ok">OK</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="not_all_permissions_granted">Not all permissions granted, some features may be broken</string>
     <string name="copied_to_clipboard_toast">Copied to clipboard</string>
@@ -752,4 +754,6 @@
     <string name="pref_backtrack_enabled_summary">Record location history</string>
     <string name="pref_backtrack_frequency" translatable="false">pref_backtrack_frequency</string>
     <string name="pref_backtrack_frequency_title">Backtrack interval</string>
+    <string name="navigate_to_waypoint_title">Navigate to waypoint</string>
+    <string name="navigate_to_waypoint_content">Before navigating to this waypoint, it must be turned into a beacon. Would you like to create the beacon now?</string>
 </resources>

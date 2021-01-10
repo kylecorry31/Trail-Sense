@@ -20,6 +20,8 @@ import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
+import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -88,6 +90,21 @@ class FragmentBacktrack : Fragment() {
                     popup.setOnMenuItemClickListener(menuListener)
                     popup.show()
                 }
+
+                itemBinding.root.setOnClickListener {
+                    UiUtils.alertWithCancel(
+                        requireContext(),
+                        getString(R.string.navigate_to_waypoint_title),
+                        getString(R.string.navigate_to_waypoint_content),
+                        getString(R.string.dialog_yes),
+                        getString(R.string.dialog_no)
+                    ) { cancelled ->
+                        if (!cancelled) {
+                            createBeacon(waypoint)
+                        }
+                    }
+                }
+
             }
 
         listView.addLineSeparator()
