@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
@@ -24,6 +25,9 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 
@@ -54,6 +58,8 @@ class BarometerFragment : Fragment() {
     private val throttle = Throttle(20)
 
     private var pressureSetpoint: PressureAltitudeReading? = null
+
+    private var readingHistory: List<PressureAltitudeReading> = listOf()
 
     private var valueSelectedTime = 0L
 
@@ -118,7 +124,11 @@ class BarometerFragment : Fragment() {
             prefs.weather.pressureSetpoint = pressureSetpoint
 
             pressureSetpoint?.let {
-                pressureRepo.add(it)
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        pressureRepo.addPressure(PressureReadingEntity.from(it))
+                    }
+                }
             }
 
             true
@@ -132,6 +142,11 @@ class BarometerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = ActivityWeatherBinding.inflate(inflater, container, false)
+
+        pressureRepo.getPressures().observe(viewLifecycleOwner) {
+            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
+        }
+
         return binding.root
     }
 
@@ -388,7 +403,7 @@ class BarometerFragment : Fragment() {
     }
 
     private fun getReadingHistory(): List<PressureAltitudeReading> {
-        return pressureRepo.get().toList()
+        return readingHistory
     }
 
     private fun getWeatherImage(weather: Weather, currentPressure: PressureReading): Int {

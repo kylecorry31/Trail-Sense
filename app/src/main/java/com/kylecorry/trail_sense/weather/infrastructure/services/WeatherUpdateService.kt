@@ -19,18 +19,20 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.PowerUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateWorker
 import com.kylecorry.trail_sense.weather.infrastructure.database.PressureRepo
-import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 import java.time.ZonedDateTime
@@ -131,21 +133,26 @@ class WeatherUpdateService : Service() {
     }
 
     private fun sendWeatherNotification() {
-        val readings = weatherService.convertToSeaLevel(
-            pressureRepo.get().toList(),
-            userPrefs.weather.requireDwell,
-            userPrefs.weather.maxNonTravellingAltitudeChange,
-            userPrefs.weather.maxNonTravellingPressureChange
-        )
-        val forecast = weatherService.getHourlyWeather(readings)
+        runBlocking {
+            withContext(Dispatchers.IO){
+                val readings = weatherService.convertToSeaLevel(
+                    pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() },
+                    userPrefs.weather.requireDwell,
+                    userPrefs.weather.maxNonTravellingAltitudeChange,
+                    userPrefs.weather.maxNonTravellingPressureChange
+                )
+                val forecast = weatherService.getHourlyWeather(readings)
 
-        if (userPrefs.weather.shouldShowWeatherNotification) {
-            WeatherNotificationService.updateNotificationForecast(
-                applicationContext,
-                forecast,
-                readings
-            )
+                if (userPrefs.weather.shouldShowWeatherNotification) {
+                    WeatherNotificationService.updateNotificationForecast(
+                        applicationContext,
+                        forecast,
+                        readings
+                    )
+                }
+            }
         }
+
     }
 
     private fun setSensorTimeout(millis: Long) {
@@ -214,57 +221,78 @@ class WeatherUpdateService : Service() {
         if (barometer.pressure == 0f) {
             return
         }
-        pressureRepo.add(
-            PressureAltitudeReading(
-                Instant.now(),
-                barometer.pressure,
-                altimeter.altitude,
-                if (thermometer.temperature.isNaN()) 16f else thermometer.temperature
-            )
-        )
-        pressureRepo.deleteOlderThan(Instant.now().minus(Duration.ofHours(48)))
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                pressureRepo.addPressure(
+                    PressureReadingEntity(
+                        barometer.pressure,
+                        altimeter.altitude,
+                        0f,
+                        if (thermometer.temperature.isNaN()) 16f else thermometer.temperature,
+                        Instant.now().toEpochMilli()
+                    )
+                )
+                pressureRepo.deleteOlderThan(Instant.now().minus(Duration.ofDays(2)))
+            }
+        }
     }
 
     private fun sendStormAlert() {
-        createNotificationChannel()
-        val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        val sentAlert =
-            prefs.getBoolean(applicationContext.getString(R.string.pref_just_sent_alert), false)
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                createNotificationChannel()
+                val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+                val sentAlert =
+                    prefs.getBoolean(
+                        applicationContext.getString(R.string.pref_just_sent_alert),
+                        false
+                    )
 
-        val readings = pressureRepo.get().toList()
-        val forecast = weatherService.getHourlyWeather(
-            weatherService.convertToSeaLevel(
-                readings,
-                userPrefs.weather.requireDwell,
-                userPrefs.weather.maxNonTravellingAltitudeChange,
-                userPrefs.weather.maxNonTravellingPressureChange
-            )
-        )
 
-        if (forecast == Weather.Storm) {
-            val shouldSend = userPrefs.weather.sendStormAlerts
-            if (shouldSend && !sentAlert) {
-                val notification = NotificationCompat.Builder(applicationContext, STORM_CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_alert)
-                    .setContentTitle(applicationContext.getString(R.string.notification_storm_alert_title))
-                    .setContentText(applicationContext.getString(R.string.notification_storm_alert_text))
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .build()
-
-                NotificationUtils.send(
-                    applicationContext,
-                    STORM_ALERT_NOTIFICATION_ID,
-                    notification
+                val readings =
+                    pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }
+                val forecast = weatherService.getHourlyWeather(
+                    weatherService.convertToSeaLevel(
+                        readings,
+                        userPrefs.weather.requireDwell,
+                        userPrefs.weather.maxNonTravellingAltitudeChange,
+                        userPrefs.weather.maxNonTravellingPressureChange
+                    )
                 )
 
-                prefs.edit {
-                    putBoolean(applicationContext.getString(R.string.pref_just_sent_alert), true)
+                if (forecast == Weather.Storm) {
+                    val shouldSend = userPrefs.weather.sendStormAlerts
+                    if (shouldSend && !sentAlert) {
+                        val notification =
+                            NotificationCompat.Builder(applicationContext, STORM_CHANNEL_ID)
+                                .setSmallIcon(R.drawable.ic_alert)
+                                .setContentTitle(applicationContext.getString(R.string.notification_storm_alert_title))
+                                .setContentText(applicationContext.getString(R.string.notification_storm_alert_text))
+                                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                                .build()
+
+                        NotificationUtils.send(
+                            applicationContext,
+                            STORM_ALERT_NOTIFICATION_ID,
+                            notification
+                        )
+
+                        prefs.edit {
+                            putBoolean(
+                                applicationContext.getString(R.string.pref_just_sent_alert),
+                                true
+                            )
+                        }
+                    }
+                } else {
+                    NotificationUtils.cancel(applicationContext, STORM_ALERT_NOTIFICATION_ID)
+                    prefs.edit {
+                        putBoolean(
+                            applicationContext.getString(R.string.pref_just_sent_alert),
+                            false
+                        )
+                    }
                 }
-            }
-        } else {
-            NotificationUtils.cancel(applicationContext, STORM_ALERT_NOTIFICATION_ID)
-            prefs.edit {
-                putBoolean(applicationContext.getString(R.string.pref_just_sent_alert), false)
             }
         }
     }

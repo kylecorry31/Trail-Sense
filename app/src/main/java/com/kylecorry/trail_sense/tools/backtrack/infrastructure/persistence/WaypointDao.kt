@@ -1,9 +1,8 @@
-package com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistance
+package com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
-import com.kylecorry.trail_sense.tools.notes.domain.Note
 
 @Dao
 interface WaypointDao {

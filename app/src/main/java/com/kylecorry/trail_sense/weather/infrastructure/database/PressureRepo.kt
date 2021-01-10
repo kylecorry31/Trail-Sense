@@ -1,124 +1,42 @@
 package com.kylecorry.trail_sense.weather.infrastructure.database
 
 import android.content.Context
-import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
-import com.kylecorry.trailsensecore.infrastructure.persistence.DatabaseConnection
+import com.kylecorry.trail_sense.shared.AppDatabase
+import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
 import java.time.Instant
 
-class PressureRepo private constructor(private val context: Context) {
+class PressureRepo private constructor(context: Context) : IPressureRepo {
 
-    private val conn: DatabaseConnection
+    private val pressureDao = AppDatabase.getInstance(context).pressureDao()
 
-    init {
-        conn = DatabaseConnection(context, "weather", 1, { conn ->
-            conn.transaction {
-                createTables(conn)
-            }
-        }, { conn, oldVersion, newVersion ->
-            conn.transaction {
-                // Do nothing yet
-//                for (i in oldVersion..newVersion) {
-//                    when (i + 1) {
-//
-//                    }
-//                }
-                createTables(conn)
-            }
-        })
-    }
+    override fun getPressures() = pressureDao.getAll()
 
-    fun get(id: Int): PressureAltitudeReading? {
-        conn.open()
-        val pressure = conn.query(
-            { PressureReadingDto() },
-            "select * from pressures where _id = ?",
-            arrayOf(id.toString())
-        )
-        conn.close()
-        return pressure
-    }
+    override suspend fun getPressuresSync() = pressureDao.getAllSync()
 
-    fun get(): Collection<PressureAltitudeReading> {
-        conn.open()
-        val pressures = conn.queryAll({ PressureReadingDto() }, "select * from pressures")
-        conn.close()
-        return pressures
-    }
+    override suspend fun getPressure(id: Long) = pressureDao.get(id)
 
-    fun deleteOlderThan(time: Instant) {
-        try {
-            conn.open()
-            conn.transaction {
-                conn.execute(
-                    "delete from pressures where time < ?",
-                    arrayOf(time.toEpochMilli().toString())
-                )
-            }
-            conn.close()
-        } catch (e: Exception){
-            // Don't do anything - it isn't the end of the world
+    override suspend fun deletePressure(pressure: PressureReadingEntity) = pressureDao.delete(pressure)
+
+    override suspend fun deleteOlderThan(instant: Instant) = pressureDao.deleteOlderThan(instant.toEpochMilli())
+
+    override suspend fun addPressure(pressure: PressureReadingEntity) {
+        if (pressure.id != 0L){
+            pressureDao.update(pressure)
+        } else {
+            pressureDao.insert(pressure)
         }
     }
-
-    fun add(
-        reading: PressureAltitudeReading,
-        connection: DatabaseConnection = conn,
-        shouldOpen: Boolean = true
-    ) {
-        if (shouldOpen) {
-            connection.open()
-        }
-
-        conn.transaction {
-            conn.execute(
-                "insert into pressures (time, pressure, altitude, altitude_accuracy, temperature) values (?, ?, ?, ?, ?)",
-                arrayOf(
-                    reading.time.toEpochMilli().toString(),
-                    reading.pressure.toString(),
-                    reading.altitude.toString(),
-                    null,
-                    reading.temperature.toString()
-                )
-            )
-        }
-
-        if (shouldOpen) {
-            conn.close()
-        }
-    }
-
-    private fun createTables(conn: DatabaseConnection) {
-        conn.execute("CREATE TABLE IF NOT EXISTS pressures (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, time INTEGER NOT NULL, pressure REAL NOT NULL, altitude REAL NOT NULL, altitude_accuracy REAL NULL, temperature REAL NOT NULL)")
-
-        try {
-            val history = PressureHistoryRepository.get(context)
-            if (history.isNotEmpty()) {
-                history.forEach {
-                    add(it, conn, false)
-                }
-            }
-        } catch (e: Exception) {
-            // Ignore this - meaning the user will lose old data
-        }
-        
-        try {
-            PressureHistoryRepository.clear(context)
-        } catch (e: Exception) {
-            // Ignore this
-        }
-    }
-
 
     companion object {
         private var instance: PressureRepo? = null
 
-        @Synchronized fun getInstance(context: Context): PressureRepo {
-            if (instance == null){
+        @Synchronized
+        fun getInstance(context: Context): PressureRepo {
+            if (instance == null) {
                 instance = PressureRepo(context.applicationContext)
             }
             return instance!!
         }
-
     }
 
 }

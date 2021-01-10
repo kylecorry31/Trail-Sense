@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistance
+package com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence
 
 import androidx.lifecycle.LiveData
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity

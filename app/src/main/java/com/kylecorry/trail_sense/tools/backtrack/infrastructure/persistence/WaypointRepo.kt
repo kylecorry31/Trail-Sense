@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistance
+package com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence
 
 import android.content.Context
 import com.kylecorry.trail_sense.shared.AppDatabase

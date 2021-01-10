@@ -7,21 +7,27 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistance.WaypointDao
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointDao
 import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.InventoryItemDao
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
+import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
+import com.kylecorry.trail_sense.weather.infrastructure.database.PressureDatabaseMigrationWorker
+import com.kylecorry.trail_sense.weather.infrastructure.database.PressureReadingDao
 
 /**
  * The Room database for this app
  */
-@Database(entities = [InventoryItem::class, Note::class, WaypointEntity::class], version = 3, exportSchema = false)
+@Database(entities = [InventoryItem::class, Note::class, WaypointEntity::class, PressureReadingEntity::class], version = 4, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun inventoryItemDao(): InventoryItemDao
     abstract fun waypointDao(): WaypointDao
+    abstract fun pressureDao(): PressureReadingDao
     abstract fun noteDao(): NoteDao
 
     companion object {
@@ -50,10 +56,19 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_3_4 = object: Migration(3, 4) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `pressures` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pressure` REAL NOT NULL, `altitude` REAL NOT NULL, `altitude_accuracy` REAL, `temperature` REAL NOT NULL, `time` INTEGER NOT NULL)")
+                    val request = OneTimeWorkRequestBuilder<PressureDatabaseMigrationWorker>().build()
+                    WorkManager.getInstance(context).enqueue(request)
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "inventory")
                 .addMigrations(
                     MIGRATION_1_2,
-                    MIGRATION_2_3
+                    MIGRATION_2_3,
+                    MIGRATION_3_4
                 )
                 .build()
         }
