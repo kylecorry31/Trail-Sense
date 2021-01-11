@@ -13,8 +13,8 @@
     <string name="delete_beacon">Usuń punkt nawigacyjny</string>
     <string name="dialog_cancel">Anuluj</string>
     <string name="action_astronomy">Astronomia</string>
-    <string name="sunrise_label">Wschód słońca</string>
-    <string name="sunset_label">Zachód słońca</string>
+    <string name="sunrise_label">Wschód Słońca</string>
+    <string name="sunset_label">Zachód Słońca</string>
     <string name="until_sunset_label">do zachodu słońca</string>
     <string name="pref_use_true_north_title">Prawdziwa Północ</string>
     <string name="pref_use_sea_level_pressure_title">Ciśnienie na poziomie morza</string>
@@ -46,8 +46,8 @@
     <string name="onboarding_location_astronomy">Pozwala zobaczyć czasy wschodu i zachodu słońca/księżyca</string>
     <string name="onboarding_location_privacy">Trail Sense szanuje Twoją prywatność - dane dotyczące lokalizacji nigdy nie opuszczą urządzenia</string>
     <string name="continue_button">KONTYNUUJ</string>
-    <string name="moon_rise">Wschód księżyca</string>
-    <string name="moon_set">Zachód księżyca</string>
+    <string name="moon_rise">Wschód Księżyca</string>
+    <string name="moon_set">Zachód Księżyca</string>
     <string name="stop_monitoring">Stop</string>
     <string name="pref_compass_filter_amt_title">Wygładzanie kompasu</string>
     <string name="pref_compass_filter_amt_summary">Wyższe wartości mogą zmiejszyć zakłócenia</string>
@@ -417,7 +417,7 @@
         <item quantity="other">%d sekund do czasu, aż będzie można ją spożywać</item>
     </plurals>
     <string name="water_boil_timer_done_content">Woda jest teraz zdatna do picia</string>
-    <string name="tool_boil_summary">Powiedz, kiedy woda jest zdatna do picia</string>
+    <string name="tool_boil_summary">Powiedz, kiedy woda będzie zdatna do spożycia</string>
     <string name="water_purification_step_2">Doprowadź wodę do wrzenia</string>
     <string name="water_purification_step_1">Przefiltruj wodę</string>
     <string name="tool_lightning_title">Odległość uderzenia pioruna</string>
@@ -519,4 +519,49 @@
     <string name="tool_white_noise_title">Szum biały</string>
     <string name="map_scale_title">Skala mapy</string>
     <string name="compass_declination">Deklinacja magnetyczna</string>
+    <string name="battery_health">Stan zdrowia baterii: %s</string>
+    <string name="battery_health_dead">Wyładowana</string>
+    <string name="pref_backtrack_enabled_summary">Rejestruj historię lokalizacji</string>
+    <string name="pref_tools_header">Narzędzia</string>
+    <string name="waypoint_beacon_title_template">%s, %s punkt trasy</string>
+    <string name="waypoint_time_format">%s, %s</string>
+    <string name="tool_backtrack_summary">Wyświetl historię lokalizacji</string>
+    <string name="waypoint_action_delete">Usuń</string>
+    <string name="guide_location_no_gps_description">Jak znaleźć swoją lokalizację, gdy nie masz sygnału GPS</string>
+    <string name="guide_location_no_gps_title">Określ lokalizację bez GPS</string>
+    <string name="min_temp_uncalibrated">Minimalna temperatura telefonu (nieskalibrowana)</string>
+    <string name="min_temp_calibrated">Minimalna temperatura otoczenia (skalibrowana)</string>
+    <string name="max_temp_uncalibrated">Maksymalna temperatura telefonu (nieskalibrowana)</string>
+    <string name="max_temp_calibrated">Maksymalna temperatura otoczenia (skalibrowana)</string>
+    <string name="tool_white_noise_summary">Pomaga zasnąć</string>
+    <string name="freezing_temperatures_description">Woda zamarznie, jeśli zostanie pozostawiona, a deszcz może zamienić się w śnieg</string>
+    <string name="metal_detector_calibrate">Kalibracja</string>
+    <string name="clock_sync_instructions">Ustaw czas na %s, kiedy nadejdzie powiadomienie</string>
+    <string name="clock_sync_notification">Synchronizacja zegara - %s</string>
+    <string name="notification_channel_clock_sync_description">Powiadomienie o synchronizacji zegara z czasem GPS</string>
+    <string name="notification_channel_clock_sync">Synchronizacja zegara</string>
+    <string name="pip_notification_scheduled">Powiadomienie zaplanowane na %s</string>
+    <string name="pip_button">Zaktualizuj czas systemowy</string>
+    <string name="could_not_triangulate">Nie można przeprowadzić triangulacji</string>
+    <string name="triangulate_mark_beacon">Zaznacz</string>
+    <string name="battery_health_unknown">Nieznany</string>
+    <string name="battery_health_over_voltage">Przepięcie</string>
+    <string name="battery_health_overheat">Przegrzanie</string>
+    <string name="battery_health_good">Dobry</string>
+    <string name="battery_health_cold">Zimna</string>
+    <string name="strobe_warning_content">Funkcja stroboskopu zawiera migające światła, które mogą być niebezpieczne dla niektórych użytkowników.</string>
+    <string name="strobe_warning_title">Migające światła</string>
+    <string name="clock_waiting_for_gps">Aktualizacja czasu z GPS…</string>
+    <string name="tool_solar_panel_summary">Ustaw panele słoneczne, aby uzyskać optymalną produkcję energii</string>
+    <string name="cliff_height_guide_description">Jak oszacować wysokość klifów lub urwisk</string>
+    <string name="tool_cliff_height_description">Zmierz wysokość klifu lub urwiska</string>
+    <string name="depth_disclaimer">Używasz na własne ryzyko.
+\n
+\nNie używaj tego bez wodoodpornej obudowy i jeśli to możliwe, trzymaj się bezpiecznej głębokości podczas nurkowania.</string>
+    <string name="precise_temp_c_format">%s °C</string>
+    <string name="precise_temp_f_format">%s °F</string>
+    <string name="battery_temp">Telefon: %s</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="degree">%s°</string>
+    <string name="clock_sync_time_settings">Przejść do ustawień czasu\?</string>
 </resources>
