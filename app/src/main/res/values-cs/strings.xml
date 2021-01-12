@@ -127,7 +127,6 @@
     <string name="charging_fast">Rychle nabíjeno (%s)</string>
     <string name="current_format">%.0f mA</string>
     <string name="battery_capacity_format">%.2f mAh</string>
-    <string name="coordinate_format_string_ddm">"%s    %s"</string>
     <string name="dialog_grant">Změnit nastavení</string>
     <string name="access_background_location_rationale">"Trail Sense používá polohu na pozadí,  která je používána ke kalibraci atmosférického tlaku v sekci Počasí a na poskytnutí přesnějšího času západu slunce. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)"</string>
     <string name="action_navigation">Navigace</string>
@@ -163,8 +162,6 @@
     <string name="dash">-</string>
     <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
-    <string name="coordinate_format_string_dd">"%s,  %s"</string>
-    <string name="coordinate_format_string_dms">"%s    %s"</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
     <string name="increase">+</string>

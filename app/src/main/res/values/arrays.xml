@@ -152,12 +152,14 @@
         <item>@string/coordinate_format_decimal_degrees</item>
         <item>@string/coordinate_format_degrees_decimal_minutes</item>
         <item>@string/coordinate_format_degrees_minutes_seconds</item>
+        <item>@string/coordinate_format_utm</item>
     </string-array>
 
     <string-array name="coordinate_format_values">
         <item>dd</item>
         <item>ddm</item>
         <item>dms</item>
+        <item>utm</item>
     </string-array>
 
     <string-array name="sunset_alert_time_entries">

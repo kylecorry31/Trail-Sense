@@ -250,9 +250,6 @@
     <string name="sun_does_not_set">kein Untergang</string>
     <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
-    <string name="coordinate_format_string_dd">"%s,  %s"</string>
-    <string name="coordinate_format_string_dms">"%s    %s"</string>
-    <string name="coordinate_format_string_ddm">"%s    %s"</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="pref_github_title">GitHub</string>
     <string name="pref_app_version_title">Version</string>

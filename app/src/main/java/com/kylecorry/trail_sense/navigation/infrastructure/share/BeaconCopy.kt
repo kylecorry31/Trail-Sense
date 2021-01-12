@@ -10,7 +10,7 @@ class BeaconCopy(private val context: Context, private val clipboard: Clipboard,
     IBeaconSender {
 
     override fun send(beacon: Beacon) {
-        val text = "${beacon.name}: ${prefs.navigation.formatLocation(beacon.coordinate)}"
+        val text = "${beacon.name}: ${prefs.navigation.locationFormatter.format(beacon.coordinate)}"
         clipboard.copy(text, context.getString(R.string.copied_to_clipboard_toast))
     }
 

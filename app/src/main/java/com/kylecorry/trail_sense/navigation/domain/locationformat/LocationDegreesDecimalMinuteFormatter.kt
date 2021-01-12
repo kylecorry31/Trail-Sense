@@ -6,12 +6,12 @@ import kotlin.math.abs
 
 class LocationDegreesDecimalMinuteFormatter : ILocationFormatter {
 
-    override fun formatLatitude(location: Coordinate): String {
+    private fun formatLatitude(location: Coordinate): String {
         val direction = if (location.latitude < 0) "S" else "N"
         return "${format(location.latitude)} $direction"
     }
 
-    override fun formatLongitude(location: Coordinate): String {
+    private fun formatLongitude(location: Coordinate): String {
         val direction = if (location.longitude < 0) "W" else "E"
         return "${format(location.longitude)} $direction"
     }
@@ -20,5 +20,9 @@ class LocationDegreesDecimalMinuteFormatter : ILocationFormatter {
         val deg = abs(degrees.toInt())
         val minutes = abs((degrees % 1) * 60).roundPlaces(3)
         return "$deg°$minutes'"
+    }
+
+    override fun format(location: Coordinate): String {
+        return "${formatLatitude(location)}    ${formatLongitude(location)}"
     }
 }

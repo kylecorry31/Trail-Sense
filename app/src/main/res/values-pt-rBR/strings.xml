@@ -184,9 +184,6 @@
     <string name="coordinate_format_degrees_decimal_minutes">Graus Minutos decimais</string>
     <string name="coordinate_format_degrees_minutes_seconds">Graus Minutos Segundos</string>
     <string name="pref_coordinate_format_title">Formato de coordenadas</string>
-    <string name="coordinate_format_string_ddm">%s\u0020\u0020\u0020\u0020%s</string>
-    <string name="coordinate_format_string_dms">%s\u0020\u0020\u0020\u0020%s</string>
-    <string name="coordinate_format_string_dd">%s,\u0020\u0020%s</string>
     <string name="pref_sunset_alerts_title">Alertas ao pôr-do-sol</string>
     <string name="pref_sunset_alert_time_title">Tempo de alerta ao pôr-do-sol</string>
     <string name="sunset_alert_notification_title">O sol está se pondo em breve</string>

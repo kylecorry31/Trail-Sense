@@ -166,9 +166,6 @@
     <string name="accuracy_medium">Средняя</string>
     <string name="accuracy_low">Низкая</string>
     <string name="dash">-</string>
-    <string name="coordinate_format_string_dd">"%s,  %s"</string>
-    <string name="coordinate_format_string_dms">"%s    %s"</string>
-    <string name="coordinate_format_string_ddm">"%s    %s"</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
     <string name="increase">+</string>

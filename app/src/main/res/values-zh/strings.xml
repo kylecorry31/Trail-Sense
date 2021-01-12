@@ -526,9 +526,6 @@
     <string name="current_format">%.0f 毫安</string>
     <string name="battery_capacity_format">%.2f 毫安时</string>
     <string name="percent_format">%d%%</string>
-    <string name="coordinate_format_string_dd">"%s,  %s"</string>
-    <string name="coordinate_format_string_dms">"%s    %s"</string>
-    <string name="coordinate_format_string_ddm">"%s    %s"</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
     <string name="increase">+</string>

@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trailsensecore.domain.Accuracy
@@ -25,6 +26,7 @@ import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
@@ -191,7 +193,7 @@ class NavigatorFragment : Fragment() {
         setVisibleCompass(roundCompass)
 
         binding.location.setOnLongClickListener {
-            val sender = LocationSharesheet(requireContext())
+            val sender = LocationCopy(requireContext(), Clipboard(requireContext()), userPrefs)
             sender.send(gps.location)
             true
         }

@@ -28,10 +28,11 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
     private lateinit var lngOverrideEdit: EditTextPreference
     private lateinit var fromGpsBtn: Preference
     private lateinit var permissionBtn: Preference
-    private val formatter = LocationDecimalDegreesFormatter()
 
     private lateinit var gps: IGPS
     private lateinit var realGps: GPS
+
+    private val formatter = LocationDecimalDegreesFormatter()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.gps_calibration, rootKey)
@@ -140,11 +141,8 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
         lngOverrideEdit.isEnabled = !prefs.useLocationFeatures || !prefs.useAutoLocation
         fromGpsBtn.isEnabled = !prefs.useLocationFeatures || !prefs.useAutoLocation
 
-        locationTxt.summary = getString(
-            R.string.coordinate_format_string_dd,
-            formatter.formatLatitude(gps.location),
-            formatter.formatLongitude(gps.location)
-        )
+        locationTxt.summary = formatter.format(gps.location)
+
         val overrides = prefs.locationOverride
         latOverrideEdit.summary = overrides.latitude.toString()
         lngOverrideEdit.summary = overrides.longitude.toString()

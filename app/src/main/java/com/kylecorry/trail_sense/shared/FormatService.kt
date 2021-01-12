@@ -183,17 +183,7 @@ class FormatService(private val context: Context) {
 
     fun formatLocation(location: Coordinate): String {
         val formatter = prefs.navigation.locationFormatter
-        val lat =
-            formatter.formatLatitude(location).replace("N", formatDirection(CompassDirection.North))
-                .replace("S", formatDirection(CompassDirection.South))
-        val lng =
-            formatter.formatLongitude(location).replace("E", formatDirection(CompassDirection.East))
-                .replace("W", formatDirection(CompassDirection.West))
-        return getFormattedLocation(lat, lng)
-    }
-
-    private fun getFormattedLocation(latitude: String, longitude: String): String {
-        return context.getString(prefs.navigation.locationFormat, latitude, longitude)
+        return formatter.format(location)
     }
 
     private fun getBaseUnit(): DistanceUnits {

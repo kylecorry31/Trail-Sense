@@ -4,7 +4,6 @@ import com.kylecorry.trailsensecore.domain.geo.Coordinate
 
 interface ILocationFormatter {
 
-    fun formatLatitude(location: Coordinate): String
-    fun formatLongitude(location: Coordinate): String
+    fun format(location: Coordinate): String
 
 }
