@@ -561,4 +561,21 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="clock_sync_time_settings">Przejść do ustawień czasu\?</string>
+    <string name="threshold">Próg</string>
+    <string name="pref_sea_level_use_rapid_title">Uwzględnij gwałtowne zmiany ciśnienia</string>
+    <string name="pref_adjust_for_temperature_summary">Użyj temperatury w przeliczeniach ciśnienia na poziomie morza</string>
+    <string name="pref_adjust_for_temperature_title">Współczynnik temperatury</string>
+    <string name="pref_altitude_offsets_summary">Koryguje wysokość GPS do średniego poziomu powyżej morza</string>
+    <string name="pref_altitude_override_title">Zastępowanie wysokości</string>
+    <string name="pref_auto_location_title">Automatycznie dostosuj lokalizację</string>
+    <string name="coordinate_format_utm">UTM</string>
+    <string name="set_inclination_instructions">Dotknij dowolnego miejsca, aby ustawić/anulować ustawienie kąta nachylenia</string>
+    <string name="accuracy_info">"GPS: Wyjdź na zewnątrz, w miejsce z niezakłóconym widokiem nieba.
+\n    %s rzeczywistej lokalizacji
+\n    %s rzeczywistej wysokości
+\n    %s satelity
+\n
+\nKompas: Obróć urządzenie zgodnie ze wzorem cyfry 8 i odejdź od metalu."</string>
+    <string name="dialog_no">Nie</string>
+    <string name="dialog_yes">Tak</string>
 </resources>
