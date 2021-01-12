@@ -7,7 +7,6 @@
     <string name="beacon_name_hint">Nazwa</string>
     <string name="beacon_latitude_hint">Szerokość geograficzna</string>
     <string name="beacon_longitude_hint">Długość geograficzna</string>
-    <string name="beacon_use_current_location">Użyj aktualnej lokalizacji</string>
     <string name="beacon_list_title">Wybierz punkt nawigacyjny</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Usuń punkt nawigacyjny</string>
@@ -175,8 +174,6 @@
     <string name="pressure_tendency_format">%s %s / 3g</string>
     <string name="beacon_comment">Uwagi (opcjonalnie)</string>
     <string name="beacon_invalid_elevation">Nieprawidłowa wysokość</string>
-    <string name="beacon_invalid_longitude">Nieprawidłowa długość geograficzna</string>
-    <string name="beacon_invalid_latitude">Nieprawidłowa szerokość geograficzna</string>
     <string name="share_action_geo">Mapy</string>
     <string name="share_action_copy_coordinates">Kopiuj współrzędne</string>
     <string name="share_action_copy">Kopiuj</string>

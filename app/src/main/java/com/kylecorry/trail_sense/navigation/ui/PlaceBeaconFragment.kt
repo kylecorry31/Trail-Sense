@@ -18,7 +18,6 @@ import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.Bearing
@@ -35,7 +34,6 @@ import kotlinx.coroutines.withContext
 class PlaceBeaconFragment : Fragment() {
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
-    private val gps by lazy { sensorService.getGPS() }
     private lateinit var navController: NavController
 
     private var _binding: FragmentCreateBeaconBinding? = null
@@ -145,15 +143,13 @@ class PlaceBeaconFragment : Fragment() {
 
         if (initialLocation != null) {
             binding.beaconName.setText(initialLocation!!.name ?: "")
-            binding.beaconLatitude.setText(initialLocation!!.coordinate.latitude.toString())
-            binding.beaconLongitude.setText(initialLocation!!.coordinate.longitude.toString())
+            binding.beaconLocation.coordinate = initialLocation!!.coordinate
             updateDoneButtonState()
         }
 
         if (editingBeacon != null) {
             binding.beaconName.setText(editingBeacon?.name)
-            binding.beaconLatitude.setText(editingBeacon?.coordinate?.latitude.toString())
-            binding.beaconLongitude.setText(editingBeacon?.coordinate?.longitude.toString())
+            binding.beaconLocation.coordinate = editingBeacon!!.coordinate
             binding.beaconElevation.setText(editingBeacon?.elevation?.toString() ?: "")
             binding.comment.setText(editingBeacon?.comment ?: "")
             updateDoneButtonState()
@@ -167,20 +163,13 @@ class PlaceBeaconFragment : Fragment() {
             }
         }
 
-        binding.beaconLatitude.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && !hasValidLatitude()) {
-                binding.beaconLatitude.error = getString(R.string.beacon_invalid_latitude)
-            } else if (!hasFocus) {
-                binding.beaconLatitude.error = null
-            }
+        binding.beaconLocation.setOnAutoLocationClickListener {
+            binding.beaconElevation.isEnabled = false
+            altimeter.start(this::setElevationFromAltimeter)
         }
 
-        binding.beaconLongitude.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && !hasValidLongitude()) {
-                binding.beaconLongitude.error = getString(R.string.beacon_invalid_longitude)
-            } else if (!hasFocus) {
-                binding.beaconLongitude.error = null
-            }
+        binding.beaconLocation.setOnCoordinateChangeListener {
+            updateDoneButtonState()
         }
 
         binding.beaconElevation.setOnFocusChangeListener { _, hasFocus ->
@@ -192,14 +181,6 @@ class PlaceBeaconFragment : Fragment() {
         }
 
         binding.beaconName.addTextChangedListener {
-            updateDoneButtonState()
-        }
-
-        binding.beaconLatitude.addTextChangedListener {
-            updateDoneButtonState()
-        }
-
-        binding.beaconLongitude.addTextChangedListener {
             updateDoneButtonState()
         }
 
@@ -225,8 +206,6 @@ class PlaceBeaconFragment : Fragment() {
 
         binding.placeBeaconBtn.setOnClickListener {
             val name = binding.beaconName.text.toString()
-            val lat = binding.beaconLatitude.text.toString()
-            val lng = binding.beaconLongitude.text.toString()
             val createAtDistance = binding.createAtDistance.isChecked
             val distanceTo =
                 binding.distanceAway.distance?.convertTo(DistanceUnits.Meters)?.distance?.toDouble()
@@ -241,7 +220,7 @@ class PlaceBeaconFragment : Fragment() {
             }
 
             val coordinate = if (createAtDistance) {
-                val coord = getCoordinate(lat, lng)
+                val coord = binding.beaconLocation.coordinate
                 val declination = if (coord != null) {
                     geoService.getDeclination(coord, elevation)
                 } else {
@@ -249,7 +228,7 @@ class PlaceBeaconFragment : Fragment() {
                 }
                 coord?.plus(distanceTo, bearingTo.withDeclination(declination))
             } else {
-                getCoordinate(lat, lng)
+                binding.beaconLocation.coordinate
             }
 
             if (name.isNotBlank() && coordinate != null) {
@@ -296,12 +275,6 @@ class PlaceBeaconFragment : Fragment() {
             binding.beaconElevation.hint = getString(R.string.beacon_elevation_hint_meters)
         }
 
-        binding.currentLocationBtn.setOnClickListener {
-            gps.start(this::setLocationFromGPS)
-            binding.gpsLoading.visibility = View.VISIBLE
-            altimeter.start(this::setElevationFromAltimeter)
-        }
-
         binding.bearingToBtn.text =
             getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(0f))
         binding.distanceAway.units = listOf(
@@ -320,8 +293,8 @@ class PlaceBeaconFragment : Fragment() {
 
     override fun onPause() {
         compass.stop(this::onCompassUpdate)
-        gps.stop(this::setLocationFromGPS)
         altimeter.stop(this::setElevationFromAltimeter)
+        binding.beaconElevation.isEnabled = true
         super.onPause()
     }
 
@@ -334,6 +307,7 @@ class PlaceBeaconFragment : Fragment() {
     }
 
     private fun setElevationFromAltimeter(): Boolean {
+        binding.beaconElevation.isEnabled = true
         if (units == UserPreferences.DistanceUnits.Meters) {
             binding.beaconElevation.setText(altimeter.altitude.roundPlaces(1).toString())
         } else {
@@ -344,16 +318,9 @@ class PlaceBeaconFragment : Fragment() {
         return false
     }
 
-    private fun setLocationFromGPS(): Boolean {
-        binding.beaconLatitude.setText(gps.location.latitude.toString())
-        binding.beaconLongitude.setText(gps.location.longitude.toString())
-        binding.gpsLoading.visibility = View.INVISIBLE
-        return false
-    }
-
     private fun updateDoneButtonState() {
         binding.placeBeaconBtn.visibility =
-            if (hasValidName() && hasValidLatitude() && hasValidLongitude() && hasValidElevation() && hasValidDistanceTo()) View.VISIBLE else View.GONE
+            if (hasValidName() && binding.beaconLocation.coordinate != null && hasValidElevation() && hasValidDistanceTo()) View.VISIBLE else View.GONE
     }
 
     private fun hasValidDistanceTo(): Boolean {
@@ -368,13 +335,6 @@ class PlaceBeaconFragment : Fragment() {
         return bearingTo != null
     }
 
-    private fun hasValidLatitude(): Boolean {
-        return Coordinate.parseLatitude(binding.beaconLatitude.text.toString()) != null
-    }
-
-    private fun hasValidLongitude(): Boolean {
-        return Coordinate.parseLongitude(binding.beaconLongitude.text.toString()) != null
-    }
 
     private fun hasValidElevation(): Boolean {
         return binding.beaconElevation.text.isNullOrBlank() || binding.beaconElevation.text.toString()
@@ -383,20 +343,6 @@ class PlaceBeaconFragment : Fragment() {
 
     private fun hasValidName(): Boolean {
         return !binding.beaconName.text.toString().isBlank()
-    }
-
-    private fun getCoordinate(lat: String, lon: String): Coordinate? {
-        val latitude = Coordinate.parseLatitude(lat)
-        val longitude = Coordinate.parseLongitude(lon)
-
-        if (latitude == null || longitude == null) {
-            return null
-        }
-
-        return Coordinate(
-            latitude,
-            longitude
-        )
     }
 
 }

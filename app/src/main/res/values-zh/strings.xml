@@ -7,7 +7,6 @@
     <string name="beacon_name_hint">名称</string>
     <string name="beacon_latitude_hint">纬度</string>
     <string name="beacon_longitude_hint">经度</string>
-    <string name="beacon_use_current_location">使用当前位置</string>
     <string name="beacon_list_title">选择信标</string>
     <string name="dialog_ok">好</string>
     <string name="delete_beacon">删除信标</string>
@@ -193,8 +192,6 @@
     <string name="beacon_elevation_hint_meters">海拔米数（可选）</string>
     <string name="beacon_comment">备注（可选）</string>
     <string name="beacon_invalid_elevation">无效的海拔</string>
-    <string name="beacon_invalid_longitude">无效的经度</string>
-    <string name="beacon_invalid_latitude">无效的纬度</string>
     <string name="beacon_invalid_name">无效的名称</string>
     <string name="share_action_geo">地图</string>
     <string name="share_action_copy_coordinates">复制坐标</string>

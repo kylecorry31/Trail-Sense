@@ -131,8 +131,6 @@
     <string name="action_navigation">Navigasjon</string>
     <string name="no_humidity_data">Ingen fuktighetsdata</string>
     <string name="pressure_format">%s %s</string>
-    <string name="beacon_use_current_location">Bruk nåværende posisjon</string>
-    <string name="beacon_invalid_longitude">Ugyldig lengdegrad</string>
     <string name="dialog_deny">Nei takk</string>
     <string name="dialog_grant">Oppdater innstillinger</string>
     <string name="pref_category_tabs">Faner</string>
@@ -210,7 +208,6 @@
     <string name="beacon_elevation_hint_meters">Høydemeter (valgfritt)</string>
     <string name="beacon_elevation_hint_feet">Høydefot (valgfritt)</string>
     <string name="beacon_invalid_elevation">Ugyldig høyde</string>
-    <string name="beacon_invalid_latitude">Ugyldig breddegrad</string>
     <string name="eta">~ %s unna</string>
     <string name="sos">SOS</string>
     <string name="gps_lock_acquired">GPS-posisjon innhentet</string>

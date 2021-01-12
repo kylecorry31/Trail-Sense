@@ -6,7 +6,6 @@
     <string name="beacon_name_hint">नाम</string>
     <string name="beacon_latitude_hint">अक्षांश</string>
     <string name="beacon_longitude_hint">देशान्तर</string>
-    <string name="beacon_use_current_location">वर्तमान स्थान का उपयोग करें</string>
     <string name="beacon_list_title">बीकन का चयन करें</string>
     <string name="dialog_ok">ठीक</string>
     <string name="delete_beacon">बीकन को हटा दें</string>

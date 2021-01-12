@@ -6,7 +6,6 @@
     <string name="beacon_name_hint">naam</string>
     <string name="beacon_latitude_hint">Latitude</string>
     <string name="beacon_longitude_hint">Longitude</string>
-    <string name="beacon_use_current_location">Gebruik die huidige ligging</string>
     <string name="beacon_list_title">Kies Beacon</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Skrap baken</string>

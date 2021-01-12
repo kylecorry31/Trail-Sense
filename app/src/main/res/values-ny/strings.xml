@@ -6,7 +6,6 @@
     <string name="beacon_name_hint">Dzinalo</string>
     <string name="beacon_latitude_hint">Kutalika</string>
     <string name="beacon_longitude_hint">Kutalika</string>
-    <string name="beacon_use_current_location">Gwiritsani ntchito malo apano</string>
     <string name="beacon_list_title">Sankhani Beacon</string>
     <string name="dialog_ok">Chabwino</string>
     <string name="delete_beacon">Chotsani beacon</string>

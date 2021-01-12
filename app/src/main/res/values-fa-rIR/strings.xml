@@ -7,7 +7,6 @@
     <string name="beacon_name_hint">عنوان</string>
     <string name="beacon_latitude_hint">عرض جغرافیایی</string>
     <string name="beacon_longitude_hint">طول جغرافیایی</string>
-    <string name="beacon_use_current_location">از مکان فعلی استفاده کن</string>
     <string name="beacon_list_title">انتخاب مکان</string>
     <string name="dialog_ok">باشه</string>
     <string name="delete_beacon">حذف مکان</string>

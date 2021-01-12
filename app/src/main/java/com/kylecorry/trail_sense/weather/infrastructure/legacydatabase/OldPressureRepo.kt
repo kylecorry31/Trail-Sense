@@ -13,7 +13,7 @@ class OldPressureRepo private constructor(private val context: Context) {
             conn.transaction {
                 createTables(conn)
             }
-        }, { conn, oldVersion, newVersion ->
+        }, { conn, _, _ ->
             conn.transaction {
                 createTables(conn)
             }

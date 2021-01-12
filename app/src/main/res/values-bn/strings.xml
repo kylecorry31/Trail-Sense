@@ -6,7 +6,6 @@
     <string name="beacon_name_hint">নাম</string>
     <string name="beacon_latitude_hint">অক্ষাংশ</string>
     <string name="beacon_longitude_hint">দ্রাঘিমা</string>
-    <string name="beacon_use_current_location">বর্তমান অবস্থান ব্যবহার করুন</string>
     <string name="beacon_list_title">বীকন নির্বাচন করুন</string>
     <string name="dialog_ok">ঠিক আছে</string>
     <string name="delete_beacon">বীকন মুছুন</string>

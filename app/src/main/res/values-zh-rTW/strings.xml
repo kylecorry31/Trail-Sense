@@ -120,10 +120,7 @@
     <string name="accuracy_medium">中</string>
     <string name="accuracy_low">低</string>
     <string name="dash">-</string>
-    <string name="beacon_use_current_location">使用現在位置</string>
     <string name="beacon_invalid_elevation">無效海拔高度</string>
-    <string name="beacon_invalid_longitude">無效的經度</string>
-    <string name="beacon_invalid_latitude">無效緯度</string>
     <string name="beacon_invalid_name">無效名稱</string>
     <string name="beacon_longitude_hint">經度</string>
     <string name="beacon_latitude_hint">緯度</string>

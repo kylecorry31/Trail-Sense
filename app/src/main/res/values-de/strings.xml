@@ -7,7 +7,6 @@
     <string name="beacon_name_hint">Name</string>
     <string name="beacon_latitude_hint">Breitengrad</string>
     <string name="beacon_longitude_hint">Längengrad</string>
-    <string name="beacon_use_current_location">Aktuellen Standort verwenden</string>
     <string name="beacon_list_title">Wegpunkt auswählen</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Wegpunkt löschen</string>
@@ -173,8 +172,6 @@
     <string name="sos">SOS</string>
     <string name="eta">~ %s entfernt</string>
     <string name="long_press_beacon_toast">Wegpunktmarkierung lang drücken um Optionen anzuzeigen.</string>
-    <string name="beacon_invalid_latitude">Ungültige geographische Breite</string>
-    <string name="beacon_invalid_longitude">Ungültige geographische Länge</string>
     <string name="beacon_invalid_elevation">Ungültige Höhenangabe</string>
     <string name="beacon_elevation_hint_feet">Höhe in Fuß (optional)</string>
     <string name="beacon_elevation_hint_meters">Höhe in Metern (optional)</string>

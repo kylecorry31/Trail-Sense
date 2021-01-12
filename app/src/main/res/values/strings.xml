@@ -104,10 +104,7 @@
     <string name="beacon_latitude_hint">Latitude</string>
     <string name="beacon_longitude_hint">Longitude</string>
     <string name="beacon_invalid_name">Invalid name</string>
-    <string name="beacon_invalid_latitude">Invalid latitude</string>
-    <string name="beacon_invalid_longitude">Invalid longitude</string>
     <string name="beacon_invalid_elevation">Invalid elevation</string>
-    <string name="beacon_use_current_location">Use current location</string>
     <string name="beacon_elevation_hint_feet">Elevation feet (Optional)</string>
     <string name="beacon_elevation_hint_meters">Elevation meters (Optional)</string>
     <string name="beacon_comment">Notes (Optional)</string>

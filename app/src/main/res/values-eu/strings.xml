@@ -116,10 +116,7 @@
     <string name="beacon_comment">Oharrak (hautazkoa)</string>
     <string name="beacon_elevation_hint_meters">Altitudea metroetan (hautazkoa)</string>
     <string name="beacon_elevation_hint_feet">Altitudea oinetan (hautazkoa)</string>
-    <string name="beacon_use_current_location">Oraingo kokapena erabili</string>
     <string name="beacon_invalid_elevation">Altitude ez balioduna</string>
-    <string name="beacon_invalid_longitude">Longitude ez balioduna</string>
-    <string name="beacon_invalid_latitude">Latitude ez balioduna</string>
     <string name="beacon_invalid_name">Izen ez balioduna</string>
     <string name="gps_lock_acquired">GPS blokeoa lortuta</string>
     <string name="compass_declination">Deklinazioa</string>

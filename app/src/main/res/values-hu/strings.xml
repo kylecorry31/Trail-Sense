@@ -54,10 +54,7 @@
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Jegyzetek (nem kötelező)</string>
     <string name="beacon_elevation_hint_meters">Magasság méterben (nem kötelező)</string>
-    <string name="beacon_use_current_location">Jelenlegi helyzet használata</string>
     <string name="beacon_invalid_elevation">Érvénytelen magasság</string>
-    <string name="beacon_invalid_longitude">Érvénytelen hosszúság</string>
-    <string name="beacon_invalid_latitude">Érvénytelen szélesség</string>
     <string name="beacon_invalid_name">Érvénytelen név</string>
     <string name="beacon_longitude_hint">Hosszúsági</string>
     <string name="beacon_latitude_hint">Szélességi</string>

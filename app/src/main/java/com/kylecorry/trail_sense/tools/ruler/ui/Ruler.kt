@@ -116,7 +116,7 @@ class Ruler(private val view: ConstraintLayout) {
                 it.visibility = View.INVISIBLE
                 view.addView(it)
             }
-            view.setOnTouchListener { v, event ->
+            view.setOnTouchListener { _, event ->
                 val tapPosition = event.y
                 val tapOffsetPosition = tapPosition - context.resources.getDimensionPixelSize(R.dimen.ruler_top)
                 val tapCm = scale * tapOffsetPosition / dpi * 2.54f

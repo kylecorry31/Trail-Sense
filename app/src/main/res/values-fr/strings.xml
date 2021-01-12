@@ -7,7 +7,6 @@
     <string name="beacon_name_hint">Nom</string>
     <string name="beacon_latitude_hint">Latitude</string>
     <string name="beacon_longitude_hint">Longitude</string>
-    <string name="beacon_use_current_location">Utiliser l\'emplacement actuel</string>
     <string name="beacon_list_title">Sélectionner des repères</string>
     <string name="dialog_ok">D\'accord</string>
     <string name="delete_beacon">Supprimer repère</string>
@@ -255,9 +254,7 @@
     <string name="beacon_comment">Notes (optionnel)</string>
     <string name="beacon_elevation_hint_meters">Altitude, en mètres (optionnel)</string>
     <string name="beacon_elevation_hint_feet">Altitude, en pieds (optionnel)</string>
-    <string name="beacon_invalid_latitude">Latitude invalide</string>
     <string name="beacon_invalid_elevation">Altitude invalide</string>
-    <string name="beacon_invalid_longitude">Longitude invalide</string>
     <string name="beacon_invalid_name">Nom invalide</string>
     <string name="share_action_copy_coordinates">Copier les coordonnées</string>
     <string name="share_action_copy_beacon">Copier le repère</string>

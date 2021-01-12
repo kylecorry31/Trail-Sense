@@ -60,7 +60,7 @@ class ToolWhistleFragment : Fragment() {
         }
 
 
-        binding.whistleBtn.setOnTouchListener { v, event ->
+        binding.whistleBtn.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 stopEmergencyWhistle()
                 whistle.on()
