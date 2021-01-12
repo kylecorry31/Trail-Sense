@@ -522,4 +522,7 @@
     <string name="tool_backtrack_summary">Vis posisjonshistorikk</string>
     <string name="guide_location_no_gps_description">Hvordan finne posisjonen din når du ikke har et GPS-signal</string>
     <string name="guide_location_no_gps_title">Bestem posisjon uten GPS</string>
+    <string name="degree">%s°</string>
+    <string name="dialog_no">Nei</string>
+    <string name="dialog_yes">Ja</string>
 </resources>
