@@ -7,7 +7,6 @@
     <string name="beacon_name_hint">Nombre</string>
     <string name="beacon_latitude_hint">Latitud</string>
     <string name="beacon_longitude_hint">Longitud</string>
-    <string name="beacon_use_current_location">Usar ubicación actual</string>
     <string name="beacon_list_title">Seleccione baliza</string>
     <string name="dialog_ok">Aceptar</string>
     <string name="delete_beacon">Eliminar baliza</string>
@@ -118,8 +117,6 @@
     <string name="beacon_elevation_hint_meters">Medidores de elevación (opcional)</string>
     <string name="beacon_elevation_hint_feet">Pies de elevación (opcional)</string>
     <string name="beacon_invalid_elevation">Elevación inválida</string>
-    <string name="beacon_invalid_longitude">Longitud inválida</string>
-    <string name="beacon_invalid_latitude">Latitud inválida</string>
     <string name="beacon_invalid_name">Nombre inválido</string>
     <string name="share_action_geo">Mapas</string>
     <string name="share_action_copy_coordinates">Copiar coordenadas</string>

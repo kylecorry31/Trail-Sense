@@ -6,7 +6,6 @@
     <string name="beacon_name_hint">име</string>
     <string name="beacon_latitude_hint">Географска ширина</string>
     <string name="beacon_longitude_hint">дължина</string>
-    <string name="beacon_use_current_location">Използвайте текущото местоположение</string>
     <string name="beacon_list_title">Изберете маяк</string>
     <string name="dialog_ok">Добре</string>
     <string name="delete_beacon">Изтриване на маяк</string>

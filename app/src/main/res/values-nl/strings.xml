@@ -6,7 +6,6 @@
     <string name="beacon_name_hint">: Naam</string>
     <string name="beacon_latitude_hint">Breedte</string>
     <string name="beacon_longitude_hint">: Lengte</string>
-    <string name="beacon_use_current_location">Gebruik de huidige locatie</string>
     <string name="beacon_list_title">Selecteer Baken</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Baken verwijderen</string>

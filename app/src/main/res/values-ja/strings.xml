@@ -7,7 +7,6 @@
     <string name="beacon_name_hint">名前</string>
     <string name="beacon_latitude_hint">緯度</string>
     <string name="beacon_longitude_hint">経度</string>
-    <string name="beacon_use_current_location">現在地を使用</string>
     <string name="beacon_list_title">ビーコンを選択</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">ビーコンを削除</string>
@@ -244,8 +243,6 @@
     <string name="beacon_elevation_hint_meters">メートルで表わした標高 (オプション)</string>
     <string name="beacon_elevation_hint_feet">フィートで表わした標高 (オプション)</string>
     <string name="beacon_invalid_elevation">不正な高度</string>
-    <string name="beacon_invalid_longitude">不正な経度</string>
-    <string name="beacon_invalid_latitude">不正な緯度</string>
     <string name="beacon_invalid_name">不正な名前</string>
     <string name="share_action_geo">geo:</string>
     <string name="share_action_copy_coordinates">座標をコピー</string>

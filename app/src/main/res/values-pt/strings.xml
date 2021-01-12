@@ -6,7 +6,6 @@
     <string name="beacon_name_hint">Nome</string>
     <string name="beacon_latitude_hint">Latitude</string>
     <string name="beacon_longitude_hint">Longitude</string>
-    <string name="beacon_use_current_location">Utilizar a localização actual</string>
     <string name="beacon_list_title">Seleccione Beacon</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Eliminar o farol</string>

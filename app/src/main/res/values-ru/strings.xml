@@ -7,7 +7,6 @@
     <string name="beacon_name_hint">Имя</string>
     <string name="beacon_latitude_hint">Широта</string>
     <string name="beacon_longitude_hint">Долгота</string>
-    <string name="beacon_use_current_location">Использовать текущее местоположение</string>
     <string name="beacon_list_title">Выберите маячок</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Удалить маячок</string>
@@ -321,8 +320,6 @@
     <string name="beacon_elevation_hint_meters">Высота в метрах (не обязательно)</string>
     <string name="beacon_elevation_hint_feet">Высота в футах (не обязательно)</string>
     <string name="beacon_invalid_elevation">Неверная высота</string>
-    <string name="beacon_invalid_longitude">Неверная долгота</string>
-    <string name="beacon_invalid_latitude">Неверная широта</string>
     <string name="eta">~ %s до маячка</string>
     <string name="share_action_copy_beacon">Копировать маячок</string>
     <string name="long_press_beacon_toast">Долгое нажатие для опций.</string>

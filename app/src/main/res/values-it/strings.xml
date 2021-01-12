@@ -7,7 +7,6 @@
     <string name="beacon_name_hint">Nome</string>
     <string name="beacon_latitude_hint">Latitudine</string>
     <string name="beacon_longitude_hint">Longitudine</string>
-    <string name="beacon_use_current_location">Utilizzare la posizione corrente</string>
     <string name="beacon_list_title">Selezionare Beacon</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Cancellare il segnalatore</string>

@@ -6,7 +6,6 @@
     <string name="beacon_name_hint">Ime</string>
     <string name="beacon_latitude_hint">Zemljopisna širina</string>
     <string name="beacon_longitude_hint">Zemljopisna dužina</string>
-    <string name="beacon_use_current_location">Koristite trenutnu lokaciju</string>
     <string name="beacon_list_title">Odaberite Beacon</string>
     <string name="dialog_ok">uredu</string>
     <string name="delete_beacon">Izbriši маяlo</string>

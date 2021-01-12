@@ -110,10 +110,7 @@
     <string name="beacon_comment">Poznámky (Volitelné)</string>
     <string name="beacon_elevation_hint_meters">Nadmořská výška v metrech (Volitelné)</string>
     <string name="beacon_elevation_hint_feet">Nadmořská výška ve stopách (Volitelné)</string>
-    <string name="beacon_use_current_location">Použít nynější polohu</string>
     <string name="beacon_invalid_elevation">Neplatná nadmořská výška</string>
-    <string name="beacon_invalid_longitude">Neplatná zeměpisná výška</string>
-    <string name="beacon_invalid_latitude">Neplatná zeměpisná šířka</string>
     <string name="beacon_invalid_name">Neplatné jméno</string>
     <string name="beacon_longitude_hint">Zeměpisná výška</string>
     <string name="beacon_latitude_hint">Zeměpisná šířka</string>

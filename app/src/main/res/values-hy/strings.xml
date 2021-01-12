@@ -6,7 +6,6 @@
     <string name="beacon_name_hint">Անուն</string>
     <string name="beacon_latitude_hint">Լայնություն</string>
     <string name="beacon_longitude_hint">Երկայնություն</string>
-    <string name="beacon_use_current_location">Օգտագործեք ներկայիս գտնվելու վայրը</string>
     <string name="beacon_list_title">Ընտրեք փարոս</string>
     <string name="dialog_ok">լավ</string>
     <string name="delete_beacon">Deleteնջել փարոսը</string>
