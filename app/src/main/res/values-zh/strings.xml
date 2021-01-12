@@ -564,4 +564,27 @@
     <string name="centimeters_format">%.2f 厘米</string>
     <string name="inches_format">%.2f 英寸</string>
     <string name="bearing">方位</string>
+    <string name="backtrack_notification_channel">依照记录的位置历史返回先前位置 （Backtrack）</string>
+    <string name="pref_backtrack_frequency_title">Backtrack 间隔</string>
+    <string name="pref_backtrack_enabled_summary">记录位置历史</string>
+    <string name="pref_tools_header">工具</string>
+    <string name="waypoint_beacon_title_template">路径点 %s, %s</string>
+    <string name="waypoint_time_format">%s, %s</string>
+    <string name="tool_backtrack_title">依照记录的位置历史返回先前位置（Backtrack）</string>
+    <string name="tool_backtrack_summary">查看位置历史</string>
+    <string name="action_waypoint_create_beacon">创建信标</string>
+    <string name="waypoint_action_delete">删除</string>
+    <string name="waypoints_empty_text">无路径点</string>
+    <string name="backtrack_notification_description">放置位置路径点</string>
+    <string name="backtrack_notification_channel_description">Backtrack 位置更新</string>
+    <string name="guide_location_no_gps_description">在没有GPS信号的情况下，如何找到自己的位置</string>
+    <string name="guide_location_no_gps_title">不用 GPS 进行定位</string>
+    <string name="guide_create_beacons_description">如何创建信标</string>
+    <string name="guide_create_beacons_title">正在创建信标</string>
+    <string name="beacon_set_bearing_btn">设定方位（%s）</string>
+    <string name="create_at_distance">在远处创建</string>
+    <string name="precise_temp_c_format">%s °C</string>
+    <string name="precise_temp_f_format">%s °F</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="degree">%s°</string>
 </resources>
