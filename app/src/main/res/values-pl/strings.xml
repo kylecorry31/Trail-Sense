@@ -95,7 +95,7 @@
     <string name="pressure_12_hours">12 godzin</string>
     <string name="pressure_4_hours">4 godziny</string>
     <string name="pref_pressure_history_title">Historia ciśnienia</string>
-    <string name="solar_noon">Kulminacja Słońca</string>
+    <string name="solar_noon">Górowanie Słońca</string>
     <string name="waning_crescent">Ubywający Sierp</string>
     <string name="new_moon">Nów</string>
     <string name="heat_alert_frostbite_warning_title">Ostrzeżenie przed hipotermią</string>
@@ -322,7 +322,7 @@
     <string name="pref_coordinate_format_title">Format współrzędnych</string>
     <string name="coordinate_format_degrees_minutes_seconds">Stopnie Minuty Sekundy</string>
     <string name="coordinate_format_decimal_degrees">Stopnie Dziesiętne</string>
-    <string name="lunar_noon">Kulminacja Księżyca</string>
+    <string name="lunar_noon">Górowanie Księżyca</string>
     <string name="tide_spring">Pływ syzygijny</string>
     <string name="tide_neap">Pływ kwadraturowy</string>
     <string name="tidal_range">Zakres pływów</string>
