@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.shared.roundPlaces
 class LocationDecimalDegreesFormatter : ILocationFormatter {
 
     override fun format(location: Coordinate): String {
-        return "${location.latitude.roundPlaces(6)}°,  ${location.longitude.roundPlaces(6)}°"
+        return location.toDecimalDegrees(6)
     }
 
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.format.DateUtils
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
+import com.kylecorry.trail_sense.navigation.domain.locationformat.LocationDecimalDegreesFormatter
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
@@ -183,7 +184,11 @@ class FormatService(private val context: Context) {
 
     fun formatLocation(location: Coordinate): String {
         val formatter = prefs.navigation.locationFormatter
-        return formatter.format(location)
+        val formatted = formatter.format(location)
+        if (formatted == "?"){
+            return LocationDecimalDegreesFormatter().format(location)
+        }
+        return formatted
     }
 
     private fun getBaseUnit(): DistanceUnits {

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/gps_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:elevation="4dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_rectangle"
+        android:backgroundTint="@color/colorPrimary"
+        android:padding="8dp"
+        android:tint="?android:textColorPrimary"
+        app:srcCompat="@drawable/satellite" />
+
+    <ProgressBar
+        android:id="@+id/gps_loading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
+    <EditText
+        android:id="@+id/utm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/location_input_hint"
+        android:inputType="textNoSuggestions" />
+
+    <ImageButton
+        android:id="@+id/coordinate_input_help_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:tint="?android:textColorPrimary"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/ic_help" />
+
+</LinearLayout>
