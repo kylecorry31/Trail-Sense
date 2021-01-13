@@ -2,81 +2,63 @@ package com.kylecorry.trail_sense.calibration.ui
 
 import android.os.Bundle
 import android.text.InputType
-import androidx.preference.EditTextPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreferenceCompat
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.preference.*
+import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.locationformat.LocationDecimalDegreesFormatter
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.views.CoordinatePreference
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 
 class CalibrateGPSFragment : PreferenceFragmentCompat() {
 
-    private lateinit var prefs: UserPreferences
-    private lateinit var sensorService: SensorService
+    private val prefs by lazy { UserPreferences(requireContext()) }
+    private val sensorService by lazy { SensorService(requireContext()) }
     private val throttle = Throttle(20)
 
     private lateinit var locationTxt: Preference
     private lateinit var autoLocationSwitch: SwitchPreferenceCompat
-    private lateinit var latOverrideEdit: EditTextPreference
-    private lateinit var lngOverrideEdit: EditTextPreference
-    private lateinit var fromGpsBtn: Preference
     private lateinit var permissionBtn: Preference
+    private lateinit var locationOverridePref: CoordinatePreference
 
     private lateinit var gps: IGPS
-    private lateinit var realGps: GPS
+    private val realGps by lazy { GPS(requireContext()) }
 
     private val formatter = LocationDecimalDegreesFormatter()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.gps_calibration, rootKey)
-
-        prefs = UserPreferences(requireContext())
-        sensorService = SensorService(requireContext())
-
         gps = sensorService.getGPS()
-        realGps = GPS(requireContext().applicationContext)
-
         bindPreferences()
     }
 
     private fun bindPreferences() {
         locationTxt = findPreference(getString(R.string.pref_holder_location))!!
         autoLocationSwitch = findPreference(getString(R.string.pref_auto_location))!!
-        latOverrideEdit = findPreference(getString(R.string.pref_latitude_override))!!
-        lngOverrideEdit = findPreference(getString(R.string.pref_longitude_override))!!
-        fromGpsBtn = findPreference(getString(R.string.pref_gps_override_btn))!!
         permissionBtn = findPreference(getString(R.string.pref_gps_request_permission))!!
+        locationOverridePref = findPreference(getString(R.string.pref_gps_override))!!
+        locationOverridePref.setGPS(realGps)
+        locationOverridePref.setLocation(prefs.locationOverride)
+        locationOverridePref.setTitle(getString(R.string.pref_gps_override_title))
 
-        latOverrideEdit.setOnBindEditTextListener { editText ->
-            editText.inputType =
-                InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL).or(
-                    InputType.TYPE_NUMBER_FLAG_SIGNED
-                )
-        }
-
-        lngOverrideEdit.setOnBindEditTextListener { editText ->
-            editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
-                .or(InputType.TYPE_NUMBER_FLAG_SIGNED)
+        locationOverridePref.setOnLocationChangeListener {
+            prefs.locationOverride = it ?: Coordinate.zero
+            resetGPS()
+            update()
         }
 
         autoLocationSwitch.setOnPreferenceClickListener {
-            latOverrideEdit.isEnabled = !prefs.useLocationFeatures || !prefs.useAutoLocation
-            lngOverrideEdit.isEnabled = !prefs.useLocationFeatures || !prefs.useAutoLocation
-            fromGpsBtn.isEnabled = !prefs.useLocationFeatures || !prefs.useAutoLocation
+            locationOverridePref.isEnabled = !prefs.useAutoLocation || !prefs.useAutoLocation
             resetGPS()
             update()
-            true
-        }
-
-        fromGpsBtn.setOnPreferenceClickListener {
-            realGps.start(this::setOverrideFromGPS)
             true
         }
 
@@ -85,8 +67,6 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
             startActivityForResult(intent, 1000)
             true
         }
-
-        // TODO: Validate lat lng input
     }
 
     override fun onResume() {
@@ -100,19 +80,12 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
     override fun onPause() {
         super.onPause()
         stopGPS()
-        realGps.stop(this::setOverrideFromGPS)
     }
 
     private fun resetGPS() {
         stopGPS()
         gps = sensorService.getGPS()
         startGPS()
-    }
-
-    private fun setOverrideFromGPS(): Boolean {
-        prefs.locationOverride = realGps.location
-        update()
-        return false
     }
 
     private fun startGPS() {
@@ -130,22 +103,15 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
     }
 
     private fun update() {
-
         if (throttle.isThrottled()) {
             return
         }
 
         permissionBtn.isVisible = !prefs.useLocationFeatures
         autoLocationSwitch.isEnabled = prefs.useLocationFeatures
-        latOverrideEdit.isEnabled = !prefs.useLocationFeatures || !prefs.useAutoLocation
-        lngOverrideEdit.isEnabled = !prefs.useLocationFeatures || !prefs.useAutoLocation
-        fromGpsBtn.isEnabled = !prefs.useLocationFeatures || !prefs.useAutoLocation
+        locationOverridePref.isEnabled = !prefs.useAutoLocation || !prefs.useAutoLocation
 
         locationTxt.summary = formatter.format(gps.location)
-
-        val overrides = prefs.locationOverride
-        latOverrideEdit.summary = overrides.latitude.toString()
-        lngOverrideEdit.summary = overrides.longitude.toString()
     }
 
 

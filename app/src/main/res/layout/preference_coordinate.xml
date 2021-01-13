@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp">
+
+    <TextView
+        android:id="@+id/preference_coordinate_input_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="false"
+        android:fadingEdge="horizontal"
+        android:ellipsize="marquee"
+        android:layout_marginBottom="4dp"
+        android:textAppearance="?android:textAppearanceListItem"
+        android:text="@string/pref_gps_override_title">
+
+    </TextView>
+
+    <com.kylecorry.trail_sense.shared.views.CoordinateInputView
+        android:id="@+id/preference_coordinate_input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

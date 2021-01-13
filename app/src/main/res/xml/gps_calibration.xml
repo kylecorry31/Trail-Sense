@@ -27,31 +27,10 @@
             app:key="@string/pref_gps_request_permission"
             app:singleLineTitle="false" />
 
-        <EditTextPreference
-            android:defaultValue="0.0"
-            android:dialogMessage="@string/gps_only_support_decimal_degree"
-            android:dialogTitle="@string/pref_latitude_override_title"
-            android:inputType="numberDecimal"
+        <com.kylecorry.trail_sense.shared.views.CoordinatePreference
             app:iconSpaceReserved="false"
-            app:key="@string/pref_latitude_override"
-            app:singleLineTitle="false"
-            app:title="@string/pref_latitude_override_title" />
-
-        <EditTextPreference
-            android:defaultValue="0.0"
-            android:dialogMessage="@string/gps_only_support_decimal_degree"
-            android:dialogTitle="@string/pref_longitude_override_title"
-            android:inputType="numberDecimal"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_longitude_override"
-            app:singleLineTitle="false"
-            app:title="@string/pref_longitude_override_title" />
-
-        <Preference
-            android:title="@string/pref_gps_override_btn_title"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_gps_override_btn"
-            app:singleLineTitle="false" />
+            app:key="@string/pref_gps_override">
+        </com.kylecorry.trail_sense.shared.views.CoordinatePreference>
 
 
     </PreferenceCategory>

@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
@@ -17,7 +18,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayou
 
     private val formatService by lazy { FormatService(getContext()) }
     private val sensorService by lazy { SensorService(getContext()) }
-    private val gps by lazy { sensorService.getGPS() }
+    lateinit var gps: IGPS
 
     private val errorHandler = Intervalometer {
         locationEdit.error = getContext().getString(R.string.coordinate_input_invalid_location)
@@ -47,6 +48,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayou
     init {
         context?.let {
             inflate(it, R.layout.view_coordinate_input, this)
+            gps = sensorService.getGPS()
             locationEdit = findViewById(R.id.utm)
             gpsLoadingIndicator = findViewById(R.id.gps_loading)
             helpBtn = findViewById(R.id.coordinate_input_help_btn)

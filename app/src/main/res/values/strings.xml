@@ -757,4 +757,6 @@
     <string name="location_input_help_title">Supported location formats</string>
     <string name="location_input_help">Decimal degrees (ex. 1.00, -2.00)\n\nDegrees decimal minutes (ex. 1°23.12\'N, 3°12.1\'W)\n\nDegrees minutes seconds (ex. 1°23\'12.1\"N, 3°12\"1.2\'W)\n\nUTM (ex. 03T 12345E 67890N)</string>
     <string name="coordinate_input_invalid_location">Invalid location</string>
+    <string name="pref_gps_override" translatable="false">pref_gps_override</string>
+    <string name="pref_gps_override_title">Location override</string>
 </resources>
