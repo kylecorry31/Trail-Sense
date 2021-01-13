@@ -95,7 +95,7 @@
     <string name="pressure_12_hours">12 godzin</string>
     <string name="pressure_4_hours">4 godziny</string>
     <string name="pref_pressure_history_title">Historia ciśnienia</string>
-    <string name="solar_noon">Kulminacja Słońca</string>
+    <string name="solar_noon">Górowanie Słońca</string>
     <string name="waning_crescent">Ubywający Sierp</string>
     <string name="new_moon">Nów</string>
     <string name="heat_alert_frostbite_warning_title">Ostrzeżenie przed hipotermią</string>
@@ -322,7 +322,7 @@
     <string name="pref_coordinate_format_title">Format współrzędnych</string>
     <string name="coordinate_format_degrees_minutes_seconds">Stopnie Minuty Sekundy</string>
     <string name="coordinate_format_decimal_degrees">Stopnie Dziesiętne</string>
-    <string name="lunar_noon">Kulminacja Księżyca</string>
+    <string name="lunar_noon">Górowanie Księżyca</string>
     <string name="tide_spring">Pływ syzygijny</string>
     <string name="tide_neap">Pływ kwadraturowy</string>
     <string name="tidal_range">Zakres pływów</string>
@@ -561,4 +561,21 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="clock_sync_time_settings">Przejść do ustawień czasu\?</string>
+    <string name="threshold">Próg</string>
+    <string name="pref_sea_level_use_rapid_title">Uwzględnij gwałtowne zmiany ciśnienia</string>
+    <string name="pref_adjust_for_temperature_summary">Użyj temperatury w przeliczeniach ciśnienia na poziomie morza</string>
+    <string name="pref_adjust_for_temperature_title">Współczynnik temperatury</string>
+    <string name="pref_altitude_offsets_summary">Koryguje wysokość GPS do średniego poziomu powyżej morza</string>
+    <string name="pref_altitude_override_title">Zastępowanie wysokości</string>
+    <string name="pref_auto_location_title">Automatycznie dostosuj lokalizację</string>
+    <string name="coordinate_format_utm">UTM</string>
+    <string name="set_inclination_instructions">Dotknij dowolnego miejsca, aby ustawić/anulować ustawienie kąta nachylenia</string>
+    <string name="accuracy_info">"GPS: Wyjdź na zewnątrz, w miejsce z niezakłóconym widokiem nieba.
+\n    %s rzeczywistej lokalizacji
+\n    %s rzeczywistej wysokości
+\n    %s satelity
+\n
+\nKompas: Obróć urządzenie zgodnie ze wzorem cyfry 8 i odejdź od metalu."</string>
+    <string name="dialog_no">Nie</string>
+    <string name="dialog_yes">Tak</string>
 </resources>
