@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.domain.locationformat.*
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
