@@ -1,13 +1,9 @@
 package com.kylecorry.trail_sense.calibration.ui
 
 import android.os.Bundle
-import android.text.InputType
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.preference.*
-import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.domain.locationformat.LocationDecimalDegreesFormatter
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
@@ -28,11 +24,10 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
     private lateinit var autoLocationSwitch: SwitchPreferenceCompat
     private lateinit var permissionBtn: Preference
     private lateinit var locationOverridePref: CoordinatePreference
+    private val formatService by lazy { FormatService(requireContext()) }
 
     private lateinit var gps: IGPS
     private val realGps by lazy { GPS(requireContext()) }
-
-    private val formatter = LocationDecimalDegreesFormatter()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.gps_calibration, rootKey)
@@ -67,6 +62,8 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
             startActivityForResult(intent, 1000)
             true
         }
+
+        update()
     }
 
     override fun onResume() {
@@ -111,7 +108,7 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
         autoLocationSwitch.isEnabled = prefs.useLocationFeatures
         locationOverridePref.isEnabled = !prefs.useAutoLocation || !prefs.useAutoLocation
 
-        locationTxt.summary = formatter.format(gps.location)
+        locationTxt.summary = formatService.formatLocation(gps.location)
     }
 
 

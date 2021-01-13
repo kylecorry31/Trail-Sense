@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
@@ -23,7 +24,7 @@ class FormatServiceV2(private val context: Context) {
 
     fun formatTime(time: LocalTime): String {
         val amPm = !prefs.use24HourTime
-        return if (amPm){
+        return if (amPm) {
             time.format(DateTimeFormatter.ofPattern("h:mm:ss a"))
         } else {
             time.format(DateTimeFormatter.ofPattern("H:mm:ss"))
@@ -42,12 +43,21 @@ class FormatServiceV2(private val context: Context) {
         val formatted = DecimalFormatter.format(distance.distance.toDouble(), decimalPlaces)
         return when (distance.units) {
             DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, formatted)
-            DistanceUnits.Kilometers -> context.getString(R.string.precise_kilometers_format, formatted)
+            DistanceUnits.Kilometers -> context.getString(
+                R.string.precise_kilometers_format,
+                formatted
+            )
             DistanceUnits.Feet -> context.getString(R.string.precise_feet_format, formatted)
             DistanceUnits.Miles -> context.getString(R.string.precise_miles_format, formatted)
-            DistanceUnits.NauticalMiles -> context.getString(R.string.precise_nautical_miles_format, formatted)
+            DistanceUnits.NauticalMiles -> context.getString(
+                R.string.precise_nautical_miles_format,
+                formatted
+            )
             DistanceUnits.Inches -> context.getString(R.string.precise_inches_format, formatted)
-            DistanceUnits.Centimeters -> context.getString(R.string.precise_centimeters_format, formatted)
+            DistanceUnits.Centimeters -> context.getString(
+                R.string.precise_centimeters_format,
+                formatted
+            )
         }
     }
 
@@ -56,9 +66,13 @@ class FormatServiceV2(private val context: Context) {
         return context.getString(R.string.precise_percent_format, formatted)
     }
 
-    fun formatTemperature(temperature: Float, units: TemperatureUnits, decimalPlaces: Int = 0): String {
+    fun formatTemperature(
+        temperature: Float,
+        units: TemperatureUnits,
+        decimalPlaces: Int = 0
+    ): String {
         val formatted = DecimalFormatter.format(temperature, decimalPlaces)
-        return when(units){
+        return when (units) {
             TemperatureUnits.F -> context.getString(R.string.precise_temp_f_format, formatted)
             TemperatureUnits.C -> context.getString(R.string.precise_temp_c_format, formatted)
         }
@@ -128,8 +142,16 @@ class FormatServiceV2(private val context: Context) {
     }
 
     fun formatLocation(location: Coordinate): String {
-        val formatter = prefs.navigation.locationFormatter
-        return formatter.format(location)
+        val formatted = when (prefs.navigation.coordinateFormat) {
+            CoordinateFormat.DecimalDegrees -> location.toDecimalDegrees()
+            CoordinateFormat.DegreesDecimalMinutes -> location.toDegreeDecimalMinutes()
+            CoordinateFormat.DegreesMinutesSeconds -> location.toDegreeMinutesSeconds()
+            CoordinateFormat.UTM -> location.toUTM()
+        }
+        if (formatted == "?") {
+            return location.toDecimalDegrees()
+        }
+        return formatted
     }
 
     private fun getPressureUnitString(unit: PressureUnits): String {

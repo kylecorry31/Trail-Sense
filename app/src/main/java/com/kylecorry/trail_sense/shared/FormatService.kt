@@ -4,16 +4,15 @@ import android.content.Context
 import android.text.format.DateUtils
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
-import com.kylecorry.trail_sense.navigation.domain.locationformat.LocationDecimalDegreesFormatter
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
+import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import java.time.Duration
-import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -24,7 +23,7 @@ class FormatService(private val context: Context) {
 
     fun formatTime(time: LocalTime, showSeconds: Boolean = true): String {
         val amPm = !prefs.use24HourTime
-        return if (amPm){
+        return if (amPm) {
             time.format(DateTimeFormatter.ofPattern("h:mm${if (showSeconds) ":ss" else ""} a"))
         } else {
             time.format(DateTimeFormatter.ofPattern("H:mm${if (showSeconds) ":ss" else ""}"))
@@ -106,7 +105,10 @@ class FormatService(private val context: Context) {
             DistanceUnits.Kilometers -> context.getString(R.string.kilometers_format, distance)
             DistanceUnits.Feet -> context.getString(R.string.feet_format, distance)
             DistanceUnits.Miles -> context.getString(R.string.miles_format, distance)
-            DistanceUnits.NauticalMiles -> context.getString(R.string.nautical_miles_format, distance)
+            DistanceUnits.NauticalMiles -> context.getString(
+                R.string.nautical_miles_format,
+                distance
+            )
             DistanceUnits.Centimeters -> context.getString(R.string.centimeters_format, distance)
             DistanceUnits.Inches -> context.getString(R.string.inches_format, distance)
         }
@@ -116,9 +118,15 @@ class FormatService(private val context: Context) {
         val units = prefs.distanceUnits
         val multiplier = if (units == UserPreferences.DistanceUnits.Meters) 1f else 0.393701f
         val formatted = DecimalFormatter.format((distanceCentimeters * multiplier).toDouble())
-        return when(units){
-            UserPreferences.DistanceUnits.Meters -> context.getString(R.string.precise_centimeters_format, formatted)
-            UserPreferences.DistanceUnits.Feet -> context.getString(R.string.precise_inches_format, formatted)
+        return when (units) {
+            UserPreferences.DistanceUnits.Meters -> context.getString(
+                R.string.precise_centimeters_format,
+                formatted
+            )
+            UserPreferences.DistanceUnits.Feet -> context.getString(
+                R.string.precise_inches_format,
+                formatted
+            )
         }
     }
 
@@ -126,12 +134,21 @@ class FormatService(private val context: Context) {
         val formatted = DecimalFormatter.format(distance.toDouble())
         return when (units) {
             DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, formatted)
-            DistanceUnits.Kilometers -> context.getString(R.string.precise_kilometers_format, formatted)
+            DistanceUnits.Kilometers -> context.getString(
+                R.string.precise_kilometers_format,
+                formatted
+            )
             DistanceUnits.Feet -> context.getString(R.string.precise_feet_format, formatted)
             DistanceUnits.Miles -> context.getString(R.string.precise_miles_format, formatted)
-            DistanceUnits.NauticalMiles -> context.getString(R.string.precise_nautical_miles_format, formatted)
+            DistanceUnits.NauticalMiles -> context.getString(
+                R.string.precise_nautical_miles_format,
+                formatted
+            )
             DistanceUnits.Inches -> context.getString(R.string.precise_inches_format, formatted)
-            DistanceUnits.Centimeters -> context.getString(R.string.precise_centimeters_format, formatted)
+            DistanceUnits.Centimeters -> context.getString(
+                R.string.precise_centimeters_format,
+                formatted
+            )
         }
     }
 
@@ -141,7 +158,10 @@ class FormatService(private val context: Context) {
             DistanceUnits.Kilometers -> context.getString(R.string.kilometers_format, distance)
             DistanceUnits.Feet -> context.getString(R.string.depth_feet_format, distance)
             DistanceUnits.Miles -> context.getString(R.string.miles_format, distance)
-            DistanceUnits.NauticalMiles -> context.getString(R.string.nautical_miles_format, distance)
+            DistanceUnits.NauticalMiles -> context.getString(
+                R.string.nautical_miles_format,
+                distance
+            )
             DistanceUnits.Inches -> context.getString(R.string.inches_format, distance)
             DistanceUnits.Centimeters -> context.getString(R.string.centimeters_format, distance)
         }
@@ -183,10 +203,14 @@ class FormatService(private val context: Context) {
     }
 
     fun formatLocation(location: Coordinate): String {
-        val formatter = prefs.navigation.locationFormatter
-        val formatted = formatter.format(location)
-        if (formatted == "?"){
-            return LocationDecimalDegreesFormatter().format(location)
+        val formatted = when (prefs.navigation.coordinateFormat) {
+            CoordinateFormat.DecimalDegrees -> location.toDecimalDegrees()
+            CoordinateFormat.DegreesDecimalMinutes -> location.toDegreeDecimalMinutes()
+            CoordinateFormat.DegreesMinutesSeconds -> location.toDegreeMinutesSeconds()
+            CoordinateFormat.UTM -> location.toUTM()
+        }
+        if (formatted == "?") {
+            return location.toDecimalDegrees()
         }
         return formatted
     }

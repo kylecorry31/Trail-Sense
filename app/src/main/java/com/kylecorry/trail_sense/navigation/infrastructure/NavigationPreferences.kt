@@ -5,6 +5,7 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.locationformat.*
+import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -93,16 +94,13 @@ class NavigationPreferences(private val context: Context) {
         }
     }
 
-    val locationFormatter: ILocationFormatter
+    val coordinateFormat: CoordinateFormat
         get() {
-            return when (prefs.getString(
-                context.getString(R.string.pref_coordinate_format),
-                "dms"
-            )) {
-                "dd" -> LocationDecimalDegreesFormatter()
-                "ddm" -> LocationDegreesDecimalMinuteFormatter()
-                "utm" -> LocationUTMFormatter()
-                else -> LocationDegreesMinuteSecondFormatter()
+            return when (prefs.getString(context.getString(R.string.pref_coordinate_format), "dd")){
+                "dms" -> CoordinateFormat.DegreesMinutesSeconds
+                "ddm" -> CoordinateFormat.DegreesDecimalMinutes
+                "utm" -> CoordinateFormat.UTM
+                else -> CoordinateFormat.DecimalDegrees
             }
         }
 
