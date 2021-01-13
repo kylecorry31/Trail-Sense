@@ -1,9 +1,7 @@
 package com.kylecorry.trail_sense.navigation.domain
 
-import android.location.Location
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trail_sense.shared.math.MathUtils
 import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.INavigationService
@@ -11,9 +9,7 @@ import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import com.kylecorry.trailsensecore.domain.navigation.NavigationVector
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import java.time.Duration
-import kotlin.math.PI
 import kotlin.math.abs
-import kotlin.math.max
 
 class NavigationService {
 

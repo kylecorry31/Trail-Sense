@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.weather.domain
 
+import com.kylecorry.trailsensecore.domain.units.Pressure
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import java.text.DecimalFormat
 
@@ -15,21 +16,7 @@ object PressureUnitUtils {
      * @return The pressure in the new units
      */
     fun convert(pressure: Float, units: PressureUnits): Float {
-        return when (units) {
-            PressureUnits.Hpa -> pressure
-            PressureUnits.Inhg -> 0.02953f * pressure
-            PressureUnits.Mbar -> pressure
-            PressureUnits.Psi -> 0.01450f * pressure
-        }
-    }
-
-    fun getSymbol(units: PressureUnits): String {
-        return when (units) {
-            PressureUnits.Hpa -> "hPa"
-            PressureUnits.Inhg -> "in"
-            PressureUnits.Mbar -> "mbar"
-            PressureUnits.Psi -> "PSI"
-        }
+        return Pressure(pressure, PressureUnits.Hpa).convertTo(units).pressure
     }
 
     fun getDecimalFormat(units: PressureUnits): DecimalFormat {

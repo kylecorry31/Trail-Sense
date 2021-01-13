@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.backtrack.infrastructure
 
 import android.content.Context
-import com.kylecorry.trail_sense.shared.tasks.ITaskScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.tasks.ITaskScheduler
 import java.time.Duration
 
 object BacktrackScheduler {

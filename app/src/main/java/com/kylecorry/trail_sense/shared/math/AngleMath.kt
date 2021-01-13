@@ -1,48 +1,6 @@
 package com.kylecorry.trail_sense.shared.math
 
 import kotlin.math.*
-import kotlin.math.sin
-
-/**
- * Converts an angle to between 0 and 360
- * @param angle the angle in degrees
- * @return the normalized angle
- */
-fun normalizeAngle(angle: Float): Float {
-    var outputAngle = angle
-    while (outputAngle < 0) outputAngle += 360
-    return outputAngle % 360
-}
-
-fun normalizeAngle(angle: Double): Double {
-    var outputAngle = angle
-    while (outputAngle < 0) outputAngle += 360
-    return outputAngle % 360
-}
-
-fun sinDegrees(angle: Double): Double {
-    return sin(angle.toRadians())
-}
-
-fun tanDegrees(angle: Double): Double {
-    return tan(angle.toRadians())
-}
-
-fun tanDegrees(angle: Float): Float {
-    return tan(angle.toRadians())
-}
-
-fun cosDegrees(angle: Double): Double {
-    return cos(angle.toRadians())
-}
-
-fun Double.toRadians(): Double {
-    return Math.toRadians(this)
-}
-
-fun Float.toRadians(): Float {
-    return Math.toRadians(this.toDouble()).toFloat()
-}
 
 fun deltaAngle(angle1: Float, angle2: Float): Float {
     var delta = angle2 - angle1

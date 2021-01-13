@@ -4,9 +4,9 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.kylecorry.trail_sense.shared.tasks.ExactTaskScheduler
-import com.kylecorry.trail_sense.shared.tasks.ITaskScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
+import com.kylecorry.trailsensecore.infrastructure.tasks.ExactTaskScheduler
+import com.kylecorry.trailsensecore.infrastructure.tasks.ITaskScheduler
 
 class WeatherUpdateAlarmReceiver : BroadcastReceiver() {
 
