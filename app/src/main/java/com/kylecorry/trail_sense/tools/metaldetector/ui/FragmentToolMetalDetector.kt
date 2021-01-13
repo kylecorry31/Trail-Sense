@@ -85,7 +85,7 @@ class FragmentToolMetalDetector : Fragment() {
         threshold = binding.threshold.progress.toFloat()
         binding.thresholdAmount.text = formatService.formatMagneticField(threshold)
 
-        val metalDetected = magneticField >= threshold
+        val metalDetected = metalDetectionService.isMetal(magneticField, threshold)
         binding.magneticField.text = formatService.formatMagneticField(magneticField)
         binding.metalDetected.visibility = if (metalDetected) {
             View.VISIBLE
