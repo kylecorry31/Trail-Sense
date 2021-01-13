@@ -587,4 +587,7 @@
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
+    <string name="coordinate_format_utm">通用横轴墨卡托（UTM） 坐标系</string>
+    <string name="dialog_no">不</string>
+    <string name="dialog_yes">好</string>
 </resources>
