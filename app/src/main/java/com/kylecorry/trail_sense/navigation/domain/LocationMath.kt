@@ -1,53 +1,24 @@
 package com.kylecorry.trail_sense.navigation.domain
 
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import com.kylecorry.trailsensecore.domain.units.UnitService
-import kotlin.math.round
-import kotlin.math.roundToInt
+
+// TODO: Remove this
 
 /**
  * A helper object for coordinate related math
  */
 object LocationMath {
 
-    fun convert(distance: Float, fromUnits: DistanceUnits, toUnits: DistanceUnits): Float {
-        val unitService = UnitService()
-        return unitService.convert(distance, fromUnits, toUnits)
-    }
-
-    /**
-     * Converts meters to feet
-     */
-    private fun convertMetersToFeet(meters: Float): Float {
-        return meters * 3.28084f
-    }
-
-    /**
-     * Converts feet to meters
-     */
-    private fun convertFeetToMeters(feet: Float): Float {
-        return feet / 3.28084f
-    }
-
-    /**
-     * Converts feet to miles
-     */
-    private fun convertFeetToMiles(feet: Float): Float {
-        return feet / 5280f
-    }
 
     private fun convertUnitPerSecondsToUnitPerHours(unitPerSecond: Float): Float {
         return unitPerSecond * 60 * 60
     }
 
-    private fun convertMetersToKilometers(meters: Float): Float {
-        return meters / 1000f
-    }
-
     fun convertToBaseUnit(meters: Float, units: UserPreferences.DistanceUnits): Float {
         return if (units == UserPreferences.DistanceUnits.Feet) {
-            convertMetersToFeet(meters)
+            Distance(meters, DistanceUnits.Meters).convertTo(DistanceUnits.Feet).distance
         } else {
             meters
         }
@@ -56,14 +27,18 @@ object LocationMath {
     fun convertToBaseSpeed(metersPerSecond: Float, units: UserPreferences.DistanceUnits): Float {
         return if (units == UserPreferences.DistanceUnits.Feet) {
             convertUnitPerSecondsToUnitPerHours(
-                convertFeetToMiles(
-                    convertMetersToFeet(
-                        metersPerSecond
-                    )
-                )
+                Distance(
+                    metersPerSecond,
+                    DistanceUnits.Meters
+                ).convertTo(DistanceUnits.Miles).distance
             )
         } else {
-            convertUnitPerSecondsToUnitPerHours(convertMetersToKilometers(metersPerSecond))
+            convertUnitPerSecondsToUnitPerHours(
+                Distance(
+                    metersPerSecond,
+                    DistanceUnits.Meters
+                ).convertTo(DistanceUnits.Kilometers).distance
+            )
         }
     }
 
@@ -71,39 +46,7 @@ object LocationMath {
         return if (units == UserPreferences.DistanceUnits.Meters) {
             distance
         } else {
-            convertFeetToMeters(distance)
+            Distance(distance, DistanceUnits.Feet).convertTo(DistanceUnits.Meters).distance
         }
     }
-
-    fun distanceToReadableString(meters: Float, units: UserPreferences.DistanceUnits): String {
-        if (units == UserPreferences.DistanceUnits.Feet) {
-            val feetThreshold = 1000
-            val feet =
-                convertMetersToFeet(
-                    meters
-                )
-            return if (feet >= feetThreshold) {
-                // Display as miles
-                "${round(
-                    convertFeetToMiles(
-                        feet
-                    ) * 100f
-                ) / 100f} mi"
-            } else {
-                // Display as feet
-                "${feet.roundToInt()} ft"
-            }
-        } else {
-            val meterThreshold = 999
-            return if (meters >= meterThreshold) {
-                // Display as km
-                val km = meters / 1000f
-                "${round(km * 100f) / 100f} km"
-            } else {
-                // Display as meters
-                "${meters.roundToInt()} m"
-            }
-        }
-    }
-
 }

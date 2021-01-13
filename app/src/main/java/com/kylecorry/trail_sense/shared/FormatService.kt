@@ -9,6 +9,7 @@ import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
+import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
@@ -99,6 +100,10 @@ class FormatService(private val context: Context) {
         }
     }
 
+    fun formatDistance(distance: Distance): String {
+        return formatDistance(distance.distance, distance.units)
+    }
+
     fun formatDistance(distance: Float, units: DistanceUnits): String {
         return when (units) {
             DistanceUnits.Meters -> context.getString(R.string.meters_format, distance)
@@ -116,8 +121,11 @@ class FormatService(private val context: Context) {
 
     fun formatFractionalDistance(distanceCentimeters: Float): String {
         val units = prefs.distanceUnits
-        val multiplier = if (units == UserPreferences.DistanceUnits.Meters) 1f else 0.393701f
-        val formatted = DecimalFormatter.format((distanceCentimeters * multiplier).toDouble())
+        val smallDist = Distance(
+            distanceCentimeters,
+            DistanceUnits.Centimeters
+        ).convertTo(if (units == UserPreferences.DistanceUnits.Meters) DistanceUnits.Centimeters else DistanceUnits.Inches)
+        val formatted = DecimalFormatter.format(smallDist.distance.toDouble())
         return when (units) {
             UserPreferences.DistanceUnits.Meters -> context.getString(
                 R.string.precise_centimeters_format,
@@ -169,18 +177,12 @@ class FormatService(private val context: Context) {
 
     fun formatSmallDistance(distanceMeters: Float): String {
         val base = getBaseUnit()
-        return formatDistance(
-            LocationMath.convert(distanceMeters, DistanceUnits.Meters, base),
-            base
-        )
+        return formatDistance(Distance(distanceMeters, DistanceUnits.Meters).convertTo(base))
     }
 
     fun formatLargeDistance(distanceMeters: Float): String {
         val units = getLargeDistanceUnits(distanceMeters)
-        return formatDistance(
-            LocationMath.convert(distanceMeters, DistanceUnits.Meters, units),
-            units
-        )
+        return formatDistance(Distance(distanceMeters, DistanceUnits.Meters).convertTo(units))
     }
 
     fun formatAccuracy(accuracy: Accuracy): String {
@@ -229,7 +231,7 @@ class FormatService(private val context: Context) {
 
         if (units == UserPreferences.DistanceUnits.Feet) {
             val feetThreshold = 1000
-            val feet = LocationMath.convert(meters, DistanceUnits.Meters, DistanceUnits.Feet)
+            val feet = Distance(meters, DistanceUnits.Meters).convertTo(DistanceUnits.Feet).distance
             return if (feet >= feetThreshold) {
                 DistanceUnits.Miles
             } else {
