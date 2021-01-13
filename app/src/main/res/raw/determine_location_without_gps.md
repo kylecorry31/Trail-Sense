@@ -4,6 +4,14 @@ Once an approximate location is determined, you can set it as the GPS override i
 
 ## Triangulation
 
+If you have marked beacons prior to hiking, and you can see at least two of them from your current position (ex. mountain peaks), then you can use triangulation to determine your location. Ideally, the two beacons are at least 60 degrees apart for the best accuracy. You can triangulate using the following steps within Trail Sense:
+
+1. Select the two beacons you can see
+2. Point your phone at the first beacon (as you would when navigating), and select "MARK" to record the bearing (this will not include declination).
+3. Point your phone at the second beacon (as you would when navigating), and select "MARK" to record the beacing (this will not include declination)
+4. Your current location should not be displayed
+5. If you have auto GPS disabled (in GPS calibration settings), you will have the option of using the calculated location as your current location.
+
 ## Celestial navigation
 
 If you are in the Northern hemisphere, the altitude (or inclination angle) of the North Star (Polaris) is equal to your latitude. Unfortunately, your phone can only give you an approximate estimate of this (using the Inclinometer tool) as typically a device known as a sextant is used.
