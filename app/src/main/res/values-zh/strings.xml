@@ -590,4 +590,21 @@
     <string name="coordinate_format_utm">通用横轴墨卡托（UTM） 坐标系</string>
     <string name="dialog_no">不</string>
     <string name="dialog_yes">好</string>
+    <string name="coordinate_format_degrees_minutes_seconds">度分秒</string>
+    <string name="coordinate_format_degrees_decimal_minutes">度十进制分</string>
+    <string name="pref_gps_override_title">位置覆盖</string>
+    <string name="coordinate_input_invalid_location">无效位置</string>
+    <string name="location_input_help">十进制度数 (如， 1.00, -2.00)
+\n
+\n度十进制分 (如， 1°23.12\'N, 3°12.1\'W)
+\n
+\n度分秒 (如， 1°23\'12.1\"N, 3°12\"1.2\'W)
+\n
+\nUTM (如， 03T 12345E 67890N)</string>
+    <string name="location_input_help_title">支持的位置格式</string>
+    <string name="location_input_hint">位置</string>
+    <string name="utm_hint_band">纬度带</string>
+    <string name="utm_hint_zone">区域</string>
+    <string name="utm_hint_northing_m">朝北方 （m）</string>
+    <string name="utm_hint_easting_m">朝东方 （m）</string>
 </resources>
