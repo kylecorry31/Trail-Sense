@@ -529,13 +529,7 @@
     <string name="utm_hint_northing_m">Nordverdi (m)</string>
     <string name="utm_hint_easting_m">Østverdi (m)</string>
     <string name="coordinate_input_invalid_location">Ugyldig posisjon</string>
-    <string name="location_input_help">Desimalgrader (eks. 1.00, -2.00)
-\n
-\nGrader desimalminutter (eks. 1°23.12\'N, 3°12.1\'V)
-\n
-\nGrader minutter sekunder (eks. 1°23\'12.1\"N, 3°12\'1.2\"V)
-\n
-\nUTM (eks. 03T 12345Ø 67890N)</string>
+    <string name="location_input_help">Desimalgrader (eks. 1.00, -2.00)\n\n\n\nGrader desimalminutter (eks. 1°23.12\'N, 3°12.1\'W)\n\n\n\nGrader minutter sekunder (eks. 1°23\'12.1\"N, 3°12\'1.2\"W)\n\n\n\nUTM (eks. 03T 12345E 67890N)</string>
     <string name="location_input_help_title">Støttede posisjonsformater</string>
     <string name="location_input_hint">Posisjon</string>
     <string name="utm_hint_zone">Sone</string>
