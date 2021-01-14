@@ -89,12 +89,9 @@ class PlaceBeaconFragment : Fragment() {
 
     private fun setEditingBeaconValues(beacon: Beacon){
         if (beacon.beaconGroupId != null) {
-            val g = groups.find { it.id == editingBeacon?.beaconGroupId }
-            if (g != null) {
-                val idx = groups.indexOf(g)
-                if (idx != -1) {
-                    binding.beaconGroupSpinner.setSelection(idx)
-                }
+            val idx = groups.indexOfFirst { it.id == editingBeacon?.beaconGroupId }
+            if (idx != -1) {
+                binding.beaconGroupSpinner.setSelection(idx)
             }
         }
 
