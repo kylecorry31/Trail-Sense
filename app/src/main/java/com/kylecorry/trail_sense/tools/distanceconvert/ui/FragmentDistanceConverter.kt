@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolDistanceConvertBinding
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.tools.inventory.domain.ItemCategory
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
@@ -44,8 +43,8 @@ class FragmentDistanceConverter : Fragment() {
 
         val fromAdapter = ArrayAdapter(
             requireContext(),
-            R.layout.spinner_item_category,
-            R.id.category_name,
+            R.layout.spinner_item_plain,
+            R.id.item_name,
             units.map { getUnitName(it) })
         binding.fromUnits.prompt = getString(R.string.distance_from)
         binding.fromUnits.adapter = fromAdapter
@@ -53,8 +52,8 @@ class FragmentDistanceConverter : Fragment() {
 
         val toAdapter = ArrayAdapter(
             requireContext(),
-            R.layout.spinner_item_category,
-            R.id.category_name,
+            R.layout.spinner_item_plain,
+            R.id.item_name,
             units.map { getUnitName(it) })
         binding.toUnits.prompt = getString(R.string.distance_to)
         binding.toUnits.adapter = toAdapter

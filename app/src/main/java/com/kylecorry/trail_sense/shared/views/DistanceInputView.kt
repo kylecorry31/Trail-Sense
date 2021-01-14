@@ -20,8 +20,8 @@ class DistanceInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
             _units = value
             val adapter = ArrayAdapter(
                 context,
-                R.layout.spinner_item_category,
-                R.id.category_name,
+                R.layout.spinner_item_plain,
+                R.id.item_name,
                 value.map { getUnitName(it) })
             unitsSpinner.prompt = hint
             unitsSpinner.adapter = adapter

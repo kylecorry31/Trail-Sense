@@ -596,6 +596,8 @@
     <string name="email" translatable="false">trailsense@protonmail.com</string>
     <string name="tool_distance_convert_title">Distance Converter</string>
     <string name="tool_distance_convert" translatable="false">tool_distance_convert</string>
+    <string name="tool_coordinate_convert_title">Coordinate Converter</string>
+    <string name="tool_coordinate_convert" translatable="false">tool_coordinate_convert</string>
     <string name="distance_hint">Distance</string>
     <string name="distance_from">From</string>
     <string name="distance_to">To</string>

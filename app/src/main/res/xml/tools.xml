@@ -69,6 +69,11 @@
             android:title="@string/tool_triangulate_title"
             app:key="@string/tool_triangulate"
             app:singleLineTitle="false" />
+        <Preference
+            android:icon="@drawable/ic_tool_distance_convert"
+            android:title="@string/tool_coordinate_convert_title"
+            app:key="@string/tool_coordinate_convert"
+            app:singleLineTitle="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

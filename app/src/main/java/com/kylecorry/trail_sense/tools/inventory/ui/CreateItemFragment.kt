@@ -76,8 +76,8 @@ class CreateItemFragment : Fragment() {
 
         val adapter = ArrayAdapter(
             requireContext(),
-            R.layout.spinner_item_category,
-            R.id.category_name,
+            R.layout.spinner_item_plain,
+            R.id.item_name,
             ItemCategory.values().map { nameMapper.getString(it) })
         binding.categorySelectSpinner.prompt = getString(R.string.spinner_category_prompt)
         binding.categorySelectSpinner.adapter = adapter

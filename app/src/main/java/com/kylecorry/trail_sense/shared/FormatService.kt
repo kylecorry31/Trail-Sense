@@ -204,8 +204,8 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatLocation(location: Coordinate): String {
-        val formatted = when (prefs.navigation.coordinateFormat) {
+    fun formatLocation(location: Coordinate, format: CoordinateFormat? = null): String {
+        val formatted = when (format ?: prefs.navigation.coordinateFormat) {
             CoordinateFormat.DecimalDegrees -> location.toDecimalDegrees()
             CoordinateFormat.DegreesDecimalMinutes -> location.toDegreeDecimalMinutes()
             CoordinateFormat.DegreesMinutesSeconds -> location.toDegreeMinutesSeconds()
@@ -277,6 +277,15 @@ class FormatService(private val context: Context) {
 
     fun formatMagneticField(magneticField: Float): String {
         return context.getString(R.string.magnetic_field_format, magneticField)
+    }
+
+    fun coordinateFormatString(unit: CoordinateFormat): String {
+        return when(unit){
+            CoordinateFormat.DecimalDegrees -> context.getString(R.string.coordinate_format_decimal_degrees)
+            CoordinateFormat.DegreesDecimalMinutes -> context.getString(R.string.coordinate_format_degrees_decimal_minutes)
+            CoordinateFormat.DegreesMinutesSeconds -> context.getString(R.string.coordinate_format_degrees_minutes_seconds)
+            CoordinateFormat.UTM -> context.getString(R.string.coordinate_format_utm)
+        }
     }
 
 }

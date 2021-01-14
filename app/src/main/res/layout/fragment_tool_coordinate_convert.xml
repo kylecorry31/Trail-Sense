@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/coordinate_convert_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:text="@string/tool_coordinate_convert_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.kylecorry.trail_sense.shared.views.CoordinateInputView
+        android:id="@+id/coordinate_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coordinate_convert_title">
+
+    </com.kylecorry.trail_sense.shared.views.CoordinateInputView>
+
+    <TextView
+        android:id="@+id/to_units_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/distance_to"
+        app:layout_constraintStart_toStartOf="@+id/coordinate_edit"
+        app:layout_constraintTop_toBottomOf="@+id/coordinate_edit" />
+
+    <Spinner
+        android:id="@+id/to_units"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/coordinate_edit"
+        app:layout_constraintStart_toStartOf="@+id/to_units_text"
+        app:layout_constraintTop_toBottomOf="@+id/to_units_text" />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textIsSelectable="true"
+        app:layout_constraintStart_toStartOf="@+id/to_units_text"
+        app:layout_constraintTop_toBottomOf="@+id/to_units"
+        tools:text="2.00, 1.00" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
