@@ -28,7 +28,6 @@ import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 class PlaceBeaconFragment : Fragment() {
@@ -48,7 +47,8 @@ class PlaceBeaconFragment : Fragment() {
     private lateinit var groups: List<BeaconGroup>
 
     private var editingBeacon: Beacon? = null
-    private var initialGroup: BeaconGroup? = null
+    private var editingBeaconId: Long? = null
+    private var initialGroupId: Long? = null
     private var initialLocation: MyNamedCoordinate? = null
     private val geoService = GeoService()
 
@@ -60,24 +60,16 @@ class PlaceBeaconFragment : Fragment() {
         val groupId = arguments?.getLong("initial_group") ?: 0L
         initialLocation = arguments?.getParcelable("initial_location")
 
-        editingBeacon = if (beaconId == 0L) {
+        editingBeaconId = if (beaconId == 0L){
             null
         } else {
-            runBlocking {
-                withContext(Dispatchers.IO) {
-                    beaconRepo.getBeacon(beaconId)?.toBeacon()
-                }
-            }
+            beaconId
         }
 
-        initialGroup = if (groupId == 0L) {
+        initialGroupId = if (groupId == 0L) {
             null
         } else {
-            runBlocking {
-                withContext(Dispatchers.IO) {
-                    beaconRepo.getGroup(groupId)?.toBeaconGroup()
-                }
-            }
+            groupId
         }
     }
 
@@ -95,6 +87,61 @@ class PlaceBeaconFragment : Fragment() {
         _binding = null
     }
 
+    private fun setEditingBeaconValues(beacon: Beacon){
+        if (beacon.beaconGroupId != null) {
+            val g = groups.find { it.id == editingBeacon?.beaconGroupId }
+            if (g != null) {
+                val idx = groups.indexOf(g)
+                if (idx != -1) {
+                    binding.beaconGroupSpinner.setSelection(idx)
+                }
+            }
+        }
+
+        binding.beaconName.setText(beacon.name)
+        binding.beaconLocation.coordinate = beacon.coordinate
+        binding.beaconElevation.setText(beacon.elevation?.toString() ?: "")
+        binding.comment.setText(beacon.comment ?: "")
+        updateDoneButtonState()
+    }
+
+    private fun onGroupsLoaded(){
+        val adapter = ArrayAdapter(
+            requireContext(),
+            R.layout.beacon_group_spinner_item,
+            R.id.beacon_group_name,
+            groups.map { it.name })
+        binding.beaconGroupSpinner.prompt = getString(R.string.beacon_group_spinner_title)
+        binding.beaconGroupSpinner.adapter = adapter
+        val idx = if (initialGroupId != null) {
+            val i = groups.indexOfFirst { it.id == initialGroupId }
+            if (i == -1) {
+                0
+            } else {
+                i
+            }
+        } else {
+            0
+        }
+        binding.beaconGroupSpinner.setSelection(idx)
+
+        // Load the editing beacon
+        // TODO: Prevent interaction until loaded
+        editingBeaconId?.let {
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO){
+                    editingBeacon = beaconRepo.getBeacon(it)?.toBeacon()
+                }
+
+                withContext(Dispatchers.Main){
+                    editingBeacon?.let { beacon ->
+                        setEditingBeaconValues(beacon)
+                    }
+                }
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val prefs = UserPreferences(requireContext())
@@ -102,7 +149,8 @@ class PlaceBeaconFragment : Fragment() {
 
         navController = findNavController()
 
-        runBlocking {
+        // TODO: Prevent interaction until groups loaded
+        lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 groups =
                     listOf(
@@ -113,45 +161,16 @@ class PlaceBeaconFragment : Fragment() {
                     ) + beaconRepo.getGroupsSync().map { it.toBeaconGroup() }
                         .sortedBy { it.name }
             }
-        }
-        val adapter = ArrayAdapter(
-            requireContext(),
-            R.layout.beacon_group_spinner_item,
-            R.id.beacon_group_name,
-            groups.map { it.name })
-        binding.beaconGroupSpinner.prompt = getString(R.string.beacon_group_spinner_title)
-        binding.beaconGroupSpinner.adapter = adapter
-        val idx = if (editingBeacon?.beaconGroupId != null) {
-            val g = groups.find { it.id == editingBeacon?.beaconGroupId }
-            if (g == null) {
-                0
-            } else {
-                groups.indexOf(g)
+
+            withContext(Dispatchers.Main){
+                onGroupsLoaded()
             }
-        } else if (initialGroup != null) {
-            val i = groups.indexOf(initialGroup)
-            if (i == -1) {
-                0
-            } else {
-                i
-            }
-        } else {
-            0
         }
 
-        binding.beaconGroupSpinner.setSelection(idx)
-
+        // Fill in the initial location information
         if (initialLocation != null) {
             binding.beaconName.setText(initialLocation!!.name ?: "")
             binding.beaconLocation.coordinate = initialLocation!!.coordinate
-            updateDoneButtonState()
-        }
-
-        if (editingBeacon != null) {
-            binding.beaconName.setText(editingBeacon?.name)
-            binding.beaconLocation.coordinate = editingBeacon!!.coordinate
-            binding.beaconElevation.setText(editingBeacon?.elevation?.toString() ?: "")
-            binding.comment.setText(editingBeacon?.comment ?: "")
             updateDoneButtonState()
         }
 
