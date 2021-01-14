@@ -77,6 +77,7 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
     override fun onPause() {
         super.onPause()
         stopGPS()
+        locationOverridePref.pause()
     }
 
     private fun resetGPS() {

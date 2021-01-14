@@ -37,7 +37,7 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="dms"
+            app:defaultValue="dd"
             app:entries="@array/coordinate_format_entries"
             app:entryValues="@array/coordinate_format_values"
             app:iconSpaceReserved="false"

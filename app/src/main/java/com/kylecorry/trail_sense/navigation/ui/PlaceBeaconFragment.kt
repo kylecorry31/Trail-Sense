@@ -311,6 +311,7 @@ class PlaceBeaconFragment : Fragment() {
         compass.stop(this::onCompassUpdate)
         altimeter.stop(this::setElevationFromAltimeter)
         binding.beaconElevation.isEnabled = true
+        binding.beaconLocation.pause()
         super.onPause()
     }
 

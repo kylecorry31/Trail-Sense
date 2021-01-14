@@ -63,6 +63,11 @@ class FragmentToolCoordinateConvert: Fragment() {
         return binding.root
     }
 
+    override fun onPause() {
+        super.onPause()
+        binding.coordinateEdit.pause()
+    }
+
 
     fun update(){
         val coordinate = binding.coordinateEdit.coordinate

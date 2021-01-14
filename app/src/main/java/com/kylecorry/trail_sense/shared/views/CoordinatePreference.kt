@@ -70,4 +70,8 @@ class CoordinatePreference(context: Context, attributeSet: AttributeSet) : Prefe
         this.listener = listener
     }
 
+    fun pause(){
+        coordinateInputView?.pause()
+    }
+
 }

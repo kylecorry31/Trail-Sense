@@ -80,32 +80,6 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayou
         }
     }
 
-    override fun onVisibilityChanged(changedView: View, visibility: Int) {
-        super.onVisibilityChanged(changedView, visibility)
-        if (visibility != View.VISIBLE) {
-            pause()
-        }
-    }
-
-    override fun onVisibilityAggregated(isVisible: Boolean) {
-        super.onVisibilityAggregated(isVisible)
-        if (!isVisible) {
-            pause()
-        }
-    }
-
-    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
-        super.onWindowFocusChanged(hasWindowFocus)
-        if (!hasWindowFocus) {
-            pause()
-        }
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        pause()
-    }
-
     private fun onGPSUpdate(): Boolean {
         coordinate = gps.location
         gpsBtn.visibility = View.VISIBLE
@@ -126,7 +100,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayou
         changeListener?.invoke(_coordinate)
     }
 
-    private fun pause() {
+    fun pause() {
         gps.stop(this::onGPSUpdate)
         gpsBtn.visibility = View.VISIBLE
         gpsLoadingIndicator.visibility = View.GONE
