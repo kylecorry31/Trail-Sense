@@ -761,4 +761,5 @@
     <string name="coordinate_input_invalid_location">Invalid location</string>
     <string name="pref_gps_override" translatable="false">pref_gps_override</string>
     <string name="pref_gps_override_title">Location override</string>
+    <string name="delete_waypoint_prompt">Delete waypoint?</string>
 </resources>

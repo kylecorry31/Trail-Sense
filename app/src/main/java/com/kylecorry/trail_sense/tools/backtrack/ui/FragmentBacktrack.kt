@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,7 +49,7 @@ class FragmentBacktrack : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentBacktrackBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -96,7 +97,7 @@ class FragmentBacktrack : Fragment() {
                 itemBinding.root.setOnClickListener {
                     lifecycleScope.launch {
                         var newTempId = 0L
-                        withContext(Dispatchers.IO){
+                        withContext(Dispatchers.IO) {
                             val tempBeaconId = beaconRepo.getTemporaryBeacon()?.id ?: 0L
                             val beacon = Beacon(
                                 tempBeaconId,
@@ -117,8 +118,11 @@ class FragmentBacktrack : Fragment() {
                             newTempId = beaconRepo.getTemporaryBeacon()?.id ?: 0L
                         }
 
-                        withContext(Dispatchers.Main){
-                            findNavController().navigate(R.id.action_fragmentBacktrack_to_action_navigation, bundleOf("destination" to newTempId))
+                        withContext(Dispatchers.Main) {
+                            findNavController().navigate(
+                                R.id.action_fragmentBacktrack_to_action_navigation,
+                                bundleOf("destination" to newTempId)
+                            )
                         }
 
                     }
@@ -166,30 +170,43 @@ class FragmentBacktrack : Fragment() {
     }
 
     private fun deleteWaypoint(waypointEntity: WaypointEntity) {
-        // TODO: Prompt user
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                waypointRepo.deleteWaypoint(waypointEntity)
+        UiUtils.alertWithCancel(
+            requireContext(),
+            getString(R.string.delete_waypoint_prompt),
+            getWaypointTitle(waypointEntity),
+            getString(R.string.dialog_ok),
+            getString(R.string.dialog_cancel)
+        ) { cancelled ->
+            if (!cancelled) {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        waypointRepo.deleteWaypoint(waypointEntity)
+                    }
+                }
             }
         }
     }
 
     private fun createBeacon(waypoint: WaypointEntity) {
-        val date = waypoint.createdInstant.toZonedDateTime()
-        val time = date.toLocalTime()
         val bundle = bundleOf(
             "initial_location" to MyNamedCoordinate(
                 waypoint.coordinate,
-                getString(
-                    R.string.waypoint_beacon_title_template,
-                    formatService.formatDate(
-                        date,
-                        includeWeekDay = false
-                    ), formatService.formatTime(time, showSeconds = false)
-                )
+                getWaypointTitle(waypoint)
             )
         )
         findNavController().navigate(R.id.place_beacon, bundle)
+    }
+
+    private fun getWaypointTitle(waypoint: WaypointEntity): String {
+        val date = waypoint.createdInstant.toZonedDateTime()
+        val time = date.toLocalTime()
+        return getString(
+            R.string.waypoint_beacon_title_template,
+            formatService.formatDate(
+                date,
+                includeWeekDay = false
+            ), formatService.formatTime(time, showSeconds = false)
+        )
     }
 
 
