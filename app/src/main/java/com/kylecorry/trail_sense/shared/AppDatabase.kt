@@ -124,6 +124,20 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_4_5,
                     MIGRATION_5_6
                 )
+                .addCallback(object: RoomDatabase.Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        if (context.getDatabasePath("weather").exists()){
+                            val request = OneTimeWorkRequestBuilder<PressureDatabaseMigrationWorker>().build()
+                            WorkManager.getInstance(context).enqueue(request)
+                        }
+
+                        if (context.getDatabasePath("survive").exists()) {
+                            val request = OneTimeWorkRequestBuilder<BeaconDatabaseMigrationWorker>().build()
+                            WorkManager.getInstance(context).enqueue(request)
+                        }
+                    }
+                })
                 .build()
         }
     }
