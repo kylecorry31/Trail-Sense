@@ -321,7 +321,7 @@
     <string name="gps_only_support_decimal_degree">Obsługiwany jest tylko format stopni dziesiętnych (np. 0.0000)</string>
     <string name="pref_coordinate_format_title">Format współrzędnych</string>
     <string name="coordinate_format_degrees_minutes_seconds">Stopnie Minuty Sekundy</string>
-    <string name="coordinate_format_decimal_degrees">Stopnie Dziesiętne</string>
+    <string name="coordinate_format_decimal_degrees">Stopnie dziesiętne</string>
     <string name="lunar_noon">Górowanie Księżyca</string>
     <string name="tide_spring">Pływ syzygijny</string>
     <string name="tide_neap">Pływ kwadraturowy</string>
