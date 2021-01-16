@@ -128,7 +128,7 @@ class ToolsFragment : PreferenceFragmentCompat() {
         )
 
         val thermometer = findPreference<Preference>(getString(R.string.tool_thermometer))
-        thermometer?.isEnabled = !sensorChecker.hasBarometer()
+        thermometer?.isVisible = !sensorChecker.hasBarometer()
         navigateOnClick(
             thermometer,
             R.id.action_action_experimental_tools_to_thermometerFragment
