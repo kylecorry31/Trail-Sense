@@ -16,7 +16,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import kotlinx.android.synthetic.main.view_distance_input.*
 
 class RulerFragment : Fragment() {
     private var _binding: FragmentToolRulerBinding? = null

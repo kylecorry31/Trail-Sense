@@ -17,7 +17,6 @@ import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastR
 import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import kotlinx.android.synthetic.main.fragment_tool_clock.*
 import java.time.*
 import java.time.temporal.ChronoUnit
 
