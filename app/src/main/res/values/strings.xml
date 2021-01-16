@@ -764,4 +764,7 @@
     <string name="delete_waypoint_prompt">Delete waypoint?</string>
     <string name="guide_thermometer_calibration_title">Thermometer calibration</string>
     <string name="guide_thermometer_calibration_description">How to calibrate your thermometer</string>
+    <string name="tool_thermometer_title">Thermometer</string>
+    <string name="tool_thermometer" translatable="false">tool_thermometer</string>
+    <string name="pref_category_barometer_and_thermometer" translatable="false">pref_category_barometer_and_thermometer</string>
 </resources>

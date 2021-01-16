@@ -11,6 +11,7 @@ import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
@@ -24,11 +25,11 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     private lateinit var sensorService: SensorService
     private val throttle = Throttle(20)
 
-    private lateinit var pressureTxt: Preference
+    private var pressureTxt: Preference? = null
     private lateinit var temperatureTxt: Preference
-    private lateinit var seaLevelSwitch: SwitchPreferenceCompat
-    private lateinit var altitudeChangeSeekBar: SeekBarPreference
-    private lateinit var pressureChangeSeekBar: SeekBarPreference
+    private var seaLevelSwitch: SwitchPreferenceCompat? = null
+    private var altitudeChangeSeekBar: SeekBarPreference? = null
+    private var pressureChangeSeekBar: SeekBarPreference? = null
     private lateinit var minTempCalibratedC: EditTextPreference
     private lateinit var maxTempCalibratedC: EditTextPreference
     private lateinit var minTempUncalibratedC: EditTextPreference
@@ -38,6 +39,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     private lateinit var minTempUncalibratedF: EditTextPreference
     private lateinit var maxTempUncalibratedF: EditTextPreference
 
+    private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
     private lateinit var thermometer: IThermometer
@@ -72,8 +74,27 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     }
 
     private fun bindPreferences() {
-        pressureTxt = findPreference(getString(R.string.pref_holder_pressure))!!
-        seaLevelSwitch = findPreference(getString(R.string.pref_use_sea_level_pressure))!!
+
+        if (!sensorChecker.hasBarometer()){
+            findPreference<Preference>(getString(R.string.pref_category_barometer_and_thermometer))?.title =
+                getString(R.string.tool_thermometer_title)
+            listOf(
+                R.string.pref_holder_pressure,
+                R.string.pref_sea_level_pressure_change_thresh,
+                R.string.pref_sea_level_require_dwell,
+                R.string.pref_barometer_altitude_change,
+                R.string.pref_adjust_for_temperature,
+                R.string.pref_sea_level_use_rapid,
+                R.string.pref_pressure_history,
+                R.string.pref_use_sea_level_pressure
+            ).forEach {
+                preferenceScreen.removePreferenceRecursively(getString(it))
+            }
+
+        }
+
+        pressureTxt = findPreference(getString(R.string.pref_holder_pressure))
+        seaLevelSwitch = findPreference(getString(R.string.pref_use_sea_level_pressure))
         temperatureTxt = findPreference(getString(R.string.pref_temperature_holder))!!
         minTempCalibratedC = findPreference(getString(R.string.pref_min_calibrated_temp_c))!!
         maxTempCalibratedC = findPreference(getString(R.string.pref_max_calibrated_temp_c))!!
@@ -83,16 +104,16 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
         maxTempCalibratedF = findPreference(getString(R.string.pref_max_calibrated_temp_f))!!
         minTempUncalibratedF = findPreference(getString(R.string.pref_min_uncalibrated_temp_f))!!
         maxTempUncalibratedF = findPreference(getString(R.string.pref_max_uncalibrated_temp_f))!!
-        altitudeChangeSeekBar = findPreference(getString(R.string.pref_barometer_altitude_change))!!
+        altitudeChangeSeekBar = findPreference(getString(R.string.pref_barometer_altitude_change))
         pressureChangeSeekBar =
-            findPreference(getString(R.string.pref_sea_level_pressure_change_thresh))!!
+            findPreference(getString(R.string.pref_sea_level_pressure_change_thresh))
 
-        altitudeChangeSeekBar.summary =
+        altitudeChangeSeekBar?.summary =
             (if (prefs.weather.maxNonTravellingAltitudeChange == 0f) "" else "± ") + formatService.formatSmallDistance(
                 prefs.weather.maxNonTravellingAltitudeChange
             )
 
-        pressureChangeSeekBar.summary =
+        pressureChangeSeekBar?.summary =
             (if (prefs.weather.maxNonTravellingPressureChange == 0f) "" else "± ") + getString(
                 R.string.pressure_tendency_format_2, formatService.formatPressure(
                     unitService.convert(
@@ -179,7 +200,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
             }
         }
 
-        seaLevelSwitch.setOnPreferenceClickListener {
+        seaLevelSwitch?.setOnPreferenceClickListener {
             if (!altimeter.hasValidReading) {
                 altimeter.start(this::updateAltitude)
             }
@@ -187,9 +208,9 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
             true
         }
 
-        altitudeChangeSeekBar.updatesContinuously = true
-        altitudeChangeSeekBar.setOnPreferenceChangeListener { _, newValue ->
-            altitudeChangeSeekBar.summary =
+        altitudeChangeSeekBar?.updatesContinuously = true
+        altitudeChangeSeekBar?.setOnPreferenceChangeListener { _, newValue ->
+            altitudeChangeSeekBar?.summary =
                 (if (newValue.toString()
                         .toFloat() == 0f
                 ) "" else "± ") + formatService.formatSmallDistance(
@@ -198,10 +219,10 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
             true
         }
 
-        pressureChangeSeekBar.updatesContinuously = true
-        pressureChangeSeekBar.setOnPreferenceChangeListener { _, newValue ->
+        pressureChangeSeekBar?.updatesContinuously = true
+        pressureChangeSeekBar?.setOnPreferenceChangeListener { _, newValue ->
             val change = 20 * newValue.toString().toFloat() / 200f
-            pressureChangeSeekBar.summary =
+            pressureChangeSeekBar?.summary =
                 (if (change == 0f) "" else "± ") + getString(
                     R.string.pressure_tendency_format_2, formatService.formatPressure(
                         unitService.convert(
@@ -277,7 +298,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
             barometer.pressure
         }
 
-        pressureTxt.summary =
+        pressureTxt?.summary =
             formatService.formatPressure(PressureUnitUtils.convert(pressure, units), units)
         temperatureTxt.summary =
             formatService.formatTemperature(thermometer.temperature, prefs.temperatureUnits)

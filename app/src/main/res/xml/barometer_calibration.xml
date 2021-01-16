@@ -4,6 +4,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
+        app:key="@string/pref_category_barometer_and_thermometer"
         app:title="@string/barometer_thermometer">
 
         <Preference

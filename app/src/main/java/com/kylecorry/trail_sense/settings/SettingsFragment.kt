@@ -58,7 +58,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         updatePreferenceStates()
         if (!sensorChecker.hasBarometer()) {
             preferenceScreen.removePreferenceRecursively(getString(R.string.pref_weather_category))
-            preferenceScreen.removePreferenceRecursively(getString(R.string.pref_barometer_calibration))
+            preference(R.string.pref_barometer_calibration)?.title =
+                getString(R.string.tool_thermometer_title)
         }
         navigateOnClick(
             preference(R.string.pref_compass_sensor),

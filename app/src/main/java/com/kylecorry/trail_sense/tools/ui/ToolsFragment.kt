@@ -127,6 +127,13 @@ class ToolsFragment : PreferenceFragmentCompat() {
             R.id.action_action_experimental_tools_to_fragmentToolCoordinateConvert
         )
 
+        val thermometer = findPreference<Preference>(getString(R.string.tool_thermometer))
+        thermometer?.isEnabled = !sensorChecker.hasBarometer()
+        navigateOnClick(
+            thermometer,
+            R.id.action_action_experimental_tools_to_thermometerFragment
+        )
+
         val isExperimentalEnabled = prefs.experimentalEnabled
         val whiteNoise = findPreference<Preference>(getString(R.string.tool_white_noise))
         whiteNoise?.isVisible = isExperimentalEnabled
