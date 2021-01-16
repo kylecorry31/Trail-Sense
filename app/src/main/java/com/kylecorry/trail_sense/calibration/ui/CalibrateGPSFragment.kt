@@ -8,9 +8,13 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.GPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
+import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.CoordinatePreference
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 
@@ -18,6 +22,7 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val sensorService by lazy { SensorService(requireContext()) }
+    private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private val throttle = Throttle(20)
 
     private lateinit var locationTxt: Preference
@@ -27,11 +32,17 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
     private val formatService by lazy { FormatService(requireContext()) }
 
     private lateinit var gps: IGPS
-    private val realGps by lazy { GPS(requireContext()) }
+    private lateinit var realGps: IGPS
+
+    private var wasUsingRealGPS = false
+    private var wasUsingCachedGPS = false
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.gps_calibration, rootKey)
+        wasUsingRealGPS = shouldUseRealGPS()
+        wasUsingCachedGPS = shouldUseCachedGPS()
         gps = sensorService.getGPS()
+        realGps = getRealGPS()
         bindPreferences()
     }
 
@@ -51,7 +62,7 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
         }
 
         autoLocationSwitch.setOnPreferenceClickListener {
-            locationOverridePref.isEnabled = !prefs.useAutoLocation || !prefs.useAutoLocation
+            locationOverridePref.isEnabled = isLocationOverrideEnabled()
             resetGPS()
             update()
             true
@@ -100,14 +111,65 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
         return true
     }
 
+    private fun resetRealGPS() {
+        locationOverridePref.pause()
+        realGps = getRealGPS()
+        locationOverridePref.setGPS(realGps)
+    }
+
+    private fun getRealGPS(): IGPS {
+        return when {
+            shouldUseRealGPS() -> {
+                GPS(requireContext())
+            }
+            shouldUseCachedGPS() -> {
+                CachedGPS(requireContext())
+            }
+            else -> {
+                OverrideGPS(requireContext())
+            }
+        }
+    }
+
+    private fun isLocationOverrideEnabled(): Boolean {
+        // Either there are no other options for GPS or auto location is off
+        return !isAutoGPSPreferenceEnabled() || !prefs.useAutoLocation
+    }
+
+    private fun isAutoGPSPreferenceEnabled(): Boolean {
+        // Only disable when GPS permission is denied
+        return PermissionUtils.isLocationEnabled(requireContext())
+    }
+
+    private fun shouldUseCachedGPS(): Boolean {
+        // Permission is granted, but GPS is disabled
+        return PermissionUtils.isLocationEnabled(requireContext()) && !sensorChecker.hasGPS()
+    }
+
+    private fun shouldUseRealGPS(): Boolean {
+        // When both permission is granted and GPS is enabled
+        return sensorChecker.hasGPS()
+    }
+
     private fun update() {
         if (throttle.isThrottled()) {
             return
         }
 
-        permissionBtn.isVisible = !prefs.useLocationFeatures
-        autoLocationSwitch.isEnabled = prefs.useLocationFeatures
-        locationOverridePref.isEnabled = !prefs.useAutoLocation || !prefs.useAutoLocation
+        val useReal = shouldUseRealGPS()
+        val useCached = shouldUseCachedGPS()
+
+        if (useReal != wasUsingRealGPS || useCached != wasUsingCachedGPS){
+            resetRealGPS()
+            resetGPS()
+            wasUsingCachedGPS = useCached
+            wasUsingRealGPS = useReal
+        }
+
+
+        permissionBtn.isVisible = !isAutoGPSPreferenceEnabled()
+        autoLocationSwitch.isEnabled = isAutoGPSPreferenceEnabled()
+        locationOverridePref.isEnabled = isLocationOverrideEnabled()
 
         locationTxt.summary = formatService.formatLocation(gps.location)
     }

@@ -43,7 +43,10 @@ class SensorService(ctx: Context) {
     private val sensorManager by lazy { context.getSystemService<SensorManager>() }
 
     fun getGPS(background: Boolean = false): IGPS {
-        if (!userPrefs.useAutoLocation) {
+
+        val hasForegroundPermission = hasLocationPermission(false)
+
+        if (!userPrefs.useAutoLocation || !hasForegroundPermission) {
             return OverrideGPS(context)
         }
 
