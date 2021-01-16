@@ -762,4 +762,6 @@
     <string name="pref_gps_override" translatable="false">pref_gps_override</string>
     <string name="pref_gps_override_title">Location override</string>
     <string name="delete_waypoint_prompt">Delete waypoint?</string>
+    <string name="guide_thermometer_calibration_title">Thermometer calibration</string>
+    <string name="guide_thermometer_calibration_description">How to calibrate your thermometer</string>
 </resources>

@@ -47,7 +47,7 @@ See the need for a new feature? [Post it here!](https://github.com/kylecorry31/T
 
 ### Navigation
 
-The compass can be used to determine the direction to North, and when combined with the GPS it can be used to navigate to predefined locations. The predefined locations, known as beacons, can be created while at a location and at any point you can use the compass to navigate back to where the beacon was placed.
+The compass can be used to determine the direction to North, and when combined with the GPS it can be used to navigate to predefined locations. The predefined locations, known as beacons, can be created while at a location and at any point you can use the compass to navigate back to where the beacon was placed. You can also use Backtrack to record waypoints and retrace your steps.
 
 Example beacons: home, work, trailhead, campsite
 
@@ -92,15 +92,15 @@ If you choose to write a new feature yourself, send me a message to verify that 
 - **When can I expect new releases?**
   - I will try to create a release every week or two with new features or bug fixes. Some features may be feature flagged (via a hidden setting) to deliver thouroughly tested features. Debug builds are updated as features are completed. I can't gaurantee this will always be the case, work/life may get in the way.
 - **The pressure graph isn't populating or is very jagged, how can I fix it?**
-    - You may need to mark Trail Sense as exempt from battery optimizations: [how to make TS exempt](https://dontkillmyapp.com/)
+  - You may need to mark Trail Sense as exempt from battery optimizations: [how to make TS exempt](https://dontkillmyapp.com/)
 - **The compass was working, but now it will not move and I haven't touched any settings. How can I fix it?**
-    - Sometimes Android stops reporting compass data to apps, and you may need to reboot your device to fix the issue.
+  - Sometimes Android stops reporting compass data to apps, and you may need to reboot your device to fix the issue.
 - **What other apps would be useful in a survival situation?**
-    - [Offline Survival Manual](https://github.com/ligi/SurvivalManual)
-        - A survival guide application. This app will teach you how to use resources around you to survive in almost every environment.
-    - [OsmAnd~](https://github.com/osmandapp/OsmAnd)
-        - An offline maps application. Prior to going on a hike, download the maps you need. This app is free via F-Droid.
-    
+  - [Offline Survival Manual](https://github.com/ligi/SurvivalManual)
+    - A survival guide application. This app will teach you how to use resources around you to survive in almost every environment.
+  - [OsmAnd~](https://github.com/osmandapp/OsmAnd)
+    - An offline maps application. Prior to going on a hike, download the maps you need. This app is free via F-Droid.
+
 # Support
 
 <table>

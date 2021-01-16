@@ -45,6 +45,11 @@ object Guides {
                     context.getString(R.string.guide_weather_prediction_title),
                     context.getString(R.string.guide_weather_prediction_description),
                     R.raw.weather
+                ),
+                UserGuide(
+                    context.getString(R.string.guide_thermometer_calibration_title),
+                    context.getString(R.string.guide_thermometer_calibration_description),
+                    R.raw.calibrating_thermometer
                 )
             )
         )
