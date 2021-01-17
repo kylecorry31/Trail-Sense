@@ -23,9 +23,6 @@ class FragmentToolBattery: Fragment() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val battery by lazy { Battery(requireContext()) }
 
-    private var currentFilter = LowPassFilter(0.1f, 0f)
-    private var lastCurrent = 0f
-
     private var lastReading = 0f
 
     private val intervalometer = Intervalometer {
@@ -70,30 +67,38 @@ class FragmentToolBattery: Fragment() {
         val batteryCurrent = battery.current
         binding.batteryPercentage.text = formatService.formatPercentage(pct)
         binding.batteryCapacity.text = formatService.formatBatteryCapacity(capacity)
+        binding.batteryCapacity.visibility = if (capacity == 0f) View.GONE else View.VISIBLE
         binding.batteryHealth.text = getString(R.string.battery_health, getHealthString(battery.health))
 
-        if (batteryCurrent != lastCurrent) {
-            if ((batteryCurrent - lastCurrent).absoluteValue > 100 || lastCurrent == 0f){
-                currentFilter = LowPassFilter(0.2f, batteryCurrent)
-            }
-            val current = currentFilter.filter(batteryCurrent)
-            val formattedCurrent = formatService.formatCurrent(current.absoluteValue)
+        if (batteryCurrent != 0f) {
+            val formattedCurrent = formatService.formatCurrent(batteryCurrent.absoluteValue)
             binding.batteryCurrent.text = when {
-                current > 500 -> getString(R.string.charging_fast, formattedCurrent)
-                current > 0 -> getString(R.string.charging_slow, formattedCurrent)
-                current < -500 -> getString(R.string.discharging_fast, formattedCurrent)
+                batteryCurrent > 500 -> getString(R.string.charging_fast, formattedCurrent)
+                batteryCurrent > 0 -> getString(R.string.charging_slow, formattedCurrent)
+                batteryCurrent < -500 -> getString(R.string.discharging_fast, formattedCurrent)
                 else -> getString(R.string.discharging_slow, formattedCurrent)
             }
-            lastCurrent = batteryCurrent
         }
 
         binding.batteryLevelBar.progress = pct
+
+        if (lastReading == 0f){
+            lastReading = capacity
+        }
 
         if (capacity - lastReading > 0){
             // Increasing
             binding.batteryChargeIndicator.rotation = 0f
             binding.batteryChargeIndicator.visibility = View.VISIBLE
         } else if (capacity - lastReading < 0){
+            // Decreasing
+            binding.batteryChargeIndicator.rotation = 180f
+            binding.batteryChargeIndicator.visibility = View.VISIBLE
+        } else if (capacity == 0f && battery.charging){
+            // Increasing
+            binding.batteryChargeIndicator.rotation = 0f
+            binding.batteryChargeIndicator.visibility = View.VISIBLE
+        } else if (capacity == 0f && !battery.charging){
             // Decreasing
             binding.batteryChargeIndicator.rotation = 180f
             binding.batteryChargeIndicator.visibility = View.VISIBLE
