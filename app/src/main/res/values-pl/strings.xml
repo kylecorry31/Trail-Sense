@@ -321,7 +321,7 @@
     <string name="gps_only_support_decimal_degree">Obsługiwany jest tylko format stopni dziesiętnych (np. 0.0000)</string>
     <string name="pref_coordinate_format_title">Format współrzędnych</string>
     <string name="coordinate_format_degrees_minutes_seconds">Stopnie Minuty Sekundy</string>
-    <string name="coordinate_format_decimal_degrees">Stopnie Dziesiętne</string>
+    <string name="coordinate_format_decimal_degrees">Stopnie dziesiętne</string>
     <string name="lunar_noon">Górowanie Księżyca</string>
     <string name="tide_spring">Pływ syzygijny</string>
     <string name="tide_neap">Pływ kwadraturowy</string>
@@ -578,4 +578,20 @@
 \nKompas: Obróć urządzenie zgodnie ze wzorem cyfry 8 i odejdź od metalu."</string>
     <string name="dialog_no">Nie</string>
     <string name="dialog_yes">Tak</string>
+    <string name="create_at_distance">Utwórz w odległości</string>
+    <string name="beacon_set_bearing_btn">Ustaw namiar (%s)</string>
+    <string name="bearing">Namiar</string>
+    <string name="toast_destination_bearing_set">Namiar ustawiony</string>
+    <string name="location_input_hint">Lokalizacja</string>
+    <string name="coordinate_input_invalid_location">Niepoprawna lokalizacja</string>
+    <string name="location_input_help_title">Wspierane formaty współrzędnych</string>
+    <string name="location_input_help">Stopnie dziesiętne (np. 1.00, -2.00)
+\n
+\nStopnie, minuty (np. 1°23.12\'N, 3°12.1\'W)
+\n
+\nStopnie, minuty, sekundy (np. 1°23\'12.1\"N, 3°12\"1.2\'W)
+\n
+\nUTM (np. 03T 12345E 67890N)</string>
+    <string name="action_waypoint_create_beacon">Dodaj punkt nawigacyjny</string>
+    <string name="guide_create_beacons_title">Dodawanie punktów nawigacyjnych</string>
 </resources>
