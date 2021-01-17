@@ -23,7 +23,8 @@ class FragmentToolCoordinateConvert: Fragment() {
         CoordinateFormat.DecimalDegrees,
         CoordinateFormat.DegreesDecimalMinutes,
         CoordinateFormat.DegreesMinutesSeconds,
-        CoordinateFormat.UTM
+        CoordinateFormat.UTM,
+        CoordinateFormat.MGRS
     )
 
     override fun onCreateView(

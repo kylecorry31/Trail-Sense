@@ -600,7 +600,9 @@
 \n
 \n度分秒 (如， 1°23\'12.1\"N, 3°12\"1.2\'W)
 \n
-\nUTM (如， 03T 12345E 67890N)</string>
+\nUTM (如， 03T 12345E 67890N)
+\n
+\nMGRS (ex. 27PXM 09601 05579)</string>
     <string name="location_input_help_title">支持的位置格式</string>
     <string name="location_input_hint">位置</string>
     <string name="utm_hint_band">纬度带</string>

@@ -147,6 +147,7 @@ class FormatServiceV2(private val context: Context) {
             CoordinateFormat.DegreesDecimalMinutes -> location.toDegreeDecimalMinutes()
             CoordinateFormat.DegreesMinutesSeconds -> location.toDegreeMinutesSeconds()
             CoordinateFormat.UTM -> location.toUTM()
+            CoordinateFormat.MGRS -> location.toMGRS()
         }
         if (formatted == "?") {
             return location.toDecimalDegrees()

@@ -99,6 +99,7 @@ class NavigationPreferences(private val context: Context) {
                 "dms" -> CoordinateFormat.DegreesMinutesSeconds
                 "ddm" -> CoordinateFormat.DegreesDecimalMinutes
                 "utm" -> CoordinateFormat.UTM
+                "mgrs" -> CoordinateFormat.MGRS
                 else -> CoordinateFormat.DecimalDegrees
             }
         }

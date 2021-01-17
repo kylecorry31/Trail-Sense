@@ -210,6 +210,7 @@ class FormatService(private val context: Context) {
             CoordinateFormat.DegreesDecimalMinutes -> location.toDegreeDecimalMinutes()
             CoordinateFormat.DegreesMinutesSeconds -> location.toDegreeMinutesSeconds()
             CoordinateFormat.UTM -> location.toUTM()
+            CoordinateFormat.MGRS -> location.toMGRS()
         }
         if (formatted == "?") {
             return location.toDecimalDegrees()
@@ -285,6 +286,7 @@ class FormatService(private val context: Context) {
             CoordinateFormat.DegreesDecimalMinutes -> context.getString(R.string.coordinate_format_degrees_decimal_minutes)
             CoordinateFormat.DegreesMinutesSeconds -> context.getString(R.string.coordinate_format_degrees_minutes_seconds)
             CoordinateFormat.UTM -> context.getString(R.string.coordinate_format_utm)
+            CoordinateFormat.MGRS -> context.getString(R.string.coordinate_format_mgrs)
         }
     }
 

@@ -246,6 +246,7 @@
     <string name="coordinate_format_degrees_decimal_minutes">Degrees Decimal Minutes</string>
     <string name="coordinate_format_degrees_minutes_seconds">Degrees Minutes Seconds</string>
     <string name="coordinate_format_utm">UTM</string>
+    <string name="coordinate_format_mgrs">MGRS</string>
     <string name="pref_coordinate_format_title">Coordinate format</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="celsius">Celsius</string>
@@ -757,7 +758,7 @@
     <string name="utm_hint_band">Latitude Band</string>
     <string name="location_input_hint">Location</string>
     <string name="location_input_help_title">Supported location formats</string>
-    <string name="location_input_help">Decimal degrees (ex. 1.00, -2.00)\n\nDegrees decimal minutes (ex. 1°23.12\'N, 3°12.1\'W)\n\nDegrees minutes seconds (ex. 1°23\'12.1\"N, 3°12\"1.2\'W)\n\nUTM (ex. 03T 12345E 67890N)</string>
+    <string name="location_input_help">Decimal degrees (ex. 1.00, -2.00)  Degrees decimal minutes (ex. 1°23.12\'N, 3°12.1\'W)  Degrees minutes seconds (ex. 1°23\'12.1\"N, 3°12\"1.2\'W)  UTM (ex. 03T 12345E 67890N)   MGRS (ex. 27PXM 09601 05579)</string>
     <string name="coordinate_input_invalid_location">Invalid location</string>
     <string name="pref_gps_override" translatable="false">pref_gps_override</string>
     <string name="pref_gps_override_title">Location override</string>
@@ -774,9 +775,9 @@
     <string name="guide_backtrack_description">How to use Backtrack</string>
     <string name="guide_barometer_calibration_title">Barometer calibration</string>
     <string name="guide_barometer_calibration_description">How to calibrate your barometer to sea level</string>
-    <string name="pref_low_power_mode">pref_low_power_mode</string>
-    <string name="pref_low_power_mode_weather">pref_low_power_mode_weather</string>
-    <string name="pref_low_power_mode_backtrack">pref_low_power_mode_backtrack</string>
+    <string name="pref_low_power_mode" translatable="false">pref_low_power_mode</string>
+    <string name="pref_low_power_mode_weather" translatable="false">pref_low_power_mode_weather</string>
+    <string name="pref_low_power_mode_backtrack" translatable="false">pref_low_power_mode_backtrack</string>
     <string name="pref_low_power_mode_title">Low Power Mode</string>
     <string name="low_power_mode_on_message">Low power mode on, some features may be disabled.</string>
 </resources>
