@@ -17,7 +17,7 @@ import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
-class FragmentToolBattery: Fragment() {
+class FragmentToolBattery : Fragment() {
 
     private var _binding: FragmentToolBatteryBinding? = null
     private val binding get() = _binding!!
@@ -64,7 +64,8 @@ class FragmentToolBattery: Fragment() {
     private fun update() {
         // If charging, show up arrow
         val chargingStatus = battery.chargingStatus
-        when(chargingStatus){
+        val isCharging = chargingStatus == BatteryChargingStatus.Charging
+        when (chargingStatus) {
             BatteryChargingStatus.Charging -> {
                 binding.batteryChargeIndicator.rotation = 0f
                 binding.batteryChargeIndicator.visibility = View.VISIBLE
@@ -77,14 +78,15 @@ class FragmentToolBattery: Fragment() {
         }
 
         // If charging and current is negative, invert current
-        val current = battery.current.absoluteValue * if (chargingStatus == BatteryChargingStatus.Charging) 1 else -1
+        val current = battery.current.absoluteValue * if (isCharging) 1 else -1
         val capacity = battery.capacity
         val pct = battery.percent.roundToInt()
 
         binding.batteryPercentage.text = formatService.formatPercentage(pct)
         binding.batteryCapacity.text = formatService.formatBatteryCapacity(capacity)
         binding.batteryCapacity.visibility = if (capacity == 0f) View.GONE else View.VISIBLE
-        binding.batteryHealth.text = getString(R.string.battery_health, getHealthString(battery.health))
+        binding.batteryHealth.text =
+            getString(R.string.battery_health, getHealthString(battery.health))
         binding.batteryLevelBar.progress = pct
 
         if (current != 0f) {
@@ -97,10 +99,19 @@ class FragmentToolBattery: Fragment() {
             }
         } else {
             val chargeMethod = battery.chargingMethod
-            binding.batteryCurrent.text = when(chargeMethod){
-                BatteryChargingMethod.AC -> getString(R.string.charging_fast, getString(R.string.battery_power_ac))
-                BatteryChargingMethod.USB -> getString(R.string.charging_slow, getString(R.string.battery_power_usb))
-                BatteryChargingMethod.Wireless -> getString(R.string.charging_wireless, getString(R.string.battery_power_wireless))
+            binding.batteryCurrent.text = when {
+                isCharging && chargeMethod == BatteryChargingMethod.AC -> getString(
+                    R.string.charging_fast,
+                    getString(R.string.battery_power_ac)
+                )
+                isCharging && chargeMethod == BatteryChargingMethod.USB -> getString(
+                    R.string.charging_slow,
+                    getString(R.string.battery_power_usb)
+                )
+                isCharging && chargeMethod == BatteryChargingMethod.Wireless -> getString(
+                    R.string.charging_wireless,
+                    getString(R.string.battery_power_wireless)
+                )
                 else -> ""
             }
         }
@@ -108,7 +119,7 @@ class FragmentToolBattery: Fragment() {
 
 
     private fun getHealthString(health: BatteryHealth): String {
-        return when(health){
+        return when (health) {
             BatteryHealth.Cold -> getString(R.string.battery_health_cold)
             BatteryHealth.Dead -> getString(R.string.battery_health_dead)
             BatteryHealth.Good -> getString(R.string.battery_health_good)
