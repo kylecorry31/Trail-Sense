@@ -50,6 +50,8 @@ class FragmentToolBattery: Fragment() {
         super.onResume()
         battery.start(this::onBatteryUpdate)
         intervalometer.interval(20)
+        binding.batteryChargeIndicator.visibility = View.INVISIBLE
+        binding.batteryCurrent.text = ""
     }
 
     override fun onPause() {
