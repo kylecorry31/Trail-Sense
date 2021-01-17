@@ -9,9 +9,8 @@ class FlashlightOffReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context == null) return
 
-        context.stopService(FlashlightService.intent(context))
-        context.stopService(SosService.intent(context))
-        context.stopService(StrobeService.intent(context))
+        val handler = FlashlightHandler.getInstance(context)
+        handler.off()
     }
 
 
