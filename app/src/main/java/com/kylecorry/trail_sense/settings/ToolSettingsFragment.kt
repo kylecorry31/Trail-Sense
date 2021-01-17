@@ -31,6 +31,11 @@ class ToolSettingsFragment : CustomPreferenceFragment() {
             true
         }
 
+        switch(R.string.pref_run_backtrack_when_low_battery)?.setOnPreferenceClickListener {
+            restartBacktrack()
+            true
+        }
+
     }
 
     private fun restartBacktrack() {

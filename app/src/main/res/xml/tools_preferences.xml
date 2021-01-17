@@ -24,6 +24,14 @@
             app:title="@string/pref_backtrack_frequency_title"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_backtrack_enabled"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_run_backtrack_when_low_battery"
+            app:singleLineTitle="false"
+            app:title="@string/pref_run_backtrack_when_low_battery_title" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

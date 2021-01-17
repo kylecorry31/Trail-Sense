@@ -778,6 +778,8 @@
     <string name="pref_low_power_mode" translatable="false">pref_low_power_mode</string>
     <string name="pref_low_power_mode_weather" translatable="false">pref_low_power_mode_weather</string>
     <string name="pref_low_power_mode_backtrack" translatable="false">pref_low_power_mode_backtrack</string>
-    <string name="pref_low_power_mode_title">Low Power Mode</string>
-    <string name="low_power_mode_on_message">Low power mode on, some features may be disabled.</string>
+    <string name="pref_low_power_mode_title">Power saving mode</string>
+    <string name="low_power_mode_on_message">Power saving mode on, some features may be disabled.</string>
+    <string name="pref_run_backtrack_when_low_battery">pref_run_backtrack_when_low_battery</string>
+    <string name="pref_run_backtrack_when_low_battery_title">Run when battery is low</string>
 </resources>
