@@ -767,4 +767,8 @@
     <string name="tool_thermometer_title">Thermometer</string>
     <string name="tool_thermometer" translatable="false">tool_thermometer</string>
     <string name="pref_category_barometer_and_thermometer" translatable="false">pref_category_barometer_and_thermometer</string>
+    <string name="battery_power_ac">AC</string>
+    <string name="battery_power_usb">USB</string>
+    <string name="battery_power_wireless">Wireless</string>
+    <string name="charging_wireless">Charging (%s)</string>
 </resources>
