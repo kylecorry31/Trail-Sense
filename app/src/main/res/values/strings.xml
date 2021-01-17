@@ -771,4 +771,7 @@
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_wireless">Wireless</string>
     <string name="charging_wireless">Charging (%s)</string>
+    <string name="guide_backtrack_description">How to use Backtrack</string>
+    <string name="guide_barometer_calibration_title">Barometer calibration</string>
+    <string name="guide_barometer_calibration_description">How to calibrate your barometer to sea level</string>
 </resources>

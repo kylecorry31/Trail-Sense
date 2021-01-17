@@ -89,7 +89,7 @@ class FragmentToolBattery : Fragment() {
             getString(R.string.battery_health, getHealthString(battery.health))
         binding.batteryLevelBar.progress = pct
 
-        if (current != 0f) {
+        if (current.absoluteValue >= 0.5f) {
             val formattedCurrent = formatService.formatCurrent(current.absoluteValue)
             binding.batteryCurrent.text = when {
                 current > 500 -> getString(R.string.charging_fast, formattedCurrent)

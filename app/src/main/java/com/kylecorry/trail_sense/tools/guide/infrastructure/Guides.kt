@@ -32,6 +32,11 @@ object Guides {
                     R.raw.create_beacon
                 ),
                 UserGuide(
+                    context.getString(R.string.tool_backtrack_title),
+                    context.getString(R.string.guide_backtrack_description),
+                    R.raw.using_backtrack
+                ),
+                UserGuide(
                     context.getString(R.string.guide_location_no_gps_title),
                     context.getString(R.string.guide_location_no_gps_description),
                     R.raw.determine_location_without_gps
@@ -45,6 +50,11 @@ object Guides {
                     context.getString(R.string.guide_weather_prediction_title),
                     context.getString(R.string.guide_weather_prediction_description),
                     R.raw.weather
+                ),
+                UserGuide(
+                    context.getString(R.string.guide_barometer_calibration_title),
+                    context.getString(R.string.guide_barometer_calibration_description),
+                    R.raw.calibrating_barometer
                 ),
                 UserGuide(
                     context.getString(R.string.guide_thermometer_calibration_title),
