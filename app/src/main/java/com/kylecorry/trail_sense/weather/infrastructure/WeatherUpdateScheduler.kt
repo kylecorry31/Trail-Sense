@@ -10,6 +10,10 @@ import java.time.Duration
 
 object WeatherUpdateScheduler {
     fun start(context: Context) {
+        val prefs = UserPreferences(context)
+        if (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesWeather){
+            return
+        }
         val scheduler = getScheduler(context)
         scheduler.schedule(Duration.ZERO)
     }

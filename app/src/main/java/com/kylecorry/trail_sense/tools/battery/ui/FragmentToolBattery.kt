@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingMethod
@@ -25,6 +26,8 @@ class FragmentToolBattery : Fragment() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val battery by lazy { Battery(requireContext()) }
 
+    private val lowPowerMode by lazy { LowPowerMode(requireContext()) }
+
     private val intervalometer = Intervalometer {
         update()
     }
@@ -34,6 +37,14 @@ class FragmentToolBattery : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentToolBatteryBinding.inflate(inflater, container, false)
+        binding.lowPowerModeSwitch.isChecked = lowPowerMode.isEnabled()
+        binding.lowPowerModeSwitch.setOnClickListener {
+            if (lowPowerMode.isEnabled()) {
+                lowPowerMode.disable(requireActivity())
+            } else {
+                lowPowerMode.enable(requireActivity())
+            }
+        }
         return binding.root
     }
 

@@ -58,6 +58,10 @@ class UserPreferences(private val context: Context) {
 
     val theme: Theme
         get() {
+            if (isLowPowerModeOn){
+                return Theme.Black
+            }
+
             return when (prefs.getString(context.getString(R.string.pref_theme), "system")) {
                 "light" -> Theme.Light
                 "dark" -> Theme.Dark
@@ -121,15 +125,15 @@ class UserPreferences(private val context: Context) {
         get() {
             var raw = prefs.getString(getString(R.string.pref_altimeter_calibration_mode), null)
 
-            if (raw == null){
-                if (useAutoAltitude && useFineTuneAltitude && weather.hasBarometer){
+            if (raw == null) {
+                if (useAutoAltitude && useFineTuneAltitude && weather.hasBarometer) {
                     raw = "gps_barometer"
-                } else if (useAutoAltitude){
+                } else if (useAutoAltitude) {
                     raw = "gps"
                 }
             }
 
-            return when (raw){
+            return when (raw) {
                 "gps" -> AltimeterMode.GPS
                 "gps_barometer" -> AltimeterMode.GPSBarometer
                 "barometer" -> AltimeterMode.Barometer
@@ -139,8 +143,16 @@ class UserPreferences(private val context: Context) {
         }
 
     var seaLevelPressureOverride: Float
-        get() = prefs.getFloat(getString(R.string.pref_sea_level_pressure_override), SensorManager.PRESSURE_STANDARD_ATMOSPHERE)
-        set(value) = prefs.edit { putFloat(getString(R.string.pref_sea_level_pressure_override), value)}
+        get() = prefs.getFloat(
+            getString(R.string.pref_sea_level_pressure_override),
+            SensorManager.PRESSURE_STANDARD_ATMOSPHERE
+        )
+        set(value) = prefs.edit {
+            putFloat(
+                getString(R.string.pref_sea_level_pressure_override),
+                value
+            )
+        }
 
     private var useAutoAltitude: Boolean
         get() = prefs.getBoolean(getString(R.string.pref_auto_altitude), true)
@@ -156,13 +168,32 @@ class UserPreferences(private val context: Context) {
 
     var backtrackEnabled: Boolean
         get() = prefs.getBoolean(context.getString(R.string.pref_backtrack_enabled), false)
-        set(value) = prefs.edit { putBoolean(context.getString(R.string.pref_backtrack_enabled), value) }
+        set(value) = prefs.edit {
+            putBoolean(
+                context.getString(R.string.pref_backtrack_enabled),
+                value
+            )
+        }
 
     val backtrackRecordFrequency: Duration
-        get(){
+        get() {
             val raw = prefs.getString(getString(R.string.pref_backtrack_frequency), null) ?: "30"
             return Duration.ofMinutes(raw.toLongOrNull() ?: 30L)
         }
+
+    var isLowPowerModeOn: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_low_power_mode), false)
+        set(value) {
+            prefs.edit {
+                putBoolean(context.getString(R.string.pref_low_power_mode), value)
+            }
+        }
+
+    val lowPowerModeDisablesWeather: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_low_power_mode_weather), true)
+
+    val lowPowerModeDisablesBacktrack: Boolean
+        get() = prefs.getBoolean(context.getString(R.string.pref_low_power_mode_backtrack), true)
 
     private fun getString(id: Int): String {
         return context.getString(id)

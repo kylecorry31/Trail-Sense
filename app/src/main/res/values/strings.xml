@@ -774,4 +774,9 @@
     <string name="guide_backtrack_description">How to use Backtrack</string>
     <string name="guide_barometer_calibration_title">Barometer calibration</string>
     <string name="guide_barometer_calibration_description">How to calibrate your barometer to sea level</string>
+    <string name="pref_low_power_mode">pref_low_power_mode</string>
+    <string name="pref_low_power_mode_weather">pref_low_power_mode_weather</string>
+    <string name="pref_low_power_mode_backtrack">pref_low_power_mode_backtrack</string>
+    <string name="pref_low_power_mode_title">Low Power Mode</string>
+    <string name="low_power_mode_on_message">Low power mode on, some features may be disabled.</string>
 </resources>

@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        ExceptionUtils.onUncaughtException(Duration.ofMinutes(1)){
+        ExceptionUtils.onUncaughtException(Duration.ofMinutes(1)) {
             UiUtils.alertWithCancel(
                 this@MainActivity,
                 getString(R.string.error_occurred),
@@ -120,18 +120,22 @@ class MainActivity : AppCompatActivity() {
             disclaimer.show()
         }
 
+        if (userPrefs.isLowPowerModeOn) {
+            UiUtils.shortToast(this, getString(R.string.low_power_mode_on_message))
+        }
+
         if (userPrefs.weather.shouldMonitorWeather) {
             WeatherUpdateScheduler.start(this)
         } else {
             WeatherUpdateScheduler.stop(this)
         }
 
-        if (!sensorChecker.hasBarometer()){
+        if (!sensorChecker.hasBarometer()) {
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)
             item.isVisible = false
         }
 
-        if (userPrefs.backtrackEnabled){
+        if (userPrefs.backtrackEnabled) {
             BacktrackScheduler.start(this)
         } else {
             BacktrackScheduler.stop(this)
@@ -147,7 +151,7 @@ class MainActivity : AppCompatActivity() {
             geoIntentLocation = namedCoordinate
             bottomNavigation.selectedItemId = R.id.action_navigation
             if (namedCoordinate != null) {
-                val bundle =  bundleOf("initial_location" to MyNamedCoordinate.from(namedCoordinate))
+                val bundle = bundleOf("initial_location" to MyNamedCoordinate.from(namedCoordinate))
                 navController.navigate(
                     R.id.place_beacon,
                     bundle

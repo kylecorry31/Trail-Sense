@@ -106,6 +106,8 @@ class WeatherUpdateService : Service() {
         return START_NOT_STICKY
     }
 
+
+
     private fun scheduleNextUpdate() {
         val scheduler = WeatherUpdateScheduler.getScheduler(applicationContext)
         scheduler.cancel()
@@ -299,6 +301,8 @@ class WeatherUpdateService : Service() {
 
     override fun onDestroy() {
         releaseWakelock()
+        stopTimeout()
+        stopSensors()
         if (userPrefs.weather.foregroundService) {
             stopForeground(true)
         }
