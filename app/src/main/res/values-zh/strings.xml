@@ -575,4 +575,13 @@
 \nMGRS (ex. 27PXM 09601 05579)</string>
     <string name="location_input_help_title">支持的位置格式</string>
     <string name="location_input_hint">位置</string>
+    <string name="utm_hint_band">纬度带</string>
+    <string name="utm_hint_zone">区域</string>
+    <string name="utm_hint_northing_m">朝北方 （m）</string>
+    <string name="utm_hint_easting_m">朝东方 （m）</string>
+    <string name="tool_thermometer_title">温度计</string>
+    <string name="guide_thermometer_calibration_description">如何校正你的温度计</string>
+    <string name="guide_thermometer_calibration_title">温度计校正</string>
+    <string name="delete_waypoint_prompt">删除路径点？</string>
+    <string name="tool_coordinate_convert_title">坐标转换器</string>
 </resources>
