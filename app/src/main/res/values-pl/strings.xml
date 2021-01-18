@@ -3,7 +3,7 @@
     <string name="navigation">Nawigacja</string>
     <string name="weather">Pogoda</string>
     <string name="settings">Ustawienia</string>
-    <string name="create_beacon_title">Porzuć punkt nawigacyjny</string>
+    <string name="create_beacon_title">Dodaj punkt nawigacyjny</string>
     <string name="beacon_name_hint">Nazwa</string>
     <string name="beacon_list_title">Wybierz punkt nawigacyjny</string>
     <string name="dialog_ok">OK</string>
