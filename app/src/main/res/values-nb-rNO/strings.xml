@@ -96,7 +96,7 @@
     <string name="share_action_send">Send</string>
     <string name="tap_to_turn_off">Trykk for å skru av</string>
     <string name="flashlight_title">Lommelykt</string>
-    <string name="accuracy_info_title">Tips for å forbedre nøyaktigheten på sensordataene</string>
+    <string name="accuracy_info_title">Tips for forbedring av sensordatanøyaktighet</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Ukjent</string>
@@ -217,7 +217,7 @@
     <string name="access_background_location">Oppdater posisjonsinnstillinger</string>
     <string name="beacon_action_view_details">Vis detaljer</string>
     <string name="weather_update_notification_channel_desc">Væroppdateringer i bakgrunnen</string>
-    <string name="tool_user_guide_summary">En guide til bruk av Trail Sense</string>
+    <string name="tool_user_guide_summary">Veiledning for bruk av Trail Sense</string>
     <string name="tool_user_guide_title">Brukerveiledning</string>
     <string name="degree_format">%.0f°</string>
     <string name="duration_hour_minute_format">%dt %dm</string>
@@ -498,7 +498,26 @@
     <string name="guide_location_no_gps_title">Bestem posisjon uten GPS</string>
     <string name="degree">%s°</string>
     <string name="coordinate_input_invalid_location">Ugyldig posisjon</string>
-    <string name="location_input_help">Desimalgrader (eks. 1.00, -2.00)\n\n\n\nGrader desimalminutter (eks. 1°23.12\'N, 3°12.1\'W)\n\n\n\nGrader minutter sekunder (eks. 1°23\'12.1\"N, 3°12\'1.2\"W)\n\n\n\nUTM (eks. 03T 12345E 67890N)\n\n\nMGRS (ex. 27PXM 09601 05579)</string>
+    <string name="location_input_help">Desimalgrader (eks. 1.00, -2.00)
+\nGrader desimalminutter (eks. 1°23.12\'N, 3°12.1\'V)
+\nGrader minutter sekunder (eks. 1°23\'12.1\"N, 3°12\'1.2\"V)
+\nUTM (eks. 03T 12345Ø 67890N)
+\nMGRS (eks. 27PXM 09601 05579)</string>
     <string name="location_input_help_title">Støttede posisjonsformater</string>
     <string name="location_input_hint">Posisjon</string>
+    <string name="battery_power_usb">USB</string>
+    <string name="low_power_mode_on_message">Strømsparingsmodus på, noen funksjoner kan være deaktivert.</string>
+    <string name="pref_low_power_mode_title">Strømsparingsmodus</string>
+    <string name="guide_barometer_calibration_description">Hvordan kalibrere barometeret til havnivå</string>
+    <string name="guide_barometer_calibration_title">Barometerkalibrering</string>
+    <string name="tool_thermometer_title">Termometer</string>
+    <string name="guide_thermometer_calibration_description">Hvordan kalibrere termometeret</string>
+    <string name="guide_thermometer_calibration_title">Termometerkalibrering</string>
+    <string name="tool_coordinate_convert_title">Koordinatomregning</string>
+    <string name="guide_weather_prediction_description">Hvordan forutsi været med Trail Sense</string>
+    <string name="guide_weather_prediction_title">Værprognose</string>
+    <string name="coordinate_format_mgrs">MGRS</string>
+    <string name="coordinate_format_utm">UTM</string>
+    <string name="pref_run_backtrack_when_low_battery_title">Kjør når batteri har lite strøm</string>
+    <string name="pref_gps_override_title">Sett posisjonen fra GPS eller manuelt</string>
 </resources>
