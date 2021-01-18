@@ -3,7 +3,7 @@
     <string name="navigation">Nawigacja</string>
     <string name="weather">Pogoda</string>
     <string name="settings">Ustawienia</string>
-    <string name="create_beacon_title">Porzuć punkt nawigacyjny</string>
+    <string name="create_beacon_title">Dodaj punkt nawigacyjny</string>
     <string name="beacon_name_hint">Nazwa</string>
     <string name="beacon_list_title">Wybierz punkt nawigacyjny</string>
     <string name="dialog_ok">OK</string>
@@ -19,7 +19,7 @@
     <string name="pref_distance_units_title">Odległość</string>
     <string name="pref_pressure_units_title">Ciśnienie</string>
     <string name="pref_send_storm_alerts_title">Alarmy burzowe</string>
-    <string name="pref_use_24_hour_title">Użyj formatu 24-godzinnego</string>
+    <string name="pref_use_24_hour_title">Używaj formatu 24-godzinnego</string>
     <string name="pref_sun_time_mode_title">Czas wschodu/zachodu słońca</string>
     <string name="weather_improving_fast">Poprawa bardzo szybko</string>
     <string name="weather_improving_slow">Wkrótce poprawa</string>
@@ -286,7 +286,7 @@
 \n- Zmierz wartość linijki programu Trail Sense odpowiadającą jednej jednostce fizycznej linijki.
 \n- Podaj tutaj zmierzoną wartość."</string>
     <string name="edit_item_title">Edycja elementu</string>
-    <string name="create_item_title">Tworzenie elementów</string>
+    <string name="create_item_title">Tworzenie elementu</string>
     <string name="dialog_item_subtract">Odejmij</string>
     <string name="dialog_item_amount">Ilość</string>
     <string name="action_item_subtract">Odejmij</string>
@@ -294,7 +294,7 @@
     <string name="your_height_ft">Twój wzrost (ft)</string>
     <string name="object_distance_ft">Odległość (ft)</string>
     <string name="onboarding_navigation_flashlight">Oraz uzyskaj łatwy dostęp do swojej latarki</string>
-    <string name="coordinate_format_degrees_decimal_minutes">Stopnie dziesiętne Minuty</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Stopnie Minuty</string>
     <string name="pref_coordinate_format_title">Format współrzędnych</string>
     <string name="coordinate_format_degrees_minutes_seconds">Stopnie Minuty Sekundy</string>
     <string name="coordinate_format_decimal_degrees">Stopnie dziesiętne</string>
@@ -389,7 +389,7 @@
         <item quantity="many">%d sekund do czasu, aż będzie można ją spożywać</item>
         <item quantity="other">%d sekund do czasu, aż będzie można ją spożywać</item>
     </plurals>
-    <string name="water_boil_timer_done_content">Woda jest teraz zdatna do picia</string>
+    <string name="water_boil_timer_done_content">Woda jest teraz zdatna do spożycia</string>
     <string name="tool_boil_summary">Powiedz, kiedy woda będzie zdatna do spożycia</string>
     <string name="water_purification_step_2">Doprowadź wodę do wrzenia</string>
     <string name="water_purification_step_1">Przefiltruj wodę</string>
@@ -556,14 +556,24 @@
     <string name="coordinate_input_invalid_location">Niepoprawna lokalizacja</string>
     <string name="location_input_help_title">Wspierane formaty współrzędnych</string>
     <string name="location_input_help">Stopnie dziesiętne (np. 1.00, -2.00)
-\n
 \nStopnie, minuty (np. 1°23.12\'N, 3°12.1\'W)
-\n
 \nStopnie, minuty, sekundy (np. 1°23\'12.1\"N, 3°12\"1.2\'W)
-\n
 \nUTM (np. 03T 12345E 67890N)
-\n
-\nMGRS (ex. 27PXM 09601 05579)</string>
+\nMGRS (np. 27PXM 09601 05579)</string>
     <string name="action_waypoint_create_beacon">Dodaj punkt nawigacyjny</string>
     <string name="guide_create_beacons_title">Dodawanie punktów nawigacyjnych</string>
+    <string name="tool_coordinate_convert_title">Przelicznik współrzędnych</string>
+    <string name="pref_run_backtrack_when_low_battery_title">Uruchom, gdy poziom baterii jest niski</string>
+    <string name="low_power_mode_on_message">Tryb oszczędzania energii jest włączony, niektóre funkcje mogą być wyłączone.</string>
+    <string name="pref_low_power_mode_title">Tryb oszczędzania energii</string>
+    <string name="guide_barometer_calibration_description">Jak skalibrować barometr do ciśnienia na poziomie morza</string>
+    <string name="guide_barometer_calibration_title">Kalibracja barometru</string>
+    <string name="charging_wireless">Ładowanie (%s)</string>
+    <string name="battery_power_wireless">Bezprzewodowe</string>
+    <string name="tool_thermometer_title">Termometr</string>
+    <string name="guide_thermometer_calibration_description">Jak skalibrować termometr</string>
+    <string name="guide_thermometer_calibration_title">Kalibracja termometru</string>
+    <string name="battery_power_usb">USB</string>
+    <string name="pref_run_backtrack_when_low_battery">pref_run_backtrack_when_low_battery</string>
+    <string name="coordinate_format_mgrs">MGRS</string>
 </resources>
