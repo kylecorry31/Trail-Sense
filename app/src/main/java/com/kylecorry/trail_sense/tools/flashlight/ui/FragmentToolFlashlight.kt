@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
-import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -29,7 +28,7 @@ class FragmentToolFlashlight : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentToolFlashlightBinding.inflate(inflater, container, false)
         binding.flashlightBtn.setOnClickListener {
             if (flashlight.getState() == FlashlightState.On) {

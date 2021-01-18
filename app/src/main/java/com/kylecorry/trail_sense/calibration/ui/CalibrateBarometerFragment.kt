@@ -1,12 +1,13 @@
 package com.kylecorry.trail_sense.calibration.ui
 
 import android.os.Bundle
-import androidx.core.content.edit
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.sensors.*
-import com.kylecorry.trail_sense.weather.domain.*
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
+import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
@@ -17,7 +18,6 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import java.time.Instant
-import kotlin.math.roundToInt
 
 class CalibrateBarometerFragment : PreferenceFragmentCompat() {
 

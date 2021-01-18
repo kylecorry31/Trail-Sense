@@ -20,7 +20,6 @@ import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.Instant
 
 class FragmentToolNotes : Fragment() {
 
@@ -35,7 +34,7 @@ class FragmentToolNotes : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentToolNotesBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -1,16 +1,14 @@
 <resources>
-    <string name="action_navigation">पथ प्रदर्शन</string>
-    <string name="action_weather">मौसम</string>
-    <string name="action_settings">समायोजन</string>
+    <string name="navigation">पथ प्रदर्शन</string>
+    <string name="weather">मौसम</string>
+    <string name="settings">समायोजन</string>
     <string name="create_beacon_title">बीकन गिरा दो</string>
     <string name="beacon_name_hint">नाम</string>
-    <string name="beacon_latitude_hint">अक्षांश</string>
-    <string name="beacon_longitude_hint">देशान्तर</string>
     <string name="beacon_list_title">बीकन का चयन करें</string>
     <string name="dialog_ok">ठीक</string>
     <string name="delete_beacon">बीकन को हटा दें</string>
     <string name="dialog_cancel">रद्द करना</string>
-    <string name="action_astronomy">खगोल</string>
+    <string name="astronomy">खगोल</string>
     <string name="sunrise_label">सूर्योदय</string>
     <string name="sunset_label">सूर्य का अस्त होना</string>
     <string name="until_sunset_label">सूर्यास्त तक</string>
@@ -21,10 +19,7 @@
     <string name="pref_units_header">सामान्य</string>
     <string name="pref_distance_units_title">दूरी</string>
     <string name="pref_pressure_units_title">दबाव</string>
-    <string name="pref_navigation_header">पथ प्रदर्शन</string>
-    <string name="pref_weather_header">मौसम</string>
     <string name="pref_send_storm_alerts_title">तूफान का अलर्ट</string>
-    <string name="pref_astronomy_header">खगोल</string>
     <string name="pref_use_24_hour_title">24-घंटे के प्रारूप का उपयोग करें</string>
     <string name="pref_sun_time_mode_title">सूर्योदय /सूर्यास्त के समय</string>
     <string name="weather_improving_fast">बहुत जल्द सुधार होगा</string>
@@ -88,7 +83,6 @@
     <string name="sun_civil">सिविल गोधूलि</string>
     <string name="sun_nautical">समुद्री गोधूलि</string>
     <string name="sun_astronomical">खगोलीय गोधूलि</string>
-    <string name="not_all_permissions_granted">सभी अनुमतियाँ नहीं दी गई हैं, कुछ सुविधाओं को तोड़ा जा सकता है</string>
     <string name="today">आज</string>
     <string name="tomorrow">आने वाला कल</string>
     <string name="yesterday">बिता कल</string>

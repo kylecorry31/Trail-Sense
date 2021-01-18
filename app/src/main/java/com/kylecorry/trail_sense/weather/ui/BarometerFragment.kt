@@ -140,7 +140,7 @@ class BarometerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = ActivityWeatherBinding.inflate(inflater, container, false)
 
         pressureRepo.getPressures().observe(viewLifecycleOwner) {

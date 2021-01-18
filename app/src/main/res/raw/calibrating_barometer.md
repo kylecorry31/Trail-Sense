@@ -2,7 +2,7 @@ To calibrate your barometer to sea level, first open the barometer settings (Tra
 
 ## Travelling altitude change threshold
 
-You should shart by adjusting the travelling altitude change threshold, which represents maximum altitude change which you would consider the same location. If your altitude changes more than this threshold, you will be considered travelling. It will take an hour of readings within the threshold to no longer be considered travelling. Adjust this value until the spike on the chart is almost gone. An easier way to do this will be created in the future.
+You should start by adjusting the travelling altitude change threshold, which represents maximum altitude change which you would consider the same location. If your altitude changes more than this threshold, you will be considered travelling. It will take an hour of readings within the threshold to no longer be considered travelling. Adjust this value until the spike on the chart is almost gone. An easier way to do this will be created in the future.
 
 ## Ignore rapid altitude changes
 

@@ -61,7 +61,7 @@ class LinearCompassView(
         pathMarker = Path()
     }
 
-    override fun onSaveInstanceState(): Parcelable? {
+    override fun onSaveInstanceState(): Parcelable {
         val b = Bundle()
         b.putParcelable("instanceState", super.onSaveInstanceState())
         b.putFloat("degrees", mDegrees)

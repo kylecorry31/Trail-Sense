@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_navigation">导航</string>
-    <string name="action_weather">天气</string>
-    <string name="action_settings">设定值</string>
+    <string name="navigation">导航</string>
+    <string name="weather">天气</string>
+    <string name="settings">设定值</string>
     <string name="create_beacon_title">下降信标</string>
     <string name="beacon_name_hint">名称</string>
-    <string name="beacon_latitude_hint">纬度</string>
-    <string name="beacon_longitude_hint">经度</string>
     <string name="beacon_list_title">选择信标</string>
     <string name="dialog_ok">好</string>
     <string name="delete_beacon">删除信标</string>
     <string name="dialog_cancel">取消</string>
-    <string name="action_astronomy">天文学</string>
+    <string name="astronomy">天文学</string>
     <string name="sunrise_label">日出</string>
     <string name="sunset_label">日落</string>
     <string name="until_sunset_label">直到日落</string>
@@ -20,10 +18,7 @@
     <string name="pref_units_header">一般</string>
     <string name="pref_distance_units_title">距离</string>
     <string name="pref_pressure_units_title">压力</string>
-    <string name="pref_navigation_header">导航</string>
-    <string name="pref_weather_header">天气</string>
     <string name="pref_send_storm_alerts_title">风暴警报</string>
-    <string name="pref_astronomy_header">天文学</string>
     <string name="pref_use_24_hour_title">使用24小时制</string>
     <string name="pref_sun_time_mode_title">日出/日落时间</string>
     <string name="weather_improving_fast">很快改进</string>
@@ -79,7 +74,6 @@
     <string name="sun_civil">暮光之城</string>
     <string name="sun_nautical">航海暮光之城</string>
     <string name="sun_astronomical">天文暮光</string>
-    <string name="not_all_permissions_granted">并非所有权限都已授予，某些功能可能已损坏</string>
     <string name="today">今天</string>
     <string name="tomorrow">明天</string>
     <string name="yesterday">昨天</string>
@@ -94,10 +88,8 @@
     <string name="altimeter_mode_barometer">气压表</string>
     <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_title">使用已知的海平面气压</string>
-    <string name="pref_auto_altitude_summary">基于你当前的位置</string>
     <string name="pref_altitude_override_sea_level_dialog_title">输入海平面气压</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">以百帕为单位输入现在海平面的气压</string>
-    <string name="auto_altitude">自动调整海拔</string>
     <string name="altitude">海拔</string>
     <string name="pref_altimeter_calibration_title">高度表</string>
     <string name="pref_gps_request_permission_title">请求权限</string>
@@ -142,7 +134,6 @@
     <string name="trail_sense_maps">离线地图</string>
     <string name="sun_dusk">黄昏</string>
     <string name="sun_dawn">黎明</string>
-    <string name="sun_altitude">太阳高度</string>
     <string name="moon_illumination">月光亮度</string>
     <string name="moon_phase">月相</string>
     <string name="solar_noon">太阳达到白天最高点</string>
@@ -194,14 +185,11 @@
     <string name="beacon_invalid_elevation">无效的海拔</string>
     <string name="beacon_invalid_name">无效的名称</string>
     <string name="share_action_geo">地图</string>
-    <string name="share_action_copy_coordinates">复制坐标</string>
-    <string name="share_action_copy_beacon">复制信标</string>
     <string name="share_action_copy">复制</string>
     <string name="share_action_send">发送</string>
     <plurals name="beacon_group_summary">
         <item quantity="other">%d 个信标</item>
     </plurals>
-    <string name="long_press_beacon_toast">长按一个信标以查看选项。</string>
     <string name="edit_beacon">编辑信标</string>
     <string name="eta">还有 ~%s 远</string>
     <string name="sos">紧急求救信号</string>
@@ -215,7 +203,7 @@
 \n
 \n指南针:以8字形旋转手机，并远离金属。"</string>
     <string name="accuracy_info_title">提高传感器精确度的小提示</string>
-    <string name="accuracy_unknown">未知</string>
+    <string name="unknown">未知</string>
     <string name="accuracy_high">高</string>
     <string name="accuracy_medium">中</string>
     <string name="accuracy_low">低</string>
@@ -243,7 +231,7 @@
     <string name="access_background_location_rationale">Trail Sense在后台使用位置数据。它用于在天气监测中校正海平面压力，并提供更准确的日落警报。[查看隐私政策] （https://kylecorry.com/Trail-Sense/privacy_policy.html）</string>
     <string name="access_background_location">更新位置设置</string>
     <string name="copied_to_clipboard_toast">已复制到剪贴板</string>
-    <string name="action_tools">工具</string>
+    <string name="tools">工具</string>
     <string name="barometer_thermometer">气压计和温度计</string>
     <string name="pref_barometer_pressure_title">气压</string>
     <string name="pref_altimeter_calibration_mode_title">自动校准</string>
@@ -282,7 +270,6 @@
     <string name="tool_category_power">能源</string>
     <string name="tool_category_distance">距离</string>
     <string name="battery_health">健康状况：%s</string>
-    <string name="battery_health_unknown">未知</string>
     <string name="battery_health_over_voltage">过电压</string>
     <string name="battery_health_overheat">过热</string>
     <string name="battery_health_good">良好</string>
@@ -343,7 +330,6 @@
     <string name="cliff_height_guide_description">如何预测悬崖或瀑布的高度</string>
     <string name="cliff_height_guide">预估悬崖高度</string>
     <string name="tool_cliff_height_disclaimer">只在安全的情况下才使用此工具，并确保检查悬崖下有什么，以避免受伤。请参见用户指南。</string>
-    <string name="cliff_height_stop_measure">停止</string>
     <string name="tool_cliff_height_description">测量悬崖或瀑布的高度</string>
     <string name="tool_cliff_height_title">悬崖高度</string>
     <string name="toast_destination_bearing_set">已设定目的地方位</string>
@@ -359,14 +345,12 @@
     <string name="tool_depth_summary">确定水深</string>
     <string name="tool_depth_title">深度</string>
     <string name="tool_inventory_summary">记录手头物品的动向</string>
-    <string name="category_navigation">导航</string>
     <string name="category_natural">自然</string>
     <string name="category_safety">安全</string>
     <string name="category_shelter">庇护所</string>
     <string name="category_fire">火</string>
     <string name="category_medical">医药</string>
     <string name="category_clothing">着装</string>
-    <string name="category_tools">工具</string>
     <string name="category_hydration">水和作用</string>
     <string name="category_food">食物</string>
     <string name="category_other">其他</string>
@@ -411,8 +395,6 @@
     <string name="delete_beacon_group">删除群组</string>
     <string name="tool_user_guide_summary">一份如何使用 Trail Sense 的指南</string>
     <string name="tool_user_guide_title">用户指南</string>
-    <string name="sun_azimuth">太阳方位角</string>
-    <string name="moon_azimuth">月亮方位角</string>
     <string name="error_occurred_message">Trail Sense 遇到了一个错误将关闭。请给开发者发邮件修复这个问题。</string>
     <string name="error_occurred">发生一个错误</string>
     <string name="onboarding_navigation_flashlight">轻松访问你的闪光灯</string>
@@ -472,25 +454,18 @@
     <string name="pref_display_multi_beacons_summary">在指南针上显示最近的信标</string>
     <string name="pref_num_visible_beacons_title">附近的信标</string>
     <string name="pref_temperature_holder_title">温度</string>
-    <string name="pref_temperature_adjustment_title">温度调节</string>
     <string name="pref_sea_level_use_rapid_summary">在海平面压力转换中使用快速压力变化</string>
     <string name="pref_sea_level_use_rapid_title">将快速压力变化考虑在内</string>
     <string name="pref_adjust_for_temperature_summary">使用海平面压力转换中的温度</string>
     <string name="pref_adjust_for_temperature_title">将温度考虑在内</string>
     <string name="calibration_mode_barometer_alert_title">气压计</string>
-    <string name="pref_fine_tune_altitude_summary">检测较小的海拔变动</string>
     <string name="pref_altitude_offsets_summary">纠正GPS高度到平均海拔高度</string>
     <string name="altitude_override_updated_toast">海拔覆盖已更新</string>
     <string name="pref_altitude_override_title">海拔覆盖</string>
-    <string name="fine_tune_using_barometer">用气压计进行微调</string>
     <string name="action_inventory">库存</string>
     <string name="altitude_from_pressure">从气压计设置覆盖</string>
     <string name="altitude_from_gps">从 GPS 设置覆盖</string>
     <string name="add_elevation_offsets">使用平均海平面以上 (AMSL) 海拔</string>
-    <string name="pref_gps_override_btn_title">从 GPS 设置覆盖</string>
-    <string name="pref_longitude_override_title">经度覆盖</string>
-    <string name="pref_latitude_override_title">纬度覆盖</string>
-    <string name="gps_only_support_decimal_degree">只支持十进制角度格式 （如 0.0000）</string>
     <string name="declination_override_updated_toast">赤纬覆盖已更新</string>
     <string name="compass_declination_override">赤纬覆盖</string>
     <string name="compass_from_gps">从 GPS 设置覆盖</string>
@@ -505,8 +480,6 @@
     <string name="action_item_delete">删除</string>
     <string name="action_item_subtract">减去</string>
     <string name="action_item_add">添加</string>
-    <string name="action_blueprints">蓝图</string>
-    <string name="moon_altitude">月亮高度</string>
     <string name="lunar_noon">月亮升到晚上的最高点</string>
     <string name="tide_normal">正常</string>
     <string name="temp_c_format">%.0f 摄氏度</string>
@@ -567,7 +540,6 @@
     <string name="backtrack_notification_channel">依照记录的位置历史返回先前位置 （Backtrack）</string>
     <string name="pref_backtrack_frequency_title">Backtrack 间隔</string>
     <string name="pref_backtrack_enabled_summary">记录位置历史</string>
-    <string name="pref_tools_header">工具</string>
     <string name="waypoint_beacon_title_template">路径点 %s, %s</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_title">依照记录的位置历史返回先前位置（Backtrack）</string>
@@ -588,8 +560,6 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="coordinate_format_utm">通用横轴墨卡托（UTM） 坐标系</string>
-    <string name="dialog_no">不</string>
-    <string name="dialog_yes">好</string>
     <string name="coordinate_format_degrees_minutes_seconds">度分秒</string>
     <string name="coordinate_format_degrees_decimal_minutes">度十进制分</string>
     <string name="pref_gps_override_title">位置覆盖</string>
@@ -605,8 +575,4 @@
 \nMGRS (ex. 27PXM 09601 05579)</string>
     <string name="location_input_help_title">支持的位置格式</string>
     <string name="location_input_hint">位置</string>
-    <string name="utm_hint_band">纬度带</string>
-    <string name="utm_hint_zone">区域</string>
-    <string name="utm_hint_northing_m">朝北方 （m）</string>
-    <string name="utm_hint_easting_m">朝东方 （m）</string>
 </resources>

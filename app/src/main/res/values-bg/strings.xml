@@ -1,16 +1,14 @@
 <resources>
-    <string name="action_navigation">навигация</string>
-    <string name="action_weather">Метеорологично време</string>
-    <string name="action_settings">Настройки</string>
+    <string name="navigation">навигация</string>
+    <string name="weather">Метеорологично време</string>
+    <string name="settings">Настройки</string>
     <string name="create_beacon_title">Пуснете Маяк</string>
     <string name="beacon_name_hint">име</string>
-    <string name="beacon_latitude_hint">Географска ширина</string>
-    <string name="beacon_longitude_hint">дължина</string>
     <string name="beacon_list_title">Изберете маяк</string>
     <string name="dialog_ok">Добре</string>
     <string name="delete_beacon">Изтриване на маяк</string>
     <string name="dialog_cancel">Отказ</string>
-    <string name="action_astronomy">астрономия</string>
+    <string name="astronomy">астрономия</string>
     <string name="sunrise_label">изгрев</string>
     <string name="sunset_label">залез</string>
     <string name="until_sunset_label">до залез слънце</string>
@@ -21,10 +19,7 @@
     <string name="pref_units_header">Общ</string>
     <string name="pref_distance_units_title">разстояние</string>
     <string name="pref_pressure_units_title">налягане</string>
-    <string name="pref_navigation_header">навигация</string>
-    <string name="pref_weather_header">Метеорологично време</string>
     <string name="pref_send_storm_alerts_title">Сигнали за буря</string>
-    <string name="pref_astronomy_header">астрономия</string>
     <string name="pref_use_24_hour_title">Използвайте 24-часов формат</string>
     <string name="pref_sun_time_mode_title">Време за изгрев /залез</string>
     <string name="weather_improving_fast">Подобряване много скоро</string>
@@ -88,7 +83,6 @@
     <string name="sun_civil">Граждански здрач</string>
     <string name="sun_nautical">Морски здрач</string>
     <string name="sun_astronomical">Астрономически здрач</string>
-    <string name="not_all_permissions_granted">Не всички предоставени разрешения, някои функции могат да бъдат нарушени</string>
     <string name="today">днес</string>
     <string name="tomorrow">утре</string>
     <string name="yesterday">Вчера</string>

@@ -36,7 +36,7 @@ class FragmentToolNotesCreate : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentToolNotesCreateBinding.inflate(inflater, container, false)
         return binding.root
     }

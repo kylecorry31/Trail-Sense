@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.shared
 import android.content.res.ColorStateList
 import android.widget.Button
 import android.widget.ImageButton
-import androidx.annotation.ColorInt
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 

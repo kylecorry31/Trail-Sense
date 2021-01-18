@@ -1,16 +1,14 @@
 <resources>
-    <string name="action_navigation">Navegação</string>
-    <string name="action_weather">Clima</string>
-    <string name="action_settings">Ajustes</string>
+    <string name="navigation">Navegação</string>
+    <string name="weather">Clima</string>
+    <string name="settings">Ajustes</string>
     <string name="create_beacon_title">Drop Beacon</string>
     <string name="beacon_name_hint">Nome</string>
-    <string name="beacon_latitude_hint">Latitude</string>
-    <string name="beacon_longitude_hint">Longitude</string>
     <string name="beacon_list_title">Seleccione Beacon</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Eliminar o farol</string>
     <string name="dialog_cancel">Cancelar</string>
-    <string name="action_astronomy">Astronomia</string>
+    <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Nascer do Sol</string>
     <string name="sunset_label">Pôr-do-sol</string>
     <string name="until_sunset_label">até ao pôr-do-sol</string>
@@ -21,10 +19,7 @@
     <string name="pref_units_header">Generalidades</string>
     <string name="pref_distance_units_title">Distância</string>
     <string name="pref_pressure_units_title">Pressão</string>
-    <string name="pref_navigation_header">Navegação</string>
-    <string name="pref_weather_header">Meteorologia</string>
     <string name="pref_send_storm_alerts_title">Alertas de tempestade</string>
-    <string name="pref_astronomy_header">Astronomia</string>
     <string name="pref_use_24_hour_title">Utilizar o formato de 24 horas</string>
     <string name="pref_sun_time_mode_title">Nascer do sol / Pôr-do-sol</string>
     <string name="weather_improving_fast">Melhorar muito em breve</string>
@@ -88,7 +83,6 @@
     <string name="sun_civil">Crepúsculo Civil</string>
     <string name="sun_nautical">Crepúsculo Náutico</string>
     <string name="sun_astronomical">Crepúsculo Astronómico</string>
-    <string name="not_all_permissions_granted">Nem todas as autorizações concedidas, algumas características podem ser quebradas</string>
     <string name="today">Hoje</string>
     <string name="tomorrow">Amanhã</string>
     <string name="yesterday">Ontem</string>

@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_navigation">Navegación</string>
-    <string name="action_weather">Clima</string>
-    <string name="action_settings">Ajustes</string>
+    <string name="navigation">Navegación</string>
+    <string name="weather">Clima</string>
+    <string name="settings">Ajustes</string>
     <string name="create_beacon_title">Soltar baliza</string>
     <string name="beacon_name_hint">Nombre</string>
-    <string name="beacon_latitude_hint">Latitud</string>
-    <string name="beacon_longitude_hint">Longitud</string>
     <string name="beacon_list_title">Seleccione baliza</string>
     <string name="dialog_ok">Aceptar</string>
     <string name="delete_beacon">Eliminar baliza</string>
     <string name="dialog_cancel">Cancelar</string>
-    <string name="action_astronomy">Astronomía</string>
+    <string name="astronomy">Astronomía</string>
     <string name="sunrise_label">amanecer</string>
     <string name="sunset_label">anochecer</string>
     <string name="until_sunset_label">hasta el anochecer</string>
@@ -20,10 +18,7 @@
     <string name="pref_units_header">General</string>
     <string name="pref_distance_units_title">Distancia</string>
     <string name="pref_pressure_units_title">Presión</string>
-    <string name="pref_navigation_header">Navegación</string>
-    <string name="pref_weather_header">Clima</string>
     <string name="pref_send_storm_alerts_title">Alertas de tormenta</string>
-    <string name="pref_astronomy_header">Astronomía</string>
     <string name="pref_use_24_hour_title">Usar el formato de 24 horas</string>
     <string name="pref_sun_time_mode_title">Amanecer / atardecer</string>
     <string name="weather_improving_fast">Mejorará muy pronto</string>
@@ -81,7 +76,6 @@
     <string name="sun_civil">Crepúsculo civil</string>
     <string name="sun_nautical">Crepúsculo náutico</string>
     <string name="sun_astronomical">Crepúsculo astronómico</string>
-    <string name="not_all_permissions_granted">No se otorgaron todos los permisos, algunas características podrían tener fallas</string>
     <string name="today">Hoy</string>
     <string name="tomorrow">Mañana</string>
     <string name="yesterday">Ayer</string>
@@ -101,7 +95,7 @@
     <string name="sun_does_not_rise">no está de puesta</string>
     <string name="sun_up_no_set">el sol está arriba</string>
     <string name="sun_down_no_set">el sol está abajo</string>
-    <string name="action_tools">Herramientas</string>
+    <string name="tools">Herramientas</string>
     <string name="no_humidity_data">Sin datos de humedad</string>
     <string name="humidity_format">%.0f%% de humedad</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
@@ -119,13 +113,11 @@
     <string name="beacon_invalid_elevation">Elevación inválida</string>
     <string name="beacon_invalid_name">Nombre inválido</string>
     <string name="share_action_geo">Mapas</string>
-    <string name="share_action_copy_coordinates">Copiar coordenadas</string>
-    <string name="share_action_copy_beacon">Copiar baliza</string>
     <string name="share_action_copy">Copiar</string>
     <string name="share_action_send">Enviar</string>
     <string name="edit_beacon">Editar baliza</string>
     <string name="flashlight_title">Linterna</string>
-    <string name="accuracy_unknown">Desconocida</string>
+    <string name="unknown">Desconocida</string>
     <string name="accuracy_high">Alta</string>
     <string name="accuracy_medium">Media</string>
     <string name="accuracy_low">Baja</string>

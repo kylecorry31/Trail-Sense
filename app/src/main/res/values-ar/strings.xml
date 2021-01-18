@@ -1,16 +1,14 @@
 <resources>
-    <string name="action_navigation">التنقل</string>
-    <string name="action_weather">طقس</string>
-    <string name="action_settings">الإعدادات</string>
+    <string name="navigation">التنقل</string>
+    <string name="weather">طقس</string>
+    <string name="settings">الإعدادات</string>
     <string name="create_beacon_title">إسقاط منارة</string>
     <string name="beacon_name_hint">اسم</string>
-    <string name="beacon_latitude_hint">خط العرض</string>
-    <string name="beacon_longitude_hint">خط الطول</string>
     <string name="beacon_list_title">حدد منارة</string>
     <string name="dialog_ok">حسنا</string>
     <string name="delete_beacon">تحذف المرشد</string>
     <string name="dialog_cancel">إلغاء</string>
-    <string name="action_astronomy">الفلك</string>
+    <string name="astronomy">الفلك</string>
     <string name="sunrise_label">شروق الشمس</string>
     <string name="sunset_label">غروب الشمس</string>
     <string name="until_sunset_label">حتى غروب الشمس</string>
@@ -21,10 +19,7 @@
     <string name="pref_units_header">جنرال لواء</string>
     <string name="pref_distance_units_title">مسافة</string>
     <string name="pref_pressure_units_title">الضغط</string>
-    <string name="pref_navigation_header">التنقل</string>
-    <string name="pref_weather_header">طقس</string>
     <string name="pref_send_storm_alerts_title">تنبيهات العاصفة</string>
-    <string name="pref_astronomy_header">الفلك</string>
     <string name="pref_use_24_hour_title">استخدم تنسيق 24 ساعة</string>
     <string name="pref_sun_time_mode_title">أوقات شروق /غروب الشمس</string>
     <string name="weather_improving_fast">تتحسن قريبًا جدًا</string>
@@ -96,7 +91,6 @@
     <string name="sun_civil">الشفق المدني</string>
     <string name="sun_nautical">الشفق البحري</string>
     <string name="sun_astronomical">الشفق الفلكي</string>
-    <string name="not_all_permissions_granted">ليست كل الأذونات الممنوحة ، قد يتم كسر بعض الميزات</string>
     <string name="today">اليوم</string>
     <string name="tomorrow">غدا</string>
     <string name="yesterday">في الامس</string>

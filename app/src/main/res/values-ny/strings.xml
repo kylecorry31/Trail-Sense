@@ -1,16 +1,14 @@
 <resources>
-    <string name="action_navigation">Kusanthula</string>
-    <string name="action_weather">Nyengo</string>
-    <string name="action_settings">Makonda</string>
+    <string name="navigation">Kusanthula</string>
+    <string name="weather">Nyengo</string>
+    <string name="settings">Makonda</string>
     <string name="create_beacon_title">Dontho Beacon</string>
     <string name="beacon_name_hint">Dzinalo</string>
-    <string name="beacon_latitude_hint">Kutalika</string>
-    <string name="beacon_longitude_hint">Kutalika</string>
     <string name="beacon_list_title">Sankhani Beacon</string>
     <string name="dialog_ok">Chabwino</string>
     <string name="delete_beacon">Chotsani beacon</string>
     <string name="dialog_cancel">Patulani</string>
-    <string name="action_astronomy">Zakuthambo</string>
+    <string name="astronomy">Zakuthambo</string>
     <string name="sunrise_label">Kutuluka kwa dzuwa</string>
     <string name="sunset_label">Dzuwa</string>
     <string name="until_sunset_label">mpaka kulowa dzuwa</string>
@@ -21,10 +19,7 @@
     <string name="pref_units_header">Zambiri</string>
     <string name="pref_distance_units_title">Mtunda</string>
     <string name="pref_pressure_units_title">Kukakamizidwa</string>
-    <string name="pref_navigation_header">Kusanthula</string>
-    <string name="pref_weather_header">Nyengo</string>
     <string name="pref_send_storm_alerts_title">Chenjezo</string>
-    <string name="pref_astronomy_header">Zakuthambo</string>
     <string name="pref_use_24_hour_title">Gwiritsani ntchito maola 24</string>
     <string name="pref_sun_time_mode_title">Kutuluka kwa dzuwa /nthawi zamadzulo</string>
     <string name="weather_improving_fast">Kupititsa patsogolo posachedwa</string>
@@ -88,7 +83,6 @@
     <string name="sun_civil">Usiku Wamadzulo</string>
     <string name="sun_nautical">Madzulo Nautical</string>
     <string name="sun_astronomical">Usiku Wam\'mawa</string>
-    <string name="not_all_permissions_granted">Osati zilolezo zonse zomwe ziloledwa, mawonekedwe ena akhoza kusweka</string>
     <string name="today">Lero</string>
     <string name="tomorrow">Mawa</string>
     <string name="yesterday">Dzulo</string>

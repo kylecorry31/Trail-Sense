@@ -7,18 +7,15 @@ import android.view.View
 import androidx.annotation.ArrayRes
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import androidx.core.content.edit
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorDetailProvider
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
@@ -30,8 +27,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var navController: NavController
     private var prefMaxBeaconDistanceKm: EditTextPreference? = null
     private var prefMaxBeaconDistanceMi: EditTextPreference? = null
-    private val unitService = UnitService()
-    private val formatService by lazy { FormatService(requireContext()) }
     private val intervalometer = Intervalometer {
         updatePreferenceStates()
     }
@@ -201,26 +196,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun preference(@StringRes id: Int): Preference? {
         return preferenceManager.findPreference(getString(id))
-    }
-
-    @ArrayRes
-    private fun getForecastSensitivityArray(units: PressureUnits): Int {
-        return when (units) {
-            PressureUnits.Hpa -> R.array.forecast_sensitivity_entries_hpa
-            PressureUnits.Inhg -> R.array.forecast_sensitivity_entries_in
-            PressureUnits.Psi -> R.array.forecast_sensitivity_entries_psi
-            else -> R.array.forecast_sensitivity_entries_mbar
-        }
-    }
-
-    @ArrayRes
-    private fun getStormSensitivityArray(units: PressureUnits): Int {
-        return when (units) {
-            PressureUnits.Hpa -> R.array.storm_sensitivity_entries_hpa
-            PressureUnits.Inhg -> R.array.storm_sensitivity_entries_in
-            PressureUnits.Psi -> R.array.storm_sensitivity_entries_psi
-            else -> R.array.storm_sensitivity_entries_mbar
-        }
     }
 
 }

@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared
 
 import java.text.DecimalFormat
-import kotlin.math.roundToInt
 
 object DecimalFormatter {
     fun format(number: Double): String {

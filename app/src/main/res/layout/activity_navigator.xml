@@ -177,7 +177,7 @@
                 android:id="@+id/gps_accuracy_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/accuracy_unknown"
+                android:text="@string/unknown"
                 android:textSize="10sp" />
         </LinearLayout>
 
@@ -198,7 +198,7 @@
                 android:id="@+id/compass_accuracy_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/accuracy_unknown"
+                android:text="@string/unknown"
                 android:textSize="10sp" />
         </LinearLayout>
     </LinearLayout>

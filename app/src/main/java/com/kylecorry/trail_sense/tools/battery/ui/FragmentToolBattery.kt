@@ -9,7 +9,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.LowPowerMode
-import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingMethod
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingStatus
@@ -136,7 +135,7 @@ class FragmentToolBattery : Fragment() {
             BatteryHealth.Good -> getString(R.string.battery_health_good)
             BatteryHealth.Overheat -> getString(R.string.battery_health_overheat)
             BatteryHealth.OverVoltage -> getString(R.string.battery_health_over_voltage)
-            BatteryHealth.Unknown -> getString(R.string.battery_health_unknown)
+            BatteryHealth.Unknown -> getString(R.string.unknown)
         }
     }
 

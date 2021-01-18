@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_navigation">Navigazione</string>
-    <string name="action_weather">Meteo</string>
-    <string name="action_settings">Impostazioni</string>
+    <string name="navigation">Navigazione</string>
+    <string name="weather">Meteo</string>
+    <string name="settings">Impostazioni</string>
     <string name="create_beacon_title">Segnalatore di caduta</string>
     <string name="beacon_name_hint">Nome</string>
-    <string name="beacon_latitude_hint">Latitudine</string>
-    <string name="beacon_longitude_hint">Longitudine</string>
     <string name="beacon_list_title">Selezionare Beacon</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Cancellare il segnalatore</string>
     <string name="dialog_cancel">Annulla</string>
-    <string name="action_astronomy">Astronomia</string>
+    <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Alba</string>
     <string name="sunset_label">Tramonto</string>
     <string name="until_sunset_label">fino al tramonto</string>
@@ -20,10 +18,7 @@
     <string name="pref_units_header">Generale</string>
     <string name="pref_distance_units_title">Distanza</string>
     <string name="pref_pressure_units_title">Pressione</string>
-    <string name="pref_navigation_header">Navigazione</string>
-    <string name="pref_weather_header">Meteo</string>
     <string name="pref_send_storm_alerts_title">Avvisi di tempesta</string>
-    <string name="pref_astronomy_header">Astronomia</string>
     <string name="pref_use_24_hour_title">Utilizzare il formato 24 ore</string>
     <string name="pref_sun_time_mode_title">Orari alba / tramonto</string>
     <string name="weather_improving_fast">Migliorare molto presto</string>
@@ -81,7 +76,6 @@
     <string name="sun_civil">Crepuscolo civile</string>
     <string name="sun_nautical">Crepuscolo nautico</string>
     <string name="sun_astronomical">Crepuscolo astronomico</string>
-    <string name="not_all_permissions_granted">Non tutte le autorizzazioni concesse, alcune caratteristiche potrebbero essere infrante</string>
     <string name="today">Oggi</string>
     <string name="tomorrow">Domani</string>
     <string name="yesterday">Ieri</string>

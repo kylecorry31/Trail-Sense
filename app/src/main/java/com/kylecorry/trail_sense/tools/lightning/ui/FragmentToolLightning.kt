@@ -25,7 +25,7 @@ class FragmentToolLightning : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentToolLightningBinding.inflate(inflater, container, false)
         binding.lightningBtn.setOnClickListener {
             onLightning()

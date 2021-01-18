@@ -45,7 +45,7 @@ object WeatherNotificationService {
         )
             .build()
 
-        val title = context.getString(R.string.action_weather)
+        val title = context.getString(R.string.weather)
 
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Notification.Builder(context, "Weather")
@@ -169,7 +169,7 @@ object WeatherNotificationService {
 
     private fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = context.getString(R.string.action_weather)
+            val name = context.getString(R.string.weather)
             val descriptionText = context.getString(R.string.notification_monitoring_weather)
             val importance = NotificationManager.IMPORTANCE_LOW
             val channel = NotificationChannel("Weather", name, importance).apply {

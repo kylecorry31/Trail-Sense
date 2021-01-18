@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_navigation">ナビゲーション</string>
-    <string name="action_weather">天気</string>
-    <string name="action_settings">設定</string>
+    <string name="navigation">ナビゲーション</string>
+    <string name="weather">天気</string>
+    <string name="settings">設定</string>
     <string name="create_beacon_title">ビーコンを追加</string>
     <string name="beacon_name_hint">名前</string>
-    <string name="beacon_latitude_hint">緯度</string>
-    <string name="beacon_longitude_hint">経度</string>
     <string name="beacon_list_title">ビーコンを選択</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">ビーコンを削除</string>
     <string name="dialog_cancel">キャンセル</string>
-    <string name="action_astronomy">天文学</string>
+    <string name="astronomy">天文学</string>
     <string name="sunrise_label">日の出</string>
     <string name="sunset_label">日の入り</string>
     <string name="until_sunset_label">日の入りまで</string>
@@ -20,10 +18,7 @@
     <string name="pref_units_header">一般</string>
     <string name="pref_distance_units_title">距離</string>
     <string name="pref_pressure_units_title">気圧</string>
-    <string name="pref_navigation_header">ナビゲーション</string>
-    <string name="pref_weather_header">天気</string>
     <string name="pref_send_storm_alerts_title">暴風雨アラート</string>
-    <string name="pref_astronomy_header">天文学</string>
     <string name="pref_use_24_hour_title">24時間形式を使用する</string>
     <string name="pref_sun_time_mode_title">日の出/日の入りの時刻</string>
     <string name="weather_improving_fast">急速に晴れてきています</string>
@@ -79,7 +74,6 @@
     <string name="sun_civil">市民薄明</string>
     <string name="sun_nautical">航海薄明</string>
     <string name="sun_astronomical">天文薄明</string>
-    <string name="not_all_permissions_granted">一部の権限が付与されていません。いくつかの機能が正常に動作しない可能性があります</string>
     <string name="today">今日</string>
     <string name="tomorrow">明日</string>
     <string name="yesterday">昨日</string>
@@ -90,8 +84,7 @@
     <string name="pressure_4_hours">四時間</string>
     <string name="pref_pressure_history_title">気圧の履歴</string>
     <string name="disclaimer_message_title">免責事項</string>
-    <string name="action_tools">ツール</string>
-    <string name="long_press_beacon_toast">ビーコンを長押ししてオプションを表示。</string>
+    <string name="tools">ツール</string>
     <string name="calibrate_compass_on_navigate_dialog_content">スマートフォンを数回八の字に回した後、 %sをタップしてください。
 \n
 \nこの警告はアプリの設定で無効にできます。</string>
@@ -150,24 +143,16 @@
     <string name="pref_display_multi_beacons_summary">最も近いビーコンをコンパスに表示</string>
     <string name="pref_barometer_pressure_title">Pressure</string>
     <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
-    <string name="pref_auto_altitude_summary">Based on your current location</string>
-    <string name="pref_fine_tune_altitude_summary">Detects smaller changes in altitude</string>
     <string name="pref_altitude_offsets_summary">Corrects GPS altitude to above mean sea level</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Enter sea level pressure</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Enter the current pressure at sea level in hPa</string>
     <string name="altitude_override_updated_toast">Altitude override updated</string>
     <string name="pref_altitude_override_title">Altitude override</string>
-    <string name="fine_tune_using_barometer">Fine tune using barometer</string>
     <string name="altitude_from_pressure">Set override from barometer</string>
     <string name="altitude_from_gps">Set override from GPS</string>
     <string name="add_elevation_offsets">Use AMSL elevation</string>
-    <string name="auto_altitude">Auto adjust altitude</string>
     <string name="altitude">高度</string>
     <string name="pref_altimeter_calibration_title">高度計</string>
-    <string name="pref_gps_override_btn_title">Set override from GPS</string>
-    <string name="pref_longitude_override_title">Longitude override</string>
-    <string name="pref_latitude_override_title">Latitude override</string>
-    <string name="gps_only_support_decimal_degree">Only decimal degree format is supported (ex. 0.0000)</string>
     <string name="pref_gps_request_permission_title">Request permission</string>
     <string name="pref_auto_location_title">Auto adjust location</string>
     <string name="gps_location">Location</string>
@@ -203,8 +188,6 @@
     <string name="avalanche_risk_low">Low avalanche risk</string>
     <string name="tool_inclinometer_summary">Estimate avalanche risks and the height of objects</string>
     <string name="inclinometer_title">Inclinometer</string>
-    <string name="moon_altitude">月の高度</string>
-    <string name="sun_altitude">太陽の高度</string>
     <string name="moon_illumination">月の輝度</string>
     <string name="moon_phase">月相</string>
     <string name="lunar_noon">月の南中</string>
@@ -245,8 +228,6 @@
     <string name="beacon_invalid_elevation">不正な高度</string>
     <string name="beacon_invalid_name">不正な名前</string>
     <string name="share_action_geo">geo:</string>
-    <string name="share_action_copy_coordinates">座標をコピー</string>
-    <string name="share_action_copy_beacon">ビーコンをコピー</string>
     <string name="share_action_copy">コピー</string>
     <string name="share_action_send">送信</string>
     <string name="edit_beacon">ビーコンを編集</string>
@@ -260,7 +241,7 @@
     <string name="accuracy_info_title">精度を改善するためのヒント</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
-    <string name="accuracy_unknown">不明</string>
+    <string name="unknown">不明</string>
     <string name="accuracy_high">高</string>
     <string name="accuracy_medium">中</string>
     <string name="accuracy_low">低</string>

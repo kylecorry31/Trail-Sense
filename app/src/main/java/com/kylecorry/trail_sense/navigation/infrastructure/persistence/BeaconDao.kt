@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.navigation.infrastructure.persistence
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
-import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
 
 @Dao
 interface BeaconDao {

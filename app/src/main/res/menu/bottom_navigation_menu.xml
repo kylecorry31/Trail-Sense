@@ -5,31 +5,31 @@
 
     <item
         android:id="@+id/action_navigation"
-        android:title="@string/action_navigation"
+        android:title="@string/navigation"
         android:icon="@drawable/ic_compass_icon"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_weather"
-        android:title="@string/action_weather"
+        android:title="@string/weather"
         android:icon="@drawable/ic_weather"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_astronomy"
-        android:title="@string/action_astronomy"
+        android:title="@string/astronomy"
         android:icon="@drawable/ic_astronomy"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_experimental_tools"
-        android:title="@string/action_tools"
+        android:title="@string/tools"
         android:icon="@drawable/tools"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+        android:title="@string/settings"
         android:icon="@drawable/ic_settings"
         app:showAsAction="ifRoom" />
 

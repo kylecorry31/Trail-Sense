@@ -76,7 +76,7 @@ class BeaconDetailsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentBeaconDetailsBinding.inflate(layoutInflater, container, false)
         return binding.root
     }

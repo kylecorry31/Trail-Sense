@@ -2,17 +2,14 @@
 <resources>
     <string name="app_name" translatable="false">Trail Sense</string>
     <!--Tabs-->
-    <string name="action_navigation">Navigation</string>
-    <string name="action_weather">Weather</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_astronomy">Astronomy</string>
-    <string name="action_tools">Tools</string>
+    <string name="navigation">Navigation</string>
+    <string name="weather">Weather</string>
+    <string name="settings">Settings</string>
+    <string name="astronomy">Astronomy</string>
+    <string name="tools">Tools</string>
     <!--Dialogs-->
     <string name="dialog_ok">OK</string>
-    <string name="dialog_yes">Yes</string>
-    <string name="dialog_no">No</string>
     <string name="dialog_cancel">Cancel</string>
-    <string name="not_all_permissions_granted">Not all permissions granted, some features may be broken</string>
     <string name="copied_to_clipboard_toast">Copied to clipboard</string>
     <!--Permissions-->
     <string name="access_background_location">Update location settings</string>
@@ -69,7 +66,7 @@
     <string name="accuracy_low">Low</string>
     <string name="accuracy_medium">Medium</string>
     <string name="accuracy_high">High</string>
-    <string name="accuracy_unknown">Unknown</string>
+    <string name="unknown">Unknown</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Tips for improving sensor data accuracy</string>
@@ -86,8 +83,6 @@
     <string name="delete_beacon">Delete beacon</string>
     <string name="edit_beacon">Edit beacon</string>
     <string name="no_beacons">No beacons</string>
-    <string name="long_press_beacon_toast">Long press a beacon to view options.</string>
-    <string name="dot" translatable="false">•</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d beacon</item>
         <item quantity="other">%d beacons</item>
@@ -95,14 +90,10 @@
     <!--Navigation Tab - Beacon List - Sharesheet-->
     <string name="share_action_send">Send</string>
     <string name="share_action_copy">Copy</string>
-    <string name="share_action_copy_beacon">Copy beacon</string>
-    <string name="share_action_copy_coordinates">Copy coordinates</string>
     <string name="share_action_geo">Maps</string>
     <!--Navigation Tab - Create beacon-->
     <string name="create_beacon_title">Drop Beacon</string>
     <string name="beacon_name_hint">Name</string>
-    <string name="beacon_latitude_hint">Latitude</string>
-    <string name="beacon_longitude_hint">Longitude</string>
     <string name="beacon_invalid_name">Invalid name</string>
     <string name="beacon_invalid_elevation">Invalid elevation</string>
     <string name="beacon_elevation_hint_feet">Elevation feet (Optional)</string>
@@ -195,8 +186,6 @@
     <string name="lunar_noon">Lunar noon</string>
     <string name="moon_phase">Moon phase</string>
     <string name="moon_illumination">Moon illumination</string>
-    <string name="sun_altitude">Sun altitude</string>
-    <string name="moon_altitude">Moon altitude</string>
     <string name="sun_dawn">Dawn</string>
     <string name="sun_dusk">Dusk</string>
     <!--Tools-->
@@ -216,7 +205,6 @@
     <string name="your_height_ft">Your height (ft)</string>
     <!--Inventory-->
     <string name="action_inventory">Inventory</string>
-    <string name="action_blueprints">Blueprints</string>
     <string name="action_item_add">Add</string>
     <string name="action_item_subtract">Subtract</string>
     <string name="action_item_delete">Delete</string>
@@ -290,23 +278,17 @@
     <string name="gps_location">Location</string>
     <string name="pref_auto_location_title">Auto adjust location</string>
     <string name="pref_gps_request_permission_title">Request permission</string>
-    <string name="gps_only_support_decimal_degree">Only decimal degree format is supported (ex. 0.0000)</string>
     <!--    The title for the edit text field the user can supply their current latitude (basically mock GPS)-->
-    <string name="pref_latitude_override_title">Latitude override</string>
     <!--    The title for the edit text field the user can supply their current longitude (basically mock GPS)-->
-    <string name="pref_longitude_override_title">Longitude override</string>
     <!--    The button which can be used to update the lat/lng overrides from your current location-->
-    <string name="pref_gps_override_btn_title">Set override from GPS</string>
     <!--Settings - Sensors - Altimeter-->
     <string name="pref_altimeter_calibration_title">Altimeter</string>
     <string name="altitude">Altitude</string>
-    <string name="auto_altitude">Auto adjust altitude</string>
     <string name="add_elevation_offsets">Use AMSL elevation</string>
     <!--    The button which can be used to set the current altitude override from the GPS sensor-->
     <string name="altitude_from_gps">Set override from GPS</string>
     <!--    The button which can be used to set the current altitude override from the barometer-->
     <string name="altitude_from_pressure">Set override from barometer</string>
-    <string name="fine_tune_using_barometer">Fine tune using barometer</string>
     <!--    The title for the edit text field where the user can enter their current altitude (a manual override)-->
     <string name="pref_altitude_override_title">Altitude override</string>
     <!--    The popup which appears when the altitude override is updated from the GPS or barometer-->
@@ -316,8 +298,6 @@
     <!--    The title of the sea level pressure override edit text dialog-->
     <string name="pref_altitude_override_sea_level_dialog_title">Enter sea level pressure</string>
     <string name="pref_altitude_offsets_summary">Corrects GPS altitude to above mean sea level</string>
-    <string name="pref_fine_tune_altitude_summary">Detects smaller changes in altitude</string>
-    <string name="pref_auto_altitude_summary">Based on your current location</string>
     <!--    The supporting text for the altitude_from_pressure button-->
     <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
     <string name="altimeter_mode_gps">GPS</string>
@@ -337,10 +317,8 @@
     <!--    Text for treating rapid changes in pressure as altitude changes in the sea level pressure calibration formula-->
     <string name="pref_sea_level_use_rapid_title">Factor in rapid pressure changes</string>
     <string name="pref_sea_level_use_rapid_summary">Use rapid pressure changes in sea level pressure conversions</string>
-    <string name="pref_temperature_adjustment_title">Temperature adjustment</string>
     <string name="pref_temperature_holder_title">Temperature</string>
     <!--Settings - Navigation-->
-    <string name="pref_navigation_header">Navigation</string>
     <string name="pref_display_multi_beacons_title">Show nearby beacons</string>
     <string name="pref_show_linear_compass_title">Show linear compass</string>
     <string name="pref_show_linear_compass_summary">When the phone is vertical</string>
@@ -351,7 +329,6 @@
     <string name="pref_max_beacon_distance_miles_message">Enter the maximum visible beacon radius (Miles)</string>
     <string name="pref_max_beacon_distance_km_message">Enter the maximum visible beacon radius (Kilometers)</string>
     <!--Settings - Weather-->
-    <string name="pref_weather_header">Weather</string>
     <string name="pref_send_storm_alerts_title">Storm alerts</string>
     <string name="pref_storm_alert_sensitivity_title">Storm sensitivity</string>
     <string name="pref_pressure_history_title">Pressure history</string>
@@ -395,7 +372,6 @@
     <string name="pref_weather_foreground_service_summary">May reduce missed updates</string>
     <string name="pref_weather_update_frequency_title">Weather update frequency</string>
     <!--Settings - Astronomy-->
-    <string name="pref_astronomy_header">Astronomy</string>
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
     <string name="pref_show_sun_moon_compass_title">Show sun/moon on compass</string>
     <string name="sun_actual">Actual Time</string>
@@ -489,7 +465,6 @@
     <string name="pref_gps_request_permission" translatable="false">pref_gps_request_permission</string>
     <string name="pref_latitude_override" translatable="false">pref_latitude_override</string>
     <string name="pref_longitude_override" translatable="false">pref_longitude_override</string>
-    <string name="pref_gps_override_btn" translatable="false">pref_gps_override_btn</string>
     <string name="pref_calibrate_compass_btn" translatable="false">pref_calibrate_compass_btn</string>
     <string name="pref_app_version" translatable="false">pref_app_version</string>
     <string name="pref_category_licenses" translatable="false">pref_category_licenses</string>
@@ -504,7 +479,6 @@
     <string name="pref_adjust_for_temperature" translatable="false">pref_adjust_for_temperature</string>
     <string name="pref_sea_level_use_rapid" translatable="false">pref_sea_level_use_rapid</string>
     <string name="pref_temperature_adjustment_c" translatable="false">pref_temperature_adjustment_c</string>
-    <string name="pref_temperature_adjustment_f" translatable="false">pref_temperature_adjustment_f</string>
     <string name="pref_temperature_holder" translatable="false">pref_temperature_holder</string>
     <string name="pref_weather_update_frequency" translatable="false">pref_weather_update_frequency</string>
     <string name="pref_altimeter_calibration_mode" translatable="false">pref_altimeter_calibration_mode</string>
@@ -515,8 +489,6 @@
     <string name="tool_trail_sense_maps" translatable="false">tool_trail_sense_maps</string>
     <string name="error_occurred">An error occurred</string>
     <string name="error_occurred_message">Trail Sense ran into an error and will close. Please email the developer to get this issue fixed.</string>
-    <string name="moon_azimuth">Moon azimuth</string>
-    <string name="sun_azimuth">Sun azimuth</string>
     <string name="tool_user_guide_title">User Guide</string>
     <string name="tool_user_guide" translatable="false">tool_user_guide</string>
     <string name="tool_user_guide_summary">A how-to guide for using Trail Sense</string>
@@ -561,14 +533,12 @@
     <string name="category_other">Other</string>
     <string name="category_food">Food</string>
     <string name="category_hydration">Hydration</string>
-    <string name="category_tools">Tools</string>
     <string name="category_clothing">Clothing</string>
     <string name="category_medical">Medical</string>
     <string name="category_fire">Fire</string>
     <string name="category_shelter">Shelter</string>
     <string name="category_safety">Safety</string>
     <string name="category_natural">Natural</string>
-    <string name="category_navigation">Navigation</string>
     <string name="tool_inventory_summary">Keep track of items on hand</string>
     <string name="tool_depth_title">Depth</string>
     <string name="tool_depth" translatable="false">tool_depth</string>
@@ -584,7 +554,6 @@
     <string name="tool_cliff_height_title">Cliff Height</string>
     <string name="tool_cliff_height" translatable="false">tool_cliff_height</string>
     <string name="tool_cliff_height_description">Measure the height of a cliff or drop</string>
-    <string name="cliff_height_stop_measure">Stop</string>
     <string name="tool_cliff_height_disclaimer">Only use this tool when it is safe to do so, and be sure to check what is below the cliff to avoid injury. See the user guide for instructions.</string>
     <string name="cliff_height_guide">Estimate cliff height</string>
     <string name="cliff_height_guide_description">How to estimate the heights of cliffs or drops</string>
@@ -664,7 +633,6 @@
     <string name="battery_health_good">Good</string>
     <string name="battery_health_overheat">Overheat</string>
     <string name="battery_health_over_voltage">Over voltage</string>
-    <string name="battery_health_unknown">Unknown</string>
     <string name="battery_health">Health: %s</string>
     <string name="tool_category_distance">Distance</string>
     <string name="tool_category_power">Power</string>
@@ -748,14 +716,9 @@
     <string name="waypoint_time_format">%s, %s</string>
     <string name="waypoint_beacon_title_template">%s, %s Waypoint</string>
     <string name="pref_tools_category" translatable="false">pref_tools_category</string>
-    <string name="pref_tools_header">Tools</string>
     <string name="pref_backtrack_enabled_summary">Record location history</string>
     <string name="pref_backtrack_frequency" translatable="false">pref_backtrack_frequency</string>
     <string name="pref_backtrack_frequency_title">Backtrack interval</string>
-    <string name="utm_hint_easting_m">Easting (m)</string>
-    <string name="utm_hint_northing_m">Northing (m)</string>
-    <string name="utm_hint_zone">Zone</string>
-    <string name="utm_hint_band">Latitude Band</string>
     <string name="location_input_hint">Location</string>
     <string name="location_input_help_title">Supported location formats</string>
     <string name="location_input_help">Decimal degrees (ex. 1.00, -2.00)  Degrees decimal minutes (ex. 1°23.12\'N, 3°12.1\'W)  Degrees minutes seconds (ex. 1°23\'12.1\"N, 3°12\"1.2\'W)  UTM (ex. 03T 12345E 67890N)   MGRS (ex. 27PXM 09601 05579)</string>

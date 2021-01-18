@@ -1,16 +1,14 @@
 <resources>
-    <string name="action_navigation">Նավիգացիա</string>
-    <string name="action_weather">Եղանակ</string>
-    <string name="action_settings">Կարգավորումներ</string>
+    <string name="navigation">Նավիգացիա</string>
+    <string name="weather">Եղանակ</string>
+    <string name="settings">Կարգավորումներ</string>
     <string name="create_beacon_title">Կաթիլ փարոս</string>
     <string name="beacon_name_hint">Անուն</string>
-    <string name="beacon_latitude_hint">Լայնություն</string>
-    <string name="beacon_longitude_hint">Երկայնություն</string>
     <string name="beacon_list_title">Ընտրեք փարոս</string>
     <string name="dialog_ok">լավ</string>
     <string name="delete_beacon">Deleteնջել փարոսը</string>
     <string name="dialog_cancel">Չեղարկել</string>
-    <string name="action_astronomy">Աստղագիտություն</string>
+    <string name="astronomy">Աստղագիտություն</string>
     <string name="sunrise_label">Արևածագ</string>
     <string name="sunset_label">Մայրամուտ</string>
     <string name="until_sunset_label">մինչև մայրամուտ</string>
@@ -21,10 +19,7 @@
     <string name="pref_units_header">Գեներալ</string>
     <string name="pref_distance_units_title">Հեռավորությունը</string>
     <string name="pref_pressure_units_title">Նշում</string>
-    <string name="pref_navigation_header">Նավիգացիա</string>
-    <string name="pref_weather_header">Եղանակ</string>
     <string name="pref_send_storm_alerts_title">Փոթորիկ ազդանշաններ</string>
-    <string name="pref_astronomy_header">Աստղագիտություն</string>
     <string name="pref_use_24_hour_title">Օգտագործեք 24-ժամյա ձևաչափ</string>
     <string name="pref_sun_time_mode_title">Արևածագ /մայրամուտի ժամերը</string>
     <string name="weather_improving_fast">Շատ շուտով բարելավվում է</string>
@@ -88,7 +83,6 @@
     <string name="sun_civil">Քաղաքացիական մթնշաղ</string>
     <string name="sun_nautical">Ծովային մթնշաղ</string>
     <string name="sun_astronomical">Աստղագիտական ​​մթնշաղ</string>
-    <string name="not_all_permissions_granted">Բոլոր թույլտվությունները չեն տալիս, որոշ առանձնահատկություններ կարող են կոտրվել</string>
     <string name="today">Այսօր</string>
     <string name="tomorrow">Վաղը</string>
     <string name="yesterday">Երեկ</string>

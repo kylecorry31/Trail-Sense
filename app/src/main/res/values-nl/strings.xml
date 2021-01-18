@@ -1,16 +1,14 @@
 <resources>
-    <string name="action_navigation">Navigatie</string>
-    <string name="action_weather">: Weer</string>
-    <string name="action_settings">Instellingen</string>
+    <string name="navigation">Navigatie</string>
+    <string name="weather">: Weer</string>
+    <string name="settings">Instellingen</string>
     <string name="create_beacon_title">Drop Beacon</string>
     <string name="beacon_name_hint">: Naam</string>
-    <string name="beacon_latitude_hint">Breedte</string>
-    <string name="beacon_longitude_hint">: Lengte</string>
     <string name="beacon_list_title">Selecteer Baken</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Baken verwijderen</string>
     <string name="dialog_cancel">Annuleren</string>
-    <string name="action_astronomy">Astronomie</string>
+    <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Zonsopgang</string>
     <string name="sunset_label">Zonsondergang</string>
     <string name="until_sunset_label">tot zonsondergang</string>
@@ -21,10 +19,7 @@
     <string name="pref_units_header">Algemeen</string>
     <string name="pref_distance_units_title">Afstand</string>
     <string name="pref_pressure_units_title">: Druk</string>
-    <string name="pref_navigation_header">Navigatie</string>
-    <string name="pref_weather_header">Weer</string>
     <string name="pref_send_storm_alerts_title">Stormwaarschuwingen</string>
-    <string name="pref_astronomy_header">Astronomie</string>
     <string name="pref_use_24_hour_title">Gebruik het 24-uursformaat</string>
     <string name="pref_sun_time_mode_title">Zonsopgang / zonsondergang tijden</string>
     <string name="weather_improving_fast">Verbetering zeer binnenkort</string>
@@ -88,7 +83,6 @@
     <string name="sun_civil">Burgerschemering</string>
     <string name="sun_nautical">Nautische schemering</string>
     <string name="sun_astronomical">Astronomische Schemering</string>
-    <string name="not_all_permissions_granted">Niet alle toegekende toestemmingen, sommige functies kunnen worden verbroken</string>
     <string name="today">Vandaag</string>
     <string name="tomorrow">Morgen</string>
     <string name="yesterday">Gisteren</string>

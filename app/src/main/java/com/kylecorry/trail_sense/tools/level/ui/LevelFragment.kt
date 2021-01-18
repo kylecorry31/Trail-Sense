@@ -24,14 +24,10 @@ class LevelFragment : Fragment() {
     private val binding get() = _binding!!
     private val throttle = Throttle(20)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLevelBinding.inflate(inflater, container, false)
         return binding.root
     }

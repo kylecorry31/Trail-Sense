@@ -91,7 +91,7 @@ class BeaconListItem(
                     sender.send(beacon)
                 }
                 R.id.action_copy -> {
-                    val sender = BeaconCopy(view.context, Clipboard(view.context), prefs)
+                    val sender = BeaconCopy(view.context, Clipboard(view.context))
                     sender.send(beacon)
                 }
                 R.id.action_map -> {

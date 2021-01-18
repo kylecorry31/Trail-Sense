@@ -3,16 +3,14 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.Bearing
-import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 
 
 class BearingInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs), LifecycleObserver {

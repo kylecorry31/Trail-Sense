@@ -44,7 +44,7 @@ class BeaconListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentBeaconListBinding.inflate(layoutInflater, container, false)
         return binding.root
     }

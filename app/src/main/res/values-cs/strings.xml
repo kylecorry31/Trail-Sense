@@ -59,8 +59,6 @@
     <string name="trail_sense_maps">Offline mapy</string>
     <string name="sun_dusk">Stmívání</string>
     <string name="sun_dawn">Rozbřesk</string>
-    <string name="moon_altitude">Výška Měsíce</string>
-    <string name="sun_altitude">Výška slunce</string>
     <string name="moon_illumination">Osvětlení Měsíce</string>
     <string name="moon_phase">Měsíční fáze</string>
     <string name="lunar_noon">Měsíční poledne</string>
@@ -112,12 +110,9 @@
     <string name="beacon_elevation_hint_feet">Nadmořská výška ve stopách (Volitelné)</string>
     <string name="beacon_invalid_elevation">Neplatná nadmořská výška</string>
     <string name="beacon_invalid_name">Neplatné jméno</string>
-    <string name="beacon_longitude_hint">Zeměpisná výška</string>
-    <string name="beacon_latitude_hint">Zeměpisná šířka</string>
     <string name="beacon_name_hint">Název</string>
     <string name="create_beacon_title">Vytvořit maják</string>
     <string name="share_action_geo">Mapy</string>
-    <string name="share_action_copy_coordinates">Zkopírovat souřadnice</string>
     <string name="discharging_fast">Rychle vybíjeno (%s)</string>
     <string name="discharging_slow">Pomalu vybíjeno (%s)</string>
     <string name="charging_slow">Pomalu nabíjeno (%s)</string>
@@ -126,8 +121,7 @@
     <string name="battery_capacity_format">%.2f mAh</string>
     <string name="dialog_grant">Změnit nastavení</string>
     <string name="access_background_location_rationale">"Trail Sense používá polohu na pozadí,  která je používána ke kalibraci atmosférického tlaku v sekci Počasí a na poskytnutí přesnějšího času západu slunce. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)"</string>
-    <string name="action_navigation">Navigace</string>
-    <string name="share_action_copy_beacon">Zkopírovat maják</string>
+    <string name="navigation">Navigace</string>
     <string name="share_action_copy">Kopírovat</string>
     <string name="share_action_send">Poslat</string>
     <plurals name="beacon_group_summary">
@@ -152,7 +146,7 @@
     <string name="accuracy_info_title">Tipy na zlepšení přesnosti dat ze senzorů</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
-    <string name="accuracy_unknown">Neznámá</string>
+    <string name="unknown">Neznámá</string>
     <string name="accuracy_high">Vysoká</string>
     <string name="accuracy_medium">Střední</string>
     <string name="accuracy_low">Nízká</string>
@@ -190,13 +184,12 @@
     <string name="disclaimer_message_content">Trail Sense je nástroj, který může být použit v situacích o přežití, ale neměli byste spoléhat čistě na něj. Prosím vás, abyste potvrdili jeho přesnost, vyhnuli se nebezpečným situacím, kdy je to možné, zůstali v klidu a používali selský rozum.</string>
     <string name="dialog_deny">Ne, děkuji</string>
     <string name="copied_to_clipboard_toast">Zkopírováno do schránky</string>
-    <string name="not_all_permissions_granted">Nejsou poskutnuta všechna oprávnění, některé funkce nemusí fungovat správně</string>
     <string name="dialog_cancel">Zrušit</string>
     <string name="dialog_ok">Budiž</string>
-    <string name="action_tools">Nástroje</string>
-    <string name="action_astronomy">Astronomie</string>
-    <string name="action_settings">Nastavení</string>
-    <string name="action_weather">Počasí</string>
+    <string name="tools">Nástroje</string>
+    <string name="astronomy">Astronomie</string>
+    <string name="settings">Nastavení</string>
+    <string name="weather">Počasí</string>
     <string name="add_elevation_offsets">Používat výšku v m n.m.</string>
     <string name="altitude">Nadmořská výška</string>
     <string name="pref_altimeter_calibration_title">Výškoměr</string>
@@ -210,7 +203,6 @@
     <string name="waning_crescent">Ubývající srpek</string>
     <string name="temperature_disclaimer">Zobrazovaná teplota může být vyšší kvůli teplu vytvářené telefonem.</string>
     <string name="heat_alert_heat_message">Možné riziko vyčerpání z tepla nebo mrtvice. Udržujte se stále hydratovaní, zůstaňte uvnitř nebo ve stínu, omezte cvičení a sledujte známky vyčerpání z tepla nebo mrtvice.</string>
-    <string name="long_press_beacon_toast">Podržte maják k zobrazení možností.</string>
     <string name="access_background_location">Změnit nastavení polohy</string>
     <string name="tool_lightning_description">Změřit vzdálenost od místa úderu blesku</string>
     <string name="tool_lightning_title">Vzdálenost od místa úderu blesku</string>

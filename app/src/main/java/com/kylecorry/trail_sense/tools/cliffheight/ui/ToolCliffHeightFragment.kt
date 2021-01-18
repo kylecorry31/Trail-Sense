@@ -26,7 +26,6 @@ class ToolCliffHeightFragment : Fragment() {
     private val intervalometer = Intervalometer {
         update()
     }
-    private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
 
@@ -37,7 +36,7 @@ class ToolCliffHeightFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentToolCliffHeightBinding.inflate(inflater, container, false)
         UiUtils.setButtonState(
             binding.startBtn, false, UiUtils.color(requireContext(), R.color.colorPrimary),

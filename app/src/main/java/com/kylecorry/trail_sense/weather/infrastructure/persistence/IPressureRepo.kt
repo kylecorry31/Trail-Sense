@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.weather.infrastructure.persistence
 
 import androidx.lifecycle.LiveData
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
 import java.time.Instant
 

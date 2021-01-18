@@ -2,7 +2,6 @@
 <resources>
     <string name="disclaimer_message_title">Ansvarsfraskrivelse</string>
     <string name="disclaimer_message_content">Trail sense er et verktøy som kan brukes i nødsituasjoner, men du bør ikke stole på det alene. Sjekk dets nøyaktighet, unngå farlige situasjoner når mulig, behold roen, og bruk sunn fornuft.</string>
-    <string name="not_all_permissions_granted">Ikke alle tillatelser er gitt, noen funksjoner fungerer kanskje ikke som de skal</string>
     <string name="continue_button">Fortsett</string>
     <string name="pref_email_title">E-postadresse til utvikler</string>
     <string name="pref_github_title">GitHub</string>
@@ -18,7 +17,6 @@
     <string name="update_150_minutes">2 timer og 30 minutter</string>
     <string name="update_120_minutes">2 timer</string>
     <string name="sun_moon_compass_always">Alltid</string>
-    <string name="pref_astronomy_header">Astronomi</string>
     <string name="pref_weather_foreground_service_title">Oppdater vær i forgrunnen</string>
     <string name="pref_show_pressure_in_notification_title">Vis lufttrykk i varsel</string>
     <string name="pref_show_weather_notification_title">Vis værvarsel</string>
@@ -30,8 +28,6 @@
     <string name="pressure_48_hours">48 timer</string>
     <string name="pref_pressure_history_title">Lufttrykkhistorikk</string>
     <string name="pref_send_storm_alerts_title">Stormvarsler</string>
-    <string name="pref_weather_header">Vær</string>
-    <string name="pref_navigation_header">Navigasjon</string>
     <string name="pref_adjust_for_temperature_title">Ta hensyn til temperatur</string>
     <string name="pref_barometer_pressure_title">Lufttrykk</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-kalibrering</string>
@@ -94,11 +90,8 @@
     <string name="notification_storm_alert_channel_name">Varsler</string>
     <string name="stop_monitoring">Stopp</string>
     <string name="beacon_invalid_name">Ugyldig navn</string>
-    <string name="beacon_longitude_hint">Lengdegrad</string>
-    <string name="beacon_latitude_hint">Breddegrad</string>
     <string name="beacon_name_hint">Navn</string>
     <string name="share_action_geo">Kart</string>
-    <string name="share_action_copy_coordinates">Kopier koordinater</string>
     <string name="share_action_copy">Kopier</string>
     <string name="share_action_send">Send</string>
     <string name="tap_to_turn_off">Trykk for å skru av</string>
@@ -106,7 +99,7 @@
     <string name="accuracy_info_title">Tips for å forbedre nøyaktigheten på sensordataene</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
-    <string name="accuracy_unknown">Ukjent</string>
+    <string name="unknown">Ukjent</string>
     <string name="accuracy_high">Høy</string>
     <string name="accuracy_medium">Middels</string>
     <string name="accuracy_low">Lav</string>
@@ -124,11 +117,11 @@
     <string name="copied_to_clipboard_toast">Kopiert til utklippstavle</string>
     <string name="dialog_cancel">Avbryt</string>
     <string name="dialog_ok">OK</string>
-    <string name="action_tools">Verktøy</string>
-    <string name="action_astronomy">Astronomi</string>
-    <string name="action_settings">Innstillinger</string>
-    <string name="action_weather">Vær</string>
-    <string name="action_navigation">Navigasjon</string>
+    <string name="tools">Verktøy</string>
+    <string name="astronomy">Astronomi</string>
+    <string name="settings">Innstillinger</string>
+    <string name="weather">Vær</string>
+    <string name="navigation">Navigasjon</string>
     <string name="no_humidity_data">Ingen fuktighetsdata</string>
     <string name="pressure_format">%s %s</string>
     <string name="dialog_deny">Nei takk</string>
@@ -153,11 +146,9 @@
     <string name="pref_sun_time_mode_title">Soloppgangs/solnedgangs-tider</string>
     <string name="pref_weather_update_frequency_title">Væroppdateringshyppighet</string>
     <string name="pref_temperature_holder_title">Temperatur</string>
-    <string name="pref_temperature_adjustment_title">Temperaturjustering</string>
     <string name="barometer_thermometer">Barometer og termometer</string>
     <string name="pref_use_sea_level_pressure_title">Lufttrykk ved havnivå</string>
     <string name="altimeter_mode_barometer">Barometer</string>
-    <string name="auto_altitude">Automatisk høydejustering</string>
     <string name="altitude">Høyde</string>
     <string name="pref_altimeter_calibration_title">Høydemåler</string>
     <string name="pref_gps_request_permission_title">Be om posisjonstillatelse</string>
@@ -172,7 +163,6 @@
     <string name="tool_inclinometer_summary">Anslå snøskredfare og objekthøyder</string>
     <string name="inclinometer_title">Klinometer</string>
     <string name="trail_sense_maps">Frakoblede kart</string>
-    <string name="moon_altitude">Månehøyde</string>
     <string name="tidal_range">Tidevannsforskjell</string>
     <string name="sunset_alert_channel_title">Solnedgangsvarsel</string>
     <string name="until_sunset_label">til solnedgang</string>
@@ -251,7 +241,6 @@
     <string name="storm_sensitivity_low_hpa">Lav (6 hPa / 3t)</string>
     <string name="pref_altitude_offsets_summary">Korrigerer GPS-høyde til over gjennomsnittlig havnivå</string>
     <string name="add_elevation_offsets">Bruk meter over havet (moh.)</string>
-    <string name="gps_only_support_decimal_degree">Kun desimalgrad-format støttes (eks. 0.0000)</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Roter telefonen i et figur-8-mønster flere ganger, trykk %s når du er ferdig.
 \n
 \nDenne meldingen kan slås av i appinnstillingene.</string>
@@ -272,12 +261,9 @@
     <string name="solar_noon">Solens kulminasjon</string>
     <string name="tide_spring">Spring</string>
     <string name="tide_neap">Nipp</string>
-    <string name="sun_azimuth">Solretning</string>
-    <string name="moon_azimuth">Måneretning</string>
     <string name="onboarding_weather">Få veldig lokale værvarsler</string>
     <string name="pref_weather_foreground_service_summary">Kan redusere tapte oppdateringer</string>
     <string name="moon_illumination">Månen: opplyst del</string>
-    <string name="cliff_height_stop_measure">Stopp</string>
     <string name="tool_cliff_height_title">Høyden på en klippe</string>
     <string name="object_height_guide_description">Hvordan anslå høyden på objekter</string>
     <string name="category_food">Mat</string>
@@ -296,7 +282,6 @@
     <string name="depth_meters_format">%.2f m</string>
     <string name="sun_dusk">Skumring</string>
     <string name="sun_dawn">Demring</string>
-    <string name="sun_altitude">Solhøyde</string>
     <string name="sunset_alert_notification_text">Solen vil gå ned %s</string>
     <string name="waxing_crescent">Månesigd (ny)</string>
     <string name="first_quarter">Halvmåne (ny)</string>
@@ -328,7 +313,6 @@
     <string name="forecast_sensitivity_med_in">Middels (0,044 in / 3t)</string>
     <string name="forecast_sensitivity_low_in">Lav (0,074 in / 3t)</string>
     <string name="pref_use_legacy_compass_summary">Kan fikse kompassproblemer</string>
-    <string name="long_press_beacon_toast">Trykk lenge for å vise alternativer.</string>
     <string name="nautical_miles_format">%.2f nm</string>
     <string name="pref_privacy_policy_title">Personvernspraksis</string>
     <string name="solar_align_now">Nå</string>
@@ -343,23 +327,16 @@
     <string name="item_amount_hint">Mengde</string>
     <string name="item_name_hint">Navn</string>
     <string name="tool_depth_title">Dybde</string>
-    <string name="category_navigation">Navigasjon</string>
-    <string name="category_tools">Verktøy</string>
     <string name="guide_conserving_battery_description">Spar batteri under bruk av Trail Sense</string>
     <string name="guide_conserving_battery_title">Batterisparing</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibrer før navigering</string>
     <string name="calibration_mode_barometer_alert_msg">Bruk av barometer som høydemåler kan redusere værmeldingsnøyaktigheten.</string>
     <string name="pref_altitude_override_sea_level_title">Ved bruk av kjent havnivåtrykk</string>
-    <string name="pref_auto_altitude_summary">Basert på din nåværende posisjon</string>
-    <string name="pref_fine_tune_altitude_summary">Oppdager mindre høydeendringer</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Skriv inn havnivåtrykk</string>
     <string name="altitude_override_updated_toast">Høydeverdi oppdatert</string>
     <string name="pref_altitude_override_title">Angi høyde manuelt</string>
     <string name="altitude_from_pressure">Sett høydeverdien fra barometer</string>
     <string name="altitude_from_gps">Sett høydeverdien fra GPS</string>
-    <string name="pref_gps_override_btn_title">Sett posisjonen fra GPS</string>
-    <string name="pref_longitude_override_title">Angi lengdegrad manuelt</string>
-    <string name="pref_latitude_override_title">Angi breddegrad manuelt</string>
     <string name="compass_accuracy_improved">Kompassnøyaktighet forbedret til %s</string>
     <string name="compass_reported_accuracy">Rapportert nøyaktighet: %s</string>
     <string name="compass_from_gps">Sett misvisningsverdien fra GPS</string>
@@ -392,7 +369,6 @@
     <string name="pressure_tendency_indicator_alt">Trykktendensindikator</string>
     <string name="pref_show_linear_compass_summary">Når telefonen er loddrett</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Angi gjeldende trykk ved havnivå i hPa</string>
-    <string name="fine_tune_using_barometer">Finjuster ved hjelp av barometer</string>
     <string name="pref_auto_declination_summary">Basert på din nåværende posisjon</string>
     <string name="tool_distance_convert_title">Distanseomregning</string>
     <string name="guide_avalanche_description">Hvordan bestemme skredfare</string>
@@ -457,7 +433,6 @@
     <string name="strobe_warning_title">Blinkende lys</string>
     <string name="battery_health_over_voltage">Overspenning</string>
     <string name="battery_health_overheat">Overoppheting</string>
-    <string name="battery_health_unknown">Ukjent</string>
     <string name="battery_health">Batteritilstand: %s</string>
     <string name="could_not_triangulate">Kunne ikke triangulere</string>
     <string name="tool_triangulate_summary">Bestem posisjonen din uten GPS</string>
@@ -518,19 +493,12 @@
     <string name="freezing_temperatures_description">Vann vil fryse ute og regn kan gå over til snø</string>
     <string name="freezing_temperatures_warning">Kuldegrader</string>
     <string name="pref_backtrack_enabled_summary">Ta opp posisjonshistorikk</string>
-    <string name="pref_tools_header">Verktøy</string>
     <string name="tool_backtrack_summary">Vis posisjonshistorikk</string>
     <string name="guide_location_no_gps_description">Hvordan finne posisjonen din når du ikke har et GPS-signal</string>
     <string name="guide_location_no_gps_title">Bestem posisjon uten GPS</string>
     <string name="degree">%s°</string>
-    <string name="dialog_no">Nei</string>
-    <string name="dialog_yes">Ja</string>
-    <string name="utm_hint_band">Breddegradsbånd</string>
-    <string name="utm_hint_northing_m">Nordverdi (m)</string>
-    <string name="utm_hint_easting_m">Østverdi (m)</string>
     <string name="coordinate_input_invalid_location">Ugyldig posisjon</string>
     <string name="location_input_help">Desimalgrader (eks. 1.00, -2.00)\n\n\n\nGrader desimalminutter (eks. 1°23.12\'N, 3°12.1\'W)\n\n\n\nGrader minutter sekunder (eks. 1°23\'12.1\"N, 3°12\'1.2\"W)\n\n\n\nUTM (eks. 03T 12345E 67890N)\n\n\nMGRS (ex. 27PXM 09601 05579)</string>
     <string name="location_input_help_title">Støttede posisjonsformater</string>
     <string name="location_input_hint">Posisjon</string>
-    <string name="utm_hint_zone">Sone</string>
 </resources>

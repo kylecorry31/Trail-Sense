@@ -4,7 +4,7 @@ Once an approximate location is determined, you can set it as the GPS override i
 
 ## From a map
 
-If you know your current location on a physical map (ex. a topographical map), you may be able to transfer those coordinates into Trail Sense. Trail Sense currently supports the following coordinate formates: decimal degrees, degrees decimal minutes, degrees minutes seconds, and UTM. Many maps (but not all) will show have coordinates or grids in either decimal degrees or UTM.
+If you know your current location on a physical map (ex. a topographical map), you may be able to transfer those coordinates into Trail Sense. Trail Sense currently supports the following coordinate formats: decimal degrees, degrees decimal minutes, degrees minutes seconds, and UTM. Many maps (but not all) will show have coordinates or grids in either decimal degrees or UTM.
 
 ### Determining your location from a map in UTM
 
@@ -20,7 +20,7 @@ If you have marked beacons prior to hiking, and you can see at least two of them
 
 1. Select the two beacons you can see
 2. Point your phone at the first beacon (as you would when navigating), and select "MARK" to record the bearing (this will not include declination).
-3. Point your phone at the second beacon (as you would when navigating), and select "MARK" to record the beacing (this will not include declination)
+3. Point your phone at the second beacon (as you would when navigating), and select "MARK" to record the bearing (this will not include declination)
 4. Your current location should not be displayed
 5. If you have auto GPS disabled (in GPS calibration settings), you will have the option of using the calculated location as your current location.
 

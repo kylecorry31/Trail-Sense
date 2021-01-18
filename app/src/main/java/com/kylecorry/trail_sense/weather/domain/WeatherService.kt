@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.weather.domain
 
 import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster
 import com.kylecorry.trail_sense.weather.domain.sealevel.AltimeterSeaLevelPressureConverter
-import com.kylecorry.trail_sense.weather.domain.sealevel.BarometerGPSAltitudeCalculator
 import com.kylecorry.trail_sense.weather.domain.sealevel.DwellAltitudeCalculator
 import com.kylecorry.trail_sense.weather.domain.sealevel.PressureDwellAltitudeCalculator
 import com.kylecorry.trailsensecore.domain.weather.*

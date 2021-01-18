@@ -14,22 +14,21 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
-import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
-import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
+import com.kylecorry.trailsensecore.domain.Accuracy
+import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
-import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
+import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -94,7 +93,7 @@ class NavigatorFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = ActivityNavigatorBinding.inflate(layoutInflater, container, false)
         rightQuickAction = QuickActionFlashlight(binding.navigationRightQuickAction, this)
         leftQuickAction = QuickActionBacktrack(binding.navigationLeftQuickAction, this)
@@ -193,7 +192,7 @@ class NavigatorFragment : Fragment() {
         setVisibleCompass(roundCompass)
 
         binding.location.setOnLongClickListener {
-            val sender = LocationCopy(requireContext(), Clipboard(requireContext()), userPrefs)
+            val sender = LocationCopy(requireContext(), Clipboard(requireContext()))
             sender.send(gps.location)
             true
         }

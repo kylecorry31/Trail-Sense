@@ -190,7 +190,7 @@ class FormatService(private val context: Context) {
             Accuracy.Low -> context.getString(R.string.accuracy_low)
             Accuracy.Medium -> context.getString(R.string.accuracy_medium)
             Accuracy.High -> context.getString(R.string.accuracy_high)
-            else -> context.getString(R.string.accuracy_unknown)
+            else -> context.getString(R.string.unknown)
         }
     }
 

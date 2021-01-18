@@ -77,7 +77,7 @@ class PlaceBeaconFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCreateBeaconBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -359,7 +359,7 @@ class PlaceBeaconFragment : Fragment() {
     }
 
     private fun hasValidName(): Boolean {
-        return !binding.beaconName.text.toString().isBlank()
+        return binding.beaconName.text.toString().isNotBlank()
     }
 
 }

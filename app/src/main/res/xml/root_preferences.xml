@@ -81,25 +81,25 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_navigation_header_key"
             app:singleLineTitle="false"
-            app:title="@string/pref_navigation_header" />
+            app:title="@string/navigation" />
 
         <Preference
             app:iconSpaceReserved="false"
             app:key="@string/pref_weather_category"
             app:singleLineTitle="false"
-            app:title="@string/pref_weather_header" />
+            app:title="@string/weather" />
 
         <Preference
             app:iconSpaceReserved="false"
             app:key="@string/pref_astronomy_category"
             app:singleLineTitle="false"
-            app:title="@string/pref_astronomy_header" />
+            app:title="@string/astronomy" />
 
         <Preference
             app:iconSpaceReserved="false"
             app:key="@string/pref_tools_category"
             app:singleLineTitle="false"
-            app:title="@string/pref_tools_header" />
+            app:title="@string/tools" />
 
     </PreferenceCategory>
 

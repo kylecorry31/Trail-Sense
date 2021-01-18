@@ -20,7 +20,7 @@ object Guides {
         )
 
         val navigation = UserGuideCategory(
-            context.getString(R.string.pref_navigation_header), listOf(
+            context.getString(R.string.navigation), listOf(
                 UserGuide(
                     context.getString(R.string.guide_beacons_title),
                     context.getString(R.string.guide_beacons_description),
@@ -45,7 +45,7 @@ object Guides {
         )
 
         val weather = UserGuideCategory(
-            context.getString(R.string.pref_weather_header), listOf(
+            context.getString(R.string.weather), listOf(
                 UserGuide(
                     context.getString(R.string.guide_weather_prediction_title),
                     context.getString(R.string.guide_weather_prediction_description),
@@ -65,7 +65,7 @@ object Guides {
         )
 
         val tools = UserGuideCategory(
-            context.getString(R.string.action_tools), listOf(
+            context.getString(R.string.tools), listOf(
                 UserGuide(
                     context.getString(R.string.guide_avalanche_risk),
                     context.getString(R.string.guide_avalanche_description),

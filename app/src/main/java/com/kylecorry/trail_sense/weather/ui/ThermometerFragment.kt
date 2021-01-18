@@ -54,7 +54,7 @@ class ThermometerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentThermometerHygrometerBinding.inflate(inflater, container, false)
 
         binding.heatAlert.setOnClickListener {

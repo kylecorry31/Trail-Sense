@@ -53,7 +53,7 @@ class InclinometerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentInclinometerBinding.inflate(layoutInflater, container, false)
         return binding.root
     }

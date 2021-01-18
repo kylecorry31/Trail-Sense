@@ -23,7 +23,7 @@ class FragmentToolWhiteNoise : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentToolWhiteNoiseBinding.inflate(inflater, container, false)
         binding.whiteNoiseBtn.setOnClickListener {
             if (WhiteNoiseService.isOn(requireContext())){

@@ -38,7 +38,7 @@ class FragmentDistanceConverter : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentToolDistanceConvertBinding.inflate(inflater, container, false)
 
         val fromAdapter = ArrayAdapter(

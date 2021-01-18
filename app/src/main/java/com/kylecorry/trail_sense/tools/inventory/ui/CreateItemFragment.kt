@@ -37,7 +37,7 @@ class CreateItemFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCreateItemBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -1,10 +1,6 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import com.kylecorry.trail_sense.R
 import java.time.*
 import java.time.format.DateTimeFormatter
 import kotlin.math.pow
@@ -76,10 +72,6 @@ fun LocalDateTime.toZonedDateTime(): ZonedDateTime {
 
 fun LocalDateTime.toEpochMillis(): Long {
     return this.toZonedDateTime().toEpochSecond() * 1000
-}
-
-fun ZonedDateTime.toUTCLocal(): LocalDateTime {
-    return LocalDateTime.ofInstant(this.toInstant(), ZoneId.of("UTC"))
 }
 
 fun Float.toDegrees(): Float {

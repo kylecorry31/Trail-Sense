@@ -89,7 +89,7 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
             true
         }
 
-        compassSmoothingBar.setOnPreferenceClickListener { _ ->
+        compassSmoothingBar.setOnPreferenceClickListener {
             resetCompass()
             true
         }
@@ -202,7 +202,7 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
             Accuracy.Low -> getString(R.string.accuracy_low)
             Accuracy.Medium -> getString(R.string.accuracy_medium)
             Accuracy.High -> getString(R.string.accuracy_high)
-            Accuracy.Unknown -> getString(R.string.accuracy_unknown)
+            Accuracy.Unknown -> getString(R.string.unknown)
         }
     }
 

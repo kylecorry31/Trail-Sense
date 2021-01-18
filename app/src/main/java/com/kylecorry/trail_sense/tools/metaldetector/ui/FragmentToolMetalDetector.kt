@@ -41,7 +41,7 @@ class FragmentToolMetalDetector : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentToolMetalDetectorBinding.inflate(layoutInflater, container, false)
         chart = MetalDetectorChart(
             binding.metalChart,

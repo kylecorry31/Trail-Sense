@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.settings
 
 import android.os.Bundle
 import androidx.annotation.ArrayRes
-import androidx.annotation.StringRes
-import androidx.preference.*
+import androidx.preference.ListPreference
+import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler

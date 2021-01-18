@@ -1,16 +1,14 @@
 <resources>
-    <string name="action_navigation">Navigacija</string>
-    <string name="action_weather">Weather</string>
-    <string name="action_settings">Podešavanja</string>
+    <string name="navigation">Navigacija</string>
+    <string name="weather">Weather</string>
+    <string name="settings">Podešavanja</string>
     <string name="create_beacon_title">Baci Beacon</string>
     <string name="beacon_name_hint">Ime</string>
-    <string name="beacon_latitude_hint">Zemljopisna širina</string>
-    <string name="beacon_longitude_hint">Zemljopisna dužina</string>
     <string name="beacon_list_title">Odaberite Beacon</string>
     <string name="dialog_ok">uredu</string>
     <string name="delete_beacon">Izbriši маяlo</string>
     <string name="dialog_cancel">Otkaži</string>
-    <string name="action_astronomy">Astronomija</string>
+    <string name="astronomy">Astronomija</string>
     <string name="sunrise_label">Izlazak sunca</string>
     <string name="sunset_label">Zalazak sunca</string>
     <string name="until_sunset_label">do zalaska sunca</string>
@@ -21,10 +19,7 @@
     <string name="pref_units_header">Opšte</string>
     <string name="pref_distance_units_title">Razdaljina</string>
     <string name="pref_pressure_units_title">Pritisak</string>
-    <string name="pref_navigation_header">Navigacija</string>
-    <string name="pref_weather_header">Weather</string>
     <string name="pref_send_storm_alerts_title">Oluje upozorenja</string>
-    <string name="pref_astronomy_header">Astronomija</string>
     <string name="pref_use_24_hour_title">Koristite 24-satni format</string>
     <string name="pref_sun_time_mode_title">Vremena izlaska /zalaska Sunca</string>
     <string name="weather_improving_fast">Poboljšanje se vrlo brzo</string>
@@ -90,7 +85,6 @@
     <string name="sun_civil">Civilni sumrak</string>
     <string name="sun_nautical">Nautički sumrak</string>
     <string name="sun_astronomical">Astronomski sumrak</string>
-    <string name="not_all_permissions_granted">Nisu sva odobrena odobrenja, neke značajke mogu se pokvariti</string>
     <string name="today">Danas</string>
     <string name="tomorrow">Sutra</string>
     <string name="yesterday">Juče</string>

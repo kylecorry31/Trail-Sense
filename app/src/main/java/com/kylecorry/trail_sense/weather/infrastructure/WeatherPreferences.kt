@@ -19,18 +19,6 @@ class WeatherPreferences(private val context: Context) {
     val hasBarometer: Boolean
         get() = sensorChecker.hasBarometer()
 
-    val hasThermometer: Boolean
-        get() = sensorChecker.hasThermometer()
-
-    var temperatureAdjustment: Int
-        get() = prefs.getInt(context.getString(R.string.pref_temperature_adjustment_c), 0)
-        set(value) = prefs.edit {
-            putInt(
-                context.getString(R.string.pref_temperature_adjustment_c),
-                value
-            )
-        }
-
     val shouldMonitorWeather: Boolean
         get() = sensorChecker.hasBarometer() && prefs.getBoolean(
             context.getString(R.string.pref_monitor_weather),

@@ -1,16 +1,14 @@
 <resources>
-    <string name="action_navigation">ন্যাভিগেশন</string>
-    <string name="action_weather">আবহাওয়া</string>
-    <string name="action_settings">সেটিংস</string>
+    <string name="navigation">ন্যাভিগেশন</string>
+    <string name="weather">আবহাওয়া</string>
+    <string name="settings">সেটিংস</string>
     <string name="create_beacon_title">ড্রপ বেকন</string>
     <string name="beacon_name_hint">নাম</string>
-    <string name="beacon_latitude_hint">অক্ষাংশ</string>
-    <string name="beacon_longitude_hint">দ্রাঘিমা</string>
     <string name="beacon_list_title">বীকন নির্বাচন করুন</string>
     <string name="dialog_ok">ঠিক আছে</string>
     <string name="delete_beacon">বীকন মুছুন</string>
     <string name="dialog_cancel">বাতিল</string>
-    <string name="action_astronomy">জ্যোতির্বিদ্যা</string>
+    <string name="astronomy">জ্যোতির্বিদ্যা</string>
     <string name="sunrise_label">সূর্যোদয়</string>
     <string name="sunset_label">সূর্যাস্ত</string>
     <string name="until_sunset_label">সূর্যাস্ত পর্যন্ত</string>
@@ -21,10 +19,7 @@
     <string name="pref_units_header">সাধারণ</string>
     <string name="pref_distance_units_title">দূরত্ব</string>
     <string name="pref_pressure_units_title">চাপ</string>
-    <string name="pref_navigation_header">ন্যাভিগেশন</string>
-    <string name="pref_weather_header">আবহাওয়া</string>
     <string name="pref_send_storm_alerts_title">ঝড় সতর্কতা</string>
-    <string name="pref_astronomy_header">জ্যোতির্বিদ্যা</string>
     <string name="pref_use_24_hour_title">24 ঘন্টা বিন্যাস ব্যবহার করুন</string>
     <string name="pref_sun_time_mode_title">সূর্যোদয় /সূর্যাস্তের সময়</string>
     <string name="weather_improving_fast">খুব শীঘ্রই উন্নতি হচ্ছে</string>
@@ -88,7 +83,6 @@
     <string name="sun_civil">সিভিল গোধূলি</string>
     <string name="sun_nautical">নটিকাল গোধূলি</string>
     <string name="sun_astronomical">জ্যোতির্বিজ্ঞান গোধূলি</string>
-    <string name="not_all_permissions_granted">সমস্ত অনুমতি দেওয়া হয়নি, কিছু বৈশিষ্ট্য ভঙ্গ হতে পারে</string>
     <string name="today">আজ</string>
     <string name="tomorrow">আগামীকাল</string>
     <string name="yesterday">গতকাল</string>

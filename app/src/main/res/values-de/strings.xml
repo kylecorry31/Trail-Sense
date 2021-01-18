@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_navigation">Navigation</string>
-    <string name="action_weather">Wetter</string>
-    <string name="action_settings">Einstellungen</string>
+    <string name="navigation">Navigation</string>
+    <string name="weather">Wetter</string>
+    <string name="settings">Einstellungen</string>
     <string name="create_beacon_title">Wegpunkt streichen</string>
     <string name="beacon_name_hint">Name</string>
-    <string name="beacon_latitude_hint">Breitengrad</string>
-    <string name="beacon_longitude_hint">Längengrad</string>
     <string name="beacon_list_title">Wegpunkt auswählen</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Wegpunkt löschen</string>
     <string name="dialog_cancel">Abbrechen</string>
-    <string name="action_astronomy">Astronomie</string>
+    <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Sonnenaufgang</string>
     <string name="sunset_label">Sonnenuntergang</string>
     <string name="until_sunset_label">bis Sonnenuntergang</string>
@@ -20,10 +18,7 @@
     <string name="pref_units_header">Allgemein</string>
     <string name="pref_distance_units_title">Entfernung</string>
     <string name="pref_pressure_units_title">Luftdruck</string>
-    <string name="pref_navigation_header">Navigation</string>
-    <string name="pref_weather_header">Wetter</string>
     <string name="pref_send_storm_alerts_title">Sturmwarnungen</string>
-    <string name="pref_astronomy_header">Astronomie</string>
     <string name="pref_use_24_hour_title">24 Stundenformat verwenden</string>
     <string name="pref_sun_time_mode_title">Sonnenaufgangs-/Sonnenuntergangszeiten</string>
     <string name="weather_improving_fast">Sehr bald Besserung</string>
@@ -82,7 +77,6 @@
     <string name="sun_civil">Bürgerliche Dämmerung</string>
     <string name="sun_nautical">Nautische Dämmerung</string>
     <string name="sun_astronomical">Astronomische Dämmerung</string>
-    <string name="not_all_permissions_granted">Nicht alle Berechtigungen sind gewährt, einige Funktionen können deaktiviert sein</string>
     <string name="today">Heute</string>
     <string name="tomorrow">Morgen</string>
     <string name="yesterday">Gestern</string>
@@ -123,8 +117,6 @@
     <string name="sunset_alert_channel_title">Sonnenuntergangsalarm</string>
     <string name="pref_sunset_alerts_title">Sonnenuntergangsalarme</string>
     <string name="pref_sunset_alert_time_title">Sonnenuntergang: Alarmzeit</string>
-    <string name="sun_altitude">Sonnenhöhe</string>
-    <string name="moon_altitude">Mondhöhe</string>
     <string name="moon_illumination">Mond: beleuchter Anteil</string>
     <string name="moon_phase">Mondphase</string>
     <string name="lunar_noon">Mondkulmination</string>
@@ -145,17 +137,15 @@
     <string name="tide_neap">Nippzeit</string>
     <string name="tide_spring">Springzeit</string>
     <string name="tide_normal">Mittzeit</string>
-    <string name="action_tools">Werkzeuge</string>
+    <string name="tools">Werkzeuge</string>
     <string name="disclaimer_message_title">Haftungsausschluss</string>
     <string name="accuracy_low">Niedrig</string>
     <string name="accuracy_medium">Mittel</string>
     <string name="accuracy_high">Hoch</string>
-    <string name="accuracy_unknown">Unbekannt</string>
+    <string name="unknown">Unbekannt</string>
     <string name="edit_beacon">Wegpunkt bearbeiten</string>
     <string name="share_action_send">Senden</string>
     <string name="share_action_copy">Kopieren</string>
-    <string name="share_action_copy_beacon">Wegpunkt kopieren</string>
-    <string name="share_action_copy_coordinates">Koordinaten kopieren</string>
     <string name="share_action_geo">Karten</string>
     <string name="beacon_invalid_name">Ungültiger Name</string>
     <string name="units_inhg_short">in</string>
@@ -171,7 +161,6 @@
     <string name="tap_to_turn_off">Tippen zum Abschalten</string>
     <string name="sos">SOS</string>
     <string name="eta">~ %s entfernt</string>
-    <string name="long_press_beacon_toast">Wegpunktmarkierung lang drücken um Optionen anzuzeigen.</string>
     <string name="beacon_invalid_elevation">Ungültige Höhenangabe</string>
     <string name="beacon_elevation_hint_feet">Höhe in Fuß (optional)</string>
     <string name="beacon_elevation_hint_meters">Höhe in Metern (optional)</string>
@@ -258,10 +247,6 @@
     <string name="altitude_override_updated_toast">Übergehung der Höhe aktualisiert</string>
     <string name="pref_altitude_override_title">Übergehung der Höhe</string>
     <string name="compass_accuracy_improved">Kompassgenauigkeit verbessert zu %s</string>
-    <string name="pref_latitude_override_title">Übergehen des Breitengrads</string>
-    <string name="pref_longitude_override_title">Übergehen des Längengrads</string>
-    <string name="fine_tune_using_barometer">Feinabstimmung unter Verwendung des Barometers</string>
-    <string name="pref_fine_tune_altitude_summary">Kleinere Höhenunterschiede werden erkannt</string>
     <string name="calibration_mode_barometer_alert_msg">Die Benutzung des Barometers als Höhenmesser kann die Genauigkeit der Wettervorhersage reduzieren.</string>
     <string name="add_elevation_offsets">Benutze Höhe über Meeresspiegel</string>
     <string name="pref_auto_location_title">Automatisches Anpassen des Ortes</string>
@@ -273,7 +258,6 @@
     <string name="pref_max_beacon_distance_miles_message">Geben Sie den maximal sichtbaren Wegmarkenradius ein (Meilen)</string>
     <string name="pref_max_beacon_distance_title">Nahegelegener Wegmarkenradius</string>
     <string name="pref_temperature_holder_title">Temperatur</string>
-    <string name="pref_temperature_adjustment_title">Temperaturanpassung</string>
     <string name="barometer_thermometer">Barometer und Thermometer</string>
     <string name="pref_altimeter_calibration_mode_title">Autokalibrierung</string>
     <string name="calibration_mode_barometer_alert_title">Barometer</string>
@@ -282,7 +266,6 @@
     <string name="altimeter_mode_barometer">Barometer</string>
     <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Geben Sie den aktuellen Luftdruck auf Meereshöhe in hPa ein</string>
-    <string name="gps_only_support_decimal_degree">Nur das Dezimalgradformat ist unterstützt (Bsp.: 0.0000)</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Rotieren Sie das Telefon mehrfach in Form einer 8, drücken Sie %s wenn beendet.
 \n
 \nDieser Hinweis kann in den Einstellungen deaktiviert werden.</string>
@@ -312,8 +295,6 @@
     <string name="edit_beacon_group">Gruppe editieren</string>
     <string name="delete_beacon_group_message">%s und alle Wegmarken werden gelöscht.</string>
     <string name="delete_beacon_group">Gruppe löschen</string>
-    <string name="sun_azimuth">Sonnenazimut</string>
-    <string name="moon_azimuth">Mondazimut</string>
     <string name="error_occurred_message">Trail Sense wird geschlossen, weil ein Fehler aufgetreten ist. Bitte senden Sie eine e-mail an den Entwickler um den Fehler zu beheben.</string>
     <string name="error_occurred">Ein Fehler ist aufgetreten</string>
     <string name="access_background_location">Standortseinstellungen aktualisieren</string>
@@ -363,13 +344,10 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">Vor dem Navigieren kalibrieren</string>
     <string name="pref_barometer_pressure_title">Luftdruck</string>
     <string name="pref_altitude_override_sea_level_title">Verwendung bekannten Luftdrucks auf Meereshöhe</string>
-    <string name="pref_auto_altitude_summary">Ausgehend von Ihrem aktuellen Standort</string>
     <string name="pref_altitude_offsets_summary">Korrigiert GPS-Höhe zu mittlerer Meereshöhe</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Geben sie den Luftdruck auf Meereshöhe ein</string>
     <string name="altitude_from_pressure">Überschreibung durch Barometer einstellen</string>
     <string name="altitude_from_gps">Überschreibung durch GPS einstellen</string>
-    <string name="auto_altitude">Automatische Höhenanpassung</string>
-    <string name="pref_gps_override_btn_title">Überschreibung durch GPS einstellen</string>
     <string name="compass_reported_accuracy">Festgestellte Genauigkeit: %s</string>
     <string name="compass_from_gps">Überschreibung durch GPS einstellen</string>
     <string name="pref_general_header">Allgemein</string>
@@ -406,7 +384,6 @@
     <string name="action_item_delete">Löschen</string>
     <string name="action_item_subtract">Abziehen</string>
     <string name="action_item_add">Hinzufügen</string>
-    <string name="action_blueprints">Blaupausen</string>
     <string name="action_inventory">Inventar</string>
     <string name="depth_meters_format">%.2f m</string>
     <string name="depth_feet_format">%.1f ft</string>
@@ -426,7 +403,6 @@
     <string name="cliff_height_guide_description">Wie man die Höhe einer Klippe oder eins Sprunges abschätzt</string>
     <string name="cliff_height_guide">Höhe einer Klippe abschätzen</string>
     <string name="tool_cliff_height_disclaimer">Nur wenn es sicher ist verwenden. Achten Sie darauf, zu überprüfen, was sich unterhalb der Klippe befindet, um Verletzungen zu vermeiden. Anweisungen hierzu finden Sie im Benutzerhandbuch.</string>
-    <string name="cliff_height_stop_measure">Stop</string>
     <string name="tool_cliff_height_description">Die Höhe einer Klippe oder eines Sprunges messen</string>
     <string name="tool_cliff_height_title">Höhe einer Klippe</string>
     <string name="object_height_guide_description">Wie man die Höhe von Objekten abschätzt</string>
@@ -441,13 +417,11 @@
     <string name="tool_depth_summary">Wassertiefe bestimmen</string>
     <string name="tool_depth_title">Tiefe</string>
     <string name="tool_inventory_summary">Den Überblick über vorhandene Gegenstände behalten</string>
-    <string name="category_navigation">Navigation</string>
     <string name="category_safety">Sicherheit</string>
     <string name="category_shelter">Unterstand</string>
     <string name="category_fire">Feuer</string>
     <string name="category_medical">Medizinisches Equipement</string>
     <string name="category_clothing">Kleidung</string>
-    <string name="category_tools">Werkzeuge</string>
     <string name="category_hydration">Trinken</string>
     <string name="category_food">Essen</string>
     <string name="category_other">Sonstiges</string>
@@ -499,7 +473,6 @@
     <string name="tool_category_angles">Neigung</string>
     <string name="tool_category_time">Zeit</string>
     <string name="battery_health">Zustand: %s</string>
-    <string name="battery_health_unknown">Unbekannt</string>
     <string name="battery_health_overheat">Überhitzt</string>
     <string name="battery_health_good">Gut</string>
     <string name="battery_health_dead">Kaputt</string>

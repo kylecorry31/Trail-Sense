@@ -2,9 +2,8 @@ package com.kylecorry.trail_sense.settings
 
 import android.os.Bundle
 import android.text.InputType
-import androidx.annotation.StringRes
 import androidx.core.content.edit
-import androidx.preference.*
+import androidx.preference.EditTextPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
