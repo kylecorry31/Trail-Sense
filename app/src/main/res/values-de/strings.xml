@@ -34,7 +34,7 @@
     <string name="onboarding_weather">Hyperlokale Wettervorhersagen abrufen</string>
     <string name="onboarding_weather_no_internet">* verwendet keine Internet-Verbindung</string>
     <string name="onboarding_astronomy">Wissen, wann die Sonne/Mond auf- und untergehen wird</string>
-    <string name="onboarding_background_location">Trail Sense benötigt Erlaubnis zur Verwendung Ihres Standortes</string>
+    <string name="onboarding_background_location">Trail Sense benötigt die Erlaubnis zur Verwendung Ihres Standortes</string>
     <string name="onboarding_location_weather">Ermöglicht genauere Wettervorhersagen (passt sich im Hintergrund der Höhe an)</string>
     <string name="onboarding_location_navigation">Erlaubt Ihnen die Navigation zu Wegpunkten</string>
     <string name="onboarding_location_astronomy">Erlaubt Ihnen, die Auf- und Untergangszeiten von Sonne und Mond zu sehen</string>
@@ -372,7 +372,7 @@
     <string name="storm_sensitivity_med_psi">Mittel (0.065 PSI / 3h)</string>
     <string name="storm_sensitivity_low_psi">Langsam (0.087 PSI / 3h)</string>
     <string name="pref_sea_level_use_rapid_summary">Verwende schnelle Luftdruckänderungen für die Umrechnung auf Meereshöhe</string>
-    <string name="pref_adjust_for_temperature_summary">Nutze die Temperatur zur Umrechnung auf Meereshöhe</string>
+    <string name="pref_adjust_for_temperature_summary">Verwende die Temperatur zur Umrechnung auf Meereshöhe</string>
     <string name="tool_bubble_level_title">Libelle</string>
     <string name="edit_item_title">Gegenstand editieren</string>
     <string name="create_item_title">Gegenstand erstellen</string>
@@ -537,4 +537,6 @@
     <string name="pref_sea_level_pressure_change_thresh_title">Schwellwert für Druckänderung</string>
     <string name="pref_barometer_altitude_change_title">Schwellwert für Höhenänderung</string>
     <string name="charging_fast">Batterie lädt schnell(%s)</string>
+    <string name="discharging_fast">Schnelle Entladung (%s)</string>
+    <string name="discharging_slow">Langsame Entladung (%s)</string>
 </resources>
