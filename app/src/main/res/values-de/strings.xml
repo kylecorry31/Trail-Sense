@@ -578,4 +578,5 @@
     <string name="centimeters_format">%.2f cm</string>
     <string name="inches_format">%.2f in</string>
     <string name="precise_nautical_miles_format">%s sm</string>
+    <string name="charging_slow">Batterie lädt langsam (%s)</string>
 </resources>
