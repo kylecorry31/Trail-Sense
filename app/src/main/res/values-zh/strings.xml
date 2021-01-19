@@ -564,15 +564,7 @@
     <string name="coordinate_format_degrees_decimal_minutes">度十进制分</string>
     <string name="pref_gps_override_title">位置覆盖</string>
     <string name="coordinate_input_invalid_location">无效位置</string>
-    <string name="location_input_help">十进制度数 (如， 1.00, -2.00)
-\n
-\n度十进制分 (如， 1°23.12\'N, 3°12.1\'W)
-\n
-\n度分秒 (如， 1°23\'12.1\"N, 3°12\"1.2\'W)
-\n
-\nUTM (如， 03T 12345E 67890N)
-\n
-\nMGRS (ex. 27PXM 09601 05579)</string>
+    <string name="location_input_help">十进制度数 (如， 1.00, -2.00)，度十进制分 (如， 1°23.12\'N, 3°12.1\'W)，度分秒 (如， 1°23\'12.1\"N, 3°12\"1.2\'W)，UTM (如， 03T 12345E 67890N)，MGRS (如， 27PXM 09601 05579)</string>
     <string name="location_input_help_title">支持的位置格式</string>
     <string name="location_input_hint">位置</string>
     <string name="utm_hint_band">纬度带</string>
@@ -584,4 +576,16 @@
     <string name="guide_thermometer_calibration_title">温度计校正</string>
     <string name="delete_waypoint_prompt">删除路径点？</string>
     <string name="tool_coordinate_convert_title">坐标转换器</string>
+    <string name="pref_run_backtrack_when_low_battery_title">当电量低时运行</string>
+    <string name="pref_run_backtrack_when_low_battery">pref_run_backtrack_when_low_battery</string>
+    <string name="low_power_mode_on_message">已开启省电模式，一些功能可能被禁用。</string>
+    <string name="pref_low_power_mode_title">省电模式</string>
+    <string name="guide_barometer_calibration_description">如何把你的气压计校准到海平面</string>
+    <string name="guide_barometer_calibration_title">气压计校准</string>
+    <string name="guide_backtrack_description">如何使用 Backtrack</string>
+    <string name="charging_wireless">充电中 （%s）</string>
+    <string name="battery_power_wireless">无线</string>
+    <string name="battery_power_usb">USB</string>
+    <string name="battery_power_ac">交流电</string>
+    <string name="coordinate_format_mgrs">MGRS（军事格网参考系）坐标</string>
 </resources>
