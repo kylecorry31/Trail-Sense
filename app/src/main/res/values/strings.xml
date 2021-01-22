@@ -745,4 +745,7 @@
     <string name="low_power_mode_on_message">Power saving mode on, some features may be disabled.</string>
     <string name="pref_run_backtrack_when_low_battery">pref_run_backtrack_when_low_battery</string>
     <string name="pref_run_backtrack_when_low_battery_title">Run when battery is low</string>
+    <string name="notes_unsaved_changes">Unsaved Changes</string>
+    <string name="notes_unsaved_changes_message">Changes you made will not be saved.</string>
+    <string name="dialog_leave">Leave</string>
 </resources>

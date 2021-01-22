@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
+import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -22,6 +23,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -99,11 +101,11 @@ class BeaconListFragment : Fragment() {
                         ) { cancelled, text ->
                             if (!cancelled) {
                                 lifecycleScope.launch {
-                                    withContext(Dispatchers.IO){
+                                    withContext(Dispatchers.IO) {
                                         beaconRepo.addBeaconGroup(BeaconGroupEntity(text ?: ""))
                                     }
 
-                                    withContext(Dispatchers.Main){
+                                    withContext(Dispatchers.Main) {
                                         updateBeaconList()
                                     }
                                 }
@@ -118,18 +120,18 @@ class BeaconListFragment : Fragment() {
             }
         }
 
-        view.isFocusableInTouchMode = true
-        view.requestFocus()
-        view.setOnKeyListener { _, keyCode, _ ->
-            if (keyCode == KeyEvent.KEYCODE_BACK && displayedGroup != null) {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if (displayedGroup != null) {
                 displayedGroup = null
                 lifecycleScope.launch {
                     withContext(Dispatchers.Main) {
                         updateBeaconList()
                     }
                 }
-                true
-            } else false
+            } else {
+                remove()
+                requireActivity().onBackPressed()
+            }
         }
     }
 
@@ -216,10 +218,16 @@ class BeaconListFragment : Fragment() {
                 ) { cancelled, text ->
                     if (!cancelled) {
                         lifecycleScope.launch {
-                            withContext(Dispatchers.IO){
-                                beaconRepo.addBeaconGroup(BeaconGroupEntity.from(beacon.copy(name = text ?: "")))
+                            withContext(Dispatchers.IO) {
+                                beaconRepo.addBeaconGroup(
+                                    BeaconGroupEntity.from(
+                                        beacon.copy(
+                                            name = text ?: ""
+                                        )
+                                    )
+                                )
                             }
-                            withContext(Dispatchers.Main){
+                            withContext(Dispatchers.Main) {
                                 updateBeaconList()
                             }
                         }
