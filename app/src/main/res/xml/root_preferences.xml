@@ -53,11 +53,21 @@
             app:singleLineTitle="false"
             app:title="@string/pref_use_24_hour_title" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_low_power_mode"
+            app:disableDependentsState="true"
+            android:summary="@string/pref_low_power_mode_summary"
+            app:singleLineTitle="false"
+            app:title="@string/pref_low_power_mode_title" />
+
         <ListPreference
             app:defaultValue="system"
             app:entries="@array/theme_entries"
             app:entryValues="@array/theme_values"
             app:iconSpaceReserved="false"
+            android:dependency="@string/pref_low_power_mode"
             app:key="@string/pref_theme"
             app:singleLineTitle="false"
             app:title="@string/pref_theme_title"

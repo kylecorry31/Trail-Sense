@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
@@ -101,6 +102,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
             preferenceScreen.findPreference(getString(R.string.pref_open_source_licenses)),
             R.id.action_action_settings_to_licenseFragment
         )
+
+        onClick(switch(R.string.pref_low_power_mode)){
+            if (prefs.isLowPowerModeOn){
+                LowPowerMode(requireContext()).enable(requireActivity())
+            } else {
+                LowPowerMode(requireContext()).disable(requireActivity())
+            }
+        }
 
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_github))
             ?.setOnPreferenceClickListener {

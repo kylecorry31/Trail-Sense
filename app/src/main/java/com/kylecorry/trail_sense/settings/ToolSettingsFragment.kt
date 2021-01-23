@@ -14,7 +14,10 @@ class ToolSettingsFragment : CustomPreferenceFragment() {
         val userPrefs = UserPreferences(requireContext())
         prefs = userPrefs
 
-        switch(R.string.pref_backtrack_enabled)?.setOnPreferenceClickListener {
+        val backtrackPref = switch(R.string.pref_backtrack_enabled)
+        backtrackPref?.isEnabled = !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)
+
+        backtrackPref?.setOnPreferenceClickListener {
             if (prefs.backtrackEnabled) {
                 BacktrackScheduler.start(requireContext())
             } else {

@@ -22,7 +22,7 @@ class QuickActionBacktrack(btn: FloatingActionButton, fragment: Fragment) :
     private fun update() {
         UiUtils.setButtonState(
             button,
-            prefs.backtrackEnabled,
+            prefs.backtrackEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack),
             UiUtils.color(context, R.color.colorPrimary),
             UiUtils.color(context, R.color.colorSecondary)
         )

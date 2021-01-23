@@ -149,23 +149,26 @@ class FragmentBacktrack : Fragment() {
         }
 
         wasEnabled = prefs.backtrackEnabled
-        if (wasEnabled) {
+        if (wasEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)) {
             binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)
         } else {
             binding.startBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24)
         }
 
         binding.startBtn.setOnClickListener {
-            prefs.backtrackEnabled = !wasEnabled
-            if (!wasEnabled) {
-                binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)
-                BacktrackScheduler.start(requireContext())
+            if (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack){
+                UiUtils.shortToast(requireContext(), getString(R.string.backtrack_disabled_low_power_toast))
             } else {
-                binding.startBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-                BacktrackScheduler.stop(requireContext())
+                prefs.backtrackEnabled = !wasEnabled
+                if (!wasEnabled) {
+                    binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)
+                    BacktrackScheduler.start(requireContext())
+                } else {
+                    binding.startBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+                    BacktrackScheduler.stop(requireContext())
+                }
+                wasEnabled = !wasEnabled
             }
-
-            wasEnabled = !wasEnabled
         }
     }
 

@@ -34,6 +34,7 @@ class WeatherSettingsFragment : CustomPreferenceFragment() {
         prefs = userPrefs
         bindPreferences()
 
+        prefMonitorWeather?.isEnabled = !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesWeather)
         prefMonitorWeather?.setOnPreferenceClickListener {
             if (prefs.weather.shouldMonitorWeather) {
                 WeatherUpdateScheduler.start(requireContext())
