@@ -2,8 +2,6 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.hardware.SensorManager
-import androidx.core.content.edit
-import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
@@ -12,11 +10,12 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import java.time.Duration
 
 class UserPreferences(private val context: Context) {
 
-    private val prefs by lazy { PreferenceManager.getDefaultSharedPreferences(context) }
+    private val cache by lazy { Cache(context) }
     private val sensorChecker by lazy { SensorChecker(context) }
 
     val navigation by lazy { NavigationPreferences(context) }
@@ -26,15 +25,13 @@ class UserPreferences(private val context: Context) {
     val distanceUnits: DistanceUnits
         get() {
             val rawUnits =
-                prefs.getString(context.getString(R.string.pref_distance_units), "meters")
-                    ?: "meters"
+                cache.getString(context.getString(R.string.pref_distance_units)) ?: "meters"
             return if (rawUnits == "meters") DistanceUnits.Meters else DistanceUnits.Feet
         }
 
     val pressureUnits: PressureUnits
         get() {
-            return when (prefs.getString(context.getString(R.string.pref_pressure_units), "hpa")) {
-                "hpa" -> PressureUnits.Hpa
+            return when (cache.getString(context.getString(R.string.pref_pressure_units))) {
                 "in" -> PressureUnits.Inhg
                 "mbar" -> PressureUnits.Mbar
                 "psi" -> PressureUnits.Psi
@@ -44,7 +41,7 @@ class UserPreferences(private val context: Context) {
 
     val temperatureUnits: TemperatureUnits
         get() {
-            return when (prefs.getString(getString(R.string.pref_temperature_units), "c")) {
+            return when (cache.getString(getString(R.string.pref_temperature_units))) {
                 "f" -> TemperatureUnits.F
                 else -> TemperatureUnits.C
             }
@@ -54,15 +51,15 @@ class UserPreferences(private val context: Context) {
         get() = sensorChecker.hasGPS()
 
     val use24HourTime: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_use_24_hour), false)
+        get() = cache.getBoolean(context.getString(R.string.pref_use_24_hour)) ?: false
 
     val theme: Theme
         get() {
-            if (isLowPowerModeOn){
+            if (isLowPowerModeOn) {
                 return Theme.Black
             }
 
-            return when (prefs.getString(context.getString(R.string.pref_theme), "system")) {
+            return when (cache.getString(context.getString(R.string.pref_theme))) {
                 "light" -> Theme.Light
                 "dark" -> Theme.Dark
                 "black" -> Theme.Black
@@ -71,33 +68,30 @@ class UserPreferences(private val context: Context) {
         }
 
     val experimentalEnabled: Boolean
-        get() = prefs.getBoolean(getString(R.string.pref_enable_experimental), false)
+        get() = cache.getBoolean(getString(R.string.pref_enable_experimental)) ?: false
 
     // Calibration
 
     var useAutoDeclination: Boolean
-        get() = prefs.getBoolean(getString(R.string.pref_auto_declination), true)
-        set(value) = prefs.edit { putBoolean(getString(R.string.pref_auto_declination), value) }
+        get() = cache.getBoolean(getString(R.string.pref_auto_declination)) ?: true
+        set(value) = cache.putBoolean(getString(R.string.pref_auto_declination), value)
 
     var declinationOverride: Float
-        get() = prefs.getString(getString(R.string.pref_declination_override), "0.0")
-            ?.toFloatOrNull() ?: 0.0f
-        set(value) = prefs.edit {
-            putString(
-                getString(R.string.pref_declination_override),
-                value.toString()
-            )
-        }
+        get() = (cache.getString(getString(R.string.pref_declination_override))
+            ?: "0.0").toFloatOrNull() ?: 0.0f
+        set(value) = cache.putString(
+            getString(R.string.pref_declination_override),
+            value.toString()
+        )
 
     var useAutoLocation: Boolean
-        get() = prefs.getBoolean(getString(R.string.pref_auto_location), true)
-        set(value) = prefs.edit { putBoolean(getString(R.string.pref_auto_location), value) }
+        get() = cache.getBoolean(getString(R.string.pref_auto_location)) ?: true
+        set(value) = cache.putBoolean(getString(R.string.pref_auto_location), value)
 
     var locationOverride: Coordinate
         get() {
-            val latStr = prefs.getString(getString(R.string.pref_latitude_override), "0.0") ?: "0.0"
-            val lngStr =
-                prefs.getString(getString(R.string.pref_longitude_override), "0.0") ?: "0.0"
+            val latStr = cache.getString(getString(R.string.pref_latitude_override)) ?: "0.0"
+            val lngStr = cache.getString(getString(R.string.pref_longitude_override)) ?: "0.0"
 
             val lat = latStr.toDoubleOrNull() ?: 0.0
             val lng = lngStr.toDoubleOrNull() ?: 0.0
@@ -105,25 +99,18 @@ class UserPreferences(private val context: Context) {
             return Coordinate(lat, lng)
         }
         set(value) {
-            prefs.edit {
-                putString(getString(R.string.pref_latitude_override), value.latitude.toString())
-                putString(getString(R.string.pref_longitude_override), value.longitude.toString())
-            }
+            cache.putString(getString(R.string.pref_latitude_override), value.latitude.toString())
+            cache.putString(getString(R.string.pref_longitude_override), value.longitude.toString())
         }
 
     var altitudeOverride: Float
-        get() = (prefs.getString(getString(R.string.pref_altitude_override), "0.0")
+        get() = (cache.getString(getString(R.string.pref_altitude_override))
             ?: "0.0").toFloatOrNull() ?: 0.0f
-        set(value) = prefs.edit {
-            putString(
-                getString(R.string.pref_altitude_override),
-                value.toString()
-            )
-        }
+        set(value) = cache.putString(getString(R.string.pref_altitude_override), value.toString())
 
     val altimeterMode: AltimeterMode
         get() {
-            var raw = prefs.getString(getString(R.string.pref_altimeter_calibration_mode), null)
+            var raw = cache.getString(getString(R.string.pref_altimeter_calibration_mode))
 
             if (raw == null) {
                 if (useAutoAltitude && useFineTuneAltitude && weather.hasBarometer) {
@@ -143,57 +130,48 @@ class UserPreferences(private val context: Context) {
         }
 
     var seaLevelPressureOverride: Float
-        get() = prefs.getFloat(
+        get() = cache.getFloat(
+            getString(R.string.pref_sea_level_pressure_override)
+        ) ?: SensorManager.PRESSURE_STANDARD_ATMOSPHERE
+        set(value) = cache.putFloat(
             getString(R.string.pref_sea_level_pressure_override),
-            SensorManager.PRESSURE_STANDARD_ATMOSPHERE
+            value
         )
-        set(value) = prefs.edit {
-            putFloat(
-                getString(R.string.pref_sea_level_pressure_override),
-                value
-            )
-        }
 
     private var useAutoAltitude: Boolean
-        get() = prefs.getBoolean(getString(R.string.pref_auto_altitude), true)
-        set(value) = prefs.edit { putBoolean(getString(R.string.pref_auto_altitude), value) }
+        get() = cache.getBoolean(getString(R.string.pref_auto_altitude)) ?: true
+        set(value) = cache.putBoolean(getString(R.string.pref_auto_altitude), value)
 
     private var useFineTuneAltitude: Boolean
-        get() = prefs.getBoolean(getString(R.string.pref_fine_tune_altitude), true)
-        set(value) = prefs.edit { putBoolean(getString(R.string.pref_fine_tune_altitude), value) }
+        get() = cache.getBoolean(getString(R.string.pref_fine_tune_altitude)) ?: true
+        set(value) = cache.putBoolean(getString(R.string.pref_fine_tune_altitude), value)
 
     var useAltitudeOffsets: Boolean
-        get() = prefs.getBoolean(getString(R.string.pref_altitude_offsets), true)
-        set(value) = prefs.edit { putBoolean(getString(R.string.pref_altitude_offsets), value) }
+        get() = cache.getBoolean(getString(R.string.pref_altitude_offsets)) ?: true
+        set(value) = cache.putBoolean(getString(R.string.pref_altitude_offsets), value)
 
     var backtrackEnabled: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_backtrack_enabled), false)
-        set(value) = prefs.edit {
-            putBoolean(
-                context.getString(R.string.pref_backtrack_enabled),
-                value
-            )
-        }
+        get() = cache.getBoolean(context.getString(R.string.pref_backtrack_enabled)) ?: false
+        set(value) = cache.putBoolean(
+            context.getString(R.string.pref_backtrack_enabled),
+            value
+        )
 
     val backtrackRecordFrequency: Duration
         get() {
-            val raw = prefs.getString(getString(R.string.pref_backtrack_frequency), null) ?: "30"
+            val raw = cache.getString(getString(R.string.pref_backtrack_frequency)) ?: "30"
             return Duration.ofMinutes(raw.toLongOrNull() ?: 30L)
         }
 
     var isLowPowerModeOn: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_low_power_mode), false)
-        set(value) {
-            prefs.edit {
-                putBoolean(context.getString(R.string.pref_low_power_mode), value)
-            }
-        }
+        get() = cache.getBoolean(context.getString(R.string.pref_low_power_mode)) ?: false
+        set(value) = cache.putBoolean(context.getString(R.string.pref_low_power_mode), value)
 
     val lowPowerModeDisablesWeather: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_low_power_mode_weather), true)
+        get() = cache.getBoolean(context.getString(R.string.pref_low_power_mode_weather)) ?: true
 
     val lowPowerModeDisablesBacktrack: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_low_power_mode_backtrack), true)
+        get() = cache.getBoolean(context.getString(R.string.pref_low_power_mode_backtrack)) ?: true
 
     private fun getString(id: Int): String {
         return context.getString(id)

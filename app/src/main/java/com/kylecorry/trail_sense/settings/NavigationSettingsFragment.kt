@@ -2,13 +2,13 @@ package com.kylecorry.trail_sense.settings
 
 import android.os.Bundle
 import android.text.InputType
-import androidx.core.content.edit
 import androidx.preference.EditTextPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 
 class NavigationSettingsFragment : CustomPreferenceFragment() {
 
@@ -18,6 +18,7 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
     private val formatService by lazy { FormatService(requireContext()) }
 
     private lateinit var prefs: UserPreferences
+    private val cache by lazy { Cache(requireContext()) }
 
     private fun bindPreferences() {
         prefMaxBeaconDistanceKm = editText(R.string.pref_max_beacon_distance)
@@ -84,13 +85,11 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
 
         prefMaxBeaconDistanceKm?.setOnPreferenceChangeListener { _, newValue ->
             val km = newValue.toString().toFloatOrNull() ?: 100f
-            preferenceManager.sharedPreferences.edit {
-                putString(
-                    getString(R.string.pref_max_beacon_distance_miles),
-                    unitService.convert(km, DistanceUnits.Kilometers, DistanceUnits.Miles)
-                        .toString()
-                )
-            }
+            cache.putString(
+                getString(R.string.pref_max_beacon_distance_miles),
+                unitService.convert(km, DistanceUnits.Kilometers, DistanceUnits.Miles)
+                    .toString()
+            )
             prefMaxBeaconDistanceMi?.summary = formatService.formatDistance(
                 unitService.convert(
                     km,

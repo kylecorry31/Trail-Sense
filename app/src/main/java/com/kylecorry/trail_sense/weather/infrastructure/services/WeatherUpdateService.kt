@@ -12,9 +12,7 @@ import android.os.PowerManager
 import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
-import androidx.core.content.edit
 import androidx.core.content.getSystemService
-import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.PowerUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -26,6 +24,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationServi
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.Weather
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
@@ -106,7 +105,6 @@ class WeatherUpdateService : Service() {
     }
 
 
-
     private fun scheduleNextUpdate() {
         val scheduler = WeatherUpdateScheduler.getScheduler(applicationContext)
         scheduler.cancel()
@@ -135,9 +133,10 @@ class WeatherUpdateService : Service() {
 
     private fun sendWeatherNotification() {
         runBlocking {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 val readings = weatherService.convertToSeaLevel(
-                    pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }.sortedBy { it.time },
+                    pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }
+                        .sortedBy { it.time },
                     userPrefs.weather.requireDwell,
                     userPrefs.weather.maxNonTravellingAltitudeChange,
                     userPrefs.weather.maxNonTravellingPressureChange
@@ -240,16 +239,15 @@ class WeatherUpdateService : Service() {
         runBlocking {
             withContext(Dispatchers.IO) {
                 createNotificationChannel()
-                val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+                val cache = Cache(applicationContext)
                 val sentAlert =
-                    prefs.getBoolean(
-                        applicationContext.getString(R.string.pref_just_sent_alert),
-                        false
-                    )
+                    cache.getBoolean(applicationContext.getString(R.string.pref_just_sent_alert))
+                        ?: false
 
 
                 val readings =
-                    pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }.sortedBy { it.time }
+                    pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }
+                        .sortedBy { it.time }
                 val forecast = weatherService.getHourlyWeather(
                     weatherService.convertToSeaLevel(
                         readings,
@@ -276,21 +274,17 @@ class WeatherUpdateService : Service() {
                             notification
                         )
 
-                        prefs.edit {
-                            putBoolean(
-                                applicationContext.getString(R.string.pref_just_sent_alert),
-                                true
-                            )
-                        }
+                        cache.putBoolean(
+                            applicationContext.getString(R.string.pref_just_sent_alert),
+                            true
+                        )
                     }
                 } else {
                     NotificationUtils.cancel(applicationContext, STORM_ALERT_NOTIFICATION_ID)
-                    prefs.edit {
-                        putBoolean(
-                            applicationContext.getString(R.string.pref_just_sent_alert),
-                            false
-                        )
-                    }
+                    cache.putBoolean(
+                        applicationContext.getString(R.string.pref_just_sent_alert),
+                        false
+                    )
                 }
             }
         }

@@ -1,8 +1,6 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
-import androidx.core.content.edit
-import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -12,7 +10,6 @@ import java.time.Instant
 
 class WeatherPreferences(private val context: Context) {
 
-    private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
     private val sensorChecker = SensorChecker(context)
     private val cache = Cache(context)
 
@@ -20,46 +17,39 @@ class WeatherPreferences(private val context: Context) {
         get() = sensorChecker.hasBarometer()
 
     val shouldMonitorWeather: Boolean
-        get() = sensorChecker.hasBarometer() && prefs.getBoolean(
-            context.getString(R.string.pref_monitor_weather),
-            true
-        )
+        get() = sensorChecker.hasBarometer() && (cache.getBoolean(context.getString(R.string.pref_monitor_weather)) ?: true)
 
     val weatherUpdateFrequency: Duration
         get() {
-            val raw =
-                prefs.getString(context.getString(R.string.pref_weather_update_frequency), null)
-                    ?: "15"
+            val raw = cache.getString(context.getString(R.string.pref_weather_update_frequency)) ?: "15"
             return Duration.ofMinutes(raw.toLongOrNull() ?: 15)
         }
 
     val shouldShowWeatherNotification: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_show_weather_notification), true)
+        get() = cache.getBoolean(context.getString(R.string.pref_show_weather_notification)) ?: true
 
     val shouldShowPressureInNotification: Boolean
-        get() = prefs.getBoolean(
-            context.getString(R.string.pref_show_pressure_in_notification),
+        get() = cache.getBoolean(
+            context.getString(R.string.pref_show_pressure_in_notification)) ?:
             false
-        )
 
     val useSeaLevelPressure: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_use_sea_level_pressure), true)
+        get() = cache.getBoolean(context.getString(R.string.pref_use_sea_level_pressure)) ?: true
 
     val seaLevelFactorInTemp: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_adjust_for_temperature), false)
+        get() = cache.getBoolean(context.getString(R.string.pref_adjust_for_temperature)) ?: false
 
     val seaLevelFactorInRapidChanges: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_sea_level_use_rapid), true)
+        get() = cache.getBoolean(context.getString(R.string.pref_sea_level_use_rapid)) ?: true
 
     val pressureHistory: Duration
         get() {
-            val raw =
-                prefs.getString(context.getString(R.string.pref_pressure_history), "48") ?: "48"
+            val raw = cache.getString(context.getString(R.string.pref_pressure_history)) ?: "48"
             return Duration.ofHours(raw.toLong())
         }
 
     val requireDwell: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_sea_level_require_dwell), false)
+        get() = cache.getBoolean(context.getString(R.string.pref_sea_level_require_dwell)) ?: false
 
     val maxNonTravellingAltitudeChange: Float
         get() = cache.getInt(context.getString(R.string.pref_barometer_altitude_change))?.toFloat() ?: 60f
@@ -68,29 +58,23 @@ class WeatherPreferences(private val context: Context) {
         get() = 20 * (cache.getInt(context.getString(R.string.pref_sea_level_pressure_change_thresh))?.toFloat() ?: 50f) / 200f
 
     val sendStormAlerts: Boolean
-        get() = prefs.getBoolean(context.getString(R.string.pref_send_storm_alert), true)
+        get() = cache.getBoolean(context.getString(R.string.pref_send_storm_alert)) ?: true
 
     val dailyForecastChangeThreshold: Float
         get() {
-            return when (prefs.getString(
-                context.getString(R.string.pref_forecast_sensitivity),
-                "medium"
-            ) ?: "medium") {
+            return when (cache.getString(context.getString(R.string.pref_forecast_sensitivity))) {
                 "low" -> 0.75f
-                "medium" -> 0.5f
-                else -> 0.3f
+                "high" -> 0.3f
+                else -> 0.5f
             }
         }
 
     val hourlyForecastChangeThreshold: Float
         get() {
-            return when (prefs.getString(
-                context.getString(R.string.pref_forecast_sensitivity),
-                "medium"
-            ) ?: "medium") {
+            return when (cache.getString(context.getString(R.string.pref_forecast_sensitivity))) {
                 "low" -> 2.5f
-                "medium" -> 1.5f
-                else -> 0.5f
+                "high" -> 0.5f
+                else -> 1.5f
             }
         }
 
@@ -100,13 +84,10 @@ class WeatherPreferences(private val context: Context) {
                 return -4.5f
             }
 
-            return when (prefs.getString(
-                context.getString(R.string.pref_storm_alert_sensitivity),
-                "medium"
-            ) ?: "medium") {
+            return when (cache.getString(context.getString(R.string.pref_storm_alert_sensitivity))) {
                 "low" -> -6f
-                "medium" -> -4.5f
-                else -> -3f
+                "high" -> -3f
+                else -> -4.5f
             }
         }
 

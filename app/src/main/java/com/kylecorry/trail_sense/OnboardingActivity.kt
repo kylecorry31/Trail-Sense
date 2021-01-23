@@ -1,20 +1,18 @@
 package com.kylecorry.trail_sense
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
-import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.doTransaction
 
 
 class OnboardingActivity : AppCompatActivity() {
 
-    private lateinit var prefs: SharedPreferences
+    private val cache by lazy { Cache(this) }
 
     private val pages = listOf(
         R.layout.fragment_onboarding_navigation,
@@ -33,8 +31,6 @@ class OnboardingActivity : AppCompatActivity() {
 
         val hasBarometer = SensorChecker(this).hasBarometer()
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this)
-
         switchFragment(pages[pageIdx])
 
         binding.nextButton.setOnClickListener {
@@ -52,9 +48,7 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun navigateToApp() {
-        prefs.edit {
-            putBoolean(getString(R.string.pref_onboarding_completed), true)
-        }
+        cache.putBoolean(getString(R.string.pref_onboarding_completed), true)
         startActivity(Intent(this, MainActivity::class.java))
     }
 

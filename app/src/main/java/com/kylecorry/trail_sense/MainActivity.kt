@@ -14,7 +14,6 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
@@ -92,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         disclaimer = DisclaimerMessage(this)
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val cache = Cache(this)
 
         setContentView(R.layout.activity_main)
         navController =
@@ -106,7 +105,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        if (!prefs.getBoolean(getString(R.string.pref_onboarding_completed), false)) {
+        if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
             startActivity(Intent(this, OnboardingActivity::class.java))
             finish()
             return

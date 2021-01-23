@@ -1,24 +1,25 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
-import androidx.core.content.edit
-import androidx.preference.PreferenceManager
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class DisclaimerMessage(private val context: Context) {
 
+    private val cache by lazy { Cache(context) }
+
     fun shouldShow(): Boolean {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        return prefs.getBoolean(PREF_KEY, true)
+        return cache.getBoolean(PREF_KEY) ?: true
     }
 
     fun show() {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        prefs.edit { putBoolean(PREF_KEY, false) }
-
-        UiUtils.alert(context, context.getString(R.string.disclaimer_message_title), context.getString(
-                    R.string.disclaimer_message_content), R.string.dialog_ok)
+        cache.putBoolean(PREF_KEY, false)
+        UiUtils.alert(
+            context, context.getString(R.string.disclaimer_message_title), context.getString(
+                R.string.disclaimer_message_content
+            ), R.string.dialog_ok
+        )
     }
 
 

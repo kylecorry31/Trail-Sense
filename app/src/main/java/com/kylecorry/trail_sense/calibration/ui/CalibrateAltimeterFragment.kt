@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.calibration.ui
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.text.InputType
-import androidx.core.content.edit
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
@@ -12,6 +11,7 @@ import com.kylecorry.trail_sense.shared.roundPlaces
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
@@ -44,6 +44,8 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
     private val intervalometer = Intervalometer(this::updateAltitude)
 
     private var seaLevelPressure = SensorManager.PRESSURE_STANDARD_ATMOSPHERE
+
+    private val cache by lazy { Cache(requireContext()) }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.altimeter_calibration, rootKey)
@@ -142,15 +144,13 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
 
         if (altitudeOverrideEdit.isEnabled) {
             altitudeOverrideEdit.setOnPreferenceChangeListener { _, newValue ->
-                preferenceManager.sharedPreferences.edit {
-                    putString(
-                        "pref_altitude_override_feet",
-                        LocationMath.convertToBaseUnit(
-                            newValue.toString().toFloatOrNull() ?: 0f,
-                            UserPreferences.DistanceUnits.Feet
-                        ).toString()
-                    )
-                }
+                cache.putString(
+                    "pref_altitude_override_feet",
+                    LocationMath.convertToBaseUnit(
+                        newValue.toString().toFloatOrNull() ?: 0f,
+                        UserPreferences.DistanceUnits.Feet
+                    ).toString()
+                )
                 updateAltitude()
                 true
             }
@@ -222,15 +222,13 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
     private fun onElevationFromGPSCallback(): Boolean {
         val elevation = gps.altitude
         prefs.altitudeOverride = elevation
-        preferenceManager.sharedPreferences.edit {
-            putString(
-                getString(R.string.pref_altitude_override_feet),
-                LocationMath.convertToBaseUnit(
-                    prefs.altitudeOverride,
-                    UserPreferences.DistanceUnits.Feet
-                ).toString()
-            )
-        }
+        cache.putString(
+            getString(R.string.pref_altitude_override_feet),
+            LocationMath.convertToBaseUnit(
+                prefs.altitudeOverride,
+                UserPreferences.DistanceUnits.Feet
+            ).toString()
+        )
         updateSeaLevelPressureOverride()
         updateAltitude()
         UiUtils.shortToast(requireContext(), getString(R.string.altitude_override_updated_toast))
@@ -281,15 +279,13 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
     private fun onElevationFromBarometerCallback(): Boolean {
         val elevation = SensorManager.getAltitude(seaLevelPressure, barometer.pressure)
         prefs.altitudeOverride = elevation
-        preferenceManager.sharedPreferences.edit {
-            putString(
+        cache.putString(
                 getString(R.string.pref_altitude_override_feet),
                 LocationMath.convertToBaseUnit(
                     prefs.altitudeOverride,
                     UserPreferences.DistanceUnits.Feet
                 ).toString()
             )
-        }
         updateSeaLevelPressureOverride()
         updateAltitude()
         UiUtils.shortToast(requireContext(), getString(R.string.altitude_override_updated_toast))
