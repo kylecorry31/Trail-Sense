@@ -10,6 +10,7 @@ class BeaconGeoSender(private val context: Context): IBeaconSender {
 
     override fun send(beacon: Beacon) {
         val intent = IntentUtils.geo(beacon.coordinate)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         val chooser = Intent.createChooser(intent, context.getString(R.string.open_beacon_in_maps))
         if (intent.resolveActivity(context.packageManager) != null) {
             context.startActivity(chooser)
