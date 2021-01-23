@@ -417,8 +417,6 @@
     <string name="sun_moon_compass_never">从不</string>
     <string name="sun_moon_compass_always">始终</string>
     <string name="pref_weather_update_frequency_title">天气更新频率</string>
-    <string name="pref_weather_foreground_service_summary">可能减少错过的更新</string>
-    <string name="pref_weather_foreground_service_title">前台更新天气</string>
     <string name="pref_show_pressure_in_notification_title">在通知中显示气压</string>
     <string name="pref_show_weather_notification_title">显示天气通知</string>
     <string name="storm_sensitivity_high_in">高 （0089 英寸 / 3h）</string>
@@ -445,8 +443,6 @@
     <string name="forecast_sensitivity_high_hpa">高 （0.5 百帕 / 3h）</string>
     <string name="forecast_sensitivity_med_hpa">中等 （1.5 百帕 / 3h）</string>
     <string name="forecast_sensitivity_low_hpa">低 （2.5 百帕 / 3h）</string>
-    <string name="pref_force_weather_updates_summary">空闲时唤醒设备，可能影响电池</string>
-    <string name="pref_force_weather_updates_title">强制天气更新</string>
     <string name="pref_forecast_sensitivity_title">预报敏感度</string>
     <string name="pref_monitor_weather_title">监测天气</string>
     <string name="pref_monitor_weather_summary">在后台</string>

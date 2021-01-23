@@ -340,8 +340,6 @@
     <string name="pref_monitor_weather_summary">In the background</string>
     <string name="pref_monitor_weather_title">Monitor weather</string>
     <string name="pref_forecast_sensitivity_title">Forecast sensitivity</string>
-    <string name="pref_force_weather_updates_title">Force weather updates</string>
-    <string name="pref_force_weather_updates_summary">Wakes device while idle, may impact battery</string>
     <string name="forecast_sensitivity_low_hpa">Low (2.5 hPa / 3h)</string>
     <string name="forecast_sensitivity_med_hpa">Medium (1.5 hPa / 3h)</string>
     <string name="forecast_sensitivity_high_hpa">High (0.5 hPa / 3h)</string>
@@ -368,8 +366,6 @@
     <string name="storm_sensitivity_high_in">High (0.089 in / 3h)</string>
     <string name="pref_show_weather_notification_title">Show weather notification</string>
     <string name="pref_show_pressure_in_notification_title">Show pressure in notification</string>
-    <string name="pref_weather_foreground_service_title">Update weather in foreground</string>
-    <string name="pref_weather_foreground_service_summary">May reduce missed updates</string>
     <string name="pref_weather_update_frequency_title">Weather update frequency</string>
     <!--Settings - Astronomy-->
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
@@ -474,7 +470,6 @@
     <string name="tool_inclinometer" translatable="false">tool_inclinometer</string>
     <string name="pref_enable_experimental" translatable="false">pref_enable_experimental</string>
     <string name="pref_non_linear_distances" translatable="false">pref_non_linear_distances</string>
-    <string name="pref_force_weather_updates" translatable="false">pref_force_weather_updates</string>
     <string name="pref_temperature_units" translatable="false">pref_temperature_units</string>
     <string name="pref_adjust_for_temperature" translatable="false">pref_adjust_for_temperature</string>
     <string name="pref_sea_level_use_rapid" translatable="false">pref_sea_level_use_rapid</string>
@@ -483,7 +478,6 @@
     <string name="pref_weather_update_frequency" translatable="false">pref_weather_update_frequency</string>
     <string name="pref_altimeter_calibration_mode" translatable="false">pref_altimeter_calibration_mode</string>
     <string name="pref_sea_level_pressure_override" translatable="false">pref_sea_level_pressure_override</string>
-    <string name="pref_weather_foreground_service" translatable="false">pref_weather_foreground_service</string>
     <string name="pref_max_beacon_distance" translatable="false">pref_max_beacon_distance</string>
     <string name="pref_max_beacon_distance_miles" translatable="false">pref_max_beacon_distance_miles</string>
     <string name="tool_trail_sense_maps" translatable="false">tool_trail_sense_maps</string>

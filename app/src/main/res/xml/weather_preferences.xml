@@ -76,24 +76,6 @@
             app:title="@string/pref_weather_update_frequency_title"
             app:useSimpleSummaryProvider="true" />
 
-        <SwitchPreferenceCompat
-            android:summary="@string/pref_force_weather_updates_summary"
-            app:defaultValue="false"
-            app:dependency="@string/pref_monitor_weather"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_force_weather_updates"
-            app:singleLineTitle="false"
-            app:title="@string/pref_force_weather_updates_title" />
-
-        <SwitchPreferenceCompat
-            android:summary="@string/pref_weather_foreground_service_summary"
-            app:defaultValue="true"
-            app:dependency="@string/pref_monitor_weather"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_weather_foreground_service"
-            app:singleLineTitle="false"
-            app:title="@string/pref_weather_foreground_service_title" />
-
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -17,7 +17,6 @@
     <string name="update_150_minutes">2 timer og 30 minutter</string>
     <string name="update_120_minutes">2 timer</string>
     <string name="sun_moon_compass_always">Alltid</string>
-    <string name="pref_weather_foreground_service_title">Oppdater vær i forgrunnen</string>
     <string name="pref_show_pressure_in_notification_title">Vis lufttrykk i varsel</string>
     <string name="pref_show_weather_notification_title">Vis værvarsel</string>
     <string name="pref_monitor_weather_title">Overvåk været</string>
@@ -262,7 +261,6 @@
     <string name="tide_spring">Spring</string>
     <string name="tide_neap">Nipp</string>
     <string name="onboarding_weather">Få veldig lokale værvarsler</string>
-    <string name="pref_weather_foreground_service_summary">Kan redusere tapte oppdateringer</string>
     <string name="moon_illumination">Månen: opplyst del</string>
     <string name="tool_cliff_height_title">Høyden på en klippe</string>
     <string name="object_height_guide_description">Hvordan anslå høyden på objekter</string>
@@ -364,8 +362,6 @@
     <string name="onboarding_location_astronomy">Lar deg se tider for sol/måne-oppgang og sol/måne-nedgang</string>
     <string name="onboarding_astronomy">Vit når solen/månen går opp og ned</string>
     <string name="onboarding_weather_no_internet">* bruker ikke internettforbindelse</string>
-    <string name="pref_force_weather_updates_summary">Vekker enheten mens den er inaktiv, kan påvirke batteriet</string>
-    <string name="pref_force_weather_updates_title">Fremtving væroppdateringer</string>
     <string name="pressure_tendency_indicator_alt">Trykktendensindikator</string>
     <string name="pref_show_linear_compass_summary">Når telefonen er loddrett</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Angi gjeldende trykk ved havnivå i hPa</string>

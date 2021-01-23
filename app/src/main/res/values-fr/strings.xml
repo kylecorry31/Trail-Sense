@@ -105,7 +105,6 @@
     <string name="pref_weather_update_frequency_title">Fréquence de mise à jour des données météo</string>
     <string name="pref_show_pressure_in_notification_title">Afficher la pression dans les notifications</string>
     <string name="pref_show_weather_notification_title">Afficher les notifications liées à la météo</string>
-    <string name="pref_force_weather_updates_title">Mise à jour forcée des données météos</string>
     <string name="pref_monitor_weather_title">Suivi des données météo</string>
     <string name="pref_monitor_weather_summary">En tâche de fond</string>
     <string name="pref_max_beacon_distance_km_message">Saisissez la distance en-dessous de laquelle les repères deviennent visibles (km)</string>
@@ -284,8 +283,6 @@
     <string name="pref_sunset_alert_time_title">Heure de la notification de coucher de soleil</string>
     <string name="pref_sunset_alerts_title">Notification de coucher de soleil</string>
     <string name="sun_moon_compass_when_up">Lorsque l\'astre est levé</string>
-    <string name="pref_weather_foreground_service_summary">Peut améliorer le renouvellement des données</string>
-    <string name="pref_weather_foreground_service_title">Mise à jour des données météo au premier plan</string>
     <string name="storm_sensitivity_low_in">Faible (0.177 in / 3h)</string>
     <string name="storm_sensitivity_low_psi">Faible (0.087 PSI / 3h)</string>
     <string name="storm_sensitivity_low_mbar">Faible (3 mbar / 3h)</string>
@@ -311,7 +308,6 @@
     <string name="forecast_sensitivity_med_hpa">Moyen (1.5 hPa / 3h)</string>
     <string name="forecast_sensitivity_low_hpa">Faible (2.5 hPa / 3h)</string>
     <string name="pref_forecast_sensitivity_title">Niveau de sensibilité pour les prévisions</string>
-    <string name="pref_force_weather_updates_summary">Sort temporairement l\'appareil de la veille, cela peut avoir un impact sur la batterie</string>
     <string name="pref_num_visible_beacons_title">Repères à proximité</string>
     <string name="pref_altitude_override_sea_level_title">En se basant sur une valeur de pression au niveau de la mer</string>
     <string name="pref_altitude_offsets_summary">Tient compte du niveau moyen de la mer pour la valeur d\'altitude fournie par le GPS</string>

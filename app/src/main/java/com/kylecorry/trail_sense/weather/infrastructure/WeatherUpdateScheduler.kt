@@ -26,11 +26,6 @@ object WeatherUpdateScheduler {
     }
 
     fun getScheduler(context: Context): ITaskScheduler {
-        val prefs = UserPreferences(context)
-        return if (prefs.weather.forceWeatherUpdates) {
-            WeatherUpdateAlarmReceiver.scheduler(context)
-        } else {
-            WeatherUpdateWorker.scheduler(context)
-        }
+        return WeatherUpdateWorker.scheduler(context)
     }
 }

@@ -29,6 +29,7 @@ import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
+import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -95,9 +96,7 @@ class WeatherUpdateService : Service() {
             R.drawable.ic_update
         )
 
-        if (userPrefs.weather.foregroundService) {
-            startForeground(FOREGROUND_SERVICE_ID, notification)
-        }
+        startForeground(FOREGROUND_SERVICE_ID, notification)
 
         sendWeatherNotification()
         setSensorTimeout(30 * 1000L)
@@ -203,9 +202,7 @@ class WeatherUpdateService : Service() {
         sendWeatherNotification()
         Log.i(TAG, "Got all readings recorded at ${ZonedDateTime.now()}")
         releaseWakelock()
-        if (userPrefs.weather.foregroundService) {
-            stopForeground(true)
-        }
+        stopForeground(true)
         stopSelf()
     }
 
@@ -303,9 +300,7 @@ class WeatherUpdateService : Service() {
         releaseWakelock()
         stopTimeout()
         stopSensors()
-        if (userPrefs.weather.foregroundService) {
-            stopForeground(true)
-        }
+        stopForeground(true)
         stopSelf()
         super.onDestroy()
     }
@@ -380,12 +375,7 @@ class WeatherUpdateService : Service() {
         }
 
         fun start(context: Context) {
-            val prefs = UserPreferences(context)
-            if (prefs.weather.foregroundService && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(intent(context))
-            } else {
-                context.startService(intent(context))
-            }
+            IntentUtils.startService(context, intent(context), foreground = true)
         }
     }
 }

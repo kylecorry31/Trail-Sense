@@ -277,8 +277,6 @@
     <string name="your_height_m">Sua altura (m)</string>
     <string name="object_distance_ft">Distância (ft)</string>
     <string name="your_height_ft">Sua altura (ft)</string>
-    <string name="pref_force_weather_updates_title">Melhorar a precisão do tempo</string>
-    <string name="pref_force_weather_updates_summary">Ativa o dispositivo enquanto ocioso, pode impactar a bateria</string>
     <string name="pref_sea_level_pressure_change_thresh_title">Limiar de mudança de pressão de viagem</string>
     <string name="pref_barometer_altitude_change_title">Limiar de mudança de altitude de viagem</string>
     <string name="beacon_action_view_details">Ver os detalhes</string>
@@ -325,8 +323,6 @@
     <string name="update_30_minutes">30 minutos</string>
     <string name="update_15_minutes">15 minutos</string>
     <string name="pref_weather_update_frequency_title">Freqüência de atualização meteorológica</string>
-    <string name="pref_weather_foreground_service_summary">Pode reduzir as atualizações perdidas</string>
-    <string name="pref_weather_foreground_service_title">Atualizar o clima em primeiro plano</string>
     <string name="pref_max_beacon_distance_km_message">Digite o raio máximo visível de Pontos de Orientação (Quilômetros)</string>
     <string name="pref_max_beacon_distance_miles_message">Digite o raio máximo visível de Pontos de Orientação (Milhas)</string>
     <string name="pref_max_beacon_distance_title">Raio de Pontos de Orientação mais próximos</string>

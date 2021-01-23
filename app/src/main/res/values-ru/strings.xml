@@ -184,8 +184,6 @@
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3ч</string>
     <string name="pressure_tendency_format">%s %s / 3ч</string>
-    <string name="pref_weather_foreground_service_summary">Поможет не пропустить обновления</string>
-    <string name="pref_weather_foreground_service_title">Обновлять погоду в фоне</string>
     <string name="pref_show_pressure_in_notification_title">Показывать давление в уведомлении</string>
     <string name="pref_show_weather_notification_title">Показывать уведомление с информацией о погоде</string>
     <string name="your_height_ft">Ваш вес (фт)</string>
@@ -319,8 +317,6 @@
     <string name="forecast_sensitivity_high_hpa">Высокая (0,5 гПа / 3 ч)</string>
     <string name="forecast_sensitivity_med_hpa">Средняя (1,5 гПа / 3 ч)</string>
     <string name="forecast_sensitivity_low_hpa">Низкая (2,5 гПа / 3 ч)</string>
-    <string name="pref_force_weather_updates_summary">Пробуждает устройство в режиме ожидания, может повредить аккумулятор</string>
-    <string name="pref_force_weather_updates_title">Принудительное обновление погоды</string>
     <string name="pref_forecast_sensitivity_title">Чувствительность прогноза</string>
     <string name="pref_sea_level_pressure_change_thresh_title">Порог изменения давления при движении</string>
     <string name="pref_barometer_altitude_change_title">Порог изменения высоты движения</string>

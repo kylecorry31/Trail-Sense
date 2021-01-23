@@ -90,7 +90,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         )
 
         refreshOnChange(list(R.string.pref_theme))
-        refreshOnChange(switch(R.string.pref_enable_experimental))
 
         preferenceScreen.findPreference<EditTextPreference>(getString(R.string.pref_ruler_calibration))
             ?.setOnBindEditTextListener { editText ->

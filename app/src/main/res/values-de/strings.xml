@@ -303,7 +303,6 @@
     <string name="dialog_grant">Einstellungen aktualisieren</string>
     <string name="pref_sea_level_use_rapid_title">Faktor für schnelle Luftdruckänderungen</string>
     <string name="pref_adjust_for_temperature_title">Faktor für Temperatur</string>
-    <string name="pref_force_weather_updates_title">Wetteraktualisierungen erzwingen</string>
     <string name="guide_beacons_description">Navigation unter Verwendung von Wegmarken</string>
     <string name="guide_beacons_title">Wegmarken</string>
     <string name="pref_category_tabs">Tabs</string>
@@ -340,7 +339,6 @@
     <string name="forecast_sensitivity_high_hpa">Hoch (0.5 hPa / 3h)</string>
     <string name="forecast_sensitivity_med_hpa">Mittel (1.5 hPa / 3h)</string>
     <string name="forecast_sensitivity_low_hpa">Niedrig (2.5 hPa / 3h)</string>
-    <string name="pref_force_weather_updates_summary">Weckt Gerät aus dem Ruhezustand, kann Auswirkungen auf den Akku haben</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Vor dem Navigieren kalibrieren</string>
     <string name="pref_barometer_pressure_title">Luftdruck</string>
     <string name="pref_altitude_override_sea_level_title">Verwendung bekannten Luftdrucks auf Meereshöhe</string>
@@ -363,8 +361,6 @@
     <string name="guide_conserving_battery_title">Stromsparmodus</string>
     <string name="pref_sea_level_require_dwell_title">Schnelle Höhenänderungen ignorieren</string>
     <string name="pref_sea_level_require_dwell_summary">Zeige nur Werte, wenn sich die Höhe in der letzten Stunde nicht geändert hat. Dies verbessert die Zuverlässigkeit der Vorhersage.</string>
-    <string name="pref_weather_foreground_service_summary">Kann die Anzahl ausgelassener Aktualisierungen reduzieren</string>
-    <string name="pref_weather_foreground_service_title">Wetter als Vordergrundaktivität aktualisieren</string>
     <string name="storm_sensitivity_high_in">Hoch (0.089 in / 3h)</string>
     <string name="storm_sensitivity_med_in">Mittel (0.133 in / 3h)</string>
     <string name="storm_sensitivity_low_in">Niedrig (0.177 in / 3h)</string>
