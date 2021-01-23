@@ -561,7 +561,6 @@
     <string name="action_waypoint_create_beacon">Dodaj punkt nawigacyjny</string>
     <string name="guide_create_beacons_title">Dodawanie punktów nawigacyjnych</string>
     <string name="tool_coordinate_convert_title">Przelicznik współrzędnych</string>
-    <string name="pref_run_backtrack_when_low_battery_title">Uruchom, gdy poziom baterii jest niski</string>
     <string name="low_power_mode_on_message">Tryb oszczędzania energii jest włączony, niektóre funkcje mogą być wyłączone.</string>
     <string name="pref_low_power_mode_title">Tryb oszczędzania energii</string>
     <string name="guide_barometer_calibration_description">Jak skalibrować barometr do ciśnienia na poziomie morza</string>
@@ -572,6 +571,5 @@
     <string name="guide_thermometer_calibration_description">Jak skalibrować termometr</string>
     <string name="guide_thermometer_calibration_title">Kalibracja termometru</string>
     <string name="battery_power_usb">USB</string>
-    <string name="pref_run_backtrack_when_low_battery">pref_run_backtrack_when_low_battery</string>
     <string name="coordinate_format_mgrs">MGRS</string>
 </resources>

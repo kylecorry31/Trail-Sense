@@ -61,9 +61,6 @@
         <service android:name=".tools.waterpurification.infrastructure.WaterPurificationTimerService" />
 
         <receiver
-            android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherUpdateAlarmReceiver"
-            android:enabled="true" />
-        <receiver
             android:name="com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver"
             android:enabled="true" />
         <receiver

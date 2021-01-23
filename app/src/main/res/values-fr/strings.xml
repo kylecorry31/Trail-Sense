@@ -529,7 +529,6 @@
     <string name="battery_capacity_format">%.2f mAh</string>
     <string name="centimeters_format">%.2f cm</string>
     <string name="inches_format">%.2f pouces</string>
-    <string name="pref_run_backtrack_when_low_battery_title">Activer lorsque la batterie est faible</string>
     <string name="low_power_mode_on_message">Le mode économie d\'énergie est activé, certaines fonctionnalités pourraient être désactivées.</string>
     <string name="pref_low_power_mode_title">Mode économie d\'énergie</string>
     <string name="guide_barometer_calibration_description">Comment étalonner le baromètre au niveau de la mer</string>

@@ -16,14 +16,10 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) : Worker(c
         private const val WORK_TAG = "com.kylecorry.trail_sense.WeatherUpdateWorker"
 
         fun scheduler(context: Context): ITaskScheduler {
-            val constraints = Constraints.Builder()
-                .setRequiresBatteryNotLow(true)
-                .build()
             return DeferredTaskScheduler(
                 context,
                 WeatherUpdateWorker::class.java,
-                WORK_TAG,
-                constraints
+                WORK_TAG
             )
         }
     }
