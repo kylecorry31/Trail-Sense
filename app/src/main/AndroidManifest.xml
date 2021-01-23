@@ -4,6 +4,10 @@
     package="com.kylecorry.trail_sense">
 
     <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="geo" />
+        </intent>
         <package android:name="com.kylecorry.trail_sense_maps" />
     </queries>
 
