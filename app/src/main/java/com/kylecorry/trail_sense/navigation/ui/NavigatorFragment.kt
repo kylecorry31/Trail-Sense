@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
@@ -38,9 +39,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Duration
+import java.util.*
+
 
 class NavigatorFragment : Fragment() {
 
+    private var shownAccuracyToast: Boolean = false
     private lateinit var compass: ICompass
     private lateinit var gps: IGPS
     private lateinit var declinationProvider: IDeclinationProvider
@@ -431,6 +435,21 @@ class NavigatorFragment : Fragment() {
             binding.gpsAccuracyText.text = formatService.formatAccuracy(gps.accuracy)
         }
         binding.compassAccuracyText.text = formatService.formatAccuracy(compass.accuracy)
+        if (compass.accuracy == Accuracy.Low || compass.accuracy == Accuracy.Medium && !shownAccuracyToast){
+            val snack = Snackbar.make(
+                binding.accuracyView, getString(
+                    R.string.compass_calibrate_toast, formatService.formatAccuracy(
+                        compass.accuracy
+                    ).toLowerCase(Locale.getDefault())
+                ), Snackbar.LENGTH_LONG
+            )
+            snack.setAnchorView(R.id.bottom_navigation)
+            snack.setAction(getString(R.string.how)){
+                displayAccuracyTips()
+            }
+            snack.show()
+            shownAccuracyToast = true
+        }
 
         if (gps.speed == 0.0f) {
             binding.speed.text = getString(R.string.dash)

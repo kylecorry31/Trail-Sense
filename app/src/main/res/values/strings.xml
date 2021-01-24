@@ -743,4 +743,6 @@
     <string name="backtrack_disabled_low_power_toast">Backtrack is disabled in power saving mode</string>
     <string name="pref_low_power_mode_summary">Disables some features to save power</string>
     <string name="open_beacon_in_maps">View on Map</string>
+    <string name="compass_calibrate_toast">Compass accuracy %s, calibration is advised</string>
+    <string name="how">How</string>
 </resources>
