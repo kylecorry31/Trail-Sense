@@ -292,9 +292,7 @@ class BeaconListFragment : Fragment() {
                 val ungrouped = beaconRepo.getBeaconsInGroup(null).sortedBy {
                     it.coordinate.distanceTo(gps.location)
                 }.map { it.toBeacon() }
-
-                println(ungrouped)
-
+                
                 val groups = beaconRepo.getGroupsSync().sortedBy {
                     it.name
                 }.map { it.toBeaconGroup() }
