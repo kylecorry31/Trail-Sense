@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.astronomy.tides.Tide
+import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
@@ -31,7 +32,6 @@ import kotlin.math.roundToInt
 class AstronomyFragment : Fragment() {
 
     private lateinit var gps: IGPS
-    private lateinit var declinationProvider: IDeclinationProvider
 
     private var _binding: ActivityAstronomyBinding? = null
     private val binding get() = _binding!!
@@ -46,6 +46,9 @@ class AstronomyFragment : Fragment() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val cache by lazy { Cache(requireContext()) }
     private val astronomyService = AstronomyService()
+    private val geoService = GeoService()
+
+    private var declination = 0f
 
     private val intervalometer = Intervalometer {
         updateUI()
@@ -94,7 +97,6 @@ class AstronomyFragment : Fragment() {
         }
 
         gps = sensorService.getGPS()
-        declinationProvider = sensorService.getDeclinationProvider()
 
         sunTimesMode = prefs.astronomy.sunTimesMode
 
@@ -125,9 +127,6 @@ class AstronomyFragment : Fragment() {
         super.onResume()
         displayDate = LocalDate.now()
         requestLocationUpdate()
-        if (!declinationProvider.hasValidReading) {
-            declinationProvider.start(this::onDeclinationUpdate)
-        }
         intervalometer.interval(Duration.ofMinutes(1))
         updateUI()
 
@@ -141,7 +140,6 @@ class AstronomyFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         gps.stop(this::onLocationUpdate)
-        declinationProvider.stop(this::onDeclinationUpdate)
         intervalometer.stop()
     }
 
@@ -153,14 +151,17 @@ class AstronomyFragment : Fragment() {
         }
     }
 
-    private fun onDeclinationUpdate(): Boolean {
+    private fun onLocationUpdate(): Boolean {
         updateUI()
         return false
     }
 
-    private fun onLocationUpdate(): Boolean {
-        updateUI()
-        return false
+    private fun getDeclination(): Float {
+        return if (!prefs.useAutoDeclination){
+            prefs.declinationOverride
+        } else {
+            geoService.getDeclination(gps.location, gps.altitude)
+        }
     }
 
     private fun updateUI() {
@@ -268,7 +269,7 @@ class AstronomyFragment : Fragment() {
             astronomyService.getSunAltitude(gps.location)
 
         val declination =
-            if (!prefs.navigation.useTrueNorth) declinationProvider.declination else 0f
+            if (!prefs.navigation.useTrueNorth) getDeclination() else 0f
 
         val sunAzimuth =
             astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value

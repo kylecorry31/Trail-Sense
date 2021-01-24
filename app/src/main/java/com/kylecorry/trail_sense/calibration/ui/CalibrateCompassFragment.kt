@@ -6,11 +6,11 @@ import androidx.preference.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.domain.Accuracy
+import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
-import com.kylecorry.trailsensecore.infrastructure.sensors.declination.DeclinationProvider
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 
@@ -31,8 +31,8 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
     private lateinit var calibrateBtn: Preference
 
     private lateinit var compass: ICompass
-    private lateinit var declinationProvider: IDeclinationProvider
-    private lateinit var realDeclinationProvider: IDeclinationProvider
+    private lateinit var gps: IGPS
+    private val geoService = GeoService()
 
     private var prevAccuracy = Accuracy.Unknown
 
@@ -43,10 +43,7 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
         sensorService = SensorService(requireContext())
 
         compass = sensorService.getCompass()
-        declinationProvider = sensorService.getDeclinationProvider()
-        realDeclinationProvider =
-            DeclinationProvider(sensorService.getGPS(), sensorService.getAltimeter())
-
+        gps = sensorService.getGPS(false)
         bindPreferences()
     }
 
@@ -75,7 +72,7 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
         }
 
         autoDeclinationSwitch.setOnPreferenceClickListener {
-            resetDeclinationProvider()
+            update()
             true
         }
 
@@ -108,27 +105,43 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
     override fun onResume() {
         super.onResume()
         startCompass()
-        startDeclination()
+        if (!gps.hasValidReading) {
+            gps.start(this::onLocationUpdate)
+        }
     }
 
     override fun onPause() {
         super.onPause()
         stopCompass()
-        stopDeclination()
-        realDeclinationProvider.stop(this::onUpdateDeclinationFromGpsCallback)
+        gps.stop(this::onLocationUpdate)
+        gps.stop(this::onUpdateDeclinationFromGpsCallback)
+    }
+
+    private fun onLocationUpdate(): Boolean {
+        update()
+        return false
     }
 
     private fun updateDeclinationFromGps() {
-        if (realDeclinationProvider.hasValidReading) {
+        if (gps.hasValidReading) {
             onUpdateDeclinationFromGpsCallback()
         } else {
-            realDeclinationProvider.start(this::onUpdateDeclinationFromGpsCallback)
+            gps.start(this::onUpdateDeclinationFromGpsCallback)
+        }
+    }
+
+    private fun getDeclination(): Float {
+        return if (!prefs.useAutoDeclination){
+            prefs.declinationOverride
+        } else {
+            geoService.getDeclination(gps.location, gps.altitude)
         }
     }
 
     private fun onUpdateDeclinationFromGpsCallback(): Boolean {
-        prefs.declinationOverride = realDeclinationProvider.declination
-        declinationOverrideEdit.text = realDeclinationProvider.declination.toString()
+        val declination = geoService.getDeclination(gps.location, gps.altitude)
+        prefs.declinationOverride = declination
+        declinationOverrideEdit.text = declination.toString()
         UiUtils.shortToast(requireContext(), getString(R.string.declination_override_updated_toast))
         return false
     }
@@ -137,20 +150,6 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
         stopCompass()
         compass = sensorService.getCompass()
         startCompass()
-    }
-
-    private fun resetDeclinationProvider() {
-        stopDeclination()
-        declinationProvider = sensorService.getDeclinationProvider()
-        startDeclination()
-    }
-
-    private fun startDeclination() {
-        declinationProvider.start(this::onDeclinationUpdate)
-    }
-
-    private fun stopDeclination() {
-        declinationProvider.stop(this::onDeclinationUpdate)
     }
 
     private fun startCompass() {
@@ -187,7 +186,7 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
             prevAccuracy = compass.accuracy
         }
 
-        compass.declination = declinationProvider.declination
+        compass.declination = getDeclination()
 
         calibrateBtn.summary = getString(R.string.compass_reported_accuracy, getCompassAccuracy())
         azimuthTxt.summary = getString(R.string.degree_format, compass.bearing.value)

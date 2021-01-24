@@ -5,7 +5,6 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.declination.OverrideDeclination
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -20,8 +19,6 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
 import com.kylecorry.trailsensecore.infrastructure.sensors.compass.LegacyCompass
 import com.kylecorry.trailsensecore.infrastructure.sensors.compass.VectorCompass
-import com.kylecorry.trailsensecore.infrastructure.sensors.declination.DeclinationProvider
-import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.hygrometer.Hygrometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.hygrometer.IHygrometer
@@ -86,17 +83,6 @@ class SensorService(ctx: Context) {
                 gps
             }
         }
-    }
-
-    fun getDeclinationProvider(): IDeclinationProvider {
-        if (!userPrefs.useAutoDeclination) {
-            return OverrideDeclination(context)
-        }
-
-        val gps = getGPS()
-        val altimeter = getAltimeter()
-
-        return DeclinationProvider(gps, altimeter)
     }
 
     fun getCompass(): ICompass {

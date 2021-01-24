@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -47,7 +48,6 @@ class NavigatorFragment : Fragment() {
     private var shownAccuracyToast: Boolean = false
     private lateinit var compass: ICompass
     private lateinit var gps: IGPS
-    private lateinit var declinationProvider: IDeclinationProvider
     private lateinit var orientation: DeviceOrientation
     private lateinit var altimeter: IAltimeter
 
@@ -75,6 +75,7 @@ class NavigatorFragment : Fragment() {
 
     private val navigationService = NavigationService()
     private val astronomyService = AstronomyService()
+    private val geoService = GeoService()
     private val formatService by lazy { FormatService(requireContext()) }
 
     private var averageSpeed = 0f
@@ -177,7 +178,6 @@ class NavigatorFragment : Fragment() {
         compass = sensorService.getCompass()
         orientation = sensorService.getDeviceOrientation()
         gps = sensorService.getGPS()
-        declinationProvider = sensorService.getDeclinationProvider()
         altimeter = sensorService.getAltimeter()
 
         averageSpeed = userPrefs.navigation.averageSpeed
@@ -310,12 +310,7 @@ class NavigatorFragment : Fragment() {
         gps.start(this::onLocationUpdate)
         altimeter.start(this::onAltitudeUpdate)
         orientation.start(this::onOrientationUpdate)
-
-        if (declinationProvider.hasValidReading) {
-            onDeclinationUpdate()
-        } else {
-            declinationProvider.start(this::onDeclinationUpdate)
-        }
+        compass.declination = getDeclination()
 
         binding.beaconBtn.show()
         if (userPrefs.navigation.showMultipleBeacons) {
@@ -334,7 +329,6 @@ class NavigatorFragment : Fragment() {
         gps.stop(this::onLocationUpdate)
         altimeter.stop(this::onAltitudeUpdate)
         orientation.stop(this::onOrientationUpdate)
-        declinationProvider.stop(this::onDeclinationUpdate)
         intervalometer.stop()
     }
 
@@ -374,7 +368,15 @@ class NavigatorFragment : Fragment() {
         return if (useTrueNorth) {
             bearing
         } else {
-            bearing.withDeclination(-declinationProvider.declination)
+            bearing.withDeclination(-getDeclination())
+        }
+    }
+
+    private fun getDeclination(): Float {
+        return if (!userPrefs.useAutoDeclination){
+            userPrefs.declinationOverride
+        } else {
+            geoService.getDeclination(gps.location, gps.altitude)
         }
     }
 
@@ -382,7 +384,7 @@ class NavigatorFragment : Fragment() {
         return navigationService.getFacingBeacon(
             getPosition(),
             nearby,
-            declinationProvider.declination,
+            getDeclination(),
             useTrueNorth
         )
     }
@@ -422,7 +424,7 @@ class NavigatorFragment : Fragment() {
             destinationPanel.show(
                 getPosition(),
                 selectedBeacon,
-                declinationProvider.declination,
+                getDeclination(),
                 userPrefs.navigation.useTrueNorth
             )
         } else {
@@ -558,12 +560,6 @@ class NavigatorFragment : Fragment() {
         return true
     }
 
-    private fun onDeclinationUpdate(): Boolean {
-        compass.declination = declinationProvider.declination
-        updateUI()
-        return false
-    }
-
     private fun onAltitudeUpdate(): Boolean {
         updateUI()
         return true
@@ -571,6 +567,7 @@ class NavigatorFragment : Fragment() {
 
     private fun onLocationUpdate(): Boolean {
         nearbyBeacons = getNearbyBeacons()
+        compass.declination = getDeclination()
         updateAverageSpeed()
         updateUI()
 

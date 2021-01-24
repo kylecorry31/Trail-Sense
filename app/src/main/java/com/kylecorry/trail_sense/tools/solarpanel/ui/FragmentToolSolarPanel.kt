@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.math.deltaAngle
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
 import com.kylecorry.trailsensecore.domain.astronomy.SolarPanelPosition
+import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import java.time.ZonedDateTime
@@ -28,8 +29,8 @@ class FragmentToolSolarPanel : Fragment() {
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
     private val orientation by lazy { sensorService.getOrientationSensor() }
-    private val declination by lazy { sensorService.getDeclinationProvider() }
     private val formatService by lazy { FormatService(requireContext()) }
+    private val geoService = GeoService()
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val throttle = Throttle(20)
 
@@ -77,9 +78,6 @@ class FragmentToolSolarPanel : Fragment() {
         }
         compass.start(this::update)
         orientation.start(this::update)
-        if (!declination.hasValidReading) {
-            declination.start(this::onGPSUpdate)
-        }
     }
 
     override fun onPause() {
@@ -87,7 +85,14 @@ class FragmentToolSolarPanel : Fragment() {
         gps.stop(this::onGPSUpdate)
         compass.stop(this::update)
         orientation.stop(this::update)
-        declination.stop(this::onGPSUpdate)
+    }
+
+    private fun getDeclination(): Float {
+        return if (!prefs.useAutoDeclination){
+            prefs.declinationOverride
+        } else {
+            geoService.getDeclination(gps.location, gps.altitude)
+        }
     }
 
     private fun onGPSUpdate(): Boolean {
@@ -130,7 +135,7 @@ class FragmentToolSolarPanel : Fragment() {
         val solarPosition = position ?: return true
 
         if (prefs.navigation.useTrueNorth) {
-            compass.declination = declination.declination
+            compass.declination = getDeclination()
         } else {
             compass.declination = 0f
         }
@@ -140,7 +145,7 @@ class FragmentToolSolarPanel : Fragment() {
         val declinationOffset = if (prefs.navigation.useTrueNorth) {
             0f
         } else {
-            -declination.declination
+            -getDeclination()
         }
         val desiredAzimuth = solarPosition.bearing.withDeclination(declinationOffset).inverse()
         val azimuthDiff = deltaAngle(desiredAzimuth.value, compass.bearing.value)
