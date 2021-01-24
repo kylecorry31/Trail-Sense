@@ -51,7 +51,7 @@ class SensorService(ctx: Context) {
         }
 
         if (hasLocationPermission(background) && sensorChecker.hasGPS()) {
-            return GPS(context)
+            return CustomGPS(context)
         }
 
         return CachedGPS(context)

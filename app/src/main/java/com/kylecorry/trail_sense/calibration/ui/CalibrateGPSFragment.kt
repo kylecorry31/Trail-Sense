@@ -5,7 +5,7 @@ import androidx.preference.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.GPS
+import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -120,7 +120,7 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
     private fun getRealGPS(): IGPS {
         return when {
             shouldUseRealGPS() -> {
-                GPS(requireContext())
+                CustomGPS(requireContext())
             }
             shouldUseCachedGPS() -> {
                 CachedGPS(requireContext())

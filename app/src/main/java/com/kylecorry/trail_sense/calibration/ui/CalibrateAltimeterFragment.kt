@@ -53,7 +53,7 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
         prefs = UserPreferences(requireContext())
         sensorService = SensorService(requireContext())
 
-        gps = GPS(requireContext().applicationContext)
+        gps = CustomGPS(requireContext().applicationContext)
         barometer = sensorService.getBarometer()
         altimeter = sensorService.getAltimeter()
 
