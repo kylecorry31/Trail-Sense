@@ -144,6 +144,10 @@ class MainActivity : AppCompatActivity() {
         sendBroadcast(sunsetIntent)
 
 
+        handleIntentAction(intent)
+    }
+
+    private fun handleIntentAction(intent: Intent){
         val intentData = intent.data
         if (intent.scheme == "geo" && intentData != null) {
             val namedCoordinate = GeoUriParser().parse(intentData)
@@ -172,12 +176,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         setIntent(intent)
-
-        if (intent.hasExtra(getString(R.string.extra_action))) {
-            val desiredAction =
-                intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
-            bottomNavigation.selectedItemId = desiredAction
-        }
+        handleIntentAction(intent)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {

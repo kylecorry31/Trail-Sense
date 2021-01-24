@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.TrailSenseMaps
+import com.kylecorry.trail_sense.tools.maps.infrastructure.TrailSenseMaps
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
