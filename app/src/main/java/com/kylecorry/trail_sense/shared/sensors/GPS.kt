@@ -108,7 +108,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
 
         _time = Instant.ofEpochMilli(location.time)
 
-        val satellites = if (location.extras?.containsKey("satellites") == true) location.extras.getInt("satellites") else 0
+        val satellites = if (location.extras?.containsKey("satellites") == true) location.extras.getInt("satellites") else null
         val dt = System.currentTimeMillis() - fixStart
 
         if (useNewLocation(
@@ -126,17 +126,17 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
             }
         }
 
-        if (satellites < 4 && dt < maxFixTime) {
-            return
-        }
+//        if (satellites < 4 && dt < maxFixTime) {
+//            return
+//        }
 
-        if (!useNewLocation(lastLocation, location)) {
+        if (!(satellites != null && satellites < 4 && dt < maxFixTime) && !useNewLocation(lastLocation, location)) {
             if (notify) notifyListeners()
             return
         }
 
         fixStart = System.currentTimeMillis()
-        _satellites = satellites
+        _satellites = satellites ?: 0
         lastLocation = location
 
         cache.putLong(LAST_UPDATE, fixStart)
@@ -191,7 +191,7 @@ class GPS(private val context: Context) : AbstractSensor(), IGPS {
         cache.putFloat(LAST_LATITUDE, location.latitude.toFloat())
         cache.putFloat(LAST_LONGITUDE, location.longitude.toFloat())
 
-        if (notify) notifyListeners()
+        if (notify && !(satellites != null && satellites < 4 && dt < maxFixTime)) notifyListeners()
     }
 
     private fun hadRecentValidReading(): Boolean {
