@@ -47,30 +47,17 @@ class StrobeService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return START_STICKY_COMPATIBILITY
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        NotificationUtils.createChannel(
-            this,
-            CHANNEL_ID,
-            getString(R.string.flashlight_title),
-            getString(R.string.flashlight_title),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW
-        )
-
         val notification = NotificationUtils.builder(this, CHANNEL_ID)
             .setContentTitle(getString(R.string.flashlight_strobe))
             .setContentText(getString(R.string.tap_to_turn_off))
             .setSmallIcon(R.drawable.flashlight)
             .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
             .build()
-
         startForeground(NOTIFICATION_ID, notification)
         flashlight = Flashlight(this)
         running = true
         handler.post(runnable)
+        return START_STICKY_COMPATIBILITY
     }
 
     override fun onDestroy() {

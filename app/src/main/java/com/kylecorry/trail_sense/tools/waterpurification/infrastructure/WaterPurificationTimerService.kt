@@ -66,8 +66,7 @@ class WaterPurificationTimerService: Service() {
     }
 
     private fun getNotificationBuilder(): NotificationCompat.Builder {
-        NotificationUtils.createChannel(this, CHANNEL_ID, getString(R.string.water_boil_timer_channel), getString(
-            R.string.water_boil_timer_channel_description), NotificationUtils.CHANNEL_IMPORTANCE_HIGH, false)
+
 
         val stopPendingIntent = WaterPurificationCancelReceiver.pendingIntent(this)
 
@@ -88,7 +87,7 @@ class WaterPurificationTimerService: Service() {
 
     companion object {
 
-        private const val CHANNEL_ID = "Water_Boil_Timer"
+        const val CHANNEL_ID = "Water_Boil_Timer"
         private const val NOTIFICATION_ID = 57293759
         private const val ONE_SECOND = 1000L
         private const val KEY_SECONDS = "seconds"

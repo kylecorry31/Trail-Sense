@@ -11,16 +11,6 @@ class NextMinuteBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return
         val time = intent?.getStringExtra(EXTRA_TIME)
-        NotificationUtils.createChannel(
-            context,
-            CHANNEL_ID,
-            context.getString(R.string.notification_channel_clock_sync),
-            context.getString(
-                R.string.notification_channel_clock_sync_description
-            ),
-            NotificationUtils.CHANNEL_IMPORTANCE_HIGH,
-            false
-        )
         val builder = NotificationUtils.builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_tool_clock)
             .setContentTitle(context.getString(R.string.clock_sync_notification, time))
@@ -30,7 +20,7 @@ class NextMinuteBroadcastReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        private const val CHANNEL_ID = "ClockSync"
+        const val CHANNEL_ID = "ClockSync"
         private const val EXTRA_TIME = "extra_time"
         private const val PENDING_INTENT_ID = 632854823
         private const val NOTIFICATION_ID = 49852323

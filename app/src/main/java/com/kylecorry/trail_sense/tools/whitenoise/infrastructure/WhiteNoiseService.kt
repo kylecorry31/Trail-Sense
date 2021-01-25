@@ -19,23 +19,6 @@ class WhiteNoiseService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return START_STICKY_COMPATIBILITY
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        whiteNoise?.off()
-        whiteNoise?.release()
-    }
-
-    override fun onCreate() {
-        NotificationUtils.createChannel(
-            this,
-            NOTIFICATION_CHANNEL_ID,
-            getString(R.string.tool_white_noise_title),
-            getString(R.string.tool_white_noise_title),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW
-        )
         val notification = NotificationUtils.builder(applicationContext, NOTIFICATION_CHANNEL_ID)
             .setContentTitle(getString(R.string.tool_white_noise_title))
             .setContentText(getString(R.string.tap_to_turn_off))
@@ -46,8 +29,14 @@ class WhiteNoiseService : Service() {
         startForeground(NOTIFICATION_ID, notification)
         whiteNoise = WhiteNoise()
         whiteNoise?.on()
+        return START_STICKY_COMPATIBILITY
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        whiteNoise?.off()
+        whiteNoise?.release()
+    }
 
     companion object {
         const val NOTIFICATION_ID = 9874333

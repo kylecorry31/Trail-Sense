@@ -80,6 +80,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        NotificationChannels.createChannels(applicationContext)
+
         userPrefs = UserPreferences(this)
         val mode = when (userPrefs.theme) {
             UserPreferences.Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
@@ -147,7 +149,7 @@ class MainActivity : AppCompatActivity() {
         handleIntentAction(intent)
     }
 
-    private fun handleIntentAction(intent: Intent){
+    private fun handleIntentAction(intent: Intent) {
         val intentData = intent.data
         if (intent.scheme == "geo" && intentData != null) {
             val namedCoordinate = GeoUriParser().parse(intentData)

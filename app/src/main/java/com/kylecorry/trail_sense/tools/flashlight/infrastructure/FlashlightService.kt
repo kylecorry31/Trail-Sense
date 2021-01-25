@@ -21,11 +21,6 @@ class FlashlightService: Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return START_STICKY_COMPATIBILITY
-    }
-
-    override fun onCreate() {
-        NotificationUtils.createChannel(this, CHANNEL_ID, getString(R.string.flashlight_title), getString(R.string.flashlight_title), NotificationUtils.CHANNEL_IMPORTANCE_LOW)
         val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Notification.Builder(this, CHANNEL_ID)
                 .setContentTitle(getString(R.string.flashlight_title))
@@ -46,6 +41,7 @@ class FlashlightService: Service() {
         startForeground(NOTIFICATION_ID, notification)
         flashlight = Flashlight(this)
         flashlight?.on()
+        return START_STICKY_COMPATIBILITY
     }
 
     override fun onDestroy() {

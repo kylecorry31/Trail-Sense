@@ -81,14 +81,6 @@ class WeatherUpdateService : Service() {
 
         scheduleNextUpdate()
 
-        createChannel(
-            applicationContext,
-            FOREGROUND_CHANNEL_ID,
-            getString(R.string.weather_update_notification_channel),
-            getString(R.string.weather_update_notification_channel_desc),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
-            false
-        )
         val notification = notification(
             getString(R.string.weather_update_notification_channel),
             getString(R.string.notification_monitoring_weather),
@@ -238,7 +230,6 @@ class WeatherUpdateService : Service() {
     private fun sendStormAlert() {
         runBlocking {
             withContext(Dispatchers.IO) {
-                createNotificationChannel()
                 val cache = Cache(applicationContext)
                 val sentAlert =
                     cache.getBoolean(applicationContext.getString(R.string.pref_just_sent_alert))
@@ -299,15 +290,6 @@ class WeatherUpdateService : Service() {
         super.onDestroy()
     }
 
-    private fun createNotificationChannel() {
-        NotificationUtils.createChannel(
-            applicationContext, STORM_CHANNEL_ID,
-            applicationContext.getString(R.string.notification_storm_alert_channel_name),
-            applicationContext.getString(R.string.notification_storm_alert_channel_desc),
-            NotificationUtils.CHANNEL_IMPORTANCE_HIGH
-        )
-    }
-
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
@@ -336,31 +318,11 @@ class WeatherUpdateService : Service() {
         }
     }
 
-    fun createChannel(
-        context: Context,
-        id: String,
-        name: String,
-        description: String,
-        importance: Int,
-        sound: Boolean = false
-    ) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            return
-        }
-        val channel = NotificationChannel(id, name, importance).apply {
-            this.description = description
-            if (!sound) {
-                setSound(null, null)
-            }
-        }
-        context.getSystemService<NotificationManager>()?.createNotificationChannel(channel)
-    }
-
     companion object {
 
         private const val FOREGROUND_SERVICE_ID = 629579783
-        private const val STORM_CHANNEL_ID = "Alerts"
-        private const val FOREGROUND_CHANNEL_ID = "WeatherUpdate"
+        const val STORM_CHANNEL_ID = "Alerts"
+        const val FOREGROUND_CHANNEL_ID = "WeatherUpdate"
         private const val TAG = "WeatherUpdateService"
         private const val STORM_ALERT_NOTIFICATION_ID = 74309823
 

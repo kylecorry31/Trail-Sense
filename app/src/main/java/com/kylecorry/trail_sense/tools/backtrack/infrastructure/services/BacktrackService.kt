@@ -41,24 +41,16 @@ class BacktrackService : Service() {
     private val cache by lazy { Cache(applicationContext) }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.i(TAG, "Started at ${ZonedDateTime.now()}")
-        acquireWakelock()
-        scheduleNextUpdate()
-        NotificationUtils.createChannel(
-            applicationContext,
-            FOREGROUND_CHANNEL_ID,
-            getString(R.string.backtrack_notification_channel),
-            getString(R.string.backtrack_notification_channel_description),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
-            muteSound = false
-        )
         val notification = notification(
             getString(R.string.backtrack_notification_channel),
             getString(R.string.backtrack_notification_description),
             R.drawable.ic_update
         )
-
         startForeground(FOREGROUND_SERVICE_ID, notification)
+
+        Log.i(TAG, "Started at ${ZonedDateTime.now()}")
+        acquireWakelock()
+        scheduleNextUpdate()
 
         val timeSinceLast =
             Instant.now().toEpochMilli() - (cache.getLong(CACHE_LAST_LOCATION_UPDATE)
@@ -176,7 +168,7 @@ class BacktrackService : Service() {
     companion object {
 
         private const val FOREGROUND_SERVICE_ID = 76984343
-        private const val FOREGROUND_CHANNEL_ID = "Backtrack"
+        const val FOREGROUND_CHANNEL_ID = "Backtrack"
         private const val TAG = "BacktrackService"
         const val CACHE_LAST_LOCATION_UPDATE = "cache_last_backtrack_time"
 
