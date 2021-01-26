@@ -582,4 +582,12 @@
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_ac">交流电</string>
     <string name="coordinate_format_mgrs">MGRS（军事格网参考系）坐标</string>
+    <string name="how">怎么做</string>
+    <string name="compass_calibrate_toast">指南针精度 %s，建议进行校准</string>
+    <string name="open_beacon_in_maps">在地图上查看</string>
+    <string name="pref_low_power_mode_summary">禁用一些功能来节省电量</string>
+    <string name="backtrack_disabled_low_power_toast">节电模式下 Backtrack 功能处于禁用状态</string>
+    <string name="dialog_leave">离开</string>
+    <string name="notes_unsaved_changes_message">你所做的更改将不被保存。</string>
+    <string name="notes_unsaved_changes">未保存的变更</string>
 </resources>
