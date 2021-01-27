@@ -745,4 +745,8 @@
     <string name="open_beacon_in_maps">View on Map</string>
     <string name="compass_calibrate_toast">Compass accuracy %s, calibration is advised</string>
     <string name="how">How</string>
+    <string name="clouds">Clouds (experimental)</string>
+    <string name="cloud_high">HIGH</string>
+    <string name="cloud_middle">MIDDLE</string>
+    <string name="cloud_low">LOW</string>
 </resources>

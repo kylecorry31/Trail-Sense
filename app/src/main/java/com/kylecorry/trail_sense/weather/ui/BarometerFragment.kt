@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.formatHM
 import com.kylecorry.trail_sense.shared.sensors.*
@@ -63,8 +64,13 @@ class BarometerFragment : Fragment() {
 
     private var valueSelectedTime = 0L
 
+    private var leftQuickAction: QuickActionButton? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        leftQuickAction = QuickActionClouds(binding.weatherLeftQuickAction, this)
+        leftQuickAction?.onCreate()
 
         sensorService = SensorService(requireContext())
         navController = findNavController()
@@ -152,11 +158,13 @@ class BarometerFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        leftQuickAction?.onDestroy()
         _binding = null
     }
 
     override fun onResume() {
         super.onResume()
+        leftQuickAction?.onResume()
         startSensors()
 
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
@@ -176,6 +184,7 @@ class BarometerFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        leftQuickAction?.onPause()
         barometer.stop(this::onPressureUpdate)
         altimeter.stop(this::onAltitudeUpdate)
         thermometer.stop(this::onTemperatureUpdate)
