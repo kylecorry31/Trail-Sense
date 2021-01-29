@@ -1,9 +1,15 @@
 package com.kylecorry.trail_sense.weather.ui
 
+import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
@@ -50,29 +56,80 @@ class CloudFragment : Fragment() {
 
             when(item.height){
                 CloudHeight.Low -> {
-                    itemBinding.cloudHeightHigh.setTextColor(UiUtils.androidTextColorSecondary(requireContext()))
-                    itemBinding.cloudHeightMiddle.setTextColor(UiUtils.androidTextColorSecondary(requireContext()))
-                    itemBinding.cloudHeightLow.setTextColor(UiUtils.color(requireContext(), R.color.colorPrimary))
+                    itemBinding.cloudHeightHigh.setTextColor(
+                        UiUtils.androidTextColorSecondary(
+                            requireContext()
+                        )
+                    )
+                    itemBinding.cloudHeightMiddle.setTextColor(
+                        UiUtils.androidTextColorSecondary(
+                            requireContext()
+                        )
+                    )
+                    itemBinding.cloudHeightLow.setTextColor(
+                        UiUtils.color(
+                            requireContext(),
+                            R.color.colorPrimary
+                        )
+                    )
                     itemBinding.cloudHeightHigh.alpha = 0.25f
                     itemBinding.cloudHeightMiddle.alpha = 0.25f
                     itemBinding.cloudHeightLow.alpha = 1f
                 }
                 CloudHeight.Middle -> {
-                    itemBinding.cloudHeightHigh.setTextColor(UiUtils.androidTextColorSecondary(requireContext()))
-                    itemBinding.cloudHeightMiddle.setTextColor(UiUtils.color(requireContext(), R.color.colorPrimary))
-                    itemBinding.cloudHeightLow.setTextColor(UiUtils.androidTextColorSecondary(requireContext()))
+                    itemBinding.cloudHeightHigh.setTextColor(
+                        UiUtils.androidTextColorSecondary(
+                            requireContext()
+                        )
+                    )
+                    itemBinding.cloudHeightMiddle.setTextColor(
+                        UiUtils.color(
+                            requireContext(),
+                            R.color.colorPrimary
+                        )
+                    )
+                    itemBinding.cloudHeightLow.setTextColor(
+                        UiUtils.androidTextColorSecondary(
+                            requireContext()
+                        )
+                    )
                     itemBinding.cloudHeightHigh.alpha = 0.25f
                     itemBinding.cloudHeightMiddle.alpha = 1f
                     itemBinding.cloudHeightLow.alpha = 0.25f
                 }
                 CloudHeight.High -> {
-                    itemBinding.cloudHeightHigh.setTextColor(UiUtils.color(requireContext(), R.color.colorPrimary))
-                    itemBinding.cloudHeightMiddle.setTextColor(UiUtils.androidTextColorSecondary(requireContext()))
-                    itemBinding.cloudHeightLow.setTextColor(UiUtils.androidTextColorSecondary(requireContext()))
+                    itemBinding.cloudHeightHigh.setTextColor(
+                        UiUtils.color(
+                            requireContext(),
+                            R.color.colorPrimary
+                        )
+                    )
+                    itemBinding.cloudHeightMiddle.setTextColor(
+                        UiUtils.androidTextColorSecondary(
+                            requireContext()
+                        )
+                    )
+                    itemBinding.cloudHeightLow.setTextColor(
+                        UiUtils.androidTextColorSecondary(
+                            requireContext()
+                        )
+                    )
                     itemBinding.cloudHeightHigh.alpha = 1f
                     itemBinding.cloudHeightMiddle.alpha = 0.25f
                     itemBinding.cloudHeightLow.alpha = 0.25f
                 }
+            }
+
+            itemBinding.precipitation.setOnClickListener {
+                UiUtils.alert(requireContext(), cloudRepo.getCloudName(item), cloudRepo.getCloudWeatherString(weather), getString(R.string.dialog_ok))
+            }
+
+            itemBinding.cloudImg.setOnClickListener {
+                imageAlert(
+                    requireContext(), cloudRepo.getCloudName(item), cloudRepo.getCloudImage(
+                        item
+                    ), getString(R.string.dialog_ok)
+                )
             }
 
         }
@@ -80,4 +137,42 @@ class CloudFragment : Fragment() {
         listView.addLineSeparator()
         listView.setData(cloudRepo.getClouds().sortedByDescending { it.height })
     }
+
+
+    private fun imageAlert(
+        context: Context,
+        title: String,
+        @DrawableRes image: Int,
+        buttonOk: String,
+        onClose: (() -> Unit)? = null
+    ): AlertDialog {
+        val builder = AlertDialog.Builder(context)
+        val view = LinearLayout(context)
+        val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        params.gravity = Gravity.CENTER
+        view.layoutParams = params
+        val imageView = ImageView(context)
+        val imageParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+        imageParams.gravity = Gravity.CENTER
+        imageView.layoutParams = imageParams
+        imageView.setImageResource(image)
+        view.addView(imageView)
+
+        builder.apply {
+            setView(view)
+            setTitle(title)
+            setPositiveButton(
+                buttonOk
+            ) { dialog, _ ->
+                onClose?.invoke()
+                dialog.dismiss()
+            }
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+        return dialog
+    }
+
+
 }

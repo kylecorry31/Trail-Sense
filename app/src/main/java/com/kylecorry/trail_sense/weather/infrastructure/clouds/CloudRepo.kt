@@ -3,13 +3,9 @@ package com.kylecorry.trail_sense.weather.infrastructure.clouds
 import android.content.Context
 import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import com.kylecorry.trailsensecore.domain.weather.clouds.*
 
-// TODO: Extract these
 class CloudRepo(private val context: Context) {
-
-    private val cloudService = WeatherService()
 
     fun getClouds(): List<CloudType> {
         return CloudType.values().toList()
@@ -17,40 +13,40 @@ class CloudRepo(private val context: Context) {
 
     fun getCloudDescription(type: CloudType): String {
         return when (type) {
-            CloudType.Cirrocumulus -> "Forms a wavy sheet, clouds almost look two dimensional."
-            CloudType.Cirrostratus -> "Covers the sky, but the sun can be seen through it."
-            CloudType.Altocumulus -> "Looks like puffy cotton balls."
-            CloudType.Altostratus -> "Covers the sky, the sun can barely be seen."
-            CloudType.Nimbostratus -> "Dark gray and covers the sky. It may be raining."
-            CloudType.Stratus -> "Covers the sky, objects don't cast shadows."
-            CloudType.Stratocumulus -> "Rolling masses which form a sheet."
-            CloudType.Cumulus -> "Looks like puffy cotton balls."
-            CloudType.Cumulonimbus -> "Dark gray, tall and anvil shape."
-            CloudType.Cirrus -> "High and feathery."
+            CloudType.Cirrocumulus -> context.getString(R.string.cirrocumulus_desc)
+            CloudType.Cirrostratus -> context.getString(R.string.cirrostratus_desc)
+            CloudType.Altocumulus -> context.getString(R.string.altocumulus_desc)
+            CloudType.Altostratus -> context.getString(R.string.altostratus_desc)
+            CloudType.Nimbostratus -> context.getString(R.string.nimbostratus_desc)
+            CloudType.Stratus -> context.getString(R.string.stratus_desc)
+            CloudType.Stratocumulus -> context.getString(R.string.stratocumulus_desc)
+            CloudType.Cumulus -> context.getString(R.string.cumulus_desc)
+            CloudType.Cumulonimbus -> context.getString(R.string.cumulonimbus_desc)
+            CloudType.Cirrus -> context.getString(R.string.cirrus_desc)
         }
     }
 
     fun getCloudName(type: CloudType): String {
         return when (type) {
-            CloudType.Cirrus -> "Cirrus"
-            CloudType.Cirrocumulus -> "Cirrocumulus"
-            CloudType.Cirrostratus -> "Cirrostratus"
-            CloudType.Altocumulus -> "Altocumulus"
-            CloudType.Altostratus -> "Altostratus"
-            CloudType.Nimbostratus -> "Nimbostratus"
-            CloudType.Stratus -> "Stratus"
-            CloudType.Stratocumulus -> "Stratocumulus"
-            CloudType.Cumulus -> "Cumulus"
-            CloudType.Cumulonimbus -> "Cumulonimbus"
+            CloudType.Cirrus -> context.getString(R.string.cirrus)
+            CloudType.Cirrocumulus -> context.getString(R.string.cirrocumulus)
+            CloudType.Cirrostratus -> context.getString(R.string.cirrostratus)
+            CloudType.Altocumulus -> context.getString(R.string.altocumulus)
+            CloudType.Altostratus -> context.getString(R.string.altostratus)
+            CloudType.Nimbostratus -> context.getString(R.string.nimbostratus)
+            CloudType.Stratus -> context.getString(R.string.stratus)
+            CloudType.Stratocumulus -> context.getString(R.string.stratocumulus)
+            CloudType.Cumulus -> context.getString(R.string.cumulus)
+            CloudType.Cumulonimbus -> context.getString(R.string.cumulonimbus)
         }
     }
 
     fun getCloudWeatherString(weather: CloudWeather): String {
         return when (weather) {
-            CloudWeather.Fair -> "Fair weather likely"
-            CloudWeather.PrecipitationPossible -> "Precipitation possible"
-            CloudWeather.PrecipitationLikely -> "Precipitation likely"
-            CloudWeather.StormLikely -> "Storm likely"
+            CloudWeather.Fair -> context.getString(R.string.cloud_fair)
+            CloudWeather.PrecipitationPossible -> context.getString(R.string.cloud_possible_rain)
+            CloudWeather.PrecipitationLikely -> context.getString(R.string.cloud_likely_rain)
+            CloudWeather.StormLikely -> context.getString(R.string.cloud_likely_storm)
         }
     }
 
@@ -61,14 +57,6 @@ class CloudRepo(private val context: Context) {
             CloudWeather.PrecipitationPossible -> R.drawable.light_rain
             CloudWeather.PrecipitationLikely -> R.drawable.heavy_rain
             CloudWeather.StormLikely -> R.drawable.storm
-        }
-    }
-
-    fun getCloudHeightString(height: CloudHeight): String {
-        return when (height) {
-            CloudHeight.Low -> "Low"
-            CloudHeight.Middle -> "Middle"
-            CloudHeight.High -> "High"
         }
     }
 
