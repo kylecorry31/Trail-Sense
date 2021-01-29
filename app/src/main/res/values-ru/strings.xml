@@ -592,4 +592,12 @@
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
+    <string name="how">Как</string>
+    <string name="compass_calibrate_toast">Точность компаса %s, рекомендуется калибровка</string>
+    <string name="open_beacon_in_maps">Посмотреть на карте</string>
+    <string name="pref_low_power_mode_summary">Отключает некоторые функции для экономии энергии</string>
+    <string name="backtrack_disabled_low_power_toast">Возврат отключен в режиме энергосбережения</string>
+    <string name="dialog_leave">Покинуть</string>
+    <string name="notes_unsaved_changes_message">Внесенные вами изменения не сохранятся.</string>
+    <string name="notes_unsaved_changes">Несохраненные изменения</string>
 </resources>
