@@ -1,6 +1,11 @@
 package com.kylecorry.trail_sense
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
+import android.os.Build
+import androidx.core.content.getSystemService
+import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
@@ -96,6 +101,16 @@ object NotificationChannels {
             context.getString(R.string.weather_update_notification_channel_desc),
             NotificationUtils.CHANNEL_IMPORTANCE_LOW,
             true
+        )
+
+        // Sunset
+        NotificationUtils.createChannel(
+            context,
+            SunsetAlarmReceiver.NOTIFICATION_CHANNEL_ID,
+            context.getString(R.string.sunset_alert_channel_title),
+            context.getString(R.string.sunset_alert_channel_description),
+            NotificationUtils.CHANNEL_IMPORTANCE_HIGH,
+            false
         )
     }
 

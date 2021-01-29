@@ -117,7 +117,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
 
         // TODO: Instead of having the timeout here, do it in the calling code
         // Verify satellite requirement for notification
-        if (baseGPS.satellites < 4 && dt < maxFixTime){
+        if (userPrefs.requiresSatellites && baseGPS.satellites < 4 && dt < maxFixTime){
             shouldNotify = false
         } else {
             fixStart = System.currentTimeMillis()
