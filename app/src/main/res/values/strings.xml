@@ -776,4 +776,6 @@
     <string name="cumulus_desc">Looks like puffy cotton balls.</string>
     <string name="cumulonimbus_desc">Dark gray, tall and anvil shape.</string>
     <string name="cirrus_desc">High and feathery.</string>
+    <string name="health">Health</string>
+    <string name="tool_health_sense" translatable="false">tool_health_sense</string>
 </resources>

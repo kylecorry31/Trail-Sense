@@ -139,6 +139,11 @@
             app:key="@string/tool_thermometer"
             app:singleLineTitle="false" />
         <Preference
+            android:icon="@drawable/ic_tool_health"
+            android:title="@string/health"
+            app:key="@string/tool_health_sense"
+            app:singleLineTitle="false" />
+        <Preference
             android:icon="@drawable/ic_tool_white_noise"
             android:summary="@string/tool_white_noise_summary"
             android:title="@string/tool_white_noise_title"
