@@ -9,6 +9,7 @@
             <data android:scheme="geo" />
         </intent>
         <package android:name="com.kylecorry.trail_sense_maps" />
+        <package android:name="com.kylecorry.health_sense" />
     </queries>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
