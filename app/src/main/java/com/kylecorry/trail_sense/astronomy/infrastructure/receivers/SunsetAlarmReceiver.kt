@@ -136,8 +136,6 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
 
         userPrefs.astronomy.setSunsetAlertLastSentDate(LocalDate.now())
 
-        createNotificationChannel()
-
         val formattedTime = sunset.toDisplayFormat(context)
 
         val openIntent = MainActivity.astronomyIntent(context)
@@ -160,22 +158,6 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
 
         with(NotificationManagerCompat.from(context)) {
             notify(NOTIFICATION_ID, builder.build())
-        }
-    }
-
-    private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = context.getString(R.string.sunset_alert_channel_title)
-            val descriptionText = context.getString(R.string.sunset_alert_channel_description)
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager = context.getSystemService<NotificationManager>()
-            notificationManager?.createNotificationChannel(channel)
         }
     }
 

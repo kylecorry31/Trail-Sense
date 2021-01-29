@@ -521,4 +521,10 @@
     <string name="waypoint_action_delete">Slett</string>
     <string name="pref_sea_level_pressure_change_thresh_title">Trykkendringsterskel ved forflytning</string>
     <string name="pref_barometer_altitude_change_title">Høydeendringsterskel ved forflytning</string>
+    <string name="how">Hvordan</string>
+    <string name="compass_calibrate_toast">Kompassnøyaktighet %s, kalibrering anbefales</string>
+    <string name="open_beacon_in_maps">Vis på kart</string>
+    <string name="pref_low_power_mode_summary">Deaktiverer noen funksjoner for å spare strøm</string>
+    <string name="notes_unsaved_changes_message">Endringer du har gjort blir ikke lagret.</string>
+    <string name="notes_unsaved_changes">Ulagrede endringer</string>
 </resources>

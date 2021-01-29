@@ -749,4 +749,7 @@
     <string name="cloud_high">HIGH</string>
     <string name="cloud_middle">MIDDLE</string>
     <string name="cloud_low">LOW</string>
+    <string name="pref_require_satellites">pref_require_satellites</string>
+    <string name="pref_require_satellites_title">Require satellite fix</string>
+    <string name="pref_require_satellites_description">Requires at least 4 satellites, improves accuracy</string>
 </resources>

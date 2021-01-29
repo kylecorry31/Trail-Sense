@@ -88,6 +88,9 @@ class UserPreferences(private val context: Context) {
         get() = cache.getBoolean(getString(R.string.pref_auto_location)) ?: true
         set(value) = cache.putBoolean(getString(R.string.pref_auto_location), value)
 
+    val requiresSatellites: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_require_satellites)) ?: true
+
     var locationOverride: Coordinate
         get() {
             val latStr = cache.getString(getString(R.string.pref_latitude_override)) ?: "0.0"
