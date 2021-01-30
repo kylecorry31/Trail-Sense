@@ -11,6 +11,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.GPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
 import java.time.Instant
 
@@ -49,6 +50,10 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     private val userPrefs by lazy { UserPreferences(context) }
     private val sensorChecker by lazy { SensorChecker(context) }
 
+    private val timeout = Intervalometer {
+        onTimeout()
+    }
+
     private var _altitude = 0f
     private var _time = Instant.now()
     private var _accuracy: Accuracy = Accuracy.Unknown
@@ -57,9 +62,6 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     private var _satellites: Int = 0
     private var _speed: Float = 0f
     private var _location = Coordinate.zero
-
-    private var fixStart: Long = 0L
-    private val maxFixTime = 8000L
 
     init {
         if (baseGPS.hasValidReading){
@@ -92,12 +94,13 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
             return
         }
 
-        fixStart = System.currentTimeMillis()
         baseGPS.start(this::onLocationUpdate)
+        timeout.once(TIMEOUT_DURATION)
     }
 
     override fun stopImpl() {
         baseGPS.stop(this::onLocationUpdate)
+        timeout.stop()
     }
 
     private fun onLocationUpdate(): Boolean {
@@ -107,20 +110,20 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
 
         // Determine if the new location should be used, if not, return the old location
         if (!shouldUpdateReading()){
+            // Reset the timeout, there's a valid reading
+            timeout.once(TIMEOUT_DURATION)
             notifyListeners()
             return true
         }
 
         var shouldNotify = true
 
-        val dt = System.currentTimeMillis() - fixStart
-
-        // TODO: Instead of having the timeout here, do it in the calling code
         // Verify satellite requirement for notification
-        if (userPrefs.requiresSatellites && baseGPS.satellites < 4 && dt < maxFixTime){
+        if (userPrefs.requiresSatellites && baseGPS.satellites < 4){
             shouldNotify = false
         } else {
-            fixStart = System.currentTimeMillis()
+            // Reset the timeout, there's a valid reading
+            timeout.once(TIMEOUT_DURATION)
         }
 
         _location = baseGPS.location
@@ -147,6 +150,11 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         }
 
         return true
+    }
+
+    private fun onTimeout(){
+        notifyListeners()
+        timeout.once(TIMEOUT_DURATION)
     }
 
     private fun hadRecentValidReading(): Boolean {
@@ -190,5 +198,6 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         const val LAST_ALTITUDE = "last_altitude"
         const val LAST_SPEED = "last_speed"
         const val LAST_UPDATE = "last_update"
+        private val TIMEOUT_DURATION = Duration.ofSeconds(10)
     }
 }
