@@ -7,11 +7,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ViewMeasurementUtils
 import kotlin.math.ceil
 
-class Ruler(private val view: ConstraintLayout) {
+class Ruler(private val view: ConstraintLayout, private val units: DistanceUnits) {
 
     private val context = view.context
     private val userPrefs = UserPreferences(context)
@@ -57,7 +58,7 @@ class Ruler(private val view: ConstraintLayout) {
         val dpi = ViewMeasurementUtils.dpi(context)
         val scale = userPrefs.navigation.rulerScale
         val height =
-            scale * view.height / dpi.toDouble() * if (userPrefs.distanceUnits == UserPreferences.DistanceUnits.Meters) 2.54 else 1.0
+            scale * view.height / dpi.toDouble() * if (units == DistanceUnits.Centimeters) 2.54 else 1.0
 
         if (height == 0.0 || context == null) {
             return
@@ -66,8 +67,10 @@ class Ruler(private val view: ConstraintLayout) {
         if (!isRulerSetup) {
             val primaryColor = UiUtils.androidTextColorPrimary(context)
 
-            for (i in 0..ceil(height).toInt() * 8) {
-                val inches = i / 8.0
+            val divisions = if (units == DistanceUnits.Inches) 8 else 10
+
+            for (i in 0..ceil(height).toInt() * divisions) {
+                val inches = i / divisions.toFloat()
                 val tv = TextView(context)
                 val bar = View(context)
                 bar.setBackgroundColor(primaryColor)
@@ -81,7 +84,7 @@ class Ruler(private val view: ConstraintLayout) {
                     inches % 0.5 == 0.0 -> {
                         bar.layoutParams.width = 36
                     }
-                    inches % 0.25 == 0.0 -> {
+                    units == DistanceUnits.Inches && inches % 0.25 == 0.0 -> {
                         bar.layoutParams.width = 24
                     }
                     else -> {

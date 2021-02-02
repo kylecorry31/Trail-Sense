@@ -34,7 +34,7 @@ class RulerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentToolRulerBinding.inflate(inflater, container, false)
-        ruler = Ruler(binding.ruler)
+        ruler = Ruler(binding.ruler, if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Centimeters else DistanceUnits.Inches)
         ruler.onTap = this::onRulerTap
         ruler.show()
         binding.fractionalMapFrom.setText("1")

@@ -778,4 +778,5 @@
     <string name="cirrus_desc">High and feathery.</string>
     <string name="health">Health</string>
     <string name="tool_health_sense" translatable="false">tool_health_sense</string>
+    <string name="tool_clouds" translatable="false">tool_clouds</string>
 </resources>

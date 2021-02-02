@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.maps.infrastructure.TrailSenseMaps
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.health.infrastructure.HealthSense
+import com.kylecorry.trail_sense.tools.nws.infrastructure.NWSWeather
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 
@@ -57,6 +58,10 @@ class ToolsFragment : PreferenceFragmentCompat() {
         val health = findPreference<Preference>(getString(R.string.tool_health_sense))
         health?.isVisible = HealthSense.isInstalled(requireContext())
         onClick(health) { HealthSense.open(requireContext()) }
+
+        val nws = findPreference<Preference>("tool_nws_weather")
+        nws?.isVisible = NWSWeather.isInstalled(requireContext())
+        onClick(nws) { NWSWeather.open(requireContext()) }
 
         val depth = findPreference<Preference>(getString(R.string.tool_depth))
         depth?.isVisible = sensorChecker.hasBarometer()
@@ -137,6 +142,13 @@ class ToolsFragment : PreferenceFragmentCompat() {
         navigateOnClick(
             thermometer,
             R.id.action_action_experimental_tools_to_thermometerFragment
+        )
+
+        val clouds = findPreference<Preference>(getString(R.string.tool_clouds))
+        clouds?.isVisible = !sensorChecker.hasBarometer()
+        navigateOnClick(
+            clouds,
+            R.id.action_action_experimental_tools_to_cloudFragment
         )
 
         val isExperimentalEnabled = prefs.experimentalEnabled

@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class QuickActionRuler(btn: FloatingActionButton, fragment: Fragment, private val rulerView: ConstraintLayout): QuickActionButton(btn, fragment) {
     private lateinit var ruler: Ruler
+    private val prefs by lazy { UserPreferences(context) }
 
     override fun onCreate() {
 //        val layout = ConstraintLayout(context)
@@ -24,7 +27,7 @@ class QuickActionRuler(btn: FloatingActionButton, fragment: Fragment, private va
 //            constraints.connect(layout.id, ConstraintSet.START, view.id, ConstraintSet.START)
 //            constraints.applyTo(view)
 //        }
-        ruler = Ruler(rulerView)
+        ruler = Ruler(rulerView, if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Centimeters else DistanceUnits.Inches)
         button.setOnClickListener {
             if (ruler.visible) {
                 UiUtils.setButtonState(
