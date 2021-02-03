@@ -600,4 +600,18 @@
     <string name="dialog_leave">Покинуть</string>
     <string name="notes_unsaved_changes_message">Внесенные вами изменения не сохранятся.</string>
     <string name="notes_unsaved_changes">Несохраненные изменения</string>
+    <string name="health">Здоровье</string>
+    <string name="cirrus_desc">Высокий и перистый.</string>
+    <string name="cumulonimbus_desc">Темно-серый, высокий, в форме наковальни.</string>
+    <string name="cumulus_desc">Похоже на пухлые ватные шарики.</string>
+    <string name="stratus_desc">Покрывает небо, объекты не отбрасывают тени.</string>
+    <string name="nimbostratus_desc">Темно-серый и покрывает небо. Может быть дождь.</string>
+    <string name="altostratus_desc">Покрывает небо, солнце едва видно.</string>
+    <string name="altocumulus_desc">Похоже на пухлые ватные шарики.</string>
+    <string name="cirrostratus_desc">Покрывает небо, но сквозь него видно солнце.</string>
+    <string name="cirrocumulus_desc">Формирует волнистый лист, облака выглядят почти двумерно.</string>
+    <string name="cloud_possible_rain">Возможны осадки</string>
+    <string name="cloud_fair">Вероятна хорошая погода</string>
+    <string name="cloud_high">ВЫСОКО</string>
+    <string name="clouds">Облака</string>
 </resources>
