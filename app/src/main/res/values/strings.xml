@@ -669,6 +669,8 @@
     <string name="freezing_temperatures_warning">Freezing Temperatures</string>
     <string name="freezing_temperatures_description">Water will freeze if left out and rain may turn to snow</string>
     <string name="unit_centimeters">Centimeters</string>
+    <string name="unit_centimeters_abbreviation">cm</string>
+    <string name="unit_inches_abbreviation">in</string>
     <string name="unit_inches">Inches</string>
     <string name="map_distance">Map: %s</string>
     <string name="map_fractional_separator">:</string>

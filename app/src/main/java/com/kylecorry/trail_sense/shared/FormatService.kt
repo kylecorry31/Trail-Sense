@@ -180,8 +180,8 @@ class FormatService(private val context: Context) {
         return formatDistance(Distance(distanceMeters, DistanceUnits.Meters).convertTo(base))
     }
 
-    fun formatLargeDistance(distanceMeters: Float): String {
-        val units = getLargeDistanceUnits(distanceMeters)
+    fun formatLargeDistance(distanceMeters: Float, prefUnits: UserPreferences.DistanceUnits? = null): String {
+        val units = getLargeDistanceUnits(distanceMeters, prefUnits)
         return formatDistance(Distance(distanceMeters, DistanceUnits.Meters).convertTo(units))
     }
 
@@ -227,8 +227,8 @@ class FormatService(private val context: Context) {
         }
     }
 
-    private fun getLargeDistanceUnits(meters: Float): DistanceUnits {
-        val units = prefs.distanceUnits
+    private fun getLargeDistanceUnits(meters: Float, prefUnits: UserPreferences.DistanceUnits? = null): DistanceUnits {
+        val units = prefUnits ?: prefs.distanceUnits
 
         if (units == UserPreferences.DistanceUnits.Feet) {
             val feetThreshold = 1000

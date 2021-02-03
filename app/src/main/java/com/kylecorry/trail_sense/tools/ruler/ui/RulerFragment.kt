@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
@@ -29,18 +30,36 @@ class RulerFragment : Fragment() {
     private lateinit var ruler: Ruler
     private lateinit var units: UserPreferences.DistanceUnits
 
+    private var rulerUnits = DistanceUnits.Centimeters
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentToolRulerBinding.inflate(inflater, container, false)
-        ruler = Ruler(binding.ruler, if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Centimeters else DistanceUnits.Inches)
+        rulerUnits = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Centimeters else DistanceUnits.Inches
+        ruler = Ruler(binding.ruler, rulerUnits)
         ruler.onTap = this::onRulerTap
         ruler.show()
         binding.fractionalMapFrom.setText("1")
 
         CustomUiUtils.setButtonState(binding.mapRatioBtn, true)
         CustomUiUtils.setButtonState(binding.mapVerbalBtn, false)
+        CustomUiUtils.setButtonState(binding.rulerUnitBtn, false)
+        binding.rulerUnitBtn.text = getUnitText(rulerUnits)
+
+        binding.rulerUnitBtn.setOnClickListener {
+            rulerUnits = if (rulerUnits == DistanceUnits.Centimeters){
+                DistanceUnits.Inches
+            } else {
+                DistanceUnits.Centimeters
+            }
+            binding.rulerUnitBtn.text = getUnitText(rulerUnits)
+            val displayDistance = currentDistance.convertTo(rulerUnits)
+            binding.measurement.text = formatService.formatDistance(displayDistance.distance, displayDistance.units)
+            ruler.setUnits(rulerUnits)
+            calculateMapDistance()
+        }
 
         binding.mapRatioBtn.setOnClickListener {
             scaleMode = MapScaleMode.Fractional
@@ -103,8 +122,9 @@ class RulerFragment : Fragment() {
     }
 
     private fun onRulerTap(centimeters: Float) {
-        binding.measurement.text = formatService.formatFractionalDistance(centimeters)
         currentDistance = Distance(centimeters, DistanceUnits.Centimeters)
+        val displayDistance = currentDistance.convertTo(rulerUnits)
+        binding.measurement.text = formatService.formatDistance(displayDistance.distance, displayDistance.units)
         calculateMapDistance()
     }
 
@@ -130,7 +150,7 @@ class RulerFragment : Fragment() {
                 } else {
                     val mapDistance = geoService.getMapDistance(currentDistance, ratioFrom, ratioTo)
                         .convertTo(DistanceUnits.Meters)
-                    formatService.formatLargeDistance(mapDistance.distance)
+                    formatService.formatLargeDistance(mapDistance.distance, if (rulerUnits == DistanceUnits.Centimeters) UserPreferences.DistanceUnits.Meters else UserPreferences.DistanceUnits.Feet)
                 }
             }
         }
@@ -139,6 +159,14 @@ class RulerFragment : Fragment() {
             ""
         } else {
             getString(R.string.map_distance, displayDistance)
+        }
+    }
+
+    private fun getUnitText(units: DistanceUnits): String {
+        return if (units == DistanceUnits.Centimeters){
+            getString(R.string.unit_centimeters_abbreviation)
+        } else {
+            getString(R.string.unit_inches_abbreviation)
         }
     }
 

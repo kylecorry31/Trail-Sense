@@ -12,13 +12,14 @@ import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ViewMeasurementUtils
 import kotlin.math.ceil
 
-class Ruler(private val view: ConstraintLayout, private val units: DistanceUnits) {
+class Ruler(private val view: ConstraintLayout, private var units: DistanceUnits) {
 
     private val context = view.context
     private val userPrefs = UserPreferences(context)
     private var isRulerSetup = false
     private var areRulerTextViewsAligned = false
     private var tapBar: View? = null
+    private var lastTap: Float? = null
 
     var onTap: ((centimeters: Float) -> Unit)? = null
 
@@ -38,6 +39,16 @@ class Ruler(private val view: ConstraintLayout, private val units: DistanceUnits
                 view.post(runnable)
             }
         }
+    }
+
+    fun setUnits(newUnits: DistanceUnits){
+        if (newUnits == units){
+            return
+        }
+        units = newUnits
+        isRulerSetup = false
+        areRulerTextViewsAligned = false
+        onUpdate()
     }
 
     fun show(){
@@ -65,6 +76,7 @@ class Ruler(private val view: ConstraintLayout, private val units: DistanceUnits
         }
 
         if (!isRulerSetup) {
+            view.removeAllViews()
             val primaryColor = UiUtils.androidTextColorPrimary(context)
 
             val divisions = if (units == DistanceUnits.Inches) 8 else 10
@@ -118,6 +130,10 @@ class Ruler(private val view: ConstraintLayout, private val units: DistanceUnits
                 it.layoutParams.width = view.width
                 it.visibility = View.INVISIBLE
                 view.addView(it)
+                if (lastTap != null){
+                    tapBar?.visibility = View.VISIBLE
+                    tapBar?.y = lastTap!!
+                }
             }
             view.setOnTouchListener { _, event ->
                 val tapPosition = event.y
@@ -127,8 +143,10 @@ class Ruler(private val view: ConstraintLayout, private val units: DistanceUnits
                     onTap?.invoke(tapCm)
                     tapBar?.visibility = View.VISIBLE
                     tapBar?.y = tapPosition
+                    lastTap = tapPosition
                 } else {
                     tapBar?.visibility = View.INVISIBLE
+                    lastTap = null
                 }
                 true
             }
