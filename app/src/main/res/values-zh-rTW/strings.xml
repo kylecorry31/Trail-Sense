@@ -279,4 +279,120 @@
     <string name="centimeters_format">%.2f 公分</string>
     <string name="inches_format">%.2f 吋</string>
     <string name="navigation">導航</string>
+    <string name="map_scale_title">地圖縮放</string>
+    <string name="map_scale_ratio">比例</string>
+    <string name="tool_white_noise_summary">幫助您入睡</string>
+    <string name="tool_white_noise_title">白噪聲</string>
+    <string name="freezing_temperatures_warning">結冰溫度</string>
+    <string name="bubble_level_angles">X: %s
+\nY: %s</string>
+    <string name="delete_note_title">刪除筆記？</string>
+    <string name="untitled_note">(無標題筆記)</string>
+    <string name="notes_empty_text">無筆記</string>
+    <string name="metal_detector_disclaimer">僅探測可磁化金屬(例: 鐵)</string>
+    <string name="tool_metal_detector_title">金屬探測器</string>
+    <string name="magnetic_field_format">%.0f uT</string>
+    <string name="metal_detected">探測到金屬</string>
+    <string name="clock_sync_time_settings">開啟時間設定？</string>
+    <string name="clock_sync_notification">時鐘同步 - %s</string>
+    <string name="pip_button">更新系統時間</string>
+    <string name="beacon_2">地標 2</string>
+    <string name="beacon_1">地標 1</string>
+    <string name="clock_waiting_for_gps">自GPS更新時間…</string>
+    <string name="water_purification_step_3">開始計時器</string>
+    <string name="tool_lightning_title">閃電雷聲測距</string>
+    <string name="pref_sensor_details_title">感應器細節</string>
+    <string name="boil_start">開始</string>
+    <string name="action_inventory_delete_all_confirm">刪除所有背包物品？</string>
+    <string name="tool_depth_summary">決定水深</string>
+    <string name="navigation_nearby_category">附近</string>
+    <string name="tap_sun_moon_hint">點擊太陽或月亮以取得詳細位置</string>
+    <string name="sun_and_moon_position_details">太陽
+\n\t高度: %s
+\n\t方位角: %s
+\n
+\n月球
+\n\t高度: %s
+\n\t方位角: %s</string>
+    <string name="sun_and_moon">太陽與月亮位置</string>
+    <string name="weather_update_notification_channel_desc">背景天氣更新</string>
+    <string name="error_occurred_message">Trail Sense 遇到一個錯誤且將會關閉。請發送電子郵件給開發者以解決此問題。</string>
+    <string name="error_occurred">一個錯誤發生</string>
+    <string name="onboarding_navigation_flashlight">和簡單存取您的手電筒</string>
+    <string name="onboarding_location_privacy">Trail Sense 尊重您的隱私 - 位置資料永不離開您的裝置</string>
+    <string name="onboarding_location_astronomy">允許您查看 太陽/月亮 升起落下時間</string>
+    <string name="onboarding_background_location">Trail Sense 需要權限以使用您的位置</string>
+    <string name="onboarding_astronomy">得知何時太陽/月亮將升起或落下</string>
+    <string name="onboarding_weather_no_internet">* 並未使用網路連線</string>
+    <string name="pref_open_source_licenses_title">許可證</string>
+    <string name="pref_sunset_alert_time_title">日落警報時間</string>
+    <string name="pref_sunset_alerts_title">日落警報</string>
+    <string name="update_150_minutes">2 小時 30 分</string>
+    <string name="update_90_minutes">1 h小時 30 分</string>
+    <string name="pref_center_sun_and_moon_title">保持 太陽/月亮 置中</string>
+    <string name="sun_moon_compass_when_up">當升起</string>
+    <string name="pref_show_sun_moon_compass_title">於羅盤上顯示 太陽/月亮</string>
+    <string name="pref_sun_time_mode_title">日出 / 日落時間</string>
+    <string name="pref_weather_update_frequency_title">天氣更新頻率</string>
+    <string name="pref_show_pressure_in_notification_title">於通知中顯示壓力</string>
+    <string name="pref_show_weather_notification_title">顯示天氣通知</string>
+    <string name="storm_sensitivity_high_in">高 (0.089 in / 3h)</string>
+    <string name="storm_sensitivity_med_in">中 (0.133 in / 3h)</string>
+    <string name="storm_sensitivity_low_in">低 (0.177 in / 3h)</string>
+    <string name="storm_sensitivity_high_psi">高 (0.044 PSI / 3h)</string>
+    <string name="storm_sensitivity_med_psi">中 (0.065 PSI / 3h)</string>
+    <string name="storm_sensitivity_low_psi">低 (0.087 PSI / 3h)</string>
+    <string name="storm_sensitivity_high_mbar">高 (3 mbar / 3h)</string>
+    <string name="storm_sensitivity_med_mbar">中 (4.5 mbar / 3h)</string>
+    <string name="storm_sensitivity_low_mbar">低 (3 mbar / 3h)</string>
+    <string name="storm_sensitivity_high_hpa">高 (3 hPa / 3h)</string>
+    <string name="storm_sensitivity_med_hpa">中 (4.5 hPa / 3h)</string>
+    <string name="storm_sensitivity_low_hpa">低 (6 hPa / 3h)</string>
+    <string name="forecast_sensitivity_high_in">高 (0.015 in / 3h)</string>
+    <string name="forecast_sensitivity_med_in">中 (0.044 in / 3h)</string>
+    <string name="forecast_sensitivity_low_in">低 (0.074 in / 3h)</string>
+    <string name="forecast_sensitivity_high_psi">高 (0.007 PSI / 3h)</string>
+    <string name="forecast_sensitivity_med_psi">中 (0.022 PSI / 3h)</string>
+    <string name="forecast_sensitivity_low_psi">低 (0.036 PSI / 3h)</string>
+    <string name="pref_max_beacon_distance_km_message">輸入最大可見地標半徑(公里)</string>
+    <string name="pref_max_beacon_distance_miles_message">輸入最大可見地標半徑(英里)</string>
+    <string name="pref_show_calibrate_on_navigate_dialog_title">導航前校正</string>
+    <string name="pref_show_linear_compass_title">顯示線性羅盤</string>
+    <string name="pref_display_multi_beacons_title">顯示附近地標</string>
+    <string name="compass_reported_accuracy">回報精確度: %s</string>
+    <string name="calibrate_compass_dialog_content">以8字旋轉您的手機數次， 完成時點擊 %s 。</string>
+    <string name="pref_auto_declination_summary">根據您現在位置</string>
+    <string name="compass_from_gps">設定自GPS覆寫</string>
+    <string name="pref_category_sensors_title">感測器</string>
+    <string name="pref_general_header">一般</string>
+    <string name="moon_illumination">月球亮部</string>
+    <string name="sun_down_no_set">太陽落下</string>
+    <string name="sun_up_no_set">太陽升起</string>
+    <string name="heat_alert_normal_title">無溫度警告</string>
+    <string name="heat_alert_heat_caution_title">熱警告</string>
+    <string name="heat_alert_heat_warning_title">熱警告</string>
+    <string name="weather_storm_incoming">暴風雨即將來臨</string>
+    <string name="precise_temp_c_format">%s °C</string>
+    <string name="precise_temp_f_format">%s °F</string>
+    <plurals name="last_minutes">
+        <item quantity="other">%d 分鐘之前</item>
+    </plurals>
+    <string name="notification_storm_alert_title">暴風雨警報</string>
+    <string name="pressure_reading_time_ago">%s - %s 之前</string>
+    <string name="pressure_setpoint_format">Set: %s - %s 之前</string>
+    <string name="pressure_tendency_format_2">%s / 3h</string>
+    <string name="pressure_tendency_format">%s %s / 3h</string>
+    <string name="share_action_send">寄送</string>
+    <string name="accuracy_info">"GPS: 走到室外無視野遮擋的天空下
+\n    實際位置的 %s  
+\n    實際高度的 %s  
+\n    %s 個衛星
+\n
+\nCompass: Rotate device in a figure 8 pattern and move away from metal."</string>
+    <string name="accuracy_info_title">提升感測器資料精確度的訣竅</string>
+    <string name="battery_temp">手機: %s</string>
+    <string name="discharging_fast">快速放電中 (%s)</string>
+    <string name="discharging_slow">慢速放電中 (%s)</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="degree">%s°</string>
 </resources>
