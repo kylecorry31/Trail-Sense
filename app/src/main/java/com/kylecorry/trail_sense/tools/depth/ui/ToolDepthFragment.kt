@@ -16,6 +16,7 @@ import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.Pressure
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlin.math.max
@@ -31,6 +32,7 @@ class ToolDepthFragment : Fragment() {
     private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
+    private val cache by lazy { Cache(requireContext()) }
     private val throttle = Throttle(20)
 
     private var lastDepth: Float = 0f
@@ -54,11 +56,15 @@ class ToolDepthFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        UiUtils.alert(
-            requireContext(),
-            getString(R.string.disclaimer_message_title),
-            getString(R.string.depth_disclaimer)
-        )
+        if (cache.getBoolean("cache_dialog_tool_depth") != true) {
+            UiUtils.alert(
+                requireContext(),
+                getString(R.string.disclaimer_message_title),
+                getString(R.string.depth_disclaimer)
+            ){
+                cache.putBoolean("cache_dialog_tool_depth", true)
+            }
+        }
     }
 
     override fun onResume() {
