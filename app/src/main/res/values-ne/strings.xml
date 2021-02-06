@@ -31,15 +31,6 @@
     <string name="forecast_improving">सम्भवतः पछि सुधार हुँदैछ</string>
     <string name="forecast_worsening">सम्भवतः पछि खराब हुँदै गयो</string>
     <string name="no_beacons">बीकनहरू छैनन्</string>
-    <string name="onboarding_compass">बीकन राख्नुहोस् र तिनीहरूमा नेभिगेट गर्नुहोस्</string>
-    <string name="onboarding_weather">हाइपरलोकल मौसम पूर्वानुमान प्राप्त गर्नुहोस्</string>
-    <string name="onboarding_weather_no_internet">* इन्टरनेट जडान प्रयोग गर्दैन</string>
-    <string name="onboarding_astronomy">जब सूर्य /चन्द्रमा बढ्छ र सेट हुन्छ जान्नुहोस्</string>
-    <string name="onboarding_background_location">ट्रेल सेन्स लाई तपाईंको जीपीएस प्रयोग गर्नको लागि अनुमति चाहिन्छ</string>
-    <string name="onboarding_location_weather">अधिक सही मौसम पूर्वानुमानको लागि अनुमति दिन्छ (उचाईको लागि समायोजन)</string>
-    <string name="onboarding_location_navigation">तपाईंलाई बीकनमा नेभिगेट गर्न अनुमति दिन्छ</string>
-    <string name="onboarding_location_astronomy">तपाईंलाई सूर्य /चन्द्र उदय र समय सेट हेर्न अनुमति दिँदछ</string>
-    <string name="onboarding_location_privacy">ट्रेल सेन्सेजले तपाईंको गोपनीयतालाई आदर गर्दछ - स्थान डाटा कहिले पनि तपाईंको उपकरण छोड्दैन</string>
     <string name="continue_button">जारी राख्नुहोस्</string>
     <string name="moon_rise">मून्रोइज</string>
     <string name="moon_set">मूनसेट</string>

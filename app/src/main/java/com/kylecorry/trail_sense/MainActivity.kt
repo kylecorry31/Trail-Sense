@@ -17,14 +17,15 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
+import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
+import com.kylecorry.trail_sense.shared.MarkdownService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.*
-import io.noties.markwon.Markwon
 import java.time.Duration
 import kotlin.system.exitProcess
 
@@ -223,8 +224,8 @@ class MainActivity : AppCompatActivity() {
     private fun requestBackgroundLocation() {
         cache.putBoolean(Manifest.permission.ACCESS_BACKGROUND_LOCATION, true)
 
-        val markwon = Markwon.create(this)
-        val contents = markwon.toMarkdown(getString(R.string.access_background_location_rationale))
+        val markdown = MarkdownService(this)
+        val contents = markdown.toMarkdown(getString(R.string.access_background_location_rationale))
 
         PermissionUtils.requestPermissionsWithRationale(
             this,

@@ -30,15 +30,6 @@
     <string name="forecast_improving">Posiblemente mejore más tarde</string>
     <string name="forecast_worsening">Posiblemente empeore más tarde</string>
     <string name="no_beacons">Sin balizas</string>
-    <string name="onboarding_compass">Coloca balizas y navega hacia ellas</string>
-    <string name="onboarding_weather">Obtenga pronósticos meteorológicos hiperlocales</string>
-    <string name="onboarding_weather_no_internet">* no necesita conexión a Internet</string>
-    <string name="onboarding_astronomy">Sepa cuándo saldrá y se pondrá el sol / la luna</string>
-    <string name="onboarding_background_location">Trail Sense necesita permiso para usar su GPS</string>
-    <string name="onboarding_location_weather">Permite pronósticos meteorológicos más precisos (se ajusta a la altitud)</string>
-    <string name="onboarding_location_navigation">Le permite navegar a balizas</string>
-    <string name="onboarding_location_astronomy">Le permite ver la salida del sol /luna y establecer horarios</string>
-    <string name="onboarding_location_privacy">Trail Sense respeta su privacidad: los datos de ubicación nunca salen de su dispositivo</string>
     <string name="continue_button">SEGUIR</string>
     <string name="moon_rise">Salida de la luna</string>
     <string name="moon_set">Puesta de la luna</string>

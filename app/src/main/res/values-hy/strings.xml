@@ -31,15 +31,6 @@
     <string name="forecast_improving">Հնարավոր է, որ հետագայում բարելավվի</string>
     <string name="forecast_worsening">Հնարավոր է ՝ ավելի ուշ վատթարանալ</string>
     <string name="no_beacons">Փարոսներ չկան</string>
-    <string name="onboarding_compass">Տեղադրեք փարոսներ և նավարկեք նրանց դեպի ետ</string>
-    <string name="onboarding_weather">Ստացեք հիպերկենտրոն եղանակի կանխատեսումներ</string>
-    <string name="onboarding_weather_no_internet">* չի օգտագործում ինտերնետ կապ</string>
-    <string name="onboarding_astronomy">Իմացեք, թե երբ արևը /լուսինը կբարձրանա և կբարձրանա</string>
-    <string name="onboarding_background_location">Trail Sense- ին անհրաժեշտ է թույլտվություն ՝ ձեր GPS- ն օգտագործելու համար</string>
-    <string name="onboarding_location_weather">Թույլ է տալիս ավելի ճշգրիտ եղանակային կանխատեսումներ (ճշգրտվում է բարձրության վրա)</string>
-    <string name="onboarding_location_navigation">Թույլ է տալիս նավարկելու դեպի փարոսները</string>
-    <string name="onboarding_location_astronomy">Թույլ է տալիս տեսնել արևը /լուսինը բարձրացող և ժամանակներ սահմանել</string>
-    <string name="onboarding_location_privacy">Trail Sense- ը հարգում է ձեր գաղտնիությունը. Գտնվելու վայրի տվյալները երբեք չեն թողնում ձեր սարքը</string>
     <string name="continue_button">ՇԱՐՈՒՆԱԿԵԼ</string>
     <string name="moon_rise">Լուսաբաց</string>
     <string name="moon_set">Moonset</string>

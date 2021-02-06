@@ -31,15 +31,6 @@
     <string name="forecast_improving">Mwinanso kusintha pambuyo pake</string>
     <string name="forecast_worsening">Mwinanso kuipiraipira pambuyo pake</string>
     <string name="no_beacons">Palibe ma beacon</string>
-    <string name="onboarding_compass">Ikani ma beacon ndikubwerera kwa iwo</string>
-    <string name="onboarding_weather">Pezani zolosera zakutsogolo</string>
-    <string name="onboarding_weather_no_internet">* sagwiritsa ntchito intaneti</string>
-    <string name="onboarding_astronomy">Dziwani nthawi yomwe dzuwa /mwezi udzatulukira ndi kulowa</string>
-    <string name="onboarding_background_location">Trail Sense imasowa chilolezo chogwiritsa ntchito GPS yanu</string>
-    <string name="onboarding_location_weather">Amaloleza zolosera zamtsogolo molondola</string>
-    <string name="onboarding_location_navigation">Amakulolani kuti musunthe ma beacon</string>
-    <string name="onboarding_location_astronomy">Amakulolani kuti muwone dzuwa /mwezi ukukwera ndi nthawi yoikika</string>
-    <string name="onboarding_location_privacy">Trail Sense imalemekeza zachinsinsi chanu - zosowa zamalo anu sizisiya chida chanu</string>
     <string name="continue_button">Pitilizani</string>
     <string name="moon_rise">Kutuluka kwa mwezi</string>
     <string name="moon_set">Moonset</string>

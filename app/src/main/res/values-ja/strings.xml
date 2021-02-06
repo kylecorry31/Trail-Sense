@@ -30,15 +30,6 @@
     <string name="forecast_improving">しばらくすると晴れるかもしれません</string>
     <string name="forecast_worsening">しばらくすると悪くなるかもしれません</string>
     <string name="no_beacons">ビーコンなし</string>
-    <string name="onboarding_compass">ビーコンを追加した場所まで案内</string>
-    <string name="onboarding_weather">ハイパーローカル天気予報を取得する</string>
-    <string name="onboarding_weather_no_internet">* インターネット接続は利用しません</string>
-    <string name="onboarding_astronomy">いつ太陽/月が昇り、沈むかを知る</string>
-    <string name="onboarding_background_location">Trail SenseがGPSを使用するには許可が必要です</string>
-    <string name="onboarding_location_weather">より正確な天気予報を可能にします（高度に合わせて調整します）</string>
-    <string name="onboarding_location_navigation">ビーコンまで案内できるようになります</string>
-    <string name="onboarding_location_astronomy">日の出/月の出と日の入り/月の入りの時刻を確認できます</string>
-    <string name="onboarding_location_privacy">Trail Senseはあなたのプライバシーを尊重します-位置データが外部に送信されることはありません</string>
     <string name="continue_button">次へ</string>
     <string name="moon_rise">月の出</string>
     <string name="moon_set">月の入り</string>
@@ -94,7 +85,6 @@
 \n- ここに計測された長さを入力する。</string>
     <string name="pressure_reading_time_ago">%s - %s ago</string>
     <string name="degree_format">%.0f°</string>
-    <string name="onboarding_navigation_flashlight">フラッシュライトも簡単に利用できます</string>
     <string name="pref_email_title">Email developer</string>
     <string name="pref_github_title">GitHub</string>
     <string name="pref_app_version_title">Version</string>

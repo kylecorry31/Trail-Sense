@@ -30,15 +30,6 @@
     <string name="forecast_improving">সম্ভবত পরে উন্নতি হচ্ছে</string>
     <string name="forecast_worsening">সম্ভবত পরে আরও খারাপ হচ্ছে</string>
     <string name="no_beacons">কোনও বীকন নেই</string>
-    <string name="onboarding_compass">বীকন রাখুন এবং সেগুলিতে ফিরে যান ate</string>
-    <string name="onboarding_weather">হাইপারলোকাল আবহাওয়ার পূর্বাভাস পান</string>
-    <string name="onboarding_weather_no_internet">* কোনও ইন্টারনেট সংযোগ ব্যবহার করে না</string>
-    <string name="onboarding_astronomy">জেনে নিন কখন সূর্য /চাঁদ উঠবে এবং অস্ত যাবে</string>
-    <string name="onboarding_background_location">আপনার জিপিএস ব্যবহারের জন্য ট্রেইল সেন্সের অনুমতি দরকার</string>
-    <string name="onboarding_location_weather">আরও সঠিক আবহাওয়ার পূর্বাভাসের জন্য অনুমতি দেয় (উচ্চতার জন্য সামঞ্জস্য)</string>
-    <string name="onboarding_location_navigation">আপনাকে বীকনে নেভিগেট করার অনুমতি দেয়</string>
-    <string name="onboarding_location_astronomy">আপনাকে সূর্য /চাঁদ উত্থান এবং সময় নির্ধারণের অনুমতি দেয়</string>
-    <string name="onboarding_location_privacy">ট্রেল সেন্স আপনার গোপনীয়তার প্রতি শ্রদ্ধা জানায় - অবস্থানের ডেটা কখনই আপনার ডিভাইসটি ছাড়বে না</string>
     <string name="continue_button">চালিয়ে</string>
     <string name="moon_rise">চন্দ্রোদয়</string>
     <string name="moon_set">Moonset</string>

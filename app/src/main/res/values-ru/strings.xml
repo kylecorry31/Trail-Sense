@@ -30,15 +30,6 @@
     <string name="forecast_improving">Возможно улучшится позже</string>
     <string name="forecast_worsening">Возможно, ухудшится позже</string>
     <string name="no_beacons">Нет маячков</string>
-    <string name="onboarding_compass">Укажите маячки и направляйтесь к ним</string>
-    <string name="onboarding_weather">Получить местные прогнозы погоды</string>
-    <string name="onboarding_weather_no_internet">* не использует подключение к Интернету</string>
-    <string name="onboarding_astronomy">Узнавайте когда солнце/луна поднимется и зайдет за горизонт</string>
-    <string name="onboarding_background_location">Trail Sense требуется разрешение на использование вашего местоположения</string>
-    <string name="onboarding_location_weather">Позволяет составлять более точные прогнозы погоды (учитывает высоту над уровнем моря - в фоновом )</string>
-    <string name="onboarding_location_navigation">Позволяет ориентироваться и направлять в маячки</string>
-    <string name="onboarding_location_astronomy">Позволяет вам узнать когда солнце/луна поднимется и зайдет за горизонт</string>
-    <string name="onboarding_location_privacy">Trail Sense уважает вашу конфиденциальность - данные о местоположении никогда не покидают ваше устройство</string>
     <string name="continue_button">ДАЛЕЕ</string>
     <string name="moon_rise">Восход луны</string>
     <string name="moon_set">Луна</string>
@@ -306,7 +297,6 @@
 \n
 \nКомпас: Вращайте устройство по траектории восьмерки и постарайтесь находиться подальше от крупных металлоконструкций."</string>
     <string name="disclaimer_message_content">Trail Sense это - инструмент, который можно использовать в экстренных случаях, но вы не должны полагаться только на него! Пожалуйста, проверьте его точность, избегайте опасных ситуаций, когда это возможно, сохраняйте спокойствие и используйте здравый смысл!</string>
-    <string name="onboarding_navigation_flashlight">И включайте фонарик нажатием одной кнопки</string>
     <string name="forecast_sensitivity_low_in">Низкая (0.074 in / 3ч)</string>
     <string name="forecast_sensitivity_high_psi">Высокая (0.007 PSI / 3ч)</string>
     <string name="forecast_sensitivity_med_psi">Средняя (0.022 PSI / 3ч)</string>

@@ -318,12 +318,6 @@
     <string name="weather_update_notification_channel_desc">背景天氣更新</string>
     <string name="error_occurred_message">Trail Sense 遇到一個錯誤且將會關閉。請發送電子郵件給開發者以解決此問題。</string>
     <string name="error_occurred">一個錯誤發生</string>
-    <string name="onboarding_navigation_flashlight">和簡單存取您的手電筒</string>
-    <string name="onboarding_location_privacy">Trail Sense 尊重您的隱私 - 位置資料永不離開您的裝置</string>
-    <string name="onboarding_location_astronomy">允許您查看 太陽/月亮 升起落下時間</string>
-    <string name="onboarding_background_location">Trail Sense 需要權限以使用您的位置</string>
-    <string name="onboarding_astronomy">得知何時太陽/月亮將升起或落下</string>
-    <string name="onboarding_weather_no_internet">* 並未使用網路連線</string>
     <string name="pref_open_source_licenses_title">許可證</string>
     <string name="pref_sunset_alert_time_title">日落警報時間</string>
     <string name="pref_sunset_alerts_title">日落警報</string>

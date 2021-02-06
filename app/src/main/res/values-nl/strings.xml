@@ -31,15 +31,6 @@
     <string name="forecast_improving">Mogelijke verbetering later</string>
     <string name="forecast_worsening">Mogelijk later verergerend</string>
     <string name="no_beacons">Geen bakens</string>
-    <string name="onboarding_compass">Plaats bakens en navigeer er terug naartoe</string>
-    <string name="onboarding_weather">Krijg hyperlokale weersverwachtingen</string>
-    <string name="onboarding_weather_no_internet">* maakt geen gebruik van een internetverbinding</string>
-    <string name="onboarding_astronomy">Weet wanneer de zon/maan zal opkomen en onder gaan</string>
-    <string name="onboarding_background_location">Trail Sense heeft toestemming nodig om uw GPS te gebruiken</string>
-    <string name="onboarding_location_weather">Maakt het mogelijk om nauwkeuriger weersverwachtingen te maken (aanpassingen voor de hoogte)</string>
-    <string name="onboarding_location_navigation">Laat u toe om naar bakens te navigeren</string>
-    <string name="onboarding_location_astronomy">Laat u toe om de zon/maan te zien opkomen en de tijden van de ondergang te zien.</string>
-    <string name="onboarding_location_privacy">Trail Sense respecteert uw privacy - locatiegegevens verlaten nooit uw apparaat</string>
     <string name="continue_button">CONTINUE</string>
     <string name="moon_rise">Mansopkomst</string>
     <string name="moon_set">Moonset</string>

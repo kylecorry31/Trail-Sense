@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.trail_sense.databinding.FragmentGuideBinding
+import com.kylecorry.trail_sense.shared.MarkdownService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideService
-import io.noties.markwon.Markwon
 
 class GuideFragment : Fragment() {
 
@@ -31,8 +31,8 @@ class GuideFragment : Fragment() {
         _binding = FragmentGuideBinding.inflate(inflater, container, false)
 
         binding.guideName.text = name
-        val markwon = Markwon.create(requireContext())
-        markwon.setMarkdown(binding.guideContents, content)
+        val markdown = MarkdownService(requireContext())
+        markdown.setMarkdown(binding.guideContents, content)
 
         return binding.root
     }

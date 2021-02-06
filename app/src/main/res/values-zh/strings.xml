@@ -30,15 +30,6 @@
     <string name="forecast_improving">以后可能会改善</string>
     <string name="forecast_worsening">以后可能会恶化</string>
     <string name="no_beacons">没有信标</string>
-    <string name="onboarding_compass">放置信标并导航回它们</string>
-    <string name="onboarding_weather">获取超本地天气预报</string>
-    <string name="onboarding_weather_no_internet">*不使用Internet连接</string>
-    <string name="onboarding_astronomy">知道太阳/月亮何时升起和落山</string>
-    <string name="onboarding_background_location">Trail Sense 需要使用位置的权限</string>
-    <string name="onboarding_location_weather">允许更精确的天气预报 (根据海拔高度进行调整-在后台)</string>
-    <string name="onboarding_location_navigation">允许您导航到信标</string>
-    <string name="onboarding_location_astronomy">让您看到太阳/月亮升起和设定的时间</string>
-    <string name="onboarding_location_privacy">Trail Sense尊重您的隐私-位置数据永远不会离开您的设备</string>
     <string name="continue_button">继续</string>
     <string name="moon_rise">月出</string>
     <string name="moon_set">月落</string>
@@ -397,7 +388,6 @@
     <string name="tool_user_guide_title">用户指南</string>
     <string name="error_occurred_message">Trail Sense 遇到了一个错误将关闭。请给开发者发邮件修复这个问题。</string>
     <string name="error_occurred">发生一个错误</string>
-    <string name="onboarding_navigation_flashlight">轻松访问你的闪光灯</string>
     <string name="pref_email_title">给开发者发邮件</string>
     <string name="pref_github_title">GitHub</string>
     <string name="pref_app_version_title">版本</string>

@@ -30,15 +30,6 @@
     <string name="forecast_improving">Möglicherweise spätere Wetterbesserung</string>
     <string name="forecast_worsening">Möglicherweise spätere Wetterverschlechterung</string>
     <string name="no_beacons">Keine Wegpunkte</string>
-    <string name="onboarding_compass">Wegpunkte platzieren und zu ihnen zurücknavigieren</string>
-    <string name="onboarding_weather">Hyperlokale Wettervorhersagen abrufen</string>
-    <string name="onboarding_weather_no_internet">* verwendet keine Internet-Verbindung</string>
-    <string name="onboarding_astronomy">Wissen, wann die Sonne/Mond auf- und untergehen wird</string>
-    <string name="onboarding_background_location">Trail Sense benötigt die Erlaubnis zur Verwendung Ihres Standortes</string>
-    <string name="onboarding_location_weather">Ermöglicht genauere Wettervorhersagen (passt sich im Hintergrund der Höhe an)</string>
-    <string name="onboarding_location_navigation">Erlaubt Ihnen die Navigation zu Wegpunkten</string>
-    <string name="onboarding_location_astronomy">Erlaubt Ihnen, die Auf- und Untergangszeiten von Sonne und Mond zu sehen</string>
-    <string name="onboarding_location_privacy">Trail Sense respektiert Ihre Privatsphäre - Standortdaten verlassen niemals Ihr Gerät</string>
     <string name="continue_button">FORTSETZEN</string>
     <string name="moon_rise">Mondaufgang</string>
     <string name="moon_set">Monduntergang</string>
@@ -132,7 +123,6 @@
     <string name="notification_monitoring_weather">Wetter im Hintergrund überwachen</string>
     <string name="sunset_alert_notification_title">Die Sonne geht bald unter</string>
     <string name="sunset_alert_notification_text">Sonnenuntergang um %s</string>
-    <string name="onboarding_navigation_flashlight">Und einfacher Zugriff auf die Taschenlampe</string>
     <string name="tidal_range">Alter der Gezeit</string>
     <string name="tide_neap">Nippzeit</string>
     <string name="tide_spring">Springzeit</string>

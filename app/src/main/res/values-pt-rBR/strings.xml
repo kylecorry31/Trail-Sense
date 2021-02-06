@@ -102,15 +102,6 @@
     <string name="pref_send_storm_alerts_title">Alertas de tempestade</string>
     <string name="pref_use_24_hour_title">Use o formato 24 horas</string>
     <string name="pref_sun_time_mode_title">Horas do Nascer do sol / Pôr-do-sol</string>
-    <string name="onboarding_compass">Coloque os Pontos de Orientação e navegue de volta para eles</string>
-    <string name="onboarding_weather">Obtenha previsões meteorológicas hiperlocais</string>
-    <string name="onboarding_weather_no_internet">* não utiliza uma conexão de Internet</string>
-    <string name="onboarding_astronomy">Saber quando o sol/lua vai nascer e se pôr</string>
-    <string name="onboarding_background_location">O Trail Sense precisa de permissão para usar sua localização</string>
-    <string name="onboarding_location_weather">Permite previsões meteorológicas mais precisas (ajustes de altitude - em segundo plano)</string>
-    <string name="onboarding_location_navigation">Permite navegar até os Pontos de Orientação</string>
-    <string name="onboarding_location_astronomy">Permite ver o nascer do sol/lua e o pôr-do-sol</string>
-    <string name="onboarding_location_privacy">Trail Sense respeita sua privacidade - os dados de localização nunca deixam seu dispositivo</string>
     <string name="continue_button">CONTINUA</string>
     <string name="moon_rise">Nascer da Lua</string>
     <string name="moon_set">Pôr da lua</string>
@@ -195,7 +186,6 @@
     <string name="update_120_minutes">2 horas</string>
     <string name="update_150_minutes">2 horas 30 minutos</string>
     <string name="update_180_minutes">3 horas</string>
-    <string name="onboarding_navigation_flashlight">E acesse facilmente sua lanterna</string>
     <string name="pref_compass_sensor_title">Bússola</string>
     <string name="pref_category_sensors_title">Sensores</string>
     <string name="compass_from_gps">Substituição do GPS</string>

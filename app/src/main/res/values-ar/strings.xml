@@ -31,15 +31,6 @@
     <string name="forecast_improving">ربما تتحسن لاحقًا</string>
     <string name="forecast_worsening">ربما تزداد سوءًا لاحقًا</string>
     <string name="no_beacons">لا توجد منارات</string>
-    <string name="onboarding_compass">ضع المنارات وانتقل إليها مرة أخرى</string>
-    <string name="onboarding_weather">احصل على توقعات الطقس المحلية</string>
-    <string name="onboarding_weather_no_internet">* لا يستخدم اتصال بالإنترنت</string>
-    <string name="onboarding_astronomy">اعرف متى ستشرق الشمس /القمر وتغيب</string>
-    <string name="onboarding_background_location">يحتاج Trail Sense إلى إذن لاستخدام GPS الخاص بك</string>
-    <string name="onboarding_location_weather">يسمح بتنبؤات الطقس أكثر دقة (يضبط الارتفاع)</string>
-    <string name="onboarding_location_navigation">يسمح لك بالانتقال إلى منارات</string>
-    <string name="onboarding_location_astronomy">يتيح لك رؤية شروق الشمس والقمر وتعيين أوقات</string>
-    <string name="onboarding_location_privacy">تحترم Trail Sense خصوصيتك - لا تترك بيانات الموقع جهازك أبدًا</string>
     <string name="continue_button">استمر</string>
     <string name="moon_rise">طلوع القمر</string>
     <string name="moon_set">القمر</string>

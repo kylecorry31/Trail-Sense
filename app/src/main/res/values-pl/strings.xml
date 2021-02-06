@@ -30,15 +30,6 @@
     <string name="forecast_improving">Możliwa późniejsza poprawa</string>
     <string name="forecast_worsening">Prawdopodobnie pogorszy się później</string>
     <string name="no_beacons">Brak punktów nawigacyjnych</string>
-    <string name="onboarding_compass">Umieszczaj punkty nawigacyjne i wracaj do nich</string>
-    <string name="onboarding_weather">Uzyskaj hiperlokalną prognozę pogody</string>
-    <string name="onboarding_weather_no_internet">* nie korzysta z połączenia internetowego</string>
-    <string name="onboarding_astronomy">Wiedz, kiedy słońce/księżyc wzejdzie i zajdzie</string>
-    <string name="onboarding_background_location">Trail Sense potrzebuje pozwolenia na korzystanie z Twojej lokalizacji</string>
-    <string name="onboarding_location_weather">Pozwala to na dokładniejsze prognozy pogody (dostosowuje się do wysokości - w tle)</string>
-    <string name="onboarding_location_navigation">Pozwala to na nawigację do punktów nawigacyjnych</string>
-    <string name="onboarding_location_astronomy">Pozwala zobaczyć czasy wschodu i zachodu słońca/księżyca</string>
-    <string name="onboarding_location_privacy">Trail Sense szanuje Twoją prywatność - dane dotyczące lokalizacji nigdy nie opuszczą urządzenia</string>
     <string name="continue_button">KONTYNUUJ</string>
     <string name="moon_rise">Wschód Księżyca</string>
     <string name="moon_set">Zachód Księżyca</string>
@@ -292,7 +283,6 @@
     <string name="action_inventory">Ekwipunek</string>
     <string name="your_height_ft">Twój wzrost (ft)</string>
     <string name="object_distance_ft">Odległość (ft)</string>
-    <string name="onboarding_navigation_flashlight">Oraz uzyskaj łatwy dostęp do swojej latarki</string>
     <string name="coordinate_format_degrees_decimal_minutes">Stopnie Minuty</string>
     <string name="pref_coordinate_format_title">Format współrzędnych</string>
     <string name="coordinate_format_degrees_minutes_seconds">Stopnie Minuty Sekundy</string>

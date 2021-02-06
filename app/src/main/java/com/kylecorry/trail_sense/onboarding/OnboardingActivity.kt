@@ -1,48 +1,37 @@
-package com.kylecorry.trail_sense
+package com.kylecorry.trail_sense.onboarding
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import com.kylecorry.trail_sense.MainActivity
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
+import com.kylecorry.trail_sense.shared.MarkdownService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.system.doTransaction
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
 class OnboardingActivity : AppCompatActivity() {
 
     private val cache by lazy { Cache(this) }
+    private val markdown by lazy { MarkdownService(this) }
 
-    private val pages = listOf(
-        R.layout.fragment_onboarding_navigation,
-        R.layout.fragment_onboarding_weather,
-        R.layout.fragment_onboarding_astronomy,
-        R.layout.fragment_onboarding_background_location
-    )
+    private lateinit var binding: ActivityOnboardingBinding
 
     private var pageIdx = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityOnboardingBinding.inflate(layoutInflater)
+        binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val hasBarometer = SensorChecker(this).hasBarometer()
-
-        switchFragment(pages[pageIdx])
+        load(pageIdx)
 
         binding.nextButton.setOnClickListener {
-            pageIdx++
-            if (!hasBarometer && pageIdx == pages.indexOf(R.layout.fragment_onboarding_weather)){
-                pageIdx++
-            }
-            if (pageIdx >= pages.size) {
-                navigateToApp()
-            } else {
-                switchFragment(pages[pageIdx])
-            }
+            load(++pageIdx)
         }
 
     }
@@ -55,10 +44,10 @@ class OnboardingActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         pageIdx = savedInstanceState.getInt("page", 0)
-        if (pageIdx >= pages.size || pageIdx < 0){
+        if (pageIdx >= OnboardingPages.pages.size || pageIdx < 0) {
             pageIdx = 0
         }
-        switchFragment(pages[pageIdx])
+        load(pageIdx)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -66,12 +55,26 @@ class OnboardingActivity : AppCompatActivity() {
         outState.putInt("page", pageIdx)
     }
 
-    private fun switchFragment(layout: Int) {
-        supportFragmentManager.doTransaction {
-            this.replace(R.id.fragment_holder, Fragment(layout))
+    private fun load(page: Int) {
+        val pageToLoad = if (page == 1 && !SensorChecker(this).hasBarometer()) {
+            page + 1
+        } else {
+            page
+        }
+
+        pageIdx = pageToLoad
+
+        if (pageToLoad >= OnboardingPages.pages.size) {
+            navigateToApp()
+        } else {
+            val pageContents = OnboardingPages.pages[pageToLoad]
+            binding.pageName.text = getString(pageContents.title)
+            binding.pageImage.setImageResource(pageContents.image)
+            binding.pageImage.imageTintList =
+                ColorStateList.valueOf(UiUtils.androidTextColorPrimary(this))
+            markdown.setMarkdown(binding.pageContents, getString(pageContents.contents))
         }
     }
-
 
     override fun onBackPressed() {
         val count = supportFragmentManager.backStackEntryCount

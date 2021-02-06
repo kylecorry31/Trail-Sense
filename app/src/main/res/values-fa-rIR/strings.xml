@@ -32,21 +32,6 @@
     <string name="forecast_improving">احتمالا بعداً بهبود می یابد</string>
     <string name="forecast_worsening">احتمالا بعداً بدتر می شود</string>
     <string name="no_beacons">مکان راهنمایی وجود ندارد</string>
-    <string name="onboarding_compass">مکان راهنمایی را قرار دهید و به سمت آنها حرکت کنید</string>
-    <string name="onboarding_weather">پیش بینی هواشناسی از hyperlocal</string>
-    <string name="onboarding_weather_no_internet">از اتصال اینترنتی استفاده نمی کند*</string>
-    <string name="onboarding_astronomy">بدانید چه زمان خورشید / ماه طلوع خواهد کرد</string>
-    <string name="onboarding_background_location">Trail Sense
-برای استفاده از
- GPS
-به مجوز نیاز دارد
-</string>
-    <string name="onboarding_location_weather"> برای پیش بینی دقیق تر آب و هوا به شما اجازه میدهد (تنظیم ارتفاع)</string>
-    <string name="onboarding_location_navigation">به شما امکان می دهد تا به سمت مکان جهت یابی کنید</string>
-    <string name="onboarding_location_astronomy">به شما امکان می دهد تا طلوع خورشید / ماه را مشاهده کنید و زمان را تنظیم نمایید</string>
-    <string name="onboarding_location_privacy">
-        Trail Sense
-        به حریم خصوصی شما احترام می گذارد - داده های مکان هرگز دستگاه شما را ترک نمی کند</string>
 
     <string name="continue_button">ادامه</string>
     <string name="moon_rise">طلوع ماه</string>

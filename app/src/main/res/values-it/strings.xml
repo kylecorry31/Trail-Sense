@@ -30,15 +30,6 @@
     <string name="forecast_improving">Possibile miglioramento in seguito</string>
     <string name="forecast_worsening">Possibile peggioramento in seguito</string>
     <string name="no_beacons">Nessun faro</string>
-    <string name="onboarding_compass">Posizionare i fari e navigare verso di essi</string>
-    <string name="onboarding_weather">Ottenere le previsioni del tempo iperlocali</string>
-    <string name="onboarding_weather_no_internet">* non utilizza una connessione Internet</string>
-    <string name="onboarding_astronomy">Sapere quando il sole/luna sorgerà e tramonterà</string>
-    <string name="onboarding_background_location">Il Trail Sense ha bisogno di un permesso per usare il tuo GPS</string>
-    <string name="onboarding_location_weather">Permette previsioni meteo più accurate (si regola per l\'altitudine)</string>
-    <string name="onboarding_location_navigation">Permette di navigare per i fari</string>
-    <string name="onboarding_location_astronomy">Permette di vedere l\'alba e il tramonto del sole e della luna</string>
-    <string name="onboarding_location_privacy">Trail Sense rispetta la tua privacy - i dati di localizzazione non lasciano mai il tuo dispositivo</string>
     <string name="continue_button">CONTINUA</string>
     <string name="moon_rise">L\'alba</string>
     <string name="moon_set">Tramonto</string>

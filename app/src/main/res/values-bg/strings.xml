@@ -31,15 +31,6 @@
     <string name="forecast_improving">Възможно подобрение по-късно</string>
     <string name="forecast_worsening">Възможно влошаване по-късно</string>
     <string name="no_beacons">Без маяци</string>
-    <string name="onboarding_compass">Поставете маяци и се придвижете обратно към тях</string>
-    <string name="onboarding_weather">Получавайте хиперлокални прогнози за времето</string>
-    <string name="onboarding_weather_no_internet">* не използва интернет връзка</string>
-    <string name="onboarding_astronomy">Знайте кога слънцето /луната ще изгрява и залязва</string>
-    <string name="onboarding_background_location">Trail Sense се нуждае от разрешение за използване на вашия GPS</string>
-    <string name="onboarding_location_weather">Позволява по-точни прогнози за времето (коригира надморската височина)</string>
-    <string name="onboarding_location_navigation">Позволява ви да навигирате до маяци</string>
-    <string name="onboarding_location_astronomy">Позволява ви да виждате изгряване на слънцето /луната и зададени времена</string>
-    <string name="onboarding_location_privacy">Trail Sense зачита вашата поверителност - данните за местоположение никога не напускат вашето устройство</string>
     <string name="continue_button">ПРОДЪЛЖИ</string>
     <string name="moon_rise">Moonrise</string>
     <string name="moon_set">Залез на Луната</string>

@@ -260,7 +260,6 @@
     <string name="solar_noon">Solens kulminasjon</string>
     <string name="tide_spring">Spring</string>
     <string name="tide_neap">Nipp</string>
-    <string name="onboarding_weather">Få veldig lokale værvarsler</string>
     <string name="moon_illumination">Månen: opplyst del</string>
     <string name="tool_cliff_height_title">Høyden på en klippe</string>
     <string name="object_height_guide_description">Hvordan anslå høyden på objekter</string>
@@ -359,9 +358,6 @@
     <string name="category_other">Annet</string>
     <string name="category_clothing">Klær</string>
     <string name="pref_sea_level_require_dwell_title">Ignorer raske høydeendringer</string>
-    <string name="onboarding_location_astronomy">Lar deg se tider for sol/måne-oppgang og sol/måne-nedgang</string>
-    <string name="onboarding_astronomy">Vit når solen/månen går opp og ned</string>
-    <string name="onboarding_weather_no_internet">* bruker ikke internettforbindelse</string>
     <string name="pressure_tendency_indicator_alt">Trykktendensindikator</string>
     <string name="pref_show_linear_compass_summary">Når telefonen er loddrett</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Angi gjeldende trykk ved havnivå i hPa</string>
@@ -375,8 +371,6 @@
     <string name="unit_nautical_miles">Nautisk mil</string>
     <string name="tool_whistle_title">Fløyte</string>
     <string name="error_occurred_message">Trail Sense støtte på en feil og lukkes. Send e-post til utvikleren for å få dette problemet løst.</string>
-    <string name="onboarding_navigation_flashlight">Og få lett tilgang til lommelykten</string>
-    <string name="onboarding_location_privacy">Trail Sense respekterer personvernet ditt - posisjonsdata forlater aldri enheten din</string>
     <string name="category_shelter">Ly</string>
     <string name="category_medical">Medisinsk</string>
     <string name="category_hydration">Drikke</string>
@@ -390,8 +384,6 @@
     <string name="pref_use_legacy_compass_title">Bruk eldre kompassensor</string>
     <string name="action_inventory">Utstyrsliste</string>
     <string name="pref_sensor_details_title">Sensordetaljer</string>
-    <string name="onboarding_location_weather">Gir mulighet for mer nøyaktige værvarsler (justerer for høyde - i bakgrunnen)</string>
-    <string name="onboarding_background_location">Trail Sense trenger tillatelse til å bruke posisjonen din</string>
     <string name="declination_override_updated_toast">Misvisningsverdi oppdatert</string>
     <string name="compass_declination_override">Angi misvisningsverdien manuelt</string>
     <string name="compass_auto_declination">Juster misvisning automatisk</string>

@@ -31,15 +31,6 @@
     <string name="forecast_improving">संभवतः बाद में सुधार होगा</string>
     <string name="forecast_worsening">संभवतः बाद में बिगड़ती जा रही है</string>
     <string name="no_beacons">कोई बीकन नहीं</string>
-    <string name="onboarding_compass">बीकन रखें और उन्हें वापस नेविगेट करें</string>
-    <string name="onboarding_weather">हाइपरलोकल मौसम पूर्वानुमान प्राप्त करें</string>
-    <string name="onboarding_weather_no_internet">* इंटरनेट कनेक्शन का उपयोग नहीं करता है</string>
-    <string name="onboarding_astronomy">जानिए सूर्य /चन्द्रमा कब उदय और अस्त होगा</string>
-    <string name="onboarding_background_location">ट्रेल सेंस को आपके जीपीएस का उपयोग करने की अनुमति चाहिए</string>
-    <string name="onboarding_location_weather">अधिक सटीक मौसम पूर्वानुमान के लिए अनुमति देता है (ऊंचाई के लिए समायोजन)</string>
-    <string name="onboarding_location_navigation">आपको बीकन पर नेविगेट करने की अनुमति देता है</string>
-    <string name="onboarding_location_astronomy">आपको सूरज /चंद्रमा को उगने और समय देखने की अनुमति देता है</string>
-    <string name="onboarding_location_privacy">ट्रेल सेंस आपकी गोपनीयता का सम्मान करता है - स्थान डेटा आपके डिवाइस को कभी नहीं छोड़ता है</string>
     <string name="continue_button">जारी रखें</string>
     <string name="moon_rise">चंद्रोदय</string>
     <string name="moon_set">चंद्रास्त</string>

@@ -30,15 +30,6 @@
     <string name="forecast_improving">Amélioration probable</string>
     <string name="forecast_worsening">Dégradation probable</string>
     <string name="no_beacons">Pas de repères</string>
-    <string name="onboarding_compass">Placez des points de repère afin de vous orienter et trouver votre chemin</string>
-    <string name="onboarding_weather">Obtenez des prévisions météorologiques correspondant à votre localisation précise</string>
-    <string name="onboarding_weather_no_internet">* n\'utilise pas de connexion Internet</string>
-    <string name="onboarding_astronomy">Obtenez les heures de lever et de coucher de la lune et du soleil</string>
-    <string name="onboarding_background_location">Trail Sense a besoin de votre autorisation pour accéder à votre localisation</string>
-    <string name="onboarding_location_weather">L\'autorisation permet des prévisions météorologiques précises (en tirant parti de l\'altitude ; en tâche de fond)</string>
-    <string name="onboarding_location_navigation">Elle vous permettra de vous orienter vers des points de repère</string>
-    <string name="onboarding_location_astronomy">Elle vous permettra de connaître les heures de lever et de coucher de la lune et du soleil</string>
-    <string name="onboarding_location_privacy">Trail Sense respecte votre vie privée : les données de localisation ne sont jamais communiquées à un tiers et restent sur votre appareil</string>
     <string name="continue_button">CONTINUER</string>
     <string name="moon_rise">Lever de la lune</string>
     <string name="moon_set">Coucher de la lune</string>
@@ -279,7 +270,6 @@
     <string name="pref_sea_level_use_rapid_summary">Utiliser les variation rapides des niveaux de pression locale pour estimer les valeurs de pression au niveau de la mer</string>
     <string name="pref_adjust_for_temperature_summary">Utiliser la température pour l\'estimation des valeurs de pressions au niveau de la mer</string>
     <string name="pref_temperature_holder_title">Température</string>
-    <string name="onboarding_navigation_flashlight">Accédez facilement à votre lampe torche</string>
     <string name="pref_sunset_alert_time_title">Heure de la notification de coucher de soleil</string>
     <string name="pref_sunset_alerts_title">Notification de coucher de soleil</string>
     <string name="sun_moon_compass_when_up">Lorsque l\'astre est levé</string>
