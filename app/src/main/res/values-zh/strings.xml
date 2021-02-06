@@ -553,10 +553,6 @@
     <string name="location_input_help">十进制度数 (如， 1.00, -2.00)，度十进制分 (如， 1°23.12\'N, 3°12.1\'W)，度分秒 (如， 1°23\'12.1\"N, 3°12\"1.2\'W)，UTM (如， 03T 12345E 67890N)，MGRS (如， 27PXM 09601 05579)</string>
     <string name="location_input_help_title">支持的位置格式</string>
     <string name="location_input_hint">位置</string>
-    <string name="utm_hint_band">纬度带</string>
-    <string name="utm_hint_zone">区域</string>
-    <string name="utm_hint_northing_m">朝北方 （m）</string>
-    <string name="utm_hint_easting_m">朝东方 （m）</string>
     <string name="tool_thermometer_title">温度计</string>
     <string name="guide_thermometer_calibration_description">如何校正你的温度计</string>
     <string name="guide_thermometer_calibration_title">温度计校正</string>

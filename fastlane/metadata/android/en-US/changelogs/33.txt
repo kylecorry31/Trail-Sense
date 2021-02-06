@@ -1,0 +1,9 @@
+- Add low power mode (for Trail Sense only), available in settings and in the battery tool
+- Add simple cloud identification tool
+- Add unit selection to ruler
+- Add MGRS coordinate format
+- Improve onboarding pages
+- Add GPS satellite requirement setting
+- Add 10 second timeout to GPS
+- Add compass calibration reminder when low or medium accuracy
+- Bug fixes

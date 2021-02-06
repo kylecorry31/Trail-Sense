@@ -535,8 +535,6 @@
     <string name="battery_temp">Телефон: %s</string>
     <string name="centimeters_format">%.2f см</string>
     <string name="inches_format">%.2f in</string>
-    <string name="pref_run_backtrack_when_low_battery_title">Запускать при низком заряде батареи</string>
-    <string name="pref_run_backtrack_when_low_battery">pref_run_backtrack_when_low_battery</string>
     <string name="low_power_mode_on_message">Включен режим энергосбережения, некоторые функции могут быть отключены.</string>
     <string name="pref_low_power_mode_title">Режим энергосбережения</string>
     <string name="guide_barometer_calibration_description">Как откалибровать барометр по уровню моря</string>
