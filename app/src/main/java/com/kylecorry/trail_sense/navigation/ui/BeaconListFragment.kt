@@ -1,13 +1,18 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.FileUtils
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
@@ -19,16 +24,22 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconExporter
+import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconImporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
+import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
+import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.FileNotFoundException
+import java.io.FileReader
 
 
 class BeaconListFragment : Fragment() {
@@ -73,10 +84,24 @@ class BeaconListFragment : Fragment() {
         }
 
         binding.importExportBeacons.setOnClickListener {
-            // TODO: Display import/export dialog
-            lifecycleScope.launch {
-                exportBeacons()
+            val builder = AlertDialog.Builder(requireContext())
+            builder.apply {
+                setTitle(getString(R.string.import_export_beacons))
+                setPositiveButton(getString(R.string.import_btn)) { dialog, _ ->
+                    importBeacons()
+                    dialog.dismiss()
+                }
+                setNeutralButton(getString(R.string.dialog_cancel)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                setNegativeButton(getString(R.string.export)) { dialog, _ ->
+                    exportBeacons()
+                    dialog.dismiss()
+                }
             }
+
+            val dialog = builder.create()
+            dialog.show()
         }
 
         binding.createBeaconBtn.setOnClickListener {
@@ -331,24 +356,64 @@ class BeaconListFragment : Fragment() {
         }
     }
 
-    private suspend fun exportBeacons(){
-        val groups = withContext(Dispatchers.IO){
-            if (displayedGroup == null) {
-                beaconRepo.getGroupsSync().map { it.toBeaconGroup() }
-            } else {
-                listOf(displayedGroup!!)
+    private fun exportBeacons(){
+        lifecycleScope.launch {
+            val groups = withContext(Dispatchers.IO) {
+                if (displayedGroup == null) {
+                    beaconRepo.getGroupsSync().map { it.toBeaconGroup() }
+                } else {
+                    listOf(displayedGroup!!)
+                }
+            }
+            val beacons = withContext(Dispatchers.IO) {
+                if (displayedGroup == null) {
+                    beaconRepo.getBeaconsSync().map { it.toBeacon() }
+                } else {
+                    beaconRepo.getBeaconsInGroup(displayedGroup!!.id).map { it.toBeacon() }
+                }
+            }
+            withContext(Dispatchers.Main) {
+                val exporter = BeaconExporter(requireContext())
+                exporter.export(beacons, groups)
             }
         }
-        val beacons = withContext(Dispatchers.IO){
-            if (displayedGroup == null) {
-                beaconRepo.getBeaconsSync().map { it.toBeacon() }
-            } else {
-                beaconRepo.getBeaconsInGroup(displayedGroup!!.id).map { it.toBeacon() }
+    }
+
+    private fun importBeacons(){
+        val requestFileIntent = Intent(Intent.ACTION_GET_CONTENT)
+        requestFileIntent.type = "*/*"
+        val chooser = Intent.createChooser(requestFileIntent, getString(R.string.select_import_file))
+        startActivityForResult(chooser, 6)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 6 && resultCode == Activity.RESULT_OK){
+            data?.data?.also { returnUri ->
+                val inputPFD = try {
+                    requireContext().contentResolver.openFileDescriptor(returnUri, "r")
+                } catch (e: FileNotFoundException) {
+                    e.printStackTrace()
+                    return
+                }
+
+                val fd = inputPFD?.fileDescriptor
+                val reader = FileReader(fd)
+                val text = reader.readText()
+                val importer = BeaconImporter(requireContext())
+                lifecycleScope.launch {
+                    val count = withContext(Dispatchers.IO){
+                        importer.import(text)
+                    }
+                    withContext(Dispatchers.Main) {
+                        UiUtils.shortToast(
+                            requireContext(),
+                            getString(R.string.beacons_imported, count)
+                        )
+                        updateBeaconList()
+                    }
+                }
             }
-        }
-        withContext(Dispatchers.Main) {
-            val exporter = BeaconExporter(requireContext())
-            exporter.export(beacons, groups)
         }
     }
 }
