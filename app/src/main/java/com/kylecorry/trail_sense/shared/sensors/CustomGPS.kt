@@ -45,6 +45,9 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     override val altitude: Float
         get() = _altitude
 
+    override val mslAltitude: Float?
+        get() = _mslAltitude
+
     private val baseGPS by lazy { GPS(context.applicationContext) }
     private val cache by lazy { Cache(context.applicationContext) }
     private val userPrefs by lazy { UserPreferences(context) }
@@ -62,6 +65,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     private var _satellites: Int = 0
     private var _speed: Float = 0f
     private var _location = Coordinate.zero
+    private var _mslAltitude: Float? = null
 
     init {
         if (baseGPS.hasValidReading){
@@ -130,6 +134,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         _speed = baseGPS.speed
         _verticalAccuracy = baseGPS.verticalAccuracy
         _altitude = baseGPS.altitude
+        _mslAltitude = baseGPS.mslAltitude
         _time = baseGPS.time
         _horizontalAccuracy = baseGPS.horizontalAccuracy
         _accuracy = baseGPS.accuracy
@@ -142,10 +147,14 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         cache.putDouble(LAST_LATITUDE, location.latitude)
 
         if (userPrefs.useAltitudeOffsets) {
-            _altitude -= AltitudeCorrection.getOffset(_location, context)
+            if (_mslAltitude != null){
+                _altitude = _mslAltitude ?: 0f
+            } else {
+                _altitude -= AltitudeCorrection.getOffset(_location, context)
+            }
         }
 
-        if (shouldNotify){
+        if (shouldNotify && location != Coordinate.zero){
             notifyListeners()
         }
 

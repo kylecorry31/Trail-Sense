@@ -32,6 +32,8 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : Abs
         get() = true
     override val altitude: Float
         get() = cache.getFloat(CustomGPS.LAST_ALTITUDE) ?: userPrefs.altitudeOverride
+    override val mslAltitude: Float?
+        get() = altitude
 
     private val cache by lazy { Cache(context) }
     private val userPrefs by lazy { UserPreferences(context) }
