@@ -602,4 +602,9 @@
     <string name="dialog_leave">Verlassen</string>
     <string name="notes_unsaved_changes_message">Änderungen werden nicht gespeichert.</string>
     <string name="notes_unsaved_changes">Nicht gespeicherte Änderungen</string>
+    <string name="battery_power_ac">AC</string>
+    <string name="backtrack_notification_description">Einen Wegpunkt setzen</string>
+    <string name="create_at_distance">Mit Abstand festlegen</string>
+    <string name="unit_inches_abbreviation">in</string>
+    <string name="unit_centimeters_abbreviation">cm</string>
 </resources>

@@ -608,4 +608,6 @@
     <string name="cloud_middle">中云</string>
     <string name="cloud_high">高云</string>
     <string name="clouds">云</string>
+    <string name="unit_inches_abbreviation">英寸</string>
+    <string name="unit_centimeters_abbreviation">厘米</string>
 </resources>
