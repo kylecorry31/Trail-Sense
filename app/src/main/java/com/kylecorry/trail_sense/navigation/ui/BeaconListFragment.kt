@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
+import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconExporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -68,6 +69,13 @@ class BeaconListFragment : Fragment() {
         lifecycleScope.launch {
             withContext(Dispatchers.Main) {
                 updateBeaconList()
+            }
+        }
+
+        binding.importExportBeacons.setOnClickListener {
+            // TODO: Display import/export dialog
+            lifecycleScope.launch {
+                exportBeacons()
             }
         }
 
@@ -320,6 +328,27 @@ class BeaconListFragment : Fragment() {
             binding.beaconTitle.text = displayedGroup?.name ?: getString(R.string.beacon_list_title)
             updateBeaconEmptyText(beacons.isNotEmpty())
             beaconList.setData(beacons)
+        }
+    }
+
+    private suspend fun exportBeacons(){
+        val groups = withContext(Dispatchers.IO){
+            if (displayedGroup == null) {
+                beaconRepo.getGroupsSync().map { it.toBeaconGroup() }
+            } else {
+                listOf(displayedGroup!!)
+            }
+        }
+        val beacons = withContext(Dispatchers.IO){
+            if (displayedGroup == null) {
+                beaconRepo.getBeaconsSync().map { it.toBeacon() }
+            } else {
+                beaconRepo.getBeaconsInGroup(displayedGroup!!.id).map { it.toBeacon() }
+            }
+        }
+        withContext(Dispatchers.Main) {
+            val exporter = BeaconExporter(requireContext())
+            exporter.export(beacons, groups)
         }
     }
 }

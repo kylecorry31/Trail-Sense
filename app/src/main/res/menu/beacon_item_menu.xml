@@ -10,6 +10,9 @@
         android:id="@+id/action_send"
         android:title="@string/share_action_send" />
     <item
+        android:id="@+id/action_export_beacon"
+        android:title="@string/export" />
+    <item
         android:id="@+id/action_map"
         android:title="@string/share_action_geo" />
     <item
