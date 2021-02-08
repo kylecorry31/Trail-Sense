@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
-import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toDegrees
 import com.kylecorry.trailsensecore.domain.math.Vector3
@@ -18,7 +18,7 @@ import kotlin.math.*
 class LevelFragment : Fragment() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val orientationSensor by lazy { sensorService.getOrientationSensor() }
     private var _binding: FragmentLevelBinding? = null
     private val binding get() = _binding!!

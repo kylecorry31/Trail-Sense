@@ -27,6 +27,7 @@ class ThermometerFragment : Fragment() {
     private val hygrometer by lazy { sensorService.getHygrometer() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService2 by lazy { FormatServiceV2(requireContext()) }
     private val newWeatherService = com.kylecorry.trailsensecore.domain.weather.WeatherService()
     private val weatherService by lazy {
         WeatherService(
@@ -115,10 +116,10 @@ class ThermometerFragment : Fragment() {
         } else {
             binding.batteryTemp.text = getString(
                 R.string.battery_temp,
-                formatService.formatTemperature(uncalibrated, prefs.temperatureUnits)
+                formatService2.formatTemperature(uncalibrated, prefs.temperatureUnits)
             )
             binding.temperature.text =
-                formatService.formatTemperature(reading, prefs.temperatureUnits)
+                formatService2.formatTemperature(reading, prefs.temperatureUnits)
             binding.freezingAlert.visibility = if (reading <= 0f) View.VISIBLE else View.INVISIBLE
         }
 
@@ -135,7 +136,7 @@ class ThermometerFragment : Fragment() {
             val dewPoint = weatherService.getDewPoint(reading, hygrometer.humidity)
             binding.dewPoint.text = getString(
                 R.string.dew_point,
-                formatService.formatTemperature(dewPoint, prefs.temperatureUnits)
+                formatService2.formatTemperature(dewPoint, prefs.temperatureUnits)
             )
             showHeatAlert(alert)
         } else if (hasTemp) {

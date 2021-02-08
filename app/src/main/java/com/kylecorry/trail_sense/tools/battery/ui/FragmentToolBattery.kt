@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
-import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingMethod
@@ -22,7 +22,7 @@ class FragmentToolBattery : Fragment() {
     private var _binding: FragmentToolBatteryBinding? = null
     private val binding get() = _binding!!
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val battery by lazy { Battery(requireContext()) }
 
     private val lowPowerMode by lazy { LowPowerMode(requireContext()) }
@@ -92,8 +92,8 @@ class FragmentToolBattery : Fragment() {
         val capacity = battery.capacity
         val pct = battery.percent.roundToInt()
 
-        binding.batteryPercentage.text = formatService.formatPercentage(pct)
-        binding.batteryCapacity.text = formatService.formatBatteryCapacity(capacity)
+        binding.batteryPercentage.text = formatService.formatPercentage(pct.toFloat())
+        binding.batteryCapacity.text = formatService.formatElectricalCapacity(capacity)
         binding.batteryCapacity.visibility = if (capacity == 0f) View.GONE else View.VISIBLE
         binding.batteryHealth.text =
             getString(R.string.battery_health, getHealthString(battery.health))

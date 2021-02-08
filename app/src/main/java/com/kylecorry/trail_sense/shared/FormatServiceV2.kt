@@ -140,8 +140,8 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
-    fun formatLocation(location: Coordinate): String {
-        val formatted = when (prefs.navigation.coordinateFormat) {
+    fun formatLocation(location: Coordinate, format: CoordinateFormat? = null): String {
+        val formatted = when (format ?: prefs.navigation.coordinateFormat) {
             CoordinateFormat.DecimalDegrees -> location.toDecimalDegrees()
             CoordinateFormat.DegreesDecimalMinutes -> location.toDegreeDecimalMinutes()
             CoordinateFormat.DegreesMinutesSeconds -> location.toDegreeMinutesSeconds()
@@ -152,6 +152,16 @@ class FormatServiceV2(private val context: Context) {
             return location.toDecimalDegrees()
         }
         return formatted
+    }
+
+    fun formatElectricalCapacity(capacity: Float): String {
+        // TODO: Use decimal formatter
+        return context.getString(R.string.battery_capacity_format, capacity)
+    }
+
+    fun formatCurrent(current: Float): String {
+        // TODO: Use decimal formatter
+        return context.getString(R.string.current_format, current)
     }
 
     private fun getPressureUnitString(unit: PressureUnits): String {

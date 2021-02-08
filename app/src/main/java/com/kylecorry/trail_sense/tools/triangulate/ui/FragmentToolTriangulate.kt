@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.Bearing
@@ -35,7 +35,7 @@ class FragmentToolTriangulate : Fragment() {
     private val compass by lazy { sensorService.getCompass() }
     private val geoService = GeoService()
     private val navigationService = NavigationService()
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val clipboard by lazy { Clipboard(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 

@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolRulerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.units.Distance
@@ -20,7 +20,7 @@ class RulerFragment : Fragment() {
     private var _binding: FragmentToolRulerBinding? = null
     private val binding get() = _binding!!
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val geoService = GeoService()
     private val prefs by lazy { UserPreferences(requireContext()) }
 
@@ -56,7 +56,7 @@ class RulerFragment : Fragment() {
             }
             binding.rulerUnitBtn.text = getUnitText(rulerUnits)
             val displayDistance = currentDistance.convertTo(rulerUnits)
-            binding.measurement.text = formatService.formatDistance(displayDistance.distance, displayDistance.units)
+            binding.measurement.text = formatService.formatDistance(displayDistance)
             ruler.setUnits(rulerUnits)
             calculateMapDistance()
         }
@@ -124,7 +124,7 @@ class RulerFragment : Fragment() {
     private fun onRulerTap(centimeters: Float) {
         currentDistance = Distance(centimeters, DistanceUnits.Centimeters)
         val displayDistance = currentDistance.convertTo(rulerUnits)
-        binding.measurement.text = formatService.formatDistance(displayDistance.distance, displayDistance.units)
+        binding.measurement.text = formatService.formatDistance(displayDistance)
         calculateMapDistance()
     }
 
@@ -138,7 +138,7 @@ class RulerFragment : Fragment() {
                     null
                 } else {
                     val mapDistance = geoService.getMapDistance(currentDistance, scaleFrom, scaleTo)
-                    formatService.formatDistance(mapDistance.distance, scaleTo.units)
+                    formatService.formatDistance(Distance(mapDistance.distance, scaleTo.units))
                 }
             }
             MapScaleMode.Fractional -> {
@@ -149,8 +149,7 @@ class RulerFragment : Fragment() {
                     null
                 } else {
                     val mapDistance = geoService.getMapDistance(currentDistance, ratioFrom, ratioTo)
-                        .convertTo(DistanceUnits.Meters)
-                    formatService.formatLargeDistance(mapDistance.distance, if (rulerUnits == DistanceUnits.Centimeters) UserPreferences.DistanceUnits.Meters else UserPreferences.DistanceUnits.Feet)
+                    formatService.formatDistance(mapDistance.convertTo(rulerUnits).toRelativeDistance())
                 }
             }
         }
