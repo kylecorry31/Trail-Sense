@@ -5,6 +5,7 @@ import android.hardware.SensorManager
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.shared.math.MathExtensions.toFloatCompat2
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
@@ -78,7 +79,7 @@ class UserPreferences(private val context: Context) {
 
     var declinationOverride: Float
         get() = (cache.getString(getString(R.string.pref_declination_override))
-            ?: "0.0").toFloatOrNull() ?: 0.0f
+            ?: "0.0").toFloatCompat2() ?: 0.0f
         set(value) = cache.putString(
             getString(R.string.pref_declination_override),
             value.toString()
@@ -107,8 +108,10 @@ class UserPreferences(private val context: Context) {
         }
 
     var altitudeOverride: Float
-        get() = (cache.getString(getString(R.string.pref_altitude_override))
-            ?: "0.0").toFloatOrNull() ?: 0.0f
+        get(){
+            val raw = cache.getString(getString(R.string.pref_altitude_override)) ?: "0.0"
+            return raw.toFloatCompat2() ?: 0.0f
+        }
         set(value) = cache.putString(getString(R.string.pref_altitude_override), value.toString())
 
     val altimeterMode: AltimeterMode

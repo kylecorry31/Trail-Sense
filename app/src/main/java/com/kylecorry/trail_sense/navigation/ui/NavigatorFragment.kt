@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.marginBottom
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -38,6 +42,7 @@ import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 import java.time.Duration
 import java.util.*
 
@@ -92,6 +97,8 @@ class NavigatorFragment : Fragment() {
 
     private var leftQuickAction: QuickActionButton? = null
     private var rightQuickAction: QuickActionButton? = null
+
+    private var calibrateSnackbar: Snackbar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -322,6 +329,7 @@ class NavigatorFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        calibrateSnackbar?.dismiss()
         rightQuickAction?.onPause()
         leftQuickAction?.onPause()
         compass.stop(this::onCompassUpdate)
@@ -437,18 +445,46 @@ class NavigatorFragment : Fragment() {
         }
         binding.compassAccuracyText.text = formatService.formatAccuracy(compass.accuracy)
         if (compass.accuracy == Accuracy.Low || compass.accuracy == Accuracy.Medium && !shownAccuracyToast){
-            val snack = Snackbar.make(
+            calibrateSnackbar = Snackbar.make(
                 binding.accuracyView, getString(
                     R.string.compass_calibrate_toast, formatService.formatAccuracy(
                         compass.accuracy
                     ).toLowerCase(Locale.getDefault())
                 ), Snackbar.LENGTH_LONG
             )
-            snack.setAnchorView(R.id.bottom_navigation)
-            snack.setAction(getString(R.string.how)){
+            calibrateSnackbar?.setAnchorView(R.id.bottom_navigation)
+            calibrateSnackbar?.setAction(getString(R.string.how)){
                 displayAccuracyTips()
             }
-            snack.show()
+            val originalMargin = binding.beaconBtn.marginBottom
+            val originalAccuracyMargin = binding.accuracyView.marginBottom
+            calibrateSnackbar?.addCallback(object :
+                BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                override fun onShown(transientBottomBar: Snackbar?) {
+                    super.onShown(transientBottomBar)
+                    try {
+                        binding.beaconBtn.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                            this.bottomMargin = (transientBottomBar?.view?.height ?: 0) + originalMargin
+                        }
+                        binding.accuracyView.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                            this.bottomMargin = (transientBottomBar?.view?.height ?: 0) + originalAccuracyMargin
+                        }
+                    } catch (e: Exception){}
+                }
+
+                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                    super.onDismissed(transientBottomBar, event)
+                    try {
+                        binding.beaconBtn.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                            this.bottomMargin = originalMargin
+                        }
+                        binding.accuracyView.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                            this.bottomMargin = originalAccuracyMargin
+                        }
+                    } catch (e: Exception){}
+                }
+            })
+            calibrateSnackbar?.show()
             shownAccuracyToast = true
         }
 
