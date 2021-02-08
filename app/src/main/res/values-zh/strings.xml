@@ -610,4 +610,57 @@
     <string name="clouds">云</string>
     <string name="unit_inches_abbreviation">英寸</string>
     <string name="unit_centimeters_abbreviation">厘米</string>
+    <string name="onboarding_privacy">- Trail Sense 尊重你的隐私，位置数据永远不会离开你的设备
+\n
+\n- Trail Sense 永远不需要联网权限
+\n
+\n- 查看隐私政策 [隐私政策](https://kylecorry.com/Trail-Sense/privacy_policy.html) (在你的手机浏览器中打开)
+\n
+\n- Trail Sense 的一些功能需要访问你的位置
+\n
+\n- 授予位置权限将允许使用以下特性:
+\n
+\n\t- 导航到信标
+\n
+\n\t- 提高预测精度(需要后台位置，不是所有设备上都有)
+\n
+\n\t- Backtrack (需要后台位置)
+\n
+\n\t- 当前位置的太阳和月亮时间
+\n
+\n- 如果选择不授予位置权限，可以在 Trail Sense 的设置 &gt; GPS 校准菜单中手动输入一个位置 。
+\n
+\n- 单击“继续”后，系统将提示您授予位置和后台位置权限。拒绝这些权限将阻止 Trail Sense 访问您的位置，所以建议使用手动输入位置。</string>
+    <string name="onboarding_user_guide">通过用户指南学习如何使用 Trail Sense 的功能。可以在“工具”选项卡的底部找到。
+\n
+\n更多指南将会很快到来。</string>
+    <string name="privacy">隐私和位置</string>
+    <string name="onboarding_tools">- 访问工具，以协助任何野外情况
+\n
+\n- 使用手电筒或口哨发出信号
+\n
+\n- 将位置从纸质地图转换到你的手机
+\n
+\n- 测量角度和确定物体的高度
+\n
+\n- 在没有网络连接的情况下同步你的时钟
+\n
+\n- 做笔记并对手上的物品做记录
+\n
+\n- 找到掉落的铁/钢物品</string>
+    <string name="onboarding_astronomy">- 知道太阳/月亮何时升起和落下
+\n
+\n- 获得太阳何时落山的警报
+\n
+\n- 用罗盘定位太阳和月亮的位置</string>
+    <string name="onboarding_weather">- 使用手机的气压计获取超本地天气预报
+\n
+\n- 不使用互联网连接
+\n
+\n- 获得即将来临的暴风雨警报</string>
+    <string name="onboarding_navigation">- 放置信标，然后导航回去
+\n
+\n-获得你当下的位置，高度和速度
+\n
+\n- 用 Backtrack 追溯你的脚步 (启用时在后台运行)</string>
 </resources>
