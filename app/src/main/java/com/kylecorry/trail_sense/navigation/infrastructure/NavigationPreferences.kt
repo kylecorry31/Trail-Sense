@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.navigation.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.math.MathExtensions.toFloatCompat2
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
@@ -60,7 +61,7 @@ class NavigationPreferences(private val context: Context) {
         get() {
             val raw = cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "100"
             return unitService.convert(
-                raw.toFloatOrNull() ?: 100f,
+                raw.toFloatCompat2() ?: 100f,
                 DistanceUnits.Kilometers,
                 DistanceUnits.Meters
             )
@@ -74,7 +75,7 @@ class NavigationPreferences(private val context: Context) {
     val rulerScale: Float
         get() {
             val raw = cache.getString(context.getString(R.string.pref_ruler_calibration)) ?: "1"
-            return raw.toFloatOrNull() ?: 1f
+            return raw.toFloatCompat2() ?: 1f
         }
 
     val averageSpeed: Float

@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.math.MathExtensions.toFloatCompat2
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -92,49 +93,49 @@ class WeatherPreferences(private val context: Context) {
         }
 
     var minBatteryTemperature: Float
-        get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_c))?.toFloatOrNull() ?: 0f
+        get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_c))?.toFloatCompat2() ?: 0f
         set(value) {
             cache.putString(context.getString(R.string.pref_min_uncalibrated_temp_c), value.toString())
         }
 
     var minActualTemperature: Float
-        get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_c))?.toFloatOrNull() ?: 0f
+        get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_c))?.toFloatCompat2() ?: 0f
         set(value) {
             cache.putString(context.getString(R.string.pref_min_calibrated_temp_c), value.toString())
         }
 
     var maxBatteryTemperature: Float
-        get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_c))?.toFloatOrNull() ?: 100f
+        get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_c))?.toFloatCompat2() ?: 100f
         set(value) {
             cache.putString(context.getString(R.string.pref_max_uncalibrated_temp_c), value.toString())
         }
 
     var maxActualTemperature: Float
-        get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_c))?.toFloatOrNull() ?: 100f
+        get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_c))?.toFloatCompat2() ?: 100f
         set(value) {
             cache.putString(context.getString(R.string.pref_max_calibrated_temp_c), value.toString())
         }
 
     var minBatteryTemperatureF: Float
-        get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_f))?.toFloatOrNull() ?: 32f
+        get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_f))?.toFloatCompat2() ?: 32f
         set(value) {
             cache.putString(context.getString(R.string.pref_min_uncalibrated_temp_f), value.toString())
         }
 
     var minActualTemperatureF: Float
-        get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_f))?.toFloatOrNull() ?: 32f
+        get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_f))?.toFloatCompat2() ?: 32f
         set(value) {
             cache.putString(context.getString(R.string.pref_min_calibrated_temp_f), value.toString())
         }
 
     var maxBatteryTemperatureF: Float
-        get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_f))?.toFloatOrNull() ?: 212f
+        get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_f))?.toFloatCompat2() ?: 212f
         set(value) {
             cache.putString(context.getString(R.string.pref_max_uncalibrated_temp_f), value.toString())
         }
 
     var maxActualTemperatureF: Float
-        get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_f))?.toFloatOrNull() ?: 212f
+        get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_f))?.toFloatCompat2() ?: 212f
         set(value) {
             cache.putString(context.getString(R.string.pref_max_calibrated_temp_f), value.toString())
         }
