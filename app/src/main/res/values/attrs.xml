@@ -20,4 +20,10 @@
     <declare-styleable name="BearingInputView">
     </declare-styleable>
 
+    <declare-styleable name="StatusBadgeView">
+        <attr name="icon" format="reference"/>
+        <attr name="foregroundTint" format="color"/>
+        <attr name="backgroundTint" format="color"/>
+    </declare-styleable>
+
 </resources>
