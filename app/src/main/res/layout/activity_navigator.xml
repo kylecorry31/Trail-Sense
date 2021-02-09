@@ -154,53 +154,25 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="@dimen/default_bottom_margin"
         android:alpha="0.6"
-        android:gravity="center_horizontal"
+        android:gravity="start"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            android:id="@+id/gps_accuracy_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.kylecorry.trail_sense.shared.views.StatusBadgeView
+            android:id="@+id/gps_status"
+            app:foregroundTint="@android:color/black"
+            app:icon="@drawable/satellite"
             android:layout_marginBottom="8dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/satellite"
-                app:tint="?android:textColorSecondary" />
-
-            <TextView
-                android:id="@+id/gps_accuracy_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/unknown"
-                android:textSize="10sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/compass_accuracy_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"/>
 
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/ic_compass_icon"
-                app:tint="?android:textColorSecondary" />
-
-            <TextView
-                android:id="@+id/compass_accuracy_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/unknown"
-                android:textSize="10sp" />
-        </LinearLayout>
+        <com.kylecorry.trail_sense.shared.views.StatusBadgeView
+            android:id="@+id/compass_status"
+            app:foregroundTint="@android:color/black"
+            app:icon="@drawable/ic_compass_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout

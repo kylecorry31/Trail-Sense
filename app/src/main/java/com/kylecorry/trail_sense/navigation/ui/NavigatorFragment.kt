@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.marginBottom
 import androidx.core.view.updateLayoutParams
@@ -441,8 +442,11 @@ class NavigatorFragment : Fragment() {
             destinationPanel.hide()
         }
 
-        binding.gpsAccuracyText.text = getGPSStatus()
-        binding.compassAccuracyText.text = formatService.formatAccuracy(compass.accuracy)
+        binding.gpsStatus.setStatusText(getGPSStatus())
+        binding.gpsStatus.setBackgroundTint(getGPSColor())
+        binding.compassStatus.setStatusText(formatService.formatAccuracy(compass.accuracy))
+        binding.compassStatus.setBackgroundTint(getCompassColor())
+
         if ((compass.accuracy == Accuracy.Low || compass.accuracy == Accuracy.Medium) && !shownAccuracyToast){
             calibrateSnackbar = Snackbar.make(
                 binding.accuracyView, getString(
@@ -648,6 +652,39 @@ class NavigatorFragment : Fragment() {
         updateNavigationButton()
     }
 
+    @ColorInt
+    private fun getCompassColor(): Int {
+        return when (compass.accuracy){
+            Accuracy.Low, Accuracy.Unknown -> UiUtils.color(requireContext(), R.color.red)
+            Accuracy.Medium -> UiUtils.color(requireContext(), R.color.yellow)
+            Accuracy.High -> UiUtils.color(requireContext(), R.color.green)
+        }
+    }
+
+    @ColorInt
+    private fun getGPSColor(): Int {
+        if (gps is OverrideGPS){
+            return UiUtils.color(requireContext(), R.color.green)
+        }
+
+        if (gps is CachedGPS || !sensorChecker.hasGPS()){
+            return UiUtils.color(requireContext(), R.color.red)
+        }
+
+        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)){
+            return UiUtils.color(requireContext(), R.color.yellow)
+        }
+
+        if (!gps.hasValidReading || (userPrefs.requiresSatellites && gps.satellites < 4)){
+            return UiUtils.color(requireContext(), R.color.yellow)
+        }
+
+        return when (gps.accuracy){
+            Accuracy.Low, Accuracy.Unknown -> UiUtils.color(requireContext(), R.color.red)
+            Accuracy.Medium -> UiUtils.color(requireContext(), R.color.yellow)
+            Accuracy.High -> UiUtils.color(requireContext(), R.color.green)
+        }
+    }
 
     private fun getGPSStatus(): String {
         if (gps is OverrideGPS){
