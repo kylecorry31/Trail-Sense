@@ -54,12 +54,12 @@ class FragmentToolTriangulate : Fragment() {
         _binding = FragmentToolTriangulateBinding.inflate(inflater, container, false)
         binding.beacon1Compass.setOnClickListener {
             direction1 = compass.bearing
-            binding.beacon1Direction.text = formatService.formatDegrees(compass.bearing.value)
+            binding.beacon1Direction.text = formatService.formatDegrees(compass.bearing.value, replace360 = true)
             update()
         }
         binding.beacon2Compass.setOnClickListener {
             direction2 = compass.bearing
-            binding.beacon2Direction.text = formatService.formatDegrees(compass.bearing.value)
+            binding.beacon2Direction.text = formatService.formatDegrees(compass.bearing.value, replace360 = true)
             update()
         }
 

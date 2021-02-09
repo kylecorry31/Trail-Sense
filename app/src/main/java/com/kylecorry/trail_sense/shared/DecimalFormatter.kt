@@ -18,7 +18,7 @@ object DecimalFormatter {
         }
 
         val builder = StringBuilder("#.")
-        for (i in 0..decimalPlaces){
+        for (i in 0 until decimalPlaces){
             builder.append('#')
         }
 

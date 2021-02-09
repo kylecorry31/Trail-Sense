@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
+import com.kylecorry.trailsensecore.domain.units.Temperature
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.weather.HeatAlert
 import java.time.Duration
@@ -116,10 +117,11 @@ class ThermometerFragment : Fragment() {
         } else {
             binding.batteryTemp.text = getString(
                 R.string.battery_temp,
-                formatService2.formatTemperature(uncalibrated, prefs.temperatureUnits)
+                formatService2.formatTemperature(
+                    Temperature(uncalibrated, TemperatureUnits.C).convertTo(prefs.temperatureUnits))
             )
             binding.temperature.text =
-                formatService2.formatTemperature(reading, prefs.temperatureUnits)
+                formatService2.formatTemperature(Temperature(reading, TemperatureUnits.C).convertTo(prefs.temperatureUnits))
             binding.freezingAlert.visibility = if (reading <= 0f) View.VISIBLE else View.INVISIBLE
         }
 
@@ -136,7 +138,7 @@ class ThermometerFragment : Fragment() {
             val dewPoint = weatherService.getDewPoint(reading, hygrometer.humidity)
             binding.dewPoint.text = getString(
                 R.string.dew_point,
-                formatService2.formatTemperature(dewPoint, prefs.temperatureUnits)
+                formatService2.formatTemperature(Temperature(dewPoint, TemperatureUnits.C).convertTo(prefs.temperatureUnits))
             )
             showHeatAlert(alert)
         } else if (hasTemp) {

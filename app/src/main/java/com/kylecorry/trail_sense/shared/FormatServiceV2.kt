@@ -8,10 +8,7 @@ import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
-import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
+import com.kylecorry.trailsensecore.domain.units.*
 import java.time.Duration
 import java.time.LocalTime
 import java.time.ZonedDateTime
@@ -66,12 +63,11 @@ class FormatServiceV2(private val context: Context) {
     }
 
     fun formatTemperature(
-        temperature: Float,
-        units: TemperatureUnits,
+        temperature: Temperature,
         decimalPlaces: Int = 0
     ): String {
-        val formatted = DecimalFormatter.format(temperature, decimalPlaces)
-        return when (units) {
+        val formatted = DecimalFormatter.format(temperature.temperature, decimalPlaces)
+        return when (temperature.units) {
             TemperatureUnits.F -> context.getString(R.string.precise_temp_f_format, formatted)
             TemperatureUnits.C -> context.getString(R.string.precise_temp_c_format, formatted)
         }

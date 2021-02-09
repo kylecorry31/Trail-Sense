@@ -56,7 +56,7 @@ class RulerFragment : Fragment() {
             }
             binding.rulerUnitBtn.text = getUnitText(rulerUnits)
             val displayDistance = currentDistance.convertTo(rulerUnits)
-            binding.measurement.text = formatService.formatDistance(displayDistance)
+            binding.measurement.text = formatService.formatDistance(displayDistance, precision)
             ruler.setUnits(rulerUnits)
             calculateMapDistance()
         }
@@ -124,7 +124,7 @@ class RulerFragment : Fragment() {
     private fun onRulerTap(centimeters: Float) {
         currentDistance = Distance(centimeters, DistanceUnits.Centimeters)
         val displayDistance = currentDistance.convertTo(rulerUnits)
-        binding.measurement.text = formatService.formatDistance(displayDistance)
+        binding.measurement.text = formatService.formatDistance(displayDistance, precision)
         calculateMapDistance()
     }
 
@@ -138,7 +138,7 @@ class RulerFragment : Fragment() {
                     null
                 } else {
                     val mapDistance = geoService.getMapDistance(currentDistance, scaleFrom, scaleTo)
-                    formatService.formatDistance(Distance(mapDistance.distance, scaleTo.units))
+                    formatService.formatDistance(Distance(mapDistance.distance, scaleTo.units), mapPrecision)
                 }
             }
             MapScaleMode.Fractional -> {
@@ -149,7 +149,7 @@ class RulerFragment : Fragment() {
                     null
                 } else {
                     val mapDistance = geoService.getMapDistance(currentDistance, ratioFrom, ratioTo)
-                    formatService.formatDistance(mapDistance.convertTo(rulerUnits).toRelativeDistance())
+                    formatService.formatDistance(mapDistance.convertTo(rulerUnits).toRelativeDistance(), mapPrecision)
                 }
             }
         }
@@ -173,6 +173,11 @@ class RulerFragment : Fragment() {
     private enum class MapScaleMode {
         Fractional,
         Relational
+    }
+
+    companion object {
+        const val precision = 4
+        const val mapPrecision = 2
     }
 
 }
