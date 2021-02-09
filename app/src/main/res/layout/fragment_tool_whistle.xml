@@ -1,39 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <ImageButton
         android:id="@+id/whistle_btn"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:background="@drawable/bubble"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:background="@drawable/rounded_rectangle"
         android:backgroundTint="?android:colorBackgroundFloating"
         android:cropToPadding="true"
         android:padding="64dp"
         android:scaleType="centerCrop"
         android:tint="?android:textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_category_safety" />
 
     <ImageButton
         android:id="@+id/whistle_sos_btn"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:background="@drawable/bubble"
+        android:layout_width="250dp"
+        android:layout_height="117dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_rectangle"
         android:backgroundTint="?android:colorBackgroundFloating"
         android:cropToPadding="true"
-        android:padding="18dp"
-        android:scaleType="centerCrop"
+        android:padding="32dp"
+        android:scaleType="fitCenter"
         android:tint="?android:textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="@+id/whistle_btn"
-        app:layout_constraintEnd_toEndOf="@+id/whistle_btn"
         app:srcCompat="@drawable/ic_whistle_sos" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

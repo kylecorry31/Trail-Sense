@@ -30,17 +30,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="32dp"
             android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/lightning_btn"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/bubble"
+                android:layout_width="117dp"
+                android:layout_height="117dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_rectangle"
                 android:backgroundTint="?android:colorBackgroundFloating"
                 android:cropToPadding="true"
-                android:padding="24dp"
+                android:padding="32dp"
                 android:scaleType="centerCrop"
                 android:tint="?android:textColorSecondary"
                 app:srcCompat="@drawable/ic_lightning" />
@@ -60,12 +60,13 @@
 
             <ImageButton
                 android:id="@+id/thunder_btn"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/bubble"
+                android:layout_width="117dp"
+                android:layout_height="117dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/rounded_rectangle"
                 android:backgroundTint="?android:colorBackgroundFloating"
                 android:cropToPadding="true"
-                android:padding="24dp"
+                android:padding="32dp"
                 android:scaleType="centerCrop"
                 android:tint="?android:textColorSecondary"
                 app:srcCompat="@drawable/ic_thunder" />
