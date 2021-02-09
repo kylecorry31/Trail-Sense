@@ -49,6 +49,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="@string/lightning"
                 android:textAlignment="center"/>
         </LinearLayout>
@@ -73,6 +74,7 @@
 
             <TextView
                 android:id="@+id/textView6"
+                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/thunder"
