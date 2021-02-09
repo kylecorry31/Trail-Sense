@@ -23,6 +23,8 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRep
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
+import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trailsensecore.domain.Accuracy
@@ -32,6 +34,7 @@ import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
@@ -44,6 +47,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 import java.time.Duration
+import java.time.Instant
 import java.util.*
 
 
@@ -63,8 +67,6 @@ class NavigatorFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var navController: NavController
 
-    private var acquiredLock = false
-
     private lateinit var destinationPanel: DestinationPanel
 
     private lateinit var beaconIndicators: List<ImageView>
@@ -74,6 +76,7 @@ class NavigatorFragment : Fragment() {
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
 
     private val sensorService by lazy { SensorService(requireContext()) }
+    private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private val cache by lazy { Cache(requireContext()) }
     private val throttle = Throttle(20)
 
@@ -438,13 +441,9 @@ class NavigatorFragment : Fragment() {
             destinationPanel.hide()
         }
 
-        if (!acquiredLock) {
-            binding.gpsAccuracyText.text = formatService.formatAccuracy(Accuracy.Unknown)
-        } else {
-            binding.gpsAccuracyText.text = formatService.formatAccuracy(gps.accuracy)
-        }
+        binding.gpsAccuracyText.text = getGPSStatus()
         binding.compassAccuracyText.text = formatService.formatAccuracy(compass.accuracy)
-        if (compass.accuracy == Accuracy.Low || compass.accuracy == Accuracy.Medium && !shownAccuracyToast){
+        if ((compass.accuracy == Accuracy.Low || compass.accuracy == Accuracy.Medium) && !shownAccuracyToast){
             calibrateSnackbar = Snackbar.make(
                 binding.accuracyView, getString(
                     R.string.compass_calibrate_toast, formatService.formatAccuracy(
@@ -605,12 +604,6 @@ class NavigatorFragment : Fragment() {
         compass.declination = getDeclination()
         updateAverageSpeed()
         updateUI()
-
-        if (!acquiredLock && gps.satellites > 0) {
-            UiUtils.shortToast(requireContext(), getString(R.string.gps_lock_acquired))
-            acquiredLock = true
-        }
-
         return destination != null
     }
 
@@ -653,6 +646,27 @@ class NavigatorFragment : Fragment() {
         }
 
         updateNavigationButton()
+    }
+
+
+    private fun getGPSStatus(): String {
+        if (gps is OverrideGPS){
+            return getString(R.string.gps_user)
+        }
+
+        if (gps is CachedGPS || !sensorChecker.hasGPS()){
+            return getString(R.string.gps_unavailable)
+        }
+
+        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)){
+            return getString(R.string.gps_stale)
+        }
+
+        if (!gps.hasValidReading || (userPrefs.requiresSatellites && gps.satellites < 4)){
+            return getString(R.string.gps_searching)
+        }
+
+        return formatService.formatAccuracy(gps.accuracy)
     }
 
     companion object {

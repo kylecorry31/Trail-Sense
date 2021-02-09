@@ -790,4 +790,8 @@
     <string name="select_import_file">Select Import File</string>
     <string name="import_export_beacons">Import/Export Beacons</string>
     <string name="import_btn">Import</string>
+    <string name="gps_user">User</string>
+    <string name="gps_stale">Stale</string>
+    <string name="gps_searching">Searching</string>
+    <string name="gps_unavailable">Unavailable</string>
 </resources>
