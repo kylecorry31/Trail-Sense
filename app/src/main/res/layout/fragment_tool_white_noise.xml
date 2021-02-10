@@ -4,20 +4,15 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageButton
+    <com.kylecorry.trail_sense.shared.views.TileButton
         android:id="@+id/white_noise_btn"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:background="@drawable/rounded_rectangle"
-        android:backgroundTint="?android:colorBackgroundFloating"
-        android:cropToPadding="true"
-        android:padding="64dp"
-        android:scaleType="centerCrop"
-        android:tint="?android:textColorSecondary"
+        app:tilePadding="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_tool_white_noise" />
+        app:tileIcon="@drawable/ic_tool_white_noise" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

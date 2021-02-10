@@ -11,7 +11,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.physics.PhysicsService
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
@@ -40,29 +39,16 @@ class ToolCliffHeightFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentToolCliffHeightBinding.inflate(inflater, container, false)
-        UiUtils.setButtonState(
-            binding.startBtn, false, UiUtils.color(requireContext(), R.color.colorPrimary),
-            UiUtils.color(requireContext(), R.color.colorSecondary)
-        )
         binding.startBtn.setOnClickListener {
             if (running) {
-                UiUtils.setButtonState(
-                    binding.startBtn, false, UiUtils.color(requireContext(), R.color.colorPrimary),
-                    UiUtils.color(requireContext(), R.color.colorSecondary)
-                )
                 intervalometer.stop()
                 running = false
             } else {
-                UiUtils.setButtonState(
-                    binding.startBtn,
-                    true,
-                    UiUtils.color(requireContext(), R.color.colorPrimary),
-                    UiUtils.color(requireContext(), R.color.colorSecondary)
-                )
                 startTime = Instant.now()
                 intervalometer.interval(16)
                 running = true
             }
+            binding.startBtn.setState(running)
         }
         return binding.root
     }

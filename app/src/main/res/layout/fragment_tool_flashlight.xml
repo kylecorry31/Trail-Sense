@@ -7,21 +7,16 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <ImageButton
+    <com.kylecorry.trail_sense.shared.views.TileButton
         android:id="@+id/flashlight_btn"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:background="@drawable/rounded_rectangle"
-        android:backgroundTint="?android:colorBackgroundFloating"
-        android:cropToPadding="true"
-        android:padding="64dp"
-        android:scaleType="centerCrop"
-        android:tint="?android:textColorSecondary"
+        app:tilePadding="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/flashlight" />
+        app:tileIcon="@drawable/flashlight"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,32 +25,26 @@
         android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/strobe_btn"
-                android:layout_width="117dp"
-                android:layout_height="117dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/rounded_rectangle"
-                android:backgroundTint="?android:colorBackgroundFloating"
-                android:cropToPadding="true"
-                android:padding="32dp"
-                android:scaleType="centerCrop"
-                android:tint="?android:textColorSecondary"
-                app:layout_constraintBottom_toBottomOf="@+id/flashlight_btn"
-                app:layout_constraintStart_toStartOf="@+id/flashlight_btn"
-                app:srcCompat="@drawable/ic_strobe" />
+        <com.kylecorry.trail_sense.shared.views.TileButton
+            android:layout_width="117dp"
+            android:layout_height="117dp"
+            android:id="@+id/strobe_btn"
+            app:tileIcon="@drawable/ic_strobe"
+            app:tileText="@string/flashlight_strobe"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/flashlight_btn"
+            app:layout_constraintStart_toStartOf="@+id/flashlight_btn">
 
-            <ImageButton
+        </com.kylecorry.trail_sense.shared.views.TileButton>
+
+
+            <com.kylecorry.trail_sense.shared.views.TileButton
                 android:id="@+id/sos_btn"
                 android:layout_width="117dp"
                 android:layout_height="117dp"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/rounded_rectangle"
-                android:backgroundTint="?android:colorBackgroundFloating"
-                android:cropToPadding="true"
-                android:padding="32dp"
-                android:scaleType="centerCrop"
-                android:tint="?android:textColorSecondary"
+                app:tileIcon="@drawable/flashlight_sos"
+                app:tileText="@string/sos"
                 app:layout_constraintBottom_toBottomOf="@+id/flashlight_btn"
                 app:layout_constraintEnd_toEndOf="@+id/flashlight_btn"
                 app:srcCompat="@drawable/flashlight_sos" />

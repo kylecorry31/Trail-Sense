@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWhiteNoiseBinding
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
 class FragmentToolWhiteNoise : Fragment() {
@@ -51,12 +49,7 @@ class FragmentToolWhiteNoise : Fragment() {
     }
 
     private fun update() {
-        UiUtils.setButtonState(
-            binding.whiteNoiseBtn,
-            WhiteNoiseService.isOn(requireContext()),
-            UiUtils.color(requireContext(), R.color.colorPrimary),
-            UiUtils.color(requireContext(), R.color.colorSecondary)
-        )
+        binding.whiteNoiseBtn.setState(WhiteNoiseService.isOn(requireContext()))
     }
 
 }

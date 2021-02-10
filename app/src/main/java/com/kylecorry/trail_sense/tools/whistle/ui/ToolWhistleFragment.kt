@@ -7,11 +7,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
 import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.Whistle
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
 
@@ -44,12 +42,6 @@ class ToolWhistleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentToolWhistleBinding.inflate(inflater, container, false)
-        UiUtils.setButtonState(
-            binding.whistleBtn,
-            false,
-            UiUtils.color(requireContext(), R.color.colorPrimary),
-            UiUtils.color(requireContext(), R.color.colorSecondary)
-        )
 
         binding.whistleSosBtn.setOnClickListener {
             if (isEmergencyWhistleOn){
@@ -64,20 +56,11 @@ class ToolWhistleFragment : Fragment() {
             if (event.action == MotionEvent.ACTION_DOWN) {
                 stopEmergencyWhistle()
                 whistle.on()
-                UiUtils.setButtonState(
-                    binding.whistleBtn,
-                    true,
-                    UiUtils.color(requireContext(), R.color.colorPrimary),
-                    UiUtils.color(requireContext(), R.color.colorSecondary)
-                )
+                binding.whistleBtn.setState(true)
+
             } else if (event.action == MotionEvent.ACTION_UP) {
                 whistle.off()
-                UiUtils.setButtonState(
-                    binding.whistleBtn,
-                    false,
-                    UiUtils.color(requireContext(), R.color.colorPrimary),
-                    UiUtils.color(requireContext(), R.color.colorSecondary)
-                )
+                binding.whistleBtn.setState(false)
             }
             true
         }
@@ -109,18 +92,8 @@ class ToolWhistleFragment : Fragment() {
         emergencyWhistleState = 0
         isEmergencyWhistleOn = true
         whistle.off()
-        UiUtils.setButtonState(
-            binding.whistleBtn,
-            false,
-            UiUtils.color(requireContext(), R.color.colorPrimary),
-            UiUtils.color(requireContext(), R.color.colorSecondary)
-        )
-        UiUtils.setButtonState(
-            binding.whistleSosBtn,
-            true,
-            UiUtils.color(requireContext(), R.color.colorPrimary),
-            UiUtils.color(requireContext(), R.color.colorSecondary)
-        )
+        binding.whistleBtn.setState(false)
+        binding.whistleSosBtn.setState(true)
         emergencyWhistleIntervalometer.interval(emergencyWhistleDuration)
     }
 
@@ -129,12 +102,7 @@ class ToolWhistleFragment : Fragment() {
         emergencyWhistleState = 0
         isEmergencyWhistleOn = false
         whistle.off()
-        UiUtils.setButtonState(
-            binding.whistleSosBtn,
-            false,
-            UiUtils.color(requireContext(), R.color.colorPrimary),
-            UiUtils.color(requireContext(), R.color.colorSecondary)
-        )
+        binding.whistleSosBtn.setState(false)
     }
 
 }

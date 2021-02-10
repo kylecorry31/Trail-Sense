@@ -27,59 +27,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <com.kylecorry.trail_sense.shared.views.TileButton
+            android:id="@+id/lightning_btn"
+            android:layout_width="117dp"
+            android:layout_height="117dp"
+            android:layout_marginEnd="8dp"
+            app:tileText="@string/lightning"
+            app:tileIcon="@drawable/ic_lightning" />
 
-            <ImageButton
-                android:id="@+id/lightning_btn"
-                android:layout_width="117dp"
-                android:layout_height="117dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/rounded_rectangle"
-                android:backgroundTint="?android:colorBackgroundFloating"
-                android:cropToPadding="true"
-                android:padding="32dp"
-                android:scaleType="centerCrop"
-                android:tint="?android:textColorSecondary"
-                app:srcCompat="@drawable/ic_lightning" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/lightning"
-                android:textAlignment="center"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/thunder_btn"
-                android:layout_width="117dp"
-                android:layout_height="117dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/rounded_rectangle"
-                android:backgroundTint="?android:colorBackgroundFloating"
-                android:cropToPadding="true"
-                android:padding="32dp"
-                android:scaleType="centerCrop"
-                android:tint="?android:textColorSecondary"
-                app:srcCompat="@drawable/ic_thunder" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_marginTop="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/thunder"
-                android:textAlignment="center"/>
-        </LinearLayout>
+        <com.kylecorry.trail_sense.shared.views.TileButton
+            android:id="@+id/thunder_btn"
+            android:layout_width="117dp"
+            android:layout_height="117dp"
+            android:layout_marginStart="8dp"
+            app:tileText="@string/thunder"
+            app:tileIcon="@drawable/ic_thunder" />
 
     </LinearLayout>
 

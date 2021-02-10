@@ -26,4 +26,11 @@
         <attr name="backgroundTint" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="TileButton">
+        <attr name="tileIcon" format="reference"/>
+        <attr name="tileText" format="string"/>
+        <attr name="tilePadding" format="dimension"/>
+        <attr name="tileTextSize" format="dimension"/>
+    </declare-styleable>
+
 </resources>

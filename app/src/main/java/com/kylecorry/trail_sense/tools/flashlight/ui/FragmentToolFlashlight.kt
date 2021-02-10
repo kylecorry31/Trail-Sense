@@ -86,26 +86,9 @@ class FragmentToolFlashlight : Fragment() {
     }
 
     private fun updateFlashlightUI() {
-        UiUtils.setButtonState(
-            binding.flashlightBtn,
-            flashlightState == FlashlightState.On,
-            UiUtils.color(requireContext(), R.color.colorPrimary),
-            UiUtils.color(requireContext(), R.color.colorSecondary)
-        )
-
-        UiUtils.setButtonState(
-            binding.sosBtn,
-            flashlightState == FlashlightState.SOS,
-            UiUtils.color(requireContext(), R.color.colorPrimary),
-            UiUtils.color(requireContext(), R.color.colorSecondary)
-        )
-
-        UiUtils.setButtonState(
-            binding.strobeBtn,
-            flashlightState == FlashlightState.Strobe,
-            UiUtils.color(requireContext(), R.color.colorPrimary),
-            UiUtils.color(requireContext(), R.color.colorSecondary)
-        )
+        binding.flashlightBtn.setState(flashlightState == FlashlightState.On)
+        binding.sosBtn.setState(flashlightState == FlashlightState.SOS)
+        binding.strobeBtn.setState(flashlightState == FlashlightState.Strobe)
     }
 
 
