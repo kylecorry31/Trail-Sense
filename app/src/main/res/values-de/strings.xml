@@ -607,4 +607,31 @@
     <string name="create_at_distance">Mit Abstand festlegen</string>
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
+    <string name="onboarding_privacy">- Trail Sense respektiert Ihre Privatsphäre und alle Ortsdaten verbleiben auf dem Gerät
+\n
+\n- Trail Sense wird niemals Zugang zum Internet verlangen
+\n
+\n- [Datenschutz-Bestimmungen](https://kylecorry.com/Trail-Sense/privacy_policy.html) (wird im Browser des Geräts geöffnet)
+\n
+\n- Einige Funktionen von Trail Sense benötigen Zugriff auf Ihre Ortsdaten
+\n
+\n- Freigabe der Ortsdaten schaltet folgende Funktionen frei:
+\n
+\n\t- Navigation zu Wegpunkten
+\n
+\n\t- Verbesserte Vorhersagegenauigkeit (benötigt Zugriff auf Ortsdaten im Hintergrund, ist nicht auf allen Geräten verfügbar)
+\n
+\n\t- Rückweg (benötigt Ortsbestimmung im Hintergrund)
+\n
+\n\t- Zeiten für Sonne und Mond für Ihre gegenwärtige Position
+\n
+\n- Falls Sie sich entscheiden, den Zugriff auf Ihre Ortsdaten nicht zu erlauben, können Sie selber Koordinaten im Trail Sense Menu Einstellungen -&gt; GPS Kalibration eingeben.
+\n
+\n- Nach \'Weiter\' werden Sie darum gebeten, die Freigabe Ihrer Ortsdaten im Vorder- und Hintergrund zu erteilen. Ablehnung dieser Rechte wird verhindern, dass Trail Sense Zugriff auf Ihren Ort erlangt, in diesem Fall wird empfohlen, Koordinaten manuell einzugeben.</string>
+    <string name="import_export_beacons">Wegpunkte importieren/exportieren</string>
+    <string name="select_import_file">Datei auswählen</string>
+    <string name="beacons_imported">%d Wegpunkte importiert</string>
+    <string name="export">Exportieren</string>
+    <string name="export_beacons">Wegpunkte exportieren</string>
+    <string name="import_btn">Importieren</string>
 </resources>
