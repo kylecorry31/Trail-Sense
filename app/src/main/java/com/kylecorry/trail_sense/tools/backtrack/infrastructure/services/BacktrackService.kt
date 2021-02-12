@@ -17,8 +17,10 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.sensors.network.CellSignalSensor
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import kotlinx.coroutines.*
 import java.time.Duration
@@ -28,10 +30,13 @@ import java.time.ZonedDateTime
 class BacktrackService : Service() {
 
     private val gps by lazy { sensorService.getGPS(true) }
+    private val cellSignal by lazy { CellSignalSensor(applicationContext) }
     private val sensorService by lazy { SensorService(applicationContext) }
     private val waypointRepo by lazy { WaypointRepo.getInstance(applicationContext) }
     private val timeout = Intervalometer {
         gps.stop(this::onGPSUpdate)
+        cellSignal.stop(this::onCellSignalUpdate)
+        onCellSignalUpdate()
         onGPSUpdate()
     }
 
@@ -39,6 +44,9 @@ class BacktrackService : Service() {
 
     private val prefs by lazy { UserPreferences(applicationContext) }
     private val cache by lazy { Cache(applicationContext) }
+
+    private var hasGps = false
+    private var hasCell = false
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val notification = notification(
@@ -57,17 +65,28 @@ class BacktrackService : Service() {
                 ?: 0L)
 
         if (timeSinceLast > Duration.ofMinutes(5).toMillis() || timeSinceLast < 0) {
-            if (gps.hasValidReading){
-                onGPSUpdate()
-            } else {
-                timeout.once(30 * 1000L)
-                gps.start(this::onGPSUpdate)
-            }
+            getReadings()
         } else {
             wrapUp()
         }
 
         return START_NOT_STICKY
+    }
+
+    private fun getReadings(){
+        if (gps.hasValidReading){
+            onGPSUpdate()
+        } else {
+            timeout.once(30 * 1000L)
+            gps.start(this::onGPSUpdate)
+        }
+
+        if (cellSignal.hasValidReading || !PermissionUtils.isBackgroundLocationEnabled(applicationContext) || !prefs.backtrackSaveCellHistory){
+            onCellSignalUpdate()
+        } else {
+            if (!timeout.isRunning()) timeout.once(30 * 1000L)
+            cellSignal.start(this::onCellSignalUpdate)
+        }
     }
 
     private fun scheduleNextUpdate() {
@@ -96,13 +115,25 @@ class BacktrackService : Service() {
         }
     }
 
+    private fun onCellSignalUpdate(): Boolean {
+        hasCell = true
+        onReadingReceived()
+        return false
+    }
+
     private fun onGPSUpdate(): Boolean {
+        hasGps = true
+        onReadingReceived()
+        return false
+    }
+
+    private fun onReadingReceived(){
+        if (!hasCell || !hasGps) return
         if (gps.hasValidReading) {
             cache.putLong(CACHE_LAST_LOCATION_UPDATE, Instant.now().toEpochMilli())
             recordWaypoint()
         }
         wrapUp()
-        return false
     }
 
     private fun recordWaypoint() {
@@ -113,7 +144,9 @@ class BacktrackService : Service() {
                         gps.location.latitude,
                         gps.location.longitude,
                         gps.altitude,
-                        gps.time.toEpochMilli()
+                        gps.time.toEpochMilli(),
+                        cellSignal.signals.firstOrNull()?.network?.id,
+                        cellSignal.signals.firstOrNull()?.quality?.ordinal,
                     )
                 )
                 waypointRepo.deleteOlderThan(Instant.now().minus(Duration.ofDays(2)))

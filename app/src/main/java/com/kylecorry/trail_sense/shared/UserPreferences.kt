@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.math.MathExtensions.toFloatCompat2
+import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
@@ -162,6 +163,8 @@ class UserPreferences(private val context: Context) {
             context.getString(R.string.pref_backtrack_enabled),
             value
         )
+
+    var backtrackSaveCellHistory by BooleanPreference(cache, context.getString(R.string.pref_backtrack_save_cell), false)
 
     val backtrackRecordFrequency: Duration
         get() {

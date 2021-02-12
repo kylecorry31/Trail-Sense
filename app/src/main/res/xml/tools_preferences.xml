@@ -24,6 +24,14 @@
             app:title="@string/pref_backtrack_frequency_title"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_save_cell"
+            app:singleLineTitle="false"
+            app:summary="Records cell signal at the waypoint. Does not use the Internet."
+            app:title="Record cell signal" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

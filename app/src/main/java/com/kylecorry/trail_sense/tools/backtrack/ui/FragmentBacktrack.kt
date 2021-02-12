@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.tools.backtrack.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.annotation.DrawableRes
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -16,6 +18,7 @@ import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.toZonedDateTime
@@ -23,6 +26,8 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.network.CellNetwork
+import com.kylecorry.trailsensecore.domain.units.Quality
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
@@ -73,6 +78,21 @@ class FragmentBacktrack : Fragment() {
                     R.string.waypoint_time_format, formatService.formatDayOfWeek(date),
                     formatService.formatTime(time, false)
                 )
+
+                if (prefs.backtrackSaveCellHistory) {
+                    itemBinding.signalStrength.setStatusText(getCellTypeString(waypoint.cellNetwork))
+                    itemBinding.signalStrength.setImageResource(getCellQualityImage(waypoint.cellQuality))
+                    itemBinding.signalStrength.setForegroundTint(Color.BLACK)
+                    itemBinding.signalStrength.setBackgroundTint(
+                        CustomUiUtils.getQualityColor(
+                            requireContext(),
+                            waypoint.cellQuality
+                        )
+                    )
+                    itemBinding.signalStrength.visibility = View.VISIBLE
+                } else {
+                    itemBinding.signalStrength.visibility = View.GONE
+                }
 
                 val menuListener = PopupMenu.OnMenuItemClickListener {
                     when (it.itemId) {
@@ -210,6 +230,26 @@ class FragmentBacktrack : Fragment() {
                 includeWeekDay = false
             ), formatService.formatTime(time, showSeconds = false)
         )
+    }
+
+    @DrawableRes
+    private fun getCellQualityImage(quality: Quality?): Int {
+        return when(quality){
+            Quality.Poor -> R.drawable.signal_cellular_1
+            Quality.Moderate -> R.drawable.signal_cellular_2
+            Quality.Good -> R.drawable.signal_cellular_3
+            else -> R.drawable.signal_cellular_outline
+        }
+    }
+
+    private fun getCellTypeString(cellType: CellNetwork?): String {
+        return when (cellType){
+            CellNetwork.Nr -> "5G"
+            CellNetwork.Lte -> "4G"
+            CellNetwork.Cdma, CellNetwork.Gsm -> "2G"
+            CellNetwork.Wcdma -> "3G"
+            else -> "No signal"
+        }
     }
 
 
