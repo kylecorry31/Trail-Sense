@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.units.Quality
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -24,8 +24,8 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     override val satellites: Int
         get() = _satellites
 
-    override val accuracy: Accuracy
-        get() = _accuracy
+    override val quality: Quality
+        get() = _quality
 
     override val horizontalAccuracy: Float?
         get() = _horizontalAccuracy
@@ -59,7 +59,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
 
     private var _altitude = 0f
     private var _time = Instant.now()
-    private var _accuracy: Accuracy = Accuracy.Unknown
+    private var _quality = Quality.Unknown
     private var _horizontalAccuracy: Float? = null
     private var _verticalAccuracy: Float? = null
     private var _satellites: Int = 0
@@ -75,7 +75,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
             _altitude = baseGPS.altitude
             _time = baseGPS.time
             _horizontalAccuracy = baseGPS.horizontalAccuracy
-            _accuracy = baseGPS.accuracy
+            _quality = baseGPS.quality
             _satellites = baseGPS.satellites
         } else {
             _location = Coordinate(
@@ -137,7 +137,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         _mslAltitude = baseGPS.mslAltitude
         _time = baseGPS.time
         _horizontalAccuracy = baseGPS.horizontalAccuracy
-        _accuracy = baseGPS.accuracy
+        _quality = baseGPS.quality
         _satellites = baseGPS.satellites
 
         cache.putFloat(LAST_ALTITUDE, altitude)

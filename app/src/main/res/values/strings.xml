@@ -794,4 +794,7 @@
     <string name="gps_stale">Stale</string>
     <string name="gps_searching">Searching</string>
     <string name="gps_unavailable">Unavailable</string>
+    <string name="quality_poor">Poor</string>
+    <string name="quality_moderate">Moderate</string>
+    <string name="quality_good">Good</string>
 </resources>

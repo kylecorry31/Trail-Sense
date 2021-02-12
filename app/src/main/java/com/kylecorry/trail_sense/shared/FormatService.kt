@@ -5,14 +5,10 @@ import android.text.format.DateUtils
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
-import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
-import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
+import com.kylecorry.trailsensecore.domain.units.*
 import java.time.Duration
 import java.time.LocalTime
 import java.time.ZonedDateTime
@@ -20,6 +16,7 @@ import java.time.format.DateTimeFormatter
 
 class FormatService(private val context: Context) {
 
+    private val v2 by lazy { FormatServiceV2(context) }
     private val prefs by lazy { UserPreferences(context) }
 
     fun formatTime(time: LocalTime, showSeconds: Boolean = true): String {
@@ -185,13 +182,8 @@ class FormatService(private val context: Context) {
         return formatDistance(Distance(distanceMeters, DistanceUnits.Meters).convertTo(units))
     }
 
-    fun formatAccuracy(accuracy: Accuracy): String {
-        return when (accuracy) {
-            Accuracy.Low -> context.getString(R.string.accuracy_low)
-            Accuracy.Medium -> context.getString(R.string.accuracy_medium)
-            Accuracy.High -> context.getString(R.string.accuracy_high)
-            else -> context.getString(R.string.unknown)
-        }
+    fun formatQuality(quality: Quality): String {
+        return v2.formatQuality(quality)
     }
 
     fun formatSpeed(metersPerSecond: Float): String {

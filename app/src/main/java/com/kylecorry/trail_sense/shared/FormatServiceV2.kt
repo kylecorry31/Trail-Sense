@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.format.DateUtils
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
-import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
@@ -110,11 +109,11 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
-    fun formatAccuracy(accuracy: Accuracy): String {
-        return when (accuracy) {
-            Accuracy.Low -> context.getString(R.string.accuracy_low)
-            Accuracy.Medium -> context.getString(R.string.accuracy_medium)
-            Accuracy.High -> context.getString(R.string.accuracy_high)
+    fun formatQuality(quality: Quality): String {
+        return when (quality) {
+            Quality.Poor -> context.getString(R.string.quality_poor)
+            Quality.Moderate -> context.getString(R.string.quality_moderate)
+            Quality.Good -> context.getString(R.string.quality_good)
             else -> context.getString(R.string.unknown)
         }
     }

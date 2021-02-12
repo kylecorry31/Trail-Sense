@@ -28,11 +28,11 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
-import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
+import com.kylecorry.trailsensecore.domain.units.Quality
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -444,14 +444,14 @@ class NavigatorFragment : Fragment() {
 
         binding.gpsStatus.setStatusText(getGPSStatus())
         binding.gpsStatus.setBackgroundTint(getGPSColor())
-        binding.compassStatus.setStatusText(formatService.formatAccuracy(compass.accuracy))
+        binding.compassStatus.setStatusText(formatService.formatQuality(compass.quality))
         binding.compassStatus.setBackgroundTint(getCompassColor())
 
-        if ((compass.accuracy == Accuracy.Low || compass.accuracy == Accuracy.Medium) && !shownAccuracyToast){
+        if ((compass.quality == Quality.Poor || compass.quality == Quality.Moderate) && !shownAccuracyToast){
             calibrateSnackbar = Snackbar.make(
                 binding.accuracyView, getString(
-                    R.string.compass_calibrate_toast, formatService.formatAccuracy(
-                        compass.accuracy
+                    R.string.compass_calibrate_toast, formatService.formatQuality(
+                        compass.quality
                     ).toLowerCase(Locale.getDefault())
                 ), Snackbar.LENGTH_LONG
             )
@@ -654,11 +654,7 @@ class NavigatorFragment : Fragment() {
 
     @ColorInt
     private fun getCompassColor(): Int {
-        return when (compass.accuracy){
-            Accuracy.Low, Accuracy.Unknown -> UiUtils.color(requireContext(), R.color.red)
-            Accuracy.Medium -> UiUtils.color(requireContext(), R.color.yellow)
-            Accuracy.High -> UiUtils.color(requireContext(), R.color.green)
-        }
+        return CustomUiUtils.getQualityColor(requireContext(), compass.quality)
     }
 
     @ColorInt
@@ -679,11 +675,7 @@ class NavigatorFragment : Fragment() {
             return UiUtils.color(requireContext(), R.color.yellow)
         }
 
-        return when (gps.accuracy){
-            Accuracy.Low, Accuracy.Unknown -> UiUtils.color(requireContext(), R.color.red)
-            Accuracy.Medium -> UiUtils.color(requireContext(), R.color.yellow)
-            Accuracy.High -> UiUtils.color(requireContext(), R.color.green)
-        }
+        return CustomUiUtils.getQualityColor(requireContext(), gps.quality)
     }
 
     private fun getGPSStatus(): String {
@@ -703,7 +695,7 @@ class NavigatorFragment : Fragment() {
             return getString(R.string.gps_searching)
         }
 
-        return formatService.formatAccuracy(gps.accuracy)
+        return formatService.formatQuality(gps.quality)
     }
 
     companion object {

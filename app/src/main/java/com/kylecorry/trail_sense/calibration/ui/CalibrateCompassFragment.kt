@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.text.InputType
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.domain.Accuracy
 import com.kylecorry.trailsensecore.domain.geo.GeoService
+import com.kylecorry.trailsensecore.domain.units.Quality
 import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
@@ -17,6 +18,7 @@ import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 class CalibrateCompassFragment : PreferenceFragmentCompat() {
 
     private lateinit var prefs: UserPreferences
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private lateinit var sensorService: SensorService
     private val throttle = Throttle(20)
 
@@ -34,7 +36,7 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
     private lateinit var gps: IGPS
     private val geoService = GeoService()
 
-    private var prevAccuracy = Accuracy.Unknown
+    private var prevQuality = Quality.Unknown
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.compass_calibration, rootKey)
@@ -176,14 +178,14 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
             return
         }
 
-        if (prevAccuracy != Accuracy.Unknown && prevAccuracy != compass.accuracy) {
-            if (compass.accuracy.ordinal > prevAccuracy.ordinal) {
+        if (prevQuality != Quality.Unknown && prevQuality != compass.quality) {
+            if (compass.quality.ordinal > prevQuality.ordinal) {
                 UiUtils.shortToast(
                     requireContext(),
                     getString(R.string.compass_accuracy_improved, getCompassAccuracy())
                 )
             }
-            prevAccuracy = compass.accuracy
+            prevQuality = compass.quality
         }
 
         compass.declination = getDeclination()
@@ -197,12 +199,7 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
 
 
     private fun getCompassAccuracy(): String {
-        return when (compass.accuracy) {
-            Accuracy.Low -> getString(R.string.accuracy_low)
-            Accuracy.Medium -> getString(R.string.accuracy_medium)
-            Accuracy.High -> getString(R.string.accuracy_high)
-            Accuracy.Unknown -> getString(R.string.unknown)
-        }
+        return formatService.formatQuality(compass.quality)
     }
 
 
