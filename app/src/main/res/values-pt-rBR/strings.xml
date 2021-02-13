@@ -546,4 +546,142 @@
     <string name="map_distance">Mapa: %s</string>
     <string name="map_fractional_separator">:</string>
     <string name="tool_white_noise_title">Ruído branco</string>
+    <string name="cumulonimbus">Cumulonimbus</string>
+    <string name="cumulonimbus_desc">Cinza escuro, alto e em forma de bigorna.</string>
+    <string name="cumulus_desc">Parecem bolas de algodão inchado.</string>
+    <string name="gps_unavailable">Indisponível</string>
+    <string name="gps_searching">Procurando</string>
+    <string name="gps_stale">Obsoleto</string>
+    <string name="gps_user">Usuário</string>
+    <string name="import_btn">Importar</string>
+    <string name="import_export_beacons">Importar/Exportar Pontos</string>
+    <string name="select_import_file">Selecione um arquivo a importar</string>
+    <string name="beacons_imported">%d pontos importados</string>
+    <string name="export">Exportar</string>
+    <string name="export_beacons">Exportar os Pontos de Orientação</string>
+    <string name="onboarding_privacy">- Trail Sense respeita sua privacidade e seus dados de localização nunca deixam seu dispositivo
+\n
+\n- Trail Sense nunca exigirá permissão da Internet
+\n
+\n- Veja a [Política de Privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html) (abre no navegador do seu telefone)
+\n
+\n- Algumas funcionalidades do Trail Sense exigem acesso à sua localização
+\n
+\n- A concessão da permissão de localização permitirá as seguintes funcionalidades:
+\n
+\n\t- Navegação até os puntos de orientação
+\n
+\n\t- Maior precisão na previsão (requer localização em segundo plano, não disponível em todos os dispositivos)
+\n
+\n\t- Recuo (requer localização em segundo plano)
+\n
+\n\t- Tempos de sol e lua para sua localização atual
+\n
+\n- Se você optar por não conceder a permissão de localização, você pode digitar manualmente uma localização no menu de Configurações &gt; Calibração do GPS em Trail Sense.
+\n
+\n- Depois de clicar em continuar, você será solicitado a conceder as permissões de localização e localização em segundo plano. A negação dessas permissões impedirá o Trail Sense de acessar sua localização, portanto, recomenda-se uma inserção manual de localização.</string>
+    <string name="onboarding_user_guide">Saiba como usar as funcionalidades de Trail Sense com o guia do usuário. Disponível na parte inferior da aba de Ferramentas.
+\n
+\nMais guias estarão disponíveis em breve.</string>
+    <string name="privacy">Privacidade e localização</string>
+    <string name="onboarding_tools">- Acesse as ferramentas para ajudar em qualquer situação silvestres
+\n
+\n- Sinalize usando a lanterna ou apito
+\n
+\n- Converta locais de um mapa de papel para seu telefone
+\n
+\n- Medir ângulos e determinar as alturas dos objetos
+\n
+\n- Sincronize seu relógio sem conexão à Internet
+\n
+\n- Tomar notas e manter o controle dos itens em mãos
+\n
+\n- Encontrar objetos de ferro/aço soltos</string>
+    <string name="onboarding_astronomy">- Saber quando o sol/lua vai nascer e se pôr
+\n
+\n- Seja alertado quando o sol vai se pôr
+\n
+\n- Localizar o sol e a lua na bússola</string>
+    <string name="onboarding_weather">- Obtenha previsões hiperlocais usando o barômetro de seu telefone
+\n
+\n- Não utiliza a conexão de Internet
+\n
+\n- Ser alertado das tempestades que chegam</string>
+    <string name="onboarding_navigation">- Coloque ponto de orientação e navegue de volta para eles
+\n
+\n- Obtenha sua localização atual, altitude e velocidade
+\n
+\n- Reconstitua seus passos com o Backtrack (funciona em segundo plano quando ativado)</string>
+    <string name="health">Saúde</string>
+    <string name="cirrus_desc">Alto e emplumado.</string>
+    <string name="cirrocumulus_desc">Forma uma camada ondulada, as nuvens quase parecem bidimensionais.</string>
+    <string name="stratocumulus_desc">Massas rolantes que formam uma camada.</string>
+    <string name="stratus_desc">Cobre o céu, os objetos não causam sombras.</string>
+    <string name="nimbostratus_desc">Cinza escuro e cobre o céu. Pode estar chovendo.</string>
+    <string name="altostratus_desc">Cobre o céu, o sol mal pode ser visto.</string>
+    <string name="altocumulus_desc">Parecem bolas de algodão inchado.</string>
+    <string name="cirrostratus_desc">Cobre o céu, mas o sol pode ser visto através dele.</string>
+    <string name="cloud_likely_storm">Tempestade provável</string>
+    <string name="cloud_likely_rain">Precipitação provável</string>
+    <string name="cloud_possible_rain">Precipitação possível</string>
+    <string name="cloud_fair">Probabilidade de bom tempo</string>
+    <string name="cumulus">Cúmulo</string>
+    <string name="stratocumulus">Stratocumulus</string>
+    <string name="stratus">Estrato</string>
+    <string name="nimbostratus">Nimbostratus</string>
+    <string name="altostratus">Altostratus</string>
+    <string name="altocumulus">Altocumulus</string>
+    <string name="cirrostratus">Cirrostratus</string>
+    <string name="cirrocumulus">Cirrocumulus</string>
+    <string name="cirrus">Cirro</string>
+    <string name="pref_require_satellites_description">Requer pelo menos 4 satélites, melhora a precisão</string>
+    <string name="pref_require_satellites_title">Requer captura de satélite</string>
+    <string name="pref_require_satellites">pref_require_satellites</string>
+    <string name="cloud_high">ALTAS</string>
+    <string name="cloud_low">BAIXAS</string>
+    <string name="cloud_middle">MÉDIAS</string>
+    <string name="clouds">Nuvens</string>
+    <string name="how">Como</string>
+    <string name="compass_calibrate_toast">Precisão da bússola %s, recomenda-se a calibração</string>
+    <string name="open_beacon_in_maps">Ver no Mapa</string>
+    <string name="pref_low_power_mode_summary">Desativa algumas funcionalidades para economizar energia</string>
+    <string name="backtrack_disabled_low_power_toast">O backtrack é desativado no modo de economia de energia</string>
+    <string name="dialog_leave">Sair</string>
+    <string name="notes_unsaved_changes_message">As alterações que você fez não serão salvas.</string>
+    <string name="notes_unsaved_changes">Alterações não salvas</string>
+    <string name="low_power_mode_on_message">Modo de economia de energia ativado, algumas funcionalidades podem ser desativadas.</string>
+    <string name="pref_low_power_mode_title">Modo de economia de energia</string>
+    <string name="guide_barometer_calibration_description">Como calibrar seu barômetro ao nível do mar</string>
+    <string name="guide_barometer_calibration_title">Calibração do barômetro</string>
+    <string name="guide_backtrack_description">Como usar o Backtrack</string>
+    <string name="charging_wireless">Carregando (%s)</string>
+    <string name="battery_power_wireless">Wireless</string>
+    <string name="battery_power_usb">USB</string>
+    <string name="battery_power_ac">AC</string>
+    <string name="delete_waypoint_prompt">Excluir ponto de passagem\?</string>
+    <string name="pref_gps_override_title">Localização simulada</string>
+    <string name="location_input_help">Graus decimais (p.ex. 1.00, -2.00) Graus decimais minutos (p.ex. 1°23.12\'N, 3°12.1\'W) Graus minutos segundos (p.ex. 1°23\'12.1\"N, 3°12\"1.2\'W) UTM (p.ex. 03T 12345E 67890N) MGRS (p.ex. 27PXM 09601 05579)</string>
+    <string name="pref_backtrack_frequency_title">Intervalo de recuo</string>
+    <string name="pref_backtrack_enabled_summary">Registrar histórico de localização</string>
+    <string name="waypoint_beacon_title_template">%s, %s Ponto de passagem</string>
+    <string name="waypoint_time_format">%s, %s</string>
+    <string name="tool_backtrack_title">Recuar</string>
+    <string name="waypoints_empty_text">Sem pontos de passagem</string>
+    <string name="backtrack_notification_description">Inserir ponto de passagem de localização</string>
+    <string name="backtrack_notification_channel_description">Atualização de localização de recuo</string>
+    <string name="backtrack_notification_channel">Voltar atrás</string>
+    <string name="beacon_set_bearing_btn">Definir rumo (%s)</string>
+    <string name="create_at_distance">Criar à distância</string>
+    <string name="bearing">Rumo</string>
+    <string name="map_scale_verbal">Verbal</string>
+    <string name="unit_inches_abbreviation">in</string>
+    <string name="unit_centimeters_abbreviation">cm</string>
+    <string name="bubble_level_angles">X: %s
+\nY: %s</string>
+    <string name="location_override_updated">Local simulado atualizado</string>
+    <string name="update_gps_override">Atualizar GPS simulado</string>
+    <string name="coordinate_format_mgrs">MGRS</string>
+    <string name="coordinate_format_utm">UTM</string>
+    <string name="centimeters_format">%.2f cm</string>
+    <string name="inches_format">%.2f in</string>
 </resources>
