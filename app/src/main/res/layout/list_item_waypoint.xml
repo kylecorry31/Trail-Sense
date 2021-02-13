@@ -22,23 +22,23 @@
 
     <com.kylecorry.trail_sense.shared.views.StatusBadgeView
         android:id="@+id/signal_strength"
-        app:layout_constraintStart_toEndOf="@id/waypoint_coordinates"
-        app:layout_constraintTop_toTopOf="@id/waypoint_coordinates"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/waypoint_coordinates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:icon="@drawable/signal_cellular_outline" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        app:icon="@drawable/signal_cellular_outline"
+        app:layout_constraintStart_toEndOf="@id/waypoint_coordinates"
+        app:layout_constraintTop_toBottomOf="@+id/waypoint_time" />
 
     <TextView
         android:id="@+id/waypoint_coordinates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="10sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/signal_strength"
         app:layout_constraintStart_toStartOf="@+id/waypoint_time"
-        app:layout_constraintTop_toBottomOf="@+id/waypoint_time"
+        app:layout_constraintTop_toTopOf="@+id/signal_strength"
         tools:text="0.0000, 0.0000" />
 
     <ImageButton

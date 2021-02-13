@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRep
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
@@ -91,7 +92,7 @@ class FragmentBacktrack : Fragment() {
                     )
                     itemBinding.signalStrength.visibility = View.VISIBLE
                 } else {
-                    itemBinding.signalStrength.visibility = View.GONE
+                    itemBinding.signalStrength.visibility = View.INVISIBLE
                 }
 
                 val menuListener = PopupMenu.OnMenuItemClickListener {

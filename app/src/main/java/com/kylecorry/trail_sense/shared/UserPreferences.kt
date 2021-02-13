@@ -164,7 +164,7 @@ class UserPreferences(private val context: Context) {
             value
         )
 
-    var backtrackSaveCellHistory by BooleanPreference(cache, context.getString(R.string.pref_backtrack_save_cell), false)
+    var backtrackSaveCellHistory by BooleanPreference(cache, context.getString(R.string.pref_backtrack_save_cell), true)
 
     val backtrackRecordFrequency: Duration
         get() {

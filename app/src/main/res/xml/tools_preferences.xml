@@ -25,7 +25,7 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_save_cell"
             app:singleLineTitle="false"
