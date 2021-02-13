@@ -38,6 +38,9 @@ class BacktrackService : Service() {
     private val prefs by lazy { UserPreferences(applicationContext) }
     private val cache by lazy { Cache(applicationContext) }
 
+    private val serviceJob = Job()
+    private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
+
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val notification = notification(
@@ -65,7 +68,7 @@ class BacktrackService : Service() {
     }
 
     private fun getReadings() {
-        runBlocking {
+        serviceScope.launch {
             withTimeoutOrNull(Duration.ofSeconds(30).toMillis()) {
                 val jobs = mutableListOf<Job>()
                 if (!gps.hasValidReading) {
@@ -82,7 +85,9 @@ class BacktrackService : Service() {
             }
             cache.putLong(CACHE_LAST_LOCATION_UPDATE, Instant.now().toEpochMilli())
             recordWaypoint()
-            wrapUp()
+            withContext(Dispatchers.Main) {
+                wrapUp()
+            }
         }
     }
 
@@ -112,21 +117,19 @@ class BacktrackService : Service() {
         }
     }
 
-    private fun recordWaypoint() {
-        runBlocking {
-            withContext(Dispatchers.IO) {
-                waypointRepo.addWaypoint(
-                    WaypointEntity(
-                        gps.location.latitude,
-                        gps.location.longitude,
-                        gps.altitude,
-                        gps.time.toEpochMilli(),
-                        cellSignal.signals.firstOrNull()?.network?.id,
-                        cellSignal.signals.firstOrNull()?.quality?.ordinal,
-                    )
+    private suspend fun recordWaypoint() {
+        withContext(Dispatchers.IO) {
+            waypointRepo.addWaypoint(
+                WaypointEntity(
+                    gps.location.latitude,
+                    gps.location.longitude,
+                    gps.altitude,
+                    gps.time.toEpochMilli(),
+                    cellSignal.signals.firstOrNull()?.network?.id,
+                    cellSignal.signals.firstOrNull()?.quality?.ordinal,
                 )
-                waypointRepo.deleteOlderThan(Instant.now().minus(Duration.ofDays(2)))
-            }
+            )
+            waypointRepo.deleteOlderThan(Instant.now().minus(Duration.ofDays(2)))
         }
     }
 
@@ -137,6 +140,7 @@ class BacktrackService : Service() {
     }
 
     private fun wrapUp() {
+        serviceJob.cancel()
         releaseWakelock()
         stopForeground(true)
         stopSelf()
