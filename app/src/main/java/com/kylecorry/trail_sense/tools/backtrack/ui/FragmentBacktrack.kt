@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.annotation.DrawableRes
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
@@ -89,7 +91,7 @@ class FragmentBacktrack : Fragment() {
                     )
                     itemBinding.signalStrength.visibility = View.VISIBLE
                 } else {
-                    itemBinding.signalStrength.visibility = View.INVISIBLE
+                    itemBinding.signalStrength.visibility = View.GONE
                 }
 
                 val menuListener = PopupMenu.OnMenuItemClickListener {
