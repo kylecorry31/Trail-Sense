@@ -18,10 +18,9 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackSchedul
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.network.CellSignalSensor
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
+import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant
@@ -39,7 +38,7 @@ class BacktrackService : Service() {
     private val cache by lazy { Cache(applicationContext) }
 
     private val serviceJob = Job()
-    private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
+    private val serviceScope = CoroutineScope(Dispatchers.IO + serviceJob)
 
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
