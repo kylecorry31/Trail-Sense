@@ -663,4 +663,10 @@
 \n-获得你当下的位置，高度和速度
 \n
 \n- 用 Backtrack 追溯你的脚步 (启用时在后台运行)</string>
+    <string name="import_btn">导入</string>
+    <string name="import_export_beacons">导入/导出信标</string>
+    <string name="select_import_file">选择导入文件</string>
+    <string name="beacons_imported">导入了 %d 个信标</string>
+    <string name="export">导出</string>
+    <string name="export_beacons">导出信标</string>
 </resources>

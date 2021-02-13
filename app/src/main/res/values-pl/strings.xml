@@ -588,4 +588,7 @@
     <string name="cirrus">Cirrus</string>
     <string name="how">Jak</string>
     <string name="clouds">Chmury</string>
+    <string name="select_import_file">Wybierz plik do zaimportowania</string>
+    <string name="import_btn">Import</string>
+    <string name="export">Eksport</string>
 </resources>
