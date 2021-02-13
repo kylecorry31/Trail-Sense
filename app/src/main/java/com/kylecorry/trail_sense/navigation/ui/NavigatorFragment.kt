@@ -37,6 +37,7 @@ import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
+import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
@@ -55,10 +56,10 @@ import java.util.*
 class NavigatorFragment : Fragment() {
 
     private var shownAccuracyToast: Boolean = false
-    private lateinit var compass: ICompass
-    private lateinit var gps: IGPS
-    private lateinit var orientation: DeviceOrientation
-    private lateinit var altimeter: IAltimeter
+    private val compass by lazy { sensorService.getCompass() }
+    private val gps by lazy { sensorService.getGPS() }
+    private val orientation by lazy { sensorService.getDeviceOrientation() }
+    private val altimeter by lazy { sensorService.getAltimeter() }
 
     private lateinit var roundCompass: ICompassView
     private lateinit var linearCompass: ICompassView
@@ -185,10 +186,9 @@ class NavigatorFragment : Fragment() {
         beaconIndicators[2].imageTintList =
             ColorStateList.valueOf(UiUtils.color(requireContext(), R.color.colorAccent))
 
-        compass = sensorService.getCompass()
-        orientation = sensorService.getDeviceOrientation()
-        gps = sensorService.getGPS()
-        altimeter = sensorService.getAltimeter()
+        compass.asLiveData().observe(viewLifecycleOwner, { updateUI() })
+        orientation.asLiveData().observe(viewLifecycleOwner, { onOrientationUpdate() })
+        altimeter.asLiveData().observe(viewLifecycleOwner, { updateUI() })
 
         averageSpeed = userPrefs.navigation.averageSpeed
 
@@ -316,10 +316,7 @@ class NavigatorFragment : Fragment() {
             destinationBearing = Bearing(lastDestBearing)
         }
 
-        compass.start(this::onCompassUpdate)
         gps.start(this::onLocationUpdate)
-        altimeter.start(this::onAltitudeUpdate)
-        orientation.start(this::onOrientationUpdate)
         compass.declination = getDeclination()
 
         binding.beaconBtn.show()
@@ -336,10 +333,7 @@ class NavigatorFragment : Fragment() {
         calibrateSnackbar?.dismiss()
         rightQuickAction?.onPause()
         leftQuickAction?.onPause()
-        compass.stop(this::onCompassUpdate)
         gps.stop(this::onLocationUpdate)
-        altimeter.stop(this::onAltitudeUpdate)
-        orientation.stop(this::onOrientationUpdate)
         intervalometer.stop()
     }
 
@@ -589,16 +583,6 @@ class NavigatorFragment : Fragment() {
         } else {
             setVisibleCompass(roundCompass)
         }
-        updateUI()
-        return true
-    }
-
-    private fun onCompassUpdate(): Boolean {
-        updateUI()
-        return true
-    }
-
-    private fun onAltitudeUpdate(): Boolean {
         updateUI()
         return true
     }

@@ -22,9 +22,8 @@ import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.*
-import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
-import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
+import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,15 +33,15 @@ import java.time.Instant
 
 class BarometerFragment : Fragment() {
 
-    private lateinit var barometer: IBarometer
-    private lateinit var altimeter: IAltimeter
-    private lateinit var thermometer: IThermometer
+    private val barometer by lazy { sensorService.getBarometer() }
+    private val altimeter by lazy { sensorService.getAltimeter() }
+    private val thermometer by lazy { sensorService.getThermometer() }
 
     private var altitude = 0F
     private var useSeaLevelPressure = false
     private var units = PressureUnits.Hpa
 
-    private lateinit var prefs: UserPreferences
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var _binding: ActivityWeatherBinding? = null
     private val binding get() = _binding!!
@@ -51,7 +50,7 @@ class BarometerFragment : Fragment() {
     private lateinit var navController: NavController
 
     private lateinit var weatherService: WeatherService
-    private lateinit var sensorService: SensorService
+    private val sensorService by lazy { SensorService(requireContext()) }
     private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val pressureRepo by lazy { PressureRepo.getInstance(requireContext()) }
@@ -72,13 +71,7 @@ class BarometerFragment : Fragment() {
         leftQuickAction = QuickActionClouds(binding.weatherLeftQuickAction, this)
         leftQuickAction?.onCreate()
 
-        sensorService = SensorService(requireContext())
         navController = findNavController()
-
-        barometer = sensorService.getBarometer()
-        altimeter = sensorService.getAltimeter()
-        thermometer = sensorService.getThermometer()
-        prefs = UserPreferences(requireContext())
 
         weatherService = WeatherService(
             prefs.weather.stormAlertThreshold,
@@ -153,6 +146,9 @@ class BarometerFragment : Fragment() {
             readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
         }
 
+        barometer.asLiveData().observe(viewLifecycleOwner, { update() })
+        thermometer.asLiveData().observe(viewLifecycleOwner, { update() })
+
         return binding.root
     }
 
@@ -165,7 +161,6 @@ class BarometerFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         leftQuickAction?.onResume()
-        startSensors()
 
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
         altitude = altimeter.altitude
@@ -173,37 +168,26 @@ class BarometerFragment : Fragment() {
 
         pressureSetpoint = prefs.weather.pressureSetpoint
 
-        update()
-    }
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO){
+                if (!altimeter.hasValidReading) {
+                    altimeter.read()
+                }
+            }
+            withContext(Dispatchers.Main){
+                altitude = altimeter.altitude
+                update()
+            }
+        }
 
-    private fun startSensors() {
-        barometer.start(this::onPressureUpdate)
-        altimeter.start(this::onAltitudeUpdate)
-        thermometer.start(this::onTemperatureUpdate)
+        update()
     }
 
     override fun onPause() {
         super.onPause()
         leftQuickAction?.onPause()
-        barometer.stop(this::onPressureUpdate)
-        altimeter.stop(this::onAltitudeUpdate)
-        thermometer.stop(this::onTemperatureUpdate)
     }
 
-    private fun onPressureUpdate(): Boolean {
-        update()
-        return true
-    }
-
-    private fun onTemperatureUpdate(): Boolean {
-        update()
-        return true
-    }
-
-    private fun onAltitudeUpdate(): Boolean {
-        update()
-        return false
-    }
 
     private fun update() {
         if (context == null) return

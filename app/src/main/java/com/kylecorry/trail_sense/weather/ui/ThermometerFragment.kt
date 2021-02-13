@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trailsensecore.domain.units.Temperature
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.weather.HeatAlert
+import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import java.time.Duration
 import java.time.Instant
 
@@ -71,6 +72,9 @@ class ThermometerFragment : Fragment() {
             )
         }
 
+        thermometer.asLiveData().observe(viewLifecycleOwner, { onTemperatureUpdate() })
+        hygrometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
+
         return binding.root
     }
 
@@ -85,14 +89,6 @@ class ThermometerFragment : Fragment() {
         useLawOfCooling = prefs.weather.useLawOfCooling
         maxReadings = prefs.weather.lawOfCoolingReadings
         readingInterval = prefs.weather.lawOfCoolingReadingInterval
-        thermometer.start(this::onTemperatureUpdate)
-        hygrometer.start(this::onHumidityUpdate)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        thermometer.stop(this::onTemperatureUpdate)
-        hygrometer.stop(this::onHumidityUpdate)
     }
 
     private fun updateUI() {
