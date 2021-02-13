@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/signal_strength"
         app:layout_constraintStart_toStartOf="@+id/waypoint_time"
         app:layout_constraintTop_toTopOf="@+id/signal_strength"

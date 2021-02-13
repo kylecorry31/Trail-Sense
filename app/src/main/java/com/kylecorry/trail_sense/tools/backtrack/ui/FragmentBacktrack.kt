@@ -18,11 +18,8 @@ import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
@@ -71,8 +68,8 @@ class FragmentBacktrack : Fragment() {
         listView =
             ListView(binding.waypointsList, R.layout.list_item_waypoint) { waypointView, waypoint ->
                 val itemBinding = ListItemWaypointBinding.bind(waypointView)
-                itemBinding.waypointCoordinates.text =
-                    formatService.formatLocation(waypoint.coordinate)
+                val timeAgo = Duration.between(waypoint.createdInstant, Instant.now())
+                itemBinding.waypointCoordinates.text = getString(R.string.time_ago, timeAgo.formatHM(true))
                 val date = waypoint.createdInstant.toZonedDateTime()
                 val time = date.toLocalTime()
                 itemBinding.waypointTime.text = getString(
