@@ -549,4 +549,13 @@
     <string name="altocumulus_desc">Kuleformede, oppblåste dotter eller ruller.</string>
     <string name="cirrostratus_desc">Tynne og hvitaktige, dekker himmelen, men solen kan sees gjennom.</string>
     <string name="cirrocumulus_desc">Tynne, hvite dotter eller små krusninger.</string>
+    <string name="select_import_file">Velg importfil</string>
+    <string name="import_btn">Importer</string>
+    <string name="export">Eksporter</string>
+    <string name="privacy">Personvern og posisjon</string>
+    <string name="dialog_leave">Forlat</string>
+    <string name="unit_centimeters_abbreviation">cm</string>
+    <string name="category_natural">Naturlig</string>
+    <string name="precise_temp_c_format">%s °C</string>
+    <string name="precise_percent_format">%s%%</string>
 </resources>
