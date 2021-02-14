@@ -11,6 +11,9 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
+import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.GravitySensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.IAccelerometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.LowPassAccelerometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.BarometricAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.FusedAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
@@ -24,6 +27,10 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.hygrometer.Hygrometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.hygrometer.IHygrometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.inclinometer.IInclinometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.inclinometer.Inclinometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.IMagnetometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.Magnetometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.network.CellSignalSensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.network.ICellSignalSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientationSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.IOrientationSensor
@@ -143,6 +150,25 @@ class SensorService(ctx: Context) {
         }
 
         return NullHygrometer()
+    }
+
+    fun getCellSignal(background: Boolean = false): ICellSignalSensor {
+        if (!hasLocationPermission(background)){
+            return NullCellSignalSensor()
+        }
+        return CellSignalSensor(context)
+    }
+
+    fun getGravity(): IAccelerometer {
+        return if (sensorChecker.hasSensor(Sensor.TYPE_GRAVITY)){
+            GravitySensor(context)
+        } else {
+            LowPassAccelerometer(context)
+        }
+    }
+
+    fun getMagnetometer(): IMagnetometer {
+        return Magnetometer(context)
     }
 
 }

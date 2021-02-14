@@ -8,6 +8,7 @@ import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.units.*
+import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
 import java.time.Duration
 import java.time.LocalTime
 import java.time.ZonedDateTime
@@ -56,9 +57,24 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
+    fun formatDbm(dbm: Int): String {
+        return context.getString(R.string.dbm_format, dbm.toString())
+    }
+
     fun formatPercentage(percent: Float, decimalPlaces: Int = 0): String {
         val formatted = DecimalFormatter.format(percent, decimalPlaces)
         return context.getString(R.string.precise_percent_format, formatted)
+    }
+
+    fun formatBatteryHealth(batteryHealth: BatteryHealth): String {
+        return when (batteryHealth) {
+            BatteryHealth.Cold -> context.getString(R.string.battery_health_cold)
+            BatteryHealth.Dead -> context.getString(R.string.battery_health_dead)
+            BatteryHealth.Good -> context.getString(R.string.battery_health_good)
+            BatteryHealth.Overheat -> context.getString(R.string.battery_health_overheat)
+            BatteryHealth.OverVoltage -> context.getString(R.string.battery_health_over_voltage)
+            BatteryHealth.Unknown -> context.getString(R.string.unknown)
+        }
     }
 
     fun formatTemperature(
@@ -109,6 +125,16 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
+    fun formatAcceleration(acceleration: Float, decimalPlaces: Int = 0): String {
+        val formatted = DecimalFormatter.format(acceleration.toDouble(), decimalPlaces)
+        return context.getString(R.string.acceleration_m_s2_format, formatted)
+    }
+
+    fun formatMagneticField(magneticField: Float, decimalPlaces: Int = 0): String {
+        val formatted = DecimalFormatter.format(magneticField.toDouble(), decimalPlaces)
+        return context.getString(R.string.magnetic_field_format_precise, formatted)
+    }
+
     fun formatQuality(quality: Quality): String {
         return when (quality) {
             Quality.Poor -> context.getString(R.string.quality_poor)
@@ -118,9 +144,9 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
-    fun formatPressure(pressure: Float, units: PressureUnits, decimalPlaces: Int = 0): String {
-        val symbol = getPressureUnitString(units)
-        val amt = DecimalFormatter.format(pressure.toDouble(), decimalPlaces)
+    fun formatPressure(pressure: Pressure, decimalPlaces: Int = 0): String {
+        val symbol = getPressureUnitString(pressure.units)
+        val amt = DecimalFormatter.format(pressure.pressure.toDouble(), decimalPlaces)
         return context.getString(R.string.pressure_format, amt, symbol)
     }
 

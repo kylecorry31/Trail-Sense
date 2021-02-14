@@ -640,6 +640,7 @@
     <string name="clock_sync_time_settings">Open time settings?</string>
     <string name="metal_detected">Metal detected</string>
     <string name="magnetic_field_format">%.0f uT</string>
+    <string name="magnetic_field_format_precise">%s uT</string>
     <string name="threshold">Threshold</string>
     <string name="tool_metal_detector_title">Metal Detector</string>
     <string name="tool_metal_detector" translatable="false">tool_metal_detector</string>
@@ -804,4 +805,16 @@
     <string name="network_2g">2G</string>
     <string name="network_3g">3G</string>
     <string name="network_no_signal">No signal</string>
+    <string name="barometer">Barometer</string>
+    <string name="cell_signal">Cell signal</string>
+    <string name="dbm_format">%s dBm</string>
+    <string name="satellites">satellites</string>
+    <string name="hygrometer">Hygrometer</string>
+    <string name="gravity">Gravity</string>
+    <string name="acceleration_m_s2_format">%s m/s²</string>
+    <string name="magnetometer">Magnetometer</string>
+    <string name="permission_background_location">Background location</string>
+    <string name="permission_not_granted">Not granted</string>
+    <string name="permission_granted">Granted</string>
+    <string name="available">Available</string>
 </resources>

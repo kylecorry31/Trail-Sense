@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
@@ -80,8 +81,8 @@ class FragmentBacktrack : Fragment() {
                 )
 
                 if (prefs.backtrackSaveCellHistory) {
-                    itemBinding.signalStrength.setStatusText(getCellTypeString(waypoint.cellNetwork))
-                    itemBinding.signalStrength.setImageResource(getCellQualityImage(waypoint.cellQuality))
+                    itemBinding.signalStrength.setStatusText(CellSignalUtils.getCellTypeString(requireContext(), waypoint.cellNetwork))
+                    itemBinding.signalStrength.setImageResource(CellSignalUtils.getCellQualityImage(waypoint.cellQuality))
                     itemBinding.signalStrength.setForegroundTint(Color.BLACK)
                     itemBinding.signalStrength.setBackgroundTint(
                         CustomUiUtils.getQualityColor(
@@ -231,26 +232,5 @@ class FragmentBacktrack : Fragment() {
             ), formatService.formatTime(time, showSeconds = false)
         )
     }
-
-    @DrawableRes
-    private fun getCellQualityImage(quality: Quality?): Int {
-        return when(quality){
-            Quality.Poor -> R.drawable.signal_cellular_1
-            Quality.Moderate -> R.drawable.signal_cellular_2
-            Quality.Good -> R.drawable.signal_cellular_3
-            else -> R.drawable.signal_cellular_outline
-        }
-    }
-
-    private fun getCellTypeString(cellType: CellNetwork?): String {
-        return when (cellType){
-            CellNetwork.Nr -> getString(R.string.network_5g)
-            CellNetwork.Lte -> getString(R.string.network_4g)
-            CellNetwork.Cdma, CellNetwork.Gsm -> getString(R.string.network_2g)
-            CellNetwork.Wcdma -> getString(R.string.network_3g)
-            else -> getString(R.string.network_no_signal)
-        }
-    }
-
 
 }

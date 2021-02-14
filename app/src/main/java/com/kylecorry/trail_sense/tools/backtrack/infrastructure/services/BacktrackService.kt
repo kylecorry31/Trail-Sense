@@ -29,7 +29,7 @@ import java.time.ZonedDateTime
 class BacktrackService : Service() {
 
     private val gps by lazy { sensorService.getGPS(true) }
-    private val cellSignal by lazy { CellSignalSensor(applicationContext) }
+    private val cellSignal by lazy { sensorService.getCellSignal(true) }
     private val sensorService by lazy { SensorService(applicationContext) }
     private val waypointRepo by lazy { WaypointRepo.getInstance(applicationContext) }
     private var wakelock: PowerManager.WakeLock? = null

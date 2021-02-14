@@ -137,14 +137,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_app_version))?.summary =
             version
 
-        onClick(findPreference(getString(R.string.pref_sensor_details))) {
-            UiUtils.alert(
-                requireContext(),
-                getString(R.string.pref_sensor_details_title),
-                SensorDetailProvider().getSensorDetails(requireContext()),
-                getString(R.string.dialog_ok)
-            )
-        }
+        navigateOnClick(findPreference(getString(R.string.pref_sensor_details)), R.id.action_action_settings_to_diagnosticFragment)
     }
 
     override fun onResume() {
