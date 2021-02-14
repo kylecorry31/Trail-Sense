@@ -244,11 +244,11 @@ class FragmentBacktrack : Fragment() {
 
     private fun getCellTypeString(cellType: CellNetwork?): String {
         return when (cellType){
-            CellNetwork.Nr -> "5G"
-            CellNetwork.Lte -> "4G"
-            CellNetwork.Cdma, CellNetwork.Gsm -> "2G"
-            CellNetwork.Wcdma -> "3G"
-            else -> "No signal"
+            CellNetwork.Nr -> getString(R.string.network_5g)
+            CellNetwork.Lte -> getString(R.string.network_4g)
+            CellNetwork.Cdma, CellNetwork.Gsm -> getString(R.string.network_2g)
+            CellNetwork.Wcdma -> getString(R.string.network_3g)
+            else -> getString(R.string.network_no_signal)
         }
     }
 
