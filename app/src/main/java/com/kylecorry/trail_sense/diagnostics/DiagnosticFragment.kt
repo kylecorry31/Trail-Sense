@@ -281,7 +281,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 )
             })",
             formatService.formatQuality(signal?.quality ?: Quality.Unknown),
-            CustomUiUtils.getQualityColor(requireContext(), cellSignal.quality),
+            CustomUiUtils.getQualityColor(requireContext(), signal?.quality ?: Quality.Unknown),
             CellSignalUtils.getCellQualityImage(signal?.quality)
         )
         updateSensorList()
