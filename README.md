@@ -93,6 +93,8 @@ If you choose to write a new feature yourself, send me a message to verify that 
   - I will try to create a release every week or two with new features or bug fixes. Some features may be feature flagged (via a hidden setting) to deliver thouroughly tested features. Debug builds are updated as features are completed. I can't gaurantee this will always be the case, work/life may get in the way.
 - **The pressure graph isn't populating or is very jagged, how can I fix it?**
   - You may need to mark Trail Sense as exempt from battery optimizations: [how to make TS exempt](https://dontkillmyapp.com/)
+- **Pressure readings aren't appearing while I'm travelling or are inaccurate**
+  - Trail Sense can't accurately determine the pressure when your altitude changes, therefore you must remain at the same altitude for some time for it to populate. You can also disable the "Ignore rapid altitude changes" and "Factor in rapid pressure changes" settings under the barometer settings. See the Trail Sense user guide (under Tools) for tips on calibrating your barometer.
 - **The compass was working, but now it will not move and I haven't touched any settings. How can I fix it?**
   - Sometimes Android stops reporting compass data to apps, and you may need to reboot your device to fix the issue.
 - **What other apps would be useful in a survival situation?**
