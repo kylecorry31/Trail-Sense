@@ -602,4 +602,87 @@
     <string name="cloud_fair">Вероятна хорошая погода</string>
     <string name="cloud_high">ВЫСОКО</string>
     <string name="clouds">Облака</string>
+    <string name="stratocumulus_desc">Скатывающиеся массы, образующие лист.</string>
+    <string name="cloud_likely_storm">Вероятен шторм</string>
+    <string name="cloud_likely_rain">Вероятны осадки</string>
+    <string name="cumulonimbus">Кучево-дождевые</string>
+    <string name="cumulus">Кучевые</string>
+    <string name="stratocumulus">Слоисто-кучевые</string>
+    <string name="stratus">Слоистые</string>
+    <string name="nimbostratus">Слоисто-дождевые</string>
+    <string name="altostratus">Высокослоистые</string>
+    <string name="altocumulus">Высококучевые</string>
+    <string name="cirrostratus">Перисто-слоистые</string>
+    <string name="cirrus">Перистые</string>
+    <string name="pref_require_satellites_title">Требуется исправление спутниковой связи</string>
+    <string name="cloud_low">НИЗКИЕ</string>
+    <string name="cloud_middle">СРЕДНИЕ</string>
+    <string name="pref_require_satellites">pref_require_satellites</string>
+    <string name="gps_unavailable">Недоступен</string>
+    <string name="gps_searching">Поиск</string>
+    <string name="gps_stale">Устаревший</string>
+    <string name="gps_user">Пользователь</string>
+    <string name="import_btn">Импорт</string>
+    <string name="import_export_beacons">Импорт/экспорт маячков</string>
+    <string name="select_import_file">Выбрать тип импорта</string>
+    <string name="beacons_imported">%d маячков импортировано</string>
+    <string name="export">Экспорт</string>
+    <string name="export_beacons">Экспорт маячков</string>
+    <string name="onboarding_privacy">- Trail Sense уважает вашу конфиденциальность, и данные о местоположении никогда не покидают ваше устройство
+\n
+\n- Trail Sense никогда не потребует разрешения в Интернете
+\n
+\n- Просмотрите [Политику конфиденциальности](https://kylecorry.com/Trail-Sense/privacy_policy.html)(открывается в браузере вашего телефона)
+\n
+\n- Некоторые функции Trail Sense требуют доступа к вашему местоположению
+\n
+\n- Предоставление разрешения на местоположение позволит использовать следующие функции:
+\n
+\n- Навигация к маячкам
+\n
+\n- Повышенная точность прогнозов (требуется фоновое местоположение, доступно не на всех устройствах)
+\n
+\n- Возврат (требуется работа в фоне)
+\n
+\n- Время солнца и луны для вашего текущего местоположения
+\n
+\n- Если вы решите не предоставлять разрешение на определение местоположения, вы можете вручную ввести местоположение в меню «Настройки» &gt; «Калибровка GPS» в Trail Sense.
+\n
+\n- После нажатия кнопки «Продолжить» вам будет предложено предоставить разрешения на местоположение и фоновое местоположение. Отказ от этих разрешений не позволит Trail Sense получить доступ к вашему местоположению, поэтому рекомендуется вводить местоположение вручную.</string>
+    <string name="onboarding_user_guide">Узнайте, как использовать функции Trail Sense, с помощью руководства пользователя. Доступно в нижней части вкладки Инструменты.
+\n
+\nСкоро появятся другие руководства.</string>
+    <string name="privacy">Конфиденциальность и местоположение</string>
+    <string name="onboarding_tools">- Доступные инструменты, которые помогут в любой ситуации в дикой природе
+\n
+\n- Подать сигнал фонариком или свистком
+\n
+\n- Конвертируйте местоположения с бумажной карты на свой телефон
+\n
+\n- Измеряйте углы и определяйте высоту объектов
+\n
+\n- Синхронизируйте часы без подключения к Интернету
+\n
+\n- Делайте заметки и отслеживайте предметы под рукой
+\n
+\n- Найдите упавшие предметы из железа/стали</string>
+    <string name="onboarding_astronomy">- Знайте, когда солнце/луна встанет и зайдет
+\n
+\n- Будьте предупреждены, когда солнце собирается зайти
+\n
+\n- Найдите солнце и луну по компасу</string>
+    <string name="onboarding_weather">- Получайте гиперлокальные прогнозы с помощью барометра вашего телефона
+\n
+\n- Не использует подключение к Интернету
+\n
+\n- Будьте предупреждены о приближающихся штормах</string>
+    <string name="onboarding_navigation">- Разместите маячки и вернитесь к ним
+\n
+\n- Получите свое текущее местоположение, высоту и скорость
+\n
+\n- Повторяйте свои шаги с помощью Возврата (работает в фоновом режиме при включении)</string>
+    <string name="cirrocumulus">Перисто-кучевые</string>
+    <string name="pref_require_satellites_description">Требуется как минимум 4 спутника, повышает точность</string>
+    <string name="unit_inches_abbreviation">д</string>
+    <string name="unit_centimeters_abbreviation">см</string>
 </resources>

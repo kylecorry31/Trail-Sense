@@ -634,4 +634,7 @@
     <string name="export">Exportieren</string>
     <string name="export_beacons">Wegpunkte exportieren</string>
     <string name="import_btn">Importieren</string>
+    <string name="gps_unavailable">Nicht verfügbar</string>
+    <string name="gps_searching">Suchend</string>
+    <string name="gps_stale">Veraltet</string>
 </resources>
