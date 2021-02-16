@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -15,11 +14,29 @@
         app:tilePadding="64dp"
         app:tileIcon="@drawable/ic_category_safety" />
 
-    <com.kylecorry.trail_sense.shared.views.TileButton
-        android:id="@+id/whistle_sos_btn"
-        android:layout_width="250dp"
-        android:layout_height="117dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:tileIcon="@drawable/ic_whistle_sos" />
+        android:orientation="horizontal">
+
+        <com.kylecorry.trail_sense.shared.views.TileButton
+            android:id="@+id/whistle_sos_btn"
+            android:layout_width="117dp"
+            android:layout_height="117dp"
+            android:layout_marginEnd="8dp"
+            app:tilePadding="36dp"
+            app:tileText="@string/sos"
+            app:tileIcon="@drawable/ic_whistle_sos" />
+
+        <com.kylecorry.trail_sense.shared.views.TileButton
+            android:id="@+id/whistle_emergency_btn"
+            android:layout_width="117dp"
+            android:layout_height="117dp"
+            android:layout_marginStart="8dp"
+            app:tileText="@string/help"
+            app:tileIcon="@drawable/ic_tool_whistle" />
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -8,6 +8,8 @@ import android.os.IBinder
 import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.MorseSymbol
+import com.kylecorry.trail_sense.shared.SOS
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.flashlight.IFlashlight
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
@@ -18,15 +20,6 @@ class SosService : Service() {
     private var flashlight: IFlashlight? = null
     private var running = false
     private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
-
-    private val code = listOf(
-        MorseState.Dot, MorseState.Space, MorseState.Dot, MorseState.Space, MorseState.Dot,
-        MorseState.Space,
-        MorseState.Dash, MorseState.Space, MorseState.Dash, MorseState.Space, MorseState.Dash,
-        MorseState.Space,
-        MorseState.Dot, MorseState.Space, MorseState.Dot, MorseState.Space, MorseState.Dot,
-        MorseState.WordSpace
-    )
 
     private var codeIdx = 0
 
@@ -41,11 +34,11 @@ class SosService : Service() {
             return
         }
 
-        codeIdx %= code.size
-        val state = code[codeIdx]
+        codeIdx %= SOS.size
+        val state = SOS[codeIdx]
 
         when (state) {
-            MorseState.Dash, MorseState.Dot -> flashlight?.on()
+            MorseSymbol.Dash, MorseSymbol.Dot -> flashlight?.on()
             else -> flashlight?.off()
         }
 
@@ -59,14 +52,8 @@ class SosService : Service() {
         handler.postDelayed(runnable, getStateTime(state))
     }
 
-    private fun getStateTime(state: MorseState): Long {
-        return when (state) {
-            MorseState.Dot -> 200
-            MorseState.Dash -> 600
-            MorseState.Space -> 200
-            MorseState.LetterSpace -> 600
-            MorseState.WordSpace -> 1400
-        }
+    private fun getStateTime(state: MorseSymbol): Long {
+        return state.durationMultiplier * 200L
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -121,10 +108,5 @@ class SosService : Service() {
         fun isOn(context: Context): Boolean {
             return NotificationUtils.isNotificationActive(context, NOTIFICATION_ID)
         }
-
-        private enum class MorseState {
-            Dot, Dash, Space, LetterSpace, WordSpace
-        }
-
     }
 }

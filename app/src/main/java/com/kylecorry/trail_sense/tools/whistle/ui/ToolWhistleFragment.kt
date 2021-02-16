@@ -8,6 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
+import com.kylecorry.trail_sense.shared.MorseSymbol
+import com.kylecorry.trail_sense.shared.SOS
+import com.kylecorry.trail_sense.tools.whistle.infrastructure.Signal
+import com.kylecorry.trail_sense.tools.whistle.infrastructure.SignalPlayer
+import com.kylecorry.trail_sense.tools.whistle.infrastructure.WhistleSignalingDevice
 import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.Whistle
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
@@ -20,21 +25,28 @@ class ToolWhistleFragment : Fragment() {
 
     private lateinit var whistle: ISoundPlayer
 
-    private val emergencyWhistleDuration = Duration.ofMillis(500)
-    private val emergencyWhistleStates = listOf(true, true, false, true, true, false, true, true, false, false, false, false)
-    private var emergencyWhistleState = 0
-    private var isEmergencyWhistleOn = false
-    private val emergencyWhistleIntervalometer = Intervalometer {
-        val isOn = emergencyWhistleStates[emergencyWhistleState]
-        if (isOn) {
-            whistle.on()
-        } else {
-            whistle.off()
-        }
+    private val morseDurationMs = 400L
 
-        emergencyWhistleState++
-        emergencyWhistleState %= emergencyWhistleStates.size
+    private var state = WhistleState.Off
+
+    private val emergencySignal = listOf(
+        Signal.on(Duration.ofSeconds(2)),
+        Signal.off(Duration.ofSeconds(1)),
+        Signal.on(Duration.ofSeconds(2)),
+        Signal.off(Duration.ofSeconds(1)),
+        Signal.on(Duration.ofSeconds(2)),
+        Signal.off(Duration.ofSeconds(3))
+    )
+
+    private val sosSignal = SOS.map {
+        if (it == MorseSymbol.Dash || it == MorseSymbol.Dot){
+            Signal.on(Duration.ofMillis(morseDurationMs).multipliedBy(it.durationMultiplier.toLong()))
+        } else {
+            Signal.off(Duration.ofMillis(morseDurationMs).multipliedBy(it.durationMultiplier.toLong()))
+        }
     }
+
+    private val signalWhistle by lazy { SignalPlayer(WhistleSignalingDevice(whistle)) }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -43,25 +55,41 @@ class ToolWhistleFragment : Fragment() {
     ): View {
         _binding = FragmentToolWhistleBinding.inflate(inflater, container, false)
 
-        binding.whistleSosBtn.setOnClickListener {
-            if (isEmergencyWhistleOn){
-                stopEmergencyWhistle()
+        binding.whistleEmergencyBtn.setOnClickListener {
+            state = if (state == WhistleState.Emergency) {
+                signalWhistle.cancel()
+                WhistleState.Off
             } else {
-                startEmergencyWhistle()
+                whistle.off()
+                signalWhistle.play(emergencySignal, true)
+                WhistleState.Emergency
             }
+            updateUI()
+        }
+
+        binding.whistleSosBtn.setOnClickListener {
+            state = if (state == WhistleState.Sos) {
+                signalWhistle.cancel()
+                WhistleState.Off
+            } else {
+                whistle.off()
+                signalWhistle.play(sosSignal, true)
+                WhistleState.Sos
+            }
+            updateUI()
         }
 
 
         binding.whistleBtn.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                stopEmergencyWhistle()
+                signalWhistle.cancel()
                 whistle.on()
-                binding.whistleBtn.setState(true)
-
+                state = WhistleState.On
             } else if (event.action == MotionEvent.ACTION_UP) {
                 whistle.off()
-                binding.whistleBtn.setState(false)
+                state = WhistleState.Off
             }
+            updateUI()
             true
         }
         return binding.root
@@ -84,25 +112,23 @@ class ToolWhistleFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        stopEmergencyWhistle()
         whistle.off()
+        signalWhistle.cancel()
     }
 
-    private fun startEmergencyWhistle() {
-        emergencyWhistleState = 0
-        isEmergencyWhistleOn = true
-        whistle.off()
-        binding.whistleBtn.setState(false)
-        binding.whistleSosBtn.setState(true)
-        emergencyWhistleIntervalometer.interval(emergencyWhistleDuration)
+
+    private fun updateUI(){
+        binding.whistleEmergencyBtn.setState(state == WhistleState.Emergency)
+        binding.whistleSosBtn.setState(state == WhistleState.Sos)
+        binding.whistleBtn.setState(state == WhistleState.On)
     }
 
-    private fun stopEmergencyWhistle() {
-        emergencyWhistleIntervalometer.stop()
-        emergencyWhistleState = 0
-        isEmergencyWhistleOn = false
-        whistle.off()
-        binding.whistleSosBtn.setState(false)
+
+    private enum class WhistleState {
+        On,
+        Off,
+        Emergency,
+        Sos
     }
 
 }
