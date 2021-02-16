@@ -519,7 +519,7 @@
     <string name="pref_low_power_mode_summary">Deaktiverer noen funksjoner for å spare strøm</string>
     <string name="notes_unsaved_changes_message">Endringer du har gjort blir ikke lagret.</string>
     <string name="notes_unsaved_changes">Ulagrede endringer</string>
-    <string name="pref_require_satellites_description">Krever minst 4 satellitter, forbedrer nøyaktigheten</string>
+    <string name="pref_require_satellites_description">Krever minst 4 satellitter for posisjonsbestemmelse, forbedrer nøyaktigheten</string>
     <string name="clouds">Skyer</string>
     <string name="health">Helse</string>
     <string name="cloud_low">LAVE</string>
@@ -558,4 +558,39 @@
     <string name="category_natural">Naturlig</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_percent_format">%s%%</string>
+    <string name="pref_show_linear_compass_title">Vis lineært kompass</string>
+    <string name="pref_compass_filter_amt_title">Kompassutjevning</string>
+    <string name="pref_ruler_calibration_summary">Kalibreringsprotokoll:
+\n- Sett denne verdien til 1.
+\n- Mål Trail Sense-linjalverdien tilsvarerende en enhet på en fysisk linjal.
+\n- Rapporter den målte verdien her.</string>
+    <string name="precise_temp_f_format">%s °F</string>
+    <string name="onboarding_tools">- Få tilgang til verktøy for å hjelpe deg i enhver situasjon i villmarken
+\n
+\n- Signaler med lommelykt eller fløyte
+\n
+\n- Konverter posisjoner fra et papirkart til telefonen
+\n
+\n- Mål vinkler og bestem høyden på objekter
+\n
+\n- Synkroniser klokken din uten internettforbindelse
+\n
+\n- Ta notater og hold oversikt over ting som er tilgjengelig
+\n
+\n- Finn mistede jern/stål-gjenstander</string>
+    <string name="onboarding_astronomy">- Vit når solen/månen går opp og ned
+\n
+\n- Bli varslet når solen skal gå ned
+\n
+\n- Lokaliser solen og månen på kompasset</string>
+    <string name="onboarding_weather">- Få veldig lokale værvarsler med telefonens barometer
+\n
+\n- Bruker ikke internett-tilkobling
+\n
+\n- Bli varslet om stormer som nærmer seg</string>
+    <string name="gps_unavailable">Utilgjengelig</string>
+    <string name="gps_searching">Søker</string>
+    <string name="gps_stale">Foreldet</string>
+    <string name="gps_user">Bruker</string>
+    <string name="pref_require_satellites_title">Satellittkrav</string>
 </resources>

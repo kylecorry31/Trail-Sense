@@ -669,4 +669,8 @@
     <string name="beacons_imported">导入了 %d 个信标</string>
     <string name="export">导出</string>
     <string name="export_beacons">导出信标</string>
+    <string name="gps_unavailable">不可用</string>
+    <string name="gps_searching">正在搜索</string>
+    <string name="gps_stale">过时的</string>
+    <string name="gps_user">用户</string>
 </resources>
