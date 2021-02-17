@@ -37,6 +37,10 @@ import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalTime
+import java.time.ZonedDateTime
+import java.time.format.TextStyle
+import java.util.*
 
 class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
@@ -59,7 +63,10 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     private val gravity by lazy { sensorService.getGravity() }
     private val magnetometer by lazy { sensorService.getMagnetometer() }
     private val battery by lazy { Battery(requireContext()) }
-    private val intervalometer = Intervalometer { updatePermissions() }
+    private val intervalometer = Intervalometer {
+        updateClock()
+        updatePermissions()
+    }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -104,6 +111,17 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     override fun onPause() {
         super.onPause()
         intervalometer.stop()
+    }
+
+    private fun updateClock(){
+        sensorDetailsMap["clock"] = SensorDetails(
+            getString(R.string.tool_clock_title),
+            formatService.formatTime(LocalTime.now()) + " " + ZonedDateTime.now().zone.getDisplayName(TextStyle.FULL, Locale.getDefault()),
+            formatService.formatQuality(Quality.Good),
+            CustomUiUtils.getQualityColor(requireContext(), Quality.Good),
+            R.drawable.ic_tool_clock
+        )
+        updateSensorList()
     }
 
     private fun updateFlashlight(){
