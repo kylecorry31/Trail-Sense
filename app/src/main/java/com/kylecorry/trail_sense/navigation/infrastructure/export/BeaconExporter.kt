@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.export
 
 import android.content.Context
+import android.content.Intent
 import com.kylecorry.trail_sense.BuildConfig
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -17,17 +18,26 @@ class BeaconExporter(private val context: Context) {
     fun export(beacons: List<Beacon>, groups: List<BeaconGroup>) {
         val exportDto = BeaconExport(beacons.map { it.copy(visible = true, temporary = false) }, groups)
         val json = JsonConvert.toJson(exportDto)
-        val exportFile = "$EXPORT_DIRECTORY/beacons-${Instant.now().epochSecond}.trailsense"
-        localFileService.delete("exports", true)
-        localFileService.write(exportFile, json, false)
-        val uri = localFileService.getUri(exportFile, AUTHORITY, false)
-        IntentUtils.file(
-            context,
-            uri,
-            AUTHORITY,
-            context.getString(R.string.export_beacons),
-            "text/plain"
-        )
+        val exportFile = "beacons-${Instant.now().epochSecond}.trailsense"
+
+
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TITLE, exportFile)
+
+
+//        val exportFile = "$EXPORT_DIRECTORY/beacons-${Instant.now().epochSecond}.trailsense"
+//        localFileService.delete("exports", true)
+//        localFileService.write(exportFile, json, false)
+//        val uri = localFileService.getUri(exportFile, AUTHORITY, false)
+//        IntentUtils.file(
+//            context,
+//            uri,
+//            AUTHORITY,
+//            context.getString(R.string.export_beacons),
+//            "text/plain"
+//        )
         // TODO: Delete file after sending it if possible
     }
 

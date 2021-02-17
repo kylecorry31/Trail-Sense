@@ -1,18 +1,15 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.os.FileUtils
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
@@ -23,16 +20,16 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
-import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconExporter
+import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconExport
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconImporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
-import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
+import com.kylecorry.trailsensecore.infrastructure.json.JsonConvert
+import com.kylecorry.trailsensecore.infrastructure.persistence.ExternalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
-import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
@@ -40,12 +37,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.FileNotFoundException
 import java.io.FileReader
+import java.time.Instant
 
 
 class BeaconListFragment : Fragment() {
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
+    private val externalFileService by lazy { ExternalFileService(requireContext()) }
 
     private var _binding: FragmentBeaconListBinding? = null
     private val binding get() = _binding!!
@@ -357,6 +356,36 @@ class BeaconListFragment : Fragment() {
     }
 
     private fun exportBeacons(){
+        val exportFile = "beacons-${Instant.now().epochSecond}.trailsense"
+        val intent = IntentUtils.createFile(exportFile, "text/plain")
+        startActivityForResult(intent, REQUEST_CODE_EXPORT)
+    }
+
+    private fun importBeacons(){
+        val requestFileIntent = IntentUtils.pickFile("text/plain", getString(R.string.select_import_file))
+        startActivityForResult(requestFileIntent, REQUEST_CODE_IMPORT)
+    }
+
+    private fun importFromUri(uri: Uri){
+        lifecycleScope.launch {
+            val text = externalFileService.read(uri)
+            text?.let {
+                val importer = BeaconImporter(requireContext())
+                val count = withContext(Dispatchers.IO) {
+                    importer.import(text)
+                }
+                withContext(Dispatchers.Main) {
+                    UiUtils.shortToast(
+                        requireContext(),
+                        getString(R.string.beacons_imported, count)
+                    )
+                    updateBeaconList()
+                }
+            }
+        }
+    }
+
+    private fun exportToUri(uri: Uri){
         lifecycleScope.launch {
             val groups = withContext(Dispatchers.IO) {
                 if (displayedGroup == null) {
@@ -372,49 +401,49 @@ class BeaconListFragment : Fragment() {
                     beaconRepo.getBeaconsInGroup(displayedGroup!!.id).map { it.toBeacon() }
                 }
             }
-            withContext(Dispatchers.Main) {
-                val exporter = BeaconExporter(requireContext())
-                exporter.export(beacons, groups)
+
+            val success = withContext(Dispatchers.IO) {
+                val exportDto = BeaconExport(
+                    beacons.map { it.copy(visible = true, temporary = false) },
+                    groups
+                )
+                val json = JsonConvert.toJson(exportDto)
+                externalFileService.write(uri, json)
+            }
+
+            withContext(Dispatchers.Main){
+                if (success) {
+                    UiUtils.shortToast(
+                        requireContext(),
+                        getString(R.string.beacons_exported, beacons.size)
+                    )
+                } else {
+                    UiUtils.shortToast(
+                        requireContext(),
+                        getString(R.string.beacon_export_error)
+                    )
+                }
             }
         }
-    }
-
-    private fun importBeacons(){
-        val requestFileIntent = Intent(Intent.ACTION_GET_CONTENT)
-        requestFileIntent.type = "*/*"
-        val chooser = Intent.createChooser(requestFileIntent, getString(R.string.select_import_file))
-        startActivityForResult(chooser, 6)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 6 && resultCode == Activity.RESULT_OK){
+        if (requestCode == REQUEST_CODE_IMPORT && resultCode == Activity.RESULT_OK){
             data?.data?.also { returnUri ->
-                val inputPFD = try {
-                    requireContext().contentResolver.openFileDescriptor(returnUri, "r")
-                } catch (e: FileNotFoundException) {
-                    e.printStackTrace()
-                    return
-                }
-
-                val fd = inputPFD?.fileDescriptor
-                val reader = FileReader(fd)
-                val text = reader.readText()
-                val importer = BeaconImporter(requireContext())
-                lifecycleScope.launch {
-                    val count = withContext(Dispatchers.IO){
-                        importer.import(text)
-                    }
-                    withContext(Dispatchers.Main) {
-                        UiUtils.shortToast(
-                            requireContext(),
-                            getString(R.string.beacons_imported, count)
-                        )
-                        updateBeaconList()
-                    }
-                }
+                importFromUri(returnUri)
             }
         }
+        else if (requestCode == REQUEST_CODE_EXPORT && resultCode == Activity.RESULT_OK){
+            data?.data?.also { returnUri ->
+                exportToUri(returnUri)
+            }
+        }
+    }
+
+    companion object {
+        private const val REQUEST_CODE_IMPORT = 6
+        private const val REQUEST_CODE_EXPORT = 7
     }
 }
 

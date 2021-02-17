@@ -6,7 +6,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
-import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconExporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconGeoSender
@@ -101,10 +100,6 @@ class BeaconListItem(
                 }
                 R.id.action_edit_beacon -> {
                     onEdit()
-                }
-                R.id.action_export_beacon -> {
-                    val exporter = BeaconExporter(view.context)
-                    exporter.export(beacon)
                 }
                 R.id.action_delete_beacon -> {
                     UiUtils.alertWithCancel(

@@ -818,4 +818,6 @@
     <string name="permission_granted">Granted</string>
     <string name="available">Available</string>
     <string name="help">Help</string>
+    <string name="beacons_exported">%d beacons exported</string>
+    <string name="beacon_export_error">Could not export beacons</string>
 </resources>
