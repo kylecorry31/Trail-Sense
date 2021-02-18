@@ -614,4 +614,5 @@
     <string name="quality_good">God</string>
     <string name="quality_moderate">Moderat</string>
     <string name="quality_poor">Dårlig</string>
+    <string name="help">Hjelp</string>
 </resources>
