@@ -696,4 +696,5 @@
     <string name="quality_moderate">一般</string>
     <string name="quality_poor">差</string>
     <string name="magnetic_field_format_precise">%s uT</string>
+    <string name="help">帮助</string>
 </resources>
