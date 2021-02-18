@@ -137,6 +137,11 @@ class ToolsFragment : PreferenceFragmentCompat() {
             R.id.action_action_experimental_tools_to_fragmentToolCoordinateConvert
         )
 
+        navigateOnClick(
+            findPreference(getString(R.string.tool_light_meter)),
+            R.id.action_toolsFragment_to_toolLightFragment
+        )
+
         val thermometer = findPreference<Preference>(getString(R.string.tool_thermometer))
         thermometer?.isVisible = !sensorChecker.hasBarometer()
         navigateOnClick(

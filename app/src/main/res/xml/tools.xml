@@ -123,6 +123,12 @@
             android:title="@string/tool_solar_panel_title"
             app:key="@string/tool_solar_panel"
             app:singleLineTitle="false" />
+        <Preference
+            android:icon="@drawable/flashlight"
+            android:summary="Measure flashlight brightness"
+            android:title="Light meter"
+            app:key="@string/tool_light_meter"
+            app:singleLineTitle="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

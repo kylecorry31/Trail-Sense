@@ -201,6 +201,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_toolsFragment_to_toolLightFragment"
+            app:destination="@id/toolLightFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/action_weather"
@@ -591,5 +598,9 @@
         android:id="@+id/diagnosticFragment"
         android:name="com.kylecorry.trail_sense.diagnostics.DiagnosticFragment"
         android:label="DiagnosticFragment" />
+    <fragment
+        android:id="@+id/toolLightFragment"
+        android:name="com.kylecorry.trail_sense.tools.light.ui.ToolLightFragment"
+        android:label="ToolLightFragment" />
 
 </navigation>
