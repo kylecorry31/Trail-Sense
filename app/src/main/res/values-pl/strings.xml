@@ -591,4 +591,115 @@
     <string name="select_import_file">Wybierz plik do zaimportowania</string>
     <string name="import_btn">Import</string>
     <string name="export">Eksport</string>
+    <string name="onboarding_tools">- Dostęp do narzędzi pomocnych w każdej sytuacji w dziczy
+\n
+\n- Sygnalizowanie przy użyciu latarki lub gwizdka
+\n
+\n- Przenieś lokalizacje z mapy papierowej do telefonu
+\n
+\n- Mierz kąty i wyznaczaj wysokości obiektów
+\n
+\n- Synchronizuj swój zegarek bez połączenia z Internetem
+\n
+\n- Rób notatki i śledź stan przedmiotów na wyciągnięcie ręki
+\n
+\n- Znajdź upuszczone żelazne/stalowe przedmioty</string>
+    <string name="onboarding_weather">- Uzyskaj hiperlokalne prognozy za pomocą barometru w telefonie
+\n
+\n- Nie wymaga połączenia z Internetem
+\n
+\n- Bądź ostrzeżony o nadchodzących burzach</string>
+    <string name="onboarding_navigation">- Umieść punkty nawigacyjne i wróć do nich
+\n
+\n- Uzyskaj aktualną lokalizację, wysokość i prędkość
+\n
+\n- Prześledź swoje kroki za pomocą funkcji Backtrack (działa w tle, gdy jest włączona)</string>
+    <string name="cirrostratus_desc">Zakrywa niebo, ale słońce można przez nie zobaczyć.</string>
+    <string name="update_gps_override">Zaktualizuj nadpisanie GPS</string>
+    <string name="pref_barometer_altitude_change_title">Próg zmiany wysokości podróży</string>
+    <string name="pref_sea_level_use_rapid_summary">Wykorzystanie gwałtownych zmian ciśnienia w przeliczeniach ciśnienia na poziomie morza</string>
+    <string name="quality_good">Dobra</string>
+    <string name="quality_moderate">Umiarkowana</string>
+    <string name="quality_poor">Słaba</string>
+    <string name="gps_unavailable">Niedostępny</string>
+    <string name="gps_searching">Wyszukiwanie</string>
+    <string name="gps_user">Użytkownika</string>
+    <string name="import_export_beacons">Import/eksport punktów nawigacyjnych</string>
+    <string name="beacons_imported">Zaimportowano %d punktów nawigacyjnych</string>
+    <string name="export_beacons">Eksportuj punkty nawigacyjne</string>
+    <string name="onboarding_privacy">- Program Trail Sense szanuje Twoją prywatność i dane lokalizacji nigdy nieopuszczą Twojego urzadzenia
+\n
+\n- Trail Sense nigdy nie wymaga połączenie z Internetem
+\n
+\n- Zobacz [politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html) (link otworzy się w przeglądarce internetowej Twojego telefonu)
+\n
+\n- Niektóre funkcje programu Trail Sense wymagają dostępu do Twojej lokalizacji
+\n
+\n- Przyznanie uprawnienia dostępu do lokalizacji włączy następujące funkcje:
+\n
+\n\t- Nawigowanie do punktów nawigacyjnych
+\n
+\n\t- Poprawi dokładność prognoz (wymaga lokalizacji w tle, co nie jest dostępne we wszystkich urządzeniach)
+\n
+\n\t- Backtrack (wymaga lokalizacji w tle)
+\n
+\n\t- Czasy Słońca i Księżyca dla obecnej lokalizacji
+\n
+\n- Jeśli zdecydujesz się nie udzielać pozwolenia na korzystanie z lokalizacji, możesz ręcznie wprowadzić swoją lokalizację w menu Ustawienia &gt; Kalibracja GPS.
+\n
+\n- Po kliknięciu przycisku Kontynuuj zostanie wyświetlony monit o przyznanie uprawnień do lokalizacji i lokalizacji w tle. Odmowa przyznania tych uprawnień uniemożliwi programowi Trail Sense dostęp do Twojej lokalizacji, dlatego zalecane jest ręczne wprowadzenie lokalizacji.</string>
+    <string name="onboarding_user_guide">Dowiedz się, jak korzystać z funkcji programu Trail Sense, korzystając z podręcznika użytkownika. Dostępny jest na samym dole w zakładce Narzędzia.
+\n
+\nWkrótce pojawi się więcej przewodników.</string>
+    <string name="onboarding_astronomy">- Wiedz, kiedy słońce/księżyc wzejdzie i zajdzie
+\n
+\n- Dostawaj alerty o zachodzie słońca
+\n
+\n- Zlokalizuj słońce i księżyc na kompasie</string>
+    <string name="cirrus_desc">Wysoka i pierzasta.</string>
+    <string name="cumulonimbus_desc">Ciemnoszara, wysoka, o kowadełkowatym kształcie.</string>
+    <string name="cumulus_desc">Wygląda jak puchate kulki z waty.</string>
+    <string name="stratus_desc">Zasłania niebo, obiekty nie rzucają cieni.</string>
+    <string name="nimbostratus_desc">Ciemnoszara i zakrywa niebo. Może padać deszcz.</string>
+    <string name="altostratus_desc">Zakrywa niebo, słońce jest ledwo widoczne.</string>
+    <string name="altocumulus_desc">Wygląda jak puchate kulki z waty.</string>
+    <string name="cloud_likely_storm">Prawdopodobieństwo burzy</string>
+    <string name="cloud_likely_rain">Prawdopodobieństwo wystąpienia opadów</string>
+    <string name="cloud_possible_rain">Możliwe opady</string>
+    <string name="cloud_fair">Prawdopodobna ładna pogoda</string>
+    <string name="pref_require_satellites_title">Wymagane ustalenie pozycji satelitarnej</string>
+    <string name="delete_waypoint_prompt">Usunąć punkt orientacyjny\?</string>
+    <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
+    <string name="waypoints_empty_text">Brak punktów orientacyjnych</string>
+    <string name="backtrack_notification_description">Umieszczanie punktu orientacyjnego</string>
+    <string name="guide_create_beacons_description">Jak tworzyć punkty nawigacyjne</string>
+    <string name="location_override_updated">Zaktualizowano zastępowanie lokalizacji</string>
+    <string name="tool_cliff_height_disclaimer">Używaj tego narzędzia tylko wtedy, gdy jest to bezpieczne i sprawdź, co znajduje się pod urwiskiem, aby uniknąć obrażeń. Instrukcje znajdują się w podręczniku użytkownika.</string>
+    <string name="pref_sea_level_pressure_change_thresh_title">Próg zmiany ciśnienia w podróży</string>
+    <string name="pref_sea_level_require_dwell_title">Ignoruj gwałtowne zmiany wysokości</string>
+    <string name="pref_sea_level_require_dwell_summary">Pokaż odczyty tylko wtedy, gdy wysokość nie zmieniła się przez co najmniej godzinę. Poprawia wiarygodność prognoz.</string>
+    <string name="pref_altitude_override_sea_level_title">Korzystanie ze znanego ciśnienia na poziomie morza</string>
+    <string name="altitude_override_updated_toast">Zaktualizowano nadpisanie wysokości</string>
+    <string name="unit_inches_abbreviation">cal</string>
+    <string name="freezing_temperatures_warning">Niskie temperatury</string>
+    <string name="magnetic_field_format_precise">%s uT</string>
+    <string name="available">Dostępne</string>
+    <string name="permission_granted">Przyznano</string>
+    <string name="permission_not_granted">Nie przyznano</string>
+    <string name="permission_background_location">Lokalizacja w tle</string>
+    <string name="magnetometer">Magnetometr</string>
+    <string name="acceleration_m_s2_format">%s m/s²</string>
+    <string name="gravity">Grawitacja</string>
+    <string name="hygrometer">Wilgotnościomierz</string>
+    <string name="satellites">satelitów</string>
+    <string name="dbm_format">%s dBm</string>
+    <string name="cell_signal">Sygnał sieci komórkowej</string>
+    <string name="barometer">Barometr</string>
+    <string name="network_no_signal">Brak sygnału</string>
+    <string name="network_3g">3G</string>
+    <string name="network_2g">2G</string>
+    <string name="network_4g">4G</string>
+    <string name="network_5g">5G</string>
+    <string name="time_ago">%s temu</string>
+    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
 </resources>

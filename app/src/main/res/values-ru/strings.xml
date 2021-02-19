@@ -365,7 +365,7 @@
     <string name="guide_conserving_battery_title">Экономия батареи</string>
     <string name="guide_conserving_battery_description">Экономия заряда батареи при использовании Trail Sense</string>
     <string name="guide_beacons_title">Маячки</string>
-    <string name="guide_beacons_description">Как ориентироваться с помощью</string>
+    <string name="guide_beacons_description">Как ориентироваться с помощью маячков</string>
     <string name="guide_weather_prediction_title">Прогноз погоды</string>
     <string name="guide_weather_prediction_description">Как предсказывать погоду с помощью Trail Sense</string>
     <string name="item_amount_hint">Количество</string>
@@ -539,7 +539,7 @@
     <string name="pref_low_power_mode_title">Режим энергосбережения</string>
     <string name="guide_barometer_calibration_description">Как откалибровать барометр по уровню моря</string>
     <string name="guide_barometer_calibration_title">Калибровка барометра</string>
-    <string name="guide_backtrack_description">Как использовать возвращение</string>
+    <string name="guide_backtrack_description">Как использовать историю маршрута</string>
     <string name="charging_wireless">Зарядка (%s)</string>
     <string name="battery_power_wireless">Беспроводная</string>
     <string name="battery_power_usb">USB</string>
@@ -550,21 +550,25 @@
     <string name="delete_waypoint_prompt">Удалить путевую точку\?</string>
     <string name="pref_gps_override_title">Переопределение местоположения</string>
     <string name="coordinate_input_invalid_location">Неверное местоположение</string>
-    <string name="location_input_help">Десятичные градусы (например, 1,00, -2,00) Десятичные градусы минуты (например, 1°23,12\'N, 3°12,1\'W) Градусы минуты секунды (например, 1°23\'12,1 \"N, 3°12\"1,2\'W) UTM (например, 03T 12345E 67890N) MGRS (например, 27PXM 09601 05579)</string>
+    <string name="location_input_help">Десятичные градусы (например, 1,00, -2,00)
+\nДесятичные градусы минуты (например, 1°23,12\'N, 3°12,1\'W) 
+\nГрадусы минуты секунды (например, 1°23\'12,1 \"N, 3°12\"1,2\'W) 
+\nUTM (например, 03T 12345E 67890N) 
+\nMGRS (например, 27PXM 09601 05579)</string>
     <string name="location_input_help_title">Поддерживаемые форматы местоположения</string>
     <string name="location_input_hint">Местоположение</string>
-    <string name="pref_backtrack_frequency_title">Интервал возвращения</string>
+    <string name="pref_backtrack_frequency_title">Интервал истории маршрута</string>
     <string name="pref_backtrack_enabled_summary">Записывать историю местоположений</string>
     <string name="waypoint_beacon_title_template">%s, %s Путевая точка</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_title">Возвращение</string>
+    <string name="tool_backtrack_title">История маршрута</string>
     <string name="tool_backtrack_summary">Просмотр истории местоположений</string>
     <string name="action_waypoint_create_beacon">Создать маячок</string>
     <string name="waypoint_action_delete">Удалить</string>
     <string name="waypoints_empty_text">Нет путевых точек</string>
     <string name="backtrack_notification_description">Размещение путевой точки</string>
-    <string name="backtrack_notification_channel_description">Обновление местоположения возвращения</string>
-    <string name="backtrack_notification_channel">Возвращение</string>
+    <string name="backtrack_notification_channel_description">Обновление местоположения истории маршрута</string>
+    <string name="backtrack_notification_channel">История маршрута</string>
     <string name="guide_location_no_gps_description">Как определить свое местоположение, когда у вас нет сигнала GPS</string>
     <string name="guide_location_no_gps_title">Определить местоположение без GPS</string>
     <string name="guide_create_beacons_description">Как создавать маячки</string>
@@ -584,23 +588,23 @@
     <string name="compass_calibrate_toast">Точность компаса %s, рекомендуется калибровка</string>
     <string name="open_beacon_in_maps">Посмотреть на карте</string>
     <string name="pref_low_power_mode_summary">Отключает некоторые функции для экономии энергии</string>
-    <string name="backtrack_disabled_low_power_toast">Возврат отключен в режиме энергосбережения</string>
+    <string name="backtrack_disabled_low_power_toast">История маршрута отключена в режиме энергосбережения</string>
     <string name="dialog_leave">Покинуть</string>
     <string name="notes_unsaved_changes_message">Внесенные вами изменения не сохранятся.</string>
     <string name="notes_unsaved_changes">Несохраненные изменения</string>
     <string name="health">Здоровье</string>
-    <string name="cirrus_desc">Высокий и перистый.</string>
-    <string name="cumulonimbus_desc">Темно-серый, высокий, в форме наковальни.</string>
-    <string name="cumulus_desc">Похоже на пухлые ватные шарики.</string>
-    <string name="stratus_desc">Покрывает небо, объекты не отбрасывают тени.</string>
-    <string name="nimbostratus_desc">Темно-серый и покрывает небо. Может быть дождь.</string>
-    <string name="altostratus_desc">Покрывает небо, солнце едва видно.</string>
-    <string name="altocumulus_desc">Похоже на пухлые ватные шарики.</string>
-    <string name="cirrostratus_desc">Покрывает небо, но сквозь него видно солнце.</string>
-    <string name="cirrocumulus_desc">Формирует волнистый лист, облака выглядят почти двумерно.</string>
+    <string name="cirrus_desc">Высокие и перистые.</string>
+    <string name="cumulonimbus_desc">Темно-серые, высокие, в форме наковальни.</string>
+    <string name="cumulus_desc">Похожи на пухлые ватные шарики.</string>
+    <string name="stratus_desc">Покрывают небо, объекты не отбрасывают тени.</string>
+    <string name="nimbostratus_desc">Темно-серые и покрывают небо. Может быть дождь.</string>
+    <string name="altostratus_desc">Покрывают небо, солнце едва видно.</string>
+    <string name="altocumulus_desc">Похожи на пухлые ватные шарики.</string>
+    <string name="cirrostratus_desc">Покрывают небо, но через них видно солнце.</string>
+    <string name="cirrocumulus_desc">Формируют волнистый лист, облака выглядят почти двумерно.</string>
     <string name="cloud_possible_rain">Возможны осадки</string>
     <string name="cloud_fair">Вероятна хорошая погода</string>
-    <string name="cloud_high">ВЫСОКО</string>
+    <string name="cloud_high">ВЫСОКИЕ</string>
     <string name="clouds">Облака</string>
     <string name="stratocumulus_desc">Скатывающиеся массы, образующие лист.</string>
     <string name="cloud_likely_storm">Вероятен шторм</string>
@@ -642,7 +646,7 @@
 \n
 \n- Повышенная точность прогнозов (требуется фоновое местоположение, доступно не на всех устройствах)
 \n
-\n- Возврат (требуется работа в фоне)
+\n- История маршрута (требуется работа в фоне)
 \n
 \n- Время солнца и луны для вашего текущего местоположения
 \n
@@ -680,9 +684,32 @@
 \n
 \n- Получите свое текущее местоположение, высоту и скорость
 \n
-\n- Повторяйте свои шаги с помощью Возврата (работает в фоновом режиме при включении)</string>
+\n- Повторяйте свои шаги с помощью истории маршрута (работает в фоновом режиме при включении)</string>
     <string name="cirrocumulus">Перисто-кучевые</string>
     <string name="pref_require_satellites_description">Требуется как минимум 4 спутника, повышает точность</string>
     <string name="unit_inches_abbreviation">д</string>
     <string name="unit_centimeters_abbreviation">см</string>
+    <string name="available">Доступно</string>
+    <string name="permission_granted">Разрешено</string>
+    <string name="permission_not_granted">Не разрешенно</string>
+    <string name="permission_background_location">Фоновые операции</string>
+    <string name="magnetometer">Магнитометр</string>
+    <string name="acceleration_m_s2_format">%s м/с²</string>
+    <string name="gravity">Гравитация</string>
+    <string name="hygrometer">Гигрометр</string>
+    <string name="satellites">Спутник</string>
+    <string name="dbm_format">%s дБм</string>
+    <string name="cell_signal">Сотовый сигнал</string>
+    <string name="barometer">Барометр</string>
+    <string name="network_no_signal">Нет сигнала</string>
+    <string name="network_3g">3G</string>
+    <string name="network_2g">2G</string>
+    <string name="network_4g">4G</string>
+    <string name="network_5g">5G</string>
+    <string name="time_ago">%s назад</string>
+    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
+    <string name="quality_good">Хорошое</string>
+    <string name="quality_moderate">Среднее</string>
+    <string name="quality_poor">Плохое</string>
+    <string name="magnetic_field_format_precise">%s uT</string>
 </resources>

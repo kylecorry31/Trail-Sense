@@ -593,4 +593,26 @@
     <string name="gps_stale">Foreldet</string>
     <string name="gps_user">Bruker</string>
     <string name="pref_require_satellites_title">Satellittkrav</string>
+    <string name="available">Tilgjengelig</string>
+    <string name="permission_granted">Gitt</string>
+    <string name="permission_not_granted">Ikke gitt</string>
+    <string name="permission_background_location">Bakgrunnsposisjon</string>
+    <string name="magnetometer">Magnetometer</string>
+    <string name="acceleration_m_s2_format">%s m/s²</string>
+    <string name="gravity">Tyngdekraft</string>
+    <string name="hygrometer">Hygrometer</string>
+    <string name="satellites">satellitter</string>
+    <string name="dbm_format">%s dBm</string>
+    <string name="cell_signal">Mobiltelefonsignal</string>
+    <string name="barometer">Barometer</string>
+    <string name="network_no_signal">Ikke noe signal</string>
+    <string name="network_3g">3G</string>
+    <string name="network_2g">2G</string>
+    <string name="network_4g">4G</string>
+    <string name="network_5g">5G</string>
+    <string name="time_ago">%s siden</string>
+    <string name="quality_good">God</string>
+    <string name="quality_moderate">Moderat</string>
+    <string name="quality_poor">Dårlig</string>
+    <string name="help">Hjelp</string>
 </resources>
