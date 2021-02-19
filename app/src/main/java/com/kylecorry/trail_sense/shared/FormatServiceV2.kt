@@ -185,6 +185,17 @@ class FormatServiceV2(private val context: Context) {
         return context.getString(R.string.current_format, current)
     }
 
+    fun formatLux(lux: Float, decimalPlaces: Int = 0): String {
+        val formatted = DecimalFormatter.format(lux.toDouble(), decimalPlaces)
+        return context.getString(R.string.lux_format, formatted)
+    }
+
+    fun formatCandela(candela: Float, decimalPlaces: Int = 0): String {
+        val formatted = DecimalFormatter.format(candela.toDouble(), decimalPlaces)
+        return context.getString(R.string.candela_format, formatted)
+    }
+
+
     private fun getPressureUnitString(unit: PressureUnits): String {
         return when (unit) {
             PressureUnits.Hpa -> context.getString(R.string.units_hpa)

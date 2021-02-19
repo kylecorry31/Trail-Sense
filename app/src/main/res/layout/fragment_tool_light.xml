@@ -6,11 +6,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/candela"
+        android:id="@+id/lux"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        tools:text="10 cd"
+        tools:text="10 lux"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -24,10 +24,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="@+id/candela"
-        app:layout_constraintStart_toStartOf="@+id/candela"
-        app:layout_constraintTop_toBottomOf="@+id/candela"
-        tools:text="Full Moon" />
+        app:layout_constraintEnd_toEndOf="@+id/lux"
+        app:layout_constraintStart_toStartOf="@+id/lux"
+        app:layout_constraintTop_toBottomOf="@+id/lux"
+        tools:text="13,500 cd" />
+
+    <TextView
+        android:id="@+id/distance_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="@id/beam_distance"
+        app:layout_constraintTop_toBottomOf="@+id/intensity"
+        android:text="@string/distance_from_flashlight" />
 
     <com.kylecorry.trail_sense.shared.views.DistanceInputView
         android:id="@+id/beam_distance"
@@ -36,15 +47,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintTop_toBottomOf="@id/intensity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <com.kylecorry.trail_sense.tools.light.ui.LightBarView
-        android:id="@+id/light_chart"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/distance_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -54,9 +57,28 @@
         app:layout_constraintTop_toBottomOf="@id/beam_distance"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="Reset"
+        app:layout_constraintStart_toStartOf="@id/beam_distance"
+        android:text="@string/reset"
         android:id="@+id/reset_btn"/>
+
+
+    <TextView
+        android:id="@+id/beam_distance_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="@+id/lux"
+        app:layout_constraintStart_toStartOf="@+id/lux"
+        app:layout_constraintBottom_toTopOf="@+id/light_chart"
+        android:layout_marginBottom="16dp"
+        tools:text="180 meter beam distance" />
+
+    <com.kylecorry.trail_sense.tools.light.ui.LightBarView
+        android:id="@+id/light_chart"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
