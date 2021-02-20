@@ -821,8 +821,10 @@
     <string name="beacons_exported">%d beacons exported</string>
     <string name="beacon_export_error">Could not export beacons</string>
     <string name="tool_light_meter">tool_light_meter</string>
-    <string name="distance_from_flashlight">Distance from flashlight</string>
+    <string name="distance_from_flashlight">Distance from phone to flashlight</string>
     <string name="lux_format">%s lx</string>
     <string name="candela_format">%s cd</string>
     <string name="beam_distance">%s beam distance</string>
+    <string name="tool_light_meter_title">Light meter</string>
+    <string name="tool_light_meter_description">Measure flashlight beam distance</string>
 </resources>

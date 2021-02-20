@@ -125,8 +125,8 @@
             app:singleLineTitle="false" />
         <Preference
             android:icon="@drawable/flashlight"
-            android:summary="Measure flashlight brightness"
-            android:title="Light meter"
+            android:summary="@string/tool_light_meter_description"
+            android:title="@string/tool_light_meter_title"
             app:key="@string/tool_light_meter"
             app:singleLineTitle="false" />
     </PreferenceCategory>

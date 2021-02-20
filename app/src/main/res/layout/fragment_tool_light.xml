@@ -1,84 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/lux"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
+        android:textAlignment="center"
         tools:text="10 lux"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/intensity"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAlignment="center"
+        tools:text="13,500 cd" />
+
+    <TextView
+        android:id="@+id/beam_distance_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toEndOf="@+id/lux"
         app:layout_constraintStart_toStartOf="@+id/lux"
-        app:layout_constraintTop_toBottomOf="@+id/lux"
-        tools:text="13,500 cd" />
+        app:layout_constraintBottom_toTopOf="@+id/light_chart"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        tools:text="180 meter beam distance" />
+
+    <com.kylecorry.trail_sense.tools.light.ui.LightBarView
+        android:id="@+id/light_chart"
+        android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_height="125dp"/>
 
     <TextView
         android:id="@+id/distance_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginStart="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintStart_toStartOf="@id/beam_distance"
-        app:layout_constraintTop_toBottomOf="@+id/intensity"
+        android:layout_marginStart="26dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:text="@string/distance_from_flashlight" />
 
     <com.kylecorry.trail_sense.shared.views.DistanceInputView
         android:id="@+id/beam_distance"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintTop_toBottomOf="@id/distance_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_marginStart="16dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/beam_distance"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintStart_toStartOf="@id/beam_distance"
+        android:layout_marginStart="26dp"
         android:text="@string/reset"
         android:id="@+id/reset_btn"/>
 
 
-    <TextView
-        android:id="@+id/beam_distance_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="@+id/lux"
-        app:layout_constraintStart_toStartOf="@+id/lux"
-        app:layout_constraintBottom_toTopOf="@+id/light_chart"
-        android:layout_marginBottom="16dp"
-        tools:text="180 meter beam distance" />
-
-    <com.kylecorry.trail_sense.tools.light.ui.LightBarView
-        android:id="@+id/light_chart"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

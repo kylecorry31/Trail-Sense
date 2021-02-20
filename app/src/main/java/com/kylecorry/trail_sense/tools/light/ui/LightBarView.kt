@@ -8,12 +8,13 @@ import android.view.View
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.math.MathUtils
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.light.domain.LightIntensity
-import com.kylecorry.trail_sense.tools.light.domain.LightService
+import com.kylecorry.trailsensecore.domain.light.LightIntensity
+import com.kylecorry.trailsensecore.domain.light.LightService
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.*
+
 
 class LightBarView : View {
     private lateinit var paint: Paint
@@ -41,10 +42,12 @@ class LightBarView : View {
                 TypedValue.COMPLEX_UNIT_SP, 10f,
                 resources.displayMetrics
             )
-            imageSize = min(TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 64f,
-                resources.displayMetrics
-            ).toInt(), height)
+            imageSize = min(
+                TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 64f,
+                    resources.displayMetrics
+                ).toInt(), height
+            )
             isInit = true
             val drawable = UiUtils.drawable(context, R.drawable.tree)
             drawable?.setTint(Color.WHITE)
@@ -90,6 +93,7 @@ class LightBarView : View {
 
         for (i in gradient.indices){
             paint.color = gradient[i]
+
             if (treeIndices.contains(i)) {
                 val centerGrad = (start + gradWidth / 2f)
                 val imageTop = height.toFloat() - imageSize - 14f
@@ -99,9 +103,23 @@ class LightBarView : View {
                 paint.getTextBounds(distance, 0, distance.length, rect)
 
 
-                canvas.drawText(distance, centerGrad - (rect.width() / 2f), imageTop / 2f + rect.height() / 2f, paint)
+                canvas.drawText(
+                    distance,
+                    centerGrad - (rect.width() / 2f),
+                    imageTop / 2f + rect.height() / 2f,
+                    paint
+                )
             }
-            canvas.drawRect(start, height.toFloat() - 14f - imageSize * (1 / 8f), start + gradWidth, height.toFloat(), paint)
+
+
+
+            canvas.drawRect(
+                start,
+                height.toFloat() - 14f - imageSize * (1 / 8f),
+                start + gradWidth,
+                height.toFloat(),
+                paint
+            )
             start += gradWidth
         }
 

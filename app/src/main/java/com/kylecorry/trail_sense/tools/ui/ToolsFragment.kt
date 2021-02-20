@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.ui
 
+import android.hardware.Sensor
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.IdRes
@@ -137,8 +138,10 @@ class ToolsFragment : PreferenceFragmentCompat() {
             R.id.action_action_experimental_tools_to_fragmentToolCoordinateConvert
         )
 
+        val lightMeter = findPreference<Preference>(getString(R.string.tool_light_meter))
+        lightMeter?.isVisible = sensorChecker.hasSensor(Sensor.TYPE_LIGHT)
         navigateOnClick(
-            findPreference(getString(R.string.tool_light_meter)),
+            lightMeter,
             R.id.action_toolsFragment_to_toolLightFragment
         )
 

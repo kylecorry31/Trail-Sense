@@ -9,11 +9,10 @@ import com.kylecorry.trail_sense.databinding.FragmentToolLightBinding
 import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.light.domain.LightService
-import com.kylecorry.trail_sense.tools.light.infrastructure.LightSensor
-import com.kylecorry.trailsensecore.domain.units.Distance
+import com.kylecorry.trailsensecore.domain.light.LightService
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
+import com.kylecorry.trailsensecore.infrastructure.sensors.light.LightSensor
 import kotlin.math.max
 import kotlin.math.roundToInt
 
