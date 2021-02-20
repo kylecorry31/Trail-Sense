@@ -702,4 +702,9 @@
     <string name="network_5g">5G</string>
     <string name="time_ago">%s temu</string>
     <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
+    <string name="candela_format">%s cd</string>
+    <string name="lux_format">%s lx</string>
+    <string name="distance_from_flashlight">Odległość od latarki</string>
+    <string name="tool_light_meter">tool_light_meter</string>
+    <string name="help">Pomoc</string>
 </resources>
