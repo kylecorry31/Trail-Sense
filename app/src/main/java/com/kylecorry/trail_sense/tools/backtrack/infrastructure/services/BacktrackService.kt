@@ -118,14 +118,15 @@ class BacktrackService : Service() {
 
     private suspend fun recordWaypoint() {
         withContext(Dispatchers.IO) {
+            val cell = cellSignal.signals.maxByOrNull { it.strength }
             waypointRepo.addWaypoint(
                 WaypointEntity(
                     gps.location.latitude,
                     gps.location.longitude,
                     gps.altitude,
                     gps.time.toEpochMilli(),
-                    cellSignal.signals.firstOrNull()?.network?.id,
-                    cellSignal.signals.firstOrNull()?.quality?.ordinal,
+                    cell?.network?.id,
+                    cell?.quality?.ordinal,
                 )
             )
             waypointRepo.deleteOlderThan(Instant.now().minus(Duration.ofDays(2)))

@@ -285,7 +285,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     }
 
     private fun updateCellSignal() {
-        val signal = cellSignal.signals.firstOrNull()
+        val signal = cellSignal.signals.maxByOrNull { it.strength }
         sensorDetailsMap["cell"] = SensorDetails(
             getString(R.string.cell_signal),
             "${
