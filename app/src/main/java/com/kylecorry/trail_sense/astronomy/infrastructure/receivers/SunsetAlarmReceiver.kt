@@ -144,7 +144,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             PendingIntent.getActivity(context, NOTIFICATION_ID, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.drawable.sunset)
+            .setSmallIcon(R.drawable.ic_sunset_notification)
             .setContentTitle(context.getString(R.string.sunset_alert_notification_title))
             .setContentText(
                 context.getString(

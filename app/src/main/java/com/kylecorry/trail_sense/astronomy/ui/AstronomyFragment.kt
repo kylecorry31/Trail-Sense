@@ -47,6 +47,7 @@ class AstronomyFragment : Fragment() {
     private val cache by lazy { Cache(requireContext()) }
     private val astronomyService = AstronomyService()
     private val geoService = GeoService()
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
 
     private var declination = 0f
 
@@ -309,23 +310,23 @@ class AstronomyFragment : Fragment() {
         val details = listOf(
             Pair(
                 Pair(
-                    R.drawable.sunrise to R.color.colorPrimary,
+                    R.drawable.ic_sun_rise to -1,
                     getString(R.string.sunrise_label)
                 ), sunTimes.rise?.toLocalDateTime()
             ),
             Pair(
                 Pair(
-                    R.drawable.sunset to R.color.colorPrimary,
+                    R.drawable.ic_sun_set to -1,
                     getString(R.string.sunset_label)
                 ), sunTimes.set?.toLocalDateTime()
             ),
             // TODO: Get moon icons
             Pair(
-                Pair(R.drawable.moonrise to null, getString(R.string.moon_rise)),
+                Pair(R.drawable.ic_moon_rise to -1, getString(R.string.moon_rise)),
                 moonTimes.rise?.toLocalDateTime()
             ),
             Pair(
-                Pair(R.drawable.moonset to null, getString(R.string.moon_set)),
+                Pair(R.drawable.ic_moon_set to -1, getString(R.string.moon_set)),
                 moonTimes.set?.toLocalDateTime()
             ),
             // TODO: Get solar/lunar noon images
@@ -349,14 +350,14 @@ class AstronomyFragment : Fragment() {
         val duskDawnDetails = listOf(
             Pair(
                 Pair(
-                    Pair(R.drawable.sunrise, R.color.colorPrimary),
+                    Pair(R.drawable.ic_sun_rise, -1),
                     getString(R.string.sun_dawn)
                 ),
                 duskDawn.rise?.toLocalDateTime()
             ),
             Pair(
                 Pair(
-                    Pair(R.drawable.sunset, R.color.colorPrimary),
+                    Pair(R.drawable.ic_sun_set, -1),
                     getString(R.string.sun_dusk)
                 ),
                 duskDawn.set?.toLocalDateTime()
@@ -382,37 +383,25 @@ class AstronomyFragment : Fragment() {
         if (displayDate == LocalDate.now()) {
             // Moon phase
             val moonPhase = astronomyService.getCurrentMoonPhase()
+            val illuminationString = if (prefs.astronomy.showMoonIllumination) " (" + formatService.formatPercentage(moonPhase.illumination) + ")" else ""
 
             details.add(
                 AstroDetail(
                     getMoonImage(moonPhase.phase),
                     getString(R.string.moon_phase),
-                    getMoonPhaseString(moonPhase.phase),
+                    getMoonPhaseString(moonPhase.phase) + illuminationString,
                     -1
-                )
-            )
-            details.add(
-                AstroDetail(
-                    R.drawable.illumination,
-                    getString(R.string.moon_illumination),
-                    getString(R.string.percent_format, moonPhase.illumination.roundToInt())
                 )
             )
         } else {
             val moonPhase = astronomyService.getMoonPhase(displayDate)
+            val illuminationString = if (prefs.astronomy.showMoonIllumination) " (" + formatService.formatPercentage(moonPhase.illumination) + ")" else ""
             details.add(
                 AstroDetail(
                     getMoonImage(moonPhase.phase),
                     getString(R.string.moon_phase),
-                    getMoonPhaseString(moonPhase.phase),
+                    getMoonPhaseString(moonPhase.phase) + illuminationString,
                     -1
-                )
-            )
-            details.add(
-                AstroDetail(
-                    R.drawable.illumination,
-                    getString(R.string.moon_illumination),
-                    getString(R.string.percent_format, moonPhase.illumination.roundToInt())
                 )
             )
         }

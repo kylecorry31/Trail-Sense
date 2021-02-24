@@ -40,4 +40,8 @@
         android:pathData="M499.957,246.601a14.625,6.988 93.754,1 0,3.917 27.041a14.625,6.988 93.754,1 0,-3.917 -27.041z"
         android:strokeColor="#00000000" android:strokeLineCap="round"
         android:strokeLineJoin="miter" android:strokeWidth="0.57140458"/>
+    <path android:fillColor="#000000"
+        android:pathData="M241.459,468.077V245.123H181.966L275.552,83.027 369.139,245.123h-49.131v222.954z"
+        android:strokeColor="#00000000" android:strokeLineCap="round"
+        android:strokeLineJoin="miter" android:strokeWidth="0.52916664"/>
 </vector>

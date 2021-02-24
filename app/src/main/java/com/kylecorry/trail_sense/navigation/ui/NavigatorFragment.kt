@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.marginBottom
 import androidx.core.view.updateLayoutParams
@@ -28,6 +29,7 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
+import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -167,7 +169,7 @@ class NavigatorFragment : Fragment() {
         val arrowImg = UiUtils.drawable(requireContext(), R.drawable.ic_arrow_target)
         val destinationBearingImg = UiUtils.drawable(requireContext(), R.drawable.ic_arrow_target)
         val sunImg = UiUtils.drawable(requireContext(), R.drawable.ic_sun_no_detail)
-        val moonImg = UiUtils.drawable(requireContext(), R.drawable.ic_moon_waxing_crescent)
+        val moonImg = UiUtils.drawable(requireContext(), getMoonImage())
 
         beaconIndicators.forEach {
             it.setImageDrawable(arrowImg)
@@ -675,6 +677,23 @@ class NavigatorFragment : Fragment() {
         }
 
         return formatService.formatQuality(gps.quality)
+    }
+
+
+
+
+    @DrawableRes
+    private fun getMoonImage(): Int {
+        return when (astronomyService.getCurrentMoonPhase().phase) {
+            MoonTruePhase.FirstQuarter -> R.drawable.ic_moon_first_quarter
+            MoonTruePhase.Full -> R.drawable.ic_moon
+            MoonTruePhase.ThirdQuarter -> R.drawable.ic_moon_third_quarter
+            MoonTruePhase.New -> R.drawable.ic_moon_new
+            MoonTruePhase.WaningCrescent -> R.drawable.ic_moon_waning_crescent
+            MoonTruePhase.WaningGibbous -> R.drawable.ic_moon_waning_gibbous
+            MoonTruePhase.WaxingCrescent -> R.drawable.ic_moon_waxing_crescent
+            MoonTruePhase.WaxingGibbous -> R.drawable.ic_moon_waxing_gibbous
+        }
     }
 
     companion object {

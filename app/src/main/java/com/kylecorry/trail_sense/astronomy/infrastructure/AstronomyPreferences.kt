@@ -10,6 +10,8 @@ class AstronomyPreferences(private val context: Context) {
 
     private val cache by lazy { Cache(context) }
 
+    val showMoonIllumination: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_show_moon_illumination)) ?: false
 
     val sunTimesMode: SunTimesMode
         get() {
