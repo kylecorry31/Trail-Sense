@@ -50,29 +50,27 @@
 
     <ImageView
         android:id="@+id/moon_position"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:scaleType="fitCenter"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/sunMoonChart"
         app:layout_constraintStart_toStartOf="@+id/sunMoonChart"
         app:layout_constraintTop_toTopOf="@+id/sunMoonChart"
-        app:srcCompat="@drawable/moon_waning_crescent"
-        tools:visibility="visible"
-        app:tint="@color/white" />
+        app:srcCompat="@drawable/ic_moon_waning_crescent"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/sun_position"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:rotation="0"
-        android:scaleType="fitStart"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:scaleType="fitCenter"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/sunMoonChart"
         app:layout_constraintStart_toStartOf="@+id/sunMoonChart"
         app:layout_constraintTop_toTopOf="@+id/sunMoonChart"
-        app:srcCompat="@drawable/sun"
-        tools:visibility="visible"
-        app:tint="@color/colorPrimary" />
+        app:srcCompat="@drawable/ic_sun_no_detail"
+        tools:visibility="visible"/>
 
     <TextView
         android:id="@+id/date"

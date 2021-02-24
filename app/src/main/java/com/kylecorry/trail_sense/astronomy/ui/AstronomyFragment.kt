@@ -74,12 +74,18 @@ class AstronomyFragment : Fragment() {
                 valueText.text = detail.value
                 iconView.setImageResource(detail.icon)
                 iconView.visibility = View.VISIBLE
-                if (detail.tint != null) {
-                    iconView.imageTintList =
-                        ColorStateList.valueOf(resources.getColor(detail.tint, null))
-                } else {
-                    iconView.imageTintList =
-                        ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
+                when {
+                    detail.tint == -1 -> {
+                        iconView.imageTintList = null
+                    }
+                    detail.tint != null -> {
+                        iconView.imageTintList =
+                            ColorStateList.valueOf(resources.getColor(detail.tint, null))
+                    }
+                    else -> {
+                        iconView.imageTintList =
+                            ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
+                    }
                 }
             }
 
@@ -219,7 +225,7 @@ class AstronomyFragment : Fragment() {
                 ),
                 AstroChart.AstroChartDataset(
                     sunAltitudes,
-                    resources.getColor(R.color.colorPrimary, null)
+                    resources.getColor(R.color.sun, null)
                 )
             ),
             startHour
@@ -324,11 +330,11 @@ class AstronomyFragment : Fragment() {
             ),
             // TODO: Get solar/lunar noon images
             Pair(
-                Pair(R.drawable.sun to R.color.colorPrimary, getString(R.string.solar_noon)),
+                Pair(R.drawable.ic_sun_no_detail to -1, getString(R.string.solar_noon)),
                 solarNoon
             ),
             Pair(
-                Pair(R.drawable.moon_full to null, getString(R.string.lunar_noon)),
+                Pair(R.drawable.ic_moon to -1, getString(R.string.lunar_noon)),
                 lunarNoon
             )
         ).filterNot { it.second == null }.sortedBy { it.second?.toLocalTime() }.map {
@@ -381,7 +387,8 @@ class AstronomyFragment : Fragment() {
                 AstroDetail(
                     getMoonImage(moonPhase.phase),
                     getString(R.string.moon_phase),
-                    getMoonPhaseString(moonPhase.phase)
+                    getMoonPhaseString(moonPhase.phase),
+                    -1
                 )
             )
             details.add(
@@ -397,7 +404,8 @@ class AstronomyFragment : Fragment() {
                 AstroDetail(
                     getMoonImage(moonPhase.phase),
                     getString(R.string.moon_phase),
-                    getMoonPhaseString(moonPhase.phase)
+                    getMoonPhaseString(moonPhase.phase),
+                    -1
                 )
             )
             details.add(
@@ -435,14 +443,14 @@ class AstronomyFragment : Fragment() {
 
     private fun getMoonImage(phase: MoonTruePhase): Int {
         return when (phase) {
-            MoonTruePhase.FirstQuarter -> R.drawable.moon_first_quarter
-            MoonTruePhase.Full -> R.drawable.moon_full
-            MoonTruePhase.ThirdQuarter -> R.drawable.moon_last_quarter
-            MoonTruePhase.New -> R.drawable.moon_new
-            MoonTruePhase.WaningCrescent -> R.drawable.moon_waning_crescent
-            MoonTruePhase.WaningGibbous -> R.drawable.moon_waning_gibbous
-            MoonTruePhase.WaxingCrescent -> R.drawable.moon_waxing_crescent
-            MoonTruePhase.WaxingGibbous -> R.drawable.moon_waxing_gibbous
+            MoonTruePhase.FirstQuarter -> R.drawable.ic_moon_first_quarter
+            MoonTruePhase.Full -> R.drawable.ic_moon
+            MoonTruePhase.ThirdQuarter -> R.drawable.ic_moon_third_quarter
+            MoonTruePhase.New -> R.drawable.ic_moon_new
+            MoonTruePhase.WaningCrescent -> R.drawable.ic_moon_waning_crescent
+            MoonTruePhase.WaningGibbous -> R.drawable.ic_moon_waning_gibbous
+            MoonTruePhase.WaxingCrescent -> R.drawable.ic_moon_waxing_crescent
+            MoonTruePhase.WaxingGibbous -> R.drawable.ic_moon_waxing_gibbous
         }
     }
 

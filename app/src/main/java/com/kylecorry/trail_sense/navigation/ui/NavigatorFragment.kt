@@ -171,8 +171,7 @@ class NavigatorFragment : Fragment() {
         val sunImg = UiUtils.drawable(requireContext(), R.drawable.sun)
         sunImg?.setTint(astronomyColor)
 
-        val moonImg = UiUtils.drawable(requireContext(), R.drawable.moon_waxing_crescent)
-        moonImg?.setTint(astronomyColor)
+        val moonImg = UiUtils.drawable(requireContext(), R.drawable.ic_moon_waxing_crescent)
 
         beaconIndicators.forEach {
             it.setImageDrawable(arrowImg)
