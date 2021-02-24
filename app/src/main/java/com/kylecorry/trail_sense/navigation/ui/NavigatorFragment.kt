@@ -164,13 +164,9 @@ class NavigatorFragment : Fragment() {
         }
         beaconIndicators = tmpBeaconIndicators
 
-        val astronomyColor = UiUtils.androidTextColorPrimary(requireContext())
-
         val arrowImg = UiUtils.drawable(requireContext(), R.drawable.ic_arrow_target)
         val destinationBearingImg = UiUtils.drawable(requireContext(), R.drawable.ic_arrow_target)
-        val sunImg = UiUtils.drawable(requireContext(), R.drawable.sun)
-        sunImg?.setTint(astronomyColor)
-
+        val sunImg = UiUtils.drawable(requireContext(), R.drawable.ic_sun_no_detail)
         val moonImg = UiUtils.drawable(requireContext(), R.drawable.ic_moon_waxing_crescent)
 
         beaconIndicators.forEach {
