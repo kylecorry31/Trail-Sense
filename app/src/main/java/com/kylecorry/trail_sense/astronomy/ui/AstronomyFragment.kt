@@ -411,7 +411,7 @@ class AstronomyFragment : Fragment() {
             val tide = astronomyService.getTides(displayDate)
             details.add(
                 AstroDetail(
-                    R.drawable.tides,
+                    R.drawable.ic_waves,
                     getString(R.string.tidal_range),
                     getTideString(tide),
                     R.color.colorAccent
