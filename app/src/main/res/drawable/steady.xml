@@ -1,8 +1,29 @@
-<!-- drawable/weather_cloudy_arrow_right.xml -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path android:fillColor="#000" android:pathData="M6,7L6.69,7.06C7.32,4.72 9.46,3 12,3A5.5,5.5 0 0,1 17.5,8.5L17.42,9.45C17.88,9.16 18.42,9 19,9A3,3 0 0,1 22,12A3,3 0 0,1 19,15H6A4,4 0 0,1 2,11A4,4 0 0,1 6,7M6,9A2,2 0 0,0 4,11A2,2 0 0,0 6,13H19A1,1 0 0,0 20,12A1,1 0 0,0 19,11H15.5V8.5A3.5,3.5 0 0,0 12,5A3.5,3.5 0 0,0 8.5,8.5V9H6M22,19L19,22V20H2V18H19V16L22,19" />
+    android:viewportHeight="23.999998">
+  <path
+      android:pathData="m9.3629,5.3418c-2.4228,0.003 -4.4074,1.9252 -4.4871,4.3467 -0.1268,-0.0118 -0.2541,-0.0181 -0.3815,-0.0191 -2.4822,0 -4.4944,2.0122 -4.4944,4.4944 0,2.4822 2.0122,4.4944 4.4944,4.4944h15.0111c2.4822,0.0001 4.4945,-2.0122 4.4945,-4.4944 -0,-2.4822 -2.0123,-4.4945 -4.4945,-4.4944 -0.0139,0.0005 -0.0279,0.001 -0.0418,0.002 -0.0889,-2.4151 -2.0718,-4.3275 -4.4885,-4.329 -1.0212,0.0003 -2.0119,0.3485 -2.8088,0.9871 -0.7955,-0.6374 -1.784,-0.9855 -2.8034,-0.9871z"
+      android:strokeAlpha="0.49803922"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="5"
+      android:fillColor="#cccccc"
+      android:strokeColor="#00000000"
+      android:strokeLineCap="round"/>
+  <path
+      android:pathData="m11.7036,8.026c-1.7408,0.002 -3.2251,1.2619 -3.5099,2.9793 -1.7561,0.2478 -3.1963,1.7498 -3.1982,3.5233 -0,1.9673 1.5948,3.5621 3.5621,3.5621h6.8849c1.9673,0 3.5621,-1.5948 3.5621,-3.5621 0,-1.9673 -1.4609,-3.5621 -3.4282,-3.5621 -0.1209,0.001 -0.2416,0.009 -0.3618,0.0222 -0.2921,-1.7111 -1.7751,-2.9625 -3.511,-2.9627z"
+      android:strokeAlpha="0.49803922"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="5"
+      android:fillColor="#b3b3b3"
+      android:strokeColor="#00000000"
+      android:strokeLineCap="round"/>
+  <path
+      android:pathData="m8.4423,19.4799 l-2.5869,1.6604c0.8623,0.5535 1.7246,1.1069 2.5869,1.6604v-0.8775h3.5574,3.5579v0.8775c0.8623,-0.5535 1.7246,-1.1069 2.5869,-1.6604l-2.5869,-1.6604v0.8775h-3.5579,-3.5574z"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="0.52916664"
+      android:fillColor="@color/colorPrimary"
+      android:strokeColor="#00000000"
+      android:strokeLineCap="round"/>
 </vector>

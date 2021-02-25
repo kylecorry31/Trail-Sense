@@ -1,9 +1,22 @@
-<!-- drawable/weather_cloudy.xml -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
-    android:viewportHeight="24"
-    android:tint="?android:textColorSecondary">
-    <path android:fillColor="#fff" android:pathData="M6,19A5,5 0 0,1 1,14A5,5 0 0,1 6,9C7,6.65 9.3,5 12,5C15.43,5 18.24,7.66 18.5,11.03L19,11A4,4 0 0,1 23,15A4,4 0 0,1 19,19H6M19,13H17V12A5,5 0 0,0 12,7C9.5,7 7.45,8.82 7.06,11.19C6.73,11.07 6.37,11 6,11A3,3 0 0,0 3,14A3,3 0 0,0 6,17H19A2,2 0 0,0 21,15A2,2 0 0,0 19,13Z" />
+    android:viewportHeight="23.999998">
+  <path
+      android:pathData="m9.3629,5.3418c-2.4228,0.003 -4.4074,1.9252 -4.4871,4.3467 -0.1268,-0.0118 -0.2541,-0.0181 -0.3815,-0.0191 -2.4822,0 -4.4944,2.0122 -4.4944,4.4944 0,2.4822 2.0122,4.4944 4.4944,4.4944h15.0111c2.4822,0.0001 4.4945,-2.0122 4.4945,-4.4944 -0,-2.4822 -2.0123,-4.4945 -4.4945,-4.4944 -0.0139,0.0005 -0.0279,0.001 -0.0418,0.002 -0.0889,-2.4151 -2.0718,-4.3275 -4.4885,-4.329 -1.0212,0.0003 -2.0119,0.3485 -2.8088,0.9871 -0.7955,-0.6374 -1.784,-0.9855 -2.8034,-0.9871z"
+      android:strokeAlpha="0.49803922"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="5"
+      android:fillColor="#cccccc"
+      android:strokeColor="#00000000"
+      android:strokeLineCap="round"/>
+  <path
+      android:pathData="m11.7036,8.026c-1.7408,0.002 -3.2251,1.2619 -3.5099,2.9793 -1.7561,0.2478 -3.1963,1.7498 -3.1982,3.5233 -0,1.9673 1.5948,3.5621 3.5621,3.5621h6.8849c1.9673,0 3.5621,-1.5948 3.5621,-3.5621 0,-1.9673 -1.4609,-3.5621 -3.4282,-3.5621 -0.1209,0.001 -0.2416,0.009 -0.3618,0.0222 -0.2921,-1.7111 -1.7751,-2.9625 -3.511,-2.9627z"
+      android:strokeAlpha="0.49803922"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="5"
+      android:fillColor="#b3b3b3"
+      android:strokeColor="#00000000"
+      android:strokeLineCap="round"/>
 </vector>

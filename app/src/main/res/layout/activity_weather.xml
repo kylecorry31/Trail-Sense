@@ -125,7 +125,6 @@
             android:layout_height="32dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/colorPrimary"
             tools:srcCompat="@drawable/light_rain" />
 
         <TextView

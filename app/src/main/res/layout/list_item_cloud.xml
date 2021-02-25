@@ -91,7 +91,6 @@
         android:layout_height="32dp"
         android:layout_marginEnd="16dp"
         android:alpha="0.86"
-        app:tint="?android:textColorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

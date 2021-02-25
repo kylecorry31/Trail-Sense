@@ -24,6 +24,7 @@ import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.*
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -83,7 +84,7 @@ class BarometerFragment : Fragment() {
 
         chart = PressureChart(
             binding.chart,
-            resources.getColor(R.color.colorPrimary, null),
+            UiUtils.color(requireContext(), R.color.colorPrimary),
             object : IPressureChartSelectedListener {
                 override fun onNothingSelected() {
                     if (pressureSetpoint == null) {
