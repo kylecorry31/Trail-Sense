@@ -20,7 +20,7 @@
       android:strokeColor="#00000000"
       android:strokeLineCap="round"/>
   <path
-      android:pathData="m8.4423,19.4799 l-2.5869,1.6604c0.8623,0.5535 1.7246,1.1069 2.5869,1.6604v-0.8775h3.5574,3.5579v0.8775c0.8623,-0.5535 1.7246,-1.1069 2.5869,-1.6604l-2.5869,-1.6604v0.8775h-3.5579,-3.5574z"
+      android:pathData="m7.2237,19.0107 l-3.473,2.2291c1.1577,0.7431 2.3154,1.486 3.473,2.2291v-1.178h4.7759,4.7766v1.178c1.1577,-0.7431 2.3154,-1.486 3.473,-2.2291l-3.473,-2.2291v1.178h-4.7766,-4.7759z"
       android:strokeLineJoin="miter"
       android:strokeWidth="0.52916664"
       android:fillColor="@color/colorPrimary"
