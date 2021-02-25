@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -411,15 +412,24 @@ class AstronomyFragment : Fragment() {
             val tide = astronomyService.getTides(displayDate)
             details.add(
                 AstroDetail(
-                    R.drawable.ic_waves,
+                    getTideImage(tide),
                     getString(R.string.tidal_range),
                     getTideString(tide),
-                    R.color.colorAccent
+                    -1
                 )
             )
         }
 
         detailList.setData(details)
+    }
+
+    @DrawableRes
+    private fun getTideImage(tide: Tide): Int {
+        return when (tide) {
+            Tide.Neap -> R.drawable.ic_tide_neap
+            Tide.Spring -> R.drawable.ic_tide_spring
+            Tide.Normal -> R.drawable.ic_tide_normal
+        }
     }
 
     private fun getTideString(tide: Tide): String {
