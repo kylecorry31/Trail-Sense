@@ -317,8 +317,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_altitude"
-                app:tint="@color/colorPrimary" />
+                android:src="@drawable/ic_altitude" />
 
             <TextView
                 android:id="@+id/altitude"

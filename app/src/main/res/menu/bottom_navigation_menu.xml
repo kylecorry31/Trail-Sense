@@ -12,7 +12,7 @@
     <item
         android:id="@+id/action_weather"
         android:title="@string/weather"
-        android:icon="@drawable/light_rain"
+        android:icon="@drawable/cloudy"
         app:showAsAction="ifRoom" />
 
     <item

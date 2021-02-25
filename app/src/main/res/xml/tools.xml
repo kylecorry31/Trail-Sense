@@ -150,11 +150,6 @@
             app:key="@string/tool_clouds"
             app:singleLineTitle="false" />
         <Preference
-            android:icon="@drawable/ic_weather"
-            android:title="National Weather Service"
-            app:key="tool_nws_weather"
-            app:singleLineTitle="false" />
-        <Preference
             android:icon="@drawable/ic_tool_health"
             android:title="@string/health"
             app:key="@string/tool_health_sense"

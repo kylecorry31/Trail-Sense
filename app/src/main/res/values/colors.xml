@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FF6D00</color>
+    <color name="colorPrimaryDark">#D15900</color>
+    <color name="colorPrimaryLight">#FD750E</color>
     <color name="colorAccent">#a0caff</color>
     <color name="colorSecondary">#222222</color>
     <color name="moon_up">#b0dae8</color>
