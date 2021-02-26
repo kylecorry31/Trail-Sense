@@ -712,4 +712,12 @@
     <string name="quality_moderate">Среднее</string>
     <string name="quality_poor">Плохое</string>
     <string name="magnetic_field_format_precise">%s uT</string>
+    <string name="beam_distance">%s расстояние луча</string>
+    <string name="lux_format">%s лк</string>
+    <string name="candela_format">%s кд</string>
+    <string name="distance_from_flashlight">Расстояние от фонарика</string>
+    <string name="tool_light_meter">tool_light_meter</string>
+    <string name="beacon_export_error">Не удалось экспортировать маячки</string>
+    <string name="beacons_exported">%d маячков экспортировано</string>
+    <string name="help">Помощь</string>
 </resources>
