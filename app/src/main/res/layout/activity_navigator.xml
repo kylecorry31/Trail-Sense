@@ -339,8 +339,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_speed"
-                app:tint="@color/colorPrimary" />
+                android:src="@drawable/ic_speed" />
 
             <TextView
                 android:id="@+id/speed"

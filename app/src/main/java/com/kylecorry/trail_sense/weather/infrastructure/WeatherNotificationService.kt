@@ -21,6 +21,7 @@ import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Instant
 
 object WeatherNotificationService {
@@ -52,6 +53,7 @@ object WeatherNotificationService {
                 .setContentTitle(title)
                 .setContentText(text)
                 .setSmallIcon(icon)
+                .setLargeIcon(Icon.createWithResource(context, icon))
                 .addAction(stopAction)
                 .setOnlyAlertOnce(true)
                 .setAutoCancel(false)
