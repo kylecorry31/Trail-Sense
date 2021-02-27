@@ -3,9 +3,11 @@ package com.kylecorry.trail_sense.settings
 import android.os.Bundle
 import android.text.InputType
 import androidx.preference.EditTextPreference
+import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -14,6 +16,7 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
 
     private var prefMaxBeaconDistanceKm: EditTextPreference? = null
     private var prefMaxBeaconDistanceMi: EditTextPreference? = null
+    private var prefBacktrack: SwitchPreferenceCompat? = null
     private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
 
@@ -23,6 +26,14 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
     private fun bindPreferences() {
         prefMaxBeaconDistanceKm = editText(R.string.pref_max_beacon_distance)
         prefMaxBeaconDistanceMi = editText(R.string.pref_max_beacon_distance_miles)
+        prefBacktrack = switch(R.string.pref_backtrack_enabled)
+    }
+
+    private fun restartBacktrack() {
+        if (prefs.backtrackEnabled) {
+            BacktrackScheduler.stop(requireContext())
+            BacktrackScheduler.start(requireContext())
+        }
     }
 
 
@@ -31,6 +42,22 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         val userPrefs = UserPreferences(requireContext())
         prefs = userPrefs
         bindPreferences()
+
+        prefBacktrack?.isEnabled = !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)
+
+        prefBacktrack?.setOnPreferenceClickListener {
+            if (prefs.backtrackEnabled) {
+                BacktrackScheduler.start(requireContext())
+            } else {
+                BacktrackScheduler.stop(requireContext())
+            }
+            true
+        }
+
+        list(R.string.pref_backtrack_frequency)?.setOnPreferenceChangeListener { _, _ ->
+            restartBacktrack()
+            true
+        }
 
         val distanceUnits = prefs.distanceUnits
 

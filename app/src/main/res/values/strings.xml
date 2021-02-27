@@ -820,12 +820,14 @@
     <string name="help">Help</string>
     <string name="beacons_exported">%d beacons exported</string>
     <string name="beacon_export_error">Could not export beacons</string>
-    <string name="tool_light_meter">tool_light_meter</string>
+    <string name="tool_light_meter" translatable="false">tool_light_meter</string>
     <string name="distance_from_flashlight">Distance from phone to flashlight</string>
     <string name="lux_format">%s lx</string>
     <string name="candela_format">%s cd</string>
     <string name="beam_distance">%s beam distance</string>
     <string name="tool_light_meter_title">Light meter</string>
     <string name="tool_light_meter_description">Measure flashlight beam distance</string>
-    <string name="pref_show_moon_illumination">pref_show_moon_illumination</string>
+    <string name="pref_show_moon_illumination" translatable="false">pref_show_moon_illumination</string>
+    <string name="pref_backtrack_save_cell_summary">Records cell signal at the waypoint. Does not use the Internet.</string>
+    <string name="pref_backtrack_save_cell_title">Record cell signal</string>
 </resources>
