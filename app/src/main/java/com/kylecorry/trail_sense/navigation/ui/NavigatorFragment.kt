@@ -38,13 +38,9 @@ import com.kylecorry.trailsensecore.domain.units.Quality
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
-import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -93,10 +89,6 @@ class NavigatorFragment : Fragment() {
 
     private var beacons: Collection<Beacon> = listOf()
     private var nearbyBeacons: Collection<Beacon> = listOf()
-
-    private val intervalometer = Intervalometer {
-        gps.start(this::onLocationUpdate)
-    }
 
     private var destination: Beacon? = null
     private var destinationBearing: Bearing? = null
@@ -186,6 +178,7 @@ class NavigatorFragment : Fragment() {
         compass.asLiveData().observe(viewLifecycleOwner, { updateUI() })
         orientation.asLiveData().observe(viewLifecycleOwner, { onOrientationUpdate() })
         altimeter.asLiveData().observe(viewLifecycleOwner, { updateUI() })
+        gps.asLiveData().observe(viewLifecycleOwner, { onLocationUpdate() })
 
         averageSpeed = userPrefs.navigation.averageSpeed
 
@@ -246,7 +239,6 @@ class NavigatorFragment : Fragment() {
                 cache.remove(LAST_DEST_BEARING)
             }
         }
-
     }
 
     private fun displayAccuracyTips() {
@@ -313,13 +305,9 @@ class NavigatorFragment : Fragment() {
             destinationBearing = Bearing(lastDestBearing)
         }
 
-        gps.start(this::onLocationUpdate)
         compass.declination = getDeclination()
 
         binding.beaconBtn.show()
-        if (userPrefs.navigation.showMultipleBeacons) {
-            intervalometer.interval(Duration.ofSeconds(15))
-        }
 
         // Update the UI
         updateNavigator()
@@ -330,8 +318,6 @@ class NavigatorFragment : Fragment() {
         calibrateSnackbar?.dismiss()
         rightQuickAction?.onPause()
         leftQuickAction?.onPause()
-        gps.stop(this::onLocationUpdate)
-        intervalometer.stop()
     }
 
     private fun getNearbyBeacons(): Collection<Beacon> {
@@ -584,12 +570,11 @@ class NavigatorFragment : Fragment() {
         return true
     }
 
-    private fun onLocationUpdate(): Boolean {
+    private fun onLocationUpdate() {
         nearbyBeacons = getNearbyBeacons()
         compass.declination = getDeclination()
         updateAverageSpeed()
         updateUI()
-        return destination != null
     }
 
     private fun updateAverageSpeed() {
@@ -621,15 +606,7 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun updateNavigator() {
-        if (destination != null) {
-            // Navigating
-            gps.start(this::onLocationUpdate)
-            onLocationUpdate()
-        } else {
-            // Not navigating
-            onLocationUpdate()
-        }
-
+        onLocationUpdate()
         updateNavigationButton()
     }
 
@@ -678,8 +655,6 @@ class NavigatorFragment : Fragment() {
 
         return formatService.formatQuality(gps.quality)
     }
-
-
 
 
     @DrawableRes
