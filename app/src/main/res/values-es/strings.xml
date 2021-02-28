@@ -109,7 +109,4 @@
     <string name="edit_beacon">Editar baliza</string>
     <string name="flashlight_title">Linterna</string>
     <string name="unknown">Desconocida</string>
-    <string name="accuracy_high">Alta</string>
-    <string name="accuracy_medium">Media</string>
-    <string name="accuracy_low">Baja</string>
 </resources>

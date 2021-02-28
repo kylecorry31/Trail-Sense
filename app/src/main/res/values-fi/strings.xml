@@ -65,7 +65,6 @@
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Sammuta napauttamalla</string>
     <string name="flashlight_title">Taskulamppu</string>
-    <string name="gps_lock_acquired">GPS fixi saatu</string>
     <string name="accuracy_info">"GPS: Mene ulos, esteetön näkymä taivaalle.
 \n    %s todellisesta sijainnista
 \n    %s todellisesta korkeudesta
@@ -76,9 +75,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Tuntematon</string>
-    <string name="accuracy_high">Korkea</string>
-    <string name="accuracy_medium">Keskitaso</string>
-    <string name="accuracy_low">Alhainen</string>
     <string name="battery_temp">Puhelin: %s</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Purkautuu nopeasti (%s)</string>

@@ -63,15 +63,11 @@
     <string name="dash">-</string>
     <string name="battery_temp">Phone: %s</string>
     <!--Navigation Tab - Accuracy-->
-    <string name="accuracy_low">Low</string>
-    <string name="accuracy_medium">Medium</string>
-    <string name="accuracy_high">High</string>
     <string name="unknown">Unknown</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Tips for improving sensor data accuracy</string>
     <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\u0020\u0020\u0020\u0020%s of actual location\n\u0020\u0020\u0020\u0020%s of actual altitude\n\u0020\u0020\u0020\u0020%s satellites\n\nCompass: Rotate device in a figure 8 pattern and move away from metal.</string>
-    <string name="gps_lock_acquired">GPS lock acquired</string>
     <!--Flashlight-->
     <string name="flashlight_title">Flashlight</string>
     <string name="tap_to_turn_off">Tap to turn off</string>
@@ -462,7 +458,6 @@
     <string name="pref_temperature_units" translatable="false">pref_temperature_units</string>
     <string name="pref_adjust_for_temperature" translatable="false">pref_adjust_for_temperature</string>
     <string name="pref_sea_level_use_rapid" translatable="false">pref_sea_level_use_rapid</string>
-    <string name="pref_temperature_adjustment_c" translatable="false">pref_temperature_adjustment_c</string>
     <string name="pref_temperature_holder" translatable="false">pref_temperature_holder</string>
     <string name="pref_weather_update_frequency" translatable="false">pref_weather_update_frequency</string>
     <string name="pref_altimeter_calibration_mode" translatable="false">pref_altimeter_calibration_mode</string>
@@ -701,7 +696,6 @@
     <string name="pref_backtrack_enabled" translatable="false">pref_backtrack_enabled</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="waypoint_beacon_title_template">%s, %s Waypoint</string>
-    <string name="pref_tools_category" translatable="false">pref_tools_category</string>
     <string name="pref_backtrack_enabled_summary">Record location history</string>
     <string name="pref_backtrack_frequency" translatable="false">pref_backtrack_frequency</string>
     <string name="pref_backtrack_frequency_title">Backtrack interval</string>
@@ -785,7 +779,6 @@
     <string name="onboarding_user_guide">Learn how to use Trail Sense\'s features with the user guide. Available at the bottom of the Tools tab.\n\nMore guides will be coming soon.</string>
     <!--This is in Markdown format-->
     <string name="onboarding_privacy">- Trail Sense respects your privacy and location data never leaves your device\n\n- Trail Sense will never require Internet permission\n\n- View the [Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html) (opens in your phone\'s browser)\n\n- Some features of Trail Sense require access to your location\n\n- Granting the location permission will enable the following features:\n\n\t- Navigating to beacons\n\n\t- Improved forecast accuracy (requires background location, not available on all devices)\n\n\t- Backtrack (requires background location)\n\n\t- Sun and moon times for your current location\n\n- If you choose to not grant the location permission, you can manually enter a location in the Settings > GPS calibration menu in Trail Sense.\n\n- After clicking continue, you will be prompted to grant the location and background location permissions. Denying those permissions will prevent Trail Sense from accessing your location, so a manual location entry is recommended.</string>
-    <string name="export_beacons">Export Beacons</string>
     <string name="export">Export</string>
     <string name="beacons_imported">%d beacons imported</string>
     <string name="select_import_file">Select Import File</string>

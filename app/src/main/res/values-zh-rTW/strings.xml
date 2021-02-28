@@ -109,9 +109,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">未知</string>
-    <string name="accuracy_high">高</string>
-    <string name="accuracy_medium">中</string>
-    <string name="accuracy_low">低</string>
     <string name="dash">-</string>
     <string name="beacon_invalid_elevation">無效海拔高度</string>
     <string name="beacon_invalid_name">無效名稱</string>

@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location"
-        app:srcCompat="@drawable/ic_compass_simple" />
+        app:srcCompat="@drawable/compass" />
 
     <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
         android:id="@+id/linear_compass"

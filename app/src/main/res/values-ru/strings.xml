@@ -144,9 +144,6 @@
     <string name="flashlight_title">Фонарик</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Неизвестная</string>
-    <string name="accuracy_high">Высокая</string>
-    <string name="accuracy_medium">Средняя</string>
-    <string name="accuracy_low">Низкая</string>
     <string name="dash">-</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
@@ -183,7 +180,6 @@
     <string name="celsius">Градусы цельсия</string>
     <string name="humidity_format">%.0f%% влажность</string>
     <string name="dew_point">Точка росы %s</string>
-    <string name="gps_lock_acquired">Найдено местоположение по GPS</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
@@ -631,7 +627,6 @@
     <string name="select_import_file">Выбрать тип импорта</string>
     <string name="beacons_imported">%d маячков импортировано</string>
     <string name="export">Экспорт</string>
-    <string name="export_beacons">Экспорт маячков</string>
     <string name="onboarding_privacy">- Trail Sense уважает вашу конфиденциальность, и данные о местоположении никогда не покидают ваше устройство
 \n
 \n- Trail Sense никогда не потребует разрешения в Интернете
@@ -716,7 +711,6 @@
     <string name="lux_format">%s лк</string>
     <string name="candela_format">%s кд</string>
     <string name="distance_from_flashlight">Расстояние от фонарика</string>
-    <string name="tool_light_meter">tool_light_meter</string>
     <string name="beacon_export_error">Не удалось экспортировать маячки</string>
     <string name="beacons_exported">%d маячков экспортировано</string>
     <string name="help">Помощь</string>

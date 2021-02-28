@@ -69,7 +69,7 @@
         app:layout_constraintEnd_toEndOf="@+id/sunMoonChart"
         app:layout_constraintStart_toStartOf="@+id/sunMoonChart"
         app:layout_constraintTop_toTopOf="@+id/sunMoonChart"
-        app:srcCompat="@drawable/ic_sun_no_detail"
+        app:srcCompat="@drawable/ic_sun"
         tools:visibility="visible"/>
 
     <TextView

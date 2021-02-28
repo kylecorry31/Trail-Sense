@@ -186,7 +186,6 @@
     <string name="sos">紧急求救信号</string>
     <string name="tap_to_turn_off">轻触以关闭</string>
     <string name="flashlight_title">手电筒</string>
-    <string name="gps_lock_acquired">GPS 已锁定</string>
     <string name="accuracy_info">"GPS：到室外天空未被遮挡的地方。
 \n    %s 的实际位置
 \n    %s 的实际海拔
@@ -195,9 +194,6 @@
 \n指南针:以8字形旋转手机，并远离金属。"</string>
     <string name="accuracy_info_title">提高传感器精确度的小提示</string>
     <string name="unknown">未知</string>
-    <string name="accuracy_high">高</string>
-    <string name="accuracy_medium">中</string>
-    <string name="accuracy_low">低</string>
     <string name="degree_format">%.0f°</string>
     <string name="direction_south_west">西南</string>
     <string name="direction_north_west">西北</string>
@@ -668,7 +664,6 @@
     <string name="select_import_file">选择导入文件</string>
     <string name="beacons_imported">导入了 %d 个信标</string>
     <string name="export">导出</string>
-    <string name="export_beacons">导出信标</string>
     <string name="gps_unavailable">不可用</string>
     <string name="gps_searching">正在搜索</string>
     <string name="gps_stale">过时的</string>
@@ -701,7 +696,6 @@
     <string name="candela_format">%s cd</string>
     <string name="lux_format">%s lx</string>
     <string name="distance_from_flashlight">离手电筒的距离</string>
-    <string name="tool_light_meter">tool_light_meter</string>
     <string name="beacon_export_error">无法导出信标</string>
     <string name="beacons_exported">导出了 %d 个信标</string>
 </resources>

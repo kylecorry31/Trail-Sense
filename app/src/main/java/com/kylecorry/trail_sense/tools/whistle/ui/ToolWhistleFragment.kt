@@ -8,14 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
-import com.kylecorry.trail_sense.shared.MorseSymbol
-import com.kylecorry.trail_sense.shared.SOS
-import com.kylecorry.trail_sense.tools.whistle.infrastructure.Signal
-import com.kylecorry.trail_sense.tools.whistle.infrastructure.SignalPlayer
-import com.kylecorry.trail_sense.tools.whistle.infrastructure.WhistleSignalingDevice
+import com.kylecorry.trailsensecore.domain.morse.MorseService
+import com.kylecorry.trailsensecore.domain.morse.Signal
 import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.Whistle
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.morse.SignalPlayer
 import java.time.Duration
 
 class ToolWhistleFragment : Fragment() {
@@ -24,6 +21,7 @@ class ToolWhistleFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var whistle: ISoundPlayer
+    private val morseService = MorseService()
 
     private val morseDurationMs = 400L
 
@@ -38,15 +36,9 @@ class ToolWhistleFragment : Fragment() {
         Signal.off(Duration.ofSeconds(3))
     )
 
-    private val sosSignal = SOS.map {
-        if (it == MorseSymbol.Dash || it == MorseSymbol.Dot){
-            Signal.on(Duration.ofMillis(morseDurationMs).multipliedBy(it.durationMultiplier.toLong()))
-        } else {
-            Signal.off(Duration.ofMillis(morseDurationMs).multipliedBy(it.durationMultiplier.toLong()))
-        }
-    }
+    private val sosSignal = morseService.sosSignal(Duration.ofMillis(morseDurationMs)) + listOf(Signal.off(Duration.ofMillis(morseDurationMs * 7)))
 
-    private val signalWhistle by lazy { SignalPlayer(WhistleSignalingDevice(whistle)) }
+    private val signalWhistle by lazy { SignalPlayer(whistle) }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(

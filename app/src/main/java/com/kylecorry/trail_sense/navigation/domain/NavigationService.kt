@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.navigation.domain
 
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trail_sense.shared.math.deltaAngle
+import com.kylecorry.trailsensecore.domain.math.deltaAngle
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.INavigationService
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService

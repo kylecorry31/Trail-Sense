@@ -3,58 +3,24 @@ package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
 import android.os.IBinder
-import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.MorseSymbol
-import com.kylecorry.trail_sense.shared.SOS
+import com.kylecorry.trailsensecore.domain.morse.MorseService
+import com.kylecorry.trailsensecore.domain.morse.Signal
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.flashlight.IFlashlight
+import com.kylecorry.trailsensecore.infrastructure.morse.SignalPlayer
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import java.lang.Exception
+import java.time.Duration
 
 class SosService : Service() {
 
     private var flashlight: IFlashlight? = null
     private var running = false
-    private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
-
-    private var codeIdx = 0
-
-    private var runnable = Runnable {
-        runNextState()
-    }
-
-    private fun runNextState() {
-        if (!running) {
-            codeIdx = 0
-            flashlight?.off()
-            return
-        }
-
-        codeIdx %= SOS.size
-        val state = SOS[codeIdx]
-
-        when (state) {
-            MorseSymbol.Dash, MorseSymbol.Dot -> flashlight?.on()
-            else -> flashlight?.off()
-        }
-
-        codeIdx++
-
-        if (!running) {
-            codeIdx = 0
-            flashlight?.off()
-            return
-        }
-        handler.postDelayed(runnable, getStateTime(state))
-    }
-
-    private fun getStateTime(state: MorseSymbol): Long {
-        return state.durationMultiplier * 200L
-    }
+    private val signalPlayer by lazy { if (flashlight == null) null else SignalPlayer(flashlight!!) }
+    private val morseService = MorseService()
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -72,13 +38,16 @@ class SosService : Service() {
 
         flashlight = Flashlight(this)
         running = true
-        handler.post(runnable)
+        val sos = morseService.sosSignal(Duration.ofMillis(200)) + listOf(
+            Signal.off(Duration.ofMillis(200 * 7))
+        )
+        signalPlayer?.play(sos, true)
         return START_STICKY_COMPATIBILITY
     }
 
     override fun onDestroy() {
         running = false
-        handler.removeCallbacks(runnable)
+        signalPlayer?.cancel()
         flashlight?.off()
         super.onDestroy()
         stopForeground(true)

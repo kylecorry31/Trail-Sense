@@ -30,9 +30,6 @@
     <string name="direction_north_west">NO</string>
     <string name="direction_south_west">SO</string>
     <!--Navigation Tab - Accuracy-->
-    <string name="accuracy_low">Baixa</string>
-    <string name="accuracy_medium">Média</string>
-    <string name="accuracy_high">Alta</string>
     <string name="unknown">Indeterminada</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
@@ -362,7 +359,6 @@
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Toque para desligar</string>
     <string name="flashlight_title">Lanterna</string>
-    <string name="gps_lock_acquired">Detectada a posição de GPS</string>
     <string name="nautical_miles_format">%.2f nm</string>
     <string name="dialog_deny">Não, obrigado</string>
     <string name="dialog_grant">Atualizar as configurações</string>
@@ -558,7 +554,6 @@
     <string name="select_import_file">Selecione um arquivo a importar</string>
     <string name="beacons_imported">%d pontos importados</string>
     <string name="export">Exportar</string>
-    <string name="export_beacons">Exportar os Pontos de Orientação</string>
     <string name="onboarding_privacy">- Trail Sense respeita sua privacidade e seus dados de localização nunca deixam seu dispositivo
 \n
 \n- Trail Sense nunca exigirá permissão da Internet

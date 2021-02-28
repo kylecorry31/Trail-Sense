@@ -147,9 +147,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Neznámá</string>
-    <string name="accuracy_high">Vysoká</string>
-    <string name="accuracy_medium">Střední</string>
-    <string name="accuracy_low">Nízká</string>
     <string name="dash">-</string>
     <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>

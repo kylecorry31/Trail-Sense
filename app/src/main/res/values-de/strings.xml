@@ -129,9 +129,6 @@
     <string name="tide_normal">Mittzeit</string>
     <string name="tools">Werkzeuge</string>
     <string name="disclaimer_message_title">Haftungsausschluss</string>
-    <string name="accuracy_low">Niedrig</string>
-    <string name="accuracy_medium">Mittel</string>
-    <string name="accuracy_high">Hoch</string>
     <string name="unknown">Unbekannt</string>
     <string name="edit_beacon">Wegpunkt bearbeiten</string>
     <string name="share_action_send">Senden</string>
@@ -146,7 +143,6 @@
     <string name="copied_to_clipboard_toast">In die Zwischenablage kopiert</string>
     <string name="disclaimer_message_content">Trail Sense ist ein Werkzeug, welches in Überlebenssituationen verwendet werden kann, aber Sie sollten nicht nur einzig auf es verlassen. Bitte validieren Sie seine Genauigkeit, vermeiden Sie jede gefährliche Situation wenn möglich und bleiben Sie ruhig und vernünftig.</string>
     <string name="accuracy_info_title">Tipps um die Sensorengenauigkeit zu verbessern</string>
-    <string name="gps_lock_acquired">GPS Fix vorhanden</string>
     <string name="flashlight_title">Taschenlampe</string>
     <string name="tap_to_turn_off">Tippen zum Abschalten</string>
     <string name="sos">SOS</string>
@@ -632,7 +628,6 @@
     <string name="select_import_file">Datei auswählen</string>
     <string name="beacons_imported">%d Wegpunkte importiert</string>
     <string name="export">Exportieren</string>
-    <string name="export_beacons">Wegpunkte exportieren</string>
     <string name="import_btn">Importieren</string>
     <string name="gps_unavailable">Nicht verfügbar</string>
     <string name="gps_searching">Suchend</string>

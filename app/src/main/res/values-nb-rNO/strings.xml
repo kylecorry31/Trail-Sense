@@ -99,9 +99,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Ukjent</string>
-    <string name="accuracy_high">Høy</string>
-    <string name="accuracy_medium">Middels</string>
-    <string name="accuracy_low">Lav</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
     <string name="increase">+</string>
@@ -199,7 +196,6 @@
     <string name="beacon_invalid_elevation">Ugyldig høyde</string>
     <string name="eta">~ %s unna</string>
     <string name="sos">SOS</string>
-    <string name="gps_lock_acquired">GPS-posisjon innhentet</string>
     <string name="accuracy_info">"GPS: Kom deg ut med fri sikt til himmelen.
 \n    %s av faktisk posisjon
 \n    %s av faktisk høyde

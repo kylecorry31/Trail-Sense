@@ -44,7 +44,7 @@ import java.util.*
 
 class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
-    private val throttle = Throttle(100)
+    private val throttle = Throttle(500)
     private val sensorService by lazy { SensorService(requireContext()) }
     private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private lateinit var sensorListView: ListView<SensorDetails>
@@ -113,10 +113,13 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         intervalometer.stop()
     }
 
-    private fun updateClock(){
+    private fun updateClock() {
         sensorDetailsMap["clock"] = SensorDetails(
             getString(R.string.tool_clock_title),
-            formatService.formatTime(LocalTime.now()) + " " + ZonedDateTime.now().zone.getDisplayName(TextStyle.FULL, Locale.getDefault()),
+            formatService.formatTime(LocalTime.now()) + " " + ZonedDateTime.now().zone.getDisplayName(
+                TextStyle.FULL,
+                Locale.getDefault()
+            ),
             formatService.formatQuality(Quality.Good),
             CustomUiUtils.getQualityColor(requireContext(), Quality.Good),
             R.drawable.ic_tool_clock
@@ -124,13 +127,16 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         updateSensorList()
     }
 
-    private fun updateFlashlight(){
+    private fun updateFlashlight() {
         val hasFlashlight = Flashlight.hasFlashlight(requireContext())
         sensorDetailsMap["flashlight"] = SensorDetails(
             getString(R.string.flashlight_title),
             "",
             if (hasFlashlight) getString(R.string.available) else getString(R.string.gps_unavailable),
-            CustomUiUtils.getQualityColor(requireContext(), if (hasFlashlight) Quality.Good else Quality.Unknown),
+            CustomUiUtils.getQualityColor(
+                requireContext(),
+                if (hasFlashlight) Quality.Good else Quality.Unknown
+            ),
             R.drawable.flashlight
         )
         updateSensorList()
@@ -152,7 +158,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     }
 
     private fun updateBattery() {
-        val quality = when(battery.health){
+        val quality = when (battery.health) {
             BatteryHealth.Good -> Quality.Good
             BatteryHealth.Unknown -> Quality.Unknown
             else -> Quality.Poor
@@ -167,30 +173,45 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         updateSensorList()
     }
 
-    private fun updatePermissions(){
-        val location = PermissionUtils.hasPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-        val backgroundLocation = PermissionUtils.hasPermission(requireContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+    private fun updatePermissions() {
+        val location = PermissionUtils.hasPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
 
         sensorDetailsMap["location-permission"] = SensorDetails(
             getString(R.string.gps_location),
             "",
             if (location) getString(R.string.permission_granted) else getString(R.string.permission_not_granted),
-            CustomUiUtils.getQualityColor(requireContext(),  if (location) Quality.Good else Quality.Poor),
+            CustomUiUtils.getQualityColor(
+                requireContext(),
+                if (location) Quality.Good else Quality.Poor
+            ),
             if (location) R.drawable.ic_check else R.drawable.ic_cancel
         )
 
-        sensorDetailsMap["background-location-permission"] = SensorDetails(
-            getString(R.string.permission_background_location),
-            "",
-            if (backgroundLocation) getString(R.string.permission_granted) else getString(R.string.permission_not_granted),
-            CustomUiUtils.getQualityColor(requireContext(),  if (backgroundLocation) Quality.Good else Quality.Poor),
-            if (backgroundLocation) R.drawable.ic_check else R.drawable.ic_cancel
-        )
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            val backgroundLocation = PermissionUtils.hasPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            )
+
+            sensorDetailsMap["background-location-permission"] = SensorDetails(
+                getString(R.string.permission_background_location),
+                "",
+                if (backgroundLocation) getString(R.string.permission_granted) else getString(R.string.permission_not_granted),
+                CustomUiUtils.getQualityColor(
+                    requireContext(),
+                    if (backgroundLocation) Quality.Good else Quality.Poor
+                ),
+                if (backgroundLocation) R.drawable.ic_check else R.drawable.ic_cancel
+            )
+        }
         updateSensorList()
     }
 
     private fun updateBarometer() {
-        if (barometer is NullBarometer){
+        if (barometer is NullBarometer) {
             sensorDetailsMap["barometer"] = SensorDetails(
                 getString(R.string.barometer),
                 "",
@@ -251,7 +272,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     }
 
     private fun updateHygrometer() {
-        if (hygrometer is NullHygrometer){
+        if (hygrometer is NullHygrometer) {
             sensorDetailsMap["hygrometer"] = SensorDetails(
                 getString(R.string.hygrometer),
                 "",
@@ -317,7 +338,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     }
 
     private fun updateSensorList() {
-        if (throttle.isThrottled()){
+        if (throttle.isThrottled()) {
             return
         }
         synchronized(this) {
@@ -329,19 +350,19 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
     @ColorInt
     private fun getAltimeterColor(): Int {
-        if (altimeter is OverrideAltimeter){
+        if (altimeter is OverrideAltimeter) {
             return UiUtils.color(requireContext(), R.color.green)
         }
 
-        if (altimeter is CachedAltimeter){
+        if (altimeter is CachedAltimeter) {
             return UiUtils.color(requireContext(), R.color.red)
         }
 
-        if (altimeter is BarometricAltimeter){
+        if (altimeter is BarometricAltimeter) {
             return CustomUiUtils.getQualityColor(requireContext(), altimeter.quality)
         }
 
-        if (!altimeter.hasValidReading){
+        if (!altimeter.hasValidReading) {
             return UiUtils.color(requireContext(), R.color.yellow)
         }
 
@@ -349,15 +370,15 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     }
 
     private fun getAltimeterStatus(): String {
-        if (altimeter is OverrideAltimeter){
+        if (altimeter is OverrideAltimeter) {
             return getString(R.string.gps_user)
         }
 
-        if (altimeter is CachedGPS){
+        if (altimeter is CachedGPS) {
             return getString(R.string.gps_unavailable)
         }
 
-        if (!altimeter.hasValidReading){
+        if (!altimeter.hasValidReading) {
             return getString(R.string.gps_searching)
         }
 
@@ -366,19 +387,19 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
     @ColorInt
     private fun getGPSColor(): Int {
-        if (gps is OverrideGPS){
+        if (gps is OverrideGPS) {
             return UiUtils.color(requireContext(), R.color.green)
         }
 
-        if (gps is CachedGPS || !sensorChecker.hasGPS()){
+        if (gps is CachedGPS || !sensorChecker.hasGPS()) {
             return UiUtils.color(requireContext(), R.color.red)
         }
 
-        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)){
+        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
             return UiUtils.color(requireContext(), R.color.yellow)
         }
 
-        if (!gps.hasValidReading || (prefs.requiresSatellites && gps.satellites < 4)){
+        if (!gps.hasValidReading || (prefs.requiresSatellites && gps.satellites < 4)) {
             return UiUtils.color(requireContext(), R.color.yellow)
         }
 
@@ -386,19 +407,19 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     }
 
     private fun getGPSStatus(): String {
-        if (gps is OverrideGPS){
+        if (gps is OverrideGPS) {
             return getString(R.string.gps_user)
         }
 
-        if (gps is CachedGPS || !sensorChecker.hasGPS()){
+        if (gps is CachedGPS || !sensorChecker.hasGPS()) {
             return getString(R.string.gps_unavailable)
         }
 
-        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)){
+        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
             return getString(R.string.gps_stale)
         }
 
-        if (!gps.hasValidReading || (prefs.requiresSatellites && gps.satellites < 4)){
+        if (!gps.hasValidReading || (prefs.requiresSatellites && gps.satellites < 4)) {
             return getString(R.string.gps_searching)
         }
 

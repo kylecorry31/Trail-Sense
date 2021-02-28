@@ -342,7 +342,7 @@ class AstronomyFragment : Fragment() {
             ),
             // TODO: Get solar/lunar noon images
             Pair(
-                Pair(R.drawable.ic_sun_no_detail to -1, getString(R.string.solar_noon)),
+                Pair(R.drawable.ic_sun to -1, getString(R.string.solar_noon)),
                 solarNoon
             ),
             Pair(

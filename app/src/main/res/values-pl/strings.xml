@@ -166,9 +166,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Nieznana</string>
-    <string name="accuracy_high">Wysoka</string>
-    <string name="accuracy_medium">Średnia</string>
-    <string name="accuracy_low">Niska</string>
     <string name="dash">-</string>
     <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
@@ -388,7 +385,6 @@
     <string name="add_elevation_offsets">Używaj wysokości bezwględnej (n.p.m.)</string>
     <string name="sun_moon_compass_when_up">Gdy jest ponad horyzontem</string>
     <string name="category_medical">Medyczne</string>
-    <string name="gps_lock_acquired">Uzyskano pozycję GPS</string>
     <string name="pref_sunset_alert_time_title">Czas alertu przed zachodem słońca</string>
     <string name="tool_inventory_summary">Śledź posiadane przedmioty</string>
     <string name="category_natural">Naturalne</string>
@@ -626,7 +622,6 @@
     <string name="gps_user">Użytkownika</string>
     <string name="import_export_beacons">Import/eksport punktów nawigacyjnych</string>
     <string name="beacons_imported">Zaimportowano %d punktów nawigacyjnych</string>
-    <string name="export_beacons">Eksportuj punkty nawigacyjne</string>
     <string name="onboarding_privacy">- Program Trail Sense szanuje Twoją prywatność i dane lokalizacji nigdy nieopuszczą Twojego urzadzenia
 \n
 \n- Trail Sense nigdy nie wymaga połączenie z Internetem
@@ -705,6 +700,5 @@
     <string name="candela_format">%s cd</string>
     <string name="lux_format">%s lx</string>
     <string name="distance_from_flashlight">Odległość od latarki</string>
-    <string name="tool_light_meter">tool_light_meter</string>
     <string name="help">Pomoc</string>
 </resources>

@@ -27,9 +27,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Ezezaguna</string>
-    <string name="accuracy_high">Handia</string>
-    <string name="accuracy_medium">Tartekoa</string>
-    <string name="accuracy_low">Txikia</string>
     <string name="dash">-</string>
     <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
@@ -112,7 +109,6 @@
     <string name="beacon_elevation_hint_feet">Altitudea oinetan (hautazkoa)</string>
     <string name="beacon_invalid_elevation">Altitude ez balioduna</string>
     <string name="beacon_invalid_name">Izen ez balioduna</string>
-    <string name="gps_lock_acquired">GPS blokeoa lortuta</string>
     <string name="compass_declination">Deklinazioa</string>
     <string name="continue_button">JARRAITU</string>
     <string name="pref_github_title">GitHub</string>

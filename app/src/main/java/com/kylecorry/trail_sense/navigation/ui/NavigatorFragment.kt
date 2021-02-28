@@ -157,7 +157,7 @@ class NavigatorFragment : Fragment() {
 
         val arrowImg = UiUtils.drawable(requireContext(), R.drawable.ic_arrow_target)
         val destinationBearingImg = UiUtils.drawable(requireContext(), R.drawable.ic_arrow_target)
-        val sunImg = UiUtils.drawable(requireContext(), R.drawable.ic_sun_no_detail)
+        val sunImg = UiUtils.drawable(requireContext(), R.drawable.ic_sun)
         val moonImg = UiUtils.drawable(requireContext(), getMoonImage())
 
         beaconIndicators.forEach {
