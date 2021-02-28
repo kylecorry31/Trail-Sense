@@ -1,23 +1,29 @@
 package com.kylecorry.trail_sense.calibration.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.settings.PressureChartPreference
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.math.MathExtensions.toFloatCompat2
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
+import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
+import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import java.time.Duration
 import java.time.Instant
 
 class CalibrateBarometerFragment : PreferenceFragmentCompat() {
@@ -39,6 +45,9 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     private lateinit var maxTempCalibratedF: EditTextPreference
     private lateinit var minTempUncalibratedF: EditTextPreference
     private lateinit var maxTempUncalibratedF: EditTextPreference
+    private var chart: PressureChartPreference? = null
+
+    private var readingHistory: List<PressureAltitudeReading> = listOf()
 
     private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private lateinit var barometer: IBarometer
@@ -49,6 +58,8 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     private lateinit var units: PressureUnits
     private val formatService by lazy { FormatService(requireContext()) }
     private val unitService = UnitService()
+
+    private val pressureRepo by lazy { PressureRepo.getInstance(requireContext()) }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.barometer_calibration, rootKey)
@@ -62,6 +73,13 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
         thermometer = sensorService.getThermometer()
 
         bindPreferences()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        pressureRepo.getPressures().observe(viewLifecycleOwner) {
+            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
+        }
     }
 
     private fun refreshWeatherService() {
@@ -106,6 +124,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
         minTempUncalibratedF = findPreference(getString(R.string.pref_min_uncalibrated_temp_f))!!
         maxTempUncalibratedF = findPreference(getString(R.string.pref_max_uncalibrated_temp_f))!!
         altitudeChangeSeekBar = findPreference(getString(R.string.pref_barometer_altitude_change))
+        chart = findPreference(getString(R.string.pref_holder_pressure_chart))
         pressureChangeSeekBar =
             findPreference(getString(R.string.pref_sea_level_pressure_change_thresh))
 
@@ -238,6 +257,68 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
 
     }
 
+    private fun updateChart(){
+        val readings = if (prefs.weather.useSeaLevelPressure) {
+            getSeaLevelPressureHistory()
+        } else {
+            getPressureHistory()
+        }
+        val displayReadings = readings.filter {
+            Duration.between(
+                it.time,
+                Instant.now()
+            ) <= prefs.weather.pressureHistory
+        }
+        if (displayReadings.isNotEmpty()) {
+            chart?.setUnits(units)
+
+            val chartData = displayReadings.map {
+                val timeAgo = Duration.between(Instant.now(), it.time).seconds / (60f * 60f)
+                Pair(
+                    timeAgo as Number,
+                    (PressureUnitUtils.convert(
+                        it.value,
+                        units
+                    )) as Number
+                )
+            }
+
+            chart?.plot(chartData)
+        }
+    }
+
+    private fun getSeaLevelPressureHistory(includeCurrent: Boolean = false): List<PressureReading> {
+        val readings = readingHistory.toMutableList()
+        if (includeCurrent) {
+            readings.add(
+                PressureAltitudeReading(
+                    Instant.now(),
+                    barometer.pressure,
+                    altimeter.altitude,
+                    thermometer.temperature
+                )
+            )
+        }
+        return weatherService.convertToSeaLevel(
+            readings, prefs.weather.requireDwell, prefs.weather.maxNonTravellingAltitudeChange,
+            prefs.weather.maxNonTravellingPressureChange
+        )
+    }
+
+    private fun getPressureHistory(includeCurrent: Boolean = false): List<PressureReading> {
+        val readings = readingHistory.toMutableList()
+        if (includeCurrent) {
+            readings.add(
+                PressureAltitudeReading(
+                    Instant.now(),
+                    barometer.pressure,
+                    altimeter.altitude,
+                    thermometer.temperature
+                )
+            )
+        }
+        return NullPressureConverter().convert(readings)
+    }
 
     override fun onResume() {
         super.onResume()
@@ -285,6 +366,8 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
         if (throttle.isThrottled()) {
             return
         }
+
+        updateChart()
 
         val seaLevelPressure = prefs.weather.useSeaLevelPressure
 

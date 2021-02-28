@@ -830,4 +830,5 @@
     <string name="pref_show_moon_illumination" translatable="false">pref_show_moon_illumination</string>
     <string name="pref_backtrack_save_cell_summary">Records cell signal at the waypoint. Does not use the Internet.</string>
     <string name="pref_backtrack_save_cell_title">Record cell signal</string>
+    <string name="pref_holder_pressure_chart" translatable="false">pref_holder_pressure_chart</string>
 </resources>

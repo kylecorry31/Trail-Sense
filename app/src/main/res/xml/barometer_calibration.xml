@@ -3,8 +3,8 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:singleLineTitle="false"
         app:key="@string/pref_category_barometer_and_thermometer"
+        app:singleLineTitle="false"
         app:title="@string/barometer_thermometer">
 
         <Preference
@@ -13,6 +13,10 @@
             app:icon="@drawable/barometer"
             app:key="@string/pref_holder_pressure"
             app:singleLineTitle="false" />
+
+        <com.kylecorry.trail_sense.settings.PressureChartPreference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_holder_pressure_chart"></com.kylecorry.trail_sense.settings.PressureChartPreference>
 
         <ListPreference
             app:defaultValue="48"
@@ -40,7 +44,8 @@
             app:min="0"
             app:seekBarIncrement="1"
             app:singleLineTitle="false"
-            app:title="@string/pref_barometer_altitude_change_title" />
+            app:title="@string/pref_barometer_altitude_change_title"
+            app:updatesContinuously="true" />
 
         <SwitchPreferenceCompat
             android:dependency="@string/pref_use_sea_level_pressure"
@@ -69,7 +74,8 @@
             app:min="0"
             app:seekBarIncrement="1"
             app:singleLineTitle="false"
-            app:title="@string/pref_sea_level_pressure_change_thresh_title" />
+            app:title="@string/pref_sea_level_pressure_change_thresh_title"
+            app:updatesContinuously="true" />
 
         <SwitchPreferenceCompat
             android:dependency="@string/pref_use_sea_level_pressure"
@@ -87,15 +93,15 @@
             app:key="@string/pref_temperature_holder"
             app:singleLineTitle="false" />
 
-<!--        Celsius calibration-->
+        <!--        Celsius calibration-->
         <EditTextPreference
             android:defaultValue="0.0"
             android:inputType="numberDecimal"
             app:iconSpaceReserved="false"
             app:key="@string/pref_min_uncalibrated_temp_c"
             app:singleLineTitle="false"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/min_temp_uncalibrated" />
+            app:title="@string/min_temp_uncalibrated"
+            app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:defaultValue="0.0"
@@ -103,8 +109,8 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_min_calibrated_temp_c"
             app:singleLineTitle="false"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/min_temp_calibrated" />
+            app:title="@string/min_temp_calibrated"
+            app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:defaultValue="100.0"
@@ -112,8 +118,8 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_max_uncalibrated_temp_c"
             app:singleLineTitle="false"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/max_temp_uncalibrated" />
+            app:title="@string/max_temp_uncalibrated"
+            app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:defaultValue="100.0"
@@ -121,8 +127,8 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_max_calibrated_temp_c"
             app:singleLineTitle="false"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/max_temp_calibrated" />
+            app:title="@string/max_temp_calibrated"
+            app:useSimpleSummaryProvider="true" />
 
         <!--        Fahrenheit calibration-->
         <EditTextPreference
@@ -131,8 +137,8 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_min_uncalibrated_temp_f"
             app:singleLineTitle="false"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/min_temp_uncalibrated" />
+            app:title="@string/min_temp_uncalibrated"
+            app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:defaultValue="32.0"
@@ -140,8 +146,8 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_min_calibrated_temp_f"
             app:singleLineTitle="false"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/min_temp_calibrated" />
+            app:title="@string/min_temp_calibrated"
+            app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:defaultValue="212.0"
@@ -149,8 +155,8 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_max_uncalibrated_temp_f"
             app:singleLineTitle="false"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/max_temp_uncalibrated" />
+            app:title="@string/max_temp_uncalibrated"
+            app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:defaultValue="212.0"
@@ -158,8 +164,8 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_max_calibrated_temp_f"
             app:singleLineTitle="false"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/max_temp_calibrated" />
+            app:title="@string/max_temp_calibrated"
+            app:useSimpleSummaryProvider="true" />
 
 
     </PreferenceCategory>
