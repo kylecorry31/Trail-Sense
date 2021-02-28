@@ -11,6 +11,8 @@ class ErrorBannerView(context: Context, attrs: AttributeSet?) : ConstraintLayout
 
     private val binding: ViewErrorBannerBinding
 
+    private val errors: MutableList<UserError> = mutableListOf()
+
     private var onAction: (() -> Unit)? = null
 
     init {
@@ -20,11 +22,51 @@ class ErrorBannerView(context: Context, attrs: AttributeSet?) : ConstraintLayout
             onAction?.invoke()
         }
         binding.errorClose.setOnClickListener {
+            val id = synchronized(this) {
+                errors.firstOrNull()?.id
+            }
+            if (id != null) {
+                dismiss(id)
+            }
+        }
+    }
+
+    fun report(error: UserError) {
+        synchronized(this) {
+            errors.removeAll { it.id == id }
+            errors.add(error)
+            errors.sortBy { it.id }
+        }
+        displayNextError()
+        show()
+    }
+
+    fun dismiss(id: Int){
+        synchronized(this) {
+            errors.removeAll { it.id == id }
+        }
+        displayNextError()
+    }
+
+    fun dismissAll(){
+        synchronized(this) {
+            errors.clear()
+        }
+        displayNextError()
+    }
+
+    private fun displayNextError(){
+        val first = synchronized(this) {
+            errors.firstOrNull()
+        }
+        if (first != null) {
+            displayError(first)
+        } else {
             hide()
         }
     }
 
-    fun updateError(error: UserError) {
+    private fun displayError(error: UserError){
         binding.errorText.text = error.title
         binding.errorAction.text = error.action
         binding.errorIcon.setImageResource(error.icon)
@@ -34,7 +76,6 @@ class ErrorBannerView(context: Context, attrs: AttributeSet?) : ConstraintLayout
         } else {
             binding.errorAction.visibility = View.VISIBLE
         }
-        show()
     }
 
     fun show() {

@@ -27,7 +27,6 @@ import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
@@ -35,7 +34,6 @@ import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
-import kotlin.math.roundToInt
 
 class AstronomyFragment : Fragment() {
 
@@ -159,7 +157,7 @@ class AstronomyFragment : Fragment() {
         super.onPause()
         gps.stop(this::onLocationUpdate)
         intervalometer.stop()
-        (requireActivity() as MainActivity).errorBanner.hide()
+        gpsErrorShown = false
     }
 
     private fun requestLocationUpdate() {
@@ -555,21 +553,26 @@ class AstronomyFragment : Fragment() {
         }
 
         if (gps is OverrideGPS && gps.location == Coordinate.zero) {
+            val activity = requireActivity() as MainActivity
+            val navController = findNavController()
             val error = UserError(
+                USER_ERROR_GPS_NOT_SET,
                 getString(R.string.location_not_set),
                 R.drawable.satellite,
                 getString(R.string.set)
             ) {
-                findNavController().navigate(R.id.action_astronomyFragment_to_calibrateGPSFragment)
+                activity.errorBanner.dismiss(USER_ERROR_GPS_NOT_SET)
+                navController.navigate(R.id.calibrateGPSFragment)
             }
-            (requireActivity() as MainActivity).errorBanner.updateError(error)
+            activity.errorBanner.report(error)
             gpsErrorShown = true
         } else if (gps is CachedGPS && gps.location == Coordinate.zero) {
             val error = UserError(
+                USER_ERROR_NO_GPS,
                 getString(R.string.location_disabled),
                 R.drawable.satellite
             )
-            (requireActivity() as MainActivity).errorBanner.updateError(error)
+            (requireActivity() as MainActivity).errorBanner.report(error)
             gpsErrorShown = true
         }
     }

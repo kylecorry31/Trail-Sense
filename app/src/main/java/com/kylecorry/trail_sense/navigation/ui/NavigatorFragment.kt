@@ -8,15 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginBottom
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -48,7 +43,6 @@ import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 import java.time.Duration
 import java.time.Instant
 import java.util.*
@@ -320,7 +314,9 @@ class NavigatorFragment : Fragment() {
         super.onPause()
         rightQuickAction?.onPause()
         leftQuickAction?.onPause()
-        (requireActivity() as MainActivity).errorBanner.hide()
+        (requireActivity() as MainActivity).errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
+        shownAccuracyToast = false
+        gpsErrorShown = false
     }
 
     private fun getNearbyBeacons(): Collection<Beacon> {
@@ -430,8 +426,9 @@ class NavigatorFragment : Fragment() {
 
         if ((compass.quality == Quality.Poor || compass.quality == Quality.Moderate) && !shownAccuracyToast) {
             val banner = (requireActivity() as MainActivity).errorBanner
-            banner.updateError(
+            banner.report(
                 UserError(
+                    USER_ERROR_COMPASS_POOR,
                     getString(
                         R.string.compass_calibrate_toast, formatService.formatQuality(
                             compass.quality
@@ -444,6 +441,8 @@ class NavigatorFragment : Fragment() {
                     banner.hide()
                 })
             shownAccuracyToast = true
+        } else if (compass.quality == Quality.Good){
+            (requireActivity() as MainActivity).errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
         }
 
         if (gps.speed == 0.0f) {
@@ -640,21 +639,26 @@ class NavigatorFragment : Fragment() {
         }
 
         if (gps is OverrideGPS && gps.location == Coordinate.zero) {
+            val activity = requireActivity() as MainActivity
+            val navController = findNavController()
             val error = UserError(
+                USER_ERROR_GPS_NOT_SET,
                 getString(R.string.location_not_set),
                 R.drawable.satellite,
                 getString(R.string.set)
             ) {
-                navController.navigate(R.id.action_navigatorFragment_to_calibrateGPSFragment)
+                activity.errorBanner.dismiss(USER_ERROR_GPS_NOT_SET)
+                navController.navigate(R.id.calibrateGPSFragment)
             }
-            (requireActivity() as MainActivity).errorBanner.updateError(error)
+            activity.errorBanner.report(error)
             gpsErrorShown = true
         } else if (gps is CachedGPS && gps.location == Coordinate.zero) {
             val error = UserError(
+                USER_ERROR_NO_GPS,
                 getString(R.string.location_disabled),
                 R.drawable.satellite
             )
-            (requireActivity() as MainActivity).errorBanner.updateError(error)
+            (requireActivity() as MainActivity).errorBanner.report(error)
             gpsErrorShown = true
         }
     }
