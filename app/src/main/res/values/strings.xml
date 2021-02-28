@@ -831,4 +831,7 @@
     <string name="pref_backtrack_save_cell_summary">Records cell signal at the waypoint. Does not use the Internet.</string>
     <string name="pref_backtrack_save_cell_title">Record cell signal</string>
     <string name="pref_holder_pressure_chart" translatable="false">pref_holder_pressure_chart</string>
+    <string name="location_not_set">Location not set</string>
+    <string name="set">Set</string>
+    <string name="location_disabled">Location is disabled</string>
 </resources>

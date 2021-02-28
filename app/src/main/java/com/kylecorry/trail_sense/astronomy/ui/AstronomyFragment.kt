@@ -10,16 +10,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
+import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.astronomy.tides.Tide
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.declination.IDeclinationProvider
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -49,6 +56,9 @@ class AstronomyFragment : Fragment() {
     private val astronomyService = AstronomyService()
     private val geoService = GeoService()
     private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val sensorChecker by lazy { SensorChecker(requireContext()) }
+
+    private var gpsErrorShown = false
 
     private var declination = 0f
 
@@ -149,6 +159,7 @@ class AstronomyFragment : Fragment() {
         super.onPause()
         gps.stop(this::onLocationUpdate)
         intervalometer.stop()
+        (requireActivity() as MainActivity).errorBanner.hide()
     }
 
     private fun requestLocationUpdate() {
@@ -176,6 +187,7 @@ class AstronomyFragment : Fragment() {
         if (context == null) {
             return
         }
+        detectAndShowGPSError()
         binding.date.text = getDateString(displayDate)
         updateSunUI()
         updateMoonUI()
@@ -534,6 +546,31 @@ class AstronomyFragment : Fragment() {
             SunTimesMode.Civil -> getString(R.string.sun_civil)
             SunTimesMode.Nautical -> getString(R.string.sun_nautical)
             SunTimesMode.Astronomical -> getString(R.string.sun_astronomical)
+        }
+    }
+
+    private fun detectAndShowGPSError() {
+        if (gpsErrorShown) {
+            return
+        }
+
+        if (gps is OverrideGPS && gps.location == Coordinate.zero) {
+            val error = UserError(
+                getString(R.string.location_not_set),
+                R.drawable.satellite,
+                getString(R.string.set)
+            ) {
+                findNavController().navigate(R.id.action_astronomyFragment_to_calibrateGPSFragment)
+            }
+            (requireActivity() as MainActivity).errorBanner.updateError(error)
+            gpsErrorShown = true
+        } else if (gps is CachedGPS && gps.location == Coordinate.zero) {
+            val error = UserError(
+                getString(R.string.location_disabled),
+                R.drawable.satellite
+            )
+            (requireActivity() as MainActivity).errorBanner.updateError(error)
+            gpsErrorShown = true
         }
     }
 

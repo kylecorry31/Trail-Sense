@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
@@ -27,10 +28,12 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
@@ -97,7 +100,7 @@ class NavigatorFragment : Fragment() {
     private var leftQuickAction: QuickActionButton? = null
     private var rightQuickAction: QuickActionButton? = null
 
-    private var calibrateSnackbar: Snackbar? = null
+    private var gpsErrorShown = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -139,7 +142,7 @@ class NavigatorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        beaconRepo.getBeacons().observe(viewLifecycleOwner){
+        beaconRepo.getBeacons().observe(viewLifecycleOwner) {
             beacons = it.map { it.toBeacon() }
             nearbyBeacons = getNearbyBeacons()
             updateUI()
@@ -315,9 +318,9 @@ class NavigatorFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        calibrateSnackbar?.dismiss()
         rightQuickAction?.onPause()
         leftQuickAction?.onPause()
+        (requireActivity() as MainActivity).errorBanner.hide()
     }
 
     private fun getNearbyBeacons(): Collection<Beacon> {
@@ -361,7 +364,7 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun getDeclination(): Float {
-        return if (!userPrefs.useAutoDeclination){
+        return if (!userPrefs.useAutoDeclination) {
             userPrefs.declinationOverride
         } else {
             geoService.getDeclination(gps.location, gps.altitude)
@@ -419,52 +422,27 @@ class NavigatorFragment : Fragment() {
             destinationPanel.hide()
         }
 
+        detectAndShowGPSError()
         binding.gpsStatus.setStatusText(getGPSStatus())
         binding.gpsStatus.setBackgroundTint(getGPSColor())
         binding.compassStatus.setStatusText(formatService.formatQuality(compass.quality))
         binding.compassStatus.setBackgroundTint(getCompassColor())
 
-        if ((compass.quality == Quality.Poor || compass.quality == Quality.Moderate) && !shownAccuracyToast){
-            calibrateSnackbar = Snackbar.make(
-                binding.accuracyView, getString(
-                    R.string.compass_calibrate_toast, formatService.formatQuality(
-                        compass.quality
-                    ).toLowerCase(Locale.getDefault())
-                ), Snackbar.LENGTH_LONG
-            )
-            calibrateSnackbar?.setAnchorView(R.id.bottom_navigation)
-            calibrateSnackbar?.setAction(getString(R.string.how)){
-                displayAccuracyTips()
-            }
-            val originalMargin = binding.beaconBtn.marginBottom
-            val originalAccuracyMargin = binding.accuracyView.marginBottom
-            calibrateSnackbar?.addCallback(object :
-                BaseTransientBottomBar.BaseCallback<Snackbar>() {
-                override fun onShown(transientBottomBar: Snackbar?) {
-                    super.onShown(transientBottomBar)
-                    try {
-                        binding.beaconBtn.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                            this.bottomMargin = (transientBottomBar?.view?.height ?: 0) + originalMargin
-                        }
-                        binding.accuracyView.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                            this.bottomMargin = (transientBottomBar?.view?.height ?: 0) + originalAccuracyMargin
-                        }
-                    } catch (e: Exception){}
-                }
-
-                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                    super.onDismissed(transientBottomBar, event)
-                    try {
-                        binding.beaconBtn.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                            this.bottomMargin = originalMargin
-                        }
-                        binding.accuracyView.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                            this.bottomMargin = originalAccuracyMargin
-                        }
-                    } catch (e: Exception){}
-                }
-            })
-            calibrateSnackbar?.show()
+        if ((compass.quality == Quality.Poor || compass.quality == Quality.Moderate) && !shownAccuracyToast) {
+            val banner = (requireActivity() as MainActivity).errorBanner
+            banner.updateError(
+                UserError(
+                    getString(
+                        R.string.compass_calibrate_toast, formatService.formatQuality(
+                            compass.quality
+                        ).toLowerCase(Locale.getDefault())
+                    ),
+                    R.drawable.ic_compass_icon,
+                    getString(R.string.how)
+                ) {
+                    displayAccuracyTips()
+                    banner.hide()
+                })
             shownAccuracyToast = true
         }
 
@@ -617,19 +595,19 @@ class NavigatorFragment : Fragment() {
 
     @ColorInt
     private fun getGPSColor(): Int {
-        if (gps is OverrideGPS){
+        if (gps is OverrideGPS) {
             return UiUtils.color(requireContext(), R.color.green)
         }
 
-        if (gps is CachedGPS || !sensorChecker.hasGPS()){
+        if (gps is CachedGPS || !sensorChecker.hasGPS()) {
             return UiUtils.color(requireContext(), R.color.red)
         }
 
-        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)){
+        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
             return UiUtils.color(requireContext(), R.color.yellow)
         }
 
-        if (!gps.hasValidReading || (userPrefs.requiresSatellites && gps.satellites < 4)){
+        if (!gps.hasValidReading || (userPrefs.requiresSatellites && gps.satellites < 4)) {
             return UiUtils.color(requireContext(), R.color.yellow)
         }
 
@@ -637,23 +615,48 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun getGPSStatus(): String {
-        if (gps is OverrideGPS){
+        if (gps is OverrideGPS) {
             return getString(R.string.gps_user)
         }
 
-        if (gps is CachedGPS || !sensorChecker.hasGPS()){
+        if (gps is CachedGPS || !sensorChecker.hasGPS()) {
             return getString(R.string.gps_unavailable)
         }
 
-        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)){
+        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
             return getString(R.string.gps_stale)
         }
 
-        if (!gps.hasValidReading || (userPrefs.requiresSatellites && gps.satellites < 4)){
+        if (!gps.hasValidReading || (userPrefs.requiresSatellites && gps.satellites < 4)) {
             return getString(R.string.gps_searching)
         }
 
         return formatService.formatQuality(gps.quality)
+    }
+
+    private fun detectAndShowGPSError() {
+        if (gpsErrorShown) {
+            return
+        }
+
+        if (gps is OverrideGPS && gps.location == Coordinate.zero) {
+            val error = UserError(
+                getString(R.string.location_not_set),
+                R.drawable.satellite,
+                getString(R.string.set)
+            ) {
+                navController.navigate(R.id.action_navigatorFragment_to_calibrateGPSFragment)
+            }
+            (requireActivity() as MainActivity).errorBanner.updateError(error)
+            gpsErrorShown = true
+        } else if (gps is CachedGPS && gps.location == Coordinate.zero) {
+            val error = UserError(
+                getString(R.string.location_disabled),
+                R.drawable.satellite
+            )
+            (requireActivity() as MainActivity).errorBanner.updateError(error)
+            gpsErrorShown = true
+        }
     }
 
 

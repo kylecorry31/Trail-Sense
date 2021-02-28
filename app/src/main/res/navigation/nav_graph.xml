@@ -31,11 +31,27 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_navigatorFragment_to_calibrateGPSFragment"
+            app:destination="@id/calibrateGPSFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
     <fragment
         android:id="@+id/action_astronomy"
         android:name="com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment"
-        android:label="AstronomyFragment" />
+        android:label="AstronomyFragment" >
+        <action
+            android:id="@+id/action_astronomyFragment_to_calibrateGPSFragment"
+            app:destination="@id/calibrateGPSFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/action_experimental_tools"
         android:name="com.kylecorry.trail_sense.tools.ui.ToolsFragment"
