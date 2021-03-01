@@ -710,8 +710,12 @@
     <string name="beam_distance">%s расстояние луча</string>
     <string name="lux_format">%s лк</string>
     <string name="candela_format">%s кд</string>
-    <string name="distance_from_flashlight">Расстояние от фонарика</string>
+    <string name="distance_from_flashlight">Расстояние от телефона до фонарика</string>
     <string name="beacon_export_error">Не удалось экспортировать маячки</string>
     <string name="beacons_exported">%d маячков экспортировано</string>
     <string name="help">Помощь</string>
+    <string name="pref_backtrack_save_cell_title">Запись сотового сигнала</string>
+    <string name="pref_backtrack_save_cell_summary">Записывает сотовую связь в путевой точке. Интернетом не используется.</string>
+    <string name="tool_light_meter_title">Измеритель света</string>
+    <string name="tool_light_meter_description">Измерьте расстояние луча фонарика</string>
 </resources>
