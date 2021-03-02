@@ -232,4 +232,27 @@
     <string name="item_amount_hint">Kopurua</string>
     <string name="item_name_hint">Izena</string>
     <string name="category_natural">Naturala</string>
+    <string name="map_fractional_separator">:</string>
+    <string name="unit_inches">Hazbeteak</string>
+    <string name="unit_centimeters">Zentimetroak</string>
+    <string name="note_content_hint">Edukiak</string>
+    <string name="note_title_hint">Izenburua</string>
+    <string name="tool_notes_title">Oharrak</string>
+    <string name="metal_detector_calibrate">Kalibratu</string>
+    <string name="threshold">Atalasea</string>
+    <string name="triangulate_mark_beacon">Marka</string>
+    <string name="tool_category_signaling">Seinaleztapena</string>
+    <string name="tool_category_other">Beste batzuk</string>
+    <string name="tool_category_location">Kokapena</string>
+    <string name="tool_category_angles">Angeluak</string>
+    <string name="tool_category_time">Denbora</string>
+    <string name="tool_category_power">Energia</string>
+    <string name="tool_category_distance">Distantzia</string>
+    <string name="battery_health_overheat">Gainberotua</string>
+    <string name="battery_health_good">Ondo</string>
+    <string name="battery_health_dead">Hilda</string>
+    <string name="battery_health_cold">Hotz</string>
+    <string name="tool_battery_title">Bateria</string>
+    <string name="tool_ruler_title">Erregela</string>
+    <string name="reset">Berrezarri</string>
 </resources>
