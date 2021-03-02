@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.units.*
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -53,6 +54,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val sensorDetailsMap = mutableMapOf<String, SensorDetails?>()
 
+    private val cachedGPS by lazy { CachedGPS(requireContext(), 500) }
     private val gps by lazy { sensorService.getGPS() }
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val compass by lazy { sensorService.getCompass() }
@@ -90,6 +92,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
         sensorListView.addLineSeparator()
 
+        cachedGPS.asLiveData().observe(viewLifecycleOwner, { updateGPSCache() })
         gps.asLiveData().observe(viewLifecycleOwner, { updateGPS() })
         compass.asLiveData().observe(viewLifecycleOwner, { updateCompass() })
         barometer.asLiveData().observe(viewLifecycleOwner, { updateBarometer() })
@@ -138,6 +141,17 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 if (hasFlashlight) Quality.Good else Quality.Unknown
             ),
             R.drawable.flashlight
+        )
+        updateSensorList()
+    }
+
+    private fun updateGPSCache(){
+        sensorDetailsMap["gps_cache"] = SensorDetails(
+            getString(R.string.gps_cache),
+            formatService.formatLocation(cachedGPS.location),
+            getGPSCacheStatus(),
+            CustomUiUtils.getQualityColor(requireContext(), getGPSCacheQuality()),
+            R.drawable.satellite
         )
         updateSensorList()
     }
@@ -404,6 +418,22 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         }
 
         return CustomUiUtils.getQualityColor(requireContext(), gps.quality)
+    }
+
+    private fun getGPSCacheStatus(): String {
+        return if (cachedGPS.location == Coordinate.zero){
+            getString(R.string.gps_unavailable)
+        } else {
+            formatService.formatQuality(Quality.Good)
+        }
+    }
+
+    private fun getGPSCacheQuality(): Quality {
+        return if (cachedGPS.location == Coordinate.zero){
+            Quality.Poor
+        } else {
+            Quality.Good
+        }
     }
 
     private fun getGPSStatus(): String {
