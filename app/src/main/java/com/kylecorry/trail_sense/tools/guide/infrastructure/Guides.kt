@@ -82,6 +82,11 @@ object Guides {
                     R.raw.cliff_height
                 ),
                 UserGuide(
+                    context.getString(R.string.guide_light_meter_title),
+                    context.getString(R.string.guide_light_meter_description),
+                    R.raw.flashlight_testing
+                ),
+                UserGuide(
                     context.getString(R.string.guide_recommended_apps),
                     context.getString(R.string.guide_recommended_apps_description),
                     R.raw.recommended_apps

@@ -828,4 +828,6 @@
     <string name="set">Set</string>
     <string name="location_disabled">Location is disabled</string>
     <string name="gps_cache">GPS Cache</string>
+    <string name="guide_light_meter_title">Determine flashlight effectiveness</string>
+    <string name="guide_light_meter_description">How to determine the beam distance of flashlights</string>
 </resources>
