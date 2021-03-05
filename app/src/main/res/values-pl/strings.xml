@@ -706,4 +706,5 @@
     <string name="location_not_set">Lokalizacja nieustawiona</string>
     <string name="set">Ustaw</string>
     <string name="location_disabled">Lokalizacja jest wyłączona</string>
+    <string name="gps_cache">Pamięć podręczna GPS</string>
 </resources>
