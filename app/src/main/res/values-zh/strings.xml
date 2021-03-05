@@ -705,4 +705,5 @@
     <string name="location_disabled">位置被禁用</string>
     <string name="set">设置</string>
     <string name="location_not_set">未设置位置</string>
+    <string name="gps_cache">GPS 缓存</string>
 </resources>
