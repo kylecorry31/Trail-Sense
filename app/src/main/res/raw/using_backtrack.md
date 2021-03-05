@@ -8,4 +8,6 @@ You can enable Backtrack by clicking the quick action button in the top left of 
 
 Once Backtrack is enabled, you can open the tool by clicking the quick action button in the top left of the navigation tab or under the Location section in Tools. You should see a list of waypoints, which represent your position at a specific time. From there, you can tap on a waypoint to start navigation, or you can click the menu button to either create a beacon from it or delete it. It is recommended that you create a beacon from the waypoint and use that to navigate, as waypoints will only be available for 2 days before being deleted forever.
 
-**Note:** Backtrack will not run when your device is in low power mode - a setting will be created in the future to allow you to change that behavior.
+Using the cell signal strength readings, you can navigate back to a location where you had a cell signal if needed. The network shown is the one with the best signal strength which your phone is registered to.
+
+**Note:** Backtrack will not run when using lower power mode in Trail Sense
