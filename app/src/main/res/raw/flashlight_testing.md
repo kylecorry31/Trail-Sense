@@ -7,6 +7,6 @@ Using the Light Meter tool, you can test the beam distance of flashlights, and g
 5. Turn off your flashlight and view the beam distance
 6. Click "RESET" when done to test another flashlight
 
-# Determining what beam distance you need
+## Determining what beam distance you need
 
 The beam distance shown in Trail Sense should roughly match the beam distance on the flashlight's packaging. This means that at the beam distance, things will be illuminated about the same as on a night with a full moon, which is the minimum safe hiking light level. For reading a map, a shorter beam distance is recommended and for hiking a larger beam distance is recommended. If you can, experiment with a few flashlights at night to determine what beam distance is best for you.
