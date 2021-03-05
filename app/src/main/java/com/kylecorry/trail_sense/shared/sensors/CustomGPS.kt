@@ -77,6 +77,12 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
             _horizontalAccuracy = baseGPS.horizontalAccuracy
             _quality = baseGPS.quality
             _satellites = baseGPS.satellites
+
+            updateCache()
+
+            if (userPrefs.useAltitudeOffsets) {
+                _altitude -= AltitudeCorrection.getOffset(_location, context)
+            }
         } else {
             _location = Coordinate(
                 cache.getDouble(LAST_LATITUDE) ?: 0.0,
@@ -140,11 +146,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         _quality = baseGPS.quality
         _satellites = baseGPS.satellites
 
-        cache.putFloat(LAST_ALTITUDE, altitude)
-        cache.putLong(LAST_UPDATE, time.toEpochMilli())
-        cache.putFloat(LAST_SPEED, speed)
-        cache.putDouble(LAST_LONGITUDE, location.longitude)
-        cache.putDouble(LAST_LATITUDE, location.latitude)
+        updateCache()
 
         if (userPrefs.useAltitudeOffsets) {
             if (_mslAltitude != null){
@@ -159,6 +161,14 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         }
 
         return true
+    }
+
+    private fun updateCache(){
+        cache.putFloat(LAST_ALTITUDE, altitude)
+        cache.putLong(LAST_UPDATE, time.toEpochMilli())
+        cache.putFloat(LAST_SPEED, speed)
+        cache.putDouble(LAST_LONGITUDE, location.longitude)
+        cache.putDouble(LAST_LATITUDE, location.latitude)
     }
 
     private fun onTimeout(){
