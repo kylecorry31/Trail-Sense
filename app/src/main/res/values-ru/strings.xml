@@ -274,7 +274,7 @@
     <string name="heat_alert_frostbite_danger_title">Высокий риск обморожения</string>
     <string name="heat_alert_frostbite_warning_title">Риск обморожения</string>
     <string name="heat_alert_frostbite_caution_title">Возможность обморожения</string>
-    <string name="heat_alert_normal_title">Нет предупреждений</string>
+    <string name="heat_alert_normal_title">Нет предупреждений о температуре</string>
     <string name="heat_alert_heat_caution_title">Возможность теплового удара</string>
     <string name="heat_alert_heat_warning_title">Риск теплового удара</string>
     <string name="heat_alert_heat_message">Тепловой удар/риск инсульта. Обязательно пейте воду, оставайтесь в помещении или в тени, ограничьте физические нагрузки и следите за признаками теплового удара или инсульта.</string>
@@ -453,7 +453,7 @@
     <string name="distance_from">От</string>
     <string name="distance_hint">Расстояние</string>
     <string name="tool_distance_convert_title">Конвертер расстояний</string>
-    <string name="inventory_empty_text">Нет</string>
+    <string name="inventory_empty_text">Пусто</string>
     <string name="action_inventory_delete_all_confirm">Удалить все предметы инвентаря\?</string>
     <string name="action_inventory_delete_all">Удалить все</string>
     <string name="tool_whistle_title">Свисток</string>
@@ -715,7 +715,10 @@
     <string name="beacons_exported">%d маячков экспортировано</string>
     <string name="help">Помощь</string>
     <string name="pref_backtrack_save_cell_title">Запись сотового сигнала</string>
-    <string name="pref_backtrack_save_cell_summary">Записывает сотовую связь в путевой точке. Интернетом не используется.</string>
+    <string name="pref_backtrack_save_cell_summary">Записывает сотовую связь в путевой точке. Интернет не используется.</string>
     <string name="tool_light_meter_title">Измеритель света</string>
     <string name="tool_light_meter_description">Измерьте расстояние луча фонарика</string>
+    <string name="location_disabled">Местоположение отключено</string>
+    <string name="set">Установить</string>
+    <string name="location_not_set">Местоположение не установлено</string>
 </resources>
