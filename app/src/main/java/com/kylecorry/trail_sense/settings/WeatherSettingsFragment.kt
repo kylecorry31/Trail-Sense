@@ -14,6 +14,7 @@ class WeatherSettingsFragment : CustomPreferenceFragment() {
     private var prefMonitorWeather: SwitchPreferenceCompat? = null
     private var prefWeatherUpdateFrequency: ListPreference? = null
     private var prefShowWeatherNotification: SwitchPreferenceCompat? = null
+    private var prefShowDailyWeatherNotification: SwitchPreferenceCompat? = null
     private var prefShowPressureInNotification: SwitchPreferenceCompat? = null
     private var prefStormAlerts: SwitchPreferenceCompat? = null
 
@@ -23,6 +24,7 @@ class WeatherSettingsFragment : CustomPreferenceFragment() {
         prefMonitorWeather = switch(R.string.pref_monitor_weather)
         prefWeatherUpdateFrequency = list(R.string.pref_weather_update_frequency)
         prefShowWeatherNotification = switch(R.string.pref_show_weather_notification)
+        prefShowDailyWeatherNotification = switch(R.string.pref_daily_weather_notification)
         prefShowPressureInNotification = switch(R.string.pref_show_pressure_in_notification)
         prefStormAlerts = switch(R.string.pref_send_storm_alert)
     }
@@ -44,6 +46,10 @@ class WeatherSettingsFragment : CustomPreferenceFragment() {
             true
         }
         prefShowWeatherNotification?.setOnPreferenceClickListener {
+            restartWeatherMonitor()
+            true
+        }
+        prefShowDailyWeatherNotification?.setOnPreferenceClickListener {
             restartWeatherMonitor()
             true
         }

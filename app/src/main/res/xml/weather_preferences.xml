@@ -58,6 +58,15 @@
             app:singleLineTitle="false"
             app:title="@string/pref_show_pressure_in_notification_title" />
 
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_monitor_weather"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_daily_weather_notification"
+            app:singleLineTitle="false"
+            app:title="@string/pref_daily_weather_notification_title"
+            android:summary="@string/pref_daily_weather_notification_desc"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

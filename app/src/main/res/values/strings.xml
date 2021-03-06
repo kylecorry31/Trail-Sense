@@ -830,4 +830,12 @@
     <string name="gps_cache">GPS Cache</string>
     <string name="guide_light_meter_title">Determine flashlight effectiveness</string>
     <string name="guide_light_meter_description">How to determine the beam distance of flashlights</string>
+    <string name="todays_forecast">Today\'s forecast</string>
+    <string name="weather_better_than_yesterday">Better than yesterday</string>
+    <string name="weather_worse_than_yesterday">Worse than yesterday</string>
+    <string name="weather_same_as_yesterday">Same as yesterday</string>
+    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
+    <string name="pref_daily_weather_notification_title">Daily weather notification</string>
+<!--    This is temporary, no translations needed-->
+    <string name="pref_daily_weather_notification_desc">Sent every morning at 9:00</string>
 </resources>

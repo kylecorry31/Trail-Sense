@@ -8,6 +8,7 @@ import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalDate
 
 class WeatherPreferences(private val context: Context) {
 
@@ -18,21 +19,27 @@ class WeatherPreferences(private val context: Context) {
         get() = sensorChecker.hasBarometer()
 
     val shouldMonitorWeather: Boolean
-        get() = sensorChecker.hasBarometer() && (cache.getBoolean(context.getString(R.string.pref_monitor_weather)) ?: true)
+        get() = sensorChecker.hasBarometer() && (cache.getBoolean(context.getString(R.string.pref_monitor_weather))
+            ?: true)
 
     val weatherUpdateFrequency: Duration
         get() {
-            val raw = cache.getString(context.getString(R.string.pref_weather_update_frequency)) ?: "15"
+            val raw =
+                cache.getString(context.getString(R.string.pref_weather_update_frequency)) ?: "15"
             return Duration.ofMinutes(raw.toLongOrNull() ?: 15)
         }
+
+    val shouldShowDailyWeatherNotification: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_daily_weather_notification))
+            ?: true
 
     val shouldShowWeatherNotification: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_weather_notification)) ?: true
 
     val shouldShowPressureInNotification: Boolean
         get() = cache.getBoolean(
-            context.getString(R.string.pref_show_pressure_in_notification)) ?:
-            false
+            context.getString(R.string.pref_show_pressure_in_notification)
+        ) ?: false
 
     val useSeaLevelPressure: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_use_sea_level_pressure)) ?: true
@@ -53,10 +60,12 @@ class WeatherPreferences(private val context: Context) {
         get() = cache.getBoolean(context.getString(R.string.pref_sea_level_require_dwell)) ?: false
 
     val maxNonTravellingAltitudeChange: Float
-        get() = cache.getInt(context.getString(R.string.pref_barometer_altitude_change))?.toFloat() ?: 60f
+        get() = cache.getInt(context.getString(R.string.pref_barometer_altitude_change))?.toFloat()
+            ?: 60f
 
     val maxNonTravellingPressureChange: Float
-        get() = 20 * (cache.getInt(context.getString(R.string.pref_sea_level_pressure_change_thresh))?.toFloat() ?: 50f) / 200f
+        get() = 20 * (cache.getInt(context.getString(R.string.pref_sea_level_pressure_change_thresh))
+            ?.toFloat() ?: 50f) / 200f
 
     val sendStormAlerts: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_send_storm_alert)) ?: true
@@ -93,51 +102,83 @@ class WeatherPreferences(private val context: Context) {
         }
 
     var minBatteryTemperature: Float
-        get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_c))?.toFloatCompat2() ?: 0f
+        get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_c))
+            ?.toFloatCompat2() ?: 0f
         set(value) {
-            cache.putString(context.getString(R.string.pref_min_uncalibrated_temp_c), value.toString())
+            cache.putString(
+                context.getString(R.string.pref_min_uncalibrated_temp_c),
+                value.toString()
+            )
         }
 
     var minActualTemperature: Float
-        get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_c))?.toFloatCompat2() ?: 0f
+        get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_c))
+            ?.toFloatCompat2() ?: 0f
         set(value) {
-            cache.putString(context.getString(R.string.pref_min_calibrated_temp_c), value.toString())
+            cache.putString(
+                context.getString(R.string.pref_min_calibrated_temp_c),
+                value.toString()
+            )
         }
 
     var maxBatteryTemperature: Float
-        get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_c))?.toFloatCompat2() ?: 100f
+        get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_c))
+            ?.toFloatCompat2() ?: 100f
         set(value) {
-            cache.putString(context.getString(R.string.pref_max_uncalibrated_temp_c), value.toString())
+            cache.putString(
+                context.getString(R.string.pref_max_uncalibrated_temp_c),
+                value.toString()
+            )
         }
 
     var maxActualTemperature: Float
-        get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_c))?.toFloatCompat2() ?: 100f
+        get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_c))
+            ?.toFloatCompat2() ?: 100f
         set(value) {
-            cache.putString(context.getString(R.string.pref_max_calibrated_temp_c), value.toString())
+            cache.putString(
+                context.getString(R.string.pref_max_calibrated_temp_c),
+                value.toString()
+            )
         }
 
     var minBatteryTemperatureF: Float
-        get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_f))?.toFloatCompat2() ?: 32f
+        get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_f))
+            ?.toFloatCompat2() ?: 32f
         set(value) {
-            cache.putString(context.getString(R.string.pref_min_uncalibrated_temp_f), value.toString())
+            cache.putString(
+                context.getString(R.string.pref_min_uncalibrated_temp_f),
+                value.toString()
+            )
         }
 
     var minActualTemperatureF: Float
-        get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_f))?.toFloatCompat2() ?: 32f
+        get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_f))
+            ?.toFloatCompat2() ?: 32f
         set(value) {
-            cache.putString(context.getString(R.string.pref_min_calibrated_temp_f), value.toString())
+            cache.putString(
+                context.getString(R.string.pref_min_calibrated_temp_f),
+                value.toString()
+            )
         }
 
     var maxBatteryTemperatureF: Float
-        get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_f))?.toFloatCompat2() ?: 212f
+        get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_f))
+            ?.toFloatCompat2() ?: 212f
         set(value) {
-            cache.putString(context.getString(R.string.pref_max_uncalibrated_temp_f), value.toString())
+            cache.putString(
+                context.getString(R.string.pref_max_uncalibrated_temp_f),
+                value.toString()
+            )
         }
 
     var maxActualTemperatureF: Float
-        get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_f))?.toFloatCompat2() ?: 212f
+        get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_f))
+            ?.toFloatCompat2() ?: 212f
         set(value) {
-            cache.putString(context.getString(R.string.pref_max_calibrated_temp_f), value.toString())
+            cache.putString(
+                context.getString(R.string.pref_max_calibrated_temp_f),
+                value.toString()
+            )
         }
 
     val useLawOfCooling: Boolean
@@ -170,6 +211,15 @@ class WeatherPreferences(private val context: Context) {
             cache.putFloat("cache_pressure_setpoint_altitude", value.altitude)
             cache.putFloat("cache_pressure_setpoint_temperature", value.temperature)
             cache.putLong("cache_pressure_setpoint_time", value.time.toEpochMilli())
+        }
+
+    var dailyWeatherLastSent: LocalDate
+        get() {
+            val raw = (cache.getString("daily_weather_last_sent_date") ?: LocalDate.MIN.toString())
+            return LocalDate.parse(raw)
+        }
+        set(value) {
+            cache.putString("daily_weather_last_sent_date", value.toString())
         }
 
 }

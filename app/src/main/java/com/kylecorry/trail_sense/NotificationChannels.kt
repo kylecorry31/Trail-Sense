@@ -1,10 +1,6 @@
 package com.kylecorry.trail_sense
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
-import android.os.Build
-import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
@@ -13,6 +9,7 @@ import com.kylecorry.trail_sense.tools.flashlight.infrastructure.SosService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.StrobeService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
+import com.kylecorry.trail_sense.weather.infrastructure.receivers.DailyWeatherReceiver
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 
@@ -99,6 +96,15 @@ object NotificationChannels {
             WeatherUpdateService.FOREGROUND_CHANNEL_ID,
             context.getString(R.string.weather_update_notification_channel),
             context.getString(R.string.weather_update_notification_channel_desc),
+            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            true
+        )
+
+        NotificationUtils.createChannel(
+            context,
+            DailyWeatherReceiver.CHANNEL_ID,
+            context.getString(R.string.todays_forecast),
+            context.getString(R.string.todays_forecast),
             NotificationUtils.CHANNEL_IMPORTANCE_LOW,
             true
         )

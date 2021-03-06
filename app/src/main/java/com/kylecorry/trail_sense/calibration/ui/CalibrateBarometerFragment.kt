@@ -11,13 +11,12 @@ import com.kylecorry.trail_sense.shared.math.MathExtensions.toFloatCompat2
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
-import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
+import com.kylecorry.trail_sense.weather.infrastructure.PressureCalibrationUtils
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
-import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
@@ -258,11 +257,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     }
 
     private fun updateChart(){
-        val readings = if (prefs.weather.useSeaLevelPressure) {
-            getSeaLevelPressureHistory()
-        } else {
-            getPressureHistory()
-        }
+        val readings = PressureCalibrationUtils.calibratePressures(requireContext(), readingHistory)
         val displayReadings = readings.filter {
             Duration.between(
                 it.time,
@@ -285,39 +280,6 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
 
             chart?.plot(chartData)
         }
-    }
-
-    private fun getSeaLevelPressureHistory(includeCurrent: Boolean = false): List<PressureReading> {
-        val readings = readingHistory.toMutableList()
-        if (includeCurrent) {
-            readings.add(
-                PressureAltitudeReading(
-                    Instant.now(),
-                    barometer.pressure,
-                    altimeter.altitude,
-                    thermometer.temperature
-                )
-            )
-        }
-        return weatherService.convertToSeaLevel(
-            readings, prefs.weather.requireDwell, prefs.weather.maxNonTravellingAltitudeChange,
-            prefs.weather.maxNonTravellingPressureChange
-        )
-    }
-
-    private fun getPressureHistory(includeCurrent: Boolean = false): List<PressureReading> {
-        val readings = readingHistory.toMutableList()
-        if (includeCurrent) {
-            readings.add(
-                PressureAltitudeReading(
-                    Instant.now(),
-                    barometer.pressure,
-                    altimeter.altitude,
-                    thermometer.temperature
-                )
-            )
-        }
-        return NullPressureConverter().convert(readings)
     }
 
     override fun onResume() {
