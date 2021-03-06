@@ -701,4 +701,10 @@
     <string name="lux_format">%s lx</string>
     <string name="distance_from_flashlight">Odległość od latarki</string>
     <string name="help">Pomoc</string>
+    <string name="pref_backtrack_save_cell_summary">Rejestruje sygnał sieci komórkowej w wybranym punkcie. Funkcja nie korzysta z Internetu.</string>
+    <string name="pref_backtrack_save_cell_title">Rejestruj sygnał sieci komórkowej</string>
+    <string name="location_not_set">Lokalizacja nieustawiona</string>
+    <string name="set">Ustaw</string>
+    <string name="location_disabled">Lokalizacja jest wyłączona</string>
+    <string name="gps_cache">Pamięć podręczna GPS</string>
 </resources>

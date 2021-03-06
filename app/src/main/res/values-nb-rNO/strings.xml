@@ -611,4 +611,6 @@
     <string name="quality_moderate">Moderat</string>
     <string name="quality_poor">Dårlig</string>
     <string name="help">Hjelp</string>
+    <string name="pref_sea_level_use_rapid_title">Ta hensyn til hurtige lufttrykksendringer</string>
+    <string name="pref_sea_level_use_rapid_summary">Bruk hurtige lufttrykksnivåendringer i konverteringer ved havnivå</string>
 </resources>
