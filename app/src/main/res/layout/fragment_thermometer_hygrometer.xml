@@ -32,10 +32,10 @@
         android:id="@+id/humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="@+id/battery_temp"
         app:layout_constraintStart_toStartOf="@+id/battery_temp"
         app:layout_constraintTop_toBottomOf="@+id/battery_temp"
-        android:layout_marginTop="32dp"
         tools:text="10% humidity" />
 
     <ImageView
@@ -73,6 +73,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/humidity"
         tools:text="Dew point: 10 °F" />
+
+    <TextView
+        android:id="@+id/temp_chart_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/pref_temperature_units_title"
+        app:layout_constraintBottom_toTopOf="@id/chart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/temp_disclaimer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </com.github.mikephil.charting.charts.LineChart>
 
     <TextView
         android:id="@+id/temp_disclaimer"

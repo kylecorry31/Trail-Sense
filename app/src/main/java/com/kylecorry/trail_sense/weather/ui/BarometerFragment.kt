@@ -191,7 +191,7 @@ class BarometerFragment : Fragment() {
 
 
     private fun update() {
-        if (context == null) return
+        if (context == null || _binding == null) return
         if (barometer.pressure == 0.0f) return
 
         if (throttle.isThrottled()) {
