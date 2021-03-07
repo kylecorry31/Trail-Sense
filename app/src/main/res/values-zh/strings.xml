@@ -706,4 +706,6 @@
     <string name="set">设置</string>
     <string name="location_not_set">未设置位置</string>
     <string name="gps_cache">GPS 缓存</string>
+    <string name="guide_light_meter_description">如何确定手电筒的光束距离</string>
+    <string name="guide_light_meter_title">确定手电筒效率</string>
 </resources>
