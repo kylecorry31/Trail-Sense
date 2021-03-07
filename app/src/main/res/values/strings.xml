@@ -838,4 +838,10 @@
     <string name="pref_daily_weather_notification_title">Daily weather notification</string>
 <!--    This is temporary, no translations needed-->
     <string name="pref_daily_weather_notification_desc">Sent every morning around 9:00</string>
+    <string name="always_on">Always on</string>
+    <string name="service_update_frequency">Updates every %s</string>
+    <string name="battery_usage">%s battery usage</string>
+    <string name="high">High</string>
+    <string name="moderate">Moderate</string>
+    <string name="low">Low</string>
 </resources>

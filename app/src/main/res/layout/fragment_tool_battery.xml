@@ -92,4 +92,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/battery_health" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/running_services"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/low_power_mode_switch" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
