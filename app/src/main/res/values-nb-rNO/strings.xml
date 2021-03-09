@@ -613,4 +613,13 @@
     <string name="help">Hjelp</string>
     <string name="pref_sea_level_use_rapid_title">Ta hensyn til hurtige lufttrykksendringer</string>
     <string name="pref_sea_level_use_rapid_summary">Bruk hurtige lufttrykksnivåendringer i konverteringer ved havnivå</string>
+    <string name="pref_daily_weather_notification_title">Daglig værmelding</string>
+    <string name="weather_same_as_yesterday">Samme som i går</string>
+    <string name="weather_worse_than_yesterday">Verre enn i går</string>
+    <string name="weather_better_than_yesterday">Bedre enn i går</string>
+    <string name="todays_forecast">Dagens værvarsel</string>
+    <string name="guide_light_meter_title">Bestem lommelykteffektivitet</string>
+    <string name="gps_cache">GPS-hurtiglager</string>
+    <string name="tool_light_meter_title">Lysmåler</string>
+    <string name="distance_from_flashlight">Avstand fra telefon til lommelykt</string>
 </resources>
