@@ -721,4 +721,20 @@
     <string name="location_disabled">Местоположение отключено</string>
     <string name="set">Установить</string>
     <string name="location_not_set">Местоположение не установлено</string>
+    <string name="no_temperature_history">Нет истории температуры</string>
+    <string name="low">Низкий</string>
+    <string name="moderate">Умеренный</string>
+    <string name="high">Высокий</string>
+    <string name="battery_usage">%s расход заряда батареи</string>
+    <string name="service_update_frequency">Обновляется каждые %s</string>
+    <string name="pref_daily_weather_notification_desc">Отправляется каждое утро около 9:00</string>
+    <string name="pref_daily_weather_notification_title">Ежедневное уведомление о погоде</string>
+    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
+    <string name="weather_same_as_yesterday">Как и вчера</string>
+    <string name="weather_worse_than_yesterday">Хуже, чем вчера</string>
+    <string name="weather_better_than_yesterday">Лучше, чем вчера</string>
+    <string name="todays_forecast">Сегодняшний прогноз</string>
+    <string name="guide_light_meter_description">Как определить расстояние луча фонарика</string>
+    <string name="guide_light_meter_title">Определить эффективность фонарика</string>
+    <string name="gps_cache">GPS-Кэш</string>
 </resources>
