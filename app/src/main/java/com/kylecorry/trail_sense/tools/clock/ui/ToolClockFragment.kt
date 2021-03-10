@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolClockBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
 import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
@@ -65,6 +66,12 @@ class ToolClockFragment : Fragment() {
     private fun onGPSUpdate(): Boolean {
         gpsTime = gps.time
         systemTime = Instant.now()
+
+        if (gps is CustomGPS && (gps as CustomGPS).isTimedOut){
+            UiUtils.shortToast(requireContext(), getString(R.string.no_gps_signal))
+            gpsTime = Instant.now()
+        }
+
         binding.updatingClock.visibility = View.INVISIBLE
         binding.pipButton.visibility = View.VISIBLE
         return false

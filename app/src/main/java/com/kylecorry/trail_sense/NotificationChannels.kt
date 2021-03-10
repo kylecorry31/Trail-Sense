@@ -9,7 +9,6 @@ import com.kylecorry.trail_sense.tools.flashlight.infrastructure.SosService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.StrobeService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import com.kylecorry.trail_sense.weather.infrastructure.receivers.DailyWeatherReceiver
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 
@@ -102,7 +101,7 @@ object NotificationChannels {
 
         NotificationUtils.createChannel(
             context,
-            DailyWeatherReceiver.CHANNEL_ID,
+            WeatherUpdateService.DAILY_CHANNEL_ID,
             context.getString(R.string.todays_forecast),
             context.getString(R.string.todays_forecast),
             NotificationUtils.CHANNEL_IMPORTANCE_LOW,

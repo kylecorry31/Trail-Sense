@@ -2,9 +2,7 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.receivers.DailyWeatherReceiver
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
-import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.tasks.ITaskScheduler
 import java.time.Duration
@@ -12,9 +10,6 @@ import java.time.Duration
 object WeatherUpdateScheduler {
     fun start(context: Context) {
         val prefs = UserPreferences(context)
-        if (prefs.weather.shouldShowDailyWeatherNotification){
-            DailyWeatherReceiver.schedule(context)
-        }
 
         if (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesWeather){
             return
@@ -28,7 +23,6 @@ object WeatherUpdateScheduler {
         val scheduler = getScheduler(context)
         scheduler.cancel()
         context.stopService(WeatherUpdateService.intent(context))
-        DailyWeatherReceiver.cancel(context)
     }
 
     fun getScheduler(context: Context): ITaskScheduler {

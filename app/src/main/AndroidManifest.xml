@@ -84,14 +84,6 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.DailyWeatherReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="com.kylecorry.trail_sense.DAILY_WEATHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-        <receiver
             android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver"
             android:enabled="true" />
         <receiver

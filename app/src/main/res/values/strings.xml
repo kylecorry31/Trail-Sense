@@ -845,4 +845,5 @@
     <string name="moderate">Moderate</string>
     <string name="low">Low</string>
     <string name="no_temperature_history">No temperature history</string>
+    <string name="no_gps_signal">No GPS Signal</string>
 </resources>

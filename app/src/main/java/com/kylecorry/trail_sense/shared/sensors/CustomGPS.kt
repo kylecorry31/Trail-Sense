@@ -48,6 +48,9 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     override val mslAltitude: Float?
         get() = _mslAltitude
 
+    val isTimedOut: Boolean
+        get() = _isTimedOut
+
     private val baseGPS by lazy { GPS(context.applicationContext) }
     private val cache by lazy { Cache(context.applicationContext) }
     private val userPrefs by lazy { UserPreferences(context) }
@@ -66,6 +69,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     private var _speed: Float = 0f
     private var _location = Coordinate.zero
     private var _mslAltitude: Float? = null
+    private var _isTimedOut = false
 
     init {
         if (baseGPS.hasValidReading){
@@ -122,6 +126,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         if (!shouldUpdateReading()){
             // Reset the timeout, there's a valid reading
             timeout.once(TIMEOUT_DURATION)
+            _isTimedOut = false
             notifyListeners()
             return true
         }
@@ -134,6 +139,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         } else {
             // Reset the timeout, there's a valid reading
             timeout.once(TIMEOUT_DURATION)
+            _isTimedOut = false
         }
 
         _location = baseGPS.location
@@ -172,6 +178,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     }
 
     private fun onTimeout(){
+        _isTimedOut = true
         notifyListeners()
         timeout.once(TIMEOUT_DURATION)
     }

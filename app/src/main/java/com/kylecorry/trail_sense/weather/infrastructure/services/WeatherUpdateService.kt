@@ -1,28 +1,29 @@
 package com.kylecorry.trail_sense.weather.infrastructure.services
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.Service
+import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
 import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
-import androidx.core.content.getSystemService
+import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.IsMorningSpecification
 import com.kylecorry.trail_sense.shared.PowerUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
+import com.kylecorry.trail_sense.weather.infrastructure.PressureCalibrationUtils
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
+import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
@@ -33,9 +34,7 @@ import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import java.time.Duration
-import java.time.Instant
-import java.time.ZonedDateTime
+import java.time.*
 
 class WeatherUpdateService : Service() {
 
@@ -123,17 +122,67 @@ class WeatherUpdateService : Service() {
         }
     }
 
+    private fun sendDailyWeatherNotification(readings: List<PressureReading>) {
+        val lastSentDate = userPrefs.weather.dailyWeatherLastSent
+        if (LocalDate.now() == lastSentDate) {
+            return
+        }
+
+        if (!IsMorningSpecification().isSatisfiedBy(LocalTime.now())){
+            return
+        }
+
+        userPrefs.weather.dailyWeatherLastSent = LocalDate.now()
+        val forecast = weatherService.getDailyWeather(readings)
+        val icon = when (forecast) {
+            Weather.ImprovingSlow -> R.drawable.sunny
+            Weather.WorseningSlow -> R.drawable.light_rain
+            else -> R.drawable.steady
+        }
+
+        val description = when (forecast) {
+            Weather.ImprovingSlow -> getString(R.string.weather_better_than_yesterday)
+            Weather.WorseningSlow -> getString(R.string.weather_worse_than_yesterday)
+            else -> getString(R.string.weather_same_as_yesterday)
+        }
+
+        val openIntent = MainActivity.weatherIntent(this)
+        val openPendingIntent: PendingIntent =
+            PendingIntent.getActivity(this, 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+
+        val builder = NotificationUtils.builder(this, DAILY_CHANNEL_ID)
+            .setContentTitle(getString(R.string.todays_forecast))
+            .setContentText(description)
+            .setSmallIcon(icon)
+            .setLargeIcon(Icon.createWithResource(this, icon))
+            .setAutoCancel(false)
+            .setContentIntent(openPendingIntent)
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            @Suppress("DEPRECATION")
+            builder.setPriority(Notification.PRIORITY_LOW)
+        }
+
+        val notification = builder.build()
+
+        NotificationUtils.send(this, DAILY_NOTIFICATION_ID, notification)
+    }
+
     private fun sendWeatherNotification() {
         runBlocking {
             withContext(Dispatchers.IO) {
-                val readings = weatherService.convertToSeaLevel(
+                val rawReadings =
                     pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }
-                        .sortedBy { it.time },
-                    userPrefs.weather.requireDwell,
-                    userPrefs.weather.maxNonTravellingAltitudeChange,
-                    userPrefs.weather.maxNonTravellingPressureChange
-                )
+                        .sortedBy { it.time }
+
+                val readings =
+                    PressureCalibrationUtils.calibratePressures(applicationContext, rawReadings)
+
                 val forecast = weatherService.getHourlyWeather(readings)
+
+                if (userPrefs.weather.shouldShowDailyWeatherNotification){
+                    sendDailyWeatherNotification(readings)
+                }
 
                 if (userPrefs.weather.shouldShowWeatherNotification) {
                     WeatherNotificationService.updateNotificationForecast(
@@ -240,12 +289,7 @@ class WeatherUpdateService : Service() {
                     pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }
                         .sortedBy { it.time }
                 val forecast = weatherService.getHourlyWeather(
-                    weatherService.convertToSeaLevel(
-                        readings,
-                        userPrefs.weather.requireDwell,
-                        userPrefs.weather.maxNonTravellingAltitudeChange,
-                        userPrefs.weather.maxNonTravellingPressureChange
-                    )
+                    PressureCalibrationUtils.calibratePressures(applicationContext, readings)
                 )
 
                 if (forecast == Weather.Storm) {
@@ -319,7 +363,8 @@ class WeatherUpdateService : Service() {
     }
 
     companion object {
-
+        const val DAILY_CHANNEL_ID = "daily-weather"
+        private const val DAILY_NOTIFICATION_ID = 798643
         private const val FOREGROUND_SERVICE_ID = 629579783
         const val STORM_CHANNEL_ID = "Alerts"
         const val FOREGROUND_CHANNEL_ID = "WeatherUpdate"
