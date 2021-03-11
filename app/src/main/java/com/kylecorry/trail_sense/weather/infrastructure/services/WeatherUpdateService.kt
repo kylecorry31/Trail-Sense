@@ -12,8 +12,6 @@ import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.IsMorningSpecification
-import com.kylecorry.trail_sense.shared.PowerUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
@@ -30,6 +28,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.trailsensecore.infrastructure.system.PowerUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -128,7 +127,7 @@ class WeatherUpdateService : Service() {
             return
         }
 
-        if (!IsMorningSpecification().isSatisfiedBy(LocalTime.now())){
+        if (!userPrefs.weather.dailyWeatherTimeSpecification.isSatisfiedBy(LocalTime.now())){
             return
         }
 

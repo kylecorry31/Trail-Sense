@@ -2,13 +2,16 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.IsMorningSpecification
 import com.kylecorry.trail_sense.shared.math.MathExtensions.toFloatCompat2
+import com.kylecorry.trailsensecore.domain.specifications.Specification
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalTime
 
 class WeatherPreferences(private val context: Context) {
 
@@ -221,5 +224,11 @@ class WeatherPreferences(private val context: Context) {
         set(value) {
             cache.putString("daily_weather_last_sent_date", value.toString())
         }
+
+    val dailyWeatherIsForTomorrow: Boolean
+        get() = false // TODO: Parse the enum
+
+    val dailyWeatherTimeSpecification: Specification<LocalTime>
+        get() = IsMorningSpecification() // TODO: Parse the enum
 
 }

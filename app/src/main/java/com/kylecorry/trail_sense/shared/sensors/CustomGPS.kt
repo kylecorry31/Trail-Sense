@@ -70,6 +70,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     private var _location = Coordinate.zero
     private var _mslAltitude: Float? = null
     private var _isTimedOut = false
+    private var mslOffset = 0f
 
     init {
         if (baseGPS.hasValidReading){
@@ -83,10 +84,6 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
             _satellites = baseGPS.satellites
 
             updateCache()
-
-            if (userPrefs.useAltitudeOffsets) {
-                _altitude -= AltitudeCorrection.getOffset(_location, context)
-            }
         } else {
             _location = Coordinate(
                 cache.getDouble(LAST_LATITUDE) ?: 0.0,
