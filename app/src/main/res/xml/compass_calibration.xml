@@ -21,7 +21,7 @@
 
         <SwitchPreferenceCompat
             android:summary="@string/pref_use_legacy_compass_summary"
-            app:defaultValue="true"
+            app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_use_legacy_compass"
             app:singleLineTitle="false"

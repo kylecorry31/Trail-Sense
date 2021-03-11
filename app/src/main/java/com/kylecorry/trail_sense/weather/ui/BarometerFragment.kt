@@ -134,6 +134,13 @@ class BarometerFragment : Fragment() {
             true
         }
 
+        pressureRepo.getPressures().observe(viewLifecycleOwner) {
+            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
+        }
+
+        barometer.asLiveData().observe(viewLifecycleOwner, { update() })
+        thermometer.asLiveData().observe(viewLifecycleOwner, { update() })
+
     }
 
     override fun onCreateView(
@@ -142,14 +149,6 @@ class BarometerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = ActivityWeatherBinding.inflate(inflater, container, false)
-
-        pressureRepo.getPressures().observe(viewLifecycleOwner) {
-            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
-        }
-
-        barometer.asLiveData().observe(viewLifecycleOwner, { update() })
-        thermometer.asLiveData().observe(viewLifecycleOwner, { update() })
-
         return binding.root
     }
 
