@@ -715,4 +715,9 @@
     <string name="weather_worse_than_yesterday">Gorzej niż wczoraj</string>
     <string name="weather_better_than_yesterday">Lepiej niż wczoraj</string>
     <string name="todays_forecast">Dzisiejsza prognoza</string>
+    <string name="battery_usage">%s użycie baterii</string>
+    <string name="service_update_frequency">Aktualizacje co %s</string>
+    <string name="always_on">Zawsze włączone</string>
+    <string name="no_temperature_history">Brak historii temperatury</string>
+    <string name="no_gps_signal">Brak sygnału GPS</string>
 </resources>
