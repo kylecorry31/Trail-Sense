@@ -38,6 +38,10 @@ class LinearCompassViewHldr(private val compass: LinearCompassView, private val 
         compass.setOnClickListener { fn.invoke() }
     }
 
+    override fun setIndicators(indicators: List<BearingIndicator>) {
+        TODO("Not yet implemented")
+    }
+
     private fun showBeacon(indicator: ImageView, bearing: Float, isSunOrMoon: Boolean){
         indicator.rotation = 0f
 

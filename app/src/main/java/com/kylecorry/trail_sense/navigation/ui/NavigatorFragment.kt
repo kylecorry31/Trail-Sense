@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
@@ -65,8 +66,6 @@ class NavigatorFragment : Fragment() {
     private lateinit var navController: NavController
 
     private lateinit var destinationPanel: DestinationPanel
-
-    private lateinit var beaconIndicators: List<ImageView>
 
     private lateinit var visibleCompass: ICompassView
 
@@ -148,30 +147,6 @@ class NavigatorFragment : Fragment() {
 
         destinationPanel = DestinationPanel(binding.navigationSheet)
 
-        val tmpBeaconIndicators = mutableListOf<ImageView>()
-
-        for (i in 0..(userPrefs.navigation.numberOfVisibleBeacons + 4)) {
-            tmpBeaconIndicators.add(ImageView(requireContext()))
-        }
-        beaconIndicators = tmpBeaconIndicators
-
-        val arrowImg = UiUtils.drawable(requireContext(), R.drawable.ic_arrow_target)
-        val destinationBearingImg = UiUtils.drawable(requireContext(), R.drawable.ic_arrow_target)
-        val sunImg = UiUtils.drawable(requireContext(), R.drawable.ic_sun)
-        val moonImg = UiUtils.drawable(requireContext(), getMoonImage())
-
-        beaconIndicators.forEach {
-            it.setImageDrawable(arrowImg)
-            it.visibility = View.INVISIBLE
-            binding.root.addView(it)
-        }
-
-        beaconIndicators[0].setImageDrawable(sunImg)
-        beaconIndicators[1].setImageDrawable(moonImg)
-        beaconIndicators[2].setImageDrawable(destinationBearingImg)
-        beaconIndicators[2].imageTintList =
-            ColorStateList.valueOf(UiUtils.color(requireContext(), R.color.colorAccent))
-
         compass.asLiveData().observe(viewLifecycleOwner, { updateUI() })
         orientation.asLiveData().observe(viewLifecycleOwner, { onOrientationUpdate() })
         altimeter.asLiveData().observe(viewLifecycleOwner, { updateUI() })
@@ -181,12 +156,11 @@ class NavigatorFragment : Fragment() {
 
         roundCompass = CompassView(
             binding.needle,
-            beaconIndicators,
             binding.azimuthIndicator
         )
         linearCompass = LinearCompassViewHldr(
             binding.linearCompass,
-            beaconIndicators
+            listOf()
         )
 
         visibleCompass = linearCompass
@@ -265,6 +239,46 @@ class NavigatorFragment : Fragment() {
             ),
             R.string.dialog_ok
         )
+    }
+
+    private fun getIndicators(): List<BearingIndicator> {
+        val indicators = mutableListOf<BearingIndicator>()
+        if (userPrefs.astronomy.showOnCompass){
+            val isMoonUp = astronomyService.isMoonUp(gps.location)
+            val isSunUp = astronomyService.isSunUp(gps.location)
+            val showWhenDown = userPrefs.astronomy.showOnCompassWhenDown
+
+            val sunBearing = getSunBearing()
+            val moonBearing = getMoonBearing()
+
+            if (isSunUp){
+                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun))
+            } else if (!isSunUp && showWhenDown){
+                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun, null, 0.5f))
+            }
+
+            if (isMoonUp){
+                indicators.add(BearingIndicator(moonBearing, getMoonImage()))
+            } else if (!isSunUp && showWhenDown){
+                indicators.add(BearingIndicator(moonBearing, getMoonImage(), null, 0.5f))
+            }
+        }
+
+        if (destination != null){
+            indicators.add(BearingIndicator(gps.location.bearingTo(destination!!.coordinate), R.drawable.ic_arrow_target, verticalOffset = -42f))
+            return indicators
+        }
+
+        if (destinationBearing != null){
+            indicators.add(BearingIndicator(destinationBearing!!, R.drawable.ic_arrow_target, UiUtils.color(requireContext(), R.color.colorAccent), verticalOffset = -42f))
+        }
+
+        val nearby = nearbyBeacons
+        for (beacon in nearby){
+            indicators.add(BearingIndicator(gps.location.bearingTo(beacon.coordinate), R.drawable.ic_arrow_target, verticalOffset = -42f))
+        }
+
+        return indicators
     }
 
     private fun setVisibleCompass(compass: ICompassView) {
@@ -457,27 +471,14 @@ class NavigatorFragment : Fragment() {
 
         // Compass
         visibleCompass.azimuth = compass.bearing.value
-        visibleCompass.beacons = getCompassMarkers(nearbyBeacons).map { it.value }
+        visibleCompass.setIndicators(getIndicators())
+//        visibleCompass.beacons = getCompassMarkers(nearbyBeacons).map { it.value }
 
         // Altitude
         binding.altitude.text = formatService.formatSmallDistance(altimeter.altitude)
 
         // Location
         binding.location.text = formatService.formatLocation(gps.location)
-
-        // Sun and moon
-        beaconIndicators[0].visibility = getSunBeaconVisibility()
-        beaconIndicators[1].visibility = getMoonBeaconVisibility()
-        beaconIndicators[0].alpha = getSunBeaconOpacity()
-        beaconIndicators[1].alpha = getMoonBeaconOpacity()
-        beaconIndicators[2].visibility =
-            if (destination != null || destinationBearing == null) View.INVISIBLE else View.VISIBLE
-
-        beaconIndicators.forEach {
-            if (it.height == 0) {
-                it.visibility = View.INVISIBLE
-            }
-        }
 
         updateNavigationButton()
     }
@@ -486,41 +487,6 @@ class NavigatorFragment : Fragment() {
         return userPrefs.navigation.showLinearCompass && orientation.orientation == DeviceOrientation.Orientation.Portrait
     }
 
-    private fun getSunBeaconOpacity(): Float {
-        return if (astronomyService.isSunUp(gps.location)) {
-            1f
-        } else {
-            0.5f
-        }
-    }
-
-    private fun getMoonBeaconOpacity(): Float {
-        return if (astronomyService.isMoonUp(gps.location)) {
-            1f
-        } else {
-            0.5f
-        }
-    }
-
-    private fun getSunBeaconVisibility(): Int {
-        return if (userPrefs.astronomy.showOnCompassWhenDown) {
-            View.VISIBLE
-        } else if (!userPrefs.astronomy.showOnCompass || !astronomyService.isSunUp(gps.location)) {
-            View.INVISIBLE
-        } else {
-            View.VISIBLE
-        }
-    }
-
-    private fun getMoonBeaconVisibility(): Int {
-        return if (userPrefs.astronomy.showOnCompassWhenDown) {
-            View.VISIBLE
-        } else if (!userPrefs.astronomy.showOnCompass || !astronomyService.isMoonUp(gps.location)) {
-            View.INVISIBLE
-        } else {
-            View.VISIBLE
-        }
-    }
 
     private fun getPosition(): Position {
         return Position(gps.location, altimeter.altitude, compass.bearing, averageSpeed)
@@ -550,6 +516,7 @@ class NavigatorFragment : Fragment() {
     private fun onLocationUpdate() {
         nearbyBeacons = getNearbyBeacons()
         compass.declination = getDeclination()
+
         updateAverageSpeed()
         updateUI()
     }
@@ -666,16 +633,7 @@ class NavigatorFragment : Fragment() {
 
     @DrawableRes
     private fun getMoonImage(): Int {
-        return when (astronomyService.getCurrentMoonPhase().phase) {
-            MoonTruePhase.FirstQuarter -> R.drawable.ic_moon_first_quarter
-            MoonTruePhase.Full -> R.drawable.ic_moon
-            MoonTruePhase.ThirdQuarter -> R.drawable.ic_moon_third_quarter
-            MoonTruePhase.New -> R.drawable.ic_moon_new
-            MoonTruePhase.WaningCrescent -> R.drawable.ic_moon_waning_crescent
-            MoonTruePhase.WaningGibbous -> R.drawable.ic_moon_waning_gibbous
-            MoonTruePhase.WaxingCrescent -> R.drawable.ic_moon_waxing_crescent
-            MoonTruePhase.WaxingGibbous -> R.drawable.ic_moon_waxing_gibbous
-        }
+        return MoonPhaseImageMapper(requireContext()).getPhaseImage(astronomyService.getCurrentMoonPhase().phase)
     }
 
     companion object {

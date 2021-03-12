@@ -6,4 +6,7 @@ interface ICompassView {
     var beacons: List<Float>
 
     fun setOnClickListener(fn: () -> Unit)
+
+    fun setIndicators(indicators: List<BearingIndicator>)
+
 }
