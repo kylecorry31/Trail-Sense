@@ -722,4 +722,5 @@
     <string name="battery_usage">%s 电池使用</string>
     <string name="service_update_frequency">更新间隔 %s</string>
     <string name="always_on">始终开启</string>
+    <string name="no_gps_signal">无 GPS 信号</string>
 </resources>
