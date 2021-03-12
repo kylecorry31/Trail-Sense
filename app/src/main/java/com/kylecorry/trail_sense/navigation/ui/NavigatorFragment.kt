@@ -184,7 +184,7 @@ class NavigatorFragment : Fragment() {
 
         binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
-        roundCompass.setOnClickListener {
+        binding.roundCompass.setOnClickListener {
             if (destinationBearing == null) {
                 destinationBearing = compass.bearing
                 cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
@@ -252,30 +252,30 @@ class NavigatorFragment : Fragment() {
             val moonBearing = getMoonBearing()
 
             if (isSunUp){
-                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun))
+                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun, verticalOffset = 4f))
             } else if (!isSunUp && showWhenDown){
-                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun, null, 0.5f))
+                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun, null, 0.5f, verticalOffset = 4f))
             }
 
             if (isMoonUp){
-                indicators.add(BearingIndicator(moonBearing, getMoonImage()))
+                indicators.add(BearingIndicator(moonBearing, getMoonImage(), verticalOffset = 4f))
             } else if (!isSunUp && showWhenDown){
-                indicators.add(BearingIndicator(moonBearing, getMoonImage(), null, 0.5f))
+                indicators.add(BearingIndicator(moonBearing, getMoonImage(), null, 0.5f, verticalOffset = 4f))
             }
         }
 
         if (destination != null){
-            indicators.add(BearingIndicator(gps.location.bearingTo(destination!!.coordinate), R.drawable.ic_arrow_target, verticalOffset = -42f))
+            indicators.add(BearingIndicator(gps.location.bearingTo(destination!!.coordinate), R.drawable.ic_arrow_target, size = 50f, verticalOffset = -10f))
             return indicators
         }
 
         if (destinationBearing != null){
-            indicators.add(BearingIndicator(destinationBearing!!, R.drawable.ic_arrow_target, UiUtils.color(requireContext(), R.color.colorAccent), verticalOffset = -42f))
+            indicators.add(BearingIndicator(destinationBearing!!, R.drawable.ic_arrow_target, UiUtils.color(requireContext(), R.color.colorAccent), size = 50f, verticalOffset = -10f))
         }
 
         val nearby = nearbyBeacons
         for (beacon in nearby){
-            indicators.add(BearingIndicator(gps.location.bearingTo(beacon.coordinate), R.drawable.ic_arrow_target, verticalOffset = -42f))
+            indicators.add(BearingIndicator(gps.location.bearingTo(beacon.coordinate), R.drawable.ic_arrow_target, size = 50f, verticalOffset = -10f))
         }
 
         return indicators
@@ -471,7 +471,9 @@ class NavigatorFragment : Fragment() {
 
         // Compass
         visibleCompass.azimuth = compass.bearing.value
-        visibleCompass.setIndicators(getIndicators())
+        binding.roundCompass.setIndicators(getIndicators())
+        binding.roundCompass.rotation = -compass.bearing.value
+        visibleCompass.visibility = View.INVISIBLE
 //        visibleCompass.beacons = getCompassMarkers(nearbyBeacons).map { it.value }
 
         // Altitude
@@ -504,11 +506,11 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun onOrientationUpdate(): Boolean {
-        if (shouldShowLinearCompass()) {
-            setVisibleCompass(linearCompass)
-        } else {
-            setVisibleCompass(roundCompass)
-        }
+//        if (shouldShowLinearCompass()) {
+//            setVisibleCompass(linearCompass)
+//        } else {
+//            setVisibleCompass(roundCompass)
+//        }
         updateUI()
         return true
     }
