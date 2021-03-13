@@ -11,6 +11,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
@@ -23,7 +24,7 @@ import kotlin.math.absoluteValue
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-class LinearCompassView: View, ICompassView {
+class LinearCompassView : View, ICompassView {
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -40,6 +41,9 @@ class LinearCompassView: View, ICompassView {
     private var compass: Bitmap? = null
     private var isInit = false
     private var azimuth = Bearing(0f)
+    private var destination: Bearing? = null
+    @ColorInt
+    private var destinationColor: Int? = null
 
     var range = 180f
 
@@ -59,7 +63,7 @@ class LinearCompassView: View, ICompassView {
             val compassDrawable = UiUtils.drawable(context, R.drawable.compass)
             compass = compassDrawable?.toBitmap(compassSize, compassSize)
         }
-        if (visibility != VISIBLE){
+        if (visibility != VISIBLE) {
             postInvalidateDelayed(20)
             invalidate()
             return
@@ -69,6 +73,7 @@ class LinearCompassView: View, ICompassView {
         drawAzimuth(canvas)
         drawCompass(canvas)
         drawBearings(canvas)
+        drawDestination(canvas)
         postInvalidateDelayed(20)
         invalidate()
     }
@@ -82,7 +87,10 @@ class LinearCompassView: View, ICompassView {
             } else {
                 null
             }
-            val delta = deltaAngle(azimuth.value.roundToInt().toFloat(), indicator.bearing.value.roundToInt().toFloat())
+            val delta = deltaAngle(
+                azimuth.value.roundToInt().toFloat(),
+                indicator.bearing.value.roundToInt().toFloat()
+            )
             val centerPixel = when {
                 delta < -range / 2f -> {
                     0f // TODO: Display indicator that is off screen
@@ -91,7 +99,10 @@ class LinearCompassView: View, ICompassView {
                     width.toFloat() // TODO: Display indicator that is off screen
                 }
                 else -> {
-                    val deltaMin = deltaAngle(indicator.bearing.value, minDegrees.toFloat()).absoluteValue / (maxDegrees - minDegrees).toFloat()
+                    val deltaMin = deltaAngle(
+                        indicator.bearing.value,
+                        minDegrees.toFloat()
+                    ).absoluteValue / (maxDegrees - minDegrees).toFloat()
                     deltaMin * width
                 }
             }
@@ -108,8 +119,9 @@ class LinearCompassView: View, ICompassView {
         paint.alpha = 255
     }
 
-    private fun drawAzimuth(canvas: Canvas){
-        paint.colorFilter = PorterDuffColorFilter(UiUtils.androidTextColorPrimary(context), PorterDuff.Mode.SRC_IN)
+    private fun drawAzimuth(canvas: Canvas) {
+        paint.colorFilter =
+            PorterDuffColorFilter(UiUtils.androidTextColorPrimary(context), PorterDuff.Mode.SRC_IN)
         canvas.drawBitmap(
             getBitmap(R.drawable.ic_arrow_target),
             width / 2f - iconSize / 2f,
@@ -120,7 +132,7 @@ class LinearCompassView: View, ICompassView {
     }
 
 
-    private fun drawCompass(canvas: Canvas){
+    private fun drawCompass(canvas: Canvas) {
         val pixDeg = width / range
         val minDegrees = (azimuth.value - range / 2).roundToInt()
         val maxDegrees = (azimuth.value + range / 2).roundToInt()
@@ -180,6 +192,37 @@ class LinearCompassView: View, ICompassView {
         }
     }
 
+    private fun drawDestination(canvas: Canvas) {
+        destination ?: return
+        val color = destinationColor ?: UiUtils.color(context, R.color.colorPrimary)
+        val delta = deltaAngle(
+            azimuth.value.roundToInt().toFloat(),
+            destination!!.value.roundToInt().toFloat()
+        )
+
+        val pixelsPerDegree = width / range
+        paint.color = color
+        paint.alpha = 100
+        if (delta >= 0) {
+            canvas.drawRect(
+                width / 2f,
+                height - 0.5f * height,
+                width / 2f + delta * pixelsPerDegree,
+                height.toFloat(),
+                paint
+            )
+        } else {
+            canvas.drawRect(
+                width / 2f + delta * pixelsPerDegree,
+                height - 0.5f * height,
+                width / 2f,
+                height.toFloat(),
+                paint
+            )
+        }
+        paint.alpha = 255
+    }
+
     private fun getBitmap(@DrawableRes id: Int): Bitmap {
         val bitmap = if (icons.containsKey(id)) {
             icons[id]
@@ -198,6 +241,11 @@ class LinearCompassView: View, ICompassView {
 
     override fun setIndicators(indicators: List<BearingIndicator>) {
         this.indicators = indicators
+    }
+
+    override fun setDestination(bearing: Bearing?, @ColorInt color: Int?) {
+        destination = bearing
+        destinationColor = color
     }
 
     private fun dp(size: Float): Float {

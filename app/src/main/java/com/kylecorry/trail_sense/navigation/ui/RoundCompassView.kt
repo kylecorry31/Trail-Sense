@@ -5,10 +5,12 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.trailsensecore.domain.math.deltaAngle
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.*
 
@@ -20,6 +22,8 @@ class RoundCompassView : View, ICompassView {
     private var compass: Bitmap? = null
     private var isInit = false
     private var azimuth = Bearing(0f)
+    private var destination: Bearing? = null
+    @ColorInt private var destinationColor: Int? = null
 
     private var iconSize = 0
 
@@ -44,7 +48,7 @@ class RoundCompassView : View, ICompassView {
             val compassDrawable = UiUtils.drawable(context, R.drawable.compass)
             compass = compassDrawable?.toBitmap(compassSize, compassSize)
         }
-        if (visibility != VISIBLE){
+        if (visibility != VISIBLE) {
             postInvalidateDelayed(20)
             invalidate()
             return
@@ -55,12 +59,34 @@ class RoundCompassView : View, ICompassView {
         canvas.rotate(-azimuth.value, width / 2f, height / 2f)
         drawCompass(canvas)
         drawBearings(canvas)
+        drawDestination(canvas)
         canvas.restore()
         postInvalidateDelayed(20)
         invalidate()
     }
 
-    override fun setAzimuth(bearing: Bearing){
+    private fun drawDestination(canvas: Canvas) {
+        destination ?: return
+        val color = destinationColor ?: UiUtils.color(context, R.color.colorPrimary)
+        canvas.save()
+        paint.color = color
+        paint.alpha = 100
+        val dp2 = dp(2f)
+        canvas.drawArc(
+            iconSize.toFloat() + dp2,
+            iconSize.toFloat() + dp2,
+            width - iconSize.toFloat() - dp2,
+            height - iconSize.toFloat() - dp2,
+            270f + azimuth.value,
+            deltaAngle(azimuth.value, destination!!.value),
+            true,
+            paint
+        )
+        paint.alpha = 255
+        canvas.restore()
+    }
+
+    override fun setAzimuth(bearing: Bearing) {
         azimuth = bearing
     }
 
@@ -68,8 +94,14 @@ class RoundCompassView : View, ICompassView {
         this.indicators = indicators
     }
 
-    private fun drawAzimuth(canvas: Canvas){
-        paint.colorFilter = PorterDuffColorFilter(UiUtils.androidTextColorPrimary(context), PorterDuff.Mode.SRC_IN)
+    override fun setDestination(bearing: Bearing?, @ColorInt color: Int?) {
+        destination = bearing
+        destinationColor = color
+    }
+
+    private fun drawAzimuth(canvas: Canvas) {
+        paint.colorFilter =
+            PorterDuffColorFilter(UiUtils.androidTextColorPrimary(context), PorterDuff.Mode.SRC_IN)
         canvas.drawBitmap(
             getBitmap(R.drawable.ic_arrow_target),
             width / 2f - iconSize / 2f,
@@ -81,7 +113,7 @@ class RoundCompassView : View, ICompassView {
 
     private fun drawCompass(canvas: Canvas) {
         paint.alpha = 255
-        canvas.drawBitmap(compass!!, iconSize.toFloat(), iconSize.toFloat(), paint)
+        canvas.drawBitmap(compass!!, iconSize.toFloat() + dp(2f), iconSize.toFloat() + dp(2f), paint)
     }
 
     private fun drawBearings(canvas: Canvas) {

@@ -340,8 +340,18 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun getDestinationBearing(): Bearing? {
-        val destLocation = destination?.coordinate ?: return null
-        return transformTrueNorthBearing(gps.location.bearingTo(destLocation))
+        val destLocation = destination?.coordinate
+        return when {
+            destLocation != null -> {
+                transformTrueNorthBearing(gps.location.bearingTo(destLocation))
+            }
+            destinationBearing != null -> {
+                destinationBearing
+            }
+            else -> {
+                null
+            }
+        }
     }
 
     private fun getSelectedBeacon(nearby: Collection<Beacon>): Beacon? {
@@ -431,10 +441,14 @@ class NavigatorFragment : Fragment() {
 
         // Compass
         val indicators = getIndicators()
+        val destBearing = getDestinationBearing()
+        val destColor = if (destination != null) UiUtils.color(requireContext(), R.color.colorPrimary) else UiUtils.color(requireContext(), R.color.colorAccent)
         binding.roundCompass.setIndicators(indicators)
         binding.roundCompass.setAzimuth(compass.bearing)
+        binding.roundCompass.setDestination(destBearing, destColor)
         binding.linearCompass.setIndicators(indicators)
         binding.linearCompass.setAzimuth(compass.bearing)
+        binding.linearCompass.setDestination(destBearing, destColor)
 
         // Altitude
         binding.altitude.text = formatService.formatSmallDistance(altimeter.altitude)
