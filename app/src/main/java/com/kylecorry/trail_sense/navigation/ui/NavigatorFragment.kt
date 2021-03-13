@@ -232,13 +232,13 @@ class NavigatorFragment : Fragment() {
             if (isSunUp) {
                 indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun))
             } else if (!isSunUp && showWhenDown) {
-                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun, null, 0.5f))
+                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun, opacity = 0.5f))
             }
 
             if (isMoonUp) {
                 indicators.add(BearingIndicator(moonBearing, getMoonImage()))
             } else if (!isSunUp && showWhenDown) {
-                indicators.add(BearingIndicator(moonBearing, getMoonImage(), null, 0.5f))
+                indicators.add(BearingIndicator(moonBearing, getMoonImage(), opacity = 0.5f))
             }
         }
 
@@ -442,7 +442,10 @@ class NavigatorFragment : Fragment() {
         // Compass
         val indicators = getIndicators()
         val destBearing = getDestinationBearing()
-        val destColor = if (destination != null) UiUtils.color(requireContext(), R.color.colorPrimary) else UiUtils.color(requireContext(), R.color.colorAccent)
+        val destColor = if (destination != null) UiUtils.color(
+            requireContext(),
+            R.color.colorPrimary
+        ) else UiUtils.color(requireContext(), R.color.colorAccent)
         binding.roundCompass.setIndicators(indicators)
         binding.roundCompass.setAzimuth(compass.bearing)
         binding.roundCompass.setDestination(destBearing, destColor)
