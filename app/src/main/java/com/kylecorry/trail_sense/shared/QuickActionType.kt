@@ -11,7 +11,8 @@ enum class QuickActionType(val id: Int) {
     Clouds(2),
     Temperature(3),
     Ruler(5),
-    Maps(7)
+    Maps(7),
+    Whistle(8)
 }
 
 object QuickActionUtils {
@@ -25,6 +26,7 @@ object QuickActionUtils {
             QuickActionType.Temperature -> context.getString(R.string.pref_temperature_holder_title)
             QuickActionType.Ruler -> context.getString(R.string.tool_ruler_title)
             QuickActionType.Maps -> context.getString(R.string.trail_sense_maps)
+            QuickActionType.Whistle -> context.getString(R.string.tool_whistle_title)
         }
     }
 
@@ -33,6 +35,7 @@ object QuickActionUtils {
             QuickActionType.None,
             QuickActionType.Backtrack,
             QuickActionType.Flashlight,
+            QuickActionType.Whistle,
             QuickActionType.Ruler
         )
 
@@ -47,6 +50,7 @@ object QuickActionUtils {
         return listOf(
             QuickActionType.None,
             QuickActionType.Flashlight,
+            QuickActionType.Whistle,
             QuickActionType.Clouds,
             QuickActionType.Temperature
         )
@@ -55,7 +59,8 @@ object QuickActionUtils {
     fun astronomy(context: Context): List<QuickActionType> {
         return listOf(
             QuickActionType.None,
-            QuickActionType.Flashlight
+            QuickActionType.Flashlight,
+            QuickActionType.Whistle
         )
     }
 }

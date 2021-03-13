@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
+import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.ui.QuickActionClouds
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
@@ -625,6 +626,7 @@ class NavigatorFragment : Fragment() {
             QuickActionType.Temperature -> QuickActionNone(button, this)
             QuickActionType.Ruler -> QuickActionRuler(button, this, binding.ruler)
             QuickActionType.Maps -> QuickActionOfflineMaps(button, this)
+            QuickActionType.Whistle -> QuickActionWhistle(button, this)
         }
     }
 
