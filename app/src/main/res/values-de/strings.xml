@@ -658,4 +658,60 @@
     <string name="help">Hilfe</string>
     <string name="lux_format">%s lx</string>
     <string name="candela_format">%s cd</string>
+    <string name="no_gps_signal">Kein GPS-Signal</string>
+    <string name="no_temperature_history">Keine Temperatur-Historie</string>
+    <string name="low">Niedrig</string>
+    <string name="moderate">Mittel</string>
+    <string name="high">Hoch</string>
+    <string name="battery_usage">%s Batterienutzung</string>
+    <string name="service_update_frequency">Aktualisiere alle %s</string>
+    <string name="always_on">Immer an</string>
+    <string name="pref_daily_weather_notification_desc">Jeden Morgen gegen 9:00 senden</string>
+    <string name="pref_daily_weather_notification_title">Tägliche Wetter-Benachrichtigung</string>
+    <string name="weather_same_as_yesterday">Genau so wie gestern</string>
+    <string name="weather_worse_than_yesterday">Schlechter als gestern</string>
+    <string name="weather_better_than_yesterday">Besser als gestern</string>
+    <string name="todays_forecast">Vorhersage für heute</string>
+    <string name="guide_light_meter_title">Effektivität einer Taschenlampe herausfinden</string>
+    <string name="gps_cache">GPS Cache</string>
+    <string name="location_disabled">Standort ist deaktiviert</string>
+    <string name="location_not_set">Standort nicht gesetzt</string>
+    <string name="pref_backtrack_save_cell_title">Mobilfunksignal aufnehmen</string>
+    <string name="pref_backtrack_save_cell_summary">Nehme Mobilfunksignale an den Wegpunkten auf. Das Internet wird nicht genutzt.</string>
+    <string name="distance_from_flashlight">Distanz vom Handy zur Taschenlampe</string>
+    <string name="beacon_export_error">Beacons konnten nicht exportiert werden</string>
+    <string name="beacons_exported">%d Beacons exportiert</string>
+    <string name="onboarding_user_guide">Lerne mithilfe der Bedienungsanleitung, wie du Trail Sense\'s Funktionen benutzt. Du findest es ganz unten im Tools-Tab.
+\n
+\nIn Zukunft wird es mehr Anleitungen geben.</string>
+    <string name="onboarding_tools">- greife auf Tools zu, die dir in der Wildnis helfen können
+\n
+\n- gebe Signale mit der Taschenlampe oder der Trillerpfeife
+\n
+\n- konvertiere Orte von einer Papierkarte auf dein Handy
+\n
+\n- messe Winkel und bestimme die Höhe von Objekten
+\n
+\n- synchronisiere die Uhr ohne Internetverbindung
+\n
+\n- mache Notizen und behalte den Überblick über die Dinge, die du dabei hast
+\n
+\n- finde heruntergefallene Dinge aus Eisen oder Stahl</string>
+    <string name="onboarding_astronomy">- Erhalte Informationen zu Auf-/Untergang der Sonne und des Mondes
+\n
+\n- warnt dich, wenn die Sonne in Kürze untergehen wird
+\n
+\n- finde die Position der Sonne und des Mondes mithilfe des Kompass</string>
+    <string name="onboarding_weather">- Erhalte lokale Vorhersagen durch das Barometer des Smartphones
+\n
+\n- Nutzt keine Interentverbindung
+\n
+\n- Warnt von kommenden Stürmen</string>
+    <string name="onboarding_navigation">- Platziere Beacons und navigiere zu ihnen zurück
+\n
+\n- Finde deine aktuelle Position, Höhe und Geschwindigkeit heraus
+\n
+\n- Verfolge deinen Weg zurück mit Rückweg (läuft im Hintergrund, wenn es aktiviert wurde)</string>
+    <string name="backtrack_disabled_low_power_toast">Rückweg ist im Energiespar-Modus deaktiviert</string>
+    <string name="magnetic_field_format_precise">%s uT</string>
 </resources>
