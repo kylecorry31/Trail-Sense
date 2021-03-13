@@ -132,13 +132,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/tool_category_other"
+        android:title="@string/weather"
         app:iconSpaceReserved="false">
-        <Preference
-            android:icon="@drawable/ic_tool_metal_detector"
-            android:title="@string/tool_metal_detector_title"
-            app:key="@string/tool_metal_detector"
-            app:singleLineTitle="false" />
         <Preference
             android:icon="@drawable/thermometer"
             android:title="@string/tool_thermometer_title"
@@ -148,6 +143,16 @@
             android:icon="@drawable/cloudy"
             android:title="@string/clouds"
             app:key="@string/tool_clouds"
+            app:singleLineTitle="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/tool_category_other"
+        app:iconSpaceReserved="false">
+        <Preference
+            android:icon="@drawable/ic_tool_metal_detector"
+            android:title="@string/tool_metal_detector_title"
+            app:key="@string/tool_metal_detector"
             app:singleLineTitle="false" />
         <Preference
             android:icon="@drawable/ic_tool_health"
