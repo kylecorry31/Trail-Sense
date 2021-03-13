@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="navigation">Navegação</string>
     <string name="weather">Clima</string>
@@ -12,8 +13,6 @@
     <string name="sunrise_label">Nascer do Sol</string>
     <string name="sunset_label">Pôr-do-sol</string>
     <string name="until_sunset_label">até ao pôr-do-sol</string>
-
-
     <string name="pref_use_true_north_title">Verdadeiro Norte</string>
     <string name="pref_use_sea_level_pressure_title">Pressão ao nível do mar</string>
     <string name="pref_units_header">Generalidades</string>
@@ -45,31 +44,25 @@
     <string name="pref_show_sun_moon_compass_title">:Mostrar sol/lua na bússola</string>
     <string name="pref_show_linear_compass_title">Mostrar bússola linear</string>
     <string name="pref_show_linear_compass_summary">Quando o telefone é vertical</string>
-
     <plurals name="last_hours">
         <item quantity="one">ÚltimaÚltima %d hora</item>
         <item quantity="other">Última %d horas</item>
     </plurals>
-
     <plurals name="last_minutes">
         <item quantity="one">Última %d minuto</item>
         <item quantity="other">Última %d minutos</item>
     </plurals>
-
     <string name="meters">Medidores</string>
     <string name="feet_miles">Pés / Milhas</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">Luz</string>
     <string name="theme_dark">Escuro</string>
     <string name="theme_black">Preto</string>
     <string name="theme_system">Sistema</string>
-
     <string name="gps">GPS</string>
-
     <string name="sun_actual">Tempo real</string>
     <string name="sun_civil">Crepúsculo Civil</string>
     <string name="sun_nautical">Crepúsculo Náutico</string>
@@ -78,10 +71,10 @@
     <string name="tomorrow">Amanhã</string>
     <string name="yesterday">Ontem</string>
     <string name="pressure_tendency_indicator_alt">Indicador de tendência da pressão</string>
-
     <string name="pressure_48_hours">48 horas</string>
     <string name="pressure_24_hours">24 horas</string>
     <string name="pressure_12_hours">12 horas</string>
     <string name="pressure_4_hours">4 horas</string>
     <string name="pref_pressure_history_title">Histórico de pressão</string>
+    <string name="tools">Ferramentas</string>
 </resources>
