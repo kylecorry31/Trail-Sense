@@ -1,12 +1,9 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import com.kylecorry.trailsensecore.domain.geo.Bearing
+
 interface ICompassView {
-    var visibility: Int
-    var azimuth: Float
-    var beacons: List<Float>
-
-    fun setOnClickListener(fn: () -> Unit)
-
+    fun setAzimuth(azimuth: Bearing)
     fun setIndicators(indicators: List<BearingIndicator>)
 
 }

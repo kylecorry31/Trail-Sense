@@ -7,148 +7,143 @@ package com.kylecorry.trail_sense.navigation.ui
  */
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
-import android.os.Bundle
-import android.os.Parcelable
+import android.graphics.*
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
+import androidx.annotation.DrawableRes
+import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
-import kotlin.math.floor
+import com.kylecorry.trailsensecore.domain.math.deltaAngle
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import kotlin.math.absoluteValue
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-class LinearCompassView(
-    context: Context,
-    attrs: AttributeSet?
-) : View(context, attrs) {
-    private var mTextPaint: Paint? = null
-    private var mMainLinePaint: Paint? = null
-    private var mSecondaryLinePaint: Paint? = null
-    private var mTerciaryLinePaint: Paint? = null
-    private var mCardinalLinePaint: Paint? = null
-    private var mMarkerPaint: Paint? = null
-    private var pathMarker: Path? = null
-    private var mTextColor: Int
-    private var mBackgroundColor: Int
-    private var mLineColor: Int
-    private var mCardinalLineColor: Int
-    private var mMarkerColor: Int
-    private var mDegrees: Float
-    private var mTextSize: Float
-    private var mRangeDegrees: Float
-    private var mShowMarker: Boolean
+class LinearCompassView: View, ICompassView {
+
+    constructor(context: Context?) : super(context)
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    )
+
     private val formatService = FormatService(context)
+    private lateinit var paint: Paint
+    private val icons = mutableMapOf<Int, Bitmap>()
+    private var indicators = listOf<BearingIndicator>()
+    private var compass: Bitmap? = null
+    private var isInit = false
+    private var azimuth = Bearing(0f)
 
+    var range = 180f
 
-    private fun init() {
-        mTextPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        mTextPaint!!.textAlign = Paint.Align.CENTER
-        mMainLinePaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        mMainLinePaint!!.strokeWidth = 8f
-        mCardinalLinePaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        mCardinalLinePaint!!.strokeWidth = 8f
-        mSecondaryLinePaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        mSecondaryLinePaint!!.strokeWidth = 6f
-        mTerciaryLinePaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        mTerciaryLinePaint!!.strokeWidth = 3f
-        mMarkerPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        mMarkerPaint!!.style = Paint.Style.FILL
-        pathMarker = Path()
-    }
+    private var iconSize = 0
+    private var textSize = 0f
 
-    override fun onSaveInstanceState(): Parcelable {
-        val b = Bundle()
-        b.putParcelable("instanceState", super.onSaveInstanceState())
-        b.putFloat("degrees", mDegrees)
-        return b
-    }
-
-    override fun onRestoreInstanceState(state: Parcelable) {
-        var s: Parcelable? = state
-        if (s is Bundle) {
-            val b = s
-            mDegrees = b.getFloat("degrees", 0f)
-            s = b.getParcelable("instanceState")
-        }
-        super.onRestoreInstanceState(s)
-    }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec))
-    }
-
-    private fun measureWidth(measureSpec: Int): Int {
-        var result: Int
-        val specMode = MeasureSpec.getMode(measureSpec)
-        val specSize = MeasureSpec.getSize(measureSpec)
-        val minWidth =
-            floor(50 * resources.displayMetrics.density.toDouble()).toInt()
-        if (specMode == MeasureSpec.EXACTLY) {
-            result = specSize
-        } else {
-            result = minWidth + paddingLeft + paddingRight
-            if (specMode == MeasureSpec.AT_MOST) {
-                result = min(result, specSize)
-            }
-        }
-        return result
-    }
-
-    private fun measureHeight(measureSpec: Int): Int {
-        var result: Int
-        val specMode = MeasureSpec.getMode(measureSpec)
-        val specSize = MeasureSpec.getSize(measureSpec)
-        val minHeight =
-            floor(30 * resources.displayMetrics.density.toDouble()).toInt()
-        if (specMode == MeasureSpec.EXACTLY) {
-            result = specSize
-        } else {
-            result = minHeight + paddingTop + paddingBottom
-            if (specMode == MeasureSpec.AT_MOST) {
-                result = min(result, specSize)
-            }
-        }
-        return result
-    }
 
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        mTextPaint!!.color = mTextColor
-        mTextPaint!!.textSize = mTextSize
-        mMainLinePaint!!.color = mCardinalLineColor
-        mSecondaryLinePaint!!.color = mLineColor
-        mTerciaryLinePaint!!.color = mLineColor
-        mMarkerPaint!!.color = mMarkerColor
-        canvas.drawColor(mBackgroundColor)
-        val width = measuredWidth
-        val height = measuredHeight
-        val paddingTop = paddingTop
-        val paddingBottom = paddingBottom
-        val paddingLeft = paddingLeft
-        val paddingRight = paddingRight
-        val unitHeight = (height - paddingTop - paddingBottom) / 12
-        val pixDeg = (width - paddingLeft - paddingRight) / mRangeDegrees
-        val minDegrees = (mDegrees - mRangeDegrees / 2).roundToInt()
-        val maxDegrees = (mDegrees + mRangeDegrees / 2).roundToInt()
+        if (!isInit) {
+            paint = Paint(Paint.ANTI_ALIAS_FLAG)
+            paint.textAlign = Paint.Align.CENTER
+            iconSize = dp(25f).toInt()
+            textSize = sp(15f)
+            paint.textSize = textSize
+            val compassSize = min(height, width) - 2 * iconSize - 2 * dp(2f).toInt()
+            isInit = true
+            val compassDrawable = UiUtils.drawable(context, R.drawable.compass)
+            compass = compassDrawable?.toBitmap(compassSize, compassSize)
+        }
+        if (visibility != VISIBLE){
+            postInvalidateDelayed(20)
+            invalidate()
+            return
+        }
+        canvas.drawColor(Color.TRANSPARENT)
+
+        drawAzimuth(canvas)
+        drawCompass(canvas)
+        drawBearings(canvas)
+        postInvalidateDelayed(20)
+        invalidate()
+    }
+
+    private fun drawBearings(canvas: Canvas) {
+        val minDegrees = (azimuth.value - range / 2).roundToInt()
+        val maxDegrees = (azimuth.value + range / 2).roundToInt()
+        for (indicator in indicators) {
+            paint.colorFilter = if (indicator.tint != null) {
+                PorterDuffColorFilter(indicator.tint, PorterDuff.Mode.SRC_IN)
+            } else {
+                null
+            }
+            val delta = deltaAngle(azimuth.value.roundToInt().toFloat(), indicator.bearing.value.roundToInt().toFloat())
+            val centerPixel = when {
+                delta < -range / 2f -> {
+                    0f // TODO: Display indicator that is off screen
+                }
+                delta > range / 2f -> {
+                    width.toFloat() // TODO: Display indicator that is off screen
+                }
+                else -> {
+                    val deltaMin = deltaAngle(indicator.bearing.value, minDegrees.toFloat()).absoluteValue / (maxDegrees - minDegrees).toFloat()
+                    deltaMin * width
+                }
+            }
+            paint.alpha = (255 * indicator.opacity).toInt()
+            val bitmap = getBitmap(indicator.icon)
+            canvas.drawBitmap(
+                bitmap,
+                centerPixel - iconSize / 2f,
+                0f,
+                paint
+            )
+        }
+        paint.colorFilter = null
+        paint.alpha = 255
+    }
+
+    private fun drawAzimuth(canvas: Canvas){
+        paint.colorFilter = PorterDuffColorFilter(UiUtils.androidTextColorPrimary(context), PorterDuff.Mode.SRC_IN)
+        canvas.drawBitmap(
+            getBitmap(R.drawable.ic_arrow_target),
+            width / 2f - iconSize / 2f,
+            0f,
+            paint
+        )
+        paint.colorFilter = null
+    }
+
+
+    private fun drawCompass(canvas: Canvas){
+        val pixDeg = width / range
+        val minDegrees = (azimuth.value - range / 2).roundToInt()
+        val maxDegrees = (azimuth.value + range / 2).roundToInt()
         var i = -180
         while (i < 540) {
             if (i in minDegrees..maxDegrees) {
-                val paint = when {
-                    i % 45 == 0 -> mMainLinePaint!!
-                    else -> mSecondaryLinePaint!!
+                when {
+                    i % 45 == 0 -> {
+                        paint.color = UiUtils.color(context, R.color.colorPrimary)
+                        paint.strokeWidth = 8f
+                    }
+                    else -> {
+                        paint.color = UiUtils.androidTextColorPrimary(context)
+                        paint.strokeWidth = 8f
+                    }
                 }
                 when {
                     i % 90 == 0 -> {
                         canvas.drawLine(
-                            paddingLeft + pixDeg * (i - minDegrees),
-                            height - paddingBottom.toFloat(),
-                            paddingLeft + pixDeg * (i - minDegrees),
-                            6 * unitHeight + paddingTop.toFloat(),
+                            pixDeg * (i - minDegrees),
+                            height.toFloat(),
+                            pixDeg * (i - minDegrees),
+                            0.5f * height,
                             paint
                         )
                         val coord = when (i) {
@@ -158,26 +153,24 @@ class LinearCompassView(
                             -180, 180 -> formatService.formatDirection(CompassDirection.South)
                             else -> ""
                         }
-                        canvas.drawText(
-                            coord, paddingLeft + pixDeg * (i - minDegrees), (5 * unitHeight
-                                    + paddingTop).toFloat(), mTextPaint!!
-                        )
+                        paint.color = UiUtils.androidTextColorPrimary(context)
+                        canvas.drawText(coord, pixDeg * (i - minDegrees), 5 / 12f * height, paint)
                     }
                     i % 15 == 0 -> {
                         canvas.drawLine(
-                            paddingLeft + pixDeg * (i - minDegrees),
-                            height - paddingBottom.toFloat(),
-                            paddingLeft + pixDeg * (i - minDegrees),
-                            8 * unitHeight + paddingTop.toFloat(),
+                            pixDeg * (i - minDegrees),
+                            height.toFloat(),
+                            pixDeg * (i - minDegrees),
+                            0.75f * height,
                             paint
                         )
                     }
                     else -> {
                         canvas.drawLine(
-                            paddingLeft + pixDeg * (i - minDegrees),
-                            height - paddingBottom.toFloat(),
-                            paddingLeft + pixDeg * (i - minDegrees),
-                            10 * unitHeight + paddingTop.toFloat(),
+                            pixDeg * (i - minDegrees),
+                            height.toFloat(),
+                            pixDeg * (i - minDegrees),
+                            10 / 12f * height,
                             paint
                         )
                     }
@@ -185,47 +178,39 @@ class LinearCompassView(
             }
             i += 5
         }
-        if (mShowMarker) {
-            pathMarker!!.moveTo(width / 2.toFloat(), 1 * unitHeight + paddingTop.toFloat())
-            pathMarker!!.lineTo(width / 2 + 20.toFloat(), paddingTop.toFloat())
-            pathMarker!!.lineTo(width / 2 - 20.toFloat(), paddingTop.toFloat())
-            pathMarker!!.close()
-            canvas.drawPath(pathMarker!!, mMarkerPaint!!)
+    }
+
+    private fun getBitmap(@DrawableRes id: Int): Bitmap {
+        val bitmap = if (icons.containsKey(id)) {
+            icons[id]
+        } else {
+            val drawable = UiUtils.drawable(context, id)
+            val bm = drawable?.toBitmap(iconSize, iconSize)
+            icons[id] = bm!!
+            icons[id]
         }
+        return bitmap!!
     }
 
-    fun setDegrees(degrees: Float) {
-        mDegrees = degrees
-        invalidate()
-        requestLayout()
+    override fun setAzimuth(azimuth: Bearing) {
+        this.azimuth = azimuth
     }
 
-    override fun setBackgroundColor(color: Int) {
-        mBackgroundColor = color
-        invalidate()
-        requestLayout()
+    override fun setIndicators(indicators: List<BearingIndicator>) {
+        this.indicators = indicators
     }
 
-    init {
-        val a =
-            context.theme.obtainStyledAttributes(attrs, R.styleable.LinearCompassView, 0, 0)
-        mBackgroundColor =
-            a.getColor(R.styleable.LinearCompassView_backgroundColor, Color.BLACK)
-        mMarkerColor = a.getColor(R.styleable.LinearCompassView_markerColor, Color.RED)
-        mShowMarker = a.getBoolean(R.styleable.LinearCompassView_showMarker, true)
-        mLineColor =
-            a.getColor(R.styleable.LinearCompassView_lineColor, Color.WHITE)
-        mCardinalLineColor =
-            a.getColor(R.styleable.LinearCompassView_cardinalLineColor, Color.WHITE)
-        mTextColor =
-            a.getColor(R.styleable.LinearCompassView_textColor, Color.WHITE)
-        mTextSize = a.getDimension(
-            R.styleable.LinearCompassView_textSize,
-            15 * resources.displayMetrics.scaledDensity
+    private fun dp(size: Float): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, size,
+            resources.displayMetrics
         )
-        mDegrees = a.getFloat(R.styleable.LinearCompassView_degrees, 0f)
-        mRangeDegrees = a.getFloat(R.styleable.LinearCompassView_rangeDegrees, 180f)
-        a.recycle()
-        init()
+    }
+
+    private fun sp(size: Float): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_SP, size,
+            resources.displayMetrics
+        )
     }
 }

@@ -1,11 +1,9 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
@@ -27,7 +25,6 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
-import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
@@ -57,8 +54,6 @@ class NavigatorFragment : Fragment() {
     private val orientation by lazy { sensorService.getDeviceOrientation() }
     private val altimeter by lazy { sensorService.getAltimeter() }
 
-    private lateinit var roundCompass: ICompassView
-    private lateinit var linearCompass: ICompassView
     private val userPrefs by lazy { UserPreferences(requireContext()) }
 
     private var _binding: ActivityNavigatorBinding? = null
@@ -154,17 +149,6 @@ class NavigatorFragment : Fragment() {
 
         averageSpeed = userPrefs.navigation.averageSpeed
 
-        roundCompass = CompassView(
-            binding.needle,
-            binding.azimuthIndicator
-        )
-        linearCompass = LinearCompassViewHldr(
-            binding.linearCompass,
-            listOf()
-        )
-
-        visibleCompass = linearCompass
-        setVisibleCompass(roundCompass)
 
         binding.location.setOnLongClickListener {
             val sender = LocationCopy(requireContext(), Clipboard(requireContext()))
@@ -185,30 +169,24 @@ class NavigatorFragment : Fragment() {
         binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
         binding.roundCompass.setOnClickListener {
-            if (destinationBearing == null) {
-                destinationBearing = compass.bearing
-                cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
-                UiUtils.shortToast(
-                    requireContext(),
-                    getString(R.string.toast_destination_bearing_set)
-                )
-            } else {
-                destinationBearing = null
-                cache.remove(LAST_DEST_BEARING)
-            }
+            toggleDestinationBearing()
         }
-        linearCompass.setOnClickListener {
-            if (destinationBearing == null) {
-                destinationBearing = compass.bearing
-                cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
-                UiUtils.shortToast(
-                    requireContext(),
-                    getString(R.string.toast_destination_bearing_set)
-                )
-            } else {
-                destinationBearing = null
-                cache.remove(LAST_DEST_BEARING)
-            }
+        binding.linearCompass.setOnClickListener {
+            toggleDestinationBearing()
+        }
+    }
+
+    private fun toggleDestinationBearing() {
+        if (destinationBearing == null) {
+            destinationBearing = compass.bearing
+            cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
+            UiUtils.shortToast(
+                requireContext(),
+                getString(R.string.toast_destination_bearing_set)
+            )
+        } else {
+            destinationBearing = null
+            cache.remove(LAST_DEST_BEARING)
         }
     }
 
@@ -243,7 +221,7 @@ class NavigatorFragment : Fragment() {
 
     private fun getIndicators(): List<BearingIndicator> {
         val indicators = mutableListOf<BearingIndicator>()
-        if (userPrefs.astronomy.showOnCompass){
+        if (userPrefs.astronomy.showOnCompass) {
             val isMoonUp = astronomyService.isMoonUp(gps.location)
             val isSunUp = astronomyService.isSunUp(gps.location)
             val showWhenDown = userPrefs.astronomy.showOnCompassWhenDown
@@ -251,48 +229,53 @@ class NavigatorFragment : Fragment() {
             val sunBearing = getSunBearing()
             val moonBearing = getMoonBearing()
 
-            if (isSunUp){
-                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun, verticalOffset = 4f))
-            } else if (!isSunUp && showWhenDown){
-                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun, null, 0.5f, verticalOffset = 4f))
+            if (isSunUp) {
+                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun))
+            } else if (!isSunUp && showWhenDown) {
+                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun, null, 0.5f))
             }
 
-            if (isMoonUp){
-                indicators.add(BearingIndicator(moonBearing, getMoonImage(), verticalOffset = 4f))
-            } else if (!isSunUp && showWhenDown){
-                indicators.add(BearingIndicator(moonBearing, getMoonImage(), null, 0.5f, verticalOffset = 4f))
+            if (isMoonUp) {
+                indicators.add(BearingIndicator(moonBearing, getMoonImage()))
+            } else if (!isSunUp && showWhenDown) {
+                indicators.add(BearingIndicator(moonBearing, getMoonImage(), null, 0.5f))
             }
         }
 
-        if (destination != null){
-            indicators.add(BearingIndicator(gps.location.bearingTo(destination!!.coordinate), R.drawable.ic_arrow_target, size = 50f, verticalOffset = -10f))
+        if (destination != null) {
+            indicators.add(
+                BearingIndicator(
+                    transformTrueNorthBearing(
+                        gps.location.bearingTo(
+                            destination!!.coordinate
+                        )
+                    ), R.drawable.ic_arrow_target
+                )
+            )
             return indicators
         }
 
-        if (destinationBearing != null){
-            indicators.add(BearingIndicator(destinationBearing!!, R.drawable.ic_arrow_target, UiUtils.color(requireContext(), R.color.colorAccent), size = 50f, verticalOffset = -10f))
+        if (destinationBearing != null) {
+            indicators.add(
+                BearingIndicator(
+                    destinationBearing!!,
+                    R.drawable.ic_arrow_target,
+                    UiUtils.color(requireContext(), R.color.colorAccent)
+                )
+            )
         }
 
         val nearby = nearbyBeacons
-        for (beacon in nearby){
-            indicators.add(BearingIndicator(gps.location.bearingTo(beacon.coordinate), R.drawable.ic_arrow_target, size = 50f, verticalOffset = -10f))
+        for (beacon in nearby) {
+            indicators.add(
+                BearingIndicator(
+                    transformTrueNorthBearing(gps.location.bearingTo(beacon.coordinate)),
+                    R.drawable.ic_arrow_target
+                )
+            )
         }
 
         return indicators
-    }
-
-    private fun setVisibleCompass(compass: ICompassView) {
-        if (visibleCompass == compass) {
-            if (compass != roundCompass) {
-                roundCompass.visibility = View.INVISIBLE
-            } else {
-                linearCompass.visibility = View.INVISIBLE
-            }
-        }
-
-        visibleCompass.visibility = View.INVISIBLE
-        visibleCompass = compass
-        visibleCompass.visibility = View.VISIBLE
     }
 
     override fun onResume() {
@@ -390,29 +373,6 @@ class NavigatorFragment : Fragment() {
         )
     }
 
-    private fun getCompassMarkers(nearby: Collection<Beacon>): Collection<Bearing> {
-        if (destination != null) {
-            return listOf(
-                getSunBearing(),
-                getMoonBearing(),
-                destinationBearing ?: compass.bearing,
-                getDestinationBearing() ?: Bearing(0f)
-            )
-        }
-
-        if (!userPrefs.navigation.showMultipleBeacons) {
-            return listOf(getSunBearing(), getMoonBearing(), destinationBearing ?: compass.bearing)
-        }
-
-        val sunAndMoon =
-            listOf(getSunBearing(), getMoonBearing(), destinationBearing ?: compass.bearing)
-
-        val beacons =
-            nearby.map { transformTrueNorthBearing(gps.location.bearingTo(it.coordinate)) }
-
-        return sunAndMoon + beacons
-    }
-
     private fun updateUI() {
 
         if (throttle.isThrottled() || context == null) {
@@ -455,7 +415,7 @@ class NavigatorFragment : Fragment() {
                     banner.hide()
                 })
             shownAccuracyToast = true
-        } else if (compass.quality == Quality.Good){
+        } else if (compass.quality == Quality.Good) {
             (requireActivity() as MainActivity).errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
         }
 
@@ -470,11 +430,11 @@ class NavigatorFragment : Fragment() {
         binding.compassDirection.text = formatService.formatDirection(compass.bearing.direction)
 
         // Compass
-        visibleCompass.azimuth = compass.bearing.value
-        binding.roundCompass.setIndicators(getIndicators())
-        binding.roundCompass.rotation = -compass.bearing.value
-        visibleCompass.visibility = View.INVISIBLE
-//        visibleCompass.beacons = getCompassMarkers(nearbyBeacons).map { it.value }
+        val indicators = getIndicators()
+        binding.roundCompass.setIndicators(indicators)
+        binding.roundCompass.setAzimuth(compass.bearing)
+        binding.linearCompass.setIndicators(indicators)
+        binding.linearCompass.setAzimuth(compass.bearing)
 
         // Altitude
         binding.altitude.text = formatService.formatSmallDistance(altimeter.altitude)
@@ -506,11 +466,13 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun onOrientationUpdate(): Boolean {
-//        if (shouldShowLinearCompass()) {
-//            setVisibleCompass(linearCompass)
-//        } else {
-//            setVisibleCompass(roundCompass)
-//        }
+        if (shouldShowLinearCompass()) {
+            binding.linearCompass.visibility = View.VISIBLE
+            binding.roundCompass.visibility = View.INVISIBLE
+        } else {
+            binding.linearCompass.visibility = View.INVISIBLE
+            binding.roundCompass.visibility = View.VISIBLE
+        }
         updateUI()
         return true
     }

@@ -38,42 +38,25 @@
             tools:text="SE" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/needle"
-        android:layout_width="@dimen/circular_display_size"
-        android:layout_height="@dimen/circular_display_size"
-        android:layout_marginTop="64dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location"
-        app:srcCompat="@drawable/compass" />
-
     <com.kylecorry.trail_sense.navigation.ui.RoundCompassView
         android:id="@+id/round_compass"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
+        android:visibility="invisible"
+        android:layout_width="@dimen/circular_display_size"
+        android:layout_height="@dimen/circular_display_size"
         android:layout_marginTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location"/>
 
     <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
+        android:visibility="visible"
         android:id="@+id/linear_compass"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:backgroundColor="?android:colorBackground"
-        app:cardinalLineColor="@color/colorPrimary"
-        app:degrees="0"
-        app:layout_constraintBottom_toBottomOf="@+id/needle"
+        app:layout_constraintBottom_toBottomOf="@+id/round_compass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/needle"
-        app:lineColor="?android:textColorPrimary"
-        app:markerColor="?android:textColorPrimary"
-        app:rangeDegrees="180.0"
-        app:showMarker="true"
-        app:textColor="?android:textColorPrimary"
-        app:textSize="15sp" />
+        app:layout_constraintTop_toTopOf="@+id/round_compass" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ruler"
@@ -88,16 +71,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/azimuth_indicator"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="215dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/needle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_arrow_bearing" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/navigation_left_quick_action"
@@ -314,7 +287,7 @@
         app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/needle">
+        app:layout_constraintTop_toBottomOf="@+id/round_compass">
 
         <LinearLayout
             android:layout_width="wrap_content"

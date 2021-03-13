@@ -4,5 +4,5 @@
     <dimen name="default_bottom_margin">32dp</dimen>
     <dimen name="ruler_label">8dp</dimen>
     <dimen name="ruler_top">8dp</dimen>
-    <dimen name="circular_display_size">200dp</dimen>
+    <dimen name="circular_display_size">248dp</dimen>
 </resources>
