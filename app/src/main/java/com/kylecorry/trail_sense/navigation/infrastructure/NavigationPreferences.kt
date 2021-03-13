@@ -2,8 +2,10 @@ package com.kylecorry.trail_sense.navigation.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.math.MathExtensions.toFloatCompat2
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
+import com.kylecorry.trailsensecore.domain.math.toIntCompat
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -99,5 +101,17 @@ class NavigationPreferences(private val context: Context) {
 
     val factorInNonLinearDistance: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_non_linear_distances)) ?: true
+
+    val leftQuickAction: QuickActionType
+        get(){
+            val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_left))?.toIntCompat()
+            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Backtrack
+        }
+
+    val rightQuickAction: QuickActionType
+        get(){
+            val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_right))?.toIntCompat()
+            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Flashlight
+        }
 
 }

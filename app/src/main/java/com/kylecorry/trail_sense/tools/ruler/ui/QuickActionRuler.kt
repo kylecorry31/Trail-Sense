@@ -4,6 +4,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
@@ -27,23 +28,14 @@ class QuickActionRuler(btn: FloatingActionButton, fragment: Fragment, private va
 //            constraints.connect(layout.id, ConstraintSet.START, view.id, ConstraintSet.START)
 //            constraints.applyTo(view)
 //        }
+        button.setImageResource(R.drawable.ruler)
         ruler = Ruler(rulerView, if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Centimeters else DistanceUnits.Inches)
         button.setOnClickListener {
             if (ruler.visible) {
-                UiUtils.setButtonState(
-                    button,
-                    false,
-                    UiUtils.color(context, R.color.colorPrimary),
-                    UiUtils.color(context, R.color.colorSecondary)
-                )
+                CustomUiUtils.setButtonState(button, false)
                 ruler.hide()
             } else {
-                UiUtils.setButtonState(
-                    button,
-                    true,
-                    UiUtils.color(context, R.color.colorPrimary),
-                    UiUtils.color(context, R.color.colorSecondary)
-                )
+                CustomUiUtils.setButtonState(button, true)
                 ruler.show()
             }
         }

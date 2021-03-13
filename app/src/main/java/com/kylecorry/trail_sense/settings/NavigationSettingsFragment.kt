@@ -3,9 +3,11 @@ package com.kylecorry.trail_sense.settings
 import android.os.Bundle
 import android.text.InputType
 import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
@@ -17,6 +19,8 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
     private var prefMaxBeaconDistanceKm: EditTextPreference? = null
     private var prefMaxBeaconDistanceMi: EditTextPreference? = null
     private var prefBacktrack: SwitchPreferenceCompat? = null
+    private var prefLeftQuickAction: ListPreference? = null
+    private var prefRightQuickAction: ListPreference? = null
     private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
 
@@ -27,6 +31,8 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         prefMaxBeaconDistanceKm = editText(R.string.pref_max_beacon_distance)
         prefMaxBeaconDistanceMi = editText(R.string.pref_max_beacon_distance_miles)
         prefBacktrack = switch(R.string.pref_backtrack_enabled)
+        prefLeftQuickAction = list(R.string.pref_navigation_quick_action_left)
+        prefRightQuickAction = list(R.string.pref_navigation_quick_action_right)
     }
 
     private fun restartBacktrack() {
@@ -42,6 +48,17 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         val userPrefs = UserPreferences(requireContext())
         prefs = userPrefs
         bindPreferences()
+
+        val actions = QuickActionUtils.navigation(requireContext())
+        val actionNames = actions.map { QuickActionUtils.getName(requireContext(), it) }
+        val actionValues = actions.map { it.id.toString() }
+
+        prefLeftQuickAction?.entries = actionNames.toTypedArray()
+        prefRightQuickAction?.entries = actionNames.toTypedArray()
+
+        prefLeftQuickAction?.entryValues = actionValues.toTypedArray()
+        prefRightQuickAction?.entryValues = actionValues.toTypedArray()
+
 
         prefBacktrack?.isEnabled = !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)
 

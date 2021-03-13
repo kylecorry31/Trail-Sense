@@ -29,6 +29,22 @@
             app:singleLineTitle="false"
             app:title="@string/pref_show_sun_moon_compass_title"
             app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="0"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_quick_action_left"
+            app:singleLineTitle="false"
+            app:title="@string/left_quick_action"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="1"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_quick_action_right"
+            app:singleLineTitle="false"
+            app:title="@string/right_quick_action"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory

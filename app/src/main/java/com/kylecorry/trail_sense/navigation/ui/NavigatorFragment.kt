@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -22,9 +23,13 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
+import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
+import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
+import com.kylecorry.trail_sense.weather.ui.QuickActionClouds
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
@@ -85,8 +90,8 @@ class NavigatorFragment : Fragment() {
     private var destinationBearing: Bearing? = null
     private var useTrueNorth = false
 
-    private var leftQuickAction: QuickActionButton? = null
-    private var rightQuickAction: QuickActionButton? = null
+    private lateinit var leftQuickAction: QuickActionButton
+    private lateinit var rightQuickAction: QuickActionButton
 
     private var gpsErrorShown = false
 
@@ -96,15 +101,15 @@ class NavigatorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = ActivityNavigatorBinding.inflate(layoutInflater, container, false)
-        rightQuickAction = QuickActionFlashlight(binding.navigationRightQuickAction, this)
-        leftQuickAction = QuickActionBacktrack(binding.navigationLeftQuickAction, this)
+        rightQuickAction = getQuickActionButton(userPrefs.navigation.rightQuickAction, binding.navigationRightQuickAction)
+        leftQuickAction = getQuickActionButton(userPrefs.navigation.leftQuickAction, binding.navigationLeftQuickAction)
         return binding.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        rightQuickAction?.onDestroy()
-        leftQuickAction?.onDestroy()
+        rightQuickAction.onDestroy()
+        leftQuickAction.onDestroy()
     }
 
     override fun onDestroyView() {
@@ -136,8 +141,8 @@ class NavigatorFragment : Fragment() {
             updateUI()
         }
 
-        rightQuickAction?.onCreate()
-        leftQuickAction?.onCreate()
+        rightQuickAction.onCreate()
+        leftQuickAction.onCreate()
         navController = findNavController()
 
         destinationPanel = DestinationPanel(binding.navigationSheet)
@@ -280,8 +285,8 @@ class NavigatorFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        rightQuickAction?.onResume()
-        leftQuickAction?.onResume()
+        rightQuickAction.onResume()
+        leftQuickAction.onResume()
         useTrueNorth = userPrefs.navigation.useTrueNorth
 
         // Resume navigation
@@ -309,8 +314,8 @@ class NavigatorFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        rightQuickAction?.onPause()
-        leftQuickAction?.onPause()
+        rightQuickAction.onPause()
+        leftQuickAction.onPause()
         (requireActivity() as MainActivity).errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
         shownAccuracyToast = false
         gpsErrorShown = false
@@ -608,6 +613,18 @@ class NavigatorFragment : Fragment() {
             )
             (requireActivity() as MainActivity).errorBanner.report(error)
             gpsErrorShown = true
+        }
+    }
+
+    private fun getQuickActionButton(type: QuickActionType, button: FloatingActionButton): QuickActionButton {
+        return when(type){
+            QuickActionType.None -> QuickActionNone(button, this)
+            QuickActionType.Backtrack -> QuickActionBacktrack(button, this)
+            QuickActionType.Flashlight -> QuickActionFlashlight(button, this)
+            QuickActionType.Clouds -> QuickActionClouds(button, this)
+            QuickActionType.Temperature -> QuickActionNone(button, this)
+            QuickActionType.Ruler -> QuickActionRuler(button, this, binding.ruler)
+            QuickActionType.Maps -> QuickActionOfflineMaps(button, this)
         }
     }
 
