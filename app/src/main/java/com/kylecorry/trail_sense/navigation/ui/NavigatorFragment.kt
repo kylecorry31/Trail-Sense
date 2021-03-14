@@ -68,8 +68,6 @@ class NavigatorFragment : Fragment() {
 
     private lateinit var destinationPanel: DestinationPanel
 
-    private lateinit var visibleCompass: ICompassView
-
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
 
     private val sensorService by lazy { SensorService(requireContext()) }
