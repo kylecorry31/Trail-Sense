@@ -47,8 +47,7 @@ import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.Duration
-import java.time.Instant
+import java.time.*
 import java.util.*
 
 
@@ -119,6 +118,11 @@ class NavigatorFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val beaconId = arguments?.getLong("destination") ?: 0L
+
+        println(astronomyService.getTides(
+            LocalDateTime.of(2021, Month.MARCH, 14, 9, 41),
+            LocalDateTime.of(2021, Month.MARCH, 14, 14, 44),
+            LocalDate.now()))
 
         if (beaconId != 0L) {
             showCalibrationDialog()

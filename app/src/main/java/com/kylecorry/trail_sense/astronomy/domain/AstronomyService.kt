@@ -171,4 +171,54 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return newAstronomyService.getSunAltitude(time.toZonedDateTime(), location, true)
     }
 
+    fun getLunarDayLength(date: LocalDate): Duration {
+        val today = getMoonTimes(Coordinate.zero, date)
+        val tomorrow = getMoonTimes(Coordinate.zero, date.plusDays(1))
+        return Duration.between(today.transit, tomorrow.transit)
+    }
+
+    fun getTides(lastHighTide: LocalDateTime, lastLowTide: LocalDateTime, date: LocalDate): List<com.kylecorry.trail_sense.astronomy.domain.Tide> {
+        // TODO: Handle if last high tide is before this
+        var highTideOnDate = lastHighTide
+        var lowTideOnDate = lastLowTide
+
+        while(highTideOnDate.toLocalDate() != date){
+            highTideOnDate = if (highTideOnDate.toLocalDate() > date){
+                highTideOnDate.minus(getLunarDayLength(highTideOnDate.toLocalDate()))
+            } else {
+                highTideOnDate.plus(getLunarDayLength(highTideOnDate.toLocalDate()))
+            }
+        }
+
+        while(lowTideOnDate.toLocalDate() != date){
+            lowTideOnDate = if (lowTideOnDate.toLocalDate() > date){
+                lowTideOnDate.minus(getLunarDayLength(lowTideOnDate.toLocalDate()))
+            } else {
+                lowTideOnDate.plus(getLunarDayLength(lowTideOnDate.toLocalDate()))
+            }
+        }
+
+        val lunarDay = getLunarDayLength(date)
+        val halfLunarDay = lunarDay.dividedBy(2)
+
+
+        val previousHigh = highTideOnDate.minus(halfLunarDay)
+        val nextHigh = highTideOnDate.plus(halfLunarDay)
+
+        val previousLow = lowTideOnDate.minus(halfLunarDay)
+        val nextLow = lowTideOnDate.plus(halfLunarDay)
+
+
+        val tides = listOf(
+            Tide(previousHigh, true),
+            Tide(highTideOnDate, true),
+            Tide(nextHigh, true),
+            Tide(previousLow, false),
+            Tide(lowTideOnDate, false),
+            Tide(nextLow, false),
+        )
+
+        return tides.filter { it.time.toLocalDate() == date }.sortedBy { it.time }
+    }
+
 }
