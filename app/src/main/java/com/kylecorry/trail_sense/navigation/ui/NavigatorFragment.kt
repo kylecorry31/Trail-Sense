@@ -91,8 +91,8 @@ class NavigatorFragment : Fragment() {
     private var destinationBearing: Bearing? = null
     private var useTrueNorth = false
 
-    private lateinit var leftQuickAction: QuickActionButton
-    private lateinit var rightQuickAction: QuickActionButton
+    private var leftQuickAction: QuickActionButton? = null
+    private var rightQuickAction: QuickActionButton? = null
 
     private var gpsErrorShown = false
 
@@ -109,8 +109,8 @@ class NavigatorFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        rightQuickAction.onDestroy()
-        leftQuickAction.onDestroy()
+        rightQuickAction?.onDestroy()
+        leftQuickAction?.onDestroy()
     }
 
     override fun onDestroyView() {
@@ -142,8 +142,8 @@ class NavigatorFragment : Fragment() {
             updateUI()
         }
 
-        rightQuickAction.onCreate()
-        leftQuickAction.onCreate()
+        rightQuickAction?.onCreate()
+        leftQuickAction?.onCreate()
         navController = findNavController()
 
         destinationPanel = DestinationPanel(binding.navigationSheet)
@@ -243,7 +243,7 @@ class NavigatorFragment : Fragment() {
 
             if (isMoonUp) {
                 indicators.add(BearingIndicator(moonBearing, getMoonImage()))
-            } else if (!isSunUp && showWhenDown) {
+            } else if (!isMoonUp && showWhenDown) {
                 indicators.add(BearingIndicator(moonBearing, getMoonImage(), opacity = 0.5f))
             }
         }
@@ -286,8 +286,8 @@ class NavigatorFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        rightQuickAction.onResume()
-        leftQuickAction.onResume()
+        rightQuickAction?.onResume()
+        leftQuickAction?.onResume()
         useTrueNorth = userPrefs.navigation.useTrueNorth
 
         // Resume navigation
@@ -315,8 +315,8 @@ class NavigatorFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        rightQuickAction.onPause()
-        leftQuickAction.onPause()
+        rightQuickAction?.onPause()
+        leftQuickAction?.onPause()
         (requireActivity() as MainActivity).errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
         shownAccuracyToast = false
         gpsErrorShown = false

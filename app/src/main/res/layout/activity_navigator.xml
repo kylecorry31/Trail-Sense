@@ -40,16 +40,14 @@
 
     <com.kylecorry.trail_sense.navigation.ui.RoundCompassView
         android:id="@+id/round_compass"
-        android:visibility="invisible"
         android:layout_width="@dimen/circular_display_size"
         android:layout_height="@dimen/circular_display_size"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location"/>
 
     <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
-        android:visibility="visible"
         android:id="@+id/linear_compass"
         android:layout_width="match_parent"
         android:layout_height="100dp"

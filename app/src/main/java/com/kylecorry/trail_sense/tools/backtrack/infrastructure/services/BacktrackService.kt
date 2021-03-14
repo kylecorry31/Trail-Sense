@@ -123,7 +123,7 @@ class BacktrackService : Service() {
                     gps.location.latitude,
                     gps.location.longitude,
                     gps.altitude,
-                    gps.time.toEpochMilli(),
+                    Instant.now().toEpochMilli(),
                     cell?.network?.id,
                     cell?.quality?.ordinal,
                 )
