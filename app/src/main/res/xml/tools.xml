@@ -144,6 +144,11 @@
             android:title="@string/clouds"
             app:key="@string/tool_clouds"
             app:singleLineTitle="false" />
+        <Preference
+            android:icon="@drawable/ic_tide_spring"
+            android:title="@string/tides"
+            app:key="@string/tool_tides"
+            app:singleLineTitle="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

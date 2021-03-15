@@ -64,6 +64,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_toolsFragment_to_tidesFragment"
+            app:destination="@id/tidesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_action_experimental_tools_to_guideListFragment"
             app:destination="@id/guideListFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -618,5 +625,9 @@
         android:id="@+id/toolLightFragment"
         android:name="com.kylecorry.trail_sense.tools.light.ui.ToolLightFragment"
         android:label="ToolLightFragment" />
+    <fragment
+        android:id="@+id/tidesFragment"
+        android:name="com.kylecorry.trail_sense.tools.tides.ui.TidesFragment"
+        android:label="TidesFragment" />
 
 </navigation>

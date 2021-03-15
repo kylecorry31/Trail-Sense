@@ -851,4 +851,6 @@
     <string name="quick_action_none">None</string>
     <string name="left_quick_action">Left quick action</string>
     <string name="right_quick_action">Right quick action</string>
+    <string name="tool_tides">tool_tides</string>
+    <string name="tides">Tides</string>
 </resources>
