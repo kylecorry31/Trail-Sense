@@ -836,7 +836,7 @@
     <string name="weather_same_as_yesterday">Same as yesterday</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="pref_daily_weather_notification_title">Daily weather notification</string>
-<!--    This is temporary, no translations needed-->
+    <!--    This is temporary, no translations needed-->
     <string name="pref_daily_weather_notification_desc">Sent every morning around 9:00</string>
     <string name="always_on">Always on</string>
     <string name="service_update_frequency">Updates every %s</string>
@@ -851,6 +851,15 @@
     <string name="quick_action_none">None</string>
     <string name="left_quick_action">Left quick action</string>
     <string name="right_quick_action">Right quick action</string>
-    <string name="tool_tides">tool_tides</string>
-    <string name="tides">Tides</string>
+    <string name="tool_tides" translatable="false">tool_tides</string>
+    <string name="tides">Tides (experimental)</string>
+    <string name="high_tide">High Tide</string>
+    <string name="low_tide">Low Tide</string>
+    <string name="half_tide">Half Tide</string>
+    <string name="reference_high_tide" translatable="false">reference_high_tide</string>
+    <string name="tide_low_short">Low</string>
+    <string name="tide_high_short">High</string>
+    <string name="tide_calibration_instructions">Set the time of a high tide near you, preferably on the date of a new or full moon. This can be obtained online or via printed tide tables. The tides shown in Trail Sense may be off by up to an hour, which is good enough for reference but not to rely on.</string>
+    <string name="time_not_set">Time not set</string>
+    <string name="date_not_set">Date not set</string>
 </resources>

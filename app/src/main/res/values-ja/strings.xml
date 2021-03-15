@@ -237,12 +237,12 @@
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
     <string name="increase">+</string>
-    <string name="direction_south_west">南東</string>
-    <string name="direction_north_west">北東</string>
+    <string name="direction_south_west">南西</string>
+    <string name="direction_north_west">北西</string>
     <string name="direction_south_east">南西</string>
-    <string name="direction_north_east">北西</string>
-    <string name="direction_west">東</string>
-    <string name="direction_east">西</string>
+    <string name="direction_north_east">北東</string>
+    <string name="direction_west">西</string>
+    <string name="direction_east">東</string>
     <string name="direction_south">南</string>
     <string name="direction_north">北</string>
     <string name="duration_hour_minute_format">%d時間 %d分</string>

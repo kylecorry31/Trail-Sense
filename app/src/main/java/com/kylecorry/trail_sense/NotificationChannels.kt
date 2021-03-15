@@ -104,7 +104,7 @@ object NotificationChannels {
             WeatherUpdateService.DAILY_CHANNEL_ID,
             context.getString(R.string.todays_forecast),
             context.getString(R.string.todays_forecast),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            1,
             true
         )
 

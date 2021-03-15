@@ -51,8 +51,10 @@ class ToolsFragment : PreferenceFragmentCompat() {
             R.id.action_action_experimental_tools_to_action_inventory
         )
 
+        val tides = findPreference<Preference>(getString(R.string.tool_tides))
+        tides?.isVisible = prefs.experimentalEnabled
         navigateOnClick(
-            findPreference(getString(R.string.tool_tides)),
+            tides,
             R.id.action_toolsFragment_to_tidesFragment
         )
 

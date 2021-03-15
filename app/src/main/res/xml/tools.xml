@@ -140,12 +140,12 @@
             app:key="@string/tool_thermometer"
             app:singleLineTitle="false" />
         <Preference
-            android:icon="@drawable/cloudy"
+            android:icon="@drawable/ic_tool_clouds"
             android:title="@string/clouds"
             app:key="@string/tool_clouds"
             app:singleLineTitle="false" />
         <Preference
-            android:icon="@drawable/ic_tide_spring"
+            android:icon="@drawable/ic_tool_tides"
             android:title="@string/tides"
             app:key="@string/tool_tides"
             app:singleLineTitle="false" />

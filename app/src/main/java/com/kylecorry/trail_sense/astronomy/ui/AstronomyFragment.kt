@@ -22,7 +22,6 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
-import com.kylecorry.trailsensecore.domain.astronomy.tides.Tide
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -417,37 +416,7 @@ class AstronomyFragment : Fragment() {
             )
         }
 
-        if (prefs.experimentalEnabled) {
-            details.add(AstroDetail.spacer())
-            val tide = astronomyService.getTides(displayDate)
-            details.add(
-                AstroDetail(
-                    getTideImage(tide),
-                    getString(R.string.tidal_range),
-                    getTideString(tide),
-                    -1
-                )
-            )
-        }
-
         detailList.setData(details)
-    }
-
-    @DrawableRes
-    private fun getTideImage(tide: Tide): Int {
-        return when (tide) {
-            Tide.Neap -> R.drawable.ic_tide_neap
-            Tide.Spring -> R.drawable.ic_tide_spring
-            Tide.Normal -> R.drawable.ic_tide_normal
-        }
-    }
-
-    private fun getTideString(tide: Tide): String {
-        return when (tide) {
-            Tide.Neap -> getString(R.string.tide_neap)
-            Tide.Spring -> getString(R.string.tide_spring)
-            Tide.Normal -> getString(R.string.tide_normal)
-        }
     }
 
     private fun getMoonImage(phase: MoonTruePhase): Int {

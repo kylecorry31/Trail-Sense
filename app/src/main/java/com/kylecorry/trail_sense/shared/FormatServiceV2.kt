@@ -10,6 +10,7 @@ import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.units.*
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -18,20 +19,43 @@ class FormatServiceV2(private val context: Context) {
 
     private val prefs by lazy { UserPreferences(context) }
 
-    fun formatTime(time: LocalTime): String {
-        val amPm = !prefs.use24HourTime
-        return if (amPm) {
-            time.format(DateTimeFormatter.ofPattern("h:mm:ss a"))
-        } else {
-            time.format(DateTimeFormatter.ofPattern("H:mm:ss"))
+    fun formatRelativeDate(date: LocalDate): String {
+        val now = LocalDate.now()
+
+        return when (date) {
+            now -> {
+                context.getString(R.string.today)
+            }
+            now.plusDays(1) -> {
+                context.getString(R.string.tomorrow)
+            }
+            now.minusDays(1) -> {
+                context.getString(R.string.yesterday)
+            }
+            else -> {
+                DateUtils.formatDateTime(
+                    context,
+                    date.atStartOfDay().toEpochMillis(),
+                    DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_RELATIVE
+                )
+            }
         }
     }
 
-    fun formatDate(date: ZonedDateTime): String {
+    fun formatTime(time: LocalTime, includeSeconds: Boolean = true): String {
+        val amPm = !prefs.use24HourTime
+        return if (amPm) {
+            time.format(DateTimeFormatter.ofPattern("h:mm${if (includeSeconds) ":ss" else ""} a"))
+        } else {
+            time.format(DateTimeFormatter.ofPattern("H:mm${if (includeSeconds) ":ss" else ""}"))
+        }
+    }
+
+    fun formatDate(date: ZonedDateTime, includeWeekDay: Boolean = true): String {
         return DateUtils.formatDateTime(
             context,
             date.toEpochSecond() * 1000,
-            DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_WEEKDAY or DateUtils.FORMAT_SHOW_YEAR
+            DateUtils.FORMAT_SHOW_DATE or (if (includeWeekDay) DateUtils.FORMAT_SHOW_WEEKDAY else 0) or DateUtils.FORMAT_SHOW_YEAR
         )
     }
 

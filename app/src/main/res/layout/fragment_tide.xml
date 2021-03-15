@@ -1,17 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tides"
+        android:id="@+id/tide_height"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/high_tide" />
+
+    <TextView
+        android:id="@+id/tidal_range"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/tide_height"
+        app:layout_constraintStart_toStartOf="@+id/tide_height"
+        app:layout_constraintTop_toBottomOf="@+id/tide_height"
+        tools:text="Tidal range: Neap" />
+
+
+    <com.kylecorry.trail_sense.tools.tides.ui.TideClockView
+        android:id="@+id/tide_clock"
+        android:layout_width="225dp"
+        android:layout_height="225dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tidal_range" />
+
+    <LinearLayout
+        android:id="@+id/tide_list_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tide_clock"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tide_list_date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Today"/>
+        <ImageButton
+            android:id="@+id/tide_list_date_picker"
+            android:layout_marginStart="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:tint="?android:textColorSecondary"
+            app:srcCompat="@drawable/ic_date" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tide_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tide_list_date" />
+
+    <ImageButton
+        android:id="@+id/tide_calibration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:background="@android:color/transparent"
+        android:tint="?android:textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="@id/tide_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tide_height"
+        app:srcCompat="@drawable/ic_settings" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

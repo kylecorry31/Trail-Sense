@@ -14,6 +14,9 @@ import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import java.time.Duration
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class UserPreferences(private val context: Context) {
 
@@ -181,6 +184,19 @@ class UserPreferences(private val context: Context) {
 
     val lowPowerModeDisablesBacktrack: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_low_power_mode_backtrack)) ?: true
+
+    var referenceHighTide: ZonedDateTime?
+        get(){
+            val raw = cache.getLong(context.getString(R.string.reference_high_tide)) ?: return null
+            return ZonedDateTime.ofInstant(Instant.ofEpochSecond(raw), ZoneId.systemDefault())
+        }
+        set(value) {
+            if (value == null){
+                cache.remove(context.getString(R.string.reference_high_tide))
+            } else {
+                cache.putLong(context.getString(R.string.reference_high_tide), value.toEpochSecond())
+            }
+        }
 
     private fun getString(id: Int): String {
         return context.getString(id)
