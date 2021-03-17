@@ -5,7 +5,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Ubuntu", sans-serif;
-  color: #333;
+  color: #222222;
   font-size: 14px;
   line-height: 20px;
 }
@@ -70,6 +70,14 @@ img {
   max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.text-primary {
+  color: #ff6d00;
+}
+
+.text-secondary {
+  color: #222222;
 }
 
 .bold {
