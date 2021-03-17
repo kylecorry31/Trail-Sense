@@ -13,8 +13,8 @@ android {
         applicationId "com.kylecorry.trail_sense"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 37
-        versionName "1.8.1"
+        versionCode 38
+        versionName "1.9.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {

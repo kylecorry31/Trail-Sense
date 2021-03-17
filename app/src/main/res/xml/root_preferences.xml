@@ -78,7 +78,7 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_enable_experimental"
             app:singleLineTitle="false"
-            android:summary="Tidal range (astronomy), white noise (tools)"
+            android:summary="@string/experimental_features"
             app:title="@string/experimental_tools_title" />
 
     </PreferenceCategory>
