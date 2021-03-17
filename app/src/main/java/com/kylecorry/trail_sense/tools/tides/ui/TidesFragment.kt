@@ -11,13 +11,14 @@ import android.widget.TextView
 import android.widget.TimePicker
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
-import com.kylecorry.trail_sense.databinding.ListItemPlainBinding
+import com.kylecorry.trail_sense.databinding.ListItemTideBinding
 import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.tides.domain.TideService
-import com.kylecorry.trail_sense.tools.tides.domain.TideType
-import com.kylecorry.trailsensecore.domain.astronomy.tides.Tide
+import com.kylecorry.trailsensecore.domain.oceanography.OceanographyService
+import com.kylecorry.trailsensecore.domain.oceanography.TidalRange
+import com.kylecorry.trailsensecore.domain.oceanography.Tide
+import com.kylecorry.trailsensecore.domain.oceanography.TideType
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
@@ -26,11 +27,11 @@ import java.time.*
 
 class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
-    private val tideService = TideService()
+    private val oceanService = OceanographyService()
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private var displayDate = LocalDate.now()
-    private lateinit var tideList: ListView<com.kylecorry.trail_sense.tools.tides.domain.Tide>
+    private lateinit var tideList: ListView<Tide>
     private val intervalometer = Intervalometer {
         update()
     }
@@ -44,14 +45,14 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tideList = ListView(binding.tideList, R.layout.list_item_plain) { view, tide ->
-            val tideView = ListItemPlainBinding.bind(view)
-            tideView.title.text = if (tide.isHigh) {
+        tideList = ListView(binding.tideList, R.layout.list_item_tide) { view, tide ->
+            val tideView = ListItemTideBinding.bind(view)
+            tideView.tideType.text = if (tide.type == TideType.High) {
                 getString(R.string.high_tide)
             } else {
                 getString(R.string.low_tide)
             }
-            tideView.description.text = formatService.formatTime(tide.time.toLocalTime(), false)
+            tideView.tideTime.text = formatService.formatTime(tide.time.toLocalTime(), false)
         }
         binding.tideCalibration.setOnClickListener {
             calibrateTides()
@@ -175,23 +176,23 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         val reference = prefs.referenceHighTide ?: return
         binding.tideListDateText.text = formatService.formatRelativeDate(displayDate)
         binding.tideClock.time = ZonedDateTime.now()
-        val next = tideService.getNextSimpleTide(reference)
+        val next = oceanService.getNextTide(reference)
         binding.tideClock.nextTide = next
-        binding.tidalRange.text = getTidalRangeName(tideService.getTidalRange(LocalDate.now()))
-        binding.tideHeight.text = getTideTypeName(tideService.getSimpleTideType(reference))
+        binding.tidalRange.text = "${getString(R.string.tidal_range)}: ${getTidalRangeName(oceanService.getTidalRange(ZonedDateTime.now()))}"
+        binding.tideHeight.text = getTideTypeName(oceanService.getTideType(reference))
         tideList.setData(
-            tideService.getSimpleTides(
+            oceanService.getTides(
                 reference,
                 displayDate
             )
         )
     }
 
-    private fun getTidalRangeName(range: Tide): String {
+    private fun getTidalRangeName(range: TidalRange): String {
         return when (range) {
-            Tide.Neap -> getString(R.string.tide_neap)
-            Tide.Spring -> getString(R.string.tide_spring)
-            Tide.Normal -> getString(R.string.tide_normal)
+            TidalRange.Neap -> getString(R.string.tide_neap)
+            TidalRange.Spring -> getString(R.string.tide_spring)
+            TidalRange.Normal -> getString(R.string.tide_normal)
         }
     }
 

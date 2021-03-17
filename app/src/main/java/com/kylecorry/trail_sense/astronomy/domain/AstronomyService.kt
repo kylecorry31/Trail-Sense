@@ -7,8 +7,6 @@ import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.astronomy.*
 import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonPhase
-import com.kylecorry.trailsensecore.domain.astronomy.tides.Tide
-import com.kylecorry.trailsensecore.domain.astronomy.tides.TideService
 import java.time.*
 
 /**
@@ -17,7 +15,6 @@ import java.time.*
 class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
     private val newAstronomyService: IAstronomyService = AstronomyService()
-    private val tideService = TideService()
 
     // PUBLIC MOON METHODS
 
@@ -84,10 +81,6 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
     fun getLunarNoon(location: Coordinate, date: LocalDate = LocalDate.now()): LocalDateTime? {
         return getMoonTimes(location, date).transit?.toLocalDateTime()
-    }
-
-    fun getTides(date: LocalDate = LocalDate.now()): Tide {
-        return tideService.getTidalRange(date.atStartOfDay().toZonedDateTime())
     }
 
     // PUBLIC SUN METHODS

@@ -859,7 +859,7 @@
     <string name="reference_high_tide" translatable="false">reference_high_tide</string>
     <string name="tide_low_short">Low</string>
     <string name="tide_high_short">High</string>
-    <string name="tide_calibration_instructions">Set the time of a high tide near you, preferably on the date of a new or full moon. This can be obtained online or via printed tide tables. The tides shown in Trail Sense may be off by up to an hour, which is good enough for reference but not to rely on.</string>
+    <string name="tide_calibration_instructions">Set the time of a high tide near you, preferably on the date of a new or full moon. This can be obtained online or via printed tide tables. The tides shown in Trail Sense may be off by up to two hours, which is good enough for reference but not to rely on.</string>
     <string name="time_not_set">Time not set</string>
     <string name="date_not_set">Date not set</string>
 </resources>

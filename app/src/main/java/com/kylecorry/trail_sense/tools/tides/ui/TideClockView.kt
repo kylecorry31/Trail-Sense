@@ -6,7 +6,8 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.tides.domain.Tide
+import com.kylecorry.trailsensecore.domain.oceanography.Tide
+import com.kylecorry.trailsensecore.domain.oceanography.TideType
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 import java.time.ZonedDateTime
@@ -116,7 +117,7 @@ class TideClockView : View {
         val timeUntilNextTide = Duration.between(time, nextTide!!.time)
 
         val percentDuration =
-            (0.5f - timeUntilNextTide.seconds / halfLunar.seconds.toFloat()) + if (nextTide!!.isHigh) 0.5f else 0f
+            (0.5f - timeUntilNextTide.seconds / halfLunar.seconds.toFloat()) + if (nextTide!!.type == TideType.High) 0.5f else 0f
         drawHand(
             canvas,
             percentDuration * 12.0 * 5.0,
