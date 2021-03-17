@@ -97,6 +97,21 @@ If you choose to write a new feature yourself, send me a message to verify that 
   - Trail Sense can't accurately determine the pressure when your altitude changes, therefore you must remain at the same altitude for some time for it to populate. You can also disable the "Ignore rapid altitude changes" and "Factor in rapid pressure changes" settings under the barometer settings. See the Trail Sense user guide (under Tools) for tips on calibrating your barometer.
 - **The compass was working, but now it will not move and I haven't touched any settings. How can I fix it?**
   - Sometimes Android stops reporting compass data to apps, and you may need to reboot your device to fix the issue.
+- **The compass is jittering**
+  - You can apply smoothing to the compass by opening Trail Sense Settings > Compass and adjusting the smoothing bar. For my device, I find the 22 is a good smoothing value.
+- **The sunrise/set times are inaccurate**
+  - The sunrise/set features need to know your approximate location to display accurate times, please check the following to see if it resolves your issue:
+  - Validate your location settings by opening Trail Sense Settings > GPS and ensure your location appears and is correct. If your device location is disabled but Trail Sense has location permission, then the location in Trail Sense may be stale.
+  - You can attempt to diagnose GPS/location issues by opening Trail Sense Settings > Sensor Details and viewing the GPS and GPS Cache settings
+- **How can I report a bug?**
+  - Either create a new issue here or email me at trailsense@protonmail.com
+- **The tide times are inaccurate**
+  - The tide tool is experimental and is designed to mimic an analog tide clock. Tide clocks suffer the same inaccuracies as Trail Sense, so you can expect tide times to be off by up to 2 hours depending on the length of the lunar day. To ensure the best accuracy, calibrate the tide clock using a high tide on a day of a full or new moon, and do not correct the tide clock throughout the lunar month to remove inaccuracies - this will make it more inaccurate over time.
+  - Currently Trail Sense can only predict tides in areas which experience twice daily high tides (semidiurnal), such as the Atlantic ocean.
+  - I would love to be able to improve the accuracy of tides in the future, but it may not be feasible to do without a large datastore or Internet connection.
+- **Where can I find the time of high tide to calibrate?**
+  - You can use a website such as NOAA's Tides and Currents (United States) or similar site for your country.
+  - You may also be able to find a printed tide book or tide tables (from a newspaper or ranger station) in your area.
 - **What other apps would be useful in a survival situation?**
   - [Offline Survival Manual](https://github.com/ligi/SurvivalManual)
     - A survival guide application. This app will teach you how to use resources around you to survive in almost every environment.
