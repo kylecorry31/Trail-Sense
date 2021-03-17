@@ -720,4 +720,5 @@
     <string name="always_on">Zawsze włączone</string>
     <string name="no_temperature_history">Brak historii temperatury</string>
     <string name="no_gps_signal">Brak sygnału GPS</string>
+    <string name="pref_navigation_quick_action_right">pref_navigation_quick_action_right</string>
 </resources>
