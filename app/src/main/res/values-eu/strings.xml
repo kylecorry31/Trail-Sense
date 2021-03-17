@@ -328,4 +328,27 @@
     <string name="degree">%s°</string>
     <string name="map_scale_ratio">Proportzio</string>
     <string name="flashlight_strobe">Estroboa</string>
+    <string name="pressure_4_hours">4 ordu</string>
+    <string name="pressure_12_hours">12 ordu</string>
+    <string name="pressure_24_hours">24 ordu</string>
+    <string name="pressure_48_hours">48 ordu</string>
+    <string name="pref_pressure_history_title">Presio historia</string>
+    <string name="pref_storm_alert_sensitivity_title">Ekaitz sentsibilitatea</string>
+    <string name="pref_send_storm_alerts_title">Ekaitz abisuak</string>
+    <string name="pref_num_visible_beacons_title">Hurbileko balizak</string>
+    <string name="pref_altitude_override_title">Altitudea baliogabetu</string>
+    <string name="pref_gps_request_permission_title">Baimena eskatu</string>
+    <string name="calibrate_compass_dialog_title">Iparrorratza kalibratu</string>
+    <string name="compass_declination_override">Deklinazioa baliogabetu</string>
+    <string name="pref_compass_filter_amt_title">Iparrorratzaren leuntzea</string>
+    <string name="quick_action_none">Bat ere ez</string>
+    <string name="pref_navigation_quick_action_right">pref_navigation_quick_action_right</string>
+    <string name="pref_navigation_quick_action_left">pref_navigation_quick_action_left</string>
+    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
+    <string name="satellites">sateliteak</string>
+    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
+    <string name="gps_stale">Zaharkituta</string>
+    <string name="pref_require_satellites">pref_require_satellites</string>
+    <string name="bearing">Norabidea</string>
+    <string name="map_scale_verbal">Hitzez</string>
 </resources>

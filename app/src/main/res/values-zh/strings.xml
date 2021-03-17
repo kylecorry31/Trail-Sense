@@ -701,7 +701,7 @@
     <string name="pref_backtrack_save_cell_summary">在航点记录电池信号。 不使用互联网。</string>
     <string name="pref_backtrack_save_cell_title">记录电池信号</string>
     <string name="tool_light_meter_description">测量手电筒光束距离</string>
-    <string name="tool_light_meter_title">光度计</string>
+    <string name="tool_light_meter_title">照度计</string>
     <string name="location_disabled">位置被禁用</string>
     <string name="set">设置</string>
     <string name="location_not_set">未设置位置</string>
@@ -723,4 +723,9 @@
     <string name="service_update_frequency">更新间隔 %s</string>
     <string name="always_on">始终开启</string>
     <string name="no_gps_signal">无 GPS 信号</string>
+    <string name="right_quick_action">右导航栏快速操作</string>
+    <string name="left_quick_action">左导航栏快速操作</string>
+    <string name="quick_action_none">无</string>
+    <string name="pref_navigation_quick_action_right">pref_navigation_quick_action_right</string>
+    <string name="pref_navigation_quick_action_left">pref_navigation_quick_action_left</string>
 </resources>
