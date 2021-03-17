@@ -721,4 +721,15 @@
     <string name="no_temperature_history">Brak historii temperatury</string>
     <string name="no_gps_signal">Brak sygnału GPS</string>
     <string name="pref_navigation_quick_action_right">pref_navigation_quick_action_right</string>
+    <string name="low_tide">Niski przypływ</string>
+    <string name="high_tide">Wysoki przypływ</string>
+    <string name="tides">Pływy (funkcja eksperymentalna)</string>
+    <string name="right_quick_action">Prawa szybka akcja</string>
+    <string name="left_quick_action">Lewa szybka akcja</string>
+    <string name="guide_light_meter_description">Jak określić odległość wiązki światła z latarek</string>
+    <string name="guide_light_meter_title">Określ skuteczność latarki</string>
+    <string name="quick_action_none">Brak</string>
+    <string name="pref_navigation_quick_action_left">pref_navigation_quick_action_left</string>
+    <string name="date_not_set">Data nieustawiona</string>
+    <string name="time_not_set">Czas nieustawiony</string>
 </resources>
