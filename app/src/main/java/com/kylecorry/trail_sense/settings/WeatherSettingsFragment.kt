@@ -3,8 +3,11 @@ package com.kylecorry.trail_sense.settings
 import android.os.Bundle
 import androidx.annotation.ArrayRes
 import androidx.preference.ListPreference
+import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
@@ -16,7 +19,9 @@ class WeatherSettingsFragment : CustomPreferenceFragment() {
     private var prefShowWeatherNotification: SwitchPreferenceCompat? = null
     private var prefShowDailyWeatherNotification: SwitchPreferenceCompat? = null
     private var prefShowPressureInNotification: SwitchPreferenceCompat? = null
+    private var prefDailyWeatherTime: Preference? = null
     private var prefStormAlerts: SwitchPreferenceCompat? = null
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
 
     private lateinit var prefs: UserPreferences
 
@@ -27,6 +32,7 @@ class WeatherSettingsFragment : CustomPreferenceFragment() {
         prefShowDailyWeatherNotification = switch(R.string.pref_daily_weather_notification)
         prefShowPressureInNotification = switch(R.string.pref_show_pressure_in_notification)
         prefStormAlerts = switch(R.string.pref_send_storm_alert)
+        prefDailyWeatherTime = preference(R.string.pref_daily_weather_time_holder)
     }
 
 
@@ -59,6 +65,18 @@ class WeatherSettingsFragment : CustomPreferenceFragment() {
         }
         prefShowPressureInNotification?.setOnPreferenceClickListener {
             restartWeatherMonitor()
+            true
+        }
+
+        prefDailyWeatherTime?.summary = formatService.formatTime(prefs.weather.dailyForecastTime, false)
+        prefDailyWeatherTime?.setOnPreferenceClickListener {
+            CustomUiUtils.pickTime(requireContext(), prefs.use24HourTime, prefs.weather.dailyForecastTime){ time ->
+                if (time != null){
+                    prefs.weather.dailyForecastTime = time
+                    it.summary = formatService.formatTime(time, false)
+                    restartWeatherMonitor()
+                }
+            }
             true
         }
 

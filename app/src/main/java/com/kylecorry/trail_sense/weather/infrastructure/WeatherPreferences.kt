@@ -2,9 +2,7 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.IsMorningSpecification
 import com.kylecorry.trail_sense.shared.math.MathExtensions.toFloatCompat2
-import com.kylecorry.trailsensecore.domain.specifications.Specification
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -226,9 +224,15 @@ class WeatherPreferences(private val context: Context) {
         }
 
     val dailyWeatherIsForTomorrow: Boolean
-        get() = false // TODO: Parse the enum
+        get() = dailyForecastTime >= LocalTime.of(16, 0)
 
-    val dailyWeatherTimeSpecification: Specification<LocalTime>
-        get() = IsMorningSpecification() // TODO: Parse the enum
+    var dailyForecastTime: LocalTime
+        get(){
+            val raw = (cache.getString(context.getString(R.string.pref_daily_weather_time)) ?: LocalTime.of(7, 0).toString())
+            return LocalTime.parse(raw)
+        }
+        set(value) {
+            cache.putString(context.getString(R.string.pref_daily_weather_time), value.toString())
+        }
 
 }

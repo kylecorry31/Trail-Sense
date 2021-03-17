@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.weather.domain.CanSendDailyForecast
 import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
@@ -127,7 +128,7 @@ class WeatherUpdateService : Service() {
             return
         }
 
-        if (!userPrefs.weather.dailyWeatherTimeSpecification.isSatisfiedBy(LocalTime.now())){
+        if (!CanSendDailyForecast(userPrefs.weather.dailyForecastTime).isSatisfiedBy(LocalTime.now())){
             return
         }
 
@@ -140,9 +141,9 @@ class WeatherUpdateService : Service() {
         }
 
         val description = when (forecast) {
-            Weather.ImprovingSlow -> getString(R.string.weather_better_than_yesterday)
-            Weather.WorseningSlow -> getString(R.string.weather_worse_than_yesterday)
-            else -> getString(R.string.weather_same_as_yesterday)
+            Weather.ImprovingSlow -> getString(if (userPrefs.weather.dailyWeatherIsForTomorrow) R.string.weather_better_than_today  else R.string.weather_better_than_yesterday)
+            Weather.WorseningSlow -> getString(if (userPrefs.weather.dailyWeatherIsForTomorrow) R.string.weather_worse_than_today  else R.string.weather_worse_than_yesterday)
+            else -> getString(if (userPrefs.weather.dailyWeatherIsForTomorrow) R.string.weather_same_as_today  else R.string.weather_same_as_yesterday)
         }
 
         val openIntent = MainActivity.weatherIntent(this)
@@ -150,7 +151,7 @@ class WeatherUpdateService : Service() {
             PendingIntent.getActivity(this, 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val builder = NotificationUtils.builder(this, DAILY_CHANNEL_ID)
-            .setContentTitle(getString(R.string.todays_forecast))
+            .setContentTitle(getString(if (userPrefs.weather.dailyWeatherIsForTomorrow) R.string.tomorrows_forecast else R.string.todays_forecast))
             .setContentText(description)
             .setSmallIcon(icon)
             .setLargeIcon(Icon.createWithResource(this, icon))

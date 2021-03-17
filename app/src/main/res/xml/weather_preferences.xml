@@ -64,8 +64,14 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_daily_weather_notification"
             app:singleLineTitle="false"
-            app:title="@string/pref_daily_weather_notification_title"
-            android:summary="@string/pref_daily_weather_notification_desc"/>
+            app:title="@string/pref_daily_weather_notification_title"/>
+
+        <Preference
+            android:dependency="@string/pref_daily_weather_notification"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_daily_weather_time_holder"
+            app:singleLineTitle="false"
+            app:title="@string/pref_daily_weather_time_title"/>
 
     </PreferenceCategory>
 

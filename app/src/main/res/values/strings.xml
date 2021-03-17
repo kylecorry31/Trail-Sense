@@ -831,9 +831,13 @@
     <string name="guide_light_meter_title">Determine flashlight effectiveness</string>
     <string name="guide_light_meter_description">How to determine the beam distance of flashlights</string>
     <string name="todays_forecast">Today\'s forecast</string>
+    <string name="tomorrows_forecast">Tomorrow\'s forecast</string>
     <string name="weather_better_than_yesterday">Better than yesterday</string>
     <string name="weather_worse_than_yesterday">Worse than yesterday</string>
     <string name="weather_same_as_yesterday">Same as yesterday</string>
+    <string name="weather_better_than_today">Better than today</string>
+    <string name="weather_worse_than_today">Worse than today</string>
+    <string name="weather_same_as_today">Same as today</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="pref_daily_weather_notification_title">Daily weather notification</string>
     <!--    This is temporary, no translations needed-->
@@ -862,4 +866,7 @@
     <string name="tide_calibration_instructions">Set the time of a high tide near you, preferably on the date of a new or full moon. This can be obtained online or via printed tide tables. The tides shown in Trail Sense may be off by up to two hours, which is good enough for reference but not to rely on.</string>
     <string name="time_not_set">Time not set</string>
     <string name="date_not_set">Date not set</string>
+    <string name="pref_daily_weather_time_holder">pref_daily_weather_time_holder</string>
+    <string name="pref_daily_weather_time_title">Daily weather time</string>
+    <string name="pref_daily_weather_time">pref_daily_weather_time</string>
 </resources>
