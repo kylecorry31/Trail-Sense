@@ -732,4 +732,15 @@
     <string name="pref_navigation_quick_action_left">pref_navigation_quick_action_left</string>
     <string name="date_not_set">Data nieustawiona</string>
     <string name="time_not_set">Czas nieustawiony</string>
+    <string name="tool_light_meter_description">Zmierz odległość wiązki światła latarki</string>
+    <string name="tool_light_meter_title">Światłomierz</string>
+    <string name="beam_distance">%s odległość wiązki</string>
+    <string name="pref_daily_weather_time_title">Czas codziennej prognozy pogody</string>
+    <string name="weather_same_as_today">Taka sama jak dzisiaj</string>
+    <string name="weather_worse_than_today">Gorsza niż dzisiaj</string>
+    <string name="weather_better_than_today">Lepsza niż dzisiaj</string>
+    <string name="tomorrows_forecast">Jutrzejsza prognoza</string>
+    <string name="pref_daily_weather_time">pref_daily_weather_time</string>
+    <string name="pref_daily_weather_time_holder">pref_daily_weather_time_holder</string>
+    <string name="experimental_features">Pływy i szum biały</string>
 </resources>
