@@ -728,7 +728,7 @@
     <string name="quick_action_none">无</string>
     <string name="pref_navigation_quick_action_right">pref_navigation_quick_action_right</string>
     <string name="pref_navigation_quick_action_left">pref_navigation_quick_action_left</string>
-    <string name="tide_calibration_instructions">设定在你附近的涨潮时间，最好是在新月或满月的日期。这可以从网上或通过印刷的潮汐表获得。Trail Sense 中显示的潮汐可能至多偏离一个小时，这足供参考之用，但不能依赖。</string>
+    <string name="tide_calibration_instructions">设定在你附近的涨潮时间，最好是在新月或满月的日期。这可以从网上或通过印刷的潮汐表获得。Trail Sense 中显示的潮汐可能至多偏离两个小时，这足供参考之用，但不能依赖。</string>
     <string name="date_not_set">未设置日期</string>
     <string name="time_not_set">未设置时间</string>
     <string name="tide_high_short">涨潮</string>
@@ -737,4 +737,12 @@
     <string name="low_tide">落潮</string>
     <string name="high_tide">涨潮</string>
     <string name="tides">潮汐（实验性）</string>
+    <string name="experimental_features">潮汐和白噪音</string>
+    <string name="pref_daily_weather_time">pref_daily_weather_time</string>
+    <string name="pref_daily_weather_time_title">每日天气时间</string>
+    <string name="pref_daily_weather_time_holder">pref_daily_weather_time_holder</string>
+    <string name="weather_same_as_today">和今天一样</string>
+    <string name="weather_worse_than_today">比今天差</string>
+    <string name="weather_better_than_today">好于今天</string>
+    <string name="tomorrows_forecast">明日预报</string>
 </resources>
