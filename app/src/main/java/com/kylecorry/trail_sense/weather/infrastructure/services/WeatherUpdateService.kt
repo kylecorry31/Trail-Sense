@@ -61,6 +61,13 @@ class WeatherUpdateService : Service() {
     private lateinit var pressureRepo: PressureRepo
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val notification = notification(
+            getString(R.string.weather_update_notification_channel),
+            getString(R.string.notification_monitoring_weather),
+            R.drawable.ic_update
+        )
+
+        startForeground(FOREGROUND_SERVICE_ID, notification)
         Log.i(TAG, "Started at ${ZonedDateTime.now()}")
         acquireWakelock()
         userPrefs = UserPreferences(applicationContext)
@@ -79,14 +86,6 @@ class WeatherUpdateService : Service() {
         thermometer = sensorService.getThermometer()
 
         scheduleNextUpdate()
-
-        val notification = notification(
-            getString(R.string.weather_update_notification_channel),
-            getString(R.string.notification_monitoring_weather),
-            R.drawable.ic_update
-        )
-
-        startForeground(FOREGROUND_SERVICE_ID, notification)
 
         sendWeatherNotification()
         setSensorTimeout(30 * 1000L)
@@ -178,18 +177,20 @@ class WeatherUpdateService : Service() {
                 val readings =
                     PressureCalibrationUtils.calibratePressures(applicationContext, rawReadings)
 
-                val forecast = weatherService.getHourlyWeather(readings)
+                withContext(Dispatchers.Main) {
+                    val forecast = weatherService.getHourlyWeather(readings)
 
-                if (userPrefs.weather.shouldShowDailyWeatherNotification){
-                    sendDailyWeatherNotification(readings)
-                }
+                    if (userPrefs.weather.shouldShowDailyWeatherNotification) {
+                        sendDailyWeatherNotification(readings)
+                    }
 
-                if (userPrefs.weather.shouldShowWeatherNotification) {
-                    WeatherNotificationService.updateNotificationForecast(
-                        applicationContext,
-                        forecast,
-                        readings
-                    )
+                    if (userPrefs.weather.shouldShowWeatherNotification) {
+                        WeatherNotificationService.updateNotificationForecast(
+                            applicationContext,
+                            forecast,
+                            readings
+                        )
+                    }
                 }
             }
         }

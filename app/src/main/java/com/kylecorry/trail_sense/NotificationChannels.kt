@@ -1,6 +1,10 @@
 package com.kylecorry.trail_sense
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
+import android.os.Build
+import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
@@ -98,6 +102,19 @@ object NotificationChannels {
             NotificationUtils.CHANNEL_IMPORTANCE_LOW,
             true
         )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = context.getString(R.string.weather)
+            val descriptionText = context.getString(R.string.notification_monitoring_weather)
+            val importance = NotificationManager.IMPORTANCE_LOW
+            val channel = NotificationChannel("Weather", name, importance).apply {
+                description = descriptionText
+                enableVibration(false)
+                setShowBadge(false)
+            }
+            val notificationManager = context.getSystemService<NotificationManager>()
+            notificationManager?.createNotificationChannel(channel)
+        }
 
         NotificationUtils.createChannel(
             context,

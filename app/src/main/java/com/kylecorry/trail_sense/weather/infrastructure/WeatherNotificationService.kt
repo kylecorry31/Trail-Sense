@@ -29,8 +29,6 @@ object WeatherNotificationService {
     const val WEATHER_NOTIFICATION_ID = 1
 
     fun getNotification(context: Context, text: String, icon: Int): Notification {
-        createNotificationChannel(context)
-
         val stopIntent = Intent(context, WeatherStopMonitoringReceiver::class.java)
         val openIntent = MainActivity.weatherIntent(context)
 
@@ -167,21 +165,6 @@ object WeatherNotificationService {
 
     private fun updateNotificationText(context: Context, notification: Notification) {
         NotificationUtils.send(context, WEATHER_NOTIFICATION_ID, notification)
-    }
-
-    private fun createNotificationChannel(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = context.getString(R.string.weather)
-            val descriptionText = context.getString(R.string.notification_monitoring_weather)
-            val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel("Weather", name, importance).apply {
-                description = descriptionText
-                enableVibration(false)
-                setShowBadge(false)
-            }
-            val notificationManager = context.getSystemService<NotificationManager>()
-            notificationManager?.createNotificationChannel(channel)
-        }
     }
 
 }
