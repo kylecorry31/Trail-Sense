@@ -194,6 +194,7 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun displayAccuracyTips() {
+        context ?: return
 
         val gpsHorizontalAccuracy = gps.horizontalAccuracy
         val gpsVerticalAccuracy = gps.verticalAccuracy
