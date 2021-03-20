@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.TimePicker
+import androidx.lifecycle.lifecycleScope
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
 import com.kylecorry.trail_sense.databinding.ListItemTideBinding
 import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
+import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
 import com.kylecorry.trailsensecore.domain.oceanography.OceanographyService
 import com.kylecorry.trailsensecore.domain.oceanography.TidalRange
 import com.kylecorry.trailsensecore.domain.oceanography.Tide
@@ -22,6 +25,9 @@ import com.kylecorry.trailsensecore.domain.oceanography.TideType
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.*
 
 
@@ -31,10 +37,12 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private var displayDate = LocalDate.now()
-    private lateinit var tideList: ListView<Tide>
+    private lateinit var tideList: ListView<Pair<String, String>>
     private val intervalometer = Intervalometer {
         update()
     }
+    private val tideRepo by lazy { TideRepo.getInstance(requireContext()) }
+    private var referenceTide: TideEntity? = null
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -47,12 +55,8 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         super.onViewCreated(view, savedInstanceState)
         tideList = ListView(binding.tideList, R.layout.list_item_tide) { view, tide ->
             val tideView = ListItemTideBinding.bind(view)
-            tideView.tideType.text = if (tide.type == TideType.High) {
-                getString(R.string.high_tide)
-            } else {
-                getString(R.string.low_tide)
-            }
-            tideView.tideTime.text = formatService.formatTime(tide.time.toLocalTime(), false)
+            tideView.tideType.text = tide.first
+            tideView.tideTime.text = tide.second
         }
         binding.tideCalibration.setOnClickListener {
             calibrateTides()
@@ -70,15 +74,22 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             )
             datePickerDialog.show()
         }
+
+        tideRepo.getTides().observe(viewLifecycleOwner, {
+            // TODO: Allow auto tide choosing based on location
+            val lastTide = prefs.lastTide
+            referenceTide = it.firstOrNull { tide -> tide.id == lastTide } ?: it.firstOrNull()
+            if (referenceTide == null) {
+                calibrateTides()
+            }
+            update()
+        })
     }
 
     override fun onResume() {
         super.onResume()
         // TODO: Add check if reference is too old
         intervalometer.interval(Duration.ofSeconds(15))
-        if (prefs.referenceHighTide == null) {
-            calibrateTides()
-        }
     }
 
     override fun onPause() {
@@ -87,22 +98,41 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     }
 
     private fun calibrateTides() {
-        var referenceTime = prefs.referenceHighTide?.toLocalTime()
-        var referenceDate = prefs.referenceHighTide?.toLocalDate()
+        var referenceTime = referenceTide?.reference?.toLocalTime()
+        var referenceDate = referenceTide?.reference?.toLocalDate()
         val now = LocalDateTime.now()
         val dialogView = View.inflate(activity, R.layout.view_tide_time_picker, null)
         val alertDialog = UiUtils.alertViewWithCancel(
             requireContext(),
-            "Tide Calibration",
+            getString(R.string.tide_calibration),
             dialogView,
             getString(R.string.dialog_ok),
             getString(R.string.dialog_cancel)
         ) { cancelled ->
             if (!cancelled) {
                 if (referenceTime != null && referenceDate != null) {
-                    prefs.referenceHighTide =
+                    val newReference =
                         ZonedDateTime.of(referenceDate!!, referenceTime!!, ZoneId.systemDefault())
-                    update()
+
+                    val newTide = if (referenceTide == null) {
+                        TideEntity(newReference.toInstant().toEpochMilli(), null, null, null)
+                    } else {
+                        referenceTide!!.copy(
+                            referenceHighTide = newReference.toInstant().toEpochMilli()
+                        ).also {
+                            it.id = referenceTide!!.id
+                        }
+                    }
+
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.IO) {
+                            tideRepo.addTide(newTide)
+                        }
+                        withContext(Dispatchers.Main) {
+                            update()
+                        }
+                    }
+
                 }
             }
         }
@@ -173,19 +203,34 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     }
 
     private fun update() {
-        val reference = prefs.referenceHighTide ?: return
+        context ?: return
+        val reference = referenceTide?.reference ?: return
         binding.tideListDateText.text = formatService.formatRelativeDate(displayDate)
         binding.tideClock.time = ZonedDateTime.now()
         val next = oceanService.getNextTide(reference)
         binding.tideClock.nextTide = next
-        binding.tidalRange.text = "${getString(R.string.tidal_range)}: ${getTidalRangeName(oceanService.getTidalRange(ZonedDateTime.now()))}"
+        binding.tideLocation.text = referenceTide?.name
         binding.tideHeight.text = getTideTypeName(oceanService.getTideType(reference))
-        tideList.setData(
-            oceanService.getTides(
-                reference,
-                displayDate
+        val tides = oceanService.getTides(reference, displayDate)
+        val tideStrings = tides.map {
+            val type = if (it.type == TideType.High) {
+                getString(R.string.high_tide)
+            } else {
+                getString(R.string.low_tide)
+            }
+            val time = formatService.formatTime(it.time.toLocalTime(), false)
+            type to time
+        }.toMutableList()
+        tideStrings.add(
+            getString(R.string.tidal_range) to getTidalRangeName(
+                oceanService.getTidalRange(
+                    displayDate.atStartOfDay(
+                        ZoneId.systemDefault()
+                    )
+                )
             )
         )
+        tideList.setData(tideStrings)
     }
 
     private fun getTidalRangeName(range: TidalRange): String {

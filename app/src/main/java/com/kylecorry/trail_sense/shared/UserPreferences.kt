@@ -112,7 +112,7 @@ class UserPreferences(private val context: Context) {
         }
 
     var altitudeOverride: Float
-        get(){
+        get() {
             val raw = cache.getString(getString(R.string.pref_altitude_override)) ?: "0.0"
             return raw.toFloatCompat2() ?: 0.0f
         }
@@ -167,7 +167,11 @@ class UserPreferences(private val context: Context) {
             value
         )
 
-    var backtrackSaveCellHistory by BooleanPreference(cache, context.getString(R.string.pref_backtrack_save_cell), true)
+    var backtrackSaveCellHistory by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_backtrack_save_cell),
+        true
+    )
 
     val backtrackRecordFrequency: Duration
         get() {
@@ -185,16 +189,13 @@ class UserPreferences(private val context: Context) {
     val lowPowerModeDisablesBacktrack: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_low_power_mode_backtrack)) ?: true
 
-    var referenceHighTide: ZonedDateTime?
-        get(){
-            val raw = cache.getLong(context.getString(R.string.reference_high_tide)) ?: return null
-            return ZonedDateTime.ofInstant(Instant.ofEpochSecond(raw), ZoneId.systemDefault())
-        }
+    var lastTide: Long?
+        get() = cache.getLong(context.getString(R.string.last_tide_id))
         set(value) {
-            if (value == null){
-                cache.remove(context.getString(R.string.reference_high_tide))
+            if (value != null) {
+                cache.putLong(context.getString(R.string.last_tide_id), value)
             } else {
-                cache.putLong(context.getString(R.string.reference_high_tide), value.toEpochSecond())
+                cache.remove(context.getString(R.string.last_tide_id))
             }
         }
 

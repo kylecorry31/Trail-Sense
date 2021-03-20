@@ -174,7 +174,7 @@
     <string name="sunset_alert_notification_text">The sun will set at %s</string>
     <string name="sunset_alert_channel_description">Sunset alerts</string>
     <string name="sunset_alert_channel_title">Sunset alert</string>
-    <string name="tidal_range">Tidal range</string>
+    <string name="tidal_range">Tidal Range</string>
     <string name="tide_neap">Neap</string>
     <string name="tide_spring">Spring</string>
     <string name="tide_normal">Normal</string>
@@ -861,6 +861,7 @@
     <string name="low_tide">Low Tide</string>
     <string name="half_tide">Half Tide</string>
     <string name="reference_high_tide" translatable="false">reference_high_tide</string>
+    <string name="last_tide_id" translatable="false">last_tide_id</string>
     <string name="tide_low_short">Low</string>
     <string name="tide_high_short">High</string>
     <string name="tide_calibration_instructions">Set the time of a high tide near you, preferably on the date of a new or full moon. This can be obtained online or via printed tide tables. The tides shown in Trail Sense may be off by up to two hours, which is good enough for reference but not to rely on.</string>
@@ -870,4 +871,5 @@
     <string name="pref_daily_weather_time_title">Daily weather time</string>
     <string name="pref_daily_weather_time">pref_daily_weather_time</string>
     <string name="experimental_features">Tides and white noise</string>
+    <string name="tide_calibration">Tide Calibration</string>
 </resources>

@@ -19,7 +19,7 @@
         tools:text="@string/high_tide" />
 
     <TextView
-        android:id="@+id/tidal_range"
+        android:id="@+id/tide_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/tide_height"
@@ -35,7 +35,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tidal_range" />
+        app:layout_constraintTop_toBottomOf="@id/tide_location" />
 
     <LinearLayout
         android:id="@+id/tide_list_date"
@@ -82,6 +82,6 @@
         app:layout_constraintBottom_toBottomOf="@id/tide_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tide_height"
-        app:srcCompat="@drawable/ic_settings" />
+        app:srcCompat="@drawable/ic_tool_tides" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

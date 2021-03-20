@@ -20,6 +20,9 @@ import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.InventoryItemDao
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
+import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
+import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDao
+import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDatabaseMigrationSharedPrefWorker
 import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureDatabaseMigrationWorker
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingDao
@@ -29,14 +32,15 @@ import java.io.File
  * The Room database for this app
  */
 @Database(
-    entities = [InventoryItem::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class],
-    version = 7,
+    entities = [InventoryItem::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class],
+    version = 8,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun inventoryItemDao(): InventoryItemDao
     abstract fun waypointDao(): WaypointDao
+    abstract fun tideDao(): TideDao
     abstract fun pressureDao(): PressureReadingDao
     abstract fun beaconDao(): BeaconDao
     abstract fun beaconGroupDao(): BeaconGroupDao
@@ -123,6 +127,15 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_7_8 = object : Migration(7, 8) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `tides` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `reference_high` INTEGER NOT NULL, `name` TEXT DEFAULT NULL, `latitude` REAL DEFAULT NULL, `longitude` REAL DEFAULT NULL)")
+                    val request =
+                        OneTimeWorkRequestBuilder<TideDatabaseMigrationSharedPrefWorker>().build()
+                    WorkManager.getInstance(context).enqueue(request)
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -130,7 +143,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_3_4,
                     MIGRATION_4_5,
                     MIGRATION_5_6,
-                    MIGRATION_6_7
+                    MIGRATION_6_7,
+                    MIGRATION_7_8
                 )
                 .addCallback(object: RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
