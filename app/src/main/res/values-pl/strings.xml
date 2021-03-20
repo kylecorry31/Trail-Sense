@@ -721,4 +721,26 @@
     <string name="no_temperature_history">Brak historii temperatury</string>
     <string name="no_gps_signal">Brak sygnału GPS</string>
     <string name="pref_navigation_quick_action_right">pref_navigation_quick_action_right</string>
+    <string name="low_tide">Niski przypływ</string>
+    <string name="high_tide">Wysoki przypływ</string>
+    <string name="tides">Pływy (funkcja eksperymentalna)</string>
+    <string name="right_quick_action">Prawa szybka akcja</string>
+    <string name="left_quick_action">Lewa szybka akcja</string>
+    <string name="guide_light_meter_description">Jak określić odległość wiązki światła z latarek</string>
+    <string name="guide_light_meter_title">Określ skuteczność latarki</string>
+    <string name="quick_action_none">Brak</string>
+    <string name="pref_navigation_quick_action_left">pref_navigation_quick_action_left</string>
+    <string name="date_not_set">Data nieustawiona</string>
+    <string name="time_not_set">Czas nieustawiony</string>
+    <string name="tool_light_meter_description">Zmierz odległość wiązki światła latarki</string>
+    <string name="tool_light_meter_title">Światłomierz</string>
+    <string name="beam_distance">%s odległość wiązki</string>
+    <string name="pref_daily_weather_time_title">Czas codziennej prognozy pogody</string>
+    <string name="weather_same_as_today">Taka sama jak dzisiaj</string>
+    <string name="weather_worse_than_today">Gorsza niż dzisiaj</string>
+    <string name="weather_better_than_today">Lepsza niż dzisiaj</string>
+    <string name="tomorrows_forecast">Jutrzejsza prognoza</string>
+    <string name="pref_daily_weather_time">pref_daily_weather_time</string>
+    <string name="pref_daily_weather_time_holder">pref_daily_weather_time_holder</string>
+    <string name="experimental_features">Pływy i szum biały</string>
 </resources>
