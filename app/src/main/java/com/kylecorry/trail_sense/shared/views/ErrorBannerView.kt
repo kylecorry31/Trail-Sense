@@ -62,6 +62,7 @@ class ErrorBannerView(context: Context, attrs: AttributeSet?) : ConstraintLayout
         if (first != null) {
             displayError(first)
         } else {
+            onAction = null
             hide()
         }
     }

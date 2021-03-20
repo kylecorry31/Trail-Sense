@@ -13,6 +13,7 @@ import kotlin.math.roundToInt
 object AltitudeCorrection {
 
     private val table = mutableMapOf<Pair<Int, Int>, Float>()
+    private val lock = Object()
 
     fun getOffset(location: Coordinate?, context: Context?): Float {
         if (location == null || context == null){
@@ -29,23 +30,32 @@ object AltitudeCorrection {
     }
 
     private fun loadTable(context: Context){
-        val input = context.resources.openRawResource(R.raw.geoids)
-        val lines = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            input.bufferedReader().lines().map { it.split(",") }.collect(Collectors.toList())
-        } else {
-            with(input.bufferedReader()){
-                val lines = mutableListOf<String>()
-                while(this.ready()){
-                    lines.add(this.readLine())
-                }
-                lines.map { it.split(",") }
+        synchronized(lock) {
+            if (table.isNotEmpty()){
+                return@synchronized
             }
+            val input = context.resources.openRawResource(R.raw.geoids)
+            val lines = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                input.bufferedReader().lines().map { it.split(",") }.collect(Collectors.toList())
+            } else {
+                with(input.bufferedReader()) {
+                    val lines = mutableListOf<String>()
+                    while (this.ready()) {
+                        lines.add(this.readLine())
+                    }
+                    lines.map { it.split(",") }
+                }
+            }
+            table.clear()
+            for (line in lines) {
+                try {
+                    table[Pair(line[0].toInt(), line[1].toInt())] = line[2].toFloat()
+                } catch (e: Exception) {
+                    // Do nothing, could not parse that row
+                }
+            }
+            input.close()
         }
-        table.clear()
-        for (line in lines){
-            table[Pair(line[0].toInt(), line[1].toInt())] = line[2].toFloat()
-        }
-        input.close()
     }
 
 
