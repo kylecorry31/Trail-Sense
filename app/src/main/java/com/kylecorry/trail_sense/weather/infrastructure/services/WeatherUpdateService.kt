@@ -127,7 +127,7 @@ class WeatherUpdateService : Service() {
             return
         }
 
-        if (!CanSendDailyForecast(userPrefs.weather.dailyForecastTime).isSatisfiedBy(LocalTime.now())){
+        if (!CanSendDailyForecast(userPrefs.weather.dailyForecastTime).isSatisfiedBy(LocalTime.now())) {
             return
         }
 
@@ -140,9 +140,9 @@ class WeatherUpdateService : Service() {
         }
 
         val description = when (forecast) {
-            Weather.ImprovingSlow -> getString(if (userPrefs.weather.dailyWeatherIsForTomorrow) R.string.weather_better_than_today  else R.string.weather_better_than_yesterday)
-            Weather.WorseningSlow -> getString(if (userPrefs.weather.dailyWeatherIsForTomorrow) R.string.weather_worse_than_today  else R.string.weather_worse_than_yesterday)
-            else -> getString(if (userPrefs.weather.dailyWeatherIsForTomorrow) R.string.weather_same_as_today  else R.string.weather_same_as_yesterday)
+            Weather.ImprovingSlow -> getString(if (userPrefs.weather.dailyWeatherIsForTomorrow) R.string.weather_better_than_today else R.string.weather_better_than_yesterday)
+            Weather.WorseningSlow -> getString(if (userPrefs.weather.dailyWeatherIsForTomorrow) R.string.weather_worse_than_today else R.string.weather_worse_than_yesterday)
+            else -> getString(if (userPrefs.weather.dailyWeatherIsForTomorrow) R.string.weather_same_as_today else R.string.weather_same_as_yesterday)
         }
 
         val openIntent = MainActivity.weatherIntent(this)
@@ -168,31 +168,29 @@ class WeatherUpdateService : Service() {
     }
 
     private fun sendWeatherNotification() {
-        runBlocking {
+        // TODO: Remove run blocking
+        val readings = runBlocking {
             withContext(Dispatchers.IO) {
                 val rawReadings =
                     pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }
                         .sortedBy { it.time }
 
-                val readings =
-                    PressureCalibrationUtils.calibratePressures(applicationContext, rawReadings)
-
-                withContext(Dispatchers.Main) {
-                    val forecast = weatherService.getHourlyWeather(readings)
-
-                    if (userPrefs.weather.shouldShowDailyWeatherNotification) {
-                        sendDailyWeatherNotification(readings)
-                    }
-
-                    if (userPrefs.weather.shouldShowWeatherNotification) {
-                        WeatherNotificationService.updateNotificationForecast(
-                            applicationContext,
-                            forecast,
-                            readings
-                        )
-                    }
-                }
+                PressureCalibrationUtils.calibratePressures(applicationContext, rawReadings)
             }
+        }
+
+        val forecast = weatherService.getHourlyWeather(readings)
+
+        if (userPrefs.weather.shouldShowDailyWeatherNotification) {
+            sendDailyWeatherNotification(readings)
+        }
+
+        if (userPrefs.weather.shouldShowWeatherNotification) {
+            WeatherNotificationService.updateNotificationForecast(
+                applicationContext,
+                forecast,
+                readings
+            )
         }
 
     }
