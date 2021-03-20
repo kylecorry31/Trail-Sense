@@ -71,6 +71,7 @@
     <!--Flashlight-->
     <string name="flashlight_title">Flashlight</string>
     <string name="tap_to_turn_off">Tap to turn off</string>
+    <string name="turn_off">Turn off</string>
     <string name="sos">SOS</string>
     <!--Navigation Tab - Destination Panel-->
     <string name="eta">~ %s away</string>
@@ -872,4 +873,5 @@
     <string name="pref_daily_weather_time">pref_daily_weather_time</string>
     <string name="experimental_features">Tides and white noise</string>
     <string name="tide_calibration">Tide Calibration</string>
+    <string name="screen_flashlight">Screen</string>
 </resources>

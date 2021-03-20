@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
@@ -43,6 +44,11 @@ class FragmentToolFlashlight : Fragment() {
             } else {
                 flashlight.set(FlashlightState.SOS)
             }
+        }
+
+        binding.screenFlashlightBtn.setOnClickListener {
+            flashlight.set(FlashlightState.Off)
+            findNavController().navigate(R.id.action_flashlight_to_screen_flashlight)
         }
 
         binding.strobeBtn.setOnClickListener {

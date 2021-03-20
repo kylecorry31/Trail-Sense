@@ -9,8 +9,8 @@
 
     <com.kylecorry.trail_sense.shared.views.TileButton
         android:id="@+id/flashlight_btn"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
         app:tilePadding="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,6 +19,7 @@
         app:tileIcon="@drawable/flashlight"/>
 
     <LinearLayout
+        android:id="@+id/flashlight_small_btns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -26,30 +27,35 @@
         android:orientation="horizontal">
 
         <com.kylecorry.trail_sense.shared.views.TileButton
-            android:layout_width="117dp"
-            android:layout_height="117dp"
+            android:layout_width="102dp"
+            android:layout_height="102dp"
             android:id="@+id/strobe_btn"
             app:tileIcon="@drawable/ic_strobe"
             app:tileText="@string/flashlight_strobe"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/flashlight_btn"
-            app:layout_constraintStart_toStartOf="@+id/flashlight_btn">
+            android:layout_marginEnd="8dp">
 
         </com.kylecorry.trail_sense.shared.views.TileButton>
 
 
             <com.kylecorry.trail_sense.shared.views.TileButton
                 android:id="@+id/sos_btn"
-                android:layout_width="117dp"
-                android:layout_height="117dp"
+                android:layout_width="102dp"
+                android:layout_height="102dp"
                 android:layout_marginStart="8dp"
                 app:tileIcon="@drawable/flashlight_sos"
                 app:tileText="@string/sos"
-                app:layout_constraintBottom_toBottomOf="@+id/flashlight_btn"
-                app:layout_constraintEnd_toEndOf="@+id/flashlight_btn"
                 app:srcCompat="@drawable/flashlight_sos" />
 
     </LinearLayout>
+
+    <com.kylecorry.trail_sense.shared.views.TileButton
+        android:id="@+id/screen_flashlight_btn"
+        android:layout_width="225dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="16dp"
+        app:tileIcon="@drawable/ic_screen_flashlight"
+        app:tileText="@string/screen_flashlight"
+        app:srcCompat="@drawable/flashlight_sos" />
 
 
 </LinearLayout>
