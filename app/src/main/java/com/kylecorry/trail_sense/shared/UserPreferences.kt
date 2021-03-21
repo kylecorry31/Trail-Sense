@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
+import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -159,6 +160,9 @@ class UserPreferences(private val context: Context) {
     var useAltitudeOffsets: Boolean
         get() = cache.getBoolean(getString(R.string.pref_altitude_offsets)) ?: true
         set(value) = cache.putBoolean(getString(R.string.pref_altitude_offsets), value)
+
+    val odometerDistanceThreshold: Distance
+        get() = Distance.meters(10f)
 
     var backtrackEnabled: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_backtrack_enabled)) ?: false

@@ -4,6 +4,9 @@ import android.content.Context
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.units.DistanceUnits
+import com.kylecorry.trailsensecore.domain.units.Speed
+import com.kylecorry.trailsensecore.domain.units.TimeUnits
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
@@ -18,8 +21,8 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : Abs
             val lng = cache.getDouble(CustomGPS.LAST_LONGITUDE) ?: userPrefs.locationOverride.longitude
             return Coordinate(lat, lng)
         }
-    override val speed: Float
-        get() = cache.getFloat(CustomGPS.LAST_SPEED) ?: 0.0f
+    override val speed: Speed
+        get() = Speed(cache.getFloat(CustomGPS.LAST_SPEED) ?: 0.0f, DistanceUnits.Meters, TimeUnits.Seconds)
     override val time: Instant
         get() = Instant.now()
     override val verticalAccuracy: Float?

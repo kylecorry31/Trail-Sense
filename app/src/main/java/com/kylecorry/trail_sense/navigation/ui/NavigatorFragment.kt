@@ -58,6 +58,7 @@ class NavigatorFragment : Fragment() {
     private val gps by lazy { sensorService.getGPS() }
     private val orientation by lazy { sensorService.getDeviceOrientation() }
     private val altimeter by lazy { sensorService.getAltimeter() }
+    private val speedometer by lazy { sensorService.getSpeedometer() }
 
     private val userPrefs by lazy { UserPreferences(requireContext()) }
 
@@ -78,8 +79,6 @@ class NavigatorFragment : Fragment() {
     private val astronomyService = AstronomyService()
     private val geoService = GeoService()
     private val formatService by lazy { FormatService(requireContext()) }
-
-    private var averageSpeed = 0f
 
     private var beacons: Collection<Beacon> = listOf()
     private var nearbyBeacons: Collection<Beacon> = listOf()
@@ -149,9 +148,7 @@ class NavigatorFragment : Fragment() {
         orientation.asLiveData().observe(viewLifecycleOwner, { onOrientationUpdate() })
         altimeter.asLiveData().observe(viewLifecycleOwner, { updateUI() })
         gps.asLiveData().observe(viewLifecycleOwner, { onLocationUpdate() })
-
-        averageSpeed = userPrefs.navigation.averageSpeed
-
+        speedometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
 
         binding.location.setOnLongClickListener {
             val sender = LocationCopy(requireContext(), Clipboard(requireContext()))
@@ -433,10 +430,10 @@ class NavigatorFragment : Fragment() {
             (requireActivity() as MainActivity).errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
         }
 
-        if (gps.speed == 0.0f) {
+        if (speedometer.speed.speed == 0.0f) {
             binding.speed.text = getString(R.string.dash)
         } else {
-            binding.speed.text = formatService.formatSpeed(gps.speed)
+            binding.speed.text = formatService.formatSpeed(speedometer.speed.speed)
         }
 
         // Azimuth
@@ -472,7 +469,7 @@ class NavigatorFragment : Fragment() {
 
 
     private fun getPosition(): Position {
-        return Position(gps.location, altimeter.altitude, compass.bearing, averageSpeed)
+        return Position(gps.location, altimeter.altitude, compass.bearing, speedometer.speed.speed)
     }
 
     private fun showCalibrationDialog() {
@@ -502,28 +499,7 @@ class NavigatorFragment : Fragment() {
         nearbyBeacons = getNearbyBeacons()
         compass.declination = getDeclination()
 
-        updateAverageSpeed()
         updateUI()
-    }
-
-    private fun updateAverageSpeed() {
-        if (gps.speed < 0.2f) {
-            return
-        }
-
-        if (gps.speed > 2f) {
-            // If traveling by running, bike or car or sitting still
-            averageSpeed = gps.speed
-        } else {
-            val lastSpeed = userPrefs.navigation.averageSpeed
-            averageSpeed = if (lastSpeed == 0f) {
-                gps.speed
-            } else {
-                lastSpeed * 0.4f + gps.speed * 0.6f
-            }
-
-            userPrefs.navigation.setAverageSpeed(averageSpeed)
-        }
     }
 
     private fun updateNavigationButton() {

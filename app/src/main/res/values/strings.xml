@@ -874,4 +874,8 @@
     <string name="experimental_features">Tides and white noise</string>
     <string name="tide_calibration">Tide Calibration</string>
     <string name="screen_flashlight">Screen</string>
+    <string name="speedometer_real_time">Real Time</string>
+    <string name="speedometer_average">Average (from Backtrack)</string>
+    <string name="pref_navigation_speedometer_type">pref_navigation_speedometer_type</string>
+    <string name="speedometer">Speedometer</string>
 </resources>

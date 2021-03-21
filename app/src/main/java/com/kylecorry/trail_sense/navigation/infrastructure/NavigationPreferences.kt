@@ -80,13 +80,6 @@ class NavigationPreferences(private val context: Context) {
             return raw.toFloatCompat2() ?: 1f
         }
 
-    val averageSpeed: Float
-        get() = cache.getFloat(context.getString(R.string.pref_average_speed)) ?: 0f
-
-    fun setAverageSpeed(metersPerSecond: Float) {
-        cache.putFloat(context.getString(R.string.pref_average_speed), min(metersPerSecond, 3f))
-    }
-
     val coordinateFormat: CoordinateFormat
         get() {
             return when (cache.getString(context.getString(R.string.pref_coordinate_format))) {
@@ -113,5 +106,19 @@ class NavigationPreferences(private val context: Context) {
             val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_right))?.toIntCompat()
             return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Flashlight
         }
+
+    val speedometerMode: SpeedometerMode
+        get(){
+            val raw = cache.getString(context.getString(R.string.pref_navigation_speedometer_type)) ?: "instant"
+            return when (raw){
+                "average" -> SpeedometerMode.Average
+                else -> SpeedometerMode.Instantaneous
+            }
+        }
+
+    enum class SpeedometerMode {
+        Average,
+        Instantaneous
+    }
 
 }

@@ -3,6 +3,9 @@ package com.kylecorry.trail_sense.shared.sensors.overrides
 import android.content.Context
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.units.DistanceUnits
+import com.kylecorry.trailsensecore.domain.units.Speed
+import com.kylecorry.trailsensecore.domain.units.TimeUnits
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
@@ -13,8 +16,8 @@ class OverrideGPS(context: Context, private val updateFrequency: Long = 20L): Ab
 
     override val location: Coordinate
         get() = userPrefs.locationOverride
-    override val speed: Float
-        get() = 0f
+    override val speed: Speed
+        get() = Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
     override val time: Instant
         get() = Instant.now()
     override val verticalAccuracy: Float?

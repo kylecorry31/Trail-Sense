@@ -31,6 +31,16 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
+            android:entries="@array/speedometer_entries"
+            android:entryValues="@array/speedometer_values"
+            app:defaultValue="instant"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_speedometer_type"
+            app:singleLineTitle="false"
+            app:title="@string/speedometer"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
             app:defaultValue="0"
             app:iconSpaceReserved="false"
             app:key="@string/pref_navigation_quick_action_left"

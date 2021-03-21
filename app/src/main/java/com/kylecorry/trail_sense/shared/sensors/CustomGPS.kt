@@ -5,7 +5,10 @@ import android.content.Context
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.Quality
+import com.kylecorry.trailsensecore.domain.units.Speed
+import com.kylecorry.trailsensecore.domain.units.TimeUnits
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -36,7 +39,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     override val location: Coordinate
         get() = _location
 
-    override val speed: Float
+    override val speed: Speed
         get() = _speed
 
     override val time: Instant
@@ -66,7 +69,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     private var _horizontalAccuracy: Float? = null
     private var _verticalAccuracy: Float? = null
     private var _satellites: Int = 0
-    private var _speed: Float = 0f
+    private var _speed: Speed = Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
     private var _location = Coordinate.zero
     private var _mslAltitude: Float? = null
     private var _isTimedOut = false
@@ -90,7 +93,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
                 cache.getDouble(LAST_LONGITUDE) ?: 0.0
             )
             _altitude = cache.getFloat(LAST_ALTITUDE) ?: 0f
-            _speed = cache.getFloat(LAST_SPEED) ?: 0f
+            _speed = Speed(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
             _time = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
         }
 
@@ -169,7 +172,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     private fun updateCache(){
         cache.putFloat(LAST_ALTITUDE, altitude)
         cache.putLong(LAST_UPDATE, time.toEpochMilli())
-        cache.putFloat(LAST_SPEED, speed)
+        cache.putFloat(LAST_SPEED, speed.speed)
         cache.putDouble(LAST_LONGITUDE, location.longitude)
         cache.putDouble(LAST_LATITUDE, location.latitude)
     }

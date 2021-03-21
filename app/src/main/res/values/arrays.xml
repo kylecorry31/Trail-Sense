@@ -148,6 +148,16 @@
         <item>never</item>
     </string-array>
 
+    <string-array name="speedometer_entries">
+        <item>@string/speedometer_real_time</item>
+        <item>@string/speedometer_average</item>
+    </string-array>
+
+    <string-array name="speedometer_values">
+        <item>instant</item>
+        <item>average</item>
+    </string-array>
+
     <string-array name="coordinate_format_entries">
         <item>@string/coordinate_format_decimal_degrees</item>
         <item>@string/coordinate_format_degrees_decimal_minutes</item>

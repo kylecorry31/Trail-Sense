@@ -4,12 +4,14 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import androidx.core.content.getSystemService
+import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.GravitySensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.IAccelerometer
@@ -34,6 +36,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.network.ICellSignalSe
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientationSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.IOrientationSensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.speedometer.ISpeedometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.BatteryTemperatureSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.Thermometer
@@ -66,6 +69,14 @@ class SensorService(ctx: Context) {
             PermissionUtils.isBackgroundLocationEnabled(context)
         } else {
             PermissionUtils.isLocationEnabled(context)
+        }
+    }
+
+    fun getSpeedometer(): ISpeedometer {
+        return if (userPrefs.navigation.speedometerMode == NavigationPreferences.SpeedometerMode.Average && userPrefs.backtrackEnabled){
+            BacktrackSpeedometer(context)
+        } else {
+            getGPS(false)
         }
     }
 
