@@ -22,7 +22,7 @@ class BacktrackSpeedometer(private val context: Context): AbstractSensor(), ISpe
     private var waypoints = listOf<WaypointEntity>()
 
     private var waypointObserver = Observer<List<WaypointEntity>> {
-        waypoints = it
+        waypoints = it.sortedBy { it.createdInstant }
         notifyListeners()
     }
 
