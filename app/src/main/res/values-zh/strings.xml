@@ -745,4 +745,7 @@
     <string name="weather_worse_than_today">比今天差</string>
     <string name="weather_better_than_today">好于今天</string>
     <string name="tomorrows_forecast">明日预报</string>
+    <string name="screen_flashlight">屏幕</string>
+    <string name="tide_calibration">潮汐校准</string>
+    <string name="turn_off">关闭</string>
 </resources>
