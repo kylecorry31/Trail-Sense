@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.roundPlaces
@@ -25,6 +26,7 @@ import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
+import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,6 +45,7 @@ class PlaceBeaconFragment : Fragment() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val compass by lazy { sensorService.getCompass() }
     private val formatService by lazy { FormatService(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private lateinit var groups: List<BeaconGroup>
 
@@ -97,7 +100,13 @@ class PlaceBeaconFragment : Fragment() {
 
         binding.beaconName.setText(beacon.name)
         binding.beaconLocation.coordinate = beacon.coordinate
-        binding.beaconElevation.setText(beacon.elevation?.toString() ?: "")
+        binding.beaconElevation.setText(if (beacon.elevation != null){
+            val dist = Distance.meters(beacon.elevation!!)
+            val userUnits = dist.convertTo(if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Meters else DistanceUnits.Feet)
+            userUnits.distance.toString()
+        } else {
+            ""
+        })
         binding.comment.setText(beacon.comment ?: "")
         updateDoneButtonState()
     }
@@ -219,6 +228,8 @@ class PlaceBeaconFragment : Fragment() {
             binding.bearingTo.text = formatService.formatDegrees(bearingTo?.value ?: 0f)
             updateDoneButtonState()
         }
+
+        CustomUiUtils.promptIfUnsavedChanges(requireActivity(), this, this::hasChanges)
 
         binding.placeBeaconBtn.setOnClickListener {
             val name = binding.beaconName.text.toString()
@@ -360,6 +371,47 @@ class PlaceBeaconFragment : Fragment() {
 
     private fun hasValidName(): Boolean {
         return binding.beaconName.text.toString().isNotBlank()
+    }
+
+    private fun hasChanges(): Boolean {
+        val name = binding.beaconName.text.toString()
+        val createAtDistance = binding.createAtDistance.isChecked
+        val distanceTo =
+            binding.distanceAway.distance?.convertTo(DistanceUnits.Meters)?.distance?.toDouble()
+                ?: 0.0
+        val bearingTo = bearingTo ?: Bearing.from(CompassDirection.North)
+        val comment = binding.comment.text.toString()
+        val rawElevation = binding.beaconElevation.text.toString().toFloatOrNull()
+        val elevation = if (rawElevation == null) {
+            null
+        } else {
+            LocationMath.convertToMeters(rawElevation, units)
+        }
+
+        val coordinate = if (createAtDistance) {
+            val coord = binding.beaconLocation.coordinate
+            val declination = if (coord != null) {
+                geoService.getDeclination(coord, elevation)
+            } else {
+                0f
+            }
+            coord?.plus(distanceTo, bearingTo.withDeclination(declination))
+        } else {
+            binding.beaconLocation.coordinate
+        }
+
+        val groupId = when (binding.beaconGroupSpinner.selectedItemPosition) {
+            in 1 until groups.size -> {
+                groups[binding.beaconGroupSpinner.selectedItemPosition].id
+            }
+            else -> {
+                null
+            }
+        }
+
+        return name != editingBeacon?.name || coordinate != editingBeacon?.coordinate ||
+                comment != editingBeacon?.comment || elevation != editingBeacon?.elevation ||
+                groupId != editingBeacon?.beaconGroupId
     }
 
 }

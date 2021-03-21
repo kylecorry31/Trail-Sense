@@ -596,8 +596,8 @@
     <string name="cloud_high">HOCH</string>
     <string name="clouds">Wolken</string>
     <string name="dialog_leave">Verlassen</string>
-    <string name="notes_unsaved_changes_message">Änderungen werden nicht gespeichert.</string>
-    <string name="notes_unsaved_changes">Nicht gespeicherte Änderungen</string>
+    <string name="unsaved_changes_message">Änderungen werden nicht gespeichert.</string>
+    <string name="unsaved_changes">Nicht gespeicherte Änderungen</string>
     <string name="battery_power_ac">AC</string>
     <string name="backtrack_notification_description">Einen Wegpunkt setzen</string>
     <string name="create_at_distance">Mit Abstand festlegen</string>

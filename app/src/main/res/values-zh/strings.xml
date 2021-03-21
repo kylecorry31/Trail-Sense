@@ -570,8 +570,8 @@
     <string name="pref_low_power_mode_summary">禁用一些功能来节省电量</string>
     <string name="backtrack_disabled_low_power_toast">节电模式下 Backtrack 功能处于禁用状态</string>
     <string name="dialog_leave">离开</string>
-    <string name="notes_unsaved_changes_message">你所做的更改将不被保存。</string>
-    <string name="notes_unsaved_changes">未保存的变更</string>
+    <string name="unsaved_changes_message">你所做的更改将不被保存。</string>
+    <string name="unsaved_changes">未保存的变更</string>
     <string name="cloud_low">低云</string>
     <string name="health">健康</string>
     <string name="cirrus_desc">高且柔软如羽毛。</string>

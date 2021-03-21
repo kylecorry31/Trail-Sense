@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryStringMapper
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DecimalFormatter
 import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
 import com.kylecorry.trail_sense.tools.inventory.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.ItemRepo
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlinx.coroutines.*
 
 class CreateItemFragment : Fragment() {
@@ -29,7 +32,7 @@ class CreateItemFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val itemId = arguments?.getLong("edit_item_id") ?: 0L
         if (itemId != 0L) {
-            loadEditingBeacon(itemId)
+            loadEditingItem(itemId)
         }
     }
 
@@ -85,9 +88,11 @@ class CreateItemFragment : Fragment() {
         if (editingItem == null) {
             binding.categorySelectSpinner.setSelection(0)
         }
+
+        CustomUiUtils.promptIfUnsavedChanges(requireActivity(), this, this::hasChanges)
     }
 
-    private fun loadEditingBeacon(id: Long) {
+    private fun loadEditingItem(id: Long) {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 editingItem = itemRepo.getItem(id)
@@ -103,6 +108,14 @@ class CreateItemFragment : Fragment() {
             }
 
         }
+    }
+
+    private fun hasChanges(): Boolean {
+        val name = binding.nameEdit.text?.toString()
+        val amount = binding.countEdit.text?.toString()?.toDoubleOrNull() ?: 0.0
+        val category = ItemCategory.values()[binding.categorySelectSpinner.selectedItemPosition]
+
+        return name != editingItem?.name || amount != editingItem?.amount || category != editingItem?.category
     }
 
 }

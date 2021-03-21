@@ -642,8 +642,8 @@
     <string name="pref_low_power_mode_summary">Desativa algumas funcionalidades para economizar energia</string>
     <string name="backtrack_disabled_low_power_toast">O backtrack é desativado no modo de economia de energia</string>
     <string name="dialog_leave">Sair</string>
-    <string name="notes_unsaved_changes_message">As alterações que você fez não serão salvas.</string>
-    <string name="notes_unsaved_changes">Alterações não salvas</string>
+    <string name="unsaved_changes_message">As alterações que você fez não serão salvas.</string>
+    <string name="unsaved_changes">Alterações não salvas</string>
     <string name="low_power_mode_on_message">Modo de economia de energia ativado, algumas funcionalidades podem ser desativadas.</string>
     <string name="pref_low_power_mode_title">Modo de economia de energia</string>
     <string name="guide_barometer_calibration_description">Como calibrar seu barômetro ao nível do mar</string>

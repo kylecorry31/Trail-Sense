@@ -1,17 +1,16 @@
 package com.kylecorry.trail_sense.tools.notes.ui
 
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolNotesCreateBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -72,25 +71,7 @@ class FragmentToolNotesCreate : Fragment() {
             }
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            if (hasChanges()) {
-                UiUtils.alertWithCancel(
-                    requireContext(),
-                    getString(R.string.notes_unsaved_changes),
-                    getString(R.string.notes_unsaved_changes_message),
-                    getString(R.string.dialog_leave),
-                    getString(R.string.dialog_cancel)
-                ) { cancelled ->
-                    if (!cancelled) {
-                        remove()
-                        requireActivity().onBackPressed()
-                    }
-                }
-            } else {
-                remove()
-                requireActivity().onBackPressed()
-            }
-        }
+        CustomUiUtils.promptIfUnsavedChanges(requireActivity(), this, this::hasChanges)
     }
 
     private fun hasChanges(): Boolean {

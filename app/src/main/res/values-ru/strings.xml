@@ -586,8 +586,8 @@
     <string name="pref_low_power_mode_summary">Отключает некоторые функции для экономии энергии</string>
     <string name="backtrack_disabled_low_power_toast">История маршрута отключена в режиме энергосбережения</string>
     <string name="dialog_leave">Покинуть</string>
-    <string name="notes_unsaved_changes_message">Внесенные вами изменения не сохранятся.</string>
-    <string name="notes_unsaved_changes">Несохраненные изменения</string>
+    <string name="unsaved_changes_message">Внесенные вами изменения не сохранятся.</string>
+    <string name="unsaved_changes">Несохраненные изменения</string>
     <string name="health">Здоровье</string>
     <string name="cirrus_desc">Высокие и перистые.</string>
     <string name="cumulonimbus_desc">Темно-серые, высокие, в форме наковальни.</string>

@@ -724,8 +724,8 @@
     <string name="pref_low_power_mode_backtrack" translatable="false">pref_low_power_mode_backtrack</string>
     <string name="pref_low_power_mode_title">Power saving mode</string>
     <string name="low_power_mode_on_message">Power saving mode on, some features may be disabled.</string>
-    <string name="notes_unsaved_changes">Unsaved Changes</string>
-    <string name="notes_unsaved_changes_message">Changes you made will not be saved.</string>
+    <string name="unsaved_changes">Unsaved Changes</string>
+    <string name="unsaved_changes_message">Changes you made will not be saved.</string>
     <string name="dialog_leave">Leave</string>
     <string name="backtrack_disabled_low_power_toast">Backtrack is disabled in power saving mode</string>
     <string name="pref_low_power_mode_summary">Disables some features to save power</string>

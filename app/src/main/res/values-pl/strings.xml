@@ -566,8 +566,8 @@
     <string name="cloud_high">WYSOKIE</string>
     <string name="pref_low_power_mode_summary">Wyłącza niektóre funkcje w celu oszczędzania energii</string>
     <string name="dialog_leave">Opuść</string>
-    <string name="notes_unsaved_changes_message">Wprowadzone zmiany nie zostaną zapisane.</string>
-    <string name="notes_unsaved_changes">Niezapisane zmiany</string>
+    <string name="unsaved_changes_message">Wprowadzone zmiany nie zostaną zapisane.</string>
+    <string name="unsaved_changes">Niezapisane zmiany</string>
     <string name="compass_calibrate_toast">Dokładność kompasu %s, zalecana kalibracja</string>
     <string name="open_beacon_in_maps">Zobacz na mapie</string>
     <string name="unit_centimeters_abbreviation">cm</string>
