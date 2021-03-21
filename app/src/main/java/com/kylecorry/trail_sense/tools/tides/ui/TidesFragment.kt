@@ -1,14 +1,11 @@
 package com.kylecorry.trail_sense.tools.tides.ui
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.TimePicker
 import androidx.lifecycle.lifecycleScope
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
@@ -20,7 +17,6 @@ import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
 import com.kylecorry.trailsensecore.domain.oceanography.OceanographyService
 import com.kylecorry.trailsensecore.domain.oceanography.TidalRange
-import com.kylecorry.trailsensecore.domain.oceanography.Tide
 import com.kylecorry.trailsensecore.domain.oceanography.TideType
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
@@ -62,17 +58,12 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             calibrateTides()
         }
         binding.tideListDatePicker.setOnClickListener {
-            val datePickerDialog = DatePickerDialog(
-                requireContext(),
-                { view, year, month, dayOfMonth ->
-                    displayDate = LocalDate.of(year, month + 1, dayOfMonth)
+            UiUtils.pickDate(requireContext(), displayDate){
+                if (it != null){
+                    displayDate = it
                     update()
-                },
-                displayDate.year,
-                displayDate.monthValue - 1,
-                displayDate.dayOfMonth
-            )
-            datePickerDialog.show()
+                }
+            }
         }
 
         tideRepo.getTides().observe(viewLifecycleOwner, {
@@ -159,44 +150,26 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         }
 
         dialogView.findViewById<Button>(R.id.time_picker).setOnClickListener {
-            val timePickerDialog = TimePickerDialog(
-                requireContext(),
-                { timePicker: TimePicker, hour: Int, minute: Int ->
-                    referenceTime = LocalTime.of(hour, minute)
-                    referenceTimeTxt.text = if (referenceTime != null) {
-                        formatService.formatTime(referenceTime!!, false)
-                    } else {
-                        getString(R.string.time_not_set)
-                    }
-                },
-                referenceTime?.hour ?: now.hour,
-                referenceTime?.minute ?: now.minute,
-                prefs.use24HourTime
-            )
-            timePickerDialog.show()
+            UiUtils.pickTime(requireContext(), prefs.use24HourTime, referenceTime ?: now.toLocalTime()){
+                if (it != null) {
+                    referenceTime = it
+                    referenceTimeTxt.text = formatService.formatTime(referenceTime!!, false)
+                }
+            }
         }
         dialogView.findViewById<Button>(R.id.date_picker).setOnClickListener {
-            val datePickerDialog = DatePickerDialog(
-                requireContext(),
-                { view, year, month, dayOfMonth ->
-                    referenceDate = LocalDate.of(year, month + 1, dayOfMonth)
-                    referenceDateTxt.text = if (referenceDate != null) {
-                        formatService.formatDate(
-                            ZonedDateTime.of(
-                                referenceDate,
-                                LocalTime.NOON,
-                                ZoneId.systemDefault()
-                            ), false
-                        )
-                    } else {
-                        getString(R.string.date_not_set)
-                    }
-                },
-                referenceDate?.year ?: now.year,
-                (referenceDate?.monthValue ?: now.monthValue) - 1,
-                referenceDate?.dayOfMonth ?: now.dayOfMonth
-            )
-            datePickerDialog.show()
+            UiUtils.pickDate(requireContext(), referenceDate ?: now.toLocalDate()){
+                if (it != null){
+                    referenceDate = it
+                    referenceDateTxt.text = formatService.formatDate(
+                        ZonedDateTime.of(
+                            referenceDate,
+                            LocalTime.NOON,
+                            ZoneId.systemDefault()
+                        ), false
+                    )
+                }
+            }
         }
 
         alertDialog.show()

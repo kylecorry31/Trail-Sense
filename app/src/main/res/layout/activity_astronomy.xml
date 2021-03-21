@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date" />
+        app:layout_constraintTop_toBottomOf="@+id/display_date" />
 
     <TextView
         android:id="@+id/remaining_time"
@@ -36,17 +36,30 @@
         app:layout_constraintTop_toBottomOf="@+id/remaining_time"
         tools:text="@string/until_sunset_label" />
 
-
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/display_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sunMoonChart" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/remaining_time_lbl"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Today"/>
+        <ImageButton
+            android:id="@+id/date_picker"
+            android:layout_marginStart="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:tint="?android:textColorSecondary"
+            app:srcCompat="@drawable/ic_date" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/moon_position"
@@ -72,40 +85,6 @@
         app:srcCompat="@drawable/ic_sun"
         tools:visibility="visible"/>
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/today"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/remaining_time_lbl" />
-
-    <ImageButton
-        android:id="@+id/prev_date"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        android:tint="?android:textColorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/date"
-        app:layout_constraintEnd_toStartOf="@+id/date"
-        app:layout_constraintTop_toTopOf="@+id/date"
-        app:srcCompat="@drawable/ic_prev" />
-
-    <ImageButton
-        android:id="@+id/next_date"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="16dp"
-        android:background="@android:color/transparent"
-        android:tint="?android:textColorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/date"
-        app:layout_constraintStart_toEndOf="@+id/date"
-        app:layout_constraintTop_toTopOf="@+id/date"
-        app:srcCompat="@drawable/ic_next" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/astronomy_detail_list"

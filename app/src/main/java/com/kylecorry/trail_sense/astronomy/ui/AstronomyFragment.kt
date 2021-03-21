@@ -101,14 +101,13 @@ class AstronomyFragment : Fragment() {
 
         chart = AstroChart(binding.sunMoonChart)
 
-        binding.prevDate.setOnClickListener {
-            displayDate = displayDate.minusDays(1)
-            updateUI()
-        }
-
-        binding.nextDate.setOnClickListener {
-            displayDate = displayDate.plusDays(1)
-            updateUI()
+        binding.datePicker.setOnClickListener {
+            UiUtils.pickDate(requireContext(), displayDate){
+                if (it != null){
+                    displayDate = it
+                    updateUI()
+                }
+            }
         }
 
         gps = sensorService.getGPS()
