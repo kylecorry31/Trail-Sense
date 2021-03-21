@@ -88,7 +88,7 @@ class ThermometerFragment : Fragment() {
         pressureRepo.getPressures()
             .observe(
                 viewLifecycleOwner,
-                { updateChart(it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }) })
+                { updateChart(it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }.filter { it.time <= Instant.now() }) })
 
         return binding.root
     }

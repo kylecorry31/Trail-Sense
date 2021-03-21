@@ -77,7 +77,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pressureRepo.getPressures().observe(viewLifecycleOwner) {
-            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
+            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }.filter { it.time <= Instant.now() }
         }
     }
 

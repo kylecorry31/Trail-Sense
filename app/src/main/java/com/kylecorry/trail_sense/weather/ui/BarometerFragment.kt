@@ -135,7 +135,7 @@ class BarometerFragment : Fragment() {
         }
 
         pressureRepo.getPressures().observe(viewLifecycleOwner) {
-            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
+            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }.filter { it.time <= Instant.now() }
         }
 
         barometer.asLiveData().observe(viewLifecycleOwner, { update() })

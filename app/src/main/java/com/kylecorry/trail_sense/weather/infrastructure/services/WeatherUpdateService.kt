@@ -174,6 +174,7 @@ class WeatherUpdateService : Service() {
                 val rawReadings =
                     pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }
                         .sortedBy { it.time }
+                        .filter { it.time <= Instant.now() }
 
                 PressureCalibrationUtils.calibratePressures(applicationContext, rawReadings)
             }
@@ -287,6 +288,7 @@ class WeatherUpdateService : Service() {
                 val readings =
                     pressureRepo.getPressuresSync().map { it.toPressureAltitudeReading() }
                         .sortedBy { it.time }
+                        .filter { it.time <= Instant.now() }
                 val forecast = weatherService.getHourlyWeather(
                     PressureCalibrationUtils.calibratePressures(applicationContext, readings)
                 )
