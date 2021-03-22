@@ -35,7 +35,7 @@
     <string name="moon_set">Zachód Księżyca</string>
     <string name="stop_monitoring">Stop</string>
     <string name="pref_compass_filter_amt_title">Wygładzanie kompasu</string>
-    <string name="pref_compass_filter_amt_summary">Wyższe wartości mogą zmiejszyć zakłócenia</string>
+    <string name="pref_compass_filter_amt_summary">Wyższe wartości mogą zmniejszyć zakłócenia</string>
     <string name="pref_theme_title">Motyw</string>
     <string name="pref_use_legacy_compass_title">Używaj starszej implementacji kompasu</string>
     <string name="pref_use_legacy_compass_summary">Może naprawić problemy z kompasem</string>
@@ -699,7 +699,7 @@
     <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="candela_format">%s cd</string>
     <string name="lux_format">%s lx</string>
-    <string name="distance_from_flashlight">Odległość od latarki</string>
+    <string name="distance_from_flashlight">Odległość od telefonu do latarki</string>
     <string name="help">Pomoc</string>
     <string name="pref_backtrack_save_cell_summary">Rejestruje sygnał sieci komórkowej w wybranym punkcie. Funkcja nie korzysta z Internetu.</string>
     <string name="pref_backtrack_save_cell_title">Rejestruj sygnał sieci komórkowej</string>
@@ -708,7 +708,7 @@
     <string name="location_disabled">Lokalizacja jest wyłączona</string>
     <string name="gps_cache">Pamięć podręczna GPS</string>
     <string name="gps_stale">Nieaktualny</string>
-    <string name="pref_daily_weather_notification_desc">Wysyłane codziennie rano o 9:00</string>
+    <string name="pref_daily_weather_notification_desc">Wysyłane codziennie rano około 9:00</string>
     <string name="pref_daily_weather_notification_title">Codzienne powiadomienia o pogodzie</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="weather_same_as_yesterday">Tak samo jak wczoraj</string>
@@ -743,4 +743,21 @@
     <string name="pref_daily_weather_time">pref_daily_weather_time</string>
     <string name="pref_daily_weather_time_holder">pref_daily_weather_time_holder</string>
     <string name="experimental_features">Pływy i szum biały</string>
+    <string name="tide_calibration_instructions">Ustaw czas przypływu w pobliżu, najlepiej w dniu nowiu lub pełni księżyca. Można go uzyskać online lub za pośrednictwem drukowanych tabel pływów. Pływy pokazane w Trail Sense mogą się różnić nawet o dwie godziny, co jest wystarczająco dobre dla odniesienia, ale nie można na nich polegać.</string>
+    <string name="tide_high_short">Wysoki</string>
+    <string name="tide_low_short">Niski</string>
+    <string name="battery_power_ac">AC</string>
+    <string name="low">Niskie</string>
+    <string name="moderate">Umiarkowane</string>
+    <string name="high">Wysokie</string>
+    <string name="speedometer">Prędkościomierz</string>
+    <string name="pref_navigation_speedometer_type">pref_navigation_speedometer_type</string>
+    <string name="speedometer_average">Średnia (z funkcji Backtrack)</string>
+    <string name="speedometer_real_time">Czas rzeczywisty</string>
+    <string name="screen_flashlight">Ekran</string>
+    <string name="tide_calibration">Kalibracja pływów</string>
+    <string name="half_tide">Połowa przypływu</string>
+    <string name="beacon_export_error">Nie udało się wyeksportować punktów</string>
+    <string name="beacons_exported">%d punktów wyeksportowano</string>
+    <string name="turn_off">Wyłącz</string>
 </resources>
