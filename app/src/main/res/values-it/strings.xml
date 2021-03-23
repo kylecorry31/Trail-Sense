@@ -39,7 +39,7 @@
     <string name="pref_theme_title">Tema</string>
     <string name="pref_use_legacy_compass_title">Utilizzare la bussola ereditata</string>
     <string name="pref_use_legacy_compass_summary">Può risolvere i problemi della bussola</string>
-    <string name="pref_display_multi_beacons_title">Visualizza i fari vicini</string>
+    <string name="pref_display_multi_beacons_title">Visualizza i Segnaposto vicini</string>
     <string name="pref_storm_alert_sensitivity_title">Sensibilità allarme temporale</string>
     <string name="pref_show_sun_moon_compass_title">Mostra sole/luna sulla bussola</string>
     <string name="pref_show_linear_compass_title">Mostra bussola lineare</string>
@@ -55,8 +55,8 @@
     <string name="meters">Metri</string>
     <string name="feet_miles">Piedi / Miglia</string>
     <string name="units_hpa">hPa</string>
-    <string name="units_inhg"></string>
-    <string name="units_mbar"></string>
+    <string name="units_inhg">inHg</string>
+    <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
     <string name="theme_light">Chiaro</string>
     <string name="theme_dark">Scuro</string>
@@ -118,7 +118,7 @@
     <string name="dialog_deny">No grazie</string>
     <string name="dialog_grant">Aggiorna le impostazioni</string>
     <string name="pref_barometer_pressure_title">Pressione</string>
-    <string name="pref_num_visible_beacons_title">Fari vicini</string>
+    <string name="pref_num_visible_beacons_title">Segnaposto vicini</string>
     <string name="barometer_thermometer">Barometro e termometro</string>
     <string name="altimeter_mode_override">Mai</string>
     <string name="altimeter_mode_barometer">Barometro</string>
@@ -192,4 +192,60 @@
     <string name="first_quarter">Primo quarto</string>
     <string name="moon_phase">Fase lunare</string>
     <string name="copied_to_clipboard_toast">Copiato negli appunti</string>
+    <string name="pressure_format">%s %s</string>
+    <string name="pressure_tendency_format_2">%s / 3h</string>
+    <string name="pressure_tendency_format">%s %s / 3h</string>
+    <string name="units_inhg_short">in</string>
+    <string name="eta">~ %s distanza</string>
+    <string name="sos">SOS</string>
+    <string name="accuracy_info">"GPS: Recarsi all\'aperto con una visione libera del cielo
+\n    %s di posizione reale
+\n    %s di altitudine reale
+\n    %s satelliti
+\n
+\nBussola: Ruotare il dispositivo formando un 8  lontano da oggetti di metallo."</string>
+    <string name="accuracy_info_title">Suggerimenti per migliorare l\'accuratezza dei sensori</string>
+    <string name="accuracy_distance_format">± %s</string>
+    <string name="accuracy_distance_unknown">\?</string>
+    <string name="unknown">Sconosciuto</string>
+    <string name="battery_temp">Telefono: %s</string>
+    <string name="dash">-</string>
+    <string name="discharging_fast">In rapida scarica (%s)</string>
+    <string name="discharging_slow">In lenta scarica (%s)</string>
+    <string name="charging_slow">In ricarica lenta (%s)</string>
+    <string name="charging_fast">In ricarica rapida (%s)</string>
+    <string name="current_format">%.0f mA</string>
+    <string name="battery_capacity_format">%.2f mAh</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="percent_format">%d%%</string>
+    <string name="degree">%s°</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="elevation_diff_format">%s%s</string>
+    <string name="decrease">-</string>
+    <string name="increase">+</string>
+    <string name="direction_south_west">SO</string>
+    <string name="direction_north_west">NO</string>
+    <string name="direction_south_east">SE</string>
+    <string name="direction_north_east">NE</string>
+    <string name="direction_west">O</string>
+    <string name="direction_east">E</string>
+    <string name="direction_south">S</string>
+    <string name="direction_north">N</string>
+    <string name="duration_hour_minute_format">%dh %dm</string>
+    <string name="duration_minute_format">%dm</string>
+    <string name="duration_hour_format">%dh</string>
+    <string name="miles_per_hour_format">%.1f mph</string>
+    <string name="kilometers_per_hour_format">%.1f km/h</string>
+    <string name="kilometers_format">%.2f km</string>
+    <string name="depth_meters_format">%.2f m</string>
+    <string name="meters_format">%.0f m</string>
+    <string name="centimeters_format">%.2f cm</string>
+    <string name="inches_format">%.2f in</string>
+    <string name="nautical_miles_format">%.2f nm</string>
+    <string name="miles_format">%.2f mi</string>
+    <string name="depth_feet_format">%.1f ft</string>
+    <string name="feet_format">%.0f ft</string>
+    <string name="precise_nautical_miles_format">%s nm</string>
+    <string name="precise_miles_format">%s mi</string>
+    <string name="precise_feet_format">%s ft</string>
 </resources>
