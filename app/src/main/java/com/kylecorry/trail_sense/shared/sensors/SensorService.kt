@@ -7,6 +7,7 @@ import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
+import com.kylecorry.trail_sense.shared.sensors.odometer.Odometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
@@ -72,11 +73,13 @@ class SensorService(ctx: Context) {
         }
     }
 
-    fun getSpeedometer(): ISpeedometer {
-        return if (userPrefs.navigation.speedometerMode == NavigationPreferences.SpeedometerMode.Average && userPrefs.backtrackEnabled){
-            BacktrackSpeedometer(context)
-        } else {
+    fun getSpeedometer(realTime: Boolean? = null): ISpeedometer {
+        val useRealTime = realTime
+            ?: (userPrefs.navigation.speedometerMode == NavigationPreferences.SpeedometerMode.Instantaneous)
+        return if (useRealTime){
             getGPS(false)
+        } else {
+            BacktrackSpeedometer(context)
         }
     }
 
@@ -89,7 +92,7 @@ class SensorService(ctx: Context) {
         } else if (mode == UserPreferences.AltimeterMode.Barometer && sensorChecker.hasBarometer()) {
             return BarometricAltimeter(getBarometer()) { userPrefs.seaLevelPressureOverride }
         } else {
-            if (!userPrefs.useLocationFeatures) {
+            if (!sensorChecker.hasGPS()) {
                 return CachedAltimeter(context)
             }
 
@@ -101,6 +104,10 @@ class SensorService(ctx: Context) {
                 gps
             }
         }
+    }
+
+    fun getOdometer(): Odometer {
+        return Odometer(context)
     }
 
     fun getCompass(): ICompass {

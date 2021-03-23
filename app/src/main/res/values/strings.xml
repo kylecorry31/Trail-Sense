@@ -878,4 +878,8 @@
     <string name="speedometer_average">Average (from Backtrack)</string>
     <string name="pref_navigation_speedometer_type">pref_navigation_speedometer_type</string>
     <string name="speedometer">Speedometer</string>
+    <string name="tool_speedometer_odometer_title">Speedometer / Odometer</string>
+    <string name="tool_speedometer_odometer">tool_speedometer_odometer</string>
+    <string name="value_since_time">%s since %s</string>
+    <string name="value_average">%s average</string>
 </resources>

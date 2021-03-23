@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/instantaneous_speed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        tools:text="5.0 mph" />
+
+    <TextView
+        android:id="@+id/average_speed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        tools:text="1.0 mph average" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/odometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="1.5 mi since March 3, 2021"
+        android:layout_marginEnd="16dp"
+        android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/odometer_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset" />
+    </LinearLayout>
+</LinearLayout>

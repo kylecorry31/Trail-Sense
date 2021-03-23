@@ -25,6 +25,11 @@
             app:key="@string/tool_ruler"
             app:singleLineTitle="false" />
         <Preference
+            android:icon="@drawable/ic_tool_speedometer"
+            android:title="@string/tool_speedometer_odometer_title"
+            app:key="@string/tool_speedometer_odometer"
+            app:singleLineTitle="false" />
+        <Preference
             android:icon="@drawable/ic_tool_distance_convert"
             android:title="@string/tool_distance_convert_title"
             app:key="@string/tool_distance_convert"

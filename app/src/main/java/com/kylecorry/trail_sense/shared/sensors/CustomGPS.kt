@@ -3,12 +3,10 @@ package com.kylecorry.trail_sense.shared.sensors
 import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
+import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import com.kylecorry.trailsensecore.domain.units.Quality
-import com.kylecorry.trailsensecore.domain.units.Speed
-import com.kylecorry.trailsensecore.domain.units.TimeUnits
+import com.kylecorry.trailsensecore.domain.units.*
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -20,6 +18,8 @@ import java.time.Instant
 
 
 class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
+
+    private val odometer by lazy { SensorService(context).getOdometer() }
 
     override val hasValidReading: Boolean
         get() = hadRecentValidReading()
@@ -128,6 +128,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
             timeout.once(TIMEOUT_DURATION)
             _isTimedOut = false
             notifyListeners()
+            odometer.addLocation(ApproximateCoordinate.from(location, Distance.meters(_horizontalAccuracy ?: 0f)))
             return true
         }
 
@@ -164,6 +165,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
 
         if (shouldNotify && location != Coordinate.zero){
             notifyListeners()
+            odometer.addLocation(ApproximateCoordinate.from(location, Distance.meters(_horizontalAccuracy ?: 0f)))
         }
 
         return true
@@ -181,6 +183,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         _isTimedOut = true
         notifyListeners()
         timeout.once(TIMEOUT_DURATION)
+        odometer.addLocation(ApproximateCoordinate.from(location, Distance.meters(_horizontalAccuracy ?: 0f)))
     }
 
     private fun hadRecentValidReading(): Boolean {

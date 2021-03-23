@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.hardware.SensorManager
+import android.text.format.DateFormat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
@@ -11,6 +12,7 @@ import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trailsensecore.domain.units.Distance
+import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -35,6 +37,9 @@ class UserPreferences(private val context: Context) {
             return if (rawUnits == "meters") DistanceUnits.Meters else DistanceUnits.Feet
         }
 
+    val baseDistanceUnits: com.kylecorry.trailsensecore.domain.units.DistanceUnits
+        get() = if (distanceUnits == DistanceUnits.Meters) com.kylecorry.trailsensecore.domain.units.DistanceUnits.Meters else com.kylecorry.trailsensecore.domain.units.DistanceUnits.Feet
+
     val pressureUnits: PressureUnits
         get() {
             return when (cache.getString(context.getString(R.string.pref_pressure_units))) {
@@ -53,11 +58,18 @@ class UserPreferences(private val context: Context) {
             }
         }
 
-    val useLocationFeatures: Boolean
-        get() = sensorChecker.hasGPS()
-
     val use24HourTime: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_use_24_hour)) ?: false
+        get(){
+            val value = cache.getBoolean(context.getString(R.string.pref_use_24_hour))
+            return if (value == null) {
+                val system = DateFormat.is24HourFormat(context)
+                cache.putBoolean(context.getString(R.string.pref_use_24_hour), system)
+                system
+            } else {
+                value
+            }
+
+        }
 
     val theme: Theme
         get() {
@@ -162,7 +174,7 @@ class UserPreferences(private val context: Context) {
         set(value) = cache.putBoolean(getString(R.string.pref_altitude_offsets), value)
 
     val odometerDistanceThreshold: Distance
-        get() = Distance.meters(10f)
+        get() = Distance.meters(15f)
 
     var backtrackEnabled: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_backtrack_enabled)) ?: false

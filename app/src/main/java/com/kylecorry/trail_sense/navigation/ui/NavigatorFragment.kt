@@ -430,11 +430,8 @@ class NavigatorFragment : Fragment() {
             (requireActivity() as MainActivity).errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
         }
 
-        if (speedometer.speed.speed == 0.0f) {
-            binding.speed.text = getString(R.string.dash)
-        } else {
-            binding.speed.text = formatService.formatSpeed(speedometer.speed.speed)
-        }
+        // Speed
+        binding.speed.text = formatService.formatSpeed(speedometer.speed.speed)
 
         // Azimuth
         binding.compassAzimuth.text = formatService.formatDegrees(compass.bearing.value)

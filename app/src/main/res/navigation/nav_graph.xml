@@ -99,6 +99,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_toolsFragment_to_speedometerFragment"
+            app:destination="@id/fragmentToolSpeedometer"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_action_experimental_tools_to_toolCliffHeightFragment"
             app:destination="@id/toolCliffHeightFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -641,5 +648,9 @@
         android:id="@+id/fragmentToolScreenFlashlight"
         android:name="com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolScreenFlashlight"
         android:label="FragmentToolScreenFlashlight" />
+    <fragment
+        android:id="@+id/fragmentToolSpeedometer"
+        android:name="com.kylecorry.trail_sense.tools.speedometer.FragmentToolSpeedometer"
+        android:label="FragmentToolSpeedometer" />
 
 </navigation>

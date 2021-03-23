@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import java.time.*
 import java.time.format.DateTimeFormatter
 import kotlin.math.pow
@@ -84,4 +86,26 @@ fun LocalDateTime.roundNearestMinute(minutes: Long): LocalDateTime {
 
     val diff = newMinute - minute
     return this.plusMinutes(diff)
+}
+
+
+fun Cache.putCoordinate(key: String, value: Coordinate){
+    putDouble(key + "_latitude", value.latitude)
+    putDouble(key + "_longitude", value.longitude)
+}
+
+fun Cache.getCoordinate(key: String): Coordinate? {
+    val latitude = getDouble(key + "_latitude") ?: return null
+    val longitude = getDouble(key + "_longitude") ?: return null
+
+    return Coordinate(latitude, longitude)
+}
+
+fun Cache.putInstant(key: String, value: Instant){
+    putLong(key, value.toEpochMilli())
+}
+
+fun Cache.getInstant(key: String): Instant? {
+    val time = getLong(key) ?: return null
+    return Instant.ofEpochMilli(time)
 }
