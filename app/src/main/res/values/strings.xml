@@ -879,4 +879,5 @@
     <string name="value_average">%s average</string>
     <string name="distance_away">Distance away</string>
     <string name="distance_away_not_set">distance away not set</string>
+    <string name="saltwater_switch">Is saltwater?</string>
 </resources>

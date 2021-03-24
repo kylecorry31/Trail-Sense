@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolDepthBinding
+import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -21,10 +22,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlin.math.max
 
-class ToolDepthFragment : Fragment() {
-
-    private var _binding: FragmentToolDepthBinding? = null
-    private val binding get() = _binding!!
+class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val barometer by lazy { sensorService.getBarometer() }
@@ -39,20 +37,6 @@ class ToolDepthFragment : Fragment() {
     private var maxDepth: Float = 0f
 
     private lateinit var units: DistanceUnits
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolDepthBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +53,13 @@ class ToolDepthFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        binding.saltwaterSwitch.isChecked = cache.getBoolean(CACHE_SALTWATER) ?: true
+
+        binding.saltwaterSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            cache.putBoolean(CACHE_SALTWATER, isChecked)
+            update()
+        }
+
         units = if (userPrefs.distanceUnits == UserPreferences.DistanceUnits.Meters) {
             DistanceUnits.Meters
         } else {
@@ -89,7 +80,8 @@ class ToolDepthFragment : Fragment() {
 
         val depth = depthService.calculateDepth(
             Pressure(barometer.pressure, PressureUnits.Hpa),
-            Pressure(SensorManager.PRESSURE_STANDARD_ATMOSPHERE, PressureUnits.Hpa)
+            Pressure(SensorManager.PRESSURE_STANDARD_ATMOSPHERE, PressureUnits.Hpa),
+            binding.saltwaterSwitch.isChecked
         ).distance
 
         if (lastDepth == 0f && depth > 0) {
@@ -109,6 +101,17 @@ class ToolDepthFragment : Fragment() {
         binding.maxDepth.text = getString(R.string.max_depth, formattedMax)
 
         return true
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolDepthBinding {
+        return FragmentToolDepthBinding.inflate(layoutInflater, container, false)
+    }
+
+    companion object {
+        private const val CACHE_SALTWATER = "cache_saltwater_switch"
     }
 
 }
