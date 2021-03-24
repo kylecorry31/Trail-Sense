@@ -666,7 +666,6 @@
     <string name="battery_usage">%s Batterienutzung</string>
     <string name="service_update_frequency">Aktualisiere alle %s</string>
     <string name="always_on">Immer an</string>
-    <string name="pref_daily_weather_notification_desc">Jeden Morgen gegen 9:00 senden</string>
     <string name="pref_daily_weather_notification_title">Tägliche Wetter-Benachrichtigung</string>
     <string name="weather_same_as_yesterday">Genau so wie gestern</string>
     <string name="weather_worse_than_yesterday">Schlechter als gestern</string>

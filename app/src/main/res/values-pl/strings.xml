@@ -708,7 +708,6 @@
     <string name="location_disabled">Lokalizacja jest wyłączona</string>
     <string name="gps_cache">Pamięć podręczna GPS</string>
     <string name="gps_stale">Nieaktualny</string>
-    <string name="pref_daily_weather_notification_desc">Wysyłane codziennie rano o 9:00</string>
     <string name="pref_daily_weather_notification_title">Codzienne powiadomienia o pogodzie</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="weather_same_as_yesterday">Tak samo jak wczoraj</string>

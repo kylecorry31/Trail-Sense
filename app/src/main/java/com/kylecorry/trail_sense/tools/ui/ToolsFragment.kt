@@ -50,8 +50,11 @@ class ToolsFragment : PreferenceFragmentCompat() {
             findPreference(getString(R.string.tool_inventory)),
             R.id.action_action_experimental_tools_to_action_inventory
         )
+
+        val speedometer = findPreference<Preference>(getString(R.string.tool_speedometer_odometer))
+        speedometer?.title = if (prefs.experimentalEnabled) getString(R.string.tool_speedometer_odometer_title) else getString(R.string.speedometer)
         navigateOnClick(
-            findPreference(getString(R.string.tool_speedometer_odometer)),
+            speedometer,
             R.id.action_toolsFragment_to_speedometerFragment
         )
 

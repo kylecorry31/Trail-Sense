@@ -36,6 +36,7 @@ class FragmentToolSpeedometer : BoundFragment<FragmentToolSpeedometerBinding>() 
         binding.odometerReset.setOnClickListener {
             odometer.reset()
         }
+        binding.odometerHolder.visibility = if (prefs.experimentalEnabled) View.VISIBLE else View.GONE
         averageSpeedometer.asLiveData().observe(viewLifecycleOwner, { update() })
         instantSpeedometer.asLiveData().observe(viewLifecycleOwner, { update() })
         odometer.asLiveData().observe(viewLifecycleOwner, { update() })

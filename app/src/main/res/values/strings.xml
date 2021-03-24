@@ -841,8 +841,6 @@
     <string name="weather_same_as_today">Same as today</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="pref_daily_weather_notification_title">Daily weather notification</string>
-    <!--    This is temporary, no translations needed-->
-    <string name="pref_daily_weather_notification_desc">Sent every morning around 9:00</string>
     <string name="always_on">Always on</string>
     <string name="service_update_frequency">Updates every %s</string>
     <string name="battery_usage">%s battery usage</string>
@@ -851,8 +849,8 @@
     <string name="low">Low</string>
     <string name="no_temperature_history">No temperature history</string>
     <string name="no_gps_signal">No GPS Signal</string>
-    <string name="pref_navigation_quick_action_left">pref_navigation_quick_action_left</string>
-    <string name="pref_navigation_quick_action_right">pref_navigation_quick_action_right</string>
+    <string name="pref_navigation_quick_action_left" translatable="false">pref_navigation_quick_action_left</string>
+    <string name="pref_navigation_quick_action_right" translatable="false">pref_navigation_quick_action_right</string>
     <string name="quick_action_none">None</string>
     <string name="left_quick_action">Left quick action</string>
     <string name="right_quick_action">Right quick action</string>
@@ -868,18 +866,18 @@
     <string name="tide_calibration_instructions">Set the time of a high tide near you, preferably on the date of a new or full moon. This can be obtained online or via printed tide tables. The tides shown in Trail Sense may be off by up to two hours, which is good enough for reference but not to rely on.</string>
     <string name="time_not_set">Time not set</string>
     <string name="date_not_set">Date not set</string>
-    <string name="pref_daily_weather_time_holder">pref_daily_weather_time_holder</string>
+    <string name="pref_daily_weather_time_holder" translatable="false">pref_daily_weather_time_holder</string>
     <string name="pref_daily_weather_time_title">Daily weather time</string>
-    <string name="pref_daily_weather_time">pref_daily_weather_time</string>
-    <string name="experimental_features">Tides and white noise</string>
+    <string name="pref_daily_weather_time" translatable="false">pref_daily_weather_time</string>
+    <string name="experimental_features">Tides, odometer, and white noise</string>
     <string name="tide_calibration">Tide Calibration</string>
     <string name="screen_flashlight">Screen</string>
     <string name="speedometer_real_time">Real Time</string>
     <string name="speedometer_average">Average (from Backtrack)</string>
-    <string name="pref_navigation_speedometer_type">pref_navigation_speedometer_type</string>
+    <string name="pref_navigation_speedometer_type" translatable="false">pref_navigation_speedometer_type</string>
     <string name="speedometer">Speedometer</string>
     <string name="tool_speedometer_odometer_title">Speedometer / Odometer</string>
-    <string name="tool_speedometer_odometer">tool_speedometer_odometer</string>
+    <string name="tool_speedometer_odometer" translatable="false">tool_speedometer_odometer</string>
     <string name="value_since_time">%s since %s</string>
     <string name="value_average">%s average</string>
 </resources>
