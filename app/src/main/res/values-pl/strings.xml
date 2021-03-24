@@ -760,4 +760,8 @@
     <string name="beacon_export_error">Nie udało się wyeksportować punktów</string>
     <string name="beacons_exported">%d punktów wyeksportowano</string>
     <string name="turn_off">Wyłącz</string>
+    <string name="tool_speedometer_odometer_title">Prędkościomierz / Drogomierz</string>
+    <string name="value_average">%s średnia</string>
+    <string name="value_since_time">%s od %s</string>
+    <string name="tool_speedometer_odometer">tool_speedometer_odometer</string>
 </resources>
