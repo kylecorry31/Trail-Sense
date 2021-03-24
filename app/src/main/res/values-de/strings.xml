@@ -141,7 +141,7 @@
     <string name="pref_category_sensors_title">Sensoren</string>
     <string name="pref_compass_sensor_title">Kompass</string>
     <string name="copied_to_clipboard_toast">In die Zwischenablage kopiert</string>
-    <string name="disclaimer_message_content">Trail Sense ist ein Werkzeug, welches in Überlebenssituationen verwendet werden kann, aber Sie sollten nicht nur einzig auf es verlassen. Bitte validieren Sie seine Genauigkeit, vermeiden Sie jede gefährliche Situation wenn möglich und bleiben Sie ruhig und vernünftig.</string>
+    <string name="disclaimer_message_content">Trail Sense ist ein Werkzeug, welches in Überlebenssituationen verwendet werden kann, aber Sie sollten sich nicht alleine darauf verlassen. Bitte validieren Sie seine Genauigkeit, vermeiden Sie jede gefährliche Situation wenn möglich und bleiben Sie ruhig und vernünftig.</string>
     <string name="accuracy_info_title">Tipps um die Sensorengenauigkeit zu verbessern</string>
     <string name="flashlight_title">Taschenlampe</string>
     <string name="tap_to_turn_off">Tippen zum Abschalten</string>
@@ -680,32 +680,32 @@
     <string name="distance_from_flashlight">Distanz vom Handy zur Taschenlampe</string>
     <string name="beacon_export_error">Beacons konnten nicht exportiert werden</string>
     <string name="beacons_exported">%d Beacons exportiert</string>
-    <string name="onboarding_user_guide">Lerne mithilfe der Bedienungsanleitung, wie du Trail Sense\'s Funktionen benutzt. Du findest es ganz unten im Tools-Tab.
+    <string name="onboarding_user_guide">Lerne mithilfe der Bedienungsanleitung, wie du die Trail Sense Funktionen benutzt. Du findest es ganz unten im Tools-Tab.
 \n
-\nIn Zukunft wird es mehr Anleitungen geben.</string>
-    <string name="onboarding_tools">- greife auf Tools zu, die dir in der Wildnis helfen können
+\nIn Zukunft wird es weitere Anleitungen geben.</string>
+    <string name="onboarding_tools">- Greife auf Werkzeuge zu, die dir in der Wildnis helfen können.
 \n
-\n- gebe Signale mit der Taschenlampe oder der Trillerpfeife
+\n- Gib Signale mit der Taschenlampe oder der Trillerpfeife.
 \n
-\n- konvertiere Orte von einer Papierkarte auf dein Handy
+\n- Konvertiere Orte von einer Papierkarte auf dein Handy.
 \n
-\n- messe Winkel und bestimme die Höhe von Objekten
+\n- Messe Winkel und bestimme die Höhe von Objekten.
 \n
-\n- synchronisiere die Uhr ohne Internetverbindung
+\n- Synchronisiere die Uhr ohne Internetverbindung.
 \n
-\n- mache Notizen und behalte den Überblick über die Dinge, die du dabei hast
+\n- Mache Notizen und behalte den Überblick über die Dinge, die du dabei hast.
 \n
-\n- finde heruntergefallene Dinge aus Eisen oder Stahl</string>
+\n- Finde heruntergefallene Dinge aus Eisen oder Stahl.</string>
     <string name="onboarding_astronomy">- Erhalte Informationen zu Auf-/Untergang der Sonne und des Mondes
 \n
 \n- warnt dich, wenn die Sonne in Kürze untergehen wird
 \n
-\n- finde die Position der Sonne und des Mondes mithilfe des Kompass</string>
+\n- finde die Position der Sonne und des Mondes mithilfe des Kompasses</string>
     <string name="onboarding_weather">- Erhalte lokale Vorhersagen durch das Barometer des Smartphones
 \n
-\n- Nutzt keine Interentverbindung
+\n- Nutzt keine Internetverbindung
 \n
-\n- Warnt von kommenden Stürmen</string>
+\n- Warnt vor kommenden Stürmen</string>
     <string name="onboarding_navigation">- Platziere Beacons und navigiere zu ihnen zurück
 \n
 \n- Finde deine aktuelle Position, Höhe und Geschwindigkeit heraus
@@ -713,4 +713,5 @@
 \n- Verfolge deinen Weg zurück mit Rückweg (läuft im Hintergrund, wenn es aktiviert wurde)</string>
     <string name="backtrack_disabled_low_power_toast">Rückweg ist im Energiespar-Modus deaktiviert</string>
     <string name="magnetic_field_format_precise">%s uT</string>
+    <string name="turn_off">Ausschalten</string>
 </resources>

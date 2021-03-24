@@ -425,7 +425,7 @@
     <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Часы</string>
     <string name="flashlight_strobe">Стробоскоп</string>
-    <string name="pref_sensor_details_title">Информация о</string>
+    <string name="pref_sensor_details_title">Информация о датчиках</string>
     <string name="tool_boil_title">Таймер кипячения воды</string>
     <string name="tool_boil_summary">Узнайте, когда вода пригодна для питья</string>
     <string name="boil_start">Начать</string>
@@ -703,7 +703,7 @@
     <string name="network_5g">5G</string>
     <string name="time_ago">%s назад</string>
     <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
-    <string name="quality_good">Хорошое</string>
+    <string name="quality_good">Хорошее</string>
     <string name="quality_moderate">Среднее</string>
     <string name="quality_poor">Плохое</string>
     <string name="magnetic_field_format_precise">%s uT</string>
@@ -760,4 +760,11 @@
     <string name="weather_worse_than_today">Хуже, чем сегодня</string>
     <string name="weather_better_than_today">Лучше, чем сегодня</string>
     <string name="tomorrows_forecast">Прогноз на завтра</string>
+    <string name="speedometer">Спидометр</string>
+    <string name="pref_navigation_speedometer_type">pref_navigation_speedometer_type</string>
+    <string name="speedometer_average">Средняя (от истории маршрута)</string>
+    <string name="speedometer_real_time">В реальном времени</string>
+    <string name="screen_flashlight">Экран</string>
+    <string name="tide_calibration">Калибровка приливов и отливов</string>
+    <string name="turn_off">Выключить</string>
 </resources>
