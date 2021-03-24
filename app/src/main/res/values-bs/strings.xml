@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="navigation">Navigacija</string>
     <string name="weather">Weather</string>
@@ -12,8 +13,6 @@
     <string name="sunrise_label">Izlazak sunca</string>
     <string name="sunset_label">Zalazak sunca</string>
     <string name="until_sunset_label">do zalaska sunca</string>
-
-
     <string name="pref_use_true_north_title">Pravi sjever</string>
     <string name="pref_use_sea_level_pressure_title">Pritisak na nivou mora</string>
     <string name="pref_units_header">Opšte</string>
@@ -45,33 +44,27 @@
     <string name="pref_show_sun_moon_compass_title">Pokažite sunce /mesec na kompasu</string>
     <string name="pref_show_linear_compass_title">Pokaži linearni kompas</string>
     <string name="pref_show_linear_compass_summary">Kad je telefon okomit</string>
-
     <plurals name="last_hours">
         <item quantity="one">Poslednja %d sat</item>
         <item quantity="other">Poslednja %d sati</item>
         <item quantity="few">Poslednja %d sati</item>
     </plurals>
-
     <plurals name="last_minutes">
         <item quantity="one">Poslednja %d minutu</item>
         <item quantity="other">Poslednja %d minuta</item>
         <item quantity="few">Poslednja %d minuta</item>
     </plurals>
-
     <string name="meters">Metri</string>
     <string name="feet_miles">Stopala /milje</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">Svetlost</string>
     <string name="theme_dark">Mračno</string>
     <string name="theme_black">Crna</string>
     <string name="theme_system">Sistem</string>
-
     <string name="gps">GPS</string>
-
     <string name="sun_actual">Stvarno vrijeme</string>
     <string name="sun_civil">Civilni sumrak</string>
     <string name="sun_nautical">Nautički sumrak</string>
@@ -80,10 +73,15 @@
     <string name="tomorrow">Sutra</string>
     <string name="yesterday">Juče</string>
     <string name="pressure_tendency_indicator_alt">Indikator tendencionog pritiska</string>
-
     <string name="pressure_48_hours">48 sati</string>
     <string name="pressure_24_hours">24 sata</string>
     <string name="pressure_12_hours">12 sati</string>
     <string name="pressure_4_hours">4 sata</string>
     <string name="pref_pressure_history_title">Istorija pritiska</string>
+    <string name="dialog_deny">Ne hvala</string>
+    <string name="dialog_grant">Ažuriraj postavke</string>
+    <string name="access_background_location_rationale">Trail Sense koristi podatke o lokaciji u pozadini. Koristi se za kalibraciju pritiska na nivou mora u praćenju vremena i za pružanje preciznijih upozorenja o zalasku sunca. [Pogledajte Politiku Privatnosti](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location">Ažurirajte postavke lokacije</string>
+    <string name="copied_to_clipboard_toast">Kopirano u međuspremnik</string>
+    <string name="tools">Alati</string>
 </resources>
