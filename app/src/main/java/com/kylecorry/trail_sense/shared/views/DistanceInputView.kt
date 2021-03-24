@@ -104,5 +104,13 @@ class DistanceInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         changeListener = listener
     }
 
+    fun updateDistance(distance: Distance?){
+        distanceEdit.setText(distance?.distance?.toString())
+        if (distance != null && units.contains(distance.units)) {
+            unitsSpinner.setSelection(units.indexOf(distance.units))
+        }
+        this.distance = distance
+    }
+
 
 }

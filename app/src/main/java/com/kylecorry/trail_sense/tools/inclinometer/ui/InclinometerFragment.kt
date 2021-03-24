@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.inclinometer.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,13 @@ import com.kylecorry.trail_sense.databinding.FragmentInclinometerBinding
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trailsensecore.domain.inclinometer.AvalancheRisk
 import com.kylecorry.trailsensecore.domain.inclinometer.InclinationService
+import com.kylecorry.trailsensecore.domain.units.Distance
+import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 class InclinometerFragment : Fragment() {
@@ -24,18 +29,49 @@ class InclinometerFragment : Fragment() {
     private val deviceOrientation by lazy { sensorService.getDeviceOrientation() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val inclinationService = InclinationService()
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val throttle = Throttle(20)
 
     private var slopeAngle: Float? = null
 
+    private var objectDistance: Distance? = null
+    private var userHeight: Distance? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        CustomUiUtils.setButtonState(binding.selectDistance, objectDistance != null)
+        CustomUiUtils.setButtonState(binding.selectHeight, userHeight != null)
 
-        if (prefs.distanceUnits == UserPreferences.DistanceUnits.Feet) {
-            binding.objectDistance.hint = getString(R.string.object_distance_ft)
-            binding.phoneHeight.hint = getString(R.string.your_height_ft)
+        val units = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters){
+            listOf(DistanceUnits.Meters, DistanceUnits.Feet)
+        } else {
+            listOf(DistanceUnits.Feet, DistanceUnits.Meters)
+        }
+
+        binding.selectDistance.text = "${getString(R.string.distance_away)}\n${getString(R.string.dash)}"
+        binding.selectHeight.text = "${getString(R.string.your_height)}\n${getString(R.string.dash)}"
+
+
+        binding.selectDistance.setOnClickListener {
+            CustomUiUtils.pickDistance(requireContext(), units, objectDistance, getString(
+                            R.string.distance_away)){
+                if (it != null) {
+                    objectDistance = it
+                    CustomUiUtils.setButtonState(binding.selectDistance, true)
+                    binding.selectDistance.text = "${getString(R.string.distance_away)}\n${formatService.formatDistance(it, 1)}"
+                }
+            }
+        }
+
+        binding.selectHeight.setOnClickListener {
+            CustomUiUtils.pickDistance(requireContext(), units, userHeight, getString(R.string.your_height)){
+                if (it != null) {
+                    userHeight = it
+                    CustomUiUtils.setButtonState(binding.selectHeight, true)
+                    binding.selectHeight.text = "${getString(R.string.your_height)}\n${formatService.formatDistance(it, 1)}"
+                }
+            }
         }
 
         binding.root.setOnClickListener {
@@ -101,27 +137,20 @@ class InclinometerFragment : Fragment() {
     private fun updateObjectHeight() {
         val incline = slopeAngle ?: inclinometer.angle
 
-        val units = prefs.distanceUnits
-
-        val distance = binding.objectDistance.text.toString().toFloatOrNull()
-        val phoneHeight =
-            binding.phoneHeight.text.toString().toFloatOrNull() ?: LocationMath.convertToBaseUnit(
-                1.5f,
-                units
-            )
-
-        if (distance == null) {
+        if (objectDistance == null) {
             binding.estimatedHeight.text = getString(R.string.dash)
+            binding.estimatedHeightLbl.text = getString(R.string.distance_away_not_set)
         } else {
-            val distMeters = LocationMath.convertToMeters(distance, units)
-            val heightMeters = LocationMath.convertToMeters(phoneHeight, units)
-            binding.estimatedHeight.text = formatService.formatSmallDistance(
-                inclinationService.estimateHeight(
+            val distMeters = objectDistance!!.meters().distance
+            val heightMeters = userHeight?.meters()?.distance ?: 1.5f
+            binding.estimatedHeight.text = formatService.formatDistance(
+                Distance.meters(inclinationService.estimateHeight(
                     distMeters,
                     incline,
                     heightMeters
-                )
+                )).convertTo(prefs.baseDistanceUnits)
             )
+            binding.estimatedHeightLbl.text = getString(R.string.estimated_height)
         }
     }
 

@@ -20,6 +20,8 @@
         android:text="@string/dash"
         tools:text="10 m" />
 
+
+
     <TextView
         android:id="@+id/estimated_height_lbl"
         android:layout_width="wrap_content"
@@ -79,30 +81,24 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/estimated_height_lbl">
 
-        <EditText
-            android:id="@+id/object_distance"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/select_distance"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/object_distance_m"
-            android:inputType="numberDecimal" />
+            android:layout_marginEnd="16dp"
+            tools:text="Distance away\n-" />
 
-        <EditText
-            android:id="@+id/phone_height"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/select_height"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/your_height_m"
-            android:inputType="numberDecimal"
-            tools:ignore="TextFields" />
+            android:layout_marginStart="16dp"
+            tools:text="Your height\n-" />
     </LinearLayout>
 
     <ImageView
