@@ -249,9 +249,9 @@
     <string name="tool_category_power">Energia</string>
     <string name="tool_category_distance">Distantzia</string>
     <string name="battery_health_overheat">Gainberotua</string>
-    <string name="battery_health_good">Ondo</string>
+    <string name="battery_health_good">Ona</string>
     <string name="battery_health_dead">Hilda</string>
-    <string name="battery_health_cold">Hotz</string>
+    <string name="battery_health_cold">Hotza</string>
     <string name="tool_battery_title">Bateria</string>
     <string name="tool_ruler_title">Erregela</string>
     <string name="reset">Berrezarri</string>
@@ -319,14 +319,14 @@
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_ac">AC</string>
     <string name="coordinate_format_mgrs">MGRS</string>
-    <string name="tool_thermometer_title">Termometro</string>
+    <string name="tool_thermometer_title">Termometroa</string>
     <string name="location_input_hint">Kokapena</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="tool_backtrack_title">Kokapen-erregistroa</string>
     <string name="waypoint_action_delete">Ezabatu</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
-    <string name="map_scale_ratio">Proportzio</string>
+    <string name="map_scale_ratio">Proportzioa</string>
     <string name="flashlight_strobe">Estroboa</string>
     <string name="pressure_4_hours">4 ordu</string>
     <string name="pressure_12_hours">12 ordu</string>
@@ -410,4 +410,14 @@
     <string name="tide_high_short">Altua</string>
     <string name="tide_low_short">Baxua</string>
     <string name="backtrack_notification_channel">Kokapenen erregistroa</string>
+    <string name="guide_create_beacons_title">Balizak sortu</string>
+    <string name="map_scale_title">Maparen eskala</string>
+    <string name="freezing_temperatures_warning">Izozte tenperaturak</string>
+    <string name="battery_health_over_voltage">Gaintentsioa</string>
+    <string name="strobe_warning_title">Aldizkako argiak</string>
+    <string name="tool_cliff_height_title">Labarraren altuera</string>
+    <string name="tool_bubble_level_title">Nibela</string>
+    <string name="weather_update_notification_channel">Eguraldiaren eguneraketa</string>
+    <string name="pref_sunset_alerts_title">Ilunabar alertak</string>
+    <string name="tool_speedometer_odometer">tool_speedometer_odometer</string>
 </resources>
