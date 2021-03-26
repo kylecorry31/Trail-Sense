@@ -751,4 +751,8 @@
     <string name="pref_navigation_speedometer_type">pref_navigation_speedometer_type</string>
     <string name="speedometer_average">平均 (来自 Backtrack)</string>
     <string name="speedometer_real_time">实时</string>
+    <string name="value_average">%s 平均</string>
+    <string name="value_since_time">%s自%s</string>
+    <string name="tool_speedometer_odometer">tool_speedometer_odometer</string>
+    <string name="tool_speedometer_odometer_title">速度计/里程表</string>
 </resources>
