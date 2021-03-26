@@ -11,6 +11,7 @@ import android.hardware.SensorManager
 import android.os.Build
 import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.MainActivity
+import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
@@ -56,6 +57,7 @@ object WeatherNotificationService {
                 .setOnlyAlertOnce(true)
                 .setAutoCancel(false)
                 .setOngoing(true)
+                .setGroup(NotificationChannels.GROUP_WEATHER)
                 .setContentIntent(openPendingIntent)
                 .build()
         } else {
@@ -68,6 +70,7 @@ object WeatherNotificationService {
                 .setOnlyAlertOnce(true)
                 .setAutoCancel(false)
                 .setOngoing(true)
+                .setGroup(NotificationChannels.GROUP_WEATHER)
                 .setContentIntent(openPendingIntent)
                 .build()
         }

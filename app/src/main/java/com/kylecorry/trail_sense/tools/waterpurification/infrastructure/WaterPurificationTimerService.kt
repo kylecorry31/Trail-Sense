@@ -7,6 +7,7 @@ import android.os.CountDownTimer
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.graphics.drawable.IconCompat
+import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
@@ -55,6 +56,7 @@ class WaterPurificationTimerService: Service() {
                 val doneBuilder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_tool_boil_done)
                     .setContentTitle(getString(R.string.water_boil_timer_done_title))
+                    .setGroup(NotificationChannels.GROUP_WATER)
                     .setContentText(getString(R.string.water_boil_timer_done_content))
                     .setOnlyAlertOnce(false)
                 NotificationUtils.send(applicationContext, NOTIFICATION_ID, doneBuilder.build())
@@ -82,6 +84,7 @@ class WaterPurificationTimerService: Service() {
             .setOnlyAlertOnce(true)
             .setNotificationSilent()
             .addAction(cancelAction)
+            .setGroup(NotificationChannels.GROUP_WATER)
             .setOngoing(true)
     }
 

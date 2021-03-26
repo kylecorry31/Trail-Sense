@@ -30,7 +30,7 @@
             android:summary="@string/pref_require_satellites_description"/>
 
         <Preference
-            android:title="@string/pref_gps_request_permission_title"
+            android:title="@string/request_permission"
             app:iconSpaceReserved="false"
             app:isPreferenceVisible="false"
             app:key="@string/pref_gps_request_permission"

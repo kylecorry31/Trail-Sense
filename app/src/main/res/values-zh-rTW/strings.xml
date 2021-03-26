@@ -21,7 +21,7 @@
     <string name="altimeter_mode_barometer">氣壓計</string>
     <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_dialog_title">輸入海平面壓力</string>
-    <string name="pref_gps_request_permission_title">要求權限</string>
+    <string name="request_permission">要求權限</string>
     <string name="pref_auto_location_title">自動調整位置</string>
     <string name="compass_accuracy_improved">羅盤精確度提升至 %s</string>
     <string name="calibrate_compass_dialog_title">校準羅盤</string>

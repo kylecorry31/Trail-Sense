@@ -59,7 +59,7 @@ class UserPreferences(private val context: Context) {
         }
 
     val use24HourTime: Boolean
-        get(){
+        get() {
             val value = cache.getBoolean(context.getString(R.string.pref_use_24_hour))
             return if (value == null) {
                 val system = DateFormat.is24HourFormat(context)
@@ -213,6 +213,21 @@ class UserPreferences(private val context: Context) {
             } else {
                 cache.remove(context.getString(R.string.last_tide_id))
             }
+        }
+
+    val usePedometer: Boolean
+        get() {
+            val raw = cache.getString(getString(R.string.pref_odometer_source))
+            return raw == "pedometer"
+        }
+
+    var strideLength: Distance
+        get() {
+            val raw = cache.getFloat(getString(R.string.pref_stride_length)) ?: 0.7f
+            return Distance.meters(raw)
+        }
+        set(value) {
+            cache.putFloat(getString(R.string.pref_stride_length), value.meters().distance)
         }
 
     private fun getString(id: Int): String {

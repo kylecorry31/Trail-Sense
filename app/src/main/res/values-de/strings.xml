@@ -181,7 +181,7 @@
 \nKompass: Rotieren Sie das Gerät in Form einer 8 und entfernen Sie sich von Metallgegeständen."</string>
     <string name="altitude">Höhe</string>
     <string name="pref_altimeter_calibration_title">Höhenmesser</string>
-    <string name="pref_gps_request_permission_title">Berechtigung anfordern</string>
+    <string name="request_permission">Berechtigung anfordern</string>
     <string name="gps_location">Standort</string>
     <string name="calibrate_compass_dialog_title">Kompass kalibrieren</string>
     <string name="pref_temperature_units_title">Temperatur</string>

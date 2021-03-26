@@ -136,6 +136,12 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <Preference
+            android:key="@string/pref_odometer_calibration"
+            android:title="@string/odometer"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <EditTextPreference
             android:inputType="numberDecimal"
             app:defaultValue="1"

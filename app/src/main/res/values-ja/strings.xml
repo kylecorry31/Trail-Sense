@@ -143,7 +143,7 @@
     <string name="add_elevation_offsets">Use AMSL elevation</string>
     <string name="altitude">高度</string>
     <string name="pref_altimeter_calibration_title">高度計</string>
-    <string name="pref_gps_request_permission_title">Request permission</string>
+    <string name="request_permission">Request permission</string>
     <string name="pref_auto_location_title">Auto adjust location</string>
     <string name="gps_location">Location</string>
     <string name="compass_accuracy_improved">Compass accuracy improved to %s</string>

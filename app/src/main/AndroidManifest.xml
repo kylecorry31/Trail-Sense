@@ -8,9 +8,10 @@
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="geo" />
         </intent>
+
         <package android:name="com.kylecorry.trail_sense_maps" />
         <package android:name="com.kylecorry.healthsense" />
-        <package android:name="com.kylecorry.nwsweather"/>
+        <package android:name="com.kylecorry.nwsweather" />
     </queries>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -20,9 +21,12 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
 
     <!--Force remove this permission from androidx-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" tools:node="remove"/>
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        tools:node="remove" />
 
     <application
         android:allowBackup="true"
@@ -120,11 +124,16 @@
             android:foregroundServiceType="location" />
 
         <service
+            android:name=".tools.speedometer.infrastructure.PedometerService"
+            android:enabled="true" />
+
+        <service
             android:name=".tools.backtrack.infrastructure.services.BacktrackService"
             android:enabled="true"
             android:foregroundServiceType="location" />
 
-        <service android:name=".tools.whitenoise.infrastructure.WhiteNoiseService"
+        <service
+            android:name=".tools.whitenoise.infrastructure.WhiteNoiseService"
             android:enabled="true"
             android:foregroundServiceType="mediaPlayback" />
     </application>

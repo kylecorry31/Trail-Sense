@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import com.kylecorry.trail_sense.MainActivity
+import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -153,6 +154,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
                         .setContentTitle(getString(R.string.notification_storm_alert_title))
                         .setContentText(getString(R.string.notification_storm_alert_text))
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setGroup(NotificationChannels.GROUP_STORM)
                         .build()
 
                 NotificationUtils.send(this, STORM_ALERT_NOTIFICATION_ID, notification)
@@ -198,6 +200,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
             .setSmallIcon(icon)
             .setLargeIcon(Icon.createWithResource(this, icon))
             .setAutoCancel(false)
+            .setGroup(NotificationChannels.GROUP_DAILY_WEATHER)
             .setContentIntent(openPendingIntent)
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -235,6 +238,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
                 .setOnlyAlertOnce(true)
                 .setAutoCancel(false)
                 .setOngoing(false)
+                .setGroup(NotificationChannels.GROUP_UPDATES)
                 .setPriority(Notification.PRIORITY_LOW)
                 .build()
     }

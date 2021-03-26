@@ -252,7 +252,7 @@
     <string name="altitude_from_gps">Ustaw nadpisanie z GPS</string>
     <string name="altitude">Wysokość</string>
     <string name="pref_altimeter_calibration_title">Wysokościomierz</string>
-    <string name="pref_gps_request_permission_title">Poproś o uprawnienia</string>
+    <string name="request_permission">Poproś o uprawnienia</string>
     <string name="compass_reported_accuracy">Zgłoszona dokładność: %s</string>
     <string name="pref_auto_declination_summary">Na podstawie aktualnej lokalizacji</string>
     <string name="estimated_height">szacunkowa wysokość</string>

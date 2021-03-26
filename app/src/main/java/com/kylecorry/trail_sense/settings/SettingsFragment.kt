@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.settings
 
 import android.content.Intent
+import android.hardware.Sensor
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
@@ -14,6 +15,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -32,7 +35,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         updatePreferenceStates()
     }
 
-    private lateinit var prefs: UserPreferences
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,8 +51,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
         val sensorChecker = SensorChecker(requireContext())
-        val userPrefs = UserPreferences(requireContext())
-        prefs = userPrefs
         bindPreferences()
         updatePreferenceStates()
         if (!sensorChecker.hasBarometer()) {
@@ -73,6 +74,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             preference(R.string.pref_barometer_calibration),
             R.id.action_action_settings_to_calibrateBarometerFragment
         )
+        preference(R.string.pref_odometer_calibration)?.isVisible = prefs.experimentalEnabled && sensorChecker.hasSensor(Sensor.TYPE_STEP_COUNTER)
+        navigateOnClick(
+            preference(R.string.pref_odometer_calibration),
+            R.id.action_action_settings_to_calibrateOdometerFragment
+        )
         navigateOnClick(
             preference(R.string.pref_navigation_header_key),
             R.id.action_action_settings_to_navigationSettingsFragment
@@ -85,6 +91,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
             preference(R.string.pref_astronomy_category),
             R.id.action_action_settings_to_astronomySettingsFragment
         )
+
+        onClick(preference(R.string.pref_enable_experimental)){
+            preference(R.string.pref_odometer_calibration)?.isVisible = prefs.experimentalEnabled && sensorChecker.hasSensor(Sensor.TYPE_STEP_COUNTER)
+            if (!prefs.experimentalEnabled){
+                PedometerService.stop(requireContext())
+                WhiteNoiseService.stop(requireContext())
+            } else {
+                if (prefs.usePedometer){
+                    PedometerService.start(requireContext())
+                }
+            }
+        }
 
         refreshOnChange(list(R.string.pref_theme))
 

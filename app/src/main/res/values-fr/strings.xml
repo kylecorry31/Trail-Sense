@@ -127,7 +127,7 @@
     <string name="compass_from_gps">Utiliser la valeur issue du GPS</string>
     <string name="compass_auto_declination">Acquérir automatiquement la déclinaison</string>
     <string name="pref_auto_location_title">Acquérir automatiquement la localisation</string>
-    <string name="pref_gps_request_permission_title">Permission requise</string>
+    <string name="request_permission">Permission requise</string>
     <string name="gps_location">Localisation</string>
     <string name="compass_reported_accuracy">Précision estimée : %s</string>
     <string name="compass_accuracy_improved">Précision de la boussole améliorée à %s</string>

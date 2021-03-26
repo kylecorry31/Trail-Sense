@@ -11,12 +11,22 @@ import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastR
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.SosService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.StrobeService
+import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 
 object NotificationChannels {
+
+    const val GROUP_UPDATES = "trail_sense_updates"
+    const val GROUP_WEATHER = "trail_sense_weather"
+    const val GROUP_DAILY_WEATHER = "trail_sense_daily_weather"
+    const val GROUP_STORM = "trail_sense_storm"
+    const val GROUP_SUNSET = "trail_sense_sunset"
+    const val GROUP_PEDOMETER = "trail_sense_pedometer"
+    const val GROUP_WATER = "trail_sense_water"
+    const val GROUP_CLOCK = "trail_sense_clock"
 
     fun createChannels(context: Context) {
         // Flashlight
@@ -133,6 +143,16 @@ object NotificationChannels {
             context.getString(R.string.sunset_alert_channel_description),
             NotificationUtils.CHANNEL_IMPORTANCE_HIGH,
             false
+        )
+
+        // Odometer
+        NotificationUtils.createChannel(
+            context,
+            PedometerService.CHANNEL_ID,
+            context.getString(R.string.odometer),
+            context.getString(R.string.odometer),
+            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            true
         )
     }
 

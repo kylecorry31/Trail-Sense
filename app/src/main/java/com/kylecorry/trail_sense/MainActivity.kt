@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.shared.MarkdownService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDatabaseMigrationSharedPrefWorker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -135,6 +136,10 @@ class MainActivity : AppCompatActivity() {
             WeatherUpdateScheduler.start(this)
         } else {
             WeatherUpdateScheduler.stop(this)
+        }
+
+        if (userPrefs.experimentalEnabled && userPrefs.usePedometer){
+            PedometerService.start(this)
         }
 
         if (!sensorChecker.hasBarometer()) {

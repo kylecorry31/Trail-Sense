@@ -102,6 +102,14 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         }
     }
 
+    private fun updateOdometer(){
+        if (userPrefs.usePedometer){
+            return
+        }
+
+        odometer.addLocation(ApproximateCoordinate.from(location, Distance.meters(_horizontalAccuracy ?: 0f)))
+    }
+
     @SuppressLint("MissingPermission")
     override fun startImpl() {
         if (!sensorChecker.hasGPS()) {
@@ -127,8 +135,8 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
             // Reset the timeout, there's a valid reading
             timeout.once(TIMEOUT_DURATION)
             _isTimedOut = false
+            updateOdometer()
             notifyListeners()
-            odometer.addLocation(ApproximateCoordinate.from(location, Distance.meters(_horizontalAccuracy ?: 0f)))
             return true
         }
 
@@ -164,8 +172,8 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         }
 
         if (shouldNotify && location != Coordinate.zero){
+            updateOdometer()
             notifyListeners()
-            odometer.addLocation(ApproximateCoordinate.from(location, Distance.meters(_horizontalAccuracy ?: 0f)))
         }
 
         return true
@@ -181,9 +189,9 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
 
     private fun onTimeout(){
         _isTimedOut = true
+        updateOdometer()
         notifyListeners()
         timeout.once(TIMEOUT_DURATION)
-        odometer.addLocation(ApproximateCoordinate.from(location, Distance.meters(_horizontalAccuracy ?: 0f)))
     }
 
     private fun hadRecentValidReading(): Boolean {

@@ -1,0 +1,33 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/odometer">
+
+        <ListPreference
+            app:defaultValue="gps"
+            app:entries="@array/odometer_source_entries"
+            app:entryValues="@array/odometer_source_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_odometer_source"
+            app:singleLineTitle="false"
+            app:title="@string/source"
+            app:useSimpleSummaryProvider="true" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            android:title="@string/pref_stride_length_title"
+            app:key="@string/pref_stride_length_holder"
+            app:singleLineTitle="false" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            android:title="@string/request_permission"
+            app:key="@string/pref_odometer_request_permission"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

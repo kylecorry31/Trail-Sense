@@ -271,7 +271,7 @@
     <string name="gps">GPS</string>
     <string name="gps_location">Location</string>
     <string name="pref_auto_location_title">Auto adjust location</string>
-    <string name="pref_gps_request_permission_title">Request permission</string>
+    <string name="request_permission">Request permission</string>
     <!--    The title for the edit text field the user can supply their current latitude (basically mock GPS)-->
     <!--    The title for the edit text field the user can supply their current longitude (basically mock GPS)-->
     <!--    The button which can be used to update the lat/lng overrides from your current location-->
@@ -880,4 +880,13 @@
     <string name="distance_away">Distance away</string>
     <string name="distance_away_not_set">distance away not set</string>
     <string name="saltwater_switch">Is saltwater?</string>
+    <string name="odometer">Odometer</string>
+    <string name="pedometer">Pedometer</string>
+    <string name="pref_stride_length_title">Stride length</string>
+    <string name="pref_stride_length_holder" translatable="false">pref_stride_length_holder</string>
+    <string name="pref_stride_length" translatable="false">pref_stride_length</string>
+    <string name="pref_odometer_source">pref_odometer_source</string>
+    <string name="source">Source</string>
+    <string name="pref_odometer_calibration">pref_odometer_calibration</string>
+    <string name="pref_odometer_request_permission">pref_odometer_request_permission</string>
 </resources>

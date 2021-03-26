@@ -273,7 +273,7 @@
     <string name="add_elevation_offsets">Utilizza l’elevazione AMSL</string>
     <string name="altitude">Altitudine</string>
     <string name="pref_altimeter_calibration_title">Altimetro</string>
-    <string name="pref_gps_request_permission_title">Richiesta permessi</string>
+    <string name="request_permission">Richiesta permessi</string>
     <string name="pref_auto_location_title">Rergolazione automatica posizione</string>
     <string name="gps_location">Posizione</string>
     <string name="compass_accuracy_improved">Accuratezza della bussola migliorata a %s</string>

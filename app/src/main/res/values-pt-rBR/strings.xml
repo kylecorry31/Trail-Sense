@@ -205,7 +205,7 @@
     <string name="pref_barometer_pressure_title">Pressão</string>
     <string name="gps_location">Localização</string>
     <string name="pref_auto_location_title">Ajuste automático de Localização</string>
-    <string name="pref_gps_request_permission_title">Solicitar permissão</string>
+    <string name="request_permission">Solicitar permissão</string>
     <string name="pref_calibrate_compass_btn_title">Calibrar</string>
     <string name="calibrate_compass_dialog_title">Calibrar a bússola</string>
     <string name="calibrate_compass_dialog_content">Gire seu celular num padrão de número 8 várias vezes, clique em %s quando terminar.</string>

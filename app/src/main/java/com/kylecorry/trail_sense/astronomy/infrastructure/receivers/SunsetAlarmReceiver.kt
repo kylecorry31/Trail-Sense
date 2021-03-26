@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.kylecorry.trail_sense.MainActivity
+import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -150,6 +151,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             )
             .setAutoCancel(false)
             .setContentIntent(openPendingIntent)
+            .setGroup(NotificationChannels.GROUP_SUNSET)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
         with(NotificationManagerCompat.from(context)) {

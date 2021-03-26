@@ -218,7 +218,7 @@
     <string name="altitude_from_pressure">Задать смещение с помощью барометра на устройстве</string>
     <string name="altitude_from_gps">Задать смещение с помощью GPS</string>
     <string name="add_elevation_offsets">Отсчитывать от среднего уровня моря</string>
-    <string name="pref_gps_request_permission_title">Запрос разрешения</string>
+    <string name="request_permission">Запрос разрешения</string>
     <string name="pref_auto_location_title">Автоматически отслеживать перемещение</string>
     <string name="compass_accuracy_improved">Точность компаса поднялась: %s</string>
     <string name="compass_reported_accuracy">Текущая точность: %s</string>

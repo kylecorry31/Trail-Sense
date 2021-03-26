@@ -230,7 +230,7 @@
     <string name="add_elevation_offsets">käytä ASML nousua</string>
     <string name="altitude">Korkeus</string>
     <string name="pref_altimeter_calibration_title">Korkeusmittari</string>
-    <string name="pref_gps_request_permission_title">Lupapyyntö</string>
+    <string name="request_permission">Lupapyyntö</string>
     <string name="pref_auto_location_title">Säädä sijainti automaattisesti</string>
     <string name="gps_location">Sijainti</string>
     <string name="gps">GPS</string>

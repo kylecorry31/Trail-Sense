@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.annotation.DrawableRes
+import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
@@ -135,6 +136,7 @@ class BacktrackService : CoroutineForegroundService() {
                 .setOnlyAlertOnce(true)
                 .setAutoCancel(false)
                 .setOngoing(false)
+                .setGroup(NotificationChannels.GROUP_UPDATES)
                 .build()
         } else {
             @Suppress("DEPRECATION")
@@ -146,6 +148,7 @@ class BacktrackService : CoroutineForegroundService() {
                 .setOnlyAlertOnce(true)
                 .setAutoCancel(false)
                 .setOngoing(false)
+                .setGroup(NotificationChannels.GROUP_UPDATES)
                 .build()
         }
     }

@@ -147,7 +147,7 @@
     <string name="altimeter_mode_barometer">Barometer</string>
     <string name="altitude">Høyde</string>
     <string name="pref_altimeter_calibration_title">Høydemåler</string>
-    <string name="pref_gps_request_permission_title">Be om posisjonstillatelse</string>
+    <string name="request_permission">Be om posisjonstillatelse</string>
     <string name="pref_auto_location_title">Automatisk justering av posisjon</string>
     <string name="compass_declination">Misvisning</string>
     <string name="fahrenheit">Fahrenheit</string>

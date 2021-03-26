@@ -83,7 +83,7 @@
     <string name="pref_altitude_override_sea_level_dialog_msg">以百帕为单位输入现在海平面的气压</string>
     <string name="altitude">海拔</string>
     <string name="pref_altimeter_calibration_title">高度表</string>
-    <string name="pref_gps_request_permission_title">请求权限</string>
+    <string name="request_permission">请求权限</string>
     <string name="pref_auto_location_title">自动调整位置</string>
     <string name="gps_location">位置</string>
     <string name="compass_accuracy_improved">指南针的精确度提升至 %s</string>

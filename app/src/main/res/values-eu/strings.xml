@@ -337,7 +337,7 @@
     <string name="pref_send_storm_alerts_title">Ekaitz abisuak</string>
     <string name="pref_num_visible_beacons_title">Hurbileko balizak</string>
     <string name="pref_altitude_override_title">Altitudea baliogabetu</string>
-    <string name="pref_gps_request_permission_title">Baimena eskatu</string>
+    <string name="request_permission">Baimena eskatu</string>
     <string name="calibrate_compass_dialog_title">Iparrorratza kalibratu</string>
     <string name="compass_declination_override">Deklinazioa baliogabetu</string>
     <string name="pref_compass_filter_amt_title">Iparrorratzaren leuntzea</string>
