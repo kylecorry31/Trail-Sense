@@ -14,6 +14,7 @@ data class PressureReadingEntity(
     @ColumnInfo(name = "altitude") val altitude: Float,
     @ColumnInfo(name = "altitude_accuracy") val altitudeAccuracy: Float?,
     @ColumnInfo(name = "temperature") val temperature: Float,
+    @ColumnInfo(name = "humidity") val humidity: Float,
     @ColumnInfo(name = "time") val time: Long
 ) {
 
@@ -27,7 +28,7 @@ data class PressureReadingEntity(
 
     companion object {
         fun from(pressure: PressureAltitudeReading): PressureReadingEntity {
-            return PressureReadingEntity(pressure.pressure, pressure.altitude, 0f, pressure.temperature, pressure.time.toEpochMilli())
+            return PressureReadingEntity(pressure.pressure, pressure.altitude, 0f, pressure.temperature, 0f, pressure.time.toEpochMilli())
         }
     }
 

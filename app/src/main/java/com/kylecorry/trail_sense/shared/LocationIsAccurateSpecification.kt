@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared
 
+import com.kylecorry.trailsensecore.domain.geo.ApproximateCoordinate
 import com.kylecorry.trailsensecore.domain.specifications.Specification
 
 class LocationIsAccurateSpecification: Specification<ApproximateCoordinate>() {

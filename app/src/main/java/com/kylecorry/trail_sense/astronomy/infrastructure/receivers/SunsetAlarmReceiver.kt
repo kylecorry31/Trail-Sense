@@ -1,16 +1,12 @@
 package com.kylecorry.trail_sense.astronomy.infrastructure.receivers
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.getSystemService
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -59,7 +55,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         }
 
         sensorService = SensorService(this.context)
-        gps = sensorService.getGPS()
+        gps = sensorService.getGPS(true)
 
         gpsTimeout.once(Duration.ofSeconds(10))
 

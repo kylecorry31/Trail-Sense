@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.shared.sensors
 import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
-import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trailsensecore.domain.geo.ApproximateCoordinate
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.units.*
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache

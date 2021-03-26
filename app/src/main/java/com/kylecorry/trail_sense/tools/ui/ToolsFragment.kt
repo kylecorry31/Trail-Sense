@@ -170,7 +170,6 @@ class ToolsFragment : PreferenceFragmentCompat() {
         navigateOnClick(whiteNoise, R.id.action_action_experimental_tools_to_fragmentToolWhiteNoise)
 
         val flashlight = findPreference<Preference>(getString(R.string.tool_flashlight))
-        flashlight?.isVisible = Flashlight.hasFlashlight(requireContext())
         navigateOnClick(
             flashlight,
             R.id.action_action_experimental_tools_to_fragmentToolFlashlight

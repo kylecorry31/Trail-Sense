@@ -19,7 +19,7 @@ class PressureDatabaseMigrationWorker(private val context: Context,
             oldDb.deleteAll()
 
             val entities = oldReadings.map {
-                PressureReadingEntity(it.pressure, it.altitude, 0f, it.temperature, it.time.toEpochMilli())
+                PressureReadingEntity(it.pressure, it.altitude, 0f, it.temperature, 0f, it.time.toEpochMilli())
             }
             val db = PressureRepo.getInstance(context)
             entities.forEach {

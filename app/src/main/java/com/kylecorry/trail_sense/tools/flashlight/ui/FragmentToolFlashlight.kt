@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
+import com.kylecorry.trailsensecore.infrastructure.flashlight.HasFlashlightSpecification
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
@@ -31,6 +33,10 @@ class FragmentToolFlashlight : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentToolFlashlightBinding.inflate(inflater, container, false)
+        val hasFlashlight = HasFlashlightSpecification().isSatisfiedBy(requireContext())
+        binding.flashlightBtn.isVisible = hasFlashlight
+        binding.strobeBtn.isVisible = hasFlashlight
+        binding.sosBtn.isVisible = hasFlashlight
         binding.flashlightBtn.setOnClickListener {
             if (flashlight.getState() == FlashlightState.On) {
                 flashlight.set(FlashlightState.Off)

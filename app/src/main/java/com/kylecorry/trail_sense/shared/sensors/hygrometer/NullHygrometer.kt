@@ -11,7 +11,7 @@ class NullHygrometer : AbstractSensor(), IHygrometer {
     override val humidity: Float
         get() = _humidity
 
-    private var _humidity = Float.NaN
+    private var _humidity = 0f
 
     override fun startImpl() {
         notifyListeners()
