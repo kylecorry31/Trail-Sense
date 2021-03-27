@@ -86,7 +86,6 @@
     <string name="add_elevation_offsets">Gebruik AMSL hoogte</string>
     <string name="altitude">Hoogte</string>
     <string name="pref_altimeter_calibration_title">Hoogtemeter</string>
-    <string name="pref_gps_request_permission_title">Toegang verlenen</string>
     <string name="pref_auto_location_title">Locatie automatisch aanpassen</string>
     <string name="gps_location">Locatie</string>
     <string name="compass_accuracy_improved">Nauwkeurigheid kompas verbeterd naar %s</string>
@@ -132,10 +131,6 @@
     <string name="action_item_delete">Verwijderen</string>
     <string name="action_item_subtract">Aftrekken</string>
     <string name="action_inventory">Inventaris</string>
-    <string name="your_height_ft">Jouw lengte (voet)</string>
-    <string name="object_distance_ft">Afstand (voet)</string>
-    <string name="your_height_m">Jouw lengte (m)</string>
-    <string name="object_distance_m">Afstand (m)</string>
     <string name="estimated_height">geschatte hoogte</string>
     <string name="set_inclination_instructions">Tik om de hellingshoek vast te zetten of los te maken</string>
     <string name="inclinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>

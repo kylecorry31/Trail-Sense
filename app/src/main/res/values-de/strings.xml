@@ -188,10 +188,6 @@
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="experimental_tools_title">Experimentelle Funktionen</string>
-    <string name="your_height_ft">Ihre Körpergröße (ft)</string>
-    <string name="object_distance_ft">Entfernung (ft)</string>
-    <string name="your_height_m">Ihre Körpergröße (m)</string>
-    <string name="object_distance_m">Entfernung (m)</string>
     <string name="sun_dusk">Abenddämmerung</string>
     <string name="sun_dawn">Morgendämmerung</string>
     <string name="sun_down_no_set">Sonne geht unter</string>

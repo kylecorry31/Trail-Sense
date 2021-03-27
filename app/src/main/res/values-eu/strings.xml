@@ -262,8 +262,6 @@
     <string name="experimental_tools_title">Ezaugarri esperimentalak</string>
     <string name="edit_item_title">Elementua editatu</string>
     <string name="create_item_title">Elementua sortu</string>
-    <string name="object_distance_ft">Distantzia (oin)</string>
-    <string name="object_distance_m">Distantzia (m)</string>
     <string name="estimated_height">ustezko altuera</string>
     <string name="trail_sense_maps">Konexiorik gabeko mapak</string>
     <string name="moon_illumination">Ilargiaren argiztapena</string>
@@ -342,8 +340,6 @@
     <string name="compass_declination_override">Deklinazioa baliogabetu</string>
     <string name="pref_compass_filter_amt_title">Iparrorratzaren leuntzea</string>
     <string name="quick_action_none">Bat ere ez</string>
-    <string name="pref_navigation_quick_action_right">pref_navigation_quick_action_right</string>
-    <string name="pref_navigation_quick_action_left">pref_navigation_quick_action_left</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="satellites">sateliteak</string>
     <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
@@ -403,10 +399,7 @@
     <string name="sun_actual">Benetako ordua</string>
     <string name="pref_forecast_sensitivity_title">Iragarpenaren sentsibilitatea</string>
     <string name="speedometer">Abiadura-neurgailua</string>
-    <string name="pref_navigation_speedometer_type">pref_navigation_speedometer_type</string>
     <string name="screen_flashlight">Pantaila</string>
-    <string name="pref_daily_weather_time">pref_daily_weather_time</string>
-    <string name="pref_daily_weather_time_holder">pref_daily_weather_time_holder</string>
     <string name="tide_high_short">Altua</string>
     <string name="tide_low_short">Baxua</string>
     <string name="backtrack_notification_channel">Kokapenen erregistroa</string>
@@ -419,5 +412,4 @@
     <string name="tool_bubble_level_title">Nibela</string>
     <string name="weather_update_notification_channel">Eguraldiaren eguneraketa</string>
     <string name="pref_sunset_alerts_title">Ilunabar alertak</string>
-    <string name="tool_speedometer_odometer">tool_speedometer_odometer</string>
 </resources>

@@ -155,10 +155,6 @@
     <string name="action_item_delete">Elimina</string>
     <string name="action_item_add">Aggiungi</string>
     <string name="action_inventory">Inventario</string>
-    <string name="your_height_ft">La tua altezza (ft)</string>
-    <string name="object_distance_ft">Distanza (ft)</string>
-    <string name="your_height_m">La tua altezza (m)</string>
-    <string name="object_distance_m">Distanza (m)</string>
     <string name="estimated_height">altezza stimata</string>
     <string name="set_inclination_instructions">Tocca un qualsiasi punto per impostare/rimuovere l\'angolo di inclinazione</string>
     <string name="inclinometer_rotate_device">Tieni il telefono in posizione verticale per misurare l\'inclinazione</string>
@@ -278,7 +274,6 @@
     <string name="gps_location">Posizione</string>
     <string name="compass_accuracy_improved">Accuratezza della bussola migliorata a %s</string>
     <string name="compass_reported_accuracy">Accuratezza riportata: %s</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Questo avviso può essere disabilitato nelle impostazioni dell’app.</string>
     <string name="calibrate_compass_dialog_content">Ruota il tuo telefono formando un percorso a 8 diverse volte, clicca %s quando terminato.</string>
     <string name="calibrate_compass_dialog_title">Calibrazione bussola</string>
     <string name="pref_calibrate_compass_btn_title">Calibrazione</string>
@@ -297,11 +292,11 @@
     <string name="fahrenheit">Fahrenheit</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="coordinate_format_utm">UTM</string>
-    <string name="humidity_format">%.Di%% umidità</string>
+    <string name="humidity_format">%.0f%% umidità</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="temp_c_format">%.Di °C</string>
-    <string name="temp_f_format">%.Di °F</string>
+    <string name="temp_c_format">%.0f °C</string>
+    <string name="temp_f_format">%.0f °F</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_title">Avviso temporale</string>
     <string name="notification_storm_alert_text">Potrebbe essere in arriv un temporale</string>
@@ -393,7 +388,6 @@
     <string name="low">Bassa</string>
     <string name="moderate">Moderata</string>
     <string name="high">Elevata</string>
-    <string name="pref_daily_weather_notification_desc">Inviata ogni mattina alle ore 9:00 circa</string>
     <string name="pref_daily_weather_notification_title">Notifica meteo giornaliera</string>
     <string name="weather_worse_than_today">Peggiore di oggi</string>
     <string name="weather_better_than_today">Migliore di oggi</string>

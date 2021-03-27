@@ -166,10 +166,6 @@
     <string name="coordinate_format_degrees_decimal_minutes">度分</string>
     <string name="coordinate_format_decimal_degrees">10進数</string>
     <string name="experimental_tools_title">Experimental features</string>
-    <string name="your_height_ft">Your height (ft)</string>
-    <string name="object_distance_ft">Distance (ft)</string>
-    <string name="your_height_m">Your height (m)</string>
-    <string name="object_distance_m">Distance (m)</string>
     <string name="estimated_height">estimated height</string>
     <string name="set_inclination_instructions">Tap anywhere to set/unset inclination angle</string>
     <string name="inclinometer_rotate_device">Hold your phone vertically to measure inclination</string>

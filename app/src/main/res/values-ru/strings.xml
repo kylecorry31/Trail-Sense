@@ -120,7 +120,6 @@
     <string name="pref_temperature_units_title">Температура</string>
     <string name="pref_coordinate_format_title">Формат координат</string>
     <string name="experimental_tools_title">Экспериментальные функции</string>
-    <string name="object_distance_m">Расстояние (м)</string>
     <string name="inclinometer_title">Инклинометр (креномер)</string>
     <string name="trail_sense_maps">Офлайн-карты</string>
     <string name="moon_phase">Фазы Луны</string>
@@ -174,8 +173,6 @@
     <string name="pressure_tendency_format">%s %s / 3ч</string>
     <string name="pref_show_pressure_in_notification_title">Показывать давление в уведомлении</string>
     <string name="pref_show_weather_notification_title">Показывать уведомление с информацией о погоде</string>
-    <string name="your_height_ft">Ваш вес (фт)</string>
-    <string name="object_distance_ft">Расстояние (фт)</string>
     <string name="fahrenheit">Градусы фаренгейта</string>
     <string name="celsius">Градусы цельсия</string>
     <string name="humidity_format">%.0f%% влажность</string>
@@ -240,7 +237,6 @@
     <string name="coordinate_format_degrees_minutes_seconds">Градусы, минуты и секунды</string>
     <string name="coordinate_format_degrees_decimal_minutes">Градусы и минуты с дробью</string>
     <string name="coordinate_format_decimal_degrees">Только градусы с десятичной дробной частью</string>
-    <string name="your_height_m">Ваш вес</string>
     <string name="estimated_height">расчетная высота</string>
     <string name="set_inclination_instructions">Коснитесь экрана для фиксации значения</string>
     <string name="inclinometer_rotate_device">Держите ваш телефон вертикально для измерения наклона</string>
@@ -737,9 +733,7 @@
     <string name="guide_light_meter_title">Определить эффективность фонарика</string>
     <string name="gps_cache">GPS-Кэш</string>
     <string name="experimental_features">Приливы, отливы и белый шум</string>
-    <string name="pref_daily_weather_time">pref_daily_weather_time</string>
     <string name="pref_daily_weather_time_title">Время прогноза погоды на день</string>
-    <string name="pref_daily_weather_time_holder">pref_daily_weather_time_holder</string>
     <string name="date_not_set">Дата не установлена</string>
     <string name="time_not_set">Время не установлено</string>
     <string name="tide_calibration_instructions">Установите время прилива рядом с вами, желательно на дату новолуния или полнолуния. Его можно получить в Интернете или распечатав таблицы приливов и отливов. Приливы, показанные в Trail Sense, могут отличаться до двух часов, что достаточно для справки, но на что нельзя полагаться.</string>
@@ -752,8 +746,6 @@
     <string name="right_quick_action">Быстрое действие направо</string>
     <string name="left_quick_action">Быстрое действие налево</string>
     <string name="quick_action_none">Ничего</string>
-    <string name="pref_navigation_quick_action_right">pref_navigation_quick_action_right</string>
-    <string name="pref_navigation_quick_action_left">pref_navigation_quick_action_left</string>
     <string name="no_gps_signal">Нет сигнала GPS</string>
     <string name="always_on">Всегда включен</string>
     <string name="weather_same_as_today">Как и сегодня</string>
@@ -761,7 +753,6 @@
     <string name="weather_better_than_today">Лучше, чем сегодня</string>
     <string name="tomorrows_forecast">Прогноз на завтра</string>
     <string name="speedometer">Спидометр</string>
-    <string name="pref_navigation_speedometer_type">pref_navigation_speedometer_type</string>
     <string name="speedometer_average">Средняя (от истории маршрута)</string>
     <string name="speedometer_real_time">В реальном времени</string>
     <string name="screen_flashlight">Экран</string>

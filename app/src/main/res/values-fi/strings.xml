@@ -293,10 +293,6 @@
     <string name="action_item_subtract">Vähennä</string>
     <string name="action_item_add">Lisää</string>
     <string name="action_inventory">Luettelo</string>
-    <string name="your_height_ft">Pituutesi (ft)</string>
-    <string name="object_distance_ft">Etäisyys (ft)</string>
-    <string name="your_height_m">Pituutesi (m)</string>
-    <string name="object_distance_m">Etäisyys (m)</string>
     <string name="estimated_height">arvioitu korkeus</string>
     <string name="set_inclination_instructions">Napauta mistä tahansa asettaaksesi / poistaaksesi kallistuskulman</string>
     <string name="inclinometer_rotate_device">Pidä puhelintasi pystysuorassa kaltevuuden mittaamiseksi</string>

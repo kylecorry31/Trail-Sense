@@ -52,10 +52,6 @@
     <string name="meters">Meter</string>
     <string name="pref_distance_units_title">Distanse</string>
     <string name="pref_units_header">Generelt</string>
-    <string name="your_height_ft">Din høyde (fot)</string>
-    <string name="object_distance_ft">Distanse (fot)</string>
-    <string name="your_height_m">Din høyde (m)</string>
-    <string name="object_distance_m">Distanse (m)</string>
     <string name="estimated_height">anslått høyde</string>
     <string name="avalanche_risk_high">Høy snøskredfare</string>
     <string name="avalanche_risk_med">Middels snøskredfare</string>

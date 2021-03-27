@@ -45,10 +45,6 @@
     <string name="action_item_subtract">Odečíst</string>
     <string name="action_item_add">Přidat</string>
     <string name="action_inventory">Seznam věcí</string>
-    <string name="your_height_ft">Vaše výška (ft)</string>
-    <string name="object_distance_ft">Vzdálenost (ft)</string>
-    <string name="your_height_m">Vaše výška (m)</string>
-    <string name="object_distance_m">Vzdálenost (m)</string>
     <string name="estimated_height">odhadovaná výška</string>
     <string name="inclinometer_rotate_device">Držte svůj telefon svisle na změření sklonu</string>
     <string name="avalanche_risk_high">Vysoká pravděpodobnost laviny</string>

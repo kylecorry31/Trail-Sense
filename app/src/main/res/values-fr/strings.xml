@@ -136,10 +136,6 @@
     <string name="pref_auto_declination_summary">Se base sur votre localisation actuelle</string>
     <string name="compass_declination">Déclinaison</string>
     <string name="compass_azimuth">Azimuth</string>
-    <string name="your_height_ft">Votre altitude (pieds)</string>
-    <string name="object_distance_ft">Distance (pieds)</string>
-    <string name="your_height_m">Votre altitude (m)</string>
-    <string name="object_distance_m">Distance (m)</string>
     <string name="humidity_format">%.0f%% d\'humidité</string>
     <string name="temp_c_format">%.0f °C</string>
     <string name="temp_f_format">%.0f °F</string>

@@ -260,10 +260,6 @@
     <string name="inclinometer_rotate_device">Segure seu telefone na vertical para medir a inclinação</string>
     <string name="set_inclination_instructions">Toque em qualquer lugar para definir/anular o ângulo de inclinação</string>
     <string name="estimated_height">altura estimada</string>
-    <string name="object_distance_m">Distância (m)</string>
-    <string name="your_height_m">Sua altura (m)</string>
-    <string name="object_distance_ft">Distância (ft)</string>
-    <string name="your_height_ft">Sua altura (ft)</string>
     <string name="pref_sea_level_pressure_change_thresh_title">Limiar de mudança de pressão de viagem</string>
     <string name="pref_barometer_altitude_change_title">Limiar de mudança de altitude de viagem</string>
     <string name="beacon_action_view_details">Ver os detalhes</string>
@@ -683,8 +679,6 @@
     <string name="right_quick_action">Ação rápida da direita</string>
     <string name="left_quick_action">Ação rápida da esquerda</string>
     <string name="quick_action_none">Nenhuma</string>
-    <string name="pref_navigation_quick_action_right">pref_navigation_quick_action_right</string>
-    <string name="pref_navigation_quick_action_left">pref_navigation_quick_action_left</string>
     <string name="no_gps_signal">Sem sinal do GPS</string>
     <string name="no_temperature_history">Sem histórico de temperatura</string>
     <string name="low">Baixo</string>

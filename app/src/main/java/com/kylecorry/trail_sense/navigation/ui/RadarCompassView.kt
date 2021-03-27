@@ -163,7 +163,7 @@ class RadarCompassView : View, ICompassView {
         )
         val threeQuarterText = formatService.formatDistance(
             threeQuarterDist,
-            if (IsLargeUnitSpecification().isSatisfiedBy(quarterDist.units)) 1 else 0
+            if (IsLargeUnitSpecification().isSatisfiedBy(threeQuarterDist.units)) 1 else 0
         )
         paint.getTextBounds(quarterText, 0, quarterText.length, rect)
         canvas.drawText(

@@ -53,10 +53,6 @@
     <string name="spinner_category_prompt">分類</string>
     <string name="action_item_delete">刪除</string>
     <string name="action_item_add">新增</string>
-    <string name="your_height_ft">您的高度(英呎)</string>
-    <string name="object_distance_ft">距離(英呎)</string>
-    <string name="your_height_m">您的高度(公尺)</string>
-    <string name="object_distance_m">距離(公尺)</string>
     <string name="trail_sense_maps">離線地圖</string>
     <string name="sun_dusk">黃昏</string>
     <string name="sun_dawn">破曉</string>

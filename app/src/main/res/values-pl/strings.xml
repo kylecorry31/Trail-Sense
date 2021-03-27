@@ -124,8 +124,6 @@
     <string name="action_item_edit">Edytuj</string>
     <string name="action_item_delete">Usuń</string>
     <string name="action_item_add">Dodaj</string>
-    <string name="your_height_m">Twój wzrost (m)</string>
-    <string name="object_distance_m">Odległość (m)</string>
     <string name="avalanche_risk_high">Wysokie zagrożenie lawinowe</string>
     <string name="avalanche_risk_med">Umiarkowane zagrożenie lawinowe</string>
     <string name="avalanche_risk_low">Niskie zagrożenie lawinowe</string>
@@ -278,8 +276,6 @@
     <string name="dialog_item_amount">Ilość</string>
     <string name="action_item_subtract">Odejmij</string>
     <string name="action_inventory">Ekwipunek</string>
-    <string name="your_height_ft">Twój wzrost (ft)</string>
-    <string name="object_distance_ft">Odległość (ft)</string>
     <string name="coordinate_format_degrees_decimal_minutes">Stopnie Minuty</string>
     <string name="pref_coordinate_format_title">Format współrzędnych</string>
     <string name="coordinate_format_degrees_minutes_seconds">Stopnie Minuty Sekundy</string>
@@ -708,7 +704,6 @@
     <string name="location_disabled">Lokalizacja jest wyłączona</string>
     <string name="gps_cache">Pamięć podręczna GPS</string>
     <string name="gps_stale">Nieaktualny</string>
-    <string name="pref_daily_weather_notification_desc">Wysyłane codziennie rano około 9:00</string>
     <string name="pref_daily_weather_notification_title">Codzienne powiadomienia o pogodzie</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="weather_same_as_yesterday">Tak samo jak wczoraj</string>
@@ -720,7 +715,6 @@
     <string name="always_on">Zawsze włączone</string>
     <string name="no_temperature_history">Brak historii temperatury</string>
     <string name="no_gps_signal">Brak sygnału GPS</string>
-    <string name="pref_navigation_quick_action_right">pref_navigation_quick_action_right</string>
     <string name="low_tide">Niski przypływ</string>
     <string name="high_tide">Wysoki przypływ</string>
     <string name="tides">Pływy (funkcja eksperymentalna)</string>
@@ -729,7 +723,6 @@
     <string name="guide_light_meter_description">Jak określić odległość wiązki światła z latarek</string>
     <string name="guide_light_meter_title">Określ skuteczność latarki</string>
     <string name="quick_action_none">Brak</string>
-    <string name="pref_navigation_quick_action_left">pref_navigation_quick_action_left</string>
     <string name="date_not_set">Data nieustawiona</string>
     <string name="time_not_set">Czas nieustawiony</string>
     <string name="tool_light_meter_description">Zmierz odległość wiązki światła latarki</string>
@@ -740,8 +733,6 @@
     <string name="weather_worse_than_today">Gorsza niż dzisiaj</string>
     <string name="weather_better_than_today">Lepsza niż dzisiaj</string>
     <string name="tomorrows_forecast">Jutrzejsza prognoza</string>
-    <string name="pref_daily_weather_time">pref_daily_weather_time</string>
-    <string name="pref_daily_weather_time_holder">pref_daily_weather_time_holder</string>
     <string name="experimental_features">Pływy i szum biały</string>
     <string name="tide_calibration_instructions">Ustaw czas przypływu w pobliżu, najlepiej w dniu nowiu lub pełni księżyca. Można go uzyskać online lub za pośrednictwem drukowanych tabel pływów. Pływy pokazane w Trail Sense mogą się różnić nawet o dwie godziny, co jest wystarczająco dobre dla odniesienia, ale nie można na nich polegać.</string>
     <string name="tide_high_short">Wysoki</string>
@@ -751,7 +742,6 @@
     <string name="moderate">Umiarkowane</string>
     <string name="high">Wysokie</string>
     <string name="speedometer">Prędkościomierz</string>
-    <string name="pref_navigation_speedometer_type">pref_navigation_speedometer_type</string>
     <string name="speedometer_average">Średnia (z funkcji Backtrack)</string>
     <string name="speedometer_real_time">Czas rzeczywisty</string>
     <string name="screen_flashlight">Ekran</string>
@@ -763,5 +753,4 @@
     <string name="tool_speedometer_odometer_title">Prędkościomierz / Drogomierz</string>
     <string name="value_average">%s średnia</string>
     <string name="value_since_time">%s od %s</string>
-    <string name="tool_speedometer_odometer">tool_speedometer_odometer</string>
 </resources>
