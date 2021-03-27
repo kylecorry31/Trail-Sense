@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
@@ -19,6 +20,8 @@ import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
+import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
+import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -158,8 +161,15 @@ class NavigatorFragment : Fragment() {
         speedometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
 
         binding.location.setOnLongClickListener {
-            val sender = LocationCopy(requireContext(), Clipboard(requireContext()))
-            sender.send(gps.location)
+            CustomUiUtils.openMenu(it, R.menu.location_share_menu){ menuItem ->
+                val sender = when (menuItem){
+                    R.id.action_send -> LocationSharesheet(requireContext())
+                    R.id.action_maps -> LocationGeoSender(requireContext())
+                    else -> LocationCopy(requireContext(), Clipboard(requireContext()))
+                }
+                sender.send(gps.location)
+                true
+            }
             true
         }
 

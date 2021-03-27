@@ -5,8 +5,11 @@ import android.content.res.ColorStateList
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.PopupMenu
 import androidx.activity.addCallback
 import androidx.annotation.ColorInt
+import androidx.annotation.IdRes
+import androidx.annotation.MenuRes
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
@@ -91,6 +94,16 @@ object CustomUiUtils {
                 onDistancePick.invoke(distance)
             }
         }
+    }
+
+    fun openMenu(anchorView: View, @MenuRes menu: Int, onSelection: (itemId: Int) -> Boolean){
+        val popup = PopupMenu(anchorView.context, anchorView)
+        val inflater = popup.menuInflater
+        inflater.inflate(menu, popup.menu)
+        popup.setOnMenuItemClickListener {
+            onSelection.invoke(it.itemId)
+        }
+        popup.show()
     }
 
 }
