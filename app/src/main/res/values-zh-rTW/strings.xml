@@ -341,8 +341,6 @@
     <string name="forecast_sensitivity_high_psi">高 (0.007 PSI / 3h)</string>
     <string name="forecast_sensitivity_med_psi">中 (0.022 PSI / 3h)</string>
     <string name="forecast_sensitivity_low_psi">低 (0.036 PSI / 3h)</string>
-    <string name="pref_max_beacon_distance_km_message">輸入最大可見地標半徑(公里)</string>
-    <string name="pref_max_beacon_distance_miles_message">輸入最大可見地標半徑(英里)</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">導航前校正</string>
     <string name="pref_show_linear_compass_title">顯示線性羅盤</string>
     <string name="pref_display_multi_beacons_title">顯示附近地標</string>

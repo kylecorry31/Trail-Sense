@@ -246,8 +246,6 @@
     <string name="precise_feet_format">%s ft</string>
     <string name="pref_monitor_weather_title">Controllo meteo</string>
     <string name="pref_monitor_weather_summary">In background</string>
-    <string name="pref_max_beacon_distance_km_message">Inserire il massimo raggio di visibilità dei Segnaposto (Chilometri)</string>
-    <string name="pref_max_beacon_distance_miles_message">Inserire il massimo raggio di visibilità dei Segnaposto (Miglia)</string>
     <string name="pref_max_beacon_distance_title">Raggio del Segnaposto vicino</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibra prima della navigazione</string>
     <string name="pref_display_multi_beacons_summary">Mostra sulla bussola i Segnaposto più vicini</string>

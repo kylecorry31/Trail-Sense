@@ -320,8 +320,6 @@
     <string name="pref_display_multi_beacons_summary">Show closest beacons on the compass</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrate before navigating</string>
     <string name="pref_max_beacon_distance_title">Nearby beacon radius</string>
-    <string name="pref_max_beacon_distance_miles_message">Enter the maximum visible beacon radius (Miles)</string>
-    <string name="pref_max_beacon_distance_km_message">Enter the maximum visible beacon radius (Kilometers)</string>
     <!--Settings - Weather-->
     <string name="pref_send_storm_alerts_title">Storm alerts</string>
     <string name="pref_storm_alert_sensitivity_title">Storm sensitivity</string>
@@ -461,7 +459,6 @@
     <string name="pref_altimeter_calibration_mode" translatable="false">pref_altimeter_calibration_mode</string>
     <string name="pref_sea_level_pressure_override" translatable="false">pref_sea_level_pressure_override</string>
     <string name="pref_max_beacon_distance" translatable="false">pref_max_beacon_distance</string>
-    <string name="pref_max_beacon_distance_miles" translatable="false">pref_max_beacon_distance_miles</string>
     <string name="tool_trail_sense_maps" translatable="false">tool_trail_sense_maps</string>
     <string name="error_occurred">An error occurred</string>
     <string name="error_occurred_message">Trail Sense ran into an error and will close. Please email the developer to get this issue fixed.</string>
@@ -891,4 +888,5 @@
     <string name="pref_odometer_request_permission" translatable="false">pref_odometer_request_permission</string>
     <string name="pref_nearby_radar" translatable="false">pref_nearby_radar</string>
     <string name="pref_nearby_radar_title">Show nearby radar compass</string>
+    <string name="pref_nearby_radius_holder">pref_nearby_radius_holder</string>
 </resources>

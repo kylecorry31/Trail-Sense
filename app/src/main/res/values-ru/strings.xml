@@ -196,8 +196,6 @@
     <string name="pref_center_sun_and_moon_title">Держать солнце/луну в центре</string>
     <string name="sun_moon_compass_when_up">Когда взошло</string>
     <string name="pref_monitor_weather_summary">В фоне</string>
-    <string name="pref_max_beacon_distance_km_message">Введите максимальный радиус для отображаемых маячков (километры)</string>
-    <string name="pref_max_beacon_distance_miles_message">Введите максимальный радиус для отображаемых маячков (мили)</string>
     <string name="pref_max_beacon_distance_title">Максимальный радиус для ближайших</string>
     <string name="pref_display_multi_beacons_summary">Показывать ближайшие маячки на компасе</string>
     <string name="pref_num_visible_beacons_title">Ближайших маячков</string>

@@ -98,8 +98,6 @@
     <string name="pref_show_weather_notification_title">Afficher les notifications liées à la météo</string>
     <string name="pref_monitor_weather_title">Suivi des données météo</string>
     <string name="pref_monitor_weather_summary">En tâche de fond</string>
-    <string name="pref_max_beacon_distance_km_message">Saisissez la distance en-dessous de laquelle les repères deviennent visibles (km)</string>
-    <string name="pref_max_beacon_distance_miles_message">Saisissez la distance en-dessous de laquelle les repères deviennent visibles (miles)</string>
     <string name="pref_max_beacon_distance_title">Rayon de visibilité des balises de proximité</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Étalonner les capteurs avant navigation</string>
     <string name="pref_display_multi_beacons_summary">Montrer les repères les plus proches sur la boussole</string>

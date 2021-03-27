@@ -306,8 +306,6 @@
     <string name="update_30_minutes">30 minutos</string>
     <string name="update_15_minutes">15 minutos</string>
     <string name="pref_weather_update_frequency_title">Freqüência de atualização meteorológica</string>
-    <string name="pref_max_beacon_distance_km_message">Digite o raio máximo visível de Pontos de Orientação (Quilômetros)</string>
-    <string name="pref_max_beacon_distance_miles_message">Digite o raio máximo visível de Pontos de Orientação (Milhas)</string>
     <string name="pref_max_beacon_distance_title">Raio de Pontos de Orientação mais próximos</string>
     <string name="pref_temperature_holder_title">Temperatura</string>
     <string name="pref_sea_level_use_rapid_summary">Usar mudanças rápidas de pressão em conversões de pressão ao nível do mar</string>

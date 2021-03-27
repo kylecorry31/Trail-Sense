@@ -236,8 +236,6 @@
     <string name="update_45_minutes">45 Minuten</string>
     <string name="update_30_minutes">30 Minuten</string>
     <string name="update_15_minutes">15 Minuten</string>
-    <string name="pref_max_beacon_distance_km_message">Geben Sie den maximalen Radius für sichtbare Wegpunkte ein (Kilometer)</string>
-    <string name="pref_max_beacon_distance_miles_message">Geben Sie den maximalen Radius für sichtbare Wegpunkte ein (Meilen)</string>
     <string name="pref_max_beacon_distance_title">Radius für nahegelegene Wegpunkte</string>
     <string name="pref_temperature_holder_title">Temperatur</string>
     <string name="barometer_thermometer">Barometer und Thermometer</string>

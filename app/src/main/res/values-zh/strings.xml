@@ -221,8 +221,6 @@
     <string name="calibration_mode_barometer_alert_msg">将气压计用作海拔计可能降低天气预报准确性。</string>
     <string name="kilometers_per_hour_format">%.1f 千米/时</string>
     <string name="sun_moon_compass_when_up">升起时</string>
-    <string name="pref_max_beacon_distance_km_message">输入最大可见信标半径（单位：公里）</string>
-    <string name="pref_max_beacon_distance_miles_message">输入最大可见信标半径 （单位：英里）</string>
     <string name="pref_max_beacon_distance_title">附近的信标半径</string>
     <string name="water_boil_timer_done_title">水已开</string>
     <string name="unit_feet">英尺</string>

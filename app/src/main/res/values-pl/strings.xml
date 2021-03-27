@@ -397,8 +397,6 @@
     <string name="tap_sun_moon_hint">Kliknij ikonę Słońca lub Księżyca, aby wyświetlić szczegóły ich pozycji</string>
     <string name="delete_beacon_group_message">%s i wszystkie punkty nawigacjne zostaną usunięte.</string>
     <string name="pref_center_sun_and_moon_title">Utrzymuj słońce/księżyc wyśrodkowane</string>
-    <string name="pref_max_beacon_distance_km_message">Wprowadź maksymalny widoczny promień punktu nawigacyjnego (w kilometrach)</string>
-    <string name="pref_max_beacon_distance_miles_message">Wprowadź maksymalny widoczny promień punktu nawigacyjnego (w milach)</string>
     <string name="calibration_mode_barometer_alert_msg">Używanie barometru jako wysokościomierza może zmniejszyć dokładność prognozowania pogody.</string>
     <string name="compass_accuracy_improved">Dokładność kompasu zwiększona do %s</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Obróć telefon kilkakrotnie według wzoru cyfry 8, po zakończeniu kliknij %s.

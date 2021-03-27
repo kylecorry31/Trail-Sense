@@ -195,8 +195,6 @@
     <string name="pref_pressure_history_title">Paineloki</string>
     <string name="pref_storm_alert_sensitivity_title">Myrskyhälytyksen herkkyys</string>
     <string name="pref_send_storm_alerts_title">Myrskyhälytykset</string>
-    <string name="pref_max_beacon_distance_km_message">Aseta näytettävien reittipisteiden maksimisäde (Kilometriä)</string>
-    <string name="pref_max_beacon_distance_miles_message">Aseta näytettävien reittipisteiden maksimisäde (Mailia)</string>
     <string name="pref_max_beacon_distance_title">Läheisen reittipisteen säde</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibroi ennen suunnistusta</string>
     <string name="pref_display_multi_beacons_summary">Näytä lähimmät reittipisteet kompassissa</string>
