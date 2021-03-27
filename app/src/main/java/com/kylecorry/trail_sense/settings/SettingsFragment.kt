@@ -29,11 +29,6 @@ import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private lateinit var navController: NavController
-    private var prefMaxBeaconDistanceKm: EditTextPreference? = null
-    private var prefMaxBeaconDistanceMi: EditTextPreference? = null
-    private val intervalometer = Intervalometer {
-        updatePreferenceStates()
-    }
 
     private val prefs by lazy { UserPreferences(requireContext()) }
 
@@ -42,17 +37,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         navController = findNavController()
     }
 
-    private fun bindPreferences() {
-        prefMaxBeaconDistanceKm = editText(R.string.pref_max_beacon_distance)
-        prefMaxBeaconDistanceMi = editText(R.string.pref_max_beacon_distance_miles)
-    }
-
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
         val sensorChecker = SensorChecker(requireContext())
-        bindPreferences()
-        updatePreferenceStates()
         if (!sensorChecker.hasBarometer()) {
             preferenceScreen.removePreferenceRecursively(getString(R.string.pref_weather_category))
             preference(R.string.pref_barometer_calibration)?.title =
@@ -154,16 +142,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         navigateOnClick(findPreference(getString(R.string.pref_sensor_details)), R.id.action_action_settings_to_diagnosticFragment)
     }
 
-    override fun onResume() {
-        super.onResume()
-        intervalometer.interval(1000)
-    }
-
-    override fun onPause() {
-        intervalometer.stop()
-        super.onPause()
-    }
-
     private fun navigateOnClick(pref: Preference?, @IdRes action: Int, bundle: Bundle? = null) {
         pref?.setOnPreferenceClickListener {
             navController.navigate(action, bundle)
@@ -182,18 +160,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         pref?.setOnPreferenceChangeListener { _, _ ->
             activity?.recreate()
             true
-        }
-    }
-
-    private fun updatePreferenceStates() {
-        val distanceUnits = prefs.distanceUnits
-
-        if (distanceUnits == UserPreferences.DistanceUnits.Feet) {
-            prefMaxBeaconDistanceKm?.isVisible = false
-            prefMaxBeaconDistanceMi?.isVisible = true
-        } else {
-            prefMaxBeaconDistanceKm?.isVisible = true
-            prefMaxBeaconDistanceMi?.isVisible = false
         }
     }
 
