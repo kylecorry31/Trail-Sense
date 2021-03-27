@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import android.graphics.Color
+import androidx.annotation.ColorInt
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -117,4 +119,9 @@ fun Distance.dividedBy(value: Float): Distance {
 
 fun Distance.times(value: Float): Distance {
     return Distance(distance * value, units)
+}
+
+@ColorInt
+fun gray(value: Int): Int {
+    return Color.rgb(value, value, value)
 }

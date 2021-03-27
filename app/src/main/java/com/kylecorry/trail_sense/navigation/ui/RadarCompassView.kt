@@ -136,20 +136,24 @@ class RadarCompassView : View, ICompassView {
             paint
         )
         paint.style = Paint.Style.STROKE
-        paint.color = Color.WHITE
         paint.strokeWidth = 3f
         canvas.save()
         canvas.rotate(azimuth.value, width / 2f, height / 2f)
+        if (destination == null) {
+            paint.color = gray(60)
+            canvas.drawLine(width / 2f, height / 2f, width / 2f, iconSize.toFloat() + dp(2f), paint)
+        }
+        paint.color = Color.WHITE
         canvas.drawBitmap(
             getBitmap(R.drawable.ic_beacon, directionSize), width / 2f - directionSize / 2f,
             height / 2f - directionSize / 2f,
             paint
         )
-        paint.alpha = 127
+        paint.color = Color.rgb(100, 100, 100)
         canvas.drawCircle(width / 2f, height / 2f, compassSize / 4f, paint)
         canvas.drawCircle(width / 2f, height / 2f, 3 * compassSize / 8f, paint)
         canvas.drawCircle(width / 2f, height / 2f, compassSize / 8f, paint)
-        paint.alpha = 255
+        paint.color = Color.WHITE
         paint.style = Paint.Style.FILL
         val maxDistance =
             Distance.meters(prefs.navigation.maxBeaconDistance).convertTo(prefs.baseDistanceUnits)
