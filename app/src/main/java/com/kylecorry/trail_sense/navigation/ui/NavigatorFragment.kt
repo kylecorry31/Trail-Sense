@@ -36,6 +36,7 @@ import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
+import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.Quality
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
@@ -98,8 +99,14 @@ class NavigatorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = ActivityNavigatorBinding.inflate(layoutInflater, container, false)
-        rightQuickAction = getQuickActionButton(userPrefs.navigation.rightQuickAction, binding.navigationRightQuickAction)
-        leftQuickAction = getQuickActionButton(userPrefs.navigation.leftQuickAction, binding.navigationLeftQuickAction)
+        rightQuickAction = getQuickActionButton(
+            userPrefs.navigation.rightQuickAction,
+            binding.navigationRightQuickAction
+        )
+        leftQuickAction = getQuickActionButton(
+            userPrefs.navigation.leftQuickAction,
+            binding.navigationLeftQuickAction
+        )
         return binding.root
     }
 
@@ -169,6 +176,9 @@ class NavigatorFragment : Fragment() {
         binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
         binding.roundCompass.setOnClickListener {
+            toggleDestinationBearing()
+        }
+        binding.radarCompass.setOnClickListener {
             toggleDestinationBearing()
         }
         binding.linearCompass.setOnClickListener {
@@ -250,7 +260,8 @@ class NavigatorFragment : Fragment() {
                         gps.location.bearingTo(
                             destination!!.coordinate
                         )
-                    ), R.drawable.ic_arrow_target
+                    ), R.drawable.ic_arrow_target,
+                    distance = Distance.meters(gps.location.distanceTo(destination!!.coordinate))
                 )
             )
             return indicators
@@ -271,7 +282,8 @@ class NavigatorFragment : Fragment() {
             indicators.add(
                 BearingIndicator(
                     transformTrueNorthBearing(gps.location.bearingTo(beacon.coordinate)),
-                    R.drawable.ic_arrow_target
+                    R.drawable.ic_arrow_target,
+                    distance = Distance.meters(gps.location.distanceTo(beacon.coordinate))
                 )
             )
         }
@@ -303,6 +315,8 @@ class NavigatorFragment : Fragment() {
         compass.declination = getDeclination()
 
         binding.beaconBtn.show()
+        binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
+        binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
 
         // Update the UI
         updateNavigator()
@@ -447,6 +461,9 @@ class NavigatorFragment : Fragment() {
         binding.roundCompass.setIndicators(indicators)
         binding.roundCompass.setAzimuth(compass.bearing)
         binding.roundCompass.setDestination(destBearing, destColor)
+        binding.radarCompass.setIndicators(indicators)
+        binding.radarCompass.setAzimuth(compass.bearing)
+        binding.radarCompass.setDestination(destBearing, destColor)
         binding.linearCompass.setIndicators(indicators)
         binding.linearCompass.setAzimuth(compass.bearing)
         binding.linearCompass.setDestination(destBearing, destColor)
@@ -484,9 +501,11 @@ class NavigatorFragment : Fragment() {
         if (shouldShowLinearCompass()) {
             binding.linearCompass.visibility = View.VISIBLE
             binding.roundCompass.visibility = View.INVISIBLE
+            binding.radarCompass.visibility = View.INVISIBLE
         } else {
             binding.linearCompass.visibility = View.INVISIBLE
-            binding.roundCompass.visibility = View.VISIBLE
+            binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
+            binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
         }
         updateUI()
         return true
@@ -588,8 +607,11 @@ class NavigatorFragment : Fragment() {
         }
     }
 
-    private fun getQuickActionButton(type: QuickActionType, button: FloatingActionButton): QuickActionButton {
-        return when(type){
+    private fun getQuickActionButton(
+        type: QuickActionType,
+        button: FloatingActionButton
+    ): QuickActionButton {
+        return when (type) {
             QuickActionType.None -> QuickActionNone(button, this)
             QuickActionType.Backtrack -> QuickActionBacktrack(button, this)
             QuickActionType.Flashlight -> QuickActionFlashlight(button, this)

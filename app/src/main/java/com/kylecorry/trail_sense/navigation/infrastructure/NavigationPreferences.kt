@@ -59,6 +59,9 @@ class NavigationPreferences(private val context: Context) {
             return raw.toIntOrNull() ?: 1
         }
 
+    val useRadarCompass: Boolean
+        get() = showMultipleBeacons && (cache.getBoolean(context.getString(R.string.pref_nearby_radar)) ?: false)
+
     var maxBeaconDistance: Float
         get() {
             val raw = cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "100"

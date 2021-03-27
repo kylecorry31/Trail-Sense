@@ -885,8 +885,10 @@
     <string name="pref_stride_length_title">Stride length</string>
     <string name="pref_stride_length_holder" translatable="false">pref_stride_length_holder</string>
     <string name="pref_stride_length" translatable="false">pref_stride_length</string>
-    <string name="pref_odometer_source">pref_odometer_source</string>
+    <string name="pref_odometer_source" translatable="false">pref_odometer_source</string>
     <string name="source">Source</string>
-    <string name="pref_odometer_calibration">pref_odometer_calibration</string>
-    <string name="pref_odometer_request_permission">pref_odometer_request_permission</string>
+    <string name="pref_odometer_calibration" translatable="false">pref_odometer_calibration</string>
+    <string name="pref_odometer_request_permission" translatable="false">pref_odometer_request_permission</string>
+    <string name="pref_nearby_radar" translatable="false">pref_nearby_radar</string>
+    <string name="pref_nearby_radar_title">Show nearby radar compass</string>
 </resources>

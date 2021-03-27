@@ -103,6 +103,14 @@
             app:singleLineTitle="false"
             app:title="@string/pref_max_beacon_distance_title" />
 
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_display_multi_beacons"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_nearby_radar"
+            app:singleLineTitle="false"
+            app:title="@string/pref_nearby_radar_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

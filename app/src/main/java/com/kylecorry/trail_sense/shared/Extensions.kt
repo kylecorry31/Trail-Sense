@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import java.time.*
 import java.time.format.DateTimeFormatter
@@ -108,4 +109,12 @@ fun Cache.putInstant(key: String, value: Instant){
 fun Cache.getInstant(key: String): Instant? {
     val time = getLong(key) ?: return null
     return Instant.ofEpochMilli(time)
+}
+
+fun Distance.dividedBy(value: Float): Distance {
+    return Distance(distance / value, units)
+}
+
+fun Distance.times(value: Float): Distance {
+    return Distance(distance * value, units)
 }
