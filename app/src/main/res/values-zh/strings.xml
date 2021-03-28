@@ -728,7 +728,7 @@
     <string name="low_tide">落潮</string>
     <string name="high_tide">涨潮</string>
     <string name="tides">潮汐（实验性）</string>
-    <string name="experimental_features">潮汐和白噪音</string>
+    <string name="experimental_features">潮汐、里程表和白噪音</string>
     <string name="pref_daily_weather_time_title">每日天气时间</string>
     <string name="weather_same_as_today">和今天一样</string>
     <string name="weather_worse_than_today">比今天差</string>
@@ -743,4 +743,8 @@
     <string name="value_average">%s 平均</string>
     <string name="value_since_time">%s自%s</string>
     <string name="tool_speedometer_odometer_title">速度计/里程表</string>
+    <string name="saltwater_switch">是咸水吗？</string>
+    <string name="distance_away_not_set">距离未设定</string>
+    <string name="distance_away">距离</string>
+    <string name="your_height">你的身高</string>
 </resources>
