@@ -76,6 +76,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="@string/date_not_set"
                     tools:text="1 Mar 2021" />
 
                 <Button
@@ -100,6 +101,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="@string/time_not_set"
                     tools:text="1:00 PM" />
 
                 <Button

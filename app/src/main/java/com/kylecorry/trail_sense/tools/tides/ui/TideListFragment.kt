@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainMenuBinding
 import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
 import com.kylecorry.trailsensecore.domain.oceanography.OceanographyService
@@ -27,6 +31,9 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val oceanographyService = OceanographyService()
     private val tideRepo by lazy { TideRepo.getInstance(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
+    private val sensorService by lazy { SensorService(requireContext()) }
+    private val gps by lazy { sensorService.getGPS(false) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -44,7 +51,7 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
             itemBinding.title.text = tide.name ?: if (tide.coordinate != null) formatService.formatLocation(tide.coordinate!!) else getString(R.string.untitled_tide)
             itemBinding.description.text = getTideTypeName(oceanographyService.getTideType(tide.reference))
             itemBinding.root.setOnClickListener {
-                editTide(tide)
+                selectTide(tide)
             }
             
             itemBinding.menuBtn.setOnClickListener {
@@ -65,7 +72,9 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
         listView.addLineSeparator()
 
         tideRepo.getTides().observe(viewLifecycleOwner, {
-            listView.setData(it)
+            listView.setData(it.sortedBy { tide ->
+                tide.coordinate?.distanceTo(gps.location) ?: Float.POSITIVE_INFINITY
+            })
             binding.tidesEmptyText.isVisible = it.isEmpty()
         })
 
@@ -84,15 +93,16 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
     }
 
     private fun editTide(tide: TideEntity){
-        // TODO open the tide create page
+        findNavController().navigate(R.id.action_tideList_to_createTide, bundleOf("edit_tide_id" to tide.id))
     }
 
     private fun createTide(){
-        // TODO open the tide create page
+        findNavController().navigate(R.id.action_tideList_to_createTide)
     }
 
-    private fun selectTide(){
-        // TODO set the tide selection and navigate back to the tide page
+    private fun selectTide(tide: TideEntity){
+        prefs.lastTide = tide.id
+        findNavController().navigate(R.id.action_tideList_to_tide)
     }
 
     private fun getTideTypeName(tideType: TideType): String {

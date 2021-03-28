@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
 import com.kylecorry.trail_sense.databinding.ListItemTideBinding
@@ -55,7 +56,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             tideView.tideTime.text = tide.second
         }
         binding.tideCalibration.setOnClickListener {
-            calibrateTides()
+            findNavController().navigate(R.id.action_tides_to_tideList)
         }
         binding.tideListDatePicker.setOnClickListener {
             UiUtils.pickDate(requireContext(), displayDate){
@@ -71,7 +72,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             val lastTide = prefs.lastTide
             referenceTide = it.firstOrNull { tide -> tide.id == lastTide } ?: it.firstOrNull()
             if (referenceTide == null) {
-                calibrateTides()
+                findNavController().navigate(R.id.action_tides_to_tideList)
             }
             update()
         })
@@ -88,93 +89,6 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         intervalometer.stop()
     }
 
-    private fun calibrateTides() {
-        var referenceTime = referenceTide?.reference?.toLocalTime()
-        var referenceDate = referenceTide?.reference?.toLocalDate()
-        val now = LocalDateTime.now()
-        val dialogView = View.inflate(activity, R.layout.view_tide_time_picker, null)
-        val alertDialog = UiUtils.alertViewWithCancel(
-            requireContext(),
-            getString(R.string.tide_calibration),
-            dialogView,
-            getString(R.string.dialog_ok),
-            getString(R.string.dialog_cancel)
-        ) { cancelled ->
-            if (!cancelled) {
-                if (referenceTime != null && referenceDate != null) {
-                    val newReference =
-                        ZonedDateTime.of(referenceDate!!, referenceTime!!, ZoneId.systemDefault())
-
-                    val newTide = if (referenceTide == null) {
-                        TideEntity(newReference.toInstant().toEpochMilli(), null, null, null)
-                    } else {
-                        referenceTide!!.copy(
-                            referenceHighTide = newReference.toInstant().toEpochMilli()
-                        ).also {
-                            it.id = referenceTide!!.id
-                        }
-                    }
-
-                    lifecycleScope.launch {
-                        withContext(Dispatchers.IO) {
-                            tideRepo.addTide(newTide)
-                        }
-                        withContext(Dispatchers.Main) {
-                            update()
-                        }
-                    }
-
-                }
-            }
-        }
-
-        val referenceTimeTxt = dialogView.findViewById<TextView>(R.id.time)
-        val referenceDateTxt = dialogView.findViewById<TextView>(R.id.date)
-
-        referenceTimeTxt.text = if (referenceTime != null) {
-            formatService.formatTime(referenceTime, false)
-        } else {
-            getString(R.string.time_not_set)
-        }
-
-        referenceDateTxt.text = if (referenceDate != null) {
-            formatService.formatDate(
-                ZonedDateTime.of(
-                    referenceDate,
-                    LocalTime.NOON,
-                    ZoneId.systemDefault()
-                ), false
-            )
-        } else {
-            getString(R.string.date_not_set)
-        }
-
-        dialogView.findViewById<Button>(R.id.time_picker).setOnClickListener {
-            UiUtils.pickTime(requireContext(), prefs.use24HourTime, referenceTime ?: now.toLocalTime()){
-                if (it != null) {
-                    referenceTime = it
-                    referenceTimeTxt.text = formatService.formatTime(referenceTime!!, false)
-                }
-            }
-        }
-        dialogView.findViewById<Button>(R.id.date_picker).setOnClickListener {
-            UiUtils.pickDate(requireContext(), referenceDate ?: now.toLocalDate()){
-                if (it != null){
-                    referenceDate = it
-                    referenceDateTxt.text = formatService.formatDate(
-                        ZonedDateTime.of(
-                            referenceDate,
-                            LocalTime.NOON,
-                            ZoneId.systemDefault()
-                        ), false
-                    )
-                }
-            }
-        }
-
-        alertDialog.show()
-    }
-
     private fun update() {
         context ?: return
         val reference = referenceTide?.reference ?: return
@@ -182,7 +96,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         binding.tideClock.time = ZonedDateTime.now()
         val next = oceanService.getNextTide(reference)
         binding.tideClock.nextTide = next
-        binding.tideLocation.text = referenceTide?.name
+        binding.tideLocation.text = referenceTide?.name ?: if (referenceTide?.coordinate != null) formatService.formatLocation(referenceTide!!.coordinate!!) else getString(R.string.untitled_tide)
         binding.tideHeight.text = getTideTypeName(oceanService.getTideType(reference))
         val tides = oceanService.getTides(reference, displayDate)
         val tideStrings = tides.map {

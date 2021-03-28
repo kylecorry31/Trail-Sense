@@ -650,7 +650,15 @@
     <fragment
         android:id="@+id/tidesFragment"
         android:name="com.kylecorry.trail_sense.tools.tides.ui.TidesFragment"
-        android:label="TidesFragment" />
+        android:label="TidesFragment">
+        <action
+            android:id="@+id/action_tides_to_tideList"
+            app:destination="@id/tideListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentToolScreenFlashlight"
         android:name="com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolScreenFlashlight"
@@ -663,5 +671,45 @@
         android:id="@+id/calibrateOdometerFragment"
         android:name="com.kylecorry.trail_sense.calibration.ui.CalibrateOdometerFragment"
         android:label="CalibrateOdometerFragment" />
+    <fragment
+        android:id="@+id/createTideFragment"
+        android:name="com.kylecorry.trail_sense.tools.tides.ui.CreateTideFragment"
+        android:label="CreateTideFragment">
+        <argument
+            android:name="edit_tide_id"
+            android:defaultValue="0L"
+            app:argType="long" />
+
+        <action
+            android:id="@+id/action_createTide_to_tideList"
+            app:destination="@id/tideListFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/tideListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/tideListFragment"
+        android:name="com.kylecorry.trail_sense.tools.tides.ui.TideListFragment"
+        android:label="TideListFragment">
+        <action
+            android:id="@+id/action_tideList_to_createTide"
+            app:destination="@id/createTideFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_tideList_to_tide"
+            app:destination="@id/tidesFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/tidesFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>
