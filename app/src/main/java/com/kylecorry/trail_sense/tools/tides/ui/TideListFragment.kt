@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
 import com.kylecorry.trailsensecore.domain.oceanography.OceanographyService
 import com.kylecorry.trailsensecore.domain.oceanography.TideType
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,7 +49,7 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
 
         listView = ListView(binding.tideList, R.layout.list_item_plain_menu){ listItemView, tide ->
             val itemBinding = ListItemPlainMenuBinding.bind(listItemView)
-            itemBinding.title.text = tide.name ?: if (tide.coordinate != null) formatService.formatLocation(tide.coordinate!!) else getString(R.string.untitled_tide)
+            itemBinding.title.text = getTideTitle(tide)
             itemBinding.description.text = getTideTypeName(oceanographyService.getTideType(tide.reference))
             itemBinding.root.setOnClickListener {
                 selectTide(tide)
@@ -84,10 +85,19 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
     }
 
     private fun deleteTide(tide: TideEntity){
-        // Prompt for confirmation
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO){
-                tideRepo.deleteTide(tide)
+        UiUtils.alertWithCancel(
+            requireContext(),
+            getString(R.string.delete_tide_prompt),
+            getTideTitle(tide),
+            getString(R.string.dialog_ok),
+            getString(R.string.dialog_cancel)
+        ) { cancelled ->
+            if (!cancelled) {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        tideRepo.deleteTide(tide)
+                    }
+                }
             }
         }
     }
@@ -103,6 +113,10 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
     private fun selectTide(tide: TideEntity){
         prefs.lastTide = tide.id
         findNavController().navigate(R.id.action_tideList_to_tide)
+    }
+
+    private fun getTideTitle(tide: TideEntity): String {
+        return tide.name ?: if (tide.coordinate != null) formatService.formatLocation(tide.coordinate!!) else getString(R.string.untitled_tide)
     }
 
     private fun getTideTypeName(tideType: TideType): String {
