@@ -90,7 +90,7 @@
     <string name="share_action_geo">Maps</string>
     <!--Navigation Tab - Create beacon-->
     <string name="create_beacon_title">Drop Beacon</string>
-    <string name="beacon_name_hint">Name</string>
+    <string name="name_hint">Name</string>
     <string name="beacon_invalid_name">Invalid name</string>
     <string name="beacon_invalid_elevation">Invalid elevation</string>
     <string name="beacon_elevation_hint_feet">Elevation feet (Optional)</string>
@@ -889,4 +889,9 @@
     <string name="pref_nearby_radar" translatable="false">pref_nearby_radar</string>
     <string name="pref_nearby_radar_title">Show nearby radar compass</string>
     <string name="pref_nearby_radius_holder">pref_nearby_radius_holder</string>
+    <string name="tide_location_label">Tide location (optional)</string>
+    <string name="create_tide">Create Tide</string>
+    <string name="no_tides">No tides</string>
+    <string name="menu">Menu</string>
+    <string name="untitled_tide">Untitled tide</string>
 </resources>

@@ -4,7 +4,7 @@
     <string name="weather">Clima</string>
     <string name="settings">Ajustes</string>
     <string name="create_beacon_title">Soltar baliza</string>
-    <string name="beacon_name_hint">Nombre</string>
+    <string name="name_hint">Nombre</string>
     <string name="beacon_list_title">Seleccione baliza</string>
     <string name="dialog_ok">Aceptar</string>
     <string name="delete_beacon">Eliminar baliza</string>

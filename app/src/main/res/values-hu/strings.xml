@@ -56,7 +56,7 @@
     <string name="beacon_elevation_hint_meters">Magasság méterben (nem kötelező)</string>
     <string name="beacon_invalid_elevation">Érvénytelen magasság</string>
     <string name="beacon_invalid_name">Érvénytelen név</string>
-    <string name="beacon_name_hint">Név</string>
+    <string name="name_hint">Név</string>
     <string name="create_beacon_title">Jelölő elhelyezése</string>
     <string name="share_action_geo">Térképek</string>
     <string name="share_action_copy">Másolás</string>

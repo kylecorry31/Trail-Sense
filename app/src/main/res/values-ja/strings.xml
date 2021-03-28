@@ -4,7 +4,7 @@
     <string name="weather">天気</string>
     <string name="settings">設定</string>
     <string name="create_beacon_title">ビーコンを追加</string>
-    <string name="beacon_name_hint">名前</string>
+    <string name="name_hint">名前</string>
     <string name="beacon_list_title">ビーコンを選択</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">ビーコンを削除</string>

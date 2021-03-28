@@ -4,7 +4,7 @@
     <string name="weather">Weather</string>
     <string name="settings">Podešavanja</string>
     <string name="create_beacon_title">Baci Beacon</string>
-    <string name="beacon_name_hint">Ime</string>
+    <string name="name_hint">Ime</string>
     <string name="beacon_list_title">Odaberite Beacon</string>
     <string name="dialog_ok">uredu</string>
     <string name="delete_beacon">Izbriši маяlo</string>

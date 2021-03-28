@@ -3,7 +3,7 @@
     <string name="weather">Nyengo</string>
     <string name="settings">Makonda</string>
     <string name="create_beacon_title">Dontho Beacon</string>
-    <string name="beacon_name_hint">Dzinalo</string>
+    <string name="name_hint">Dzinalo</string>
     <string name="beacon_list_title">Sankhani Beacon</string>
     <string name="dialog_ok">Chabwino</string>
     <string name="delete_beacon">Chotsani beacon</string>

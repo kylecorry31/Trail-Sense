@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="beacon_name_hint">Izena</string>
+    <string name="name_hint">Izena</string>
     <string name="create_beacon_title">Baliza utzi</string>
     <string name="share_action_geo">Mapak</string>
     <string name="share_action_copy">Kopiatu</string>

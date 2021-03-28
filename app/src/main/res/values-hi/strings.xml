@@ -3,7 +3,7 @@
     <string name="weather">मौसम</string>
     <string name="settings">समायोजन</string>
     <string name="create_beacon_title">बीकन गिरा दो</string>
-    <string name="beacon_name_hint">नाम</string>
+    <string name="name_hint">नाम</string>
     <string name="beacon_list_title">बीकन का चयन करें</string>
     <string name="dialog_ok">ठीक</string>
     <string name="delete_beacon">बीकन को हटा दें</string>

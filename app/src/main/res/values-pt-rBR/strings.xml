@@ -47,7 +47,7 @@
     <string name="share_action_copy">Copiar</string>
     <!--Navigation Tab - Create beacon-->
     <string name="create_beacon_title">Desistir de Ponto de Orientação</string>
-    <string name="beacon_name_hint">Nome</string>
+    <string name="name_hint">Nome</string>
     <string name="beacon_invalid_name">Nome inválido</string>
     <string name="beacon_invalid_elevation">Elevação inválida</string>
     <string name="beacon_elevation_hint_feet">Elevação Pés (Opcional)</string>

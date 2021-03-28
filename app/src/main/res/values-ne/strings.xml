@@ -3,7 +3,7 @@
     <string name="weather">मौसम</string>
     <string name="settings">सेटिंग्स</string>
     <string name="create_beacon_title">ड्रप बीकन</string>
-    <string name="beacon_name_hint">नाम</string>
+    <string name="name_hint">नाम</string>
     <string name="beacon_list_title">बीकन चयन गर्नुहोस्</string>
     <string name="dialog_ok">ठिक छ</string>
     <string name="delete_beacon">बीकन मेटाउनुहोस्</string>

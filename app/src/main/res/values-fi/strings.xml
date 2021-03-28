@@ -48,7 +48,7 @@
     <string name="beacon_elevation_hint_feet">Korkeus jalkoina (Valinnainen)</string>
     <string name="beacon_invalid_elevation">Virheellinen korkeus</string>
     <string name="beacon_invalid_name">Virheellinen nimi</string>
-    <string name="beacon_name_hint">Nimi</string>
+    <string name="name_hint">Nimi</string>
     <string name="create_beacon_title">Maamerkin tallennus</string>
     <string name="share_action_geo">Kartat</string>
     <string name="share_action_copy">Kopioi</string>

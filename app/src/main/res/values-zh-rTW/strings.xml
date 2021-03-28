@@ -108,7 +108,7 @@
     <string name="dash">-</string>
     <string name="beacon_invalid_elevation">無效海拔高度</string>
     <string name="beacon_invalid_name">無效名稱</string>
-    <string name="beacon_name_hint">名稱</string>
+    <string name="name_hint">名稱</string>
     <plurals name="beacon_group_summary">
         <item quantity="other">%d 地標</item>
     </plurals>

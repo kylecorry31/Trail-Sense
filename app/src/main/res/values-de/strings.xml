@@ -4,7 +4,7 @@
     <string name="weather">Wetter</string>
     <string name="settings">Einstellungen</string>
     <string name="create_beacon_title">Wegpunkt erstellen</string>
-    <string name="beacon_name_hint">Name</string>
+    <string name="name_hint">Name</string>
     <string name="beacon_list_title">Wegpunkt auswählen</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Wegpunkt löschen</string>

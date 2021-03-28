@@ -3,7 +3,7 @@
     <string name="weather">weer</string>
     <string name="settings">instellings</string>
     <string name="create_beacon_title">Laat val Beacon</string>
-    <string name="beacon_name_hint">naam</string>
+    <string name="name_hint">naam</string>
     <string name="beacon_list_title">Kies Beacon</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Skrap baken</string>

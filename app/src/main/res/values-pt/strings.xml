@@ -4,7 +4,7 @@
     <string name="weather">Clima</string>
     <string name="settings">Ajustes</string>
     <string name="create_beacon_title">Drop Beacon</string>
-    <string name="beacon_name_hint">Nome</string>
+    <string name="name_hint">Nome</string>
     <string name="beacon_list_title">Seleccione Beacon</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Eliminar o farol</string>

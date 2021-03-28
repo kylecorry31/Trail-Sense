@@ -85,7 +85,7 @@
     <string name="notification_storm_alert_channel_name">Varsler</string>
     <string name="stop_monitoring">Stopp</string>
     <string name="beacon_invalid_name">Ugyldig navn</string>
-    <string name="beacon_name_hint">Navn</string>
+    <string name="name_hint">Navn</string>
     <string name="share_action_geo">Kart</string>
     <string name="share_action_copy">Kopier</string>
     <string name="share_action_send">Send</string>

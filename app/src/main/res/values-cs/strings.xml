@@ -106,7 +106,7 @@
     <string name="beacon_elevation_hint_feet">Nadmořská výška ve stopách (Volitelné)</string>
     <string name="beacon_invalid_elevation">Neplatná nadmořská výška</string>
     <string name="beacon_invalid_name">Neplatné jméno</string>
-    <string name="beacon_name_hint">Název</string>
+    <string name="name_hint">Název</string>
     <string name="create_beacon_title">Vytvořit maják</string>
     <string name="share_action_geo">Mapy</string>
     <string name="discharging_fast">Rychle vybíjeno (%s)</string>

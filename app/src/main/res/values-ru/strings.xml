@@ -4,7 +4,7 @@
     <string name="weather">Погода</string>
     <string name="settings">Настройки</string>
     <string name="create_beacon_title">Создать маячок</string>
-    <string name="beacon_name_hint">Имя</string>
+    <string name="name_hint">Имя</string>
     <string name="beacon_list_title">Выберите маячок</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Удалить маячок</string>

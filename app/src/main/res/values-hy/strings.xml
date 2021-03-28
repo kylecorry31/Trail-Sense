@@ -3,7 +3,7 @@
     <string name="weather">Եղանակ</string>
     <string name="settings">Կարգավորումներ</string>
     <string name="create_beacon_title">Կաթիլ փարոս</string>
-    <string name="beacon_name_hint">Անուն</string>
+    <string name="name_hint">Անուն</string>
     <string name="beacon_list_title">Ընտրեք փարոս</string>
     <string name="dialog_ok">լավ</string>
     <string name="delete_beacon">Deleteնջել փարոսը</string>
