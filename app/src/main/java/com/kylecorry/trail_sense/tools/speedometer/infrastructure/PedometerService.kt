@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.IsLargeUnitSpecification
@@ -59,20 +60,17 @@ class PedometerService : ForegroundService() {
     private fun getNotification(): Notification {
         val units = prefs.baseDistanceUnits
         val distance = odometer.distance.convertTo(units).toRelativeDistance()
-        return NotificationUtils.builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.steps)
-            .setContentTitle(getString(R.string.odometer))
-            .setContentText(
-                formatService.formatDistance(
-                    distance,
-                    if (IsLargeUnitSpecification().isSatisfiedBy(distance.units)) 2 else 0
-                )
-            )
-            .setOnlyAlertOnce(true)
-            .setAutoCancel(false)
-            .setOngoing(true)
-            .setGroup(NotificationChannels.GROUP_PEDOMETER)
-            .build()
+        return CustomNotificationUtils.persistent(
+            this,
+            CHANNEL_ID,
+            getString(R.string.odometer),
+            formatService.formatDistance(
+                distance,
+                if (IsLargeUnitSpecification().isSatisfiedBy(distance.units)) 2 else 0
+            ),
+            R.drawable.steps,
+            group = NotificationChannels.GROUP_PEDOMETER
+        )
     }
 
     companion object {
@@ -83,7 +81,7 @@ class PedometerService : ForegroundService() {
             return Intent(context, PedometerService::class.java)
         }
 
-        fun stop(context: Context){
+        fun stop(context: Context) {
             context.stopService(intent(context))
         }
 

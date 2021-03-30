@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.services.CoroutineForegroundService
@@ -44,7 +45,9 @@ class BacktrackService : CoroutineForegroundService() {
     }
 
     override fun getForegroundNotification(): Notification {
-        return notification(
+        return CustomNotificationUtils.background(
+            this,
+            FOREGROUND_CHANNEL_ID,
             getString(R.string.backtrack_notification_channel),
             getString(R.string.backtrack_notification_description),
             R.drawable.ic_update
@@ -125,32 +128,6 @@ class BacktrackService : CoroutineForegroundService() {
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
-    }
-
-    private fun notification(title: String, content: String, @DrawableRes icon: Int): Notification {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Notification.Builder(applicationContext, FOREGROUND_CHANNEL_ID)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setSmallIcon(icon)
-                .setOnlyAlertOnce(true)
-                .setAutoCancel(false)
-                .setOngoing(false)
-                .setGroup(NotificationChannels.GROUP_UPDATES)
-                .build()
-        } else {
-            @Suppress("DEPRECATION")
-            Notification.Builder(applicationContext)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setSmallIcon(icon)
-                .setPriority(Notification.PRIORITY_LOW)
-                .setOnlyAlertOnce(true)
-                .setAutoCancel(false)
-                .setOngoing(false)
-                .setGroup(NotificationChannels.GROUP_UPDATES)
-                .build()
-        }
     }
 
 

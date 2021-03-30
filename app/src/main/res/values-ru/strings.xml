@@ -740,7 +740,7 @@
     <string name="half_tide">Полприлива</string>
     <string name="low_tide">Отлив</string>
     <string name="high_tide">Прилив</string>
-    <string name="tides">Приливы и отливы (экспериментально)</string>
+    <string name="tides_experimental">Приливы и отливы (экспериментально)</string>
     <string name="right_quick_action">Быстрое действие направо</string>
     <string name="left_quick_action">Быстрое действие налево</string>
     <string name="quick_action_none">Ничего</string>

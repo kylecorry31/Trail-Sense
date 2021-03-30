@@ -114,7 +114,7 @@
             app:singleLineTitle="false" />
         <Preference
             android:icon="@drawable/ic_tool_tides"
-            android:title="@string/tides"
+            android:title="@string/tides_experimental"
             app:key="@string/tool_tides"
             app:singleLineTitle="false" />
     </PreferenceCategory>

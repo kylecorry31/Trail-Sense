@@ -7,7 +7,9 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import androidx.core.content.ContextCompat
+import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.flashlight.IFlashlight
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
@@ -47,12 +49,15 @@ class StrobeService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val notification = NotificationUtils.builder(this, CHANNEL_ID)
-            .setContentTitle(getString(R.string.flashlight_strobe))
-            .setContentText(getString(R.string.tap_to_turn_off))
-            .setSmallIcon(R.drawable.flashlight)
-            .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
-            .build()
+        val notification = CustomNotificationUtils.persistent(
+            this,
+            CHANNEL_ID,
+            getString(R.string.flashlight_strobe),
+            getString(R.string.tap_to_turn_off),
+            R.drawable.ic_strobe,
+            intent = FlashlightOffReceiver.pendingIntent(this),
+            group = NotificationChannels.GROUP_FLASHLIGHT
+        )
         startForeground(NOTIFICATION_ID, notification)
         flashlight = Flashlight(this)
         running = true

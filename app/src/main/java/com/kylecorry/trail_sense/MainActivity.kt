@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense
 
 import android.Manifest
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -18,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
+import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.MarkdownService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -155,8 +157,7 @@ class MainActivity : AppCompatActivity() {
 
         val sunsetIntent = SunsetAlarmReceiver.intent(applicationContext)
         sendBroadcast(sunsetIntent)
-
-
+        
         handleIntentAction(intent)
     }
 

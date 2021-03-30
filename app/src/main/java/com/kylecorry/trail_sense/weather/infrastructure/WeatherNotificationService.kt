@@ -9,10 +9,13 @@ import android.content.Intent
 import android.graphics.drawable.Icon
 import android.hardware.SensorManager
 import android.os.Build
+import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
+import androidx.core.graphics.drawable.IconCompat
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
@@ -38,42 +41,25 @@ object WeatherNotificationService {
         val openPendingIntent: PendingIntent =
             PendingIntent.getActivity(context, 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
-        val stopAction = Notification.Action.Builder(
-            Icon.createWithResource("", R.drawable.ic_cancel),
+        val stopAction = CustomNotificationUtils.action(
             context.getString(R.string.stop_monitoring),
-            stopPendingIntent
+            stopPendingIntent,
+            R.drawable.ic_cancel
         )
-            .build()
 
         val title = context.getString(R.string.weather)
 
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Notification.Builder(context, "Weather")
-                .setContentTitle(title)
-                .setContentText(text)
-                .setSmallIcon(icon)
-                .setLargeIcon(Icon.createWithResource(context, icon))
-                .addAction(stopAction)
-                .setOnlyAlertOnce(true)
-                .setAutoCancel(false)
-                .setOngoing(true)
-                .setGroup(NotificationChannels.GROUP_WEATHER)
-                .setContentIntent(openPendingIntent)
-                .build()
-        } else {
-            @Suppress("DEPRECATION")
-            Notification.Builder(context)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setSmallIcon(icon)
-                .addAction(stopAction)
-                .setOnlyAlertOnce(true)
-                .setAutoCancel(false)
-                .setOngoing(true)
-                .setGroup(NotificationChannels.GROUP_WEATHER)
-                .setContentIntent(openPendingIntent)
-                .build()
-        }
+        return CustomNotificationUtils.persistent(
+            context,
+            "Weather",
+            title,
+            text,
+            icon,
+            showBigIcon = true,
+            group = NotificationChannels.GROUP_WEATHER,
+            intent = openPendingIntent,
+            actions = listOf(stopAction)
+        )
     }
 
     fun updateNotificationForecast(

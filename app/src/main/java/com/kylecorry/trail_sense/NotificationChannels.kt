@@ -20,6 +20,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 object NotificationChannels {
 
     const val GROUP_UPDATES = "trail_sense_updates"
+    const val GROUP_FLASHLIGHT = "trail_sense_flashlight"
     const val GROUP_WEATHER = "trail_sense_weather"
     const val GROUP_DAILY_WEATHER = "trail_sense_daily_weather"
     const val GROUP_STORM = "trail_sense_storm"
@@ -35,7 +36,8 @@ object NotificationChannels {
             StrobeService.CHANNEL_ID,
             context.getString(R.string.flashlight_title),
             context.getString(R.string.flashlight_title),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW
+            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            muteSound = true
         )
 
         NotificationUtils.createChannel(
@@ -43,7 +45,8 @@ object NotificationChannels {
             FlashlightService.CHANNEL_ID,
             context.getString(R.string.flashlight_title),
             context.getString(R.string.flashlight_title),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW
+            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            muteSound = true
         )
 
         NotificationUtils.createChannel(
@@ -51,7 +54,8 @@ object NotificationChannels {
             SosService.CHANNEL_ID,
             context.getString(R.string.flashlight_title),
             context.getString(R.string.flashlight_title),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW
+            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            muteSound = true
         )
 
 
@@ -113,18 +117,14 @@ object NotificationChannels {
             true
         )
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = context.getString(R.string.weather)
-            val descriptionText = context.getString(R.string.notification_monitoring_weather)
-            val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel("Weather", name, importance).apply {
-                description = descriptionText
-                enableVibration(false)
-                setShowBadge(false)
-            }
-            val notificationManager = context.getSystemService<NotificationManager>()
-            notificationManager?.createNotificationChannel(channel)
-        }
+        NotificationUtils.createChannel(
+            context,
+            "Weather",
+            context.getString(R.string.weather),
+            context.getString(R.string.notification_monitoring_weather),
+            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            true
+        )
 
         NotificationUtils.createChannel(
             context,

@@ -104,7 +104,7 @@
     <string name="flashlight_title">Torcia</string>
     <string name="screen_flashlight">Schermo</string>
     <string name="half_tide">Marea media</string>
-    <string name="tides">Maree (sperimentale)</string>
+    <string name="tides_experimental">Maree (sperimentale)</string>
     <string name="weather_same_as_today">Uguale ad oggi</string>
     <string name="no_gps_signal">Nessun segnale GPS</string>
     <string name="low_tide">Bassa marea</string>

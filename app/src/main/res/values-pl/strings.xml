@@ -715,7 +715,7 @@
     <string name="no_gps_signal">Brak sygnału GPS</string>
     <string name="low_tide">Niski przypływ</string>
     <string name="high_tide">Wysoki przypływ</string>
-    <string name="tides">Pływy (funkcja eksperymentalna)</string>
+    <string name="tides_experimental">Pływy (funkcja eksperymentalna)</string>
     <string name="right_quick_action">Prawa szybka akcja</string>
     <string name="left_quick_action">Lewa szybka akcja</string>
     <string name="guide_light_meter_description">Jak określić odległość wiązki światła z latarek</string>

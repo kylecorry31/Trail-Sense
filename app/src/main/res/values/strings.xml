@@ -850,7 +850,8 @@
     <string name="left_quick_action">Left quick action</string>
     <string name="right_quick_action">Right quick action</string>
     <string name="tool_tides" translatable="false">tool_tides</string>
-    <string name="tides">Tides (experimental)</string>
+    <string name="tides_experimental">Tides (experimental)</string>
+    <string name="tides">Tides</string>
     <string name="high_tide">High Tide</string>
     <string name="low_tide">Low Tide</string>
     <string name="half_tide">Half Tide</string>

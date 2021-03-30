@@ -7,7 +7,9 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import androidx.core.content.ContextCompat
+import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.flashlight.IFlashlight
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
@@ -21,23 +23,15 @@ class FlashlightService: Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Notification.Builder(this, CHANNEL_ID)
-                .setContentTitle(getString(R.string.flashlight_title))
-                .setContentText(getString(R.string.tap_to_turn_off))
-                .setSmallIcon(R.drawable.flashlight)
-                .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
-                .build()
-        } else {
-            @Suppress("DEPRECATION")
-            Notification.Builder(this)
-                .setContentTitle(getString(R.string.flashlight_title))
-                .setContentText(getString(R.string.tap_to_turn_off))
-                .setSmallIcon(R.drawable.flashlight)
-                .setContentIntent(FlashlightOffReceiver.pendingIntent(this))
-                .build()
-        }
-
+        val notification = CustomNotificationUtils.persistent(
+            this,
+            CHANNEL_ID,
+            getString(R.string.flashlight_title),
+            getString(R.string.tap_to_turn_off),
+            R.drawable.flashlight,
+            intent = FlashlightOffReceiver.pendingIntent(this),
+            group = NotificationChannels.GROUP_FLASHLIGHT
+        )
         startForeground(NOTIFICATION_ID, notification)
         flashlight = Flashlight(this)
         flashlight?.on()

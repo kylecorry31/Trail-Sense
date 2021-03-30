@@ -12,6 +12,7 @@ import androidx.core.app.NotificationCompat
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.services.CoroutineForegroundService
@@ -148,15 +149,14 @@ class WeatherUpdateService: CoroutineForegroundService() {
         if (forecast == Weather.Storm) {
             val shouldSend = prefs.weather.sendStormAlerts
             if (shouldSend && !sentAlert) {
-                val notification =
-                    NotificationCompat.Builder(this, STORM_CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_alert)
-                        .setContentTitle(getString(R.string.notification_storm_alert_title))
-                        .setContentText(getString(R.string.notification_storm_alert_text))
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setGroup(NotificationChannels.GROUP_STORM)
-                        .build()
-
+                val notification = CustomNotificationUtils.alert(
+                    this,
+                    STORM_CHANNEL_ID,
+                    getString(R.string.notification_storm_alert_title),
+                    getString(R.string.notification_storm_alert_text),
+                    R.drawable.ic_alert,
+                    group = NotificationChannels.GROUP_STORM
+                )
                 NotificationUtils.send(this, STORM_ALERT_NOTIFICATION_ID, notification)
                 cache.putBoolean(getString(R.string.pref_just_sent_alert), true)
             }
@@ -194,21 +194,16 @@ class WeatherUpdateService: CoroutineForegroundService() {
         val openPendingIntent: PendingIntent =
             PendingIntent.getActivity(this, 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
-        val builder = NotificationUtils.builder(this, DAILY_CHANNEL_ID)
-            .setContentTitle(getString(if (prefs.weather.dailyWeatherIsForTomorrow) R.string.tomorrows_forecast else R.string.todays_forecast))
-            .setContentText(description)
-            .setSmallIcon(icon)
-            .setLargeIcon(Icon.createWithResource(this, icon))
-            .setAutoCancel(false)
-            .setGroup(NotificationChannels.GROUP_DAILY_WEATHER)
-            .setContentIntent(openPendingIntent)
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            @Suppress("DEPRECATION")
-            builder.setPriority(Notification.PRIORITY_LOW)
-        }
-
-        val notification = builder.build()
+        val notification = CustomNotificationUtils.status(
+            this,
+            DAILY_CHANNEL_ID,
+            getString(if (prefs.weather.dailyWeatherIsForTomorrow) R.string.tomorrows_forecast else R.string.todays_forecast),
+            description,
+            icon,
+            showBigIcon = true,
+            group = NotificationChannels.GROUP_DAILY_WEATHER,
+            intent = openPendingIntent
+        )
 
         NotificationUtils.send(this, DAILY_NOTIFICATION_ID, notification)
     }
@@ -220,7 +215,9 @@ class WeatherUpdateService: CoroutineForegroundService() {
     }
 
     override fun getForegroundNotification(): Notification {
-        return notification(
+        return CustomNotificationUtils.background(
+            this,
+            FOREGROUND_CHANNEL_ID,
             getString(R.string.weather_update_notification_channel),
             getString(R.string.notification_monitoring_weather),
             R.drawable.ic_update
@@ -228,20 +225,6 @@ class WeatherUpdateService: CoroutineForegroundService() {
     }
 
     override val foregroundNotificationId: Int = FOREGROUND_SERVICE_ID
-
-    private fun notification(title: String, content: String, @DrawableRes icon: Int): Notification {
-        @Suppress("DEPRECATION")
-        return NotificationUtils.builder(this, FOREGROUND_CHANNEL_ID)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setSmallIcon(icon)
-                .setOnlyAlertOnce(true)
-                .setAutoCancel(false)
-                .setOngoing(false)
-                .setGroup(NotificationChannels.GROUP_UPDATES)
-                .setPriority(Notification.PRIORITY_LOW)
-                .build()
-    }
 
     companion object {
         const val DAILY_CHANNEL_ID = "daily-weather"
