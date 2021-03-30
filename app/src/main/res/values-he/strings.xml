@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="decrease">-</string>
+    <string name="increase">+</string>
+    <string name="direction_south_west">ד-מע</string>
+    <string name="direction_north_west">צ-מע</string>
+    <string name="direction_south_east">ד-מז</string>
+    <string name="direction_north_east">צ-מז</string>
+    <string name="direction_west">מע</string>
+    <string name="direction_east">מז</string>
+    <string name="direction_south">ד</string>
+    <string name="direction_north">צ</string>
+    <string name="disclaimer_message_title">התראה</string>
+    <string name="dialog_deny">לא תודה</string>
+    <string name="dialog_grant">הגדרות עדכון</string>
+    <string name="access_background_location">עדכן הגדרות מיקום</string>
+    <string name="copied_to_clipboard_toast">הועתק ללוח</string>
+    <string name="dialog_cancel">ביטול</string>
+    <string name="tools">כלים</string>
+    <string name="astronomy">אסטרונומיה</string>
+    <string name="settings">הגדרות</string>
+    <string name="weather">מזג האוויר</string>
+    <string name="navigation">ניווט</string>
+</resources>
