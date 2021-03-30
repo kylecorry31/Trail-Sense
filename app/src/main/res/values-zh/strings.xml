@@ -747,4 +747,10 @@
     <string name="distance_away_not_set">距离未设定</string>
     <string name="distance_away">距离</string>
     <string name="your_height">你的身高</string>
+    <string name="pref_nearby_radius_holder">pref_nearby_radius_holder</string>
+    <string name="pref_nearby_radar_title">显示附近的雷达罗盘</string>
+    <string name="source">源</string>
+    <string name="pref_stride_length_title">步幅</string>
+    <string name="pedometer">计步器</string>
+    <string name="odometer">里程表</string>
 </resources>
