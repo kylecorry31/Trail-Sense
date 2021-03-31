@@ -753,4 +753,11 @@
     <string name="pref_stride_length_title">步幅</string>
     <string name="pedometer">计步器</string>
     <string name="odometer">里程表</string>
+    <string name="untitled_tide">无标题的潮汐</string>
+    <string name="menu">菜单</string>
+    <string name="no_tides">无潮汐</string>
+    <string name="create_tide">创建潮汐</string>
+    <string name="tide_location_label">潮汐位置 (可选)</string>
+    <string name="tides">潮汐</string>
+    <string name="delete_tide_prompt">删除潮汐？</string>
 </resources>
