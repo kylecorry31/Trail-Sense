@@ -618,4 +618,26 @@
     <string name="gps_cache">GPS-hurtiglager</string>
     <string name="tool_light_meter_title">Lysmåler</string>
     <string name="distance_from_flashlight">Avstand fra telefon til lommelykt</string>
+    <string name="menu">Meny</string>
+    <string name="source">Kilde</string>
+    <string name="pref_stride_length_title">Skrittlengde</string>
+    <string name="pedometer">Skritteller</string>
+    <string name="odometer">Trippteller</string>
+    <string name="value_since_time">%s siden %s</string>
+    <string name="tool_speedometer_odometer_title">Speedometer / Trippteller</string>
+    <string name="speedometer_real_time">Sanntid</string>
+    <string name="screen_flashlight">Skjerm</string>
+    <string name="tide_calibration">Tidevannskalibrering</string>
+    <string name="experimental_features">Tidevann, trippteller og hvit støy</string>
+    <string name="pref_daily_weather_time_title">Daglig værtid</string>
+    <string name="date_not_set">Dato ikke stilt inn</string>
+    <string name="time_not_set">Klokkeslett ikke stilt inn</string>
+    <string name="tide_high_short">Høy</string>
+    <string name="tide_low_short">Lav</string>
+    <string name="low_tide">Lavvann</string>
+    <string name="high_tide">Høyvann</string>
+    <string name="right_quick_action">Høyre hurtighandling</string>
+    <string name="left_quick_action">Venstre hurtighandling</string>
+    <string name="quick_action_none">Ingen</string>
+    <string name="no_temperature_history">Ingen temperaturhistorikk</string>
 </resources>
