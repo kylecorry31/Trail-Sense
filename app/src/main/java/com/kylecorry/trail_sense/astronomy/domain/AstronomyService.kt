@@ -163,4 +163,11 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     fun getSunAltitude(location: Coordinate, time: LocalDateTime = LocalDateTime.now()): Float {
         return newAstronomyService.getSunAltitude(time.toZonedDateTime(), location, true)
     }
+
+    fun getMeteorShower(date: LocalDate = LocalDate.now()): MeteorShower? {
+        val today = date.atTime(12, 0).toZonedDateTime()
+        val todays = newAstronomyService.getMeteorShower(today)
+        val tomorrows = newAstronomyService.getMeteorShower(today.plusDays(1))
+        return todays ?: if (tomorrows != null && tomorrows.peak.hour < 12) tomorrows else null
+    }
 }

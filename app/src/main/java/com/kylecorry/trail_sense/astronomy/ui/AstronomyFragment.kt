@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.MainActivity
@@ -20,6 +19,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.UserError
+import com.kylecorry.trailsensecore.domain.astronomy.MeteorShower
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
@@ -314,6 +314,7 @@ class AstronomyFragment : Fragment() {
         val moonTimes = astronomyService.getMoonTimes(gps.location, displayDate)
         val solarNoon = astronomyService.getSolarNoon(gps.location, displayDate)
         val lunarNoon = astronomyService.getLunarNoon(gps.location, displayDate)
+        val meteorShower = astronomyService.getMeteorShower(displayDate)
 
         // Sun and moon times
         val details = listOf(
@@ -415,7 +416,27 @@ class AstronomyFragment : Fragment() {
             )
         }
 
+        if (meteorShower != null && prefs.astronomy.showMeteorShowers){
+            details.add(
+                AstroDetail(
+                    R.drawable.ic_meteor,
+                    getString(R.string.meteor_shower),
+                    getMeteorShowerTime(displayDate, meteorShower),
+                    -1
+                )
+            )
+        }
+
         detailList.setData(details)
+    }
+
+    private fun getMeteorShowerTime(today: LocalDate, meteorShower: MeteorShower): String {
+        return if (meteorShower.peak.toLocalDate() == today){
+            val isMorning = meteorShower.peak.hour < 12
+            if (isMorning) getString(R.string.morning) else getString(R.string.tonight)
+        } else {
+            getString(R.string.tomorrow_morning)
+        }
     }
 
     private fun getMoonImage(phase: MoonTruePhase): Int {
