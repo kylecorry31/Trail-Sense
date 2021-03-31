@@ -21,6 +21,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
+import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.PressureTendency
@@ -51,7 +52,7 @@ object WeatherNotificationService {
 
         return CustomNotificationUtils.persistent(
             context,
-            "Weather",
+            WeatherUpdateService.WEATHER_CHANNEL_ID,
             title,
             text,
             icon,

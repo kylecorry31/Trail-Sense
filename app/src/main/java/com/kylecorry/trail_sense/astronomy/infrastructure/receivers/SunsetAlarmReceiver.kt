@@ -11,12 +11,14 @@ import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toDisplayFormat
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
+import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
@@ -140,23 +142,19 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         val openPendingIntent: PendingIntent =
             PendingIntent.getActivity(context, NOTIFICATION_ID, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
-        val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_sunset_notification)
-            .setContentTitle(context.getString(R.string.sunset_alert_notification_title))
-            .setContentText(
-                context.getString(
-                    R.string.sunset_alert_notification_text,
-                    formattedTime
-                )
-            )
-            .setAutoCancel(false)
-            .setContentIntent(openPendingIntent)
-            .setGroup(NotificationChannels.GROUP_SUNSET)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
+        val notification = CustomNotificationUtils.alert(
+            context,
+            NOTIFICATION_CHANNEL_ID,
+            context.getString(R.string.sunset_alert_notification_title),
+            context.getString(
+                R.string.sunset_alert_notification_text,
+                formattedTime
+            ),
+            R.drawable.ic_sunset_notification,
+            intent = openPendingIntent
+        )
 
-        with(NotificationManagerCompat.from(context)) {
-            notify(NOTIFICATION_ID, builder.build())
-        }
+        NotificationUtils.send(context, NOTIFICATION_ID, notification)
     }
 
     private fun setAlarm(time: LocalDateTime) {

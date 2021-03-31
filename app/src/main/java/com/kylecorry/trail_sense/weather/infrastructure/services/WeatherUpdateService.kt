@@ -232,6 +232,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
         private const val FOREGROUND_SERVICE_ID = 629579783
         const val STORM_CHANNEL_ID = "Alerts"
         const val FOREGROUND_CHANNEL_ID = "WeatherUpdate"
+        const val WEATHER_CHANNEL_ID = "Weather"
         private const val TAG = "WeatherUpdateService"
         private const val STORM_ALERT_NOTIFICATION_ID = 74309823
 

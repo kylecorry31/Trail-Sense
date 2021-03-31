@@ -119,7 +119,7 @@ object NotificationChannels {
 
         NotificationUtils.createChannel(
             context,
-            "Weather",
+            WeatherUpdateService.WEATHER_CHANNEL_ID,
             context.getString(R.string.weather),
             context.getString(R.string.notification_monitoring_weather),
             NotificationUtils.CHANNEL_IMPORTANCE_LOW,
@@ -131,7 +131,7 @@ object NotificationChannels {
             WeatherUpdateService.DAILY_CHANNEL_ID,
             context.getString(R.string.todays_forecast),
             context.getString(R.string.todays_forecast),
-            1,
+            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
             true
         )
 
