@@ -6,6 +6,8 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
+import androidx.core.graphics.drawable.toBitmap
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 object CustomNotificationUtils {
 
@@ -38,7 +40,9 @@ object CustomNotificationUtils {
         }
 
         if (showBigIcon) {
-            builder.setLargeIcon(BitmapFactory.decodeResource(context.resources, icon))
+            val drawable = UiUtils.drawable(context, icon)
+            val bitmap = drawable?.toBitmap()
+            builder.setLargeIcon(bitmap)
         }
 
         if (group != null) {
@@ -65,7 +69,7 @@ object CustomNotificationUtils {
         context: Context,
         channel: String,
         title: String,
-        contents: String,
+        contents: String?,
         @DrawableRes icon: Int,
         autoCancel: Boolean = false,
         alertOnlyOnce: Boolean = false,
@@ -76,15 +80,20 @@ object CustomNotificationUtils {
     ): Notification {
         val builder = NotificationCompat.Builder(context, channel)
             .setContentTitle(title)
-            .setContentText(contents)
             .setSmallIcon(icon)
             .setAutoCancel(autoCancel)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setNotificationSilent()
             .setOnlyAlertOnce(alertOnlyOnce)
 
+        if (contents != null){
+            builder.setContentText(contents)
+        }
+
         if (showBigIcon) {
-            builder.setLargeIcon(BitmapFactory.decodeResource(context.resources, icon))
+            val drawable = UiUtils.drawable(context, icon)
+            val bitmap = drawable?.toBitmap()
+            builder.setLargeIcon(bitmap)
         }
 
         if (group != null) {
@@ -112,7 +121,7 @@ object CustomNotificationUtils {
         context: Context,
         channel: String,
         title: String,
-        contents: String,
+        contents: String?,
         @DrawableRes icon: Int,
         autoCancel: Boolean = false,
         alertOnlyOnce: Boolean = true,
@@ -123,7 +132,6 @@ object CustomNotificationUtils {
     ): Notification {
         val builder = NotificationCompat.Builder(context, channel)
             .setContentTitle(title)
-            .setContentText(contents)
             .setSmallIcon(icon)
             .setAutoCancel(autoCancel)
             .setOngoing(true)
@@ -131,8 +139,14 @@ object CustomNotificationUtils {
             .setNotificationSilent()
             .setOnlyAlertOnce(alertOnlyOnce)
 
+        if (contents != null){
+            builder.setContentText(contents)
+        }
+
         if (showBigIcon) {
-            builder.setLargeIcon(BitmapFactory.decodeResource(context.resources, icon))
+            val drawable = UiUtils.drawable(context, icon)
+            val bitmap = drawable?.toBitmap()
+            builder.setLargeIcon(bitmap)
         }
 
         if (group != null) {
@@ -159,18 +173,22 @@ object CustomNotificationUtils {
         context: Context,
         channel: String,
         title: String,
-        contents: String,
+        contents: String?,
         @DrawableRes icon: Int
     ): Notification {
         val builder = NotificationCompat.Builder(context, channel)
             .setContentTitle(title)
-            .setContentText(contents)
             .setSmallIcon(icon)
             .setAutoCancel(false)
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setNotificationSilent()
             .setOnlyAlertOnce(true)
+
+        if (contents != null){
+            builder.setContentText(contents)
+        }
+
         return builder.build()
     }
 
