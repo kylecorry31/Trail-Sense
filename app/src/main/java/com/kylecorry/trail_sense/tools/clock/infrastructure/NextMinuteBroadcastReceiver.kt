@@ -6,14 +6,13 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 
 class NextMinuteBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return
         val time = intent?.getStringExtra(EXTRA_TIME)
-        val notification = CustomNotificationUtils.alert(
+        val notification = NotificationUtils.alert(
             context,
             CHANNEL_ID,
             context.getString(R.string.clock_sync_notification, time),

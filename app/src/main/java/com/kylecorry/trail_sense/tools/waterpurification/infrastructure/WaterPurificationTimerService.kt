@@ -8,7 +8,6 @@ import android.os.CountDownTimer
 import android.os.IBinder
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import kotlin.math.roundToInt
@@ -48,7 +47,7 @@ class WaterPurificationTimerService: Service() {
             }
 
             override fun onFinish() {
-                val notification = CustomNotificationUtils.alert(
+                val notification = NotificationUtils.alert(
                     applicationContext,
                     CHANNEL_ID,
                     getString(R.string.water_boil_timer_done_title),
@@ -65,13 +64,13 @@ class WaterPurificationTimerService: Service() {
     }
 
     private fun getNotification(secondsLeft: Int): Notification {
-        val cancelAction = CustomNotificationUtils.action(
+        val cancelAction = NotificationUtils.action(
             getString(R.string.dialog_cancel),
             WaterPurificationCancelReceiver.pendingIntent(applicationContext),
             R.drawable.ic_cancel
         )
 
-        return CustomNotificationUtils.persistent(
+        return NotificationUtils.persistent(
             applicationContext,
             CHANNEL_ID,
             getString(R.string.water_boil_timer_title),

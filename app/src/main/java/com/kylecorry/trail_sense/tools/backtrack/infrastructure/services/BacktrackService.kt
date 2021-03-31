@@ -3,13 +3,9 @@ package com.kylecorry.trail_sense.tools.backtrack.infrastructure.services
 import android.app.Notification
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.IBinder
 import android.util.Log
-import androidx.annotation.DrawableRes
-import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.services.CoroutineForegroundService
@@ -19,6 +15,7 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.Wayp
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import kotlinx.coroutines.*
 import java.time.Duration
@@ -45,7 +42,7 @@ class BacktrackService : CoroutineForegroundService() {
     }
 
     override fun getForegroundNotification(): Notification {
-        return CustomNotificationUtils.background(
+        return NotificationUtils.background(
             this,
             FOREGROUND_CHANNEL_ID,
             getString(R.string.backtrack_notification_channel),

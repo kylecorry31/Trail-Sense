@@ -5,13 +5,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import com.kylecorry.trail_sense.MainActivity
-import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toDisplayFormat
@@ -142,7 +138,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         val openPendingIntent: PendingIntent =
             PendingIntent.getActivity(context, NOTIFICATION_ID, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
-        val notification = CustomNotificationUtils.alert(
+        val notification = NotificationUtils.alert(
             context,
             NOTIFICATION_CHANNEL_ID,
             context.getString(R.string.sunset_alert_notification_title),

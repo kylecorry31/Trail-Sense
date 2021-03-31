@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.IsLargeUnitSpecification
@@ -60,7 +59,7 @@ class PedometerService : ForegroundService() {
     private fun getNotification(): Notification {
         val units = prefs.baseDistanceUnits
         val distance = odometer.distance.convertTo(units).toRelativeDistance()
-        return CustomNotificationUtils.persistent(
+        return NotificationUtils.persistent(
             this,
             CHANNEL_ID,
             getString(R.string.odometer),

@@ -1,21 +1,13 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Icon
 import android.hardware.SensorManager
-import android.os.Build
-import androidx.core.app.NotificationCompat
-import androidx.core.content.getSystemService
-import androidx.core.graphics.drawable.IconCompat
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
@@ -26,7 +18,6 @@ import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Instant
 
 object WeatherNotificationService {
@@ -42,7 +33,7 @@ object WeatherNotificationService {
         val openPendingIntent: PendingIntent =
             PendingIntent.getActivity(context, 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
-        val stopAction = CustomNotificationUtils.action(
+        val stopAction = NotificationUtils.action(
             context.getString(R.string.stop_monitoring),
             stopPendingIntent,
             R.drawable.ic_cancel
@@ -50,7 +41,7 @@ object WeatherNotificationService {
 
         val title = context.getString(R.string.weather)
 
-        return CustomNotificationUtils.persistent(
+        return NotificationUtils.persistent(
             context,
             WeatherUpdateService.WEATHER_CHANNEL_ID,
             title,

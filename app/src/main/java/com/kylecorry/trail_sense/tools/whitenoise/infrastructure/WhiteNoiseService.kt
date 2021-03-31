@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.IBinder
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.WhiteNoise
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
@@ -20,7 +19,7 @@ class WhiteNoiseService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val notification = CustomNotificationUtils.persistent(
+        val notification = NotificationUtils.persistent(
             applicationContext,
             NOTIFICATION_CHANNEL_ID,
             getString(R.string.tool_white_noise_title),

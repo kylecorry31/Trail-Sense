@@ -4,15 +4,10 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Icon
-import android.os.Build
 import android.util.Log
-import androidx.annotation.DrawableRes
-import androidx.core.app.NotificationCompat
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.services.CoroutineForegroundService
@@ -149,7 +144,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
         if (forecast == Weather.Storm) {
             val shouldSend = prefs.weather.sendStormAlerts
             if (shouldSend && !sentAlert) {
-                val notification = CustomNotificationUtils.alert(
+                val notification = NotificationUtils.alert(
                     this,
                     STORM_CHANNEL_ID,
                     getString(R.string.notification_storm_alert_title),
@@ -194,7 +189,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
         val openPendingIntent: PendingIntent =
             PendingIntent.getActivity(this, 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
-        val notification = CustomNotificationUtils.status(
+        val notification = NotificationUtils.status(
             this,
             DAILY_CHANNEL_ID,
             getString(if (prefs.weather.dailyWeatherIsForTomorrow) R.string.tomorrows_forecast else R.string.todays_forecast),
@@ -215,7 +210,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
     }
 
     override fun getForegroundNotification(): Notification {
-        return CustomNotificationUtils.background(
+        return NotificationUtils.background(
             this,
             FOREGROUND_CHANNEL_ID,
             getString(R.string.weather_update_notification_channel),

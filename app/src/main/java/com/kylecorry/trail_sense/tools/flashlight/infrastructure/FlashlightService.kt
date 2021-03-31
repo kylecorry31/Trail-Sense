@@ -4,12 +4,10 @@ import android.app.Notification
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.IBinder
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomNotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.flashlight.IFlashlight
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
@@ -23,7 +21,7 @@ class FlashlightService: Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val notification = CustomNotificationUtils.persistent(
+        val notification = NotificationUtils.persistent(
             this,
             CHANNEL_ID,
             getString(R.string.flashlight_title),
