@@ -422,7 +422,7 @@ class AstronomyFragment : Fragment() {
                     R.drawable.ic_meteor,
                     getString(R.string.meteor_shower),
                     getMeteorShowerTime(displayDate, meteorShower),
-                    -1
+                    null
                 )
             )
         }
