@@ -7,6 +7,8 @@ import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.astronomy.*
 import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonPhase
+import com.kylecorry.trailsensecore.domain.time.Season
+import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import java.time.*
 
 /**
@@ -15,6 +17,7 @@ import java.time.*
 class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
     private val newAstronomyService: IAstronomyService = AstronomyService()
+    private val weatherService = WeatherService()
 
     // PUBLIC MOON METHODS
 
@@ -164,10 +167,26 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return newAstronomyService.getSunAltitude(time.toZonedDateTime(), location, true)
     }
 
-    fun getMeteorShower(date: LocalDate = LocalDate.now()): MeteorShower? {
+    fun getMeteorShower(
+        location: Coordinate,
+        date: LocalDate = LocalDate.now()
+    ): MeteorShowerPeak? {
         val today = date.atTime(12, 0).toZonedDateTime()
-        val todays = newAstronomyService.getMeteorShower(today)
-        val tomorrows = newAstronomyService.getMeteorShower(today.plusDays(1))
-        return todays ?: if (tomorrows != null && tomorrows.peak.hour < 12) tomorrows else null
+        val todays = newAstronomyService.getMeteorShower(location, today)
+        val tomorrows = newAstronomyService.getMeteorShower(location, today.plusDays(1))
+        return todays ?: tomorrows
+    }
+
+    fun getSeason(
+        location: Coordinate,
+        astronomical: Boolean = true,
+        date: LocalDate = LocalDate.now()
+    ): Season {
+        val now = date.atTime(LocalTime.MAX).toZonedDateTime()
+        return if (astronomical) {
+            newAstronomyService.getAstronomicalSeason(location, now)
+        } else {
+            weatherService.getMeteorologicalSeason(location, now)
+        }
     }
 }

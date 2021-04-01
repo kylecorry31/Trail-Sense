@@ -60,6 +60,9 @@ class AstronomyPreferences(private val context: Context) {
     val showMeteorShowers: Boolean
         get() = true
 
+    val astronomicalSeasons: Boolean
+        get() = true
+
     fun setSunsetAlertLastSentDate(date: LocalDate) {
         cache.putString("sunset_alert_last_sent_date", date.toString())
     }

@@ -897,7 +897,11 @@
     <string name="menu">Menu</string>
     <string name="untitled_tide">Untitled tide</string>
     <string name="meteor_shower">Meteor shower</string>
-    <string name="morning">Morning</string>
-    <string name="tonight">Tonight</string>
-    <string name="tomorrow_morning">Tomorrow morning</string>
+    <string name="tomorrow_at">Tomorrow at %s</string>
+    <string name="meteors_per_hour">Max %d meteors / h</string>
+    <string name="season">Season</string>
+    <string name="season_winter">Winter</string>
+    <string name="season_spring">Spring</string>
+    <string name="season_summer">Summer</string>
+    <string name="season_fall">Fall</string>
 </resources>

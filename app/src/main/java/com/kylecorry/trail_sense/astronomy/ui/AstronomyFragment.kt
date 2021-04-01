@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.MainActivity
@@ -20,10 +21,12 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trailsensecore.domain.astronomy.MeteorShower
+import com.kylecorry.trailsensecore.domain.astronomy.MeteorShowerPeak
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
+import com.kylecorry.trailsensecore.domain.time.Season
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
@@ -102,8 +105,8 @@ class AstronomyFragment : Fragment() {
         chart = AstroChart(binding.sunMoonChart)
 
         binding.datePicker.setOnClickListener {
-            UiUtils.pickDate(requireContext(), displayDate){
-                if (it != null){
+            UiUtils.pickDate(requireContext(), displayDate) {
+                if (it != null) {
                     displayDate = it
                     updateUI()
                 }
@@ -172,7 +175,7 @@ class AstronomyFragment : Fragment() {
     }
 
     private fun getDeclination(): Float {
-        return if (!prefs.useAutoDeclination){
+        return if (!prefs.useAutoDeclination) {
             prefs.declinationOverride
         } else {
             geoService.getDeclination(gps.location, gps.altitude)
@@ -314,7 +317,7 @@ class AstronomyFragment : Fragment() {
         val moonTimes = astronomyService.getMoonTimes(gps.location, displayDate)
         val solarNoon = astronomyService.getSolarNoon(gps.location, displayDate)
         val lunarNoon = astronomyService.getLunarNoon(gps.location, displayDate)
-        val meteorShower = astronomyService.getMeteorShower(displayDate)
+        val meteorShower = astronomyService.getMeteorShower(gps.location, displayDate)
 
         // Sun and moon times
         val details = listOf(
@@ -393,7 +396,10 @@ class AstronomyFragment : Fragment() {
         if (displayDate == LocalDate.now()) {
             // Moon phase
             val moonPhase = astronomyService.getCurrentMoonPhase()
-            val illuminationString = if (prefs.astronomy.showMoonIllumination) " (" + formatService.formatPercentage(moonPhase.illumination) + ")" else ""
+            val illuminationString =
+                if (prefs.astronomy.showMoonIllumination) " (" + formatService.formatPercentage(
+                    moonPhase.illumination
+                ) + ")" else ""
 
             details.add(
                 AstroDetail(
@@ -405,7 +411,10 @@ class AstronomyFragment : Fragment() {
             )
         } else {
             val moonPhase = astronomyService.getMoonPhase(displayDate)
-            val illuminationString = if (prefs.astronomy.showMoonIllumination) " (" + formatService.formatPercentage(moonPhase.illumination) + ")" else ""
+            val illuminationString =
+                if (prefs.astronomy.showMoonIllumination) " (" + formatService.formatPercentage(
+                    moonPhase.illumination
+                ) + ")" else ""
             details.add(
                 AstroDetail(
                     getMoonImage(moonPhase.phase),
@@ -416,7 +425,7 @@ class AstronomyFragment : Fragment() {
             )
         }
 
-        if (meteorShower != null && prefs.astronomy.showMeteorShowers){
+        if (meteorShower != null && prefs.astronomy.showMeteorShowers) {
             details.add(
                 AstroDetail(
                     R.drawable.ic_meteor,
@@ -427,16 +436,53 @@ class AstronomyFragment : Fragment() {
             )
         }
 
+        val season = astronomyService.getSeason(
+            gps.location,
+            prefs.astronomy.astronomicalSeasons,
+            displayDate
+        )
+
+        details.add(AstroDetail.spacer())
+        details.add(
+            AstroDetail(
+                getSeasonIcon(season),
+                getString(R.string.season),
+                getSeasonName(season),
+                -1
+            )
+        )
+
         detailList.setData(details)
     }
 
-    private fun getMeteorShowerTime(today: LocalDate, meteorShower: MeteorShower): String {
-        return if (meteorShower.peak.toLocalDate() == today){
-            val isMorning = meteorShower.peak.hour < 12
-            if (isMorning) getString(R.string.morning) else getString(R.string.tonight)
-        } else {
-            getString(R.string.tomorrow_morning)
+    @DrawableRes
+    private fun getSeasonIcon(season: Season): Int {
+        return when (season) {
+            Season.Winter -> R.drawable.ic_season_winter
+            Season.Spring -> R.drawable.ic_season_spring
+            Season.Summer -> R.drawable.ic_sun
+            Season.Fall -> R.drawable.ic_season_fall
         }
+    }
+
+    private fun getSeasonName(season: Season): String {
+        return when (season) {
+            Season.Winter -> getString(R.string.season_winter)
+            Season.Spring -> getString(R.string.season_spring)
+            Season.Summer -> getString(R.string.season_summer)
+            Season.Fall -> getString(R.string.season_fall)
+        }
+    }
+
+    private fun getMeteorShowerTime(today: LocalDate, meteorShower: MeteorShowerPeak): String {
+        return if (meteorShower.peak.toLocalDate() == today) {
+            formatService.formatTime(meteorShower.peak.toLocalTime(), false)
+        } else {
+            getString(
+                R.string.tomorrow_at,
+                formatService.formatTime(meteorShower.peak.toLocalTime(), false)
+            )
+        } + "\n${getString(R.string.meteors_per_hour, meteorShower.shower.rate)}"
     }
 
     private fun getMoonImage(phase: MoonTruePhase): Int {
