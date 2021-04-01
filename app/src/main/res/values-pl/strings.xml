@@ -760,4 +760,11 @@
     <string name="pref_stride_length_title">Długość kroku</string>
     <string name="pedometer">Krokomierz</string>
     <string name="odometer">Drogomierz</string>
+    <string name="delete_tide_prompt">Usunąć pływ\?</string>
+    <string name="untitled_tide">Pływ bez nazwy</string>
+    <string name="no_tides">Brak pływów</string>
+    <string name="create_tide">Utwórz pływ</string>
+    <string name="tide_location_label">Lokalizacja pływu (opcjonalnie)</string>
+    <string name="tides">Pływy</string>
+    <string name="menu">Menu</string>
 </resources>
