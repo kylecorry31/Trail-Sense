@@ -29,6 +29,20 @@
             app:singleLineTitle="false"
             app:title="@string/moon_illumination" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_meteor_showers"
+            app:singleLineTitle="false"
+            app:title="@string/pref_meteor_showers_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_meteorological_seasons"
+            app:singleLineTitle="false"
+            app:title="@string/pref_meteorological_seasons_title" />
+
 
     </PreferenceCategory>
 

@@ -904,4 +904,8 @@
     <string name="season_spring">Spring</string>
     <string name="season_summer">Summer</string>
     <string name="season_fall">Fall</string>
+    <string name="pref_meteorological_seasons" translatable="false">pref_meteorological_seasons</string>
+    <string name="pref_meteorological_seasons_title">Meteorological seasons</string>
+    <string name="pref_meteor_showers" translatable="false">pref_meteor_showers</string>
+    <string name="pref_meteor_showers_title">Meteor showers</string>
 </resources>
