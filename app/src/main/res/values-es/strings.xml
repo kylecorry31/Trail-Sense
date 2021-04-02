@@ -13,6 +13,7 @@
     <string name="sunrise_label">amanecer</string>
     <string name="sunset_label">anochecer</string>
     <string name="until_sunset_label">hasta el anochecer</string>
+    <string name="until_sun_time">Hasta %s</string>
     <string name="pref_use_true_north_title">Norte verdadero</string>
     <string name="pref_use_sea_level_pressure_title">Presión a nivel del mar</string>
     <string name="pref_units_header">General</string>
