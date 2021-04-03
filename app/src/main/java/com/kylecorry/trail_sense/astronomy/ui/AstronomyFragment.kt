@@ -436,42 +436,7 @@ class AstronomyFragment : Fragment() {
             )
         }
 
-        val season = astronomyService.getSeason(
-            gps.location,
-            prefs.astronomy.astronomicalSeasons,
-            displayDate
-        )
-
-        details.add(AstroDetail.spacer())
-        details.add(
-            AstroDetail(
-                getSeasonIcon(season),
-                getString(R.string.season),
-                getSeasonName(season),
-                -1
-            )
-        )
-
         detailList.setData(details)
-    }
-
-    @DrawableRes
-    private fun getSeasonIcon(season: Season): Int {
-        return when (season) {
-            Season.Winter -> R.drawable.ic_season_winter
-            Season.Spring -> R.drawable.ic_season_spring
-            Season.Summer -> R.drawable.ic_sun
-            Season.Fall -> R.drawable.ic_season_fall
-        }
-    }
-
-    private fun getSeasonName(season: Season): String {
-        return when (season) {
-            Season.Winter -> getString(R.string.season_winter)
-            Season.Spring -> getString(R.string.season_spring)
-            Season.Summer -> getString(R.string.season_summer)
-            Season.Fall -> getString(R.string.season_fall)
-        }
     }
 
     private fun getMeteorShowerTime(today: LocalDate, meteorShower: MeteorShowerPeak): String {

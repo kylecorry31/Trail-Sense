@@ -899,13 +899,8 @@
     <string name="meteor_shower">Meteor shower</string>
     <string name="tomorrow_at">Tomorrow at %s</string>
     <string name="meteors_per_hour">Max %d meteors / h</string>
-    <string name="season">Season</string>
-    <string name="season_winter">Winter</string>
-    <string name="season_spring">Spring</string>
-    <string name="season_summer">Summer</string>
-    <string name="season_fall">Fall</string>
-    <string name="pref_meteorological_seasons" translatable="false">pref_meteorological_seasons</string>
-    <string name="pref_meteorological_seasons_title">Meteorological seasons</string>
     <string name="pref_meteor_showers" translatable="false">pref_meteor_showers</string>
     <string name="pref_meteor_showers_title">Meteor showers</string>
+    <string name="guide_signaling_for_help_title">Signaling for help</string>
+    <string name="guide_signaling_for_help_description">How to signal for help</string>
 </resources>

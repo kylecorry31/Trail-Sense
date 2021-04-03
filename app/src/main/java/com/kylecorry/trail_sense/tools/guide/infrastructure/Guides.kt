@@ -15,6 +15,11 @@ object Guides {
                     context.getString(R.string.guide_conserving_battery_title),
                     context.getString(R.string.guide_conserving_battery_description),
                     R.raw.conserving_battery
+                ),
+                UserGuide(
+                    context.getString(R.string.guide_signaling_for_help_title),
+                    context.getString(R.string.guide_signaling_for_help_description),
+                    R.raw.signaling_for_help
                 )
             )
         )
