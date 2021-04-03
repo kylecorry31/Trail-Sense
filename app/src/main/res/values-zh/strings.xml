@@ -763,4 +763,9 @@
     <string name="tonight">今晚</string>
     <string name="morning">清晨</string>
     <string name="meteor_shower">流星雨</string>
+    <string name="guide_signaling_for_help_description">如何发出信号进行求救</string>
+    <string name="guide_signaling_for_help_title">发出求救信号</string>
+    <string name="pref_meteor_showers_title">流星雨</string>
+    <string name="meteors_per_hour">最多 %d 颗流星/时</string>
+    <string name="tomorrow_at">在明天 %s</string>
 </resources>
