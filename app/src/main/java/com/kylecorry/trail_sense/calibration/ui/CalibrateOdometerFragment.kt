@@ -8,8 +8,10 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
 
@@ -21,6 +23,7 @@ class CalibrateOdometerFragment : PreferenceFragmentCompat() {
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private var wasEnabled = false
+    private val cache by lazy { Cache(requireContext()) }
 
     private val intervalometer = Intervalometer {
         updateStrideLength()
@@ -113,6 +116,15 @@ class CalibrateOdometerFragment : PreferenceFragmentCompat() {
 
     private fun updatePedometerService() {
         if (userPrefs.usePedometer) {
+            if (cache.getBoolean("pedometer_battery_sent") != true){
+                UiUtils.alert(
+                    requireContext(),
+                    getString(R.string.pedometer),
+                    getString(R.string.pedometer_disclaimer),
+                    getString(R.string.dialog_ok)
+                )
+                cache.putBoolean("pedometer_battery_sent", true)
+            }
             PedometerService.start(requireContext())
         } else {
             PedometerService.stop(requireContext())

@@ -731,7 +731,6 @@
     <string name="weather_worse_than_today">Gorsza niż dzisiaj</string>
     <string name="weather_better_than_today">Lepsza niż dzisiaj</string>
     <string name="tomorrows_forecast">Jutrzejsza prognoza</string>
-    <string name="experimental_features">Pływy, drogomierz i szum biały</string>
     <string name="tide_calibration_instructions">Ustaw czas przypływu w pobliżu, najlepiej w dniu nowiu lub pełni księżyca. Można go uzyskać online lub za pośrednictwem drukowanych tabel pływów. Pływy pokazane w Trail Sense mogą się różnić nawet o dwie godziny, co jest wystarczająco dobre dla odniesienia, ale nie można na nich polegać.</string>
     <string name="tide_high_short">Wysoki</string>
     <string name="tide_low_short">Niski</string>

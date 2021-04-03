@@ -62,7 +62,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             preference(R.string.pref_barometer_calibration),
             R.id.action_action_settings_to_calibrateBarometerFragment
         )
-        preference(R.string.pref_odometer_calibration)?.isVisible = prefs.experimentalEnabled && sensorChecker.hasSensor(Sensor.TYPE_STEP_COUNTER)
+        preference(R.string.pref_odometer_calibration)?.isVisible = sensorChecker.hasSensor(Sensor.TYPE_STEP_COUNTER)
         navigateOnClick(
             preference(R.string.pref_odometer_calibration),
             R.id.action_action_settings_to_calibrateOdometerFragment
@@ -81,14 +81,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         )
 
         onClick(preference(R.string.pref_enable_experimental)){
-            preference(R.string.pref_odometer_calibration)?.isVisible = prefs.experimentalEnabled && sensorChecker.hasSensor(Sensor.TYPE_STEP_COUNTER)
             if (!prefs.experimentalEnabled){
-                PedometerService.stop(requireContext())
                 WhiteNoiseService.stop(requireContext())
-            } else {
-                if (prefs.usePedometer){
-                    PedometerService.start(requireContext())
-                }
             }
         }
 

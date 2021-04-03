@@ -865,7 +865,7 @@
     <string name="pref_daily_weather_time_holder" translatable="false">pref_daily_weather_time_holder</string>
     <string name="pref_daily_weather_time_title">Daily weather time</string>
     <string name="pref_daily_weather_time" translatable="false">pref_daily_weather_time</string>
-    <string name="experimental_features">Tides, odometer, and white noise</string>
+    <string name="experimental_features">Tides and white noise</string>
     <string name="tide_calibration">Tide Calibration</string>
     <string name="screen_flashlight">Screen</string>
     <string name="speedometer_real_time">Real Time</string>
@@ -906,4 +906,6 @@
     <string name="guide_navigation_description">How to navigate using Trail Sense</string>
     <string name="guide_using_printed_maps">Using printed maps</string>
     <string name="guide_using_printed_maps_desc">How to use printed maps with Trail Sense</string>
+    <string name="pedometer_disclaimer">The accuracy and battery usage of the pedometer is dependent on your device\'s manufacturer and the stride length entered. Try it out at home for a bit to verify battery drain and accuracy before using on the trail.</string>
+    <string name="speedometer_odometer_accuracy_dialog">For the best accuracy, enable Backtrack and set the odometer source to pedometer in settings.</string>
 </resources>

@@ -730,7 +730,6 @@
     <string name="guide_light_meter_description">Как определить расстояние луча фонарика</string>
     <string name="guide_light_meter_title">Определить эффективность фонарика</string>
     <string name="gps_cache">GPS-Кэш</string>
-    <string name="experimental_features">Приливы, отливы и белый шум</string>
     <string name="pref_daily_weather_time_title">Время прогноза погоды на день</string>
     <string name="date_not_set">Дата не установлена</string>
     <string name="time_not_set">Время не установлено</string>

@@ -628,7 +628,6 @@
     <string name="speedometer_real_time">Sanntid</string>
     <string name="screen_flashlight">Skjerm</string>
     <string name="tide_calibration">Tidevannskalibrering</string>
-    <string name="experimental_features">Tidevann, trippteller og hvit støy</string>
     <string name="pref_daily_weather_time_title">Daglig værtid</string>
     <string name="date_not_set">Dato ikke stilt inn</string>
     <string name="time_not_set">Klokkeslett ikke stilt inn</string>

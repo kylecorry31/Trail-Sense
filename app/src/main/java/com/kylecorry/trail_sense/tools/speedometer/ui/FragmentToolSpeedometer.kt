@@ -9,7 +9,9 @@ import com.kylecorry.trail_sense.databinding.FragmentToolSpeedometerBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import java.time.LocalDate
 
@@ -21,6 +23,7 @@ class FragmentToolSpeedometer : BoundFragment<FragmentToolSpeedometerBinding>() 
     private val averageSpeedometer by lazy { sensorService.getSpeedometer(false) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val cache by lazy { Cache(requireContext()) }
 
     private val throttle = Throttle(20)
 
@@ -33,10 +36,18 @@ class FragmentToolSpeedometer : BoundFragment<FragmentToolSpeedometerBinding>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (cache.getBoolean("speedometer_odometer_alert_sent") != true){
+            UiUtils.alert(
+                requireContext(),
+                getString(R.string.tool_speedometer_odometer_title),
+                getString(R.string.speedometer_odometer_accuracy_dialog),
+                getString(R.string.dialog_ok)
+            )
+            cache.putBoolean("speedometer_odometer_alert_sent", true)
+        }
         binding.odometerReset.setOnClickListener {
             odometer.reset()
         }
-        binding.odometerHolder.visibility = if (prefs.experimentalEnabled) View.VISIBLE else View.GONE
         averageSpeedometer.asLiveData().observe(viewLifecycleOwner, { update() })
         instantSpeedometer.asLiveData().observe(viewLifecycleOwner, { update() })
         odometer.asLiveData().observe(viewLifecycleOwner, { update() })

@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity() {
             WeatherUpdateScheduler.stop(this)
         }
 
-        if (userPrefs.experimentalEnabled && userPrefs.usePedometer){
+        if (userPrefs.usePedometer){
             PedometerService.start(this)
         }
 
@@ -212,7 +212,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         if (requestCode == 1 && shouldRequestBackgroundLocation()) {
             requestBackgroundLocation()
-        } else {
+        } else if (requestCode == 1 || requestCode == 2){
             startApp()
         }
     }

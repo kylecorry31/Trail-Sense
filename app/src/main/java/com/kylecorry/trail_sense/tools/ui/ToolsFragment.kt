@@ -52,7 +52,6 @@ class ToolsFragment : PreferenceFragmentCompat() {
         )
 
         val speedometer = findPreference<Preference>(getString(R.string.tool_speedometer_odometer))
-        speedometer?.title = if (prefs.experimentalEnabled) getString(R.string.tool_speedometer_odometer_title) else getString(R.string.speedometer)
         navigateOnClick(
             speedometer,
             R.id.action_toolsFragment_to_speedometerFragment
