@@ -27,19 +27,14 @@ object Guides {
         val navigation = UserGuideCategory(
             context.getString(R.string.navigation), listOf(
                 UserGuide(
-                    context.getString(R.string.guide_beacons_title),
-                    context.getString(R.string.guide_beacons_description),
-                    R.raw.beacons
+                    context.getString(R.string.navigation),
+                    context.getString(R.string.guide_navigation_description),
+                    R.raw.navigate
                 ),
                 UserGuide(
-                    context.getString(R.string.guide_create_beacons_title),
-                    context.getString(R.string.guide_create_beacons_description),
-                    R.raw.create_beacon
-                ),
-                UserGuide(
-                    context.getString(R.string.tool_backtrack_title),
-                    context.getString(R.string.guide_backtrack_description),
-                    R.raw.using_backtrack
+                    context.getString(R.string.guide_using_printed_maps),
+                    context.getString(R.string.guide_using_printed_maps_desc),
+                    R.raw.using_printed_maps
                 ),
                 UserGuide(
                     context.getString(R.string.guide_location_no_gps_title),

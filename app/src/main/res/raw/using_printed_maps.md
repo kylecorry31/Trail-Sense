@@ -1,0 +1,31 @@
+## How to transfer a location from a map into Trail Sense?
+
+Trail Sense currently supports the following coordinate formats: decimal degrees, degrees decimal minutes, degrees minutes seconds, UTM, and MGRS. Many maps (but not all) will show have coordinates or grids in either decimal degrees or UTM.
+
+If your map displays a UTM grid, it is first important to identify the UTM zone this map covers. This should be present on the map as a one or two digit number followed by a letter, for example, 16T. If your map does not have this information, you can get an estimate of what this is by entering your approximate latitude and longitude in the Coordinate Conversion tool in Trail Sense (for the most part, a latitude and longitude without a decimal place is fine, ex. 10, 45). If your map provides the zone number but not a letter, you can use 'C' or 'X' for the letter depending on if you are in the Southern or Northern hemisphere respectively. Once you have the zone, you will need to find the Easting and Northing values.
+
+On a map, the Easting and Northing are typically marked along the borders of the map, and depending on the scale, may be from 3 digits to 6 or 7. If only 3 digits are given (ex. 123), you will likely need to add three zeros to the end of it (ex. 123000) to obtain the correct value. Using the grid lines on the map, you can identify which grid zone your location is in - those will represent the first digits of your location. To obtain further precision, you can divide the grid into 10 equal sections and determine which line your location is closest to. For example, you determine your location lies in the grid that starts at 123000E and 234000N (always round down here). You then divide that into 10 sections (both vertical and horizontal), and determine your location is two 10ths to the right and one 10th up from the bottom right corner. Your new location will then be 123200E (added 200, which is 100 _ the number of 10ths right) and 234100N (added 100, which is 100 _ the number of 10ths up). You can further divide the grid cell that your location is to get a more accurate value. Using a ruler (such as the one in Trail Sense) can increase your accuracy.
+
+In Trail Sense, you can then enter the UTM location into either a new beacon or by using the GPS override feature (Settings > GPS) and enter your UTM coordinates in the following format (using above example): 16T 123200E 234100N. Entering it as a GPS override will set that as your current location, but it will not change as you move.
+
+## How to transfer a location from Trail Sense onto a map?
+
+Assuming your map is using a UTM grid and you are certain your current location is within the bounds of the map, you can plot your current location. The process is as follows:
+
+1. Use the 'Coordinate Converter' tool to enter your current location (or that of a beacon) and convert it to UTM (alternatively, set your coordinate format in settings to UTM). Ex. 16T 123200E 234100N. Note, sometime the 0s on the left are dropped (typically if your map only shows 3 digits in step 2), for example Trail Sense may say 16T 0123200E 234100N, but you would use 16T 123200E 234100N for the steps here.
+
+2. Noting how many digits are in the UTM grid on the border of your map (typically 3 to 6 or 7), take the same number of digits from each of your easting and northing values. For example: Your location is 16T 123200E 234100N, and your map has 3 digit numbers around the border. Your easting would be 123E and your northing would be 234N. Note, it may not be the same number for the easting and northing.
+
+3. Taking the easting and northing values obtained in step 2, plot them onto your map by finding the intersection of grid lines that matches up with both. For example: Assuming your map has north facing up, then easting will be listed from left to right and northing from bottom to top. Using the example in step 2, you would first find the 123E grid line (it will be a vertical line, with the number listed along the top or bottom), then find the 234N line (it will be a horizontal line, with the number listed along the left or right). The point where they intersect is 123E 234N.
+
+4. For increased precision, you can divide the grid into 10 (vertically and horizontally). Then take the next digit in your UTM coordinate and move that many 10ths up or right from the interection, depending on if it is the easting or northing value. Repeat this by dividing each 10th into 10s for each digit in your UTM coordinate. For example: you narrowed your location down to the grid having the bottom left corner of 123E 234N. You then divide that grid into 10 equally spaced lines (vertical and horizontal). That means, you need to split the line between 123E and 124E into 10 equal segments (and same for between 234N and 235N). Then take the next digit from your UTM coordinate, for the easting it will be the fourth digit (2) and from the northing it will be the fourth as well (1). Then count that number of lines right or up, for easting you will move 2 lines right from the interesection, and for northing you will move 1 line up. This becomes your new intersection, and your new grid to split will be the grid between the lines you landed on. Keep splitting that smaller grid into smaller sections until you have accurately found your location.
+
+## How to measure distance on a map?
+
+Using the ruler in Trail Sense, you can measure distances on a map. First determine which scale your map uses. If it says something along the lines of 'Scale 1:62500', then you can use the 'Ratio' scale on the ruler tool. If it says something like '1 inch = 1 mile' or has bars which can be measured, then you can use the 'Verbal' scale.
+
+**Ratio scale**: Enter the scale into Trail Sense as shown on the map. Ex. 1 on the left and 62500 on the right.
+
+**Verbal scale**: Enter the scale into Trail Sense as shown on the map. Ex. 1 inch on top and 1 mile on bottom.
+
+Once the scale has been entered, you can place the 0 marker of the ruler on your starting point, line up the ruler to see both the start and destination along the border, and then tap the ruler where the destination is. The distance shown will be the distance to the point.

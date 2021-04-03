@@ -903,4 +903,7 @@
     <string name="pref_meteor_showers_title">Meteor showers</string>
     <string name="guide_signaling_for_help_title">Signaling for help</string>
     <string name="guide_signaling_for_help_description">How to signal for help</string>
+    <string name="guide_navigation_description">How to navigate using Trail Sense</string>
+    <string name="guide_using_printed_maps">Using printed maps</string>
+    <string name="guide_using_printed_maps_desc">How to use printed maps with Trail Sense</string>
 </resources>
