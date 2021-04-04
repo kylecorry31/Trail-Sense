@@ -759,4 +759,8 @@
     <string name="tide_location_label">潮汐位置 (可选)</string>
     <string name="tides">潮汐</string>
     <string name="delete_tide_prompt">删除潮汐？</string>
+    <string name="tomorrow_morning">明早</string>
+    <string name="tonight">今晚</string>
+    <string name="morning">清晨</string>
+    <string name="meteor_shower">流星雨</string>
 </resources>
