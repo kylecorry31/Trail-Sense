@@ -64,6 +64,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_tools_to_maps"
+            app:destination="@id/mapsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_toolsFragment_to_tidesFragment"
             app:destination="@id/tidesFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -711,5 +718,9 @@
             app:popUpTo="@id/tidesFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.kylecorry.trail_sense.tools.maps.ui.MapsFragment"
+        android:label="MapsFragment" />
 
 </navigation>

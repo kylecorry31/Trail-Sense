@@ -65,8 +65,12 @@ class ToolsFragment : PreferenceFragmentCompat() {
         )
 
         val maps = findPreference<Preference>(getString(R.string.tool_trail_sense_maps))
-        maps?.isVisible = TrailSenseMaps.isInstalled(requireContext())
-        onClick(maps) { TrailSenseMaps.open(requireContext()) }
+        navigateOnClick(
+            maps,
+            R.id.action_tools_to_maps
+        )
+//        maps?.isVisible = TrailSenseMaps.isInstalled(requireContext())
+//        onClick(maps) { TrailSenseMaps.open(requireContext()) }
 
         val health = findPreference<Preference>(getString(R.string.tool_health_sense))
         health?.isVisible = HealthSense.isInstalled(requireContext())
