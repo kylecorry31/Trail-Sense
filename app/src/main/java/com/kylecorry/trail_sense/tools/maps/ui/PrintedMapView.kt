@@ -12,16 +12,15 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
+import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
+import com.kylecorry.trail_sense.tools.maps.domain.PixelCoordinate
 import com.kylecorry.trailsensecore.domain.geo.Bearing
-import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.domain.math.cosDegrees
-import com.kylecorry.trailsensecore.domain.math.sinDegrees
-import com.kylecorry.trailsensecore.domain.math.wrap
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.domain.units.Distance
+import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
 
@@ -30,16 +29,23 @@ class PrintedMapView : View {
     private lateinit var paint: Paint
     private val icons = mutableMapOf<Int, Bitmap>()
     private var beacons = listOf<Beacon>()
+    private var calibrationPoints = listOf<MapCalibrationPoint>()
+    private var showCalibrationPoints = false
     private var compass: Bitmap? = null
     private var isInit = false
     private var azimuth = Bearing(0f)
-    private var map: Bitmap? = null
+    private var mapImage: Bitmap? = null
+    private var map: Map? = null
     private var myLocation = Coordinate.zero
     private var destination: Beacon? = null
-    private var calibrationPoint1: MapCalibrationPoint? = null
-    private var calibrationPoint2: MapCalibrationPoint? = null
     private var mapX = 0f
     private var mapY = 0f
+
+    private val fileService by lazy { LocalFileService(context) }
+
+    var onSelectLocation: ((coordinate: Coordinate) -> Unit)? = null
+    var onSelectBeacon: ((beacon: Beacon) -> Unit)? = null
+    var onMapImageClick: ((percent: PercentCoordinate) -> Unit)? = null
 
     @ColorInt
     private var primaryColor: Int = Color.WHITE
@@ -64,15 +70,35 @@ class PrintedMapView : View {
             mapX -= distanceX / scale
             mapY -= distanceY / scale
 
-            mapX = min(width.toFloat(), max(mapX, -map!!.width.toFloat()))
-            mapY = min(height.toFloat(), max(mapY, -map!!.height.toFloat()))
+            mapX = min(width.toFloat(), max(mapX, -mapImage!!.width.toFloat()))
+            mapY = min(height.toFloat(), max(mapY, -mapImage!!.height.toFloat()))
             return true
         }
 
         override fun onLongPress(e: MotionEvent) {
             super.onLongPress(e)
-            UiUtils.shortToast(context, "${x / scale - mapX}, ${y / scale - mapY}")
-            println("${x / scale - mapX}, ${y / scale - mapY}")
+            val x = e.x
+            val y = e.y
+
+            if (mapImage != null) {
+                val xMap = x / scale - mapX
+                val yMap = y / scale - mapY
+                val coordinate = map?.getCoordinate(PixelCoordinate(xMap, yMap), mapImage!!.width.toFloat(), mapImage!!.height.toFloat())
+                if (coordinate != null){
+                    onSelectLocation?.invoke(coordinate)
+                }
+            }
+        }
+
+        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+            // TODO: Determine if a beacon was tapped, if so call a callback
+            if (mapImage != null) {
+                val xMap = e.x / scale - mapX
+                val yMap = e.y / scale - mapY
+                val percent = PercentCoordinate(xMap / mapImage!!.width, yMap / mapImage!!.height)
+                onMapImageClick?.invoke(percent)
+            }
+            return super.onSingleTapConfirmed(e)
         }
     }
 
@@ -109,14 +135,18 @@ class PrintedMapView : View {
             secondaryColor = UiUtils.color(context, R.color.colorAccent)
             val compassDrawable = UiUtils.drawable(context, R.drawable.radar)
             compass = compassDrawable?.toBitmap(compassSize, compassSize)
-            val mapDrawable = UiUtils.drawable(context, R.drawable.mount_washington)
-            map = resize(mapDrawable?.toBitmap()!!, width, height)
-            mapY = height / 2f - map!!.height / 2f
         }
         if (visibility != VISIBLE) {
             postInvalidateDelayed(20)
             invalidate()
             return
+        }
+        if (mapImage == null && map != null){
+            val file = fileService.getFile(map!!.filename, false)
+            val bitmap = BitmapFactory.decodeFile(file.path)
+            // TODO: Scale instead of resize
+            mapImage = resize(bitmap, width, height)
+            recenter()
         }
         canvas.drawColor(Color.TRANSPARENT)
         canvas.scale(scale, scale)
@@ -124,8 +154,25 @@ class PrintedMapView : View {
         drawDestination(canvas)
         drawCurrentPosition(canvas)
         drawBeacons(canvas)
+        drawCalibrationPoints(canvas)
         postInvalidateDelayed(20)
         invalidate()
+    }
+
+    fun showCalibrationPoints(points: List<MapCalibrationPoint>? = null){
+        calibrationPoints = points ?: map?.calibrationPoints ?: listOf()
+        showCalibrationPoints = true
+    }
+
+    fun hideCalibrationPoints(){
+        showCalibrationPoints = false
+    }
+
+    fun setMap(map: Map, refreshImage: Boolean = true){
+        this.map = map
+        if (refreshImage) {
+            mapImage = null
+        }
     }
 
     private fun drawDestination(canvas: Canvas) {
@@ -169,21 +216,20 @@ class PrintedMapView : View {
         destination = beacon
     }
 
-    fun setCalibrationPoints(first: MapCalibrationPoint, second: MapCalibrationPoint) {
-        calibrationPoint1 = first
-        calibrationPoint2 = second
-    }
-
     fun recenter(){
         scale = 1f
         mapX = 0f
-        mapY = height / 2f - map!!.height / 2f
+        mapY = if (mapImage != null) {
+            height / 2f - mapImage!!.height / 2f
+        } else {
+            height / 2f
+        }
     }
 
     private fun drawMap(canvas: Canvas) {
-        map ?: return
+        mapImage ?: return
         canvas.drawBitmap(
-            map!!, mapX, mapY, paint
+            mapImage!!, mapX, mapY, paint
         )
     }
 
@@ -198,10 +244,9 @@ class PrintedMapView : View {
         if (myLocation != null) {
             canvas.save()
             canvas.rotate(azimuth.value, mapX + myLocation.x, mapY + myLocation.y)
-            paint.color = primaryColor
-            paint.colorFilter = PorterDuffColorFilter(primaryColor, PorterDuff.Mode.SRC_IN)
+            // TODO: Resize based on scale
             canvas.drawBitmap(
-                getBitmap(R.drawable.ic_beacon, directionSize),
+                getBitmap(R.drawable.ic_my_location, directionSize),
                 mapX + myLocation.x - directionSize / 2f,
                 mapY + myLocation.y - directionSize / 2f,
                 paint
@@ -216,40 +261,30 @@ class PrintedMapView : View {
             val coord = getPixelCoordinate(beacon.coordinate)
             if (coord != null) {
                 if (beacon.id == destination?.id){
-                    paint.color = secondaryColor
-                } else {
-                    paint.color = primaryColor
+                    // Do something special - like border or something
                 }
+                paint.color = Color.WHITE
+                canvas.drawCircle(mapX + coord.x, mapY + coord.y, (iconSize / 2f + dp(1f)) / scale, paint)
+                paint.color = primaryColor
                 canvas.drawCircle(mapX + coord.x, mapY + coord.y, (iconSize / 2f) / scale, paint)
             }
         }
     }
 
+    private fun drawCalibrationPoints(canvas: Canvas) {
+        if (!showCalibrationPoints || mapImage == null) return
+        for (point in calibrationPoints) {
+            val coord = point.imageLocation.toPixels(mapImage!!.width.toFloat(), mapImage!!.height.toFloat())
+            paint.color = Color.WHITE
+            canvas.drawCircle(mapX + coord.x, mapY + coord.y, (iconSize / 2f + dp(1f)) / scale, paint)
+            paint.color = secondaryColor
+            canvas.drawCircle(mapX + coord.x, mapY + coord.y, (iconSize / 2f) / scale, paint)
+        }
+    }
+
     private fun getPixelCoordinate(coordinate: Coordinate): PixelCoordinate? {
-        calibrationPoint1 ?: return null
-        calibrationPoint2 ?: return null
-
-        val latDiff = (calibrationPoint1!!.location.latitude - calibrationPoint2!!.location.latitude).absoluteValue
-        val lngDiff = (calibrationPoint1!!.location.longitude - calibrationPoint2!!.location.longitude).absoluteValue
-        val latDegPerPix = latDiff / (calibrationPoint1!!.pixel.y - calibrationPoint2!!.pixel.y).absoluteValue
-        val lngDegPerPix = lngDiff / (calibrationPoint1!!.pixel.x - calibrationPoint2!!.pixel.x).absoluteValue
-
-        // TODO: Handle southern hemisphere and the equator/meridian (maybe by calculating distance keeping lat/lng the same)
-        val left = calibrationPoint1!!.location.longitude - calibrationPoint1!!.pixel.x * lngDegPerPix
-        val top = calibrationPoint1!!.location.latitude + calibrationPoint1!!.pixel.y * latDegPerPix
-
-        val y = ((top - coordinate.latitude) / latDegPerPix).toFloat()
-        val x = ((coordinate.longitude - left) / lngDegPerPix).toFloat()
-
-        if (x < 0 || x > (map?.width ?: 0)) {
-            return null
-        }
-
-        if (y < 0 || y > (map?.height ?: 0)) {
-            return null
-        }
-
-        return PixelCoordinate(x, y)
+        mapImage ?: return null
+        return map?.getPixels(coordinate, mapImage!!.width.toFloat(), mapImage!!.height.toFloat())
     }
 
     private fun resize(image: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {

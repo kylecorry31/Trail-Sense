@@ -150,7 +150,7 @@
     <string name="compass_reported_accuracy">Reported accuracy: %s</string>
     <string name="calibrate_compass_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.</string>
     <string name="calibrate_compass_dialog_title">Calibrate compass</string>
-    <string name="pref_calibrate_compass_btn_title">Calibrate</string>
+    <string name="calibrate">Calibrate</string>
     <string name="pref_auto_declination_summary">Based on your current location</string>
     <string name="declination_override_updated_toast">Declination override updated</string>
     <string name="compass_declination">Declination</string>

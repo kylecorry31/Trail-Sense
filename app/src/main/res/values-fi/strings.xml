@@ -239,7 +239,7 @@
 \nTämä hälytys voidaan poistaa käytöstä sovelluksen asetuksissa.</string>
     <string name="calibrate_compass_dialog_content">Kierrä puhelinta useita kertoja 8-kuvion mukaisesti, napsauta %s kun olet valmis.</string>
     <string name="calibrate_compass_dialog_title">Kalibroi kompassi</string>
-    <string name="pref_calibrate_compass_btn_title">Kalibroi</string>
+    <string name="calibrate">Kalibroi</string>
     <string name="pref_auto_declination_summary">Perustuu nykyiseen sijaintiisi</string>
     <string name="declination_override_updated_toast">Erannon ohitus päivitetty</string>
     <string name="celsius">Celsius</string>

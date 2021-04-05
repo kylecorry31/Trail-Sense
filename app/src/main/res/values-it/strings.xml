@@ -274,7 +274,7 @@
     <string name="compass_reported_accuracy">Accuratezza riportata: %s</string>
     <string name="calibrate_compass_dialog_content">Ruota il tuo telefono formando un percorso a 8 diverse volte, clicca %s quando terminato.</string>
     <string name="calibrate_compass_dialog_title">Calibrazione bussola</string>
-    <string name="pref_calibrate_compass_btn_title">Calibrazione</string>
+    <string name="calibrate">Calibrazione</string>
     <string name="pref_auto_declination_summary">Basato sulla tua posizione corrente</string>
     <string name="declination_override_updated_toast">Override della declinazione aggiornato</string>
     <string name="compass_azimuth">Azimut</string>

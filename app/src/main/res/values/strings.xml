@@ -18,7 +18,7 @@
     <string name="dialog_deny">No thanks</string>
     <!--Disclaimer-->
     <string name="disclaimer_message_title">Disclaimer</string>
-    <string name="disclaimer_message_content">Trail Sense is a tool that can be used in a survival situation, but you should not rely solely upon it. Please validate its accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
+    <string name="disclaimer_message_content">Trail Sense is a tool that can be used in a survival situation, but you should not rely solely upon it. This app is intended for informational purposes only and it\'s accuracy may vary based on your device and current environmental conditions. Please validate its accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
     <!--Navigation Tab - Unit Formats-->
     <string name="precise_feet_format">%s ft</string>
     <string name="precise_miles_format">%s mi</string>
@@ -259,7 +259,7 @@
     <!--    A message which appears when the declination is updated from the GPS on the calibration page-->
     <string name="declination_override_updated_toast">Declination override updated</string>
     <string name="pref_auto_declination_summary">Based on your current location</string>
-    <string name="pref_calibrate_compass_btn_title">Calibrate</string>
+    <string name="calibrate">Calibrate</string>
     <string name="calibrate_compass_dialog_title">Calibrate compass</string>
     <string name="calibrate_compass_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.
@@ -908,4 +908,5 @@
     <string name="guide_using_printed_maps_desc">How to use printed maps with Trail Sense</string>
     <string name="pedometer_disclaimer">The accuracy and battery usage of the pedometer is dependent on your device\'s manufacturer and the stride length entered. Try it out at home for a bit to verify battery drain and accuracy before using on the trail.</string>
     <string name="speedometer_odometer_accuracy_dialog">For the best accuracy, enable Backtrack and set the odometer source to pedometer in settings.</string>
+    <string name="rename">Rename</string>
 </resources>

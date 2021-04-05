@@ -36,7 +36,7 @@
     <string name="altimeter_mode_gps">GPS</string>
     <string name="gps_location">Posisjon</string>
     <string name="gps">GPS</string>
-    <string name="pref_calibrate_compass_btn_title">Kalibrer</string>
+    <string name="calibrate">Kalibrer</string>
     <string name="compass_azimuth">Asimut</string>
     <string name="pref_compass_sensor_title">Kompass</string>
     <string name="pref_category_sensors_title">Sensorer</string>

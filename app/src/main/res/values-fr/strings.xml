@@ -130,7 +130,7 @@
     <string name="compass_reported_accuracy">Précision estimée : %s</string>
     <string name="compass_accuracy_improved">Précision de la boussole améliorée à %s</string>
     <string name="calibrate_compass_dialog_title">Étalonnage de la boussole</string>
-    <string name="pref_calibrate_compass_btn_title">Étalonner</string>
+    <string name="calibrate">Étalonner</string>
     <string name="pref_auto_declination_summary">Se base sur votre localisation actuelle</string>
     <string name="compass_declination">Déclinaison</string>
     <string name="compass_azimuth">Azimuth</string>

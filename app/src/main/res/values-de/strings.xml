@@ -250,7 +250,7 @@
 \n
 \nDieser Hinweis kann in den Einstellungen deaktiviert werden.</string>
     <string name="calibrate_compass_dialog_content">Rotieren Sie das Telefon mehrfach in Form einer 8, drücken Sie %s wenn beendet.</string>
-    <string name="pref_calibrate_compass_btn_title">Kalibrieren</string>
+    <string name="calibrate">Kalibrieren</string>
     <string name="compass_declination">Deklination</string>
     <string name="compass_azimuth">Azimut</string>
     <string name="compass_auto_declination">Deklination automatisch anpassen</string>

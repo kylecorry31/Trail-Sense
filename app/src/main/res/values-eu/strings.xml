@@ -127,7 +127,7 @@
     <string name="pref_altimeter_calibration_title">Altimetroa</string>
     <string name="gps_location">Kokapena</string>
     <string name="gps">GPS</string>
-    <string name="pref_calibrate_compass_btn_title">Kalibratu</string>
+    <string name="calibrate">Kalibratu</string>
     <string name="compass_azimuth">Azimut</string>
     <string name="pref_compass_sensor_title">Iparrorratza</string>
     <string name="pref_category_sensors_title">Sentsoreak</string>

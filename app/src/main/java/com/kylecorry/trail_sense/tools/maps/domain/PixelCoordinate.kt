@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.maps.ui
+package com.kylecorry.trail_sense.tools.maps.domain
 
 import kotlin.math.pow
 import kotlin.math.sqrt

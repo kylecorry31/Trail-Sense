@@ -93,7 +93,7 @@
 \n该警告可在应用设定内停用。</string>
     <string name="calibrate_compass_dialog_content">将你的手机以 8 字形旋转几次，完成后轻触 %s 。</string>
     <string name="calibrate_compass_dialog_title">校准指南针</string>
-    <string name="pref_calibrate_compass_btn_title">校准</string>
+    <string name="calibrate">校准</string>
     <string name="pref_auto_declination_summary">基于你现在的位置</string>
     <string name="compass_azimuth">方位角</string>
     <string name="compass_auto_declination">自动调整磁偏角</string>

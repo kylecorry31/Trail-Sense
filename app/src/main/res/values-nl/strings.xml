@@ -95,7 +95,7 @@
 \nDeze melding kan je in de instellingen afzetten.</string>
     <string name="calibrate_compass_dialog_content">Draai je telefoon een paar keer in een 8-vormige figuur en klik %s als je klaar bent.</string>
     <string name="calibrate_compass_dialog_title">Kalibreer kompas</string>
-    <string name="pref_calibrate_compass_btn_title">Kalibreer</string>
+    <string name="calibrate">Kalibreer</string>
     <string name="pref_auto_declination_summary">Gebaseerd op je huidige locatie</string>
     <string name="declination_override_updated_toast">Declinatie manueel ingesteld</string>
     <string name="compass_azimuth">Azimut</string>

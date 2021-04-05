@@ -10,7 +10,7 @@
     <string name="gps_location">Poloha</string>
     <string name="gps">GPS</string>
     <string name="calibrate_compass_dialog_title">Kalibrovat kompas</string>
-    <string name="pref_calibrate_compass_btn_title">Kalibrovat</string>
+    <string name="calibrate">Kalibrovat</string>
     <string name="pref_use_legacy_compass_summary">Může opravit problémy s kompasem</string>
     <string name="pref_compass_filter_amt_summary">Vysoké hodnoty mohou omezit šum</string>
     <string name="pref_compass_filter_amt_title">Urovnávání kompas</string>

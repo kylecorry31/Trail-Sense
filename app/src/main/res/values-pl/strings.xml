@@ -265,7 +265,7 @@
     <string name="tool_bubble_level_summary">Sprawdź, czy powierzchnie są płaskie</string>
     <string name="tool_bubble_level_title">Poziomica</string>
     <string name="calibrate_compass_dialog_title">Kalibracja kompasu</string>
-    <string name="pref_calibrate_compass_btn_title">Kalibracja</string>
+    <string name="calibrate">Kalibracja</string>
     <string name="pref_ruler_calibration_summary">"Protokół kalibracji:
 \n-  Ustaw tę wartość na 1.
 \n- Zmierz wartość linijki programu Trail Sense odpowiadającą jednej jednostce fizycznej linijki.

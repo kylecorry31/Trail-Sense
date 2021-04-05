@@ -14,7 +14,7 @@
             app:singleLineTitle="false" />
 
         <Preference
-            android:title="@string/pref_calibrate_compass_btn_title"
+            android:title="@string/calibrate"
             app:iconSpaceReserved="false"
             app:key="@string/pref_calibrate_compass_btn"
             app:singleLineTitle="false" />

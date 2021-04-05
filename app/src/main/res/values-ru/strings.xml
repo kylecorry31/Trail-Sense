@@ -112,7 +112,7 @@
     <string name="pref_altimeter_calibration_title">Высотомер</string>
     <string name="gps_location">Местоположение</string>
     <string name="calibrate_compass_dialog_title">Калибровать компас</string>
-    <string name="pref_calibrate_compass_btn_title">Калибровать</string>
+    <string name="calibrate">Калибровать</string>
     <string name="compass_declination">Смещение</string>
     <string name="compass_azimuth">Азимут</string>
     <string name="pref_compass_sensor_title">Компас</string>
