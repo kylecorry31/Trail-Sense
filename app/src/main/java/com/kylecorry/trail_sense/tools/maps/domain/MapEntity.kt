@@ -1,19 +1,25 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 
+@Entity(tableName = "maps")
 data class MapEntity(
-    val name: String,
-    val filename: String,
-    val latitude1: Double?,
-    val longitude1: Double?,
-    val percentX1: Float?,
-    val percentY1: Float?,
-    val latitude2: Double?,
-    val longitude2: Double?,
-    val percentX2: Float?,
-    val percentY2: Float?
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "filename") val filename: String,
+    @ColumnInfo(name = "latitude1") val latitude1: Double?,
+    @ColumnInfo(name = "longitude1") val longitude1: Double?,
+    @ColumnInfo(name = "percentX1") val percentX1: Float?,
+    @ColumnInfo(name = "percentY1") val percentY1: Float?,
+    @ColumnInfo(name = "latitude2") val latitude2: Double?,
+    @ColumnInfo(name = "longitude2") val longitude2: Double?,
+    @ColumnInfo(name = "percentX2") val percentX2: Float?,
+    @ColumnInfo(name = "percentY2") val percentY2: Float?
 ) {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "_id")
     var id: Long = 0
 
     fun toMap(): Map {
