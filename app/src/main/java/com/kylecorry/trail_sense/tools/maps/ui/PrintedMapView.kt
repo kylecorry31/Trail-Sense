@@ -106,7 +106,7 @@ class PrintedMapView : View {
 
         override fun onScale(detector: ScaleGestureDetector): Boolean {
             scale *= detector.scaleFactor
-            scale = max(0.1f, min(scale, 5.0f))
+            scale = max(0.1f, min(scale, 8.0f))
             return true
         }
     }
