@@ -2,61 +2,32 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import com.kylecorry.trail_sense.shared.AppDatabase
 import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
+import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 
-class MapRepo private constructor(private val context: Context) : IMapRepo {
+class MapRepo private constructor(context: Context) : IMapRepo {
 
-    // TODO: Switch to a database
-    private val maps = mutableListOf(
-        Map(
-            2, "Mount Washington", "maps/mount_washington.jpg",
-            listOf(
-                MapCalibrationPoint(
-                    Coordinate.parse(
-                        "19T 0315000E 4910000N",
-                        CoordinateFormat.UTM
-                    )!!, PercentCoordinate(0.09356582f, 0.14533052f)
-                ),
-                MapCalibrationPoint(
-                    Coordinate.parse(
-                        "19T 0321000E 4903000N",
-                        CoordinateFormat.UTM
-                    )!!, PercentCoordinate(0.8290716f, 0.7575625f)
-                )
-            )
-        )
-    )
+    private val mapDao = AppDatabase.getInstance(context).mapDao()
 
     override fun getMaps(): LiveData<List<Map>> {
-        return object : MutableLiveData<List<Map>>(null) {
-            override fun onActive() {
-                super.onActive()
-                value = maps
-            }
-        }
+        return Transformations.map(mapDao.getAll()){it.map { it.toMap() }}
     }
 
     override suspend fun getMap(id: Long): Map? {
-        return maps.firstOrNull { it.id == id }
+        return mapDao.get(id)?.toMap()
     }
 
     override suspend fun deleteMap(map: Map) {
-        maps.removeIf { it.id == map.id }
+        mapDao.delete(MapEntity.from(map))
     }
 
     override suspend fun addMap(map: Map): Long {
         return if (map.id == 0L) {
-            val newId = maps.maxByOrNull { it.id }?.id ?: 1
-            maps.add(map.copy(id = newId))
-            newId
+            mapDao.insert(MapEntity.from(map))
         } else {
-            deleteMap(map)
-            maps.add(map)
+            mapDao.update(MapEntity.from(map))
             map.id
         }
     }
