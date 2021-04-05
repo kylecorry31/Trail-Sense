@@ -52,7 +52,7 @@
     <string name="avalanche_risk_low">Malá pravděpodobnost laviny</string>
     <string name="tool_inclinometer_summary">Odhadněte pravděpodobnost laviny a výšku objektů</string>
     <string name="inclinometer_title">Sklonoměr</string>
-    <string name="trail_sense_maps">Offline mapy</string>
+    <string name="offline_maps">Offline mapy</string>
     <string name="sun_dusk">Stmívání</string>
     <string name="sun_dawn">Rozbřesk</string>
     <string name="moon_illumination">Osvětlení Měsíce</string>

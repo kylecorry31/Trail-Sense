@@ -324,7 +324,7 @@
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="pref_general_header">Geral</string>
-    <string name="trail_sense_maps">Mapas off-line</string>
+    <string name="offline_maps">Mapas off-line</string>
     <string name="sun_dusk">Anoitecer</string>
     <string name="sun_dawn">Madrugada</string>
     <string name="temperature_disclaimer">A temperatura mostrada pode ser mais alta devido ao calor do seu telefone.</string>

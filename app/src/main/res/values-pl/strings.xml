@@ -127,7 +127,7 @@
     <string name="avalanche_risk_high">Wysokie zagrożenie lawinowe</string>
     <string name="avalanche_risk_med">Umiarkowane zagrożenie lawinowe</string>
     <string name="avalanche_risk_low">Niskie zagrożenie lawinowe</string>
-    <string name="trail_sense_maps">Mapy offline</string>
+    <string name="offline_maps">Mapy offline</string>
     <string name="sun_dusk">Zmierzch</string>
     <string name="sun_dawn">Świt</string>
     <string name="moon_phase">Faza Księżyca</string>

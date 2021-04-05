@@ -139,7 +139,7 @@
     <string name="avalanche_risk_low">Laag risico op lawines</string>
     <string name="tool_inclinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
     <string name="inclinometer_title">Hellingsmeter</string>
-    <string name="trail_sense_maps">Offline Kaarten</string>
+    <string name="offline_maps">Offline Kaarten</string>
     <string name="sun_dusk">Schemering</string>
     <string name="sun_dawn">Dageraad</string>
     <string name="moon_illumination">Maanverlichting</string>

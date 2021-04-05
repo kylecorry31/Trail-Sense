@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.util.TypedValue
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -104,6 +105,20 @@ object CustomUiUtils {
             onSelection.invoke(it.itemId)
         }
         popup.show()
+    }
+
+    fun dp(context: Context, size: Float): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, size,
+            context.resources.displayMetrics
+        )
+    }
+
+    private fun sp(context: Context, size: Float): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_SP, size,
+            context.resources.displayMetrics
+        )
     }
 
 }

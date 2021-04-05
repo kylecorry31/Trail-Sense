@@ -163,7 +163,7 @@
     <string name="avalanche_risk_low">Basso rischio valanghe</string>
     <string name="tool_inclinometer_summary">Stima del rischio valanghe e dell\'altezza degli oggetti</string>
     <string name="inclinometer_title">Inclinometro</string>
-    <string name="trail_sense_maps">Mappe Offline</string>
+    <string name="offline_maps">Mappe Offline</string>
     <string name="sun_dusk">Crepuscolo serale</string>
     <string name="sun_dawn">Crepuscolo mattutino</string>
     <string name="moon_illumination">Illuminazione lunare</string>

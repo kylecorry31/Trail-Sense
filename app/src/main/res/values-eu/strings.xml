@@ -263,7 +263,7 @@
     <string name="edit_item_title">Elementua editatu</string>
     <string name="create_item_title">Elementua sortu</string>
     <string name="estimated_height">ustezko altuera</string>
-    <string name="trail_sense_maps">Konexiorik gabeko mapak</string>
+    <string name="offline_maps">Konexiorik gabeko mapak</string>
     <string name="moon_illumination">Ilargiaren argiztapena</string>
     <string name="moon_phase">Ilargialdia</string>
     <string name="lunar_noon">Gauerdia</string>

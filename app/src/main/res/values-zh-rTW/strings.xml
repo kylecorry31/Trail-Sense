@@ -53,7 +53,7 @@
     <string name="spinner_category_prompt">分類</string>
     <string name="action_item_delete">刪除</string>
     <string name="action_item_add">新增</string>
-    <string name="trail_sense_maps">離線地圖</string>
+    <string name="offline_maps">離線地圖</string>
     <string name="sun_dusk">黃昏</string>
     <string name="sun_dawn">破曉</string>
     <string name="moon_phase">月相</string>

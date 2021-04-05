@@ -260,7 +260,7 @@
     <string name="avalanche_risk_med">Mittlere Lawinengefahr</string>
     <string name="avalanche_risk_low">Niedrige Lawinengefahr</string>
     <string name="tool_inclinometer_summary">Schätze Lawinengefahr und die Größe von Objekten</string>
-    <string name="trail_sense_maps">Offlinekarten</string>
+    <string name="offline_maps">Offlinekarten</string>
     <string name="sun_does_not_rise">geht nicht auf</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d Wegpunkt</item>

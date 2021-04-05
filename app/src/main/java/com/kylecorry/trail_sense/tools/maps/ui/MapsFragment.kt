@@ -38,7 +38,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private val cache by lazy { Cache(requireContext()) }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
 
-    private var mapId = 2L
+    private var mapId = 0L
     private var map: Map? = null
     private var destination: Beacon? = null
 
@@ -48,6 +48,11 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private var calibrationPoint2: Coordinate? = null
     private var calibrationIndex = 0
     private var isCalibrating = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mapId = requireArguments().getLong("mapId")
+    }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,

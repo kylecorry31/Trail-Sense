@@ -118,7 +118,7 @@
     <string name="avalanche_risk_low">低雪崩风险</string>
     <string name="tool_inclinometer_summary">预估雪崩风险与物体高度</string>
     <string name="inclinometer_title">测斜仪</string>
-    <string name="trail_sense_maps">离线地图</string>
+    <string name="offline_maps">离线地图</string>
     <string name="sun_dusk">黄昏</string>
     <string name="sun_dawn">黎明</string>
     <string name="moon_illumination">月光亮度</string>

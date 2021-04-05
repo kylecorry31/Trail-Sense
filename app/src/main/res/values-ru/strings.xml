@@ -121,7 +121,7 @@
     <string name="pref_coordinate_format_title">Формат координат</string>
     <string name="experimental_tools_title">Экспериментальные функции</string>
     <string name="inclinometer_title">Инклинометр (креномер)</string>
-    <string name="trail_sense_maps">Офлайн-карты</string>
+    <string name="offline_maps">Офлайн-карты</string>
     <string name="moon_phase">Фазы Луны</string>
     <string name="tide_spring">Сизигийный</string>
     <string name="full_moon">Полнолуние</string>

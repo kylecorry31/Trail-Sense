@@ -16,7 +16,7 @@ class QuickActionOfflineMaps(
         button.setImageResource(R.drawable.maps)
         CustomUiUtils.setButtonState(button, false)
         button.setOnClickListener {
-            fragment.findNavController().navigate(R.id.mapsFragment)
+            fragment.findNavController().navigate(R.id.mapListFragment)
         }
 
     }

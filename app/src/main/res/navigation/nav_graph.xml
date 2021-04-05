@@ -64,8 +64,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_tools_to_maps"
-            app:destination="@id/mapsFragment"
+            android:id="@+id/action_tools_to_maps_list"
+            app:destination="@id/mapListFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -721,6 +721,23 @@
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.kylecorry.trail_sense.tools.maps.ui.MapsFragment"
-        android:label="MapsFragment" />
+        android:label="MapsFragment">
+        <argument
+            android:name="mapId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapListFragment"
+        android:name="com.kylecorry.trail_sense.tools.maps.ui.MapListFragment"
+        android:label="MapListFragment">
+        <action
+            android:id="@+id/action_mapList_to_maps"
+            app:destination="@id/mapsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
 </navigation>

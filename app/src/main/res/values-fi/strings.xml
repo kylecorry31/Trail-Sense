@@ -299,7 +299,7 @@
     <string name="avalanche_risk_low">Matala vyöryriski</string>
     <string name="tool_inclinometer_summary">Arvioi vyöryjen riskit ja esineiden korkeus</string>
     <string name="inclinometer_title">Kaltevuusmittari</string>
-    <string name="trail_sense_maps">Offline kartat</string>
+    <string name="offline_maps">Offline kartat</string>
     <string name="sun_dusk">Iltahämärä</string>
     <string name="sun_dawn">Aamunkoitto</string>
     <string name="moon_illumination">Kuun valaistus</string>
