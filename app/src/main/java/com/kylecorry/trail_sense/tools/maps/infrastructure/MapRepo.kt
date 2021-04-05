@@ -6,10 +6,13 @@ import androidx.lifecycle.Transformations
 import com.kylecorry.trail_sense.shared.AppDatabase
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
+import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 
 class MapRepo private constructor(context: Context) : IMapRepo {
 
     private val mapDao = AppDatabase.getInstance(context).mapDao()
+    private val localFileService = LocalFileService(context)
+
 
     override fun getMaps(): LiveData<List<Map>> {
         return Transformations.map(mapDao.getAll()){it.map { it.toMap() }}
@@ -20,6 +23,7 @@ class MapRepo private constructor(context: Context) : IMapRepo {
     }
 
     override suspend fun deleteMap(map: Map) {
+        localFileService.delete(map.filename)
         mapDao.delete(MapEntity.from(map))
     }
 

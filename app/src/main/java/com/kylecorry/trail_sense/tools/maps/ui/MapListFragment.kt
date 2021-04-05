@@ -1,7 +1,10 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,12 +20,17 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapRegion
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trailsensecore.infrastructure.persistence.ExternalFileService
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
+import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.FileOutputStream
+import java.io.IOException
+import java.util.*
 
 class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
@@ -30,6 +38,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val gps by lazy { sensorService.getGPS() }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val fileService by lazy { LocalFileService(requireContext()) }
+    private val localFileService by lazy { LocalFileService(requireContext()) }
 
     private lateinit var mapList: ListView<Map>
     private var maps: List<Map> = listOf()
@@ -58,6 +67,10 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 }
                 mapList.setData(maps)
             }
+        }
+
+        binding.addBtn.setOnClickListener {
+            createMap()
         }
 
         mapList = ListView(binding.mapList, R.layout.list_item_map) { itemView: View, map: Map ->
@@ -95,6 +108,57 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
             mapList.setData(it)
         })
+    }
+
+    private fun createMap(){
+        val requestFileIntent = IntentUtils.pickFile(
+            "image/*",
+            getString(R.string.select_map_image)
+        )
+        startActivityForResult(requestFileIntent, REQUEST_CODE_SELECT_MAP)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_SELECT_MAP && resultCode == Activity.RESULT_OK){
+            data?.data?.also { returnUri ->
+                mapFromUri(returnUri)
+            }
+        }
+    }
+
+    private fun mapFromUri(uri: Uri){
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val stream = try {
+                    @Suppress("BlockingMethodInNonBlockingContext")
+                    requireContext().contentResolver.openInputStream(uri)
+                } catch (e: Exception) {
+                    null
+                }
+                stream ?: return@withContext
+                val bitmap = BitmapFactory.decodeStream(stream)
+                println(bitmap)
+                val filename = "maps/" + UUID.randomUUID().toString() + ".jpg"
+                try {
+                    @Suppress("BlockingMethodInNonBlockingContext")
+                    FileOutputStream(localFileService.getFile(filename)).use { out ->
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+                    }
+                } catch (e: IOException) {
+                }
+
+                @Suppress("BlockingMethodInNonBlockingContext")
+                stream.close()
+
+                mapRepo.addMap(Map(0, "Untitled", filename, listOf()))
+            }
+
+        }
+    }
+
+    companion object {
+        const val REQUEST_CODE_SELECT_MAP = 11
     }
 
 }

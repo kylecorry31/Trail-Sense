@@ -912,4 +912,5 @@
     <string name="rename">Rename</string>
     <string name="no_maps">No maps</string>
     <string name="on_map">On map</string>
+    <string name="select_map_image">Select map image</string>
 </resources>
