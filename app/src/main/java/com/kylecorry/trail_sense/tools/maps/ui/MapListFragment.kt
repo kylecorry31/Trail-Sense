@@ -16,11 +16,11 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.databinding.ListItemMapBinding
 import com.kylecorry.trail_sense.shared.BoundFragment
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapRegion
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
-import com.kylecorry.trailsensecore.infrastructure.persistence.ExternalFileService
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
@@ -91,9 +91,14 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
         mapRepo.getMaps().observe(viewLifecycleOwner, {
             maps = it
+            // TODO: Show loading indicator
             maps.forEach {
                 val file = fileService.getFile(it.filename, false)
-                val bitmap = BitmapFactory.decodeFile(file.path)
+                val bitmap = CustomUiUtils.decodeBitmapScaled(
+                    file.path,
+                    CustomUiUtils.dp(requireContext(), 64f).toInt(),
+                    CustomUiUtils.dp(requireContext(), 64f).toInt()
+                )
                 val bounds = it.boundary(bitmap.width.toFloat(), bitmap.height.toFloat())
                 if (bounds != null) {
                     boundMap[it.id] = bounds
@@ -110,7 +115,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         })
     }
 
-    private fun createMap(){
+    private fun createMap() {
         val requestFileIntent = IntentUtils.pickFile(
             "image/*",
             getString(R.string.select_map_image)
@@ -120,14 +125,14 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_SELECT_MAP && resultCode == Activity.RESULT_OK){
+        if (requestCode == REQUEST_CODE_SELECT_MAP && resultCode == Activity.RESULT_OK) {
             data?.data?.also { returnUri ->
                 mapFromUri(returnUri)
             }
         }
     }
 
-    private fun mapFromUri(uri: Uri){
+    private fun mapFromUri(uri: Uri) {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 val stream = try {
@@ -138,7 +143,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 }
                 stream ?: return@withContext
                 val bitmap = BitmapFactory.decodeStream(stream)
-                println(bitmap)
                 val filename = "maps/" + UUID.randomUUID().toString() + ".jpg"
                 try {
                     @Suppress("BlockingMethodInNonBlockingContext")
@@ -151,6 +155,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 @Suppress("BlockingMethodInNonBlockingContext")
                 stream.close()
 
+                // TODO: Ask for map name
                 mapRepo.addMap(Map(0, "Untitled", filename, listOf()))
             }
 

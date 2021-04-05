@@ -12,6 +12,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
@@ -143,7 +144,12 @@ class PrintedMapView : View {
         }
         if (mapImage == null && map != null){
             val file = fileService.getFile(map!!.filename, false)
-            val bitmap = BitmapFactory.decodeFile(file.path)
+            val bitmap = CustomUiUtils.decodeBitmapScaled(
+                file.path,
+                width,
+                height
+            )
+//            val bitmap = BitmapFactory.decodeFile(file.path)
             // TODO: Scale instead of resize
             mapImage = resize(bitmap, width, height)
             recenter()
