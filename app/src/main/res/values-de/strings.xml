@@ -708,4 +708,5 @@
     <string name="backtrack_disabled_low_power_toast">Rückweg ist im Energiespar-Modus deaktiviert</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="turn_off">Ausschalten</string>
+    <string name="cirrocumulus_desc">Bildet ein gewelltes Blatt, Wolken sehen fast zweidimensional aus.</string>
 </resources>
