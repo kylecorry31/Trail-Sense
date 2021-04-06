@@ -770,4 +770,8 @@
     <string name="meteors_per_hour">Maksymalnie %d meteorów / h</string>
     <string name="tomorrow_at">Jutro o %s</string>
     <string name="meteor_shower">Deszcz meteorów</string>
+    <string name="guide_using_printed_maps_desc">Jak korzystać z map drukowanych w programie Trail Sense</string>
+    <string name="guide_using_printed_maps">Korzystanie z map drukowanych</string>
+    <string name="guide_navigation_description">Jak nawigować za pomocą programu Trail Sence</string>
+    <string name="experimental_features">Pływy i szum biały</string>
 </resources>

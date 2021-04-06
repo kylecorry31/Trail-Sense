@@ -123,7 +123,7 @@
     <string name="notification_monitoring_weather">Wetter im Hintergrund überwachen</string>
     <string name="sunset_alert_notification_title">Die Sonne geht bald unter</string>
     <string name="sunset_alert_notification_text">Sonnenuntergang um %s</string>
-    <string name="tidal_range">Alter der Gezeit</string>
+    <string name="tidal_range">Tidenhub</string>
     <string name="tide_neap">Nippzeit</string>
     <string name="tide_spring">Springzeit</string>
     <string name="tide_normal">Mittzeit</string>
@@ -364,7 +364,8 @@
     <string name="depth_meters_format">%.2f m</string>
     <string name="depth_feet_format">%.1f ft</string>
     <string name="water_purification_step_3">Starten Sie den Timer</string>
-    <string name="water_purification_step_2">Bringen Sie das Wasser zum Kochen, sodass es stark sprudelt</string>
+    <string name="water_purification_step_2">Bringen Sie das Wasser zum Kochen,
+\nsodass es stark sprudelt</string>
     <string name="water_purification_step_1">Filtern Sie das Wasser</string>
     <string name="tool_ruler_title">Lineal</string>
     <string name="distance_to">entspricht</string>
@@ -677,19 +678,19 @@
     <string name="onboarding_user_guide">Lerne mithilfe der Bedienungsanleitung, wie du die Trail Sense Funktionen benutzt. Du findest es ganz unten im Tools-Tab.
 \n
 \nIn Zukunft wird es weitere Anleitungen geben.</string>
-    <string name="onboarding_tools">- Greife auf Werkzeuge zu, die dir in der Wildnis helfen können.
+    <string name="onboarding_tools">- Greifen Sie auf Werkzeuge zu, die Ihnen in der Wildnis helfen können
 \n
-\n- Gib Signale mit der Taschenlampe oder der Trillerpfeife.
+\n- Geben Sie Signale mit der Taschenlampe oder der Trillerpfeife
 \n
-\n- Konvertiere Orte von einer Papierkarte auf dein Handy.
+\n- Konvertieren Sie Orte von einer Papierkarte ein Handy
 \n
-\n- Messe Winkel und bestimme die Höhe von Objekten.
+\n- Messen Sie Winkel und bestimmen Sie die Höhe von Objekten
 \n
-\n- Synchronisiere die Uhr ohne Internetverbindung.
+\n- Synchronisieren Sie die Uhr ohne Internetverbindung
 \n
-\n- Mache Notizen und behalte den Überblick über die Dinge, die du dabei hast.
+\n- Machen Sie Notizen und behalten Sie den Überblick über die Dinge, die Sie dabei haben
 \n
-\n- Finde heruntergefallene Dinge aus Eisen oder Stahl.</string>
+\n- Finden Sie heruntergefallene Dinge aus Eisen oder Stahl</string>
     <string name="onboarding_astronomy">- Erhalte Informationen zu Auf-/Untergang der Sonne und des Mondes
 \n
 \n- warnt dich, wenn die Sonne in Kürze untergehen wird
@@ -708,4 +709,8 @@
     <string name="backtrack_disabled_low_power_toast">Rückweg ist im Energiespar-Modus deaktiviert</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="turn_off">Ausschalten</string>
+    <string name="cirrocumulus_desc">Bildet eine gewellte Schicht, Wolken sehen fast zweidimensional aus.</string>
+    <string name="pref_require_satellites_title">Mehr Satelliten erforderlich</string>
+    <string name="your_height">Ihre Körpergröße</string>
+    <string name="delete_tide_prompt">Gezeiten löschen\?</string>
 </resources>
