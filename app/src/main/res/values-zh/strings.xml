@@ -763,4 +763,15 @@
     <string name="tonight">今晚</string>
     <string name="morning">清晨</string>
     <string name="meteor_shower">流星雨</string>
+    <string name="guide_signaling_for_help_description">如何发出信号进行求救</string>
+    <string name="guide_signaling_for_help_title">发出求救信号</string>
+    <string name="pref_meteor_showers_title">流星雨</string>
+    <string name="meteors_per_hour">最多 %d 颗流星/时</string>
+    <string name="tomorrow_at">在明天 %s</string>
+    <string name="speedometer_odometer_accuracy_dialog">要达到最佳精度，启用 Backtrack 并在“设置”中将里程表源设置为计步器。</string>
+    <string name="pedometer_disclaimer">计步器的准确性和电池使用量取决于你设备的制造商和输入的步幅。在实际使用前，请先在家里试一下，验证电池消耗和准确性。</string>
+    <string name="guide_using_printed_maps_desc">如何将纸质地图和 Trail Sense 一起使用</string>
+    <string name="guide_using_printed_maps">使用印刷地图</string>
+    <string name="guide_navigation_description">如何使用 Trail Sense 进行导航</string>
+    <string name="experimental_features">潮汐和白噪音</string>
 </resources>

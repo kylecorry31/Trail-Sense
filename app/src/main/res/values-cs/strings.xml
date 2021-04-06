@@ -116,7 +116,7 @@
     <string name="current_format">%.0f mA</string>
     <string name="battery_capacity_format">%.2f mAh</string>
     <string name="dialog_grant">Změnit nastavení</string>
-    <string name="access_background_location_rationale">"Trail Sense používá polohu na pozadí,  která je používána ke kalibraci atmosférického tlaku v sekci Počasí a na poskytnutí přesnějšího času západu slunce. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)"</string>
+    <string name="access_background_location_rationale">Trail Sense používá polohu na pozadí, která je používána ke kalibraci atmosférického tlaku v sekci Počasí a na poskytnutí přesnějšího času západu slunce. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="navigation">Navigace</string>
     <string name="share_action_copy">Kopírovat</string>
     <string name="share_action_send">Poslat</string>
@@ -192,8 +192,8 @@
 \n- Zadejte změřenou hodnotu zde.</string>
     <string name="sunset_alert_channel_title">Upozornění na západ slunce</string>
     <string name="sunset_alert_channel_description">Upozornění na západ slunce</string>
-    <string name="waxing_crescent">Přibývající srpek</string>
-    <string name="waning_crescent">Ubývající srpek</string>
+    <string name="waxing_crescent">Dorůstající srpek</string>
+    <string name="waning_crescent">Couvající srpek</string>
     <string name="temperature_disclaimer">Zobrazovaná teplota může být vyšší kvůli teplu vytvářené telefonem.</string>
     <string name="heat_alert_heat_message">Možné riziko vyčerpání z tepla nebo mrtvice. Udržujte se stále hydratovaní, zůstaňte uvnitř nebo ve stínu, omezte cvičení a sledujte známky vyčerpání z tepla nebo mrtvice.</string>
     <string name="access_background_location">Změnit nastavení polohy</string>
@@ -205,4 +205,69 @@
     <string name="tool_whistle_title">Píšťalka</string>
     <string name="centimeters_format">%.2f cm</string>
     <string name="inches_format">%.2f in</string>
+    <string name="pref_altitude_override_sea_level_dialog_title">Zadejte tlak na úrovni hladiny moře</string>
+    <string name="pref_altitude_override_sea_level_dialog_msg">Zadejte aktuální tlak na hladině moře v hPa</string>
+    <string name="altitude_override_updated_toast">Přepsání nadmořské výšky aktualizováno</string>
+    <string name="pref_altitude_override_title">Přepsání nadmořské výšky</string>
+    <string name="altitude_from_pressure">Nastavení přepisu z barometru</string>
+    <string name="altitude_from_gps">Nastavení přepisu z GPS</string>
+    <string name="request_permission">Vyžádat oprávnění</string>
+    <string name="pref_auto_location_title">Automatické nastavení polohy</string>
+    <string name="compass_accuracy_improved">Přesnost kompasu se zlepšila na %s</string>
+    <string name="compass_reported_accuracy">Uváděná přesnost: %s</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">Několikrát zatočte telefonem ve tvaru osmičky a po dokončení klikněte na tlačítko %s.
+\n
+\nToto upozornění lze vypnout v nastavení aplikace.</string>
+    <string name="calibrate_compass_dialog_content">Několikrát zatočte telefonem ve tvaru osmičky a po dokončení klikněte na tlačítko %s.</string>
+    <string name="pref_auto_declination_summary">Na základě vaší aktuální polohy</string>
+    <string name="declination_override_updated_toast">Přepsání deklinace aktualizováno</string>
+    <string name="compass_azimuth">Azimut</string>
+    <string name="compass_auto_declination">Automaticky upravit deklinaci</string>
+    <string name="compass_declination_override">Přepis deklinace</string>
+    <string name="compass_from_gps">Nastavit přepsání z GPS</string>
+    <string name="pref_use_legacy_compass_title">Využívat starší API senzoru kompasu</string>
+    <string name="coordinate_format_mgrs">MGRS</string>
+    <string name="coordinate_format_utm">UTM</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Minuty Sekundy Stupňů</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Desetinné minuty stupňů</string>
+    <string name="coordinate_format_decimal_degrees">Desetinné stupně</string>
+    <string name="your_height">Vaše výška</string>
+    <string name="set_inclination_instructions">Klepnutím kamkoli nastavte/zrušte úhel sklonu</string>
+    <string name="tide_neap"></string>
+    <string name="waxing_gibbous">Měsíc Dorůstá</string>
+    <string name="waning_gibbous">Měsíc Couvá</string>
+    <string name="sun_down_no_set">Slunce zapadlo</string>
+    <string name="heat_alert_frostbite_danger_title">Nebezpečí podchlazení</string>
+    <string name="heat_alert_frostbite_warning_title">Varování před podchlazením</string>
+    <string name="heat_alert_frostbite_caution_title">Upozornění na podchlazení</string>
+    <string name="heat_alert_normal_title">Žádná varování o teplotě</string>
+    <string name="heat_alert_heat_caution_title">Pozor na horko</string>
+    <string name="heat_alert_heat_warning_title">Varování před horkem</string>
+    <string name="heat_alert_heat_alert_title">Tepelná výstraha</string>
+    <string name="heat_alert_frostbite_message">Riziko podchlazení/omrzlin. Ujistěte se, že zůstanete hydratovaní, oblečte se teple, omezte exponovanou pokožku a sledujte známky podchlazení nebo omrzlin.</string>
+    <string name="heat_alert_heat_danger_title">Nebezpečí horka</string>
+    <string name="dew_point">Rosný bod: %s</string>
+    <string name="precise_temp_c_format">%s °C</string>
+    <string name="precise_temp_f_format">%s °F</string>
+    <plurals name="last_minutes">
+        <item quantity="one">Poslední %d minuta</item>
+        <item quantity="few">Poslední %d minuty</item>
+        <item quantity="other">Posledních %d minut</item>
+    </plurals>
+    <plurals name="last_hours">
+        <item quantity="one">Poslední %d hodina</item>
+        <item quantity="few">Poslední %d hodiny</item>
+        <item quantity="other">Posledních %d hodin</item>
+    </plurals>
+    <string name="notification_monitoring_weather">Sledování počasí na pozadí</string>
+    <string name="notification_storm_alert_title">Výstraha před bouří</string>
+    <string name="notification_storm_alert_channel_desc">Výstrahy před bouřkami</string>
+    <string name="notification_storm_alert_channel_name">Výstrahy</string>
+    <string name="pressure_reading_time_ago">před %s - %s</string>
+    <string name="pressure_setpoint_format">Nastaveno před: %s - %s</string>
+    <string name="turn_off">Vypnout</string>
+    <string name="battery_temp">Telefon: %s</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="degree">%s°</string>
+    <string name="disclaimer_message_title">Vyloučení odpovědnosti</string>
 </resources>

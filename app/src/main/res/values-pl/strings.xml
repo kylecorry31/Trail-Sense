@@ -766,4 +766,8 @@
     <string name="tide_location_label">Lokalizacja pływu (opcjonalnie)</string>
     <string name="tides">Pływy</string>
     <string name="menu">Menu</string>
+    <string name="pref_meteor_showers_title">Deszcze meteorów</string>
+    <string name="meteors_per_hour">Maksymalnie %d meteorów / h</string>
+    <string name="tomorrow_at">Jutro o %s</string>
+    <string name="meteor_shower">Deszcz meteorów</string>
 </resources>
