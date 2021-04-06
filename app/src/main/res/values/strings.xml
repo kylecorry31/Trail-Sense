@@ -255,7 +255,7 @@
     <string name="compass_declination_override">Declination override</string>
     <string name="compass_auto_declination">Auto adjust declination</string>
     <string name="compass_azimuth">Azimuth</string>
-    <string name="compass_declination">Declination</string>
+    <string name="compass_declination">Magnetic declination</string>
     <!--    A message which appears when the declination is updated from the GPS on the calibration page-->
     <string name="declination_override_updated_toast">Declination override updated</string>
     <string name="pref_auto_declination_summary">Based on your current location</string>
@@ -761,7 +761,6 @@
     <string name="health">Health</string>
     <string name="tool_health_sense" translatable="false">tool_health_sense</string>
     <string name="tool_clouds" translatable="false">tool_clouds</string>
-
     <!--This is in Markdown format-->
     <string name="onboarding_navigation">- Place beacons and navigate back to them\n\n- Get your current location, altitude, and speed\n\n- Retrace your steps with Backtrack (runs in the background when enabled)</string>
     <!--This is in Markdown format-->
@@ -774,7 +773,7 @@
     <!--This is in Markdown format-->
     <string name="onboarding_user_guide">Learn how to use Trail Sense\'s features with the user guide. Available at the bottom of the Tools tab.\n\nMore guides will be coming soon.</string>
     <!--This is in Markdown format-->
-    <string name="onboarding_privacy">- Trail Sense respects your privacy and location data never leaves your device\n\n- Trail Sense will never require Internet permission\n\n- View the [Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html) (opens in your phone\'s browser)\n\n- Some features of Trail Sense require access to your location\n\n- Granting the location permission will enable the following features:\n\n\t- Navigating to beacons\n\n\t- Improved forecast accuracy (requires background location, not available on all devices)\n\n\t- Backtrack (requires background location)\n\n\t- Sun and moon times for your current location\n\n- If you choose to not grant the location permission, you can manually enter a location in the Settings > GPS calibration menu in Trail Sense.\n\n- After clicking continue, you will be prompted to grant the location and background location permissions. Denying those permissions will prevent Trail Sense from accessing your location, so a manual location entry is recommended.</string>
+    <string name="onboarding_privacy">- Trail Sense respects your privacy and location data never leaves your device\n\n- Trail Sense will never require Internet permission\n\n- View the [Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html) (opens in your phone\'s browser)\n\n- Some features of Trail Sense require access to your location\n\n- Granting the location permission will enable the following features:\n\n\t- Navigating to beacons\n\n\t- Improved forecast accuracy (requires background location, not available on all devices)\n\n\t- Backtrack (requires background location)\n\n\t- Sun and moon times for your current location\n\n- If you choose to not grant the location permission, you can manually enter a location in the Settings &gt; GPS calibration menu in Trail Sense.\n\n- After clicking continue, you will be prompted to grant the location and background location permissions. Denying those permissions will prevent Trail Sense from accessing your location, so a manual location entry is recommended.</string>
     <string name="export">Export</string>
     <string name="beacons_imported">%d beacons imported</string>
     <string name="select_import_file">Select Import File</string>
