@@ -56,19 +56,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                gps.read()
-            }
-            withContext(Dispatchers.Main) {
-                maps = maps.sortedBy {
-                    !(boundMap[it.id]?.contains(gps.location) ?: false)
-                    // TODO: Distance to center
-                }
-                mapList.setData(maps)
-            }
-        }
-
         binding.addBtn.setOnClickListener {
             createMap()
         }
@@ -76,7 +63,11 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         mapList = ListView(binding.mapList, R.layout.list_item_map) { itemView: View, map: Map ->
             val mapItemBinding = ListItemMapBinding.bind(itemView)
             val onMap = boundMap[map.id]?.contains(gps.location) ?: false
-            mapItemBinding.mapImg.setImageBitmap(bitmaps[map.id])
+            if (bitmaps.containsKey(map.id)) {
+                mapItemBinding.mapImg.setImageBitmap(bitmaps[map.id])
+            } else {
+                mapItemBinding.mapImg.setImageResource(R.drawable.maps)
+            }
             mapItemBinding.name.text = map.name
             mapItemBinding.description.text = if (onMap) getString(R.string.on_map) else ""
             mapItemBinding.root.setOnClickListener {
@@ -94,24 +85,33 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             // TODO: Show loading indicator
             maps.forEach {
                 val file = fileService.getFile(it.filename, false)
-                val bitmap = CustomUiUtils.decodeBitmapScaled(
-                    file.path,
-                    CustomUiUtils.dp(requireContext(), 64f).toInt(),
-                    CustomUiUtils.dp(requireContext(), 64f).toInt()
-                )
-                val bounds = it.boundary(bitmap.width.toFloat(), bitmap.height.toFloat())
+
+                val size = CustomUiUtils.getBitmapSize(file.path)
+                val bounds = it.boundary(size.first.toFloat(), size.second.toFloat())
                 if (bounds != null) {
+                    val onMap = bounds.contains(gps.location)
+                    val distance = gps.location.distanceTo(bounds.center)
+
+                    if (onMap || distance < 5000){
+                        val bitmap = CustomUiUtils.decodeBitmapScaled(
+                            file.path,
+                            CustomUiUtils.dp(requireContext(), 64f).toInt(),
+                            CustomUiUtils.dp(requireContext(), 64f).toInt()
+                        )
+                        bitmaps[it.id] = bitmap
+                    }
+
                     boundMap[it.id] = bounds
                 }
-                bitmaps[it.id] = bitmap
             }
 
             maps = maps.sortedBy {
-                !(boundMap[it.id]?.contains(gps.location) ?: false)
-                // TODO: Distance to center
+                val bounds = boundMap[it.id] ?: return@sortedBy Float.MAX_VALUE
+                val onMap = bounds.contains(gps.location)
+                (if (onMap) 0f else 100000f) + gps.location.distanceTo(bounds.center)
             }
 
-            mapList.setData(it)
+            mapList.setData(maps)
         })
     }
 

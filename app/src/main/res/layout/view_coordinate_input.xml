@@ -18,7 +18,6 @@
         android:padding="8dp"
         android:tint="?android:textColorPrimary"
         app:srcCompat="@drawable/satellite" />
-
     <ProgressBar
         android:id="@+id/gps_loading"
         style="?android:attr/progressBarStyle"
@@ -29,6 +28,19 @@
         android:indeterminate="true"
         android:visibility="invisible"
         tools:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/beacon_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:elevation="4dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_rectangle"
+        android:backgroundTint="@color/colorPrimary"
+        android:padding="8dp"
+        android:tint="?android:textColorPrimary"
+        app:srcCompat="@drawable/ic_location" />
 
     <EditText
         android:id="@+id/utm"

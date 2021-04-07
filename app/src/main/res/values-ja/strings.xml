@@ -5,7 +5,7 @@
     <string name="settings">設定</string>
     <string name="create_beacon_title">ビーコンを追加</string>
     <string name="name_hint">名前</string>
-    <string name="beacon_list_title">ビーコンを選択</string>
+    <string name="select_beacon">ビーコンを選択</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">ビーコンを削除</string>
     <string name="dialog_cancel">キャンセル</string>
@@ -235,7 +235,7 @@
     <string name="increase">+</string>
     <string name="direction_south_west">南西</string>
     <string name="direction_north_west">北西</string>
-    <string name="direction_south_east">南西</string>
+    <string name="direction_south_east">南東</string>
     <string name="direction_north_east">北東</string>
     <string name="direction_west">西</string>
     <string name="direction_east">東</string>

@@ -76,7 +76,8 @@
     <!--Navigation Tab - Destination Panel-->
     <string name="eta">~ %s away</string>
     <!--Navigation Tab - Beacon List-->
-    <string name="beacon_list_title">Select Beacon</string>
+    <string name="select_beacon">Select Beacon</string>
+    <string name="all_beacons">All beacons</string>
     <string name="delete_beacon">Delete beacon</string>
     <string name="edit_beacon">Edit beacon</string>
     <string name="no_beacons">No beacons</string>

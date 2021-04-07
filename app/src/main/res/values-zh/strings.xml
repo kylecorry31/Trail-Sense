@@ -5,7 +5,7 @@
     <string name="settings">设定值</string>
     <string name="create_beacon_title">下降信标</string>
     <string name="name_hint">名称</string>
-    <string name="beacon_list_title">选择信标</string>
+    <string name="select_beacon">选择信标</string>
     <string name="dialog_ok">好</string>
     <string name="delete_beacon">删除信标</string>
     <string name="dialog_cancel">取消</string>

@@ -13,11 +13,15 @@ import androidx.activity.addCallback
 import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
 import androidx.annotation.MenuRes
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.views.BeaconSelectView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.Quality
@@ -99,6 +103,19 @@ object CustomUiUtils {
         }
     }
 
+    fun pickBeacon(context: Context, title: String?, location: Coordinate, onBeaconPick: (beacon: Beacon?) -> Unit) {
+        val view = View.inflate(context, R.layout.view_beacon_select_prompt, null)
+        val beaconSelect = view.findViewById<BeaconSelectView>(R.id.prompt_beacons)
+        beaconSelect.location = location
+        val alert = alertView(context, title, view, context.getString(R.string.dialog_cancel)){
+            onBeaconPick.invoke(beaconSelect.beacon)
+        }
+        beaconSelect?.setOnBeaconChangeListener {
+            onBeaconPick.invoke(it)
+            alert.dismiss()
+        }
+    }
+
     fun openMenu(anchorView: View, @MenuRes menu: Int, onSelection: (itemId: Int) -> Boolean){
         val popup = PopupMenu(anchorView.context, anchorView)
         val inflater = popup.menuInflater
@@ -107,6 +124,30 @@ object CustomUiUtils {
             onSelection.invoke(it.itemId)
         }
         popup.show()
+    }
+
+    fun alertView(
+        context: Context,
+        title: String?,
+        view: View,
+        buttonOk: String,
+        onClose: (() -> Unit)? = null
+    ): AlertDialog {
+        val builder = AlertDialog.Builder(context)
+        builder.apply {
+            setView(view)
+            setTitle(title)
+            setPositiveButton(
+                buttonOk
+            ) { dialog, _ ->
+                onClose?.invoke()
+                dialog.dismiss()
+            }
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+        return dialog
     }
 
     fun dp(context: Context, size: Float): Float {
@@ -135,6 +176,15 @@ object CustomUiUtils {
             inJustDecodeBounds = false
             BitmapFactory.decodeFile(path, this)
         }
+    }
+
+    fun getBitmapSize(path: String): Pair<Int, Int> {
+        val opts = BitmapFactory.Options().run {
+            inJustDecodeBounds = true
+            BitmapFactory.decodeFile(path, this)
+            this
+        }
+        return Pair(opts.outWidth, opts.outHeight)
     }
 
     private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {

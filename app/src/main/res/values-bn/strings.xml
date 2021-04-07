@@ -5,7 +5,7 @@
     <string name="settings">সেটিংস</string>
     <string name="create_beacon_title">ড্রপ বেকন</string>
     <string name="name_hint">নাম</string>
-    <string name="beacon_list_title">বীকন নির্বাচন করুন</string>
+    <string name="select_beacon">বীকন নির্বাচন করুন</string>
     <string name="dialog_ok">ঠিক আছে</string>
     <string name="delete_beacon">বীকন মুছুন</string>
     <string name="dialog_cancel">বাতিল</string>

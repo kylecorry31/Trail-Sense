@@ -60,7 +60,7 @@
     <string name="no_beacons">Ei maamerkkejä</string>
     <string name="edit_beacon">Muokkaa maamerkkiä</string>
     <string name="delete_beacon">Poista maamerkki</string>
-    <string name="beacon_list_title">Valitse maamerkki</string>
+    <string name="select_beacon">Valitse maamerkki</string>
     <string name="eta">~ %s päässä</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Sammuta napauttamalla</string>

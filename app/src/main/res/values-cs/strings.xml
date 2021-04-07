@@ -128,7 +128,7 @@
     <string name="no_beacons">Žádné majáky</string>
     <string name="edit_beacon">Upravit maják</string>
     <string name="delete_beacon">Smazat maják</string>
-    <string name="beacon_list_title">Vybrat maják</string>
+    <string name="select_beacon">Vybrat maják</string>
     <string name="eta">~ %s daleko</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Ztisknutím vypnete svítilnu</string>

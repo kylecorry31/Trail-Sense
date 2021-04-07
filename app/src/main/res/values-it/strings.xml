@@ -5,7 +5,7 @@
     <string name="settings">Impostazioni</string>
     <string name="create_beacon_title">Inserisci Segnaposto</string>
     <string name="name_hint">Nome</string>
-    <string name="beacon_list_title">Selezione Segnaposto</string>
+    <string name="select_beacon">Selezione Segnaposto</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Cancellazione Segnaposto</string>
     <string name="dialog_cancel">Annulla</string>

@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
@@ -42,6 +43,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayou
 
     private lateinit var locationEdit: EditText
     private lateinit var gpsBtn: ImageButton
+    private lateinit var beaconBtn: ImageButton
     private lateinit var helpBtn: ImageButton
     private lateinit var gpsLoadingIndicator: ProgressBar
 
@@ -53,6 +55,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayou
             gpsLoadingIndicator = findViewById(R.id.gps_loading)
             helpBtn = findViewById(R.id.coordinate_input_help_btn)
             gpsBtn = findViewById(R.id.gps_btn)
+            beaconBtn = findViewById(R.id.beacon_btn)
 
             gpsBtn.visibility = View.VISIBLE
             gpsLoadingIndicator.visibility = View.GONE
@@ -70,10 +73,19 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayou
                 )
             }
 
+            beaconBtn.setOnClickListener {
+                CustomUiUtils.pickBeacon(context, null, gps.location){
+                    if (it != null){
+                        coordinate = it.coordinate
+                    }
+                }
+            }
+
             gpsBtn.setOnClickListener {
                 autofillListener?.invoke()
                 gpsBtn.visibility = View.GONE
                 gpsLoadingIndicator.visibility = View.VISIBLE
+                beaconBtn.isEnabled = false
                 locationEdit.isEnabled = false
                 gps.start(this::onGPSUpdate)
             }
@@ -84,6 +96,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayou
         coordinate = gps.location
         gpsBtn.visibility = View.VISIBLE
         gpsLoadingIndicator.visibility = View.GONE
+        beaconBtn.isEnabled = true
         locationEdit.isEnabled = true
         return false
     }

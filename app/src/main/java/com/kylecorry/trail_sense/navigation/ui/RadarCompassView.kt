@@ -144,7 +144,7 @@ class RadarCompassView : View, ICompassView {
             canvas.drawLine(width / 2f, height / 2f, width / 2f, iconSize.toFloat() + dp(2f), paint)
         }
         canvas.drawBitmap(
-            getBitmap(R.drawable.ic_my_location, directionSize), width / 2f - directionSize / 2f,
+            getBitmap(R.drawable.ic_beacon, directionSize), width / 2f - directionSize / 2f,
             height / 2f - directionSize / 2f,
             paint
         )

@@ -35,8 +35,6 @@ import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.FileNotFoundException
-import java.io.FileReader
 import java.time.Instant
 
 
@@ -349,7 +347,7 @@ class BeaconListFragment : Fragment() {
         }
 
         withContext(Dispatchers.Main) {
-            binding.beaconTitle.text = displayedGroup?.name ?: getString(R.string.beacon_list_title)
+            binding.beaconTitle.text = displayedGroup?.name ?: getString(R.string.select_beacon)
             updateBeaconEmptyText(beacons.isNotEmpty())
             beaconList.setData(beacons)
         }

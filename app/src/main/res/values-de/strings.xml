@@ -5,7 +5,7 @@
     <string name="settings">Einstellungen</string>
     <string name="create_beacon_title">Wegpunkt erstellen</string>
     <string name="name_hint">Name</string>
-    <string name="beacon_list_title">Wegpunkt auswählen</string>
+    <string name="select_beacon">Wegpunkt auswählen</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Wegpunkt löschen</string>
     <string name="dialog_cancel">Abbrechen</string>

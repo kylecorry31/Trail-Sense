@@ -5,7 +5,7 @@
     <string name="settings">Instellingen</string>
     <string name="create_beacon_title">Drop Beacon</string>
     <string name="name_hint">: Naam</string>
-    <string name="beacon_list_title">Selecteer Baken</string>
+    <string name="select_beacon">Selecteer Baken</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Baken verwijderen</string>
     <string name="dialog_cancel">Annuleren</string>

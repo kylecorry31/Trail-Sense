@@ -38,7 +38,7 @@
     <!--Navigation Tab - Destination Panel-->
     <string name="eta">~ %s distante</string>
     <!--Navigation Tab - Beacon List-->
-    <string name="beacon_list_title">Selecione o Ponto de Orientação</string>
+    <string name="select_beacon">Selecione o Ponto de Orientação</string>
     <string name="delete_beacon">Excluir o Ponto de Orientação</string>
     <string name="edit_beacon">Editar o Ponto de Orientação</string>
     <string name="no_beacons">Nenhum Ponto de Orientação</string>

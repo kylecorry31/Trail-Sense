@@ -5,7 +5,7 @@
     <string name="settings">Réglages</string>
     <string name="create_beacon_title">Placer un repère</string>
     <string name="name_hint">Nom</string>
-    <string name="beacon_list_title">Sélectionner des repères</string>
+    <string name="select_beacon">Sélectionner des repères</string>
     <string name="dialog_ok">D\'accord</string>
     <string name="delete_beacon">Supprimer repère</string>
     <string name="dialog_cancel">Annuler</string>

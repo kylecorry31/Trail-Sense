@@ -12,7 +12,7 @@
     <string name="no_beacons">Balizarik ez</string>
     <string name="edit_beacon">Baliza editatu</string>
     <string name="delete_beacon">Baliza ezabatu</string>
-    <string name="beacon_list_title">Baliza hautatu</string>
+    <string name="select_beacon">Baliza hautatu</string>
     <string name="eta">~ %s urruti</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Ukitu itzaltzeko</string>
