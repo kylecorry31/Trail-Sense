@@ -9,10 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.maps.infrastructure.TrailSenseMaps
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.health.infrastructure.HealthSense
-import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 
 
@@ -64,9 +62,12 @@ class ToolsFragment : PreferenceFragmentCompat() {
             R.id.action_toolsFragment_to_tidesFragment
         )
 
-        val maps = findPreference<Preference>(getString(R.string.tool_trail_sense_maps))
-        maps?.isVisible = TrailSenseMaps.isInstalled(requireContext())
-        onClick(maps) { TrailSenseMaps.open(requireContext()) }
+        val maps = findPreference<Preference>(getString(R.string.tool_offline_maps))
+        maps?.isVisible = prefs.experimentalEnabled
+        navigateOnClick(
+            maps,
+            R.id.action_tools_to_maps_list
+        )
 
         val health = findPreference<Preference>(getString(R.string.tool_health_sense))
         health?.isVisible = HealthSense.isInstalled(requireContext())

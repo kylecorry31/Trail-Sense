@@ -5,7 +5,7 @@
     <string name="settings">Impostazioni</string>
     <string name="create_beacon_title">Inserisci Segnaposto</string>
     <string name="name_hint">Nome</string>
-    <string name="beacon_list_title">Selezione Segnaposto</string>
+    <string name="select_beacon">Selezione Segnaposto</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Cancellazione Segnaposto</string>
     <string name="dialog_cancel">Annulla</string>
@@ -163,7 +163,7 @@
     <string name="avalanche_risk_low">Basso rischio valanghe</string>
     <string name="tool_inclinometer_summary">Stima del rischio valanghe e dell\'altezza degli oggetti</string>
     <string name="inclinometer_title">Inclinometro</string>
-    <string name="trail_sense_maps">Mappe Offline</string>
+    <string name="offline_maps">Mappe Offline</string>
     <string name="sun_dusk">Crepuscolo serale</string>
     <string name="sun_dawn">Crepuscolo mattutino</string>
     <string name="moon_illumination">Illuminazione lunare</string>
@@ -274,7 +274,7 @@
     <string name="compass_reported_accuracy">Accuratezza riportata: %s</string>
     <string name="calibrate_compass_dialog_content">Ruota il tuo telefono formando un percorso a 8 diverse volte, clicca %s quando terminato.</string>
     <string name="calibrate_compass_dialog_title">Calibrazione bussola</string>
-    <string name="pref_calibrate_compass_btn_title">Calibrazione</string>
+    <string name="calibrate">Calibrazione</string>
     <string name="pref_auto_declination_summary">Basato sulla tua posizione corrente</string>
     <string name="declination_override_updated_toast">Override della declinazione aggiornato</string>
     <string name="compass_azimuth">Azimut</string>

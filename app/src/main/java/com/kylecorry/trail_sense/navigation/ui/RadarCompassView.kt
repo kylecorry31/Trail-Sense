@@ -143,7 +143,6 @@ class RadarCompassView : View, ICompassView {
             paint.color = gray(60)
             canvas.drawLine(width / 2f, height / 2f, width / 2f, iconSize.toFloat() + dp(2f), paint)
         }
-        paint.color = Color.WHITE
         canvas.drawBitmap(
             getBitmap(R.drawable.ic_beacon, directionSize), width / 2f - directionSize / 2f,
             height / 2f - directionSize / 2f,
@@ -300,6 +299,8 @@ class RadarCompassView : View, ICompassView {
                     paint
                 )
             } else {
+                paint.color = Color.WHITE
+                canvas.drawCircle(width / 2f, top, radarSize / 2f + dp(0.5f), paint)
                 paint.color = primaryColor
                 canvas.drawCircle(width / 2f, top, radarSize / 2f, paint)
             }

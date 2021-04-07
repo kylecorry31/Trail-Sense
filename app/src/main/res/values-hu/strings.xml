@@ -68,7 +68,7 @@
     <string name="no_beacons">Nincsenek jelölők</string>
     <string name="edit_beacon">Jelölő szerkesztése</string>
     <string name="delete_beacon">Jelölő törlése</string>
-    <string name="beacon_list_title">Válasszon jelölőt</string>
+    <string name="select_beacon">Válasszon jelölőt</string>
     <string name="eta">~ %s távolságra</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Érintse meg a kikapcsoláshoz</string>

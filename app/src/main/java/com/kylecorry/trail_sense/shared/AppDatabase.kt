@@ -18,6 +18,8 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointDao
 import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.InventoryItemDao
+import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
+import com.kylecorry.trail_sense.tools.maps.infrastructure.MapDao
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
 import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
@@ -32,8 +34,8 @@ import java.io.File
  * The Room database for this app
  */
 @Database(
-    entities = [InventoryItem::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class],
-    version = 9,
+    entities = [InventoryItem::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class],
+    version = 10,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -45,6 +47,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun beaconDao(): BeaconDao
     abstract fun beaconGroupDao(): BeaconGroupDao
     abstract fun noteDao(): NoteDao
+    abstract fun mapDao(): MapDao
 
     companion object {
 
@@ -140,7 +143,12 @@ abstract class AppDatabase : RoomDatabase() {
                 override fun migrate(database: SupportSQLiteDatabase) {
                     database.execSQL("ALTER TABLE `pressures` ADD COLUMN `humidity` REAL NOT NULL DEFAULT 0")
                 }
+            }
 
+            val MIGRATION_9_10 = object : Migration(9, 10) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `maps` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `filename` TEXT NOT NULL, `latitude1` REAL DEFAULT NULL, `longitude1` REAL DEFAULT NULL, `percentX1` REAL DEFAULT NULL, `percentY1` REAL DEFAULT NULL, `latitude2` REAL DEFAULT NULL, `longitude2` REAL DEFAULT NULL, `percentX2` REAL DEFAULT NULL, `percentY2` REAL DEFAULT NULL)")
+                }
             }
 
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
@@ -152,7 +160,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_5_6,
                     MIGRATION_6_7,
                     MIGRATION_7_8,
-                    MIGRATION_8_9
+                    MIGRATION_8_9,
+                    MIGRATION_9_10
                 )
                 .addCallback(object: RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {

@@ -5,7 +5,7 @@
     <string name="settings">تنظیمات</string>
     <string name="create_beacon_title">علامت زدن مکان</string>
     <string name="name_hint">عنوان</string>
-    <string name="beacon_list_title">انتخاب مکان</string>
+    <string name="select_beacon">انتخاب مکان</string>
     <string name="dialog_ok">باشه</string>
     <string name="delete_beacon">حذف مکان</string>
     <string name="dialog_cancel">لغو</string>

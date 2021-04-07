@@ -5,7 +5,7 @@
     <string name="settings">Réglages</string>
     <string name="create_beacon_title">Placer un repère</string>
     <string name="name_hint">Nom</string>
-    <string name="beacon_list_title">Sélectionner des repères</string>
+    <string name="select_beacon">Sélectionner des repères</string>
     <string name="dialog_ok">D\'accord</string>
     <string name="delete_beacon">Supprimer repère</string>
     <string name="dialog_cancel">Annuler</string>
@@ -130,7 +130,7 @@
     <string name="compass_reported_accuracy">Précision estimée : %s</string>
     <string name="compass_accuracy_improved">Précision de la boussole améliorée à %s</string>
     <string name="calibrate_compass_dialog_title">Étalonnage de la boussole</string>
-    <string name="pref_calibrate_compass_btn_title">Étalonner</string>
+    <string name="calibrate">Étalonner</string>
     <string name="pref_auto_declination_summary">Se base sur votre localisation actuelle</string>
     <string name="compass_declination">Déclinaison</string>
     <string name="compass_azimuth">Azimuth</string>
@@ -305,7 +305,7 @@
     <string name="pref_sea_level_use_rapid_title">Se baser sur les variations rapides de la pression</string>
     <string name="pref_adjust_for_temperature_title">Se baser sur la température</string>
     <string name="coordinate_format_degrees_decimal_minutes">Mixte</string>
-    <string name="trail_sense_maps">Cartes hors-ligne</string>
+    <string name="offline_maps">Cartes hors-ligne</string>
     <string name="dialog_deny">Non merci</string>
     <string name="dialog_grant">Mettre à jour les paramètres</string>
     <string name="access_background_location_rationale">Trail Sense utilise vos données de position. Elles sont utilisées pour calibrer la pression atmosphérique au niveau de la mer et fournir des prévisions de lever de soleil plus précises. [Voir la politique de confidentialité](https://kylecorry.com/Trail-Sense/privacy_policy.html).</string>

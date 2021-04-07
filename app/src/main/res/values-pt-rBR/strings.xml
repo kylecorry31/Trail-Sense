@@ -38,7 +38,7 @@
     <!--Navigation Tab - Destination Panel-->
     <string name="eta">~ %s distante</string>
     <!--Navigation Tab - Beacon List-->
-    <string name="beacon_list_title">Selecione o Ponto de Orientação</string>
+    <string name="select_beacon">Selecione o Ponto de Orientação</string>
     <string name="delete_beacon">Excluir o Ponto de Orientação</string>
     <string name="edit_beacon">Editar o Ponto de Orientação</string>
     <string name="no_beacons">Nenhum Ponto de Orientação</string>
@@ -206,7 +206,7 @@
     <string name="gps_location">Localização</string>
     <string name="pref_auto_location_title">Ajuste automático de Localização</string>
     <string name="request_permission">Solicitar permissão</string>
-    <string name="pref_calibrate_compass_btn_title">Calibrar</string>
+    <string name="calibrate">Calibrar</string>
     <string name="calibrate_compass_dialog_title">Calibrar a bússola</string>
     <string name="calibrate_compass_dialog_content">Gire seu celular num padrão de número 8 várias vezes, clique em %s quando terminar.</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Gire seu celular varías veces num padrão de número 8, clique em %s quando terminar.
@@ -324,7 +324,7 @@
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="pref_general_header">Geral</string>
-    <string name="trail_sense_maps">Mapas off-line</string>
+    <string name="offline_maps">Mapas off-line</string>
     <string name="sun_dusk">Anoitecer</string>
     <string name="sun_dawn">Madrugada</string>
     <string name="temperature_disclaimer">A temperatura mostrada pode ser mais alta devido ao calor do seu telefone.</string>

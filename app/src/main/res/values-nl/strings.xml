@@ -5,7 +5,7 @@
     <string name="settings">Instellingen</string>
     <string name="create_beacon_title">Drop Beacon</string>
     <string name="name_hint">: Naam</string>
-    <string name="beacon_list_title">Selecteer Baken</string>
+    <string name="select_beacon">Selecteer Baken</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Baken verwijderen</string>
     <string name="dialog_cancel">Annuleren</string>
@@ -95,7 +95,7 @@
 \nDeze melding kan je in de instellingen afzetten.</string>
     <string name="calibrate_compass_dialog_content">Draai je telefoon een paar keer in een 8-vormige figuur en klik %s als je klaar bent.</string>
     <string name="calibrate_compass_dialog_title">Kalibreer kompas</string>
-    <string name="pref_calibrate_compass_btn_title">Kalibreer</string>
+    <string name="calibrate">Kalibreer</string>
     <string name="pref_auto_declination_summary">Gebaseerd op je huidige locatie</string>
     <string name="declination_override_updated_toast">Declinatie manueel ingesteld</string>
     <string name="compass_azimuth">Azimut</string>
@@ -139,7 +139,7 @@
     <string name="avalanche_risk_low">Laag risico op lawines</string>
     <string name="tool_inclinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
     <string name="inclinometer_title">Hellingsmeter</string>
-    <string name="trail_sense_maps">Offline Kaarten</string>
+    <string name="offline_maps">Offline Kaarten</string>
     <string name="sun_dusk">Schemering</string>
     <string name="sun_dawn">Dageraad</string>
     <string name="moon_illumination">Maanverlichting</string>

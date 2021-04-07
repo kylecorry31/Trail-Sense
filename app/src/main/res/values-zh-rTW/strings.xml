@@ -25,7 +25,7 @@
     <string name="pref_auto_location_title">自動調整位置</string>
     <string name="compass_accuracy_improved">羅盤精確度提升至 %s</string>
     <string name="calibrate_compass_dialog_title">校準羅盤</string>
-    <string name="pref_calibrate_compass_btn_title">校準</string>
+    <string name="calibrate">校準</string>
     <string name="pref_use_legacy_compass_summary">可能修正羅盤問題</string>
     <string name="pref_use_true_north_title">實際北方</string>
     <string name="pref_compass_sensor_title">羅盤</string>
@@ -53,7 +53,7 @@
     <string name="spinner_category_prompt">分類</string>
     <string name="action_item_delete">刪除</string>
     <string name="action_item_add">新增</string>
-    <string name="trail_sense_maps">離線地圖</string>
+    <string name="offline_maps">離線地圖</string>
     <string name="sun_dusk">黃昏</string>
     <string name="sun_dawn">破曉</string>
     <string name="moon_phase">月相</string>
@@ -115,7 +115,7 @@
     <string name="no_beacons">無地標</string>
     <string name="edit_beacon">編輯地標</string>
     <string name="delete_beacon">刪除地標</string>
-    <string name="beacon_list_title">選取地標</string>
+    <string name="select_beacon">選取地標</string>
     <string name="flashlight_title">手電筒</string>
     <string name="charging_slow">慢速充電中 (%s)</string>
     <string name="charging_fast">快速充電中 (%s)</string>

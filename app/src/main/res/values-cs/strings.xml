@@ -10,7 +10,7 @@
     <string name="gps_location">Poloha</string>
     <string name="gps">GPS</string>
     <string name="calibrate_compass_dialog_title">Kalibrovat kompas</string>
-    <string name="pref_calibrate_compass_btn_title">Kalibrovat</string>
+    <string name="calibrate">Kalibrovat</string>
     <string name="pref_use_legacy_compass_summary">Může opravit problémy s kompasem</string>
     <string name="pref_compass_filter_amt_summary">Vysoké hodnoty mohou omezit šum</string>
     <string name="pref_compass_filter_amt_title">Urovnávání kompas</string>
@@ -52,7 +52,7 @@
     <string name="avalanche_risk_low">Malá pravděpodobnost laviny</string>
     <string name="tool_inclinometer_summary">Odhadněte pravděpodobnost laviny a výšku objektů</string>
     <string name="inclinometer_title">Sklonoměr</string>
-    <string name="trail_sense_maps">Offline mapy</string>
+    <string name="offline_maps">Offline mapy</string>
     <string name="sun_dusk">Stmívání</string>
     <string name="sun_dawn">Rozbřesk</string>
     <string name="moon_illumination">Osvětlení Měsíce</string>
@@ -128,7 +128,7 @@
     <string name="no_beacons">Žádné majáky</string>
     <string name="edit_beacon">Upravit maják</string>
     <string name="delete_beacon">Smazat maják</string>
-    <string name="beacon_list_title">Vybrat maják</string>
+    <string name="select_beacon">Vybrat maják</string>
     <string name="eta">~ %s daleko</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Ztisknutím vypnete svítilnu</string>

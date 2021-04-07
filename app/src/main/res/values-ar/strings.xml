@@ -4,7 +4,7 @@
     <string name="settings">الإعدادات</string>
     <string name="create_beacon_title">إسقاط منارة</string>
     <string name="name_hint">اسم</string>
-    <string name="beacon_list_title">حدد منارة</string>
+    <string name="select_beacon">حدد منارة</string>
     <string name="dialog_ok">حسنا</string>
     <string name="delete_beacon">تحذف المرشد</string>
     <string name="dialog_cancel">إلغاء</string>

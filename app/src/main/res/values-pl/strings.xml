@@ -5,7 +5,7 @@
     <string name="settings">Ustawienia</string>
     <string name="create_beacon_title">Dodaj punkt nawigacyjny</string>
     <string name="name_hint">Nazwa</string>
-    <string name="beacon_list_title">Wybierz punkt nawigacyjny</string>
+    <string name="select_beacon">Wybierz punkt nawigacyjny</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Usuń punkt nawigacyjny</string>
     <string name="dialog_cancel">Anuluj</string>
@@ -127,7 +127,7 @@
     <string name="avalanche_risk_high">Wysokie zagrożenie lawinowe</string>
     <string name="avalanche_risk_med">Umiarkowane zagrożenie lawinowe</string>
     <string name="avalanche_risk_low">Niskie zagrożenie lawinowe</string>
-    <string name="trail_sense_maps">Mapy offline</string>
+    <string name="offline_maps">Mapy offline</string>
     <string name="sun_dusk">Zmierzch</string>
     <string name="sun_dawn">Świt</string>
     <string name="moon_phase">Faza Księżyca</string>
@@ -265,7 +265,7 @@
     <string name="tool_bubble_level_summary">Sprawdź, czy powierzchnie są płaskie</string>
     <string name="tool_bubble_level_title">Poziomica</string>
     <string name="calibrate_compass_dialog_title">Kalibracja kompasu</string>
-    <string name="pref_calibrate_compass_btn_title">Kalibracja</string>
+    <string name="calibrate">Kalibracja</string>
     <string name="pref_ruler_calibration_summary">"Protokół kalibracji:
 \n-  Ustaw tę wartość na 1.
 \n- Zmierz wartość linijki programu Trail Sense odpowiadającą jednej jednostce fizycznej linijki.

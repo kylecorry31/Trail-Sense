@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.maps.infrastructure.TrailSenseMaps
 
 enum class QuickActionType(val id: Int) {
     None(-1),
@@ -25,7 +24,7 @@ object QuickActionUtils {
             QuickActionType.Clouds -> context.getString(R.string.clouds)
             QuickActionType.Temperature -> context.getString(R.string.pref_temperature_holder_title)
             QuickActionType.Ruler -> context.getString(R.string.tool_ruler_title)
-            QuickActionType.Maps -> context.getString(R.string.trail_sense_maps)
+            QuickActionType.Maps -> context.getString(R.string.offline_maps)
             QuickActionType.Whistle -> context.getString(R.string.tool_whistle_title)
         }
     }
@@ -39,7 +38,7 @@ object QuickActionUtils {
             QuickActionType.Ruler
         )
 
-        if (TrailSenseMaps.isInstalled(context)){
+        if (UserPreferences(context).experimentalEnabled){
             list.add(QuickActionType.Maps)
         }
 

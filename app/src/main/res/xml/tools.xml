@@ -59,8 +59,9 @@
         app:iconSpaceReserved="false">
         <Preference
             android:icon="@drawable/maps"
-            android:title="@string/trail_sense_maps"
-            app:key="@string/tool_trail_sense_maps"
+            android:title="@string/offline_maps"
+            android:summary="@string/experimental"
+            app:key="@string/tool_offline_maps"
             app:singleLineTitle="false" />
         <Preference
             android:icon="@drawable/ic_tool_backtrack"

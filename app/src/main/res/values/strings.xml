@@ -18,7 +18,7 @@
     <string name="dialog_deny">No thanks</string>
     <!--Disclaimer-->
     <string name="disclaimer_message_title">Disclaimer</string>
-    <string name="disclaimer_message_content">Trail Sense is a tool that can be used in a survival situation, but you should not rely solely upon it. Please validate its accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
+    <string name="disclaimer_message_content">Trail Sense is a tool that can be used in a survival situation, but you should not rely solely upon it. This app is intended for informational purposes only and it\'s accuracy may vary based on your device and current environmental conditions. Please validate its accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
     <!--Navigation Tab - Unit Formats-->
     <string name="precise_feet_format">%s ft</string>
     <string name="precise_miles_format">%s mi</string>
@@ -76,7 +76,8 @@
     <!--Navigation Tab - Destination Panel-->
     <string name="eta">~ %s away</string>
     <!--Navigation Tab - Beacon List-->
-    <string name="beacon_list_title">Select Beacon</string>
+    <string name="select_beacon">Select Beacon</string>
+    <string name="all_beacons">All beacons</string>
     <string name="delete_beacon">Delete beacon</string>
     <string name="edit_beacon">Edit beacon</string>
     <string name="no_beacons">No beacons</string>
@@ -186,7 +187,7 @@
     <string name="sun_dawn">Dawn</string>
     <string name="sun_dusk">Dusk</string>
     <!--Tools-->
-    <string name="trail_sense_maps">Offline Maps</string>
+    <string name="offline_maps">Offline Maps</string>
     <!--Inclinometer-->
     <string name="inclinometer_title">Inclinometer</string>
     <string name="tool_inclinometer_summary">Estimate avalanche risks and the height of objects</string>
@@ -259,7 +260,7 @@
     <!--    A message which appears when the declination is updated from the GPS on the calibration page-->
     <string name="declination_override_updated_toast">Declination override updated</string>
     <string name="pref_auto_declination_summary">Based on your current location</string>
-    <string name="pref_calibrate_compass_btn_title">Calibrate</string>
+    <string name="calibrate">Calibrate</string>
     <string name="calibrate_compass_dialog_title">Calibrate compass</string>
     <string name="calibrate_compass_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.
@@ -459,7 +460,7 @@
     <string name="pref_altimeter_calibration_mode" translatable="false">pref_altimeter_calibration_mode</string>
     <string name="pref_sea_level_pressure_override" translatable="false">pref_sea_level_pressure_override</string>
     <string name="pref_max_beacon_distance" translatable="false">pref_max_beacon_distance</string>
-    <string name="tool_trail_sense_maps" translatable="false">tool_trail_sense_maps</string>
+    <string name="tool_offline_maps" translatable="false">tool_offline_maps</string>
     <string name="error_occurred">An error occurred</string>
     <string name="error_occurred_message">Trail Sense ran into an error and will close. Please email the developer to get this issue fixed.</string>
     <string name="tool_user_guide_title">User Guide</string>
@@ -850,6 +851,7 @@
     <string name="right_quick_action">Right quick action</string>
     <string name="tool_tides" translatable="false">tool_tides</string>
     <string name="tides_experimental">Tides (experimental)</string>
+    <string name="experimental">Experimental</string>
     <string name="tides">Tides</string>
     <string name="high_tide">High Tide</string>
     <string name="low_tide">Low Tide</string>
@@ -864,7 +866,7 @@
     <string name="pref_daily_weather_time_holder" translatable="false">pref_daily_weather_time_holder</string>
     <string name="pref_daily_weather_time_title">Daily weather time</string>
     <string name="pref_daily_weather_time" translatable="false">pref_daily_weather_time</string>
-    <string name="experimental_features">Tides and white noise</string>
+    <string name="experimental_features">Tides, white noise, and maps</string>
     <string name="tide_calibration">Tide Calibration</string>
     <string name="screen_flashlight">Screen</string>
     <string name="speedometer_real_time">Real Time</string>
@@ -907,4 +909,8 @@
     <string name="guide_using_printed_maps_desc">How to use printed maps with Trail Sense</string>
     <string name="pedometer_disclaimer">The accuracy and battery usage of the pedometer is dependent on your device\'s manufacturer and the stride length entered. Try it out at home for a bit to verify battery drain and accuracy before using on the trail.</string>
     <string name="speedometer_odometer_accuracy_dialog">For the best accuracy, enable Backtrack and set the odometer source to pedometer in settings.</string>
+    <string name="rename">Rename</string>
+    <string name="no_maps">No maps</string>
+    <string name="on_map">On map</string>
+    <string name="select_map_image">Select map image</string>
 </resources>

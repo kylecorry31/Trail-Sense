@@ -6,67 +6,53 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/beacon_title"
+        android:id="@+id/map_list_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        android:text="@string/select_beacon"
+        android:text="@string/offline_maps"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/beacon_recycler"
-        android:layout_width="0dp"
+        android:id="@+id/map_list"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:paddingBottom="96dp"
         android:clipToPadding="false"
+        android:paddingBottom="96dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beacon_title" />
+        app:layout_constraintTop_toBottomOf="@id/map_list_title" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/create_beacon_btn"
+        android:id="@+id/add_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/colorPrimary"
         android:clickable="true"
-        app:backgroundTint="@color/colorPrimary"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_plus" />
+        app:srcCompat="@drawable/ic_add" />
 
     <TextView
-        android:id="@+id/beacon_empty_text"
+        android:id="@+id/map_empty_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_beacons"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="@string/no_maps"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/beacon_recycler"
+        app:layout_constraintTop_toTopOf="@+id/map_list"
         tools:visibility="visible" />
-
-    <ImageButton
-        android:id="@+id/import_export_beacons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/beacon_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@android:color/transparent"
-        android:tint="?android:textColorSecondary"
-        app:layout_constraintTop_toTopOf="@+id/beacon_title"
-        app:srcCompat="@drawable/ic_import_export" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

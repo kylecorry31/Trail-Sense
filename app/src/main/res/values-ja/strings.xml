@@ -5,7 +5,7 @@
     <string name="settings">設定</string>
     <string name="create_beacon_title">ビーコンを追加</string>
     <string name="name_hint">名前</string>
-    <string name="beacon_list_title">ビーコンを選択</string>
+    <string name="select_beacon">ビーコンを選択</string>
     <string name="dialog_ok">OK</string>
     <string name="delete_beacon">ビーコンを削除</string>
     <string name="dialog_cancel">キャンセル</string>
@@ -150,7 +150,7 @@
     <string name="compass_reported_accuracy">Reported accuracy: %s</string>
     <string name="calibrate_compass_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.</string>
     <string name="calibrate_compass_dialog_title">Calibrate compass</string>
-    <string name="pref_calibrate_compass_btn_title">Calibrate</string>
+    <string name="calibrate">Calibrate</string>
     <string name="pref_auto_declination_summary">Based on your current location</string>
     <string name="declination_override_updated_toast">Declination override updated</string>
     <string name="compass_declination">Declination</string>
@@ -235,7 +235,7 @@
     <string name="increase">+</string>
     <string name="direction_south_west">南西</string>
     <string name="direction_north_west">北西</string>
-    <string name="direction_south_east">南西</string>
+    <string name="direction_south_east">南東</string>
     <string name="direction_north_east">北東</string>
     <string name="direction_west">西</string>
     <string name="direction_east">東</string>
