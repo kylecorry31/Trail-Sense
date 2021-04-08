@@ -470,7 +470,7 @@
     <string name="notes_empty_text">Keine Notizen</string>
     <string name="tool_metal_detector_title">Metalldetektor</string>
     <string name="threshold">Schwellenwert</string>
-    <string name="metal_detected">Metall detektiert</string>
+    <string name="metal_detected">Metal erkannt</string>
     <string name="clock_sync_time_settings">Einstellungen zur Zeit öffnen\?</string>
     <string name="notification_channel_clock_sync_description">Eine Benachrichtigung, um deine Uhr mit der GPS-Zeit zu synchronisieren</string>
     <string name="beacon_2">Wegpunkt 2</string>
@@ -534,7 +534,7 @@
     <string name="bearing">Richtung</string>
     <string name="clock_sync_notification">Zeit-Synchronisation - %s</string>
     <string name="could_not_triangulate">Triangulation fehlgeschlagen</string>
-    <string name="strobe_warning_title">Blinklicht</string>
+    <string name="strobe_warning_title">Stroboskob / Blitzlicht</string>
     <string name="toast_destination_bearing_set">Zielrichtung gesetzt</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="waypoint_beacon_title_template">%s, %s Wegpunkt</string>
