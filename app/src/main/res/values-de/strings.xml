@@ -173,12 +173,12 @@
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_setpoint_format">Setze %s - %s früher</string>
     <string name="pressure_reading_time_ago">%s - %s früher</string>
-    <string name="accuracy_info">"GPS: Gehen Sie nach draußen mit unverstelltem Blick zum Himmel.
-\n    %s von aktuellem Standort
-\n    %s von aktueller Höhe
+    <string name="accuracy_info">"GPS: gehen Sie nach draußen mit einem freien Blick auf den Himmel.
+\n    %s der aktuellen Position
+\n    %s der aktuellen Höhe
 \n    %s Satelliten
 \n
-\nKompass: Rotieren Sie das Gerät in Form einer 8 und entfernen Sie sich von Metallgegeständen."</string>
+\nEntfernen Sie sich von Metallgegenständen und rotieren Sie das Gerät in Form einer 8."</string>
     <string name="altitude">Höhe</string>
     <string name="pref_altimeter_calibration_title">Höhenmesser</string>
     <string name="request_permission">Berechtigung anfordern</string>
@@ -379,28 +379,28 @@
     <string name="max_depth">Max.: %s</string>
     <string name="cliff_height_guide_description">Wie man die Höhe einer Klippe oder eins Sprunges abschätzt</string>
     <string name="cliff_height_guide">Höhe einer Klippe abschätzen</string>
-    <string name="tool_cliff_height_disclaimer">Nur wenn es sicher ist verwenden. Achten Sie darauf, zu überprüfen, was sich unterhalb der Klippe befindet, um Verletzungen zu vermeiden. Anweisungen hierzu finden Sie im Benutzerhandbuch.</string>
-    <string name="tool_cliff_height_description">Die Höhe einer Klippe oder eines Sprunges messen</string>
+    <string name="tool_cliff_height_disclaimer">Tool nur benutzen, wenn es sicher ist. Überprüfen, was sich unter der Klippe befindet, um Verletzungen zu vermeiden. Bedienungsanleitung lesen für Verwendungsanweisungen.</string>
+    <string name="tool_cliff_height_description">Höhe einer Klippe oder Versenkung messen</string>
     <string name="tool_cliff_height_title">Höhe einer Klippe</string>
     <string name="object_height_guide_description">Wie man die Höhe von Objekten abschätzt</string>
     <string name="object_height_guide">Höhe von Objekten abschätzen</string>
     <string name="guide_avalanche_risk">Lawinengefahr bestimmen</string>
-    <string name="guide_avalanche_description">Wie man die Lawinengefahr bestimmt</string>
+    <string name="guide_avalanche_description">Wie man das Lawinenrisiko feststellt</string>
     <string name="item_amount_hint">Anzahl</string>
     <string name="item_name_hint">Name</string>
     <string name="depth_disclaimer">Verwendung auf eigenes Risiko.
 \n
-\nNicht ohne wasserdichtes Gehäuse verwenden und wenn möglich in sicherer Tauchdistanz bleiben.</string>
+\nNicht ohne wasserdichtes Gehäuse verwenden und in einer sicheren Tauchtiefe bleiben.</string>
     <string name="tool_depth_summary">Wassertiefe bestimmen</string>
     <string name="tool_depth_title">Tiefe</string>
     <string name="tool_inventory_summary">Den Überblick über vorhandene Gegenstände behalten</string>
     <string name="category_safety">Sicherheit</string>
     <string name="category_shelter">Unterstand</string>
     <string name="category_fire">Feuer</string>
-    <string name="category_medical">Medizinisches Equipement</string>
-    <string name="category_clothing">Kleidung</string>
-    <string name="category_hydration">Trinken</string>
-    <string name="category_food">Essen</string>
+    <string name="category_medical">Medizinisches Equipment</string>
+    <string name="category_clothing">Bekleidung</string>
+    <string name="category_hydration">Flüssigkeiten</string>
+    <string name="category_food">Lebensmittel</string>
     <string name="category_other">Sonstiges</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="tool_lightning_title">Blitz-Entfernung</string>
@@ -471,7 +471,7 @@
     <string name="tool_metal_detector_title">Metalldetektor</string>
     <string name="threshold">Schwellenwert</string>
     <string name="metal_detected">Metall detektiert</string>
-    <string name="clock_sync_time_settings">Zeit-Einstellungen öffnen\?</string>
+    <string name="clock_sync_time_settings">Einstellungen zur Zeit öffnen\?</string>
     <string name="notification_channel_clock_sync_description">Eine Benachrichtigung, um deine Uhr mit der GPS-Zeit zu synchronisieren</string>
     <string name="beacon_2">Wegpunkt 2</string>
     <string name="beacon_1">Wegpunkt 1</string>
@@ -516,7 +516,7 @@
     <string name="charging_fast">Batterie lädt schnell (%s)</string>
     <string name="discharging_fast">Schnelle Entladung (%s)</string>
     <string name="discharging_slow">Langsame Entladung (%s)</string>
-    <string name="category_natural">natürlich</string>
+    <string name="category_natural">Natürlich</string>
     <string name="battery_power_usb">USB</string>
     <string name="low_power_mode_on_message">Energiespar-Modus ist eingeschaltet, einige Features können ausgeschaltet sein.</string>
     <string name="pref_low_power_mode_title">Energiespar-Modus</string>
@@ -656,7 +656,7 @@
     <string name="no_gps_signal">Kein GPS-Signal</string>
     <string name="no_temperature_history">Keine Temperatur-Historie</string>
     <string name="low">Niedrig</string>
-    <string name="moderate">Mittel</string>
+    <string name="moderate">Moderat</string>
     <string name="high">Hoch</string>
     <string name="battery_usage">%s Batterienutzung</string>
     <string name="service_update_frequency">Aktualisiere alle %s</string>
@@ -691,12 +691,12 @@
 \n- Machen Sie Notizen und behalten Sie den Überblick über die Dinge, die Sie dabei haben
 \n
 \n- Finden Sie heruntergefallene Dinge aus Eisen oder Stahl</string>
-    <string name="onboarding_astronomy">- Erhalte Informationen zu Auf-/Untergang der Sonne und des Mondes
+    <string name="onboarding_astronomy">- Erhalten Sie Informationen zu Auf-/Untergangzeiten der Sonne und des Mondes
 \n
-\n- warnt dich, wenn die Sonne in Kürze untergehen wird
+\n- warnt Sie, wenn die Sonne in Kürze untergehen wird
 \n
-\n- finde die Position der Sonne und des Mondes mithilfe des Kompasses</string>
-    <string name="onboarding_weather">- Erhalte lokale Vorhersagen durch das Barometer des Smartphones
+\n- finden Sie die Position der Sonne und des Mondes mithilfe des Kompasses</string>
+    <string name="onboarding_weather">- Erhalten Sie lokale Vorhersagen durch das Barometer des Smartphones
 \n
 \n- Nutzt keine Internetverbindung
 \n
@@ -713,4 +713,42 @@
     <string name="pref_require_satellites_title">Mehr Satelliten erforderlich</string>
     <string name="your_height">Ihre Körpergröße</string>
     <string name="delete_tide_prompt">Gezeiten löschen\?</string>
+    <string name="right_quick_action">Rechter Schnellzugriff</string>
+    <string name="left_quick_action">Linker Schnellzugriff</string>
+    <string name="guide_using_printed_maps_desc">Wie man gedruckte Karten mit Trail Sense verwendet</string>
+    <string name="guide_using_printed_maps">Gedruckte Karte verwenden</string>
+    <string name="guide_navigation_description">Wie man mit Trail Sense navigiert</string>
+    <string name="guide_signaling_for_help_description">Wie man signalisiert, dass man Hilfe braucht</string>
+    <string name="pref_meteor_showers_title">Meteorschauer</string>
+    <string name="meteors_per_hour">Maximal %d Meteore pro Stunde</string>
+    <string name="tomorrow_at">Morgen um %s</string>
+    <string name="meteor_shower">Meteorschauer</string>
+    <string name="untitled_tide">Unbenannte Gezeit</string>
+    <string name="menu">Menü</string>
+    <string name="no_tides">Keine Gezeiten</string>
+    <string name="pedometer">Schrittzähler</string>
+    <string name="odometer">Kilometerzähler</string>
+    <string name="tool_speedometer_odometer_title">Geschwindigkeitsanzeige / Kilometerzähler</string>
+    <string name="speedometer">Geschwindigkeitsanzeige</string>
+    <string name="screen_flashlight">Bildschirm</string>
+    <string name="tide_calibration">Gezeitenkalibrierung</string>
+    <string name="experimental_features">Gezeiten und weißes Rauschen</string>
+    <string name="date_not_set">Datum nicht festgelegt</string>
+    <string name="time_not_set">Zeit nicht festgelegt</string>
+    <string name="tide_calibration_instructions">Setzen Sie die Zeit während einer Flut, wenn möglich während einer Neu- oder Vollmonds. Das kann im Internet oder über gedruckte Gezeitentabellen herausgefunden werden. Die Gezeiten, die in Trail Sense gezeigt werden, können bis zu zwei Stunden von den realen Zeiten abweichen, was genug als Referenz ist, allerdings sollten Sie sich nicht alleine darauf verlassen.</string>
+    <string name="half_tide">Gezeitenmitte</string>
+    <string name="low_tide">Ebbe</string>
+    <string name="high_tide">Flut</string>
+    <string name="tides">Gezeiten</string>
+    <string name="tides_experimental">Gezeiten (experimentell)</string>
+    <string name="weather_same_as_today">So wie heute</string>
+    <string name="weather_worse_than_today">Schlechter als heute</string>
+    <string name="weather_better_than_today">Besser als heute</string>
+    <string name="tomorrows_forecast">Vorhersage für morgen</string>
+    <string name="guide_light_meter_description">Wie man die Reichweite einer Taschenlampe herausfindet</string>
+    <string name="set">Festlegen</string>
+    <string name="tool_light_meter_description">Reichweite einer Taschenlampe messen</string>
+    <string name="tool_light_meter_title">Lichtmeter</string>
+    <string name="beam_distance">%s Reichweite</string>
+    <string name="stratocumulus_desc">Rollende Massen, die eine Platte formen.</string>
 </resources>
