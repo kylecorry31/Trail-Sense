@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,6 +47,8 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private var boundMap = mutableMapOf<Long, MapRegion>()
     private var bitmaps = mutableMapOf<Long, Bitmap>()
 
+    private var mapName = ""
+
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
@@ -57,7 +60,18 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.addBtn.setOnClickListener {
-            createMap()
+            CustomUiUtils.pickText(
+                requireContext(),
+                getString(R.string.create_map),
+                getString(R.string.create_map_description),
+                null,
+                hint = getString(R.string.name_hint)
+            ) {
+                if (it != null) {
+                    mapName = it
+                    createMap()
+                }
+            }
         }
 
         mapList = ListView(binding.mapList, R.layout.list_item_map) { itemView: View, map: Map ->
@@ -92,7 +106,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     val onMap = bounds.contains(gps.location)
                     val distance = gps.location.distanceTo(bounds.center)
 
-                    if (onMap || distance < 5000){
+                    if (onMap || distance < 5000) {
                         val bitmap = CustomUiUtils.decodeBitmapScaled(
                             file.path,
                             CustomUiUtils.dp(requireContext(), 64f).toInt(),
@@ -156,7 +170,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 stream.close()
 
                 // TODO: Ask for map name
-                mapRepo.addMap(Map(0, "Untitled", filename, listOf()))
+                mapRepo.addMap(Map(0, mapName, filename, listOf()))
             }
 
         }

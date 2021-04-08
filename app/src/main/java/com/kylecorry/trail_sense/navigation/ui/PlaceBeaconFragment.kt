@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -46,6 +48,8 @@ class PlaceBeaconFragment : Fragment() {
     private val compass by lazy { sensorService.getCompass() }
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+
+    private lateinit var backCallback: OnBackPressedCallback
 
     private lateinit var groups: List<BeaconGroup>
 
@@ -229,7 +233,7 @@ class PlaceBeaconFragment : Fragment() {
             updateDoneButtonState()
         }
 
-        CustomUiUtils.promptIfUnsavedChanges(requireActivity(), this, this::hasChanges)
+        backCallback = CustomUiUtils.promptIfUnsavedChanges(requireActivity(), this, this::hasChanges)
 
         binding.placeBeaconBtn.setOnClickListener {
             val name = binding.beaconName.text.toString()
@@ -286,6 +290,7 @@ class PlaceBeaconFragment : Fragment() {
                     }
 
                     withContext(Dispatchers.Main){
+                        backCallback.remove()
                         if (initialLocation != null) {
                             requireActivity().onBackPressed()
                         } else {

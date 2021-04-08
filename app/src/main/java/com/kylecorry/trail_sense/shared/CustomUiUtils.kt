@@ -6,9 +6,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.TypedValue
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.PopupMenu
+import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
@@ -62,26 +61,32 @@ object CustomUiUtils {
         }
     }
 
-    fun promptIfUnsavedChanges(activity: FragmentActivity, owner: LifecycleOwner, hasChanges: () -> Boolean){
-        activity.onBackPressedDispatcher.addCallback(owner) {
-            if (hasChanges()) {
-                UiUtils.alertWithCancel(
-                    activity,
-                    activity.getString(R.string.unsaved_changes),
-                    activity.getString(R.string.unsaved_changes_message),
-                    activity.getString(R.string.dialog_leave),
-                    activity.getString(R.string.dialog_cancel)
-                ) { cancelled ->
-                    if (!cancelled) {
-                        remove()
-                        activity.onBackPressed()
+    fun promptIfUnsavedChanges(activity: FragmentActivity, owner: LifecycleOwner, hasChanges: () -> Boolean): OnBackPressedCallback {
+        val callback = object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (hasChanges()) {
+                    UiUtils.alertWithCancel(
+                        activity,
+                        activity.getString(R.string.unsaved_changes),
+                        activity.getString(R.string.unsaved_changes_message),
+                        activity.getString(R.string.dialog_leave),
+                        activity.getString(R.string.dialog_cancel)
+                    ) { cancelled ->
+                        if (!cancelled) {
+                            remove()
+                            activity.onBackPressed()
+                        }
                     }
+                } else {
+                    remove()
+                    activity.onBackPressed()
                 }
-            } else {
-                remove()
-                activity.onBackPressed()
             }
         }
+
+        activity.onBackPressedDispatcher.addCallback(owner, callback)
+
+        return callback
     }
 
     fun pickDistance(context: Context, units: List<DistanceUnits>, default: Distance? = null, title: String, onDistancePick: (distance: Distance?) -> Unit) {
@@ -114,6 +119,35 @@ object CustomUiUtils {
             onBeaconPick.invoke(it)
             alert.dismiss()
         }
+    }
+
+    fun pickText(context: Context, title: String?, description: String?, default: String?, hint: String? = null, onTextEnter: (text: String?) -> Unit){
+        val layout = FrameLayout(context)
+        val editTextView = EditText(context)
+        editTextView.setText(default)
+        editTextView.hint = hint
+        layout.setPadding(64, 0, 64, 0)
+        layout.addView(editTextView)
+
+        val builder = AlertDialog.Builder(context)
+        builder.apply {
+            setTitle(title)
+            if (description != null) {
+                setMessage(description)
+            }
+            setView(layout)
+            setPositiveButton(context.getString(R.string.dialog_ok)) { dialog, _ ->
+                onTextEnter.invoke(editTextView.text.toString())
+                dialog.dismiss()
+            }
+            setNegativeButton(context.getString(R.string.dialog_cancel)) { dialog, _ ->
+                onTextEnter.invoke(null)
+                dialog.dismiss()
+            }
+        }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
     fun openMenu(anchorView: View, @MenuRes menu: Int, onSelection: (itemId: Int) -> Boolean){

@@ -90,7 +90,7 @@
     <string name="share_action_copy">Copy</string>
     <string name="share_action_geo">Maps</string>
     <!--Navigation Tab - Create beacon-->
-    <string name="create_beacon_title">Drop Beacon</string>
+    <string name="create_beacon_title">Create Beacon</string>
     <string name="name_hint">Name</string>
     <string name="beacon_invalid_name">Invalid name</string>
     <string name="beacon_invalid_elevation">Invalid elevation</string>
@@ -913,4 +913,7 @@
     <string name="no_maps">No maps</string>
     <string name="on_map">On map</string>
     <string name="select_map_image">Select map image</string>
+    <string name="place_beacon_at">Place a beacon at %s?</string>
+    <string name="create_map">Create map</string>
+    <string name="create_map_description">Enter the name of the map</string>
 </resources>

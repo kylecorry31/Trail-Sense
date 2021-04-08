@@ -13,10 +13,8 @@ import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.tools.maps.domain.*
 import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
-import com.kylecorry.trail_sense.tools.maps.domain.PixelCoordinate
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -41,6 +39,8 @@ class PrintedMapView : View {
     private var destination: Beacon? = null
     private var mapX = 0f
     private var mapY = 0f
+
+    private var beaconCircles = listOf<Pair<Beacon, PixelCircle>>()
 
     private val fileService by lazy { LocalFileService(context) }
 
@@ -92,10 +92,19 @@ class PrintedMapView : View {
         }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            // TODO: Determine if a beacon was tapped, if so call a callback
             if (mapImage != null) {
                 val xMap = e.x / scale - mapX
                 val yMap = e.y / scale - mapY
+
+                val relativeClick = PixelCoordinate(e.x / scale, e.y / scale)
+                val circles = beaconCircles.sortedBy { it.second.center.distanceTo(relativeClick) }
+                for (circle in circles){
+                    if (circle.second.contains(relativeClick)){
+                        onSelectBeacon?.invoke(circle.first)
+                        return super.onSingleTapConfirmed(e)
+                    }
+                }
+
                 val percent = PercentCoordinate(xMap / mapImage!!.width, yMap / mapImage!!.height)
                 onMapImageClick?.invoke(percent)
             }
@@ -263,18 +272,26 @@ class PrintedMapView : View {
     }
 
     private fun drawBeacons(canvas: Canvas) {
+        val circles = mutableListOf<Pair<Beacon, PixelCircle>>()
         for (beacon in beacons) {
             val coord = getPixelCoordinate(beacon.coordinate)
             if (coord != null) {
-                if (beacon.id == destination?.id){
-                    // Do something special - like border or something
+                val alpha = if (beacon.id == destination?.id || destination == null){
+                    255
+                } else {
+                    200
                 }
                 paint.color = Color.WHITE
+                paint.alpha = alpha
+                circles.add(beacon to PixelCircle(PixelCoordinate(mapX + coord.x, mapY + coord.y), 3 * (iconSize / 2f + dp(1f))))
                 canvas.drawCircle(mapX + coord.x, mapY + coord.y, (iconSize / 2f + dp(1f)) / scale, paint)
                 paint.color = primaryColor
+                paint.alpha = alpha
                 canvas.drawCircle(mapX + coord.x, mapY + coord.y, (iconSize / 2f) / scale, paint)
+                paint.alpha = 255
             }
         }
+        beaconCircles = circles
     }
 
     private fun drawCalibrationPoints(canvas: Canvas) {
