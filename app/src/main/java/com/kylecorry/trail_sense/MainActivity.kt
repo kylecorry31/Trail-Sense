@@ -141,6 +141,8 @@ class MainActivity : AppCompatActivity() {
 
         if (userPrefs.usePedometer){
             PedometerService.start(this)
+        } else {
+            PedometerService.stop(this)
         }
 
         if (!sensorChecker.hasBarometer()) {

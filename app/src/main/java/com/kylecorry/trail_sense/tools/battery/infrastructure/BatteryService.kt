@@ -15,6 +15,16 @@ class BatteryService {
         val prefs = UserPreferences(context)
         var services = mutableListOf<RunningService>()
 
+        // Odometer
+        if (prefs.usePedometer && !prefs.isLowPowerModeOn){
+            services.add(
+                RunningService(
+                    context.getString(R.string.pedometer),
+                    Duration.ZERO
+                )
+            )
+        }
+
         // Backtrack
 
         if (prefs.backtrackEnabled && !prefs.isLowPowerModeOn) {

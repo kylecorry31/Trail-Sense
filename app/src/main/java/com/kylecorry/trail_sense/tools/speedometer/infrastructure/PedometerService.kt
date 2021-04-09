@@ -85,6 +85,10 @@ class PedometerService : ForegroundService() {
         }
 
         fun start(context: Context) {
+            if (UserPreferences(context).isLowPowerModeOn){
+                return
+            }
+
             if (!PermissionUtils.hasPermission(context, Manifest.permission.ACTIVITY_RECOGNITION)) {
                 return
             }

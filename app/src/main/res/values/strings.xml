@@ -916,4 +916,6 @@
     <string name="place_beacon_at">Place a beacon at %s?</string>
     <string name="create_map">Create map</string>
     <string name="create_map_description">Enter the name of the map</string>
+    <string name="guide_importing_maps_title">Importing maps</string>
+    <string name="guide_importing_maps_desc">How to import and use maps in Trail Sense</string>
 </resources>

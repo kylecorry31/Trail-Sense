@@ -283,7 +283,7 @@ class PrintedMapView : View {
                 }
                 paint.color = Color.WHITE
                 paint.alpha = alpha
-                circles.add(beacon to PixelCircle(PixelCoordinate(mapX + coord.x, mapY + coord.y), 3 * (iconSize / 2f + dp(1f))))
+                circles.add(beacon to PixelCircle(PixelCoordinate(mapX + coord.x, mapY + coord.y), 3 * (iconSize / 2f + dp(2f)) / scale))
                 canvas.drawCircle(mapX + coord.x, mapY + coord.y, (iconSize / 2f + dp(1f)) / scale, paint)
                 paint.color = primaryColor
                 paint.alpha = alpha

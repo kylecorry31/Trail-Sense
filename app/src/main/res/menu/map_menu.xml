@@ -4,6 +4,9 @@
         android:id="@+id/action_map_calibrate"
         android:title="@string/calibrate" />
     <item
+        android:id="@+id/action_map_guide"
+        android:title="@string/tool_user_guide_title"/>
+    <item
         android:id="@+id/action_map_rename"
         android:title="@string/rename" />
     <item

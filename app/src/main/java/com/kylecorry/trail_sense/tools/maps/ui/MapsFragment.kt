@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
@@ -123,6 +124,9 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                                 requireActivity().onBackPressed()
                             }
                         }
+                    }
+                    R.id.action_map_guide -> {
+                        UserGuideUtils.openGuide(this, R.raw.importing_maps)
                     }
                     R.id.action_map_rename -> {
                         CustomUiUtils.pickText(

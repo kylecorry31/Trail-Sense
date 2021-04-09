@@ -18,9 +18,11 @@ import com.kylecorry.trail_sense.databinding.ListItemMapBinding
 import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapRegion
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
@@ -40,6 +42,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val fileService by lazy { LocalFileService(requireContext()) }
     private val localFileService by lazy { LocalFileService(requireContext()) }
+    private val cache by lazy { Cache(requireContext()) }
 
     private lateinit var mapList: ListView<Map>
     private var maps: List<Map> = listOf()
@@ -58,6 +61,21 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (cache.getBoolean("tool_maps_experimental_disclaimer_shown") != true) {
+            UiUtils.alertWithCancel(
+                requireContext(),
+                getString(R.string.experimental),
+                "Offline Maps is an experimental feature, please only use this to test it out at this point. Feel free to share your feedback on this feature and note that there is still a lot to be done before this will be non-experimental.",
+                getString(R.string.tool_user_guide_title),
+                getString(R.string.dialog_ok)
+            ) { cancelled ->
+                cache.putBoolean("tool_maps_experimental_disclaimer_shown", true)
+                if (!cancelled) {
+                    UserGuideUtils.openGuide(this, R.raw.importing_maps)
+                }
+            }
+        }
 
         binding.addBtn.setOnClickListener {
             CustomUiUtils.pickText(

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared
 import android.app.Activity
 import android.content.Context
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 
 class LowPowerMode(val context: Context) {
@@ -18,6 +19,9 @@ class LowPowerMode(val context: Context) {
         if (prefs.lowPowerModeDisablesBacktrack) {
             BacktrackScheduler.stop(context)
         }
+
+        PedometerService.stop(context)
+
         activity?.recreate()
     }
 
@@ -36,6 +40,10 @@ class LowPowerMode(val context: Context) {
 
         if (prefs.backtrackEnabled) {
             BacktrackScheduler.start(context)
+        }
+
+        if (prefs.usePedometer){
+            PedometerService.start(context)
         }
     }
 
