@@ -137,7 +137,7 @@ class PrintedMapView : View {
             paint = Paint(Paint.ANTI_ALIAS_FLAG)
             paint.textAlign = Paint.Align.CENTER
             iconSize = dp(8f).toInt()
-            directionSize = dp(14f).toInt()
+            directionSize = dp(10f).toInt()
             compassSize = min(height, width) - 2 * iconSize - 2 * dp(2f).toInt()
             isInit = true
             distanceSize = sp(8f)
