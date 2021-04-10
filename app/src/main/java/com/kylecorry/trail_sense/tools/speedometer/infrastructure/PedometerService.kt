@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.services.ForegroundService
 import com.kylecorry.trailsensecore.domain.units.Distance
+import com.kylecorry.trailsensecore.infrastructure.sensors.pedometer.Pedometer
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils

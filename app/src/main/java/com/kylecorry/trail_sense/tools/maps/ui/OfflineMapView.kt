@@ -14,17 +14,21 @@ import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.maps.domain.*
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trailsensecore.domain.geo.cartography.Map
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
+import com.kylecorry.trailsensecore.domain.pixels.PixelCircle
+import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.max
 import kotlin.math.min
 
 
-class PrintedMapView : View {
+class OfflineMapView : View {
     private lateinit var paint: Paint
     private val icons = mutableMapOf<Int, Bitmap>()
     private var beacons = listOf<Beacon>()

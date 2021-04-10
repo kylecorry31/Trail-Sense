@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="@id/map_name"
         app:srcCompat="@drawable/ic_menu_dots" />
 
-    <com.kylecorry.trail_sense.tools.maps.ui.PrintedMapView
+    <com.kylecorry.trail_sense.tools.maps.ui.OfflineMapView
         android:id="@+id/map"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
+import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
+import com.kylecorry.trailsensecore.domain.geo.cartography.Map
 
 @Entity(tableName = "maps")
 data class MapEntity(

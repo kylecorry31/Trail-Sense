@@ -45,6 +45,11 @@ object Guides {
                     context.getString(R.string.guide_location_no_gps_title),
                     context.getString(R.string.guide_location_no_gps_description),
                     R.raw.determine_location_without_gps
+                ),
+                UserGuide(
+                    context.getString(R.string.guide_speedometer_title),
+                    context.getString(R.string.guide_speedometer_desc),
+                    R.raw.speed_distance
                 )
             )
         )

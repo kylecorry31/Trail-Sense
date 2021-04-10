@@ -920,4 +920,6 @@
     <string name="guide_importing_maps_desc">How to import and use maps in Trail Sense</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
+    <string name="guide_speedometer_title">Determine speed and distance</string>
+    <string name="guide_speedometer_desc">How to determine distance travelled and arrival times</string>
 </resources>

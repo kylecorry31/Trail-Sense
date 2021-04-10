@@ -15,3 +15,4 @@
 <h4>Permissions</h4>
 <p>Location (fine, background): Used for beacon navigation, True North, barometer altitude correction (in background), and sun/moon rise/set times</p>
 <p>Flashlight: Used for the flashlight feature on the navigation tab.</p>
+<p>Activity Recognition: Used for the pedometer based odometer, to measure distance.</p>
