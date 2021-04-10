@@ -754,7 +754,6 @@
     <string name="distance_away_not_set">odległość nie jest ustawiona</string>
     <string name="distance_away">Odległość od</string>
     <string name="your_height">Twój wzrost</string>
-    <string name="pref_nearby_radius_holder">pref_nearby_radius_holder</string>
     <string name="source">Źródło</string>
     <string name="pref_stride_length_title">Długość kroku</string>
     <string name="pedometer">Krokomierz</string>

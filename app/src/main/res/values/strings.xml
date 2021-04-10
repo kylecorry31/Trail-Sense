@@ -918,4 +918,6 @@
     <string name="create_map_description">Enter the name of the map</string>
     <string name="guide_importing_maps_title">Importing maps</string>
     <string name="guide_importing_maps_desc">How to import and use maps in Trail Sense</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
 </resources>

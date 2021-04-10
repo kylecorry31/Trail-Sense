@@ -746,7 +746,6 @@
     <string name="distance_away_not_set">距离未设定</string>
     <string name="distance_away">距离</string>
     <string name="your_height">你的身高</string>
-    <string name="pref_nearby_radius_holder">pref_nearby_radius_holder</string>
     <string name="pref_nearby_radar_title">显示附近的雷达罗盘</string>
     <string name="source">源</string>
     <string name="pref_stride_length_title">步幅</string>
@@ -759,9 +758,6 @@
     <string name="tide_location_label">潮汐位置 (可选)</string>
     <string name="tides">潮汐</string>
     <string name="delete_tide_prompt">删除潮汐？</string>
-    <string name="tomorrow_morning">明早</string>
-    <string name="tonight">今晚</string>
-    <string name="morning">清晨</string>
     <string name="meteor_shower">流星雨</string>
     <string name="guide_signaling_for_help_description">如何发出信号进行求救</string>
     <string name="guide_signaling_for_help_title">发出求救信号</string>
