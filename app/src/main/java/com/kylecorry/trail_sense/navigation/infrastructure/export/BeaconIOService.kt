@@ -5,6 +5,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.infrastructure.gpx.GPXParser
@@ -13,6 +15,7 @@ import com.kylecorry.trailsensecore.infrastructure.gpx.GPXWaypoint
 class BeaconIOService(private val context: Context) {
 
     private val repo by lazy { BeaconRepo.getInstance(context) }
+    private val formatService by lazy { FormatServiceV2(context) }
 
     fun export(beacons: List<Beacon>, groups: List<BeaconGroup>): String {
         val groupNames = mutableMapOf<Long, String>()
@@ -26,6 +29,7 @@ class BeaconIOService(private val context: Context) {
                 it.name,
                 it.elevation,
                 it.comment,
+                null,
                 if (it.beaconGroupId == null) null else groupNames[it.beaconGroupId]
             )
         }
@@ -44,9 +48,12 @@ class BeaconIOService(private val context: Context) {
         }
 
         val beacons = waypoints.map {
+            val name = it.name ?:
+                (if (it.time != null) formatService.formatDateTime(it.time!!.toZonedDateTime()) else null) ?:
+                formatService.formatLocation(it.coordinate)
             Beacon(
                 0,
-                it.name,
+                name,
                 it.coordinate,
                 comment = it.comment,
                 elevation = it.elevation,

@@ -59,6 +59,12 @@ class FormatServiceV2(private val context: Context) {
         )
     }
 
+    fun formatDateTime(dateTime: ZonedDateTime): String {
+        val date = formatDate(dateTime, false)
+        val time = formatTime(dateTime.toLocalTime(), false)
+        return "$date $time"
+    }
+
     fun formatDistance(distance: Distance, decimalPlaces: Int = 0): String {
         val formatted = DecimalFormatter.format(distance.distance.toDouble(), decimalPlaces)
         return when (distance.units) {
