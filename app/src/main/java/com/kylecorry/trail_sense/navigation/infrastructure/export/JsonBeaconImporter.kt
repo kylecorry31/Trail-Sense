@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trailsensecore.infrastructure.json.JsonConvert
 
-class BeaconImporter(private val context: Context) {
+class JsonBeaconImporter(private val context: Context) {
 
     private val repo by lazy { BeaconRepo.getInstance(context) }
 

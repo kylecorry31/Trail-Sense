@@ -1,17 +1,21 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.core.net.toFile
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +25,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconExport
-import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconImporter
+import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconIOService
+import com.kylecorry.trail_sense.navigation.infrastructure.export.JsonBeaconImporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -35,6 +40,7 @@ import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 import java.time.Instant
 
 
@@ -322,7 +328,7 @@ class BeaconListFragment : Fragment() {
                 val ungrouped = beaconRepo.getBeaconsInGroup(null).sortedBy {
                     it.coordinate.distanceTo(gps.location)
                 }.map { it.toBeacon() }
-                
+
                 val groups = beaconRepo.getGroupsSync().sortedBy {
                     it.name
                 }.map { it.toBeaconGroup() }
@@ -353,24 +359,35 @@ class BeaconListFragment : Fragment() {
         }
     }
 
-    private fun exportBeacons(){
-        val exportFile = "beacons-${Instant.now().epochSecond}.trailsense"
-        val intent = IntentUtils.createFile(exportFile, "text/plain")
+    private fun exportBeacons() {
+        val exportFile = "trail-sense-${Instant.now().epochSecond}.gpx"
+        val intent = IntentUtils.createFile(exportFile, "application/gpx+xml")
         startActivityForResult(intent, REQUEST_CODE_EXPORT)
     }
 
-    private fun importBeacons(){
-        val requestFileIntent = IntentUtils.pickFile("text/plain", getString(R.string.select_import_file))
+    private fun importBeacons() {
+        val requestFileIntent = IntentUtils.pickFile(
+            "*/*",
+            getString(R.string.select_import_file)
+        )
         startActivityForResult(requestFileIntent, REQUEST_CODE_IMPORT)
     }
 
-    private fun importFromUri(uri: Uri){
+    private fun importFromUri(uri: Uri) {
         lifecycleScope.launch {
             val text = externalFileService.read(uri)
             text?.let {
-                val importer = BeaconImporter(requireContext())
-                val count = withContext(Dispatchers.IO) {
-                    importer.import(text)
+                val count = if (text.startsWith("{")) {
+                    // Legacy
+                    val importer = JsonBeaconImporter(requireContext())
+                    withContext(Dispatchers.IO) {
+                        importer.import(text)
+                    }
+                } else {
+                    val importer = BeaconIOService(requireContext())
+                    withContext(Dispatchers.IO) {
+                        importer.import(text)
+                    }
                 }
                 withContext(Dispatchers.Main) {
                     UiUtils.shortToast(
@@ -383,7 +400,7 @@ class BeaconListFragment : Fragment() {
         }
     }
 
-    private fun exportToUri(uri: Uri){
+    private fun exportToUri(uri: Uri) {
         lifecycleScope.launch {
             val groups = withContext(Dispatchers.IO) {
                 if (displayedGroup == null) {
@@ -400,16 +417,14 @@ class BeaconListFragment : Fragment() {
                 }
             }
 
+            val gpx = BeaconIOService(requireContext()).export(beacons, groups)
+
+
             val success = withContext(Dispatchers.IO) {
-                val exportDto = BeaconExport(
-                    beacons.map { it.copy(visible = true, temporary = false) },
-                    groups
-                )
-                val json = JsonConvert.toJson(exportDto)
-                externalFileService.write(uri, json)
+                externalFileService.write(uri, gpx)
             }
 
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 if (success) {
                     UiUtils.shortToast(
                         requireContext(),
@@ -427,12 +442,11 @@ class BeaconListFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_IMPORT && resultCode == Activity.RESULT_OK){
+        if (requestCode == REQUEST_CODE_IMPORT && resultCode == Activity.RESULT_OK) {
             data?.data?.also { returnUri ->
                 importFromUri(returnUri)
             }
-        }
-        else if (requestCode == REQUEST_CODE_EXPORT && resultCode == Activity.RESULT_OK){
+        } else if (requestCode == REQUEST_CODE_EXPORT && resultCode == Activity.RESULT_OK) {
             data?.data?.also { returnUri ->
                 exportToUri(returnUri)
             }
