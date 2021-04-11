@@ -183,6 +183,11 @@ class NavigatorFragment : Fragment() {
             }
         }
 
+        binding.beaconBtn.setOnLongClickListener {
+            navController.navigate(R.id.place_beacon)
+            true
+        }
+
         binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
         binding.roundCompass.setOnClickListener {
