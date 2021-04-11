@@ -10,6 +10,7 @@ import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
+import java.time.Duration
 import kotlin.math.min
 
 class NavigationPreferences(private val context: Context) {
@@ -61,6 +62,12 @@ class NavigationPreferences(private val context: Context) {
 
     val useRadarCompass: Boolean
         get() = showMultipleBeacons && (cache.getBoolean(context.getString(R.string.pref_nearby_radar)) ?: false)
+
+    val showBacktrackPath: Boolean
+        get() = useRadarCompass && (cache.getBoolean(context.getString(R.string.pref_backtrack_path_radar)) ?: true)
+
+    val showBacktrackPathDuration: Duration
+        get() = Duration.ofHours(3)
 
     var maxBeaconDistance: Float
         get() {

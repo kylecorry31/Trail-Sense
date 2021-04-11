@@ -28,6 +28,8 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
+import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
@@ -73,6 +75,7 @@ class NavigatorFragment : Fragment() {
     private lateinit var destinationPanel: DestinationPanel
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
+    private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val sensorChecker by lazy { SensorChecker(requireContext()) }
@@ -85,6 +88,7 @@ class NavigatorFragment : Fragment() {
     private val formatService by lazy { FormatService(requireContext()) }
 
     private var beacons: Collection<Beacon> = listOf()
+    private var backtrack: Track? = null
     private var nearbyBeacons: Collection<Beacon> = listOf()
 
     private var destination: Beacon? = null
@@ -145,6 +149,12 @@ class NavigatorFragment : Fragment() {
         beaconRepo.getBeacons().observe(viewLifecycleOwner) {
             beacons = it.map { it.toBeacon() }
             nearbyBeacons = getNearbyBeacons()
+            updateUI()
+        }
+
+        backtrackRepo.getWaypoints().observe(viewLifecycleOwner) {
+            val waypoints = it.sortedBy { it.createdInstant }.filter { it.createdInstant > Instant.now().minus(userPrefs.navigation.showBacktrackPathDuration) }
+            backtrack = Track(waypoints.map { Waypoint(it.coordinate, it.createdInstant) })
             updateUI()
         }
 
@@ -478,6 +488,12 @@ class NavigatorFragment : Fragment() {
         binding.roundCompass.setDestination(destBearing, destColor)
         binding.radarCompass.setIndicators(indicators)
         binding.radarCompass.setAzimuth(compass.bearing)
+        binding.radarCompass.setDeclination(getDeclination())
+        binding.radarCompass.setLocation(gps.location)
+        val bt = backtrack
+        if (userPrefs.navigation.showBacktrackPath && bt != null) {
+            binding.radarCompass.setTrackHistory(Track(listOf(Waypoint(gps.location, Instant.now())) + bt.points))
+        }
         binding.radarCompass.setDestination(destBearing, destColor)
         binding.linearCompass.setIndicators(indicators)
         binding.linearCompass.setAzimuth(compass.bearing)

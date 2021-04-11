@@ -10,6 +10,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.math.deltaAngle
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.*
@@ -90,6 +91,10 @@ class RoundCompassView : View, ICompassView {
         azimuth = bearing
     }
 
+    override fun setLocation(location: Coordinate) {
+        // Nothing
+    }
+
     override fun setIndicators(indicators: List<BearingIndicator>) {
         this.indicators = indicators
     }
@@ -137,6 +142,10 @@ class RoundCompassView : View, ICompassView {
         }
         paint.colorFilter = null
         paint.alpha = 255
+    }
+
+    override fun setDeclination(declination: Float) {
+        // Do nothing for now
     }
 
     private fun getBitmap(@DrawableRes id: Int): Bitmap {

@@ -96,6 +96,16 @@
             app:singleLineTitle="false"
             app:title="@string/pref_nearby_radar_title" />
 
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_nearby_radar"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_path_radar"
+            app:singleLineTitle="false"
+            app:title="@string/pref_backtrack_path_radar_title" />
+
+        pref_backtrack_path_radar
+
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.math.deltaAngle
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.absoluteValue
@@ -237,6 +238,14 @@ class LinearCompassView : View, ICompassView {
 
     override fun setAzimuth(azimuth: Bearing) {
         this.azimuth = azimuth
+    }
+
+    override fun setDeclination(declination: Float) {
+        // Do nothing for now
+    }
+
+    override fun setLocation(location: Coordinate) {
+        // Nothing
     }
 
     override fun setIndicators(indicators: List<BearingIndicator>) {

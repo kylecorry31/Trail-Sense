@@ -923,4 +923,6 @@
     <string name="guide_speedometer_desc">How to determine distance travelled and arrival times</string>
     <string name="time_until_empty">%s until empty</string>
     <string name="map_auto_calibrated">Map auto-calibrated, please verify its accuracy</string>
+    <string name="pref_backtrack_path_radar">pref_backtrack_path_radar</string>
+    <string name="pref_backtrack_path_radar_title">Show backtrack path</string>
 </resources>
