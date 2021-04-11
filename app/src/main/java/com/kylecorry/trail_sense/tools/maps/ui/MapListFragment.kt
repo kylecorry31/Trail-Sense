@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -21,6 +22,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trailsensecore.domain.geo.cartography.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.maps.infrastructure.PDFUtils
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
@@ -30,6 +32,7 @@ import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
@@ -147,11 +150,18 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     }
 
     private fun createMap() {
-        val requestFileIntent = IntentUtils.pickFile(
-            "image/*",
+        val requestFileIntent = pickFile(
+            listOf("image/*", "application/pdf"),
             getString(R.string.select_map_image)
         )
         startActivityForResult(requestFileIntent, REQUEST_CODE_SELECT_MAP)
+    }
+
+    fun pickFile(types: List<String>, message: String): Intent {
+        val requestFileIntent = Intent(Intent.ACTION_GET_CONTENT)
+        requestFileIntent.type = "*/*"
+        requestFileIntent.putExtra(Intent.EXTRA_MIME_TYPES, types.toTypedArray())
+        return Intent.createChooser(requestFileIntent, message)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -166,14 +176,24 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private fun mapFromUri(uri: Uri) {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                val stream = try {
+                val type = requireContext().contentResolver.getType(uri)
+                val bitmap = if (type == "application/pdf"){
+                    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+                    PDFUtils.asBitmap(requireContext(), uri) ?: return@withContext
+                } else {
+                    val stream = try {
+                        @Suppress("BlockingMethodInNonBlockingContext")
+                        requireContext().contentResolver.openInputStream(uri)
+                    } catch (e: Exception) {
+                        null
+                    }
+                    stream ?: return@withContext
+                    val bp = BitmapFactory.decodeStream(stream)
                     @Suppress("BlockingMethodInNonBlockingContext")
-                    requireContext().contentResolver.openInputStream(uri)
-                } catch (e: Exception) {
-                    null
+                    stream.close()
+                    bp
                 }
-                stream ?: return@withContext
-                val bitmap = BitmapFactory.decodeStream(stream)
+
                 val filename = "maps/" + UUID.randomUUID().toString() + ".jpg"
                 try {
                     @Suppress("BlockingMethodInNonBlockingContext")
@@ -182,9 +202,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     }
                 } catch (e: IOException) {
                 }
-
-                @Suppress("BlockingMethodInNonBlockingContext")
-                stream.close()
 
                 // TODO: Ask for map name
                 mapRepo.addMap(Map(0, mapName, filename, listOf()))
