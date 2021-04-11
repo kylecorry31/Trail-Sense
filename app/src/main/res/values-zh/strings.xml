@@ -3,7 +3,7 @@
     <string name="navigation">导航</string>
     <string name="weather">天气</string>
     <string name="settings">设定值</string>
-    <string name="create_beacon_title">下降信标</string>
+    <string name="create_beacon_title">创建信标</string>
     <string name="name_hint">名称</string>
     <string name="select_beacon">选择信标</string>
     <string name="dialog_ok">好</string>
@@ -207,7 +207,7 @@
     <string name="nautical_miles_format">%.2f 海里</string>
     <string name="miles_format">%.2f 英里</string>
     <string name="feet_format">%.0f 英尺</string>
-    <string name="disclaimer_message_content">Trail Sense 是一个可用于生存情况下的工具，但你不能仅仅依赖它。请验证它的准确性，尽可能规避危险，保持镇静，并利用好常识。</string>
+    <string name="disclaimer_message_content">Trail Sense 是一个可用于生存情况下的工具，但你不能仅仅依赖它。此应用仅供参考，其准确性可能会因您的设备和当前的环境条件而异。请验证它的准确性，尽可能规避危险，保持镇静，并利用好常识。</string>
     <string name="disclaimer_message_title">免责声明</string>
     <string name="dialog_deny">不，谢谢</string>
     <string name="dialog_grant">更新设置</string>
@@ -769,5 +769,20 @@
     <string name="guide_using_printed_maps_desc">如何将纸质地图和 Trail Sense 一起使用</string>
     <string name="guide_using_printed_maps">使用印刷地图</string>
     <string name="guide_navigation_description">如何使用 Trail Sense 进行导航</string>
-    <string name="experimental_features">潮汐和白噪音</string>
+    <string name="experimental_features">潮汐、白噪音和地图</string>
+    <string name="guide_speedometer_desc">如何确定行进距离和到达时间</string>
+    <string name="guide_speedometer_title">确定速度和距离</string>
+    <string name="next">下一张</string>
+    <string name="previous">上一张</string>
+    <string name="guide_importing_maps_desc">如何在 Trail Sense 中导入和使用地图</string>
+    <string name="guide_importing_maps_title">正在导入地图</string>
+    <string name="create_map_description">输入地图名称</string>
+    <string name="create_map">创建地图</string>
+    <string name="place_beacon_at">将一个信标放置于%s？</string>
+    <string name="select_map_image">选择地图图像</string>
+    <string name="on_map">在地图上</string>
+    <string name="no_maps">无地图</string>
+    <string name="rename">重命名</string>
+    <string name="experimental">实验性</string>
+    <string name="all_beacons">所有的信标</string>
 </resources>
