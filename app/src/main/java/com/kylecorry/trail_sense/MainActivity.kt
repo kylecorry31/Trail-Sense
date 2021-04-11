@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.shared.MarkdownService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogService
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -144,6 +145,8 @@ class MainActivity : AppCompatActivity() {
         } else {
             PedometerService.stop(this)
         }
+
+        BatteryLogService.start(this)
 
         if (!sensorChecker.hasBarometer()) {
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)

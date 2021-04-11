@@ -128,6 +128,10 @@
             android:enabled="true" />
 
         <service
+            android:name=".tools.battery.infrastructure.BatteryLogService"
+            android:enabled="true" />
+
+        <service
             android:name=".tools.backtrack.infrastructure.services.BacktrackService"
             android:enabled="true"
             android:foregroundServiceType="location" />

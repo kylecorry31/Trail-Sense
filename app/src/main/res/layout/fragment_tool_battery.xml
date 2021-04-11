@@ -18,17 +18,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/battery_capacity"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textIsSelectable="true"
-        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:id="@+id/battery_capacity_details"
         app:layout_constraintTop_toBottomOf="@+id/battery_percentage"
-        tools:text="1000 mAh" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/battery_capacity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+            android:textSize="12sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            tools:text="1000 mAh" />
+
+        <TextView
+            android:id="@+id/battery_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+            android:textSize="12sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            tools:text="10h until empty" />
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/battery_charge_indicator"
@@ -54,7 +75,7 @@
         android:scaleY="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/battery_capacity" />
+        app:layout_constraintTop_toBottomOf="@+id/battery_capacity_details" />
 
     <TextView
         android:id="@+id/battery_current"

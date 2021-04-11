@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
@@ -11,8 +12,11 @@ import com.kylecorry.trail_sense.databinding.ListItemInventoryBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.LowPowerMode
+import com.kylecorry.trail_sense.shared.hours
+import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
+import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingMethod
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingStatus
@@ -20,6 +24,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
+import java.time.Instant
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
@@ -30,10 +35,13 @@ class FragmentToolBattery : Fragment() {
 
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val battery by lazy { Battery(requireContext()) }
+    private val batteryRepo by lazy { BatteryRepo.getInstance(requireContext()) }
 
     private val lowPowerMode by lazy { LowPowerMode(requireContext()) }
     private val batteryService = BatteryService()
     private lateinit var servicesList: ListView<RunningService>
+
+    private var readings = listOf<BatteryReadingEntity>()
 
     private val intervalometer = Intervalometer {
         update()
@@ -62,6 +70,10 @@ class FragmentToolBattery : Fragment() {
                 lowPowerMode.enable(requireActivity())
             }
         }
+        batteryRepo.get().observe(viewLifecycleOwner, {
+            readings = it.sortedBy { it.time }
+            update()
+        })
         return binding.root
     }
 
@@ -124,10 +136,15 @@ class FragmentToolBattery : Fragment() {
         val current = battery.current.absoluteValue * if (isCharging) 1 else -1
         val capacity = battery.capacity
         val pct = battery.percent.roundToInt()
+        val timeToEmpty = getTimeUntilEmpty()
 
         binding.batteryPercentage.text = formatService.formatPercentage(pct.toFloat())
         binding.batteryCapacity.text = formatService.formatElectricalCapacity(capacity)
-        binding.batteryCapacity.visibility = if (capacity == 0f) View.GONE else View.VISIBLE
+        binding.batteryCapacity.isVisible = capacity != 0f
+        binding.batteryTime.isVisible = timeToEmpty != null
+        if (timeToEmpty != null){
+            binding.batteryTime.text = getString(R.string.time_until_empty, formatService.formatDuration(timeToEmpty))
+        }
         binding.batteryHealth.text =
             getString(R.string.battery_health, getHealthString(battery.health))
         binding.batteryLevelBar.progress = pct
@@ -163,6 +180,33 @@ class FragmentToolBattery : Fragment() {
         servicesList.setData(services)
     }
 
+    private fun getTimeUntilEmpty(): Duration? {
+        val readings = this.readings
+        if (battery.chargingStatus == BatteryChargingStatus.Charging || readings.size < 2){
+            return null
+        }
+
+        // Get battery percent history and calculate time to reach 0
+        val firstReading = readings.minByOrNull { Duration.between(it.time, Instant.now().minus(Duration.ofHours(1))).abs() }
+        val secondReading = readings.last()
+
+        if (firstReading == null || firstReading.id == secondReading.id){
+            return null
+        }
+
+        val duration = Duration.between(secondReading.time, firstReading.time).abs().seconds
+        if (duration == 0L){
+            return null
+        }
+        val percentPerHour = (secondReading.percent - firstReading.percent) / (duration / 3600f)
+
+        if (percentPerHour >= 0f){
+            return null
+        }
+
+        val time = battery.percent / percentPerHour
+        return hours(time.absoluteValue)
+    }
 
     private fun getHealthString(health: BatteryHealth): String {
         return when (health) {
