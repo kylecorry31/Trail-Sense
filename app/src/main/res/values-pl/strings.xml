@@ -3,7 +3,7 @@
     <string name="navigation">Nawigacja</string>
     <string name="weather">Pogoda</string>
     <string name="settings">Ustawienia</string>
-    <string name="create_beacon_title">Dodaj punkt nawigacyjny</string>
+    <string name="create_beacon_title">Utwórz punkt nawigacyjny</string>
     <string name="name_hint">Nazwa</string>
     <string name="select_beacon">Wybierz punkt nawigacyjny</string>
     <string name="dialog_ok">OK</string>
@@ -772,5 +772,15 @@
     <string name="guide_using_printed_maps_desc">Jak korzystać z map drukowanych w programie Trail Sense</string>
     <string name="guide_using_printed_maps">Korzystanie z map drukowanych</string>
     <string name="guide_navigation_description">Jak nawigować za pomocą programu Trail Sence</string>
-    <string name="experimental_features">Pływy i szum biały</string>
+    <string name="experimental_features">Pływy, szum biały i mapy</string>
+    <string name="previous">Poprzedni</string>
+    <string name="next">Dalej</string>
+    <string name="guide_importing_maps_title">Importowanie mapy</string>
+    <string name="create_map_description">Podaj nazwę mapy</string>
+    <string name="create_map">Utwórz mapę</string>
+    <string name="select_map_image">Wybierz obraz mapy</string>
+    <string name="on_map">Na mapie</string>
+    <string name="no_maps">Brak map</string>
+    <string name="rename">Zmień nazwę</string>
+    <string name="experimental">Eksperymentalne</string>
 </resources>
