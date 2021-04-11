@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -23,16 +22,15 @@ import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trailsensecore.domain.geo.cartography.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.PDFUtils
+import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
-import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
@@ -177,7 +175,14 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 val type = requireContext().contentResolver.getType(uri)
-                val bitmap = if (type == "application/pdf"){
+                var calibration1: MapCalibrationPoint? = null
+                var calibration2: MapCalibrationPoint? = null
+                val bitmap = if (type == "application/pdf") {
+                    val geopoints = PDFUtils.getGeospatialCalibration(requireContext(), uri)
+                    if (geopoints.size >= 2) {
+                        calibration1 = geopoints[0]
+                        calibration2 = geopoints[1]
+                    }
                     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
                     PDFUtils.asBitmap(requireContext(), uri) ?: return@withContext
                 } else {
@@ -203,8 +208,23 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 } catch (e: IOException) {
                 }
 
-                // TODO: Ask for map name
-                mapRepo.addMap(Map(0, mapName, filename, listOf()))
+                mapRepo.addMap(
+                    Map(
+                        0,
+                        mapName,
+                        filename,
+                        listOfNotNull(calibration1, calibration2)
+                    )
+                )
+
+                withContext(Dispatchers.Main){
+                    if (calibration1 != null) {
+                        UiUtils.shortToast(
+                            requireContext(),
+                            getString(R.string.map_auto_calibrated)
+                        )
+                    }
+                }
             }
 
         }
