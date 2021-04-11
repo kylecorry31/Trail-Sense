@@ -80,12 +80,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             R.id.action_action_settings_to_astronomySettingsFragment
         )
 
-        onClick(preference(R.string.pref_enable_experimental)){
-            if (!prefs.experimentalEnabled){
-                WhiteNoiseService.stop(requireContext())
-            }
-        }
-
         refreshOnChange(list(R.string.pref_theme))
 
         preferenceScreen.findPreference<EditTextPreference>(getString(R.string.pref_ruler_calibration))

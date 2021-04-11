@@ -164,10 +164,10 @@ class ToolsFragment : PreferenceFragmentCompat() {
             R.id.action_action_experimental_tools_to_cloudFragment
         )
 
-        val isExperimentalEnabled = prefs.experimentalEnabled
-        val whiteNoise = findPreference<Preference>(getString(R.string.tool_white_noise))
-        whiteNoise?.isVisible = isExperimentalEnabled
-        navigateOnClick(whiteNoise, R.id.action_action_experimental_tools_to_fragmentToolWhiteNoise)
+        navigateOnClick(
+            findPreference(getString(R.string.tool_white_noise)),
+            R.id.action_action_experimental_tools_to_fragmentToolWhiteNoise
+        )
 
         val flashlight = findPreference<Preference>(getString(R.string.tool_flashlight))
         navigateOnClick(

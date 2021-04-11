@@ -850,7 +850,6 @@
     <string name="left_quick_action">Left quick action</string>
     <string name="right_quick_action">Right quick action</string>
     <string name="tool_tides" translatable="false">tool_tides</string>
-    <string name="tides_experimental">Tides (experimental)</string>
     <string name="experimental">Experimental</string>
     <string name="tides">Tides</string>
     <string name="high_tide">High Tide</string>
@@ -866,7 +865,7 @@
     <string name="pref_daily_weather_time_holder" translatable="false">pref_daily_weather_time_holder</string>
     <string name="pref_daily_weather_time_title">Daily weather time</string>
     <string name="pref_daily_weather_time" translatable="false">pref_daily_weather_time</string>
-    <string name="experimental_features">Tides, white noise, and maps</string>
+    <string name="experimental_features">Tides and maps</string>
     <string name="tide_calibration">Tide Calibration</string>
     <string name="screen_flashlight">Screen</string>
     <string name="speedometer_real_time">Real Time</string>

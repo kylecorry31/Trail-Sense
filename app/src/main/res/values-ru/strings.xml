@@ -739,7 +739,6 @@
     <string name="half_tide">Полприлива</string>
     <string name="low_tide">Отлив</string>
     <string name="high_tide">Прилив</string>
-    <string name="tides_experimental">Приливы и отливы (экспериментально)</string>
     <string name="right_quick_action">Быстрое действие направо</string>
     <string name="left_quick_action">Быстрое действие налево</string>
     <string name="quick_action_none">Ничего</string>
@@ -755,7 +754,6 @@
     <string name="screen_flashlight">Экран</string>
     <string name="tide_calibration">Калибровка приливов</string>
     <string name="turn_off">Выключить</string>
-    <string name="experimental_features">Приливы и белый шум</string>
     <string name="tides">Приливы</string>
     <string name="pref_meteor_showers_title">Звездопад</string>
     <string name="meteor_shower">Звездопад</string>
