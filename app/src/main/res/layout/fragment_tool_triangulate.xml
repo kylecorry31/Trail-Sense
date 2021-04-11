@@ -31,49 +31,88 @@
         app:tint="?android:textColorSecondary"
         tools:visibility="visible" />
 
-    <Spinner
-        android:id="@+id/beacon_1_spinner"
+    <com.kylecorry.trail_sense.shared.views.CoordinateInputView
+        android:id="@+id/triangulate_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:spinnerMode="dialog"
-        app:layout_constraintEnd_toStartOf="@+id/beacon_1_compass"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/beacon_1_title" />
 
-    <Button
-        android:id="@+id/beacon_1_compass"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/bearing_to_1_holder"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/triangulate_mark_beacon"
-        app:layout_constraintBottom_toBottomOf="@+id/beacon_1_spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/beacon_1_spinner" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/triangulate_1"
+        app:layout_constraintTop_toBottomOf="@+id/triangulate_1"
+        tools:visibility="visible">
 
-    <Spinner
-        android:id="@+id/beacon_2_spinner"
+        <Button
+            android:id="@+id/bearing_to_1_btn"
+            tools:text="@string/beacon_set_bearing_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/bearing_to_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            tools:text="350" />
+    </LinearLayout>
+
+
+    <com.kylecorry.trail_sense.shared.views.CoordinateInputView
+        android:id="@+id/triangulate_2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:spinnerMode="dialog"
-        app:layout_constraintEnd_toStartOf="@+id/beacon_2_compass"
+        app:layout_constraintEnd_toEndOf="@+id/triangulate_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/beacon_2_title" />
 
-    <Button
-        android:id="@+id/beacon_2_compass"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/bearing_to_2_holder"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/triangulate_mark_beacon"
-        app:layout_constraintBottom_toBottomOf="@+id/beacon_2_spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/beacon_2_spinner" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/triangulate_2"
+        app:layout_constraintTop_toBottomOf="@+id/triangulate_2"
+        tools:visibility="visible">
+
+        <Button
+            android:id="@+id/bearing_to_2_btn"
+            tools:text="@string/beacon_set_bearing_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/bearing_to_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            tools:text="350" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/beacon_1_title"
@@ -81,18 +120,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/beacon_1"
-        app:layout_constraintStart_toStartOf="@+id/beacon_1_spinner"
+        app:layout_constraintStart_toStartOf="@+id/triangulate_1"
         app:layout_constraintTop_toBottomOf="@+id/location" />
 
-    <TextView
-        android:id="@+id/beacon_1_direction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/beacon_1_title"
-        app:layout_constraintStart_toEndOf="@+id/beacon_1_title"
-        app:layout_constraintTop_toTopOf="@+id/beacon_1_title"
-        tools:text="13" />
 
     <TextView
         android:id="@+id/beacon_2_title"
@@ -100,18 +130,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/beacon_2"
-        app:layout_constraintStart_toStartOf="@+id/beacon_2_spinner"
-        app:layout_constraintTop_toBottomOf="@+id/beacon_1_spinner" />
-
-    <TextView
-        android:id="@+id/beacon_2_direction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/beacon_2_title"
-        app:layout_constraintStart_toEndOf="@+id/beacon_2_title"
-        app:layout_constraintTop_toTopOf="@+id/beacon_2_title"
-        tools:text="13" />
+        app:layout_constraintStart_toStartOf="@+id/triangulate_2"
+        app:layout_constraintTop_toBottomOf="@+id/bearing_to_1_holder" />
 
     <ImageView
         android:id="@+id/imageView"
