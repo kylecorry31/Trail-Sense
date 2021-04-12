@@ -222,6 +222,11 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun toggleDestinationBearing() {
+        if (destination != null){
+            // Don't set destination bearing while navigating
+            return
+        }
+
         if (destinationBearing == null) {
             destinationBearing = compass.bearing
             cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
