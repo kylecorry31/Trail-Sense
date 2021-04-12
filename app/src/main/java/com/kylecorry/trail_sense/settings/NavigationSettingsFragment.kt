@@ -67,8 +67,17 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
             true
         }
 
-        list(R.string.pref_backtrack_frequency)?.setOnPreferenceChangeListener { _, _ ->
-            restartBacktrack()
+        val prefBacktrackInterval = preference(R.string.pref_backtrack_interval)
+        prefBacktrackInterval?.summary = formatService.formatDuration(prefs.backtrackRecordFrequency)
+
+        prefBacktrackInterval?.setOnPreferenceClickListener {
+            CustomUiUtils.pickDuration(requireContext(), prefs.backtrackRecordFrequency, it.title.toString()){
+                if (it != null){
+                    prefs.backtrackRecordFrequency = it
+                    prefBacktrackInterval.summary = formatService.formatDuration(it)
+                    restartBacktrack()
+                }
+            }
             true
         }
 

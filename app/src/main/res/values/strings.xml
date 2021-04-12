@@ -925,4 +925,7 @@
     <string name="map_auto_calibrated">Map auto-calibrated, please verify its accuracy</string>
     <string name="pref_backtrack_path_radar">pref_backtrack_path_radar</string>
     <string name="pref_backtrack_path_radar_title">Show backtrack path</string>
+    <string name="pref_backtrack_interval">pref_backtrack_interval</string>
+    <string name="minute_symbol">m</string>
+    <string name="hour_symbol">h</string>
 </resources>

@@ -28,7 +28,7 @@ class WhiteNoiseService : Service() {
             intent = WhiteNoiseOffReceiver.pendingIntent(this)
         )
         startForeground(NOTIFICATION_ID, notification)
-        whiteNoise = WhiteNoise()
+        whiteNoise = PinkNoise()
         whiteNoise?.on()
         return START_STICKY_COMPATIBILITY
     }

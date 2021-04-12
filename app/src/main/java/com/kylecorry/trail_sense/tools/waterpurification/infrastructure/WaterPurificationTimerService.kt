@@ -12,10 +12,18 @@ import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import kotlin.math.roundToInt
 
-class WaterPurificationTimerService: Service() {
+class WaterPurificationTimerService : Service() {
 
     private var timer: CountDownTimer? = null
     private var done = false
+
+    private val cancelAction by lazy {
+        NotificationUtils.action(
+            getString(R.string.dialog_cancel),
+            WaterPurificationCancelReceiver.pendingIntent(applicationContext),
+            R.drawable.ic_cancel
+        )
+    }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val seconds = intent?.extras?.getLong(KEY_SECONDS, DEFAULT_SECONDS) ?: DEFAULT_SECONDS
@@ -39,11 +47,15 @@ class WaterPurificationTimerService: Service() {
     }
 
 
-    private fun startTimer(seconds: Long){
-        timer = object: CountDownTimer(seconds * ONE_SECOND, ONE_SECOND){
+    private fun startTimer(seconds: Long) {
+        timer = object : CountDownTimer(seconds * ONE_SECOND, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = (millisUntilFinished / ONE_SECOND.toFloat()).roundToInt()
-                NotificationUtils.send(applicationContext, NOTIFICATION_ID, getNotification(secondsLeft))
+                NotificationUtils.send(
+                    applicationContext,
+                    NOTIFICATION_ID,
+                    getNotification(secondsLeft)
+                )
             }
 
             override fun onFinish() {
@@ -64,17 +76,15 @@ class WaterPurificationTimerService: Service() {
     }
 
     private fun getNotification(secondsLeft: Int): Notification {
-        val cancelAction = NotificationUtils.action(
-            getString(R.string.dialog_cancel),
-            WaterPurificationCancelReceiver.pendingIntent(applicationContext),
-            R.drawable.ic_cancel
-        )
-
         return NotificationUtils.persistent(
             applicationContext,
             CHANNEL_ID,
             getString(R.string.water_boil_timer_title),
-            resources.getQuantityString(R.plurals.water_boil_timer_content, secondsLeft, secondsLeft),
+            resources.getQuantityString(
+                R.plurals.water_boil_timer_content,
+                secondsLeft,
+                secondsLeft
+            ),
             R.drawable.ic_tool_boil,
             group = NotificationChannels.GROUP_WATER,
             actions = listOf(cancelAction)
@@ -99,9 +109,8 @@ class WaterPurificationTimerService: Service() {
             IntentUtils.startService(context, intent(context, seconds), true)
         }
 
-        fun stop(context: Context){
+        fun stop(context: Context) {
             context.stopService(intent(context))
         }
     }
-
 }

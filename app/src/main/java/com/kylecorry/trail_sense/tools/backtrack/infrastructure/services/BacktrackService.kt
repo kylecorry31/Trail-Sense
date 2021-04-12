@@ -57,13 +57,9 @@ class BacktrackService : CoroutineForegroundService() {
         serviceScope.launch {
             withTimeoutOrNull(Duration.ofSeconds(30).toMillis()) {
                 val jobs = mutableListOf<Job>()
-                if (!gps.hasValidReading) {
-                    jobs.add(launch { gps.read() })
-                }
+                jobs.add(launch { gps.read() })
 
-                if (!cellSignal.hasValidReading || !prefs.backtrackSaveCellHistory ||
-                    !PermissionUtils.isBackgroundLocationEnabled(applicationContext)
-                ) {
+                if (prefs.backtrackSaveCellHistory && PermissionUtils.isBackgroundLocationEnabled(applicationContext)) {
                     jobs.add(launch { cellSignal.read() })
                 }
 

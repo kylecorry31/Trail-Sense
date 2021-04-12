@@ -120,16 +120,12 @@
             app:summary="@string/pref_backtrack_enabled_summary"
             app:title="@string/tool_backtrack_title" />
 
-        <ListPreference
-            app:defaultValue="30"
+        <Preference
             app:dependency="@string/pref_backtrack_enabled"
-            app:entries="@array/backtrack_frequency_entries"
-            app:entryValues="@array/backtrack_frequency_values"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_backtrack_frequency"
+            app:key="@string/pref_backtrack_interval"
             app:singleLineTitle="false"
-            app:title="@string/pref_backtrack_frequency_title"
-            app:useSimpleSummaryProvider="true" />
+            app:title="@string/pref_backtrack_frequency_title"/>
 
         <SwitchPreferenceCompat
             android:dependency="@string/pref_backtrack_enabled"

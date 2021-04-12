@@ -189,10 +189,13 @@ class UserPreferences(private val context: Context) {
         true
     )
 
-    val backtrackRecordFrequency: Duration
+    var backtrackRecordFrequency: Duration
         get() {
             val raw = cache.getString(getString(R.string.pref_backtrack_frequency)) ?: "30"
             return Duration.ofMinutes(raw.toLongOrNull() ?: 30L)
+        }
+        set(value) {
+            cache.putString(getString(R.string.pref_backtrack_frequency), value.toMinutes().toString())
         }
 
     var isLowPowerModeOn: Boolean

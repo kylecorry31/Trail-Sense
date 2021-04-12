@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -17,6 +18,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
+import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
@@ -153,7 +155,7 @@ class NavigatorFragment : Fragment() {
         }
 
         backtrackRepo.getWaypoints().observe(viewLifecycleOwner) {
-            val waypoints = it.sortedBy { it.createdInstant }.filter { it.createdInstant > Instant.now().minus(userPrefs.navigation.showBacktrackPathDuration) }
+            val waypoints = it.sortedByDescending { it.createdInstant }.filter { it.createdInstant > Instant.now().minus(userPrefs.navigation.showBacktrackPathDuration) }
             backtrack = Track(waypoints.map { Waypoint(it.coordinate, it.createdInstant) })
             updateUI()
         }
@@ -194,7 +196,15 @@ class NavigatorFragment : Fragment() {
         }
 
         binding.beaconBtn.setOnLongClickListener {
-            navController.navigate(R.id.place_beacon)
+            if (gps.hasValidReading) {
+                val bundle = bundleOf(
+                    "initial_location" to MyNamedCoordinate(gps.location)
+                )
+                navController.navigate(R.id.place_beacon, bundle)
+            } else {
+                navController.navigate(R.id.place_beacon)
+
+            }
             true
         }
 

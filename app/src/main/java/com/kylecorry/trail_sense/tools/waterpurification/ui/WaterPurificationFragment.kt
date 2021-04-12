@@ -128,6 +128,7 @@ class WaterPurificationFragment : Fragment() {
     private fun stop() {
         timer?.cancel()
         timer = null
+        cache.remove(WATER_PURIFICATION_END_TIME_KEY)
         WaterPurificationTimerService.stop(requireContext())
         binding.timeLeft.text = duration?.seconds.toString()
         binding.boilButton.text = getString(R.string.boil_start)

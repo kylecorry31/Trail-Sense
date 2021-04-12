@@ -8,23 +8,22 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.annotation.ColorInt
-import androidx.annotation.IdRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.BeaconSelectView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
+import com.kylecorry.trail_sense.shared.views.DurationInputView
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.Quality
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import java.time.Duration
 
 object CustomUiUtils {
 
@@ -61,8 +60,12 @@ object CustomUiUtils {
         }
     }
 
-    fun promptIfUnsavedChanges(activity: FragmentActivity, owner: LifecycleOwner, hasChanges: () -> Boolean): OnBackPressedCallback {
-        val callback = object: OnBackPressedCallback(true) {
+    fun promptIfUnsavedChanges(
+        activity: FragmentActivity,
+        owner: LifecycleOwner,
+        hasChanges: () -> Boolean
+    ): OnBackPressedCallback {
+        val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (hasChanges()) {
                     UiUtils.alertWithCancel(
@@ -89,7 +92,13 @@ object CustomUiUtils {
         return callback
     }
 
-    fun pickDistance(context: Context, units: List<DistanceUnits>, default: Distance? = null, title: String, onDistancePick: (distance: Distance?) -> Unit) {
+    fun pickDistance(
+        context: Context,
+        units: List<DistanceUnits>,
+        default: Distance? = null,
+        title: String,
+        onDistancePick: (distance: Distance?) -> Unit
+    ) {
         val view = View.inflate(context, R.layout.view_distance_entry_prompt, null)
         var distance: Distance? = default
         val distanceInput = view.findViewById<DistanceInputView>(R.id.prompt_distance)
@@ -99,8 +108,14 @@ object CustomUiUtils {
         distanceInput?.units = units
         distanceInput?.updateDistance(default)
 
-        UiUtils.alertViewWithCancel(context, title, view, context.getString(R.string.dialog_ok), context.getString(R.string.dialog_cancel)){ cancelled ->
-            if (cancelled){
+        UiUtils.alertViewWithCancel(
+            context,
+            title,
+            view,
+            context.getString(R.string.dialog_ok),
+            context.getString(R.string.dialog_cancel)
+        ) { cancelled ->
+            if (cancelled) {
                 onDistancePick.invoke(null)
             } else {
                 onDistancePick.invoke(distance)
@@ -108,11 +123,45 @@ object CustomUiUtils {
         }
     }
 
-    fun pickBeacon(context: Context, title: String?, location: Coordinate, onBeaconPick: (beacon: Beacon?) -> Unit) {
+    fun pickDuration(
+        context: Context,
+        default: Duration? = null,
+        title: String,
+        onDurationPick: (duration: Duration?) -> Unit
+    ) {
+        val view = View.inflate(context, R.layout.view_duration_entry_prompt, null)
+        var duration: Duration? = default
+        val durationInput = view.findViewById<DurationInputView>(R.id.prompt_duration)
+        durationInput?.setOnDurationChangeListener {
+            duration = it
+        }
+        durationInput?.updateDuration(default)
+
+        UiUtils.alertViewWithCancel(
+            context,
+            title,
+            view,
+            context.getString(R.string.dialog_ok),
+            context.getString(R.string.dialog_cancel)
+        ) { cancelled ->
+            if (cancelled) {
+                onDurationPick.invoke(null)
+            } else {
+                onDurationPick.invoke(duration)
+            }
+        }
+    }
+
+    fun pickBeacon(
+        context: Context,
+        title: String?,
+        location: Coordinate,
+        onBeaconPick: (beacon: Beacon?) -> Unit
+    ) {
         val view = View.inflate(context, R.layout.view_beacon_select_prompt, null)
         val beaconSelect = view.findViewById<BeaconSelectView>(R.id.prompt_beacons)
         beaconSelect.location = location
-        val alert = alertView(context, title, view, context.getString(R.string.dialog_cancel)){
+        val alert = alertView(context, title, view, context.getString(R.string.dialog_cancel)) {
             onBeaconPick.invoke(beaconSelect.beacon)
         }
         beaconSelect?.setOnBeaconChangeListener {
@@ -121,7 +170,14 @@ object CustomUiUtils {
         }
     }
 
-    fun pickText(context: Context, title: String?, description: String?, default: String?, hint: String? = null, onTextEnter: (text: String?) -> Unit){
+    fun pickText(
+        context: Context,
+        title: String?,
+        description: String?,
+        default: String?,
+        hint: String? = null,
+        onTextEnter: (text: String?) -> Unit
+    ) {
         val layout = FrameLayout(context)
         val editTextView = EditText(context)
         editTextView.setText(default)
@@ -150,7 +206,7 @@ object CustomUiUtils {
         dialog.show()
     }
 
-    fun openMenu(anchorView: View, @MenuRes menu: Int, onSelection: (itemId: Int) -> Boolean){
+    fun openMenu(anchorView: View, @MenuRes menu: Int, onSelection: (itemId: Int) -> Boolean) {
         val popup = PopupMenu(anchorView.context, anchorView)
         val inflater = popup.menuInflater
         inflater.inflate(menu, popup.menu)
@@ -221,7 +277,11 @@ object CustomUiUtils {
         return Pair(opts.outWidth, opts.outHeight)
     }
 
-    private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+    private fun calculateInSampleSize(
+        options: BitmapFactory.Options,
+        reqWidth: Int,
+        reqHeight: Int
+    ): Int {
         // Raw height and width of image
         val (height: Int, width: Int) = options.run { outHeight to outWidth }
         var inSampleSize = 1

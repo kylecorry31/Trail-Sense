@@ -19,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.MarkdownService
 import com.kylecorry.trail_sense.shared.UserPreferences
