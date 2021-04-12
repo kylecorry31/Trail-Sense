@@ -19,7 +19,7 @@
     <string name="pref_distance_units_title">Entfernung</string>
     <string name="pref_pressure_units_title">Luftdruck</string>
     <string name="pref_send_storm_alerts_title">Sturmwarnungen</string>
-    <string name="pref_use_24_hour_title">24 Stundenformat verwenden</string>
+    <string name="pref_use_24_hour_title">24-Stunden-Zählung verwenden</string>
     <string name="pref_sun_time_mode_title">Sonnenaufgangs-/Sonnenuntergangszeiten</string>
     <string name="weather_improving_fast">Sehr bald Besserung</string>
     <string name="weather_improving_slow">Bald besser werdend</string>
@@ -141,7 +141,7 @@
     <string name="pref_category_sensors_title">Sensoren</string>
     <string name="pref_compass_sensor_title">Kompass</string>
     <string name="copied_to_clipboard_toast">In die Zwischenablage kopiert</string>
-    <string name="disclaimer_message_content">Trail Sense ist ein Werkzeug, welches in Überlebenssituationen verwendet werden kann, aber Sie sollten sich nicht alleine darauf verlassen. Bitte validieren Sie seine Genauigkeit, vermeiden Sie jede gefährliche Situation wenn möglich und bleiben Sie ruhig und vernünftig.</string>
+    <string name="disclaimer_message_content">Trail Sense ist ein Werkzeug, welches in Überlebenssituationen verwendet werden kann, aber Sie sollten sich nicht alleine darauf verlassen. Die App wurde nur für informative Zwecke entwickelt und die Genauigkeit kann je nach Gerät und aktuellen Umgebungsbedingungen variieren. Bitte prüfen Sie die Genauigkeit, vermeiden Sie jede gefährliche Situation wenn möglich und bleiben Sie ruhig und vernünftig.</string>
     <string name="accuracy_info_title">Tipps um die Sensorengenauigkeit zu verbessern</string>
     <string name="flashlight_title">Taschenlampe</string>
     <string name="tap_to_turn_off">Tippen zum Abschalten</string>
@@ -472,7 +472,7 @@
     <string name="threshold">Schwellenwert</string>
     <string name="metal_detected">Metal erkannt</string>
     <string name="clock_sync_time_settings">Einstellungen zur Zeit öffnen\?</string>
-    <string name="notification_channel_clock_sync_description">Eine Benachrichtigung, um deine Uhr mit der GPS-Zeit zu synchronisieren</string>
+    <string name="notification_channel_clock_sync_description">Eine Benachrichtigung, um die Uhr mit der GPS-Zeit zu synchronisieren</string>
     <string name="beacon_2">Wegpunkt 2</string>
     <string name="beacon_1">Wegpunkt 1</string>
     <string name="triangulate_mark_beacon">Markieren</string>
@@ -521,7 +521,7 @@
     <string name="low_power_mode_on_message">Energiespar-Modus ist eingeschaltet, einige Features können ausgeschaltet sein.</string>
     <string name="pref_low_power_mode_title">Energiespar-Modus</string>
     <string name="guide_barometer_calibration_description">Wie man das Barometer auf Meereshöhe kalibriert</string>
-    <string name="guide_backtrack_description">Wie man \'Rückweg\' benutzt</string>
+    <string name="guide_backtrack_description">Wie man \"Rückweg\" benutzt</string>
     <string name="battery_power_wireless">Drahtlos</string>
     <string name="tool_thermometer_title">Thermometer</string>
     <string name="location_input_help">Dezimalgrad (z.B. 1.00, -2.00), Grad und Dezimalminuten (z.B. 1°23.12\'N, 3°12.1\'W), Grad Minuten Sekunden (z.B. 1°23\'12.1\"N, 3°12\"1.2\'W), UTM (z.B. 03T 12345E 67890N), MGRS (z.B. 27PXM 09601 05579)</string>
@@ -604,9 +604,9 @@
 \n
 \n- [Datenschutz-Bestimmungen](https://kylecorry.com/Trail-Sense/privacy_policy.html) (wird im Browser des Geräts geöffnet)
 \n
-\n- Einige Funktionen von Trail Sense benötigen Zugriff auf Ihre Ortsdaten
+\n- Einige Funktionen von Trail Sense benötigen Zugriff auf Ihren Standort
 \n
-\n- Freigabe der Ortsdaten schaltet folgende Funktionen frei:
+\n- Freigabe der Ortsdaten ermöglicht die Nutzung folgende Funktionen:
 \n
 \n\t- Navigation zu Wegpunkten
 \n
@@ -618,7 +618,7 @@
 \n
 \n- Falls Sie sich entscheiden, den Zugriff auf Ihre Ortsdaten nicht zu erlauben, können Sie selber Koordinaten im Trail Sense Menu Einstellungen -&gt; GPS Kalibration eingeben.
 \n
-\n- Nach \'Weiter\' werden Sie darum gebeten, die Freigabe Ihrer Ortsdaten im Vorder- und Hintergrund zu erteilen. Ablehnung dieser Rechte wird verhindern, dass Trail Sense Zugriff auf Ihren Ort erlangt, in diesem Fall wird empfohlen, Koordinaten manuell einzugeben.</string>
+\n- Nach \"Weiter\" werden Sie darum gebeten, die Freigabe Ihrer Ortsdaten im Vorder- und Hintergrund zu erteilen. Ablehnung dieser Rechte wird verhindern, dass Trail Sense Zugriff auf Ihren Ort erlangt, in diesem Fall wird empfohlen, Koordinaten manuell einzugeben.</string>
     <string name="import_export_beacons">Wegpunkte importieren/exportieren</string>
     <string name="select_import_file">Datei auswählen</string>
     <string name="beacons_imported">%d Wegpunkte importiert</string>
@@ -675,7 +675,7 @@
     <string name="distance_from_flashlight">Distanz vom Handy zur Taschenlampe</string>
     <string name="beacon_export_error">Beacons konnten nicht exportiert werden</string>
     <string name="beacons_exported">%d Beacons exportiert</string>
-    <string name="onboarding_user_guide">Lerne mithilfe der Bedienungsanleitung, wie du die Trail Sense Funktionen benutzt. Du findest es ganz unten im Tools-Tab.
+    <string name="onboarding_user_guide">Lerne mithilfe der Bedienungsanleitung, wie Sie die Funktionen von Trail Sense benutzt. Sie finden die Anleitung ganz unten im Tools-Tab.
 \n
 \nIn Zukunft wird es weitere Anleitungen geben.</string>
     <string name="onboarding_tools">- Greifen Sie auf Werkzeuge zu, die Ihnen in der Wildnis helfen können
@@ -701,11 +701,11 @@
 \n- Nutzt keine Internetverbindung
 \n
 \n- Warnt vor kommenden Stürmen</string>
-    <string name="onboarding_navigation">- Platziere Beacons und navigiere zu ihnen zurück
+    <string name="onboarding_navigation">- Platzieren Sie Beacons und navigieren Sie zu ihnen zurück
 \n
-\n- Finde deine aktuelle Position, Höhe und Geschwindigkeit heraus
+\n- Finden Sie die aktuelle Position, Höhe und Geschwindigkeit heraus
 \n
-\n- Verfolge deinen Weg zurück mit Rückweg (läuft im Hintergrund, wenn es aktiviert wurde)</string>
+\n- Verfolgen Sie Ihren Weg zurück mit Rückweg (läuft im Hintergrund, wenn es aktiviert wurde)</string>
     <string name="backtrack_disabled_low_power_toast">Rückweg ist im Energiespar-Modus deaktiviert</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="turn_off">Ausschalten</string>
@@ -732,7 +732,7 @@
     <string name="speedometer">Geschwindigkeitsanzeige</string>
     <string name="screen_flashlight">Bildschirm</string>
     <string name="tide_calibration">Gezeitenkalibrierung</string>
-    <string name="experimental_features">Gezeiten und weißes Rauschen</string>
+    <string name="experimental_features">Gezeiten, weißes Rauschen und Karten</string>
     <string name="date_not_set">Datum nicht festgelegt</string>
     <string name="time_not_set">Zeit nicht festgelegt</string>
     <string name="tide_calibration_instructions">Setzen Sie die Zeit während einer Flut, wenn möglich während einer Neu- oder Vollmonds. Das kann im Internet oder über gedruckte Gezeitentabellen herausgefunden werden. Die Gezeiten, die in Trail Sense gezeigt werden, können bis zu zwei Stunden von den realen Zeiten abweichen, was genug als Referenz ist, allerdings sollten Sie sich nicht alleine darauf verlassen.</string>
@@ -751,4 +751,43 @@
     <string name="tool_light_meter_title">Lichtmeter</string>
     <string name="beam_distance">%s Reichweite</string>
     <string name="stratocumulus_desc">Rollende Massen, die eine Platte formen.</string>
+    <string name="place_beacon_at">Wegpunkt auf %s platzieren\?</string>
+    <string name="on_map">Auf der Karte</string>
+    <string name="speedometer_odometer_accuracy_dialog">Um die beste Genauigkeit zu erreichen, aktivieren Sie Rückweg und setzen in den Einstellungen Sie den Schrittzähler als Quelle für den Kilometerzähler.</string>
+    <string name="create_tide">Gezeit erstellen</string>
+    <string name="tide_location_label">Ort (optional)</string>
+    <string name="pref_nearby_radar_title">Kompass in Radarform anzeigen</string>
+    <string name="source">Quelle</string>
+    <string name="pref_stride_length_title">Schrittlänge</string>
+    <string name="distance_away_not_set">Entfernung nicht festgelegt</string>
+    <string name="distance_away">Entfernung</string>
+    <string name="value_average">%s Durchschnitt</string>
+    <string name="value_since_time">%s seit %s</string>
+    <string name="speedometer_average">Durchschnitt (von Rückweg)</string>
+    <string name="speedometer_real_time">Echte Zeit</string>
+    <string name="pref_daily_weather_time_title">Zeit der täglichen Benachrichtigung</string>
+    <string name="quick_action_none">Keine</string>
+    <string name="backtrack_notification_channel_description">Standortaktualisierungen für \"Rückweg\"</string>
+    <string name="update_gps_override">GPS-Override aktualisieren</string>
+    <string name="guide_speedometer_desc">Wie man die zurückgelegte Distanz und Ankunftszeiten herausfindet</string>
+    <string name="guide_speedometer_title">Geschwindigkeit und Distanz herausfinden</string>
+    <string name="next">Weiter</string>
+    <string name="previous">Zurück</string>
+    <string name="guide_importing_maps_desc">Wie man Karten in Trail Sense importiert und nutzt</string>
+    <string name="guide_importing_maps_title">Karten importieren</string>
+    <string name="create_map_description">Geben Sie den Namen der Karte ein</string>
+    <string name="create_map">Karte erstellen</string>
+    <string name="select_map_image">Bild mit der Karte auswählen</string>
+    <string name="no_maps">Keine Karten</string>
+    <string name="rename">Umbenennen</string>
+    <string name="pedometer_disclaimer">Die Batterienutzung und Genauigkeit des Schrittzählers hängt vom Hersteller des Gerätes und der angegeben Schrittlänge ab. Probieren Sie es zu Hause aus, bevor Sie es beim Wandern benutzen, um die Batterienutzung und Genauigkeit zu prüfen.</string>
+    <string name="guide_signaling_for_help_title">Signalisieren, dass man Hilfe braucht</string>
+    <string name="saltwater_switch">Salzwasser</string>
+    <string name="tide_high_short">Flut</string>
+    <string name="tide_low_short">Ebbe</string>
+    <string name="experimental">Experimentell</string>
+    <string name="pref_daily_weather_notification">pref_backtrack_save_cell</string>
+    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
+    <string name="pref_require_satellites">pref_require_satellites</string>
+    <string name="all_beacons">Alle Wegpunkte</string>
 </resources>
