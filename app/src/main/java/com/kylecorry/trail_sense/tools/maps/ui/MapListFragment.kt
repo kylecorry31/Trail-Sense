@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
@@ -172,6 +173,8 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     }
 
     private fun mapFromUri(uri: Uri) {
+        binding.mapLoading.isVisible = true
+        binding.addBtn.isEnabled = false
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 val type = requireContext().contentResolver.getType(uri)
@@ -184,7 +187,15 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                         calibration2 = geopoints[1]
                     }
                     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-                    PDFUtils.asBitmap(requireContext(), uri) ?: return@withContext
+                    val bp = PDFUtils.asBitmap(requireContext(), uri)
+                    if (bp == null){
+                        withContext(Dispatchers.Main){
+                            UiUtils.shortToast(requireContext(), getString(R.string.error_importing_map))
+                            binding.mapLoading.isVisible = false
+                        }
+                        return@withContext
+                    }
+                    bp
                 } else {
                     val stream = try {
                         @Suppress("BlockingMethodInNonBlockingContext")
@@ -192,7 +203,14 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     } catch (e: Exception) {
                         null
                     }
-                    stream ?: return@withContext
+                    if (stream == null){
+                        withContext(Dispatchers.Main){
+                            UiUtils.shortToast(requireContext(), getString(R.string.error_importing_map))
+                            binding.mapLoading.isVisible = false
+                            binding.addBtn.isEnabled = true
+                        }
+                        return@withContext
+                    }
                     val bp = BitmapFactory.decodeStream(stream)
                     @Suppress("BlockingMethodInNonBlockingContext")
                     stream.close()
@@ -206,9 +224,15 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
                     }
                 } catch (e: IOException) {
+                    withContext(Dispatchers.Main){
+                        UiUtils.shortToast(requireContext(), getString(R.string.error_importing_map))
+                        binding.mapLoading.isVisible = false
+                        binding.addBtn.isEnabled = true
+                    }
+                    return@withContext
                 }
 
-                mapRepo.addMap(
+                val id = mapRepo.addMap(
                     Map(
                         0,
                         mapName,
@@ -224,6 +248,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                             getString(R.string.map_auto_calibrated)
                         )
                     }
+                    binding.mapLoading.isVisible = true
+                    binding.addBtn.isEnabled = true
+                    findNavController().navigate(
+                        R.id.action_mapList_to_maps,
+                        bundleOf("mapId" to id)
+                    )
                 }
             }
 

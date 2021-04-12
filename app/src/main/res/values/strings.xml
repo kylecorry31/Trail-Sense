@@ -928,4 +928,6 @@
     <string name="pref_backtrack_interval">pref_backtrack_interval</string>
     <string name="minute_symbol">m</string>
     <string name="hour_symbol">h</string>
+    <string name="importing_map">Importing map</string>
+    <string name="error_importing_map">Error importing map</string>
 </resources>
