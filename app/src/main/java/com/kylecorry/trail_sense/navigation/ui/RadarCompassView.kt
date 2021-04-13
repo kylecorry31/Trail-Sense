@@ -153,7 +153,8 @@ class RadarCompassView : View, ICompassView {
         trackCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.DST_IN)
 
         paint.strokeWidth = 5f
-        paint.pathEffect = DashPathEffect(floatArrayOf(5f, 8f), 1f)
+        paint.strokeCap = Paint.Cap.ROUND
+        paint.pathEffect = DashPathEffect(floatArrayOf(1f, 10f), 1f)
 
         trackCanvas.drawColor(Color.TRANSPARENT)
 
@@ -163,6 +164,7 @@ class RadarCompassView : View, ICompassView {
             trackCanvas.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, paint)
         }
         paint.alpha = 255
+        paint.strokeCap = Paint.Cap.SQUARE
         paint.style = Paint.Style.FILL
         paint.pathEffect = null
 
