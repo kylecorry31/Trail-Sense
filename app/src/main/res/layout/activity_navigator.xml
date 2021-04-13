@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".navigation.ui.NavigatorFragment">
 
+    <androidx.camera.view.CameraView
+        android:id="@+id/view_camera"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:pinchToZoomEnabled="false"
+        app:lensFacing="back"
+        app:captureMode="mixed"
+        app:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"

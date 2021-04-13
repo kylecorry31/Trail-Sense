@@ -20,6 +20,15 @@
             app:summary="@string/pref_show_linear_compass_summary"
             app:title="@string/pref_show_linear_compass_title" />
 
+        <SwitchPreferenceCompat
+            app:dependency="pref_show_linear_compass"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_enable_ar"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_enable_ar_summary"
+            app:title="@string/pref_enable_ar_title" />
+
         <ListPreference
             android:entries="@array/sun_moon_compass_entries"
             android:entryValues="@array/sun_moon_compass_values"

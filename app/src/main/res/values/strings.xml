@@ -930,4 +930,7 @@
     <string name="hour_symbol">h</string>
     <string name="importing_map">Importing map</string>
     <string name="error_importing_map">Error importing map</string>
+    <string name="pref_enable_ar" translatable="false">pref_enable_ar</string>
+    <string name="pref_enable_ar_title">Enable Augmented Reality</string>
+    <string name="pref_enable_ar_summary">Show camera as background when the phone is vertical</string>
 </resources>
