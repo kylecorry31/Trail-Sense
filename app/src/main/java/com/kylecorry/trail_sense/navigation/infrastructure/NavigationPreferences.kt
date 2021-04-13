@@ -67,7 +67,7 @@ class NavigationPreferences(private val context: Context) {
         get() = useRadarCompass && (cache.getBoolean(context.getString(R.string.pref_backtrack_path_radar)) ?: true)
 
     val showBacktrackPathDuration: Duration
-        get() = Duration.ofHours(3)
+        get() = Duration.ofHours(2)
 
     var maxBeaconDistance: Float
         get() {

@@ -152,8 +152,8 @@ class RadarCompassView : View, ICompassView {
 
         trackCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.DST_IN)
 
-        paint.strokeWidth = 3f
-        paint.pathEffect = DashPathEffect(floatArrayOf(5f, 10f), 0f)
+        paint.strokeWidth = 5f
+        paint.pathEffect = DashPathEffect(floatArrayOf(5f, 8f), 1f)
 
         trackCanvas.drawColor(Color.TRANSPARENT)
 
@@ -192,7 +192,7 @@ class RadarCompassView : View, ICompassView {
         trackHistory = if (track == null){
             null
         } else {
-            val maxTimeAgo = Duration.ofHours(4).seconds.toFloat()
+            val maxTimeAgo = prefs.navigation.showBacktrackPathDuration.seconds.toFloat()
             val lines = mutableListOf<TrackLine>()
             val pixelWaypoints = track.points.map { WaypointPoint(
                 coordinateToPixel(it.location),
@@ -204,7 +204,7 @@ class RadarCompassView : View, ICompassView {
                     pixelWaypoints[i - 1].pixel,
                     pixelWaypoints[i].pixel,
                     blue,
-                    (220 * (1 - timeAgo / maxTimeAgo)).toInt()
+                    (230 * (1 - timeAgo / maxTimeAgo)).toInt().coerceAtLeast(60)
                 )
                 lines.add(line)
             }
