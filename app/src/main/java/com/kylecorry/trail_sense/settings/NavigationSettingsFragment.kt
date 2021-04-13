@@ -72,7 +72,7 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
 
         prefBacktrackInterval?.setOnPreferenceClickListener {
             CustomUiUtils.pickDuration(requireContext(), prefs.backtrackRecordFrequency, it.title.toString()){
-                if (it != null){
+                if (it != null && !it.isZero){
                     prefs.backtrackRecordFrequency = it
                     prefBacktrackInterval.summary = formatService.formatDuration(it)
                     restartBacktrack()

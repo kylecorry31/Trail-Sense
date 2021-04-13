@@ -30,11 +30,6 @@ class BacktrackService : CoroutineForegroundService() {
     private val waypointRepo by lazy { WaypointRepo.getInstance(applicationContext) }
 
     private val prefs by lazy { UserPreferences(applicationContext) }
-    private val cache by lazy { Cache(applicationContext) }
-
-    private val serviceJob = Job()
-    private val serviceScope = CoroutineScope(Dispatchers.IO + serviceJob)
-
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
@@ -53,23 +48,23 @@ class BacktrackService : CoroutineForegroundService() {
 
     override val foregroundNotificationId: Int = FOREGROUND_SERVICE_ID
 
-    private fun getReadings() {
-        serviceScope.launch {
-            withTimeoutOrNull(Duration.ofSeconds(30).toMillis()) {
-                val jobs = mutableListOf<Job>()
-                jobs.add(launch { gps.read() })
+    private suspend fun getReadings() {
+        withTimeoutOrNull(Duration.ofSeconds(30).toMillis()) {
+            val jobs = mutableListOf<Job>()
+            jobs.add(launch { gps.read() })
 
-                if (prefs.backtrackSaveCellHistory && PermissionUtils.isBackgroundLocationEnabled(applicationContext)) {
-                    jobs.add(launch { cellSignal.read() })
-                }
+            if (prefs.backtrackSaveCellHistory && PermissionUtils.isBackgroundLocationEnabled(
+                    applicationContext
+                )
+            ) {
+                jobs.add(launch { cellSignal.read() })
+            }
 
-                jobs.joinAll()
-            }
-            cache.putLong(CACHE_LAST_LOCATION_UPDATE, Instant.now().toEpochMilli())
-            recordWaypoint()
-            withContext(Dispatchers.Main) {
-                stopService(true)
-            }
+            jobs.joinAll()
+        }
+        recordWaypoint()
+        withContext(Dispatchers.Main) {
+            stopService(true)
         }
     }
 
@@ -106,16 +101,7 @@ class BacktrackService : CoroutineForegroundService() {
     override suspend fun doWork() {
         Log.i(TAG, "Started at ${ZonedDateTime.now()}")
         scheduleNextUpdate()
-
-        val timeSinceLast =
-            Instant.now().toEpochMilli() - (cache.getLong(CACHE_LAST_LOCATION_UPDATE)
-                ?: 0L)
-
-        if (timeSinceLast > Duration.ofMinutes(5).toMillis() || timeSinceLast < 0) {
-            getReadings()
-        } else {
-            stopSelf()
-        }
+        getReadings()
     }
 
 
@@ -129,7 +115,6 @@ class BacktrackService : CoroutineForegroundService() {
         private const val FOREGROUND_SERVICE_ID = 76984343
         const val FOREGROUND_CHANNEL_ID = "Backtrack"
         private const val TAG = "BacktrackService"
-        const val CACHE_LAST_LOCATION_UPDATE = "cache_last_backtrack_time"
 
         fun intent(context: Context): Intent {
             return Intent(context, BacktrackService::class.java)
