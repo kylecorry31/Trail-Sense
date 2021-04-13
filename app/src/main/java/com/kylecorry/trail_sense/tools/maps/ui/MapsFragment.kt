@@ -74,7 +74,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
             binding.map.setAzimuth(compass.bearing)
         })
         beaconRepo.getBeacons()
-            .observe(viewLifecycleOwner, { binding.map.setBeacons(it.map { it.toBeacon() }) })
+            .observe(viewLifecycleOwner, { binding.map.setBeacons(it.map { it.toBeacon() }.filter { it.visible }) })
 
 
         lifecycleScope.launch {
