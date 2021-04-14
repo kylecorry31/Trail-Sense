@@ -221,6 +221,7 @@ class NavigatorFragment : Fragment() {
 
         binding.navigationOpenArCamera.setOnClickListener { view ->
             binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+            binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
         }
 
         binding.beaconBtn.setOnClickListener {
@@ -591,6 +592,7 @@ class NavigatorFragment : Fragment() {
             binding.linearCompass.visibility = View.INVISIBLE
             binding.navigationOpenArCamera.visibility = View.INVISIBLE
             binding.viewCamera.visibility = View.INVISIBLE
+            binding.viewCameraLine.visibility = View.INVISIBLE
             binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
             binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
         }

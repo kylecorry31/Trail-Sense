@@ -20,6 +20,16 @@
         app:pinchToZoomEnabled="false"
         app:scaleType="fitCenter" />
 
+    <View
+        android:id="@+id/view_camera_line"
+        android:layout_width="1dp"
+        android:layout_height="248dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/linear_compass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/linear_compass" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
