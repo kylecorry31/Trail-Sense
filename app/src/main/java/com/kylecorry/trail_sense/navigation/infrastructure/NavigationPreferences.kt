@@ -51,9 +51,6 @@ class NavigationPreferences(private val context: Context) {
     val showLinearCompass: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_linear_compass)) ?: true
 
-    val enableAr: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_enable_ar)) ?: true
-
     val showMultipleBeacons: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_display_multi_beacons)) ?: false
 

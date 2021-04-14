@@ -125,7 +125,7 @@ class NavigatorFragment : Fragment() {
             userPrefs.navigation.leftQuickAction,
             binding.navigationLeftQuickAction
         )
-        if (PermissionUtils.hasPermission(requireContext(), Manifest.permission.CAMERA) && userPrefs.navigation.enableAr) {
+        if (PermissionUtils.hasPermission(requireContext(), Manifest.permission.CAMERA)) {
             binding.viewCamera.bindToLifecycle(viewLifecycleOwner)
             calculateFOV(requireContext().getSystemService()!!)
         }
