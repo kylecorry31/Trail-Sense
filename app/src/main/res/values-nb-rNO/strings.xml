@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="disclaimer_message_title">Ansvarsfraskrivelse</string>
-    <string name="disclaimer_message_content">Trail sense er et verktøy som kan brukes i nødsituasjoner, men du bør ikke stole på det alene. Sjekk dets nøyaktighet, unngå farlige situasjoner når mulig, behold roen, og bruk sunn fornuft.</string>
+    <string name="disclaimer_message_content">Trail Sense er et verktøy som kan brukes i nødsituasjoner, men du bør ikke stole utelukkende på det. Denne appen er kun ment for informasjonsformål, og nøyaktigheten kan variere avhengig av enheten din og gjeldende miljøforhold. Sjekk nøyaktigheten, unngå farlige situasjoner når mulig, behold roen, og bruk sunn fornuft.</string>
     <string name="continue_button">Fortsett</string>
     <string name="pref_email_title">E-postadresse til utvikler</string>
     <string name="pref_github_title">GitHub</string>
@@ -639,4 +639,27 @@
     <string name="left_quick_action">Venstre hurtighandling</string>
     <string name="quick_action_none">Ingen</string>
     <string name="no_temperature_history">Ingen temperaturhistorikk</string>
+    <string name="weather_same_as_today">Samme som i dag</string>
+    <string name="weather_worse_than_today">Verre enn i dag</string>
+    <string name="weather_better_than_today">Bedre enn i dag</string>
+    <string name="tomorrows_forecast">Morgendagens værvarsel</string>
+    <string name="low">Lav</string>
+    <string name="moderate">Moderat</string>
+    <string name="high">Høy</string>
+    <string name="battery_usage">%s batteribruk</string>
+    <string name="no_gps_signal">Ikke noe GPS-signal</string>
+    <string name="tides">Tidevann</string>
+    <string name="guide_speedometer_desc">Hvordan bestemme tilbakelagt distanse og ankomsttider</string>
+    <string name="guide_speedometer_title">Bestem hastighet og distanse</string>
+    <string name="pedometer_disclaimer">Nøyaktigheten og batteribruken til skrittelleren er avhengig av produsenten av enheten og den angitte skrittlengden. Prøv det ut litt hjemme for å kontrollere batteritømming og nøyaktighet før du bruker det på stien.</string>
+    <string name="guide_using_printed_maps_desc">Hvordan bruke trykte kart med Trail Sense</string>
+    <string name="guide_using_printed_maps">Bruke trykte kart</string>
+    <string name="guide_navigation_description">Hvordan navigere ved hjelp av Trail Sense</string>
+    <string name="guide_signaling_for_help_description">Hvordan signalisere om hjelp</string>
+    <string name="guide_signaling_for_help_title">Signalering for hjelp</string>
+    <string name="pref_meteor_showers_title">Meteorsvermer</string>
+    <string name="meteors_per_hour">Maks %d meteorer / t</string>
+    <string name="tomorrow_at">I morgen %s</string>
+    <string name="meteor_shower">Meteorsverm</string>
+    <string name="speedometer">Speedometer</string>
 </resources>
