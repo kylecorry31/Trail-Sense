@@ -224,6 +224,12 @@ class NavigatorFragment : Fragment() {
             binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
         }
 
+        binding.navigationOpenArCamera.setOnLongClickListener {
+            binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+            binding.viewCameraLine.visibility = View.INVISIBLE
+            true
+        }
+
         binding.viewCameraLine.setOnClickListener {
             toggleDestinationBearing()
         }
