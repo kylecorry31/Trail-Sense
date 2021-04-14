@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogService
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 
@@ -14,6 +15,7 @@ object TrailSenseServiceUtils {
         startSunsetAlarm(context)
         startBacktrack(context)
         startPedometer(context)
+        BatteryLogService.start(context)
     }
 
     private fun startPedometer(context: Context){
