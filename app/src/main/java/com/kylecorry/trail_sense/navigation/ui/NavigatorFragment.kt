@@ -219,6 +219,10 @@ class NavigatorFragment : Fragment() {
             true
         }
 
+        binding.navigationOpenArCamera.setOnClickListener { view ->
+            binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+        }
+
         binding.beaconBtn.setOnClickListener {
             if (destination == null) {
                 navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment)
@@ -580,11 +584,12 @@ class NavigatorFragment : Fragment() {
     private fun onOrientationUpdate(): Boolean {
         if (shouldShowLinearCompass()) {
             binding.linearCompass.visibility = View.VISIBLE
-            binding.viewCamera.visibility = if (userPrefs.navigation.enableAr) View.VISIBLE else View.INVISIBLE
+            binding.navigationOpenArCamera.visibility = View.VISIBLE
             binding.roundCompass.visibility = View.INVISIBLE
             binding.radarCompass.visibility = View.INVISIBLE
         } else {
             binding.linearCompass.visibility = View.INVISIBLE
+            binding.navigationOpenArCamera.visibility = View.INVISIBLE
             binding.viewCamera.visibility = View.INVISIBLE
             binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
             binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
