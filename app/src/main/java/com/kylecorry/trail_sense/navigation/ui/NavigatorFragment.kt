@@ -220,13 +220,18 @@ class NavigatorFragment : Fragment() {
         }
 
         binding.navigationOpenArCamera.setOnClickListener { view ->
+            binding.viewCameraLine.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
             binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
-            binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+            //binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
         }
 
         binding.navigationOpenArCamera.setOnLongClickListener {
-            binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
-            binding.viewCameraLine.visibility = View.INVISIBLE
+            if (binding.viewCamera.visibility == View.VISIBLE) {
+                binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+            }
+            else {
+                binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+            }
             true
         }
 
