@@ -148,13 +148,13 @@ class RadarCompassView : View, ICompassView {
 
     private fun drawTracks(canvas: Canvas){
         val tracks = trackHistory ?: return
-        paint.style = Paint.Style.STROKE
+        paint.style = Paint.Style.FILL
 
         trackCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.DST_IN)
 
-        paint.strokeWidth = 5f
-        paint.strokeCap = Paint.Cap.ROUND
-        paint.pathEffect = DashPathEffect(floatArrayOf(1f, 10f), 1f)
+        val path = Path()
+        path.addCircle(0f, 0f, 3f, Path.Direction.CW)
+        paint.pathEffect = PathDashPathEffect(path, 10f, 0.0f, PathDashPathEffect.Style.ROTATE)
 
         trackCanvas.drawColor(Color.TRANSPARENT)
 

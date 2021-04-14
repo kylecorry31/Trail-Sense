@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -13,14 +14,19 @@ import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toFile
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
@@ -28,6 +34,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconExport
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconIOService
 import com.kylecorry.trail_sense.navigation.infrastructure.export.JsonBeaconImporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
@@ -107,7 +114,46 @@ class BeaconListFragment : Fragment() {
             dialog.show()
         }
 
+        binding.overlayMask.setOnClickListener {
+            // TODO: Maybe collapse the fab menu
+        }
+
         binding.createBeaconBtn.setOnClickListener {
+            setCreateMenuVisibility(false)
+            navController.navigate(R.id.action_beaconListFragment_to_placeBeaconFragment)
+        }
+
+        binding.importGpxBtn.setOnClickListener {
+            importBeacons()
+            setCreateMenuVisibility(false)
+        }
+
+        binding.createBeaconGroupBtn.setOnClickListener {
+            editTextDialog(
+                requireContext(),
+                getString(R.string.beacon_create_group),
+                getString(R.string.beacon_group_name_hint),
+                null,
+                null,
+                getString(R.string.dialog_ok),
+                getString(R.string.dialog_cancel)
+            ) { cancelled, text ->
+                if (!cancelled) {
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.IO) {
+                            beaconRepo.addBeaconGroup(BeaconGroupEntity(text ?: ""))
+                        }
+
+                        withContext(Dispatchers.Main) {
+                            updateBeaconList()
+                        }
+                    }
+                }
+                setCreateMenuVisibility(false)
+            }
+        }
+
+        binding.createBtn.setOnClickListener {
             if (displayedGroup != null) {
                 val bundle = bundleOf("initial_group" to displayedGroup!!.id)
                 navController.navigate(
@@ -115,60 +161,41 @@ class BeaconListFragment : Fragment() {
                     bundle
                 )
             } else {
-                val builder = AlertDialog.Builder(requireContext())
-                builder.apply {
-                    setTitle(getString(R.string.beacon_create))
-                    setPositiveButton(getString(R.string.beacon_create_beacon)) { dialog, _ ->
-                        navController.navigate(R.id.action_beaconListFragment_to_placeBeaconFragment)
-                        dialog.dismiss()
-                    }
-                    setNeutralButton(getString(R.string.dialog_cancel)) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    setNegativeButton(getString(R.string.beacon_create_group)) { dialog, _ ->
-                        editTextDialog(
-                            requireContext(),
-                            getString(R.string.beacon_create_group),
-                            getString(R.string.beacon_group_name_hint),
-                            null,
-                            null,
-                            getString(R.string.dialog_ok),
-                            getString(R.string.dialog_cancel)
-                        ) { cancelled, text ->
-                            if (!cancelled) {
-                                lifecycleScope.launch {
-                                    withContext(Dispatchers.IO) {
-                                        beaconRepo.addBeaconGroup(BeaconGroupEntity(text ?: ""))
-                                    }
-
-                                    withContext(Dispatchers.Main) {
-                                        updateBeaconList()
-                                    }
-                                }
-                            }
-                        }
-                        dialog.dismiss()
-                    }
-                }
-
-                val dialog = builder.create()
-                dialog.show()
+                setCreateMenuVisibility(!isCreateMenuOpen())
             }
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            if (displayedGroup != null) {
-                displayedGroup = null
-                lifecycleScope.launch {
-                    withContext(Dispatchers.Main) {
-                        updateBeaconList()
+            when {
+                isCreateMenuOpen() -> {
+                    setCreateMenuVisibility(false)
+                }
+                displayedGroup != null -> {
+                    displayedGroup = null
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.Main) {
+                            updateBeaconList()
+                        }
                     }
                 }
-            } else {
-                remove()
-                requireActivity().onBackPressed()
+                else -> {
+                    remove()
+                    requireActivity().onBackPressed()
+                }
             }
         }
+    }
+
+    private fun setCreateMenuVisibility(isShowing: Boolean){
+        binding.overlayMask.isVisible = isShowing
+        binding.createBeaconBtnHolder.isVisible = isShowing
+        binding.createBeaconGroupBtnHldr.isVisible = isShowing
+        binding.importGpxBtnHldr.isVisible = isShowing
+        binding.createBtn.setImageResource(if (!isShowing) R.drawable.ic_plus else R.drawable.ic_cancel)
+    }
+
+    private fun isCreateMenuOpen(): Boolean {
+        return binding.overlayMask.isVisible
     }
 
     override fun onResume() {
@@ -353,6 +380,8 @@ class BeaconListFragment : Fragment() {
         }
 
         withContext(Dispatchers.Main) {
+            context ?: return@withContext
+            _binding ?: return@withContext
             binding.beaconTitle.text = displayedGroup?.name ?: getString(R.string.select_beacon)
             updateBeaconEmptyText(beacons.isNotEmpty())
             beaconList.setData(beacons)
