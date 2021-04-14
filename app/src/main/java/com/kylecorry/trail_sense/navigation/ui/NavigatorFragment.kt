@@ -224,6 +224,10 @@ class NavigatorFragment : Fragment() {
             binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
         }
 
+        binding.viewCameraLine.setOnClickListener {
+            toggleDestinationBearing()
+        }
+
         binding.beaconBtn.setOnClickListener {
             if (destination == null) {
                 navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment)
