@@ -732,7 +732,7 @@
     <string name="speedometer">Geschwindigkeitsanzeige</string>
     <string name="screen_flashlight">Bildschirm</string>
     <string name="tide_calibration">Gezeitenkalibrierung</string>
-    <string name="experimental_features">Gezeiten, weißes Rauschen und Karten</string>
+    <string name="experimental_features">Gezeiten und Karten</string>
     <string name="date_not_set">Datum nicht festgelegt</string>
     <string name="time_not_set">Zeit nicht festgelegt</string>
     <string name="tide_calibration_instructions">Setzen Sie die Zeit während einer Flut, wenn möglich während einer Neu- oder Vollmonds. Das kann im Internet oder über gedruckte Gezeitentabellen herausgefunden werden. Die Gezeiten, die in Trail Sense gezeigt werden, können bis zu zwei Stunden von den realen Zeiten abweichen, was genug als Referenz ist, allerdings sollten Sie sich nicht alleine darauf verlassen.</string>
@@ -789,4 +789,14 @@
     <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="all_beacons">Alle Wegpunkte</string>
+    <string name="import_gpx">GPX importieren</string>
+    <string name="error_importing_map">Fehler beim Importieren der Karte</string>
+    <string name="importing_map">Karte importieren</string>
+    <string name="hour_symbol">h</string>
+    <string name="minute_symbol">min</string>
+    <string name="pref_backtrack_interval">pref_backtrack_interval</string>
+    <string name="pref_backtrack_path_radar_title">Zeige Weg aus Rückweg</string>
+    <string name="pref_backtrack_path_radar">pref_backtrack_path_radar</string>
+    <string name="map_auto_calibrated">Karte wurde automatisch kalibriert, bitte überprüfe die Genauigkeit</string>
+    <string name="time_until_empty">%s bis leer</string>
 </resources>
