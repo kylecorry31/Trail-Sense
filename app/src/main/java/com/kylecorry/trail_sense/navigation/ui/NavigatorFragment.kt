@@ -589,18 +589,16 @@ class NavigatorFragment : Fragment() {
     private fun onOrientationUpdate(): Boolean {
         if (shouldShowLinearCompass()) {
             binding.linearCompass.visibility = View.VISIBLE
-            if (userPrefs.experimentalEnabled) {
+            if (userPrefs.experimentalEnabled && PermissionUtils.hasPermission(requireContext(), Manifest.permission.CAMERA)) {
                 binding.navigationOpenArCamera.visibility = View.VISIBLE
             }
             binding.roundCompass.visibility = View.INVISIBLE
             binding.radarCompass.visibility = View.INVISIBLE
         } else {
             binding.linearCompass.visibility = View.INVISIBLE
-            if (userPrefs.experimentalEnabled) {
-                binding.navigationOpenArCamera.visibility = View.INVISIBLE
-                binding.viewCamera.visibility = View.INVISIBLE
-                binding.viewCameraLine.visibility = View.INVISIBLE
-            }
+            binding.navigationOpenArCamera.visibility = View.INVISIBLE
+            binding.viewCamera.visibility = View.INVISIBLE
+            binding.viewCameraLine.visibility = View.INVISIBLE
             binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
             binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
         }
