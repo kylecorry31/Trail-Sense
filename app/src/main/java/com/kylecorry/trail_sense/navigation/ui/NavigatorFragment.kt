@@ -73,6 +73,7 @@ class NavigatorFragment : Fragment() {
 
     private var shownAccuracyToast: Boolean = false
     private var viewCameraBindToLifecycle: Boolean = false
+    private var sightingCompassOpen: Boolean = false
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
     private val orientation by lazy { sensorService.getDeviceOrientation() }
@@ -204,6 +205,7 @@ class NavigatorFragment : Fragment() {
             }
             binding.viewCameraLine.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
             binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+            sightingCompassOpen = if (binding.viewCamera.visibility == View.VISIBLE) true else false
         }
 
         binding.navigationOpenArCamera.setOnLongClickListener {
@@ -212,6 +214,7 @@ class NavigatorFragment : Fragment() {
             }
             else {
                 binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+                sightingCompassOpen = true
             }
             true
         }
@@ -587,6 +590,12 @@ class NavigatorFragment : Fragment() {
             binding.linearCompass.visibility = View.VISIBLE
             if (userPrefs.experimentalEnabled && PermissionUtils.hasPermission(requireContext(), Manifest.permission.CAMERA)) {
                 binding.navigationOpenArCamera.visibility = View.VISIBLE
+                if (sightingCompassOpen) {
+                    binding.viewCamera.visibility = View.VISIBLE
+                }
+                else {
+                    binding.viewCamera.visibility = View.INVISIBLE
+                }
             }
             binding.roundCompass.visibility = View.INVISIBLE
             binding.radarCompass.visibility = View.INVISIBLE
