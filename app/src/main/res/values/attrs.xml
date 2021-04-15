@@ -2,35 +2,43 @@
 <resources>
 
     <declare-styleable name="LinearCompassView">
-        <attr name="backgroundColor" format="color"/>
-        <attr name="showMarker" format="boolean"/>
-        <attr name="markerColor" format="color"/>
-        <attr name="lineColor" format="color"/>
-        <attr name="cardinalLineColor" format="color"/>
-        <attr name="textColor" format="color"/>
-        <attr name="textSize" format="dimension"/>
-        <attr name="degrees" format="integer"/>
-        <attr name="rangeDegrees" format="float"/>
+        <attr name="backgroundColor" format="color" />
+        <attr name="showMarker" format="boolean" />
+        <attr name="markerColor" format="color" />
+        <attr name="lineColor" format="color" />
+        <attr name="cardinalLineColor" format="color" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="degrees" format="integer" />
+        <attr name="rangeDegrees" format="float" />
     </declare-styleable>
 
     <declare-styleable name="DistanceInputView">
-        <attr name="hint" format="string"/>
+        <attr name="hint" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="BearingInputView">
-    </declare-styleable>
+    <declare-styleable name="BearingInputView"></declare-styleable>
 
     <declare-styleable name="StatusBadgeView">
-        <attr name="icon" format="reference"/>
-        <attr name="foregroundTint" format="color"/>
-        <attr name="backgroundTint" format="color"/>
+        <attr name="icon" format="reference" />
+        <attr name="foregroundTint" format="color" />
+        <attr name="backgroundTint" format="color" />
     </declare-styleable>
 
     <declare-styleable name="TileButton">
-        <attr name="tileIcon" format="reference"/>
-        <attr name="tileText" format="string"/>
-        <attr name="tilePadding" format="dimension"/>
-        <attr name="tileTextSize" format="dimension"/>
+        <attr name="tileIcon" format="reference" />
+        <attr name="tileText" format="string" />
+        <attr name="tilePadding" format="dimension" />
+        <attr name="tileTextSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="FloatingActionButtonMenuItem">
+        <attr name="android:src" />
+        <attr name="android:text" />
+    </declare-styleable>
+
+    <declare-styleable name="FloatingActionButtonMenu">
+        <attr name="menu" format="reference"/>
     </declare-styleable>
 
 </resources>

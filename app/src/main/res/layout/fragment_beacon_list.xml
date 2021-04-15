@@ -70,123 +70,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Import GPX -->
-    <LinearLayout
-        android:id="@+id/import_gpx_btn_hldr"
+    <com.kylecorry.trail_sense.shared.views.FloatingActionButtonMenu
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:padding="8dp"
-        android:paddingBottom="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/create_beacon_group_btn_hldr"
-        app:layout_constraintEnd_toEndOf="@id/create_btn"
-        tools:visibility="visible">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/rounded_rectangle"
-            android:backgroundTint="?android:colorBackgroundFloating"
-            android:paddingLeft="8dp"
-            android:paddingTop="4dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="4dp"
-            android:text="@string/import_gpx" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/import_gpx_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            app:backgroundTint="@color/colorPrimary"
-            app:fabSize="mini"
-            app:srcCompat="@drawable/ic_file" />
-
-    </LinearLayout>
-
-    <!--    Create group-->
-    <LinearLayout
-        android:id="@+id/create_beacon_group_btn_hldr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:padding="8dp"
-        android:paddingBottom="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/create_beacon_btn_holder"
-        app:layout_constraintEnd_toEndOf="@id/create_btn"
-        tools:visibility="visible">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/rounded_rectangle"
-            android:backgroundTint="?android:colorBackgroundFloating"
-            android:paddingLeft="8dp"
-            android:paddingTop="4dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="4dp"
-            android:text="@string/beacon_create_group" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/create_beacon_group_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            app:backgroundTint="@color/colorPrimary"
-            app:fabSize="mini"
-            app:srcCompat="@drawable/ic_beacon_group" />
-
-    </LinearLayout>
-
-    <!--    Create beacon-->
-    <LinearLayout
-        android:id="@+id/create_beacon_btn_holder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:padding="8dp"
-        android:paddingBottom="16dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone"
+        tools:visibility="visible"
+        android:id="@+id/create_menu"
         app:layout_constraintBottom_toTopOf="@id/create_btn"
         app:layout_constraintEnd_toEndOf="@id/create_btn"
-        tools:visibility="visible">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/rounded_rectangle"
-            android:backgroundTint="?android:colorBackgroundFloating"
-            android:paddingLeft="8dp"
-            android:paddingTop="4dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="4dp"
-            android:text="@string/beacon_create_beacon" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/create_beacon_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            app:backgroundTint="@color/colorPrimary"
-            app:fabSize="mini"
-            app:srcCompat="@drawable/ic_location" />
-
-    </LinearLayout>
+        app:menu="@menu/beacon_create_menu" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/create_btn"
@@ -195,6 +88,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="@dimen/default_bottom_margin"
         android:clickable="true"
+        android:focusable="true"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

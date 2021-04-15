@@ -27,7 +27,6 @@ import kotlin.math.min
 
 class RadarCompassView : View, ICompassView {
     private lateinit var paint: Paint
-    private lateinit var maskPaint: Paint
     private val icons = mutableMapOf<Int, Bitmap>()
     private var indicators = listOf<BearingIndicator>()
     private var compass: Bitmap? = null
@@ -56,7 +55,6 @@ class RadarCompassView : View, ICompassView {
 
     private lateinit var compassMask: Bitmap
     private lateinit var trackBitmap: Bitmap
-    private lateinit var trackCanvas: Canvas
 
     private var metersPerPixel = 1f
     private var location = Coordinate.zero
@@ -100,14 +98,11 @@ class RadarCompassView : View, ICompassView {
             east = context.getString(R.string.direction_east)
             west = context.getString(R.string.direction_west)
             compassMask = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            maskPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-            maskPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_IN)
             val tempCanvas = Canvas(compassMask)
             paint.color = Color.WHITE
             paint.style = Paint.Style.FILL
             tempCanvas.drawCircle(width / 2f, height / 2f, compassSize / 2f, paint)
             trackBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            trackCanvas = Canvas(trackBitmap)
         }
         if (visibility != VISIBLE) {
             postInvalidateDelayed(20)
@@ -148,30 +143,24 @@ class RadarCompassView : View, ICompassView {
 
     private fun drawTracks(canvas: Canvas){
         val tracks = trackHistory ?: return
-        paint.style = Paint.Style.FILL
+        val pathBitmap = canvas.getMaskedBitmap(compassMask, trackBitmap){
+            paint.pathEffect = DottedPathEffect()
+            paint.style = Paint.Style.FILL
 
-        trackCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.DST_IN)
+            it.drawColor(Color.TRANSPARENT)
 
-        val path = Path()
-        path.addCircle(0f, 0f, 3f, Path.Direction.CW)
-        paint.pathEffect = PathDashPathEffect(path, 10f, 0.0f, PathDashPathEffect.Style.ROTATE)
-
-        trackCanvas.drawColor(Color.TRANSPARENT)
-
-        for (line in tracks){
-            paint.color = line.color
-            paint.alpha = line.alpha
-            trackCanvas.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, paint)
+            for (line in tracks){
+                paint.color = line.color
+                paint.alpha = line.alpha
+                it.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, paint)
+            }
+            paint.alpha = 255
+            paint.strokeCap = Paint.Cap.SQUARE
+            paint.style = Paint.Style.FILL
+            paint.pathEffect = null
         }
-        paint.alpha = 255
-        paint.strokeCap = Paint.Cap.SQUARE
-        paint.style = Paint.Style.FILL
-        paint.pathEffect = null
 
-
-        trackCanvas.drawBitmap(compassMask, 0f, 0f, maskPaint)
-
-        canvas.drawBitmap(trackBitmap, 0f, 0f, paint)
+        canvas.drawBitmap(pathBitmap, 0f, 0f, paint)
     }
 
     override fun setAzimuth(bearing: Bearing) {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_import_gpx_beacons"
+        android:title="@string/import_gpx"
+        android:icon="@drawable/ic_file"/>
+    <item
+        android:id="@+id/action_create_beacon_group"
+        android:title="@string/beacon_create_group"
+        android:icon="@drawable/ic_beacon_group"/>
+    <item
+        android:id="@+id/action_create_beacon"
+        android:title="@string/beacon_create_beacon"
+        android:icon="@drawable/ic_location"/>
+</menu>

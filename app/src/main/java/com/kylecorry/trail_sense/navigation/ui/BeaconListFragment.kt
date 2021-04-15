@@ -1,45 +1,33 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.MimeTypeMap
 import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
-import androidx.core.net.toFile
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
-import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconExport
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconIOService
 import com.kylecorry.trail_sense.navigation.infrastructure.export.JsonBeaconImporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
-import com.kylecorry.trailsensecore.infrastructure.json.JsonConvert
 import com.kylecorry.trailsensecore.infrastructure.persistence.ExternalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -47,7 +35,6 @@ import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
 import java.time.Instant
 
 
@@ -118,39 +105,43 @@ class BeaconListFragment : Fragment() {
             // TODO: Maybe collapse the fab menu
         }
 
-        binding.createBeaconBtn.setOnClickListener {
-            setCreateMenuVisibility(false)
-            navController.navigate(R.id.action_beaconListFragment_to_placeBeaconFragment)
-        }
+        binding.createMenu.setOverlay(binding.overlayMask)
+        binding.createMenu.setOnMenuItemClickListener {
+            when (it.itemId){
+                R.id.action_import_gpx_beacons -> {
+                    importBeacons()
+                    setCreateMenuVisibility(false)
+                }
+                R.id.action_create_beacon_group -> {
+                    editTextDialog(
+                        requireContext(),
+                        getString(R.string.beacon_create_group),
+                        getString(R.string.beacon_group_name_hint),
+                        null,
+                        null,
+                        getString(R.string.dialog_ok),
+                        getString(R.string.dialog_cancel)
+                    ) { cancelled, text ->
+                        if (!cancelled) {
+                            lifecycleScope.launch {
+                                withContext(Dispatchers.IO) {
+                                    beaconRepo.addBeaconGroup(BeaconGroupEntity(text ?: ""))
+                                }
 
-        binding.importGpxBtn.setOnClickListener {
-            importBeacons()
-            setCreateMenuVisibility(false)
-        }
-
-        binding.createBeaconGroupBtn.setOnClickListener {
-            editTextDialog(
-                requireContext(),
-                getString(R.string.beacon_create_group),
-                getString(R.string.beacon_group_name_hint),
-                null,
-                null,
-                getString(R.string.dialog_ok),
-                getString(R.string.dialog_cancel)
-            ) { cancelled, text ->
-                if (!cancelled) {
-                    lifecycleScope.launch {
-                        withContext(Dispatchers.IO) {
-                            beaconRepo.addBeaconGroup(BeaconGroupEntity(text ?: ""))
+                                withContext(Dispatchers.Main) {
+                                    updateBeaconList()
+                                }
+                            }
                         }
-
-                        withContext(Dispatchers.Main) {
-                            updateBeaconList()
-                        }
+                        setCreateMenuVisibility(false)
                     }
                 }
-                setCreateMenuVisibility(false)
+                R.id.action_create_beacon -> {
+                    setCreateMenuVisibility(false)
+                    navController.navigate(R.id.action_beaconListFragment_to_placeBeaconFragment)
+                }
             }
+            true
         }
 
         binding.createBtn.setOnClickListener {
@@ -187,15 +178,16 @@ class BeaconListFragment : Fragment() {
     }
 
     private fun setCreateMenuVisibility(isShowing: Boolean){
-        binding.overlayMask.isVisible = isShowing
-        binding.createBeaconBtnHolder.isVisible = isShowing
-        binding.createBeaconGroupBtnHldr.isVisible = isShowing
-        binding.importGpxBtnHldr.isVisible = isShowing
+        if (isShowing){
+            binding.createMenu.show()
+        } else {
+            binding.createMenu.hide()
+        }
         binding.createBtn.setImageResource(if (!isShowing) R.drawable.ic_plus else R.drawable.ic_cancel)
     }
 
     private fun isCreateMenuOpen(): Boolean {
-        return binding.overlayMask.isVisible
+        return binding.createMenu.isVisible
     }
 
     override fun onResume() {
