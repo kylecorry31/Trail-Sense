@@ -127,30 +127,8 @@ class NavigatorFragment : Fragment() {
         )
         if (PermissionUtils.hasPermission(requireContext(), Manifest.permission.CAMERA) && userPrefs.experimentalEnabled) {
             binding.viewCamera.bindToLifecycle(viewLifecycleOwner)
-            calculateFOV(requireContext().getSystemService()!!)
         }
         return binding.root
-    }
-
-    private fun calculateFOV(cManager: CameraManager) {
-        try {
-            for (cameraId in cManager.cameraIdList) {
-                val characteristics = cManager.getCameraCharacteristics(cameraId)
-                val cOrientation = characteristics.get(CameraCharacteristics.LENS_FACING)!!
-                if (cOrientation == CameraCharacteristics.LENS_FACING_BACK) {
-                    val maxFocus =
-                        characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
-                    val size = characteristics.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE)
-                    val w = size!!.width
-                    val h = size.height
-                    val horizonalAngle = (2 * atan(w / (maxFocus!![0] * 2).toDouble())).toFloat()
-                    val verticalAngle = (2 * atan(h / (maxFocus[0] * 2).toDouble())).toFloat()
-                    println("$horizonalAngle $verticalAngle")
-                }
-            }
-        } catch (e: CameraAccessException) {
-            e.printStackTrace()
-        }
     }
 
     override fun onDestroy() {
@@ -222,7 +200,6 @@ class NavigatorFragment : Fragment() {
         binding.navigationOpenArCamera.setOnClickListener { view ->
             binding.viewCameraLine.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
             binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
-            //binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
         }
 
         binding.navigationOpenArCamera.setOnLongClickListener {
