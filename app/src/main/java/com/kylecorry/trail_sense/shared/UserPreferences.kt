@@ -224,6 +224,11 @@ class UserPreferences(private val context: Context) {
             return raw == "pedometer"
         }
 
+    val resetOdometerDaily: Boolean
+        get(){
+            return cache.getBoolean(getString(R.string.pref_odometer_reset_daily)) ?: false
+        }
+
     var strideLength: Distance
         get() {
             val raw = cache.getFloat(getString(R.string.pref_stride_length)) ?: 0.7f

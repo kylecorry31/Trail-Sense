@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.calibration.ui
 
 import android.Manifest
+import android.hardware.Sensor
 import android.os.Bundle
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
@@ -9,6 +10,7 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -22,6 +24,7 @@ class CalibrateOdometerFragment : PreferenceFragmentCompat() {
     private lateinit var odometerSourceList: ListPreference
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private var wasEnabled = false
     private val cache by lazy { Cache(requireContext()) }
 
@@ -42,6 +45,11 @@ class CalibrateOdometerFragment : PreferenceFragmentCompat() {
         strideLengthPref = findPreference(getString(R.string.pref_stride_length_holder))!!
         odometerSourceList = findPreference(getString(R.string.pref_odometer_source))!!
         permissionPref = findPreference(getString(R.string.pref_odometer_request_permission))!!
+
+        val hasPedometer = sensorChecker.hasSensor(Sensor.TYPE_STEP_COUNTER)
+        strideLengthPref.isVisible = hasPedometer
+        odometerSourceList.isVisible = hasPedometer
+        permissionPref.isVisible = hasPedometer
 
         permissionPref.setOnPreferenceClickListener {
             val intent = IntentUtils.appSettings(requireContext())

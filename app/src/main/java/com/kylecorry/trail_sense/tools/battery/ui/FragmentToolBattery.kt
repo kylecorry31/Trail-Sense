@@ -187,7 +187,7 @@ class FragmentToolBattery : Fragment() {
         }
 
         // Get battery percent history and calculate time to reach 0
-        val firstReading = readings.minByOrNull { Duration.between(it.time, Instant.now().minus(Duration.ofHours(1))).abs() }
+        val firstReading = getFirstBatteryReading()
         val secondReading = readings.last()
 
         if (firstReading == null || firstReading.id == secondReading.id){
@@ -206,6 +206,35 @@ class FragmentToolBattery : Fragment() {
 
         val time = battery.percent / percentPerHour
         return hours(time.absoluteValue)
+    }
+
+    private fun getFirstBatteryReading(): BatteryReadingEntity? {
+        // Get the first reading which is at least 30 minutes old and has less percent than the current reading
+        // If the device was charged before the percent dropped, don't return a reading
+
+
+        if (readings.size < 2){
+            return null
+        }
+
+        val last = readings.lastOrNull()
+        val olderReadings = readings.filter { it.time < Instant.now().minus(Duration.ofMinutes(30)) }.sortedByDescending { it.time }
+
+        if (olderReadings.isEmpty() || last == null){
+            return null
+        }
+
+        for (reading in olderReadings){
+            if (reading.percent < last.percent){
+                return reading
+            }
+
+            if (reading.isCharging || reading.percent > last.percent){
+                return null
+            }
+        }
+
+        return null
     }
 
     private fun getHealthString(health: BatteryHealth): String {

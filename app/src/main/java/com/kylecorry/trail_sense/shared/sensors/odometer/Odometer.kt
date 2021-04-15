@@ -10,6 +10,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.odometer.IOdometer
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Instant
+import java.time.LocalDate
 
 class Odometer(private val context: Context): AbstractSensor(), IOdometer {
 
@@ -68,7 +69,13 @@ class Odometer(private val context: Context): AbstractSensor(), IOdometer {
 
     fun addDistance(distance: Distance){
         synchronized(this) {
-            if (!cache.contains(LAST_RESET)){
+            val lastReset = cache.getInstant(LAST_RESET)
+            if (lastReset != null && lastReset.toZonedDateTime().toLocalDate() != LocalDate.now() && prefs.resetOdometerDaily){
+                // Reset it daily
+                cache.putFloat(CACHE_KEY, 0f)
+                cache.remove(LAST_LOCATION)
+                cache.putInstant(LAST_RESET, Instant.now())
+            } else if (lastReset == null){
                 cache.putInstant(LAST_RESET, Instant.now())
             }
             val meters = distance.meters().distance + this.distance.meters().distance
