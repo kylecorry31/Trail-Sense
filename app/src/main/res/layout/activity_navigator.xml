@@ -7,6 +7,31 @@
     android:layout_height="match_parent"
     tools:context=".navigation.ui.NavigatorFragment">
 
+    <androidx.camera.view.CameraView
+        android:id="@+id/view_camera"
+        android:layout_width="200dp"
+        android:layout_height="248dp"
+        android:visibility="invisible"
+        app:captureMode="mixed"
+        app:layout_constraintBottom_toBottomOf="@id/linear_compass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/linear_compass"
+        app:lensFacing="back"
+        app:pinchToZoomEnabled="false"
+        app:scaleType="fitCenter" />
+
+    <View
+        android:id="@+id/view_camera_line"
+        android:layout_width="1dp"
+        android:layout_height="248dp"
+        android:background="@color/colorPrimary"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/linear_compass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/linear_compass" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
@@ -111,6 +136,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/flashlight" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/navigation_open_ar_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:tint="?android:textColorSecondary"
+        android:visibility="invisible"
+        app:backgroundTint="?android:colorBackgroundFloating"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_compass"
+        app:rippleColor="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_camera" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/beaconBtn"

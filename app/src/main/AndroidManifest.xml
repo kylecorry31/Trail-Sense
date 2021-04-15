@@ -22,6 +22,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <!--Force remove this permission from androidx-->
     <uses-permission

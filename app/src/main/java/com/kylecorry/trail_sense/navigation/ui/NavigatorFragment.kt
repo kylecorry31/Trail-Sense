@@ -1,5 +1,11 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.hardware.camera2.CameraAccessException
+import android.hardware.camera2.CameraCharacteristics
+import android.hardware.camera2.CameraManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.core.app.ActivityCompat
+import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -50,6 +58,7 @@ import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
+import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlinx.coroutines.Dispatchers
@@ -57,11 +66,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.*
 import java.util.*
+import kotlin.math.atan
 
 
 class NavigatorFragment : Fragment() {
 
     private var shownAccuracyToast: Boolean = false
+    private var viewCameraBindToLifecycle: Boolean = false
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
     private val orientation by lazy { sensorService.getDeviceOrientation() }
@@ -102,6 +113,7 @@ class NavigatorFragment : Fragment() {
 
     private var gpsErrorShown = false
 
+    @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -183,6 +195,29 @@ class NavigatorFragment : Fragment() {
                 true
             }
             true
+        }
+
+        binding.navigationOpenArCamera.setOnClickListener { view ->
+            if (!viewCameraBindToLifecycle) {
+                binding.viewCamera.bindToLifecycle(viewLifecycleOwner)
+                viewCameraBindToLifecycle = true
+            }
+            binding.viewCameraLine.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+            binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+        }
+
+        binding.navigationOpenArCamera.setOnLongClickListener {
+            if (binding.viewCamera.visibility == View.VISIBLE) {
+                binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+            }
+            else {
+                binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+            }
+            true
+        }
+
+        binding.viewCameraLine.setOnClickListener {
+            toggleDestinationBearing()
         }
 
         binding.beaconBtn.setOnClickListener {
@@ -546,10 +581,16 @@ class NavigatorFragment : Fragment() {
     private fun onOrientationUpdate(): Boolean {
         if (shouldShowLinearCompass()) {
             binding.linearCompass.visibility = View.VISIBLE
+            if (userPrefs.experimentalEnabled && PermissionUtils.hasPermission(requireContext(), Manifest.permission.CAMERA)) {
+                binding.navigationOpenArCamera.visibility = View.VISIBLE
+            }
             binding.roundCompass.visibility = View.INVISIBLE
             binding.radarCompass.visibility = View.INVISIBLE
         } else {
             binding.linearCompass.visibility = View.INVISIBLE
+            binding.navigationOpenArCamera.visibility = View.INVISIBLE
+            binding.viewCamera.visibility = View.INVISIBLE
+            binding.viewCameraLine.visibility = View.INVISIBLE
             binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
             binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
         }

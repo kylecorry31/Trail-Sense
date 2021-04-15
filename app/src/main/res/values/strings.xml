@@ -865,7 +865,7 @@
     <string name="pref_daily_weather_time_holder" translatable="false">pref_daily_weather_time_holder</string>
     <string name="pref_daily_weather_time_title">Daily weather time</string>
     <string name="pref_daily_weather_time" translatable="false">pref_daily_weather_time</string>
-    <string name="experimental_features">Tides and maps</string>
+    <string name="experimental_features">Tides, maps and sighting compass</string>
     <string name="tide_calibration">Tide Calibration</string>
     <string name="screen_flashlight">Screen</string>
     <string name="speedometer_real_time">Real Time</string>
