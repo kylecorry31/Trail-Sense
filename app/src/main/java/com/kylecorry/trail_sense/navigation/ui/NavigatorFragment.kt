@@ -216,6 +216,10 @@ class NavigatorFragment : Fragment() {
             true
         }
 
+        binding.viewCamera.setOnClickListener {
+            toggleDestinationBearing()
+        }
+
         binding.viewCameraLine.setOnClickListener {
             toggleDestinationBearing()
         }
