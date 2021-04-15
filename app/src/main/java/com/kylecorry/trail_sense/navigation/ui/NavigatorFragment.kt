@@ -201,6 +201,13 @@ class NavigatorFragment : Fragment() {
             }
             binding.viewCameraLine.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
             binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+            if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationRightQuickAction.isClickable = if (binding.viewCamera.visibility == View.VISIBLE) false else true
+                }
+            if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+                binding.navigationLeftQuickAction.isClickable = if (binding.viewCamera.visibility == View.VISIBLE) false else true
+            }
+            sightingCompassOpen = if (binding.viewCamera.visibility == View.VISIBLE) true else false
             sightingCompassOpen = if (binding.viewCamera.visibility == View.VISIBLE) true else false
             sightingCompassLineEnabled = if (binding.viewCameraLine.visibility == View.VISIBLE) true else false
         }
@@ -212,6 +219,12 @@ class NavigatorFragment : Fragment() {
             }
             else {
                 binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+                if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationRightQuickAction.isClickable = false
+                }
+                if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationLeftQuickAction.isClickable = false
+                }
                 sightingCompassOpen = true
             }
             true
