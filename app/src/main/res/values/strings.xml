@@ -931,4 +931,5 @@
     <string name="importing_map">Importing map</string>
     <string name="error_importing_map">Error importing map</string>
     <string name="import_gpx">Import GPX</string>
+    <string name="sleep_timer">Sleep timer</string>
 </resources>

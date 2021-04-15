@@ -4,38 +4,60 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.databinding.FragmentToolWhiteNoiseBinding
+import com.kylecorry.trail_sense.shared.BoundFragment
+import com.kylecorry.trail_sense.shared.getInstant
+import com.kylecorry.trail_sense.shared.putInstant
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import java.time.Duration
+import java.time.Instant
 
-class FragmentToolWhiteNoise : Fragment() {
+class FragmentToolWhiteNoise : BoundFragment<FragmentToolWhiteNoiseBinding>() {
 
     private val intervalometer = Intervalometer {
         update()
     }
 
-    private var _binding: FragmentToolWhiteNoiseBinding? = null
-    private val binding get() = _binding!!
+    private val cache by lazy { Cache(requireContext()) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolWhiteNoiseBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val stopTime = cache.getInstant(WhiteNoiseService.CACHE_KEY_OFF_TIME)
+        binding.sleepTimerSwitch.isChecked = stopTime != null && stopTime > Instant.now()
+        binding.sleepTimerPicker.isVisible = binding.sleepTimerSwitch.isChecked
+
+        if (stopTime != null && stopTime > Instant.now()){
+            binding.sleepTimerPicker.updateDuration(Duration.between(Instant.now(), stopTime))
+        }
+
+        binding.sleepTimerSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            WhiteNoiseService.stop(requireContext())
+            binding.sleepTimerPicker.isVisible = isChecked
+        }
+
+        binding.sleepTimerPicker.setOnDurationChangeListener {
+            WhiteNoiseService.stop(requireContext())
+        }
+
         binding.whiteNoiseBtn.setOnClickListener {
             if (WhiteNoiseService.isOn(requireContext())){
                 WhiteNoiseService.stop(requireContext())
             } else {
+
+                val duration = binding.sleepTimerPicker.duration
+
+                if (binding.sleepTimerSwitch.isChecked && duration != null && !duration.isZero){
+                    cache.putInstant(WhiteNoiseService.CACHE_KEY_OFF_TIME, Instant.now().plus(duration))
+                } else {
+                    cache.remove(WhiteNoiseService.CACHE_KEY_OFF_TIME)
+                }
+
                 WhiteNoiseService.start(requireContext())
             }
         }
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onResume() {
@@ -50,6 +72,17 @@ class FragmentToolWhiteNoise : Fragment() {
 
     private fun update() {
         binding.whiteNoiseBtn.setState(WhiteNoiseService.isOn(requireContext()))
+        val stopTime = cache.getInstant(WhiteNoiseService.CACHE_KEY_OFF_TIME)
+        if (stopTime != null && stopTime > Instant.now()){
+            binding.sleepTimerPicker.updateDuration(Duration.between(Instant.now(), stopTime))
+        }
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolWhiteNoiseBinding {
+        return FragmentToolWhiteNoiseBinding.inflate(layoutInflater, container, false)
     }
 
 }

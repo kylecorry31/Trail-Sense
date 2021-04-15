@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <com.kylecorry.trail_sense.shared.views.TileButton
         android:id="@+id/white_noise_btn"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:tilePadding="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tileIcon="@drawable/ic_tool_white_noise" />
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:tileIcon="@drawable/ic_tool_white_noise"
+        app:tilePadding="64dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/sleep_timer_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/sleep_timer" />
+
+    <com.kylecorry.trail_sense.shared.views.DurationInputView
+        android:id="@+id/sleep_timer_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp" />
+
+</LinearLayout>
