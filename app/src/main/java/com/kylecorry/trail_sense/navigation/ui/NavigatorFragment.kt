@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.navigation.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
@@ -10,10 +9,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
+import android.widget.RelativeLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import androidx.core.app.ActivityCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -38,7 +37,6 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
@@ -66,7 +64,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.*
 import java.util.*
-import kotlin.math.atan
 
 
 class NavigatorFragment : Fragment() {
@@ -74,6 +71,7 @@ class NavigatorFragment : Fragment() {
     private var shownAccuracyToast: Boolean = false
     private var viewCameraBindToLifecycle: Boolean = false
     private var sightingCompassOpen: Boolean = false
+    private var sightingCompassLineEnabled: Boolean = false
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
     private val orientation by lazy { sensorService.getDeviceOrientation() }
@@ -206,11 +204,13 @@ class NavigatorFragment : Fragment() {
             binding.viewCameraLine.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
             binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
             sightingCompassOpen = if (binding.viewCamera.visibility == View.VISIBLE) true else false
+            sightingCompassLineEnabled = if (binding.viewCameraLine.visibility == View.VISIBLE) true else false
         }
 
         binding.navigationOpenArCamera.setOnLongClickListener {
             if (binding.viewCamera.visibility == View.VISIBLE) {
                 binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+                sightingCompassLineEnabled = if (binding.viewCameraLine.visibility == View.VISIBLE) true else false
             }
             else {
                 binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
@@ -595,6 +595,12 @@ class NavigatorFragment : Fragment() {
                 }
                 else {
                     binding.viewCamera.visibility = View.INVISIBLE
+                }
+                if (sightingCompassLineEnabled) {
+                    binding.viewCameraLine.visibility = View.VISIBLE
+                }
+                else {
+                    binding.viewCameraLine.visibility = View.INVISIBLE
                 }
             }
             binding.roundCompass.visibility = View.INVISIBLE

@@ -9,7 +9,7 @@
 
     <androidx.camera.view.CameraView
         android:id="@+id/view_camera"
-        android:layout_width="200dp"
+        android:layout_width="139dp"
         android:layout_height="248dp"
         android:visibility="invisible"
         app:captureMode="mixed"
