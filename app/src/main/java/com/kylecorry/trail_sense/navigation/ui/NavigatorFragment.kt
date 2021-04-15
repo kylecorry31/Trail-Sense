@@ -213,6 +213,10 @@ class NavigatorFragment : Fragment() {
         }
 
         binding.navigationOpenArCamera.setOnLongClickListener {
+            if (!viewCameraBindToLifecycle) {
+                binding.viewCamera.bindToLifecycle(viewLifecycleOwner)
+                viewCameraBindToLifecycle = true
+            }
             if (binding.viewCamera.visibility == View.VISIBLE) {
                 binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
                 sightingCompassLineEnabled = if (binding.viewCameraLine.visibility == View.VISIBLE) true else false
