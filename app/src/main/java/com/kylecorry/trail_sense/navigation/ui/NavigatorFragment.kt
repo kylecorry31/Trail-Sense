@@ -37,6 +37,7 @@ import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
@@ -194,7 +195,7 @@ class NavigatorFragment : Fragment() {
             true
         }
 
-        binding.navigationOpenArCamera.setOnClickListener { view ->
+        binding.navigationOpenArCamera.setOnClickListener {
             if (!viewCameraBindToLifecycle) {
                 binding.viewCamera.bindToLifecycle(viewLifecycleOwner)
                 viewCameraBindToLifecycle = true
