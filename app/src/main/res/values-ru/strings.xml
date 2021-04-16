@@ -286,7 +286,7 @@
 \n    %s спутников
 \n
 \nКомпас: Вращайте устройство по траектории восьмерки и постарайтесь находиться подальше от крупных металлоконструкций."</string>
-    <string name="disclaimer_message_content">Trail Sense это - инструмент, который можно использовать в экстренных случаях, но вы не должны полагаться только на него! Пожалуйста, проверьте его точность, избегайте опасных ситуаций, когда это возможно, сохраняйте спокойствие и используйте здравый смысл!</string>
+    <string name="disclaimer_message_content">Trail Sense это - инструмент, который можно использовать в экстренных случаях, но вы не должны полагаться только на него! Это приложение предназначено только для информационных целей, и его точность может зависеть от вашего устройства и текущих условий окружающей среды. Пожалуйста, проверьте его точность, избегайте опасных ситуаций, когда это возможно, сохраняйте спокойствие и используйте здравый смысл!</string>
     <string name="forecast_sensitivity_low_in">Низкая (0.074 in / 3ч)</string>
     <string name="forecast_sensitivity_high_psi">Высокая (0.007 PSI / 3ч)</string>
     <string name="forecast_sensitivity_med_psi">Средняя (0.022 PSI / 3ч)</string>
@@ -757,7 +757,7 @@
     <string name="tides">Приливы</string>
     <string name="pref_meteor_showers_title">Звездопад</string>
     <string name="meteor_shower">Звездопад</string>
-    <string name="speedometer_odometer_accuracy_dialog">Для максимальной точности включите возврат и установите в настройках в качестве источника одометра шагомер.</string>
+    <string name="speedometer_odometer_accuracy_dialog">Для максимальной точности включите историю маршрута и установите в настройках в качестве источника одометра шагомер.</string>
     <string name="pedometer_disclaimer">Точность шагомера и его использование батареи зависят от производителя вашего устройства и введенной длины шага. Попробуйте походить немного дома, чтобы проверить разряд батареи и точность перед использованием на тропе.</string>
     <string name="guide_using_printed_maps_desc">Как использовать печатные карты с Trail Sense</string>
     <string name="guide_using_printed_maps">Использование печатных карт</string>
@@ -784,4 +784,30 @@
     <string name="tool_speedometer_odometer_title">Спидометр / Одометр</string>
     <string name="delete_tide_prompt">Удалить прилив\?</string>
     <string name="your_height">Ваш рост</string>
+    <string name="experimental_features">Приливы и карты</string>
+    <string name="pref_backtrack_path_radar_title">Показать путь истории маршрута</string>
+    <string name="import_gpx">Импорт GPX</string>
+    <string name="error_importing_map">Ошибка при импорте карты</string>
+    <string name="importing_map">Импорт карты</string>
+    <string name="hour_symbol">ч</string>
+    <string name="minute_symbol">м</string>
+    <string name="pref_backtrack_interval">pref_backtrack_interval</string>
+    <string name="pref_backtrack_path_radar">pref_backtrack_path_radar</string>
+    <string name="map_auto_calibrated">Карта откалибрована автоматически, проверьте её точность</string>
+    <string name="time_until_empty">%s до опустения</string>
+    <string name="guide_speedometer_desc">Как определить пройденное расстояние и время прибытия</string>
+    <string name="guide_speedometer_title">Определите скорость и расстояние</string>
+    <string name="next">Следующий</string>
+    <string name="previous">Предыдущий</string>
+    <string name="guide_importing_maps_desc">Как импортировать и использовать карты в Trail Sense</string>
+    <string name="guide_importing_maps_title">Импорт карт</string>
+    <string name="create_map_description">Введите название карты</string>
+    <string name="create_map">Создать карту</string>
+    <string name="place_beacon_at">Установить маячок на %s\?</string>
+    <string name="select_map_image">Выбрать изображение карты</string>
+    <string name="on_map">На карте</string>
+    <string name="no_maps">Нет карт</string>
+    <string name="rename">Переименовать</string>
+    <string name="experimental">Экспериментально</string>
+    <string name="all_beacons">Все маячки</string>
 </resources>
