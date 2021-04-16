@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.navigation.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
@@ -10,12 +9,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import androidx.core.app.ActivityCompat
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -38,9 +36,9 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
@@ -66,13 +64,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.*
 import java.util.*
-import kotlin.math.atan
 
 
 class NavigatorFragment : Fragment() {
 
     private var shownAccuracyToast: Boolean = false
     private var viewCameraBindToLifecycle: Boolean = false
+    private var sightingCompassOpen: Boolean = false
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
     private val orientation by lazy { sensorService.getDeviceOrientation() }
@@ -197,23 +195,37 @@ class NavigatorFragment : Fragment() {
             true
         }
 
-        binding.navigationOpenArCamera.setOnClickListener { view ->
+        binding.navigationOpenArCamera.setOnClickListener {
             if (!viewCameraBindToLifecycle) {
                 binding.viewCamera.bindToLifecycle(viewLifecycleOwner)
                 viewCameraBindToLifecycle = true
             }
-            binding.viewCameraLine.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
-            binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
-        }
-
-        binding.navigationOpenArCamera.setOnLongClickListener {
-            if (binding.viewCamera.visibility == View.VISIBLE) {
-                binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+            if (binding.viewCamera.isVisible) {
+                binding.viewCameraLine.isVisible = false
+                binding.viewCamera.isVisible = false
+                if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationRightQuickAction.isClickable = true
+                }
+                if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationLeftQuickAction.isClickable = true
+                }
+                sightingCompassOpen = false
             }
             else {
-                binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+                binding.viewCameraLine.isVisible = true
+                binding.viewCamera.isVisible = true
+                if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationRightQuickAction.isClickable = false
+                }
+                if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationLeftQuickAction.isClickable = false
+                }
+                sightingCompassOpen = true
             }
-            true
+        }
+
+        binding.viewCamera.setOnClickListener {
+            toggleDestinationBearing()
         }
 
         binding.viewCameraLine.setOnClickListener {
@@ -583,6 +595,10 @@ class NavigatorFragment : Fragment() {
             binding.linearCompass.visibility = View.VISIBLE
             if (userPrefs.experimentalEnabled && PermissionUtils.hasPermission(requireContext(), Manifest.permission.CAMERA)) {
                 binding.navigationOpenArCamera.visibility = View.VISIBLE
+                if (sightingCompassOpen) {
+                    binding.viewCamera.visibility = View.VISIBLE
+                    binding.viewCameraLine.visibility = View.VISIBLE
+                }
             }
             binding.roundCompass.visibility = View.INVISIBLE
             binding.radarCompass.visibility = View.INVISIBLE
