@@ -65,8 +65,6 @@ class LinearCompassView : View, ICompassView {
             compass = compassDrawable?.toBitmap(compassSize, compassSize)
         }
         if (visibility != VISIBLE) {
-            postInvalidateDelayed(20)
-            invalidate()
             return
         }
         canvas.drawColor(Color.TRANSPARENT)
@@ -75,8 +73,6 @@ class LinearCompassView : View, ICompassView {
         drawCompass(canvas)
         drawBearings(canvas)
         drawDestination(canvas)
-        postInvalidateDelayed(20)
-        invalidate()
     }
 
     private fun drawBearings(canvas: Canvas) {
@@ -238,6 +234,7 @@ class LinearCompassView : View, ICompassView {
 
     override fun setAzimuth(azimuth: Bearing) {
         this.azimuth = azimuth
+        invalidate()
     }
 
     override fun setDeclination(declination: Float) {
@@ -250,11 +247,13 @@ class LinearCompassView : View, ICompassView {
 
     override fun setIndicators(indicators: List<BearingIndicator>) {
         this.indicators = indicators
+        invalidate()
     }
 
     override fun setDestination(bearing: Bearing?, @ColorInt color: Int?) {
         destination = bearing
         destinationColor = color
+        invalidate()
     }
 
     private fun dp(size: Float): Float {

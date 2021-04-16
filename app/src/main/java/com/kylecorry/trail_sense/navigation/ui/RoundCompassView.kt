@@ -24,7 +24,8 @@ class RoundCompassView : View, ICompassView {
     private var isInit = false
     private var azimuth = Bearing(0f)
     private var destination: Bearing? = null
-    @ColorInt private var destinationColor: Int? = null
+    @ColorInt
+    private var destinationColor: Int? = null
 
     private var iconSize = 0
 
@@ -50,8 +51,6 @@ class RoundCompassView : View, ICompassView {
             compass = compassDrawable?.toBitmap(compassSize, compassSize)
         }
         if (visibility != VISIBLE) {
-            postInvalidateDelayed(20)
-            invalidate()
             return
         }
         canvas.drawColor(Color.TRANSPARENT)
@@ -62,8 +61,6 @@ class RoundCompassView : View, ICompassView {
         drawBearings(canvas)
         drawDestination(canvas)
         canvas.restore()
-        postInvalidateDelayed(20)
-        invalidate()
     }
 
     private fun drawDestination(canvas: Canvas) {
@@ -89,6 +86,7 @@ class RoundCompassView : View, ICompassView {
 
     override fun setAzimuth(bearing: Bearing) {
         azimuth = bearing
+        invalidate()
     }
 
     override fun setLocation(location: Coordinate) {
@@ -97,11 +95,13 @@ class RoundCompassView : View, ICompassView {
 
     override fun setIndicators(indicators: List<BearingIndicator>) {
         this.indicators = indicators
+        invalidate()
     }
 
     override fun setDestination(bearing: Bearing?, @ColorInt color: Int?) {
         destination = bearing
         destinationColor = color
+        invalidate()
     }
 
     private fun drawAzimuth(canvas: Canvas) {
@@ -118,7 +118,12 @@ class RoundCompassView : View, ICompassView {
 
     private fun drawCompass(canvas: Canvas) {
         paint.alpha = 255
-        canvas.drawBitmap(compass!!, iconSize.toFloat() + dp(2f), iconSize.toFloat() + dp(2f), paint)
+        canvas.drawBitmap(
+            compass!!,
+            iconSize.toFloat() + dp(2f),
+            iconSize.toFloat() + dp(2f),
+            paint
+        )
     }
 
     private fun drawBearings(canvas: Canvas) {
