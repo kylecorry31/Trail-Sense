@@ -156,6 +156,8 @@ class OfflineMapView : View {
             return
         }
         if (mapImage == null && map != null){
+            // TODO: Determine tiles for when zoom is > X (they should be X by X pixels, smaller around the edges
+            // TODO: Load all visible tiles and overlay them over the map, unload them if zoomed out or out of view
             val file = fileService.getFile(map!!.filename, false)
             val bitmap = CustomUiUtils.decodeBitmapScaled(
                 file.path,
