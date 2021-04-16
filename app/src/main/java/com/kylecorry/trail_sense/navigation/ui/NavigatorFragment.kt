@@ -70,7 +70,6 @@ class NavigatorFragment : Fragment() {
     private var shownAccuracyToast: Boolean = false
     private var viewCameraBindToLifecycle: Boolean = false
     private var sightingCompassOpen: Boolean = false
-    private var sightingCompassLineEnabled: Boolean = false
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
     private val orientation by lazy { sensorService.getDeviceOrientation() }
@@ -200,7 +199,7 @@ class NavigatorFragment : Fragment() {
                 binding.viewCamera.bindToLifecycle(viewLifecycleOwner)
                 viewCameraBindToLifecycle = true
             }
-            binding.viewCameraLine.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
+            binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
             binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
             if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
                     binding.navigationRightQuickAction.isClickable = if (binding.viewCamera.visibility == View.VISIBLE) false else true
@@ -209,30 +208,6 @@ class NavigatorFragment : Fragment() {
                 binding.navigationLeftQuickAction.isClickable = if (binding.viewCamera.visibility == View.VISIBLE) false else true
             }
             sightingCompassOpen = if (binding.viewCamera.visibility == View.VISIBLE) true else false
-            sightingCompassOpen = if (binding.viewCamera.visibility == View.VISIBLE) true else false
-            sightingCompassLineEnabled = if (binding.viewCameraLine.visibility == View.VISIBLE) true else false
-        }
-
-        binding.navigationOpenArCamera.setOnLongClickListener {
-            if (!viewCameraBindToLifecycle) {
-                binding.viewCamera.bindToLifecycle(viewLifecycleOwner)
-                viewCameraBindToLifecycle = true
-            }
-            if (binding.viewCamera.visibility == View.VISIBLE) {
-                binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
-                sightingCompassLineEnabled = if (binding.viewCameraLine.visibility == View.VISIBLE) true else false
-            }
-            else {
-                binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
-                if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
-                    binding.navigationRightQuickAction.isClickable = false
-                }
-                if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
-                    binding.navigationLeftQuickAction.isClickable = false
-                }
-                sightingCompassOpen = true
-            }
-            true
         }
 
         binding.viewCamera.setOnClickListener {
@@ -608,15 +583,7 @@ class NavigatorFragment : Fragment() {
                 binding.navigationOpenArCamera.visibility = View.VISIBLE
                 if (sightingCompassOpen) {
                     binding.viewCamera.visibility = View.VISIBLE
-                }
-                else {
-                    binding.viewCamera.visibility = View.INVISIBLE
-                }
-                if (sightingCompassLineEnabled) {
                     binding.viewCameraLine.visibility = View.VISIBLE
-                }
-                else {
-                    binding.viewCameraLine.visibility = View.INVISIBLE
                 }
             }
             binding.roundCompass.visibility = View.INVISIBLE
