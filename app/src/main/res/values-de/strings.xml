@@ -621,7 +621,6 @@
 \n- Nach \"Weiter\" werden Sie darum gebeten, die Freigabe Ihrer Ortsdaten im Vorder- und Hintergrund zu erteilen. Ablehnung dieser Rechte wird verhindern, dass Trail Sense Zugriff auf Ihren Ort erlangt, in diesem Fall wird empfohlen, Koordinaten manuell einzugeben.</string>
     <string name="import_export_beacons">Wegpunkte importieren/exportieren</string>
     <string name="select_import_file">Datei auswählen</string>
-    <string name="beacons_imported">%d Wegpunkte importiert</string>
     <string name="export">Exportieren</string>
     <string name="import_btn">Importieren</string>
     <string name="gps_unavailable">Nicht verfügbar</string>
@@ -674,7 +673,6 @@
     <string name="pref_backtrack_save_cell_summary">Nehme Mobilfunksignale an den Wegpunkten auf. Das Internet wird nicht genutzt.</string>
     <string name="distance_from_flashlight">Distanz vom Handy zur Taschenlampe</string>
     <string name="beacon_export_error">Beacons konnten nicht exportiert werden</string>
-    <string name="beacons_exported">%d Beacons exportiert</string>
     <string name="onboarding_user_guide">Lerne mithilfe der Bedienungsanleitung, wie Sie die Funktionen von Trail Sense benutzt. Sie finden die Anleitung ganz unten im Tools-Tab.
 \n
 \nIn Zukunft wird es weitere Anleitungen geben.</string>

@@ -619,7 +619,6 @@
     <string name="import_btn">Импорт</string>
     <string name="import_export_beacons">Импорт/экспорт маячков</string>
     <string name="select_import_file">Выбрать тип импорта</string>
-    <string name="beacons_imported">%d маячков импортировано</string>
     <string name="export">Экспорт</string>
     <string name="onboarding_privacy">- Trail Sense уважает вашу конфиденциальность, и данные о местоположении никогда не покидают ваше устройство
 \n
@@ -706,7 +705,6 @@
     <string name="candela_format">%s кд</string>
     <string name="distance_from_flashlight">Расстояние от телефона до фонарика</string>
     <string name="beacon_export_error">Не удалось экспортировать маячки</string>
-    <string name="beacons_exported">%d маячков экспортировано</string>
     <string name="help">Помощь</string>
     <string name="pref_backtrack_save_cell_title">Запись сотового сигнала</string>
     <string name="pref_backtrack_save_cell_summary">Записывает сотовую связь в путевой точке. Интернет не используется.</string>

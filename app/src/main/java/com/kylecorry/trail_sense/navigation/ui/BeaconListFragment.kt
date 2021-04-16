@@ -81,7 +81,7 @@ class BeaconListFragment : Fragment() {
             }
         }
 
-        binding.searchbox.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        binding.searchbox.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 onSearch()
                 return true
@@ -120,7 +120,7 @@ class BeaconListFragment : Fragment() {
 
         binding.createMenu.setOverlay(binding.overlayMask)
         binding.createMenu.setOnMenuItemClickListener {
-            when (it.itemId){
+            when (it.itemId) {
                 R.id.action_import_gpx_beacons -> {
                     importBeacons()
                     setCreateMenuVisibility(false)
@@ -190,8 +190,8 @@ class BeaconListFragment : Fragment() {
         }
     }
 
-    private fun setCreateMenuVisibility(isShowing: Boolean){
-        if (isShowing){
+    private fun setCreateMenuVisibility(isShowing: Boolean) {
+        if (isShowing) {
             binding.createMenu.show()
         } else {
             binding.createMenu.hide()
@@ -353,9 +353,12 @@ class BeaconListFragment : Fragment() {
 
         val beacons = withContext(Dispatchers.IO) {
             val search = binding.searchbox.query
-            if (!search.isNullOrBlank()){
-                val all = if (displayedGroup != null){
-                    beaconRepo.searchBeaconsInGroup(binding.searchbox.query.toString(), displayedGroup?.id)
+            if (!search.isNullOrBlank()) {
+                val all = if (displayedGroup != null) {
+                    beaconRepo.searchBeaconsInGroup(
+                        binding.searchbox.query.toString(),
+                        displayedGroup?.id
+                    )
                 } else {
                     beaconRepo.searchBeacons(binding.searchbox.query.toString())
                 }
@@ -417,28 +420,66 @@ class BeaconListFragment : Fragment() {
         lifecycleScope.launch {
             val text = externalFileService.read(uri)
             text?.let {
-                val count = if (text.startsWith("{")) {
+                if (text.startsWith("{")) {
                     // Legacy
                     val importer = JsonBeaconImporter(requireContext())
-                    withContext(Dispatchers.IO) {
+                    val count = withContext(Dispatchers.IO) {
                         importer.import(text)
+                    }
+                    withContext(Dispatchers.Main) {
+                        UiUtils.shortToast(
+                            requireContext(),
+                            resources.getQuantityString(R.plurals.beacons_imported, count, count)
+                        )
+                        updateBeaconList()
                     }
                 } else {
                     val importer = BeaconIOService(requireContext())
-                    withContext(Dispatchers.IO) {
-                        importer.import(text)
+                    val waypoints = withContext(Dispatchers.IO) {
+                        importer.getGPXWaypoints(text)
+                    }
+                    if (waypoints.isNotEmpty()) {
+                        withContext(Dispatchers.Main) {
+                            // TODO: Allow user to choose which beacons to import
+                            UiUtils.alertWithCancel(
+                                requireContext(),
+                                resources.getQuantityString(
+                                    R.plurals.import_beacons,
+                                    waypoints.size,
+                                    waypoints.size
+                                ),
+                                "",
+                                getString(R.string.dialog_ok),
+                                getString(R.string.dialog_cancel)
+                            ) { cancelled ->
+                                if (!cancelled) {
+                                    lifecycleScope.launch {
+                                        val count = withContext(Dispatchers.IO) {
+                                            importer.import(waypoints)
+                                        }
+                                        withContext(Dispatchers.Main) {
+                                            UiUtils.shortToast(
+                                                requireContext(),
+                                                resources.getQuantityString(
+                                                    R.plurals.beacons_imported,
+                                                    count,
+                                                    count
+                                                )
+                                            )
+                                            updateBeaconList()
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
                     }
                 }
-                withContext(Dispatchers.Main) {
-                    UiUtils.shortToast(
-                        requireContext(),
-                        getString(R.string.beacons_imported, count)
-                    )
-                    updateBeaconList()
-                }
+
             }
         }
     }
+
 
     private fun exportToUri(uri: Uri) {
         lifecycleScope.launch {
@@ -468,7 +509,11 @@ class BeaconListFragment : Fragment() {
                 if (success) {
                     UiUtils.shortToast(
                         requireContext(),
-                        getString(R.string.beacons_exported, beacons.size)
+                        resources.getQuantityString(
+                            R.plurals.beacons_exported,
+                            beacons.size,
+                            beacons.size
+                        )
                     )
                 } else {
                     UiUtils.shortToast(
@@ -480,7 +525,7 @@ class BeaconListFragment : Fragment() {
         }
     }
 
-    private fun onSearch(){
+    private fun onSearch() {
         lifecycleScope.launch {
             withContext(Dispatchers.Main) {
                 updateBeaconList()

@@ -656,7 +656,6 @@
     <string name="import_btn">导入</string>
     <string name="import_export_beacons">导入/导出信标</string>
     <string name="select_import_file">选择导入文件</string>
-    <string name="beacons_imported">导入了 %d 个信标</string>
     <string name="export">导出</string>
     <string name="gps_unavailable">不可用</string>
     <string name="gps_searching">正在搜索</string>
@@ -691,7 +690,6 @@
     <string name="lux_format">%s lx</string>
     <string name="distance_from_flashlight">从手机到手电筒的距离</string>
     <string name="beacon_export_error">无法导出信标</string>
-    <string name="beacons_exported">导出了 %d 个信标</string>
     <string name="pref_backtrack_save_cell_summary">在航点记录电池信号。 不使用互联网。</string>
     <string name="pref_backtrack_save_cell_title">记录电池信号</string>
     <string name="tool_light_meter_description">测量手电筒光束距离</string>

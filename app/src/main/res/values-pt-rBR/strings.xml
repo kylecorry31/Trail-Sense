@@ -546,7 +546,6 @@
     <string name="import_btn">Importar</string>
     <string name="import_export_beacons">Importar/Exportar Pontos</string>
     <string name="select_import_file">Selecione um arquivo a importar</string>
-    <string name="beacons_imported">%d pontos importados</string>
     <string name="export">Exportar</string>
     <string name="onboarding_privacy">- Trail Sense respeita sua privacidade e seus dados de localização nunca deixam seu dispositivo
 \n
@@ -706,7 +705,6 @@
     <string name="lux_format">%s lx</string>
     <string name="distance_from_flashlight">Distância entre o telefone e a lanterna</string>
     <string name="beacon_export_error">Não foi possível exportar referências</string>
-    <string name="beacons_exported">%d referências exportadas</string>
     <string name="help">Ajuda</string>
     <string name="available">Disponível</string>
     <string name="permission_granted">Concedida</string>

@@ -615,7 +615,6 @@
     <string name="gps_searching">Wyszukiwanie</string>
     <string name="gps_user">Użytkownika</string>
     <string name="import_export_beacons">Import/eksport punktów nawigacyjnych</string>
-    <string name="beacons_imported">Zaimportowano %d punktów nawigacyjnych</string>
     <string name="onboarding_privacy">- Program Trail Sense szanuje Twoją prywatność i dane lokalizacji nigdy nieopuszczą Twojego urzadzenia
 \n
 \n- Trail Sense nigdy nie wymaga połączenie z Internetem
@@ -744,7 +743,6 @@
     <string name="tide_calibration">Kalibracja pływów</string>
     <string name="half_tide">Połowa przypływu</string>
     <string name="beacon_export_error">Nie udało się wyeksportować punktów</string>
-    <string name="beacons_exported">%d punktów wyeksportowano</string>
     <string name="turn_off">Wyłącz</string>
     <string name="tool_speedometer_odometer_title">Prędkościomierz / Drogomierz</string>
     <string name="value_average">%s średnia</string>
