@@ -39,6 +39,7 @@ import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
@@ -221,6 +222,8 @@ class NavigatorFragment : Fragment() {
                     binding.navigationLeftQuickAction.isClickable = false
                 }
                 sightingCompassOpen = true
+                val handler = FlashlightHandler.getInstance(requireContext())
+                handler.off()
             }
         }
 
