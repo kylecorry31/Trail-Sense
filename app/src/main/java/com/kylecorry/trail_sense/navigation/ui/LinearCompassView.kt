@@ -53,6 +53,9 @@ class LinearCompassView : View, ICompassView {
 
 
     override fun onDraw(canvas: Canvas) {
+        if (visibility != VISIBLE) {
+            return
+        }
         if (!isInit) {
             paint = Paint(Paint.ANTI_ALIAS_FLAG)
             paint.textAlign = Paint.Align.CENTER
@@ -63,9 +66,6 @@ class LinearCompassView : View, ICompassView {
             isInit = true
             val compassDrawable = UiUtils.drawable(context, R.drawable.compass)
             compass = compassDrawable?.toBitmap(compassSize, compassSize)
-        }
-        if (visibility != VISIBLE) {
-            return
         }
         canvas.drawColor(Color.TRANSPARENT)
 

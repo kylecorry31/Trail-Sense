@@ -38,6 +38,9 @@ class RoundCompassView : View, ICompassView {
     )
 
     override fun onDraw(canvas: Canvas) {
+        if (visibility != VISIBLE) {
+            return
+        }
         if (!isInit) {
             paint = Paint()
             iconSize =
@@ -49,9 +52,6 @@ class RoundCompassView : View, ICompassView {
             isInit = true
             val compassDrawable = UiUtils.drawable(context, R.drawable.compass)
             compass = compassDrawable?.toBitmap(compassSize, compassSize)
-        }
-        if (visibility != VISIBLE) {
-            return
         }
         canvas.drawColor(Color.TRANSPARENT)
         drawAzimuth(canvas)

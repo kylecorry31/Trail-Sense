@@ -28,6 +28,8 @@ object PDFUtils {
             val renderer = PdfRenderer(fd)
             val pageCount = renderer.pageCount
             if (page >= pageCount) {
+                renderer.close()
+                fd.close()
                 return null
             }
             val pdfPage = renderer.openPage(page)
@@ -40,6 +42,7 @@ object PDFUtils {
             pdfPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
             pdfPage.close()
             renderer.close()
+            fd.close()
             return bitmap
         } catch (ex: Exception) {
             return null

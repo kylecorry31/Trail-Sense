@@ -83,6 +83,9 @@ class RadarCompassView : View, ICompassView {
     )
 
     override fun onDraw(canvas: Canvas) {
+        if (visibility != VISIBLE) {
+            return
+        }
         if (!isInit) {
             paint = Paint(Paint.ANTI_ALIAS_FLAG)
             paint.textAlign = Paint.Align.CENTER
@@ -112,9 +115,6 @@ class RadarCompassView : View, ICompassView {
             paint.style = Paint.Style.FILL
             tempCanvas.drawCircle(width / 2f, height / 2f, compassSize / 2f, paint)
             trackBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        }
-        if (visibility != VISIBLE) {
-            return
         }
         canvas.drawColor(Color.TRANSPARENT)
         canvas.save()
@@ -167,6 +167,12 @@ class RadarCompassView : View, ICompassView {
         }
 
         canvas.drawBitmap(pathBitmap, 0f, 0f, paint)
+    }
+
+    fun finalize(){
+        compassMask.recycle()
+        trackBitmap.recycle()
+        compass?.recycle()
     }
 
     override fun setAzimuth(bearing: Bearing) {
