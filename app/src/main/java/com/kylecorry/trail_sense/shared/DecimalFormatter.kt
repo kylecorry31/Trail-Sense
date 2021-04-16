@@ -1,11 +1,14 @@
 package com.kylecorry.trail_sense.shared
 
 import java.text.DecimalFormat
+import java.util.concurrent.ConcurrentHashMap
 
 object DecimalFormatter {
+
+    private val formatterMap = ConcurrentHashMap<Int, DecimalFormat>()
+
     fun format(number: Double): String {
-        val fmt = DecimalFormat("#.####")
-        return fmt.format(number)
+        return format(number, 4)
     }
 
     fun format(number: Float, decimalPlaces: Int): String {
@@ -13,8 +16,14 @@ object DecimalFormatter {
     }
 
     fun format(number: Double, decimalPlaces: Int): String {
+        val existing = formatterMap[decimalPlaces]
+        if (existing != null){
+            return existing.format(number)
+        }
         if (decimalPlaces <= 0){
-            return DecimalFormat("#").format(number)
+            val formatter = DecimalFormat("#")
+            formatterMap.putIfAbsent(0, formatter)
+            return formatter.format(number)
         }
 
         val builder = StringBuilder("#.")
@@ -23,6 +32,7 @@ object DecimalFormatter {
         }
 
         val fmt = DecimalFormat(builder.toString())
+        formatterMap.putIfAbsent(decimalPlaces, fmt)
         return fmt.format(number)
     }
 }

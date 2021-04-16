@@ -25,7 +25,8 @@ class BatteryLogService: CoroutineService() {
         val pct = battery.percent
         val charging = battery.chargingStatus == BatteryChargingStatus.Charging
         val time = Instant.now()
-        val reading = BatteryReadingEntity(pct, charging, time)
+        val capacity = battery.capacity
+        val reading = BatteryReadingEntity(pct, capacity, charging, time)
         batteryRepo.add(reading)
         batteryRepo.deleteBefore(Instant.now().minus(Duration.ofDays(1)))
         BatteryLogWorker.scheduler(applicationContext).schedule(Duration.ofHours(1))

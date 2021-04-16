@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.databinding.ListItemPlainBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.hours
+import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
@@ -198,13 +199,26 @@ class FragmentToolBattery : Fragment() {
         if (duration == 0L){
             return null
         }
-        val percentPerHour = (secondReading.percent - firstReading.percent) / (duration / 3600f)
 
-        if (percentPerHour >= 0f){
-            return null
+        val hasCapacity = firstReading.capacity > 0f && secondReading.capacity > 0f
+
+        val time = if (!hasCapacity) {
+            val percentPerHour = (secondReading.percent - firstReading.percent) / (duration / 3600f)
+
+            if (percentPerHour >= 0f) {
+                return null
+            }
+
+            battery.percent / percentPerHour
+        } else {
+            val capacityPerHour = (secondReading.capacity - firstReading.capacity) / (duration / 3600f)
+
+            if (capacityPerHour >= 0f) {
+                return null
+            }
+
+            battery.capacity / capacityPerHour
         }
-
-        val time = battery.percent / percentPerHour
         return hours(time.absoluteValue)
     }
 
@@ -225,11 +239,16 @@ class FragmentToolBattery : Fragment() {
         }
 
         for (reading in olderReadings){
-            if (reading.percent < last.percent){
+            val hasCapacity = reading.capacity > 0f && last.capacity > 0f
+            if (hasCapacity && (reading.capacity > last.capacity)){
                 return reading
             }
 
-            if (reading.isCharging || reading.percent > last.percent){
+            if (reading.percent > last.percent){
+                return reading
+            }
+
+            if (reading.isCharging || reading.percent < last.percent || (hasCapacity && (reading.capacity < last.capacity))){
                 return null
             }
         }
