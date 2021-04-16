@@ -7,20 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".navigation.ui.NavigatorFragment">
 
-    <androidx.camera.view.CameraView
+    <androidx.camera.view.PreviewView
         android:id="@+id/view_camera"
         android:layout_width="139dp"
         android:layout_height="248dp"
         android:visibility="invisible"
-        app:captureMode="mixed"
         app:layout_constraintBottom_toBottomOf="@id/linear_compass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/linear_compass"
-        app:lensFacing="back"
-        app:pinchToZoomEnabled="false"
-        app:scaleType="fitCenter" />
-
+        app:layout_constraintTop_toTopOf="@id/linear_compass" />
     <View
         android:id="@+id/view_camera_line"
         android:layout_width="1dp"
