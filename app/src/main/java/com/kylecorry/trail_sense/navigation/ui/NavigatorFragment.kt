@@ -71,7 +71,6 @@ import java.util.*
 class NavigatorFragment : Fragment() {
 
     private var shownAccuracyToast: Boolean = false
-    private var viewCameraBindToLifecycle: Boolean = false
     private var sightingCompassOpen: Boolean = false
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
@@ -145,8 +144,11 @@ class NavigatorFragment : Fragment() {
         preview.setSurfaceProvider(binding.viewCamera.getSurfaceProvider())
 
         var camera = cameraProvider.bindToLifecycle(this as LifecycleOwner, cameraSelector, preview)
-}
+    }
 
+    fun unbindPreview(cameraProvider : ProcessCameraProvider) {
+        cameraProvider.unbindAll()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -225,15 +227,13 @@ class NavigatorFragment : Fragment() {
                     binding.navigationLeftQuickAction.isClickable = true
                 }
                 sightingCompassOpen = false
+                unbindPreview(cameraProviderFuture.get())
             }
             else {
-                if (!viewCameraBindToLifecycle) {
-                    cameraProviderFuture.addListener(Runnable {
-                        val cameraProvider = cameraProviderFuture.get()
-                        bindPreview(cameraProvider)
-                    }, ContextCompat.getMainExecutor(requireContext()))
-                    viewCameraBindToLifecycle = true
-                }
+                cameraProviderFuture.addListener(Runnable {
+                    val cameraProvider = cameraProviderFuture.get()
+                    bindPreview(cameraProvider)
+                }, ContextCompat.getMainExecutor(requireContext()))
                 binding.viewCameraLine.isVisible = true
                 binding.viewCamera.isVisible = true
                 if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
