@@ -13,6 +13,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -199,15 +200,28 @@ class NavigatorFragment : Fragment() {
                 binding.viewCamera.bindToLifecycle(viewLifecycleOwner)
                 viewCameraBindToLifecycle = true
             }
-            binding.viewCameraLine.visibility = if (binding.viewCameraLine.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
-            binding.viewCamera.visibility = if (binding.viewCamera.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
-            if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
-                    binding.navigationRightQuickAction.isClickable = if (binding.viewCamera.visibility == View.VISIBLE) false else true
+            if (binding.viewCamera.isVisible) {
+                binding.viewCameraLine.isVisible = false
+                binding.viewCamera.isVisible = false
+                if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationRightQuickAction.isClickable = true
                 }
-            if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
-                binding.navigationLeftQuickAction.isClickable = if (binding.viewCamera.visibility == View.VISIBLE) false else true
+                if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationLeftQuickAction.isClickable = true
+                }
+                sightingCompassOpen = false
             }
-            sightingCompassOpen = if (binding.viewCamera.visibility == View.VISIBLE) true else false
+            else {
+                binding.viewCameraLine.isVisible = true
+                binding.viewCamera.isVisible = true
+                if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationRightQuickAction.isClickable = false
+                }
+                if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationLeftQuickAction.isClickable = false
+                }
+                sightingCompassOpen = true
+            }
         }
 
         binding.viewCamera.setOnClickListener {
