@@ -20,6 +20,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/beacon_title"
+        app:queryHint="@string/search" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/beacon_recycler"
         android:layout_width="0dp"
@@ -30,7 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beacon_title" />
+        app:layout_constraintTop_toBottomOf="@+id/searchbox" />
 
     <TextView
         android:id="@+id/beacon_empty_text"
@@ -71,15 +82,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.kylecorry.trail_sense.shared.views.FloatingActionButtonMenu
+        android:id="@+id/create_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:visibility="gone"
-        tools:visibility="visible"
-        android:id="@+id/create_menu"
         app:layout_constraintBottom_toTopOf="@id/create_btn"
         app:layout_constraintEnd_toEndOf="@id/create_btn"
-        app:menu="@menu/beacon_create_menu" />
+        app:menu="@menu/beacon_create_menu"
+        tools:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/create_btn"

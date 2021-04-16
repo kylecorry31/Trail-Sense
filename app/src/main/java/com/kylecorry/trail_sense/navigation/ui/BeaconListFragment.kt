@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -79,6 +80,18 @@ class BeaconListFragment : Fragment() {
                 updateBeaconList()
             }
         }
+
+        binding.searchbox.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                onSearch()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                onSearch()
+                return true
+            }
+        })
 
         binding.importExportBeacons.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
@@ -214,11 +227,7 @@ class BeaconListFragment : Fragment() {
     }
 
     private fun updateBeaconEmptyText(hasBeacons: Boolean) {
-        if (!hasBeacons) {
-            binding.beaconEmptyText.visibility = View.VISIBLE
-        } else {
-            binding.beaconEmptyText.visibility = View.GONE
-        }
+        binding.beaconEmptyText.isVisible = !hasBeacons
     }
 
     private fun updateBeaconListItem(itemView: View, beacon: IBeacon) {
@@ -343,7 +352,17 @@ class BeaconListFragment : Fragment() {
         context ?: return
 
         val beacons = withContext(Dispatchers.IO) {
-            if (displayedGroup == null) {
+            val search = binding.searchbox.query
+            if (!search.isNullOrBlank()){
+                val all = if (displayedGroup != null){
+                    beaconRepo.searchBeaconsInGroup(binding.searchbox.query.toString(), displayedGroup?.id)
+                } else {
+                    beaconRepo.searchBeacons(binding.searchbox.query.toString())
+                }
+                all.sortedBy {
+                    it.coordinate.distanceTo(gps.location)
+                }.map { it.toBeacon() }
+            } else if (displayedGroup == null) {
                 val ungrouped = beaconRepo.getBeaconsInGroup(null).sortedBy {
                     it.coordinate.distanceTo(gps.location)
                 }.map { it.toBeacon() }
@@ -457,6 +476,14 @@ class BeaconListFragment : Fragment() {
                         getString(R.string.beacon_export_error)
                     )
                 }
+            }
+        }
+    }
+
+    private fun onSearch(){
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                updateBeaconList()
             }
         }
     }

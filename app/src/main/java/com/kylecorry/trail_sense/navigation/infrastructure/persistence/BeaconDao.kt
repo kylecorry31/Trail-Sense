@@ -12,6 +12,12 @@ interface BeaconDao {
     @Query("SELECT * FROM beacons WHERE `temporary` = 0")
     suspend fun getAllSuspend(): List<BeaconEntity>
 
+    @Query("SELECT * FROM beacons WHERE `name` LIKE '%' || :text || '%' AND `temporary` = 0")
+    suspend fun search(text: String): List<BeaconEntity>
+
+    @Query("SELECT * FROM beacons WHERE beacon_group_id IS :groupId AND `name` LIKE '%' || :text || '%' AND `temporary` = 0")
+    suspend fun searchInGroup(text: String, groupId: Long?): List<BeaconEntity>
+
     @Query("SELECT * FROM beacons where beacon_group_id IS :groupId AND `temporary` = 0")
     suspend fun getAllInGroup(groupId: Long?): List<BeaconEntity>
 
