@@ -237,6 +237,10 @@ class OfflineMapView : View {
         destination = beacon
     }
 
+    fun finalize(){
+        mapImage?.recycle()
+    }
+
     fun recenter(){
         scale = 1f
         mapX = 0f
