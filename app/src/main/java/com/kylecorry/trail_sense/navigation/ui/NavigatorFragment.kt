@@ -129,7 +129,9 @@ class NavigatorFragment : Fragment() {
             userPrefs.navigation.leftQuickAction,
             binding.navigationLeftQuickAction
         )
-        cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        if (userPrefs.experimentalEnabled) {
+            cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        }
         return binding.root
     }
 
