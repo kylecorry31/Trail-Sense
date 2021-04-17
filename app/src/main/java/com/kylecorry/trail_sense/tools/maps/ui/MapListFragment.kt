@@ -14,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.databinding.ListItemMapBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -154,7 +155,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             listOf("image/*", "application/pdf"),
             getString(R.string.select_map_image)
         )
-        startActivityForResult(requestFileIntent, REQUEST_CODE_SELECT_MAP)
+        startActivityForResult(requestFileIntent, RequestCodes.REQUEST_CODE_SELECT_MAP_FILE)
     }
 
     fun pickFile(types: List<String>, message: String): Intent {
@@ -166,7 +167,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_SELECT_MAP && resultCode == Activity.RESULT_OK) {
+        if (requestCode == RequestCodes.REQUEST_CODE_SELECT_MAP_FILE && resultCode == Activity.RESULT_OK) {
             data?.data?.also { returnUri ->
                 mapFromUri(returnUri)
             }
@@ -231,6 +232,8 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                         binding.addBtn.isEnabled = true
                     }
                     return@withContext
+                } finally {
+                    bitmap.recycle()
                 }
 
                 val id = mapRepo.addMap(
@@ -259,10 +262,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             }
 
         }
-    }
-
-    companion object {
-        const val REQUEST_CODE_SELECT_MAP = 11
     }
 
 }

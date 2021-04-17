@@ -20,6 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconIOService
@@ -547,8 +548,8 @@ class BeaconListFragment : Fragment() {
     }
 
     companion object {
-        private const val REQUEST_CODE_IMPORT = 6
-        private const val REQUEST_CODE_EXPORT = 7
+        private const val REQUEST_CODE_IMPORT = RequestCodes.REQUEST_CODE_IMPORT_BEACONS
+        private const val REQUEST_CODE_EXPORT = RequestCodes.REQUEST_CODE_EXPORT_BEACONS
     }
 }
 

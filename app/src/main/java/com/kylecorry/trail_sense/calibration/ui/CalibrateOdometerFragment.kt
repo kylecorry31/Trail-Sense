@@ -5,6 +5,7 @@ import android.hardware.Sensor
 import android.os.Bundle
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -151,7 +152,7 @@ class CalibrateOdometerFragment : PreferenceFragmentCompat() {
 
 
     companion object {
-        private const val REQUEST_CODE = 10
+        private const val REQUEST_CODE = RequestCodes.REQUEST_CODE_ACTIVITY_RECOGNITION_PERMISSION
     }
 
 }
