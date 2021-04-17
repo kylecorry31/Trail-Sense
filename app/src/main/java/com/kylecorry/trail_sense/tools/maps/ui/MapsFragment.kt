@@ -13,11 +13,14 @@ import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.navigation.ui.Track
+import com.kylecorry.trail_sense.navigation.ui.Waypoint
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
-import com.kylecorry.trailsensecore.domain.geo.cartography.Map
+import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
@@ -33,6 +36,7 @@ import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Instant
 
 class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
@@ -41,10 +45,12 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val compass by lazy { sensorService.getCompass() }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
+    private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
     private val geoService by lazy { GeoService() }
     private val cache by lazy { Cache(requireContext()) }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var mapId = 0L
     private var map: Map? = null
@@ -84,7 +90,16 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
             updateDestination()
         })
         beaconRepo.getBeacons()
-            .observe(viewLifecycleOwner, { binding.map.setBeacons(it.map { it.toBeacon() }.filter { it.visible }) })
+            .observe(
+                viewLifecycleOwner,
+                { binding.map.setBeacons(it.map { it.toBeacon() }.filter { it.visible }) })
+
+        if (prefs.navigation.showBacktrackPath) {
+            backtrackRepo.getWaypoints()
+                .observe(viewLifecycleOwner, {
+                    displayPath(it)
+                })
+        }
 
 
         lifecycleScope.launch {
@@ -101,7 +116,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         binding.calibrationNext.setOnClickListener {
             if (calibrationIndex == 1) {
                 isCalibrating = false
-                if (destination != null){
+                if (destination != null) {
                     navigateTo(destination!!)
                 }
                 binding.mapCalibrationBottomPanel.isVisible = false
@@ -238,8 +253,33 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         }
     }
 
-    private fun updateDestination(){
-        if (throttle.isThrottled() || isCalibrating){
+    private fun displayPath(waypoints: List<WaypointEntity>) {
+        val oldestReadingTime = Instant.now().minus(prefs.navigation.showBacktrackPathDuration)
+
+        val recentWaypoints = waypoints
+            .sortedByDescending { it.createdInstant }
+            .filter { it.createdInstant > oldestReadingTime }
+
+        val points = listOf(
+            PathPoint(
+                gps.location,
+                Instant.now()
+            )
+        ) + recentWaypoints.map { PathPoint(it.coordinate, it.createdInstant) }
+
+        val path = Path(
+            0,
+            getString(R.string.tool_backtrack_title),
+            points,
+            UiUtils.color(requireContext(), R.color.colorAccent),
+            true
+        )
+
+        binding.map.setPaths(listOf(path))
+    }
+
+    private fun updateDestination() {
+        if (throttle.isThrottled() || isCalibrating) {
             return
         }
 
@@ -252,7 +292,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         )
     }
 
-    private fun navigateTo(beacon: Beacon){
+    private fun navigateTo(beacon: Beacon) {
         cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
         destination = beacon
         if (!isCalibrating) {
@@ -262,13 +302,13 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         }
     }
 
-    private fun hideNavigation(){
+    private fun hideNavigation() {
         binding.map.setDestination(null)
         binding.cancelNavigationBtn.hide()
         binding.navigationSheet.hide()
     }
 
-    private fun cancelNavigation(){
+    private fun cancelNavigation() {
         cache.remove(NavigatorFragment.LAST_BEACON_ID)
         destination = null
         hideNavigation()

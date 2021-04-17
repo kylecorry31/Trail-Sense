@@ -20,7 +20,7 @@ import com.kylecorry.trail_sense.databinding.ListItemMapBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
-import com.kylecorry.trailsensecore.domain.geo.cartography.Map
+import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.PDFUtils
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
