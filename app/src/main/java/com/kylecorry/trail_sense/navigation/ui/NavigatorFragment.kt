@@ -153,7 +153,7 @@ class NavigatorFragment : Fragment() {
               .requireLensFacing(CameraSelector.LENS_FACING_BACK)
               .build()
 
-        preview.setSurfaceProvider(binding.viewCamera.getSurfaceProvider())
+        preview.setSurfaceProvider(binding.viewCamera.surfaceProvider)
 
         var camera = cameraProvider.bindToLifecycle(this as LifecycleOwner, cameraSelector, preview)
     }
@@ -242,7 +242,7 @@ class NavigatorFragment : Fragment() {
                 unbindPreview(cameraProviderFuture.get())
             }
             else {
-                cameraProviderFuture.addListener(Runnable {
+                cameraProviderFuture.addListener({
                     val cameraProvider = cameraProviderFuture.get()
                     bindPreview(cameraProvider)
                 }, ContextCompat.getMainExecutor(requireContext()))
