@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/prompt_duration_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Message"
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp"/>
 
     <com.kylecorry.trail_sense.shared.views.DurationInputView
         android:id="@+id/prompt_duration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-</FrameLayout>
+</LinearLayout>

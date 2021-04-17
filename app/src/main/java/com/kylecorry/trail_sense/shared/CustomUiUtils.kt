@@ -11,6 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.trail_sense.R
@@ -127,11 +128,17 @@ object CustomUiUtils {
         context: Context,
         default: Duration? = null,
         title: String,
+        message: String? = null,
         onDurationPick: (duration: Duration?) -> Unit
     ) {
         val view = View.inflate(context, R.layout.view_duration_entry_prompt, null)
         var duration: Duration? = default
+        val durationMessage = view.findViewById<TextView>(R.id.prompt_duration_message)
         val durationInput = view.findViewById<DurationInputView>(R.id.prompt_duration)
+
+        durationMessage.isVisible = !message.isNullOrBlank()
+        durationMessage.text = message
+
         durationInput?.setOnDurationChangeListener {
             duration = it
         }

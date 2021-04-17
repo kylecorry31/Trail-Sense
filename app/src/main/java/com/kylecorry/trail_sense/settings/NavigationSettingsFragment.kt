@@ -13,6 +13,8 @@ import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import java.time.Duration
 
 class NavigationSettingsFragment : CustomPreferenceFragment() {
 
@@ -71,7 +73,8 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         prefBacktrackInterval?.summary = formatService.formatDuration(prefs.backtrackRecordFrequency)
 
         prefBacktrackInterval?.setOnPreferenceClickListener {
-            CustomUiUtils.pickDuration(requireContext(), prefs.backtrackRecordFrequency, it.title.toString()){
+            val title = it.title.toString()
+            CustomUiUtils.pickDuration(requireContext(), prefs.backtrackRecordFrequency, title, getString(R.string.actual_frequency_disclaimer)){
                 if (it != null && !it.isZero){
                     prefs.backtrackRecordFrequency = it
                     prefBacktrackInterval.summary = formatService.formatDuration(it)
