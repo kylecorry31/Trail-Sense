@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -19,7 +20,12 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
+import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
+import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
+import com.kylecorry.trail_sense.weather.ui.QuickActionClouds
+import com.kylecorry.trail_sense.weather.ui.QuickActionThermometer
 import com.kylecorry.trailsensecore.domain.astronomy.MeteorShower
 import com.kylecorry.trailsensecore.domain.astronomy.MeteorShowerPeak
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
@@ -56,11 +62,11 @@ class AstronomyFragment : Fragment() {
     private val astronomyService = AstronomyService()
     private val geoService = GeoService()
     private val formatService by lazy { FormatServiceV2(requireContext()) }
-    private val sensorChecker by lazy { SensorChecker(requireContext()) }
+
+    private var leftQuickAction: QuickActionButton? = null
+    private var rightQuickAction: QuickActionButton? = null
 
     private var gpsErrorShown = false
-
-    private var declination = 0f
 
     private val intervalometer = Intervalometer {
         updateUI()
@@ -68,6 +74,13 @@ class AstronomyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        leftQuickAction = getQuickActionButton(prefs.astronomy.leftQuickAction, binding.astronomyLeftQuickAction)
+        leftQuickAction?.onCreate()
+
+        rightQuickAction = getQuickActionButton(prefs.astronomy.rightQuickAction, binding.astronomyRightQuickAction)
+        rightQuickAction?.onCreate()
+
         val recyclerView = binding.astronomyDetailList
         detailList =
             ListView(recyclerView, R.layout.list_item_astronomy_detail) { itemView, detail ->
@@ -140,8 +153,16 @@ class AstronomyFragment : Fragment() {
         _binding = null
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        leftQuickAction?.onDestroy()
+        rightQuickAction?.onDestroy()
+    }
+
     override fun onResume() {
         super.onResume()
+        leftQuickAction?.onResume()
+        rightQuickAction?.onResume()
         displayDate = LocalDate.now()
         requestLocationUpdate()
         intervalometer.interval(Duration.ofMinutes(1))
@@ -156,6 +177,8 @@ class AstronomyFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        leftQuickAction?.onPause()
+        rightQuickAction?.onPause()
         gps.stop(this::onLocationUpdate)
         intervalometer.stop()
         gpsErrorShown = false
@@ -574,6 +597,17 @@ class AstronomyFragment : Fragment() {
             )
             (requireActivity() as MainActivity).errorBanner.report(error)
             gpsErrorShown = true
+        }
+    }
+
+    private fun getQuickActionButton(
+        type: QuickActionType,
+        button: FloatingActionButton
+    ): QuickActionButton {
+        return when (type) {
+            QuickActionType.Whistle -> QuickActionWhistle(button, this)
+            QuickActionType.Flashlight -> QuickActionFlashlight(button, this)
+            else -> QuickActionNone(button, this)
         }
     }
 

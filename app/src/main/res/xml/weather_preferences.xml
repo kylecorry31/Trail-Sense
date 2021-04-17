@@ -4,6 +4,27 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
+        android:title="@string/pref_general_header">
+        <ListPreference
+            app:defaultValue="2"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_quick_action_left"
+            app:singleLineTitle="false"
+            app:title="@string/left_quick_action"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="3"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_quick_action_right"
+            app:singleLineTitle="false"
+            app:title="@string/right_quick_action"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
         app:title="@string/forecasts_category">
 
         <SwitchPreferenceCompat

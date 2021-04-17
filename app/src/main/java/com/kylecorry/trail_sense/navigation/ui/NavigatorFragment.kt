@@ -675,7 +675,7 @@ class NavigatorFragment : Fragment() {
             QuickActionType.None -> QuickActionNone(button, this)
             QuickActionType.Backtrack -> QuickActionBacktrack(button, this)
             QuickActionType.Flashlight -> QuickActionFlashlight(button, this)
-            QuickActionType.Clouds -> QuickActionClouds(button, this)
+            QuickActionType.Clouds -> QuickActionNone(button, this)
             QuickActionType.Temperature -> QuickActionNone(button, this)
             QuickActionType.Ruler -> QuickActionRuler(button, this, binding.ruler)
             QuickActionType.Maps -> QuickActionOfflineMaps(button, this)
