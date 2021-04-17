@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
+import com.kylecorry.trail_sense.tools.whitenoise.ui.QuickActionWhiteNoise
 import com.kylecorry.trail_sense.weather.ui.QuickActionClouds
 import com.kylecorry.trail_sense.weather.ui.QuickActionThermometer
 import com.kylecorry.trailsensecore.domain.astronomy.MeteorShower
@@ -607,6 +608,7 @@ class AstronomyFragment : Fragment() {
         return when (type) {
             QuickActionType.Whistle -> QuickActionWhistle(button, this)
             QuickActionType.Flashlight -> QuickActionFlashlight(button, this)
+            QuickActionType.WhiteNoise -> QuickActionWhiteNoise(button, this)
             else -> QuickActionNone(button, this)
         }
     }

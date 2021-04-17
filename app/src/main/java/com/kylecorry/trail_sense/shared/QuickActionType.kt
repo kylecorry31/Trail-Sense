@@ -11,7 +11,8 @@ enum class QuickActionType(val id: Int) {
     Temperature(3),
     Ruler(5),
     Maps(7),
-    Whistle(8)
+    Whistle(8),
+    WhiteNoise(9)
 }
 
 object QuickActionUtils {
@@ -26,6 +27,7 @@ object QuickActionUtils {
             QuickActionType.Ruler -> context.getString(R.string.tool_ruler_title)
             QuickActionType.Maps -> context.getString(R.string.offline_maps)
             QuickActionType.Whistle -> context.getString(R.string.tool_whistle_title)
+            QuickActionType.WhiteNoise -> context.getString(R.string.tool_white_noise_title)
         }
     }
 
@@ -59,7 +61,8 @@ object QuickActionUtils {
         return listOf(
             QuickActionType.None,
             QuickActionType.Flashlight,
-            QuickActionType.Whistle
+            QuickActionType.Whistle,
+            QuickActionType.WhiteNoise
         )
     }
 }

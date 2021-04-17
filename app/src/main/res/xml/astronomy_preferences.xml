@@ -45,7 +45,7 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="-1"
+            app:defaultValue="9"
             app:iconSpaceReserved="false"
             app:key="@string/pref_astronomy_quick_action_right"
             app:singleLineTitle="false"

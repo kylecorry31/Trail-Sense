@@ -75,7 +75,7 @@ class AstronomyPreferences(private val context: Context) {
     val rightQuickAction: QuickActionType
         get(){
             val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_right))?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.None
+            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.WhiteNoise
         }
 
 }
