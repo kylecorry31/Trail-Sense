@@ -25,11 +25,14 @@ class WeatherPreferences(private val context: Context) {
         get() = sensorChecker.hasBarometer() && (cache.getBoolean(context.getString(R.string.pref_monitor_weather))
             ?: true)
 
-    val weatherUpdateFrequency: Duration
+    var weatherUpdateFrequency: Duration
         get() {
             val raw =
                 cache.getString(context.getString(R.string.pref_weather_update_frequency)) ?: "15"
             return Duration.ofMinutes(raw.toLongOrNull() ?: 15)
+        }
+        set(value) {
+            cache.putString(context.getString(R.string.pref_weather_update_frequency), value.toMinutes().toString())
         }
 
     val shouldShowDailyWeatherNotification: Boolean

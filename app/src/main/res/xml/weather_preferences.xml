@@ -101,16 +101,12 @@
         app:singleLineTitle="false"
         app:title="@string/advanced_settings_category">
 
-        <ListPreference
-            app:defaultValue="15"
+        <Preference
             app:dependency="@string/pref_monitor_weather"
-            app:entries="@array/weather_update_frequency_entries"
-            app:entryValues="@array/weather_update_frequency_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_weather_update_frequency"
             app:singleLineTitle="false"
-            app:title="@string/pref_weather_update_frequency_title"
-            app:useSimpleSummaryProvider="true" />
+            app:title="@string/pref_weather_update_frequency_title" />
 
     </PreferenceCategory>
 

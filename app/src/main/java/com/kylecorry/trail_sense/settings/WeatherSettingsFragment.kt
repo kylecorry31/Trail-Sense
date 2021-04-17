@@ -6,6 +6,7 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -16,7 +17,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 class WeatherSettingsFragment : CustomPreferenceFragment() {
 
     private var prefMonitorWeather: SwitchPreferenceCompat? = null
-    private var prefWeatherUpdateFrequency: ListPreference? = null
+    private var prefWeatherUpdateFrequency: Preference? = null
     private var prefShowWeatherNotification: SwitchPreferenceCompat? = null
     private var prefShowDailyWeatherNotification: SwitchPreferenceCompat? = null
     private var prefShowPressureInNotification: SwitchPreferenceCompat? = null
@@ -30,7 +31,7 @@ class WeatherSettingsFragment : CustomPreferenceFragment() {
 
     private fun bindPreferences() {
         prefMonitorWeather = switch(R.string.pref_monitor_weather)
-        prefWeatherUpdateFrequency = list(R.string.pref_weather_update_frequency)
+        prefWeatherUpdateFrequency = preference(R.string.pref_weather_update_frequency)
         prefShowWeatherNotification = switch(R.string.pref_show_weather_notification)
         prefShowDailyWeatherNotification = switch(R.string.pref_daily_weather_notification)
         prefShowPressureInNotification = switch(R.string.pref_show_pressure_in_notification)
@@ -74,8 +75,17 @@ class WeatherSettingsFragment : CustomPreferenceFragment() {
             restartWeatherMonitor()
             true
         }
-        prefWeatherUpdateFrequency?.setOnPreferenceChangeListener { _, _ ->
-            restartWeatherMonitor()
+
+        prefWeatherUpdateFrequency?.summary = formatService.formatDuration(prefs.weather.weatherUpdateFrequency)
+        prefWeatherUpdateFrequency?.setOnPreferenceClickListener {
+            val title = it.title.toString()
+            CustomUiUtils.pickDuration(requireContext(), prefs.weather.weatherUpdateFrequency, title, getString(R.string.actual_frequency_disclaimer)){
+                if (it != null && !it.isZero){
+                    prefs.weather.weatherUpdateFrequency = it
+                    prefWeatherUpdateFrequency?.summary = formatService.formatDuration(it)
+                    restartWeatherMonitor()
+                }
+            }
             true
         }
         prefShowPressureInNotification?.setOnPreferenceClickListener {
