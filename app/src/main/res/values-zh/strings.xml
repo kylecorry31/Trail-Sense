@@ -567,7 +567,6 @@
     <string name="unsaved_changes_message">你所做的更改将不被保存。</string>
     <string name="unsaved_changes">未保存的变更</string>
     <string name="cloud_low">低云</string>
-    <string name="health">健康</string>
     <string name="cirrus_desc">高且柔软如羽毛。</string>
     <string name="cumulonimbus_desc">深灰色、高大、砧形。</string>
     <string name="cumulus_desc">看起来像蓬松的棉球。</string>
@@ -787,9 +786,7 @@
     <string name="importing_map">导入地图中</string>
     <string name="hour_symbol">小时</string>
     <string name="minute_symbol">分钟</string>
-    <string name="pref_backtrack_interval">pref_backtrack_interval</string>
     <string name="pref_backtrack_path_radar_title">显示 Backtrack 路径</string>
-    <string name="pref_backtrack_path_radar">pref_backtrack_path_radar</string>
     <string name="map_auto_calibrated">以自动校准地图，请验证其精度</string>
     <string name="time_until_empty">离空还剩%s</string>
     <string name="pref_odometer_reset_daily_title">每天重置</string>

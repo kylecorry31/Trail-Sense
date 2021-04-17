@@ -600,7 +600,6 @@
 \n- Obtenha sua localização atual, altitude e velocidade
 \n
 \n- Reconstitua seus passos com o Backtrack (funciona em segundo plano quando ativado)</string>
-    <string name="health">Saúde</string>
     <string name="cirrus_desc">Alto e emplumado.</string>
     <string name="cirrocumulus_desc">Forma uma camada ondulada, as nuvens quase parecem bidimensionais.</string>
     <string name="stratocumulus_desc">Massas rolantes que formam uma camada.</string>

@@ -124,7 +124,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun startApp() {
         errorBanner.dismissAll()
-        navController.navigate(R.id.action_navigation)
+        if (navController.currentDestination?.id == R.id.action_navigation){
+            navController.navigate(R.id.action_navigation)
+        }
+
 
         if (disclaimer.shouldShow()) {
             disclaimer.show()
@@ -178,12 +181,6 @@ class MainActivity : AppCompatActivity() {
                     bundle
                 )
             }
-        }
-
-        if (intent.hasExtra(getString(R.string.extra_action))) {
-            val desiredAction =
-                intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
-            bottomNavigation.selectedItemId = desiredAction
         }
     }
 
@@ -256,23 +253,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestPermissions(permissions: List<String>, requestCode: Int = RequestCodes.REQUEST_CODE_LOCATION_PERMISSION) {
         PermissionUtils.requestPermissions(this, permissions, requestCode)
-    }
-
-    companion object {
-
-        fun weatherIntent(context: Context): Intent {
-            val intent = Intent(context, MainActivity::class.java)
-            intent.putExtra(context.getString(R.string.extra_action), R.id.action_weather)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            return intent
-        }
-
-        fun astronomyIntent(context: Context): Intent {
-            val intent = Intent(context, MainActivity::class.java)
-            intent.putExtra(context.getString(R.string.extra_action), R.id.action_astronomy)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            return intent
-        }
     }
 
 }

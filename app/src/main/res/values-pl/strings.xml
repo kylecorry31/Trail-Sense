@@ -552,7 +552,6 @@
     <string name="guide_thermometer_calibration_title">Kalibracja termometru</string>
     <string name="battery_power_usb">USB</string>
     <string name="coordinate_format_mgrs">MGRS</string>
-    <string name="health">Zdrowie</string>
     <string name="pref_require_satellites_description">Wymaga co najmniej 4 satelitów, poprawia dokładność</string>
     <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="cloud_low">NISKIE</string>
@@ -788,5 +787,4 @@
     <string name="importing_map">Importowanie mapy</string>
     <string name="hour_symbol">h</string>
     <string name="minute_symbol">m</string>
-    <string name="pref_backtrack_interval">pref_backtrack_interval</string>
 </resources>

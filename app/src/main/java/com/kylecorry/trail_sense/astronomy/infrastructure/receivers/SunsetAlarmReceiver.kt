@@ -8,6 +8,7 @@ import android.util.Log
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toDisplayFormat
@@ -133,10 +134,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
 
         val formattedTime = sunset.toDisplayFormat(context)
 
-        val openIntent = MainActivity.astronomyIntent(context)
-
-        val openPendingIntent: PendingIntent =
-            PendingIntent.getActivity(context, NOTIFICATION_ID, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val openIntent = NavigationUtils.pendingIntent(context, R.id.action_astronomy)
 
         val notification = NotificationUtils.alert(
             context,
@@ -147,7 +145,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
                 formattedTime
             ),
             R.drawable.ic_sunset_notification,
-            intent = openPendingIntent
+            intent = openIntent
         )
 
         NotificationUtils.send(context, NOTIFICATION_ID, notification)

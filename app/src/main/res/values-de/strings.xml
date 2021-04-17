@@ -562,7 +562,6 @@
     <string name="open_beacon_in_maps">Auf der Karte ansehen</string>
     <string name="compass_calibrate_toast">Kompass-Genauigkeit %s, Kalibration wird empfohlen</string>
     <string name="how">Wie</string>
-    <string name="health">Gesundheit</string>
     <string name="cirrus_desc">Hoch und wie Federn.</string>
     <string name="cumulonimbus_desc">Dunkelgrau, mächtig und Ambossform.</string>
     <string name="cumulus_desc">Schauen aus wie Wattebäuschchen.</string>
@@ -792,9 +791,7 @@
     <string name="importing_map">Karte importieren</string>
     <string name="hour_symbol">h</string>
     <string name="minute_symbol">min</string>
-    <string name="pref_backtrack_interval">pref_backtrack_interval</string>
     <string name="pref_backtrack_path_radar_title">Zeige Weg aus Rückweg</string>
-    <string name="pref_backtrack_path_radar">pref_backtrack_path_radar</string>
     <string name="map_auto_calibrated">Karte wurde automatisch kalibriert, bitte überprüfe die Genauigkeit</string>
     <string name="time_until_empty">%s bis leer</string>
 </resources>

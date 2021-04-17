@@ -424,7 +424,6 @@
     <string name="pref_altitude_offsets" translatable="false">pref_altitude_offsets</string>
     <string name="pref_fine_tune_altitude" translatable="false">pref_fine_tune_altitude</string>
     <string name="pref_altitude_override" translatable="false">pref_altitude_override</string>
-    <string name="pref_altitude_override_feet" translatable="false">pref_altitude_override_feet</string>
     <string name="pref_altitude_from_gps_btn" translatable="false">pref_altitude_from_gps_btn</string>
     <string name="pref_altitude_override_sea_level" translatable="false">pref_altitude_override_sea_level</string>
     <string name="pref_altimeter_calibration" translatable="false">pref_altimeter_calibration</string>
@@ -759,8 +758,6 @@
     <string name="cumulus_desc">Looks like puffy cotton balls.</string>
     <string name="cumulonimbus_desc">Dark gray, tall and anvil shape.</string>
     <string name="cirrus_desc">High and feathery.</string>
-    <string name="health">Health</string>
-    <string name="tool_health_sense" translatable="false">tool_health_sense</string>
     <string name="tool_clouds" translatable="false">tool_clouds</string>
     <!--This is in Markdown format-->
     <string name="onboarding_navigation">- Place beacons and navigate back to them\n\n- Get your current location, altitude, and speed\n\n- Retrace your steps with Backtrack (runs in the background when enabled)</string>

@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.units.Distance
@@ -60,6 +61,9 @@ class PedometerService : ForegroundService() {
     private fun getNotification(): Notification {
         val units = prefs.baseDistanceUnits
         val distance = odometer.distance.convertTo(units).toRelativeDistance()
+
+        val openIntent = NavigationUtils.pendingIntent(this, R.id.fragmentToolSpeedometer)
+
         return NotificationUtils.persistent(
             this,
             CHANNEL_ID,
@@ -69,6 +73,7 @@ class PedometerService : ForegroundService() {
                 if (IsLargeUnitSpecification().isSatisfiedBy(distance.units)) 2 else 0
             ),
             R.drawable.steps,
+            intent = openIntent,
             group = NotificationChannels.GROUP_PEDOMETER
         )
     }

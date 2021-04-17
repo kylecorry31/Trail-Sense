@@ -8,6 +8,7 @@ import android.hardware.SensorManager
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
@@ -26,12 +27,10 @@ object WeatherNotificationService {
 
     fun getNotification(context: Context, text: String, icon: Int): Notification {
         val stopIntent = Intent(context, WeatherStopMonitoringReceiver::class.java)
-        val openIntent = MainActivity.weatherIntent(context)
+        val openIntent = NavigationUtils.pendingIntent(context, R.id.action_weather)
 
         val stopPendingIntent: PendingIntent =
             PendingIntent.getBroadcast(context, 0, stopIntent, 0)
-        val openPendingIntent: PendingIntent =
-            PendingIntent.getActivity(context, 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val stopAction = NotificationUtils.action(
             context.getString(R.string.stop_monitoring),
@@ -49,7 +48,7 @@ object WeatherNotificationService {
             icon,
             showBigIcon = true,
             group = NotificationChannels.GROUP_WEATHER,
-            intent = openPendingIntent,
+            intent = openIntent,
             actions = listOf(stopAction)
         )
     }

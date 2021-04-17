@@ -513,7 +513,6 @@
     <string name="unsaved_changes">Ulagrede endringer</string>
     <string name="pref_require_satellites_description">Krever minst 4 satellitter for posisjonsbestemmelse, forbedrer nøyaktigheten</string>
     <string name="clouds">Skyer</string>
-    <string name="health">Helse</string>
     <string name="cloud_low">LAVE</string>
     <string name="cloud_middle">MELLOMHØYE</string>
     <string name="cloud_high">HØYE</string>

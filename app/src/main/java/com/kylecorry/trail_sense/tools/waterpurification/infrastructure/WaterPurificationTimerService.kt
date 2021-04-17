@@ -8,6 +8,7 @@ import android.os.CountDownTimer
 import android.os.IBinder
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import kotlin.math.roundToInt
@@ -23,6 +24,10 @@ class WaterPurificationTimerService : Service() {
             WaterPurificationCancelReceiver.pendingIntent(applicationContext),
             R.drawable.ic_cancel
         )
+    }
+
+    private val openIntent by lazy {
+        NavigationUtils.pendingIntent(this@WaterPurificationTimerService, R.id.waterPurificationFragment)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -65,7 +70,8 @@ class WaterPurificationTimerService : Service() {
                     getString(R.string.water_boil_timer_done_title),
                     getString(R.string.water_boil_timer_done_content),
                     R.drawable.ic_tool_boil_done,
-                    group = NotificationChannels.GROUP_WATER
+                    group = NotificationChannels.GROUP_WATER,
+                    intent = openIntent
                 )
                 NotificationUtils.send(applicationContext, NOTIFICATION_ID, notification)
                 done = true
@@ -87,7 +93,8 @@ class WaterPurificationTimerService : Service() {
             ),
             R.drawable.ic_tool_boil,
             group = NotificationChannels.GROUP_WATER,
-            actions = listOf(cancelAction)
+            actions = listOf(cancelAction),
+            intent = openIntent
         )
     }
 

@@ -582,7 +582,6 @@
     <string name="dialog_leave">Покинуть</string>
     <string name="unsaved_changes_message">Внесенные вами изменения не сохранятся.</string>
     <string name="unsaved_changes">Несохраненные изменения</string>
-    <string name="health">Здоровье</string>
     <string name="cirrus_desc">Высокие и перистые.</string>
     <string name="cumulonimbus_desc">Темно-серые, высокие, в форме наковальни.</string>
     <string name="cumulus_desc">Похожи на пухлые ватные шарики.</string>
@@ -789,8 +788,6 @@
     <string name="importing_map">Импорт карты</string>
     <string name="hour_symbol">ч</string>
     <string name="minute_symbol">м</string>
-    <string name="pref_backtrack_interval">pref_backtrack_interval</string>
-    <string name="pref_backtrack_path_radar">pref_backtrack_path_radar</string>
     <string name="map_auto_calibrated">Карта откалибрована автоматически, проверьте её точность</string>
     <string name="time_until_empty">%s до опустения</string>
     <string name="guide_speedometer_desc">Как определить пройденное расстояние и время прибытия</string>

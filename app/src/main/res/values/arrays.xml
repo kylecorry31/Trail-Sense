@@ -206,24 +206,6 @@
         <item>60</item>
     </string-array>
 
-    <string-array name="backtrack_frequency_entries">
-        <item>@string/update_15_minutes</item>
-        <item>@string/update_30_minutes</item>
-        <item>@string/update_45_minutes</item>
-        <item>@string/update_60_minutes</item>
-        <item>@string/update_90_minutes</item>
-        <item>@string/update_120_minutes</item>
-    </string-array>
-
-    <string-array name="backtrack_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>45</item>
-        <item>60</item>
-        <item>90</item>
-        <item>120</item>
-    </string-array>
-
     <string-array name="altimeter_mode_entries">
         <item>@string/altimeter_mode_gps_barometer</item>
         <item>@string/altimeter_mode_gps</item>

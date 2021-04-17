@@ -179,13 +179,6 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
     private fun onElevationFromGPSCallback(): Boolean {
         val elevation = gps.altitude
         prefs.altitudeOverride = elevation
-        cache.putString(
-            getString(R.string.pref_altitude_override_feet),
-            LocationMath.convertToBaseUnit(
-                prefs.altitudeOverride,
-                UserPreferences.DistanceUnits.Feet
-            ).toString()
-        )
         updateSeaLevelPressureOverride()
         updateAltitude()
         UiUtils.shortToast(requireContext(), getString(R.string.altitude_override_updated_toast))
@@ -236,13 +229,6 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
     private fun onElevationFromBarometerCallback(): Boolean {
         val elevation = SensorManager.getAltitude(seaLevelPressure, barometer.pressure)
         prefs.altitudeOverride = elevation
-        cache.putString(
-                getString(R.string.pref_altitude_override_feet),
-                LocationMath.convertToBaseUnit(
-                    prefs.altitudeOverride,
-                    UserPreferences.DistanceUnits.Feet
-                ).toString()
-            )
         updateSeaLevelPressureOverride()
         updateAltitude()
         UiUtils.shortToast(requireContext(), getString(R.string.altitude_override_updated_toast))
