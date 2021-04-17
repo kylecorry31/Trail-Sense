@@ -165,127 +165,13 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <LinearLayout
+    <com.kylecorry.trail_sense.shared.views.BeaconDestinationView
         android:id="@+id/navigation_sheet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?android:colorBackgroundFloating"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <TextView
-            android:id="@+id/beacon_name"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            tools:text="Beacon Name" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/beacon_distance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    tools:text="1000m" />
-
-                <TextView
-                    android:id="@+id/beacon_eta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/eta"
-                    android:textAlignment="center" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/beacon_direction"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    tools:text="234°" />
-
-                <TextView
-                    android:id="@+id/beacon_direction_cardinal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimary"
-                    tools:text="SE" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/beacon_elevation_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_marginEnd="8dp"
-                        android:alpha="0.5"
-                        android:src="@drawable/ic_altitude"
-                        app:tint="?android:textColorSecondary" />
-
-                    <TextView
-                        android:id="@+id/beacon_elevation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="1000m" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/beacon_elevation_diff"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textColor="@color/positive"
-                    tools:text="+100m" />
-
-            </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/beacon_comment_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:alpha="0.5"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_note"
-                android:tint="?android:textColorSecondary" />
-        </LinearLayout>
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

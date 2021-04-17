@@ -75,8 +75,6 @@ class NavigatorFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var navController: NavController
 
-    private lateinit var destinationPanel: DestinationPanel
-
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
 
@@ -173,8 +171,6 @@ class NavigatorFragment : Fragment() {
         rightQuickAction?.onCreate()
         leftQuickAction?.onCreate()
         navController = findNavController()
-
-        destinationPanel = DestinationPanel(binding.navigationSheet)
 
         compass.asLiveData().observe(viewLifecycleOwner, { updateUI() })
         orientation.asLiveData().observe(viewLifecycleOwner, { onOrientationUpdate() })
@@ -461,14 +457,14 @@ class NavigatorFragment : Fragment() {
         val selectedBeacon = getSelectedBeacon(nearbyBeacons)
 
         if (selectedBeacon != null) {
-            destinationPanel.show(
+            binding.navigationSheet.show(
                 getPosition(),
                 selectedBeacon,
                 getDeclination(),
                 useTrueNorth
             )
         } else {
-            destinationPanel.hide()
+            binding.navigationSheet.hide()
         }
 
         detectAndShowGPSError()

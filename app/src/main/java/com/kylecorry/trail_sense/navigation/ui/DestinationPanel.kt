@@ -40,6 +40,7 @@ class DestinationPanel(private val view: View) {
         }
     }
 
+    // TODO: Make this take the calculated values (as a value object)
     fun show(
         position: Position,
         destination: Beacon,
