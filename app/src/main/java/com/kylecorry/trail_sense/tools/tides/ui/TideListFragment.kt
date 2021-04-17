@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainMenuBinding
-import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -21,6 +20,7 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
 import com.kylecorry.trailsensecore.domain.oceanography.OceanographyService
 import com.kylecorry.trailsensecore.domain.oceanography.TideType
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,7 +56,7 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
             }
             
             itemBinding.menuBtn.setOnClickListener {
-                CustomUiUtils.openMenu(it, R.menu.tide_menu){ action ->
+                UiUtils.openMenu(it, R.menu.tide_menu){ action ->
                     when (action){
                         R.id.action_tide_delete -> {
                             deleteTide(tide)

@@ -13,11 +13,11 @@ import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryStringMa
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.DecimalFormatter
 import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
 import com.kylecorry.trail_sense.tools.inventory.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.ItemRepo
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import kotlinx.coroutines.*
 
 class CreateItemFragment : Fragment() {
@@ -102,7 +102,7 @@ class CreateItemFragment : Fragment() {
                 editingItem?.let {
                     binding.createItemTitle.text = getString(R.string.edit_item_title)
                     binding.nameEdit.setText(it.name)
-                    binding.countEdit.setText(DecimalFormatter.format(it.amount))
+                    binding.countEdit.setText(DecimalFormatter.format(it.amount, 4))
                     binding.categorySelectSpinner.setSelection(it.category.ordinal)
                 }
             }

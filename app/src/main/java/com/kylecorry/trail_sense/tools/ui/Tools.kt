@@ -122,7 +122,7 @@ object Tools {
                     R.id.action_action_experimental_tools_to_toolClockFragment
                 ),
                 Tool(
-                    context.getString(R.string.water_boil_timer_title),
+                    context.getString(R.string.tool_boil_title),
                     R.drawable.ic_tool_boil,
                     R.id.action_action_experimental_tools_to_waterPurificationFragment,
                     context.getString(R.string.tool_boil_summary)

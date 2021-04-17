@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
 import com.kylecorry.trail_sense.databinding.ListItemToolBinding
-import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 
 
@@ -35,7 +35,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
             if (tool.action != null && tool.icon != null) {
                 // Tool
-                    toolBinding.root.setBackgroundResource(selectableBackground)
+                toolBinding.root.setBackgroundResource(selectableBackground)
                 toolBinding.title.text = tool.name
                 toolBinding.title.setTextColor(textColor)
                 toolBinding.description.text = tool.description
@@ -95,7 +95,11 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
         } else {
             for (group in tools) {
                 for (tool in group.tools) {
-                    if (tool.name.contains(search, true) || tool.description?.contains(search, true) == true) {
+                    if (tool.name.contains(search, true) || tool.description?.contains(
+                            search,
+                            true
+                        ) == true
+                    ) {
                         toolListItems.add(
                             ToolListItem(
                                 tool.name,

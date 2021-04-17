@@ -37,7 +37,7 @@ class BeaconIOService(private val context: Context) {
         return GPXParser().toGPX(waypoints, context.getString(R.string.app_name))
     }
 
-    suspend fun getGPXWaypoints(gpx: String): List<GPXWaypoint> {
+    fun getGPXWaypoints(gpx: String): List<GPXWaypoint> {
         return GPXParser().getWaypoints(gpx)
     }
 

@@ -7,12 +7,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.databinding.FragmentToolWhiteNoiseBinding
-import com.kylecorry.trail_sense.shared.BoundFragment
-import com.kylecorry.trail_sense.shared.getInstant
-import com.kylecorry.trail_sense.shared.putInstant
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import java.time.Duration
 import java.time.Instant
 

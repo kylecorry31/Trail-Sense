@@ -16,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.databinding.ListItemMapBinding
-import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
@@ -25,9 +24,11 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.PDFUtils
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
+import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -119,17 +120,17 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             maps.forEach {
                 val file = fileService.getFile(it.filename, false)
 
-                val size = CustomUiUtils.getBitmapSize(file.path)
+                val size = BitmapUtils.getBitmapSize(file.path)
                 val bounds = it.boundary(size.first.toFloat(), size.second.toFloat())
                 if (bounds != null) {
                     val onMap = bounds.contains(gps.location)
                     val distance = gps.location.distanceTo(bounds.center)
 
                     if (onMap || distance < 5000) {
-                        val bitmap = CustomUiUtils.decodeBitmapScaled(
+                        val bitmap = BitmapUtils.decodeBitmapScaled(
                             file.path,
-                            CustomUiUtils.dp(requireContext(), 64f).toInt(),
-                            CustomUiUtils.dp(requireContext(), 64f).toInt()
+                            UiUtils.dp(requireContext(), 64f).toInt(),
+                            UiUtils.dp(requireContext(), 64f).toInt()
                         )
                         bitmaps[it.id] = bitmap
                     }

@@ -22,6 +22,7 @@ import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
 import com.kylecorry.trailsensecore.domain.pixels.PixelCircle
 import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
+import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.max
@@ -159,7 +160,7 @@ class OfflineMapView : View {
             // TODO: Determine tiles for when zoom is > X (they should be X by X pixels, smaller around the edges
             // TODO: Load all visible tiles and overlay them over the map, unload them if zoomed out or out of view
             val file = fileService.getFile(map!!.filename, false)
-            val bitmap = CustomUiUtils.decodeBitmapScaled(
+            val bitmap = BitmapUtils.decodeBitmapScaled(
                 file.path,
                 width,
                 height

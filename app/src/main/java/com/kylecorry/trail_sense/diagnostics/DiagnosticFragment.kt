@@ -11,7 +11,6 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentDiagnosticsBinding
 import com.kylecorry.trail_sense.databinding.ListItemSensorBinding
-import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -35,6 +34,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.Instant

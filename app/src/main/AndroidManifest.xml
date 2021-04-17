@@ -8,8 +8,6 @@
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="geo" />
         </intent>
-
-        <package android:name="com.kylecorry.healthsense" />
     </queries>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

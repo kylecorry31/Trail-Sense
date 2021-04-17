@@ -19,9 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
-import com.kylecorry.trail_sense.shared.MarkdownService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
@@ -31,6 +29,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.*
+import com.kylecorry.trailsensecore.infrastructure.text.MarkdownService
 import java.time.Duration
 import kotlin.system.exitProcess
 

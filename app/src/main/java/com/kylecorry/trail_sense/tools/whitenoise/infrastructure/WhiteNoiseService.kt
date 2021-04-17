@@ -5,11 +5,10 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.getInstant
-import com.kylecorry.trail_sense.shared.services.ForegroundService
 import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.PinkNoise
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration

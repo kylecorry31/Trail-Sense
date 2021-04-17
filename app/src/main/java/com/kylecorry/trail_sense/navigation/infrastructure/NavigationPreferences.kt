@@ -3,15 +3,14 @@ package com.kylecorry.trail_sense.navigation.infrastructure
 import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trail_sense.shared.math.MathExtensions.toFloatCompat2
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
+import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.math.toIntCompat
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import java.time.Duration
-import kotlin.math.min
 
 class NavigationPreferences(private val context: Context) {
 
@@ -73,7 +72,7 @@ class NavigationPreferences(private val context: Context) {
         get() {
             val raw = cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "100"
             return unitService.convert(
-                raw.toFloatCompat2() ?: 100f,
+                raw.toFloatCompat() ?: 100f,
                 DistanceUnits.Kilometers,
                 DistanceUnits.Meters
             )
@@ -87,7 +86,7 @@ class NavigationPreferences(private val context: Context) {
     val rulerScale: Float
         get() {
             val raw = cache.getString(context.getString(R.string.pref_ruler_calibration)) ?: "1"
-            return raw.toFloatCompat2() ?: 1f
+            return raw.toFloatCompat() ?: 1f
         }
 
     val coordinateFormat: CoordinateFormat

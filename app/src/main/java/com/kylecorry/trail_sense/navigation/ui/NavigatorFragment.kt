@@ -183,7 +183,7 @@ class NavigatorFragment : Fragment() {
         speedometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
 
         binding.location.setOnLongClickListener {
-            CustomUiUtils.openMenu(it, R.menu.location_share_menu){ menuItem ->
+            UiUtils.openMenu(it, R.menu.location_share_menu){ menuItem ->
                 val sender = when (menuItem){
                     R.id.action_send -> LocationSharesheet(requireContext())
                     R.id.action_maps -> LocationGeoSender(requireContext())

@@ -10,7 +10,6 @@ import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.services.CoroutineForegroundService
 import com.kylecorry.trail_sense.weather.domain.CanSendDailyForecast
 import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
 import com.kylecorry.trail_sense.weather.domain.WeatherService
@@ -23,6 +22,7 @@ import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
+import com.kylecorry.trailsensecore.infrastructure.services.CoroutineForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import kotlinx.coroutines.*

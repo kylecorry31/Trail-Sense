@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
-import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.ScreenFlashlight
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
 class FragmentToolScreenFlashlight: BoundFragment<FragmentToolScreenFlashlightBinding>() {
 

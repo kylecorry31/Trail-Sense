@@ -19,6 +19,9 @@ import com.kylecorry.trailsensecore.domain.math.sinDegrees
 import com.kylecorry.trailsensecore.domain.math.wrap
 import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
 import com.kylecorry.trailsensecore.domain.units.Distance
+import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
+import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
+import com.kylecorry.trailsensecore.infrastructure.canvas.getMaskedBitmap
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Instant
 import kotlin.math.abs
@@ -263,6 +266,7 @@ class RadarCompassView : View, ICompassView {
         val threeQuarterDist = maxDistanceBaseUnits.times(0.75f).toRelativeDistance()
         paint.textSize = distanceSize
 
+        // TODO: This doesn't need to happen on every draw
         val quarterText = formatService.formatDistance(
             quarterDist,
             if (IsLargeUnitSpecification().isSatisfiedBy(quarterDist.units)) 1 else 0

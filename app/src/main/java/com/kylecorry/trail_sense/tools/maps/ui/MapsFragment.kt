@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -28,6 +27,7 @@ import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -110,7 +110,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         }
 
         binding.menuBtn.setOnClickListener {
-            CustomUiUtils.openMenu(it, R.menu.map_menu) {
+            UiUtils.openMenu(it, R.menu.map_menu) {
                 when (it) {
                     R.id.action_map_delete -> {
                         lifecycleScope.launch {
