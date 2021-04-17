@@ -115,7 +115,19 @@ class CreateItemFragment : Fragment() {
         val amount = binding.countEdit.text?.toString()?.toDoubleOrNull() ?: 0.0
         val category = ItemCategory.values()[binding.categorySelectSpinner.selectedItemPosition]
 
-        return name != editingItem?.name || amount != editingItem?.amount || category != editingItem?.category
+        return !nothingEntered() && (name != editingItem?.name || amount != editingItem?.amount || category != editingItem?.category)
+    }
+
+    private fun nothingEntered(): Boolean {
+        if (editingItem != null){
+            return false
+        }
+
+        val name = binding.nameEdit.text?.toString()
+        val amount = binding.countEdit.text?.toString()
+        val category = ItemCategory.values()[binding.categorySelectSpinner.selectedItemPosition]
+
+        return name.isNullOrBlank() && amount.isNullOrBlank() && category == ItemCategory.Other
     }
 
 }
