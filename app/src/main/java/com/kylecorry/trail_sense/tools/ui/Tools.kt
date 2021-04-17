@@ -45,7 +45,7 @@ object Tools {
                     R.id.action_action_experimental_tools_to_rulerFragment
                 ),
                 Tool(
-                    context.getString(R.string.speedometer),
+                    context.getString(R.string.tool_speedometer_odometer_title),
                     R.drawable.ic_tool_speedometer,
                     R.id.action_toolsFragment_to_speedometerFragment
                 ),
