@@ -7,6 +7,8 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 interface IBeaconRepo {
     fun getBeacons(): LiveData<List<BeaconEntity>>
     suspend fun getBeaconsSync(): List<BeaconEntity>
+    suspend fun searchBeacons(text: String): List<BeaconEntity>
+    suspend fun searchBeaconsInGroup(text: String, groupId: Long?): List<BeaconEntity>
     suspend fun getBeaconsInGroup(groupId: Long?): List<BeaconEntity>
     suspend fun getBeacon(id: Long): BeaconEntity?
     suspend fun getTemporaryBeacon(): BeaconEntity?

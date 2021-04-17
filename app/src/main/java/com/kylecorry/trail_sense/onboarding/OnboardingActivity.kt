@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
-import com.kylecorry.trail_sense.shared.MarkdownService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.text.MarkdownService
 
 
 class OnboardingActivity : AppCompatActivity() {

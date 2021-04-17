@@ -1,25 +1,40 @@
 package com.kylecorry.trail_sense.tools.whitenoise.infrastructure
 
-import android.app.Service
+import android.app.Notification
 import android.content.Context
 import android.content.Intent
-import android.os.IBinder
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
-import com.kylecorry.trailsensecore.infrastructure.audio.WhiteNoise
+import com.kylecorry.trailsensecore.infrastructure.audio.PinkNoise
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import java.time.Duration
+import java.time.Instant
 
-class WhiteNoiseService : Service() {
+class WhiteNoiseService : ForegroundService() {
 
     private var whiteNoise: ISoundPlayer? = null
+    private val cache by lazy { Cache(this) }
 
-    override fun onBind(intent: Intent?): IBinder? {
-        return null
+    private val offTimer = Intervalometer {
+        stopSelf()
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val notification = NotificationUtils.persistent(
+    override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
+        val stopAt = cache.getInstant(CACHE_KEY_OFF_TIME)
+        if (stopAt != null && Instant.now() < stopAt){
+            offTimer.once(Duration.between(Instant.now(), stopAt))
+        }
+        whiteNoise = PinkNoise()
+        whiteNoise?.fadeOn()
+        return START_STICKY_COMPATIBILITY
+    }
+
+    override fun getForegroundNotification(): Notification {
+        return NotificationUtils.persistent(
             applicationContext,
             NOTIFICATION_CHANNEL_ID,
             getString(R.string.tool_white_noise_title),
@@ -27,21 +42,23 @@ class WhiteNoiseService : Service() {
             R.drawable.ic_tool_white_noise,
             intent = WhiteNoiseOffReceiver.pendingIntent(this)
         )
-        startForeground(NOTIFICATION_ID, notification)
-        whiteNoise = PinkNoise()
-        whiteNoise?.on()
-        return START_STICKY_COMPATIBILITY
     }
+
+    override val foregroundNotificationId: Int
+        get() = NOTIFICATION_ID
 
     override fun onDestroy() {
         super.onDestroy()
-        whiteNoise?.off()
-        whiteNoise?.release()
+        whiteNoise?.fadeOff(true)
+        stopService(true)
+        offTimer.stop()
+        cache.remove(CACHE_KEY_OFF_TIME)
     }
 
     companion object {
         const val NOTIFICATION_ID = 9874333
         const val NOTIFICATION_CHANNEL_ID = "white_noise"
+        const val CACHE_KEY_OFF_TIME = "cache_white_noise_off_at"
 
         fun intent(context: Context): Intent {
             return Intent(context, WhiteNoiseService::class.java)

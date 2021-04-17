@@ -8,7 +8,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
-import com.kylecorry.trail_sense.databinding.ListItemInventoryBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.LowPowerMode
@@ -187,7 +186,7 @@ class FragmentToolBattery : Fragment() {
         }
 
         // Get battery percent history and calculate time to reach 0
-        val firstReading = readings.minByOrNull { Duration.between(it.time, Instant.now().minus(Duration.ofHours(1))).abs() }
+        val firstReading = getFirstBatteryReading()
         val secondReading = readings.last()
 
         if (firstReading == null || firstReading.id == secondReading.id){
@@ -198,14 +197,65 @@ class FragmentToolBattery : Fragment() {
         if (duration == 0L){
             return null
         }
-        val percentPerHour = (secondReading.percent - firstReading.percent) / (duration / 3600f)
 
-        if (percentPerHour >= 0f){
+        val hasCapacity = firstReading.capacity > 0f && secondReading.capacity > 0f
+
+        val time = if (!hasCapacity) {
+            val percentPerHour = (secondReading.percent - firstReading.percent) / (duration / 3600f)
+
+            if (percentPerHour >= 0f) {
+                return null
+            }
+
+            battery.percent / percentPerHour
+        } else {
+            val capacityPerHour = (secondReading.capacity - firstReading.capacity) / (duration / 3600f)
+
+            if (capacityPerHour >= 0f) {
+                return null
+            }
+
+            battery.capacity / capacityPerHour
+        }
+        return hours(time.absoluteValue)
+    }
+
+    private fun getFirstBatteryReading(): BatteryReadingEntity? {
+        // Get the first reading which is at least 30 minutes old and has less percent than the current reading
+        // If the device was charged before the percent dropped, don't return a reading
+        if (readings.size < 2){
             return null
         }
 
-        val time = battery.percent / percentPerHour
-        return hours(time.absoluteValue)
+        val last = readings.lastOrNull()
+        val sorted = readings.sortedByDescending { it.time }
+
+        val thirtyMinutesAgo = Instant.now().minus(Duration.ofMinutes(30))
+
+        if (last == null){
+            return null
+        }
+
+        for (reading in sorted){
+            val hasCapacity = reading.capacity > 0f && last.capacity > 0f
+            if (reading.isCharging || reading.percent < last.percent || (hasCapacity && (reading.capacity < last.capacity))){
+                return null
+            }
+
+            if (reading.time > thirtyMinutesAgo){
+                continue
+            }
+
+            if (hasCapacity && (reading.capacity > last.capacity)){
+                return reading
+            }
+
+            if (reading.percent > last.percent){
+                return reading
+            }
+        }
+
+        return null
     }
 
     private fun getHealthString(health: BatteryHealth): String {

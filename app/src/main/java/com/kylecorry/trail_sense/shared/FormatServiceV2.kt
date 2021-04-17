@@ -9,6 +9,7 @@ import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.units.*
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
+import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -66,7 +67,7 @@ class FormatServiceV2(private val context: Context) {
     }
 
     fun formatDistance(distance: Distance, decimalPlaces: Int = 0): String {
-        val formatted = DecimalFormatter.format(distance.distance.toDouble(), decimalPlaces)
+        val formatted = DecimalFormatter.format(distance.distance, decimalPlaces)
         return when (distance.units) {
             DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, formatted)
             DistanceUnits.Kilometers -> context.getString(

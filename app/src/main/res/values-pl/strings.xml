@@ -260,7 +260,7 @@
     <string name="sunset_alert_channel_title">Alert o zachodzie słońca</string>
     <string name="sun_up_no_set">Słońce wzeszło</string>
     <string name="heat_alert_heat_warning_title">Ostrzeżenie przed wysoką temperaturą</string>
-    <string name="eta">~ %s</string>
+    <string name="eta">~ %s pozostało</string>
     <string name="dialog_grant">Aktualizuj ustawienia</string>
     <string name="tool_bubble_level_summary">Sprawdź, czy powierzchnie są płaskie</string>
     <string name="tool_bubble_level_title">Poziomica</string>
@@ -615,7 +615,6 @@
     <string name="gps_searching">Wyszukiwanie</string>
     <string name="gps_user">Użytkownika</string>
     <string name="import_export_beacons">Import/eksport punktów nawigacyjnych</string>
-    <string name="beacons_imported">Zaimportowano %d punktów nawigacyjnych</string>
     <string name="onboarding_privacy">- Program Trail Sense szanuje Twoją prywatność i dane lokalizacji nigdy nieopuszczą Twojego urzadzenia
 \n
 \n- Trail Sense nigdy nie wymaga połączenie z Internetem
@@ -744,7 +743,6 @@
     <string name="tide_calibration">Kalibracja pływów</string>
     <string name="half_tide">Połowa przypływu</string>
     <string name="beacon_export_error">Nie udało się wyeksportować punktów</string>
-    <string name="beacons_exported">%d punktów wyeksportowano</string>
     <string name="turn_off">Wyłącz</string>
     <string name="tool_speedometer_odometer_title">Prędkościomierz / Drogomierz</string>
     <string name="value_average">%s średnia</string>
@@ -771,7 +769,7 @@
     <string name="guide_using_printed_maps_desc">Jak korzystać z map drukowanych w programie Trail Sense</string>
     <string name="guide_using_printed_maps">Korzystanie z map drukowanych</string>
     <string name="guide_navigation_description">Jak nawigować za pomocą programu Trail Sence</string>
-    <string name="experimental_features">Pływy, szum biały i mapy</string>
+    <string name="experimental_features">Pływy i mapy</string>
     <string name="previous">Poprzedni</string>
     <string name="next">Dalej</string>
     <string name="guide_importing_maps_title">Importowanie mapy</string>
@@ -782,4 +780,13 @@
     <string name="no_maps">Brak map</string>
     <string name="rename">Zmień nazwę</string>
     <string name="experimental">Eksperymentalne</string>
+    <string name="guide_speedometer_title">Określ prędkość i odległość</string>
+    <string name="guide_signaling_for_help_description">Jak wezwać pomoc</string>
+    <string name="guide_signaling_for_help_title">Wzywanie pomocy</string>
+    <string name="import_gpx">Importuj plik GPX</string>
+    <string name="error_importing_map">Błąd podczas importowania mapy</string>
+    <string name="importing_map">Importowanie mapy</string>
+    <string name="hour_symbol">h</string>
+    <string name="minute_symbol">m</string>
+    <string name="pref_backtrack_interval">pref_backtrack_interval</string>
 </resources>

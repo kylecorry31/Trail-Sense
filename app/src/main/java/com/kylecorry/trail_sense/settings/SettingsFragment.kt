@@ -62,7 +62,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             preference(R.string.pref_barometer_calibration),
             R.id.action_action_settings_to_calibrateBarometerFragment
         )
-        preference(R.string.pref_odometer_calibration)?.isVisible = sensorChecker.hasSensor(Sensor.TYPE_STEP_COUNTER)
         navigateOnClick(
             preference(R.string.pref_odometer_calibration),
             R.id.action_action_settings_to_calibrateOdometerFragment

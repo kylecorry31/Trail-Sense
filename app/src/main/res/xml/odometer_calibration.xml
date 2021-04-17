@@ -28,6 +28,13 @@
             app:key="@string/pref_odometer_request_permission"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            android:defaultValue="false"
+            android:title="@string/pref_odometer_reset_daily_title"
+            app:key="@string/pref_odometer_reset_daily"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

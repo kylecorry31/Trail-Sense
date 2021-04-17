@@ -15,6 +15,10 @@ class BeaconRepo private constructor(context: Context) : IBeaconRepo {
 
     override suspend fun getBeaconsSync(): List<BeaconEntity> = beaconDao.getAllSuspend()
 
+    override suspend fun searchBeacons(text: String): List<BeaconEntity> = beaconDao.search(text)
+
+    override suspend fun searchBeaconsInGroup(text: String, groupId: Long?): List<BeaconEntity> = beaconDao.searchInGroup(text, groupId)
+
     override suspend fun getBeaconsInGroup(groupId: Long?): List<BeaconEntity> =
         beaconDao.getAllInGroup(groupId)
 

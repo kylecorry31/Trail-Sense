@@ -53,6 +53,9 @@ class LinearCompassView : View, ICompassView {
 
 
     override fun onDraw(canvas: Canvas) {
+        if (visibility != VISIBLE) {
+            return
+        }
         if (!isInit) {
             paint = Paint(Paint.ANTI_ALIAS_FLAG)
             paint.textAlign = Paint.Align.CENTER
@@ -64,19 +67,12 @@ class LinearCompassView : View, ICompassView {
             val compassDrawable = UiUtils.drawable(context, R.drawable.compass)
             compass = compassDrawable?.toBitmap(compassSize, compassSize)
         }
-        if (visibility != VISIBLE) {
-            postInvalidateDelayed(20)
-            invalidate()
-            return
-        }
         canvas.drawColor(Color.TRANSPARENT)
 
         drawAzimuth(canvas)
         drawCompass(canvas)
         drawBearings(canvas)
         drawDestination(canvas)
-        postInvalidateDelayed(20)
-        invalidate()
     }
 
     private fun drawBearings(canvas: Canvas) {
@@ -238,6 +234,7 @@ class LinearCompassView : View, ICompassView {
 
     override fun setAzimuth(azimuth: Bearing) {
         this.azimuth = azimuth
+        invalidate()
     }
 
     override fun setDeclination(declination: Float) {
@@ -250,11 +247,13 @@ class LinearCompassView : View, ICompassView {
 
     override fun setIndicators(indicators: List<BearingIndicator>) {
         this.indicators = indicators
+        invalidate()
     }
 
     override fun setDestination(bearing: Bearing?, @ColorInt color: Int?) {
         destination = bearing
         destinationColor = color
+        invalidate()
     }
 
     private fun dp(size: Float): Float {

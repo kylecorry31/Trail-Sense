@@ -19,9 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
-import com.kylecorry.trail_sense.shared.MarkdownService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
@@ -31,6 +29,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.*
+import com.kylecorry.trailsensecore.infrastructure.text.MarkdownService
 import java.time.Duration
 import kotlin.system.exitProcess
 
@@ -217,9 +216,9 @@ class MainActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == 1 && shouldRequestBackgroundLocation()) {
+        if (requestCode == RequestCodes.REQUEST_CODE_LOCATION_PERMISSION && shouldRequestBackgroundLocation()) {
             requestBackgroundLocation()
-        } else if (requestCode == 1 || requestCode == 2){
+        } else if (requestCode == RequestCodes.REQUEST_CODE_LOCATION_PERMISSION || requestCode == RequestCodes.REQUEST_CODE_BACKGROUND_LOCATION_PERMISSION){
             startApp()
         }
     }
@@ -250,13 +249,13 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.access_background_location),
                 contents
             ),
-            2,
+            RequestCodes.REQUEST_CODE_BACKGROUND_LOCATION_PERMISSION,
             getString(R.string.dialog_grant),
             getString(R.string.dialog_deny)
         )
     }
 
-    private fun requestPermissions(permissions: List<String>, requestCode: Int = 1) {
+    private fun requestPermissions(permissions: List<String>, requestCode: Int = RequestCodes.REQUEST_CODE_LOCATION_PERMISSION) {
         PermissionUtils.requestPermissions(this, permissions, requestCode)
     }
 

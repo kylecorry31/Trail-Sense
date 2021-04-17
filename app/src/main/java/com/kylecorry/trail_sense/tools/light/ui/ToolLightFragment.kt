@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightBinding
-import com.kylecorry.trail_sense.shared.BoundFragment
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.light.LightService
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.sensors.light.LightSensor
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlin.math.max
-import kotlin.math.roundToInt
 
 class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
 

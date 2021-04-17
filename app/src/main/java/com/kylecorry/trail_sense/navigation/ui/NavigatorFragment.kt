@@ -60,6 +60,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -112,7 +113,16 @@ class NavigatorFragment : Fragment() {
     private var leftQuickAction: QuickActionButton? = null
     private var rightQuickAction: QuickActionButton? = null
 
+    private var isMoonUp = true
+    private var isSunUp = true
+    private var moonBearing = Bearing(0f)
+    private var sunBearing = Bearing(0f)
+
     private var gpsErrorShown = false
+
+    private val astronomyIntervalometer = Intervalometer {
+        updateAstronomyData()
+    }
 
     @SuppressLint("MissingPermission")
     override fun onCreateView(
@@ -206,7 +216,7 @@ class NavigatorFragment : Fragment() {
         speedometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
 
         binding.location.setOnLongClickListener {
-            CustomUiUtils.openMenu(it, R.menu.location_share_menu){ menuItem ->
+            UiUtils.openMenu(it, R.menu.location_share_menu){ menuItem ->
                 val sender = when (menuItem){
                     R.id.action_send -> LocationSharesheet(requireContext())
                     R.id.action_maps -> LocationGeoSender(requireContext())
@@ -343,15 +353,17 @@ class NavigatorFragment : Fragment() {
         )
     }
 
+    private fun updateAstronomyData() {
+        isMoonUp = astronomyService.isMoonUp(gps.location)
+        isSunUp = astronomyService.isSunUp(gps.location)
+        sunBearing = getSunBearing()
+        moonBearing = getMoonBearing()
+    }
+
     private fun getIndicators(): List<BearingIndicator> {
         val indicators = mutableListOf<BearingIndicator>()
         if (userPrefs.astronomy.showOnCompass) {
-            val isMoonUp = astronomyService.isMoonUp(gps.location)
-            val isSunUp = astronomyService.isSunUp(gps.location)
             val showWhenDown = userPrefs.astronomy.showOnCompassWhenDown
-
-            val sunBearing = getSunBearing()
-            val moonBearing = getMoonBearing()
 
             if (isSunUp) {
                 indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun))
@@ -408,6 +420,7 @@ class NavigatorFragment : Fragment() {
         super.onResume()
         rightQuickAction?.onResume()
         leftQuickAction?.onResume()
+        astronomyIntervalometer.interval(Duration.ofMinutes(1))
         useTrueNorth = userPrefs.navigation.useTrueNorth
 
         // Resume navigation
@@ -439,6 +452,7 @@ class NavigatorFragment : Fragment() {
         super.onPause()
         rightQuickAction?.onPause()
         leftQuickAction?.onPause()
+        astronomyIntervalometer.stop()
         (requireActivity() as MainActivity).errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
         shownAccuracyToast = false
         gpsErrorShown = false
@@ -524,7 +538,7 @@ class NavigatorFragment : Fragment() {
                 getPosition(),
                 selectedBeacon,
                 getDeclination(),
-                userPrefs.navigation.useTrueNorth
+                useTrueNorth
             )
         } else {
             destinationPanel.hide()
@@ -643,6 +657,10 @@ class NavigatorFragment : Fragment() {
     private fun onLocationUpdate() {
         nearbyBeacons = getNearbyBeacons()
         compass.declination = getDeclination()
+
+        if (sunBearing.value == 0f){
+            updateAstronomyData()
+        }
 
         updateUI()
     }

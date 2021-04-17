@@ -7,12 +7,12 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.PressureChartPreference
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.math.MathExtensions.toFloatCompat2
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.PressureCalibrationUtils
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
+import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
@@ -153,28 +153,28 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
             maxTempUncalibratedF.isVisible = false
             maxTempUncalibratedF.isEnabled = false
             minTempCalibratedC.setOnPreferenceChangeListener { _, newValue ->
-                val temp = (newValue as String).toFloatCompat2() ?: 0f
+                val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.weather.minActualTemperatureF =
                     unitService.convert(temp, TemperatureUnits.C, TemperatureUnits.F)
                 update()
                 true
             }
             minTempUncalibratedC.setOnPreferenceChangeListener { _, newValue ->
-                val temp = (newValue as String).toFloatCompat2() ?: 0f
+                val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.weather.minBatteryTemperatureF =
                     unitService.convert(temp, TemperatureUnits.C, TemperatureUnits.F)
                 update()
                 true
             }
             maxTempCalibratedC.setOnPreferenceChangeListener { _, newValue ->
-                val temp = (newValue as String).toFloatCompat2() ?: 0f
+                val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.weather.maxActualTemperatureF =
                     unitService.convert(temp, TemperatureUnits.C, TemperatureUnits.F)
                 update()
                 true
             }
             maxTempUncalibratedC.setOnPreferenceChangeListener { _, newValue ->
-                val temp = (newValue as String).toFloatCompat2() ?: 0f
+                val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.weather.maxBatteryTemperatureF =
                     unitService.convert(temp, TemperatureUnits.C, TemperatureUnits.F)
                 update()
@@ -190,28 +190,28 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
             maxTempUncalibratedC.isVisible = false
             maxTempUncalibratedC.isEnabled = false
             minTempCalibratedF.setOnPreferenceChangeListener { _, newValue ->
-                val temp = (newValue as String).toFloatCompat2() ?: 0f
+                val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.weather.minActualTemperature =
                     unitService.convert(temp, TemperatureUnits.F, TemperatureUnits.C)
                 update()
                 true
             }
             minTempUncalibratedF.setOnPreferenceChangeListener { _, newValue ->
-                val temp = (newValue as String).toFloatCompat2() ?: 0f
+                val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.weather.minBatteryTemperature =
                     unitService.convert(temp, TemperatureUnits.F, TemperatureUnits.C)
                 update()
                 true
             }
             maxTempCalibratedF.setOnPreferenceChangeListener { _, newValue ->
-                val temp = (newValue as String).toFloatCompat2() ?: 0f
+                val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.weather.maxActualTemperature =
                     unitService.convert(temp, TemperatureUnits.F, TemperatureUnits.C)
                 update()
                 true
             }
             maxTempUncalibratedF.setOnPreferenceChangeListener { _, newValue ->
-                val temp = (newValue as String).toFloatCompat2() ?: 0f
+                val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.weather.maxBatteryTemperature =
                     unitService.convert(temp, TemperatureUnits.F, TemperatureUnits.C)
                 update()

@@ -20,11 +20,11 @@ import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryColorMap
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.databinding.ListItemInventoryBinding
-import com.kylecorry.trail_sense.shared.DecimalFormatter
 import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.ItemRepo
 import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryIconMapper
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -60,7 +60,7 @@ class ItemListFragment : Fragment() {
         listView = ListView(binding.inventoryList, R.layout.list_item_inventory) { itemView, item ->
             val itemBinding = ListItemInventoryBinding.bind(itemView)
             itemBinding.name.text = item.name
-            itemBinding.count.text = DecimalFormatter.format(item.amount)
+            itemBinding.count.text = DecimalFormatter.format(item.amount, 4)
 
             val imgMapper = ItemCategoryIconMapper()
             itemBinding.itemCategoryImg.setImageResource(imgMapper.getIcon(item.category))

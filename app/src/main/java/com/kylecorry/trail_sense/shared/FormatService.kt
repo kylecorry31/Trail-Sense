@@ -9,6 +9,7 @@ import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.units.*
+import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import java.time.Duration
 import java.time.LocalTime
 import java.time.ZonedDateTime
@@ -122,7 +123,7 @@ class FormatService(private val context: Context) {
             distanceCentimeters,
             DistanceUnits.Centimeters
         ).convertTo(if (units == UserPreferences.DistanceUnits.Meters) DistanceUnits.Centimeters else DistanceUnits.Inches)
-        val formatted = DecimalFormatter.format(smallDist.distance.toDouble())
+        val formatted = DecimalFormatter.format(smallDist.distance, 4)
         return when (units) {
             UserPreferences.DistanceUnits.Meters -> context.getString(
                 R.string.precise_centimeters_format,
@@ -136,7 +137,7 @@ class FormatService(private val context: Context) {
     }
 
     fun formatDistancePrecise(distance: Float, units: DistanceUnits): String {
-        val formatted = DecimalFormatter.format(distance.toDouble())
+        val formatted = DecimalFormatter.format(distance, 4)
         return when (units) {
             DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, formatted)
             DistanceUnits.Kilometers -> context.getString(

@@ -457,7 +457,6 @@
     <string name="sun_moon_compass_always">Sempre</string>
     <string name="tool_light_meter_title">Misuratore luminosità</string>
     <string name="beacon_export_error">Esportazione Segnaposto non riuscita</string>
-    <string name="beacons_exported">%d segnaposto esportati</string>
     <string name="notes_empty_text">Nessuna nota</string>
     <string name="water_purification_step_3">Far partire il timer</string>
     <string name="water_purification_step_2">Portare l’acqua ad ebollizione</string>

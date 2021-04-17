@@ -1,193 +1,133 @@
 package com.kylecorry.trail_sense.tools.ui
 
-import android.hardware.Sensor
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
-import androidx.navigation.NavController
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.health.infrastructure.HealthSense
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
+import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
+import com.kylecorry.trail_sense.databinding.ListItemToolBinding
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.trailsensecore.infrastructure.view.ListView
 
 
-class ToolsFragment : PreferenceFragmentCompat() {
+class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
-    private lateinit var navController: NavController
-
-    private val sensorChecker by lazy { SensorChecker(requireContext()) }
-    private val prefs by lazy { UserPreferences(requireContext()) }
+    private lateinit var toolsList: ListView<ToolListItem>
+    private val tools by lazy { Tools.getTools(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = findNavController()
-    }
+        val primaryColor = UiUtils.color(requireContext(), R.color.colorPrimary)
+        val textColor = UiUtils.androidTextColorPrimary(requireContext())
+        val attrs = intArrayOf(android.R.attr.selectableItemBackground)
+        val typedArray = requireContext().obtainStyledAttributes(attrs)
+        val selectableBackground = typedArray.getResourceId(0, 0)
+        typedArray.recycle()
+        toolsList = ListView(binding.toolRecycler, R.layout.list_item_tool) { view, tool ->
+            val toolBinding = ListItemToolBinding.bind(view)
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.tools, rootKey)
-        bindPreferences()
-    }
+            if (tool.action != null && tool.icon != null) {
+                // Tool
+                toolBinding.root.setBackgroundResource(selectableBackground)
+                toolBinding.title.text = tool.name
+                toolBinding.title.setTextColor(textColor)
+                toolBinding.description.text = tool.description
+                toolBinding.icon.isVisible = true
+                toolBinding.description.isVisible = tool.description != null
+                toolBinding.icon.setImageResource(tool.icon)
+                toolBinding.root.setOnClickListener {
+                    findNavController().navigate(tool.action)
+                }
+            } else {
+                // Tool group
+                toolBinding.root.setBackgroundResource(0)
+                toolBinding.title.text = tool.name
+                toolBinding.title.setTextColor(primaryColor)
+                toolBinding.description.text = ""
+                toolBinding.icon.isVisible = false
+                toolBinding.description.isVisible = false
+                toolBinding.root.setOnClickListener(null)
+            }
 
-    private fun bindPreferences() {
-        navigateOnClick(
-            findPreference(getString(R.string.tool_user_guide)),
-            R.id.action_action_experimental_tools_to_guideListFragment
-        )
-        navigateOnClick(
-            findPreference(getString(R.string.tool_bubble_level)),
-            R.id.action_action_experimental_tools_to_levelFragment
-        )
-        navigateOnClick(
-            findPreference(getString(R.string.tool_inclinometer)),
-            R.id.action_toolsFragment_to_inclinometerFragment
-        )
-        navigateOnClick(
-            findPreference(getString(R.string.tool_inventory)),
-            R.id.action_action_experimental_tools_to_action_inventory
-        )
-
-        val speedometer = findPreference<Preference>(getString(R.string.tool_speedometer_odometer))
-        navigateOnClick(
-            speedometer,
-            R.id.action_toolsFragment_to_speedometerFragment
-        )
-
-        val tides = findPreference<Preference>(getString(R.string.tool_tides))
-        tides?.isVisible = prefs.experimentalEnabled
-        navigateOnClick(
-            tides,
-            R.id.action_toolsFragment_to_tidesFragment
-        )
-
-        val maps = findPreference<Preference>(getString(R.string.tool_offline_maps))
-        maps?.isVisible = prefs.experimentalEnabled
-        navigateOnClick(
-            maps,
-            R.id.action_tools_to_maps_list
-        )
-
-        val health = findPreference<Preference>(getString(R.string.tool_health_sense))
-        health?.isVisible = HealthSense.isInstalled(requireContext())
-        onClick(health) { HealthSense.open(requireContext()) }
-
-        val depth = findPreference<Preference>(getString(R.string.tool_depth))
-        depth?.isVisible = sensorChecker.hasBarometer()
-        navigateOnClick(depth, R.id.action_action_experimental_tools_to_toolDepthFragment)
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_cliff_height)),
-            R.id.action_action_experimental_tools_to_toolCliffHeightFragment
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_whistle)),
-            R.id.action_action_experimental_tools_to_toolWhistleFragment
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_distance_convert)),
-            R.id.action_action_experimental_tools_to_fragmentDistanceConverter
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_solar_panel)),
-            R.id.action_action_experimental_tools_to_fragmentToolSolarPanel
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_boil)),
-            R.id.action_action_experimental_tools_to_waterPurificationFragment
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_clock)),
-            R.id.action_action_experimental_tools_to_toolClockFragment
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_lightning)),
-            R.id.action_action_experimental_tools_to_fragmentToolLightning
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_ruler)),
-            R.id.action_action_experimental_tools_to_rulerFragment
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_battery)),
-            R.id.action_action_experimental_tools_to_fragmentToolBattery
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_triangulate)),
-            R.id.action_action_experimental_tools_to_fragmentToolTriangulate
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_metal_detector)),
-            R.id.action_action_experimental_tools_to_fragmentToolMetalDetector
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_notes)),
-            R.id.action_action_experimental_tools_to_fragmentToolNotes
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_backtrack)),
-            R.id.action_action_experimental_tools_to_fragmentBacktrack
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_coordinate_convert)),
-            R.id.action_action_experimental_tools_to_fragmentToolCoordinateConvert
-        )
-
-        val lightMeter = findPreference<Preference>(getString(R.string.tool_light_meter))
-        lightMeter?.isVisible = sensorChecker.hasSensor(Sensor.TYPE_LIGHT)
-        navigateOnClick(
-            lightMeter,
-            R.id.action_toolsFragment_to_toolLightFragment
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_thermometer)),
-            R.id.action_action_experimental_tools_to_thermometerFragment
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_clouds)),
-            R.id.action_action_experimental_tools_to_cloudFragment
-        )
-
-        navigateOnClick(
-            findPreference(getString(R.string.tool_white_noise)),
-            R.id.action_action_experimental_tools_to_fragmentToolWhiteNoise
-        )
-
-        val flashlight = findPreference<Preference>(getString(R.string.tool_flashlight))
-        navigateOnClick(
-            flashlight,
-            R.id.action_action_experimental_tools_to_fragmentToolFlashlight
-        )
-    }
-
-    private fun onClick(pref: Preference?, action: () -> Unit) {
-        pref?.setOnPreferenceClickListener {
-            action.invoke()
-            true
         }
+
+        binding.searchbox.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                updateToolList()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                updateToolList()
+                return true
+            }
+
+        })
+
+        updateToolList()
     }
 
-    private fun navigateOnClick(pref: Preference?, @IdRes action: Int, bundle: Bundle? = null) {
-        pref?.setOnPreferenceClickListener {
-            navController.navigate(action, bundle)
-            false
+    private fun updateToolList() {
+        val toolListItems = mutableListOf<ToolListItem>()
+        val search = binding.searchbox.query
+
+        if (search.isNullOrBlank()) {
+            for (group in tools) {
+                toolListItems.add(ToolListItem(group.name, null, null, null))
+                for (tool in group.tools) {
+                    toolListItems.add(
+                        ToolListItem(
+                            tool.name,
+                            tool.description,
+                            tool.icon,
+                            tool.navAction
+                        )
+                    )
+                }
+            }
+        } else {
+            for (group in tools) {
+                for (tool in group.tools) {
+                    if (tool.name.contains(search, true) || tool.description?.contains(
+                            search,
+                            true
+                        ) == true
+                    ) {
+                        toolListItems.add(
+                            ToolListItem(
+                                tool.name,
+                                tool.description,
+                                tool.icon,
+                                tool.navAction
+                            )
+                        )
+                    }
+                }
+            }
         }
+
+        toolsList.setData(toolListItems)
     }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolsBinding {
+        return FragmentToolsBinding.inflate(layoutInflater, container, false)
+    }
+
+    internal data class ToolListItem(
+        val name: String,
+        val description: String?,
+        @DrawableRes val icon: Int?,
+        @IdRes val action: Int?
+    )
 
 }

@@ -46,7 +46,7 @@ object LocationMath {
         return if (units == UserPreferences.DistanceUnits.Meters) {
             distance
         } else {
-            Distance(distance, DistanceUnits.Feet).convertTo(DistanceUnits.Meters).distance
+            Distance(distance, DistanceUnits.Feet).meters().distance
         }
     }
 }

@@ -8,6 +8,7 @@ import java.time.Instant
 @Entity(tableName = "battery")
 class BatteryReadingEntity(
     @ColumnInfo(name = "percent") val percent: Float,
+    @ColumnInfo(name = "capacity") val capacity: Float,
     @ColumnInfo(name = "isCharging") val isCharging: Boolean,
     @ColumnInfo(name = "time") val time: Instant
 ) {

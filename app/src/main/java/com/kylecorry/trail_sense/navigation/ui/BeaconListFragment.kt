@@ -1,45 +1,35 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.MimeTypeMap
 import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
-import androidx.core.net.toFile
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
-import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconExport
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconIOService
 import com.kylecorry.trail_sense.navigation.infrastructure.export.JsonBeaconImporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
-import com.kylecorry.trailsensecore.infrastructure.json.JsonConvert
 import com.kylecorry.trailsensecore.infrastructure.persistence.ExternalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -47,7 +37,6 @@ import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
 import java.time.Instant
 
 
@@ -93,6 +82,18 @@ class BeaconListFragment : Fragment() {
             }
         }
 
+        binding.searchbox.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                onSearch()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                onSearch()
+                return true
+            }
+        })
+
         binding.importExportBeacons.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
             builder.apply {
@@ -118,39 +119,43 @@ class BeaconListFragment : Fragment() {
             // TODO: Maybe collapse the fab menu
         }
 
-        binding.createBeaconBtn.setOnClickListener {
-            setCreateMenuVisibility(false)
-            navController.navigate(R.id.action_beaconListFragment_to_placeBeaconFragment)
-        }
+        binding.createMenu.setOverlay(binding.overlayMask)
+        binding.createMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.action_import_gpx_beacons -> {
+                    importBeacons()
+                    setCreateMenuVisibility(false)
+                }
+                R.id.action_create_beacon_group -> {
+                    editTextDialog(
+                        requireContext(),
+                        getString(R.string.beacon_create_group),
+                        getString(R.string.beacon_group_name_hint),
+                        null,
+                        null,
+                        getString(R.string.dialog_ok),
+                        getString(R.string.dialog_cancel)
+                    ) { cancelled, text ->
+                        if (!cancelled) {
+                            lifecycleScope.launch {
+                                withContext(Dispatchers.IO) {
+                                    beaconRepo.addBeaconGroup(BeaconGroupEntity(text ?: ""))
+                                }
 
-        binding.importGpxBtn.setOnClickListener {
-            importBeacons()
-            setCreateMenuVisibility(false)
-        }
-
-        binding.createBeaconGroupBtn.setOnClickListener {
-            editTextDialog(
-                requireContext(),
-                getString(R.string.beacon_create_group),
-                getString(R.string.beacon_group_name_hint),
-                null,
-                null,
-                getString(R.string.dialog_ok),
-                getString(R.string.dialog_cancel)
-            ) { cancelled, text ->
-                if (!cancelled) {
-                    lifecycleScope.launch {
-                        withContext(Dispatchers.IO) {
-                            beaconRepo.addBeaconGroup(BeaconGroupEntity(text ?: ""))
+                                withContext(Dispatchers.Main) {
+                                    updateBeaconList()
+                                }
+                            }
                         }
-
-                        withContext(Dispatchers.Main) {
-                            updateBeaconList()
-                        }
+                        setCreateMenuVisibility(false)
                     }
                 }
-                setCreateMenuVisibility(false)
+                R.id.action_create_beacon -> {
+                    setCreateMenuVisibility(false)
+                    navController.navigate(R.id.action_beaconListFragment_to_placeBeaconFragment)
+                }
             }
+            true
         }
 
         binding.createBtn.setOnClickListener {
@@ -186,16 +191,17 @@ class BeaconListFragment : Fragment() {
         }
     }
 
-    private fun setCreateMenuVisibility(isShowing: Boolean){
-        binding.overlayMask.isVisible = isShowing
-        binding.createBeaconBtnHolder.isVisible = isShowing
-        binding.createBeaconGroupBtnHldr.isVisible = isShowing
-        binding.importGpxBtnHldr.isVisible = isShowing
+    private fun setCreateMenuVisibility(isShowing: Boolean) {
+        if (isShowing) {
+            binding.createMenu.show()
+        } else {
+            binding.createMenu.hide()
+        }
         binding.createBtn.setImageResource(if (!isShowing) R.drawable.ic_plus else R.drawable.ic_cancel)
     }
 
     private fun isCreateMenuOpen(): Boolean {
-        return binding.overlayMask.isVisible
+        return binding.createMenu.isVisible
     }
 
     override fun onResume() {
@@ -222,11 +228,7 @@ class BeaconListFragment : Fragment() {
     }
 
     private fun updateBeaconEmptyText(hasBeacons: Boolean) {
-        if (!hasBeacons) {
-            binding.beaconEmptyText.visibility = View.VISIBLE
-        } else {
-            binding.beaconEmptyText.visibility = View.GONE
-        }
+        binding.beaconEmptyText.isVisible = !hasBeacons
     }
 
     private fun updateBeaconListItem(itemView: View, beacon: IBeacon) {
@@ -351,7 +353,20 @@ class BeaconListFragment : Fragment() {
         context ?: return
 
         val beacons = withContext(Dispatchers.IO) {
-            if (displayedGroup == null) {
+            val search = binding.searchbox.query
+            if (!search.isNullOrBlank()) {
+                val all = if (displayedGroup != null) {
+                    beaconRepo.searchBeaconsInGroup(
+                        binding.searchbox.query.toString(),
+                        displayedGroup?.id
+                    )
+                } else {
+                    beaconRepo.searchBeacons(binding.searchbox.query.toString())
+                }
+                all.sortedBy {
+                    it.coordinate.distanceTo(gps.location)
+                }.map { it.toBeacon() }
+            } else if (displayedGroup == null) {
                 val ungrouped = beaconRepo.getBeaconsInGroup(null).sortedBy {
                     it.coordinate.distanceTo(gps.location)
                 }.map { it.toBeacon() }
@@ -406,28 +421,66 @@ class BeaconListFragment : Fragment() {
         lifecycleScope.launch {
             val text = externalFileService.read(uri)
             text?.let {
-                val count = if (text.startsWith("{")) {
+                if (text.startsWith("{")) {
                     // Legacy
                     val importer = JsonBeaconImporter(requireContext())
-                    withContext(Dispatchers.IO) {
+                    val count = withContext(Dispatchers.IO) {
                         importer.import(text)
+                    }
+                    withContext(Dispatchers.Main) {
+                        UiUtils.shortToast(
+                            requireContext(),
+                            resources.getQuantityString(R.plurals.beacons_imported, count, count)
+                        )
+                        updateBeaconList()
                     }
                 } else {
                     val importer = BeaconIOService(requireContext())
-                    withContext(Dispatchers.IO) {
-                        importer.import(text)
+                    val waypoints = withContext(Dispatchers.IO) {
+                        importer.getGPXWaypoints(text)
+                    }
+                    if (waypoints.isNotEmpty()) {
+                        withContext(Dispatchers.Main) {
+                            // TODO: Allow user to choose which beacons to import
+                            UiUtils.alertWithCancel(
+                                requireContext(),
+                                resources.getQuantityString(
+                                    R.plurals.import_beacons,
+                                    waypoints.size,
+                                    waypoints.size
+                                ),
+                                "",
+                                getString(R.string.dialog_ok),
+                                getString(R.string.dialog_cancel)
+                            ) { cancelled ->
+                                if (!cancelled) {
+                                    lifecycleScope.launch {
+                                        val count = withContext(Dispatchers.IO) {
+                                            importer.import(waypoints)
+                                        }
+                                        withContext(Dispatchers.Main) {
+                                            UiUtils.shortToast(
+                                                requireContext(),
+                                                resources.getQuantityString(
+                                                    R.plurals.beacons_imported,
+                                                    count,
+                                                    count
+                                                )
+                                            )
+                                            updateBeaconList()
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
                     }
                 }
-                withContext(Dispatchers.Main) {
-                    UiUtils.shortToast(
-                        requireContext(),
-                        getString(R.string.beacons_imported, count)
-                    )
-                    updateBeaconList()
-                }
+
             }
         }
     }
+
 
     private fun exportToUri(uri: Uri) {
         lifecycleScope.launch {
@@ -457,7 +510,11 @@ class BeaconListFragment : Fragment() {
                 if (success) {
                     UiUtils.shortToast(
                         requireContext(),
-                        getString(R.string.beacons_exported, beacons.size)
+                        resources.getQuantityString(
+                            R.plurals.beacons_exported,
+                            beacons.size,
+                            beacons.size
+                        )
                     )
                 } else {
                     UiUtils.shortToast(
@@ -465,6 +522,14 @@ class BeaconListFragment : Fragment() {
                         getString(R.string.beacon_export_error)
                     )
                 }
+            }
+        }
+    }
+
+    private fun onSearch() {
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                updateBeaconList()
             }
         }
     }
@@ -483,8 +548,8 @@ class BeaconListFragment : Fragment() {
     }
 
     companion object {
-        private const val REQUEST_CODE_IMPORT = 6
-        private const val REQUEST_CODE_EXPORT = 7
+        private const val REQUEST_CODE_IMPORT = RequestCodes.REQUEST_CODE_IMPORT_BEACONS
+        private const val REQUEST_CODE_EXPORT = RequestCodes.REQUEST_CODE_EXPORT_BEACONS
     }
 }
 

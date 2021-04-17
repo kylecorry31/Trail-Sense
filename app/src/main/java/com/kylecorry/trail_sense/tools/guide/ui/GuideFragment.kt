@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.trail_sense.databinding.FragmentGuideBinding
-import com.kylecorry.trail_sense.shared.MarkdownService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideService
+import com.kylecorry.trailsensecore.infrastructure.text.MarkdownService
 
 class GuideFragment : Fragment() {
 
