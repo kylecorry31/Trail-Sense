@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.ScreenFlashlight
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
 class FragmentToolScreenFlashlight: BoundFragment<FragmentToolScreenFlashlightBinding>() {
 
     private val flashlight by lazy { ScreenFlashlight(requireActivity().window) }
     private var redLight: Boolean = false
+    private val cache by lazy { Cache(requireContext()) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -28,16 +30,30 @@ class FragmentToolScreenFlashlight: BoundFragment<FragmentToolScreenFlashlightBi
             requireActivity().onBackPressed()
         }
 
+        if (cache.getBoolean("cache_red_light") == null) {
+            cache.putBoolean("cache_red_light", false)
+            println("init")
+        }
+
+        if (cache.getBoolean("cache_red_light") == true) {
+            binding.screenFlashlight.setBackgroundColor(Color.RED)
+            binding.redWhiteSwitcher.setBackgroundColor(Color.WHITE)
+        }
+        else {
+            binding.screenFlashlight.setBackgroundColor(Color.WHITE)
+            binding.redWhiteSwitcher.setBackgroundColor(Color.RED)
+        }
+
         binding.redWhiteSwitcher.setOnClickListener {
-            if (redLight) {
+            if (cache.getBoolean("cache_red_light") == true) {
                 binding.screenFlashlight.setBackgroundColor(Color.WHITE)
                 binding.redWhiteSwitcher.setBackgroundColor(Color.RED)
-                redLight = false
+                cache.putBoolean("cache_red_light", false)
             }
             else {
                 binding.screenFlashlight.setBackgroundColor(Color.RED)
                 binding.redWhiteSwitcher.setBackgroundColor(Color.WHITE)
-                redLight = true
+                cache.putBoolean("cache_red_light", true)
             }
         }
     }
