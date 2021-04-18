@@ -10,14 +10,21 @@ import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 class LocationSharesheet(private val context: Context) : ILocationSender {
 
     override fun send(location: Coordinate) {
-        val formatService = FormatServiceV2(context)
-        val locString = formatService.formatLocation(location)
+        //val formatService = FormatServiceV2(context)
+        //val locString = formatService.formatLocation(location)
         val intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, locString)
+            putExtra(Intent.EXTRA_TEXT, getShareString(location))
             type = "text/plain"
         }
         IntentUtils.openChooser(context, intent, context.getString(R.string.share_action_send))
+    }
+
+    private fun getShareString(locationCoordinate: Coordinate): String {
+        val location = "${locationCoordinate.latitude}, ${locationCoordinate.longitude}"
+        val locationUtm = locationCoordinate.toUTM()
+        val osmUrl = "https://www.openstreetmap.org/#map=16/${locationCoordinate.latitude}/${locationCoordinate.longitude}"
+        return "${location}\nUTM: ${locationUtm}\n${context.getString(R.string.maps)}: $osmUrl"
     }
 
 }
