@@ -804,4 +804,25 @@
     <string name="rename">Переименовать</string>
     <string name="experimental">Экспериментально</string>
     <string name="all_beacons">Все маячки</string>
+    <plurals name="import_beacons">
+        <item quantity="one">Импортировать %d маячок\?</item>
+        <item quantity="few">Импортировать %d маячка\?</item>
+        <item quantity="many">Импортировать %d маячков\?</item>
+        <item quantity="other">Импортировать %d маячков\?</item>
+    </plurals>
+    <string name="search">Поиск</string>
+    <string name="pref_odometer_reset_daily_title">Сбрасывать ежедневно</string>
+    <string name="sleep_timer">Таймер сна</string>
+    <plurals name="beacons_exported">
+        <item quantity="one">%d маячок экспортирован</item>
+        <item quantity="few">%d маячка экспортировано</item>
+        <item quantity="many">%d маячков экспортировано</item>
+        <item quantity="other">%d маячков экспортировано</item>
+    </plurals>
+    <plurals name="beacons_imported">
+        <item quantity="one">%d маячок импортирован</item>
+        <item quantity="few">%d маячка импортировано</item>
+        <item quantity="many">%d маячков импортировано</item>
+        <item quantity="other">%d маячков импортировано</item>
+    </plurals>
 </resources>
