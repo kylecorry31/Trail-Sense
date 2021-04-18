@@ -11,9 +11,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.Path
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
@@ -22,10 +20,11 @@ import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
 import com.kylecorry.trailsensecore.domain.pixels.PixelCircle
 import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
 import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
-import com.kylecorry.trailsensecore.infrastructure.canvas.getMaskedBitmap
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.domain.geo.Path
+import com.kylecorry.trailsensecore.domain.geo.cartography.Map
 import java.time.Instant
 import kotlin.math.abs
 import kotlin.math.max

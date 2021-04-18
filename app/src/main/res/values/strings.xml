@@ -946,6 +946,8 @@
     <string name="pref_astronomy_quick_action_left" translatable="false">pref_astronomy_quick_action_left</string>
     <string name="pref_astronomy_quick_action_right" translatable="false">pref_astronomy_quick_action_right</string>
     <string name="actual_frequency_disclaimer">The actual frequency may vary as some devices have background limits in place.</string>
+    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
+    <string name="pref_weather_show_detailed_icon_title">Show colored notification icon</string>
     <plurals name="import_beacons">
         <item quantity="one">Import %d beacon?</item>
         <item quantity="other">Import %d beacons?</item>

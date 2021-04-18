@@ -195,7 +195,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
             getString(if (prefs.weather.dailyWeatherIsForTomorrow) R.string.tomorrows_forecast else R.string.todays_forecast),
             description,
             icon,
-            showBigIcon = true,
+            showBigIcon = prefs.weather.showColoredNotificationIcon,
             group = NotificationChannels.GROUP_DAILY_WEATHER,
             intent = openIntent
         )

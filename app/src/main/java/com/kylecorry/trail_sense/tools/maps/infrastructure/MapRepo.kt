@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.trail_sense.shared.AppDatabase
-import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
+import com.kylecorry.trailsensecore.domain.geo.cartography.Map
 
 class MapRepo private constructor(context: Context) : IMapRepo {
 

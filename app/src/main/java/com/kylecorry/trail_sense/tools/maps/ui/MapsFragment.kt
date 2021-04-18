@@ -13,17 +13,16 @@ import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.navigation.ui.Track
-import com.kylecorry.trail_sense.navigation.ui.Waypoint
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
-import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
+import com.kylecorry.trailsensecore.domain.geo.Path
+import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
@@ -33,6 +32,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.trailsensecore.domain.geo.cartography.Map
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -262,10 +262,12 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
         val points = listOf(
             PathPoint(
+                0,
+                0,
                 gps.location,
-                Instant.now()
+                time = Instant.now()
             )
-        ) + recentWaypoints.map { PathPoint(it.coordinate, it.createdInstant) }
+        ) + recentWaypoints.map { PathPoint(0, 0, it.coordinate, time = it.createdInstant) }
 
         val path = Path(
             0,
