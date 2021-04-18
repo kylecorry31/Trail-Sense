@@ -13,7 +13,6 @@ import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 class FragmentToolScreenFlashlight: BoundFragment<FragmentToolScreenFlashlightBinding>() {
 
     private val flashlight by lazy { ScreenFlashlight(requireActivity().window) }
-    private var redLight: Boolean = false
     private val cache by lazy { Cache(requireContext()) }
 
     override fun generateBinding(
