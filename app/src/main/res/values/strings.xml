@@ -947,4 +947,5 @@
         <item quantity="one">Import %d beacon?</item>
         <item quantity="other">Import %d beacons?</item>
     </plurals>
+    <string name="maps">Maps</string>
 </resources>
