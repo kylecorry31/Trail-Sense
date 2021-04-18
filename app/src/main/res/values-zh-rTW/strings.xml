@@ -151,7 +151,6 @@
     <string name="precise_nautical_miles_format">%s 奈米</string>
     <string name="precise_miles_format">%s 英里</string>
     <string name="precise_feet_format">%s 英呎</string>
-    <string name="disclaimer_message_title">聲明</string>
     <string name="dialog_deny">不了謝謝</string>
     <string name="dialog_grant">更新設定</string>
     <string name="access_background_location">更新地點設定</string>

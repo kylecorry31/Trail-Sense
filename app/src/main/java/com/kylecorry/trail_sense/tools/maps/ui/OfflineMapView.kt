@@ -450,7 +450,7 @@ class OfflineMapView : View {
         }
         pathLines = lines
     }
-    
+
     private fun toMapCoordinate(screen: PixelCoordinate): PixelCoordinate {
         return PixelCoordinate(screen.x / scale - mapX, screen.y / scale - mapY)
     }

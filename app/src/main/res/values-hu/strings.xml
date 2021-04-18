@@ -109,7 +109,6 @@
     <string name="miles_format">%.2f mérföld</string>
     <string name="depth_feet_format">%.1f láb</string>
     <string name="feet_format">%.0f láb</string>
-    <string name="disclaimer_message_content">A Trail Sense egy eszköz, ami használható egy túlélési helyzetben, de nem szabad csak erre támaszkodni. Kérem, ellenőrizze a pontosságát, és, ha lehetséges, kerülje a veszélyes helyzeteket, maradjon nyugodt, és használja a józan eszét!</string>
     <string name="dialog_deny">Köszönöm, nem</string>
     <string name="access_background_location">Tartózkodási hely beállítások frissítése</string>
     <string name="copied_to_clipboard_toast">Vágólapra másolva</string>

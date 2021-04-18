@@ -9,8 +9,6 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancelar</string>
     <!--Disclaimer-->
-    <string name="disclaimer_message_title">Isenção de responsabilidade</string>
-    <string name="disclaimer_message_content">Trail Sense é uma ferramenta que pode ser usada numa situação de sobrevivência, mas você não deve confiar exclusivamente nela. Por favor, valide sua precisão, evite situações perigosas quando possível, mantenha a calma e use o bom senso.</string>
     <!--Navigation Tab - Unit Formats-->
     <string name="feet_format">%.0f pés</string>
     <string name="miles_format">%.2f milhas</string>

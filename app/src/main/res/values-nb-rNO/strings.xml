@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="disclaimer_message_title">Ansvarsfraskrivelse</string>
-    <string name="disclaimer_message_content">Trail Sense er et verktøy som kan brukes i nødsituasjoner, men du bør ikke stole utelukkende på det. Denne appen er kun ment for informasjonsformål, og nøyaktigheten kan variere avhengig av enheten din og gjeldende miljøforhold. Sjekk nøyaktigheten, unngå farlige situasjoner når mulig, behold roen, og bruk sunn fornuft.</string>
     <string name="continue_button">Fortsett</string>
     <string name="pref_email_title">E-postadresse til utvikler</string>
     <string name="pref_github_title">GitHub</string>

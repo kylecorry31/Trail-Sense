@@ -267,8 +267,6 @@
     <string name="precise_nautical_miles_format">%s NM</string>
     <string name="precise_miles_format">%s mijl</string>
     <string name="precise_feet_format">%s voet</string>
-    <string name="disclaimer_message_content">Trail Sense is een hulpmiddel dat gebruikt kan worden in een overlevingssituatie. Het is echter belangrijk om niet alleen op Trail Sense te vertrouwen. Controleer zelf de precisie van dit hulpmiddel en voorkom gevaarlijke situaties waar mogelijk. Blijf kalm en gebruik uw gezond verstand.</string>
-    <string name="disclaimer_message_title">Disclaimer</string>
     <string name="dialog_deny">Nee bedankt</string>
     <string name="dialog_grant">Instellingen opslaan</string>
     <string name="access_background_location_rationale">Trail Sense gebruikt je locatiegegevens in de achtergrond om de druk op zeeniveau te kalibreren voor weeranalyse en om nauwkeurige meldingen voor zonsondergang te geven. [Bekijk Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>

@@ -74,7 +74,6 @@
     <string name="pressure_12_hours">十二時間</string>
     <string name="pressure_4_hours">四時間</string>
     <string name="pref_pressure_history_title">気圧の履歴</string>
-    <string name="disclaimer_message_title">免責事項</string>
     <string name="tools">ツール</string>
     <string name="calibrate_compass_on_navigate_dialog_content">スマートフォンを数回八の字に回した後、 %sをタップしてください。
 \n
@@ -250,5 +249,4 @@
     <string name="meters_format">%.0f m</string>
     <string name="miles_format">%.2f mi</string>
     <string name="feet_format">%.0f ft</string>
-    <string name="disclaimer_message_content">Trail Sense is a tool which can be used in a survival situation, but you should not rely solely upon it. Please validate it\'s accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
 </resources>

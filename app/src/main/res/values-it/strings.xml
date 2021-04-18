@@ -110,8 +110,6 @@
     <string name="high_tide">Alta marea</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_kilometers_format">%s km</string>
-    <string name="disclaimer_message_content">Trail Sense è uno strumento che può essere utilizzato in situazioni di sopravvivenza, ma non dovresti fare affidamento solamente su di esso. Per favore verifica la sua accuratezza, evita situazioni pericolose quando possibile, rimani calmo e usa il buon senso.</string>
-    <string name="disclaimer_message_title">Limitazione di responsabilità</string>
     <string name="access_background_location_rationale">Trail Sense usa i dati sulla posizione in background. Sono utilizzati per calibrare la pressione al livello del mare nelle osservazioni meteo e per fornire dati più accurati sulle notifiche sull\'alba. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Aggiorna le impostazioni di geolocalizzazione</string>
     <string name="dialog_deny">No grazie</string>

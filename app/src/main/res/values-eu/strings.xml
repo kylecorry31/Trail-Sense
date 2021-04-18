@@ -53,7 +53,6 @@
     <string name="miles_format">%.2f mi</string>
     <string name="meters_format">%.0f m</string>
     <string name="nautical_miles_format">%.2f nm</string>
-    <string name="disclaimer_message_title">Lege-oharra</string>
     <string name="dialog_deny">Ez, eskerrik asko</string>
     <string name="dialog_grant">Ezarpenak eguneratu</string>
     <string name="access_background_location">Kokapen ezarpenak eguneratu</string>

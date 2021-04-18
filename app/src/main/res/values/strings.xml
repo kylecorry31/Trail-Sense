@@ -18,7 +18,10 @@
     <string name="dialog_deny">No thanks</string>
     <!--Disclaimer-->
     <string name="disclaimer_message_title">Disclaimer</string>
-    <string name="disclaimer_message_content">Trail Sense is a tool that can be used in a survival situation, but you should not rely solely upon it. This app is intended for informational purposes only and it\'s accuracy may vary based on your device and current environmental conditions. Please validate its accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
+    <string name="app_disclaimer_message_title">Disclaimer / Terms of Service</string>
+
+<!--    This is a legal statement, not to be translated-->
+    <string name="disclaimer_message_content" translatable="false">Trail Sense is for informational purposes only and the developers make no warranties concerning the accuracy of the information provided by the app, which may further be limited by the quality of your device\'s sensors and the current environmental conditions.\n\nBy using this app, you understand that the developers of Trail Sense cannot and do not assume responsibility for any personal injury, death, property damage, and other dangers associated with activities where you would use Trail Sense.\n\nThe developers of Trail Sense are not responsible for how you use the data provided, and what you do with it is done at your own risk. While it can be used in survival situations, you should not rely upon it, always have backup plans and gear, and use common sense. And definitely avoid using Trail Sense (and your phone in general) while driving or riding a bike.</string>
     <!--Navigation Tab - Unit Formats-->
     <string name="precise_feet_format">%s ft</string>
     <string name="precise_miles_format">%s mi</string>

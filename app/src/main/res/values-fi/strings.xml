@@ -117,8 +117,6 @@
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>
-    <string name="disclaimer_message_content">Trail Sense on työkalu, jota voidaan käyttää selviytymistilanteessa, mutta sinun ei pitäisi luottaa yksinomaan siihen. Vahvista sen tarkkuus, vältä mahdollisia vaarallisia tilanteita, pysy rauhallisena ja käytä järkeä.</string>
-    <string name="disclaimer_message_title">Vastuuvapauslauseke</string>
     <string name="dialog_deny">Ei kiitos</string>
     <string name="dialog_grant">Päivitä asetukset</string>
     <string name="access_background_location_rationale">Trail Sense käyttää sijaintitietoja taustalla. Sitä käytetään merenpinnan kalibrointiin ilmanpaineen sääseurannassa ja tarkempien auringonlaskuhälytysten tarjoamiseksi. [Katso tietosuojakäytäntö] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
