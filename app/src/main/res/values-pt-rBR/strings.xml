@@ -343,7 +343,7 @@
     <string name="temp_f_format">%.0f °F</string>
     <string name="pressure_setpoint_format">Definir: %s - %s atrás</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="share_action_geo">Mapas</string>
+    <string name="maps">Mapas</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d Ponto de Orientação</item>
         <item quantity="other">%d Pontos de Orientação</item>

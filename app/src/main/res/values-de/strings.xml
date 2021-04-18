@@ -132,7 +132,7 @@
     <string name="edit_beacon">Wegpunkt bearbeiten</string>
     <string name="share_action_send">Senden</string>
     <string name="share_action_copy">Kopieren</string>
-    <string name="share_action_geo">Karten</string>
+    <string name="maps">Karten</string>
     <string name="beacon_invalid_name">Ungültiger Name</string>
     <string name="units_inhg_short">in</string>
     <string name="inclinometer_title">Neigungsmesser</string>

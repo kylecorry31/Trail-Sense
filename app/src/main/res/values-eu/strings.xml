@@ -2,7 +2,7 @@
 <resources>
     <string name="name_hint">Izena</string>
     <string name="create_beacon_title">Baliza utzi</string>
-    <string name="share_action_geo">Mapak</string>
+    <string name="maps">Mapak</string>
     <string name="share_action_copy">Kopiatu</string>
     <string name="share_action_send">Bidali</string>
     <plurals name="beacon_group_summary">

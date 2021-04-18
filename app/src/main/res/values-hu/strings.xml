@@ -58,7 +58,7 @@
     <string name="beacon_invalid_name">Érvénytelen név</string>
     <string name="name_hint">Név</string>
     <string name="create_beacon_title">Jelölő elhelyezése</string>
-    <string name="share_action_geo">Térképek</string>
+    <string name="maps">Térképek</string>
     <string name="share_action_copy">Másolás</string>
     <string name="share_action_send">Küldés</string>
     <plurals name="beacon_group_summary">

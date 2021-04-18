@@ -212,7 +212,7 @@
     <string name="beacon_elevation_hint_feet">フィートで表わした標高 (オプション)</string>
     <string name="beacon_invalid_elevation">不正な高度</string>
     <string name="beacon_invalid_name">不正な名前</string>
-    <string name="share_action_geo">geo:</string>
+    <string name="maps">geo:</string>
     <string name="share_action_copy">コピー</string>
     <string name="share_action_send">送信</string>
     <string name="edit_beacon">ビーコンを編集</string>

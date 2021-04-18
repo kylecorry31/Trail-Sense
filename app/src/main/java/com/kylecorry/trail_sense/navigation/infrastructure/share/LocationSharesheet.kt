@@ -22,7 +22,7 @@ class LocationSharesheet(private val context: Context) : ILocationSender {
         val location = "${locationCoordinate.latitude}, ${locationCoordinate.longitude}"
         val locationUtm = locationCoordinate.toUTM()
         val osmUrl = "https://www.openstreetmap.org/#map=16/${locationCoordinate.latitude}/${locationCoordinate.longitude}"
-        return "${location}\nUTM: ${locationUtm}\n${context.getString(R.string.maps)}: $osmUrl"
+        return "${location}\n\nUTM: ${locationUtm}\n\n${context.getString(R.string.maps)}: $osmUrl"
     }
 
 }

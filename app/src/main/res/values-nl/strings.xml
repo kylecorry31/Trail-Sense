@@ -202,7 +202,7 @@
     <string name="beacon_elevation_hint_feet">Hoogte in voet (Optioneel)</string>
     <string name="beacon_invalid_elevation">Ongeldige hoogte</string>
     <string name="beacon_invalid_name">Ongeldige naam</string>
-    <string name="share_action_geo">Kaarten</string>
+    <string name="maps">Kaarten</string>
     <string name="share_action_copy">Kopiëren</string>
     <string name="share_action_send">Versturen</string>
     <plurals name="beacon_group_summary">

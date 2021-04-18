@@ -171,7 +171,7 @@
     <string name="beacon_comment">备注（可选）</string>
     <string name="beacon_invalid_elevation">无效的海拔</string>
     <string name="beacon_invalid_name">无效的名称</string>
-    <string name="share_action_geo">地图</string>
+    <string name="maps">地图</string>
     <string name="share_action_copy">复制</string>
     <string name="share_action_send">发送</string>
     <plurals name="beacon_group_summary">
