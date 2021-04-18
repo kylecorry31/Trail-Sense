@@ -10,8 +10,6 @@ import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 class LocationSharesheet(private val context: Context) : ILocationSender {
 
     override fun send(location: Coordinate) {
-        //val formatService = FormatServiceV2(context)
-        //val locString = formatService.formatLocation(location)
         val intent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, getShareString(location))
