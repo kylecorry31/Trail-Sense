@@ -25,7 +25,7 @@ class BeaconSharesheet(private val context: Context): IBeaconSender {
         val osmUrl = getOsmUrl(coordinate)
         val coordinateString = getCoordinateLatLon(coordinate)
         val coordinateUtm = getCoordinateUtm(coordinate)
-        return "${name}\n\n${coordinateString}\n\nUTM: ${coordinateUtm}\n\n${context.getString(R.string.maps)}: $osmUrl"
+        return "${name}\n\n${coordinateString}\n\n${context.getString(R.string.coordinate_format_utm)}: ${coordinateUtm}\n\n${context.getString(R.string.maps)}: $osmUrl"
     }
 
     private fun getOsmUrl(coordinate: Coordinate): String {
