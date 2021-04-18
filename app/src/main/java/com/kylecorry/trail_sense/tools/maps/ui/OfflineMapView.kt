@@ -11,7 +11,9 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.PixelLine
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.toPixelLines
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
@@ -116,7 +118,10 @@ class OfflineMapView : View {
                     }
                 }
 
-                val percent = PercentCoordinate(mapCoords.x / mapImage!!.width, mapCoords.y / mapImage!!.height)
+                val percent = PercentCoordinate(
+                    mapCoords.x / mapImage!!.width,
+                    mapCoords.y / mapImage!!.height
+                )
                 onMapImageClick?.invoke(percent)
             }
             return super.onSingleTapConfirmed(e)
@@ -257,7 +262,8 @@ class OfflineMapView : View {
     fun finalize() {
         try {
             mapImage?.recycle()
-        } catch (e: Exception){}
+        } catch (e: Exception) {
+        }
     }
 
     fun recenter() {
@@ -427,29 +433,13 @@ class OfflineMapView : View {
     }
 
     private fun createPathLines() {
-        val lines = mutableListOf<PixelLine>()
-        val maxTimeAgo = prefs.navigation.showBacktrackPathDuration.seconds.toFloat()
-        for (path in paths) {
-            val pixelWaypoints = path.points.map {
-                Pair(getPixelCoordinate(it.coordinate, false)!!, it.time)
-            }
-            val now = Instant.now().toEpochMilli()
-            for (i in 1 until pixelWaypoints.size) {
-                val hasTime = pixelWaypoints[i - 1].second != null
-                val timeAgo =
-                    if (hasTime) abs(now - pixelWaypoints[i - 1].second!!.toEpochMilli()) / 1000f else 0f
-                val line = PixelLine(
-                    pixelWaypoints[i - 1].first,
-                    pixelWaypoints[i].first,
-                    path.color,
-                    if (!hasTime) 255 else (255 * (1 - timeAgo / maxTimeAgo)).toInt()
-                        .coerceAtLeast(60),
-                    path.dotted
-                )
-                lines.add(line)
+        mapImage ?: return
+        val maxTimeAgo = prefs.navigation.showBacktrackPathDuration
+        pathLines = paths.flatMap {
+            it.toPixelLines(maxTimeAgo) {
+                getPixelCoordinate(it, false)!!
             }
         }
-        pathLines = lines
     }
 
     private fun toMapCoordinate(screen: PixelCoordinate): PixelCoordinate {
@@ -467,14 +457,5 @@ class OfflineMapView : View {
         }
         return bitmap!!
     }
-
-    internal data class PixelLine(
-        val start: PixelCoordinate,
-        val end: PixelCoordinate,
-        @ColorInt val color: Int,
-        val alpha: Int,
-        val dotted: Boolean
-    )
-
 
 }

@@ -28,6 +28,8 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
     companion object {
         private var instance: WaypointRepo? = null
 
+        const val BACKTRACK_PATH_ID = -1L
+
         @Synchronized
         fun getInstance(context: Context): WaypointRepo {
             if (instance == null) {

@@ -254,23 +254,20 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     }
 
     private fun displayPath(waypoints: List<WaypointEntity>) {
-        val oldestReadingTime = Instant.now().minus(prefs.navigation.showBacktrackPathDuration)
-
-        val recentWaypoints = waypoints
+        val sortedWaypoints = waypoints
             .sortedByDescending { it.createdInstant }
-            .filter { it.createdInstant > oldestReadingTime }
 
         val points = listOf(
             PathPoint(
                 0,
-                0,
+                WaypointRepo.BACKTRACK_PATH_ID,
                 gps.location,
                 time = Instant.now()
             )
-        ) + recentWaypoints.map { PathPoint(0, 0, it.coordinate, time = it.createdInstant) }
+        ) + sortedWaypoints.map { it.toPathPoint() }
 
         val path = Path(
-            0,
+            WaypointRepo.BACKTRACK_PATH_ID,
             getString(R.string.tool_backtrack_title),
             points,
             UiUtils.color(requireContext(), R.color.colorAccent),

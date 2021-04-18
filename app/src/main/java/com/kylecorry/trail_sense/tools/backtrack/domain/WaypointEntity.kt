@@ -3,8 +3,11 @@ package com.kylecorry.trail_sense.tools.backtrack.domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.network.CellNetwork
+import com.kylecorry.trailsensecore.domain.network.CellNetworkQuality
 import com.kylecorry.trailsensecore.domain.units.Quality
 import java.time.Instant
 
@@ -37,5 +40,10 @@ data class WaypointEntity(
         get() {
             return CellNetwork.values().firstOrNull() { it.id == cellTypeId }
         }
+
+    fun toPathPoint(): PathPoint {
+        val network = if (cellNetwork == null) null else CellNetworkQuality(cellNetwork!!, cellQuality)
+        return PathPoint(id, WaypointRepo.BACKTRACK_PATH_ID, coordinate, time = createdInstant, cellSignal = network)
+    }
 
 }

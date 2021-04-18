@@ -38,9 +38,7 @@ import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.ui.QuickActionClouds
-import com.kylecorry.trailsensecore.domain.geo.Bearing
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.domain.geo.GeoService
+import com.kylecorry.trailsensecore.domain.geo.*
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import com.kylecorry.trailsensecore.domain.units.Distance
@@ -89,7 +87,7 @@ class NavigatorFragment : Fragment() {
     private val formatService by lazy { FormatService(requireContext()) }
 
     private var beacons: Collection<Beacon> = listOf()
-    private var backtrack: Track? = null
+    private var backtrack: Path? = null
     private var nearbyBeacons: Collection<Beacon> = listOf()
 
     private var destination: Beacon? = null
@@ -163,8 +161,14 @@ class NavigatorFragment : Fragment() {
         }
 
         backtrackRepo.getWaypoints().observe(viewLifecycleOwner) {
-            val waypoints = it.sortedByDescending { it.createdInstant }.filter { it.createdInstant > Instant.now().minus(userPrefs.navigation.showBacktrackPathDuration) }
-            backtrack = Track(waypoints.map { Waypoint(it.coordinate, it.createdInstant) })
+            val waypoints = it.sortedByDescending { it.createdInstant }
+            backtrack = Path(
+                WaypointRepo.BACKTRACK_PATH_ID,
+                getString(R.string.tool_backtrack_title),
+                waypoints.map { it.toPathPoint() },
+                UiUtils.color(requireContext(), R.color.colorAccent),
+                true
+            )
             updateUI()
         }
 
@@ -517,7 +521,23 @@ class NavigatorFragment : Fragment() {
         binding.radarCompass.setLocation(gps.location)
         val bt = backtrack
         if (userPrefs.navigation.showBacktrackPath && bt != null) {
-            binding.radarCompass.setTrackHistory(Track(listOf(Waypoint(gps.location, Instant.now())) + bt.points))
+            val points = listOf(
+                PathPoint(
+                    0,
+                    WaypointRepo.BACKTRACK_PATH_ID,
+                    gps.location,
+                    time = Instant.now()
+                )
+            ) + bt.points
+
+            val path = Path(
+                WaypointRepo.BACKTRACK_PATH_ID,
+                getString(R.string.tool_backtrack_title),
+                points,
+                UiUtils.color(requireContext(), R.color.colorAccent),
+                true
+            )
+            binding.radarCompass.setPaths(listOf(path))
         }
         binding.radarCompass.setDestination(destBearing, destColor)
         binding.linearCompass.setIndicators(indicators)
