@@ -356,6 +356,7 @@ class OfflineMapView : View {
             } else {
                 paint.pathEffect = null
                 paint.style = Paint.Style.STROKE
+                paint.strokeCap = Paint.Cap.ROUND
                 paint.strokeWidth = 6f / scale
             }
             paint.color = line.color
@@ -370,6 +371,7 @@ class OfflineMapView : View {
             )
         }
         paint.alpha = 255
+        paint.strokeCap = Paint.Cap.BUTT
         paint.style = Paint.Style.FILL
         paint.pathEffect = null
     }

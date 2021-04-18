@@ -159,6 +159,7 @@ class RadarCompassView : View, ICompassView {
                 } else {
                     paint.pathEffect = null
                     paint.style = Paint.Style.STROKE
+                    paint.strokeCap = Paint.Cap.ROUND
                     paint.strokeWidth = 6f
                 }
                 paint.color = line.color
@@ -166,7 +167,7 @@ class RadarCompassView : View, ICompassView {
                 it.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, paint)
             }
             paint.alpha = 255
-            paint.strokeCap = Paint.Cap.SQUARE
+            paint.strokeCap = Paint.Cap.BUTT
             paint.style = Paint.Style.FILL
             paint.pathEffect = null
         }
