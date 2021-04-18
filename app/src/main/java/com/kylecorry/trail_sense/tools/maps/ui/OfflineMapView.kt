@@ -256,7 +256,9 @@ class OfflineMapView : View {
     }
 
     fun finalize() {
-        mapImage?.recycle()
+        try {
+            mapImage?.recycle()
+        } catch (e: Exception){}
     }
 
     fun recenter() {

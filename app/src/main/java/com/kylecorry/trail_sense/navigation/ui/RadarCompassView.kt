@@ -173,9 +173,11 @@ class RadarCompassView : View, ICompassView {
     }
 
     fun finalize(){
-        compassMask.recycle()
-        trackBitmap.recycle()
-        compass?.recycle()
+        try {
+            compassMask.recycle()
+            trackBitmap.recycle()
+            compass?.recycle()
+        } catch (e: Exception){}
     }
 
     override fun setAzimuth(bearing: Bearing) {
