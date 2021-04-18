@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.battery.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -68,6 +69,10 @@ class FragmentToolBattery : Fragment() {
             } else {
                 lowPowerMode.enable(requireActivity())
             }
+        }
+        binding.batteryPhoneBatterySettings.setOnClickListener {
+            val intentBatteryPhoneSettings = Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
+            startActivity(intentBatteryPhoneSettings)
         }
         batteryRepo.get().observe(viewLifecycleOwner, {
             readings = it.sortedBy { it.time }
