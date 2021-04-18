@@ -107,9 +107,7 @@ class OfflineMapView : View {
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             if (mapImage != null) {
-                val xMap = e.x / scale - mapX
-                val yMap = e.y / scale - mapY
-
+                val mapCoords = toMapCoordinate(PixelCoordinate(e.x, e.y))
                 val relativeClick = PixelCoordinate(e.x / scale, e.y / scale)
                 val circles = beaconCircles.sortedBy { it.second.center.distanceTo(relativeClick) }
                 for (circle in circles) {
@@ -119,7 +117,7 @@ class OfflineMapView : View {
                     }
                 }
 
-                val percent = PercentCoordinate(xMap / mapImage!!.width, yMap / mapImage!!.height)
+                val percent = PercentCoordinate(mapCoords.x / mapImage!!.width, mapCoords.y / mapImage!!.height)
                 onMapImageClick?.invoke(percent)
             }
             return super.onSingleTapConfirmed(e)
@@ -151,7 +149,7 @@ class OfflineMapView : View {
             paint = Paint(Paint.ANTI_ALIAS_FLAG)
             paint.textAlign = Paint.Align.CENTER
             iconSize = UiUtils.dp(context, 8f).toInt()
-            directionSize = UiUtils.dp(context, 10f).toInt()
+            directionSize = UiUtils.dp(context, 16f).toInt()
             compassSize = min(height, width) - 2 * iconSize - 2 * UiUtils.dp(context, 2f).toInt()
             isInit = true
             primaryColor = UiUtils.color(context, R.color.colorPrimary)
@@ -217,7 +215,7 @@ class OfflineMapView : View {
         val destLoc = getPixelCoordinate(destination!!.coordinate)
         if (myLocation != null && destLoc != null) {
             paint.color = primaryColor
-            paint.strokeWidth = UiUtils.dp(context, 2f)
+            paint.strokeWidth = 6f / scale
             paint.alpha = 127
             paint.style = Paint.Style.STROKE
             canvas.drawLine(
@@ -289,11 +287,12 @@ class OfflineMapView : View {
         if (myLocation != null) {
             canvas.save()
             canvas.rotate(azimuth.value, mapX + myLocation.x, mapY + myLocation.y)
+            canvas.scale(1 / scale, 1 / scale)
             // TODO: Resize based on scale
             canvas.drawBitmap(
                 getBitmap(R.drawable.ic_my_location, directionSize),
-                mapX + myLocation.x - directionSize / 2f,
-                mapY + myLocation.y - directionSize / 2f,
+                (mapX + myLocation.x) * scale - directionSize / 2f,
+                (mapY + myLocation.y) * scale - directionSize / 2f,
                 paint
             )
             paint.colorFilter = null
@@ -316,7 +315,7 @@ class OfflineMapView : View {
                 circles.add(
                     beacon to PixelCircle(
                         PixelCoordinate(mapX + coord.x, mapY + coord.y),
-                        3 * (iconSize / 2f + UiUtils.dp(context, 2f)) / scale
+                        3 * (iconSize / 2f + UiUtils.dp(context, 1f)) / scale
                     )
                 )
                 canvas.drawCircle(
@@ -342,7 +341,7 @@ class OfflineMapView : View {
         }
 
         // TODO: Draw this on a masked bitmap
-        val dotted = DottedPathEffect(6f / scale)
+        val dotted = DottedPathEffect(3f / scale, 10f / scale)
         for (line in pathLines ?: listOf()) {
             if (line.dotted) {
                 paint.pathEffect = dotted
@@ -450,6 +449,10 @@ class OfflineMapView : View {
             }
         }
         pathLines = lines
+    }
+    
+    private fun toMapCoordinate(screen: PixelCoordinate): PixelCoordinate {
+        return PixelCoordinate(screen.x / scale - mapX, screen.y / scale - mapY)
     }
 
     private fun getBitmap(@DrawableRes id: Int, size: Int = iconSize): Bitmap {
