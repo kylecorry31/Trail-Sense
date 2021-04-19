@@ -267,11 +267,10 @@ class MainActivity : AppCompatActivity() {
             return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         }
         val isSunUp = astronomyService.isSunUp(gps.location)
-        if (isSunUp) {
-            return AppCompatDelegate.MODE_NIGHT_NO
-        }
-        else {
-            return AppCompatDelegate.MODE_NIGHT_YES
+        return if (isSunUp) {
+            AppCompatDelegate.MODE_NIGHT_NO
+        } else {
+            AppCompatDelegate.MODE_NIGHT_YES
         }
     }
 
