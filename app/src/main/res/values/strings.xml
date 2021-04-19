@@ -948,4 +948,5 @@
         <item quantity="other">Import %d beacons?</item>
     </plurals>
     <string name="maps">Maps</string>
+    <string name="theme_sunset_sunrise">Sunset/sunrise</string>
 </resources>
