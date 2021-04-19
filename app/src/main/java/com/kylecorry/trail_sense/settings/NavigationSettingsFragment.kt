@@ -70,15 +70,31 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         }
 
         val prefBacktrackInterval = preference(R.string.pref_backtrack_interval)
-        prefBacktrackInterval?.summary = formatService.formatDuration(prefs.backtrackRecordFrequency)
+        prefBacktrackInterval?.summary =
+            formatService.formatDuration(prefs.backtrackRecordFrequency)
 
         prefBacktrackInterval?.setOnPreferenceClickListener {
             val title = it.title.toString()
-            CustomUiUtils.pickDuration(requireContext(), prefs.backtrackRecordFrequency, title, getString(R.string.actual_frequency_disclaimer)){
-                if (it != null && !it.isZero){
+            CustomUiUtils.pickDuration(
+                requireContext(),
+                prefs.backtrackRecordFrequency,
+                title,
+                getString(R.string.actual_frequency_disclaimer)
+            ) {
+                if (it != null && !it.isZero) {
                     prefs.backtrackRecordFrequency = it
                     prefBacktrackInterval.summary = formatService.formatDuration(it)
                     restartBacktrack()
+
+                    if (it < Duration.ofMinutes(10)) {
+                        UiUtils.alert(
+                            requireContext(),
+                            getString(R.string.battery_warning),
+                            getString(R.string.backtrack_battery_warning),
+                            getString(R.string.dialog_ok)
+                        )
+                    }
+
                 }
             }
             true
@@ -89,11 +105,15 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         prefNearbyRadius?.setOnPreferenceClickListener {
             CustomUiUtils.pickDistance(
                 requireContext(),
-                if (distanceUnits == UserPreferences.DistanceUnits.Meters) listOf(DistanceUnits.Meters, DistanceUnits.Kilometers) else listOf(DistanceUnits.Feet, DistanceUnits.Miles, DistanceUnits.NauticalMiles),
-                Distance.meters(userPrefs.navigation.maxBeaconDistance).convertTo(userPrefs.baseDistanceUnits).toRelativeDistance(),
+                if (distanceUnits == UserPreferences.DistanceUnits.Meters) listOf(
+                    DistanceUnits.Meters,
+                    DistanceUnits.Kilometers
+                ) else listOf(DistanceUnits.Feet, DistanceUnits.Miles, DistanceUnits.NauticalMiles),
+                Distance.meters(userPrefs.navigation.maxBeaconDistance)
+                    .convertTo(userPrefs.baseDistanceUnits).toRelativeDistance(),
                 it.title.toString()
             ) { distance ->
-                if (distance != null && distance.distance > 0){
+                if (distance != null && distance.distance > 0) {
                     userPrefs.navigation.maxBeaconDistance = distance.meters().distance
                     updateNearbyRadius()
                 }
@@ -102,11 +122,20 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         }
 
         val prefBacktrackPathColor = preference(R.string.pref_backtrack_path_color)
-        prefBacktrackPathColor?.icon?.setTint(UiUtils.color(requireContext(), prefs.navigation.backtrackPathColor.color))
+        prefBacktrackPathColor?.icon?.setTint(
+            UiUtils.color(
+                requireContext(),
+                prefs.navigation.backtrackPathColor.color
+            )
+        )
 
         prefBacktrackPathColor?.setOnPreferenceClickListener {
-            CustomUiUtils.pickColor(requireContext(), prefs.navigation.backtrackPathColor, it.title.toString() ){
-                if (it != null){
+            CustomUiUtils.pickColor(
+                requireContext(),
+                prefs.navigation.backtrackPathColor,
+                it.title.toString()
+            ) {
+                if (it != null) {
                     prefs.navigation.backtrackPathColor = it
                     prefBacktrackPathColor.icon?.setTint(UiUtils.color(requireContext(), it.color))
                 }
@@ -124,7 +153,8 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
 
     private fun updateNearbyRadius() {
         prefNearbyRadius?.summary = formatService.formatDistance(
-            Distance.meters(prefs.navigation.maxBeaconDistance).convertTo(prefs.baseDistanceUnits).toRelativeDistance(),
+            Distance.meters(prefs.navigation.maxBeaconDistance).convertTo(prefs.baseDistanceUnits)
+                .toRelativeDistance(),
             2
         )
     }

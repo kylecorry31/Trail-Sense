@@ -956,6 +956,10 @@
     <string name="dotted">Dotted</string>
     <string name="pref_backtrack_path_style_title">Backtrack path style</string>
     <string name="pref_backtrack_path_color_title">Backtrack path color</string>
+    <string name="updates">Updates</string>
+    <string name="backtrack_high_priority_notification">Placing a waypoint every %s</string>
+    <string name="battery_warning">Battery drain warning</string>
+    <string name="backtrack_battery_warning">Small intervals (under 10 minutes) may cause excess battery drain</string>
     <plurals name="import_beacons">
         <item quantity="one">Import %d beacon?</item>
         <item quantity="other">Import %d beacons?</item>

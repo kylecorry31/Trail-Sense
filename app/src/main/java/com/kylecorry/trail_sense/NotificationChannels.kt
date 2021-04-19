@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense
 
 import android.content.Context
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackService
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackAlwaysOnService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.SosService
@@ -24,6 +24,8 @@ object NotificationChannels {
     const val GROUP_PEDOMETER = "trail_sense_pedometer"
     const val GROUP_WATER = "trail_sense_water"
     const val GROUP_CLOCK = "trail_sense_clock"
+
+    const val CHANNEL_BACKGROUND_UPDATES = "background_updates"
 
     fun createChannels(context: Context) {
         // Flashlight
@@ -58,9 +60,19 @@ object NotificationChannels {
         // Backtrack
         NotificationUtils.createChannel(
             context,
-            BacktrackService.FOREGROUND_CHANNEL_ID,
+            BacktrackAlwaysOnService.FOREGROUND_CHANNEL_ID,
             context.getString(R.string.backtrack_notification_channel),
             context.getString(R.string.backtrack_notification_channel_description),
+            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            muteSound = true
+        )
+
+        // Background updates
+        NotificationUtils.createChannel(
+            context,
+            CHANNEL_BACKGROUND_UPDATES,
+            context.getString(R.string.updates),
+            context.getString(R.string.updates),
             NotificationUtils.CHANNEL_IMPORTANCE_LOW,
             muteSound = true
         )
@@ -101,16 +113,6 @@ object NotificationChannels {
             context.getString(R.string.notification_storm_alert_channel_name),
             context.getString(R.string.notification_storm_alert_channel_desc),
             NotificationUtils.CHANNEL_IMPORTANCE_HIGH
-        )
-
-        // Weather
-        NotificationUtils.createChannel(
-            context,
-            WeatherUpdateService.FOREGROUND_CHANNEL_ID,
-            context.getString(R.string.weather_update_notification_channel),
-            context.getString(R.string.weather_update_notification_channel_desc),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
-            true
         )
 
         NotificationUtils.createChannel(

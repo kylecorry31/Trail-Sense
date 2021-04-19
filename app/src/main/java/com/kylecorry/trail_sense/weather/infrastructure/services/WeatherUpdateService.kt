@@ -212,7 +212,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
     override fun getForegroundNotification(): Notification {
         return NotificationUtils.background(
             this,
-            FOREGROUND_CHANNEL_ID,
+            NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
             getString(R.string.weather_update_notification_channel),
             getString(R.string.notification_monitoring_weather),
             R.drawable.ic_update
@@ -226,7 +226,6 @@ class WeatherUpdateService: CoroutineForegroundService() {
         private const val DAILY_NOTIFICATION_ID = 798643
         private const val FOREGROUND_SERVICE_ID = 629579783
         const val STORM_CHANNEL_ID = "Alerts"
-        const val FOREGROUND_CHANNEL_ID = "WeatherUpdate"
         const val WEATHER_CHANNEL_ID = "Weather"
         private const val TAG = "WeatherUpdateService"
         private const val STORM_ALERT_NOTIFICATION_ID = 74309823
