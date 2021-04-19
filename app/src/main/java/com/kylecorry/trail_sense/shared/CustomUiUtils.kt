@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.BeaconSelectView
+import com.kylecorry.trail_sense.shared.views.ColorPickerView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.shared.views.DurationInputView
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
@@ -120,6 +121,35 @@ object CustomUiUtils {
                 onDistancePick.invoke(null)
             } else {
                 onDistancePick.invoke(distance)
+            }
+        }
+    }
+
+    fun pickColor(
+        context: Context,
+        default: AppColor? = null,
+        title: String,
+        onColorPick: (color: AppColor?) -> Unit
+    ) {
+        val view = View.inflate(context, R.layout.view_color_picker_prompt, null)
+        val colorPicker = view.findViewById<ColorPickerView>(R.id.prompt_color_picker)
+        var color = default
+        colorPicker?.setOnColorChangeListener {
+            color = it
+        }
+        colorPicker?.color = color
+
+        UiUtils.alertViewWithCancel(
+            context,
+            title,
+            view,
+            context.getString(R.string.dialog_ok),
+            context.getString(R.string.dialog_cancel)
+        ) { cancelled ->
+            if (cancelled) {
+                onColorPick.invoke(null)
+            } else {
+                onColorPick.invoke(color)
             }
         }
     }

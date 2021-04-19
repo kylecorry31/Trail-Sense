@@ -950,6 +950,12 @@
     <string name="actual_frequency_disclaimer">The actual frequency may vary as some devices have background limits in place.</string>
     <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="pref_weather_show_detailed_icon_title">Show colored notification icon</string>
+    <string name="pref_backtrack_path_color" translatable="false">pref_backtrack_path_color</string>
+    <string name="pref_backtrack_path_style" translatable="false">pref_backtrack_path_dotted</string>
+    <string name="solid">Solid</string>
+    <string name="dotted">Dotted</string>
+    <string name="pref_backtrack_path_style_title">Backtrack path style</string>
+    <string name="pref_backtrack_path_color_title">Backtrack path color</string>
     <plurals name="import_beacons">
         <item quantity="one">Import %d beacon?</item>
         <item quantity="other">Import %d beacons?</item>

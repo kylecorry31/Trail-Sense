@@ -534,8 +534,8 @@ class NavigatorFragment : Fragment() {
                 WaypointRepo.BACKTRACK_PATH_ID,
                 getString(R.string.tool_backtrack_title),
                 points,
-                UiUtils.color(requireContext(), R.color.colorAccent),
-                true
+                UiUtils.color(requireContext(), userPrefs.navigation.backtrackPathColor.color),
+                userPrefs.navigation.backtrackPathIsDotted
             )
             binding.radarCompass.setPaths(listOf(path))
         }

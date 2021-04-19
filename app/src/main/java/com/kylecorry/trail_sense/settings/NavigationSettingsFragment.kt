@@ -101,6 +101,19 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
             true
         }
 
+        val prefBacktrackPathColor = preference(R.string.pref_backtrack_path_color)
+        prefBacktrackPathColor?.icon?.setTint(UiUtils.color(requireContext(), prefs.navigation.backtrackPathColor.color))
+
+        prefBacktrackPathColor?.setOnPreferenceClickListener {
+            CustomUiUtils.pickColor(requireContext(), prefs.navigation.backtrackPathColor, it.title.toString() ){
+                if (it != null){
+                    prefs.navigation.backtrackPathColor = it
+                    prefBacktrackPathColor.icon?.setTint(UiUtils.color(requireContext(), it.color))
+                }
+            }
+            true
+        }
+
         editText(R.string.pref_num_visible_beacons)
             ?.setOnBindEditTextListener { editText ->
                 editText.inputType = InputType.TYPE_CLASS_NUMBER

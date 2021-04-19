@@ -228,4 +228,14 @@
         <item>pedometer</item>
     </string-array>
 
+    <string-array name="line_style_entries">
+        <item>@string/solid</item>
+        <item>@string/dotted</item>
+    </string-array>
+
+    <string-array name="line_style_values">
+        <item>solid</item>
+        <item>dotted</item>
+    </string-array>
+
 </resources>

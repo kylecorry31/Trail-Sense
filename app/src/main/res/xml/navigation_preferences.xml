@@ -134,6 +134,24 @@
             app:singleLineTitle="false"
             android:summary="@string/pref_backtrack_path_radar_summary"
             app:title="@string/pref_backtrack_path_radar_title" />
+
+        <ListPreference
+            android:dependency="@string/pref_backtrack_path_radar"
+            app:defaultValue="dotted"
+            app:entries="@array/line_style_entries"
+            app:entryValues="@array/line_style_values"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_path_style"
+            app:singleLineTitle="false"
+            app:title="@string/pref_backtrack_path_style_title" />
+
+        <Preference
+            android:dependency="@string/pref_backtrack_path_radar"
+            app:icon="@drawable/bubble"
+            app:key="@string/pref_backtrack_path_color"
+            app:singleLineTitle="false"
+            app:title="@string/pref_backtrack_path_color_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

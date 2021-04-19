@@ -1,8 +1,6 @@
 package com.kylecorry.trail_sense
 
 import android.Manifest
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -131,7 +129,6 @@ class MainActivity : AppCompatActivity() {
         if (navController.currentDestination?.id == R.id.action_navigation){
             navController.navigate(R.id.action_navigation)
         }
-
 
         if (disclaimer.shouldShow()) {
             disclaimer.show()
