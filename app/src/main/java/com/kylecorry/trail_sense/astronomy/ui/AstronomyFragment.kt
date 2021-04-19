@@ -166,7 +166,7 @@ class AstronomyFragment : Fragment() {
         rightQuickAction?.onResume()
         displayDate = LocalDate.now()
         requestLocationUpdate()
-        intervalometer.interval(Duration.ofMinutes(1))
+        intervalometer.interval(Duration.ofMinutes(1), Duration.ofMillis(200))
         updateUI()
 
         if (cache.getBoolean("cache_tap_sun_moon_shown") != true) {
@@ -279,7 +279,6 @@ class AstronomyFragment : Fragment() {
             val point2 = chart.getPoint(2, currentIdx)
             binding.sunPosition.x = point2.first - binding.sunPosition.width / 2f
             binding.sunPosition.y = point2.second - binding.sunPosition.height / 2f
-
 
             if (binding.moonPosition.height != 0) {
                 binding.moonPosition.visibility = View.VISIBLE
