@@ -128,12 +128,11 @@
     <string name="tide_spring">Springzeit</string>
     <string name="tide_normal">Mittzeit</string>
     <string name="tools">Werkzeuge</string>
-    <string name="disclaimer_message_title">Haftungsausschluss</string>
     <string name="unknown">Unbekannt</string>
     <string name="edit_beacon">Wegpunkt bearbeiten</string>
     <string name="share_action_send">Senden</string>
     <string name="share_action_copy">Kopieren</string>
-    <string name="share_action_geo">Karten</string>
+    <string name="maps">Karten</string>
     <string name="beacon_invalid_name">Ungültiger Name</string>
     <string name="units_inhg_short">in</string>
     <string name="inclinometer_title">Neigungsmesser</string>
@@ -141,7 +140,6 @@
     <string name="pref_category_sensors_title">Sensoren</string>
     <string name="pref_compass_sensor_title">Kompass</string>
     <string name="copied_to_clipboard_toast">In die Zwischenablage kopiert</string>
-    <string name="disclaimer_message_content">Trail Sense ist ein Werkzeug, welches in Überlebenssituationen verwendet werden kann, aber Sie sollten sich nicht alleine darauf verlassen. Die App wurde nur für informative Zwecke entwickelt und die Genauigkeit kann je nach Gerät und aktuellen Umgebungsbedingungen variieren. Bitte prüfen Sie die Genauigkeit, vermeiden Sie jede gefährliche Situation wenn möglich und bleiben Sie ruhig und vernünftig.</string>
     <string name="accuracy_info_title">Tipps um die Sensorengenauigkeit zu verbessern</string>
     <string name="flashlight_title">Taschenlampe</string>
     <string name="tap_to_turn_off">Tippen zum Abschalten</string>

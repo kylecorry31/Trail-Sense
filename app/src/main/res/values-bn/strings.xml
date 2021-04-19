@@ -91,5 +91,4 @@
     <string name="direction_north">উ</string>
     <string name="duration_minute_format">%dমি</string>
     <string name="duration_hour_format">%dঘ</string>
-    <string name="disclaimer_message_title">বিশেষ দ্রষ্টব্য</string>
 </resources>

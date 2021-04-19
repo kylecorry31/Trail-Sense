@@ -171,7 +171,7 @@
     <string name="beacon_comment">备注（可选）</string>
     <string name="beacon_invalid_elevation">无效的海拔</string>
     <string name="beacon_invalid_name">无效的名称</string>
-    <string name="share_action_geo">地图</string>
+    <string name="maps">地图</string>
     <string name="share_action_copy">复制</string>
     <string name="share_action_send">发送</string>
     <plurals name="beacon_group_summary">
@@ -207,8 +207,6 @@
     <string name="nautical_miles_format">%.2f 海里</string>
     <string name="miles_format">%.2f 英里</string>
     <string name="feet_format">%.0f 英尺</string>
-    <string name="disclaimer_message_content">Trail Sense 是一个可用于生存情况下的工具，但你不能仅仅依赖它。此应用仅供参考，其准确性可能会因您的设备和当前的环境条件而异。请验证它的准确性，尽可能规避危险，保持镇静，并利用好常识。</string>
-    <string name="disclaimer_message_title">免责声明</string>
     <string name="dialog_deny">不，谢谢</string>
     <string name="dialog_grant">更新设置</string>
     <string name="access_background_location_rationale">Trail Sense在后台使用位置数据。它用于在天气监测中校正海平面压力，并提供更准确的日落警报。[查看隐私政策] （https://kylecorry.com/Trail-Sense/privacy_policy.html）</string>

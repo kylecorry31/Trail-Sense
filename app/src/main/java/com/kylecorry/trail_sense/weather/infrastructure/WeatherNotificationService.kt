@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.hardware.SensorManager
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.NotificationChannels
@@ -28,6 +29,7 @@ object WeatherNotificationService {
     fun getNotification(context: Context, text: String, icon: Int): Notification {
         val stopIntent = Intent(context, WeatherStopMonitoringReceiver::class.java)
         val openIntent = NavigationUtils.pendingIntent(context, R.id.action_weather)
+        val prefs = UserPreferences(context)
 
         val stopPendingIntent: PendingIntent =
             PendingIntent.getBroadcast(context, 0, stopIntent, 0)
@@ -46,7 +48,7 @@ object WeatherNotificationService {
             title,
             text,
             icon,
-            showBigIcon = true,
+            showBigIcon = prefs.weather.showColoredNotificationIcon,
             group = NotificationChannels.GROUP_WEATHER,
             intent = openIntent,
             actions = listOf(stopAction)

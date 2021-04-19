@@ -13,17 +13,16 @@ import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.navigation.ui.Track
-import com.kylecorry.trail_sense.navigation.ui.Waypoint
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
-import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
+import com.kylecorry.trailsensecore.domain.geo.Path
+import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
@@ -33,6 +32,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.trailsensecore.domain.geo.cartography.Map
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -63,6 +63,8 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private var calibrationIndex = 0
     private var isCalibrating = false
 
+    private var backtrack: Path? = null
+
     private val throttle = Throttle(20)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +83,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         gps.asLiveData().observe(viewLifecycleOwner, {
             binding.map.setMyLocation(gps.location)
+            displayPaths()
             updateDestination()
         })
         altimeter.asLiveData().observe(viewLifecycleOwner, { updateDestination() })
@@ -96,8 +99,18 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
         if (prefs.navigation.showBacktrackPath) {
             backtrackRepo.getWaypoints()
-                .observe(viewLifecycleOwner, {
-                    displayPath(it)
+                .observe(viewLifecycleOwner, { waypoints ->
+                    val sortedWaypoints = waypoints
+                        .sortedByDescending { it.createdInstant }
+
+                    backtrack = Path(
+                        WaypointRepo.BACKTRACK_PATH_ID,
+                        getString(R.string.tool_backtrack_title),
+                        sortedWaypoints.map { it.toPathPoint() },
+                        UiUtils.color(requireContext(), R.color.colorAccent),
+                        true
+                    )
+                    displayPaths()
                 })
         }
 
@@ -253,29 +266,17 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         }
     }
 
-    private fun displayPath(waypoints: List<WaypointEntity>) {
-        val oldestReadingTime = Instant.now().minus(prefs.navigation.showBacktrackPathDuration)
-
-        val recentWaypoints = waypoints
-            .sortedByDescending { it.createdInstant }
-            .filter { it.createdInstant > oldestReadingTime }
-
-        val points = listOf(
-            PathPoint(
-                gps.location,
-                Instant.now()
-            )
-        ) + recentWaypoints.map { PathPoint(it.coordinate, it.createdInstant) }
-
-        val path = Path(
+    private fun displayPaths() {
+        val myLocation = PathPoint(
             0,
-            getString(R.string.tool_backtrack_title),
-            points,
-            UiUtils.color(requireContext(), R.color.colorAccent),
-            true
+            WaypointRepo.BACKTRACK_PATH_ID,
+            gps.location,
+            time = Instant.now()
         )
 
-        binding.map.setPaths(listOf(path))
+        val backtrackPath = backtrack?.copy(points = listOf(myLocation) + backtrack!!.points)
+
+        binding.map.setPaths(listOfNotNull(backtrackPath))
     }
 
     private fun updateDestination() {

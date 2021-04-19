@@ -252,4 +252,7 @@ class WeatherPreferences(private val context: Context) {
             return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Temperature
         }
 
+    val showColoredNotificationIcon: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon)) ?: true
+
 }

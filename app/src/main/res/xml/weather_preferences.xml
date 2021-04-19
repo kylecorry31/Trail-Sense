@@ -108,6 +108,14 @@
             app:singleLineTitle="false"
             app:title="@string/pref_weather_update_frequency_title" />
 
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_monitor_weather"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_show_detailed_icon"
+            app:singleLineTitle="false"
+            app:title="@string/pref_weather_show_detailed_icon_title"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

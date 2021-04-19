@@ -108,7 +108,7 @@
     <string name="beacon_invalid_name">Neplatné jméno</string>
     <string name="name_hint">Název</string>
     <string name="create_beacon_title">Vytvořit maják</string>
-    <string name="share_action_geo">Mapy</string>
+    <string name="maps">Mapy</string>
     <string name="discharging_fast">Rychle vybíjeno (%s)</string>
     <string name="discharging_slow">Pomalu vybíjeno (%s)</string>
     <string name="charging_slow">Pomalu nabíjeno (%s)</string>
@@ -174,7 +174,6 @@
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_feet_format">%s ft</string>
-    <string name="disclaimer_message_content">Trail Sense je nástroj, který může být použit v situacích o přežití, ale neměli byste spoléhat čistě na něj. Prosím vás, abyste potvrdili jeho přesnost, vyhnuli se nebezpečným situacím, kdy je to možné, zůstali v klidu a používali selský rozum.</string>
     <string name="dialog_deny">Ne, děkuji</string>
     <string name="copied_to_clipboard_toast">Zkopírováno do schránky</string>
     <string name="dialog_cancel">Zrušit</string>
@@ -269,5 +268,4 @@
     <string name="battery_temp">Telefon: %s</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
-    <string name="disclaimer_message_title">Vyloučení odpovědnosti</string>
 </resources>

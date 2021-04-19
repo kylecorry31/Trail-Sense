@@ -83,6 +83,8 @@ Location information gathered by this application does not leave your device (as
 
 If you choose to write a new feature yourself, send me a message to verify that it is something that I will accept into Trail Sense before your write it (if not, you can always fork this repo and create your own version of Trail Sense!). I will conduct a code review on incoming pull requests to verify they align nicely with the rest of the code base and the feature works as intended.
 
+Issues marked with the help-wanted label are open for community contribution at any time (just submit a PR to main and I will review it), or leave a comment on the story to say you are working on it / ask for more details. Please leave a comment on any other issue before you work on them because they might not have all the details, I may not want it implemented yet, or I may have to implement it myself - for fun :)
+
 # FAQ
 
 - **Will there be an iOS version?**
@@ -146,6 +148,7 @@ If you choose to write a new feature yourself, send me a message to verify that 
 - Icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews) and [Michael Irigoyen](https://materialdesignicons.com/contributor/Michael-Irigoyen)
 - Charts: [MpAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 - Thank you to everyone who tried out this app and opened issues, suggested features, provided translations, or tested debug builds for me
+- Thanks to @qwerty287 for implementing several features and bugfixes
 
 # License
 

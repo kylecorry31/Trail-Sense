@@ -11,9 +11,9 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.Path
+import com.kylecorry.trail_sense.shared.PixelLine
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.shared.toPixelLines
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
@@ -22,10 +22,11 @@ import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
 import com.kylecorry.trailsensecore.domain.pixels.PixelCircle
 import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
 import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
-import com.kylecorry.trailsensecore.infrastructure.canvas.getMaskedBitmap
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.domain.geo.Path
+import com.kylecorry.trailsensecore.domain.geo.cartography.Map
 import java.time.Instant
 import kotlin.math.abs
 import kotlin.math.max
@@ -107,9 +108,7 @@ class OfflineMapView : View {
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             if (mapImage != null) {
-                val xMap = e.x / scale - mapX
-                val yMap = e.y / scale - mapY
-
+                val mapCoords = toMapCoordinate(PixelCoordinate(e.x, e.y))
                 val relativeClick = PixelCoordinate(e.x / scale, e.y / scale)
                 val circles = beaconCircles.sortedBy { it.second.center.distanceTo(relativeClick) }
                 for (circle in circles) {
@@ -119,7 +118,10 @@ class OfflineMapView : View {
                     }
                 }
 
-                val percent = PercentCoordinate(xMap / mapImage!!.width, yMap / mapImage!!.height)
+                val percent = PercentCoordinate(
+                    mapCoords.x / mapImage!!.width,
+                    mapCoords.y / mapImage!!.height
+                )
                 onMapImageClick?.invoke(percent)
             }
             return super.onSingleTapConfirmed(e)
@@ -151,7 +153,7 @@ class OfflineMapView : View {
             paint = Paint(Paint.ANTI_ALIAS_FLAG)
             paint.textAlign = Paint.Align.CENTER
             iconSize = UiUtils.dp(context, 8f).toInt()
-            directionSize = UiUtils.dp(context, 10f).toInt()
+            directionSize = UiUtils.dp(context, 16f).toInt()
             compassSize = min(height, width) - 2 * iconSize - 2 * UiUtils.dp(context, 2f).toInt()
             isInit = true
             primaryColor = UiUtils.color(context, R.color.colorPrimary)
@@ -217,7 +219,7 @@ class OfflineMapView : View {
         val destLoc = getPixelCoordinate(destination!!.coordinate)
         if (myLocation != null && destLoc != null) {
             paint.color = primaryColor
-            paint.strokeWidth = UiUtils.dp(context, 2f)
+            paint.strokeWidth = 6f / scale
             paint.alpha = 127
             paint.style = Paint.Style.STROKE
             canvas.drawLine(
@@ -258,7 +260,10 @@ class OfflineMapView : View {
     }
 
     fun finalize() {
-        mapImage?.recycle()
+        try {
+            mapImage?.recycle()
+        } catch (e: Exception) {
+        }
     }
 
     fun recenter() {
@@ -289,11 +294,12 @@ class OfflineMapView : View {
         if (myLocation != null) {
             canvas.save()
             canvas.rotate(azimuth.value, mapX + myLocation.x, mapY + myLocation.y)
+            canvas.scale(1 / scale, 1 / scale)
             // TODO: Resize based on scale
             canvas.drawBitmap(
                 getBitmap(R.drawable.ic_my_location, directionSize),
-                mapX + myLocation.x - directionSize / 2f,
-                mapY + myLocation.y - directionSize / 2f,
+                (mapX + myLocation.x) * scale - directionSize / 2f,
+                (mapY + myLocation.y) * scale - directionSize / 2f,
                 paint
             )
             paint.colorFilter = null
@@ -316,7 +322,7 @@ class OfflineMapView : View {
                 circles.add(
                     beacon to PixelCircle(
                         PixelCoordinate(mapX + coord.x, mapY + coord.y),
-                        3 * (iconSize / 2f + UiUtils.dp(context, 2f)) / scale
+                        3 * (iconSize / 2f + UiUtils.dp(context, 1f)) / scale
                     )
                 )
                 canvas.drawCircle(
@@ -342,7 +348,7 @@ class OfflineMapView : View {
         }
 
         // TODO: Draw this on a masked bitmap
-        val dotted = DottedPathEffect(6f / scale)
+        val dotted = DottedPathEffect(3f / scale, 10f / scale)
         for (line in pathLines ?: listOf()) {
             if (line.dotted) {
                 paint.pathEffect = dotted
@@ -350,6 +356,7 @@ class OfflineMapView : View {
             } else {
                 paint.pathEffect = null
                 paint.style = Paint.Style.STROKE
+                paint.strokeCap = Paint.Cap.ROUND
                 paint.strokeWidth = 6f / scale
             }
             paint.color = line.color
@@ -364,6 +371,7 @@ class OfflineMapView : View {
             )
         }
         paint.alpha = 255
+        paint.strokeCap = Paint.Cap.BUTT
         paint.style = Paint.Style.FILL
         paint.pathEffect = null
     }
@@ -427,29 +435,17 @@ class OfflineMapView : View {
     }
 
     private fun createPathLines() {
-        val lines = mutableListOf<PixelLine>()
-        val maxTimeAgo = prefs.navigation.showBacktrackPathDuration.seconds.toFloat()
-        for (path in paths) {
-            val pixelWaypoints = path.points.map {
-                Pair(getPixelCoordinate(it.coordinate, false)!!, it.time)
-            }
-            val now = Instant.now().toEpochMilli()
-            for (i in 1 until pixelWaypoints.size) {
-                val hasTime = pixelWaypoints[i - 1].second != null
-                val timeAgo =
-                    if (hasTime) abs(now - pixelWaypoints[i - 1].second!!.toEpochMilli()) / 1000f else 0f
-                val line = PixelLine(
-                    pixelWaypoints[i - 1].first,
-                    pixelWaypoints[i].first,
-                    path.color,
-                    if (!hasTime) 255 else (255 * (1 - timeAgo / maxTimeAgo)).toInt()
-                        .coerceAtLeast(60),
-                    path.dotted
-                )
-                lines.add(line)
+        mapImage ?: return
+        val maxTimeAgo = prefs.navigation.showBacktrackPathDuration
+        pathLines = paths.flatMap {
+            it.toPixelLines(maxTimeAgo) {
+                getPixelCoordinate(it, false)!!
             }
         }
-        pathLines = lines
+    }
+
+    private fun toMapCoordinate(screen: PixelCoordinate): PixelCoordinate {
+        return PixelCoordinate(screen.x / scale - mapX, screen.y / scale - mapY)
     }
 
     private fun getBitmap(@DrawableRes id: Int, size: Int = iconSize): Bitmap {
@@ -463,14 +459,5 @@ class OfflineMapView : View {
         }
         return bitmap!!
     }
-
-    internal data class PixelLine(
-        val start: PixelCoordinate,
-        val end: PixelCoordinate,
-        @ColorInt val color: Int,
-        val alpha: Int,
-        val dotted: Boolean
-    )
-
 
 }

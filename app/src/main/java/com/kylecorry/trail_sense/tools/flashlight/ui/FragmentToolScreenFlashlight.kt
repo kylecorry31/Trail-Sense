@@ -31,7 +31,6 @@ class FragmentToolScreenFlashlight: BoundFragment<FragmentToolScreenFlashlightBi
 
         if (cache.getBoolean("cache_red_light") == null) {
             cache.putBoolean("cache_red_light", false)
-            println("init")
         }
 
         if (cache.getBoolean("cache_red_light") == true) {

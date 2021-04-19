@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
@@ -13,6 +12,7 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.math.cosDegrees
 import com.kylecorry.trailsensecore.domain.math.deltaAngle
 import com.kylecorry.trailsensecore.domain.math.sinDegrees
@@ -23,8 +23,6 @@ import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
 import com.kylecorry.trailsensecore.infrastructure.canvas.getMaskedBitmap
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import java.time.Instant
-import kotlin.math.abs
 import kotlin.math.min
 
 
@@ -61,13 +59,13 @@ class RadarCompassView : View, ICompassView {
     private val rect = Rect()
 
     private lateinit var compassMask: Bitmap
-    private lateinit var trackBitmap: Bitmap
+    private lateinit var pathBitmap: Bitmap
 
     private var metersPerPixel = 1f
     private var location = Coordinate.zero
     private var useTrueNorth = false
     private var declination: Float = 0f
-    private var trackHistory: List<TrackLine>? = null
+    private var pathLines = listOf<PixelLine>()
 
     private lateinit var maxDistanceBaseUnits: Distance
     private lateinit var maxDistanceMeters: Distance
@@ -92,13 +90,13 @@ class RadarCompassView : View, ICompassView {
         if (!isInit) {
             paint = Paint(Paint.ANTI_ALIAS_FLAG)
             paint.textAlign = Paint.Align.CENTER
-            iconSize = dp(24f).toInt()
-            radarSize = dp(10f).toInt()
-            directionSize = dp(16f).toInt()
-            compassSize = min(height, width) - 2 * iconSize - 2 * dp(2f).toInt()
+            iconSize = UiUtils.dp(context, 24f).toInt()
+            radarSize = UiUtils.dp(context, 10f).toInt()
+            directionSize = UiUtils.dp(context, 16f).toInt()
+            compassSize = min(height, width) - 2 * iconSize - 2 * UiUtils.dp(context, 2f).toInt()
             isInit = true
-            distanceSize = sp(8f)
-            cardinalSize = sp(10f)
+            distanceSize = UiUtils.sp(context, 8f)
+            cardinalSize = UiUtils.sp(context, 10f)
             primaryColor = UiUtils.color(context, R.color.colorPrimary)
             secondaryColor = UiUtils.color(context, R.color.colorSecondary)
             blue = UiUtils.color(context, R.color.colorAccent)
@@ -117,7 +115,7 @@ class RadarCompassView : View, ICompassView {
             paint.color = Color.WHITE
             paint.style = Paint.Style.FILL
             tempCanvas.drawCircle(width / 2f, height / 2f, compassSize / 2f, paint)
-            trackBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            pathBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         }
         canvas.drawColor(Color.TRANSPARENT)
         canvas.save()
@@ -134,7 +132,7 @@ class RadarCompassView : View, ICompassView {
         canvas.save()
         paint.color = color
         paint.alpha = 100
-        val dp2 = dp(2f)
+        val dp2 = UiUtils.dp(context, 2f)
         canvas.drawArc(
             iconSize.toFloat() + dp2,
             iconSize.toFloat() + dp2,
@@ -149,22 +147,27 @@ class RadarCompassView : View, ICompassView {
         canvas.restore()
     }
 
-    private fun drawTracks(canvas: Canvas) {
+    private fun drawPaths(canvas: Canvas) {
         // TODO: Improve the performance of this
-        val tracks = trackHistory ?: return
-        val pathBitmap = canvas.getMaskedBitmap(compassMask, trackBitmap) {
-            paint.pathEffect = DottedPathEffect()
-            paint.style = Paint.Style.FILL
-
+        val pathBitmap = canvas.getMaskedBitmap(compassMask, pathBitmap) {
+            val dotted = DottedPathEffect()
             it.drawColor(Color.TRANSPARENT)
-
-            for (line in tracks) {
+            for (line in pathLines) {
+                if (line.dotted) {
+                    paint.pathEffect = dotted
+                    paint.style = Paint.Style.FILL
+                } else {
+                    paint.pathEffect = null
+                    paint.style = Paint.Style.STROKE
+                    paint.strokeCap = Paint.Cap.ROUND
+                    paint.strokeWidth = 6f
+                }
                 paint.color = line.color
                 paint.alpha = line.alpha
                 it.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, paint)
             }
             paint.alpha = 255
-            paint.strokeCap = Paint.Cap.SQUARE
+            paint.strokeCap = Paint.Cap.BUTT
             paint.style = Paint.Style.FILL
             paint.pathEffect = null
         }
@@ -172,10 +175,13 @@ class RadarCompassView : View, ICompassView {
         canvas.drawBitmap(pathBitmap, 0f, 0f, paint)
     }
 
-    fun finalize(){
-        compassMask.recycle()
-        trackBitmap.recycle()
-        compass?.recycle()
+    fun finalize() {
+        try {
+            compassMask.recycle()
+            pathBitmap.recycle()
+            compass?.recycle()
+        } catch (e: Exception) {
+        }
     }
 
     override fun setAzimuth(bearing: Bearing) {
@@ -198,32 +204,12 @@ class RadarCompassView : View, ICompassView {
         invalidate()
     }
 
-    fun setTrackHistory(track: Track?) {
-        trackHistory = if (track == null) {
-            null
-        } else {
-            val maxTimeAgo = prefs.navigation.showBacktrackPathDuration.seconds.toFloat()
-            val lines = mutableListOf<TrackLine>()
-            val pixelWaypoints = track.points.map {
-                WaypointPoint(
-                    coordinateToPixel(it.location),
-                    it.time
-                )
+    fun setPaths(paths: List<Path>) {
+        val maxTimeAgo = prefs.navigation.showBacktrackPathDuration
+        pathLines = paths.flatMap {
+            it.toPixelLines(maxTimeAgo) {
+                coordinateToPixel(it)
             }
-            val now = Instant.now().toEpochMilli()
-            for (i in 1 until pixelWaypoints.size) {
-                val hasTime = pixelWaypoints[i - 1].time != null
-                val timeAgo =
-                    if (hasTime) abs(now - pixelWaypoints[i - 1].time!!.toEpochMilli()) / 1000f else 0f
-                val line = TrackLine(
-                    pixelWaypoints[i - 1].pixel,
-                    pixelWaypoints[i].pixel,
-                    blue,
-                    (230 * (1 - timeAgo / maxTimeAgo)).toInt().coerceAtLeast(60)
-                )
-                lines.add(line)
-            }
-            lines
         }
         invalidate()
     }
@@ -238,18 +224,24 @@ class RadarCompassView : View, ICompassView {
         paint.alpha = 255
         canvas.drawBitmap(
             compass!!,
-            iconSize.toFloat() + dp(2f),
-            iconSize.toFloat() + dp(2f),
+            iconSize.toFloat() + UiUtils.dp(context, 2f),
+            iconSize.toFloat() + UiUtils.dp(context, 2f),
             paint
         )
-        drawTracks(canvas)
+        drawPaths(canvas)
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 3f
         canvas.save()
         canvas.rotate(azimuth.value, width / 2f, height / 2f)
         if (destination == null) {
             paint.color = gray(60)
-            canvas.drawLine(width / 2f, height / 2f, width / 2f, iconSize.toFloat() + dp(2f), paint)
+            canvas.drawLine(
+                width / 2f,
+                height / 2f,
+                width / 2f,
+                iconSize.toFloat() + UiUtils.dp(context, 2f),
+                paint
+            )
         }
         canvas.drawBitmap(
             getBitmap(R.drawable.ic_beacon, directionSize), width / 2f - directionSize / 2f,
@@ -406,7 +398,12 @@ class RadarCompassView : View, ICompassView {
                 )
             } else {
                 paint.color = Color.WHITE
-                canvas.drawCircle(width / 2f, top, radarSize / 2f + dp(0.5f), paint)
+                canvas.drawCircle(
+                    width / 2f,
+                    top,
+                    radarSize / 2f + UiUtils.dp(context, 0.5f),
+                    paint
+                )
                 paint.color = primaryColor
                 canvas.drawCircle(width / 2f, top, radarSize / 2f, paint)
             }
@@ -438,29 +435,4 @@ class RadarCompassView : View, ICompassView {
         }
         return bitmap!!
     }
-
-    private fun dp(size: Float): Float {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, size,
-            resources.displayMetrics
-        )
-    }
-
-    private fun sp(size: Float): Float {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_SP, size,
-            resources.displayMetrics
-        )
-    }
-
-    // TODO: Make color a gradient
-    internal data class TrackLine(
-        val start: PixelCoordinate,
-        val end: PixelCoordinate,
-        @ColorInt val color: Int,
-        val alpha: Int
-    )
-
-    internal data class WaypointPoint(val pixel: PixelCoordinate, val time: Instant? = null)
-
 }

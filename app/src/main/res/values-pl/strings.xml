@@ -155,7 +155,7 @@
     <string name="pressure_tendency_format">%s %s / 3g</string>
     <string name="beacon_comment">Uwagi (opcjonalnie)</string>
     <string name="beacon_invalid_elevation">Nieprawidłowa wysokość</string>
-    <string name="share_action_geo">Mapy</string>
+    <string name="maps">Mapy</string>
     <string name="share_action_copy">Kopiuj</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Naciśnij, aby wyłączyć</string>
@@ -338,7 +338,6 @@
     <string name="pref_barometer_pressure_title">Ciśnienie</string>
     <string name="pref_altimeter_calibration_mode_title">Automatyczna kalibracja</string>
     <string name="compass_azimuth">Azymut</string>
-    <string name="disclaimer_message_title">Zrzeczenie się odpowiedzialności</string>
     <string name="flashlight_strobe">Stroboskop</string>
     <string name="tool_boil_title">Minutnik przegotowywania wody</string>
     <string name="water_boil_timer_title">Przegotowywanie wody</string>
@@ -410,7 +409,6 @@
     <string name="heat_alert_heat_danger_title">Zagrożenie termiczne</string>
     <string name="pressure_setpoint_format">Ustawione: %s - %s temu</string>
     <string name="beacon_elevation_hint_meters">Wysokość w metrach (opcjonalnie)</string>
-    <string name="disclaimer_message_content">Trail Sense to narzędzie, które można wykorzystać w sytuacji surwiwalowej, ale nie należy polegać wyłącznie na nim. Zweryfikuj jego dokładność, jeśli to możliwe unikaj niebezpiecznych sytuacji, zachowaj spokój i kieruj się zdrowym rozsądkiem.</string>
     <string name="tool_clock_title">Zegar</string>
     <string name="utc_format">UTC %s</string>
     <string name="lightning">Błyskawica</string>

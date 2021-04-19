@@ -249,14 +249,12 @@
     <string name="full_moon">Pleine lune</string>
     <string name="miles_format">%.2f mi</string>
     <string name="feet_format">%.0f ft</string>
-    <string name="disclaimer_message_title">Avertissement</string>
     <string name="copied_to_clipboard_toast">Copié dans le presse-papier</string>
-    <string name="disclaimer_message_content">Trail Sense contient des outils qui peuvent s\'avérer utiles dans des situations extrêmes, mais sa fiabilité n\'est pas garantie. Restez critique vis-à-vis des informations communiquées, évitez les situations dangereuses lorsque cela est possible, essayez de rester calme et de faire preuve de raison et de parcimonie.</string>
     <string name="lunar_noon">Midi lunaire</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">il y a %s - %s</string>
     <string name="pressure_setpoint_format">Défini : il y a %s - %s</string>
-    <string name="share_action_geo">Cartes</string>
+    <string name="maps">Cartes</string>
     <string name="pref_sea_level_use_rapid_summary">Utiliser les variation rapides des niveaux de pression locale pour estimer les valeurs de pression au niveau de la mer</string>
     <string name="pref_adjust_for_temperature_summary">Utiliser la température pour l\'estimation des valeurs de pressions au niveau de la mer</string>
     <string name="pref_temperature_holder_title">Température</string>
