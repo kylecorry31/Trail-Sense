@@ -226,7 +226,7 @@
     <string name="theme_dark">Dark</string>
     <string name="theme_black">Black</string>
     <string name="theme_system">System</string>
-    <string name="theme_sunset_sunrise">Sunset/sunrise</string>
+    <string name="theme_sunset_sunrise">Sunrise/sunset</string>
     <string name="experimental_tools_title">Experimental features</string>
     <string name="coordinate_format_decimal_degrees">Decimal Degrees</string>
     <!--A coordinate format as such:  X° X.XXX' N-->
