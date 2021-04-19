@@ -789,4 +789,14 @@
     <string name="time_until_empty">离空还剩%s</string>
     <string name="pref_odometer_reset_daily_title">每天重置</string>
     <string name="sleep_timer">睡眠定时器</string>
+    <plurals name="import_beacons">
+        <item quantity="other">导入 %d 个信标？</item>
+    </plurals>
+    <string name="search">搜索</string>
+    <plurals name="beacons_exported">
+        <item quantity="other">%d 个信标已被导出</item>
+    </plurals>
+    <plurals name="beacons_imported">
+        <item quantity="other">%d 个信标已被导入</item>
+    </plurals>
 </resources>

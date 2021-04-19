@@ -167,7 +167,8 @@
     <string name="heat_alert_frostbite_warning_title">Warnung: Unterkühlung</string>
     <string name="heat_alert_frostbite_danger_title">Gefahr: Unterkühlung</string>
     <string name="heat_alert_normal_title">Keine Temeraturwarnungen</string>
-    <string name="temperature_disclaimer">Die angezeigte Temperatur kann höher sein, wegen der Wärmeentwicklung Ihres Telefons.</string>
+    <string name="temperature_disclaimer">Die angezeigte Temperatur kann höher sein,
+\nwegen der Wärmeentwicklung Ihres Telefons.</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_setpoint_format">Setze %s - %s früher</string>
     <string name="pressure_reading_time_ago">%s - %s früher</string>
@@ -792,4 +793,19 @@
     <string name="pref_backtrack_path_radar_title">Zeige Weg aus Rückweg</string>
     <string name="map_auto_calibrated">Karte wurde automatisch kalibriert, bitte überprüfe die Genauigkeit</string>
     <string name="time_until_empty">%s bis leer</string>
+    <plurals name="import_beacons">
+        <item quantity="one">%d Wegpunkt importieren\?</item>
+        <item quantity="other">%d Wegpunkte importieren\?</item>
+    </plurals>
+    <string name="search">Suche</string>
+    <string name="pref_odometer_reset_daily_title">Täglich zurücksetzen</string>
+    <string name="sleep_timer">Schlaf-Timer</string>
+    <plurals name="beacons_exported">
+        <item quantity="one">%d Wegpunkt exportiert</item>
+        <item quantity="other">%d Wegpunkte exportiert</item>
+    </plurals>
+    <plurals name="beacons_imported">
+        <item quantity="one">%d Wegpunkt importiert</item>
+        <item quantity="other">%d Wegpunkte importiert</item>
+    </plurals>
 </resources>
