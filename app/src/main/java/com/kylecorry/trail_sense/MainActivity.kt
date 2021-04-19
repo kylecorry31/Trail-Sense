@@ -16,16 +16,19 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogService
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.*
@@ -94,6 +97,7 @@ class MainActivity : AppCompatActivity() {
             UserPreferences.Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
             UserPreferences.Theme.Black -> AppCompatDelegate.MODE_NIGHT_YES
             UserPreferences.Theme.System -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
         AppCompatDelegate.setDefaultNightMode(mode)
         super.onCreate(savedInstanceState)
@@ -253,6 +257,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestPermissions(permissions: List<String>, requestCode: Int = RequestCodes.REQUEST_CODE_LOCATION_PERMISSION) {
         PermissionUtils.requestPermissions(this, permissions, requestCode)
+    }
+
+    private fun sunriseSunsetTheme(): Int {
+        val astronomyService = AstronomyService()
+        val sensorService by lazy { SensorService(applicationContext) }
+        val gps by lazy { sensorService.getGPS() }
+        if (gps.location == Coordinate.zero) {
+            return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+        val isSunUp = astronomyService.isSunUp(gps.location)
+        if (isSunUp) {
+            return AppCompatDelegate.MODE_NIGHT_NO
+        }
+        else {
+            return AppCompatDelegate.MODE_NIGHT_YES
+        }
     }
 
 }

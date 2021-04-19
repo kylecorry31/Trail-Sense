@@ -39,6 +39,7 @@
         <item>@string/theme_dark</item>
         <item>@string/theme_black</item>
         <item>@string/theme_system</item>
+        <item>@string/theme_sunset_sunrise</item>
     </string-array>
 
     <string-array name="theme_values">
@@ -46,6 +47,7 @@
         <item>dark</item>
         <item>black</item>
         <item>system</item>
+        <item>sunrise_sunset</item>
     </string-array>
 
     <string-array name="storm_sensitivity_entries_hpa">
