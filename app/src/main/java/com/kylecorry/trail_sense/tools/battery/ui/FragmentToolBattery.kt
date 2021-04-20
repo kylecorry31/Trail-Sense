@@ -12,13 +12,12 @@ import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.LowPowerMode
-import com.kylecorry.trail_sense.shared.hours
-import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
-import com.kylecorry.trail_sense.tools.battery.infrastructure.PowerService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
 import com.kylecorry.trailsensecore.domain.math.power
+import com.kylecorry.trailsensecore.domain.power.BatteryReading
+import com.kylecorry.trailsensecore.domain.power.PowerService
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingMethod
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingStatus
@@ -43,7 +42,7 @@ class FragmentToolBattery : Fragment() {
     private val batteryService = BatteryService()
     private lateinit var servicesList: ListView<RunningService>
 
-    private var readings = listOf<BatteryReadingEntity>()
+    private var readings = listOf<BatteryReading>()
 
     private val powerService = PowerService()
 
@@ -56,15 +55,19 @@ class FragmentToolBattery : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentToolBatteryBinding.inflate(inflater, container, false)
-        servicesList = ListView(binding.runningServices, R.layout.list_item_plain){ serviceView, service ->
-            val serviceBinding = ListItemPlainBinding.bind(serviceView)
-            serviceBinding.title.text = service.name
-            serviceBinding.description.text = if (service.frequency == Duration.ZERO){
-                getString(R.string.always_on)
-            } else {
-                getString(R.string.service_update_frequency, formatService.formatDuration(service.frequency))
-            } + " - " + getBatteryUsage(service)
-        }
+        servicesList =
+            ListView(binding.runningServices, R.layout.list_item_plain) { serviceView, service ->
+                val serviceBinding = ListItemPlainBinding.bind(serviceView)
+                serviceBinding.title.text = service.name
+                serviceBinding.description.text = if (service.frequency == Duration.ZERO) {
+                    getString(R.string.always_on)
+                } else {
+                    getString(
+                        R.string.service_update_frequency,
+                        formatService.formatDuration(service.frequency)
+                    )
+                } + " - " + getBatteryUsage(service)
+            }
         servicesList.addLineSeparator()
         binding.lowPowerModeSwitch.isChecked = lowPowerMode.isEnabled()
         binding.lowPowerModeSwitch.setOnClickListener {
@@ -79,7 +82,16 @@ class FragmentToolBattery : Fragment() {
             startActivity(intentBatteryPhoneSettings)
         }
         batteryRepo.get().observe(viewLifecycleOwner, {
-            readings = it.sortedBy { it.time }
+            readings = it.sortedBy { it.time }.map { it.toBatteryReading() } + listOfNotNull(
+                if (battery.hasValidReading)
+                    BatteryReading(
+                        Instant.now(),
+                        battery.percent,
+                        battery.capacity,
+                        battery.chargingStatus == BatteryChargingStatus.Charging
+                    )
+                else null
+            )
             update()
         })
         return binding.root
@@ -150,10 +162,12 @@ class FragmentToolBattery : Fragment() {
         binding.batteryCapacity.text = formatService.formatElectricalCapacity(capacity)
         binding.batteryCapacity.isVisible = capacity != 0f
         binding.batteryTime.isVisible = time != null
-        if (time != null && !isCharging){
-            binding.batteryTime.text = getString(R.string.time_until_empty, formatService.formatDuration(time))
-        } else if (time != null && isCharging){
-            binding.batteryTime.text = getString(R.string.time_until_full, formatService.formatDuration(time))
+        if (time != null && !isCharging) {
+            binding.batteryTime.text =
+                getString(R.string.time_until_empty, formatService.formatDuration(time))
+        } else if (time != null && isCharging) {
+            binding.batteryTime.text =
+                getString(R.string.time_until_full, formatService.formatDuration(time))
         }
         binding.batteryHealth.text =
             getString(R.string.battery_health, getHealthString(battery.health))
@@ -203,47 +217,19 @@ class FragmentToolBattery : Fragment() {
         val capacity = if (hasCapacity) battery.capacity else battery.percent
         val rates = powerService.getRates(readings, Duration.ofMinutes(5), hasCapacity)
         val lastChargeRate = rates.lastOrNull { it > 0f } ?: return null
-        val maxCapacity = if (hasCapacity) powerService.getMaxCapacity(readings) ?: 100f else 100f
+        val maxCapacity = if (hasCapacity) getMaxCapacity() else 100f
         return powerService.getTimeUntilFull(capacity, maxCapacity, lastChargeRate)
     }
 
-    private fun getFirstBatteryReading(): BatteryReadingEntity? {
-        // Get the first reading which is at least 30 minutes old and has less percent than the current reading
-        // If the device was charged before the percent dropped, don't return a reading
-        if (readings.size < 2){
-            return null
+    private fun getMaxCapacity(): Float {
+        return if (battery.percent != 0f) {
+            (battery.capacity / battery.percent) * 100f
+        } else {
+            100f
         }
-
-        val last = readings.lastOrNull()
-        val sorted = readings.sortedByDescending { it.time }
-
-        val thirtyMinutesAgo = Instant.now().minus(Duration.ofMinutes(30))
-
-        if (last == null){
-            return null
-        }
-
-        for (reading in sorted){
-            val hasCapacity = reading.capacity > 0f && last.capacity > 0f
-            if (reading.isCharging || reading.percent < last.percent || (hasCapacity && (reading.capacity < last.capacity))){
-                return null
-            }
-
-            if (reading.time > thirtyMinutesAgo){
-                continue
-            }
-
-            if (hasCapacity && (reading.capacity > last.capacity)){
-                return reading
-            }
-
-            if (reading.percent > last.percent){
-                return reading
-            }
-        }
-
-        return null
+//        return powerService.getMaxCapacity(readings) ?: (battery.capacity / battery.percent) * 100f
     }
+
 
     private fun getHealthString(health: BatteryHealth): String {
         return when (health) {
