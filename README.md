@@ -107,6 +107,9 @@ Issues marked with the help-wanted label are open for community contribution at 
   - You can attempt to diagnose GPS/location issues by opening Trail Sense Settings > Sensor Details and viewing the GPS and GPS Cache settings
 - **How can I report a bug?**
   - Either create a new issue here or email me at trailsense@protonmail.com
+- **Trail Sense sends too many notifications**
+  - All notifications from Trail Sense can be disabled/re-enabled under their respective settings
+  - Android requires background processes which access your location to send a notification (ex. Backtrack, weather monitor, and sunset alert). On most supported Android versions, you can disable the "Updates" notification channel to hide these notifications.
 - **The tide times are inaccurate**
   - The tide tool is experimental and is designed to mimic an analog tide clock. Tide clocks suffer the same inaccuracies as Trail Sense, so you can expect tide times to be off by up to 2 hours depending on the length of the lunar day. To ensure the best accuracy, calibrate the tide clock using a high tide on a day of a full or new moon, and do not correct the tide clock throughout the lunar month to remove inaccuracies - this will make it more inaccurate over time.
   - Currently Trail Sense can only predict tides in areas which experience twice daily high tides (semidiurnal), such as the Atlantic ocean.
