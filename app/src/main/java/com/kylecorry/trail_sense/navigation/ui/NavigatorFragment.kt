@@ -69,6 +69,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.*
 import java.util.*
+import kotlin.math.roundToInt
 
 
 class NavigatorFragment : Fragment() {
@@ -145,6 +146,12 @@ class NavigatorFragment : Fragment() {
         )
         if (userPrefs.experimentalEnabled) {
             cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+            var zoomRatio = cache.getFloat("camera_zoom_ratio")
+            if (zoomRatio == null) {
+                zoomRatio = 2.5f
+                cache.putFloat("camera_zoom_ratio", zoomRatio)
+            }
+            binding.zoomRatioSeekbar.progress = ((zoomRatio-1)*2).roundToInt()
         }
         return binding.root
     }
@@ -161,7 +168,12 @@ class NavigatorFragment : Fragment() {
 
         var camera = cameraProvider.bindToLifecycle(this as LifecycleOwner, cameraSelector, preview)
         cameraControl = camera.getCameraControl()
-        cameraControl.setZoomRatio(2.5f)
+        var zoomRatio = cache.getFloat("camera_zoom_ratio")
+        if (zoomRatio == null) {
+            zoomRatio = 2.5f
+            cache.putFloat("camera_zoom_ratio", zoomRatio)
+        }
+        cameraControl.setZoomRatio(zoomRatio)
     }
 
     fun unbindPreview(cameraProvider : ProcessCameraProvider) {
@@ -279,6 +291,7 @@ class NavigatorFragment : Fragment() {
         binding.zoomRatioSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 cameraControl.setZoomRatio(progress/2f+1)
+                cache.putFloat("camera_zoom_ratio", progress/2f+1)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
