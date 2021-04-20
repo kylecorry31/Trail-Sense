@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense
 
 import android.content.Context
+import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackAlwaysOnService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
@@ -136,7 +137,7 @@ object NotificationChannels {
         // Sunset
         NotificationUtils.createChannel(
             context,
-            SunsetAlarmReceiver.NOTIFICATION_CHANNEL_ID,
+            SunsetAlarmService.NOTIFICATION_CHANNEL_ID,
             context.getString(R.string.sunset_alert_channel_title),
             context.getString(R.string.sunset_alert_channel_description),
             NotificationUtils.CHANNEL_IMPORTANCE_HIGH,
