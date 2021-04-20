@@ -156,6 +156,8 @@ class NavigatorFragment : Fragment() {
         preview.setSurfaceProvider(binding.viewCamera.surfaceProvider)
 
         var camera = cameraProvider.bindToLifecycle(this as LifecycleOwner, cameraSelector, preview)
+        val cameraControl = camera.getCameraControl()
+        cameraControl.setZoomRatio(2.toFloat())
     }
 
     fun unbindPreview(cameraProvider : ProcessCameraProvider) {
