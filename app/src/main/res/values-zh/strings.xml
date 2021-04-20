@@ -799,4 +799,10 @@
     <plurals name="beacons_imported">
         <item quantity="other">%d 个信标已被导入</item>
     </plurals>
+    <string name="pref_weather_show_detailed_icon_title">显示彩色通知图标</string>
+    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
+    <string name="actual_frequency_disclaimer">实际频率可能会因某些设备的后台限制而变化。</string>
+    <string name="pref_backtrack_path_radar_summary">关于雷达、指南针和地图</string>
+    <string name="app_disclaimer_message_title">免责声明/服务条款</string>
+    <string name="disclaimer_message_title">免责声明</string>
 </resources>
