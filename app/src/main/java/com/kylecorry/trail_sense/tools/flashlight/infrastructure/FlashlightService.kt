@@ -1,27 +1,24 @@
 package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
 import android.app.Notification
-import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.os.IBinder
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.flashlight.IFlashlight
+import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 
-class FlashlightService: Service() {
+class FlashlightService: ForegroundService() {
 
     private var flashlight: IFlashlight? = null
+    override val foregroundNotificationId: Int
+        get() = NOTIFICATION_ID
 
-    override fun onBind(intent: Intent?): IBinder? {
-        return null
-    }
-
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val notification = NotificationUtils.persistent(
+    override fun getForegroundNotification(): Notification {
+        return NotificationUtils.persistent(
             this,
             CHANNEL_ID,
             getString(R.string.flashlight_title),
@@ -30,17 +27,18 @@ class FlashlightService: Service() {
             intent = FlashlightOffReceiver.pendingIntent(this),
             group = NotificationChannels.GROUP_FLASHLIGHT
         )
-        startForeground(NOTIFICATION_ID, notification)
-        flashlight = Flashlight(this)
-        flashlight?.on()
-        return START_STICKY_COMPATIBILITY
     }
 
     override fun onDestroy() {
         flashlight?.off()
+        stopService(true)
         super.onDestroy()
-        stopForeground(true)
-        stopSelf()
+    }
+
+    override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
+        flashlight = Flashlight(this)
+        flashlight?.on()
+        return START_STICKY_COMPATIBILITY
     }
 
     companion object {

@@ -95,6 +95,11 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
         getReadings()
     }
 
+    override fun onDestroy() {
+        stopService(true)
+        super.onDestroy()
+    }
+
     companion object {
         const val TAG = "BacktrackHighPriorityService"
         const val FOREGROUND_CHANNEL_ID = "Backtrack"

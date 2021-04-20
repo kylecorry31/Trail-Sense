@@ -34,6 +34,7 @@ class SunsetAlarmService : CoroutineForegroundService() {
         get() = 730854820
 
     override suspend fun doWork() {
+        acquireWakelock(TAG, Duration.ofSeconds(30))
         Log.i(TAG, "Broadcast received at ${ZonedDateTime.now()}")
 
         withContext(Dispatchers.IO) {

@@ -1,22 +1,23 @@
 package com.kylecorry.trail_sense.tools.waterpurification.infrastructure
 
 import android.app.Notification
-import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.CountDownTimer
-import android.os.IBinder
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
+import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import kotlin.math.roundToInt
 
-class WaterPurificationTimerService : Service() {
+class WaterPurificationTimerService : ForegroundService() {
 
     private var timer: CountDownTimer? = null
     private var done = false
+
+    private var seconds = DEFAULT_SECONDS
 
     private val cancelAction by lazy {
         NotificationUtils.action(
@@ -27,28 +28,37 @@ class WaterPurificationTimerService : Service() {
     }
 
     private val openIntent by lazy {
-        NavigationUtils.pendingIntent(this@WaterPurificationTimerService, R.id.waterPurificationFragment)
+        NavigationUtils.pendingIntent(
+            this@WaterPurificationTimerService,
+            R.id.waterPurificationFragment
+        )
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val seconds = intent?.extras?.getLong(KEY_SECONDS, DEFAULT_SECONDS) ?: DEFAULT_SECONDS
-        startForeground(NOTIFICATION_ID, getNotification(seconds.toInt()))
-        startTimer(seconds)
-        return START_NOT_STICKY
+        seconds = intent?.extras?.getLong(KEY_SECONDS, DEFAULT_SECONDS) ?: DEFAULT_SECONDS
+        return super.onStartCommand(intent, flags, startId)
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         timer?.cancel()
         if (!done) {
             NotificationUtils.cancel(this, NOTIFICATION_ID)
         }
-        stopForeground(false)
-        stopSelf()
+        stopService(false)
+        super.onDestroy()
+
     }
 
-    override fun onBind(intent: Intent?): IBinder? {
-        return null
+    override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
+        startTimer(seconds)
+        return START_NOT_STICKY
+    }
+
+    override val foregroundNotificationId: Int
+        get() = NOTIFICATION_ID
+
+    override fun getForegroundNotification(): Notification {
+        return getNotification(seconds.toInt())
     }
 
 

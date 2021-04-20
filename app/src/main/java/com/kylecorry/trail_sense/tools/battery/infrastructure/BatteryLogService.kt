@@ -18,19 +18,23 @@ import java.time.Instant
 class BatteryLogService: CoroutineService() {
     override suspend fun doWork() {
         acquireWakelock("BatteryLogService", Duration.ofSeconds(30))
-        val battery = Battery(applicationContext)
-        val batteryRepo = BatteryRepo.getInstance(applicationContext)
-        withContext(Dispatchers.IO) {
-            battery.read()
+        try {
+            val battery = Battery(applicationContext)
+            val batteryRepo = BatteryRepo.getInstance(applicationContext)
+            withContext(Dispatchers.IO) {
+                battery.read()
+            }
+            val pct = battery.percent
+            val charging = battery.chargingStatus == BatteryChargingStatus.Charging
+            val time = Instant.now()
+            val capacity = battery.capacity
+            val reading = BatteryReadingEntity(pct, capacity, charging, time)
+            batteryRepo.add(reading)
+            batteryRepo.deleteBefore(Instant.now().minus(Duration.ofDays(1)))
+            BatteryLogWorker.scheduler(applicationContext).schedule(Duration.ofHours(1))
+        } finally {
+            stopSelf()
         }
-        val pct = battery.percent
-        val charging = battery.chargingStatus == BatteryChargingStatus.Charging
-        val time = Instant.now()
-        val capacity = battery.capacity
-        val reading = BatteryReadingEntity(pct, capacity, charging, time)
-        batteryRepo.add(reading)
-        batteryRepo.deleteBefore(Instant.now().minus(Duration.ofDays(1)))
-        BatteryLogWorker.scheduler(applicationContext).schedule(Duration.ofHours(1))
     }
 
     companion object {

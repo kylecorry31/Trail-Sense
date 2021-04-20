@@ -962,6 +962,7 @@
     <string name="backtrack_battery_warning">Small intervals (under 10 minutes) may cause excess battery drain</string>
     <string name="sunset_alert_location_update">Updating location for sunset alert</string>
     <string name="background_update">Background update</string>
+    <string name="calibrate_new_tide">Calibrate to a new tide?</string>
     <plurals name="import_beacons">
         <item quantity="one">Import %d beacon?</item>
         <item quantity="other">Import %d beacons?</item>
