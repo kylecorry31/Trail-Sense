@@ -75,6 +75,7 @@ class NavigatorFragment : Fragment() {
 
     private var shownAccuracyToast: Boolean = false
     private var sightingCompassOpen: Boolean = false
+    private var sigthingCompassOnOrientationUpdateRan: Boolean = true
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
     private val orientation by lazy { sensorService.getDeviceOrientation() }
@@ -653,6 +654,21 @@ class NavigatorFragment : Fragment() {
             if (userPrefs.experimentalEnabled && PermissionUtils.hasPermission(requireContext(), Manifest.permission.CAMERA)) {
                 binding.navigationOpenArCamera.visibility = View.VISIBLE
                 if (sightingCompassOpen) {
+                    if (!sigthingCompassOnOrientationUpdateRan) {
+                        cameraProviderFuture.addListener({
+                            val cameraProvider = cameraProviderFuture.get()
+                            bindPreview(cameraProvider)
+                        }, ContextCompat.getMainExecutor(requireContext()))
+                        if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+                            binding.navigationRightQuickAction.isClickable = false
+                        }
+                        if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+                            binding.navigationLeftQuickAction.isClickable = false
+                        }
+                        val handler = FlashlightHandler.getInstance(requireContext())
+                        handler.off()
+                        sigthingCompassOnOrientationUpdateRan = true
+                    }
                     binding.viewCamera.visibility = View.VISIBLE
                     binding.viewCameraLine.visibility = View.VISIBLE
                     binding.zoomRatioSeekbar.visibility = View.VISIBLE
@@ -666,6 +682,16 @@ class NavigatorFragment : Fragment() {
             binding.viewCamera.visibility = View.INVISIBLE
             binding.viewCameraLine.visibility = View.INVISIBLE
             binding.zoomRatioSeekbar.visibility = View.INVISIBLE
+            if (sightingCompassOpen) {
+                unbindPreview(cameraProviderFuture.get())
+                if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationRightQuickAction.isClickable = true
+                }
+                if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationLeftQuickAction.isClickable = true
+                }
+                sigthingCompassOnOrientationUpdateRan = false
+            }
             binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
             binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
         }
