@@ -69,7 +69,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.*
 import java.util.*
-import kotlin.math.roundToInt
 
 
 class NavigatorFragment : Fragment() {
@@ -151,7 +150,7 @@ class NavigatorFragment : Fragment() {
                 zoomRatio = 2.5f
                 cache.putFloat("camera_zoom_ratio", zoomRatio)
             }
-            binding.zoomRatioSeekbar.progress = ((zoomRatio-1)*2).roundToInt()
+            binding.zoomRatioSeekbar.progress = ((zoomRatio-1)*2).toInt()
         }
         return binding.root
     }
