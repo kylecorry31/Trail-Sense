@@ -16,7 +16,9 @@ import com.kylecorry.trail_sense.shared.hours
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
+import com.kylecorry.trail_sense.tools.battery.infrastructure.PowerService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
+import com.kylecorry.trailsensecore.domain.math.power
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingMethod
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingStatus
@@ -42,6 +44,8 @@ class FragmentToolBattery : Fragment() {
     private lateinit var servicesList: ListView<RunningService>
 
     private var readings = listOf<BatteryReadingEntity>()
+
+    private val powerService = PowerService()
 
     private val intervalometer = Intervalometer {
         update()
@@ -140,14 +144,16 @@ class FragmentToolBattery : Fragment() {
         val current = battery.current.absoluteValue * if (isCharging) 1 else -1
         val capacity = battery.capacity
         val pct = battery.percent.roundToInt()
-        val timeToEmpty = getTimeUntilEmpty()
+        val time = if (isCharging) getTimeUntilFull() else getTimeUntilEmpty()
 
         binding.batteryPercentage.text = formatService.formatPercentage(pct.toFloat())
         binding.batteryCapacity.text = formatService.formatElectricalCapacity(capacity)
         binding.batteryCapacity.isVisible = capacity != 0f
-        binding.batteryTime.isVisible = timeToEmpty != null
-        if (timeToEmpty != null){
-            binding.batteryTime.text = getString(R.string.time_until_empty, formatService.formatDuration(timeToEmpty))
+        binding.batteryTime.isVisible = time != null
+        if (time != null && !isCharging){
+            binding.batteryTime.text = getString(R.string.time_until_empty, formatService.formatDuration(time))
+        } else if (time != null && isCharging){
+            binding.batteryTime.text = getString(R.string.time_until_full, formatService.formatDuration(time))
         }
         binding.batteryHealth.text =
             getString(R.string.battery_health, getHealthString(battery.health))
@@ -185,44 +191,20 @@ class FragmentToolBattery : Fragment() {
     }
 
     private fun getTimeUntilEmpty(): Duration? {
-        val readings = this.readings
-        if (battery.chargingStatus == BatteryChargingStatus.Charging || readings.size < 2){
-            return null
-        }
+        val hasCapacity = battery.capacity != 0f
+        val capacity = if (hasCapacity) battery.capacity else battery.percent
+        val rates = powerService.getRates(readings, Duration.ofMinutes(5), hasCapacity)
+        val lastDischargeRate = rates.lastOrNull { it < 0f } ?: return null
+        return powerService.getTimeUntilEmpty(capacity, lastDischargeRate)
+    }
 
-        // Get battery percent history and calculate time to reach 0
-        val firstReading = getFirstBatteryReading()
-        val secondReading = readings.last()
-
-        if (firstReading == null || firstReading.id == secondReading.id){
-            return null
-        }
-
-        val duration = Duration.between(secondReading.time, firstReading.time).abs().seconds
-        if (duration == 0L){
-            return null
-        }
-
-        val hasCapacity = firstReading.capacity > 0f && secondReading.capacity > 0f
-
-        val time = if (!hasCapacity) {
-            val percentPerHour = (secondReading.percent - firstReading.percent) / (duration / 3600f)
-
-            if (percentPerHour >= 0f) {
-                return null
-            }
-
-            battery.percent / percentPerHour
-        } else {
-            val capacityPerHour = (secondReading.capacity - firstReading.capacity) / (duration / 3600f)
-
-            if (capacityPerHour >= 0f) {
-                return null
-            }
-
-            battery.capacity / capacityPerHour
-        }
-        return hours(time.absoluteValue)
+    private fun getTimeUntilFull(): Duration? {
+        val hasCapacity = battery.capacity != 0f
+        val capacity = if (hasCapacity) battery.capacity else battery.percent
+        val rates = powerService.getRates(readings, Duration.ofMinutes(5), hasCapacity)
+        val lastChargeRate = rates.lastOrNull { it > 0f } ?: return null
+        val maxCapacity = if (hasCapacity) powerService.getMaxCapacity(readings) ?: 100f else 100f
+        return powerService.getTimeUntilFull(capacity, maxCapacity, lastChargeRate)
     }
 
     private fun getFirstBatteryReading(): BatteryReadingEntity? {
