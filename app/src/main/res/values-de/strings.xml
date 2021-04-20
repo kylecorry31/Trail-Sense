@@ -808,4 +808,10 @@
         <item quantity="one">%d Wegpunkt importiert</item>
         <item quantity="other">%d Wegpunkte importiert</item>
     </plurals>
+    <string name="pref_weather_show_detailed_icon_title">Farbiges Benachrichtigungssymbol anzeigen</string>
+    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
+    <string name="actual_frequency_disclaimer">Die tatsächliche Frequenz kann stark variieren, da einige Geräte Hintergrundbeschränkungen haben.</string>
+    <string name="pref_backtrack_path_radar_summary">Auf dem Radarkompass und der Karte</string>
+    <string name="app_disclaimer_message_title">Haftungsausschluss / Nutzungsbedingungen</string>
+    <string name="disclaimer_message_title">Haftungsausschluss</string>
 </resources>
