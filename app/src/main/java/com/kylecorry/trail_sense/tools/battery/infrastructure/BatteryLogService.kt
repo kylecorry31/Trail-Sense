@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
@@ -16,7 +17,7 @@ import java.time.Instant
 
 class BatteryLogService: CoroutineService() {
     override suspend fun doWork() {
-        acquireWakelock("BatteryLogService", Duration.ofSeconds(10))
+        acquireWakelock("BatteryLogService", Duration.ofSeconds(30))
         val battery = Battery(applicationContext)
         val batteryRepo = BatteryRepo.getInstance(applicationContext)
         withContext(Dispatchers.IO) {
@@ -38,7 +39,12 @@ class BatteryLogService: CoroutineService() {
         }
 
         fun start(context: Context) {
-            IntentUtils.startService(context, intent(context), foreground = false)
+            try {
+                IntentUtils.startService(context, intent(context), foreground = false)
+            } catch (e: Exception){
+                Log.e("BatteryLogService", "Could not start the battery service")
+                e.printStackTrace()
+            }
         }
     }
 }
