@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.camera.core.CameraControl
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -73,6 +75,7 @@ class NavigatorFragment : Fragment() {
 
     private var shownAccuracyToast: Boolean = false
     private var sightingCompassOpen: Boolean = false
+    private var sigthingCompassOnOrientationUpdateRan: Boolean = true
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
     private val orientation by lazy { sensorService.getDeviceOrientation() }
@@ -88,6 +91,7 @@ class NavigatorFragment : Fragment() {
     private lateinit var destinationPanel: DestinationPanel
 
     private lateinit var cameraProviderFuture : ListenableFuture<ProcessCameraProvider>
+    private lateinit var cameraControl: CameraControl;
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
@@ -141,6 +145,12 @@ class NavigatorFragment : Fragment() {
         )
         if (userPrefs.experimentalEnabled) {
             cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+            var zoomRatio = cache.getFloat("camera_zoom_ratio")
+            if (zoomRatio == null) {
+                zoomRatio = 2.5f
+                cache.putFloat("camera_zoom_ratio", zoomRatio)
+            }
+            binding.zoomRatioSeekbar.progress = ((zoomRatio-1)*2).toInt()
         }
         return binding.root
     }
@@ -156,8 +166,13 @@ class NavigatorFragment : Fragment() {
         preview.setSurfaceProvider(binding.viewCamera.surfaceProvider)
 
         var camera = cameraProvider.bindToLifecycle(this as LifecycleOwner, cameraSelector, preview)
-        val cameraControl = camera.getCameraControl()
-        cameraControl.setZoomRatio(2.toFloat())
+        cameraControl = camera.getCameraControl()
+        var zoomRatio = cache.getFloat("camera_zoom_ratio")
+        if (zoomRatio == null) {
+            zoomRatio = 2.5f
+            cache.putFloat("camera_zoom_ratio", zoomRatio)
+        }
+        cameraControl.setZoomRatio(zoomRatio)
     }
 
     fun unbindPreview(cameraProvider : ProcessCameraProvider) {
@@ -234,6 +249,7 @@ class NavigatorFragment : Fragment() {
             if (binding.viewCamera.isVisible) {
                 binding.viewCameraLine.isVisible = false
                 binding.viewCamera.isVisible = false
+                binding.zoomRatioSeekbar.isVisible = false
                 if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
                     binding.navigationRightQuickAction.isClickable = true
                 }
@@ -250,6 +266,7 @@ class NavigatorFragment : Fragment() {
                 }, ContextCompat.getMainExecutor(requireContext()))
                 binding.viewCameraLine.isVisible = true
                 binding.viewCamera.isVisible = true
+                binding.zoomRatioSeekbar.isVisible = true
                 if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
                     binding.navigationRightQuickAction.isClickable = false
                 }
@@ -269,6 +286,17 @@ class NavigatorFragment : Fragment() {
         binding.viewCameraLine.setOnClickListener {
             toggleDestinationBearing()
         }
+
+        binding.zoomRatioSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                cameraControl.setZoomRatio(progress/2f+1)
+                cache.putFloat("camera_zoom_ratio", progress/2f+1)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
 
         binding.beaconBtn.setOnClickListener {
             if (destination == null) {
@@ -638,8 +666,24 @@ class NavigatorFragment : Fragment() {
             if (userPrefs.experimentalEnabled && PermissionUtils.hasPermission(requireContext(), Manifest.permission.CAMERA)) {
                 binding.navigationOpenArCamera.visibility = View.VISIBLE
                 if (sightingCompassOpen) {
+                    if (!sigthingCompassOnOrientationUpdateRan) {
+                        cameraProviderFuture.addListener({
+                            val cameraProvider = cameraProviderFuture.get()
+                            bindPreview(cameraProvider)
+                        }, ContextCompat.getMainExecutor(requireContext()))
+                        if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+                            binding.navigationRightQuickAction.isClickable = false
+                        }
+                        if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+                            binding.navigationLeftQuickAction.isClickable = false
+                        }
+                        val handler = FlashlightHandler.getInstance(requireContext())
+                        handler.off()
+                        sigthingCompassOnOrientationUpdateRan = true
+                    }
                     binding.viewCamera.visibility = View.VISIBLE
                     binding.viewCameraLine.visibility = View.VISIBLE
+                    binding.zoomRatioSeekbar.visibility = View.VISIBLE
                 }
             }
             binding.roundCompass.visibility = View.INVISIBLE
@@ -649,6 +693,17 @@ class NavigatorFragment : Fragment() {
             binding.navigationOpenArCamera.visibility = View.INVISIBLE
             binding.viewCamera.visibility = View.INVISIBLE
             binding.viewCameraLine.visibility = View.INVISIBLE
+            binding.zoomRatioSeekbar.visibility = View.INVISIBLE
+            if (sightingCompassOpen) {
+                unbindPreview(cameraProviderFuture.get())
+                if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationRightQuickAction.isClickable = true
+                }
+                if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+                    binding.navigationLeftQuickAction.isClickable = true
+                }
+                sigthingCompassOnOrientationUpdateRan = false
+            }
             binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
             binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
         }
