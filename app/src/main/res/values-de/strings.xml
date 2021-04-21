@@ -814,4 +814,17 @@
     <string name="pref_backtrack_path_radar_summary">Auf dem Radarkompass und der Karte</string>
     <string name="app_disclaimer_message_title">Haftungsausschluss / Nutzungsbedingungen</string>
     <string name="disclaimer_message_title">Haftungsausschluss</string>
+    <string name="solid">Fest</string>
+    <string name="calibrate_new_tide">Für eine neue Gezeit kalibrieren\?</string>
+    <string name="background_update">Hintergrundaktualisierungen</string>
+    <string name="sunset_alert_location_update">Aktualisiere Standort für Sonnenuntergangsalarme</string>
+    <string name="backtrack_battery_warning">Kleine Intervalle (unter 10 Minuten) könnten hohe Batterieentladung verursachen</string>
+    <string name="battery_warning">Batterieentladungswarnung</string>
+    <string name="backtrack_high_priority_notification">Platziere einen Wegpunkt alle %s</string>
+    <string name="updates">Aktualisierungen</string>
+    <string name="pref_backtrack_path_color_title">Pfadfarbe für Backtrack</string>
+    <string name="pref_backtrack_path_style_title">Pfadstil für Rückweg</string>
+    <string name="dotted">Gepunktet</string>
+    <string name="time_until_full">%s bis voll</string>
+    <string name="theme_sunset_sunrise">Sonnenaufgang/Sonnenuntergang</string>
 </resources>
