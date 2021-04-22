@@ -4,6 +4,27 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
+        android:title="@string/pref_general_header">
+        <ListPreference
+            app:defaultValue="2"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_quick_action_left"
+            app:singleLineTitle="false"
+            app:title="@string/left_quick_action"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="3"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_quick_action_right"
+            app:singleLineTitle="false"
+            app:title="@string/right_quick_action"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
         app:title="@string/forecasts_category">
 
         <SwitchPreferenceCompat
@@ -80,16 +101,20 @@
         app:singleLineTitle="false"
         app:title="@string/advanced_settings_category">
 
-        <ListPreference
-            app:defaultValue="15"
+        <Preference
             app:dependency="@string/pref_monitor_weather"
-            app:entries="@array/weather_update_frequency_entries"
-            app:entryValues="@array/weather_update_frequency_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_weather_update_frequency"
             app:singleLineTitle="false"
-            app:title="@string/pref_weather_update_frequency_title"
-            app:useSimpleSummaryProvider="true" />
+            app:title="@string/pref_weather_update_frequency_title" />
+
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_monitor_weather"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_show_detailed_icon"
+            app:singleLineTitle="false"
+            app:title="@string/pref_weather_show_detailed_icon_title"/>
 
     </PreferenceCategory>
 

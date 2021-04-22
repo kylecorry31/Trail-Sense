@@ -1,9 +1,8 @@
 package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
-import android.app.Service
+import android.app.Notification
 import android.content.Context
 import android.content.Intent
-import android.os.IBinder
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
@@ -12,23 +11,22 @@ import com.kylecorry.trailsensecore.domain.morse.Signal
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.flashlight.IFlashlight
 import com.kylecorry.trailsensecore.infrastructure.morse.SignalPlayer
+import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import java.lang.Exception
 import java.time.Duration
 
-class SosService : Service() {
+class SosService : ForegroundService() {
 
     private var flashlight: IFlashlight? = null
     private var running = false
     private val signalPlayer by lazy { if (flashlight == null) null else SignalPlayer(flashlight!!) }
     private val morseService = MorseService()
+    override val foregroundNotificationId: Int
+        get() = NOTIFICATION_ID
 
-    override fun onBind(intent: Intent?): IBinder? {
-        return null
-    }
-
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val notification = NotificationUtils.persistent(
+    override fun getForegroundNotification(): Notification {
+        return NotificationUtils.persistent(
             this,
             CHANNEL_ID,
             getString(R.string.sos),
@@ -37,9 +35,17 @@ class SosService : Service() {
             intent = FlashlightOffReceiver.pendingIntent(this),
             group = NotificationChannels.GROUP_FLASHLIGHT
         )
+    }
 
-        startForeground(NOTIFICATION_ID, notification)
+    override fun onDestroy() {
+        running = false
+        signalPlayer?.cancel()
+        flashlight?.off()
+        stopService(true)
+        super.onDestroy()
+    }
 
+    override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
         flashlight = Flashlight(this)
         running = true
         val sos = morseService.sosSignal(Duration.ofMillis(200)) + listOf(
@@ -47,15 +53,6 @@ class SosService : Service() {
         )
         signalPlayer?.play(sos, true)
         return START_STICKY_COMPATIBILITY
-    }
-
-    override fun onDestroy() {
-        running = false
-        signalPlayer?.cancel()
-        flashlight?.off()
-        super.onDestroy()
-        stopForeground(true)
-        stopSelf()
     }
 
     companion object {

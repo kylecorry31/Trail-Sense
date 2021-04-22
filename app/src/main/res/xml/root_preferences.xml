@@ -86,7 +86,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/pref_category_tabs">
+        app:title="@string/tools">
 
         <Preference
             app:iconSpaceReserved="false"

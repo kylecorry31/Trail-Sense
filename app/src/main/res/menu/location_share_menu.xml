@@ -8,5 +8,5 @@
         android:title="@string/share_action_send" />
     <item
         android:id="@+id/action_maps"
-        android:title="@string/share_action_geo" />
+        android:title="@string/maps" />
 </menu>

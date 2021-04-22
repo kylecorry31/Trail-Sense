@@ -18,7 +18,10 @@
     <string name="dialog_deny">No thanks</string>
     <!--Disclaimer-->
     <string name="disclaimer_message_title">Disclaimer</string>
-    <string name="disclaimer_message_content">Trail Sense is a tool that can be used in a survival situation, but you should not rely solely upon it. This app is intended for informational purposes only and it\'s accuracy may vary based on your device and current environmental conditions. Please validate its accuracy, avoid dangerous situations when possible, stay calm, and use common sense.</string>
+    <string name="app_disclaimer_message_title">Disclaimer / Terms of Service</string>
+
+<!--    This is a legal statement, not to be translated-->
+    <string name="disclaimer_message_content" translatable="false">Trail Sense is for informational purposes only and the developers make no warranties concerning the accuracy of the information provided by the app, which may further be limited by the quality of your device\'s sensors and the current environmental conditions.\n\nBy using this app, you understand that the developers of Trail Sense cannot and do not assume responsibility for any personal injury, death, property damage, and other dangers associated with activities where you would use Trail Sense.\n\nThe developers of Trail Sense are not responsible for how you use the data provided, and what you do with it is done at your own risk. While it can be used in survival situations, you should not rely upon it, always have backup plans and gear, and use common sense. And definitely avoid using Trail Sense (and your phone in general) while driving or riding a bike.</string>
     <!--Navigation Tab - Unit Formats-->
     <string name="precise_feet_format">%s ft</string>
     <string name="precise_miles_format">%s mi</string>
@@ -88,7 +91,7 @@
     <!--Navigation Tab - Beacon List - Sharesheet-->
     <string name="share_action_send">Send</string>
     <string name="share_action_copy">Copy</string>
-    <string name="share_action_geo">Maps</string>
+    <string name="maps">Maps</string>
     <!--Navigation Tab - Create beacon-->
     <string name="create_beacon_title">Create Beacon</string>
     <string name="name_hint">Name</string>
@@ -223,6 +226,7 @@
     <string name="theme_dark">Dark</string>
     <string name="theme_black">Black</string>
     <string name="theme_system">System</string>
+    <string name="theme_sunset_sunrise">Sunrise/sunset</string>
     <string name="experimental_tools_title">Experimental features</string>
     <string name="coordinate_format_decimal_degrees">Decimal Degrees</string>
     <!--A coordinate format as such:  X° X.XXX' N-->
@@ -424,7 +428,6 @@
     <string name="pref_altitude_offsets" translatable="false">pref_altitude_offsets</string>
     <string name="pref_fine_tune_altitude" translatable="false">pref_fine_tune_altitude</string>
     <string name="pref_altitude_override" translatable="false">pref_altitude_override</string>
-    <string name="pref_altitude_override_feet" translatable="false">pref_altitude_override_feet</string>
     <string name="pref_altitude_from_gps_btn" translatable="false">pref_altitude_from_gps_btn</string>
     <string name="pref_altitude_override_sea_level" translatable="false">pref_altitude_override_sea_level</string>
     <string name="pref_altimeter_calibration" translatable="false">pref_altimeter_calibration</string>
@@ -759,8 +762,6 @@
     <string name="cumulus_desc">Looks like puffy cotton balls.</string>
     <string name="cumulonimbus_desc">Dark gray, tall and anvil shape.</string>
     <string name="cirrus_desc">High and feathery.</string>
-    <string name="health">Health</string>
-    <string name="tool_health_sense" translatable="false">tool_health_sense</string>
     <string name="tool_clouds" translatable="false">tool_clouds</string>
     <!--This is in Markdown format-->
     <string name="onboarding_navigation">- Place beacons and navigate back to them\n\n- Get your current location, altitude, and speed\n\n- Retrace your steps with Backtrack (runs in the background when enabled)</string>
@@ -928,9 +929,11 @@
     <string name="guide_speedometer_title">Determine speed and distance</string>
     <string name="guide_speedometer_desc">How to determine distance travelled and arrival times</string>
     <string name="time_until_empty">%s until empty</string>
+    <string name="time_until_full">%s until full</string>
     <string name="map_auto_calibrated">Map auto-calibrated, please verify its accuracy</string>
     <string name="pref_backtrack_path_radar" translatable="false">pref_backtrack_path_radar</string>
     <string name="pref_backtrack_path_radar_title">Show backtrack path</string>
+    <string name="pref_backtrack_path_radar_summary">On the radar compass and maps</string>
     <string name="pref_backtrack_interval" translatable="false">pref_backtrack_interval</string>
     <string name="minute_symbol">m</string>
     <string name="hour_symbol">h</string>
@@ -941,6 +944,26 @@
     <string name="pref_odometer_reset_daily_title">Reset daily</string>
     <string name="pref_odometer_reset_daily" translatable="false">pref_odometer_reset_daily</string>
     <string name="search">Search</string>
+    <string name="pref_weather_quick_action_left" translatable="false">pref_weather_quick_action_left</string>
+    <string name="pref_weather_quick_action_right" translatable="false">pref_weather_quick_action_right</string>
+    <string name="pref_astronomy_quick_action_left" translatable="false">pref_astronomy_quick_action_left</string>
+    <string name="pref_astronomy_quick_action_right" translatable="false">pref_astronomy_quick_action_right</string>
+    <string name="actual_frequency_disclaimer">The actual frequency may vary as some devices have background limits in place.</string>
+    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
+    <string name="pref_weather_show_detailed_icon_title">Show colored notification icon</string>
+    <string name="pref_backtrack_path_color" translatable="false">pref_backtrack_path_color</string>
+    <string name="pref_backtrack_path_style" translatable="false">pref_backtrack_path_dotted</string>
+    <string name="solid">Solid</string>
+    <string name="dotted">Dotted</string>
+    <string name="pref_backtrack_path_style_title">Backtrack path style</string>
+    <string name="pref_backtrack_path_color_title">Backtrack path color</string>
+    <string name="updates">Updates</string>
+    <string name="backtrack_high_priority_notification">Placing a waypoint every %s</string>
+    <string name="battery_warning">Battery drain warning</string>
+    <string name="backtrack_battery_warning">Small intervals (under 10 minutes) may cause excess battery drain</string>
+    <string name="sunset_alert_location_update">Updating location for sunset alert</string>
+    <string name="background_update">Background update</string>
+    <string name="calibrate_new_tide">Calibrate to a new tide?</string>
     <plurals name="import_beacons">
         <item quantity="one">Import %d beacon?</item>
         <item quantity="other">Import %d beacons?</item>

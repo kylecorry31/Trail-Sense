@@ -10,7 +10,6 @@
     <string name="direction_east">מז</string>
     <string name="direction_south">ד</string>
     <string name="direction_north">צ</string>
-    <string name="disclaimer_message_title">התראה</string>
     <string name="dialog_deny">לא תודה</string>
     <string name="dialog_grant">הגדרות עדכון</string>
     <string name="access_background_location">עדכן הגדרות מיקום</string>

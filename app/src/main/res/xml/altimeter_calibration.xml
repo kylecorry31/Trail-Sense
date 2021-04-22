@@ -23,21 +23,11 @@
             app:title="@string/pref_altimeter_calibration_mode_title"
             app:useSimpleSummaryProvider="true" />
 
-        <EditTextPreference
-            android:defaultValue="0.0"
-            android:inputType="numberDecimal"
+        <Preference
             app:iconSpaceReserved="false"
+            android:title="@string/pref_altitude_override_title"
             app:key="@string/pref_altitude_override"
-            app:singleLineTitle="false"
-            app:title="@string/pref_altitude_override_title" />
-
-        <EditTextPreference
-            android:defaultValue="0.0"
-            android:inputType="numberDecimal"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_altitude_override_feet"
-            app:singleLineTitle="false"
-            app:title="@string/pref_altitude_override_title" />
+            app:singleLineTitle="false" />
 
         <Preference
             android:title="@string/altitude_from_gps"

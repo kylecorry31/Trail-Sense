@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.navigation.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
@@ -63,10 +64,23 @@ class NavigationPreferences(private val context: Context) {
         get() = showMultipleBeacons && (cache.getBoolean(context.getString(R.string.pref_nearby_radar)) ?: false)
 
     val showBacktrackPath: Boolean
-        get() = useRadarCompass && (cache.getBoolean(context.getString(R.string.pref_backtrack_path_radar)) ?: true)
+        get() = cache.getBoolean(context.getString(R.string.pref_backtrack_path_radar)) ?: true
+
+    var backtrackPathColor: AppColor
+        get(){
+            val id = cache.getInt(context.getString(R.string.pref_backtrack_path_color))
+            return AppColor.values().firstOrNull { it.id == id } ?: AppColor.Blue
+        }
+        set(value) {
+            cache.putInt(context.getString(R.string.pref_backtrack_path_color), value.id)
+        }
+
+    // TODO: get line style instead of boolean
+    val backtrackPathIsDotted: Boolean
+        get() = cache.getString(context.getString(R.string.pref_backtrack_path_style)) != "solid"
 
     val showBacktrackPathDuration: Duration
-        get() = Duration.ofHours(2)
+        get() = Duration.ofHours(3)
 
     var maxBeaconDistance: Float
         get() {

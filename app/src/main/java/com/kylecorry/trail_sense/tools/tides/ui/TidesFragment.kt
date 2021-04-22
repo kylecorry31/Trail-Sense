@@ -72,7 +72,11 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             val lastTide = prefs.lastTide
             referenceTide = it.firstOrNull { tide -> tide.id == lastTide } ?: it.firstOrNull()
             if (referenceTide == null) {
-                findNavController().navigate(R.id.action_tides_to_tideList)
+                UiUtils.alertWithCancel(requireContext(), getString(R.string.no_tides), getString(R.string.calibrate_new_tide), getString(R.string.dialog_ok), getString(R.string.dialog_cancel)){cancelled ->
+                    if (!cancelled){
+                        findNavController().navigate(R.id.action_tides_to_tideList)
+                    }
+                }
             }
             update()
         })

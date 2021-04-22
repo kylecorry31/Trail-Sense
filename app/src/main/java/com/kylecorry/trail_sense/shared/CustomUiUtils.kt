@@ -11,10 +11,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.BeaconSelectView
+import com.kylecorry.trail_sense.shared.views.ColorPickerView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.shared.views.DurationInputView
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
@@ -123,15 +125,50 @@ object CustomUiUtils {
         }
     }
 
+    fun pickColor(
+        context: Context,
+        default: AppColor? = null,
+        title: String,
+        onColorPick: (color: AppColor?) -> Unit
+    ) {
+        val view = View.inflate(context, R.layout.view_color_picker_prompt, null)
+        val colorPicker = view.findViewById<ColorPickerView>(R.id.prompt_color_picker)
+        var color = default
+        colorPicker?.setOnColorChangeListener {
+            color = it
+        }
+        colorPicker?.color = color
+
+        UiUtils.alertViewWithCancel(
+            context,
+            title,
+            view,
+            context.getString(R.string.dialog_ok),
+            context.getString(R.string.dialog_cancel)
+        ) { cancelled ->
+            if (cancelled) {
+                onColorPick.invoke(null)
+            } else {
+                onColorPick.invoke(color)
+            }
+        }
+    }
+
     fun pickDuration(
         context: Context,
         default: Duration? = null,
         title: String,
+        message: String? = null,
         onDurationPick: (duration: Duration?) -> Unit
     ) {
         val view = View.inflate(context, R.layout.view_duration_entry_prompt, null)
         var duration: Duration? = default
+        val durationMessage = view.findViewById<TextView>(R.id.prompt_duration_message)
         val durationInput = view.findViewById<DurationInputView>(R.id.prompt_duration)
+
+        durationMessage.isVisible = !message.isNullOrBlank()
+        durationMessage.text = message
+
         durationInput?.setOnDurationChangeListener {
             duration = it
         }

@@ -2,7 +2,9 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
+import com.kylecorry.trailsensecore.domain.math.toIntCompat
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -23,11 +25,14 @@ class WeatherPreferences(private val context: Context) {
         get() = sensorChecker.hasBarometer() && (cache.getBoolean(context.getString(R.string.pref_monitor_weather))
             ?: true)
 
-    val weatherUpdateFrequency: Duration
+    var weatherUpdateFrequency: Duration
         get() {
             val raw =
                 cache.getString(context.getString(R.string.pref_weather_update_frequency)) ?: "15"
             return Duration.ofMinutes(raw.toLongOrNull() ?: 15)
+        }
+        set(value) {
+            cache.putString(context.getString(R.string.pref_weather_update_frequency), value.toMinutes().toString())
         }
 
     val shouldShowDailyWeatherNotification: Boolean
@@ -234,5 +239,20 @@ class WeatherPreferences(private val context: Context) {
         set(value) {
             cache.putString(context.getString(R.string.pref_daily_weather_time), value.toString())
         }
+
+    val leftQuickAction: QuickActionType
+        get(){
+            val id = cache.getString(context.getString(R.string.pref_weather_quick_action_left))?.toIntCompat()
+            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Clouds
+        }
+
+    val rightQuickAction: QuickActionType
+        get(){
+            val id = cache.getString(context.getString(R.string.pref_weather_quick_action_right))?.toIntCompat()
+            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Temperature
+        }
+
+    val showColoredNotificationIcon: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon)) ?: true
 
 }

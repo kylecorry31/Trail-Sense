@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.tools.backtrack.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackAlwaysOnService
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackService
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.tasks.ITaskScheduler
 import java.time.Duration
 
@@ -13,13 +13,18 @@ object BacktrackScheduler {
         if (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack){
             return
         }
-        val scheduler = getScheduler(context)
-        scheduler.schedule(Duration.ZERO)
+        if (prefs.backtrackRecordFrequency >= Duration.ofMinutes(10)) {
+            val scheduler = getScheduler(context)
+            scheduler.schedule(Duration.ZERO)
+        } else {
+            BacktrackAlwaysOnService.start(context)
+        }
     }
 
     fun stop(context: Context) {
         val scheduler = getScheduler(context)
         scheduler.cancel()
+        context.stopService(BacktrackAlwaysOnService.intent(context))
         context.stopService(BacktrackService.intent(context))
     }
 

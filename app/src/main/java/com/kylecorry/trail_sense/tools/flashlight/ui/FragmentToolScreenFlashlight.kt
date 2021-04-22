@@ -1,16 +1,19 @@
 package com.kylecorry.trail_sense.tools.flashlight.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.ScreenFlashlight
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
 class FragmentToolScreenFlashlight: BoundFragment<FragmentToolScreenFlashlightBinding>() {
 
     private val flashlight by lazy { ScreenFlashlight(requireActivity().window) }
+    private val cache by lazy { Cache(requireContext()) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -24,6 +27,32 @@ class FragmentToolScreenFlashlight: BoundFragment<FragmentToolScreenFlashlightBi
         binding.offBtn.setOnClickListener {
             flashlight.off()
             requireActivity().onBackPressed()
+        }
+
+        if (cache.getBoolean("cache_red_light") == null) {
+            cache.putBoolean("cache_red_light", false)
+        }
+
+        if (cache.getBoolean("cache_red_light") == true) {
+            binding.screenFlashlight.setBackgroundColor(Color.RED)
+            binding.redWhiteSwitcher.setBackgroundColor(Color.WHITE)
+        }
+        else {
+            binding.screenFlashlight.setBackgroundColor(Color.WHITE)
+            binding.redWhiteSwitcher.setBackgroundColor(Color.RED)
+        }
+
+        binding.redWhiteSwitcher.setOnClickListener {
+            if (cache.getBoolean("cache_red_light") == true) {
+                binding.screenFlashlight.setBackgroundColor(Color.WHITE)
+                binding.redWhiteSwitcher.setBackgroundColor(Color.RED)
+                cache.putBoolean("cache_red_light", false)
+            }
+            else {
+                binding.screenFlashlight.setBackgroundColor(Color.RED)
+                binding.redWhiteSwitcher.setBackgroundColor(Color.WHITE)
+                cache.putBoolean("cache_red_light", true)
+            }
         }
     }
 

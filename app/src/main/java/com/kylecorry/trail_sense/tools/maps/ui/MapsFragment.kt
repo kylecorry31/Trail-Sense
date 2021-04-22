@@ -13,35 +13,44 @@ import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
-import com.kylecorry.trailsensecore.domain.geo.cartography.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
+import com.kylecorry.trailsensecore.domain.geo.Path
+import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.Position
 import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.trailsensecore.domain.geo.cartography.Map
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Instant
 
 class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
+    private val altimeter by lazy { sensorService.getAltimeter() }
     private val compass by lazy { sensorService.getCompass() }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
+    private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
     private val geoService by lazy { GeoService() }
     private val cache by lazy { Cache(requireContext()) }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var mapId = 0L
     private var map: Map? = null
@@ -53,6 +62,10 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private var calibrationPoint2: Coordinate? = null
     private var calibrationIndex = 0
     private var isCalibrating = false
+
+    private var backtrack: Path? = null
+
+    private val throttle = Throttle(20)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,13 +81,38 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        gps.asLiveData().observe(viewLifecycleOwner, { binding.map.setMyLocation(gps.location) })
+        gps.asLiveData().observe(viewLifecycleOwner, {
+            binding.map.setMyLocation(gps.location)
+            displayPaths()
+            updateDestination()
+        })
+        altimeter.asLiveData().observe(viewLifecycleOwner, { updateDestination() })
         compass.asLiveData().observe(viewLifecycleOwner, {
             compass.declination = geoService.getDeclination(gps.location, gps.altitude)
             binding.map.setAzimuth(compass.bearing)
+            updateDestination()
         })
         beaconRepo.getBeacons()
-            .observe(viewLifecycleOwner, { binding.map.setBeacons(it.map { it.toBeacon() }.filter { it.visible }) })
+            .observe(
+                viewLifecycleOwner,
+                { binding.map.setBeacons(it.map { it.toBeacon() }.filter { it.visible }) })
+
+        if (prefs.navigation.showBacktrackPath) {
+            backtrackRepo.getWaypoints()
+                .observe(viewLifecycleOwner, { waypoints ->
+                    val sortedWaypoints = waypoints
+                        .sortedByDescending { it.createdInstant }
+
+                    backtrack = Path(
+                        WaypointRepo.BACKTRACK_PATH_ID,
+                        getString(R.string.tool_backtrack_title),
+                        sortedWaypoints.map { it.toPathPoint() },
+                        UiUtils.color(requireContext(), prefs.navigation.backtrackPathColor.color),
+                        prefs.navigation.backtrackPathIsDotted
+                    )
+                    displayPaths()
+                })
+        }
 
 
         lifecycleScope.launch {
@@ -91,6 +129,9 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         binding.calibrationNext.setOnClickListener {
             if (calibrationIndex == 1) {
                 isCalibrating = false
+                if (destination != null) {
+                    navigateTo(destination!!)
+                }
                 binding.mapCalibrationBottomPanel.isVisible = false
                 binding.map.hideCalibrationPoints()
                 lifecycleScope.launch {
@@ -203,22 +244,75 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         }
 
         binding.map.onSelectBeacon = {
-            cache.putLong(NavigatorFragment.LAST_BEACON_ID, it.id)
-            destination = it
-            binding.map.setDestination(it)
+            navigateTo(it)
+        }
+
+        binding.cancelNavigationBtn.setOnClickListener {
+            cancelNavigation()
         }
 
         val dest = cache.getLong(NavigatorFragment.LAST_BEACON_ID)
         if (dest != null) {
             lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    destination = beaconRepo.getBeacon(dest)?.toBeacon()
+                val beacon = withContext(Dispatchers.IO) {
+                    beaconRepo.getBeacon(dest)?.toBeacon()
                 }
-                withContext(Dispatchers.Main) {
-                    binding.map.setDestination(destination)
+                if (beacon != null) {
+                    withContext(Dispatchers.Main) {
+                        navigateTo(beacon)
+                    }
                 }
             }
         }
+    }
+
+    private fun displayPaths() {
+        val myLocation = PathPoint(
+            0,
+            WaypointRepo.BACKTRACK_PATH_ID,
+            gps.location,
+            time = Instant.now()
+        )
+
+        val backtrackPath = backtrack?.copy(points = listOf(myLocation) + backtrack!!.points)
+
+        binding.map.setPaths(listOfNotNull(backtrackPath))
+    }
+
+    private fun updateDestination() {
+        if (throttle.isThrottled() || isCalibrating) {
+            return
+        }
+
+        val beacon = destination ?: return
+        binding.navigationSheet.show(
+            Position(gps.location, altimeter.altitude, compass.bearing, gps.speed.speed),
+            beacon,
+            compass.declination,
+            true
+        )
+    }
+
+    private fun navigateTo(beacon: Beacon) {
+        cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
+        destination = beacon
+        if (!isCalibrating) {
+            binding.map.setDestination(beacon)
+            binding.cancelNavigationBtn.show()
+            updateDestination()
+        }
+    }
+
+    private fun hideNavigation() {
+        binding.map.setDestination(null)
+        binding.cancelNavigationBtn.hide()
+        binding.navigationSheet.hide()
+    }
+
+    private fun cancelNavigation() {
+        cache.remove(NavigatorFragment.LAST_BEACON_ID)
+        destination = null
+        hideNavigation()
     }
 
     private fun onMapLoad(map: Map) {
@@ -257,6 +351,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private fun calibrateMap() {
         map ?: return
         isCalibrating = true
+        hideNavigation()
         loadCalibrationPointsFromMap()
 
         calibrationIndex = if (calibrationPoint1 == null || calibrationPoint1Percent == null) {

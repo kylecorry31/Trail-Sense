@@ -8,13 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.QuickActionButton
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.formatHM
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.views.QuickActionNone
+import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
+import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
+import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
+import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
+import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
@@ -65,12 +69,16 @@ class BarometerFragment : Fragment() {
     private var valueSelectedTime = 0L
 
     private var leftQuickAction: QuickActionButton? = null
+    private var rightQuickAction: QuickActionButton? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        leftQuickAction = QuickActionClouds(binding.weatherLeftQuickAction, this)
+        leftQuickAction = getQuickActionButton(prefs.weather.leftQuickAction, binding.weatherLeftQuickAction)
         leftQuickAction?.onCreate()
+
+        rightQuickAction = getQuickActionButton(prefs.weather.rightQuickAction, binding.weatherRightQuickAction)
+        rightQuickAction?.onCreate()
 
         navController = findNavController()
 
@@ -104,10 +112,6 @@ class BarometerFragment : Fragment() {
 
             }
         )
-
-        binding.temperatureBtn.setOnClickListener {
-            navController.navigate(R.id.action_action_weather_to_thermometerFragment)
-        }
 
         binding.pressure.setOnLongClickListener {
             pressureSetpoint = if (pressureSetpoint == null) {
@@ -155,12 +159,14 @@ class BarometerFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         leftQuickAction?.onDestroy()
+        rightQuickAction?.onDestroy()
         _binding = null
     }
 
     override fun onResume() {
         super.onResume()
         leftQuickAction?.onResume()
+        rightQuickAction?.onResume()
 
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
         altitude = altimeter.altitude
@@ -186,6 +192,7 @@ class BarometerFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         leftQuickAction?.onPause()
+        rightQuickAction?.onPause()
     }
 
 
@@ -426,6 +433,19 @@ class BarometerFragment : Fragment() {
             Weather.ImprovingFast, Weather.ImprovingSlow -> getString(R.string.forecast_improving)
             Weather.WorseningSlow, Weather.WorseningFast, Weather.Storm -> getString(R.string.forecast_worsening)
             else -> ""
+        }
+    }
+
+    private fun getQuickActionButton(
+        type: QuickActionType,
+        button: FloatingActionButton
+    ): QuickActionButton {
+        return when (type) {
+            QuickActionType.Whistle -> QuickActionWhistle(button, this)
+            QuickActionType.Flashlight -> QuickActionFlashlight(button, this)
+            QuickActionType.Clouds -> QuickActionClouds(button, this)
+            QuickActionType.Temperature -> QuickActionThermometer(button, this)
+            else -> QuickActionNone(button, this)
         }
     }
 

@@ -17,8 +17,6 @@
         <attr name="hint" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="BearingInputView"></declare-styleable>
-
     <declare-styleable name="StatusBadgeView">
         <attr name="icon" format="reference" />
         <attr name="foregroundTint" format="color" />
@@ -39,6 +37,10 @@
 
     <declare-styleable name="FloatingActionButtonMenu">
         <attr name="menu" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="ColorButton">
+        <attr name="buttonColor" format="color"/>
     </declare-styleable>
 
 </resources>

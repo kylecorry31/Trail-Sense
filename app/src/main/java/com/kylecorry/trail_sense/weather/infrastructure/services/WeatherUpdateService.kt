@@ -8,6 +8,7 @@ import android.util.Log
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.CanSendDailyForecast
@@ -150,7 +151,8 @@ class WeatherUpdateService: CoroutineForegroundService() {
                     getString(R.string.notification_storm_alert_title),
                     getString(R.string.notification_storm_alert_text),
                     R.drawable.ic_alert,
-                    group = NotificationChannels.GROUP_STORM
+                    group = NotificationChannels.GROUP_STORM,
+                    intent = NavigationUtils.pendingIntent(this, R.id.action_weather)
                 )
                 NotificationUtils.send(this, STORM_ALERT_NOTIFICATION_ID, notification)
                 cache.putBoolean(getString(R.string.pref_just_sent_alert), true)
@@ -185,9 +187,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
             else -> getString(if (prefs.weather.dailyWeatherIsForTomorrow) R.string.weather_same_as_today else R.string.weather_same_as_yesterday)
         }
 
-        val openIntent = MainActivity.weatherIntent(this)
-        val openPendingIntent: PendingIntent =
-            PendingIntent.getActivity(this, 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val openIntent = NavigationUtils.pendingIntent(this, R.id.action_weather)
 
         val notification = NotificationUtils.status(
             this,
@@ -195,9 +195,9 @@ class WeatherUpdateService: CoroutineForegroundService() {
             getString(if (prefs.weather.dailyWeatherIsForTomorrow) R.string.tomorrows_forecast else R.string.todays_forecast),
             description,
             icon,
-            showBigIcon = true,
+            showBigIcon = prefs.weather.showColoredNotificationIcon,
             group = NotificationChannels.GROUP_DAILY_WEATHER,
-            intent = openPendingIntent
+            intent = openIntent
         )
 
         NotificationUtils.send(this, DAILY_NOTIFICATION_ID, notification)
@@ -212,7 +212,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
     override fun getForegroundNotification(): Notification {
         return NotificationUtils.background(
             this,
-            FOREGROUND_CHANNEL_ID,
+            NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
             getString(R.string.weather_update_notification_channel),
             getString(R.string.notification_monitoring_weather),
             R.drawable.ic_update
@@ -226,7 +226,6 @@ class WeatherUpdateService: CoroutineForegroundService() {
         private const val DAILY_NOTIFICATION_ID = 798643
         private const val FOREGROUND_SERVICE_ID = 629579783
         const val STORM_CHANNEL_ID = "Alerts"
-        const val FOREGROUND_CHANNEL_ID = "WeatherUpdate"
         const val WEATHER_CHANNEL_ID = "Weather"
         private const val TAG = "WeatherUpdateService"
         private const val STORM_ALERT_NOTIFICATION_ID = 74309823

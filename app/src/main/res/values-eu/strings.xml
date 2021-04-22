@@ -2,7 +2,7 @@
 <resources>
     <string name="name_hint">Izena</string>
     <string name="create_beacon_title">Baliza utzi</string>
-    <string name="share_action_geo">Mapak</string>
+    <string name="maps">Mapak</string>
     <string name="share_action_copy">Kopiatu</string>
     <string name="share_action_send">Bidali</string>
     <plurals name="beacon_group_summary">
@@ -53,7 +53,6 @@
     <string name="miles_format">%.2f mi</string>
     <string name="meters_format">%.0f m</string>
     <string name="nautical_miles_format">%.2f nm</string>
-    <string name="disclaimer_message_title">Lege-oharra</string>
     <string name="dialog_deny">Ez, eskerrik asko</string>
     <string name="dialog_grant">Ezarpenak eguneratu</string>
     <string name="access_background_location">Kokapen ezarpenak eguneratu</string>
@@ -296,7 +295,6 @@
     <string name="export">Esportatu</string>
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
-    <string name="health">Osasuna</string>
     <string name="cumulonimbus">Kumuloninbo</string>
     <string name="cumulus">Kumulu</string>
     <string name="stratocumulus">Estratokumulu</string>

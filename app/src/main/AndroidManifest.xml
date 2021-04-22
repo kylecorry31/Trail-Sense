@@ -38,6 +38,8 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
+            <nav-graph android:value="@navigation/nav_graph" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -67,8 +69,43 @@
         <service android:name=".tools.flashlight.infrastructure.StrobeService" />
         <service android:name=".tools.waterpurification.infrastructure.WaterPurificationTimerService" />
 
+        <service
+            android:name=".weather.infrastructure.services.WeatherUpdateService"
+            android:enabled="true"
+            android:foregroundServiceType="location" />
+        <service
+            android:name=".astronomy.infrastructure.SunsetAlarmService"
+            android:enabled="true"
+            android:foregroundServiceType="location" />
+
+        <service
+            android:name=".tools.backtrack.infrastructure.services.BacktrackAlwaysOnService"
+            android:enabled="true"
+            android:foregroundServiceType="location" />
+
+        <service
+            android:name=".tools.speedometer.infrastructure.PedometerService"
+            android:enabled="true" />
+
+        <service
+            android:name=".tools.battery.infrastructure.BatteryLogService"
+            android:enabled="true" />
+
+        <service
+            android:name=".tools.backtrack.infrastructure.services.BacktrackService"
+            android:enabled="true"
+            android:foregroundServiceType="location" />
+
+        <service
+            android:name=".tools.whitenoise.infrastructure.WhiteNoiseService"
+            android:enabled="true"
+            android:foregroundServiceType="mediaPlayback" />
+
         <receiver
             android:name="com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name=".tools.backtrack.infrastructure.receivers.StopBacktrackReceiver"
             android:enabled="true" />
         <receiver
             android:name=".tools.waterpurification.infrastructure.WaterPurificationCancelReceiver"
@@ -115,28 +152,6 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".weather.infrastructure.services.WeatherUpdateService"
-            android:enabled="true"
-            android:foregroundServiceType="location" />
-
-        <service
-            android:name=".tools.speedometer.infrastructure.PedometerService"
-            android:enabled="true" />
-
-        <service
-            android:name=".tools.battery.infrastructure.BatteryLogService"
-            android:enabled="true" />
-
-        <service
-            android:name=".tools.backtrack.infrastructure.services.BacktrackService"
-            android:enabled="true"
-            android:foregroundServiceType="location" />
-
-        <service
-            android:name=".tools.whitenoise.infrastructure.WhiteNoiseService"
-            android:enabled="true"
-            android:foregroundServiceType="mediaPlayback" />
     </application>
 
 </manifest>

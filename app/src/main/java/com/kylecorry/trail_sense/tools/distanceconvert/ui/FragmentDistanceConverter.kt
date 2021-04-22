@@ -59,6 +59,14 @@ class FragmentDistanceConverter : Fragment() {
         binding.toUnits.adapter = toAdapter
         binding.toUnits.setSelection(0)
 
+        binding.swapBtn.setOnClickListener {
+            val fromCurrent = binding.fromUnits.selectedItemPosition
+            val toCurrent = binding.toUnits.selectedItemPosition
+            binding.fromUnits.setSelection(toCurrent)
+            binding.toUnits.setSelection(fromCurrent)
+            update()
+        }
+
         return binding.root
     }
 

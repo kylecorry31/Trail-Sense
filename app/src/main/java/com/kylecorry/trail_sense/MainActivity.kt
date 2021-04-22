@@ -1,8 +1,6 @@
 package com.kylecorry.trail_sense
 
 import android.Manifest
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -16,16 +14,19 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogService
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.*
@@ -95,6 +96,7 @@ class MainActivity : AppCompatActivity() {
             UserPreferences.Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
             UserPreferences.Theme.Black -> AppCompatDelegate.MODE_NIGHT_YES
             UserPreferences.Theme.System -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
         AppCompatDelegate.setDefaultNightMode(mode)
         super.onCreate(savedInstanceState)
@@ -125,7 +127,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun startApp() {
         errorBanner.dismissAll()
-        navController.navigate(R.id.action_navigation)
+        if (navController.currentDestination?.id == R.id.action_navigation){
+            navController.navigate(R.id.action_navigation)
+        }
 
         if (disclaimer.shouldShow()) {
             disclaimer.show()
@@ -179,12 +183,6 @@ class MainActivity : AppCompatActivity() {
                     bundle
                 )
             }
-        }
-
-        if (intent.hasExtra(getString(R.string.extra_action))) {
-            val desiredAction =
-                intent.getIntExtra(getString(R.string.extra_action), R.id.action_navigation)
-            bottomNavigation.selectedItemId = desiredAction
         }
     }
 
@@ -259,20 +257,18 @@ class MainActivity : AppCompatActivity() {
         PermissionUtils.requestPermissions(this, permissions, requestCode)
     }
 
-    companion object {
-
-        fun weatherIntent(context: Context): Intent {
-            val intent = Intent(context, MainActivity::class.java)
-            intent.putExtra(context.getString(R.string.extra_action), R.id.action_weather)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            return intent
+    private fun sunriseSunsetTheme(): Int {
+        val astronomyService = AstronomyService()
+        val sensorService by lazy { SensorService(applicationContext) }
+        val gps by lazy { sensorService.getGPS() }
+        if (gps.location == Coordinate.zero) {
+            return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         }
-
-        fun astronomyIntent(context: Context): Intent {
-            val intent = Intent(context, MainActivity::class.java)
-            intent.putExtra(context.getString(R.string.extra_action), R.id.action_astronomy)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            return intent
+        val isSunUp = astronomyService.isSunUp(gps.location)
+        return if (isSunUp) {
+            AppCompatDelegate.MODE_NIGHT_NO
+        } else {
+            AppCompatDelegate.MODE_NIGHT_YES
         }
     }
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/color_picker_flex"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:justifyContent="center"
+    app:alignContent="stretch"
+    app:alignItems="stretch"
+    app:flexDirection="row"
+    app:flexWrap="wrap">
+</com.google.android.flexbox.FlexboxLayout>

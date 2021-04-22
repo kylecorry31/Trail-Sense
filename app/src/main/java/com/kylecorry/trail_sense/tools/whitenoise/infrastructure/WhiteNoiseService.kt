@@ -48,11 +48,11 @@ class WhiteNoiseService : ForegroundService() {
         get() = NOTIFICATION_ID
 
     override fun onDestroy() {
-        super.onDestroy()
         whiteNoise?.fadeOff(true)
         stopService(true)
         offTimer.stop()
         cache.remove(CACHE_KEY_OFF_TIME)
+        super.onDestroy()
     }
 
     companion object {

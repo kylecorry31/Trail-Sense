@@ -81,6 +81,7 @@ class UserPreferences(private val context: Context) {
                 "light" -> Theme.Light
                 "dark" -> Theme.Dark
                 "black" -> Theme.Black
+                "sunrise_sunset" -> Theme.SunriseSunset
                 else -> Theme.System
             }
         }
@@ -247,7 +248,7 @@ class UserPreferences(private val context: Context) {
     }
 
     enum class Theme {
-        Light, Dark, Black, System
+        Light, Dark, Black, System, SunriseSunset
     }
 
     enum class AltimeterMode {

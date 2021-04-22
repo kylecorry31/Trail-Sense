@@ -77,7 +77,19 @@ class FragmentToolNotesCreate : Fragment() {
     private fun hasChanges(): Boolean {
         val title = binding.titleEdit.text.toString()
         val content = binding.contentEdit.text.toString()
-        return title != editingNote?.title || content != editingNote?.contents
+        return !nothingEntered() && (title != editingNote?.title || content != editingNote?.contents)
+    }
+
+
+    private fun nothingEntered(): Boolean {
+        if (editingNote != null){
+            return false
+        }
+
+        val title = binding.titleEdit.text.toString()
+        val content = binding.contentEdit.text.toString()
+
+        return title.isBlank() && content.isBlank()
     }
 
 

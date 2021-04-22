@@ -1,10 +1,9 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
-import android.os.Build
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import java.util.stream.Collectors
+import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import kotlin.math.roundToInt
 
 /*
@@ -16,46 +15,52 @@ object AltitudeCorrection {
     private val lock = Object()
 
     fun getOffset(location: Coordinate?, context: Context?): Float {
-        if (location == null || context == null){
+        if (location == null || context == null) {
             return 0f
         }
 
+        val loc = Pair(location.latitude.roundToInt(), location.longitude.roundToInt())
 
-        if (table.isEmpty()){
-            loadTable(context)
+
+        if (table.containsKey(loc)) {
+            return table[loc] ?: 0f
         }
 
-        val loc = Pair(location.latitude.roundToInt(), location.longitude.roundToInt())
+        synchronized(lock) {
+            val offset = loadOffset(context, loc)
+            if (offset != null) {
+                table[loc] = offset
+            }
+        }
+
         return table[loc] ?: 0f
     }
 
-    private fun loadTable(context: Context){
-        synchronized(lock) {
-            if (table.isNotEmpty()){
-                return@synchronized
-            }
-            val input = context.resources.openRawResource(R.raw.geoids)
-            val lines = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                input.bufferedReader().lines().map { it.split(",") }.collect(Collectors.toList())
-            } else {
-                with(input.bufferedReader()) {
-                    val lines = mutableListOf<String>()
-                    while (this.ready()) {
-                        lines.add(this.readLine())
-                    }
-                    lines.map { it.split(",") }
+
+    private fun loadOffset(context: Context, key: Pair<Int, Int>): Float? {
+        // TODO: Seek close to the desired line
+        val input = context.resources.openRawResource(R.raw.geoids)
+        var offset: Float? = null
+        val desiredLine = (90 + key.first) * 361 + (180 + key.second)
+        var i = 0
+        input.bufferedReader().use {
+            while (it.ready()) {
+                val line = it.readLine()
+                if (i != desiredLine){
+                    i++
+                    continue
                 }
+                offset = line.trim().toFloatCompat()
+                break
             }
-            table.clear()
-            for (line in lines) {
-                try {
-                    table[Pair(line[0].toInt(), line[1].toInt())] = line[2].toFloat()
-                } catch (e: Exception) {
-                    // Do nothing, could not parse that row
-                }
-            }
-            input.close()
         }
+
+        try {
+            input.close()
+        } catch (e: Exception) {
+        }
+
+        return offset
     }
 
 

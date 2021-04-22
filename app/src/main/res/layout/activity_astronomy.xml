@@ -5,6 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/astronomy_left_quick_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:tint="?android:textColorSecondary"
+        app:backgroundTint="?android:colorBackgroundFloating"
+        app:fabSize="mini"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_tool_whistle" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/astronomy_right_quick_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:tint="?android:textColorSecondary"
+        app:backgroundTint="?android:colorBackgroundFloating"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/colorPrimary"
+        app:srcCompat="@drawable/flashlight" />
+
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/sunMoonChart"
         android:layout_width="0dp"

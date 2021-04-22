@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.tools.backtrack.infrastructure.services
 
 import android.app.Notification
+import android.app.NotificationChannel
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
+import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
@@ -38,7 +40,7 @@ class BacktrackService : CoroutineForegroundService() {
     override fun getForegroundNotification(): Notification {
         return NotificationUtils.background(
             this,
-            FOREGROUND_CHANNEL_ID,
+            NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
             getString(R.string.backtrack_notification_channel),
             getString(R.string.backtrack_notification_description),
             R.drawable.ic_update
@@ -112,7 +114,6 @@ class BacktrackService : CoroutineForegroundService() {
     companion object {
 
         private const val FOREGROUND_SERVICE_ID = 76984343
-        const val FOREGROUND_CHANNEL_ID = "Backtrack"
         private const val TAG = "BacktrackService"
 
         fun intent(context: Context): Intent {

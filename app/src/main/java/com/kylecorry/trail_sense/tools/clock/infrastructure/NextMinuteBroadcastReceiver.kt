@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 
 class NextMinuteBroadcastReceiver : BroadcastReceiver() {
@@ -18,7 +19,8 @@ class NextMinuteBroadcastReceiver : BroadcastReceiver() {
             context.getString(R.string.clock_sync_notification, time),
             null,
             R.drawable.ic_tool_clock,
-            group = NotificationChannels.GROUP_CLOCK
+            group = NotificationChannels.GROUP_CLOCK,
+            intent = NavigationUtils.pendingIntent(context, R.id.toolClockFragment)
         )
         NotificationUtils.send(context, NOTIFICATION_ID, notification)
     }

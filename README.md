@@ -83,6 +83,8 @@ Location information gathered by this application does not leave your device (as
 
 If you choose to write a new feature yourself, send me a message to verify that it is something that I will accept into Trail Sense before your write it (if not, you can always fork this repo and create your own version of Trail Sense!). I will conduct a code review on incoming pull requests to verify they align nicely with the rest of the code base and the feature works as intended.
 
+Issues marked with the help-wanted label are open for community contribution at any time (just submit a PR to main and I will review it), or leave a comment on the story to say you are working on it / ask for more details. Please leave a comment on any other issue before you work on them because they might not have all the details, I may not want it implemented yet, or I may have to implement it myself - for fun :)
+
 # FAQ
 
 - **Will there be an iOS version?**
@@ -102,9 +104,14 @@ If you choose to write a new feature yourself, send me a message to verify that 
 - **The sunrise/set times are inaccurate**
   - The sunrise/set features need to know your approximate location to display accurate times, please check the following to see if it resolves your issue:
   - Validate your location settings by opening Trail Sense Settings > GPS and ensure your location appears and is correct. If your device location is disabled but Trail Sense has location permission, then the location in Trail Sense may be stale.
+  - If you have GPS disabled (or the location permission denied), you will need to manually configure your location under Trail Sense's GPS settings (it defaults to 0, 0 - on the astronomy page you will see an error banner for this condition).
+  - If your GPS is enabled and the permission is granted, you may need to turn off the "require satellites" setting or wait for the 10 second timeout with a clear view of the sky so Trail Sense can cache a GPS reading. The cached value can be verified on the "sensor details" page - bottom of settings.
   - You can attempt to diagnose GPS/location issues by opening Trail Sense Settings > Sensor Details and viewing the GPS and GPS Cache settings
 - **How can I report a bug?**
   - Either create a new issue here or email me at trailsense@protonmail.com
+- **Trail Sense sends too many notifications**
+  - All notifications from Trail Sense can be disabled/re-enabled under their respective settings
+  - Android requires background processes which access your location to send a notification (ex. Backtrack, weather monitor, and sunset alert). On most supported Android versions, you can disable the "Updates" notification channel to hide these notifications.
 - **The tide times are inaccurate**
   - The tide tool is experimental and is designed to mimic an analog tide clock. Tide clocks suffer the same inaccuracies as Trail Sense, so you can expect tide times to be off by up to 2 hours depending on the length of the lunar day. To ensure the best accuracy, calibrate the tide clock using a high tide on a day of a full or new moon, and do not correct the tide clock throughout the lunar month to remove inaccuracies - this will make it more inaccurate over time.
   - Currently Trail Sense can only predict tides in areas which experience twice daily high tides (semidiurnal), such as the Atlantic ocean.
@@ -146,6 +153,7 @@ If you choose to write a new feature yourself, send me a message to verify that 
 - Icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews) and [Michael Irigoyen](https://materialdesignicons.com/contributor/Michael-Irigoyen)
 - Charts: [MpAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 - Thank you to everyone who tried out this app and opened issues, suggested features, provided translations, or tested debug builds for me
+- Thanks to @qwerty287 for implementing several features and bugfixes
 
 # License
 

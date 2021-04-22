@@ -2,7 +2,9 @@ package com.kylecorry.trail_sense.astronomy.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
+import com.kylecorry.trailsensecore.domain.math.toIntCompat
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import java.time.LocalDate
 
@@ -63,5 +65,17 @@ class AstronomyPreferences(private val context: Context) {
     fun setSunsetAlertLastSentDate(date: LocalDate) {
         cache.putString("sunset_alert_last_sent_date", date.toString())
     }
+
+    val leftQuickAction: QuickActionType
+        get(){
+            val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_left))?.toIntCompat()
+            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Flashlight
+        }
+
+    val rightQuickAction: QuickActionType
+        get(){
+            val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_right))?.toIntCompat()
+            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.WhiteNoise
+        }
 
 }

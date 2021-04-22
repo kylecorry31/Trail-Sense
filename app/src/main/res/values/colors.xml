@@ -11,10 +11,15 @@
 
     <color name="sun">#ffdd55</color>
 
+    <color name="red">#ef5350</color>
+    <color name="orange">#FF6D00</color>
     <color name="yellow">#DDCE2C</color>
     <color name="green">#81c784</color>
-    <color name="red">#ef5350</color>
+    <color name="blue">#a0caff</color>
+    <color name="purple">#c034eb</color>
+    <color name="pink">#ff33dd</color>
     <color name="black">#000000</color>
+    <color name="gray">#9e9e9e</color>
 
     <!--Categories-->
     <color name="category_other">#9e9e9e</color>
