@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.os.bundleOf
@@ -30,14 +29,12 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
-import com.kylecorry.trail_sense.weather.ui.QuickActionClouds
 import com.kylecorry.trailsensecore.domain.geo.*
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
@@ -167,7 +164,7 @@ class NavigatorFragment : Fragment() {
                 getString(R.string.tool_backtrack_title),
                 waypoints.map { it.toPathPoint() },
                 UiUtils.color(requireContext(), R.color.colorAccent),
-                true
+                userPrefs.navigation.backtrackPathStyle
             )
             updateUI()
         }
@@ -535,7 +532,7 @@ class NavigatorFragment : Fragment() {
                 getString(R.string.tool_backtrack_title),
                 points,
                 UiUtils.color(requireContext(), userPrefs.navigation.backtrackPathColor.color),
-                userPrefs.navigation.backtrackPathIsDotted
+                userPrefs.navigation.backtrackPathStyle
             )
             binding.radarCompass.setPaths(listOf(path))
         }

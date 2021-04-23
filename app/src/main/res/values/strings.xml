@@ -955,6 +955,8 @@
     <string name="pref_backtrack_path_style" translatable="false">pref_backtrack_path_dotted</string>
     <string name="solid">Solid</string>
     <string name="dotted">Dotted</string>
+<!--    The arrow line style-->
+    <string name="arrow">Arrow</string>
     <string name="pref_backtrack_path_style_title">Backtrack path style</string>
     <string name="pref_backtrack_path_color_title">Backtrack path color</string>
     <string name="updates">Updates</string>

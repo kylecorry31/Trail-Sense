@@ -231,11 +231,13 @@
     <string-array name="line_style_entries">
         <item>@string/solid</item>
         <item>@string/dotted</item>
+        <item>@string/arrow</item>
     </string-array>
 
     <string-array name="line_style_values">
         <item>solid</item>
         <item>dotted</item>
+        <item>arrow</item>
     </string-array>
 
 </resources>

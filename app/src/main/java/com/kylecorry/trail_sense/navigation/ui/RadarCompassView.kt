@@ -18,13 +18,16 @@ import com.kylecorry.trailsensecore.domain.math.deltaAngle
 import com.kylecorry.trailsensecore.domain.math.sinDegrees
 import com.kylecorry.trailsensecore.domain.math.wrap
 import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
+import com.kylecorry.trailsensecore.domain.pixels.PixelLine
+import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
+import com.kylecorry.trailsensecore.domain.pixels.toPixelLines
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
+import com.kylecorry.trailsensecore.infrastructure.canvas.ArrowPathEffect
 import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
 import com.kylecorry.trailsensecore.infrastructure.canvas.getMaskedBitmap
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.min
-
 
 class RadarCompassView : View, ICompassView {
     private lateinit var paint: Paint
@@ -151,16 +154,24 @@ class RadarCompassView : View, ICompassView {
         // TODO: Improve the performance of this
         val pathBitmap = canvas.getMaskedBitmap(compassMask, pathBitmap) {
             val dotted = DottedPathEffect()
+            val arrow = ArrowPathEffect()
             it.drawColor(Color.TRANSPARENT)
             for (line in pathLines) {
-                if (line.dotted) {
-                    paint.pathEffect = dotted
-                    paint.style = Paint.Style.FILL
-                } else {
-                    paint.pathEffect = null
-                    paint.style = Paint.Style.STROKE
-                    paint.strokeCap = Paint.Cap.ROUND
-                    paint.strokeWidth = 6f
+                when (line.style){
+                    PixelLineStyle.Solid -> {
+                        paint.pathEffect = null
+                        paint.style = Paint.Style.STROKE
+                        paint.strokeCap = Paint.Cap.ROUND
+                        paint.strokeWidth = 6f
+                    }
+                    PixelLineStyle.Arrow -> {
+                        paint.pathEffect = arrow
+                        paint.style = Paint.Style.FILL
+                    }
+                    PixelLineStyle.Dotted -> {
+                        paint.pathEffect = dotted
+                        paint.style = Paint.Style.FILL
+                    }
                 }
                 paint.color = line.color
                 paint.alpha = line.alpha
