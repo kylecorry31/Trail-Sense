@@ -61,7 +61,7 @@ On the Backtrack screen, you should see a list of waypoints, which represent you
 
 Backtrack also shows your cell phone signal strength at time and location of the waypoint, learn more about that on the 'Signaling for help' guide.
 
-If you have the nearby radar compass enabled, you can show the Backtrack path to more easily follow the path. It currently fades away after 3 hours. Using the "Arrow" path style will show the path in arrows pointing backward in time, following the arrows will retrace your steps.
+If you have the nearby radar compass enabled, you can show the Backtrack path to more easily follow the path. Paths will fade away over time (2 days until gone). Using the "Arrow" path style will show the path in arrows pointing backward in time, following the arrows will retrace your steps.
 
 ## How to follow a bearing?
 
