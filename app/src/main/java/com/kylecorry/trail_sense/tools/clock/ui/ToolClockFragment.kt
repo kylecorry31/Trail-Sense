@@ -100,31 +100,30 @@ class ToolClockFragment : Fragment() {
 
         val formattedTime = formatService.formatTime(displayTime.toLocalTime())
 
-        UiUtils.shortToast(
-            requireContext(),
-            getString(
-                R.string.pip_notification_scheduled,
-                formattedTime
-            )
-        )
-
-        AlarmUtils.set(
-            requireContext(),
-            sendTime,
-            NextMinuteBroadcastReceiver.pendingIntent(
-                requireContext(),
-                formattedTime
-            ),
-            exact = true,
-            allowWhileIdle = true
-        )
-
         UiUtils.alertWithCancel(
             requireContext(),
             getString(R.string.clock_sync_time_settings),
             getString(R.string.clock_sync_instructions, formattedTime)
         ) { cancelled ->
             if (!cancelled) {
+                UiUtils.shortToast(
+                    requireContext(),
+                    getString(
+                        R.string.pip_notification_scheduled,
+                        formattedTime
+                    )
+                )
+
+                AlarmUtils.set(
+                    requireContext(),
+                    sendTime,
+                    NextMinuteBroadcastReceiver.pendingIntent(
+                        requireContext(),
+                        formattedTime
+                    ),
+                    exact = true,
+                    allowWhileIdle = true
+                )
                 startActivityForResult(Intent(Settings.ACTION_DATE_SETTINGS), 0)
             }
         }
