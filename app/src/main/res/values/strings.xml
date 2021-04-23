@@ -932,7 +932,7 @@
     <string name="time_until_full">%s until full</string>
     <string name="map_auto_calibrated">Map auto-calibrated, please verify its accuracy</string>
     <string name="pref_backtrack_path_radar" translatable="false">pref_backtrack_path_radar</string>
-    <string name="pref_backtrack_path_radar_title">Show backtrack path</string>
+    <string name="pref_backtrack_path_radar_title">Show Backtrack path</string>
     <string name="pref_backtrack_path_radar_summary">On the radar compass and maps</string>
     <string name="pref_backtrack_interval" translatable="false">pref_backtrack_interval</string>
     <string name="minute_symbol">m</string>
@@ -966,6 +966,8 @@
     <string name="sunset_alert_location_update">Updating location for sunset alert</string>
     <string name="background_update">Background update</string>
     <string name="calibrate_new_tide">Calibrate to a new tide?</string>
+    <string name="water_boil_guide_title">Make water safe to drink</string>
+    <string name="water_boil_guide_desc">How to use the Water Boil Timer</string>
     <plurals name="import_beacons">
         <item quantity="one">Import %d beacon?</item>
         <item quantity="other">Import %d beacons?</item>
