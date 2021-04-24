@@ -41,6 +41,11 @@ class ToolClockFragment : Fragment() {
         binding.pipButton.setOnClickListener {
             sendNextMinuteNotification()
         }
+        binding.clockRefresh.setOnClickListener {
+            gps.start(this::onGPSUpdate)
+            binding.updatingClock.visibility = View.VISIBLE
+            binding.pipButton.visibility = View.INVISIBLE
+        }
         return binding.root
     }
 
