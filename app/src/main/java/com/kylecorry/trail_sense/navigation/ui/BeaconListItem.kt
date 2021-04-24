@@ -64,6 +64,10 @@ class BeaconListItem(
                     binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Good))
                     binding.beaconImage.imageTintList = ColorStateList.valueOf(CustomUiUtils.getQualityColor(view.context, Quality.Good))
                 }
+                else -> {
+                    binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Unknown))
+                    binding.beaconImage.imageTintList = ColorStateList.valueOf(CustomUiUtils.getQualityColor(view.context, Quality.Unknown))
+                }
             }
         }
         var beaconVisibility = beacon.visible
