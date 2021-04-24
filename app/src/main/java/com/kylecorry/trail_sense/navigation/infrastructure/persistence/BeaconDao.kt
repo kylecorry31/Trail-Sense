@@ -21,8 +21,8 @@ interface BeaconDao {
     @Query("SELECT * FROM beacons where beacon_group_id IS :groupId AND `temporary` = 0")
     suspend fun getAllInGroup(groupId: Long?): List<BeaconEntity>
 
-    @Query("SELECT * FROM beacons where `temporary` = 1 LIMIT 1")
-    suspend fun getTemporaryBeacon(): BeaconEntity?
+    @Query("SELECT * FROM beacons where `temporary` = 1 AND `owner` = :owner LIMIT 1")
+    suspend fun getTemporaryBeacon(owner: Int): BeaconEntity?
 
     @Query("SELECT * FROM beacons WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): BeaconEntity?

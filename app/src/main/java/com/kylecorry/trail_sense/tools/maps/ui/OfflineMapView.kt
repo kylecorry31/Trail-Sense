@@ -11,24 +11,19 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.PixelLine
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.toPixelLines
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
-import com.kylecorry.trailsensecore.domain.pixels.PixelCircle
-import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
 import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.geo.cartography.Map
-import java.time.Instant
-import kotlin.math.abs
+import com.kylecorry.trailsensecore.domain.pixels.*
+import com.kylecorry.trailsensecore.infrastructure.canvas.ArrowPathEffect
 import kotlin.math.max
 import kotlin.math.min
 
@@ -157,7 +152,7 @@ class OfflineMapView : View {
             compassSize = min(height, width) - 2 * iconSize - 2 * UiUtils.dp(context, 2f).toInt()
             isInit = true
             primaryColor = UiUtils.color(context, R.color.colorPrimary)
-            secondaryColor = UiUtils.color(context, R.color.colorAccent)
+            secondaryColor = UiUtils.color(context, R.color.colorSecondary)
             val compassDrawable = UiUtils.drawable(context, R.drawable.radar)
             compass = compassDrawable?.toBitmap(compassSize, compassSize)
         }
@@ -214,11 +209,11 @@ class OfflineMapView : View {
     }
 
     private fun drawDestination(canvas: Canvas) {
-        destination ?: return
+        val dest = destination ?: return
         val myLocation = getPixelCoordinate(myLocation)
-        val destLoc = getPixelCoordinate(destination!!.coordinate)
+        val destLoc = getPixelCoordinate(dest.coordinate)
         if (myLocation != null && destLoc != null) {
-            paint.color = primaryColor
+            paint.color = dest.color
             paint.strokeWidth = 6f / scale
             paint.alpha = 127
             paint.style = Paint.Style.STROKE
@@ -331,7 +326,7 @@ class OfflineMapView : View {
                     (iconSize / 2f + UiUtils.dp(context, 1f)) / scale,
                     paint
                 )
-                paint.color = primaryColor
+                paint.color = beacon.color
                 paint.alpha = alpha
                 canvas.drawCircle(mapX + coord.x, mapY + coord.y, (iconSize / 2f) / scale, paint)
                 paint.alpha = 255
@@ -349,15 +344,23 @@ class OfflineMapView : View {
 
         // TODO: Draw this on a masked bitmap
         val dotted = DottedPathEffect(3f / scale, 10f / scale)
+        val arrow = ArrowPathEffect(6f / scale)
         for (line in pathLines ?: listOf()) {
-            if (line.dotted) {
-                paint.pathEffect = dotted
-                paint.style = Paint.Style.FILL
-            } else {
-                paint.pathEffect = null
-                paint.style = Paint.Style.STROKE
-                paint.strokeCap = Paint.Cap.ROUND
-                paint.strokeWidth = 6f / scale
+            when (line.style){
+                PixelLineStyle.Solid -> {
+                    paint.pathEffect = null
+                    paint.style = Paint.Style.STROKE
+                    paint.strokeCap = Paint.Cap.ROUND
+                    paint.strokeWidth = 6f / scale
+                }
+                PixelLineStyle.Arrow -> {
+                    paint.pathEffect = arrow
+                    paint.style = Paint.Style.FILL
+                }
+                PixelLineStyle.Dotted -> {
+                    paint.pathEffect = dotted
+                    paint.style = Paint.Style.FILL
+                }
             }
             paint.color = line.color
             paint.alpha = line.alpha

@@ -61,6 +61,8 @@ On the Backtrack screen, you should see a list of waypoints, which represent you
 
 Backtrack also shows your cell phone signal strength at time and location of the waypoint, learn more about that on the 'Signaling for help' guide.
 
+If you have the nearby radar compass enabled, you can show the Backtrack path to more easily follow the path. Paths will fade away over time (1 day until gone). Using the "Arrow" path style will show the path in arrows pointing backward in time, following the arrows will retrace your steps.
+
 ## How to follow a bearing?
 
 From the 'Navigation' tab, you can quickly set a bearing reference by tapping the compass. This will place a marker on the compass which always points in the same direction, regardless of your location. You can use this if you know you need to travel in a direction, but don't know how far you need to go (ex. travel North). Tapping the compass again will remove the bearing.

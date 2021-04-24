@@ -223,7 +223,7 @@ class FragmentToolBattery : Fragment() {
 
     private fun getMaxCapacity(): Float {
         return if (battery.percent != 0f) {
-            (battery.capacity / battery.percent) * 100f
+            battery.maxCapacity
         } else {
             100f
         }

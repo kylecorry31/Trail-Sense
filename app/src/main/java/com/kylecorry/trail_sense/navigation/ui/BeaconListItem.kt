@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.widget.PopupMenu
 import com.kylecorry.trail_sense.R
@@ -43,6 +44,7 @@ class BeaconListItem(
 
         binding.beaconName.text = beacon.name
         binding.beaconImage.setImageResource(R.drawable.ic_location)
+        binding.beaconImage.imageTintList = ColorStateList.valueOf(beacon.color)
         var beaconVisibility = beacon.visible
         val distance = navigationService.navigate(beacon.coordinate, myLocation, 0f).distance
         binding.beaconSummary.text = formatservice.formatLargeDistance(distance)

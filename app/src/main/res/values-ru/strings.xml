@@ -825,4 +825,22 @@
         <item quantity="many">%d маячков импортировано</item>
         <item quantity="other">%d маячков импортировано</item>
     </plurals>
+    <string name="pref_backtrack_path_color_title">Цвет истории маршрута</string>
+    <string name="pref_backtrack_path_style_title">Стиль истории маршрута</string>
+    <string name="calibrate_new_tide">Откалибровать новый прилив\?</string>
+    <string name="background_update">Фоновое обновление</string>
+    <string name="sunset_alert_location_update">Обновление местоположения для оповещения о закате</string>
+    <string name="backtrack_battery_warning">Небольшие интервалы (менее 10 минут) могут привести к чрезмерному разряду батареи</string>
+    <string name="battery_warning">Предупреждение о разряде батареи</string>
+    <string name="backtrack_high_priority_notification">Размещение путевой точки каждые %s</string>
+    <string name="updates">Обновления</string>
+    <string name="dotted">Пунктирный</string>
+    <string name="solid">Сплошной</string>
+    <string name="pref_weather_show_detailed_icon_title">Показать цветной значок уведомления</string>
+    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
+    <string name="actual_frequency_disclaimer">Фактическая частота может отличаться, так как для некоторых устройств установлены фоновые ограничения.</string>
+    <string name="pref_backtrack_path_radar_summary">На радарном компасе и картах</string>
+    <string name="time_until_full">%s до полного</string>
+    <string name="theme_sunset_sunrise">Восход/закат</string>
+    <string name="app_disclaimer_message_title">Отказ от ответственности / Условия использования</string>
 </resources>

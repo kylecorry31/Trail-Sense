@@ -785,4 +785,40 @@
     <string name="importing_map">Importowanie mapy</string>
     <string name="hour_symbol">h</string>
     <string name="minute_symbol">m</string>
+    <string name="pref_odometer_reset_daily_title">Resetuj codziennie</string>
+    <plurals name="import_beacons">
+        <item quantity="one">Zaimportować %d punkt\?</item>
+        <item quantity="few">Zaimportować %d punkty\?</item>
+        <item quantity="many">Zaimportować %d punktów\?</item>
+        <item quantity="other">Zaimportować %d punktów\?</item>
+    </plurals>
+    <string name="calibrate_new_tide">Skalibrować do nowego przypływu\?</string>
+    <string name="background_update">Aktualizacja w tle</string>
+    <string name="sunset_alert_location_update">Aktualizowanie lokalizacji alertu o zachodzie słońca</string>
+    <string name="backtrack_battery_warning">Małe odstępy czasu (poniżej 10 minut) mogą powodować nadmierne rozładowanie baterii</string>
+    <string name="battery_warning">Ostrzeżenie o nadmiernym rozładowaniu baterii</string>
+    <string name="updates">Aktualizacje</string>
+    <string name="pref_weather_show_detailed_icon_title">Pokaż kolorową ikonę powiadomienia</string>
+    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
+    <string name="search">Wyszukaj</string>
+    <string name="map_auto_calibrated">Mapa skalibrowana automatycznie, sprawdź jej dokładność</string>
+    <string name="guide_speedometer_desc">Jak określić przebytą odległość i czas przybycia</string>
+    <string name="guide_importing_maps_desc">Jak zaimportować i korzystać z map w programie Trail Sense</string>
+    <string name="place_beacon_at">Czy umieścić punkt nawigacyjny na %s\?</string>
+    <plurals name="beacons_exported">
+        <item quantity="one">Wyeksportowano %d punkt nawigacyjny</item>
+        <item quantity="few">Wyeksportowano %d punkty nawigacyjne</item>
+        <item quantity="many">Wyeksportowano %d punktów nawigacyjnych</item>
+        <item quantity="other">Wyeksportowano %d punktów nawigacyjnych</item>
+    </plurals>
+    <plurals name="beacons_imported">
+        <item quantity="one">Zaimportowano %d punkt nawigacyjny</item>
+        <item quantity="few">Zaimportowano %d punkty nawigacyjne</item>
+        <item quantity="many">Zaimportowano %d punktów nawigacyjnych</item>
+        <item quantity="other">Zaimportowano %d punktów nawigacyjnych</item>
+    </plurals>
+    <string name="theme_sunset_sunrise">Wschód/zachód słońca</string>
+    <string name="all_beacons">Wszystkie punkty</string>
+    <string name="app_disclaimer_message_title">Zrzeczenie się odpowiedzialności / Warunki korzystania z usługi</string>
+    <string name="disclaimer_message_title">Zrzeczenie się odpowiedzialności</string>
 </resources>

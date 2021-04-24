@@ -5,6 +5,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -60,7 +61,8 @@ class BeaconIOService(private val context: Context) {
                 it.coordinate,
                 comment = it.comment,
                 elevation = it.elevation,
-                beaconGroupId = if (it.group != null) groupIdMap[it.group] else null
+                beaconGroupId = if (it.group != null) groupIdMap[it.group] else null,
+                color = AppColor.Orange.color
             )
         }
 

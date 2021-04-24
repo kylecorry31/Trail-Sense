@@ -47,7 +47,6 @@ import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
-import com.kylecorry.trail_sense.weather.ui.QuickActionClouds
 import com.kylecorry.trailsensecore.domain.geo.*
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
@@ -217,7 +216,7 @@ class NavigatorFragment : Fragment() {
                 getString(R.string.tool_backtrack_title),
                 waypoints.map { it.toPathPoint() },
                 UiUtils.color(requireContext(), R.color.colorAccent),
-                true
+                userPrefs.navigation.backtrackPathStyle
             )
             updateUI()
         }
@@ -416,7 +415,8 @@ class NavigatorFragment : Fragment() {
                             destination!!.coordinate
                         )
                     ), R.drawable.ic_arrow_target,
-                    distance = Distance.meters(gps.location.distanceTo(destination!!.coordinate))
+                    distance = Distance.meters(gps.location.distanceTo(destination!!.coordinate)),
+                    tint = destination!!.color
                 )
             )
             return indicators
@@ -438,7 +438,8 @@ class NavigatorFragment : Fragment() {
                 BearingIndicator(
                     transformTrueNorthBearing(gps.location.bearingTo(beacon.coordinate)),
                     R.drawable.ic_arrow_target,
-                    distance = Distance.meters(gps.location.distanceTo(beacon.coordinate))
+                    distance = Distance.meters(gps.location.distanceTo(beacon.coordinate)),
+                    tint = beacon.color
                 )
             )
         }
@@ -611,10 +612,7 @@ class NavigatorFragment : Fragment() {
         // Compass
         val indicators = getIndicators()
         val destBearing = getDestinationBearing()
-        val destColor = if (destination != null) UiUtils.color(
-            requireContext(),
-            R.color.colorPrimary
-        ) else UiUtils.color(requireContext(), R.color.colorAccent)
+        val destColor = if (destination != null) destination!!.color else UiUtils.color(requireContext(), R.color.colorAccent)
         binding.roundCompass.setIndicators(indicators)
         binding.roundCompass.setAzimuth(compass.bearing)
         binding.roundCompass.setDestination(destBearing, destColor)
@@ -637,8 +635,8 @@ class NavigatorFragment : Fragment() {
                 WaypointRepo.BACKTRACK_PATH_ID,
                 getString(R.string.tool_backtrack_title),
                 points,
-                UiUtils.color(requireContext(), userPrefs.navigation.backtrackPathColor.color),
-                userPrefs.navigation.backtrackPathIsDotted
+                userPrefs.navigation.backtrackPathColor.color,
+                userPrefs.navigation.backtrackPathStyle
             )
             binding.radarCompass.setPaths(listOf(path))
         }

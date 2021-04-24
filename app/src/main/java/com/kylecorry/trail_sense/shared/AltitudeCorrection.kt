@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import android.system.OsConstants
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import kotlin.math.roundToInt
 
 /*
@@ -11,7 +11,7 @@ import kotlin.math.roundToInt
  */
 object AltitudeCorrection {
 
-    private val table = mutableMapOf<Pair<Int, Int>, Float>()
+    private val table = mutableMapOf<Pair<Int, Int>, Short>()
     private val lock = Object()
 
     fun getOffset(location: Coordinate?, context: Context?): Float {
@@ -23,7 +23,7 @@ object AltitudeCorrection {
 
 
         if (table.containsKey(loc)) {
-            return table[loc] ?: 0f
+            return table[loc]?.toFloat() ?: 0f
         }
 
         synchronized(lock) {
@@ -33,31 +33,23 @@ object AltitudeCorrection {
             }
         }
 
-        return table[loc] ?: 0f
+        return table[loc]?.toFloat() ?: 0f
     }
 
 
-    private fun loadOffset(context: Context, key: Pair<Int, Int>): Float? {
-        // TODO: Seek close to the desired line
-        val input = context.resources.openRawResource(R.raw.geoids)
-        var offset: Float? = null
-        val desiredLine = (90 + key.first) * 361 + (180 + key.second)
-        var i = 0
-        input.bufferedReader().use {
-            while (it.ready()) {
-                val line = it.readLine()
-                if (i != desiredLine){
-                    i++
-                    continue
-                }
-                offset = line.trim().toFloatCompat()
-                break
-            }
-        }
+    private fun loadOffset(context: Context, key: Pair<Int, Int>): Short? {
 
+        val input = context.resources.openRawResource(R.raw.geoids)
+        var offset: Short? = null
         try {
-            input.close()
+            val desiredLine = 2L * ((90 + key.first) * 361 + (180 + key.second))
+            input.skip(desiredLine)
+            val bytes = byteArrayOf(0, 0)
+            input.read(bytes, 0, 2)
+            offset = ((bytes[0].toUByte().toInt() shl 8) + bytes[1].toUByte().toInt()).toShort()
         } catch (e: Exception) {
+        } finally {
+            input.close()
         }
 
         return offset

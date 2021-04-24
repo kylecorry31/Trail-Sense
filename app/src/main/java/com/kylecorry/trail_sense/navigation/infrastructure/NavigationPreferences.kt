@@ -5,6 +5,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
+import com.kylecorry.trailsensecore.domain.geo.PathStyle
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.math.toIntCompat
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
@@ -75,12 +76,18 @@ class NavigationPreferences(private val context: Context) {
             cache.putInt(context.getString(R.string.pref_backtrack_path_color), value.id)
         }
 
-    // TODO: get line style instead of boolean
-    val backtrackPathIsDotted: Boolean
-        get() = cache.getString(context.getString(R.string.pref_backtrack_path_style)) != "solid"
+    val backtrackPathStyle: PathStyle
+        get() {
+            val raw = cache.getString(context.getString(R.string.pref_backtrack_path_style))
+            return when(raw){
+                "solid" -> PathStyle.Solid
+                "arrow" -> PathStyle.Arrow
+                else -> PathStyle.Dotted
+            }
+        }
 
     val showBacktrackPathDuration: Duration
-        get() = Duration.ofHours(3)
+        get() = Duration.ofDays(1)
 
     var maxBeaconDistance: Float
         get() {
