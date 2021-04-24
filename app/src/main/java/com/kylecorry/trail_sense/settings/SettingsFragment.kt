@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.settings
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.os.Bundle
 import android.text.InputType
@@ -8,10 +10,12 @@ import android.view.View
 import androidx.annotation.ArrayRes
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -23,6 +27,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorDetailProvider
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
+import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
@@ -92,8 +97,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
             R.id.action_action_settings_to_licenseFragment
         )
 
-        onClick(switch(R.string.pref_low_power_mode)){
-            if (prefs.isLowPowerModeOn){
+        onClick(switch(R.string.pref_low_power_mode)) {
+            if (prefs.isLowPowerModeOn) {
                 LowPowerMode(requireContext()).enable(requireActivity())
             } else {
                 LowPowerMode(requireContext()).disable(requireActivity())
@@ -126,8 +131,44 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceScreen.findPreference<Preference>(getString(R.string.pref_app_version))?.summary =
             version
 
-        navigateOnClick(findPreference(getString(R.string.pref_sensor_details)), R.id.action_action_settings_to_diagnosticFragment)
+        navigateOnClick(
+            findPreference(getString(R.string.pref_sensor_details)),
+            R.id.action_action_settings_to_diagnosticFragment
+        )
+
+
+        // Camera features
+        onClick(switch(R.string.pref_use_camera_features)) {
+            if (prefs.useCameraFeatures) {
+                // TODO: Extract this to PermissionUtils for fragments
+                // TODO: If previously denied, allow the user to open the settings
+                requestPermissions(
+                    listOf(Manifest.permission.CAMERA).toTypedArray(),
+                    RequestCodes.REQUEST_CODE_CAMERA_PERMISSION
+                )
+            }
+        }
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (!wasCameraPermissionGranted(requestCode)) {
+            prefs.useCameraFeatures = false
+            switch(R.string.pref_use_camera_features)?.isChecked = false
+            UiUtils.longToast(requireContext(), getString(R.string.camera_permission_denied))
+        }
+    }
+
+    private fun wasCameraPermissionGranted(requestCode: Int): Boolean {
+        return requestCode == RequestCodes.REQUEST_CODE_CAMERA_PERMISSION && PermissionUtils.hasPermission(
+            requireContext(),
+            Manifest.permission.CAMERA
+        )
+    }
+
 
     private fun navigateOnClick(pref: Preference?, @IdRes action: Int, bundle: Bundle? = null) {
         pref?.setOnPreferenceClickListener {

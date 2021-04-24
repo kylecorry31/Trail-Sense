@@ -1,17 +1,27 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.camera.core.CameraControl
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.common.util.concurrent.ListenableFuture
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -31,6 +41,7 @@ import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
@@ -45,6 +56,7 @@ import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
+import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
@@ -57,7 +69,9 @@ import java.util.*
 
 class NavigatorFragment : Fragment() {
 
-    private var shownAccuracyToast: Boolean = false
+    private var shownAccuracyToast = false
+    private var sightingCompassInitialized = false
+    private var sightingCompassActive = false
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
     private val orientation by lazy { sensorService.getDeviceOrientation() }
@@ -69,6 +83,9 @@ class NavigatorFragment : Fragment() {
     private var _binding: ActivityNavigatorBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
+
+    private var cameraProviderFuture : ListenableFuture<ProcessCameraProvider>? = null
+    private var cameraControl: CameraControl? = null
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
@@ -105,6 +122,7 @@ class NavigatorFragment : Fragment() {
         updateAstronomyData()
     }
 
+    @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -119,6 +137,9 @@ class NavigatorFragment : Fragment() {
             userPrefs.navigation.leftQuickAction,
             binding.navigationLeftQuickAction
         )
+        if (isSightingCompassEnabled()) {
+            cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        }
         return binding.root
     }
 
@@ -192,6 +213,31 @@ class NavigatorFragment : Fragment() {
             true
         }
 
+        CustomUiUtils.setButtonState(binding.sightingCompassBtn, sightingCompassActive)
+        binding.sightingCompassBtn.setOnClickListener {
+            setSightingCompassStatus(!sightingCompassActive)
+        }
+
+        binding.viewCamera.setOnClickListener {
+            toggleDestinationBearing()
+        }
+
+        binding.viewCameraLine.setOnClickListener {
+            toggleDestinationBearing()
+        }
+
+        binding.zoomRatioSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                val zoom = progress / 2f + 1
+                cameraControl?.setZoomRatio(zoom)
+                cache.putFloat(CACHE_CAMERA_ZOOM, zoom)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
         binding.beaconBtn.setOnClickListener {
             if (destination == null) {
                 navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment)
@@ -226,6 +272,66 @@ class NavigatorFragment : Fragment() {
         binding.linearCompass.setOnClickListener {
             toggleDestinationBearing()
         }
+    }
+
+    private fun setSightingCompassStatus(isOn: Boolean){
+        sightingCompassActive = isOn
+        CustomUiUtils.setButtonState(binding.sightingCompassBtn, isOn)
+        if (isOn){
+            enableSightingCompass()
+        } else {
+            disableSightingCompass()
+        }
+    }
+
+    private fun enableSightingCompass() {
+        if (!isSightingCompassEnabled()){
+            return
+        }
+
+        sightingCompassInitialized = true
+
+        cameraProviderFuture?.addListener({
+            val cameraProvider = cameraProviderFuture?.get()
+            val preview = Preview.Builder().build()
+            val cameraSelector = CameraSelector.Builder()
+                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+                .build()
+
+            preview.setSurfaceProvider(binding.viewCamera.surfaceProvider)
+            val camera = cameraProvider?.bindToLifecycle(this, cameraSelector, preview)
+            cameraControl = camera?.cameraControl
+            val zoomRatio = cache.getFloat(CACHE_CAMERA_ZOOM) ?: 2.5f
+            cameraControl?.setZoomRatio(zoomRatio)
+        }, ContextCompat.getMainExecutor(requireContext()))
+        binding.viewCameraLine.isVisible = true
+        binding.viewCamera.isVisible = true
+        binding.zoomRatioSeekbar.isVisible = true
+
+        // TODO: Extract this logic to the flashlight (if camera is in use)
+        if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+            binding.navigationRightQuickAction.isClickable = false
+        }
+        if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+            binding.navigationLeftQuickAction.isClickable = false
+        }
+        val handler = FlashlightHandler.getInstance(requireContext())
+        handler.off()
+    }
+
+    private fun disableSightingCompass() {
+        val cameraProvider = cameraProviderFuture?.get()
+        binding.viewCameraLine.isVisible = false
+        binding.viewCamera.isVisible = false
+        binding.zoomRatioSeekbar.isVisible = false
+        if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+            binding.navigationRightQuickAction.isClickable = true
+        }
+        if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+            binding.navigationLeftQuickAction.isClickable = true
+        }
+        sightingCompassInitialized = false
+        cameraProvider?.unbindAll()
     }
 
     private fun toggleDestinationBearing() {
@@ -569,13 +675,24 @@ class NavigatorFragment : Fragment() {
         }
     }
 
+    private fun isSightingCompassEnabled(): Boolean {
+        return userPrefs.experimentalEnabled && userPrefs.useCameraFeatures && PermissionUtils.hasPermission(requireContext(), Manifest.permission.CAMERA)
+    }
+
     private fun onOrientationUpdate(): Boolean {
         if (shouldShowLinearCompass()) {
             binding.linearCompass.visibility = View.VISIBLE
+            val sightingCompassEnabled = isSightingCompassEnabled()
+            if (sightingCompassEnabled && sightingCompassActive && !sightingCompassInitialized){
+                enableSightingCompass()
+            }
+            binding.sightingCompassBtn.isVisible = sightingCompassEnabled
             binding.roundCompass.visibility = View.INVISIBLE
             binding.radarCompass.visibility = View.INVISIBLE
         } else {
             binding.linearCompass.visibility = View.INVISIBLE
+            binding.sightingCompassBtn.isVisible = false
+            disableSightingCompass()
             binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
             binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
         }
@@ -707,6 +824,7 @@ class NavigatorFragment : Fragment() {
     companion object {
         const val LAST_BEACON_ID = "last_beacon_id_long"
         const val LAST_DEST_BEARING = "last_dest_bearing"
+        const val CACHE_CAMERA_ZOOM = "camera_zoom_ratio"
     }
 
 }

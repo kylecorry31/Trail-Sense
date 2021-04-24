@@ -9,7 +9,6 @@
         <item>feet_miles</item>
     </string-array>
 
-
     <string-array name="pressure_unit_entries">
         <item>@string/units_hpa</item>
         <item>@string/units_inhg</item>

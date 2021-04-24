@@ -54,32 +54,40 @@
             app:title="@string/pref_use_24_hour_title" />
 
         <SwitchPreferenceCompat
+            android:summary="@string/pref_low_power_mode_summary"
             app:defaultValue="false"
+            app:disableDependentsState="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_low_power_mode"
-            app:disableDependentsState="true"
-            android:summary="@string/pref_low_power_mode_summary"
             app:singleLineTitle="false"
             app:title="@string/pref_low_power_mode_title" />
 
         <ListPreference
+            android:dependency="@string/pref_low_power_mode"
             app:defaultValue="system"
             app:entries="@array/theme_entries"
             app:entryValues="@array/theme_values"
             app:iconSpaceReserved="false"
-            android:dependency="@string/pref_low_power_mode"
             app:key="@string/pref_theme"
             app:singleLineTitle="false"
             app:title="@string/pref_theme_title"
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            android:summary="@string/experimental_features"
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_enable_experimental"
             app:singleLineTitle="false"
-            android:summary="@string/experimental_features"
             app:title="@string/experimental_tools_title" />
+
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_enable_experimental"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_use_camera_features"
+            app:singleLineTitle="false"
+            app:title="@string/pref_use_camera_features_title" />
 
     </PreferenceCategory>
 
