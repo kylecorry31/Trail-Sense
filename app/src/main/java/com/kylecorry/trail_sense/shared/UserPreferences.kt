@@ -239,6 +239,8 @@ class UserPreferences(private val context: Context) {
             cache.putFloat(getString(R.string.pref_stride_length), value.meters().distance)
         }
 
+    var useCameraFeatures: Boolean by BooleanPreference(cache, getString(R.string.pref_use_camera_features), false)
+
     private fun getString(id: Int): String {
         return context.getString(id)
     }

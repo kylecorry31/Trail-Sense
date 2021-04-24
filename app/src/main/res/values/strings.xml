@@ -969,6 +969,9 @@
     <string name="water_boil_guide_title">Make water safe to drink</string>
     <string name="water_boil_guide_desc">How to use the Water Boil Timer</string>
     <string name="color">Color</string>
+    <string name="pref_use_camera_features">pref_use_camera_features</string>
+    <string name="pref_use_camera_features_title">Enable camera features</string>
+    <string name="camera_permission_denied">Camera permission denied, unable to turn on camera features. You can enable it in settings.</string>
     <plurals name="import_beacons">
         <item quantity="one">Import %d beacon?</item>
         <item quantity="other">Import %d beacons?</item>
