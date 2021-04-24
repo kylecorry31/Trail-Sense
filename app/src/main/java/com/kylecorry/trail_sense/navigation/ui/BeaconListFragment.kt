@@ -35,6 +35,7 @@ import com.kylecorry.trailsensecore.domain.navigation.IBeacon
 import com.kylecorry.trailsensecore.infrastructure.persistence.ExternalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,6 +56,14 @@ class BeaconListFragment : Fragment() {
     private lateinit var navController: NavController
     private val sensorService by lazy { SensorService(requireContext()) }
     private var displayedGroup: BeaconGroup? = null
+
+    private val delayedUpdate = Intervalometer {
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                updateBeaconList()
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,11 +88,7 @@ class BeaconListFragment : Fragment() {
         beaconList.addLineSeparator()
         navController = findNavController()
 
-        lifecycleScope.launch {
-            withContext(Dispatchers.Main) {
-                updateBeaconList()
-            }
-        }
+        delayedUpdate.once(100)
 
         binding.searchbox.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -218,15 +223,12 @@ class BeaconListFragment : Fragment() {
 
     override fun onPause() {
         gps.stop(this::onLocationUpdate)
+        delayedUpdate.stop()
         super.onPause()
     }
 
     private fun onLocationUpdate(): Boolean {
-        lifecycleScope.launch {
-            withContext(Dispatchers.Main) {
-                updateBeaconList()
-            }
-        }
+        delayedUpdate.once(100)
         return false
     }
 
@@ -378,11 +380,12 @@ class BeaconListFragment : Fragment() {
                     it.name
                 }.map { it.toBeaconGroup() }
 
-                val signal = if (prefs.navigation.showLastSignalBeacon && prefs.backtrackSaveCellHistory) {
-                    beaconRepo.getTemporaryBeacon(BeaconOwner.CellSignal)?.toBeacon()
-                } else {
-                    null
-                }
+                val signal =
+                    if (prefs.navigation.showLastSignalBeacon && prefs.backtrackSaveCellHistory) {
+                        beaconRepo.getTemporaryBeacon(BeaconOwner.CellSignal)?.toBeacon()
+                    } else {
+                        null
+                    }
 
                 val all = (ungrouped + groups + listOfNotNull(signal)).map {
                     if (it is Beacon) {
@@ -406,7 +409,8 @@ class BeaconListFragment : Fragment() {
         withContext(Dispatchers.Main) {
             context ?: return@withContext
             _binding ?: return@withContext
-            binding.beaconTitle.text = displayedGroup?.name ?: getString(R.string.select_beacon)
+            binding.beaconTitle.text =
+                displayedGroup?.name ?: getString(R.string.select_beacon)
             updateBeaconEmptyText(beacons.isNotEmpty())
             beaconList.setData(beacons)
         }
