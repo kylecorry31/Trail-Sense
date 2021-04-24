@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
+import com.kylecorry.trail_sense.navigation.Camera
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
@@ -74,6 +75,14 @@ class NavigatorFragment : Fragment() {
     private var sightingCompassActive = false
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
+    private val camera by lazy {
+        Camera(
+            requireContext(),
+            this,
+            previewView = binding.viewCamera,
+            analyze = false
+        )
+    }
     private val orientation by lazy { sensorService.getDeviceOrientation() }
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val speedometer by lazy { sensorService.getSpeedometer() }
@@ -83,9 +92,6 @@ class NavigatorFragment : Fragment() {
     private var _binding: ActivityNavigatorBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
-
-    private var cameraProviderFuture : ListenableFuture<ProcessCameraProvider>? = null
-    private var cameraControl: CameraControl? = null
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
@@ -137,9 +143,6 @@ class NavigatorFragment : Fragment() {
             userPrefs.navigation.leftQuickAction,
             binding.navigationLeftQuickAction
         )
-        if (isSightingCompassEnabled()) {
-            cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
-        }
         return binding.root
     }
 
@@ -201,8 +204,8 @@ class NavigatorFragment : Fragment() {
         speedometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
 
         binding.location.setOnLongClickListener {
-            UiUtils.openMenu(it, R.menu.location_share_menu){ menuItem ->
-                val sender = when (menuItem){
+            UiUtils.openMenu(it, R.menu.location_share_menu) { menuItem ->
+                val sender = when (menuItem) {
                     R.id.action_send -> LocationSharesheet(requireContext())
                     R.id.action_maps -> LocationGeoSender(requireContext())
                     else -> LocationCopy(requireContext(), Clipboard(requireContext()))
@@ -226,10 +229,11 @@ class NavigatorFragment : Fragment() {
             toggleDestinationBearing()
         }
 
-        binding.zoomRatioSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.zoomRatioSeekbar.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val zoom = progress / 2f + 1
-                cameraControl?.setZoomRatio(zoom)
+                val zoom = (progress / 100f).coerceIn(0f, 1f)
+                camera.setZoom(zoom)
                 cache.putFloat(CACHE_CAMERA_ZOOM, zoom)
             }
 
@@ -274,10 +278,10 @@ class NavigatorFragment : Fragment() {
         }
     }
 
-    private fun setSightingCompassStatus(isOn: Boolean){
+    private fun setSightingCompassStatus(isOn: Boolean) {
         sightingCompassActive = isOn
         CustomUiUtils.setButtonState(binding.sightingCompassBtn, isOn)
-        if (isOn){
+        if (isOn) {
             enableSightingCompass()
         } else {
             disableSightingCompass()
@@ -285,25 +289,13 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun enableSightingCompass() {
-        if (!isSightingCompassEnabled()){
+        if (!isSightingCompassEnabled()) {
             return
         }
 
         sightingCompassInitialized = true
 
-        cameraProviderFuture?.addListener({
-            val cameraProvider = cameraProviderFuture?.get()
-            val preview = Preview.Builder().build()
-            val cameraSelector = CameraSelector.Builder()
-                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                .build()
-
-            preview.setSurfaceProvider(binding.viewCamera.surfaceProvider)
-            val camera = cameraProvider?.bindToLifecycle(this, cameraSelector, preview)
-            cameraControl = camera?.cameraControl
-            val zoomRatio = cache.getFloat(CACHE_CAMERA_ZOOM) ?: 2.5f
-            cameraControl?.setZoomRatio(zoomRatio)
-        }, ContextCompat.getMainExecutor(requireContext()))
+        camera.start(this::onCameraUpdate)
         binding.viewCameraLine.isVisible = true
         binding.viewCamera.isVisible = true
         binding.zoomRatioSeekbar.isVisible = true
@@ -319,8 +311,14 @@ class NavigatorFragment : Fragment() {
         handler.off()
     }
 
+    private fun onCameraUpdate(): Boolean {
+        val zoom = cache.getFloat(CACHE_CAMERA_ZOOM) ?: 0.5f
+        camera.setZoom(zoom)
+        return true
+    }
+
     private fun disableSightingCompass() {
-        val cameraProvider = cameraProviderFuture?.get()
+        camera.stop(this::onCameraUpdate)
         binding.viewCameraLine.isVisible = false
         binding.viewCamera.isVisible = false
         binding.zoomRatioSeekbar.isVisible = false
@@ -331,11 +329,10 @@ class NavigatorFragment : Fragment() {
             binding.navigationLeftQuickAction.isClickable = true
         }
         sightingCompassInitialized = false
-        cameraProvider?.unbindAll()
     }
 
     private fun toggleDestinationBearing() {
-        if (destination != null){
+        if (destination != null) {
             // Don't set destination bearing while navigating
             return
         }
@@ -473,8 +470,10 @@ class NavigatorFragment : Fragment() {
         compass.declination = getDeclination()
 
         binding.beaconBtn.show()
-        binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
-        binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
+        binding.roundCompass.visibility =
+            if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
+        binding.radarCompass.visibility =
+            if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
 
         // Update the UI
         updateNavigator()
@@ -482,6 +481,8 @@ class NavigatorFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        sightingCompassInitialized = false
+        camera.stop(this::onCameraUpdate)
         rightQuickAction?.onPause()
         leftQuickAction?.onPause()
         astronomyIntervalometer.stop()
@@ -613,7 +614,10 @@ class NavigatorFragment : Fragment() {
         // Compass
         val indicators = getIndicators()
         val destBearing = getDestinationBearing()
-        val destColor = if (destination != null) destination!!.color else UiUtils.color(requireContext(), R.color.colorAccent)
+        val destColor = if (destination != null) destination!!.color else UiUtils.color(
+            requireContext(),
+            R.color.colorAccent
+        )
         binding.roundCompass.setIndicators(indicators)
         binding.roundCompass.setAzimuth(compass.bearing)
         binding.roundCompass.setDestination(destBearing, destColor)
@@ -676,14 +680,17 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun isSightingCompassEnabled(): Boolean {
-        return userPrefs.experimentalEnabled && userPrefs.useCameraFeatures && PermissionUtils.hasPermission(requireContext(), Manifest.permission.CAMERA)
+        return userPrefs.experimentalEnabled && userPrefs.useCameraFeatures && PermissionUtils.hasPermission(
+            requireContext(),
+            Manifest.permission.CAMERA
+        )
     }
 
     private fun onOrientationUpdate(): Boolean {
         if (shouldShowLinearCompass()) {
             binding.linearCompass.visibility = View.VISIBLE
             val sightingCompassEnabled = isSightingCompassEnabled()
-            if (sightingCompassEnabled && sightingCompassActive && !sightingCompassInitialized){
+            if (sightingCompassEnabled && sightingCompassActive && !sightingCompassInitialized) {
                 enableSightingCompass()
             }
             binding.sightingCompassBtn.isVisible = sightingCompassEnabled
@@ -693,8 +700,10 @@ class NavigatorFragment : Fragment() {
             binding.linearCompass.visibility = View.INVISIBLE
             binding.sightingCompassBtn.isVisible = false
             disableSightingCompass()
-            binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
-            binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
+            binding.roundCompass.visibility =
+                if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
+            binding.radarCompass.visibility =
+                if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
         }
         updateUI()
         return true
@@ -704,7 +713,7 @@ class NavigatorFragment : Fragment() {
         nearbyBeacons = getNearbyBeacons()
         compass.declination = getDeclination()
 
-        if (sunBearing.value == 0f){
+        if (sunBearing.value == 0f) {
             updateAstronomyData()
         }
 
@@ -824,7 +833,7 @@ class NavigatorFragment : Fragment() {
     companion object {
         const val LAST_BEACON_ID = "last_beacon_id_long"
         const val LAST_DEST_BEARING = "last_dest_bearing"
-        const val CACHE_CAMERA_ZOOM = "camera_zoom_ratio"
+        const val CACHE_CAMERA_ZOOM = "sighting_compass_camera_zoom"
     }
 
 }
