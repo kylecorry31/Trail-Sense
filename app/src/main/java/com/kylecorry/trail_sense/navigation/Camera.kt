@@ -14,6 +14,7 @@ import androidx.core.content.getSystemService
 import androidx.lifecycle.LifecycleOwner
 import com.google.common.util.concurrent.ListenableFuture
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
+import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import kotlin.math.atan
 
 class Camera(
@@ -38,6 +39,10 @@ class Camera(
         get() = _hasValidReading
 
     override fun startImpl() {
+        if (!PermissionUtils.isCameraEnabled(context)){
+            return
+        }
+
         cameraProviderFuture = ProcessCameraProvider.getInstance(context)
         cameraProviderFuture?.addListener({
             cameraProvider = cameraProviderFuture?.get()
