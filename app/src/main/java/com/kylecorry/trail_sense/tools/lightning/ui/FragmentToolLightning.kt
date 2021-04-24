@@ -58,7 +58,12 @@ class FragmentToolLightning : Fragment() {
 
     private fun onLightning() {
         if (lightningTime != null) {
-            return
+            if (distance != null) {
+                reset()
+            }
+            else {
+                return
+            }
         }
         lightningTime = Instant.now()
         binding.lightningBtn.setState(true)

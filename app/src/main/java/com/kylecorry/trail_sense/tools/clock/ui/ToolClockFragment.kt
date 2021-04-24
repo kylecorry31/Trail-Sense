@@ -95,29 +95,15 @@ class ToolClockFragment : Fragment() {
         val currentTime = gpsTime.plus(systemDiff)
         val clockError = Duration.between(systemTime, gpsTime)
         val myTime = ZonedDateTime.ofInstant(currentTime, ZoneId.systemDefault())
-        val displayTime = myTime.toLocalDateTime().truncatedTo(ChronoUnit.MINUTES).plusMinutes(1)
+        val displayTimeWithSeconds = myTime.toLocalDateTime()
+        var displayTime = displayTimeWithSeconds.truncatedTo(ChronoUnit.MINUTES).plusMinutes(1)
+        val displayTimeSecond = displayTimeWithSeconds.second
+        if (displayTimeSecond > 45) {
+            displayTime = displayTimeWithSeconds.truncatedTo(ChronoUnit.MINUTES).plusMinutes(2)
+        }
         val sendTime = displayTime.minus(clockError)
 
         val formattedTime = formatService.formatTime(displayTime.toLocalTime())
-
-        UiUtils.shortToast(
-            requireContext(),
-            getString(
-                R.string.pip_notification_scheduled,
-                formattedTime
-            )
-        )
-
-        AlarmUtils.set(
-            requireContext(),
-            sendTime,
-            NextMinuteBroadcastReceiver.pendingIntent(
-                requireContext(),
-                formattedTime
-            ),
-            exact = true,
-            allowWhileIdle = true
-        )
 
         UiUtils.alertWithCancel(
             requireContext(),
@@ -125,6 +111,24 @@ class ToolClockFragment : Fragment() {
             getString(R.string.clock_sync_instructions, formattedTime)
         ) { cancelled ->
             if (!cancelled) {
+                UiUtils.shortToast(
+                    requireContext(),
+                    getString(
+                        R.string.pip_notification_scheduled,
+                        formattedTime
+                    )
+                )
+
+                AlarmUtils.set(
+                    requireContext(),
+                    sendTime,
+                    NextMinuteBroadcastReceiver.pendingIntent(
+                        requireContext(),
+                        formattedTime
+                    ),
+                    exact = true,
+                    allowWhileIdle = true
+                )
                 startActivityForResult(Intent(Settings.ACTION_DATE_SETTINGS), 0)
             }
         }
