@@ -106,7 +106,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                         WaypointRepo.BACKTRACK_PATH_ID,
                         getString(R.string.tool_backtrack_title),
                         sortedWaypoints.map { it.toPathPoint() },
-                        UiUtils.color(requireContext(), prefs.navigation.backtrackPathColor.color),
+                        prefs.navigation.backtrackPathColor.color,
                         prefs.navigation.backtrackPathStyle
                     )
                     displayPaths()

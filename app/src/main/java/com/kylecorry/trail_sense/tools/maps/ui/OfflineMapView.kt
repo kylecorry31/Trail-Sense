@@ -152,7 +152,7 @@ class OfflineMapView : View {
             compassSize = min(height, width) - 2 * iconSize - 2 * UiUtils.dp(context, 2f).toInt()
             isInit = true
             primaryColor = UiUtils.color(context, R.color.colorPrimary)
-            secondaryColor = UiUtils.color(context, R.color.colorAccent)
+            secondaryColor = UiUtils.color(context, R.color.colorSecondary)
             val compassDrawable = UiUtils.drawable(context, R.drawable.radar)
             compass = compassDrawable?.toBitmap(compassSize, compassSize)
         }
@@ -209,11 +209,11 @@ class OfflineMapView : View {
     }
 
     private fun drawDestination(canvas: Canvas) {
-        destination ?: return
+        val dest = destination ?: return
         val myLocation = getPixelCoordinate(myLocation)
-        val destLoc = getPixelCoordinate(destination!!.coordinate)
+        val destLoc = getPixelCoordinate(dest.coordinate)
         if (myLocation != null && destLoc != null) {
-            paint.color = primaryColor
+            paint.color = dest.color
             paint.strokeWidth = 6f / scale
             paint.alpha = 127
             paint.style = Paint.Style.STROKE
@@ -326,7 +326,7 @@ class OfflineMapView : View {
                     (iconSize / 2f + UiUtils.dp(context, 1f)) / scale,
                     paint
                 )
-                paint.color = primaryColor
+                paint.color = beacon.color
                 paint.alpha = alpha
                 canvas.drawCircle(mapX + coord.x, mapY + coord.y, (iconSize / 2f) / scale, paint)
                 paint.alpha = 255

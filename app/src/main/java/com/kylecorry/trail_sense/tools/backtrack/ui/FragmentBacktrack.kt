@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
@@ -116,7 +117,7 @@ class FragmentBacktrack : Fragment() {
                     lifecycleScope.launch {
                         var newTempId = 0L
                         withContext(Dispatchers.IO) {
-                            val tempBeaconId = beaconRepo.getTemporaryBeacon()?.id ?: 0L
+                            val tempBeaconId = beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
                             val beacon = Beacon(
                                 tempBeaconId,
                                 getString(
@@ -129,11 +130,12 @@ class FragmentBacktrack : Fragment() {
                                 waypoint.coordinate,
                                 visible = false,
                                 elevation = waypoint.altitude,
-                                temporary = true
+                                temporary = true,
+                                color = prefs.navigation.backtrackPathColor.color
                             )
-                            beaconRepo.addBeacon(BeaconEntity.from(beacon))
+                            beaconRepo.addBeacon(BeaconEntity.from(beacon, BeaconOwner.Backtrack))
 
-                            newTempId = beaconRepo.getTemporaryBeacon()?.id ?: 0L
+                            newTempId = beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
                         }
 
                         withContext(Dispatchers.Main) {

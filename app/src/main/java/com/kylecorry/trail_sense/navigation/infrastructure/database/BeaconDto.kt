@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.database
 
+import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.infrastructure.persistence.Dto
@@ -32,7 +33,8 @@ class BeaconDto : Dto<Beacon>() {
             finalProperties["comment"] as String?,
             finalProperties["beacon_group_id"] as Long?,
             finalProperties["elevation"] as Float?,
-            finalProperties["temporary"] as Boolean
+            finalProperties["temporary"] as Boolean,
+            color = AppColor.Orange.color
         )
     }
 }

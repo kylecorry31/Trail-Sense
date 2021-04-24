@@ -3,8 +3,10 @@ package com.kylecorry.trail_sense.navigation.domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 
 @Entity(
     tableName = "beacons"
@@ -17,7 +19,9 @@ data class BeaconEntity(
     @ColumnInfo(name = "comment") val comment: String?,
     @ColumnInfo(name = "beacon_group_id") val beaconGroupId: Long?,
     @ColumnInfo(name = "elevation") val elevation: Float?,
-    @ColumnInfo(name = "temporary") val temporary: Boolean
+    @ColumnInfo(name = "temporary") val temporary: Boolean,
+    @ColumnInfo(name = "owner") val owner: BeaconOwner,
+    @ColumnInfo(name = "color") val color: AppColor
 ) {
 
     @PrimaryKey(autoGenerate = true)
@@ -28,13 +32,24 @@ data class BeaconEntity(
         get() = Coordinate(latitude, longitude)
 
     fun toBeacon(): Beacon {
-        return Beacon(id, name, coordinate, visible, comment, beaconGroupId, elevation)
+        return Beacon(id, name, coordinate, visible, comment, beaconGroupId, elevation, color = color.color)
     }
 
 
     companion object {
-        fun from(beacon: Beacon): BeaconEntity {
-            return BeaconEntity(beacon.name, beacon.coordinate.latitude, beacon.coordinate.longitude, beacon.visible, beacon.comment, beacon.beaconGroupId, beacon.elevation, beacon.temporary).also {
+        fun from(beacon: Beacon, owner: BeaconOwner = BeaconOwner.User): BeaconEntity {
+            return BeaconEntity(
+                beacon.name,
+                beacon.coordinate.latitude,
+                beacon.coordinate.longitude,
+                beacon.visible,
+                beacon.comment,
+                beacon.beaconGroupId,
+                beacon.elevation,
+                beacon.temporary,
+                owner,
+                AppColor.values().firstOrNull { it.color == beacon.color } ?: AppColor.Orange
+            ).also {
                 it.id = beacon.id
             }
         }

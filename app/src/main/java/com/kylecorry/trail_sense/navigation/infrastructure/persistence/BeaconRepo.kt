@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.shared.AppDatabase
+import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 
 class BeaconRepo private constructor(context: Context) : IBeaconRepo {
 
@@ -24,7 +25,7 @@ class BeaconRepo private constructor(context: Context) : IBeaconRepo {
 
     override suspend fun getBeacon(id: Long): BeaconEntity? = beaconDao.get(id)
 
-    override suspend fun getTemporaryBeacon(): BeaconEntity? = beaconDao.getTemporaryBeacon()
+    override suspend fun getTemporaryBeacon(owner: BeaconOwner): BeaconEntity? = beaconDao.getTemporaryBeacon(owner.id)
 
     override suspend fun deleteBeacon(beacon: BeaconEntity) = beaconDao.delete(beacon)
 

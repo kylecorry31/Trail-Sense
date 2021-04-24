@@ -310,7 +310,8 @@ class NavigatorFragment : Fragment() {
                             destination!!.coordinate
                         )
                     ), R.drawable.ic_arrow_target,
-                    distance = Distance.meters(gps.location.distanceTo(destination!!.coordinate))
+                    distance = Distance.meters(gps.location.distanceTo(destination!!.coordinate)),
+                    tint = destination!!.color
                 )
             )
             return indicators
@@ -332,7 +333,8 @@ class NavigatorFragment : Fragment() {
                 BearingIndicator(
                     transformTrueNorthBearing(gps.location.bearingTo(beacon.coordinate)),
                     R.drawable.ic_arrow_target,
-                    distance = Distance.meters(gps.location.distanceTo(beacon.coordinate))
+                    distance = Distance.meters(gps.location.distanceTo(beacon.coordinate)),
+                    tint = beacon.color
                 )
             )
         }
@@ -505,10 +507,7 @@ class NavigatorFragment : Fragment() {
         // Compass
         val indicators = getIndicators()
         val destBearing = getDestinationBearing()
-        val destColor = if (destination != null) UiUtils.color(
-            requireContext(),
-            R.color.colorPrimary
-        ) else UiUtils.color(requireContext(), R.color.colorAccent)
+        val destColor = if (destination != null) destination!!.color else UiUtils.color(requireContext(), R.color.colorAccent)
         binding.roundCompass.setIndicators(indicators)
         binding.roundCompass.setAzimuth(compass.bearing)
         binding.roundCompass.setDestination(destBearing, destColor)
@@ -531,7 +530,7 @@ class NavigatorFragment : Fragment() {
                 WaypointRepo.BACKTRACK_PATH_ID,
                 getString(R.string.tool_backtrack_title),
                 points,
-                UiUtils.color(requireContext(), userPrefs.navigation.backtrackPathColor.color),
+                userPrefs.navigation.backtrackPathColor.color,
                 userPrefs.navigation.backtrackPathStyle
             )
             binding.radarCompass.setPaths(listOf(path))

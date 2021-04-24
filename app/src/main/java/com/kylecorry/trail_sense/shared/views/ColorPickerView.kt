@@ -33,7 +33,7 @@ class ColorPickerView(context: Context, attrs: AttributeSet?) : FrameLayout(cont
 
         for (color in AppColor.values()) {
             val colorView = ColorButton(context, null)
-            colorView.setButtonColor(UiUtils.color(context, color.color))
+            colorView.setButtonColor(color.color)
             colorView.setPadding(UiUtils.dp(context, 16f).toInt())
             colorView.setOnClickListener {
                 this.color = color

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.infrastructure.persistence
 import androidx.lifecycle.LiveData
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
+import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 
 interface IBeaconRepo {
     fun getBeacons(): LiveData<List<BeaconEntity>>
@@ -11,7 +12,7 @@ interface IBeaconRepo {
     suspend fun searchBeaconsInGroup(text: String, groupId: Long?): List<BeaconEntity>
     suspend fun getBeaconsInGroup(groupId: Long?): List<BeaconEntity>
     suspend fun getBeacon(id: Long): BeaconEntity?
-    suspend fun getTemporaryBeacon(): BeaconEntity?
+    suspend fun getTemporaryBeacon(owner: BeaconOwner): BeaconEntity?
     suspend fun deleteBeacon(beacon: BeaconEntity)
     suspend fun addBeacon(beacon: BeaconEntity): Long
 
