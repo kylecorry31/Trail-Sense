@@ -127,6 +127,15 @@
             app:title="@string/pref_backtrack_save_cell_title" />
 
         <SwitchPreferenceCompat
+            android:dependency="@string/pref_backtrack_save_cell"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_last_signal_beacon"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_show_last_signal_beacon_summary"
+            app:title="@string/pref_show_last_signal_beacon_title" />
+
+        <SwitchPreferenceCompat
             android:dependency="@string/pref_backtrack_enabled"
             app:defaultValue="true"
             app:iconSpaceReserved="false"

@@ -32,12 +32,23 @@ data class BeaconEntity(
         get() = Coordinate(latitude, longitude)
 
     fun toBeacon(): Beacon {
-        return Beacon(id, name, coordinate, visible, comment, beaconGroupId, elevation, color = color.color)
+        return Beacon(
+            id,
+            name,
+            coordinate,
+            visible,
+            comment,
+            beaconGroupId,
+            elevation,
+            temporary = temporary,
+            color = color.color,
+            owner = owner
+        )
     }
 
 
     companion object {
-        fun from(beacon: Beacon, owner: BeaconOwner = BeaconOwner.User): BeaconEntity {
+        fun from(beacon: Beacon): BeaconEntity {
             return BeaconEntity(
                 beacon.name,
                 beacon.coordinate.latitude,
@@ -47,7 +58,7 @@ data class BeaconEntity(
                 beacon.beaconGroupId,
                 beacon.elevation,
                 beacon.temporary,
-                owner,
+                beacon.owner,
                 AppColor.values().firstOrNull { it.color == beacon.color } ?: AppColor.Orange
             ).also {
                 it.id = beacon.id

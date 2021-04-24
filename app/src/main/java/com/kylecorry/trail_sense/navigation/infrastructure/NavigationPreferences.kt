@@ -49,6 +49,9 @@ class NavigationPreferences(private val context: Context) {
             value
         )
 
+    val showLastSignalBeacon: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_show_last_signal_beacon)) ?: true
+
     val showLinearCompass: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_linear_compass)) ?: true
 

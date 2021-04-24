@@ -26,9 +26,11 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconIOService
 import com.kylecorry.trail_sense.navigation.infrastructure.export.JsonBeaconImporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
+import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
 import com.kylecorry.trailsensecore.infrastructure.persistence.ExternalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
@@ -45,6 +47,7 @@ class BeaconListFragment : Fragment() {
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val externalFileService by lazy { ExternalFileService(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var _binding: FragmentBeaconListBinding? = null
     private val binding get() = _binding!!
@@ -375,7 +378,13 @@ class BeaconListFragment : Fragment() {
                     it.name
                 }.map { it.toBeaconGroup() }
 
-                val all = (ungrouped + groups).map {
+                val signal = if (prefs.navigation.showLastSignalBeacon && prefs.backtrackSaveCellHistory) {
+                    beaconRepo.getTemporaryBeacon(BeaconOwner.CellSignal)?.toBeacon()
+                } else {
+                    null
+                }
+
+                val all = (ungrouped + groups + listOfNotNull(signal)).map {
                     if (it is Beacon) {
                         Pair(it, it.coordinate.distanceTo(gps.location))
                     } else {

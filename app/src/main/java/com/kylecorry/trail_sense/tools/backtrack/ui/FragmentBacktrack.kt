@@ -131,9 +131,10 @@ class FragmentBacktrack : Fragment() {
                                 visible = false,
                                 elevation = waypoint.altitude,
                                 temporary = true,
-                                color = prefs.navigation.backtrackPathColor.color
+                                color = prefs.navigation.backtrackPathColor.color,
+                                owner = BeaconOwner.Backtrack
                             )
-                            beaconRepo.addBeacon(BeaconEntity.from(beacon, BeaconOwner.Backtrack))
+                            beaconRepo.addBeacon(BeaconEntity.from(beacon))
 
                             newTempId = beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
                         }

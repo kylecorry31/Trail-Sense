@@ -972,6 +972,10 @@
     <string name="pref_use_camera_features">pref_use_camera_features</string>
     <string name="pref_use_camera_features_title">Enable camera features</string>
     <string name="camera_permission_denied">Camera permission denied, unable to turn on camera features. You can enable it in settings.</string>
+    <string name="last_signal_beacon_name">Last signal - %s (%s)</string>
+    <string name="pref_show_last_signal_beacon">pref_show_last_signal_beacon</string>
+    <string name="pref_show_last_signal_beacon_title">Last signal beacon</string>
+    <string name="pref_show_last_signal_beacon_summary">Creates a beacon for the last cell signal location</string>
     <plurals name="import_beacons">
         <item quantity="one">Import %d beacon?</item>
         <item quantity="other">Import %d beacons?</item>

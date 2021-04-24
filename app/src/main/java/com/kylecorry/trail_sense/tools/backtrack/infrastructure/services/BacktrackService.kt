@@ -8,11 +8,19 @@ import android.os.IBinder
 import android.util.Log
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.shared.AppColor
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
+import com.kylecorry.trailsensecore.domain.network.CellSignal
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.services.CoroutineForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
@@ -29,6 +37,7 @@ class BacktrackService : CoroutineForegroundService() {
     private val cellSignal by lazy { sensorService.getCellSignal(true) }
     private val sensorService by lazy { SensorService(applicationContext) }
     private val waypointRepo by lazy { WaypointRepo.getInstance(applicationContext) }
+    private val formatService by lazy { FormatServiceV2(this) }
 
     private val prefs by lazy { UserPreferences(applicationContext) }
 
@@ -90,6 +99,42 @@ class BacktrackService : CoroutineForegroundService() {
                 )
             )
             waypointRepo.deleteOlderThan(Instant.now().minus(Duration.ofDays(2)))
+            createLastSignalBeacon(cell, gps.location, gps.altitude)
+        }
+    }
+
+    private suspend fun createLastSignalBeacon(
+        cellSignal: CellSignal?,
+        location: Coordinate,
+        altitude: Float
+    ) {
+        if (cellSignal == null) {
+            return
+        }
+        val beaconRepo = BeaconRepo.getInstance(this)
+        withContext(Dispatchers.IO) {
+            val existing = beaconRepo.getTemporaryBeacon(BeaconOwner.CellSignal)
+            beaconRepo.addBeacon(
+                BeaconEntity.from(
+                    Beacon(
+                    existing?.id ?: 0L,
+                    getString(
+                        R.string.last_signal_beacon_name,
+                        CellSignalUtils.getCellTypeString(
+                            this@BacktrackService,
+                            cellSignal.network
+                        ),
+                        formatService.formatQuality(cellSignal.quality)
+                    ),
+                    location,
+                    false,
+                    elevation = altitude,
+                    temporary = true,
+                    owner = BeaconOwner.CellSignal,
+                    color = AppColor.Orange.color
+                )
+                )
+            )
         }
     }
 

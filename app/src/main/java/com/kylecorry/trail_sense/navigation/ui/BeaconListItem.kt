@@ -11,10 +11,14 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRep
 import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconSharesheet
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
+import com.kylecorry.trailsensecore.domain.units.Quality
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlinx.coroutines.CoroutineScope
@@ -43,12 +47,29 @@ class BeaconListItem(
         val binding = ListItemBeaconBinding.bind(view)
 
         binding.beaconName.text = beacon.name
-        binding.beaconImage.setImageResource(R.drawable.ic_location)
-        binding.beaconImage.imageTintList = ColorStateList.valueOf(beacon.color)
+        if (beacon.owner == BeaconOwner.User) {
+            binding.beaconImage.setImageResource(R.drawable.ic_location)
+            binding.beaconImage.imageTintList = ColorStateList.valueOf(beacon.color)
+        } else if (beacon.owner == BeaconOwner.CellSignal){
+            when {
+                beacon.name.contains(formatservice.formatQuality(Quality.Poor)) -> {
+                    binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Poor))
+                    binding.beaconImage.imageTintList = ColorStateList.valueOf(CustomUiUtils.getQualityColor(view.context, Quality.Poor))
+                }
+                beacon.name.contains(formatservice.formatQuality(Quality.Moderate)) -> {
+                    binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Moderate))
+                    binding.beaconImage.imageTintList = ColorStateList.valueOf(CustomUiUtils.getQualityColor(view.context, Quality.Moderate))
+                }
+                beacon.name.contains(formatservice.formatQuality(Quality.Good)) -> {
+                    binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Good))
+                    binding.beaconImage.imageTintList = ColorStateList.valueOf(CustomUiUtils.getQualityColor(view.context, Quality.Good))
+                }
+            }
+        }
         var beaconVisibility = beacon.visible
         val distance = navigationService.navigate(beacon.coordinate, myLocation, 0f).distance
         binding.beaconSummary.text = formatservice.formatLargeDistance(distance)
-        if (!(prefs.navigation.showMultipleBeacons || prefs.experimentalEnabled)) {
+        if (!(prefs.navigation.showMultipleBeacons || prefs.experimentalEnabled) || beacon.temporary) {
             binding.visibleBtn.visibility = View.GONE
         } else {
             binding.visibleBtn.visibility = View.VISIBLE
@@ -131,7 +152,7 @@ class BeaconListItem(
         binding.beaconMenuBtn.setOnClickListener {
             val popup = PopupMenu(it.context, it)
             val inflater = popup.menuInflater
-            inflater.inflate(R.menu.beacon_item_menu, popup.menu)
+            inflater.inflate(if (beacon.temporary) R.menu.temporary_beacon_item_menu else R.menu.beacon_item_menu, popup.menu)
             popup.setOnMenuItemClickListener(menuListener)
             popup.show()
         }
