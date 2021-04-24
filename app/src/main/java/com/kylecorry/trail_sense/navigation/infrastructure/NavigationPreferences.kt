@@ -87,7 +87,7 @@ class NavigationPreferences(private val context: Context) {
         }
 
     val showBacktrackPathDuration: Duration
-        get() = Duration.ofDays(2)
+        get() = Duration.ofDays(1)
 
     var maxBeaconDistance: Float
         get() {
