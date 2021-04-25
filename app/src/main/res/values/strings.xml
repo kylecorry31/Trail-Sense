@@ -969,13 +969,25 @@
     <string name="water_boil_guide_title">Make water safe to drink</string>
     <string name="water_boil_guide_desc">How to use the Water Boil Timer</string>
     <string name="color">Color</string>
-    <string name="pref_use_camera_features">pref_use_camera_features</string>
+    <string name="pref_use_camera_features" translatable="false">pref_use_camera_features</string>
     <string name="pref_use_camera_features_title">Enable camera features</string>
     <string name="camera_permission_denied">Camera permission denied, unable to turn on camera features. You can enable it in settings.</string>
     <string name="last_signal_beacon_name">Last signal - %s (%s)</string>
-    <string name="pref_show_last_signal_beacon">pref_show_last_signal_beacon</string>
+    <string name="pref_show_last_signal_beacon" translatable="false">pref_show_last_signal_beacon</string>
     <string name="pref_show_last_signal_beacon_title">Last signal beacon</string>
     <string name="pref_show_last_signal_beacon_summary">Creates a beacon for the last cell signal location</string>
+    <string name="fields">Fields</string>
+    <string name="noon">Noon</string>
+    <string name="pref_show_noon" translatable="false">pref_show_noon</string>
+    <string name="pref_show_noon_summary">Solar and lunar noon</string>
+    <string name="pref_show_astronomical_times" translatable="false">pref_show_astronomical_times</string>
+    <string name="for_sunrise_and_set">For sunrise and sunset</string>
+    <string name="pref_show_nautical_times" translatable="false">pref_show_nautical_times</string>
+    <string name="pref_show_nautical_times_title">Nautical times</string>
+    <string name="pref_show_astronomical_times_title">Astronomical times</string>
+    <string name="pref_show_civil_times" translatable="false">pref_show_civil_times</string>
+    <string name="pref_show_civil_times_title">Civil times</string>
+    <string name="pref_show_civil_times_summary">Dawn and dusk</string>
     <plurals name="import_beacons">
         <item quantity="one">Import %d beacon?</item>
         <item quantity="other">Import %d beacons?</item>

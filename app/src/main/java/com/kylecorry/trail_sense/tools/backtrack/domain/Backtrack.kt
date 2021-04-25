@@ -67,15 +67,17 @@ class Backtrack(
     }
 
     private suspend fun updateSensors(){
-        withTimeoutOrNull(Duration.ofSeconds(30).toMillis()) {
-            val jobs = mutableListOf<Job>()
-            jobs.add(launch { gps.read() })
+        withContext(Dispatchers.IO) {
+            withTimeoutOrNull(Duration.ofSeconds(30).toMillis()) {
+                val jobs = mutableListOf<Job>()
+                jobs.add(launch { gps.read() })
 
-            if (recordCellSignal && PermissionUtils.isBackgroundLocationEnabled(context)) {
-                jobs.add(launch { cellSignalSensor.read() })
+                if (recordCellSignal && PermissionUtils.isBackgroundLocationEnabled(context)) {
+                    jobs.add(launch { cellSignalSensor.read() })
+                }
+
+                jobs.joinAll()
             }
-
-            jobs.joinAll()
         }
     }
 
