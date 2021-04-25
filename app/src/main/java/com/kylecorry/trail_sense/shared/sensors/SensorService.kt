@@ -174,7 +174,7 @@ class SensorService(ctx: Context) {
         if (!hasLocationPermission(background)){
             return NullCellSignalSensor()
         }
-        return CellSignalSensorHotfix(context)
+        return CellSignalSensor(context)
     }
 
     fun getGravity(): IAccelerometer {
