@@ -31,6 +31,7 @@ import kotlin.math.min
 
 class RadarCompassView : View, ICompassView {
     private lateinit var paint: Paint
+    private lateinit var center: PixelCoordinate
     private val icons = mutableMapOf<Int, Bitmap>()
     private var indicators = listOf<BearingIndicator>()
     private var compass: Bitmap? = null
@@ -119,6 +120,7 @@ class RadarCompassView : View, ICompassView {
             paint.style = Paint.Style.FILL
             tempCanvas.drawCircle(width / 2f, height / 2f, compassSize / 2f, paint)
             pathBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            center = PixelCoordinate(width / 2f, height / 2f)
         }
         canvas.drawColor(Color.TRANSPARENT)
         canvas.save()
@@ -186,6 +188,23 @@ class RadarCompassView : View, ICompassView {
         canvas.drawBitmap(pathBitmap, 0f, 0f, paint)
     }
 
+    private fun shouldDisplayLine(line: PixelLine): Boolean {
+        if (line.alpha == 0){
+            return false
+        }
+
+        if (getDistanceFromCenter(line.start) > compassSize / 2 && getDistanceFromCenter(line.end) > compassSize / 2){
+            return false
+        }
+
+        return true
+    }
+
+
+    private fun getDistanceFromCenter(pixel: PixelCoordinate): Float {
+        return pixel.distanceTo(center)
+    }
+
     fun finalize() {
         try {
             compassMask.recycle()
@@ -221,6 +240,8 @@ class RadarCompassView : View, ICompassView {
             it.toPixelLines(maxTimeAgo) {
                 coordinateToPixel(it)
             }
+        }.filter {
+            shouldDisplayLine(it)
         }
         invalidate()
     }
