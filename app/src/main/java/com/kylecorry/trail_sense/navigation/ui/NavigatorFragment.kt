@@ -118,6 +118,8 @@ class NavigatorFragment : Fragment() {
 
     private var gpsErrorShown = false
 
+    private var lastOrientation: DeviceOrientation.Orientation? = null
+
     private val astronomyIntervalometer = Intervalometer {
         updateAstronomyData()
     }
@@ -682,6 +684,13 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun onOrientationUpdate(): Boolean {
+
+        if (orientation.orientation == lastOrientation){
+            return true
+        }
+
+        lastOrientation = orientation.orientation
+
         if (shouldShowLinearCompass()) {
             binding.linearCompass.visibility = View.VISIBLE
             val sightingCompassEnabled = isSightingCompassEnabled()
