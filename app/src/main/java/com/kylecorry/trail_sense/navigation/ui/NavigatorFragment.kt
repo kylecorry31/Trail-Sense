@@ -105,7 +105,7 @@ class NavigatorFragment : Fragment() {
     private var nearbyBeacons: Collection<Beacon> = listOf()
 
     private var destination: Beacon? = null
-    private var destinationBearing: Bearing? = null
+    private var destinationBearing: Float? = null
     private var useTrueNorth = false
 
     private var leftQuickAction: QuickActionButton? = null
@@ -113,8 +113,8 @@ class NavigatorFragment : Fragment() {
 
     private var isMoonUp = true
     private var isSunUp = true
-    private var moonBearing = Bearing(0f)
-    private var sunBearing = Bearing(0f)
+    private var moonBearing = 0f
+    private var sunBearing = 0f
 
     private var gpsErrorShown = false
 
@@ -332,8 +332,8 @@ class NavigatorFragment : Fragment() {
         }
 
         if (destinationBearing == null) {
-            destinationBearing = compass.bearing
-            cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
+            destinationBearing = compass.rawBearing
+            cache.putFloat(LAST_DEST_BEARING, compass.rawBearing)
             UiUtils.shortToast(
                 requireContext(),
                 getString(R.string.toast_destination_bearing_set)
@@ -382,6 +382,7 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun getIndicators(): List<BearingIndicator> {
+        // TODO: Don't create this on every update
         val indicators = mutableListOf<BearingIndicator>()
         if (userPrefs.astronomy.showOnCompass) {
             val showWhenDown = userPrefs.astronomy.showOnCompassWhenDown
@@ -405,7 +406,7 @@ class NavigatorFragment : Fragment() {
                     transformTrueNorthBearing(
                         gps.location.bearingTo(
                             destination!!.coordinate
-                        )
+                        ).value
                     ), R.drawable.ic_arrow_target,
                     distance = Distance.meters(gps.location.distanceTo(destination!!.coordinate)),
                     tint = destination!!.color
@@ -428,7 +429,7 @@ class NavigatorFragment : Fragment() {
         for (beacon in nearby) {
             indicators.add(
                 BearingIndicator(
-                    transformTrueNorthBearing(gps.location.bearingTo(beacon.coordinate)),
+                    transformTrueNorthBearing(gps.location.bearingTo(beacon.coordinate).value),
                     R.drawable.ic_arrow_target,
                     distance = Distance.meters(gps.location.distanceTo(beacon.coordinate)),
                     tint = beacon.color
@@ -458,7 +459,7 @@ class NavigatorFragment : Fragment() {
 
         val lastDestBearing = cache.getFloat(LAST_DEST_BEARING)
         if (lastDestBearing != null) {
-            destinationBearing = Bearing(lastDestBearing)
+            destinationBearing = lastDestBearing
         }
 
         compass.declination = getDeclination()
@@ -500,19 +501,19 @@ class NavigatorFragment : Fragment() {
         )
     }
 
-    private fun getSunBearing(): Bearing {
-        return transformTrueNorthBearing(astronomyService.getSunAzimuth(gps.location))
+    private fun getSunBearing(): Float {
+        return transformTrueNorthBearing(astronomyService.getSunAzimuth(gps.location).value)
     }
 
-    private fun getMoonBearing(): Bearing {
-        return transformTrueNorthBearing(astronomyService.getMoonAzimuth(gps.location))
+    private fun getMoonBearing(): Float {
+        return transformTrueNorthBearing(astronomyService.getMoonAzimuth(gps.location).value)
     }
 
-    private fun getDestinationBearing(): Bearing? {
+    private fun getDestinationBearing(): Float? {
         val destLocation = destination?.coordinate
         return when {
             destLocation != null -> {
-                transformTrueNorthBearing(gps.location.bearingTo(destLocation))
+                transformTrueNorthBearing(gps.location.bearingTo(destLocation).value)
             }
             destinationBearing != null -> {
                 destinationBearing
@@ -527,11 +528,11 @@ class NavigatorFragment : Fragment() {
         return destination ?: getFacingBeacon(nearby)
     }
 
-    private fun transformTrueNorthBearing(bearing: Bearing): Bearing {
+    private fun transformTrueNorthBearing(bearing: Float): Float {
         return if (useTrueNorth) {
             bearing
         } else {
-            bearing.withDeclination(-getDeclination())
+            Bearing.getBearing(bearing - getDeclination())
         }
     }
 
@@ -613,10 +614,10 @@ class NavigatorFragment : Fragment() {
             R.color.colorAccent
         )
         binding.roundCompass.setIndicators(indicators)
-        binding.roundCompass.setAzimuth(compass.bearing)
+        binding.roundCompass.setAzimuth(compass.rawBearing)
         binding.roundCompass.setDestination(destBearing, destColor)
         binding.radarCompass.setIndicators(indicators)
-        binding.radarCompass.setAzimuth(compass.bearing)
+        binding.radarCompass.setAzimuth(compass.rawBearing)
         binding.radarCompass.setDeclination(getDeclination())
         binding.radarCompass.setLocation(gps.location)
         val bt = backtrack
@@ -641,7 +642,7 @@ class NavigatorFragment : Fragment() {
         }
         binding.radarCompass.setDestination(destBearing, destColor)
         binding.linearCompass.setIndicators(indicators)
-        binding.linearCompass.setAzimuth(compass.bearing)
+        binding.linearCompass.setAzimuth(compass.rawBearing)
         binding.linearCompass.setDestination(destBearing, destColor)
 
         // Altitude
@@ -707,7 +708,7 @@ class NavigatorFragment : Fragment() {
         nearbyBeacons = getNearbyBeacons()
         compass.declination = getDeclination()
 
-        if (sunBearing.value == 0f) {
+        if (sunBearing == 0f) {
             updateAstronomyData()
         }
 

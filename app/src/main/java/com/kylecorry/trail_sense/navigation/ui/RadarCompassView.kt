@@ -35,8 +35,8 @@ class RadarCompassView : View, ICompassView {
     private var indicators = listOf<BearingIndicator>()
     private var compass: Bitmap? = null
     private var isInit = false
-    private var azimuth = Bearing(0f)
-    private var destination: Bearing? = null
+    private var azimuth = 0f
+    private var destination: Float? = null
 
     @ColorInt
     private var destinationColor: Int? = null
@@ -122,7 +122,7 @@ class RadarCompassView : View, ICompassView {
         }
         canvas.drawColor(Color.TRANSPARENT)
         canvas.save()
-        canvas.rotate(-azimuth.value, width / 2f, height / 2f)
+        canvas.rotate(-azimuth, width / 2f, height / 2f)
         drawCompass(canvas)
         drawBearings(canvas)
         drawDestination(canvas)
@@ -141,8 +141,8 @@ class RadarCompassView : View, ICompassView {
             iconSize.toFloat() + dp2,
             width - iconSize.toFloat() - dp2,
             height - iconSize.toFloat() - dp2,
-            270f + azimuth.value,
-            deltaAngle(azimuth.value, destination!!.value),
+            270f + azimuth,
+            deltaAngle(azimuth, destination!!),
             true,
             paint
         )
@@ -195,7 +195,7 @@ class RadarCompassView : View, ICompassView {
         }
     }
 
-    override fun setAzimuth(bearing: Bearing) {
+    override fun setAzimuth(bearing: Float) {
         azimuth = bearing
         invalidate()
     }
@@ -225,7 +225,7 @@ class RadarCompassView : View, ICompassView {
         invalidate()
     }
 
-    override fun setDestination(bearing: Bearing?, @ColorInt color: Int?) {
+    override fun setDestination(bearing: Float?, @ColorInt color: Int?) {
         destination = bearing
         destinationColor = color
         invalidate()
@@ -243,7 +243,7 @@ class RadarCompassView : View, ICompassView {
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 3f
         canvas.save()
-        canvas.rotate(azimuth.value, width / 2f, height / 2f)
+        canvas.rotate(azimuth, width / 2f, height / 2f)
         if (destination == null) {
             paint.color = gray(60)
             canvas.drawLine(
@@ -385,7 +385,7 @@ class RadarCompassView : View, ICompassView {
             }
             paint.alpha = (255 * indicator.opacity).toInt()
             canvas.save()
-            canvas.rotate(indicator.bearing.value, width / 2f, height / 2f)
+            canvas.rotate(indicator.bearing, width / 2f, height / 2f)
             val bitmap = getBitmap(indicator.icon)
 
             val top = if (indicator.distance == null || maxDistanceMeters.distance == 0f) {
