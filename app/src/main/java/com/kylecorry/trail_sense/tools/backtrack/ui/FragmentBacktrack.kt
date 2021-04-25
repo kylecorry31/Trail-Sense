@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.Wayp
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,6 +45,17 @@ class FragmentBacktrack : Fragment() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
+
+    private val stateChecker = Intervalometer {
+        context ?: return@Intervalometer
+        _binding ?: return@Intervalometer
+        wasEnabled = BacktrackScheduler.isOn(requireContext())
+        if (wasEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)) {
+            binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)
+        } else {
+            binding.startBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+        }
+    }
 
     private var wasEnabled = false
 
@@ -231,6 +243,16 @@ class FragmentBacktrack : Fragment() {
                 includeWeekDay = false
             ), formatService.formatTime(time, showSeconds = false)
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        stateChecker.interval(Duration.ofSeconds(1))
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stateChecker.stop()
     }
 
 }

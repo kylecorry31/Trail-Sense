@@ -446,6 +446,7 @@ class NavigatorFragment : Fragment() {
         super.onResume()
         rightQuickAction?.onResume()
         leftQuickAction?.onResume()
+        lastOrientation = null
         astronomyIntervalometer.interval(Duration.ofMinutes(1))
         useTrueNorth = userPrefs.navigation.useTrueNorth
 
