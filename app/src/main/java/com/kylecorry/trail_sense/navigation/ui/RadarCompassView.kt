@@ -159,6 +159,11 @@ class RadarCompassView : View, ICompassView {
             val arrow = ArrowPathEffect()
             it.drawColor(Color.TRANSPARENT)
             for (line in pathLines) {
+
+                if (!shouldDisplayLine(line)){
+                    continue
+                }
+
                 when (line.style){
                     PixelLineStyle.Solid -> {
                         paint.pathEffect = null
@@ -240,8 +245,6 @@ class RadarCompassView : View, ICompassView {
             it.toPixelLines(maxTimeAgo) {
                 coordinateToPixel(it)
             }
-        }.filter {
-            shouldDisplayLine(it)
         }
         invalidate()
     }
