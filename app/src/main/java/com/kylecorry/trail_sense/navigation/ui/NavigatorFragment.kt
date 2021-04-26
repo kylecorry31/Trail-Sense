@@ -1,13 +1,16 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
+import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -30,14 +33,13 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
-import com.kylecorry.trail_sense.weather.ui.QuickActionClouds
 import com.kylecorry.trailsensecore.domain.geo.*
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
@@ -47,7 +49,9 @@ import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
+import com.kylecorry.trailsensecore.infrastructure.sensors.camera.Camera
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
+import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
@@ -60,9 +64,19 @@ import java.util.*
 
 class NavigatorFragment : Fragment() {
 
-    private var shownAccuracyToast: Boolean = false
+    private var shownAccuracyToast = false
+    private var sightingCompassInitialized = false
+    private var sightingCompassActive = false
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
+    private val camera by lazy {
+        Camera(
+            requireContext(),
+            this,
+            previewView = binding.viewCamera,
+            analyze = false
+        )
+    }
     private val orientation by lazy { sensorService.getDeviceOrientation() }
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val speedometer by lazy { sensorService.getSpeedometer() }
@@ -91,7 +105,7 @@ class NavigatorFragment : Fragment() {
     private var nearbyBeacons: Collection<Beacon> = listOf()
 
     private var destination: Beacon? = null
-    private var destinationBearing: Bearing? = null
+    private var destinationBearing: Float? = null
     private var useTrueNorth = false
 
     private var leftQuickAction: QuickActionButton? = null
@@ -99,15 +113,18 @@ class NavigatorFragment : Fragment() {
 
     private var isMoonUp = true
     private var isSunUp = true
-    private var moonBearing = Bearing(0f)
-    private var sunBearing = Bearing(0f)
+    private var moonBearing = 0f
+    private var sunBearing = 0f
 
     private var gpsErrorShown = false
+
+    private var lastOrientation: DeviceOrientation.Orientation? = null
 
     private val astronomyIntervalometer = Intervalometer {
         updateAstronomyData()
     }
 
+    @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -167,7 +184,7 @@ class NavigatorFragment : Fragment() {
                 getString(R.string.tool_backtrack_title),
                 waypoints.map { it.toPathPoint() },
                 UiUtils.color(requireContext(), R.color.colorAccent),
-                true
+                userPrefs.navigation.backtrackPathStyle
             )
             updateUI()
         }
@@ -183,8 +200,8 @@ class NavigatorFragment : Fragment() {
         speedometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
 
         binding.location.setOnLongClickListener {
-            UiUtils.openMenu(it, R.menu.location_share_menu){ menuItem ->
-                val sender = when (menuItem){
+            UiUtils.openMenu(it, R.menu.location_share_menu) { menuItem ->
+                val sender = when (menuItem) {
                     R.id.action_send -> LocationSharesheet(requireContext())
                     R.id.action_maps -> LocationGeoSender(requireContext())
                     else -> LocationCopy(requireContext(), Clipboard(requireContext()))
@@ -194,6 +211,32 @@ class NavigatorFragment : Fragment() {
             }
             true
         }
+
+        CustomUiUtils.setButtonState(binding.sightingCompassBtn, sightingCompassActive)
+        binding.sightingCompassBtn.setOnClickListener {
+            setSightingCompassStatus(!sightingCompassActive)
+        }
+
+        binding.viewCamera.setOnClickListener {
+            toggleDestinationBearing()
+        }
+
+        binding.viewCameraLine.setOnClickListener {
+            toggleDestinationBearing()
+        }
+
+        binding.zoomRatioSeekbar.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                val zoom = (progress / 100f).coerceIn(0f, 1f)
+                camera.setZoom(zoom)
+                cache.putFloat(CACHE_CAMERA_ZOOM, zoom)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
 
         binding.beaconBtn.setOnClickListener {
             if (destination == null) {
@@ -231,15 +274,68 @@ class NavigatorFragment : Fragment() {
         }
     }
 
+    private fun setSightingCompassStatus(isOn: Boolean) {
+        sightingCompassActive = isOn
+        CustomUiUtils.setButtonState(binding.sightingCompassBtn, isOn)
+        if (isOn) {
+            enableSightingCompass()
+        } else {
+            disableSightingCompass()
+        }
+    }
+
+    private fun enableSightingCompass() {
+        if (!isSightingCompassEnabled()) {
+            return
+        }
+
+        sightingCompassInitialized = true
+
+        camera.start(this::onCameraUpdate)
+        binding.viewCameraLine.isVisible = true
+        binding.viewCamera.isVisible = true
+        binding.zoomRatioSeekbar.isVisible = true
+
+        // TODO: Extract this logic to the flashlight (if camera is in use)
+        if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+            binding.navigationRightQuickAction.isClickable = false
+        }
+        if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+            binding.navigationLeftQuickAction.isClickable = false
+        }
+        val handler = FlashlightHandler.getInstance(requireContext())
+        handler.off()
+    }
+
+    private fun onCameraUpdate(): Boolean {
+        val zoom = cache.getFloat(CACHE_CAMERA_ZOOM) ?: 0.5f
+        camera.setZoom(zoom)
+        return true
+    }
+
+    private fun disableSightingCompass() {
+        camera.stop(this::onCameraUpdate)
+        binding.viewCameraLine.isVisible = false
+        binding.viewCamera.isVisible = false
+        binding.zoomRatioSeekbar.isVisible = false
+        if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+            binding.navigationRightQuickAction.isClickable = true
+        }
+        if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+            binding.navigationLeftQuickAction.isClickable = true
+        }
+        sightingCompassInitialized = false
+    }
+
     private fun toggleDestinationBearing() {
-        if (destination != null){
+        if (destination != null) {
             // Don't set destination bearing while navigating
             return
         }
 
         if (destinationBearing == null) {
-            destinationBearing = compass.bearing
-            cache.putFloat(LAST_DEST_BEARING, compass.bearing.value)
+            destinationBearing = compass.rawBearing
+            cache.putFloat(LAST_DEST_BEARING, compass.rawBearing)
             UiUtils.shortToast(
                 requireContext(),
                 getString(R.string.toast_destination_bearing_set)
@@ -288,6 +384,7 @@ class NavigatorFragment : Fragment() {
     }
 
     private fun getIndicators(): List<BearingIndicator> {
+        // TODO: Don't create this on every update
         val indicators = mutableListOf<BearingIndicator>()
         if (userPrefs.astronomy.showOnCompass) {
             val showWhenDown = userPrefs.astronomy.showOnCompassWhenDown
@@ -311,9 +408,10 @@ class NavigatorFragment : Fragment() {
                     transformTrueNorthBearing(
                         gps.location.bearingTo(
                             destination!!.coordinate
-                        )
+                        ).value
                     ), R.drawable.ic_arrow_target,
-                    distance = Distance.meters(gps.location.distanceTo(destination!!.coordinate))
+                    distance = Distance.meters(gps.location.distanceTo(destination!!.coordinate)),
+                    tint = destination!!.color
                 )
             )
             return indicators
@@ -333,9 +431,10 @@ class NavigatorFragment : Fragment() {
         for (beacon in nearby) {
             indicators.add(
                 BearingIndicator(
-                    transformTrueNorthBearing(gps.location.bearingTo(beacon.coordinate)),
+                    transformTrueNorthBearing(gps.location.bearingTo(beacon.coordinate).value),
                     R.drawable.ic_arrow_target,
-                    distance = Distance.meters(gps.location.distanceTo(beacon.coordinate))
+                    distance = Distance.meters(gps.location.distanceTo(beacon.coordinate)),
+                    tint = beacon.color
                 )
             )
         }
@@ -347,6 +446,7 @@ class NavigatorFragment : Fragment() {
         super.onResume()
         rightQuickAction?.onResume()
         leftQuickAction?.onResume()
+        lastOrientation = null
         astronomyIntervalometer.interval(Duration.ofMinutes(1))
         useTrueNorth = userPrefs.navigation.useTrueNorth
 
@@ -362,14 +462,16 @@ class NavigatorFragment : Fragment() {
 
         val lastDestBearing = cache.getFloat(LAST_DEST_BEARING)
         if (lastDestBearing != null) {
-            destinationBearing = Bearing(lastDestBearing)
+            destinationBearing = lastDestBearing
         }
 
         compass.declination = getDeclination()
 
         binding.beaconBtn.show()
-        binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
-        binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
+        binding.roundCompass.visibility =
+            if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
+        binding.radarCompass.visibility =
+            if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
 
         // Update the UI
         updateNavigator()
@@ -377,6 +479,8 @@ class NavigatorFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        sightingCompassInitialized = false
+        camera.stop(this::onCameraUpdate)
         rightQuickAction?.onPause()
         leftQuickAction?.onPause()
         astronomyIntervalometer.stop()
@@ -400,19 +504,19 @@ class NavigatorFragment : Fragment() {
         )
     }
 
-    private fun getSunBearing(): Bearing {
-        return transformTrueNorthBearing(astronomyService.getSunAzimuth(gps.location))
+    private fun getSunBearing(): Float {
+        return transformTrueNorthBearing(astronomyService.getSunAzimuth(gps.location).value)
     }
 
-    private fun getMoonBearing(): Bearing {
-        return transformTrueNorthBearing(astronomyService.getMoonAzimuth(gps.location))
+    private fun getMoonBearing(): Float {
+        return transformTrueNorthBearing(astronomyService.getMoonAzimuth(gps.location).value)
     }
 
-    private fun getDestinationBearing(): Bearing? {
+    private fun getDestinationBearing(): Float? {
         val destLocation = destination?.coordinate
         return when {
             destLocation != null -> {
-                transformTrueNorthBearing(gps.location.bearingTo(destLocation))
+                transformTrueNorthBearing(gps.location.bearingTo(destLocation).value)
             }
             destinationBearing != null -> {
                 destinationBearing
@@ -427,11 +531,11 @@ class NavigatorFragment : Fragment() {
         return destination ?: getFacingBeacon(nearby)
     }
 
-    private fun transformTrueNorthBearing(bearing: Bearing): Bearing {
+    private fun transformTrueNorthBearing(bearing: Float): Float {
         return if (useTrueNorth) {
             bearing
         } else {
-            bearing.withDeclination(-getDeclination())
+            Bearing.getBearing(bearing - getDeclination())
         }
     }
 
@@ -508,15 +612,15 @@ class NavigatorFragment : Fragment() {
         // Compass
         val indicators = getIndicators()
         val destBearing = getDestinationBearing()
-        val destColor = if (destination != null) UiUtils.color(
+        val destColor = if (destination != null) destination!!.color else UiUtils.color(
             requireContext(),
-            R.color.colorPrimary
-        ) else UiUtils.color(requireContext(), R.color.colorAccent)
+            R.color.colorAccent
+        )
         binding.roundCompass.setIndicators(indicators)
-        binding.roundCompass.setAzimuth(compass.bearing)
+        binding.roundCompass.setAzimuth(compass.rawBearing)
         binding.roundCompass.setDestination(destBearing, destColor)
         binding.radarCompass.setIndicators(indicators)
-        binding.radarCompass.setAzimuth(compass.bearing)
+        binding.radarCompass.setAzimuth(compass.rawBearing)
         binding.radarCompass.setDeclination(getDeclination())
         binding.radarCompass.setLocation(gps.location)
         val bt = backtrack
@@ -534,14 +638,14 @@ class NavigatorFragment : Fragment() {
                 WaypointRepo.BACKTRACK_PATH_ID,
                 getString(R.string.tool_backtrack_title),
                 points,
-                UiUtils.color(requireContext(), userPrefs.navigation.backtrackPathColor.color),
-                userPrefs.navigation.backtrackPathIsDotted
+                userPrefs.navigation.backtrackPathColor.color,
+                userPrefs.navigation.backtrackPathStyle
             )
             binding.radarCompass.setPaths(listOf(path))
         }
         binding.radarCompass.setDestination(destBearing, destColor)
         binding.linearCompass.setIndicators(indicators)
-        binding.linearCompass.setAzimuth(compass.bearing)
+        binding.linearCompass.setAzimuth(compass.rawBearing)
         binding.linearCompass.setDestination(destBearing, destColor)
 
         // Altitude
@@ -573,15 +677,38 @@ class NavigatorFragment : Fragment() {
         }
     }
 
+    private fun isSightingCompassEnabled(): Boolean {
+        return userPrefs.experimentalEnabled && userPrefs.useCameraFeatures && PermissionUtils.hasPermission(
+            requireContext(),
+            Manifest.permission.CAMERA
+        )
+    }
+
     private fun onOrientationUpdate(): Boolean {
+
+        if (orientation.orientation == lastOrientation){
+            return true
+        }
+
+        lastOrientation = orientation.orientation
+
         if (shouldShowLinearCompass()) {
             binding.linearCompass.visibility = View.VISIBLE
+            val sightingCompassEnabled = isSightingCompassEnabled()
+            if (sightingCompassEnabled && sightingCompassActive && !sightingCompassInitialized) {
+                enableSightingCompass()
+            }
+            binding.sightingCompassBtn.isVisible = sightingCompassEnabled
             binding.roundCompass.visibility = View.INVISIBLE
             binding.radarCompass.visibility = View.INVISIBLE
         } else {
             binding.linearCompass.visibility = View.INVISIBLE
-            binding.roundCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
-            binding.radarCompass.visibility = if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
+            binding.sightingCompassBtn.isVisible = false
+            disableSightingCompass()
+            binding.roundCompass.visibility =
+                if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
+            binding.radarCompass.visibility =
+                if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
         }
         updateUI()
         return true
@@ -591,7 +718,7 @@ class NavigatorFragment : Fragment() {
         nearbyBeacons = getNearbyBeacons()
         compass.declination = getDeclination()
 
-        if (sunBearing.value == 0f){
+        if (sunBearing == 0f) {
             updateAstronomyData()
         }
 
@@ -711,6 +838,7 @@ class NavigatorFragment : Fragment() {
     companion object {
         const val LAST_BEACON_ID = "last_beacon_id_long"
         const val LAST_DEST_BEARING = "last_dest_bearing"
+        const val CACHE_CAMERA_ZOOM = "sighting_compass_camera_zoom"
     }
 
 }

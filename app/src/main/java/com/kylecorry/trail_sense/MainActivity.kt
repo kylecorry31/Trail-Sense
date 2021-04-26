@@ -218,6 +218,7 @@ class MainActivity : AppCompatActivity() {
         } else if (requestCode == RequestCodes.REQUEST_CODE_LOCATION_PERMISSION || requestCode == RequestCodes.REQUEST_CODE_BACKGROUND_LOCATION_PERMISSION){
             startApp()
         }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun hasBackgroundLocation(): Boolean {

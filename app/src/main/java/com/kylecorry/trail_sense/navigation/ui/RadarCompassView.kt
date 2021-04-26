@@ -18,22 +18,26 @@ import com.kylecorry.trailsensecore.domain.math.deltaAngle
 import com.kylecorry.trailsensecore.domain.math.sinDegrees
 import com.kylecorry.trailsensecore.domain.math.wrap
 import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
+import com.kylecorry.trailsensecore.domain.pixels.PixelLine
+import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
+import com.kylecorry.trailsensecore.domain.pixels.toPixelLines
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
+import com.kylecorry.trailsensecore.infrastructure.canvas.ArrowPathEffect
 import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
 import com.kylecorry.trailsensecore.infrastructure.canvas.getMaskedBitmap
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.min
 
-
 class RadarCompassView : View, ICompassView {
     private lateinit var paint: Paint
+    private lateinit var center: PixelCoordinate
     private val icons = mutableMapOf<Int, Bitmap>()
     private var indicators = listOf<BearingIndicator>()
     private var compass: Bitmap? = null
     private var isInit = false
-    private var azimuth = Bearing(0f)
-    private var destination: Bearing? = null
+    private var azimuth = 0f
+    private var destination: Float? = null
 
     @ColorInt
     private var destinationColor: Int? = null
@@ -116,10 +120,11 @@ class RadarCompassView : View, ICompassView {
             paint.style = Paint.Style.FILL
             tempCanvas.drawCircle(width / 2f, height / 2f, compassSize / 2f, paint)
             pathBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            center = PixelCoordinate(width / 2f, height / 2f)
         }
         canvas.drawColor(Color.TRANSPARENT)
         canvas.save()
-        canvas.rotate(-azimuth.value, width / 2f, height / 2f)
+        canvas.rotate(-azimuth, width / 2f, height / 2f)
         drawCompass(canvas)
         drawBearings(canvas)
         drawDestination(canvas)
@@ -138,8 +143,8 @@ class RadarCompassView : View, ICompassView {
             iconSize.toFloat() + dp2,
             width - iconSize.toFloat() - dp2,
             height - iconSize.toFloat() - dp2,
-            270f + azimuth.value,
-            deltaAngle(azimuth.value, destination!!.value),
+            270f + azimuth,
+            deltaAngle(azimuth, destination!!),
             true,
             paint
         )
@@ -151,16 +156,29 @@ class RadarCompassView : View, ICompassView {
         // TODO: Improve the performance of this
         val pathBitmap = canvas.getMaskedBitmap(compassMask, pathBitmap) {
             val dotted = DottedPathEffect()
+            val arrow = ArrowPathEffect()
             it.drawColor(Color.TRANSPARENT)
             for (line in pathLines) {
-                if (line.dotted) {
-                    paint.pathEffect = dotted
-                    paint.style = Paint.Style.FILL
-                } else {
-                    paint.pathEffect = null
-                    paint.style = Paint.Style.STROKE
-                    paint.strokeCap = Paint.Cap.ROUND
-                    paint.strokeWidth = 6f
+
+                if (!shouldDisplayLine(line)){
+                    continue
+                }
+
+                when (line.style){
+                    PixelLineStyle.Solid -> {
+                        paint.pathEffect = null
+                        paint.style = Paint.Style.STROKE
+                        paint.strokeCap = Paint.Cap.ROUND
+                        paint.strokeWidth = 6f
+                    }
+                    PixelLineStyle.Arrow -> {
+                        paint.pathEffect = arrow
+                        paint.style = Paint.Style.FILL
+                    }
+                    PixelLineStyle.Dotted -> {
+                        paint.pathEffect = dotted
+                        paint.style = Paint.Style.FILL
+                    }
                 }
                 paint.color = line.color
                 paint.alpha = line.alpha
@@ -175,6 +193,23 @@ class RadarCompassView : View, ICompassView {
         canvas.drawBitmap(pathBitmap, 0f, 0f, paint)
     }
 
+    private fun shouldDisplayLine(line: PixelLine): Boolean {
+        if (line.alpha == 0){
+            return false
+        }
+
+        if (getDistanceFromCenter(line.start) > compassSize / 2 && getDistanceFromCenter(line.end) > compassSize / 2){
+            return false
+        }
+
+        return true
+    }
+
+
+    private fun getDistanceFromCenter(pixel: PixelCoordinate): Float {
+        return pixel.distanceTo(center)
+    }
+
     fun finalize() {
         try {
             compassMask.recycle()
@@ -184,7 +219,7 @@ class RadarCompassView : View, ICompassView {
         }
     }
 
-    override fun setAzimuth(bearing: Bearing) {
+    override fun setAzimuth(bearing: Float) {
         azimuth = bearing
         invalidate()
     }
@@ -214,7 +249,7 @@ class RadarCompassView : View, ICompassView {
         invalidate()
     }
 
-    override fun setDestination(bearing: Bearing?, @ColorInt color: Int?) {
+    override fun setDestination(bearing: Float?, @ColorInt color: Int?) {
         destination = bearing
         destinationColor = color
         invalidate()
@@ -232,7 +267,7 @@ class RadarCompassView : View, ICompassView {
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 3f
         canvas.save()
-        canvas.rotate(azimuth.value, width / 2f, height / 2f)
+        canvas.rotate(azimuth, width / 2f, height / 2f)
         if (destination == null) {
             paint.color = gray(60)
             canvas.drawLine(
@@ -374,7 +409,7 @@ class RadarCompassView : View, ICompassView {
             }
             paint.alpha = (255 * indicator.opacity).toInt()
             canvas.save()
-            canvas.rotate(indicator.bearing.value, width / 2f, height / 2f)
+            canvas.rotate(indicator.bearing, width / 2f, height / 2f)
             val bitmap = getBitmap(indicator.icon)
 
             val top = if (indicator.distance == null || maxDistanceMeters.distance == 0f) {

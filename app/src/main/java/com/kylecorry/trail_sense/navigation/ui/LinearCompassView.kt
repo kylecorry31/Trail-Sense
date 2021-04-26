@@ -41,8 +41,8 @@ class LinearCompassView : View, ICompassView {
     private var indicators = listOf<BearingIndicator>()
     private var compass: Bitmap? = null
     private var isInit = false
-    private var azimuth = Bearing(0f)
-    private var destination: Bearing? = null
+    private var azimuth = 0f
+    private var destination: Float? = null
     @ColorInt
     private var destinationColor: Int? = null
 
@@ -76,8 +76,8 @@ class LinearCompassView : View, ICompassView {
     }
 
     private fun drawBearings(canvas: Canvas) {
-        val minDegrees = (azimuth.value - range / 2).roundToInt()
-        val maxDegrees = (azimuth.value + range / 2).roundToInt()
+        val minDegrees = (azimuth - range / 2).roundToInt()
+        val maxDegrees = (azimuth + range / 2).roundToInt()
         for (indicator in indicators) {
             paint.colorFilter = if (indicator.tint != null) {
                 PorterDuffColorFilter(indicator.tint, PorterDuff.Mode.SRC_IN)
@@ -85,8 +85,8 @@ class LinearCompassView : View, ICompassView {
                 null
             }
             val delta = deltaAngle(
-                azimuth.value.roundToInt().toFloat(),
-                indicator.bearing.value.roundToInt().toFloat()
+                azimuth.roundToInt().toFloat(),
+                indicator.bearing.roundToInt().toFloat()
             )
             val centerPixel = when {
                 delta < -range / 2f -> {
@@ -97,7 +97,7 @@ class LinearCompassView : View, ICompassView {
                 }
                 else -> {
                     val deltaMin = deltaAngle(
-                        indicator.bearing.value,
+                        indicator.bearing,
                         minDegrees.toFloat()
                     ).absoluteValue / (maxDegrees - minDegrees).toFloat()
                     deltaMin * width
@@ -131,8 +131,8 @@ class LinearCompassView : View, ICompassView {
 
     private fun drawCompass(canvas: Canvas) {
         val pixDeg = width / range
-        val minDegrees = (azimuth.value - range / 2).roundToInt()
-        val maxDegrees = (azimuth.value + range / 2).roundToInt()
+        val minDegrees = (azimuth - range / 2).roundToInt()
+        val maxDegrees = (azimuth + range / 2).roundToInt()
         var i = -180
         while (i < 540) {
             if (i in minDegrees..maxDegrees) {
@@ -193,8 +193,8 @@ class LinearCompassView : View, ICompassView {
         destination ?: return
         val color = destinationColor ?: UiUtils.color(context, R.color.colorPrimary)
         val delta = deltaAngle(
-            azimuth.value.roundToInt().toFloat(),
-            destination!!.value.roundToInt().toFloat()
+            azimuth.roundToInt().toFloat(),
+            destination!!.roundToInt().toFloat()
         )
 
         val pixelsPerDegree = width / range
@@ -232,7 +232,7 @@ class LinearCompassView : View, ICompassView {
         return bitmap!!
     }
 
-    override fun setAzimuth(azimuth: Bearing) {
+    override fun setAzimuth(azimuth: Float) {
         this.azimuth = azimuth
         invalidate()
     }
@@ -250,7 +250,7 @@ class LinearCompassView : View, ICompassView {
         invalidate()
     }
 
-    override fun setDestination(bearing: Bearing?, @ColorInt color: Int?) {
+    override fun setDestination(bearing: Float?, @ColorInt color: Int?) {
         destination = bearing
         destinationColor = color
         invalidate()

@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +19,7 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.roundPlaces
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.inventory.domain.ItemCategory
 import com.kylecorry.trailsensecore.domain.geo.Bearing
@@ -53,6 +51,7 @@ class PlaceBeaconFragment : Fragment() {
     private lateinit var backCallback: OnBackPressedCallback
 
     private lateinit var groups: List<BeaconGroup>
+    private var color = AppColor.Orange
 
     private var editingBeacon: Beacon? = null
     private var editingBeaconId: Long? = null
@@ -104,6 +103,8 @@ class PlaceBeaconFragment : Fragment() {
             }
         }
 
+        color = AppColor.values().firstOrNull { it.color == beacon.color } ?: AppColor.Orange
+        binding.beaconColor.imageTintList = ColorStateList.valueOf(beacon.color)
         binding.beaconName.setText(beacon.name)
         binding.beaconLocation.coordinate = beacon.coordinate
         binding.beaconElevation.setText(
@@ -165,6 +166,8 @@ class PlaceBeaconFragment : Fragment() {
 
         navController = findNavController()
 
+        binding.beaconColor.imageTintList = ColorStateList.valueOf(color.color)
+
         // TODO: Prevent interaction until groups loaded
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
@@ -223,6 +226,19 @@ class PlaceBeaconFragment : Fragment() {
             updateDoneButtonState()
         }
 
+        binding.beaconColorPicker.setOnClickListener {
+            CustomUiUtils.pickColor(
+                requireContext(),
+                color,
+                getString(R.string.color)
+            ) {
+                if (it != null) {
+                    color = it
+                    binding.beaconColor.imageTintList = ColorStateList.valueOf(it.color)
+                }
+            }
+        }
+
         binding.createAtDistance.setOnCheckedChangeListener { _, isChecked ->
             binding.distanceAway.visibility = if (isChecked) View.VISIBLE else View.GONE
             binding.bearingToHolder.visibility = if (isChecked) View.VISIBLE else View.GONE
@@ -279,7 +295,7 @@ class PlaceBeaconFragment : Fragment() {
                     }
                 }
                 val beacon = if (editingBeacon == null) {
-                    Beacon(0, name, coordinate, true, comment, groupId, elevation)
+                    Beacon(0, name, coordinate, true, comment, groupId, elevation, color = color.color)
                 } else {
                     Beacon(
                         editingBeacon!!.id,
@@ -288,7 +304,8 @@ class PlaceBeaconFragment : Fragment() {
                         editingBeacon!!.visible,
                         comment,
                         groupId,
-                        elevation
+                        elevation,
+                        color = color.color
                     )
                 }
                 lifecycleScope.launch {

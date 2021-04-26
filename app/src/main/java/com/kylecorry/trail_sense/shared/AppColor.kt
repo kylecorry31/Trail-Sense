@@ -1,14 +1,14 @@
 package com.kylecorry.trail_sense.shared
 
-import androidx.annotation.ColorRes
-import com.kylecorry.trail_sense.R
+import android.graphics.Color
+import androidx.annotation.ColorInt
 
-enum class AppColor(val id: Int, @ColorRes val color: Int) {
-    Red(0, R.color.red),
-    Orange(1, R.color.orange),
-    Yellow(2, R.color.yellow),
-    Green(3, R.color.green),
-    Blue(4, R.color.blue),
-    Purple(5, R.color.purple),
-    Pink(6, R.color.pink)
+enum class AppColor(val id: Int, @ColorInt val color: Int) {
+    Red(0, Color.parseColor("#ef5350")),
+    Orange(1, Color.parseColor("#FF6D00")),
+    Yellow(2, Color.parseColor("#DDCE2C")),
+    Green(3, Color.parseColor("#81c784")),
+    Blue(4, Color.parseColor("#a0caff")),
+    Purple(5, Color.parseColor("#c034eb")),
+    Pink(6, Color.parseColor("#ff33dd"))
 }

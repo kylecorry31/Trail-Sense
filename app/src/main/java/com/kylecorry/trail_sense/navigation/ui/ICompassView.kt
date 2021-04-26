@@ -5,9 +5,9 @@ import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 
 interface ICompassView {
-    fun setAzimuth(azimuth: Bearing)
+    fun setAzimuth(azimuth: Float)
     fun setLocation(location: Coordinate)
     fun setDeclination(declination: Float)
     fun setIndicators(indicators: List<BearingIndicator>)
-    fun setDestination(bearing: Bearing?, @ColorInt color: Int? = null)
+    fun setDestination(bearing: Float?, @ColorInt color: Int? = null)
 }

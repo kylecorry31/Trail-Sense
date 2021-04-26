@@ -18,6 +18,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!--Force remove this permission from androidx-->
     <uses-permission
@@ -99,6 +100,37 @@
             android:name=".tools.whitenoise.infrastructure.WhiteNoiseService"
             android:enabled="true"
             android:foregroundServiceType="mediaPlayback" />
+
+        <!--Tiles-->
+        <service
+            android:name=".tiles.BacktrackTile"
+            android:label="@string/tool_backtrack_title"
+            android:icon="@drawable/ic_tool_backtrack"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".tiles.WhiteNoiseTile"
+            android:label="@string/tool_white_noise_title"
+            android:icon="@drawable/ic_tool_white_noise"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".tiles.SosTile"
+            android:label="@string/sos"
+            android:icon="@drawable/flashlight_sos"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
 
         <receiver
             android:name="com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver"

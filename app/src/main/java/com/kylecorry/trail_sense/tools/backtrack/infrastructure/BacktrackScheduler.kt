@@ -28,6 +28,16 @@ object BacktrackScheduler {
         context.stopService(BacktrackService.intent(context))
     }
 
+    fun isOn(context: Context): Boolean {
+        val prefs = UserPreferences(context)
+        return prefs.backtrackEnabled && !isDisabled(context)
+    }
+
+    fun isDisabled(context: Context): Boolean {
+        val prefs = UserPreferences(context)
+        return prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack
+    }
+
     fun getScheduler(context: Context): ITaskScheduler {
         return BacktrackWorker.scheduler(context)
     }

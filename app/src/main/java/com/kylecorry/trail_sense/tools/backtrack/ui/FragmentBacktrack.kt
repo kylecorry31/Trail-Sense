@@ -26,7 +26,9 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,6 +45,17 @@ class FragmentBacktrack : Fragment() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
+
+    private val stateChecker = Intervalometer {
+        context ?: return@Intervalometer
+        _binding ?: return@Intervalometer
+        wasEnabled = BacktrackScheduler.isOn(requireContext())
+        if (wasEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)) {
+            binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)
+        } else {
+            binding.startBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+        }
+    }
 
     private var wasEnabled = false
 
@@ -116,7 +129,7 @@ class FragmentBacktrack : Fragment() {
                     lifecycleScope.launch {
                         var newTempId = 0L
                         withContext(Dispatchers.IO) {
-                            val tempBeaconId = beaconRepo.getTemporaryBeacon()?.id ?: 0L
+                            val tempBeaconId = beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
                             val beacon = Beacon(
                                 tempBeaconId,
                                 getString(
@@ -129,11 +142,13 @@ class FragmentBacktrack : Fragment() {
                                 waypoint.coordinate,
                                 visible = false,
                                 elevation = waypoint.altitude,
-                                temporary = true
+                                temporary = true,
+                                color = prefs.navigation.backtrackPathColor.color,
+                                owner = BeaconOwner.Backtrack
                             )
                             beaconRepo.addBeacon(BeaconEntity.from(beacon))
 
-                            newTempId = beaconRepo.getTemporaryBeacon()?.id ?: 0L
+                            newTempId = beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
                         }
 
                         withContext(Dispatchers.Main) {
@@ -228,6 +243,16 @@ class FragmentBacktrack : Fragment() {
                 includeWeekDay = false
             ), formatService.formatTime(time, showSeconds = false)
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        stateChecker.interval(Duration.ofSeconds(1))
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stateChecker.stop()
     }
 
 }

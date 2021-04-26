@@ -11,4 +11,5 @@ object RequestCodes {
     const val REQUEST_CODE_IMPORT_BEACONS = 6
     const val REQUEST_CODE_EXPORT_BEACONS = 7
     const val REQUEST_CODE_SELECT_MAP_FILE = 11
+    const val REQUEST_CODE_CAMERA_PERMISSION = 12
 }

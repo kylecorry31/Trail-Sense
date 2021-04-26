@@ -9,7 +9,6 @@
         <item>feet_miles</item>
     </string-array>
 
-
     <string-array name="pressure_unit_entries">
         <item>@string/units_hpa</item>
         <item>@string/units_inhg</item>
@@ -231,11 +230,13 @@
     <string-array name="line_style_entries">
         <item>@string/solid</item>
         <item>@string/dotted</item>
+        <item>@string/arrow</item>
     </string-array>
 
     <string-array name="line_style_values">
         <item>solid</item>
         <item>dotted</item>
+        <item>arrow</item>
     </string-array>
 
     <string-array name="whistle_signals_entries">

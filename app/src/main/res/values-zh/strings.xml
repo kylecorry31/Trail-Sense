@@ -816,4 +816,6 @@
     <string name="dotted">点线</string>
     <string name="solid">实心</string>
     <string name="theme_sunset_sunrise">日出/日落</string>
+    <string name="calibrate_new_tide">校准到新的潮汐？</string>
+    <string name="time_until_full">距离充满剩 %s</string>
 </resources>

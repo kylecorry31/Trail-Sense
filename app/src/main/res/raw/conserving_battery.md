@@ -2,6 +2,8 @@
 
 You can use the Battery tool in Trail Sense to monitor battery consumption. This tool will tell you if you battery is discharging fast or slow (on some devices), which you can use to adjust your phone usage, which apps are running, or screen brightness. When you plug in a charger, it will also tell you how fast your phone is charging, which you can use to determine if your charger is effective. You can also see which Trail Sense services are running and their respective battery usage factor.
 
+Trail Sense will also give an estimate (based on the last day's history) of how long it will take for your phone to die or become fully charged. The actual time may vary with use.
+
 ## Power saving mode
 
 Turning on 'Power saving mode' will reduce the power consumption of Trail Sense by stopping some services, such as Backtrack and Weather, as well as using the black theme. You can turn this on in setting or on the 'Battery' tool.

@@ -872,7 +872,7 @@
     <string name="pref_daily_weather_time_holder" translatable="false">pref_daily_weather_time_holder</string>
     <string name="pref_daily_weather_time_title">Daily weather time</string>
     <string name="pref_daily_weather_time" translatable="false">pref_daily_weather_time</string>
-    <string name="experimental_features">Tides and maps</string>
+    <string name="experimental_features">Tides, maps and sighting compass</string>
     <string name="tide_calibration">Tide Calibration</string>
     <string name="screen_flashlight">Screen</string>
     <string name="speedometer_real_time">Real Time</string>
@@ -932,7 +932,7 @@
     <string name="time_until_full">%s until full</string>
     <string name="map_auto_calibrated">Map auto-calibrated, please verify its accuracy</string>
     <string name="pref_backtrack_path_radar" translatable="false">pref_backtrack_path_radar</string>
-    <string name="pref_backtrack_path_radar_title">Show backtrack path</string>
+    <string name="pref_backtrack_path_radar_title">Show Backtrack path</string>
     <string name="pref_backtrack_path_radar_summary">On the radar compass and maps</string>
     <string name="pref_backtrack_interval" translatable="false">pref_backtrack_interval</string>
     <string name="minute_symbol">m</string>
@@ -955,6 +955,8 @@
     <string name="pref_backtrack_path_style" translatable="false">pref_backtrack_path_dotted</string>
     <string name="solid">Solid</string>
     <string name="dotted">Dotted</string>
+<!--    The arrow line style-->
+    <string name="arrow">Arrow</string>
     <string name="pref_backtrack_path_style_title">Backtrack path style</string>
     <string name="pref_backtrack_path_color_title">Backtrack path color</string>
     <string name="updates">Updates</string>
@@ -964,6 +966,28 @@
     <string name="sunset_alert_location_update">Updating location for sunset alert</string>
     <string name="background_update">Background update</string>
     <string name="calibrate_new_tide">Calibrate to a new tide?</string>
+    <string name="water_boil_guide_title">Make water safe to drink</string>
+    <string name="water_boil_guide_desc">How to use the Water Boil Timer</string>
+    <string name="color">Color</string>
+    <string name="pref_use_camera_features" translatable="false">pref_use_camera_features</string>
+    <string name="pref_use_camera_features_title">Enable camera features</string>
+    <string name="camera_permission_denied">Camera permission denied, unable to turn on camera features. You can enable it in settings.</string>
+    <string name="last_signal_beacon_name">Last signal - %s (%s)</string>
+    <string name="pref_show_last_signal_beacon" translatable="false">pref_show_last_signal_beacon</string>
+    <string name="pref_show_last_signal_beacon_title">Last signal beacon</string>
+    <string name="pref_show_last_signal_beacon_summary">Creates a beacon for the last cell signal location</string>
+    <string name="fields">Fields</string>
+    <string name="noon">Noon</string>
+    <string name="pref_show_noon" translatable="false">pref_show_noon</string>
+    <string name="pref_show_noon_summary">Solar and lunar noon</string>
+    <string name="pref_show_astronomical_times" translatable="false">pref_show_astronomical_times</string>
+    <string name="for_sunrise_and_set">For sunrise and sunset</string>
+    <string name="pref_show_nautical_times" translatable="false">pref_show_nautical_times</string>
+    <string name="pref_show_nautical_times_title">Nautical times</string>
+    <string name="pref_show_astronomical_times_title">Astronomical times</string>
+    <string name="pref_show_civil_times" translatable="false">pref_show_civil_times</string>
+    <string name="pref_show_civil_times_title">Civil times</string>
+    <string name="pref_show_civil_times_summary">Dawn and dusk</string>
     <plurals name="import_beacons">
         <item quantity="one">Import %d beacon?</item>
         <item quantity="other">Import %d beacons?</item>

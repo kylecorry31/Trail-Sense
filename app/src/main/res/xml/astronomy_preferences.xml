@@ -22,20 +22,6 @@
             app:singleLineTitle="false"
             app:title="@string/pref_center_sun_and_moon_title" />
 
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_show_moon_illumination"
-            app:singleLineTitle="false"
-            app:title="@string/moon_illumination" />
-
-        <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_meteor_showers"
-            app:singleLineTitle="false"
-            app:title="@string/pref_meteor_showers_title" />
-
         <ListPreference
             app:defaultValue="1"
             app:iconSpaceReserved="false"
@@ -51,6 +37,59 @@
             app:singleLineTitle="false"
             app:title="@string/right_quick_action"
             app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/fields">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_noon"
+            app:singleLineTitle="false"
+            app:title="@string/noon"
+            android:summary="@string/pref_show_noon_summary"/>
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_civil_times"
+            app:singleLineTitle="false"
+            app:title="@string/pref_show_civil_times_title"
+            android:summary="@string/pref_show_civil_times_summary"/>
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_nautical_times"
+            app:singleLineTitle="false"
+            app:title="@string/pref_show_nautical_times_title"
+            android:summary="@string/for_sunrise_and_set"/>
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_astronomical_times"
+            app:singleLineTitle="false"
+            app:title="@string/pref_show_astronomical_times_title"
+            android:summary="@string/for_sunrise_and_set"/>
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_moon_illumination"
+            app:singleLineTitle="false"
+            app:title="@string/moon_illumination" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_meteor_showers"
+            app:singleLineTitle="false"
+            app:title="@string/pref_meteor_showers_title" />
 
     </PreferenceCategory>
 

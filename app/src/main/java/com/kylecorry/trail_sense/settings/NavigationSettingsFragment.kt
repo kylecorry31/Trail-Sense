@@ -123,10 +123,7 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
 
         val prefBacktrackPathColor = preference(R.string.pref_backtrack_path_color)
         prefBacktrackPathColor?.icon?.setTint(
-            UiUtils.color(
-                requireContext(),
                 prefs.navigation.backtrackPathColor.color
-            )
         )
 
         prefBacktrackPathColor?.setOnPreferenceClickListener {
@@ -137,7 +134,7 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
             ) {
                 if (it != null) {
                     prefs.navigation.backtrackPathColor = it
-                    prefBacktrackPathColor.icon?.setTint(UiUtils.color(requireContext(), it.color))
+                    prefBacktrackPathColor.icon?.setTint(it.color)
                 }
             }
             true

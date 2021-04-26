@@ -2,8 +2,10 @@ package com.kylecorry.trail_sense.shared
 
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.IdRes
+import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkBuilder
 import com.kylecorry.trail_sense.R
 
@@ -16,4 +18,5 @@ object NavigationUtils {
             .setArguments(args)
             .createPendingIntent()
     }
+
 }

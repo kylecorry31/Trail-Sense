@@ -97,6 +97,11 @@ object Guides {
                     R.raw.flashlight_testing
                 ),
                 UserGuide(
+                    context.getString(R.string.water_boil_guide_title),
+                    context.getString(R.string.water_boil_guide_desc),
+                    R.raw.making_water_potable
+                ),
+                UserGuide(
                     context.getString(R.string.guide_recommended_apps),
                     context.getString(R.string.guide_recommended_apps_description),
                     R.raw.recommended_apps
