@@ -1,12 +1,14 @@
 package com.kylecorry.trail_sense.tools.whistle.ui
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
 import com.kylecorry.trailsensecore.domain.morse.MorseService
 import com.kylecorry.trailsensecore.domain.morse.Signal
@@ -36,6 +38,16 @@ class ToolWhistleFragment : Fragment() {
         Signal.off(Duration.ofSeconds(3))
     )
 
+    private val whereAreYouAndAcknowledgedSignal = listOf(
+        Signal.on(Duration.ofSeconds(2)),
+    )
+
+    private val comeHereSignal = listOf(
+        Signal.on(Duration.ofSeconds(2)),
+        Signal.off(Duration.ofSeconds(1)),
+        Signal.on(Duration.ofSeconds(2)),
+    )
+
     private val sosSignal = morseService.sosSignal(Duration.ofMillis(morseDurationMs)) + listOf(Signal.off(Duration.ofMillis(morseDurationMs * 7)))
 
     private val signalWhistle by lazy { SignalPlayer(whistle) }
@@ -56,7 +68,39 @@ class ToolWhistleFragment : Fragment() {
                 signalWhistle.play(emergencySignal, true)
                 WhistleState.Emergency
             }
+            binding.whistleEmergencyBtn.setText(getText(R.string.help).toString())
             updateUI()
+        }
+
+        binding.whistleEmergencyBtn.setOnLongClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle(R.string.tool_whistle_title)
+                .setItems(R.array.whistle_signals_entries
+                ) { dialog, which ->
+                    whistle.off()
+                    when (which) {
+                        0 -> signalWhistle.play(whereAreYouAndAcknowledgedSignal, false
+                        ) { toggleOffInternationWhistleSignals() }
+                        1 -> signalWhistle.play(whereAreYouAndAcknowledgedSignal, false
+                        ) { toggleOffInternationWhistleSignals() }
+                        2 -> signalWhistle.play(comeHereSignal, false) { toggleOffInternationWhistleSignals() }
+                        3 -> signalWhistle.play(emergencySignal, true)
+                    }
+                    binding.whistleEmergencyBtn.setText(
+                        when (which) {
+                            0 -> getText(R.string.whistle_signal_where_are_you).toString()
+                            1 -> getText(R.string.whistle_signal_acknowledged).toString()
+                            2 -> getText(R.string.whistle_signal_come_here).toString()
+                            else -> getText(R.string.help).toString()
+                        }
+                    )
+                    state = WhistleState.Emergency
+                    updateUI()
+                }
+            val alertdialog = builder.create()
+            alertdialog.setCanceledOnTouchOutside(true)
+            alertdialog.show()
+            true
         }
 
         binding.whistleSosBtn.setOnClickListener {
@@ -113,6 +157,13 @@ class ToolWhistleFragment : Fragment() {
         binding.whistleEmergencyBtn.setState(state == WhistleState.Emergency)
         binding.whistleSosBtn.setState(state == WhistleState.Sos)
         binding.whistleBtn.setState(state == WhistleState.On)
+    }
+
+    private fun toggleOffInternationWhistleSignals() {
+        state = WhistleState.Off
+        signalWhistle.cancel()
+        binding.whistleEmergencyBtn.setText(getText(R.string.help).toString())
+        updateUI()
     }
 
 
