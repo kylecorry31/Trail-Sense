@@ -763,7 +763,7 @@
     <string name="guide_using_printed_maps_desc">如何将纸质地图和 Trail Sense 一起使用</string>
     <string name="guide_using_printed_maps">使用印刷地图</string>
     <string name="guide_navigation_description">如何使用 Trail Sense 进行导航</string>
-    <string name="experimental_features">潮汐和地图</string>
+    <string name="experimental_features">潮汐、地图和瞄准指南针</string>
     <string name="guide_speedometer_desc">如何确定行进距离和到达时间</string>
     <string name="guide_speedometer_title">确定速度和距离</string>
     <string name="next">下一张</string>
@@ -818,4 +818,15 @@
     <string name="theme_sunset_sunrise">日出/日落</string>
     <string name="calibrate_new_tide">校准到新的潮汐？</string>
     <string name="time_until_full">距离充满剩 %s</string>
+    <string name="pref_show_last_signal_beacon_summary">为上一个单元信号位置创建一个信标</string>
+    <string name="pref_show_last_signal_beacon_title">上一个信号信标</string>
+    <string name="pref_show_last_signal_beacon">pref_show_last_signal_beacon</string>
+    <string name="last_signal_beacon_name">上次信号 - %s (%s)</string>
+    <string name="camera_permission_denied">相机权限被拒绝，无法打开相机功能。 你可以在设置中启用它。</string>
+    <string name="pref_use_camera_features_title">启用相机功能</string>
+    <string name="pref_use_camera_features">pref_use_camera_features</string>
+    <string name="color">颜色</string>
+    <string name="water_boil_guide_desc">如何使用水煮定时器</string>
+    <string name="water_boil_guide_title">使水可以安全饮用</string>
+    <string name="arrow">箭头线</string>
 </resources>
