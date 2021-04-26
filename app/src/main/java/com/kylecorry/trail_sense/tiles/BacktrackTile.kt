@@ -31,7 +31,7 @@ class BacktrackTile: TileService() {
 
     override fun onStartListening() {
         super.onStartListening()
-        stateChecker.interval(Duration.ofSeconds(1))
+        stateChecker.interval(Duration.ofMillis(100))
     }
 
     override fun onStopListening() {
