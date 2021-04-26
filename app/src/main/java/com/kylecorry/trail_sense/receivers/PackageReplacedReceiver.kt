@@ -6,7 +6,7 @@ import android.content.Intent
 
 class PackageReplacedReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        if (intent?.action == Intent.ACTION_PACKAGE_REPLACED && context != null) {
+        if (intent?.action == Intent.ACTION_MY_PACKAGE_REPLACED && context != null) {
             TrailSenseServiceUtils.restartServices(context)
         }
     }

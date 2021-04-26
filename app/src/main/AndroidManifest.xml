@@ -169,7 +169,7 @@
             android:name="com.kylecorry.trail_sense.receivers.PackageReplacedReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
 
