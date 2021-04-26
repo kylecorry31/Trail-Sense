@@ -728,7 +728,7 @@
     <string name="speedometer">Geschwindigkeitsanzeige</string>
     <string name="screen_flashlight">Bildschirm</string>
     <string name="tide_calibration">Gezeitenkalibrierung</string>
-    <string name="experimental_features">Gezeiten und Karten</string>
+    <string name="experimental_features">Gezeiten, Karten und Sichtkompass</string>
     <string name="date_not_set">Datum nicht festgelegt</string>
     <string name="time_not_set">Zeit nicht festgelegt</string>
     <string name="tide_calibration_instructions">Setzen Sie die Zeit während einer Flut, wenn möglich während einer Neu- oder Vollmonds. Das kann im Internet oder über gedruckte Gezeitentabellen herausgefunden werden. Die Gezeiten, die in Trail Sense gezeigt werden, können bis zu zwei Stunden von den realen Zeiten abweichen, was genug als Referenz ist, allerdings sollten Sie sich nicht alleine darauf verlassen.</string>
@@ -827,4 +827,15 @@
     <string name="dotted">Gepunktet</string>
     <string name="time_until_full">%s bis voll</string>
     <string name="theme_sunset_sunrise">Sonnenaufgang/Sonnenuntergang</string>
+    <string name="pref_show_last_signal_beacon_summary">Erstellt einen Wegpunkt am Punkt, an dem das letzte Mal eine Mobilfunkverbindung verfügbar war</string>
+    <string name="pref_show_last_signal_beacon_title">Wegpunkt am letzten Signal</string>
+    <string name="pref_show_last_signal_beacon">pref_show_last_signal_beacon</string>
+    <string name="last_signal_beacon_name">Letztes Signal - %s (%s)</string>
+    <string name="camera_permission_denied">Kameraberechtigung abgelehnt, kann die Kamerafunktionen nicht anschalten. Sie können sie in den Einstellungen aktivieren.</string>
+    <string name="pref_use_camera_features_title">Kamerafunktionen aktivieren</string>
+    <string name="pref_use_camera_features">pref_use_camera_features</string>
+    <string name="color">Farbe</string>
+    <string name="water_boil_guide_desc">Wie man den Wasserkocher-Timer benutzt</string>
+    <string name="water_boil_guide_title">Wasser zum Trinken aufbereiten</string>
+    <string name="arrow">Pfeil</string>
 </resources>

@@ -821,4 +821,9 @@
     <string name="all_beacons">Wszystkie punkty</string>
     <string name="app_disclaimer_message_title">Zrzeczenie się odpowiedzialności / Warunki korzystania z usługi</string>
     <string name="disclaimer_message_title">Zrzeczenie się odpowiedzialności</string>
+    <string name="pref_show_last_signal_beacon">pref_show_last_signal_beacon</string>
+    <string name="last_signal_beacon_name">Ostatni sygnał - %s (%s)</string>
+    <string name="pref_use_camera_features_title">Włącz funkcje aparatu</string>
+    <string name="pref_use_camera_features">pref_use_camera_features</string>
+    <string name="color">Kolor</string>
 </resources>
