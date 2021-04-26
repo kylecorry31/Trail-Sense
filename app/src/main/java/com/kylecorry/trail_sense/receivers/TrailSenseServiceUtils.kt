@@ -1,21 +1,25 @@
 package com.kylecorry.trail_sense.receivers
 
 import android.content.Context
+import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogService
+import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import java.time.Duration
 
 object TrailSenseServiceUtils {
 
     fun restartServices(context: Context){
+        NotificationChannels.createChannels(context)
         startWeatherMonitoring(context)
         startSunsetAlarm(context)
         startBacktrack(context)
         startPedometer(context)
-        BatteryLogService.start(context)
+        BatteryLogWorker.scheduler(context).schedule(Duration.ofMinutes(1))
     }
 
     private fun startPedometer(context: Context){
