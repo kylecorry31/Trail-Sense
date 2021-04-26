@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.whistle.ui
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -41,14 +40,12 @@ class ToolWhistleFragment : Fragment() {
 
     private val whereAreYouAndAcknowledgedSignal = listOf(
         Signal.on(Duration.ofSeconds(2)),
-        Signal.off(Duration.ofSeconds(3))
     )
 
     private val comeHereSignal = listOf(
         Signal.on(Duration.ofSeconds(2)),
         Signal.off(Duration.ofSeconds(1)),
         Signal.on(Duration.ofSeconds(2)),
-        Signal.off(Duration.ofSeconds(3))
     )
 
     private val sosSignal = morseService.sosSignal(Duration.ofMillis(morseDurationMs)) + listOf(Signal.off(Duration.ofMillis(morseDurationMs * 7)))
@@ -82,9 +79,11 @@ class ToolWhistleFragment : Fragment() {
                 ) { dialog, which ->
                     whistle.off()
                     when (which) {
-                        0 -> signalWhistle.play(whereAreYouAndAcknowledgedSignal, true)
-                        1 -> signalWhistle.play(whereAreYouAndAcknowledgedSignal, true)
-                        2 -> signalWhistle.play(comeHereSignal, true)
+                        0 -> signalWhistle.play(whereAreYouAndAcknowledgedSignal, false
+                        ) { toggleOffInternationWhistleSignals() }
+                        1 -> signalWhistle.play(whereAreYouAndAcknowledgedSignal, false
+                        ) { toggleOffInternationWhistleSignals() }
+                        2 -> signalWhistle.play(comeHereSignal, false) { toggleOffInternationWhistleSignals() }
                         3 -> signalWhistle.play(emergencySignal, true)
                     }
                     binding.whistleEmergencyBtn.setText(
@@ -158,6 +157,13 @@ class ToolWhistleFragment : Fragment() {
         binding.whistleEmergencyBtn.setState(state == WhistleState.Emergency)
         binding.whistleSosBtn.setState(state == WhistleState.Sos)
         binding.whistleBtn.setState(state == WhistleState.On)
+    }
+
+    private fun toggleOffInternationWhistleSignals() {
+        state = WhistleState.Off
+        signalWhistle.cancel()
+        binding.whistleEmergencyBtn.setText(getText(R.string.help).toString())
+        updateUI()
     }
 
 
