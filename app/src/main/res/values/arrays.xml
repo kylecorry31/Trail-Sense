@@ -238,4 +238,11 @@
         <item>dotted</item>
     </string-array>
 
+    <string-array name="whistle_signals_entries">
+        <item>@string/whistle_signal_where_are_you</item>
+        <item>@string/whistle_signal_acknowledged</item>
+        <item>@string/whistle_signal_come_here</item>
+        <item>@string/help</item>
+    </string-array>
+
 </resources>
