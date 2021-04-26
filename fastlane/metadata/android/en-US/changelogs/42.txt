@@ -1,0 +1,11 @@
+- Add search to tools and beacon select
+- Import / export GPX files (waypoints)
+- Show Backtrack path on the radar compass
+- White noise tool is no longer experimental
+- Battery life estimate
+- Customize quick actions
+- Long press the navigation button to create a beacon
+- Allow resetting the odometer daily (Odometer settings)
+- Red screen light (for use at night)
+- Map improvements (experimental, geospatial PDF support)
+- Bug fixes
