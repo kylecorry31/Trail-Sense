@@ -992,4 +992,7 @@
         <item quantity="one">Import %d beacon?</item>
         <item quantity="other">Import %d beacons?</item>
     </plurals>
+    <string name="whistle_signal_where_are_you">Where are you?</string>
+    <string name="whistle_signal_acknowledged">Acknowledged</string>
+    <string name="whistle_signal_come_here">Come here</string>
 </resources>
