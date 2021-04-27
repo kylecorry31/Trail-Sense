@@ -41,7 +41,7 @@ class FragmentToolWhiteNoise : BoundFragment<FragmentToolWhiteNoiseBinding>() {
         }
 
         binding.whiteNoiseBtn.setOnClickListener {
-            if (WhiteNoiseService.isOn(requireContext())){
+            if (WhiteNoiseService.isRunning){
                 WhiteNoiseService.stop(requireContext())
             } else {
 
@@ -69,7 +69,7 @@ class FragmentToolWhiteNoise : BoundFragment<FragmentToolWhiteNoiseBinding>() {
     }
 
     private fun update() {
-        binding.whiteNoiseBtn.setState(WhiteNoiseService.isOn(requireContext()))
+        binding.whiteNoiseBtn.setState(WhiteNoiseService.isRunning)
         val stopTime = cache.getInstant(WhiteNoiseService.CACHE_KEY_OFF_TIME)
         if (stopTime != null && stopTime > Instant.now()){
             binding.sleepTimerPicker.updateDuration(Duration.between(Instant.now(), stopTime))

@@ -17,7 +17,6 @@ import java.lang.Exception
 class StrobeService : ForegroundService() {
 
     private var flashlight: IFlashlight? = null
-    private var running = false
     private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
     private var on = false
 
@@ -26,7 +25,7 @@ class StrobeService : ForegroundService() {
     }
 
     private fun runNextState() {
-        if (!running) {
+        if (!isRunning) {
             flashlight?.off()
             on = false
             return
@@ -59,7 +58,7 @@ class StrobeService : ForegroundService() {
     }
 
     override fun onDestroy() {
-        running = false
+        isRunning = false
         handler.removeCallbacks(runnable)
         flashlight?.off()
         stopService(true)
@@ -68,7 +67,7 @@ class StrobeService : ForegroundService() {
 
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
         flashlight = Flashlight(this)
-        running = true
+        isRunning = true
         handler.post(runnable)
         return START_STICKY_COMPATIBILITY
     }
@@ -77,6 +76,9 @@ class StrobeService : ForegroundService() {
         const val CHANNEL_ID = "Flashlight"
         const val NOTIFICATION_ID = 763925
         private const val STROBE_DELAY = 5L
+
+        var isRunning = false
+            private set
 
         fun intent(context: Context): Intent {
             return Intent(context, StrobeService::class.java)
@@ -92,10 +94,6 @@ class StrobeService : ForegroundService() {
 
         fun stop(context: Context) {
             context.stopService(intent(context))
-        }
-
-        fun isOn(context: Context): Boolean {
-            return NotificationUtils.isNotificationActive(context, NOTIFICATION_ID)
         }
     }
 }

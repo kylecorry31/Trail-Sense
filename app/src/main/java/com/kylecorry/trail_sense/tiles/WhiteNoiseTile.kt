@@ -13,7 +13,7 @@ class WhiteNoiseTile : TileService() {
 
     private val stateChecker = Intervalometer {
         when {
-            WhiteNoiseService.isOn(this) -> {
+            WhiteNoiseService.isRunning -> {
                 qsTile.state = Tile.STATE_ACTIVE
             }
             else -> {
@@ -35,7 +35,7 @@ class WhiteNoiseTile : TileService() {
 
     override fun onClick() {
         super.onClick()
-        if (WhiteNoiseService.isOn(this)) {
+        if (WhiteNoiseService.isRunning) {
             WhiteNoiseService.stop(this)
             qsTile.state = Tile.STATE_INACTIVE
         } else {

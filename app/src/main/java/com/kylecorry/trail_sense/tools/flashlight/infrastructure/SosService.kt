@@ -19,7 +19,6 @@ import java.time.Duration
 class SosService : ForegroundService() {
 
     private var flashlight: IFlashlight? = null
-    private var running = false
     private val signalPlayer by lazy { if (flashlight == null) null else SignalPlayer(flashlight!!) }
     private val morseService = MorseService()
     override val foregroundNotificationId: Int
@@ -38,7 +37,7 @@ class SosService : ForegroundService() {
     }
 
     override fun onDestroy() {
-        running = false
+        isRunning = false
         signalPlayer?.cancel()
         flashlight?.off()
         stopService(true)
@@ -47,7 +46,7 @@ class SosService : ForegroundService() {
 
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
         flashlight = Flashlight(this)
-        running = true
+        isRunning = true
         val sos = morseService.sosSignal(Duration.ofMillis(200)) + listOf(
             Signal.off(Duration.ofMillis(200 * 7))
         )
@@ -58,6 +57,9 @@ class SosService : ForegroundService() {
     companion object {
         const val CHANNEL_ID = "Flashlight"
         const val NOTIFICATION_ID = 647354
+
+        var isRunning = false
+            private set
 
         fun intent(context: Context): Intent {
             return Intent(context, SosService::class.java)
@@ -73,10 +75,6 @@ class SosService : ForegroundService() {
 
         fun stop(context: Context) {
             context.stopService(intent(context))
-        }
-
-        fun isOn(context: Context): Boolean {
-            return NotificationUtils.isNotificationActive(context, NOTIFICATION_ID)
         }
     }
 }

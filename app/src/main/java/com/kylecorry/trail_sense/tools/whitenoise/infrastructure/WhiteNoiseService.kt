@@ -24,6 +24,7 @@ class WhiteNoiseService : ForegroundService() {
     }
 
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
+        isRunning = true
         val stopAt = cache.getInstant(CACHE_KEY_OFF_TIME)
         if (stopAt != null && Instant.now() < stopAt){
             offTimer.once(Duration.between(Instant.now(), stopAt))
@@ -48,6 +49,7 @@ class WhiteNoiseService : ForegroundService() {
         get() = NOTIFICATION_ID
 
     override fun onDestroy() {
+        isRunning = false
         whiteNoise?.fadeOff(true)
         stopService(true)
         offTimer.stop()
@@ -59,6 +61,9 @@ class WhiteNoiseService : ForegroundService() {
         const val NOTIFICATION_ID = 9874333
         const val NOTIFICATION_CHANNEL_ID = "white_noise"
         const val CACHE_KEY_OFF_TIME = "cache_white_noise_off_at"
+
+        var isRunning = false
+            private set
 
         fun intent(context: Context): Intent {
             return Intent(context, WhiteNoiseService::class.java)
@@ -74,10 +79,6 @@ class WhiteNoiseService : ForegroundService() {
 
         fun stop(context: Context) {
             context.stopService(intent(context))
-        }
-
-        fun isOn(context: Context): Boolean {
-            return NotificationUtils.isNotificationActive(context, NOTIFICATION_ID)
         }
     }
 

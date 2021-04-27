@@ -21,18 +21,15 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
             override fun onTorchModeChanged(cameraId: String, enabled: Boolean) {
                 try {
                     super.onTorchModeChanged(cameraId, enabled)
-                    if (isTurningOff){
+                    if (isTurningOff) {
                         return
                     }
 
-                    if (!enabled && FlashlightService.isOn(context)) {
+                    if (!enabled && FlashlightService.isRunning) {
                         off()
                     }
 
-                    if (enabled && !FlashlightService.isOn(context) && !SosService.isOn(context) && !StrobeService.isOn(
-                            context
-                        )
-                    ) {
+                    if (enabled && !FlashlightService.isRunning && !SosService.isRunning && !StrobeService.isRunning) {
                         on()
                     }
                 } catch (e: Exception) {
@@ -69,9 +66,9 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
         forceOff(200)
     }
 
-    private fun forceOff(millis: Long){
+    private fun forceOff(millis: Long) {
         val increment = 20L
-        if ((millis - increment) < 0){
+        if ((millis - increment) < 0) {
             isTurningOff = false
             return
         }
@@ -107,9 +104,9 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
 
     override fun getState(): FlashlightState {
         return when {
-            FlashlightService.isOn(context) -> FlashlightState.On
-            SosService.isOn(context) -> FlashlightState.SOS
-            StrobeService.isOn(context) -> FlashlightState.Strobe
+            FlashlightService.isRunning -> FlashlightState.On
+            SosService.isRunning -> FlashlightState.SOS
+            StrobeService.isRunning -> FlashlightState.Strobe
             else -> FlashlightState.Off
         }
     }

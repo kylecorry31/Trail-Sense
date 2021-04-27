@@ -31,11 +31,13 @@ class FlashlightService: ForegroundService() {
 
     override fun onDestroy() {
         flashlight?.off()
+        isRunning = false
         stopService(true)
         super.onDestroy()
     }
 
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
+        isRunning = true
         flashlight = Flashlight(this)
         flashlight?.on()
         return START_STICKY_COMPATIBILITY
@@ -44,6 +46,9 @@ class FlashlightService: ForegroundService() {
     companion object {
         const val CHANNEL_ID = "Flashlight"
         const val NOTIFICATION_ID = 983589
+
+        var isRunning = false
+            private set
 
         fun intent(context: Context): Intent {
             return Intent(context, FlashlightService::class.java)
@@ -59,10 +64,6 @@ class FlashlightService: ForegroundService() {
 
         fun stop(context: Context){
             context.stopService(intent(context))
-        }
-
-        fun isOn(context: Context): Boolean {
-            return NotificationUtils.isNotificationActive(context, NOTIFICATION_ID)
         }
     }
 }
