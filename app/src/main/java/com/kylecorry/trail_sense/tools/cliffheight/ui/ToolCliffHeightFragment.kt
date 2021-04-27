@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCliffHeightBinding
 import com.kylecorry.trail_sense.shared.FormatService
@@ -14,13 +13,11 @@ import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import java.time.Duration
 import java.time.Instant
 
-class ToolCliffHeightFragment : Fragment() {
-
-    private var _binding: FragmentToolCliffHeightBinding? = null
-    private val binding get() = _binding!!
+class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() {
 
     private val physicsService = PhysicsService()
     private val intervalometer = Intervalometer {
@@ -34,11 +31,8 @@ class ToolCliffHeightFragment : Fragment() {
     private var startTime: Instant? = null
     private var running = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolCliffHeightBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.startBtn.setOnClickListener {
             if (running) {
                 intervalometer.stop()
@@ -50,14 +44,8 @@ class ToolCliffHeightFragment : Fragment() {
             }
             binding.startBtn.setState(running)
         }
-        return binding.root
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,6 +85,13 @@ class ToolCliffHeightFragment : Fragment() {
         val formatted = formatService.formatDepth(converted, units)
 
         binding.height.text = formatted
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolCliffHeightBinding {
+        return FragmentToolCliffHeightBinding.inflate(layoutInflater, container, false)
     }
 
 }
