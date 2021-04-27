@@ -4,80 +4,73 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightningBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import java.time.Instant
 
-class FragmentToolLightning : Fragment() {
-    private var _binding: FragmentToolLightningBinding? = null
-    private val binding get() = _binding!!
-
+class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
     private val weatherService = WeatherService()
     private val formatService by lazy { FormatService(requireContext()) }
 
     private var lightningTime: Instant? = null
     private var distance: Float? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolLightningBinding.inflate(inflater, container, false)
-        binding.lightningBtn.setOnClickListener {
-            onLightning()
+    
+    private val intervalometer = Intervalometer {
+        val lightning = lightningTime
+        if (lightning != null){
+            val d = weatherService.getLightningStrikeDistance(lightning, Instant.now())
+            binding.strikeDistance.text = formatService.formatLargeDistance(d)
         }
-        binding.thunderBtn.setOnClickListener {
-            onThunder()
-        }
-        binding.resetBtn.setOnClickListener {
-            reset()
-        }
-        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.startBtn.setOnClickListener {
+            val lightning = lightningTime
+            if (lightning == null){
+                lightningTime = Instant.now()
+                distance = null
+                binding.startBtn.setImageResource(R.drawable.ic_thunder)
+                binding.startBtn.setText(getString(R.string.thunder))
+                binding.startBtn.setState(true)
+            } else if (distance == null){
+                val d = weatherService.getLightningStrikeDistance(lightning, Instant.now())
+                distance = d
+                binding.strikeDistance.text = formatService.formatLargeDistance(d)
+                lightningTime = null
+                binding.startBtn.setImageResource(R.drawable.ic_lightning)
+                binding.startBtn.setText(getString(R.string.lightning))
+                binding.startBtn.setState(false)
+            }
+        }
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolLightningBinding {
+        return FragmentToolLightningBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onResume() {
         super.onResume()
-        reset()
-    }
-
-    private fun reset() {
-        lightningTime = null
         distance = null
-        binding.lightningBtn.setState(false)
-        binding.thunderBtn.setState(false)
-        binding.lightningDistance.text = ""
-        binding.resetBtn.visibility = View.INVISIBLE
+        lightningTime = null
+        binding.strikeDistance.text = ""
+        binding.startBtn.setImageResource(R.drawable.ic_lightning)
+        binding.startBtn.setText(getString(R.string.lightning))
+        binding.startBtn.setState(false)
+        intervalometer.interval(20)
     }
 
-    private fun onLightning() {
-        if (lightningTime != null) {
-            if (distance != null) {
-                reset()
-            }
-            else {
-                return
-            }
-        }
-        lightningTime = Instant.now()
-        binding.lightningBtn.setState(true)
-        binding.resetBtn.visibility = View.VISIBLE
-    }
-
-    private fun onThunder() {
-        if (distance != null) {
-            return
-        }
-        val lightning = lightningTime ?: return
-        distance = weatherService.getLightningStrikeDistance(lightning, Instant.now())
-        binding.lightningDistance.text = formatService.formatLargeDistance(distance!!)
-        binding.thunderBtn.setState(true)
+    override fun onPause() {
+        super.onPause()
+        intervalometer.stop()
     }
 
 }
