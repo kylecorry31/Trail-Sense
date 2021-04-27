@@ -248,7 +248,7 @@
     </fragment>
     <fragment
         android:id="@+id/action_weather"
-        android:name="com.kylecorry.trail_sense.weather.ui.BarometerFragment"
+        android:name="com.kylecorry.trail_sense.weather.ui.WeatherFragment"
         android:label="activity_weather"
         tools:layout="@layout/activity_weather">
         <action

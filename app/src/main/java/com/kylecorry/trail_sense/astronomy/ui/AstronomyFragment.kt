@@ -8,14 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.DrawableRes
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
+import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -25,31 +24,25 @@ import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.tools.whitenoise.ui.QuickActionWhiteNoise
-import com.kylecorry.trail_sense.weather.ui.QuickActionClouds
-import com.kylecorry.trail_sense.weather.ui.QuickActionThermometer
-import com.kylecorry.trailsensecore.domain.astronomy.MeteorShower
 import com.kylecorry.trailsensecore.domain.astronomy.MeteorShowerPeak
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trailsensecore.domain.time.Season
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class AstronomyFragment : Fragment() {
+class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     private lateinit var gps: IGPS
 
-    private var _binding: ActivityAstronomyBinding? = null
-    private val binding get() = _binding!!
     private lateinit var detailList: ListView<AstroDetail>
     private lateinit var chart: AstroChart
 
@@ -76,10 +69,14 @@ class AstronomyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        leftQuickAction = getQuickActionButton(prefs.astronomy.leftQuickAction, binding.astronomyLeftQuickAction)
+        leftQuickAction =
+            getQuickActionButton(prefs.astronomy.leftQuickAction, binding.astronomyLeftQuickAction)
         leftQuickAction?.onCreate()
 
-        rightQuickAction = getQuickActionButton(prefs.astronomy.rightQuickAction, binding.astronomyRightQuickAction)
+        rightQuickAction = getQuickActionButton(
+            prefs.astronomy.rightQuickAction,
+            binding.astronomyRightQuickAction
+        )
         rightQuickAction?.onCreate()
 
         val recyclerView = binding.astronomyDetailList
@@ -138,20 +135,6 @@ class AstronomyFragment : Fragment() {
         binding.moonPosition.setOnClickListener {
             openDetailsDialog()
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = ActivityAstronomyBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onDestroy() {
@@ -608,6 +591,7 @@ class AstronomyFragment : Fragment() {
             QuickActionType.Whistle -> QuickActionWhistle(button, this)
             QuickActionType.Flashlight -> QuickActionFlashlight(button, this)
             QuickActionType.WhiteNoise -> QuickActionWhiteNoise(button, this)
+            QuickActionType.LowPowerMode -> LowPowerQuickAction(button, this)
             else -> QuickActionNone(button, this)
         }
     }
@@ -623,6 +607,13 @@ class AstronomyFragment : Fragment() {
                 return AstroDetail(0, null, "")
             }
         }
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): ActivityAstronomyBinding {
+        return ActivityAstronomyBinding.inflate(layoutInflater, container, false)
     }
 
 }

@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
 import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
@@ -19,29 +18,14 @@ import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import com.kylecorry.trailsensecore.domain.weather.clouds.CloudHeight
 import com.kylecorry.trailsensecore.domain.weather.clouds.CloudType
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 
-class CloudFragment : Fragment() {
+class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
 
-    private var _binding: FragmentCloudsBinding? = null
-    private val binding get() = _binding!!
     private val cloudRepo by lazy { CloudRepo(requireContext()) }
     private lateinit var listView: ListView<CloudType>
     private val weatherService = WeatherService()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentCloudsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -139,6 +123,7 @@ class CloudFragment : Fragment() {
     }
 
 
+    // TODO: Extract this
     private fun imageAlert(
         context: Context,
         title: String,
@@ -172,6 +157,13 @@ class CloudFragment : Fragment() {
         val dialog = builder.create()
         dialog.show()
         return dialog
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentCloudsBinding {
+        return FragmentCloudsBinding.inflate(layoutInflater, container, false)
     }
 
 

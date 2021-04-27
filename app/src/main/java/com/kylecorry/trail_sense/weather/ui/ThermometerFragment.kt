@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentThermometerHygrometerBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
@@ -20,13 +18,11 @@ import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.weather.HeatAlert
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import java.time.Duration
 import java.time.Instant
 
-class ThermometerFragment : Fragment() {
-
-    private var _binding: FragmentThermometerHygrometerBinding? = null
-    private val binding get() = _binding!!
+class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val thermometer by lazy { sensorService.getThermometer() }
@@ -61,13 +57,8 @@ class ThermometerFragment : Fragment() {
     private var heatAlertTitle = ""
     private var heatAlertContent = ""
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentThermometerHygrometerBinding.inflate(inflater, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         temperatureChart =
             TemperatureChart(binding.chart, UiUtils.color(requireContext(), R.color.colorPrimary))
 
@@ -88,14 +79,11 @@ class ThermometerFragment : Fragment() {
         pressureRepo.getPressures()
             .observe(
                 viewLifecycleOwner,
-                { updateChart(it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }.filter { it.time <= Instant.now() }) })
+                {
+                    updateChart(it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
+                        .filter { it.time <= Instant.now() })
+                })
 
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onResume() {
@@ -295,5 +283,12 @@ class ThermometerFragment : Fragment() {
         val uncalibrated2 = prefs.weather.maxBatteryTemperature
 
         return calibrated1 + (calibrated2 - calibrated1) * (uncalibrated1 - temp) / (uncalibrated1 - uncalibrated2)
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentThermometerHygrometerBinding {
+        return FragmentThermometerHygrometerBinding.inflate(layoutInflater, container, false)
     }
 }

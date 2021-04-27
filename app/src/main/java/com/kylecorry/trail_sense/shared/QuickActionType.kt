@@ -12,7 +12,8 @@ enum class QuickActionType(val id: Int) {
     Ruler(5),
     Maps(7),
     Whistle(8),
-    WhiteNoise(9)
+    WhiteNoise(9),
+    LowPowerMode(10)
 }
 
 object QuickActionUtils {
@@ -28,6 +29,7 @@ object QuickActionUtils {
             QuickActionType.Maps -> context.getString(R.string.offline_maps)
             QuickActionType.Whistle -> context.getString(R.string.tool_whistle_title)
             QuickActionType.WhiteNoise -> context.getString(R.string.tool_white_noise_title)
+            QuickActionType.LowPowerMode -> context.getString(R.string.pref_low_power_mode_title)
         }
     }
 
@@ -37,7 +39,8 @@ object QuickActionUtils {
             QuickActionType.Backtrack,
             QuickActionType.Flashlight,
             QuickActionType.Whistle,
-            QuickActionType.Ruler
+            QuickActionType.Ruler,
+            QuickActionType.LowPowerMode
         )
 
         if (UserPreferences(context).experimentalEnabled){
@@ -53,7 +56,8 @@ object QuickActionUtils {
             QuickActionType.Flashlight,
             QuickActionType.Whistle,
             QuickActionType.Clouds,
-            QuickActionType.Temperature
+            QuickActionType.Temperature,
+            QuickActionType.LowPowerMode
         )
     }
 
@@ -62,7 +66,8 @@ object QuickActionUtils {
             QuickActionType.None,
             QuickActionType.Flashlight,
             QuickActionType.Whistle,
-            QuickActionType.WhiteNoise
+            QuickActionType.WhiteNoise,
+            QuickActionType.LowPowerMode
         )
     }
 }

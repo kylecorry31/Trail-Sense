@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
+import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
@@ -22,6 +23,7 @@ import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherForecastService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
@@ -36,7 +38,7 @@ import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 
-class BarometerFragment : Fragment() {
+class WeatherFragment : Fragment() {
 
     private val barometer by lazy { sensorService.getBarometer() }
     private val altimeter by lazy { sensorService.getAltimeter() }
@@ -70,6 +72,8 @@ class BarometerFragment : Fragment() {
 
     private var leftQuickAction: QuickActionButton? = null
     private var rightQuickAction: QuickActionButton? = null
+
+    private val weatherForecastService by lazy { WeatherForecastService.getInstance(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -140,6 +144,11 @@ class BarometerFragment : Fragment() {
 
         pressureRepo.getPressures().observe(viewLifecycleOwner) {
             readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }.filter { it.time <= Instant.now() }
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    updateForecast()
+                }
+            }
         }
 
         barometer.asLiveData().observe(viewLifecycleOwner, { update() })
@@ -216,7 +225,7 @@ class BarometerFragment : Fragment() {
         val tendency = weatherService.getTendency(readings, setpoint)
         displayTendency(tendency)
 
-        updateForecast(readings, setpoint)
+//        updateForecast(readings, setpoint)
 
         val pressure = getCurrentPressure()
         displayPressure(pressure)
@@ -344,19 +353,32 @@ class BarometerFragment : Fragment() {
         }
     }
 
-    private fun updateForecast(readings: List<PressureReading>, setpoint: PressureReading?) {
-        val shortTerm = weatherService.getHourlyWeather(readings, setpoint)
-        val longTerm = weatherService.getDailyWeather(readings)
-
-        binding.weatherNowLbl.text = getShortTermWeatherDescription(shortTerm)
+    private suspend fun updateForecast(){
+        val hourly = weatherForecastService.getHourlyForecast()
+        val daily = weatherForecastService.getDailyForecast()
+        binding.weatherNowLbl.text = getShortTermWeatherDescription(hourly)
         binding.weatherNowImg.setImageResource(
             getWeatherImage(
-                shortTerm,
-                readings.lastOrNull() ?: PressureReading(Instant.now(), barometer.pressure)
+                hourly,
+                PressureReading(Instant.now(), barometer.pressure)
             )
         )
-        binding.weatherLaterLbl.text = getLongTermWeatherDescription(longTerm)
+        binding.weatherLaterLbl.text = getLongTermWeatherDescription(daily)
     }
+
+//    private fun updateForecast(readings: List<PressureReading>, setpoint: PressureReading?) {
+//        val shortTerm = weatherService.getHourlyWeather(readings, setpoint)
+//        val longTerm = weatherService.getDailyWeather(readings)
+//
+//        binding.weatherNowLbl.text = getShortTermWeatherDescription(shortTerm)
+//        binding.weatherNowImg.setImageResource(
+//            getWeatherImage(
+//                shortTerm,
+//                readings.lastOrNull() ?: PressureReading(Instant.now(), barometer.pressure)
+//            )
+//        )
+//        binding.weatherLaterLbl.text = getLongTermWeatherDescription(longTerm)
+//    }
 
     private fun getSetpoint(): PressureReading? {
         val setpoint = pressureSetpoint
@@ -445,6 +467,7 @@ class BarometerFragment : Fragment() {
             QuickActionType.Flashlight -> QuickActionFlashlight(button, this)
             QuickActionType.Clouds -> QuickActionClouds(button, this)
             QuickActionType.Temperature -> QuickActionThermometer(button, this)
+            QuickActionType.LowPowerMode -> LowPowerQuickAction(button, this)
             else -> QuickActionNone(button, this)
         }
     }

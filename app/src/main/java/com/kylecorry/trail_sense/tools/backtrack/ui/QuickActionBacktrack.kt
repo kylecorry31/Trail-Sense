@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -20,11 +21,9 @@ class QuickActionBacktrack(btn: FloatingActionButton, fragment: Fragment) :
     }
 
     private fun update() {
-        UiUtils.setButtonState(
+        CustomUiUtils.setButtonState(
             button,
-            prefs.backtrackEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack),
-            UiUtils.color(context, R.color.colorPrimary),
-            UiUtils.color(context, R.color.colorSecondary)
+            prefs.backtrackEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)
         )
     }
 

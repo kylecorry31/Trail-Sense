@@ -3,11 +3,13 @@ package com.kylecorry.trail_sense.weather.infrastructure.persistence
 import android.content.Context
 import com.kylecorry.trail_sense.shared.AppDatabase
 import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherForecastService
 import java.time.Instant
 
 class PressureRepo private constructor(context: Context) : IPressureRepo {
 
     private val pressureDao = AppDatabase.getInstance(context).pressureDao()
+    private val forecastService = WeatherForecastService.getInstance(context)
 
     override fun getPressures() = pressureDao.getAll()
 
@@ -20,6 +22,7 @@ class PressureRepo private constructor(context: Context) : IPressureRepo {
     override suspend fun deleteOlderThan(instant: Instant) = pressureDao.deleteOlderThan(instant.toEpochMilli())
 
     override suspend fun addPressure(pressure: PressureReadingEntity) {
+        forecastService.setDataChanged()
         if (pressure.id != 0L){
             pressureDao.update(pressure)
         } else {

@@ -113,9 +113,9 @@
         </service>
 
         <service
-            android:name=".tiles.WhiteNoiseTile"
-            android:label="@string/tool_white_noise_title"
-            android:icon="@drawable/ic_tool_white_noise"
+            android:name=".tiles.WeatherMonitorTile"
+            android:label="@string/weather_monitor"
+            android:icon="@drawable/cloud"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -123,9 +123,9 @@
         </service>
 
         <service
-            android:name=".tiles.SosTile"
-            android:label="@string/sos"
-            android:icon="@drawable/flashlight_sos"
+            android:name=".tiles.PedometerTile"
+            android:label="@string/pedometer"
+            android:icon="@drawable/steps"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />

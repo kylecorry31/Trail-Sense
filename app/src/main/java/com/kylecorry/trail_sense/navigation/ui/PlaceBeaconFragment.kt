@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -21,7 +19,6 @@ import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.inventory.domain.ItemCategory
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.GeoService
@@ -29,17 +26,16 @@ import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PlaceBeaconFragment : Fragment() {
+class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private lateinit var navController: NavController
 
-    private var _binding: FragmentCreateBeaconBinding? = null
-    private val binding get() = _binding!!
     private val altimeter by lazy { sensorService.getAltimeter() }
 
     private lateinit var units: UserPreferences.DistanceUnits
@@ -79,20 +75,6 @@ class PlaceBeaconFragment : Fragment() {
         } else {
             groupId
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentCreateBeaconBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun setEditingBeaconValues(beacon: Beacon) {
@@ -295,7 +277,16 @@ class PlaceBeaconFragment : Fragment() {
                     }
                 }
                 val beacon = if (editingBeacon == null) {
-                    Beacon(0, name, coordinate, true, comment, groupId, elevation, color = color.color)
+                    Beacon(
+                        0,
+                        name,
+                        coordinate,
+                        true,
+                        comment,
+                        groupId,
+                        elevation,
+                        color = color.color
+                    )
                 } else {
                     Beacon(
                         editingBeacon!!.id,
@@ -457,6 +448,13 @@ class PlaceBeaconFragment : Fragment() {
 
         return name.isBlank() && !createAtDistance && comment.isBlank() && elevation.isBlank() && location == null && group == initialGroupIndex
 
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentCreateBeaconBinding {
+        return FragmentCreateBeaconBinding.inflate(layoutInflater, container, false)
     }
 
 }

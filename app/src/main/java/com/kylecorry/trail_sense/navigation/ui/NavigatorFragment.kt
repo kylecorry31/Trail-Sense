@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRep
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
+import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.*
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -825,6 +826,7 @@ class NavigatorFragment : Fragment() {
             QuickActionType.Ruler -> QuickActionRuler(button, this, binding.ruler)
             QuickActionType.Maps -> QuickActionOfflineMaps(button, this)
             QuickActionType.Whistle -> QuickActionWhistle(button, this)
+            QuickActionType.LowPowerMode -> LowPowerQuickAction(button, this)
             else -> QuickActionNone(button, this)
         }
     }

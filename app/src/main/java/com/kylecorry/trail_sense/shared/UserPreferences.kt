@@ -219,10 +219,18 @@ class UserPreferences(private val context: Context) {
             }
         }
 
-    val usePedometer: Boolean
+    var usePedometer: Boolean
         get() {
             val raw = cache.getString(getString(R.string.pref_odometer_source))
             return raw == "pedometer"
+        }
+        set(value) {
+            val str = if (value){
+                "pedometer"
+            } else {
+                "gps"
+            }
+            cache.putString(getString(R.string.pref_odometer_source), str)
         }
 
     val resetOdometerDaily: Boolean

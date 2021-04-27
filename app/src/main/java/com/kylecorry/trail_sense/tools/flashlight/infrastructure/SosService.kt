@@ -45,8 +45,8 @@ class SosService : ForegroundService() {
     }
 
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
-        flashlight = Flashlight(this)
         isRunning = true
+        flashlight = Flashlight(this)
         val sos = morseService.sosSignal(Duration.ofMillis(200)) + listOf(
             Signal.off(Duration.ofMillis(200 * 7))
         )

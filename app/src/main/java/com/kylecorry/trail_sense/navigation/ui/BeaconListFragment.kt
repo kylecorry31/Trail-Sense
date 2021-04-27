@@ -15,7 +15,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -36,6 +35,7 @@ import com.kylecorry.trailsensecore.infrastructure.persistence.ExternalFileServi
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,15 +43,13 @@ import kotlinx.coroutines.withContext
 import java.time.Instant
 
 
-class BeaconListFragment : Fragment() {
+class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val externalFileService by lazy { ExternalFileService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
-    private var _binding: FragmentBeaconListBinding? = null
-    private val binding get() = _binding!!
     private lateinit var beaconList: ListView<IBeacon>
     private lateinit var navController: NavController
     private val sensorService by lazy { SensorService(requireContext()) }
@@ -63,20 +61,6 @@ class BeaconListFragment : Fragment() {
                 updateBeaconList()
             }
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentBeaconListBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -408,7 +392,6 @@ class BeaconListFragment : Fragment() {
 
         withContext(Dispatchers.Main) {
             context ?: return@withContext
-            _binding ?: return@withContext
             binding.beaconTitle.text =
                 displayedGroup?.name ?: getString(R.string.select_beacon)
             updateBeaconEmptyText(beacons.isNotEmpty())
@@ -563,6 +546,13 @@ class BeaconListFragment : Fragment() {
     companion object {
         private const val REQUEST_CODE_IMPORT = RequestCodes.REQUEST_CODE_IMPORT_BEACONS
         private const val REQUEST_CODE_EXPORT = RequestCodes.REQUEST_CODE_EXPORT_BEACONS
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentBeaconListBinding {
+        return FragmentBeaconListBinding.inflate(layoutInflater, container, false)
     }
 }
 

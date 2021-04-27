@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
@@ -13,17 +12,15 @@ import com.kylecorry.trail_sense.databinding.FragmentBeaconDetailsBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class BeaconDetailsFragment : Fragment() {
+class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
-
-    private var _binding: FragmentBeaconDetailsBinding? = null
-    private val binding get() = _binding!!
 
     private var beacon: Beacon? = null
     private var beaconId: Long? = null
@@ -72,25 +69,18 @@ class BeaconDetailsFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentBeaconDetailsBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (beaconId != null) {
             loadBeacon(beaconId!!)
         }
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentBeaconDetailsBinding {
+        return FragmentBeaconDetailsBinding.inflate(layoutInflater, container, false)
     }
 }
 

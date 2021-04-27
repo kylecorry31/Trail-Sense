@@ -995,4 +995,5 @@
     <string name="whistle_signal_where_are_you">Where are you?</string>
     <string name="whistle_signal_acknowledged">Acknowledged</string>
     <string name="whistle_signal_come_here">Come here</string>
+    <string name="weather_monitor">Weather Monitor</string>
 </resources>

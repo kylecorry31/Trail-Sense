@@ -110,3 +110,11 @@ fun hours(hours: Float): Duration {
     val s = ((hours * 3600) % 3600).toLong()
     return Duration.ofHours(h).plusMinutes(m).plusSeconds(s)
 }
+
+fun Instant.isInPast(): Boolean {
+    return this < Instant.now()
+}
+
+fun Instant.isOlderThan(duration: Duration): Boolean {
+    return Duration.between(this, Instant.now()) > duration
+}
