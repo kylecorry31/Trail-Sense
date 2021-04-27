@@ -20,40 +20,46 @@ class WeatherForecastService(private val context: Context) {
     private val weatherRepo by lazy { PressureRepo.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
 
-    // TODO: Allow this to be reset
-    private val weatherService by lazy {
-        WeatherService(
-            prefs.weather.stormAlertThreshold,
-            prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold,
-            prefs.weather.seaLevelFactorInRapidChanges,
-            prefs.weather.seaLevelFactorInTemp
-        )
-    }
+    private lateinit var weatherService: WeatherService
 
-    private var cache: List<PressureReading>? = null
+    private var cacheHourly: Weather? = null
+    private var cacheDaily: Weather? = null
     private var cacheTime = Instant.MIN
 
     private val mutex = Mutex()
 
-    // TODO: Add weather
+    init {
+        resetWeatherService()
+    }
 
     suspend fun getHourlyForecast(): Weather {
         return withContext(Dispatchers.IO) {
-            getHourlyForecast(getReadings())
+            mutex.withLock(this@WeatherForecastService) {
+                if (!hasValidCache()){
+                    populateCache()
+                }
+                cacheHourly!!
+            }
         }
     }
 
     suspend fun getDailyForecast(): Weather {
         return withContext(Dispatchers.IO) {
-            getDailyForecast(getReadings())
+            mutex.withLock(this@WeatherForecastService) {
+                if (!hasValidCache()){
+                    populateCache()
+                }
+                cacheDaily!!
+            }
         }
     }
 
     suspend fun setDataChanged() {
-        mutex.withLock {
+        mutex.withLock(this@WeatherForecastService) {
             cacheTime = null
-            cache = null
+            cacheHourly = null
+            cacheDaily = null
+            resetWeatherService()
         }
     }
 
@@ -65,25 +71,33 @@ class WeatherForecastService(private val context: Context) {
         return weatherService.getDailyWeather(readings)
     }
 
+    private suspend fun populateCache(){
+        val readings = getReadings()
+        cacheDaily = getDailyForecast(readings)
+        cacheHourly = getHourlyForecast(readings)
+        cacheTime = Instant.now()
+    }
 
     private suspend fun getReadings(): List<PressureReading> {
-        return mutex.withLock {
-            if (hasValidCache()) {
-                return cache ?: listOf()
-            }
-
-            val readings = weatherRepo.getPressuresSync().map { it.toPressureAltitudeReading() }
-            val calibrated = PressureCalibrationUtils.calibratePressures(context, readings)
-            cache = calibrated
-            cacheTime = Instant.now()
-            calibrated
-        }
+        val readings = weatherRepo.getPressuresSync().map { it.toPressureAltitudeReading() }
+        return PressureCalibrationUtils.calibratePressures(context, readings)
     }
 
     private fun hasValidCache(): Boolean {
-        return cache != null
+        return cacheDaily != null
+                && cacheHourly != null
                 && !cacheTime.isOlderThan(MAX_CACHE_TIME)
                 && cacheTime.isInPast()
+    }
+
+    private fun resetWeatherService(){
+        weatherService = WeatherService(
+            prefs.weather.stormAlertThreshold,
+            prefs.weather.dailyForecastChangeThreshold,
+            prefs.weather.hourlyForecastChangeThreshold,
+            prefs.weather.seaLevelFactorInRapidChanges,
+            prefs.weather.seaLevelFactorInTemp
+        )
     }
 
 

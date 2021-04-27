@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.weather.ui
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,10 +80,12 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        leftQuickAction = getQuickActionButton(prefs.weather.leftQuickAction, binding.weatherLeftQuickAction)
+        leftQuickAction =
+            getQuickActionButton(prefs.weather.leftQuickAction, binding.weatherLeftQuickAction)
         leftQuickAction?.onCreate()
 
-        rightQuickAction = getQuickActionButton(prefs.weather.rightQuickAction, binding.weatherRightQuickAction)
+        rightQuickAction =
+            getQuickActionButton(prefs.weather.rightQuickAction, binding.weatherRightQuickAction)
         rightQuickAction?.onCreate()
 
         navController = findNavController()
@@ -143,11 +147,10 @@ class WeatherFragment : Fragment() {
         }
 
         pressureRepo.getPressures().observe(viewLifecycleOwner) {
-            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }.filter { it.time <= Instant.now() }
+            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
+                .filter { it.time <= Instant.now() }
             lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    updateForecast()
-                }
+                updateForecast()
             }
         }
 
@@ -184,12 +187,12 @@ class WeatherFragment : Fragment() {
         pressureSetpoint = prefs.weather.pressureSetpoint
 
         lifecycleScope.launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 if (!altimeter.hasValidReading) {
                     altimeter.read()
                 }
             }
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 altitude = altimeter.altitude
                 update()
             }
@@ -353,17 +356,25 @@ class WeatherFragment : Fragment() {
         }
     }
 
-    private suspend fun updateForecast(){
-        val hourly = weatherForecastService.getHourlyForecast()
-        val daily = weatherForecastService.getDailyForecast()
-        binding.weatherNowLbl.text = getShortTermWeatherDescription(hourly)
-        binding.weatherNowImg.setImageResource(
-            getWeatherImage(
-                hourly,
-                PressureReading(Instant.now(), barometer.pressure)
+    private suspend fun updateForecast() {
+        val hourly = withContext(Dispatchers.IO) {
+            weatherForecastService.getHourlyForecast()
+        }
+
+        val daily = withContext(Dispatchers.IO) {
+            weatherForecastService.getDailyForecast()
+        }
+
+        withContext(Dispatchers.Main) {
+            binding.weatherNowLbl.text = getShortTermWeatherDescription(hourly)
+            binding.weatherNowImg.setImageResource(
+                getWeatherImage(
+                    hourly,
+                    PressureReading(Instant.now(), barometer.pressure)
+                )
             )
-        )
-        binding.weatherLaterLbl.text = getLongTermWeatherDescription(daily)
+            binding.weatherLaterLbl.text = getLongTermWeatherDescription(daily)
+        }
     }
 
 //    private fun updateForecast(readings: List<PressureReading>, setpoint: PressureReading?) {
