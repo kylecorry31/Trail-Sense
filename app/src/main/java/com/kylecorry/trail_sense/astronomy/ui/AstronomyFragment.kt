@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.MainActivity
@@ -25,6 +26,7 @@ import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.tools.whitenoise.ui.QuickActionWhiteNoise
 import com.kylecorry.trailsensecore.domain.astronomy.MeteorShowerPeak
+import com.kylecorry.trailsensecore.domain.astronomy.RiseSetTransitTimes
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
@@ -35,6 +37,9 @@ import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -193,24 +198,34 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         if (context == null) {
             return
         }
-        detectAndShowGPSError()
-        binding.date.text = getDateString(displayDate)
-        updateSunUI()
-        updateMoonUI()
-        updateAstronomyChart()
-        updateAstronomyDetails()
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                detectAndShowGPSError()
+                binding.date.text = getDateString(displayDate)
+            }
+
+            updateSunUI()
+            updateMoonUI()
+            updateAstronomyChart()
+            updateAstronomyDetails()
+        }
     }
 
-    private fun updateMoonUI() {
+    private suspend fun updateMoonUI() {
         if (context == null) {
             return
         }
 
-        val moonPhase = astronomyService.getCurrentMoonPhase()
-        binding.moonPosition.setImageResource(getMoonImage(moonPhase.phase))
+        val moonPhase = withContext(Dispatchers.Default) {
+            astronomyService.getCurrentMoonPhase()
+        }
+
+        withContext(Dispatchers.Main) {
+            binding.moonPosition.setImageResource(getMoonImage(moonPhase.phase))
+        }
     }
 
-    private fun updateAstronomyChart() {
+    private suspend fun updateAstronomyChart() {
         if (context == null) {
             return
         }
@@ -219,66 +234,71 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         val sunAltitudes: List<Pair<LocalDateTime, Float>>
         val startHour: Float
 
-        if (displayDate == LocalDate.now() && prefs.astronomy.centerSunAndMoon) {
-            val startTime = LocalDateTime.now().roundNearestMinute(10).minusHours(12)
-            startHour = startTime.hour + startTime.minute / 60f
+        withContext(Dispatchers.Default) {
+            if (displayDate == LocalDate.now() && prefs.astronomy.centerSunAndMoon) {
+                val startTime = LocalDateTime.now().roundNearestMinute(10).minusHours(12)
+                startHour = startTime.hour + startTime.minute / 60f
 
-            moonAltitudes = astronomyService.getCenteredMoonAltitudes(
-                gps.location,
-                LocalDateTime.now()
-            )
-            sunAltitudes = astronomyService.getCenteredSunAltitudes(
-                gps.location,
-                LocalDateTime.now()
-            )
-        } else {
-            startHour = 0f
-            moonAltitudes = astronomyService.getMoonAltitudes(gps.location, displayDate)
-            sunAltitudes = astronomyService.getSunAltitudes(gps.location, displayDate)
-        }
-
-        chart.plot(
-            listOf(
-                AstroChart.AstroChartDataset(
-                    moonAltitudes,
-                    resources.getColor(R.color.white, null)
-                ),
-                AstroChart.AstroChartDataset(
-                    sunAltitudes,
-                    resources.getColor(R.color.sun, null)
+                moonAltitudes = astronomyService.getCenteredMoonAltitudes(
+                    gps.location,
+                    LocalDateTime.now()
                 )
-            ),
-            startHour
-        )
-
-        if (displayDate == LocalDate.now()) {
-            val current =
-                moonAltitudes.minByOrNull { Duration.between(LocalDateTime.now(), it.first).abs() }
-            val currentIdx = moonAltitudes.indexOf(current)
-            val point = chart.getPoint(1, currentIdx)
-            binding.moonPosition.x = point.first - binding.moonPosition.width / 2f
-            binding.moonPosition.y = point.second - binding.moonPosition.height / 2f
-
-            val point2 = chart.getPoint(2, currentIdx)
-            binding.sunPosition.x = point2.first - binding.sunPosition.width / 2f
-            binding.sunPosition.y = point2.second - binding.sunPosition.height / 2f
-
-            if (binding.moonPosition.height != 0) {
-                binding.moonPosition.visibility = View.VISIBLE
+                sunAltitudes = astronomyService.getCenteredSunAltitudes(
+                    gps.location,
+                    LocalDateTime.now()
+                )
+            } else {
+                startHour = 0f
+                moonAltitudes = astronomyService.getMoonAltitudes(gps.location, displayDate)
+                sunAltitudes = astronomyService.getSunAltitudes(gps.location, displayDate)
             }
-
-            if (binding.sunPosition.height != 0) {
-                binding.sunPosition.visibility = View.VISIBLE
-            }
-
-        } else {
-            binding.sunPosition.visibility = View.INVISIBLE
-            binding.moonPosition.visibility = View.INVISIBLE
         }
 
+        withContext(Dispatchers.Main) {
+            chart.plot(
+                listOf(
+                    AstroChart.AstroChartDataset(
+                        moonAltitudes,
+                        resources.getColor(R.color.white, null)
+                    ),
+                    AstroChart.AstroChartDataset(
+                        sunAltitudes,
+                        resources.getColor(R.color.sun, null)
+                    )
+                ),
+                startHour
+            )
+
+            if (displayDate == LocalDate.now()) {
+                val current =
+                    moonAltitudes.minByOrNull {
+                        Duration.between(LocalDateTime.now(), it.first).abs()
+                    }
+                val currentIdx = moonAltitudes.indexOf(current)
+                val point = chart.getPoint(1, currentIdx)
+                binding.moonPosition.x = point.first - binding.moonPosition.width / 2f
+                binding.moonPosition.y = point.second - binding.moonPosition.height / 2f
+
+                val point2 = chart.getPoint(2, currentIdx)
+                binding.sunPosition.x = point2.first - binding.sunPosition.width / 2f
+                binding.sunPosition.y = point2.second - binding.sunPosition.height / 2f
+
+                if (binding.moonPosition.height != 0) {
+                    binding.moonPosition.visibility = View.VISIBLE
+                }
+
+                if (binding.sunPosition.height != 0) {
+                    binding.sunPosition.visibility = View.VISIBLE
+                }
+
+            } else {
+                binding.sunPosition.visibility = View.INVISIBLE
+                binding.moonPosition.visibility = View.INVISIBLE
+            }
+        }
     }
 
-    private fun updateSunUI() {
+    private suspend fun updateSunUI() {
         if (context == null) {
             return
         }
@@ -312,137 +332,146 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         )
     }
 
-    private fun updateAstronomyDetails() {
+    private suspend fun updateAstronomyDetails() {
         if (context == null) {
             return
         }
 
-        // Rise / set times
-        val sunTimes = astronomyService.getSunTimes(gps.location, SunTimesMode.Actual, displayDate)
-        val duskDawn = astronomyService.getSunTimes(gps.location, SunTimesMode.Civil, displayDate)
-        val moonTimes = astronomyService.getMoonTimes(gps.location, displayDate)
-        val solarNoon = astronomyService.getSolarNoon(gps.location, displayDate)
-        val lunarNoon = astronomyService.getLunarNoon(gps.location, displayDate)
-        val meteorShower = astronomyService.getMeteorShower(gps.location, displayDate)
+        var details: MutableList<AstroDetail>
 
-        // Sun and moon times
-        val details = listOf(
-            Pair(
-                Pair(
-                    R.drawable.ic_sun_rise to -1,
-                    getString(R.string.sunrise_label)
-                ), sunTimes.rise?.toLocalDateTime()
-            ),
-            Pair(
-                Pair(
-                    R.drawable.ic_sun_set to -1,
-                    getString(R.string.sunset_label)
-                ), sunTimes.set?.toLocalDateTime()
-            ),
-            // TODO: Get moon icons
-            Pair(
-                Pair(R.drawable.ic_moon_rise to -1, getString(R.string.moon_rise)),
-                moonTimes.rise?.toLocalDateTime()
-            ),
-            Pair(
-                Pair(R.drawable.ic_moon_set to -1, getString(R.string.moon_set)),
-                moonTimes.set?.toLocalDateTime()
-            ),
-            // TODO: Get solar/lunar noon images
-            Pair(
-                Pair(R.drawable.ic_sun to -1, getString(R.string.solar_noon)),
-                solarNoon
-            ),
-            Pair(
-                Pair(R.drawable.ic_moon to -1, getString(R.string.lunar_noon)),
-                lunarNoon
-            )
-        ).filterNot { it.second == null }.sortedBy { it.second?.toLocalTime() }.map {
-            AstroDetail(
-                it.first.first.first,
-                it.first.second,
-                getTimeString(it.second),
-                it.first.first.second
-            )
-        }.toMutableList()
+        withContext(Dispatchers.Default) {
+            // Rise / set times
+            val sunTimes =
+                astronomyService.getSunTimes(gps.location, SunTimesMode.Actual, displayDate)
+            val duskDawn =
+                astronomyService.getSunTimes(gps.location, SunTimesMode.Civil, displayDate)
+            val moonTimes = astronomyService.getMoonTimes(gps.location, displayDate)
+            val solarNoon = astronomyService.getSolarNoon(gps.location, displayDate)
+            val lunarNoon = astronomyService.getLunarNoon(gps.location, displayDate)
+            val meteorShower = astronomyService.getMeteorShower(gps.location, displayDate)
 
-        val duskDawnDetails = listOf(
-            Pair(
+            // Sun and moon times
+            details = listOf(
                 Pair(
-                    Pair(R.drawable.ic_sun_rise, -1),
-                    getString(R.string.sun_dawn)
+                    Pair(
+                        R.drawable.ic_sun_rise to -1,
+                        getString(R.string.sunrise_label)
+                    ), sunTimes.rise?.toLocalDateTime()
                 ),
-                duskDawn.rise?.toLocalDateTime()
-            ),
-            Pair(
                 Pair(
-                    Pair(R.drawable.ic_sun_set, -1),
-                    getString(R.string.sun_dusk)
+                    Pair(
+                        R.drawable.ic_sun_set to -1,
+                        getString(R.string.sunset_label)
+                    ), sunTimes.set?.toLocalDateTime()
                 ),
-                duskDawn.set?.toLocalDateTime()
-            )
-        ).filterNot { it.second == null }.sortedBy { it.second?.toLocalTime() }.map {
-            AstroDetail(
-                it.first.first.first,
-                it.first.second,
-                getTimeString(it.second),
-                it.first.first.second
-            )
-        }
+                // TODO: Get moon icons
+                Pair(
+                    Pair(R.drawable.ic_moon_rise to -1, getString(R.string.moon_rise)),
+                    moonTimes.rise?.toLocalDateTime()
+                ),
+                Pair(
+                    Pair(R.drawable.ic_moon_set to -1, getString(R.string.moon_set)),
+                    moonTimes.set?.toLocalDateTime()
+                ),
+                // TODO: Get solar/lunar noon images
+                Pair(
+                    Pair(R.drawable.ic_sun to -1, getString(R.string.solar_noon)),
+                    solarNoon
+                ),
+                Pair(
+                    Pair(R.drawable.ic_moon to -1, getString(R.string.lunar_noon)),
+                    lunarNoon
+                )
+            ).filterNot { it.second == null }.sortedBy { it.second?.toLocalTime() }.map {
+                AstroDetail(
+                    it.first.first.first,
+                    it.first.second,
+                    getTimeString(it.second),
+                    it.first.first.second
+                )
+            }.toMutableList()
 
-        // Add dusk and dawn
-        if (duskDawnDetails.isNotEmpty()) {
+            val duskDawnDetails = listOf(
+                Pair(
+                    Pair(
+                        Pair(R.drawable.ic_sun_rise, -1),
+                        getString(R.string.sun_dawn)
+                    ),
+                    duskDawn.rise?.toLocalDateTime()
+                ),
+                Pair(
+                    Pair(
+                        Pair(R.drawable.ic_sun_set, -1),
+                        getString(R.string.sun_dusk)
+                    ),
+                    duskDawn.set?.toLocalDateTime()
+                )
+            ).filterNot { it.second == null }.sortedBy { it.second?.toLocalTime() }.map {
+                AstroDetail(
+                    it.first.first.first,
+                    it.first.second,
+                    getTimeString(it.second),
+                    it.first.first.second
+                )
+            }
+
+            // Add dusk and dawn
+            if (duskDawnDetails.isNotEmpty()) {
+                details.add(AstroDetail.spacer())
+                details.addAll(duskDawnDetails)
+            }
+
             details.add(AstroDetail.spacer())
-            details.addAll(duskDawnDetails)
+
+            // Add the moon phase
+            if (displayDate == LocalDate.now()) {
+                // Moon phase
+                val moonPhase = astronomyService.getCurrentMoonPhase()
+                val illuminationString =
+                    if (prefs.astronomy.showMoonIllumination) " (" + formatService.formatPercentage(
+                        moonPhase.illumination
+                    ) + ")" else ""
+
+                details.add(
+                    AstroDetail(
+                        getMoonImage(moonPhase.phase),
+                        getString(R.string.moon_phase),
+                        getMoonPhaseString(moonPhase.phase) + illuminationString,
+                        -1
+                    )
+                )
+            } else {
+                val moonPhase = astronomyService.getMoonPhase(displayDate)
+                val illuminationString =
+                    if (prefs.astronomy.showMoonIllumination) " (" + formatService.formatPercentage(
+                        moonPhase.illumination
+                    ) + ")" else ""
+                details.add(
+                    AstroDetail(
+                        getMoonImage(moonPhase.phase),
+                        getString(R.string.moon_phase),
+                        getMoonPhaseString(moonPhase.phase) + illuminationString,
+                        -1
+                    )
+                )
+            }
+
+            if (meteorShower != null && prefs.astronomy.showMeteorShowers) {
+                details.add(
+                    AstroDetail(
+                        R.drawable.ic_meteor,
+                        getString(R.string.meteor_shower),
+                        getMeteorShowerTime(displayDate, meteorShower),
+                        null
+                    )
+                )
+            }
         }
 
-        details.add(AstroDetail.spacer())
-
-        // Add the moon phase
-        if (displayDate == LocalDate.now()) {
-            // Moon phase
-            val moonPhase = astronomyService.getCurrentMoonPhase()
-            val illuminationString =
-                if (prefs.astronomy.showMoonIllumination) " (" + formatService.formatPercentage(
-                    moonPhase.illumination
-                ) + ")" else ""
-
-            details.add(
-                AstroDetail(
-                    getMoonImage(moonPhase.phase),
-                    getString(R.string.moon_phase),
-                    getMoonPhaseString(moonPhase.phase) + illuminationString,
-                    -1
-                )
-            )
-        } else {
-            val moonPhase = astronomyService.getMoonPhase(displayDate)
-            val illuminationString =
-                if (prefs.astronomy.showMoonIllumination) " (" + formatService.formatPercentage(
-                    moonPhase.illumination
-                ) + ")" else ""
-            details.add(
-                AstroDetail(
-                    getMoonImage(moonPhase.phase),
-                    getString(R.string.moon_phase),
-                    getMoonPhaseString(moonPhase.phase) + illuminationString,
-                    -1
-                )
-            )
+        withContext(Dispatchers.Main) {
+            detailList.setData(details)
         }
 
-        if (meteorShower != null && prefs.astronomy.showMeteorShowers) {
-            details.add(
-                AstroDetail(
-                    R.drawable.ic_meteor,
-                    getString(R.string.meteor_shower),
-                    getMeteorShowerTime(displayDate, meteorShower),
-                    null
-                )
-            )
-        }
-
-        detailList.setData(details)
     }
 
     private fun getMeteorShowerTime(today: LocalDate, meteorShower: MeteorShowerPeak): String {
@@ -484,27 +513,34 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         )
     }
 
-    private fun displayTimeUntilNextSunEvent() {
+    private suspend fun displayTimeUntilNextSunEvent() {
         val currentTime = LocalDateTime.now()
-        val nextSunrise = astronomyService.getNextSunrise(gps.location, sunTimesMode)
-        val nextSunset = astronomyService.getNextSunset(gps.location, sunTimesMode)
 
-        if (nextSunrise != null && (nextSunset == null || nextSunrise.isBefore(nextSunset))) {
-            binding.remainingTime.text = Duration.between(currentTime, nextSunrise).formatHM()
-            binding.remainingTimeLbl.text = getString(
-                R.string.until_sun_time, getSunriseWording()
-            )
-        } else if (nextSunset != null) {
-            binding.remainingTime.text = Duration.between(currentTime, nextSunset).formatHM()
-            binding.remainingTimeLbl.text = getString(
-                R.string.until_sun_time, getSunsetWording()
-            )
-        } else if (astronomyService.isSunUp(gps.location)) {
-            binding.remainingTime.text = getString(R.string.sun_up_no_set)
-            binding.remainingTimeLbl.text = getString(R.string.sun_does_not_set)
-        } else {
-            binding.remainingTime.text = getString(R.string.sun_down_no_set)
-            binding.remainingTimeLbl.text = getString(R.string.sun_does_not_rise)
+        var nextSunrise: LocalDateTime?
+        var nextSunset: LocalDateTime?
+        withContext(Dispatchers.Default) {
+            nextSunrise = astronomyService.getNextSunrise(gps.location, sunTimesMode)
+            nextSunset = astronomyService.getNextSunset(gps.location, sunTimesMode)
+        }
+
+        withContext(Dispatchers.Main) {
+            if (nextSunrise != null && (nextSunset == null || nextSunrise?.isBefore(nextSunset) == true)) {
+                binding.remainingTime.text = Duration.between(currentTime, nextSunrise).formatHM()
+                binding.remainingTimeLbl.text = getString(
+                    R.string.until_sun_time, getSunriseWording()
+                )
+            } else if (nextSunset != null) {
+                binding.remainingTime.text = Duration.between(currentTime, nextSunset).formatHM()
+                binding.remainingTimeLbl.text = getString(
+                    R.string.until_sun_time, getSunsetWording()
+                )
+            } else if (astronomyService.isSunUp(gps.location)) {
+                binding.remainingTime.text = getString(R.string.sun_up_no_set)
+                binding.remainingTimeLbl.text = getString(R.string.sun_does_not_set)
+            } else {
+                binding.remainingTime.text = getString(R.string.sun_down_no_set)
+                binding.remainingTimeLbl.text = getString(R.string.sun_does_not_rise)
+            }
         }
     }
 
