@@ -228,8 +228,6 @@ class WeatherFragment : Fragment() {
         val tendency = weatherService.getTendency(readings, setpoint)
         displayTendency(tendency)
 
-//        updateForecast(readings, setpoint)
-
         val pressure = getCurrentPressure()
         displayPressure(pressure)
 
@@ -376,20 +374,6 @@ class WeatherFragment : Fragment() {
             binding.weatherLaterLbl.text = getLongTermWeatherDescription(daily)
         }
     }
-
-//    private fun updateForecast(readings: List<PressureReading>, setpoint: PressureReading?) {
-//        val shortTerm = weatherService.getHourlyWeather(readings, setpoint)
-//        val longTerm = weatherService.getDailyWeather(readings)
-//
-//        binding.weatherNowLbl.text = getShortTermWeatherDescription(shortTerm)
-//        binding.weatherNowImg.setImageResource(
-//            getWeatherImage(
-//                shortTerm,
-//                readings.lastOrNull() ?: PressureReading(Instant.now(), barometer.pressure)
-//            )
-//        )
-//        binding.weatherLaterLbl.text = getLongTermWeatherDescription(longTerm)
-//    }
 
     private fun getSetpoint(): PressureReading? {
         val setpoint = pressureSetpoint

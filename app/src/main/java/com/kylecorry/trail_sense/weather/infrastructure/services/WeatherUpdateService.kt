@@ -15,10 +15,12 @@ import com.kylecorry.trail_sense.weather.domain.CanSendDailyForecast
 import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.PressureCalibrationUtils
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherForecastService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
+import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
@@ -39,15 +41,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
     private val prefs by lazy { UserPreferences(this) }
     private val pressureRepo by lazy { PressureRepo.getInstance(this) }
     private val cache by lazy { Cache(this) }
-    private val weatherService by lazy {
-        WeatherService(
-            prefs.weather.stormAlertThreshold,
-            prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold,
-            prefs.weather.seaLevelFactorInRapidChanges,
-            prefs.weather.seaLevelFactorInTemp
-        )
-    }
+    private val weatherForecastService by lazy { WeatherForecastService.getInstance(this) }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
@@ -111,29 +105,32 @@ class WeatherUpdateService: CoroutineForegroundService() {
     }
 
     private suspend fun sendWeatherNotifications(){
-        val readings = withContext(Dispatchers.IO){
-            pressureRepo.getPressuresSync()
-                .map { it.toPressureAltitudeReading() }
-                .sortedBy { it.time }
-                .filter { it.time <= Instant.now() }
+
+        var hourly: Weather
+        var daily: Weather
+        var tendency: PressureTendency
+        var lastReading: PressureReading? = null
+        withContext(Dispatchers.IO){
+            hourly = weatherForecastService.getHourlyForecast()
+            daily = weatherForecastService.getDailyForecast()
+            tendency = weatherForecastService.getTendency()
+            lastReading = weatherForecastService.getLastReading()
         }
 
         withContext(Dispatchers.Main) {
-            val calibratedReadings = PressureCalibrationUtils.calibratePressures(this@WeatherUpdateService, readings)
-
-            val hourlyForecast = weatherService.getHourlyWeather(calibratedReadings)
 
             if (prefs.weather.shouldShowDailyWeatherNotification) {
-                sendDailyWeatherNotification(calibratedReadings)
+                sendDailyWeatherNotification(daily)
             }
 
-            handleStormAlert(hourlyForecast)
+            handleStormAlert(hourly)
 
             if (prefs.weather.shouldShowWeatherNotification) {
                 WeatherNotificationService.updateNotificationForecast(
                     this@WeatherUpdateService,
-                    hourlyForecast,
-                    calibratedReadings
+                    hourly,
+                    tendency,
+                    lastReading
                 )
             }
         }
@@ -163,7 +160,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
         }
     }
 
-    private fun sendDailyWeatherNotification(readings: List<PressureReading>) {
+    private fun sendDailyWeatherNotification(forecast: Weather) {
         val lastSentDate = prefs.weather.dailyWeatherLastSent
         if (LocalDate.now() == lastSentDate) {
             return
@@ -174,7 +171,6 @@ class WeatherUpdateService: CoroutineForegroundService() {
         }
 
         prefs.weather.dailyWeatherLastSent = LocalDate.now()
-        val forecast = weatherService.getDailyWeather(readings)
         val icon = when (forecast) {
             Weather.ImprovingSlow -> R.drawable.sunny
             Weather.WorseningSlow -> R.drawable.light_rain

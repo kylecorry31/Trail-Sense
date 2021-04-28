@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.shared.isOlderThan
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
+import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
@@ -24,12 +25,36 @@ class WeatherForecastService(private val context: Context) {
 
     private var cacheHourly: Weather? = null
     private var cacheDaily: Weather? = null
+    private var cacheLastReading: PressureReading? = null
+    private var cacheTendency: PressureTendency? = null
     private var cacheTime = Instant.MIN
 
     private val mutex = Mutex()
 
     init {
         resetWeatherService()
+    }
+
+    suspend fun getTendency(): PressureTendency {
+        return withContext(Dispatchers.IO) {
+            mutex.withLock(this@WeatherForecastService) {
+                if (!hasValidCache()){
+                    populateCache()
+                }
+                cacheTendency!!
+            }
+        }
+    }
+
+    suspend fun getLastReading(): PressureReading? {
+        return withContext(Dispatchers.IO) {
+            mutex.withLock(this@WeatherForecastService) {
+                if (!hasValidCache()){
+                    populateCache()
+                }
+                cacheLastReading
+            }
+        }
     }
 
     suspend fun getHourlyForecast(): Weather {
@@ -63,8 +88,17 @@ class WeatherForecastService(private val context: Context) {
         }
     }
 
+    private fun getSetpoint(): PressureReading? {
+        val setpoint = prefs.weather.pressureSetpoint
+        return if (prefs.weather.useSeaLevelPressure) {
+            setpoint?.seaLevel(prefs.weather.seaLevelFactorInTemp)
+        } else {
+            setpoint?.pressureReading()
+        }
+    }
+
     private fun getHourlyForecast(readings: List<PressureReading>): Weather {
-        return weatherService.getHourlyWeather(readings)
+        return weatherService.getHourlyWeather(readings, getSetpoint())
     }
 
     private fun getDailyForecast(readings: List<PressureReading>): Weather {
@@ -75,6 +109,8 @@ class WeatherForecastService(private val context: Context) {
         val readings = getReadings()
         cacheDaily = getDailyForecast(readings)
         cacheHourly = getHourlyForecast(readings)
+        cacheLastReading = readings.lastOrNull()
+        cacheTendency = weatherService.getTendency(readings, getSetpoint())
         cacheTime = Instant.now()
     }
 
@@ -86,6 +122,7 @@ class WeatherForecastService(private val context: Context) {
     private fun hasValidCache(): Boolean {
         return cacheDaily != null
                 && cacheHourly != null
+                && cacheTendency != null
                 && !cacheTime.isOlderThan(MAX_CACHE_TIME)
                 && cacheTime.isInPast()
     }

@@ -58,19 +58,12 @@ object WeatherNotificationService {
     fun updateNotificationForecast(
         context: Context,
         forecast: Weather,
-        readings: List<PressureReading>
+        tendency: PressureTendency,
+        lastReading: PressureReading?
     ) {
         val prefs = UserPreferences(context)
-        val weatherService = WeatherService(
-            prefs.weather.stormAlertThreshold,
-            prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold,
-            prefs.weather.seaLevelFactorInRapidChanges,
-            prefs.weather.seaLevelFactorInTemp
-        )
-        val tendency = weatherService.getTendency(readings)
         val units = prefs.pressureUnits
-        val pressure = readings.lastOrNull() ?: PressureReading(
+        val pressure = lastReading ?: PressureReading(
             Instant.now(),
             SensorManager.PRESSURE_STANDARD_ATMOSPHERE
         )
