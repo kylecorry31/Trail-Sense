@@ -5,6 +5,7 @@ import com.kylecorry.trail_sense.shared.CachedValue
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
+import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
@@ -73,6 +74,11 @@ class WeatherForecastService(private val context: Context) {
             .filter { it.first <= Instant.now() }
     }
 
+    fun getSeaLevelPressure(reading: PressureAltitudeReading, history: List<PressureAltitudeReading> = listOf()): PressureReading {
+        val readings = PressureCalibrationUtils.calibratePressures(context, history + listOf(reading), true)
+        return readings.lastOrNull() ?: reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
+    }
+
     suspend fun setDataChanged() {
         cachedValue.reset()
         resetWeatherService()
@@ -104,7 +110,7 @@ class WeatherForecastService(private val context: Context) {
         return ForecastCache(hourly, daily, tendency, last)
     }
 
-    private fun resetWeatherService(){
+    private fun resetWeatherService() {
         weatherService = WeatherService(
             prefs.weather.stormAlertThreshold,
             prefs.weather.dailyForecastChangeThreshold,
@@ -114,7 +120,12 @@ class WeatherForecastService(private val context: Context) {
         )
     }
 
-    private data class ForecastCache(val hourly: Weather, val daily: Weather, val tendency: PressureTendency, val lastPressure: PressureReading?)
+    private data class ForecastCache(
+        val hourly: Weather,
+        val daily: Weather,
+        val tendency: PressureTendency,
+        val lastPressure: PressureReading?
+    )
 
     companion object {
         private var instance: WeatherForecastService? = null

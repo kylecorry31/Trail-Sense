@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.calibration.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.PressureChartPreference
@@ -11,6 +12,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.PressureCalibrationUtils
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherForecastService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
@@ -22,6 +24,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
 
@@ -45,6 +48,8 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     private lateinit var minTempUncalibratedF: EditTextPreference
     private lateinit var maxTempUncalibratedF: EditTextPreference
     private var chart: PressureChartPreference? = null
+
+    private val weatherForecastService by lazy { WeatherForecastService.getInstance(requireContext()) }
 
     private var readingHistory: List<PressureAltitudeReading> = listOf()
 
@@ -222,6 +227,9 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
         seaLevelSwitch?.setOnPreferenceClickListener {
             if (!altimeter.hasValidReading) {
                 altimeter.start(this::updateAltitude)
+            }
+            lifecycleScope.launch {
+                weatherForecastService.setDataChanged()
             }
             refreshWeatherService()
             true

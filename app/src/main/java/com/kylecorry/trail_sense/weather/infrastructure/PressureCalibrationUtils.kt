@@ -10,9 +10,9 @@ import com.kylecorry.trailsensecore.domain.weather.PressureReading
 object PressureCalibrationUtils {
 
 
-    fun calibratePressures(context: Context, readings: List<PressureAltitudeReading>): List<PressureReading> {
+    fun calibratePressures(context: Context, readings: List<PressureAltitudeReading>, useSeaLevel: Boolean? = null): List<PressureReading> {
         val prefs = UserPreferences(context)
-        return if (prefs.weather.useSeaLevelPressure) {
+        return if (useSeaLevel ?: prefs.weather.useSeaLevelPressure) {
             getSeaLevelPressureHistory(prefs, readings)
         } else {
             getPressureHistory(readings)

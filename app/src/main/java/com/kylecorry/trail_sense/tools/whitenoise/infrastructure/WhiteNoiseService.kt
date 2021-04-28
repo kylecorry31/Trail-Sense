@@ -29,7 +29,8 @@ class WhiteNoiseService : ForegroundService() {
         if (stopAt != null && Instant.now() < stopAt){
             offTimer.once(Duration.between(Instant.now(), stopAt))
         }
-        whiteNoise = PinkNoise()
+
+        whiteNoise = MyPinkNoise()
         whiteNoise?.fadeOn()
         return START_STICKY_COMPATIBILITY
     }
