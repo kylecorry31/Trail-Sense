@@ -767,7 +767,7 @@
     <string name="no_tides">Нет приливов</string>
     <string name="create_tide">Создать прилив</string>
     <string name="tide_location_label">Местоположение прилива (необязательно)</string>
-    <string name="pref_nearby_radar_title">Показать ближайший радарный компас</string>
+    <string name="pref_nearby_radar_title">Показать радарный компас вблизи</string>
     <string name="source">Источник</string>
     <string name="pref_stride_length_title">Длина шага</string>
     <string name="pedometer">Шагомер</string>
@@ -780,7 +780,7 @@
     <string name="tool_speedometer_odometer_title">Спидометр / Одометр</string>
     <string name="delete_tide_prompt">Удалить прилив\?</string>
     <string name="your_height">Ваш рост</string>
-    <string name="experimental_features">Приливы и карты</string>
+    <string name="experimental_features">Приливы, карты и ручной компас</string>
     <string name="pref_backtrack_path_radar_title">Показать путь истории маршрута</string>
     <string name="import_gpx">Импорт GPX</string>
     <string name="error_importing_map">Ошибка при импорте карты</string>
@@ -791,8 +791,8 @@
     <string name="time_until_empty">%s до опустения</string>
     <string name="guide_speedometer_desc">Как определить пройденное расстояние и время прибытия</string>
     <string name="guide_speedometer_title">Определите скорость и расстояние</string>
-    <string name="next">Следующий</string>
-    <string name="previous">Предыдущий</string>
+    <string name="next">Далее</string>
+    <string name="previous">Назад</string>
     <string name="guide_importing_maps_desc">Как импортировать и использовать карты в Trail Sense</string>
     <string name="guide_importing_maps_title">Импорт карт</string>
     <string name="create_map_description">Введите название карты</string>
@@ -843,4 +843,24 @@
     <string name="time_until_full">%s до полного</string>
     <string name="theme_sunset_sunrise">Восход/закат</string>
     <string name="app_disclaimer_message_title">Отказ от ответственности / Условия использования</string>
+    <string name="whistle_signal_come_here">Идите сюда</string>
+    <string name="whistle_signal_acknowledged">Подтверждено</string>
+    <string name="whistle_signal_where_are_you">Где вы\?</string>
+    <string name="pref_show_civil_times_summary">Рассвет и закат</string>
+    <string name="pref_show_civil_times_title">Гражданское время</string>
+    <string name="pref_show_astronomical_times_title">Астрономическое время</string>
+    <string name="pref_show_nautical_times_title">Морское время</string>
+    <string name="for_sunrise_and_set">Для восхода и заката</string>
+    <string name="pref_show_noon_summary">Полдень и полночь</string>
+    <string name="noon">Полдень</string>
+    <string name="arrow">Стрелка</string>
+    <string name="fields">Поля</string>
+    <string name="pref_show_last_signal_beacon_summary">Создает маячок для определения местоположения последнего сигнала сети</string>
+    <string name="pref_show_last_signal_beacon_title">Маячок последнего сигнала</string>
+    <string name="last_signal_beacon_name">Последний сигнал - %s (%s)</string>
+    <string name="camera_permission_denied">В разрешении камеры отказано, невозможно включить функции камеры. Вы можете включить его в настройках.</string>
+    <string name="pref_use_camera_features_title">Включить функции камеры</string>
+    <string name="color">Цвет</string>
+    <string name="water_boil_guide_desc">Как использовать таймер кипячения воды</string>
+    <string name="water_boil_guide_title">Сделайте воду безопасной для питья</string>
 </resources>
