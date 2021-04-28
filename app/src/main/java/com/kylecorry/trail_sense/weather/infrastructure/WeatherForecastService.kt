@@ -1,35 +1,27 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
+import com.kylecorry.trail_sense.shared.CachedValue
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.isInPast
-import com.kylecorry.trail_sense.shared.isOlderThan
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import java.time.Duration
 import java.time.Instant
 
 class WeatherForecastService(private val context: Context) {
+
+    // TODO: Reset when any of the weather preferences changes regarding tendencies, sea level pressure and calibration
 
     private val weatherRepo by lazy { PressureRepo.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
 
     private lateinit var weatherService: WeatherService
 
-    private var cacheHourly: Weather? = null
-    private var cacheDaily: Weather? = null
-    private var cacheLastReading: PressureReading? = null
-    private var cacheTendency: PressureTendency? = null
-    private var cacheTime = Instant.MIN
-
-    private val mutex = Mutex()
+    private var cachedValue = CachedValue<ForecastCache>()
 
     init {
         resetWeatherService()
@@ -37,55 +29,53 @@ class WeatherForecastService(private val context: Context) {
 
     suspend fun getTendency(): PressureTendency {
         return withContext(Dispatchers.IO) {
-            mutex.withLock(this@WeatherForecastService) {
-                if (!hasValidCache()){
-                    populateCache()
-                }
-                cacheTendency!!
-            }
+            cachedValue.getOrPut { populateCache() }.tendency
         }
     }
 
     suspend fun getLastReading(): PressureReading? {
         return withContext(Dispatchers.IO) {
-            mutex.withLock(this@WeatherForecastService) {
-                if (!hasValidCache()){
-                    populateCache()
-                }
-                cacheLastReading
-            }
+            cachedValue.getOrPut { populateCache() }.lastPressure
         }
     }
 
     suspend fun getHourlyForecast(): Weather {
         return withContext(Dispatchers.IO) {
-            mutex.withLock(this@WeatherForecastService) {
-                if (!hasValidCache()){
-                    populateCache()
-                }
-                cacheHourly!!
-            }
+            cachedValue.getOrPut { populateCache() }.hourly
         }
     }
 
     suspend fun getDailyForecast(): Weather {
         return withContext(Dispatchers.IO) {
-            mutex.withLock(this@WeatherForecastService) {
-                if (!hasValidCache()){
-                    populateCache()
-                }
-                cacheDaily!!
-            }
+            cachedValue.getOrPut { populateCache() }.daily
         }
     }
 
+    suspend fun getPressureHistory(): List<PressureReading> {
+        val readings = weatherRepo.getPressuresSync()
+            .map { it.toPressureAltitudeReading() }
+            .sortedBy { it.time }
+            .filter { it.time <= Instant.now() }
+        return PressureCalibrationUtils.calibratePressures(context, readings)
+    }
+
+    suspend fun getTemperatureHistory(): List<Pair<Instant, Float>> {
+        return weatherRepo.getPressuresSync()
+            .map { Instant.ofEpochMilli(it.time) to it.temperature }
+            .sortedBy { it.first }
+            .filter { it.first <= Instant.now() }
+    }
+
+    suspend fun getHumidityHistory(): List<Pair<Instant, Float>> {
+        return weatherRepo.getPressuresSync()
+            .map { Instant.ofEpochMilli(it.time) to it.humidity }
+            .sortedBy { it.first }
+            .filter { it.first <= Instant.now() }
+    }
+
     suspend fun setDataChanged() {
-        mutex.withLock(this@WeatherForecastService) {
-            cacheTime = null
-            cacheHourly = null
-            cacheDaily = null
-            resetWeatherService()
-        }
+        cachedValue.reset()
+        resetWeatherService()
     }
 
     private fun getSetpoint(): PressureReading? {
@@ -105,26 +95,13 @@ class WeatherForecastService(private val context: Context) {
         return weatherService.getDailyWeather(readings)
     }
 
-    private suspend fun populateCache(){
-        val readings = getReadings()
-        cacheDaily = getDailyForecast(readings)
-        cacheHourly = getHourlyForecast(readings)
-        cacheLastReading = readings.lastOrNull()
-        cacheTendency = weatherService.getTendency(readings, getSetpoint())
-        cacheTime = Instant.now()
-    }
-
-    private suspend fun getReadings(): List<PressureReading> {
-        val readings = weatherRepo.getPressuresSync().map { it.toPressureAltitudeReading() }
-        return PressureCalibrationUtils.calibratePressures(context, readings)
-    }
-
-    private fun hasValidCache(): Boolean {
-        return cacheDaily != null
-                && cacheHourly != null
-                && cacheTendency != null
-                && !cacheTime.isOlderThan(MAX_CACHE_TIME)
-                && cacheTime.isInPast()
+    private suspend fun populateCache(): ForecastCache {
+        val readings = getPressureHistory()
+        val daily = getDailyForecast(readings)
+        val hourly = getHourlyForecast(readings)
+        val last = readings.lastOrNull()
+        val tendency = weatherService.getTendency(readings, getSetpoint())
+        return ForecastCache(hourly, daily, tendency, last)
     }
 
     private fun resetWeatherService(){
@@ -137,11 +114,9 @@ class WeatherForecastService(private val context: Context) {
         )
     }
 
+    private data class ForecastCache(val hourly: Weather, val daily: Weather, val tendency: PressureTendency, val lastPressure: PressureReading?)
 
     companion object {
-
-        private val MAX_CACHE_TIME = Duration.ofMinutes(5)
-
         private var instance: WeatherForecastService? = null
 
         @Synchronized

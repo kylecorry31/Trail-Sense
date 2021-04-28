@@ -122,7 +122,9 @@ class NavigatorFragment : Fragment() {
     private var lastOrientation: DeviceOrientation.Orientation? = null
 
     private val astronomyIntervalometer = Intervalometer {
-        updateAstronomyData()
+        lifecycleScope.launch {
+            updateAstronomyData()
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -377,11 +379,17 @@ class NavigatorFragment : Fragment() {
         )
     }
 
-    private fun updateAstronomyData() {
-        isMoonUp = astronomyService.isMoonUp(gps.location)
-        isSunUp = astronomyService.isSunUp(gps.location)
-        sunBearing = getSunBearing()
-        moonBearing = getMoonBearing()
+    private suspend fun updateAstronomyData() {
+        if (gps.location == Coordinate.zero){
+            return
+        }
+
+        withContext(Dispatchers.Default) {
+            isMoonUp = astronomyService.isMoonUp(gps.location)
+            isSunUp = astronomyService.isSunUp(gps.location)
+            sunBearing = getSunBearing()
+            moonBearing = getMoonBearing()
+        }
     }
 
     private fun getIndicators(): List<BearingIndicator> {
@@ -720,7 +728,9 @@ class NavigatorFragment : Fragment() {
         compass.declination = getDeclination()
 
         if (sunBearing == 0f) {
-            updateAstronomyData()
+            lifecycleScope.launch {
+                updateAstronomyData()
+            }
         }
 
         updateUI()
