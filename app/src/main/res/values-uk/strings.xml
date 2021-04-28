@@ -375,7 +375,7 @@
         <item quantity="many">Імпортувати %d маячків\?</item>
         <item quantity="other">Імпортувати %d маячків\?</item>
     </plurals>
-    <string name="pref_show_last_signal_beacon_summary">Створює маячок для визначення місцеперебування останнього сигналу стільника.</string>
+    <string name="pref_show_last_signal_beacon_summary">Створює маячок для визначення місцеперебування останнього сигналу стільника</string>
     <string name="pref_show_last_signal_beacon_title">Останній сигнал маячка</string>
     <string name="pref_show_last_signal_beacon" translatable="false">pref_show_last_signal_beacon</string>
     <string name="last_signal_beacon_name">Останній сигнал - %s (%s)</string>
@@ -854,4 +854,15 @@
     <string name="settings">Налаштування</string>
     <string name="weather">Погода</string>
     <string name="navigation">Навігація</string>
+    <string name="whistle_signal_come_here">Ідіть сюди</string>
+    <string name="whistle_signal_acknowledged">Підтверджено</string>
+    <string name="whistle_signal_where_are_you">Де ви\?</string>
+    <string name="pref_show_civil_times_summary">Світанок і сутінки</string>
+    <string name="pref_show_civil_times_title">Цивільний час</string>
+    <string name="pref_show_nautical_times_title">Морський час</string>
+    <string name="pref_show_astronomical_times_title">Астрономічний час</string>
+    <string name="for_sunrise_and_set">Для сходу та заходу сонця</string>
+    <string name="pref_show_noon_summary">Полудень і полуніч</string>
+    <string name="noon">Полудень</string>
+    <string name="fields">Поля</string>
 </resources>
