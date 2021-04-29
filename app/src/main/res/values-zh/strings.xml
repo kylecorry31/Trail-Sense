@@ -818,10 +818,10 @@
     <string name="theme_sunset_sunrise">日出/日落</string>
     <string name="calibrate_new_tide">校准到新的潮汐？</string>
     <string name="time_until_full">距离充满剩 %s</string>
-    <string name="pref_show_last_signal_beacon_summary">为上一个单元信号位置创建一个信标</string>
+    <string name="pref_show_last_signal_beacon_summary">为上一个手机信号位置创建一个信标</string>
     <string name="pref_show_last_signal_beacon_title">上一个信号信标</string>
     <string name="pref_show_last_signal_beacon">pref_show_last_signal_beacon</string>
-    <string name="last_signal_beacon_name">上次信号 - %s (%s)</string>
+    <string name="last_signal_beacon_name">上个信号 - %s (%s)</string>
     <string name="camera_permission_denied">相机权限被拒绝，无法打开相机功能。 你可以在设置中启用它。</string>
     <string name="pref_use_camera_features_title">启用相机功能</string>
     <string name="pref_use_camera_features">pref_use_camera_features</string>

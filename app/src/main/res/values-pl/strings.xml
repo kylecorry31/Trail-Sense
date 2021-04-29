@@ -826,4 +826,12 @@
     <string name="pref_use_camera_features_title">Włącz funkcje aparatu</string>
     <string name="pref_use_camera_features">pref_use_camera_features</string>
     <string name="color">Kolor</string>
+    <string name="pref_show_civil_times_summary">Świt i zmierzch</string>
+    <string name="pref_show_civil_times_title">Czasy cywilne</string>
+    <string name="pref_show_astronomical_times_title">Czasy astronomiczne</string>
+    <string name="pref_show_nautical_times_title">Czasy żeglarskie</string>
+    <string name="pref_show_noon_summary">Południe słoneczne i księżycowe</string>
+    <string name="noon">Południe</string>
+    <string name="time_until_full">%s pozostało do naładowania</string>
+    <string name="time_until_empty">%s pozostało do rozładowania</string>
 </resources>
