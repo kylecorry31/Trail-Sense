@@ -19,13 +19,15 @@ object TrailSenseServiceUtils {
         startSunsetAlarm(context)
         startBacktrack(context)
         startPedometer(context)
-        BatteryLogWorker.scheduler(context).schedule(Duration.ofMinutes(1))
+        BatteryLogWorker.scheduler(context).schedule(Duration.ZERO)
     }
 
     private fun startPedometer(context: Context){
         val prefs = UserPreferences(context)
         if (prefs.usePedometer){
             PedometerService.start(context)
+        } else {
+            PedometerService.stop(context)
         }
     }
 

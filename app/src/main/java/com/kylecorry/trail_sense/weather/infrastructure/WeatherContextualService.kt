@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Instant
 
-class WeatherForecastService(private val context: Context) {
+class WeatherContextualService private constructor(private val context: Context) {
 
     // TODO: Reset when any of the weather preferences changes regarding tendencies, sea level pressure and calibration
 
@@ -128,12 +128,12 @@ class WeatherForecastService(private val context: Context) {
     )
 
     companion object {
-        private var instance: WeatherForecastService? = null
+        private var instance: WeatherContextualService? = null
 
         @Synchronized
-        fun getInstance(context: Context): WeatherForecastService {
+        fun getInstance(context: Context): WeatherContextualService {
             if (instance == null) {
-                instance = WeatherForecastService(context.applicationContext)
+                instance = WeatherContextualService(context.applicationContext)
             }
             return instance!!
         }

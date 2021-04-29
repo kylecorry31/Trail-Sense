@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
+import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -138,33 +139,12 @@ class MainActivity : AppCompatActivity() {
             UiUtils.shortToast(this, getString(R.string.low_power_mode_on_message))
         }
 
-        if (userPrefs.weather.shouldMonitorWeather) {
-            WeatherUpdateScheduler.start(this)
-        } else {
-            WeatherUpdateScheduler.stop(this)
-        }
-
-        if (userPrefs.usePedometer){
-            PedometerService.start(this)
-        } else {
-            PedometerService.stop(this)
-        }
-
-        BatteryLogService.start(this)
+        TrailSenseServiceUtils.restartServices(this)
 
         if (!sensorChecker.hasBarometer()) {
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)
             item.isVisible = false
         }
-
-        if (userPrefs.backtrackEnabled) {
-            BacktrackScheduler.start(this)
-        } else {
-            BacktrackScheduler.stop(this)
-        }
-
-        val sunsetIntent = SunsetAlarmReceiver.intent(applicationContext)
-        sendBroadcast(sunsetIntent)
         
         handleIntentAction(intent)
     }

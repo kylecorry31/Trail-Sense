@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.PressureCalibrationUtils
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherForecastService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
@@ -49,7 +49,7 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
     private lateinit var maxTempUncalibratedF: EditTextPreference
     private var chart: PressureChartPreference? = null
 
-    private val weatherForecastService by lazy { WeatherForecastService.getInstance(requireContext()) }
+    private val weatherForecastService by lazy { WeatherContextualService.getInstance(requireContext()) }
 
     private var readingHistory: List<PressureAltitudeReading> = listOf()
 

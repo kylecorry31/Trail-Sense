@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.isInPast
 import com.kylecorry.trailsensecore.domain.geo.ApproximateCoordinate
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.units.*
@@ -37,7 +38,12 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         get() = _verticalAccuracy
 
     override val location: Coordinate
-        get() = _location
+        get(){
+            if (cacheHasNewerReading()){
+                updateFromCache()
+            }
+            return _location
+        }
 
     override val speed: Speed
         get() = _speed
@@ -77,26 +83,43 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
 
     init {
         if (baseGPS.hasValidReading){
-            _location = baseGPS.location
-            _speed = baseGPS.speed
-            _verticalAccuracy = baseGPS.verticalAccuracy
-            _altitude = baseGPS.altitude
-            _time = baseGPS.time
-            _horizontalAccuracy = baseGPS.horizontalAccuracy
-            _quality = baseGPS.quality
-            _satellites = baseGPS.satellites
-
-            updateCache()
+            updateFromBase()
         } else {
-            _location = Coordinate(
-                cache.getDouble(LAST_LATITUDE) ?: 0.0,
-                cache.getDouble(LAST_LONGITUDE) ?: 0.0
-            )
-            _altitude = cache.getFloat(LAST_ALTITUDE) ?: 0f
-            _speed = Speed(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
-            _time = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
+            updateFromCache()
         }
+    }
 
+    private fun updateFromBase(){
+        _location = baseGPS.location
+        _speed = baseGPS.speed
+        _verticalAccuracy = baseGPS.verticalAccuracy
+        _altitude = baseGPS.altitude
+        _time = baseGPS.time
+        _horizontalAccuracy = baseGPS.horizontalAccuracy
+        _quality = baseGPS.quality
+        _satellites = baseGPS.satellites
+        _mslAltitude = baseGPS.mslAltitude
+
+        updateCache()
+
+        if (userPrefs.useAltitudeOffsets) {
+            _altitude -= AltitudeCorrection.getOffset(_location, context)
+        }
+    }
+
+    private fun cacheHasNewerReading(): Boolean {
+        val cacheTime = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
+        return cacheTime > time && cacheTime.isInPast()
+    }
+
+    private fun updateFromCache(){
+        _location = Coordinate(
+            cache.getDouble(LAST_LATITUDE) ?: 0.0,
+            cache.getDouble(LAST_LONGITUDE) ?: 0.0
+        )
+        _altitude = cache.getFloat(LAST_ALTITUDE) ?: 0f
+        _speed = Speed(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
+        _time = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
         if (userPrefs.useAltitudeOffsets) {
             _altitude -= AltitudeCorrection.getOffset(_location, context)
         }
@@ -151,24 +174,10 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
             _isTimedOut = false
         }
 
-        _location = baseGPS.location
-        _speed = baseGPS.speed
-        _verticalAccuracy = baseGPS.verticalAccuracy
-        _altitude = baseGPS.altitude
-        _mslAltitude = baseGPS.mslAltitude
-        _time = baseGPS.time
-        _horizontalAccuracy = baseGPS.horizontalAccuracy
-        _quality = baseGPS.quality
-        _satellites = baseGPS.satellites
+        updateFromBase()
 
-        updateCache()
-
-        if (userPrefs.useAltitudeOffsets) {
-            if (_mslAltitude != null){
-                _altitude = _mslAltitude ?: 0f
-            } else {
-                _altitude -= AltitudeCorrection.getOffset(_location, context)
-            }
+        if (userPrefs.useAltitudeOffsets && _mslAltitude != null){
+            _altitude = _mslAltitude ?: 0f
         }
 
         if (shouldNotify && location != Coordinate.zero){

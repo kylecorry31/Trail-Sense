@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toDisplayFormat
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.services.CoroutineForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
@@ -43,10 +44,16 @@ class SunsetAlarmService : CoroutineForegroundService() {
             }
         }
 
+        val now = LocalDateTime.now()
+
+        if (gps.location == Coordinate.zero){
+            setAlarm(now.plusDays(1))
+            return
+        }
+
         val alertMinutes = userPrefs.astronomy.sunsetAlertMinutesBefore
         val nextAlertMinutes = alertMinutes - 1
 
-        val now = LocalDateTime.now()
 
         val todaySunset =
             astronomyService.getTodaySunTimes(

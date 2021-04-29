@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.CanSendDailyForecast
 import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherForecastService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherNotificationService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
@@ -37,7 +37,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
     private val prefs by lazy { UserPreferences(this) }
     private val pressureRepo by lazy { PressureRepo.getInstance(this) }
     private val cache by lazy { Cache(this) }
-    private val weatherForecastService by lazy { WeatherForecastService.getInstance(this) }
+    private val weatherForecastService by lazy { WeatherContextualService.getInstance(this) }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
