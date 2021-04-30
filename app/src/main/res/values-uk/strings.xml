@@ -865,4 +865,5 @@
     <string name="pref_show_noon_summary">Полудень і полуніч</string>
     <string name="noon">Полудень</string>
     <string name="fields">Поля</string>
+    <string name="weather_monitor">Відстеження погоди</string>
 </resources>
