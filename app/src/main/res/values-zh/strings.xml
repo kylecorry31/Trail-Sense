@@ -840,4 +840,5 @@
     <string name="pref_show_noon_summary">太阳和月亮中午</string>
     <string name="noon">正午</string>
     <string name="fields">视野</string>
+    <string name="weather_monitor">天气监控器</string>
 </resources>
