@@ -829,4 +829,15 @@
     <string name="water_boil_guide_desc">如何使用水煮定时器</string>
     <string name="water_boil_guide_title">使水可以安全饮用</string>
     <string name="arrow">箭头线</string>
+    <string name="whistle_signal_come_here">来这里</string>
+    <string name="whistle_signal_acknowledged">已承认</string>
+    <string name="whistle_signal_where_are_you">你在哪里？</string>
+    <string name="pref_show_civil_times_summary">昏晓</string>
+    <string name="pref_show_civil_times_title">民用时</string>
+    <string name="pref_show_astronomical_times_title">天文时间</string>
+    <string name="pref_show_nautical_times_title">航海时</string>
+    <string name="for_sunrise_and_set">日出和日落</string>
+    <string name="pref_show_noon_summary">太阳和月亮中午</string>
+    <string name="noon">正午</string>
+    <string name="fields">视野</string>
 </resources>
