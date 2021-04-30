@@ -838,4 +838,15 @@
     <string name="water_boil_guide_desc">Wie man den Wasserkocher-Timer benutzt</string>
     <string name="water_boil_guide_title">Wasser zum Trinken aufbereiten</string>
     <string name="arrow">Pfeil</string>
+    <string name="whistle_signal_come_here">Komm her</string>
+    <string name="whistle_signal_acknowledged">Angenommen</string>
+    <string name="whistle_signal_where_are_you">Wo bist du\?</string>
+    <string name="pref_show_civil_times_summary">Dämmerung</string>
+    <string name="pref_show_civil_times_title">Bürgerliche Zeiten</string>
+    <string name="pref_show_astronomical_times_title">Astronomische Zeiten</string>
+    <string name="pref_show_nautical_times_title">Nautische Zeiten</string>
+    <string name="for_sunrise_and_set">Für Sonnenaufgang und Sonnenuntergang</string>
+    <string name="pref_show_noon_summary">Sonnen- und Mondmittag</string>
+    <string name="noon">Mittag</string>
+    <string name="fields">Felder</string>
 </resources>

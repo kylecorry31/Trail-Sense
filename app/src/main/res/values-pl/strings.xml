@@ -834,4 +834,9 @@
     <string name="noon">Południe</string>
     <string name="time_until_full">%s pozostało do naładowania</string>
     <string name="time_until_empty">%s pozostało do rozładowania</string>
+    <string name="for_sunrise_and_set">Dla wschodu i zachodu słońca</string>
+    <string name="fields">Pola</string>
+    <string name="whistle_signal_come_here">Chodź tu</string>
+    <string name="whistle_signal_acknowledged">Potwierdzony</string>
+    <string name="whistle_signal_where_are_you">Gdzie jesteś\?</string>
 </resources>

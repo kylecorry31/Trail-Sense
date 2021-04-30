@@ -410,4 +410,23 @@
     <string name="tool_bubble_level_title">Nibela</string>
     <string name="weather_update_notification_channel">Eguraldiaren eguneraketa</string>
     <string name="pref_sunset_alerts_title">Ilunabar alertak</string>
+    <string name="coordinate_input_invalid_location">Kokapen ez balioduna</string>
+    <string name="waypoint_time_format">%s, %s</string>
+    <string name="notification_channel_clock_sync">Erlojuaren sinkronizazioa</string>
+    <string name="color">Kolorea</string>
+    <string name="arrow">Gezia</string>
+    <string name="updates">Eguneraketak</string>
+    <string name="solid">Solidoa</string>
+    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
+    <string name="search">Bilatu</string>
+    <string name="hour_symbol">o</string>
+    <string name="minute_symbol">m</string>
+    <string name="next">Hurrengoa</string>
+    <string name="previous">Aurrekoa</string>
+    <string name="rename">Berrizendatu</string>
+    <string name="menu">Menua</string>
+    <string name="source">Iturburua</string>
+    <string name="pedometer">Podometroa</string>
+    <string name="odometer">Odometroa</string>
+    <string name="disclaimer_message_title">Lege-oharra</string>
 </resources>
