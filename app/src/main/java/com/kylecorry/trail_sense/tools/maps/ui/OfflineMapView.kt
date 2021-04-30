@@ -176,7 +176,7 @@ class OfflineMapView : View {
             recenter()
         }
 
-        if (pathLines == null && paths.isNotEmpty() && mapImage != null) {
+        if (pathLines == null && paths.isNotEmpty() && mapImage != null && map?.calibrationPoints != null && map!!.calibrationPoints.size >= 2) {
             createPathLines()
         }
 
@@ -403,6 +403,7 @@ class OfflineMapView : View {
         nullIfOffMap: Boolean = true
     ): PixelCoordinate? {
         mapImage ?: return null
+
         val pixels =
             map?.getPixels(coordinate, mapImage!!.width.toFloat(), mapImage!!.height.toFloat())
                 ?: return null
@@ -442,7 +443,7 @@ class OfflineMapView : View {
         val maxTimeAgo = prefs.navigation.showBacktrackPathDuration
         pathLines = paths.flatMap {
             it.toPixelLines(maxTimeAgo) {
-                getPixelCoordinate(it, false)!!
+                getPixelCoordinate(it, false) ?: PixelCoordinate(0f, 0f)
             }
         }
     }
