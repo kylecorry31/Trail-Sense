@@ -659,4 +659,18 @@
     <string name="tomorrow_at">I morgen %s</string>
     <string name="meteor_shower">Meteorsverm</string>
     <string name="speedometer">Speedometer</string>
+    <string name="whistle_signal_where_are_you">Hvor er du\?</string>
+    <string name="pref_show_civil_times_summary">Demring og skumring</string>
+    <string name="for_sunrise_and_set">For soloppgang og solnedgang</string>
+    <string name="pref_use_camera_features_title">Slå på kamerafunksjoner</string>
+    <string name="color">Farge</string>
+    <string name="arrow">Pil</string>
+    <string name="pref_weather_show_detailed_icon_title">Vis farget varslingsikon</string>
+    <string name="search">Søk</string>
+    <string name="hour_symbol">t</string>
+    <string name="minute_symbol">m</string>
+    <string name="theme_sunset_sunrise">Soloppgang/solnedgang</string>
+    <string name="experimental_features">Tidevann, kart og siktkompass</string>
+    <string name="camera_permission_denied">Kameratillatelse avslått, kan ikke slå på kamerafunksjoner. Du kan aktivere tillatelse i innstillinger.</string>
+    <string name="pref_show_noon_summary">Solens og månens kulminasjon</string>
 </resources>
