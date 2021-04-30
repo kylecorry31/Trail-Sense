@@ -62,6 +62,18 @@ class AstronomyPreferences(private val context: Context) {
     val showMeteorShowers: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_meteor_showers)) ?: true
 
+    val showCivilTimes: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_show_civil_times)) ?: true
+
+    val showNauticalTimes: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_show_nautical_times)) ?: false
+
+    val showAstronomicalTimes: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_show_astronomical_times)) ?: false
+
+    val showNoon: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_show_noon)) ?: true
+
     fun setSunsetAlertLastSentDate(date: LocalDate) {
         cache.putString("sunset_alert_last_sent_date", date.toString())
     }

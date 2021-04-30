@@ -176,4 +176,8 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         val tomorrows = newAstronomyService.getMeteorShower(location, today.plusDays(1))
         return todays ?: tomorrows
     }
+
+    fun getSeason(location: Coordinate, date: LocalDate = LocalDate.now()): Season {
+        return newAstronomyService.getAstronomicalSeason(location, date.atStartOfDay(ZoneId.systemDefault()))
+    }
 }

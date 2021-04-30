@@ -5,10 +5,14 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.geo.GeoService
+import com.kylecorry.trailsensecore.domain.geo.Region
+import com.kylecorry.trailsensecore.domain.time.Season
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 class AstronomyContextualService(private val context: Context) {
@@ -17,6 +21,30 @@ class AstronomyContextualService(private val context: Context) {
     private val prefs by lazy { UserPreferences(context) }
 
     private val astronomyService = AstronomyService()
+
+    suspend fun getSeason(isBackground: Boolean = false, useCache: Boolean = true): Season? {
+        val location = getLocation(isBackground, useCache)
+
+        if (location == Coordinate.zero) {
+            return null
+        }
+
+        return withContext(Dispatchers.Default) {
+            astronomyService.getSeason(location, LocalDate.now())
+        }
+    }
+
+    suspend fun getClimateZone(isBackground: Boolean = false, useCache: Boolean = true): Region? {
+        val location = getLocation(isBackground, useCache)
+
+        if (location == Coordinate.zero) {
+            return null
+        }
+
+        return withContext(Dispatchers.Default) {
+            GeoService().getRegion(location)
+        }
+    }
 
     suspend fun isSunUp(isBackground: Boolean = false, useCache: Boolean = true): Boolean? {
         val location = getLocation(isBackground, useCache)
@@ -30,7 +58,10 @@ class AstronomyContextualService(private val context: Context) {
         }
     }
 
-    suspend fun getNextSunset(isBackground: Boolean = false, useCache: Boolean = true): LocalDateTime? {
+    suspend fun getNextSunset(
+        isBackground: Boolean = false,
+        useCache: Boolean = true
+    ): LocalDateTime? {
         val location = getLocation(isBackground, useCache)
 
         if (location == Coordinate.zero) {
@@ -42,7 +73,10 @@ class AstronomyContextualService(private val context: Context) {
         }
     }
 
-    suspend fun getNextSunrise(isBackground: Boolean = false, useCache: Boolean = true): LocalDateTime? {
+    suspend fun getNextSunrise(
+        isBackground: Boolean = false,
+        useCache: Boolean = true
+    ): LocalDateTime? {
         val location = getLocation(isBackground, useCache)
 
         if (location == Coordinate.zero) {

@@ -26,7 +26,6 @@ import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.tools.whitenoise.ui.QuickActionWhiteNoise
 import com.kylecorry.trailsensecore.domain.astronomy.MeteorShowerPeak
-import com.kylecorry.trailsensecore.domain.astronomy.RiseSetTransitTimes
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
@@ -307,29 +306,38 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun openDetailsDialog() {
-        // Altitude and azimuth
-        val moonAltitude =
-            astronomyService.getMoonAltitude(gps.location)
-        val sunAltitude =
-            astronomyService.getSunAltitude(gps.location)
+        // TODO: Improve the UI of this
+        lifecycleScope.launch {
+            withContext(Dispatchers.Default) {
+                val moonAltitude =
+                    astronomyService.getMoonAltitude(gps.location)
+                val sunAltitude =
+                    astronomyService.getSunAltitude(gps.location)
 
-        val declination =
-            if (!prefs.navigation.useTrueNorth) getDeclination() else 0f
+                val declination =
+                    if (!prefs.navigation.useTrueNorth) getDeclination() else 0f
 
-        val sunAzimuth =
-            astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value
-        val moonAzimuth =
-            astronomyService.getMoonAzimuth(gps.location).withDeclination(-declination).value
+                val sunAzimuth =
+                    astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value
+                val moonAzimuth =
+                    astronomyService.getMoonAzimuth(gps.location)
+                        .withDeclination(-declination).value
 
-        UiUtils.alert(
-            requireContext(), getString(R.string.sun_and_moon), getString(
-                R.string.sun_and_moon_position_details,
-                getString(R.string.degree_format, sunAltitude),
-                getString(R.string.degree_format, sunAzimuth),
-                getString(R.string.degree_format, moonAltitude),
-                getString(R.string.degree_format, moonAzimuth)
-            )
-        )
+                withContext(Dispatchers.Main) {
+                    if (context != null) {
+                        UiUtils.alert(
+                            requireContext(), getString(R.string.sun_and_moon), getString(
+                                R.string.sun_and_moon_position_details,
+                                getString(R.string.degree_format, sunAltitude),
+                                getString(R.string.degree_format, sunAzimuth),
+                                getString(R.string.degree_format, moonAltitude),
+                                getString(R.string.degree_format, moonAzimuth)
+                            )
+                        )
+                    }
+                }
+            }
+        }
     }
 
     private suspend fun updateAstronomyDetails() {
@@ -343,15 +351,13 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             // Rise / set times
             val sunTimes =
                 astronomyService.getSunTimes(gps.location, SunTimesMode.Actual, displayDate)
-            val duskDawn =
-                astronomyService.getSunTimes(gps.location, SunTimesMode.Civil, displayDate)
             val moonTimes = astronomyService.getMoonTimes(gps.location, displayDate)
             val solarNoon = astronomyService.getSolarNoon(gps.location, displayDate)
             val lunarNoon = astronomyService.getLunarNoon(gps.location, displayDate)
             val meteorShower = astronomyService.getMeteorShower(gps.location, displayDate)
 
             // Sun and moon times
-            details = listOf(
+            details = listOfNotNull(
                 Pair(
                     Pair(
                         R.drawable.ic_sun_rise to -1,
@@ -373,15 +379,14 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     Pair(R.drawable.ic_moon_set to -1, getString(R.string.moon_set)),
                     moonTimes.set?.toLocalDateTime()
                 ),
-                // TODO: Get solar/lunar noon images
-                Pair(
+                if (prefs.astronomy.showNoon) Pair(
                     Pair(R.drawable.ic_sun to -1, getString(R.string.solar_noon)),
                     solarNoon
-                ),
-                Pair(
+                ) else null,
+                if (prefs.astronomy.showNoon) Pair(
                     Pair(R.drawable.ic_moon to -1, getString(R.string.lunar_noon)),
                     lunarNoon
-                )
+                ) else null
             ).filterNot { it.second == null }.sortedBy { it.second?.toLocalTime() }.map {
                 AstroDetail(
                     it.first.first.first,
@@ -391,34 +396,16 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 )
             }.toMutableList()
 
-            val duskDawnDetails = listOf(
-                Pair(
-                    Pair(
-                        Pair(R.drawable.ic_sun_rise, -1),
-                        getString(R.string.sun_dawn)
-                    ),
-                    duskDawn.rise?.toLocalDateTime()
-                ),
-                Pair(
-                    Pair(
-                        Pair(R.drawable.ic_sun_set, -1),
-                        getString(R.string.sun_dusk)
-                    ),
-                    duskDawn.set?.toLocalDateTime()
-                )
-            ).filterNot { it.second == null }.sortedBy { it.second?.toLocalTime() }.map {
-                AstroDetail(
-                    it.first.first.first,
-                    it.first.second,
-                    getTimeString(it.second),
-                    it.first.first.second
-                )
+            if (prefs.astronomy.showCivilTimes) {
+                details.addSection(getCivilDetails())
             }
 
-            // Add dusk and dawn
-            if (duskDawnDetails.isNotEmpty()) {
-                details.add(AstroDetail.spacer())
-                details.addAll(duskDawnDetails)
+            if (prefs.astronomy.showNauticalTimes) {
+                details.addSection(getNauticalDetails())
+            }
+
+            if (prefs.astronomy.showAstronomicalTimes) {
+                details.addSection(getAstronomicalSunDetails())
             }
 
             details.add(AstroDetail.spacer())
@@ -472,6 +459,74 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             detailList.setData(details)
         }
 
+    }
+
+    private suspend fun getCivilDetails(): List<AstroDetail> {
+        return getSunDetails(
+            SunTimesMode.Civil,
+            getString(R.string.sun_dawn),
+            getString(R.string.sun_dusk)
+        )
+    }
+
+    private suspend fun getNauticalDetails(): List<AstroDetail> {
+        return getSunDetails(
+            SunTimesMode.Nautical,
+            getString(R.string.sunrise_type, getString(R.string.sun_nautical)),
+            getString(R.string.sunset_type, getString(R.string.sun_nautical))
+        )
+    }
+
+    private suspend fun getAstronomicalSunDetails(): List<AstroDetail> {
+        return getSunDetails(
+            SunTimesMode.Astronomical,
+            getString(R.string.sunrise_type, getString(R.string.sun_astronomical)),
+            getString(R.string.sunset_type, getString(R.string.sun_astronomical))
+        )
+    }
+
+    private suspend fun getSunDetails(
+        mode: SunTimesMode,
+        rise: String,
+        set: String
+    ): List<AstroDetail> {
+        return withContext(Dispatchers.Default) {
+            val times =
+                astronomyService.getSunTimes(gps.location, mode, displayDate)
+            listOf(
+                Pair(
+                    Pair(
+                        Pair(R.drawable.ic_sun_rise, -1),
+                        rise
+                    ),
+                    times.rise?.toLocalDateTime()
+                ),
+                Pair(
+                    Pair(
+                        Pair(R.drawable.ic_sun_set, -1),
+                        set
+                    ),
+                    times.set?.toLocalDateTime()
+                )
+            ).filterNot { it.second == null }.sortedBy { it.second?.toLocalTime() }.map {
+                AstroDetail(
+                    it.first.first.first,
+                    it.first.second,
+                    getTimeString(it.second),
+                    it.first.first.second
+                )
+            }
+        }
+    }
+
+
+    private fun MutableList<AstroDetail>.addSection(details: List<AstroDetail>) {
+        if (details.isEmpty()) {
+            return
+        }
+
+        add(AstroDetail.spacer())
+        addAll(details)
     }
 
     private fun getMeteorShowerTime(today: LocalDate, meteorShower: MeteorShowerPeak): String {

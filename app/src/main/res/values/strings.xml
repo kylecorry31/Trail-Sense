@@ -367,10 +367,10 @@
     <!--Settings - Astronomy-->
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
     <string name="pref_show_sun_moon_compass_title">Show sun/moon on compass</string>
-    <string name="sun_actual">Actual Time</string>
-    <string name="sun_civil">Civil Twilight</string>
-    <string name="sun_nautical">Nautical Twilight</string>
-    <string name="sun_astronomical">Astronomical Twilight</string>
+    <string name="sun_actual">Actual</string>
+    <string name="sun_civil">Civil</string>
+    <string name="sun_nautical">Nautical</string>
+    <string name="sun_astronomical">Astronomical</string>
     <string name="sun_moon_compass_always">Always</string>
     <string name="sun_moon_compass_when_up">When up</string>
     <string name="sun_moon_compass_never">Never</string>
@@ -996,4 +996,6 @@
     <string name="whistle_signal_acknowledged">Acknowledged</string>
     <string name="whistle_signal_come_here">Come here</string>
     <string name="weather_monitor">Weather Monitor</string>
+    <string name="sunrise_type">Sunrise (%s)</string>
+    <string name="sunset_type">Sunset (%s)</string>
 </resources>
