@@ -1,0 +1,18 @@
+<h4>Navegación</h4>
+<p>El compás puede ser usado para determinar la dirección al Norte, y cuando se combina con el GPS puede ser usado para navegar por ubicaciones predefinidas, conocidas como balizas. Las balizas pueden crearse estando en una ubicación, y en cualquier momento podés usar el compás para navegar de vuelta a donde se colocó la baliza. The compass can be used to determine the direction to North, and when combined with the GPS it can be used to navigate to predefined locations. The predefined locations, known as beacons, can be created while at a location and at any point you can use the compass to navigate back to where the beacon was placed.</p>
+<p>Ejemplos de balizas: casa, trabajo, sendero, campamento.</p>
+<p>La linterna también puede ser fácilmente accedida en la pestaña de navegación (antorcha o modo SOS)The flashlight can also be easily accessed on the navigation tab (torch or SOS mode).</p>
+
+<h4>Clima</h4>
+<p>El barómetro puede ser usado para determinar si el clima va a cambiar pronto, y si es probable que ocurra una tormenta. El historial de presión barométrica (últimas 48 horas) se muestra como un gráfico y se da una interpretación de la lectura actual. Si la presión baja súbitamente, se envia una notificación de alerta de tormenta.</p>
+
+<h4>Astonomía</h4>
+<p>Visualizá la salida y puesta del sol, o de la luna. Mirá la fase actual de la luna en tu ubicación exacta.</p>
+
+<h4>Privacidad</h4>
+<p>Todos los datos de ubicación se almacenan en tu dispositivo. La app no usa Internet, en absoluto.</p>
+
+<h4>Permisos</h4>
+<p>Ubicación (fina, en segundo plando): Usada para la navegación con balizas, Norte Real, corrección de altitud del barómetro (en segundo plano), y tiempos de puesta/salida de sol/luna</p>
+<p>Linterna: Usada para la función de linterna en la pestaña de navegación.</p>
+<p>Reconocimiento de Actividad: Usado para el odómetro basádo en el podómetro, para medir la distancia.</p>
