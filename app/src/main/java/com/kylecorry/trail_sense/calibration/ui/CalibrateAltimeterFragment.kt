@@ -202,12 +202,14 @@ class CalibrateAltimeterFragment : CustomPreferenceFragment() {
                     Instant.now(),
                     barometer.pressure,
                     altitude,
-                    16f
+                    16f,
+                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
                 )
             ),
             prefs.weather.requireDwell,
             prefs.weather.maxNonTravellingAltitudeChange,
-            prefs.weather.maxNonTravellingPressureChange
+            prefs.weather.maxNonTravellingPressureChange,
+            prefs.weather.useExperimentalCalibration
         ).first()
         prefs.seaLevelPressureOverride = seaLevel.value
         return prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer

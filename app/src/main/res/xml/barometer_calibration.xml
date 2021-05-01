@@ -17,7 +17,7 @@
 
         <com.kylecorry.trail_sense.settings.PressureChartPreference
             app:iconSpaceReserved="false"
-            app:key="@string/pref_holder_pressure_chart"></com.kylecorry.trail_sense.settings.PressureChartPreference>
+            app:key="@string/pref_holder_pressure_chart" />
 
         <ListPreference
             app:defaultValue="48"
@@ -35,6 +35,15 @@
             app:key="@string/pref_use_sea_level_pressure"
             app:singleLineTitle="false"
             app:title="@string/pref_use_sea_level_pressure_title" />
+
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_use_sea_level_pressure"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_experimental_barometer_calibration"
+            app:singleLineTitle="false"
+            android:summary="@string/experimental"
+            app:title="@string/pref_experimental_barometer_calibration_title" />
 
         <SeekBarPreference
             android:defaultValue="60"

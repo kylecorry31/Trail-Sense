@@ -19,12 +19,14 @@ import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
+import com.kylecorry.trail_sense.weather.infrastructure.PressureCalibrationUtils
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.*
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
@@ -119,7 +121,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                     Instant.now(),
                     barometer.pressure,
                     altimeter.altitude,
-                    thermometer.temperature
+                    thermometer.temperature,
+                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
                 )
             } else {
                 null
@@ -240,13 +243,16 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                     Instant.now(),
                     barometer.pressure,
                     altimeter.altitude,
-                    thermometer.temperature
+                    thermometer.temperature,
+                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
                 )
             )
         }
+
         return weatherService.convertToSeaLevel(
             readings, prefs.weather.requireDwell, prefs.weather.maxNonTravellingAltitudeChange,
-            prefs.weather.maxNonTravellingPressureChange
+            prefs.weather.maxNonTravellingPressureChange,
+            prefs.weather.useExperimentalCalibration
         )
     }
 
@@ -258,7 +264,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                     Instant.now(),
                     barometer.pressure,
                     altimeter.altitude,
-                    thermometer.temperature
+                    thermometer.temperature,
+                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
                 )
             )
         }
@@ -373,7 +380,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                     Instant.now(),
                     barometer.pressure,
                     altimeter.altitude,
-                    thermometer.temperature
+                    thermometer.temperature,
+                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
                 ), readingHistory
             )
         } else {

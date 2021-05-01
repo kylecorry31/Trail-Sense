@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.settings
 
 import android.os.Bundle
 import androidx.annotation.ArrayRes
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
@@ -10,9 +11,11 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import kotlinx.coroutines.launch
 
 class WeatherSettingsFragment : CustomPreferenceFragment() {
 
@@ -109,9 +112,23 @@ class WeatherSettingsFragment : CustomPreferenceFragment() {
             preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_forecast_sensitivity))
         forecastSensitivity?.setEntries(getForecastSensitivityArray(userPrefs.pressureUnits))
 
+        forecastSensitivity?.setOnPreferenceChangeListener { preference, newValue ->
+            lifecycleScope.launch {
+                WeatherContextualService.getInstance(requireContext()).setDataChanged()
+            }
+            true
+        }
+
         val stormSensitivity =
             preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_storm_alert_sensitivity))
         stormSensitivity?.setEntries(getStormSensitivityArray(userPrefs.pressureUnits))
+
+        stormSensitivity?.setOnPreferenceChangeListener { preference, newValue ->
+            lifecycleScope.launch {
+                WeatherContextualService.getInstance(requireContext()).setDataChanged()
+            }
+            true
+        }
     }
 
     private fun restartWeatherMonitor() {

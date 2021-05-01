@@ -28,6 +28,14 @@ class WeatherPreferences(private val context: Context) {
             cache.putBoolean(context.getString(R.string.pref_monitor_weather), value)
         }
 
+    val useExperimentalCalibration: Boolean
+        get() {
+            val experimental = cache.getBoolean(context.getString(R.string.pref_enable_experimental)) ?: false
+            if (!experimental){
+                return false
+            }
+            return cache.getBoolean(context.getString(R.string.pref_experimental_barometer_calibration)) ?: false
+        }
 
     var weatherUpdateFrequency: Duration
         get() {

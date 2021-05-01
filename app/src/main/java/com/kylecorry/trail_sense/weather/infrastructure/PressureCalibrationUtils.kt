@@ -29,7 +29,8 @@ object PressureCalibrationUtils {
         )
         return weatherService.convertToSeaLevel(
             readings, prefs.weather.requireDwell, prefs.weather.maxNonTravellingAltitudeChange,
-            prefs.weather.maxNonTravellingPressureChange
+            prefs.weather.maxNonTravellingPressureChange,
+            prefs.weather.useExperimentalCalibration
         )
     }
 

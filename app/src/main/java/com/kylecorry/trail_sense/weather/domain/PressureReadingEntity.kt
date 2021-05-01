@@ -23,12 +23,12 @@ data class PressureReadingEntity(
     var id: Long = 0
 
     fun toPressureAltitudeReading(): PressureAltitudeReading {
-        return PressureAltitudeReading(Instant.ofEpochMilli(time), pressure, altitude, temperature)
+        return PressureAltitudeReading(Instant.ofEpochMilli(time), pressure, altitude, temperature, altitudeAccuracy)
     }
 
     companion object {
         fun from(pressure: PressureAltitudeReading): PressureReadingEntity {
-            return PressureReadingEntity(pressure.pressure, pressure.altitude, 0f, pressure.temperature, 0f, pressure.time.toEpochMilli())
+            return PressureReadingEntity(pressure.pressure, pressure.altitude, pressure.altitudeError, pressure.temperature, 0f, pressure.time.toEpochMilli())
         }
     }
 

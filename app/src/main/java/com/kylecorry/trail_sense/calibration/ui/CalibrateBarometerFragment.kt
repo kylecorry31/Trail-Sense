@@ -23,6 +23,7 @@ import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
@@ -41,6 +42,7 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
     private var seaLevelSwitch: SwitchPreferenceCompat? = null
     private var altitudeChangeSeekBar: SeekBarPreference? = null
     private var pressureChangeSeekBar: SeekBarPreference? = null
+    private var experimentalCalibrationSwitch: SwitchPreferenceCompat? = null
     private lateinit var minTempCalibratedC: EditTextPreference
     private lateinit var maxTempCalibratedC: EditTextPreference
     private lateinit var minTempUncalibratedC: EditTextPreference
@@ -84,7 +86,8 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pressureRepo.getPressures().observe(viewLifecycleOwner) {
-            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }.filter { it.time <= Instant.now() }
+            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
+                .filter { it.time <= Instant.now() }
         }
     }
 
@@ -96,11 +99,14 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
             prefs.weather.seaLevelFactorInRapidChanges,
             prefs.weather.seaLevelFactorInTemp
         )
+        lifecycleScope.launch {
+            WeatherContextualService.getInstance(requireContext()).setDataChanged()
+        }
     }
 
     private fun bindPreferences() {
 
-        if (!sensorChecker.hasBarometer()){
+        if (!sensorChecker.hasBarometer()) {
             findPreference<Preference>(getString(R.string.pref_category_barometer_and_thermometer))?.title =
                 getString(R.string.tool_thermometer_title)
             listOf(
@@ -111,12 +117,17 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
                 R.string.pref_adjust_for_temperature,
                 R.string.pref_sea_level_use_rapid,
                 R.string.pref_pressure_history,
-                R.string.pref_use_sea_level_pressure
+                R.string.pref_use_sea_level_pressure,
+                R.string.pref_experimental_barometer_calibration
             ).forEach {
                 preferenceScreen.removePreferenceRecursively(getString(it))
             }
 
         }
+
+        experimentalCalibrationSwitch = switch(R.string.pref_experimental_barometer_calibration)
+
+        experimentalCalibrationSwitch?.isVisible = prefs.experimentalEnabled
 
         pressureTxt = findPreference(getString(R.string.pref_holder_pressure))
         seaLevelSwitch = findPreference(getString(R.string.pref_use_sea_level_pressure))
@@ -133,6 +144,12 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
         chart = findPreference(getString(R.string.pref_holder_pressure_chart))
         pressureChangeSeekBar =
             findPreference(getString(R.string.pref_sea_level_pressure_change_thresh))
+
+        experimentalCalibrationSwitch?.setOnPreferenceClickListener {
+            refreshWeatherService()
+            update()
+            true
+        }
 
         altitudeChangeSeekBar?.summary =
             (if (prefs.weather.maxNonTravellingAltitudeChange == 0f) "" else "± ") + formatService.formatSmallDistance(
@@ -264,11 +281,16 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
             true
         }
 
-        preference(R.string.pref_barometer_info_holder)?.icon?.setTint(UiUtils.getAndroidColorAttr(requireContext(), android.R.attr.textColorSecondary))
+        preference(R.string.pref_barometer_info_holder)?.icon?.setTint(
+            UiUtils.getAndroidColorAttr(
+                requireContext(),
+                android.R.attr.textColorSecondary
+            )
+        )
 
     }
 
-    private fun updateChart(){
+    private fun updateChart() {
         val readings = PressureCalibrationUtils.calibratePressures(requireContext(), readingHistory)
         val displayReadings = readings.filter {
             Duration.between(
@@ -345,13 +367,24 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
 
         val seaLevelPressure = prefs.weather.useSeaLevelPressure
 
+        val experimentalCalibration = prefs.weather.useExperimentalCalibration
+
+        altitudeChangeSeekBar?.isEnabled = !experimentalCalibration
+        pressureChangeSeekBar?.isEnabled = !experimentalCalibration
+        switch(R.string.pref_sea_level_use_rapid)?.isEnabled = !experimentalCalibration
+        switch(R.string.pref_sea_level_require_dwell)?.isEnabled = !experimentalCalibration
+
+
         val pressure = if (seaLevelPressure) {
-            PressureAltitudeReading(
-                Instant.now(),
-                barometer.pressure,
-                altimeter.altitude,
-                thermometer.temperature
-            ).seaLevel(prefs.weather.seaLevelFactorInTemp).value
+            WeatherContextualService.getInstance(requireContext()).getSeaLevelPressure(
+                PressureAltitudeReading(
+                    Instant.now(),
+                    barometer.pressure,
+                    altimeter.altitude,
+                    thermometer.temperature,
+                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
+                ), readingHistory
+            ).value
         } else {
             barometer.pressure
         }
