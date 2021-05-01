@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.github.mikephil.charting.charts.LineChart
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
@@ -16,10 +18,12 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
 import com.kylecorry.trailsensecore.domain.power.BatteryReading
 import com.kylecorry.trailsensecore.domain.power.PowerService
+import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingMethod
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingStatus
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
@@ -70,10 +74,29 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
                 lowPowerMode.enable(requireActivity())
             }
         }
+
+        CustomUiUtils.setButtonState(binding.batteryPhoneBatterySettings, false)
+        CustomUiUtils.setButtonState(binding.batteryHistoryBtn, false)
+
         binding.batteryPhoneBatterySettings.setOnClickListener {
             val intentBatteryPhoneSettings = Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
             startActivity(intentBatteryPhoneSettings)
         }
+
+        binding.batteryHistoryBtn.setOnClickListener {
+            val readingDuration =
+                Duration.between(readings.firstOrNull()?.time, readings.lastOrNull()?.time)
+            val view = View.inflate(context, R.layout.view_chart_prompt, null)
+            val chart = BatteryChart(view.findViewById(R.id.chart))
+            chart.plot(readings, false)
+            UiUtils.alertView(
+                requireContext(),
+                getString(R.string.battery_history, formatService.formatDuration(readingDuration, false)),
+                view,
+                getString(R.string.dialog_ok)
+            )
+        }
+
         batteryRepo.get().observe(viewLifecycleOwner, {
             readings = it.sortedBy { it.time }.map { it.toBatteryReading() } + listOfNotNull(
                 if (battery.hasValidReading)
@@ -85,13 +108,17 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
                     )
                 else null
             )
+
+            binding.batteryHistoryBtn.isVisible = readings.size >= 2
+
             update()
         })
+
+        battery.asLiveData().observe(viewLifecycleOwner, {})
     }
 
     override fun onResume() {
         super.onResume()
-        battery.start(this::onBatteryUpdate)
         intervalometer.interval(20)
         binding.batteryChargeIndicator.visibility = View.INVISIBLE
         binding.batteryCurrent.text = ""
@@ -99,12 +126,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
 
     override fun onPause() {
         super.onPause()
-        battery.stop(this::onBatteryUpdate)
         intervalometer.stop()
-    }
-
-    private fun onBatteryUpdate(): Boolean {
-        return true
     }
 
     private fun getBatteryUsage(service: RunningService): String {

@@ -132,6 +132,7 @@
     <string name="precise_temp_c_format">%s °C</string>
     <string name="humidity_format">%.0f%% humidity</string>
     <string name="no_humidity_data">No humidity data</string>
+    <string name="no_data">No data</string>
     <string name="dew_point">Dew point %s</string>
     <!--Weather Tab - Forecasts-->
     <string name="weather_improving_fast">Improving very soon</string>
@@ -998,4 +999,5 @@
     <string name="weather_monitor">Weather Monitor</string>
     <string name="sunrise_type">Sunrise (%s)</string>
     <string name="sunset_type">Sunset (%s)</string>
+    <string name="battery_history">Battery history - last %s</string>
 </resources>
