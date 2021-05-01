@@ -6,6 +6,7 @@ import android.text.InputType
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
+import com.kylecorry.trail_sense.settings.CustomPreferenceFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -25,7 +26,7 @@ import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import java.time.Instant
 
 
-class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
+class CalibrateAltimeterFragment : CustomPreferenceFragment() {
 
     private lateinit var barometer: IBarometer
     private lateinit var gps: IGPS
@@ -47,8 +48,6 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
     private val formatService by lazy { FormatServiceV2(requireContext()) }
 
     private var seaLevelPressure = SensorManager.PRESSURE_STANDARD_ATMOSPHERE
-
-    private val cache by lazy { Cache(requireContext()) }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.altimeter_calibration, rootKey)

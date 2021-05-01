@@ -1003,4 +1003,6 @@
     <string name="pref_nmea_altitude" translatable="false">pref_nmea_altitude</string>
     <string name="pref_barometer_info_holder" translatable="false">pref_barometer_info_holder</string>
     <string name="pref_barometer_info_summary">The pressure may differ from that of nearby stations</string>
+    <string name="pref_nmea_altitude_title">NMEA altitude offsets</string>
+    <string name="pref_nmea_altitude_summary">Uses NMEA offsets for altitude conversion</string>
 </resources>
