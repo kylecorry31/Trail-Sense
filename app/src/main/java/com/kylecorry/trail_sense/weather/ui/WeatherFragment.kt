@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -29,13 +28,14 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 
-class WeatherFragment : Fragment() {
+class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private val barometer by lazy { sensorService.getBarometer() }
     private val altimeter by lazy { sensorService.getAltimeter() }
@@ -46,9 +46,6 @@ class WeatherFragment : Fragment() {
     private var units = PressureUnits.Hpa
 
     private val prefs by lazy { UserPreferences(requireContext()) }
-
-    private var _binding: ActivityWeatherBinding? = null
-    private val binding get() = _binding!!
 
     private lateinit var chart: PressureChart
     private lateinit var navController: NavController
@@ -154,20 +151,10 @@ class WeatherFragment : Fragment() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = ActivityWeatherBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         leftQuickAction?.onDestroy()
         rightQuickAction?.onDestroy()
-        _binding = null
     }
 
     override fun onResume() {
@@ -204,7 +191,7 @@ class WeatherFragment : Fragment() {
 
 
     private fun update() {
-        if (context == null || _binding == null) return
+        if (context == null) return
         if (barometer.pressure == 0.0f) return
 
         if (throttle.isThrottled()) {
@@ -380,13 +367,15 @@ class WeatherFragment : Fragment() {
     }
 
     private fun getCurrentPressure(): PressureReading {
-        return if (useSeaLevelPressure){
-            weatherForecastService.getSeaLevelPressure(PressureAltitudeReading(
-                Instant.now(),
-                barometer.pressure,
-                altimeter.altitude,
-                thermometer.temperature
-            ), readingHistory)
+        return if (useSeaLevelPressure) {
+            weatherForecastService.getSeaLevelPressure(
+                PressureAltitudeReading(
+                    Instant.now(),
+                    barometer.pressure,
+                    altimeter.altitude,
+                    thermometer.temperature
+                ), readingHistory
+            )
         } else {
             PressureReading(Instant.now(), barometer.pressure)
         }
@@ -448,6 +437,13 @@ class WeatherFragment : Fragment() {
             QuickActionType.LowPowerMode -> LowPowerQuickAction(button, this)
             else -> QuickActionNone(button, this)
         }
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): ActivityWeatherBinding {
+        return ActivityWeatherBinding.inflate(layoutInflater, container, false)
     }
 
 }

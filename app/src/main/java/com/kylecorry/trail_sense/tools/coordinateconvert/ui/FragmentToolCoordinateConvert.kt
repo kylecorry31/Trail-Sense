@@ -6,16 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCoordinateConvertBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
-class FragmentToolCoordinateConvert: Fragment() {
-
-    private var _binding: FragmentToolCoordinateConvertBinding? = null
-    private val binding get() = _binding!!
+class FragmentToolCoordinateConvert : BoundFragment<FragmentToolCoordinateConvertBinding>() {
 
     private val formatService by lazy { FormatService(requireContext()) }
 
@@ -27,12 +24,8 @@ class FragmentToolCoordinateConvert: Fragment() {
         CoordinateFormat.MGRS
     )
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolCoordinateConvertBinding.inflate(inflater, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.toUnits.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -60,8 +53,6 @@ class FragmentToolCoordinateConvert: Fragment() {
         binding.toUnits.prompt = getString(R.string.distance_from)
         binding.toUnits.adapter = toAdapter
         binding.toUnits.setSelection(0)
-
-        return binding.root
     }
 
     override fun onPause() {
@@ -70,16 +61,23 @@ class FragmentToolCoordinateConvert: Fragment() {
     }
 
 
-    fun update(){
+    fun update() {
         val coordinate = binding.coordinateEdit.coordinate
         val to = formats[binding.toUnits.selectedItemPosition]
 
-        if (coordinate == null){
+        if (coordinate == null) {
             binding.result.text = ""
             return
         }
 
         binding.result.text = formatService.formatLocation(coordinate, to)
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolCoordinateConvertBinding {
+        return FragmentToolCoordinateConvertBinding.inflate(layoutInflater, container, false)
     }
 
 }

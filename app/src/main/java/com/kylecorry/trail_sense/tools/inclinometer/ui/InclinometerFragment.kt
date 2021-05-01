@@ -1,28 +1,22 @@
 package com.kylecorry.trail_sense.tools.inclinometer.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentInclinometerBinding
-import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trailsensecore.domain.inclinometer.AvalancheRisk
 import com.kylecorry.trailsensecore.domain.inclinometer.InclinationService
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
-class InclinometerFragment : Fragment() {
-
-    private lateinit var binding: FragmentInclinometerBinding
+class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val inclinometer by lazy { sensorService.getInclinometer() }
@@ -43,33 +37,49 @@ class InclinometerFragment : Fragment() {
         CustomUiUtils.setButtonState(binding.selectDistance, objectDistance != null)
         CustomUiUtils.setButtonState(binding.selectHeight, userHeight != null)
 
-        val units = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters){
+        val units = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) {
             listOf(DistanceUnits.Meters, DistanceUnits.Feet)
         } else {
             listOf(DistanceUnits.Feet, DistanceUnits.Meters)
         }
 
-        binding.selectDistance.text = "${getString(R.string.distance_away)}\n${getString(R.string.dash)}"
-        binding.selectHeight.text = "${getString(R.string.your_height)}\n${getString(R.string.dash)}"
+        binding.selectDistance.text =
+            "${getString(R.string.distance_away)}\n${getString(R.string.dash)}"
+        binding.selectHeight.text =
+            "${getString(R.string.your_height)}\n${getString(R.string.dash)}"
 
 
         binding.selectDistance.setOnClickListener {
-            CustomUiUtils.pickDistance(requireContext(), units, objectDistance, getString(
-                            R.string.distance_away)){
+            CustomUiUtils.pickDistance(
+                requireContext(), units, objectDistance, getString(
+                    R.string.distance_away
+                )
+            ) {
                 if (it != null) {
                     objectDistance = it
                     CustomUiUtils.setButtonState(binding.selectDistance, true)
-                    binding.selectDistance.text = "${getString(R.string.distance_away)}\n${formatService.formatDistance(it, 1)}"
+                    binding.selectDistance.text = "${getString(R.string.distance_away)}\n${
+                        formatService.formatDistance(
+                            it,
+                            1
+                        )
+                    }"
                 }
             }
         }
 
         binding.selectHeight.setOnClickListener {
-            CustomUiUtils.pickDistance(requireContext(), units, userHeight, getString(R.string.your_height)){
+            CustomUiUtils.pickDistance(
+                requireContext(),
+                units,
+                userHeight,
+                getString(R.string.your_height)
+            ) {
                 if (it != null) {
                     userHeight = it
                     CustomUiUtils.setButtonState(binding.selectHeight, true)
-                    binding.selectHeight.text = "${getString(R.string.your_height)}\n${formatService.formatDistance(it, 1)}"
+                    binding.selectHeight.text =
+                        "${getString(R.string.your_height)}\n${formatService.formatDistance(it, 1)}"
                 }
             }
         }
@@ -80,18 +90,10 @@ class InclinometerFragment : Fragment() {
             } else {
                 null
             }
-            binding.inclineLock.visibility = if (slopeAngle != null) View.VISIBLE else View.INVISIBLE
+            binding.inclineLock.visibility =
+                if (slopeAngle != null) View.VISIBLE else View.INVISIBLE
         }
 
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentInclinometerBinding.inflate(layoutInflater, container, false)
-        return binding.root
     }
 
     override fun onResume() {
@@ -144,11 +146,13 @@ class InclinometerFragment : Fragment() {
             val distMeters = objectDistance!!.meters().distance
             val heightMeters = userHeight?.meters()?.distance ?: 1.5f
             binding.estimatedHeight.text = formatService.formatDistance(
-                Distance.meters(inclinationService.estimateHeight(
-                    distMeters,
-                    incline,
-                    heightMeters
-                )).convertTo(prefs.baseDistanceUnits)
+                Distance.meters(
+                    inclinationService.estimateHeight(
+                        distMeters,
+                        incline,
+                        heightMeters
+                    )
+                ).convertTo(prefs.baseDistanceUnits)
             )
             binding.estimatedHeightLbl.text = getString(R.string.estimated_height)
         }
@@ -174,6 +178,13 @@ class InclinometerFragment : Fragment() {
     private fun onDeviceOrientationUpdate(): Boolean {
         updateUI()
         return true
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentInclinometerBinding {
+        return FragmentInclinometerBinding.inflate(layoutInflater, container, false)
     }
 
 }

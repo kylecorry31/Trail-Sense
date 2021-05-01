@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -56,6 +54,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -63,7 +62,7 @@ import java.time.*
 import java.util.*
 
 
-class NavigatorFragment : Fragment() {
+class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private var shownAccuracyToast = false
     private var sightingCompassInitialized = false
@@ -84,8 +83,6 @@ class NavigatorFragment : Fragment() {
 
     private val userPrefs by lazy { UserPreferences(requireContext()) }
 
-    private var _binding: ActivityNavigatorBinding? = null
-    private val binding get() = _binding!!
     private lateinit var navController: NavController
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
@@ -127,23 +124,6 @@ class NavigatorFragment : Fragment() {
         }
     }
 
-    @SuppressLint("MissingPermission")
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = ActivityNavigatorBinding.inflate(layoutInflater, container, false)
-        rightQuickAction = getQuickActionButton(
-            userPrefs.navigation.rightQuickAction,
-            binding.navigationRightQuickAction
-        )
-        leftQuickAction = getQuickActionButton(
-            userPrefs.navigation.leftQuickAction,
-            binding.navigationLeftQuickAction
-        )
-        return binding.root
-    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -151,10 +131,6 @@ class NavigatorFragment : Fragment() {
         leftQuickAction?.onDestroy()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -173,6 +149,15 @@ class NavigatorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        rightQuickAction = getQuickActionButton(
+            userPrefs.navigation.rightQuickAction,
+            binding.navigationRightQuickAction
+        )
+        leftQuickAction = getQuickActionButton(
+            userPrefs.navigation.leftQuickAction,
+            binding.navigationLeftQuickAction
+        )
 
         beaconRepo.getBeacons().observe(viewLifecycleOwner) {
             beacons = it.map { it.toBeacon() }
@@ -851,6 +836,13 @@ class NavigatorFragment : Fragment() {
         const val LAST_BEACON_ID = "last_beacon_id_long"
         const val LAST_DEST_BEARING = "last_dest_bearing"
         const val CACHE_CAMERA_ZOOM = "sighting_compass_camera_zoom"
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): ActivityNavigatorBinding {
+        return ActivityNavigatorBinding.inflate(layoutInflater, container, false)
     }
 
 }

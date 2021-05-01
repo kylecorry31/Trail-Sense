@@ -6,7 +6,6 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolClockBinding
 import com.kylecorry.trail_sense.shared.FormatService
@@ -17,12 +16,11 @@ import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastR
 import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import java.time.*
 import java.time.temporal.ChronoUnit
 
-class ToolClockFragment : Fragment() {
-    private var _binding: FragmentToolClockBinding? = null
-    private val binding get() = _binding!!
+class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
 
     private val formatService by lazy { FormatService(requireContext()) }
     private val sensorService by lazy { SensorService(requireContext()) }
@@ -33,11 +31,8 @@ class ToolClockFragment : Fragment() {
     private var gpsTime = Instant.now()
     private var systemTime = Instant.now()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolClockBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.pipButton.setOnClickListener {
             sendNextMinuteNotification()
         }
@@ -46,12 +41,6 @@ class ToolClockFragment : Fragment() {
             binding.updatingClock.visibility = View.VISIBLE
             binding.pipButton.visibility = View.INVISIBLE
         }
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onResume() {
@@ -144,5 +133,12 @@ class ToolClockFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolClockBinding {
+        return FragmentToolClockBinding.inflate(layoutInflater, container, false)
     }
 }

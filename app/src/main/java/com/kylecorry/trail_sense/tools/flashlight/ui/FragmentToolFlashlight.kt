@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
@@ -15,8 +14,9 @@ import com.kylecorry.trailsensecore.infrastructure.flashlight.HasFlashlightSpeci
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
-class FragmentToolFlashlight : Fragment() {
+class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
     private var flashlightState = FlashlightState.Off
     private val flashlight by lazy { FlashlightHandler.getInstance(requireContext()) }
@@ -25,14 +25,8 @@ class FragmentToolFlashlight : Fragment() {
     }
     private val cache by lazy { Cache(requireContext()) }
 
-    private var _binding: FragmentToolFlashlightBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolFlashlightBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val hasFlashlight = HasFlashlightSpecification().isSatisfiedBy(requireContext())
         binding.flashlightBtn.isVisible = hasFlashlight
         binding.strobeBtn.isVisible = hasFlashlight
@@ -77,12 +71,6 @@ class FragmentToolFlashlight : Fragment() {
                 }
             }
         }
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onResume() {
@@ -107,6 +95,13 @@ class FragmentToolFlashlight : Fragment() {
     private fun update() {
         flashlightState = flashlight.getState()
         updateFlashlightUI()
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolFlashlightBinding {
+        return FragmentToolFlashlightBinding.inflate(layoutInflater, container, false)
     }
 
 }

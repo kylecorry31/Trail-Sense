@@ -29,6 +29,7 @@ import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,11 +37,9 @@ import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 
-class FragmentBacktrack : Fragment() {
+class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
     private val waypointRepo by lazy { WaypointRepo.getInstance(requireContext()) }
-    private var _binding: FragmentBacktrackBinding? = null
-    private val binding get() = _binding!!
     private lateinit var waypointsLiveData: LiveData<List<WaypointEntity>>
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
@@ -48,7 +47,6 @@ class FragmentBacktrack : Fragment() {
 
     private val stateChecker = Intervalometer {
         context ?: return@Intervalometer
-        _binding ?: return@Intervalometer
         wasEnabled = BacktrackScheduler.isOn(requireContext())
         if (wasEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)) {
             binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)
@@ -61,19 +59,6 @@ class FragmentBacktrack : Fragment() {
 
     private lateinit var listView: ListView<WaypointEntity>
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentBacktrackBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -253,6 +238,13 @@ class FragmentBacktrack : Fragment() {
     override fun onPause() {
         super.onPause()
         stateChecker.stop()
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentBacktrackBinding {
+        return FragmentBacktrackBinding.inflate(layoutInflater, container, false)
     }
 
 }

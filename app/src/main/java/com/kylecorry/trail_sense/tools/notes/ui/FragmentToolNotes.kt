@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -16,33 +15,18 @@ import com.kylecorry.trail_sense.databinding.ListItemNoteBinding
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class FragmentToolNotes : Fragment() {
+class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
 
-    private var _binding: FragmentToolNotesBinding? = null
-    private val binding get() = _binding!!
     private val notesRepo by lazy { NoteRepo.getInstance(requireContext()) }
     private lateinit var notesLiveData: LiveData<List<Note>>
 
     private lateinit var listView: ListView<Note>
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolNotesBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -124,5 +108,12 @@ class FragmentToolNotes : Fragment() {
             R.id.action_fragmentToolNotes_to_fragmentToolNotesCreate,
             bundle
         )
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolNotesBinding {
+        return FragmentToolNotesBinding.inflate(layoutInflater, container, false)
     }
 }

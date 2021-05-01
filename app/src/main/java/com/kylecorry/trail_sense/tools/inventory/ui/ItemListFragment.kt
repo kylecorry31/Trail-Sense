@@ -12,7 +12,6 @@ import android.widget.FrameLayout
 import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -25,34 +24,19 @@ import com.kylecorry.trail_sense.tools.inventory.infrastructure.ItemRepo
 import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryIconMapper
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Double.max
 
-class ItemListFragment : Fragment() {
+class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
-    private var _binding: FragmentItemListBinding? = null
-    private val binding get() = _binding!!
     private val itemRepo by lazy { ItemRepo.getInstance(requireContext()) }
     private lateinit var itemsLiveData: LiveData<List<InventoryItem>>
 
     private lateinit var listView: ListView<InventoryItem>
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentItemListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -261,6 +245,13 @@ class ItemListFragment : Fragment() {
         val dialog = builder.create()
         dialog.show()
         return dialog
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentItemListBinding {
+        return FragmentItemListBinding.inflate(layoutInflater, container, false)
     }
 
 

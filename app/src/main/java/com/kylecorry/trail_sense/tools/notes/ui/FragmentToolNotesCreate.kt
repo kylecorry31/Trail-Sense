@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
@@ -13,16 +11,14 @@ import com.kylecorry.trail_sense.databinding.FragmentToolNotesCreateBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Instant
 
-class FragmentToolNotesCreate : Fragment() {
+class FragmentToolNotesCreate : BoundFragment<FragmentToolNotesCreateBinding>() {
 
-    private var _binding: FragmentToolNotesCreateBinding? = null
-    private val binding get() = _binding!!
     private val notesRepo by lazy { NoteRepo.getInstance(requireContext()) }
 
     private var editingNote: Note? = null
@@ -33,20 +29,6 @@ class FragmentToolNotesCreate : Fragment() {
         if (noteId != 0L) {
             loadEditingNote(noteId)
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolNotesCreateBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,7 +64,7 @@ class FragmentToolNotesCreate : Fragment() {
 
 
     private fun nothingEntered(): Boolean {
-        if (editingNote != null){
+        if (editingNote != null) {
             return false
         }
 
@@ -107,6 +89,13 @@ class FragmentToolNotesCreate : Fragment() {
             }
 
         }
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolNotesCreateBinding {
+        return FragmentToolNotesCreateBinding.inflate(layoutInflater, container, false)
     }
 
 }

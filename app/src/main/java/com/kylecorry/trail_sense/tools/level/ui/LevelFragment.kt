@@ -1,9 +1,6 @@
 package com.kylecorry.trail_sense.tools.level.ui
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
@@ -13,29 +10,15 @@ import com.kylecorry.trail_sense.shared.toDegrees
 import com.kylecorry.trailsensecore.domain.math.Vector3
 import com.kylecorry.trailsensecore.infrastructure.system.*
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlin.math.*
 
-class LevelFragment : Fragment() {
+class LevelFragment : BoundFragment<FragmentLevelBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val orientationSensor by lazy { sensorService.getOrientationSensor() }
-    private var _binding: FragmentLevelBinding? = null
-    private val binding get() = _binding!!
     private val throttle = Throttle(20)
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentLevelBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onResume() {
         super.onResume()
@@ -91,6 +74,13 @@ class LevelFragment : Fragment() {
         binding.bubbleOutline.y = binding.root.height / 2f - binding.bubbleOutline.height / 2f
 
         return true
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentLevelBinding {
+        return FragmentLevelBinding.inflate(layoutInflater, container, false)
     }
 
 }

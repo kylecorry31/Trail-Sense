@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -16,11 +15,9 @@ import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
-class FragmentToolTriangulate : Fragment() {
-
-    private var _binding: FragmentToolTriangulateBinding? = null
-    private val binding get() = _binding!!
+class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val compass by lazy { sensorService.getCompass() }
@@ -34,11 +31,9 @@ class FragmentToolTriangulate : Fragment() {
     private var direction2: Bearing? = null
     private var location: Coordinate? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolTriangulateBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.bearingTo1Btn.setOnClickListener {
             direction1 = compass.bearing
             binding.bearingTo1.text = formatService.formatDegrees(compass.bearing.value, replace360 = true)
@@ -69,13 +64,8 @@ class FragmentToolTriangulate : Fragment() {
         binding.triangulate1.setOnCoordinateChangeListener { update() }
         binding.triangulate2.setOnCoordinateChangeListener { update() }
 
-        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onResume() {
         super.onResume()
@@ -120,6 +110,13 @@ class FragmentToolTriangulate : Fragment() {
                 binding.gpsOverrideBtn.visibility = View.VISIBLE
             }
         }
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolTriangulateBinding {
+        return FragmentToolTriangulateBinding.inflate(layoutInflater, container, false)
     }
 
 

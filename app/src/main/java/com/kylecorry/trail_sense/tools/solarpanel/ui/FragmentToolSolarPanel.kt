@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.ColorInt
-import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSolarPanelBinding
 import com.kylecorry.trail_sense.shared.FormatService
@@ -19,10 +18,11 @@ import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.math.deltaAngle
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import java.time.ZonedDateTime
 import kotlin.math.absoluteValue
 
-class FragmentToolSolarPanel : Fragment() {
+class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
 
     private val astronomyService = AstronomyService()
     private val sensorService by lazy { SensorService(requireContext()) }
@@ -35,17 +35,10 @@ class FragmentToolSolarPanel : Fragment() {
     private val throttle = Throttle(20)
 
     private var position: SolarPanelPosition? = null
-
-    private var _binding: FragmentToolSolarPanelBinding? = null
-    private val binding get() = _binding!!
-
     private var useToday = true
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolSolarPanelBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         updateButtonState()
         binding.solarTodayBtn.setOnClickListener {
             useToday = true
@@ -63,12 +56,6 @@ class FragmentToolSolarPanel : Fragment() {
             getString(R.string.solar_panel_instructions),
             getString(R.string.dialog_ok)
         )
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onResume() {
@@ -88,7 +75,7 @@ class FragmentToolSolarPanel : Fragment() {
     }
 
     private fun getDeclination(): Float {
-        return if (!prefs.useAutoDeclination){
+        return if (!prefs.useAutoDeclination) {
             prefs.declinationOverride
         } else {
             geoService.getDeclination(gps.location, gps.altitude)
@@ -191,6 +178,13 @@ class FragmentToolSolarPanel : Fragment() {
     companion object {
         private const val AZIMUTH_THRESHOLD = 5
         private const val ALTITUDE_THRESHOLD = 5
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolSolarPanelBinding {
+        return FragmentToolSolarPanelBinding.inflate(layoutInflater, container, false)
     }
 
 }

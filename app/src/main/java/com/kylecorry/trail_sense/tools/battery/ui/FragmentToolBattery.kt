@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainBinding
@@ -15,7 +14,6 @@ import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
-import com.kylecorry.trailsensecore.domain.math.power
 import com.kylecorry.trailsensecore.domain.power.BatteryReading
 import com.kylecorry.trailsensecore.domain.power.PowerService
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
@@ -23,16 +21,14 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargi
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingStatus
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
-class FragmentToolBattery : Fragment() {
-
-    private var _binding: FragmentToolBatteryBinding? = null
-    private val binding get() = _binding!!
+class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
 
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val battery by lazy { Battery(requireContext()) }
@@ -50,11 +46,8 @@ class FragmentToolBattery : Fragment() {
         update()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolBatteryBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         servicesList =
             ListView(binding.runningServices, R.layout.list_item_plain) { serviceView, service ->
                 val serviceBinding = ListItemPlainBinding.bind(serviceView)
@@ -94,13 +87,6 @@ class FragmentToolBattery : Fragment() {
             )
             update()
         })
-        return binding.root
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onResume() {
@@ -240,6 +226,13 @@ class FragmentToolBattery : Fragment() {
             BatteryHealth.OverVoltage -> getString(R.string.battery_health_over_voltage)
             BatteryHealth.Unknown -> getString(R.string.unknown)
         }
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolBatteryBinding {
+        return FragmentToolBatteryBinding.inflate(layoutInflater, container, false)
     }
 
 }

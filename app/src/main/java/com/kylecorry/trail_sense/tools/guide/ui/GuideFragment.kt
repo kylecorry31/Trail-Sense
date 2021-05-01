@@ -1,18 +1,15 @@
 package com.kylecorry.trail_sense.tools.guide.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.trail_sense.databinding.FragmentGuideBinding
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideService
 import com.kylecorry.trailsensecore.infrastructure.text.MarkdownService
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
-class GuideFragment : Fragment() {
-
-    private var _binding: FragmentGuideBinding? = null
-    private val binding get() = _binding!!
+class GuideFragment : BoundFragment<FragmentGuideBinding>() {
 
     private lateinit var name: String
     private lateinit var content: String
@@ -24,21 +21,17 @@ class GuideFragment : Fragment() {
         content = UserGuideService(requireContext()).load(resource)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentGuideBinding.inflate(inflater, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.guideName.text = name
         val markdown = MarkdownService(requireContext())
         markdown.setMarkdown(binding.guideContents, content)
-
-        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentGuideBinding {
+        return FragmentGuideBinding.inflate(layoutInflater, container, false)
     }
 }

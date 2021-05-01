@@ -5,18 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolDistanceConvertBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
-class FragmentDistanceConverter : Fragment() {
-
-    private var _binding: FragmentToolDistanceConvertBinding? = null
-    private val binding get() = _binding!!
+class FragmentDistanceConverter : BoundFragment<FragmentToolDistanceConvertBinding>() {
 
     private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
@@ -35,12 +32,8 @@ class FragmentDistanceConverter : Fragment() {
         DistanceUnits.NauticalMiles,
     )
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolDistanceConvertBinding.inflate(inflater, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val fromAdapter = ArrayAdapter(
             requireContext(),
             R.layout.spinner_item_plain,
@@ -66,8 +59,6 @@ class FragmentDistanceConverter : Fragment() {
             binding.toUnits.setSelection(fromCurrent)
             update()
         }
-
-        return binding.root
     }
 
     override fun onResume() {
@@ -100,6 +91,13 @@ class FragmentDistanceConverter : Fragment() {
             DistanceUnits.Centimeters -> getString(R.string.unit_centimeters)
             DistanceUnits.Inches -> getString(R.string.unit_inches)
         }
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolDistanceConvertBinding {
+        return FragmentToolDistanceConvertBinding.inflate(layoutInflater, container, false)
     }
 
 }

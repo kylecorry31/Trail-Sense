@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.activity.addCallback
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryStringMapper
@@ -16,13 +14,11 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
 import com.kylecorry.trail_sense.tools.inventory.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.ItemRepo
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlinx.coroutines.*
 
-class CreateItemFragment : Fragment() {
-    private var _binding: FragmentCreateItemBinding? = null
-    private val binding get() = _binding!!
+class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
     private val itemRepo by lazy { ItemRepo.getInstance(requireContext()) }
 
@@ -34,20 +30,6 @@ class CreateItemFragment : Fragment() {
         if (itemId != 0L) {
             loadEditingItem(itemId)
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentCreateItemBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -119,7 +101,7 @@ class CreateItemFragment : Fragment() {
     }
 
     private fun nothingEntered(): Boolean {
-        if (editingItem != null){
+        if (editingItem != null) {
             return false
         }
 
@@ -128,6 +110,13 @@ class CreateItemFragment : Fragment() {
         val category = ItemCategory.values()[binding.categorySelectSpinner.selectedItemPosition]
 
         return name.isNullOrBlank() && amount.isNullOrBlank() && category == ItemCategory.Other
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentCreateItemBinding {
+        return FragmentCreateItemBinding.inflate(layoutInflater, container, false)
     }
 
 }

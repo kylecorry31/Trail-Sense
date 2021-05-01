@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolRulerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -15,11 +14,9 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
-class RulerFragment : Fragment() {
-    private var _binding: FragmentToolRulerBinding? = null
-    private val binding get() = _binding!!
-
+class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val geoService = GeoService()
     private val prefs by lazy { UserPreferences(requireContext()) }
@@ -32,12 +29,10 @@ class RulerFragment : Fragment() {
 
     private var rulerUnits = DistanceUnits.Centimeters
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolRulerBinding.inflate(inflater, container, false)
-        rulerUnits = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Centimeters else DistanceUnits.Inches
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        rulerUnits =
+            if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Centimeters else DistanceUnits.Inches
         ruler = Ruler(binding.ruler, rulerUnits)
         ruler.onTap = this::onRulerTap
         ruler.show()
@@ -49,7 +44,7 @@ class RulerFragment : Fragment() {
         binding.rulerUnitBtn.text = getUnitText(rulerUnits)
 
         binding.rulerUnitBtn.setOnClickListener {
-            rulerUnits = if (rulerUnits == DistanceUnits.Centimeters){
+            rulerUnits = if (rulerUnits == DistanceUnits.Centimeters) {
                 DistanceUnits.Inches
             } else {
                 DistanceUnits.Centimeters
@@ -106,12 +101,6 @@ class RulerFragment : Fragment() {
         binding.fractionalMapFrom.addTextChangedListener {
             calculateMapDistance()
         }
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onResume() {
@@ -138,7 +127,10 @@ class RulerFragment : Fragment() {
                     null
                 } else {
                     val mapDistance = geoService.getMapDistance(currentDistance, scaleFrom, scaleTo)
-                    formatService.formatDistance(Distance(mapDistance.distance, scaleTo.units), mapPrecision)
+                    formatService.formatDistance(
+                        Distance(mapDistance.distance, scaleTo.units),
+                        mapPrecision
+                    )
                 }
             }
             MapScaleMode.Fractional -> {
@@ -149,7 +141,9 @@ class RulerFragment : Fragment() {
                     null
                 } else {
                     val mapDistance = geoService.getMapDistance(currentDistance, ratioFrom, ratioTo)
-                    formatService.formatDistance(mapDistance.convertTo(rulerUnits).toRelativeDistance(), mapPrecision)
+                    formatService.formatDistance(
+                        mapDistance.convertTo(rulerUnits).toRelativeDistance(), mapPrecision
+                    )
                 }
             }
         }
@@ -162,7 +156,7 @@ class RulerFragment : Fragment() {
     }
 
     private fun getUnitText(units: DistanceUnits): String {
-        return if (units == DistanceUnits.Centimeters){
+        return if (units == DistanceUnits.Centimeters) {
             getString(R.string.unit_centimeters_abbreviation)
         } else {
             getString(R.string.unit_inches_abbreviation)
@@ -178,6 +172,13 @@ class RulerFragment : Fragment() {
     companion object {
         const val precision = 4
         const val mapPrecision = 2
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolRulerBinding {
+        return FragmentToolRulerBinding.inflate(layoutInflater, container, false)
     }
 
 }
