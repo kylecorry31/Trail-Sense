@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.settings.CustomPreferenceFragment
 import com.kylecorry.trail_sense.settings.PressureChartPreference
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -23,12 +24,13 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
 
-class CalibrateBarometerFragment : PreferenceFragmentCompat() {
+class CalibrateBarometerFragment : CustomPreferenceFragment() {
 
     private lateinit var prefs: UserPreferences
     private lateinit var sensorService: SensorService
@@ -261,6 +263,8 @@ class CalibrateBarometerFragment : PreferenceFragmentCompat() {
                 )
             true
         }
+
+        preference(R.string.pref_barometer_info_holder)?.icon?.setTint(UiUtils.getAndroidColorAttr(requireContext(), android.R.attr.textColorSecondary))
 
     }
 

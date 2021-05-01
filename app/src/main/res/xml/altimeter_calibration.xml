@@ -46,14 +46,6 @@
             app:singleLineTitle="false"
             app:title="@string/altitude_from_pressure" />
 
-        <SwitchPreferenceCompat
-            android:summary="@string/pref_altitude_offsets_summary"
-            app:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_altitude_offsets"
-            app:singleLineTitle="false"
-            app:title="@string/add_elevation_offsets" />
-
 
     </PreferenceCategory>
 

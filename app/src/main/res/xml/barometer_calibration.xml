@@ -12,6 +12,7 @@
             android:title="@string/pref_barometer_pressure_title"
             app:icon="@drawable/barometer"
             app:key="@string/pref_holder_pressure"
+            app:selectable="false"
             app:singleLineTitle="false" />
 
         <com.kylecorry.trail_sense.settings.PressureChartPreference
@@ -87,10 +88,17 @@
             app:title="@string/pref_adjust_for_temperature_title" />
 
         <Preference
+            android:icon="@drawable/ic_info"
+            android:summary="@string/pref_barometer_info_summary"
+            app:key="@string/pref_barometer_info_holder"
+            app:selectable="false" />
+
+        <Preference
             android:summary="@string/dash"
             android:title="@string/pref_temperature_holder_title"
             app:icon="@drawable/thermometer_colored"
             app:key="@string/pref_temperature_holder"
+            app:selectable="false"
             app:singleLineTitle="false" />
 
         <!--        Celsius calibration-->

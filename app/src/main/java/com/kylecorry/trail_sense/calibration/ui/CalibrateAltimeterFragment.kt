@@ -38,7 +38,6 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
 
     private lateinit var altitudeTxt: Preference
     private lateinit var calibrationModeList: ListPreference
-    private lateinit var elevationCorrectionSwitch: SwitchPreferenceCompat
     private lateinit var altitudeOverridePref: Preference
     private lateinit var altitudeOverrideGpsBtn: Preference
     private lateinit var altitudeOverrideBarometerEdit: EditTextPreference
@@ -69,7 +68,6 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
     private fun bindPreferences() {
         altitudeTxt = findPreference(getString(R.string.pref_holder_altitude))!!
         calibrationModeList = findPreference(getString(R.string.pref_altimeter_calibration_mode))!!
-        elevationCorrectionSwitch = findPreference(getString(R.string.pref_altitude_offsets))!!
         altitudeOverridePref = findPreference(getString(R.string.pref_altitude_override))!!
         altitudeOverrideGpsBtn = findPreference(getString(R.string.pref_altitude_from_gps_btn))!!
         altitudeOverrideBarometerEdit =
@@ -105,11 +103,6 @@ class CalibrateAltimeterFragment : PreferenceFragmentCompat() {
 
         altitudeOverrideGpsBtn.setOnPreferenceClickListener {
             updateElevationFromGPS()
-            true
-        }
-
-        elevationCorrectionSwitch.setOnPreferenceClickListener {
-            restartAltimeter()
             true
         }
 

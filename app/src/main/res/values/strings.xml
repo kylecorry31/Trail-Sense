@@ -1000,4 +1000,7 @@
     <string name="sunrise_type">Sunrise (%s)</string>
     <string name="sunset_type">Sunset (%s)</string>
     <string name="battery_history">Battery history - last %s</string>
+    <string name="pref_nmea_altitude" translatable="false">pref_nmea_altitude</string>
+    <string name="pref_barometer_info_holder" translatable="false">pref_barometer_info_holder</string>
+    <string name="pref_barometer_info_summary">The pressure may differ from that of nearby stations</string>
 </resources>

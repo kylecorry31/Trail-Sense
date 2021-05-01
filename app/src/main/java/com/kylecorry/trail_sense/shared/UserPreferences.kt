@@ -170,9 +170,8 @@ class UserPreferences(private val context: Context) {
         get() = cache.getBoolean(getString(R.string.pref_fine_tune_altitude)) ?: true
         set(value) = cache.putBoolean(getString(R.string.pref_fine_tune_altitude), value)
 
-    var useAltitudeOffsets: Boolean
-        get() = cache.getBoolean(getString(R.string.pref_altitude_offsets)) ?: true
-        set(value) = cache.putBoolean(getString(R.string.pref_altitude_offsets), value)
+    val useNMEA: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_nmea_altitude)) ?: false
 
     val odometerDistanceThreshold: Distance
         get() = Distance.meters(15f)

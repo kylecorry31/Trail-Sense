@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.ApproximateCoordinate
@@ -93,18 +94,26 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         _location = baseGPS.location
         _speed = baseGPS.speed
         _verticalAccuracy = baseGPS.verticalAccuracy
-        _altitude = baseGPS.altitude
         _time = baseGPS.time
         _horizontalAccuracy = baseGPS.horizontalAccuracy
         _quality = baseGPS.quality
         _satellites = baseGPS.satellites
         _mslAltitude = baseGPS.mslAltitude
+        val newMSLOffset = baseGPS.altitude - (baseGPS.mslAltitude ?: baseGPS.altitude)
+        if (newMSLOffset != 0f){
+            mslOffset = newMSLOffset
+        }
+
+        _altitude = baseGPS.altitude - getGeoidOffset(_location)
 
         updateCache()
+    }
 
-        if (userPrefs.useAltitudeOffsets) {
-            _altitude -= AltitudeCorrection.getOffset(_location, context)
+    private fun getGeoidOffset(location: Coordinate): Float {
+        if (userPrefs.useNMEA){
+            return mslOffset
         }
+        return AltitudeCorrection.getOffset(location, context)
     }
 
     private fun cacheHasNewerReading(): Boolean {
@@ -120,9 +129,6 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         _altitude = cache.getFloat(LAST_ALTITUDE) ?: 0f
         _speed = Speed(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
         _time = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
-        if (userPrefs.useAltitudeOffsets) {
-            _altitude -= AltitudeCorrection.getOffset(_location, context)
-        }
     }
 
     private fun updateOdometer(){
@@ -175,10 +181,6 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         }
 
         updateFromBase()
-
-        if (userPrefs.useAltitudeOffsets && _mslAltitude != null){
-            _altitude = _mslAltitude ?: 0f
-        }
 
         if (shouldNotify && location != Coordinate.zero){
             updateOdometer()
