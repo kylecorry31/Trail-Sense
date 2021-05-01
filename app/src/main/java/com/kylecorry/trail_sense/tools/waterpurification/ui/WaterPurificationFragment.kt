@@ -5,7 +5,6 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBinding
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -14,11 +13,12 @@ import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.water.WaterService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.roundToInt
 
-class WaterPurificationFragment : Fragment() {
+class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val altimeter by lazy { sensorService.getAltimeter(false) }
@@ -27,14 +27,8 @@ class WaterPurificationFragment : Fragment() {
     private var duration: Duration? = null
     private val waterService = WaterService()
 
-    private var _binding: FragmentToolWaterPurificationBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentToolWaterPurificationBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.boilButton.setOnClickListener {
             if (timer == null) {
                 start()
@@ -42,22 +36,18 @@ class WaterPurificationFragment : Fragment() {
                 stop()
             }
         }
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onResume() {
         super.onResume()
 
-        if (!altimeter.hasValidReading || duration == null) {
+        if (!altimeter.hasValidReading) {
             binding.boilLoading.visibility = View.VISIBLE
             binding.timeLeft.visibility = View.INVISIBLE
             binding.boilButton.visibility = View.INVISIBLE
             altimeter.start(this::updateAltitude)
+        } else {
+            updateAltitude()
         }
 
         val lastEndTime = cache.getLong(WATER_PURIFICATION_END_TIME_KEY)
@@ -137,6 +127,13 @@ class WaterPurificationFragment : Fragment() {
 
     companion object {
         const val WATER_PURIFICATION_END_TIME_KEY = "water_purification_start_time"
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentToolWaterPurificationBinding {
+        return FragmentToolWaterPurificationBinding.inflate(layoutInflater, container, false)
     }
 
 }

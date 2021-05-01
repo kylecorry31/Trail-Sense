@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
-import com.kylecorry.trail_sense.shared.CachedValue
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
@@ -9,6 +8,7 @@ import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
+import com.kylecorry.trailsensecore.infrastructure.persistence.MemoryCachedValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Instant
@@ -22,7 +22,7 @@ class WeatherContextualService private constructor(private val context: Context)
 
     private lateinit var weatherService: WeatherService
 
-    private var cachedValue = CachedValue<ForecastCache>()
+    private var cachedValue = MemoryCachedValue<ForecastCache>()
 
     init {
         resetWeatherService()

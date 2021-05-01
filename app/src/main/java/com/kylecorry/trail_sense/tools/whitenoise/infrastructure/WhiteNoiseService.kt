@@ -30,7 +30,7 @@ class WhiteNoiseService : ForegroundService() {
             offTimer.once(Duration.between(Instant.now(), stopAt))
         }
 
-        whiteNoise = MyPinkNoise()
+        whiteNoise = PinkNoise()
         whiteNoise?.fadeOn()
         return START_STICKY_COMPATIBILITY
     }

@@ -36,9 +36,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -165,6 +163,9 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     override fun onPause() {
         super.onPause()
+        if (lifecycleScope.isActive) {
+            lifecycleScope.cancel()
+        }
         leftQuickAction?.onPause()
         rightQuickAction?.onPause()
         gps.stop(this::onLocationUpdate)
