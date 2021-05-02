@@ -64,10 +64,10 @@
     <string name="theme_black">Schwarz</string>
     <string name="theme_system">System</string>
     <string name="gps">GPS</string>
-    <string name="sun_actual">Tatsächliche Zeit</string>
-    <string name="sun_civil">Bürgerliche Dämmerung</string>
-    <string name="sun_nautical">Nautische Dämmerung</string>
-    <string name="sun_astronomical">Astronomische Dämmerung</string>
+    <string name="sun_actual">Tatsächlich</string>
+    <string name="sun_civil">Bürgerlich</string>
+    <string name="sun_nautical">Nautisch</string>
+    <string name="sun_astronomical">Astronomisch</string>
     <string name="today">Heute</string>
     <string name="tomorrow">Morgen</string>
     <string name="yesterday">Gestern</string>
@@ -849,4 +849,7 @@
     <string name="pref_show_noon_summary">Sonnen- und Mondmittag</string>
     <string name="noon">Mittag</string>
     <string name="fields">Felder</string>
+    <string name="sunset_type">Sonnenuntergang (%s)</string>
+    <string name="sunrise_type">Sonnenaufgang (%s)</string>
+    <string name="weather_monitor">Wettermonitor</string>
 </resources>

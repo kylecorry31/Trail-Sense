@@ -61,10 +61,10 @@
     <string name="theme_black">黑色</string>
     <string name="theme_system">系统</string>
     <string name="gps">全球定位系统</string>
-    <string name="sun_actual">实际时间</string>
-    <string name="sun_civil">暮光之城</string>
-    <string name="sun_nautical">航海暮光之城</string>
-    <string name="sun_astronomical">天文暮光</string>
+    <string name="sun_actual">实际</string>
+    <string name="sun_civil">民用</string>
+    <string name="sun_nautical">航海</string>
+    <string name="sun_astronomical">天文</string>
     <string name="today">今天</string>
     <string name="tomorrow">明天</string>
     <string name="yesterday">昨天</string>
@@ -841,4 +841,6 @@
     <string name="noon">正午</string>
     <string name="fields">视野</string>
     <string name="weather_monitor">天气监控器</string>
+    <string name="sunset_type">日落 (%s)</string>
+    <string name="sunrise_type">日出 (%s)</string>
 </resources>
