@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/cirrocumulus" />
+        tools:src="@drawable/maps" />
 
     <TextView
         android:id="@+id/name"
@@ -26,7 +26,7 @@
         android:layout_marginEnd="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/menu_btn"
         app:layout_constraintStart_toEndOf="@+id/map_img"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Name" />
@@ -45,4 +45,19 @@
         app:layout_constraintStart_toStartOf="@+id/name"
         app:layout_constraintTop_toBottomOf="@+id/name"
         tools:text="On map" />
+
+    <ImageButton
+        android:id="@+id/menu_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0.86"
+        android:contentDescription="@string/menu"
+        android:background="@android:color/transparent"
+        android:tint="?android:textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_menu_dots" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

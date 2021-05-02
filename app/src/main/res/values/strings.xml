@@ -1013,4 +1013,5 @@
     <string name="pref_barometer_pressure_smoothing_title">Pressure smoothing</string>
     <string name="pref_barometer_altitude_smoothing_title">Altitude smoothing</string>
     <string name="pref_barometer_altitude_outlier_title">Altitude outlier removal</string>
+    <string name="delete_map">Delete map?</string>
 </resources>

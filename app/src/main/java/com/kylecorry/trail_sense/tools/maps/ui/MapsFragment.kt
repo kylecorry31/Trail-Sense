@@ -153,14 +153,24 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
             UiUtils.openMenu(it, R.menu.map_menu) {
                 when (it) {
                     R.id.action_map_delete -> {
-                        lifecycleScope.launch {
-                            withContext(Dispatchers.IO) {
-                                map?.let {
-                                    mapRepo.deleteMap(it)
+                        UiUtils.alertWithCancel(
+                            requireContext(),
+                            getString(R.string.delete_map),
+                            map?.name ?: "",
+                            getString(R.string.dialog_ok),
+                            getString(R.string.dialog_cancel)
+                        ) { cancelled ->
+                            if (!cancelled) {
+                                lifecycleScope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        map?.let {
+                                            mapRepo.deleteMap(it)
+                                        }
+                                    }
+                                    withContext(Dispatchers.IO) {
+                                        requireActivity().onBackPressed()
+                                    }
                                 }
-                            }
-                            withContext(Dispatchers.IO) {
-                                requireActivity().onBackPressed()
                             }
                         }
                     }
@@ -263,6 +273,11 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.map.setMyLocation(gps.location)
     }
 
     private fun displayPaths() {

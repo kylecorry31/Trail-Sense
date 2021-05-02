@@ -111,6 +111,30 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     bundleOf("mapId" to map.id)
                 )
             }
+            mapItemBinding.menuBtn.setOnClickListener {
+                UiUtils.openMenu(it, R.menu.map_list_item_menu) {
+                    when (it) {
+                        R.id.action_map_delete -> {
+                            UiUtils.alertWithCancel(
+                                requireContext(),
+                                getString(R.string.delete_map),
+                                map.name,
+                                getString(R.string.dialog_ok),
+                                getString(R.string.dialog_cancel)
+                            ) { cancelled ->
+                                if (!cancelled) {
+                                    lifecycleScope.launch {
+                                        withContext(Dispatchers.IO) {
+                                            mapRepo.deleteMap(map)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    true
+                }
+            }
         }
 
         mapList.addLineSeparator()
@@ -190,9 +214,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     }
                     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
                     val bp = PDFUtils.asBitmap(requireContext(), uri)
-                    if (bp == null){
-                        withContext(Dispatchers.Main){
-                            UiUtils.shortToast(requireContext(), getString(R.string.error_importing_map))
+                    if (bp == null) {
+                        withContext(Dispatchers.Main) {
+                            UiUtils.shortToast(
+                                requireContext(),
+                                getString(R.string.error_importing_map)
+                            )
                             binding.mapLoading.isVisible = false
                         }
                         return@withContext
@@ -205,9 +232,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     } catch (e: Exception) {
                         null
                     }
-                    if (stream == null){
-                        withContext(Dispatchers.Main){
-                            UiUtils.shortToast(requireContext(), getString(R.string.error_importing_map))
+                    if (stream == null) {
+                        withContext(Dispatchers.Main) {
+                            UiUtils.shortToast(
+                                requireContext(),
+                                getString(R.string.error_importing_map)
+                            )
                             binding.mapLoading.isVisible = false
                             binding.addBtn.isEnabled = true
                         }
@@ -226,8 +256,11 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
                     }
                 } catch (e: IOException) {
-                    withContext(Dispatchers.Main){
-                        UiUtils.shortToast(requireContext(), getString(R.string.error_importing_map))
+                    withContext(Dispatchers.Main) {
+                        UiUtils.shortToast(
+                            requireContext(),
+                            getString(R.string.error_importing_map)
+                        )
                         binding.mapLoading.isVisible = false
                         binding.addBtn.isEnabled = true
                     }
@@ -245,7 +278,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     )
                 )
 
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     if (calibration1 != null) {
                         UiUtils.shortToast(
                             requireContext(),
