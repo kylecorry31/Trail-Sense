@@ -131,7 +131,7 @@
     <string name="delete_beacon_group">Slett gruppe</string>
     <string name="error_occurred">En feil inntraff</string>
     <string name="sun_moon_compass_never">Aldri</string>
-    <string name="sun_actual">Faktisk tid</string>
+    <string name="sun_actual">Faktisk</string>
     <string name="pref_show_sun_moon_compass_title">Vis solen/månen på kompasset</string>
     <string name="pref_sun_time_mode_title">Soloppgangs/solnedgangs-tider</string>
     <string name="pref_weather_update_frequency_title">Væroppdateringshyppighet</string>
@@ -256,9 +256,9 @@
     <string name="category_food">Mat</string>
     <string name="pref_sunset_alert_time_title">Tid for solnedgangsvarsel</string>
     <string name="pref_sunset_alerts_title">Solnedgangsvarsler</string>
-    <string name="sun_astronomical">Astronomisk tussmørke</string>
-    <string name="sun_nautical">Nautisk tussmørke</string>
-    <string name="sun_civil">Alminnelig tussmørke</string>
+    <string name="sun_astronomical">Astronomisk</string>
+    <string name="sun_nautical">Nautisk</string>
+    <string name="sun_civil">Alminnelig</string>
     <string name="sunset_alert_channel_description">Solnedgangsvarsler</string>
     <string name="pressure_tendency_format_2">%s / 3t</string>
     <string name="pressure_tendency_format">%s %s / 3t</string>
@@ -673,4 +673,7 @@
     <string name="experimental_features">Tidevann, kart og siktkompass</string>
     <string name="camera_permission_denied">Kameratillatelse avslått, kan ikke slå på kamerafunksjoner. Du kan aktivere tillatelse i innstillinger.</string>
     <string name="pref_show_noon_summary">Solens og månens kulminasjon</string>
+    <string name="sunset_type">Solnedgang (%s)</string>
+    <string name="sunrise_type">Soloppgang (%s)</string>
+    <string name="weather_monitor">Værovervåking</string>
 </resources>

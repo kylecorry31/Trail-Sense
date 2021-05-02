@@ -388,10 +388,10 @@
     <string name="sun_moon_compass_never">Ніколи</string>
     <string name="sun_moon_compass_when_up">Коли зійшло</string>
     <string name="sun_moon_compass_always">Завжди</string>
-    <string name="sun_astronomical">Астрономічні сутінки</string>
-    <string name="sun_nautical">Морські сутінки</string>
-    <string name="sun_civil">Цивільні сутінки</string>
-    <string name="sun_actual">Фактичний час</string>
+    <string name="sun_astronomical">Астрономічний</string>
+    <string name="sun_nautical">Морський</string>
+    <string name="sun_civil">Цивільний</string>
+    <string name="sun_actual">Фактичний</string>
     <string name="pref_show_sun_moon_compass_title">Показувати сонце/місяць на компасі</string>
     <string name="pref_sun_time_mode_title">Схід/захід сонця</string>
     <string name="pref_weather_update_frequency_title">Частота оновлення погоди</string>
@@ -866,4 +866,6 @@
     <string name="noon">Полудень</string>
     <string name="fields">Поля</string>
     <string name="weather_monitor">Відстеження погоди</string>
+    <string name="sunset_type">Захід сонця (%s)</string>
+    <string name="sunrise_type">Схід сонця (%s)</string>
 </resources>

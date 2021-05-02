@@ -67,10 +67,10 @@
     <string name="theme_black">Czarny</string>
     <string name="theme_system">Systemowy</string>
     <string name="gps">GPS</string>
-    <string name="sun_actual">Czas rzeczywisty</string>
-    <string name="sun_civil">Zmierzch cywilny</string>
-    <string name="sun_nautical">Zmierzch żeglarski</string>
-    <string name="sun_astronomical">Zmierzch astronomiczny</string>
+    <string name="sun_actual">rzeczywisty</string>
+    <string name="sun_civil">cywilny</string>
+    <string name="sun_nautical">żeglarski</string>
+    <string name="sun_astronomical">astronomiczny</string>
     <string name="today">Dziś</string>
     <string name="tomorrow">Jutro</string>
     <string name="yesterday">Wczoraj</string>
@@ -766,7 +766,7 @@
     <string name="guide_using_printed_maps_desc">Jak korzystać z map drukowanych w programie Trail Sense</string>
     <string name="guide_using_printed_maps">Korzystanie z map drukowanych</string>
     <string name="guide_navigation_description">Jak nawigować za pomocą programu Trail Sence</string>
-    <string name="experimental_features">Pływy i mapy</string>
+    <string name="experimental_features">Pływy, mapy i kompas</string>
     <string name="previous">Poprzedni</string>
     <string name="next">Dalej</string>
     <string name="guide_importing_maps_title">Importowanie mapy</string>
@@ -839,4 +839,7 @@
     <string name="whistle_signal_come_here">Chodź tu</string>
     <string name="whistle_signal_acknowledged">Potwierdzony</string>
     <string name="whistle_signal_where_are_you">Gdzie jesteś\?</string>
+    <string name="sunset_type">Zachód słońca (%s)</string>
+    <string name="sunrise_type">Wschód słońca (%s)</string>
+    <string name="weather_monitor">Monitorowanie pogody</string>
 </resources>
