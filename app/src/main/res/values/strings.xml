@@ -1005,6 +1005,12 @@
     <string name="pref_barometer_info_summary">The pressure may differ from that of nearby stations</string>
     <string name="pref_nmea_altitude_title">NMEA altitude offsets</string>
     <string name="pref_nmea_altitude_summary">Uses NMEA offsets for altitude conversion</string>
-    <string name="pref_experimental_barometer_calibration">pref_experimental_barometer_calibration</string>
+    <string name="pref_experimental_barometer_calibration" translatable="false">pref_experimental_barometer_calibration</string>
     <string name="pref_experimental_barometer_calibration_title">Use experimental calibration</string>
+    <string name="pref_barometer_altitude_outlier" translatable="false">pref_barometer_altitude_outlier</string>
+    <string name="pref_barometer_pressure_smoothing" translatable="false">pref_barometer_pressure_smoothing</string>
+    <string name="pref_barometer_altitude_smoothing">pref_barometer_altitude_smoothing</string>
+    <string name="pref_barometer_pressure_smoothing_title">Pressure smoothing</string>
+    <string name="pref_barometer_altitude_smoothing_title">Altitude smoothing</string>
+    <string name="pref_barometer_altitude_outlier_title">Altitude outlier removal</string>
 </resources>

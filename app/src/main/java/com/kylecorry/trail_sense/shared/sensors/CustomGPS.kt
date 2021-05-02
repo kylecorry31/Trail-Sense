@@ -110,7 +110,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     }
 
     private fun getGeoidOffset(location: Coordinate): Float {
-        if (userPrefs.useNMEA){
+        if (userPrefs.useNMEA && mslOffset != 0f){
             return mslOffset
         }
         return AltitudeCorrection.getOffset(location, context)

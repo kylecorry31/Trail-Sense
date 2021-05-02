@@ -5,6 +5,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.math.toIntCompat
+import com.kylecorry.trailsensecore.domain.weather.ISeaLevelPressureConverter
+import com.kylecorry.trailsensecore.domain.weather.KalmanSeaLevelPressureConverter
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -12,6 +14,7 @@ import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
+import kotlin.math.pow
 
 class WeatherPreferences(private val context: Context) {
 
@@ -35,6 +38,37 @@ class WeatherPreferences(private val context: Context) {
                 return false
             }
             return cache.getBoolean(context.getString(R.string.pref_experimental_barometer_calibration)) ?: false
+        }
+
+    val experimentalConverter: ISeaLevelPressureConverter?
+        get() {
+            if (!useExperimentalCalibration){
+                return null
+            }
+            return KalmanSeaLevelPressureConverter(
+                altitudeOutlierThreshold = altitudeOutlier,
+                defaultGPSError = 34f,
+                defaultPressureError = 1f,
+                pressureProcessError = (1 - pressureSmoothing / 100f).pow(4) * 0.1f,
+                altitudeProcessError = (1 - altitudeSmoothing / 100f).pow(4) * 0.4f,
+                adjustWithTime = true,
+                replaceLastOutlier = true
+            )
+        }
+
+    val altitudeOutlier: Float
+        get() = cache.getInt(context.getString(R.string.pref_barometer_altitude_outlier))?.toFloat() ?: 34f
+
+    val pressureSmoothing: Float
+        get(){
+            val raw = (cache.getInt(context.getString(R.string.pref_barometer_pressure_smoothing)) ?: 500) / 1000f
+            return raw * 100
+        }
+
+    val altitudeSmoothing: Float
+        get(){
+            val raw = (cache.getInt(context.getString(R.string.pref_barometer_altitude_smoothing)) ?: 500) / 1000f
+            return raw * 100
         }
 
     var weatherUpdateFrequency: Duration

@@ -209,7 +209,7 @@ class CalibrateAltimeterFragment : CustomPreferenceFragment() {
             prefs.weather.requireDwell,
             prefs.weather.maxNonTravellingAltitudeChange,
             prefs.weather.maxNonTravellingPressureChange,
-            prefs.weather.useExperimentalCalibration
+            prefs.weather.experimentalConverter
         ).first()
         prefs.seaLevelPressureOverride = seaLevel.value
         return prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer

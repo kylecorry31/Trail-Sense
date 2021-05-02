@@ -13,6 +13,10 @@ abstract class CustomPreferenceFragment: PreferenceFragmentCompat() {
         return preferenceManager.findPreference(getString(id))
     }
 
+    protected fun seekBar(@StringRes id: Int): SeekBarPreference? {
+        return preferenceManager.findPreference(getString(id))
+    }
+
     protected fun editText(@StringRes id: Int): EditTextPreference? {
         return preferenceManager.findPreference(getString(id))
     }

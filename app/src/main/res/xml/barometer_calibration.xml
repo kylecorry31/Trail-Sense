@@ -38,13 +38,14 @@
 
         <SwitchPreferenceCompat
             android:dependency="@string/pref_use_sea_level_pressure"
+            android:summary="@string/experimental"
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_experimental_barometer_calibration"
             app:singleLineTitle="false"
-            android:summary="@string/experimental"
             app:title="@string/pref_experimental_barometer_calibration_title" />
 
+        <!--        Barometer calibration settings-->
         <SeekBarPreference
             android:defaultValue="60"
             android:dependency="@string/pref_use_sea_level_pressure"
@@ -85,6 +86,44 @@
             app:seekBarIncrement="1"
             app:singleLineTitle="false"
             app:title="@string/pref_sea_level_pressure_change_thresh_title"
+            app:updatesContinuously="true" />
+
+        <!--        Experimental settings-->
+        <SeekBarPreference
+            android:defaultValue="34"
+            android:dependency="@string/pref_experimental_barometer_calibration"
+            android:max="200"
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
+            app:key="@string/pref_barometer_altitude_outlier"
+            app:min="0"
+            app:seekBarIncrement="1"
+            app:singleLineTitle="false"
+            app:title="@string/pref_barometer_altitude_outlier_title"
+            app:updatesContinuously="true" />
+        <SeekBarPreference
+            android:defaultValue="500"
+            android:dependency="@string/pref_experimental_barometer_calibration"
+            android:max="1000"
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
+            app:key="@string/pref_barometer_altitude_smoothing"
+            app:min="0"
+            app:seekBarIncrement="1"
+            app:singleLineTitle="false"
+            app:title="@string/pref_barometer_altitude_smoothing_title"
+            app:updatesContinuously="true" />
+        <SeekBarPreference
+            android:defaultValue="500"
+            android:dependency="@string/pref_experimental_barometer_calibration"
+            android:max="1000"
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
+            app:key="@string/pref_barometer_pressure_smoothing"
+            app:min="0"
+            app:seekBarIncrement="1"
+            app:singleLineTitle="false"
+            app:title="@string/pref_barometer_pressure_smoothing_title"
             app:updatesContinuously="true" />
 
         <SwitchPreferenceCompat

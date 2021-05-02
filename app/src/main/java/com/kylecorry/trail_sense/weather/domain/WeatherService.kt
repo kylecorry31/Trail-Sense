@@ -57,14 +57,19 @@ class WeatherService(
         requiresDwell: Boolean,
         maxAltitudeChange: Float,
         maxPressureChange: Float,
-        useExperimentalCalibration: Boolean
+        experimentalConverter: ISeaLevelPressureConverter?
     ): List<PressureReading> {
 
-        if (useExperimentalCalibration) {
-            // TODO: Factor in time
-            return KalmanSeaLevelPressureConverter(
-                altitudeOutlierThreshold = 20f
-            ).convert(readings, adjustSeaLevelWithTemp)
+        if (experimentalConverter != null) {
+            // TODO: Factor in time and handle points at the start and end
+                var duration = 0f
+            for (i in 1..readings.lastIndex){
+                val d = Duration.between(readings[i-1].time, readings[i].time)
+                duration += d.seconds / readings.size.toFloat()
+            }
+            duration /= 60 * 60
+            println(duration)
+            return experimentalConverter.convert(readings, adjustSeaLevelWithTemp)
         }
 
         val seaLevelConverter = AltimeterSeaLevelPressureConverter(

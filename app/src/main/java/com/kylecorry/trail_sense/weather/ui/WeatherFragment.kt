@@ -252,7 +252,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         return weatherService.convertToSeaLevel(
             readings, prefs.weather.requireDwell, prefs.weather.maxNonTravellingAltitudeChange,
             prefs.weather.maxNonTravellingPressureChange,
-            prefs.weather.useExperimentalCalibration
+            prefs.weather.experimentalConverter
         )
     }
 

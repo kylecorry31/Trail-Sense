@@ -42,7 +42,12 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
     private var seaLevelSwitch: SwitchPreferenceCompat? = null
     private var altitudeChangeSeekBar: SeekBarPreference? = null
     private var pressureChangeSeekBar: SeekBarPreference? = null
+    private var altitudeOutlierSeekBar: SeekBarPreference? = null
+    private var pressureSmoothingSeekBar: SeekBarPreference? = null
+    private var altitudeSmoothingSeekBar: SeekBarPreference? = null
     private var experimentalCalibrationSwitch: SwitchPreferenceCompat? = null
+
+
     private lateinit var minTempCalibratedC: EditTextPreference
     private lateinit var maxTempCalibratedC: EditTextPreference
     private lateinit var minTempUncalibratedC: EditTextPreference
@@ -126,6 +131,9 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
         }
 
         experimentalCalibrationSwitch = switch(R.string.pref_experimental_barometer_calibration)
+        altitudeOutlierSeekBar = seekBar(R.string.pref_barometer_altitude_outlier)
+        pressureSmoothingSeekBar = seekBar(R.string.pref_barometer_pressure_smoothing)
+        altitudeSmoothingSeekBar = seekBar(R.string.pref_barometer_altitude_smoothing)
 
         experimentalCalibrationSwitch?.isVisible = prefs.experimentalEnabled
 
@@ -166,6 +174,14 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
                     ), prefs.pressureUnits
                 )
             )
+
+        altitudeOutlierSeekBar?.summary =
+            (if (prefs.weather.altitudeOutlier == 0f) "" else "± ") + formatService.formatSmallDistance(
+                prefs.weather.altitudeOutlier
+            )
+
+        pressureSmoothingSeekBar?.summary = formatService.formatPercentage(prefs.weather.pressureSmoothing.toInt())
+        altitudeSmoothingSeekBar?.summary = formatService.formatPercentage(prefs.weather.altitudeSmoothing.toInt())
 
         if (prefs.temperatureUnits == TemperatureUnits.C) {
             minTempCalibratedF.isVisible = false
@@ -281,6 +297,31 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
             true
         }
 
+        altitudeOutlierSeekBar?.updatesContinuously = true
+        altitudeOutlierSeekBar?.setOnPreferenceChangeListener { _, newValue ->
+            altitudeOutlierSeekBar?.summary =
+                (if (newValue.toString()
+                        .toFloat() == 0f
+                ) "" else "± ") + formatService.formatSmallDistance(
+                    newValue.toString().toFloat()
+                )
+            true
+        }
+
+        pressureSmoothingSeekBar?.updatesContinuously = true
+        pressureSmoothingSeekBar?.setOnPreferenceChangeListener { _, newValue ->
+            val change = 100 * newValue.toString().toFloat() / 1000f
+            pressureSmoothingSeekBar?.summary = formatService.formatPercentage(change.toInt())
+            true
+        }
+
+        altitudeSmoothingSeekBar?.updatesContinuously = true
+        altitudeSmoothingSeekBar?.setOnPreferenceChangeListener { _, newValue ->
+            val change = 100 * newValue.toString().toFloat() / 1000f
+            altitudeSmoothingSeekBar?.summary = formatService.formatPercentage(change.toInt())
+            true
+        }
+
         preference(R.string.pref_barometer_info_holder)?.icon?.setTint(
             UiUtils.getAndroidColorAttr(
                 requireContext(),
@@ -369,10 +410,13 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
 
         val experimentalCalibration = prefs.weather.useExperimentalCalibration
 
-        altitudeChangeSeekBar?.isEnabled = !experimentalCalibration
-        pressureChangeSeekBar?.isEnabled = !experimentalCalibration
-        switch(R.string.pref_sea_level_use_rapid)?.isEnabled = !experimentalCalibration
-        switch(R.string.pref_sea_level_require_dwell)?.isEnabled = !experimentalCalibration
+        altitudeOutlierSeekBar?.isVisible = experimentalCalibration
+        pressureSmoothingSeekBar?.isVisible = experimentalCalibration
+        altitudeSmoothingSeekBar?.isVisible = experimentalCalibration
+        altitudeChangeSeekBar?.isVisible = !experimentalCalibration
+        pressureChangeSeekBar?.isVisible = !experimentalCalibration
+        switch(R.string.pref_sea_level_use_rapid)?.isVisible = !experimentalCalibration
+        switch(R.string.pref_sea_level_require_dwell)?.isVisible = !experimentalCalibration
 
 
         val pressure = if (seaLevelPressure) {
