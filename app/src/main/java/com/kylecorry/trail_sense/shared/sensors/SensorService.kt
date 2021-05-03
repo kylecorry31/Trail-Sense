@@ -83,6 +83,20 @@ class SensorService(ctx: Context) {
         }
     }
 
+    fun getGPSAltimeter(background: Boolean = false): IAltimeter {
+        val mode = userPrefs.altimeterMode
+
+        if (mode == UserPreferences.AltimeterMode.Override) {
+            return OverrideAltimeter(context)
+        } else {
+            if (!sensorChecker.hasGPS()) {
+                return CachedAltimeter(context)
+            }
+
+            return getGPS(background)
+        }
+    }
+
     fun getAltimeter(background: Boolean = false): IAltimeter {
 
         val mode = userPrefs.altimeterMode

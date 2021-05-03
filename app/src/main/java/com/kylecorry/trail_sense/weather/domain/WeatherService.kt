@@ -8,6 +8,7 @@ import com.kylecorry.trailsensecore.domain.weather.*
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import java.time.Duration
 import java.time.Instant
+import kotlin.math.pow
 
 class WeatherService(
     private val stormThreshold: Float,
@@ -61,14 +62,7 @@ class WeatherService(
     ): List<PressureReading> {
 
         if (experimentalConverter != null) {
-            // TODO: Factor in time and handle points at the start and end
-                var duration = 0f
-            for (i in 1..readings.lastIndex){
-                val d = Duration.between(readings[i-1].time, readings[i].time)
-                duration += d.seconds / readings.size.toFloat()
-            }
-            duration /= 60 * 60
-            println(duration)
+//            val r = readings.map { it.copy(altitudeError = it.altitudeError?.pow(2)) }
             return experimentalConverter.convert(readings, adjustSeaLevelWithTemp)
         }
 

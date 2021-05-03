@@ -82,7 +82,7 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
         units = prefs.pressureUnits
 
         barometer = sensorService.getBarometer()
-        altimeter = sensorService.getAltimeter()
+        altimeter = sensorService.getGPSAltimeter()
         thermometer = sensorService.getThermometer()
 
         bindPreferences()
@@ -406,17 +406,20 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
 
         updateChart()
 
+        val isOnTheWallMode = prefs.altimeterMode == UserPreferences.AltimeterMode.Override || !sensorChecker.hasGPS()
+
         val seaLevelPressure = prefs.weather.useSeaLevelPressure
 
         val experimentalCalibration = prefs.weather.useExperimentalCalibration
 
-        altitudeOutlierSeekBar?.isVisible = experimentalCalibration
-        pressureSmoothingSeekBar?.isVisible = experimentalCalibration
-        altitudeSmoothingSeekBar?.isVisible = experimentalCalibration
-        altitudeChangeSeekBar?.isVisible = !experimentalCalibration
-        pressureChangeSeekBar?.isVisible = !experimentalCalibration
-        switch(R.string.pref_sea_level_use_rapid)?.isVisible = !experimentalCalibration
-        switch(R.string.pref_sea_level_require_dwell)?.isVisible = !experimentalCalibration
+        experimentalCalibrationSwitch?.isVisible = prefs.experimentalEnabled && !isOnTheWallMode
+        altitudeOutlierSeekBar?.isVisible = experimentalCalibration && !isOnTheWallMode
+        pressureSmoothingSeekBar?.isVisible = experimentalCalibration && !isOnTheWallMode
+        altitudeSmoothingSeekBar?.isVisible = experimentalCalibration && !isOnTheWallMode
+        altitudeChangeSeekBar?.isVisible = !experimentalCalibration && !isOnTheWallMode
+        pressureChangeSeekBar?.isVisible = !experimentalCalibration && !isOnTheWallMode
+        switch(R.string.pref_sea_level_use_rapid)?.isVisible = !experimentalCalibration && !isOnTheWallMode
+        switch(R.string.pref_sea_level_require_dwell)?.isVisible = !experimentalCalibration && !isOnTheWallMode
 
 
         val pressure = if (seaLevelPressure) {

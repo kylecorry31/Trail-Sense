@@ -203,7 +203,6 @@
     <string name="pref_sea_level_use_rapid_title">Учитывать быстрые изменения давления</string>
     <string name="pref_adjust_for_temperature_title">Использовать данные о температуре</string>
     <string name="pref_adjust_for_temperature_summary">Использовать данные о температуре при расчете давления на уровне моря</string>
-    <string name="calibration_mode_barometer_alert_msg">Использование барометра для определения высоты может снизить точность прогноза погоды.</string>
     <string name="pref_altitude_override_sea_level_title">Используя данные о давлении на уровне моря</string>
     <string name="pref_altitude_offsets_summary">Корректирует показания высоты с учетом данных о высоте среднего уровня моря</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Ввод значения давления у уровня моря</string>

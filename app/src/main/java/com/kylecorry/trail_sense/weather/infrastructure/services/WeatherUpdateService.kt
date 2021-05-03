@@ -30,7 +30,7 @@ import java.time.*
 class WeatherUpdateService: CoroutineForegroundService() {
 
     private val sensorService by lazy { SensorService(this) }
-    private val altimeter by lazy { sensorService.getAltimeter(true) }
+    private val altimeter by lazy { sensorService.getGPSAltimeter(true) }
     private val barometer by lazy { sensorService.getBarometer() }
     private val thermometer by lazy { sensorService.getThermometer() }
     private val hygrometer by lazy { sensorService.getHygrometer() }

@@ -250,7 +250,6 @@
     <string name="pref_adjust_for_temperature_title">Fattore in temperatura</string>
     <string name="pref_altimeter_calibration_mode_title">Auto calibrazione</string>
     <string name="calibration_mode_barometer_alert_title">Barometro</string>
-    <string name="calibration_mode_barometer_alert_msg">Utilizzare il barometro come altimetro può ridurre l’accuratezza delle previsioni meteo.</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometro</string>
     <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_title">Utilizza una pressione nota al livello del mare</string>

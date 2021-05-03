@@ -216,7 +216,6 @@
     <string name="barometer_thermometer">气压计和温度计</string>
     <string name="pref_barometer_pressure_title">气压</string>
     <string name="pref_altimeter_calibration_mode_title">自动校准</string>
-    <string name="calibration_mode_barometer_alert_msg">将气压计用作海拔计可能降低天气预报准确性。</string>
     <string name="kilometers_per_hour_format">%.1f 千米/时</string>
     <string name="sun_moon_compass_when_up">升起时</string>
     <string name="pref_max_beacon_distance_title">附近的信标半径</string>

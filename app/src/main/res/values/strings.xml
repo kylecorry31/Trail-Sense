@@ -70,7 +70,7 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Tips for improving sensor data accuracy</string>
-    <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\u0020\u0020\u0020\u0020%s of actual location\n\u0020\u0020\u0020\u0020%s of actual altitude\n\u0020\u0020\u0020\u0020%s satellites\n\nCompass: Rotate device in a figure 8 pattern and move away from metal.</string>
+    <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\u0020\u0020\u0020\u0020%s of actual location\n\u0020\u0020\u0020\u0020%s of actual altitude\n\u0020\u0020\u0020\u0020%s satellites\n\nCompass: Rotate device in a figure 8 pattern or in all directions and move away from metal.</string>
     <!--Flashlight-->
     <string name="flashlight_title">Flashlight</string>
     <string name="tap_to_turn_off">Tap to turn off</string>
@@ -267,8 +267,8 @@
     <string name="pref_auto_declination_summary">Based on your current location</string>
     <string name="calibrate">Calibrate</string>
     <string name="calibrate_compass_dialog_title">Calibrate compass</string>
-    <string name="calibrate_compass_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.
+    <string name="calibrate_compass_dialog_content">Rotate your phone in a figure 8 pattern or in all directions several times, click %s when finished.</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">Rotate your phone in a figure 8 pattern or in all directions several times, click %s when finished.
 \n
 \nThis alert can be disabled in the app settings.</string>
     <string name="compass_reported_accuracy">Reported accuracy: %s</string>
@@ -304,7 +304,6 @@
     <string name="altimeter_mode_barometer">Barometer</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometer</string>
     <string name="altimeter_mode_override">Never</string>
-    <string name="calibration_mode_barometer_alert_msg">Using the barometer as an altimeter may reduce weather forecasting accuracy.</string>
     <string name="calibration_mode_barometer_alert_title">Barometer</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibration</string>
     <!--Settings - Sensors - Barometer-->

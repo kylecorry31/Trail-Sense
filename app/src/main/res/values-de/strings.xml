@@ -228,7 +228,6 @@
     <string name="altitude_override_updated_toast">Höhe festgelegt</string>
     <string name="pref_altitude_override_title">Höhe setzen</string>
     <string name="compass_accuracy_improved">Kompassgenauigkeit verbessert zu %s</string>
-    <string name="calibration_mode_barometer_alert_msg">Die Benutzung des Barometers als Höhenmesser kann die Genauigkeit der Wettervorhersage reduzieren.</string>
     <string name="add_elevation_offsets">Zeige Höhe über Meeresspiegel</string>
     <string name="pref_auto_location_title">Automatisches Anpassen des Ortes</string>
     <string name="update_60_minutes">1 Stunde</string>

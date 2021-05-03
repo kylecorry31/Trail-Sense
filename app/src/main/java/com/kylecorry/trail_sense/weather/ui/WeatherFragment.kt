@@ -40,7 +40,7 @@ import java.time.Instant
 class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private val barometer by lazy { sensorService.getBarometer() }
-    private val altimeter by lazy { sensorService.getAltimeter() }
+    private val altimeter by lazy { sensorService.getGPSAltimeter() }
     private val thermometer by lazy { sensorService.getThermometer() }
 
     private var altitude = 0F

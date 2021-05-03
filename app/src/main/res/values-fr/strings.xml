@@ -117,7 +117,6 @@
     <string name="pref_barometer_pressure_title">Pression</string>
     <string name="pref_altimeter_calibration_mode_title">Étalonnage automatique</string>
     <string name="calibration_mode_barometer_alert_title">Baromètre</string>
-    <string name="calibration_mode_barometer_alert_msg">Utiliser le baromètre en tant qu\'altimètre peut réduire la précision des prévisions météorologiques.</string>
     <string name="altimeter_mode_override">Jamais</string>
     <string name="altimeter_mode_gps_barometer">GPS + baromètre</string>
     <string name="altimeter_mode_barometer">Baromètre</string>

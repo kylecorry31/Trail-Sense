@@ -445,7 +445,6 @@
     <string name="pref_adjust_for_temperature_title">Використовувати дані про температуру</string>
     <string name="pref_use_sea_level_pressure_title">Тиск на рівні моря</string>
     <string name="pref_barometer_pressure_title">Тиск</string>
-    <string name="calibration_mode_barometer_alert_msg">Використання тискоміра (барометра) як висотоміра може знизити точність прогнозування погоди.</string>
     <string name="altimeter_mode_override">Ніколи</string>
     <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_title">Використовуючи дані про тиск на рівні моря</string>

@@ -317,7 +317,6 @@
     <string name="guide_conserving_battery_description">Spar batteri under bruk av Trail Sense</string>
     <string name="guide_conserving_battery_title">Batterisparing</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibrer før navigering</string>
-    <string name="calibration_mode_barometer_alert_msg">Bruk av barometer som høydemåler kan redusere værmeldingsnøyaktigheten.</string>
     <string name="pref_altitude_override_sea_level_title">Ved bruk av kjent havnivåtrykk</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Skriv inn havnivåtrykk</string>
     <string name="altitude_override_updated_toast">Høydeverdi oppdatert</string>
