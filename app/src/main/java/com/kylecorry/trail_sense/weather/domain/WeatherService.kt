@@ -58,8 +58,13 @@ class WeatherService(
         requiresDwell: Boolean,
         maxAltitudeChange: Float,
         maxPressureChange: Float,
-        experimentalConverter: ISeaLevelPressureConverter?
+        experimentalConverter: ISeaLevelPressureConverter?,
+        onTheWallMode: Boolean
     ): List<PressureReading> {
+
+        if (onTheWallMode){
+            return readings.map { it.seaLevel(adjustSeaLevelWithTemp) }
+        }
 
         if (experimentalConverter != null) {
 //            val r = readings.map { it.copy(altitudeError = it.altitudeError?.pow(2)) }
