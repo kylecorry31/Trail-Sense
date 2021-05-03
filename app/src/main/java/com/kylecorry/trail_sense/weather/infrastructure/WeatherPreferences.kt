@@ -50,13 +50,13 @@ class WeatherPreferences(private val context: Context) {
                 defaultGPSError = if (useAltitudeVariance) 34f.pow(2) else 34f,
                 defaultPressureError = 1f,
                 pressureProcessError = (1 - pressureSmoothing / 100f).pow(4) * 0.1f,
-                altitudeProcessError = (1 - altitudeSmoothing / 100f).pow(4) * 0.4f,
+                altitudeProcessError = (1 - altitudeSmoothing / 100f).pow(4) * 10f,
                 adjustWithTime = true,
                 replaceLastOutlier = true
             )
         }
 
-    val useAltitudeVariance: Boolean = false
+    val useAltitudeVariance: Boolean = true
 
     val altitudeOutlier: Float
         get() = cache.getInt(context.getString(R.string.pref_barometer_altitude_outlier))?.toFloat() ?: 34f
@@ -69,7 +69,7 @@ class WeatherPreferences(private val context: Context) {
 
     val altitudeSmoothing: Float
         get(){
-            val raw = (cache.getInt(context.getString(R.string.pref_barometer_altitude_smoothing)) ?: 500) / 1000f
+            val raw = (cache.getInt(context.getString(R.string.pref_barometer_altitude_smoothing)) ?: 0) / 1000f
             return raw * 100
         }
 

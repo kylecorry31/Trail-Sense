@@ -102,7 +102,7 @@
             app:title="@string/pref_barometer_altitude_outlier_title"
             app:updatesContinuously="true" />
         <SeekBarPreference
-            android:defaultValue="500"
+            android:defaultValue="0"
             android:dependency="@string/pref_experimental_barometer_calibration"
             android:max="1000"
             app:iconSpaceReserved="false"

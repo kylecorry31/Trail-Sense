@@ -33,7 +33,7 @@ class BeaconSharesheet(private val context: Context): IBeaconSender {
     }
 
     private fun getCoordinateLatLon(coordinate: Coordinate): String {
-        return "${coordinate.latitude}, ${coordinate.longitude}"
+        return coordinate.toDecimalDegrees()
     }
 
     private fun getCoordinateUtm(coordinate: Coordinate): String {
