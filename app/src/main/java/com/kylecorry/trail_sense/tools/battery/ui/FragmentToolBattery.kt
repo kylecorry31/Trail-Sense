@@ -232,7 +232,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
     }
 
     private fun getTimeUntilEmpty(): Duration? {
-        val hasCapacity = battery.capacity != 0f
+        val hasCapacity = false // battery.capacity != 0f
         val capacity = if (hasCapacity) battery.capacity else battery.percent
         val rates = powerService.getRates(readings, Duration.ofMinutes(5), hasCapacity)
         val lastDischargeRate = rates.lastOrNull { it < 0f } ?: return null
@@ -240,7 +240,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
     }
 
     private fun getTimeUntilFull(): Duration? {
-        val hasCapacity = battery.capacity != 0f
+        val hasCapacity = false // battery.capacity != 0f
         val capacity = if (hasCapacity) battery.capacity else battery.percent
         val rates = powerService.getRates(readings, Duration.ofMinutes(5), hasCapacity)
         val lastChargeRate = rates.lastOrNull { it > 0f } ?: return null
