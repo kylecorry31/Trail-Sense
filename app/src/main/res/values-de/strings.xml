@@ -775,7 +775,7 @@
     <string name="rename">Umbenennen</string>
     <string name="pedometer_disclaimer">Die Batterienutzung und Genauigkeit des Schrittzählers hängt vom Hersteller des Gerätes und der angegeben Schrittlänge ab. Probieren Sie es zu Hause aus, bevor Sie es beim Wandern benutzen, um die Batterienutzung und Genauigkeit zu prüfen.</string>
     <string name="guide_signaling_for_help_title">Signalisieren, dass man Hilfe braucht</string>
-    <string name="saltwater_switch">Salzwasser</string>
+    <string name="saltwater_switch">Salzwasser\?</string>
     <string name="tide_high_short">Flut</string>
     <string name="tide_low_short">Ebbe</string>
     <string name="experimental">Experimentell</string>
