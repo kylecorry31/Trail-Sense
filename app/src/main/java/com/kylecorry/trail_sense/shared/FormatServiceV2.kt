@@ -207,8 +207,7 @@ class FormatServiceV2(private val context: Context) {
     }
 
     fun formatElectricalCapacity(capacity: Float): String {
-        // TODO: Use decimal formatter
-        return context.getString(R.string.battery_capacity_format, capacity)
+        return context.getString(R.string.battery_capacity_format, DecimalFormatter.format(capacity, 0))
     }
 
     fun formatCurrent(current: Float): String {

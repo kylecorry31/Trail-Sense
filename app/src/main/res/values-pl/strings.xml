@@ -430,7 +430,6 @@
     <string name="charging_slow">Wolne ładowanie (%s)</string>
     <string name="charging_fast">Szybkie ładowanie (%s)</string>
     <string name="current_format">%.0f mA</string>
-    <string name="battery_capacity_format">%.2f mAh</string>
     <string name="compass_auto_declination">Automatyczna korekta deklinacji</string>
     <string name="compass_declination_override">Nadpisz deklinację</string>
     <string name="notes_empty_text">Brak notatek</string>
@@ -831,8 +830,8 @@
     <string name="pref_show_nautical_times_title">Czasy żeglarskie</string>
     <string name="pref_show_noon_summary">Południe słoneczne i księżycowe</string>
     <string name="noon">Południe</string>
-    <string name="time_until_full">%s pozostało do naładowania</string>
-    <string name="time_until_empty">%s pozostało do rozładowania</string>
+    <string name="time_until_full">pozostało do naładowania</string>
+    <string name="time_until_empty">pozostało do rozładowania</string>
     <string name="for_sunrise_and_set">Dla wschodu i zachodu słońca</string>
     <string name="fields">Pola</string>
     <string name="whistle_signal_come_here">Chodź tu</string>

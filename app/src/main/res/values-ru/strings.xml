@@ -495,7 +495,7 @@
     <string name="charging_slow">Медленная зарядка (%s)</string>
     <string name="charging_fast">Быстрая зарядка (%s)</string>
     <string name="current_format">%.0f мА</string>
-    <string name="battery_capacity_format">%.2f мАч</string>
+    <string name="battery_capacity_format">%s мАч</string>
     <string name="min_temp_uncalibrated">Мин. температура телефона (без калибровки)</string>
     <string name="min_temp_calibrated">Мин. температура окружающей среды (после калибровки)</string>
     <string name="max_temp_uncalibrated">Макс. температура телефона (без калибровки)</string>
@@ -787,7 +787,7 @@
     <string name="hour_symbol">ч</string>
     <string name="minute_symbol">м</string>
     <string name="map_auto_calibrated">Карта откалибрована автоматически, проверьте её точность</string>
-    <string name="time_until_empty">%s до опустения</string>
+    <string name="time_until_empty">до опустения</string>
     <string name="guide_speedometer_desc">Как определить пройденное расстояние и время прибытия</string>
     <string name="guide_speedometer_title">Определите скорость и расстояние</string>
     <string name="next">Далее</string>
@@ -839,7 +839,7 @@
     <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="actual_frequency_disclaimer">Фактическая частота может отличаться, так как для некоторых устройств установлены фоновые ограничения.</string>
     <string name="pref_backtrack_path_radar_summary">На радарном компасе и картах</string>
-    <string name="time_until_full">%s до полного</string>
+    <string name="time_until_full">до полного</string>
     <string name="theme_sunset_sunrise">Восход/закат</string>
     <string name="app_disclaimer_message_title">Отказ от ответственности / Условия использования</string>
     <string name="whistle_signal_come_here">Идите сюда</string>

@@ -242,10 +242,7 @@ class FormatService(private val context: Context) {
     }
 
     fun formatPressure(pressure: Float, unit: PressureUnits): String {
-        val symbol = getPressureUnitString(unit)
-        val format = PressureUnitUtils.getTendencyDecimalFormat(unit)
-        val amt = format.format(pressure)
-        return context.getString(R.string.pressure_format, amt, symbol)
+        return v2.formatPressure(Pressure(pressure, unit), 1)
     }
 
     private fun getPressureUnitString(unit: PressureUnits): String {
@@ -259,14 +256,6 @@ class FormatService(private val context: Context) {
 
     fun formatPercentage(percent: Int): String {
         return context.getString(R.string.percent_format, percent)
-    }
-
-    fun formatBatteryCapacity(capacity: Float): String {
-        return context.getString(R.string.battery_capacity_format, capacity)
-    }
-
-    fun formatCurrent(current: Float): String {
-        return context.getString(R.string.current_format, current)
     }
 
     fun formatMagneticField(magneticField: Float): String {

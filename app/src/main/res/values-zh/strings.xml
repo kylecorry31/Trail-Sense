@@ -467,7 +467,7 @@
     <string name="charging_slow">缓慢充电 (%s)</string>
     <string name="charging_fast">快速充电 (%s)</string>
     <string name="current_format">%.0f 毫安</string>
-    <string name="battery_capacity_format">%.2f 毫安时</string>
+    <string name="battery_capacity_format">%s 毫安时</string>
     <string name="percent_format">%d%%</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
@@ -785,7 +785,7 @@
     <string name="minute_symbol">分钟</string>
     <string name="pref_backtrack_path_radar_title">显示 Backtrack 路径</string>
     <string name="map_auto_calibrated">以自动校准地图，请验证其精度</string>
-    <string name="time_until_empty">离空还剩%s</string>
+    <string name="time_until_empty">离空还剩</string>
     <string name="pref_odometer_reset_daily_title">每天重置</string>
     <string name="sleep_timer">睡眠定时器</string>
     <plurals name="import_beacons">
@@ -816,7 +816,7 @@
     <string name="solid">实心</string>
     <string name="theme_sunset_sunrise">日出/日落</string>
     <string name="calibrate_new_tide">校准到新的潮汐？</string>
-    <string name="time_until_full">距离充满剩 %s</string>
+    <string name="time_until_full">距离充满剩</string>
     <string name="pref_show_last_signal_beacon_summary">为上一个手机信号位置创建一个信标</string>
     <string name="pref_show_last_signal_beacon_title">上一个信号信标</string>
     <string name="pref_show_last_signal_beacon">pref_show_last_signal_beacon</string>

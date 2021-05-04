@@ -208,7 +208,6 @@
     <string name="charging_slow">In ricarica lenta (%s)</string>
     <string name="charging_fast">In ricarica rapida (%s)</string>
     <string name="current_format">%.0f mA</string>
-    <string name="battery_capacity_format">%.2f mAh</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="percent_format">%d%%</string>
     <string name="degree">%s°</string>

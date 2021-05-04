@@ -430,7 +430,6 @@
     <string name="charging_slow">Lader sakte (%s)</string>
     <string name="charging_fast">Lader raskt (%s)</string>
     <string name="current_format">%.0f mA</string>
-    <string name="battery_capacity_format">%.2f mAh</string>
     <string name="metal_detector_disclaimer">Oppdager bare magnetiske metaller (f.eks. jern)</string>
     <string name="metal_detector_calibrate">Kalibrer</string>
     <string name="tool_metal_detector_title">Metalldetektor</string>

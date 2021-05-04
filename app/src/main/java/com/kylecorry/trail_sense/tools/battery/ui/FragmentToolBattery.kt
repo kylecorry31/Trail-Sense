@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.battery.ui
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainBinding
+import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.LowPowerMode
@@ -52,6 +54,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.batteryLevelProgress.horizontal = false
         servicesList =
             ListView(binding.runningServices, R.layout.list_item_plain) { serviceView, service ->
                 val serviceBinding = ListItemPlainBinding.bind(serviceView)
@@ -91,7 +94,10 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             chart.plot(readings, false)
             UiUtils.alertView(
                 requireContext(),
-                getString(R.string.battery_history, formatService.formatDuration(readingDuration, false)),
+                getString(
+                    R.string.battery_history,
+                    formatService.formatDuration(readingDuration, false)
+                ),
                 view,
                 getString(R.string.dialog_ok)
             )
@@ -120,7 +126,6 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
     override fun onResume() {
         super.onResume()
         intervalometer.interval(20)
-        binding.batteryChargeIndicator.visibility = View.INVISIBLE
         binding.batteryCurrent.text = ""
     }
 
@@ -148,17 +153,6 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         // If charging, show up arrow
         val chargingStatus = battery.chargingStatus
         val isCharging = chargingStatus == BatteryChargingStatus.Charging
-        when (chargingStatus) {
-            BatteryChargingStatus.Charging -> {
-                binding.batteryChargeIndicator.rotation = 0f
-                binding.batteryChargeIndicator.visibility = View.VISIBLE
-            }
-            BatteryChargingStatus.Discharging -> {
-                binding.batteryChargeIndicator.rotation = 180f
-                binding.batteryChargeIndicator.visibility = View.VISIBLE
-            }
-            else -> binding.batteryChargeIndicator.visibility = View.INVISIBLE
-        }
 
         // If charging and current is negative, invert current
         val current = battery.current.absoluteValue * if (isCharging) 1 else -1
@@ -170,16 +164,41 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         binding.batteryCapacity.text = formatService.formatElectricalCapacity(capacity)
         binding.batteryCapacity.isVisible = capacity != 0f
         binding.batteryTime.isVisible = time != null
-        if (time != null && !isCharging) {
-            binding.batteryTime.text =
-                getString(R.string.time_until_empty, formatService.formatDuration(time))
-        } else if (time != null && isCharging) {
-            binding.batteryTime.text =
-                getString(R.string.time_until_full, formatService.formatDuration(time))
+
+        if (time != null) {
+            binding.batteryTime.text = formatService.formatDuration(time)
         }
+
+        if (time != null && !isCharging) {
+            binding.batteryTimeLbl.text = getString(R.string.time_until_empty)
+        } else if (time != null && isCharging) {
+            binding.batteryTimeLbl.text = getString(R.string.time_until_full)
+        }
+        binding.batteryHealth.isVisible = battery.health != BatteryHealth.Good
         binding.batteryHealth.text =
             getString(R.string.battery_health, getHealthString(battery.health))
-        binding.batteryLevelBar.progress = pct
+        binding.batteryLevelProgress.progress = pct / 100f
+
+        binding.batteryPercentage.setShadowLayer(
+            6f,
+            0f,
+            0f,
+            UiUtils.getAndroidColorAttr(requireContext(), android.R.attr.textColorPrimaryInverse)
+        )
+        binding.batteryCapacity.setShadowLayer(
+            6f,
+            0f,
+            0f,
+            UiUtils.getAndroidColorAttr(requireContext(), android.R.attr.textColorPrimaryInverse)
+        )
+
+        binding.batteryLevelProgress.progressColor = when {
+            pct >= 75 -> AppColor.Green.color
+            pct >= 50 -> AppColor.Yellow.color
+            pct >= 25 -> AppColor.Orange.color
+            else -> AppColor.Red.color
+        }
+
 
         if (current.absoluteValue >= 0.5f) {
             val formattedCurrent = formatService.formatCurrent(current.absoluteValue)

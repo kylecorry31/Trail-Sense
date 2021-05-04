@@ -28,8 +28,8 @@
     <string name="minute_symbol">м</string>
     <string name="pref_backtrack_path_radar_title">Показати шлях історії маршруту</string>
     <string name="map_auto_calibrated">Мапа відкалібрована автоматично, перевірте її точність</string>
-    <string name="time_until_full">%s до повного</string>
-    <string name="time_until_empty">%s до порожнього</string>
+    <string name="time_until_full">до повного</string>
+    <string name="time_until_empty">до порожнього</string>
     <string name="guide_speedometer_desc">Як визначити пройдену відстань і час прибуття</string>
     <string name="guide_speedometer_title">Визначте швидкість і відстань</string>
     <string name="next">Далі</string>
@@ -807,7 +807,7 @@
     <string name="charging_slow">Повільне заряджання (%s)</string>
     <string name="charging_fast">Швидке заряджання (%s)</string>
     <string name="current_format">%.0f мА</string>
-    <string name="battery_capacity_format">%.2f мА/год</string>
+    <string name="battery_capacity_format">%s мА/год</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="percent_format">%d%%</string>
     <string name="degree">%s°</string>

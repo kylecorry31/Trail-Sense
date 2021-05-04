@@ -493,7 +493,6 @@
     <string name="charging_slow">Carregamento lento (%s)</string>
     <string name="charging_fast">Carregamento rápido (%s)</string>
     <string name="current_format">%.0f mA</string>
-    <string name="battery_capacity_format">%.2f mAh</string>
     <string name="tool_coordinate_convert_title">Conversor de coordenada</string>
     <string name="tool_notes_title">Notas</string>
     <string name="note_title_hint">Título</string>

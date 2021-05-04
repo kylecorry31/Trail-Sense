@@ -455,7 +455,6 @@
     <string name="two">2</string>
     <string name="one">1</string>
     <string name="current_format">%.0f mA</string>
-    <string name="battery_capacity_format">%.2f mAh</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="unit_inches">Zoll</string>
@@ -791,7 +790,7 @@
     <string name="minute_symbol">min</string>
     <string name="pref_backtrack_path_radar_title">Zeige Weg aus Rückweg</string>
     <string name="map_auto_calibrated">Karte wurde automatisch kalibriert, bitte überprüfe die Genauigkeit</string>
-    <string name="time_until_empty">%s bis leer</string>
+    <string name="time_until_empty">bis leer</string>
     <plurals name="import_beacons">
         <item quantity="one">%d Wegpunkt importieren\?</item>
         <item quantity="other">%d Wegpunkte importieren\?</item>
@@ -824,7 +823,7 @@
     <string name="pref_backtrack_path_color_title">Pfadfarbe für Backtrack</string>
     <string name="pref_backtrack_path_style_title">Pfadstil für Rückweg</string>
     <string name="dotted">Gepunktet</string>
-    <string name="time_until_full">%s bis voll</string>
+    <string name="time_until_full">bis voll</string>
     <string name="theme_sunset_sunrise">Sonnenaufgang/Sonnenuntergang</string>
     <string name="pref_show_last_signal_beacon_summary">Erstellt einen Wegpunkt am Punkt, an dem das letzte Mal eine Mobilfunkverbindung verfügbar war</string>
     <string name="pref_show_last_signal_beacon_title">Wegpunkt am letzten Signal</string>

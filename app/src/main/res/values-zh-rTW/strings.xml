@@ -120,7 +120,6 @@
     <string name="charging_slow">慢速充電中 (%s)</string>
     <string name="charging_fast">快速充電中 (%s)</string>
     <string name="current_format">%.0f mA</string>
-    <string name="battery_capacity_format">%.2f mAh</string>
     <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
