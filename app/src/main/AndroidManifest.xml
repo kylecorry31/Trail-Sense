@@ -104,8 +104,8 @@
         <!--Tiles-->
         <service
             android:name=".tiles.BacktrackTile"
-            android:label="@string/tool_backtrack_title"
             android:icon="@drawable/ic_tool_backtrack"
+            android:label="@string/tool_backtrack_title"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -114,8 +114,8 @@
 
         <service
             android:name=".tiles.WeatherMonitorTile"
-            android:label="@string/weather_monitor"
             android:icon="@drawable/cloud"
+            android:label="@string/weather_monitor"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -124,8 +124,8 @@
 
         <service
             android:name=".tiles.PedometerTile"
-            android:label="@string/pedometer"
             android:icon="@drawable/steps"
+            android:label="@string/pedometer"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -182,7 +182,6 @@
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

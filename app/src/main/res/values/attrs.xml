@@ -43,4 +43,12 @@
         <attr name="buttonColor" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="MaskedProgressView">
+        <attr name="android:drawable" />
+        <attr name="android:drawableTint" />
+        <attr name="android:progress" />
+        <attr name="android:progressTint" />
+        <attr name="horizontal" format="boolean"/>
+    </declare-styleable>
+
 </resources>

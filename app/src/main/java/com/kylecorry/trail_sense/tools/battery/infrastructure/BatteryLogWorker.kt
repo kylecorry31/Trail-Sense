@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.battery.infrastructure
 
 import android.content.Context
+import androidx.work.Constraints
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.kylecorry.trailsensecore.infrastructure.tasks.DeferredTaskScheduler
