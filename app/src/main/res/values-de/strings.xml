@@ -775,7 +775,7 @@
     <string name="rename">Umbenennen</string>
     <string name="pedometer_disclaimer">Die Batterienutzung und Genauigkeit des Schrittzählers hängt vom Hersteller des Gerätes und der angegeben Schrittlänge ab. Probieren Sie es zu Hause aus, bevor Sie es beim Wandern benutzen, um die Batterienutzung und Genauigkeit zu prüfen.</string>
     <string name="guide_signaling_for_help_title">Signalisieren, dass man Hilfe braucht</string>
-    <string name="saltwater_switch">Salzwasser</string>
+    <string name="saltwater_switch">Salzwasser\?</string>
     <string name="tide_high_short">Flut</string>
     <string name="tide_low_short">Ebbe</string>
     <string name="experimental">Experimentell</string>
@@ -850,4 +850,9 @@
     <string name="sunset_type">Sonnenuntergang (%s)</string>
     <string name="sunrise_type">Sonnenaufgang (%s)</string>
     <string name="weather_monitor">Wettermonitor</string>
+    <string name="pref_nmea_altitude_summary">Nutzt NMEA-Ausgleiche für die Höhenumrechnung</string>
+    <string name="pref_nmea_altitude_title">NMEA-Höhenausgleich</string>
+    <string name="pref_barometer_info_summary">Der Druck könnte von dem von benachbarten Stationen abweichen</string>
+    <string name="battery_history">Batterienutzung - letzte %s</string>
+    <string name="no_data">Keine Daten</string>
 </resources>

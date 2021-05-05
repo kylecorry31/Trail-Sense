@@ -840,4 +840,5 @@
     <string name="sunset_type">Zachód słońca (%s)</string>
     <string name="sunrise_type">Wschód słońca (%s)</string>
     <string name="weather_monitor">Monitorowanie pogody</string>
+    <string name="no_data">Brak danych</string>
 </resources>
