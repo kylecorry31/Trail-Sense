@@ -36,8 +36,8 @@
     <string name="minute_symbol">d</string>
     <string name="pref_backtrack_path_radar_summary">Radar pusulası ve haritasında</string>
     <string name="pref_backtrack_path_radar_title">Geri iz sürme yolunu göster</string>
-    <string name="time_until_full">Dolmasına %s kaldı</string>
-    <string name="time_until_empty">Bitmesine %s kaldı</string>
+    <string name="time_until_full">dolmasına kalan süre</string>
+    <string name="time_until_empty">bitmesine kalan süre</string>
     <string name="guide_speedometer_desc">Gidilen mesafe ve varış süreleri nasıl belirlenir</string>
     <string name="guide_speedometer_title">Hızı ve mesafeyi belirle</string>
     <string name="place_beacon_at">%s\'de işaret yerleştirmek istediğinizden emin misiniz\?</string>
@@ -506,10 +506,10 @@
     <string name="gps">GPS</string>
     <string name="compass_accuracy_improved">Pusula verisi doğruluğu %s\'a yükseltildi</string>
     <string name="compass_reported_accuracy">Bildirilen doğruluk: %s</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Telefonunuzu havada 8 çizecek şekilde döndürün, işlemi bitirdiğinizde %s\'a tıklayın.
+    <string name="calibrate_compass_on_navigate_dialog_content">Telefonunuzu havada 8 çizecek şekilde veya tüm yönlerde birkaç kez döndürün, işlemi bitirdiğinizde %s\'a tıklayın.
 \n
 \nBu uyarı uygulama ayarlarında devre dışı bırakılabilir.</string>
-    <string name="calibrate_compass_dialog_content">Telefonunuzu havada 8 çizecek şekilde döndürün, işlemi bitirdiğinizde %s\'a tıklayın.</string>
+    <string name="calibrate_compass_dialog_content">Telefonunuzu havada 8 çizecek şekilde veya tüm yönlerde birkaç kez döndürün, işlemi bitirdiğinizde %s\'a tıklayın.</string>
     <string name="calibrate_compass_dialog_title">Pusulayı kalibre et</string>
     <string name="calibrate">Kalibre et</string>
     <string name="pref_auto_declination_summary">Mevcut konumunuza göre</string>
@@ -684,12 +684,12 @@
     <string name="turn_off">Kapat</string>
     <string name="tap_to_turn_off">Kapatmak için dokun</string>
     <string name="flashlight_title">El feneri</string>
-    <string name="accuracy_info">GPS: Gökyüzünün görüşünün engellenmediği bir yere çıkın.
-\n%s mevcut konum
-\n%s mevcut rakım
-\n%s uydular
+    <string name="accuracy_info">"GPS: Gökyüzünün görüşünün engellenmediği bir yere çıkın.
+\n    %s mevcut konum
+\n    %s mevcut rakım
+\n    %s uydular
 \n
-\nPusula: Cihazınızı havada 8 çizecek şekilde döndürün ve metal objelerden uzaklaşın.</string>
+\nPusula: Cihazınızı havada 8 çizecek şekilde veya tüm yönlerde döndürün ve metal nesnelerden uzaklaşın."</string>
     <string name="accuracy_info_title">Sensör verilerinin doğruluğunu arttırmak için öneriler</string>
     <string name="accuracy_distance_format">±%s</string>
     <string name="accuracy_distance_unknown">\?</string>
@@ -701,7 +701,7 @@
     <string name="charging_slow">Yavaş şarj oluyor %s</string>
     <string name="charging_fast">Hızlı şarj oluyor %s</string>
     <string name="current_format">%.0f mA</string>
-    <string name="battery_capacity_format">%.2f mAh</string>
+    <string name="battery_capacity_format">%s mAh</string>
     <string name="precise_percent_format">%%%s</string>
     <string name="percent_format">%%%d</string>
     <string name="degree">%s°</string>
@@ -846,4 +846,15 @@
     <string name="hygrometer">Higrometre</string>
     <string name="barometer">Barometre</string>
     <string name="network_no_signal">Sinyal yok</string>
+    <string name="pref_barometer_altitude_smoothing_title">İrtifa düzenleme</string>
+    <string name="pref_nmea_altitude_summary">İrtifa dönüşümü için NMEA ofsetlerini kullanır</string>
+    <string name="pref_nmea_altitude_title">NMEA irtifa ofsetleri</string>
+    <string name="delete_map">Harita silinsin mi\?</string>
+    <string name="pref_barometer_altitude_outlier_title">İrtifa uç değerini kaldırma</string>
+    <string name="pref_barometer_pressure_smoothing_title">Basınç düzenleme</string>
+    <string name="pref_barometer_altitude_smoothing">pref_barometer_altitude_smoothing</string>
+    <string name="pref_experimental_barometer_calibration_title">Deneysel kalibrasyon kullan</string>
+    <string name="pref_barometer_info_summary">Basınç, yakındaki istasyonlardan farklı olabilir</string>
+    <string name="battery_history">Pil geçmişi - son %s</string>
+    <string name="no_data">Veri yok</string>
 </resources>
