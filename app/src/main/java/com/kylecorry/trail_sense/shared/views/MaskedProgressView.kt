@@ -3,26 +3,18 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.TypedValue
-import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.res.getColorOrThrow
-import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trailsensecore.infrastructure.canvas.getMaskedBitmap
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.Exception
 import kotlin.math.*
 
 
-class MaskedProgressView : View {
-    private lateinit var paint: Paint
-    private var progressBackground: Bitmap? = null
-    private lateinit var backgroundMask: Bitmap
-    private lateinit var progressBitmap: Bitmap
-    private var isInit = false
+class MaskedProgressView : CanvasView {
+    private lateinit var backgroundBitmap: Bitmap
 
     var progress: Float = 0f
         set(value) {
@@ -49,7 +41,6 @@ class MaskedProgressView : View {
     @ColorInt
     private var backgroundColor: Int? = null
 
-    private var imageSize = 0
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){
@@ -65,6 +56,10 @@ class MaskedProgressView : View {
         if (attrs != null) {
             loadAttributes(attrs)
         }
+    }
+
+    init {
+        runEveryCycle = false
     }
 
     private fun loadAttributes(attrs: AttributeSet){
@@ -93,72 +88,44 @@ class MaskedProgressView : View {
         a.recycle()
     }
 
-    override fun onDraw(canvas: Canvas) {
-        if (!isInit) {
-            paint = Paint()
-            paint.textSize = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_SP, 10f,
-                resources.displayMetrics
-            )
-            imageSize = min(width, height)
-            isInit = true
-            val drawable = UiUtils.drawable(context, backgroundImageId ?: R.drawable.rectangle)
-            if (backgroundColor != null){
-                drawable?.setTint(backgroundColor!!)
-            }
-            progressBackground = drawable?.toBitmap(imageSize, imageSize)
-
-            backgroundMask = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            val tempCanvas = Canvas(backgroundMask)
-            paint.color = Color.WHITE
-            paint.alpha = 255
-            paint.style = Paint.Style.FILL
-            tempCanvas.drawBitmap(
-                progressBackground!!,
-                width / 2f - imageSize / 2f,
-                height / 2f - imageSize / 2f,
-                paint
-            )
-            progressBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        }
-        canvas.drawColor(Color.TRANSPARENT)
-        drawProgress(canvas)
-        postInvalidateDelayed(20)
-        invalidate()
+    override fun setup() {
+        val imageSize = min(width, height)
+        backgroundBitmap = loadImage(backgroundImageId ?: R.drawable.rectangle, imageSize, imageSize)
+        imageMode(ImageMode.Center)
+        noStroke()
     }
 
+    override fun draw() {
+        clear()
+        drawBackground()
+        drawProgress()
+    }
 
-    private fun drawProgress(canvas: Canvas) {
-        progressBackground ?: return
-        canvas.drawBitmap(
-            progressBackground!!,
-            width / 2f - imageSize / 2f,
-            height / 2f - imageSize / 2f,
-            paint
-        )
+    private fun drawProgress(){
+        val progressBitmap = mask(backgroundBitmap){
+            fill(progressColor)
+            val w = backgroundBitmap.width.toFloat()
+            val h = backgroundBitmap.height.toFloat()
 
-        val progressBitmap = canvas.getMaskedBitmap(backgroundMask, progressBitmap) {
-            it.drawColor(Color.TRANSPARENT)
-            paint.color = progressColor
-            val left = width / 2f - imageSize / 2f
-            val right = width / 2f + imageSize / 2f
-            val top = height / 2f - imageSize / 2f
-            val bottom = height / 2f + imageSize / 2f
-
-            if (horizontal) {
-                it.drawRect(left, top, left + progress * imageSize, bottom, paint)
+            if (horizontal){
+                rect(0f, h, w * progress, h)
             } else {
-                it.drawRect(left, bottom - progress * imageSize, right, bottom, paint)
+                rect(0f, h * (1 - progress), w, h * progress)
             }
         }
 
-        canvas.drawBitmap(
-            progressBitmap,
-            0f,
-            0f,
-            paint
-        )
+        image(progressBitmap, width / 2f, height / 2f)
+        progressBitmap.recycle()
+    }
 
+    private fun drawBackground(){
+        if (backgroundColor == null){
+            noTint()
+        } else {
+            tint(backgroundColor ?: Color.BLACK)
+        }
+        image(backgroundBitmap, width / 2f, height / 2f)
+        noTint()
     }
 
 
