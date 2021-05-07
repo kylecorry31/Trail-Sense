@@ -3,14 +3,12 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.trail_sense.shared.views.CanvasView
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.math.cosDegrees
@@ -25,17 +23,15 @@ import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import com.kylecorry.trailsensecore.infrastructure.canvas.ArrowPathEffect
 import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
-import com.kylecorry.trailsensecore.infrastructure.canvas.getMaskedBitmap
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.min
 
-class RadarCompassView : View, ICompassView {
-    private lateinit var paint: Paint
+class RadarCompassView : CanvasView, ICompassView {
     private lateinit var center: PixelCoordinate
     private val icons = mutableMapOf<Int, Bitmap>()
     private var indicators = listOf<BearingIndicator>()
     private var compass: Bitmap? = null
-    private var isInit = false
+    private lateinit var pathBitmap: Bitmap
     private var azimuth = 0f
     private var destination: Float? = null
 
@@ -50,8 +46,6 @@ class RadarCompassView : View, ICompassView {
     @ColorInt
     private var secondaryColor: Int = Color.WHITE
 
-    @ColorInt
-    private var blue: Int = Color.BLUE
     private val formatService by lazy { FormatServiceV2(context) }
 
     private var iconSize = 0
@@ -60,10 +54,6 @@ class RadarCompassView : View, ICompassView {
     private var compassSize = 0
     private var distanceSize = 0f
     private var cardinalSize = 0f
-    private val rect = Rect()
-
-    private lateinit var compassMask: Bitmap
-    private lateinit var pathBitmap: Bitmap
 
     private var metersPerPixel = 1f
     private var location = Coordinate.zero
@@ -87,118 +77,80 @@ class RadarCompassView : View, ICompassView {
         defStyleAttr
     )
 
-    override fun onDraw(canvas: Canvas) {
-        if (visibility != VISIBLE) {
-            return
-        }
-        if (!isInit) {
-            paint = Paint(Paint.ANTI_ALIAS_FLAG)
-            paint.textAlign = Paint.Align.CENTER
-            iconSize = UiUtils.dp(context, 24f).toInt()
-            radarSize = UiUtils.dp(context, 10f).toInt()
-            directionSize = UiUtils.dp(context, 16f).toInt()
-            compassSize = min(height, width) - 2 * iconSize - 2 * UiUtils.dp(context, 2f).toInt()
-            isInit = true
-            distanceSize = UiUtils.sp(context, 8f)
-            cardinalSize = UiUtils.sp(context, 10f)
-            primaryColor = UiUtils.color(context, R.color.colorPrimary)
-            secondaryColor = UiUtils.color(context, R.color.colorSecondary)
-            blue = UiUtils.color(context, R.color.colorAccent)
-            val compassDrawable = UiUtils.drawable(context, R.drawable.radar)
-            compass = compassDrawable?.toBitmap(compassSize, compassSize)
-            useTrueNorth = prefs.navigation.useTrueNorth
-            maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
-            maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
-            metersPerPixel = maxDistanceMeters.distance / (compassSize / 2f)
-            north = context.getString(R.string.direction_north)
-            south = context.getString(R.string.direction_south)
-            east = context.getString(R.string.direction_east)
-            west = context.getString(R.string.direction_west)
-            compassMask = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            val tempCanvas = Canvas(compassMask)
-            paint.color = Color.WHITE
-            paint.style = Paint.Style.FILL
-            tempCanvas.drawCircle(width / 2f, height / 2f, compassSize / 2f, paint)
-            pathBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            center = PixelCoordinate(width / 2f, height / 2f)
-        }
-        canvas.drawColor(Color.TRANSPARENT)
-        canvas.save()
-        canvas.rotate(-azimuth, width / 2f, height / 2f)
-        drawCompass(canvas)
-        drawBearings(canvas)
-        drawDestination(canvas)
-        canvas.restore()
+    init {
+        runEveryCycle = false
     }
 
-    private fun drawDestination(canvas: Canvas) {
+    private fun drawDestination() {
         destination ?: return
-        val color = destinationColor ?: UiUtils.color(context, R.color.colorPrimary)
-        canvas.save()
-        paint.color = color
-        paint.alpha = 100
-        val dp2 = UiUtils.dp(context, 2f)
-        canvas.drawArc(
+        val color = destinationColor ?: primaryColor
+        push()
+        fill(color)
+        opacity(100)
+        val dp2 = dp(2f)
+        arc(
             iconSize.toFloat() + dp2,
             iconSize.toFloat() + dp2,
-            width - iconSize.toFloat() - dp2,
-            height - iconSize.toFloat() - dp2,
-            270f + azimuth,
-            deltaAngle(azimuth, destination!!),
-            true,
-            paint
+            compassSize.toFloat(),
+            compassSize.toFloat(),
+            azimuth - 90,
+            azimuth - 90 + deltaAngle(azimuth, destination!!),
+            ArcMode.Pie
         )
-        paint.alpha = 255
-        canvas.restore()
+        opacity(255)
+        pop()
     }
 
-    private fun drawPaths(canvas: Canvas) {
-        // TODO: Improve the performance of this
-        val pathBitmap = canvas.getMaskedBitmap(compassMask, pathBitmap) {
+    private fun drawPaths() {
+        val pathBitmap = mask(compass!!, pathBitmap){
             val dotted = DottedPathEffect()
             val arrow = ArrowPathEffect()
-            it.drawColor(Color.TRANSPARENT)
+            clear()
             for (line in pathLines) {
 
-                if (!shouldDisplayLine(line)){
+                if (!shouldDisplayLine(line)) {
                     continue
                 }
 
-                when (line.style){
+                when (line.style) {
                     PixelLineStyle.Solid -> {
-                        paint.pathEffect = null
-                        paint.style = Paint.Style.STROKE
-                        paint.strokeCap = Paint.Cap.ROUND
-                        paint.strokeWidth = 6f
+                        noPathEffect()
+                        noFill()
+                        stroke(line.color)
+                        strokeWeight(6f)
                     }
                     PixelLineStyle.Arrow -> {
-                        paint.pathEffect = arrow
-                        paint.style = Paint.Style.FILL
+                        pathEffect(arrow)
+                        noStroke()
+                        fill(line.color)
                     }
                     PixelLineStyle.Dotted -> {
-                        paint.pathEffect = dotted
-                        paint.style = Paint.Style.FILL
+                        pathEffect(dotted)
+                        noStroke()
+                        fill(line.color)
                     }
                 }
-                paint.color = line.color
-                paint.alpha = line.alpha
-                it.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, paint)
+                opacity(line.alpha)
+                val xOffset = (width - compassSize) / 2f
+                val yOffset = (height - compassSize) / 2f
+                line(line.start.x - xOffset, line.start.y - yOffset, line.end.x - xOffset, line.end.y - yOffset)
+                opacity(255)
+                noStroke()
+                fill(Color.WHITE)
+                noPathEffect()
             }
-            paint.alpha = 255
-            paint.strokeCap = Paint.Cap.BUTT
-            paint.style = Paint.Style.FILL
-            paint.pathEffect = null
         }
 
-        canvas.drawBitmap(pathBitmap, 0f, 0f, paint)
+        imageMode(ImageMode.Center)
+        image(pathBitmap, width / 2f, height / 2f)
     }
 
     private fun shouldDisplayLine(line: PixelLine): Boolean {
-        if (line.alpha == 0){
+        if (line.alpha == 0) {
             return false
         }
 
-        if (getDistanceFromCenter(line.start) > compassSize / 2 && getDistanceFromCenter(line.end) > compassSize / 2){
+        if (getDistanceFromCenter(line.start) > compassSize / 2 && getDistanceFromCenter(line.end) > compassSize / 2) {
             return false
         }
 
@@ -212,9 +164,12 @@ class RadarCompassView : View, ICompassView {
 
     fun finalize() {
         try {
-            compassMask.recycle()
-            pathBitmap.recycle()
             compass?.recycle()
+            pathBitmap.recycle()
+            for (icon in icons){
+                icon.value.recycle()
+            }
+            icons.clear()
         } catch (e: Exception) {
         }
     }
@@ -255,43 +210,38 @@ class RadarCompassView : View, ICompassView {
         invalidate()
     }
 
-    private fun drawCompass(canvas: Canvas) {
-        paint.alpha = 255
-        canvas.drawBitmap(
+    private fun drawCompass() {
+        imageMode(ImageMode.Center)
+        opacity(255)
+        image(
             compass!!,
-            iconSize.toFloat() + UiUtils.dp(context, 2f),
-            iconSize.toFloat() + UiUtils.dp(context, 2f),
-            paint
+            width / 2f,
+            height / 2f,
         )
-        drawPaths(canvas)
-        paint.style = Paint.Style.STROKE
-        paint.strokeWidth = 3f
-        canvas.save()
-        canvas.rotate(azimuth, width / 2f, height / 2f)
+
+        drawPaths()
+
+        noFill()
+        stroke(color(60))
+        strokeWeight(3f)
+        push()
+        rotate(azimuth)
         if (destination == null) {
-            paint.color = gray(60)
-            canvas.drawLine(
-                width / 2f,
-                height / 2f,
-                width / 2f,
-                iconSize.toFloat() + UiUtils.dp(context, 2f),
-                paint
-            )
+            line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
         }
-        canvas.drawBitmap(
-            getBitmap(R.drawable.ic_beacon, directionSize), width / 2f - directionSize / 2f,
-            height / 2f - directionSize / 2f,
-            paint
-        )
-        paint.color = Color.rgb(100, 100, 100)
-        canvas.drawCircle(width / 2f, height / 2f, compassSize / 4f, paint)
-        canvas.drawCircle(width / 2f, height / 2f, 3 * compassSize / 8f, paint)
-        canvas.drawCircle(width / 2f, height / 2f, compassSize / 8f, paint)
-        paint.color = Color.WHITE
-        paint.style = Paint.Style.FILL
+        image(getBitmap(R.drawable.ic_beacon, directionSize), width / 2f, height / 2f)
+        stroke(color(100))
+        circle(width / 2f, height / 2f, compassSize / 2f)
+        circle(width / 2f, height / 2f, 3 * compassSize / 4f)
+        circle(width / 2f, height / 2f, compassSize / 4f)
+
+        fill(Color.WHITE)
+        stroke(UiUtils.color(context, R.color.colorSecondary))
+
         val quarterDist = maxDistanceBaseUnits.times(0.25f).toRelativeDistance()
         val threeQuarterDist = maxDistanceBaseUnits.times(0.75f).toRelativeDistance()
-        paint.textSize = distanceSize
+
+        textSize(distanceSize)
 
         // TODO: This doesn't need to happen on every draw
         val quarterText = formatService.formatDistance(
@@ -302,114 +252,67 @@ class RadarCompassView : View, ICompassView {
             threeQuarterDist,
             if (IsLargeUnitSpecification().isSatisfiedBy(threeQuarterDist.units)) 1 else 0
         )
-        paint.getTextBounds(quarterText, 0, quarterText.length, rect)
-        canvas.drawText(
-            quarterText,
-            width / 2f + compassSize / 8f,
-            height / 2f + rect.height() / 2f,
-            paint
-        )
-        paint.getTextBounds(threeQuarterText, 0, threeQuarterText.length, rect)
-        canvas.drawText(
-            threeQuarterText,
-            width / 2f + 3 * compassSize / 8f,
-            height / 2f + rect.height() / 2f,
-            paint
-        )
-        canvas.restore()
 
-        paint.textSize = cardinalSize
-        canvas.save()
-        canvas.rotate(0f, width / 2f, height / 2f)
-        paint.getTextBounds(north, 0, north.length, rect)
-        paint.color = secondaryColor
-        canvas.drawRect(
-            width / 2f - rect.width() / 2f - 8f,
-            height / 2f - compassSize / 4f + rect.height() / 2f,
-            width / 2f + rect.width() / 2f + 8f,
-            height / 2f - compassSize / 4f - rect.height() / 2f,
-            paint
-        )
-        paint.color = primaryColor
-        canvas.drawText(
-            context.getString(R.string.direction_north),
+        textMode(TextMode.Center)
+        text(quarterText, width / 2f + compassSize / 8f, height / 2f)
+        text(threeQuarterText, width / 2f + 3 * compassSize / 8f, height / 2f)
+
+        pop()
+
+        textSize(cardinalSize)
+        push()
+        rotate(0f)
+        fill(primaryColor)
+        text(
+            north,
             width / 2f,
-            height / 2f - compassSize / 4f + rect.height() / 2f,
-            paint
+            height / 2f - compassSize / 4f
         )
-        canvas.restore()
+        pop()
 
-        canvas.save()
-        canvas.rotate(180f, width / 2f, height / 2f)
-        paint.getTextBounds(south, 0, south.length, rect)
-        paint.color = secondaryColor
-        canvas.drawRect(
-            width / 2f - rect.width() / 2f - 8f,
-            height / 2f - compassSize / 4f + rect.height() / 2f,
-            width / 2f + rect.width() / 2f + 8f,
-            height / 2f - compassSize / 4f - rect.height() / 2f,
-            paint
-        )
-        paint.color = Color.WHITE
-        canvas.drawText(
+        push()
+        rotate(180f)
+        fill(Color.WHITE)
+        text(
             south,
             width / 2f,
-            height / 2f - compassSize / 4f + rect.height() / 2f,
-            paint
+            height / 2f - compassSize / 4f
         )
-        canvas.restore()
+        pop()
 
-        canvas.save()
-        canvas.rotate(90f, width / 2f, height / 2f)
-        paint.getTextBounds(east, 0, east.length, rect)
-        paint.color = secondaryColor
-        canvas.drawRect(
-            width / 2f - rect.width() / 2f - 8f,
-            height / 2f - compassSize / 4f + rect.height() / 2f,
-            width / 2f + rect.width() / 2f + 8f,
-            height / 2f - compassSize / 4f - rect.height() / 2f,
-            paint
-        )
-        paint.color = Color.WHITE
-        canvas.drawText(
+        push()
+        rotate(90f)
+        fill(Color.WHITE)
+        text(
             east,
             width / 2f,
-            height / 2f - compassSize / 4f + rect.height() / 2f,
-            paint
+            height / 2f - compassSize / 4f
         )
-        canvas.restore()
+        pop()
 
-        canvas.save()
-        canvas.rotate(270f, width / 2f, height / 2f)
-        paint.getTextBounds(west, 0, west.length, rect)
-        paint.color = secondaryColor
-        canvas.drawRect(
-            width / 2f - rect.width() / 2f - 8f,
-            height / 2f - compassSize / 4f + rect.height() / 2f,
-            width / 2f + rect.width() / 2f + 8f,
-            height / 2f - compassSize / 4f - rect.height() / 2f,
-            paint
-        )
-        paint.color = Color.WHITE
-        canvas.drawText(
+        push()
+        rotate(270f)
+        fill(Color.WHITE)
+        text(
             west,
             width / 2f,
-            height / 2f - compassSize / 4f + rect.height() / 2f,
-            paint
+            height / 2f - compassSize / 4f
         )
-        canvas.restore()
+        pop()
+
+        imageMode(ImageMode.Corner)
     }
 
-    private fun drawBearings(canvas: Canvas) {
+    private fun drawBearings() {
         for (indicator in indicators) {
-            paint.colorFilter = if (indicator.tint != null) {
-                PorterDuffColorFilter(indicator.tint, PorterDuff.Mode.SRC_IN)
+            if (indicator.tint != null) {
+                tint(indicator.tint)
             } else {
-                null
+                noTint()
             }
-            paint.alpha = (255 * indicator.opacity).toInt()
-            canvas.save()
-            canvas.rotate(indicator.bearing, width / 2f, height / 2f)
+            opacity((255 * indicator.opacity).toInt())
+            push()
+            rotate(indicator.bearing)
             val bitmap = getBitmap(indicator.icon)
 
             val top = if (indicator.distance == null || maxDistanceMeters.distance == 0f) {
@@ -425,27 +328,20 @@ class RadarCompassView : View, ICompassView {
             }
 
             if (top == 0f) {
-                canvas.drawBitmap(
-                    bitmap,
-                    width / 2f - iconSize / 2f,
-                    top,
-                    paint
-                )
+                image(bitmap, width / 2f - iconSize / 2f, top)
             } else {
-                paint.color = Color.WHITE
-                canvas.drawCircle(
-                    width / 2f,
-                    top,
-                    radarSize / 2f + UiUtils.dp(context, 0.5f),
-                    paint
-                )
-                paint.color = primaryColor
-                canvas.drawCircle(width / 2f, top, radarSize / 2f, paint)
+                noTint()
+                stroke(Color.WHITE)
+                strokeWeight(dp(0.5f))
+                fill(indicator.tint ?: primaryColor)
+                // TODO: Verify this is correct
+                circle(width / 2f, top, radarSize.toFloat())
             }
-            canvas.restore()
+            pop()
         }
-        paint.colorFilter = null
-        paint.alpha = 255
+        noTint()
+        opacity(255)
+        noStroke()
     }
 
     private fun coordinateToPixel(coordinate: Coordinate): PixelCoordinate {
@@ -463,11 +359,44 @@ class RadarCompassView : View, ICompassView {
         val bitmap = if (icons.containsKey(id)) {
             icons[id]
         } else {
-            val drawable = UiUtils.drawable(context, id)
-            val bm = drawable?.toBitmap(size, size)
-            icons[id] = bm!!
+            icons[id] = loadImage(id, size, size)
             icons[id]
         }
         return bitmap!!
+    }
+
+    override fun setup() {
+        iconSize = dp(24f).toInt()
+        radarSize = dp(10f).toInt()
+        directionSize = dp(16f).toInt()
+        compassSize = min(height, width) - 2 * iconSize - 2 * UiUtils.dp(context, 2f).toInt()
+        distanceSize = sp(8f)
+        cardinalSize = sp(10f)
+        primaryColor = UiUtils.color(context, R.color.colorPrimary)
+        secondaryColor = UiUtils.color(context, R.color.colorSecondary)
+        compass = loadImage(R.drawable.radar, compassSize, compassSize)
+        pathBitmap = Bitmap.createBitmap(compassSize, compassSize, Bitmap.Config.ARGB_8888)
+        useTrueNorth = prefs.navigation.useTrueNorth
+        maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
+        maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
+        metersPerPixel = maxDistanceMeters.distance / (compassSize / 2f)
+        north = context.getString(R.string.direction_north)
+        south = context.getString(R.string.direction_south)
+        east = context.getString(R.string.direction_east)
+        west = context.getString(R.string.direction_west)
+        center = PixelCoordinate(width / 2f, height / 2f)
+    }
+
+    override fun draw() {
+        if (visibility != VISIBLE) {
+            return
+        }
+        clear()
+        push()
+        rotate(-azimuth)
+        drawCompass()
+        drawBearings()
+        drawDestination()
+        pop()
     }
 }
