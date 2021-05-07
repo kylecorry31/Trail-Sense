@@ -1013,5 +1013,5 @@
     <string name="delete_map">Delete map?</string>
     <string name="convert">Convert</string>
     <string name="distance">Distance</string>
-    <string name="coordinates">Coordinates</string>
+    <string name="coordinates_tab">Coordinates</string>
 </resources>
