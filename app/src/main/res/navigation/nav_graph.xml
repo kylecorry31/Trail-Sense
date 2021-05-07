@@ -57,6 +57,13 @@
         android:name="com.kylecorry.trail_sense.tools.ui.ToolsFragment"
         android:label="ToolsFragment">
         <action
+            android:id="@+id/action_toolsFragment_to_toolConvertFragment"
+            app:destination="@id/toolConvertFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_toolsFragment_to_inclinometerFragment"
             app:destination="@id/action_inclinometer"
             app:enterAnim="@anim/slide_in_right"
@@ -527,6 +534,10 @@
             android:defaultValue="0L"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/toolConvertFragment"
+        android:name="com.kylecorry.trail_sense.tools.convert.ui.FragmentToolConvert"
+        android:label="ConvertFragment" />
     <fragment
         android:id="@+id/toolDepthFragment"
         android:name="com.kylecorry.trail_sense.tools.depth.ui.ToolDepthFragment"

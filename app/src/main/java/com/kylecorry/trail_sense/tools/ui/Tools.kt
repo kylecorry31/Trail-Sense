@@ -182,6 +182,11 @@ object Tools {
         val other = ToolGroup(
             context.getString(R.string.tool_category_other), listOfNotNull(
                 Tool(
+                    context.getString(R.string.convert),
+                    R.drawable.ic_tool_distance_convert,
+                    R.id.action_toolsFragment_to_toolConvertFragment
+                ),
+                Tool(
                     context.getString(R.string.tool_metal_detector_title),
                     R.drawable.ic_tool_metal_detector,
                     R.id.action_action_experimental_tools_to_fragmentToolMetalDetector
