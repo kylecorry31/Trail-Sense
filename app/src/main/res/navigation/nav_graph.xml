@@ -134,13 +134,6 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_action_experimental_tools_to_fragmentDistanceConverter"
-            app:destination="@id/fragmentDistanceConverter"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
             android:id="@+id/action_action_experimental_tools_to_fragmentToolSolarPanel"
             app:destination="@id/fragmentToolSolarPanel"
             app:enterAnim="@anim/slide_in_right"
@@ -220,13 +213,6 @@
         <action
             android:id="@+id/action_action_experimental_tools_to_fragmentBacktrack"
             app:destination="@id/fragmentBacktrack"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_action_experimental_tools_to_fragmentToolCoordinateConvert"
-            app:destination="@id/fragmentToolCoordinateConvert"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -551,10 +537,6 @@
         android:name="com.kylecorry.trail_sense.tools.whistle.ui.ToolWhistleFragment"
         android:label="ToolWhistleFragment" />
     <fragment
-        android:id="@+id/fragmentDistanceConverter"
-        android:name="com.kylecorry.trail_sense.tools.distanceconvert.ui.FragmentDistanceConverter"
-        android:label="FragmentDistanceConverter" />
-    <fragment
         android:id="@+id/fragmentToolSolarPanel"
         android:name="com.kylecorry.trail_sense.tools.solarpanel.ui.FragmentToolSolarPanel"
         android:label="FragmentToolSolarPanel" />
@@ -649,10 +631,6 @@
         android:id="@+id/toolSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ToolSettingsFragment"
         android:label="ToolSettingsFragment" />
-    <fragment
-        android:id="@+id/fragmentToolCoordinateConvert"
-        android:name="com.kylecorry.trail_sense.tools.coordinateconvert.ui.FragmentToolCoordinateConvert"
-        android:label="FragmentToolCoordinateConvert" />
     <fragment
         android:id="@+id/cloudFragment"
         android:name="com.kylecorry.trail_sense.weather.ui.CloudFragment"
