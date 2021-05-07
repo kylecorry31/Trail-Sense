@@ -166,7 +166,6 @@
     <string name="precise_centimeters_format">%s 公分</string>
     <string name="pref_privacy_policy_title">隱私權政策</string>
     <string name="guide_recommended_apps">推薦的應用程式</string>
-    <string name="tool_distance_convert_title">距離轉換器</string>
     <string name="inventory_empty_text">無項目</string>
     <string name="action_inventory_delete_all">全部刪除</string>
     <string name="max_depth">最大: %s</string>

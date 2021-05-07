@@ -217,8 +217,6 @@
     <string name="distance_to">A</string>
     <string name="distance_from">De</string>
     <string name="distance_hint">Distância</string>
-    <string name="tool_coordinate_convert_title">Conversor de coordenada</string>
-    <string name="tool_distance_convert_title">Conversor de distância</string>
     <string name="inventory_empty_text">Nenhum item</string>
     <string name="action_inventory_delete_all_confirm">Excluir todos os itens do inventário\?</string>
     <string name="action_inventory_delete_all">tudo</string>

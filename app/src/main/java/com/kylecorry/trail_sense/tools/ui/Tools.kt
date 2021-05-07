@@ -50,11 +50,6 @@ object Tools {
                     R.id.action_toolsFragment_to_speedometerFragment
                 ),
                 Tool(
-                    context.getString(R.string.tool_distance_convert_title),
-                    R.drawable.ic_tool_distance_convert,
-                    R.id.action_action_experimental_tools_to_fragmentDistanceConverter
-                ),
-                Tool(
                     context.getString(R.string.tool_cliff_height_title),
                     R.drawable.ic_tool_cliff_height,
                     R.id.action_action_experimental_tools_to_toolCliffHeightFragment,
@@ -89,11 +84,6 @@ object Tools {
                     R.id.action_action_experimental_tools_to_fragmentToolTriangulate,
                     context.getString(R.string.tool_triangulate_summary)
                 ),
-                Tool(
-                    context.getString(R.string.tool_coordinate_convert_title),
-                    R.drawable.ic_tool_distance_convert,
-                    R.id.action_action_experimental_tools_to_fragmentToolCoordinateConvert
-                )
             )
         )
 
@@ -181,6 +171,11 @@ object Tools {
 
         val other = ToolGroup(
             context.getString(R.string.tool_category_other), listOfNotNull(
+                Tool(
+                    context.getString(R.string.convert),
+                    R.drawable.ic_tool_distance_convert,
+                    R.id.action_toolsFragment_to_toolConvertFragment
+                ),
                 Tool(
                     context.getString(R.string.tool_metal_detector_title),
                     R.drawable.ic_tool_metal_detector,
