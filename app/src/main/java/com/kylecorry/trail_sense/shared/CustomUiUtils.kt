@@ -2,25 +2,19 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.TypedValue
 import android.view.View
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
-import androidx.annotation.MenuRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.views.BeaconSelectView
-import com.kylecorry.trail_sense.shared.views.ColorPickerView
-import com.kylecorry.trail_sense.shared.views.DistanceInputView
-import com.kylecorry.trail_sense.shared.views.DurationInputView
+import com.kylecorry.trail_sense.shared.views.*
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.Quality
@@ -203,6 +197,22 @@ object CustomUiUtils {
         }
         beaconSelect?.setOnBeaconChangeListener {
             onBeaconPick.invoke(it)
+            alert.dismiss()
+        }
+    }
+
+    fun pickBeaconGroup(
+        context: Context,
+        title: String?,
+        onBeaconGroupPick: (group: BeaconGroup?) -> Unit
+    ) {
+        val view = View.inflate(context, R.layout.view_beacon_group_select_prompt, null)
+        val beaconSelect = view.findViewById<BeaconGroupSelectView>(R.id.prompt_beacon_groups)
+        val alert = UiUtils.alertView(context, title, view, context.getString(R.string.dialog_cancel)) {
+            onBeaconGroupPick.invoke(beaconSelect.group)
+        }
+        beaconSelect?.setOnBeaconGroupChangeListener {
+            onBeaconGroupPick.invoke(it)
             alert.dismiss()
         }
     }

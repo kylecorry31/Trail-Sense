@@ -48,7 +48,7 @@ class RoundCompassView : View, ICompassView {
                     TypedValue.COMPLEX_UNIT_DIP, 24f,
                     resources.displayMetrics
                 ).toInt()
-            val compassSize = min(height, width) - 2 * iconSize - 2 * dp(2f).toInt()
+            val compassSize = min(height, width) - 2 * iconSize - 2 * UiUtils.dp(context, 2f).toInt()
             isInit = true
             val compassDrawable = UiUtils.drawable(context, R.drawable.compass)
             compass = compassDrawable?.toBitmap(compassSize, compassSize)
@@ -69,7 +69,7 @@ class RoundCompassView : View, ICompassView {
         canvas.save()
         paint.color = color
         paint.alpha = 100
-        val dp2 = dp(2f)
+        val dp2 = UiUtils.dp(context, 2f)
         canvas.drawArc(
             iconSize.toFloat() + dp2,
             iconSize.toFloat() + dp2,
@@ -120,8 +120,8 @@ class RoundCompassView : View, ICompassView {
         paint.alpha = 255
         canvas.drawBitmap(
             compass!!,
-            iconSize.toFloat() + dp(2f),
-            iconSize.toFloat() + dp(2f),
+            iconSize.toFloat() + UiUtils.dp(context, 2f),
+            iconSize.toFloat() + UiUtils.dp(context, 2f),
             paint
         )
     }
@@ -164,13 +164,4 @@ class RoundCompassView : View, ICompassView {
         }
         return bitmap!!
     }
-
-    private fun dp(size: Float): Float {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, size,
-            resources.displayMetrics
-        )
-    }
-
-
 }

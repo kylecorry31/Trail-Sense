@@ -136,8 +136,8 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatDistancePrecise(distance: Float, units: DistanceUnits): String {
-        val formatted = DecimalFormatter.format(distance, 4)
+    fun formatDistancePrecise(distance: Float, units: DistanceUnits, strict: Boolean = true): String {
+        val formatted = DecimalFormatter.format(distance, 4, strict)
         return when (units) {
             DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, formatted)
             DistanceUnits.Kilometers -> context.getString(

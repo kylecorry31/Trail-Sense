@@ -106,6 +106,16 @@ abstract class CanvasView : View {
         strokePaint.color = color
     }
 
+    protected fun pathEffect(effect: PathEffect){
+        strokePaint.pathEffect = effect
+        fillPaint.pathEffect = effect
+    }
+
+    protected fun noPathEffect(){
+        strokePaint.pathEffect = null
+        fillPaint.pathEffect = null
+    }
+
     protected fun noStroke() {
         paintStyle = if (shouldFill()) {
             PaintStyle.Fill
@@ -140,6 +150,11 @@ abstract class CanvasView : View {
             StrokeJoin.Bevel -> Paint.Join.BEVEL
             StrokeJoin.Round -> Paint.Join.ROUND
         }
+    }
+
+    protected fun opacity(value: Int){
+        fillPaint.alpha = value
+        strokePaint.alpha = value
     }
 
     protected fun erase() {
@@ -507,6 +522,16 @@ abstract class CanvasView : View {
             block()
             canvas = oldCanvas
         }
+    }
+
+    // System
+
+    protected fun dp(size: Float): Float {
+        return UiUtils.dp(context, size)
+    }
+
+    protected fun sp(size: Float): Float {
+        return UiUtils.sp(context, size)
     }
 
 

@@ -35,6 +35,7 @@ class BeaconListItem(
 
     var onNavigate: () -> Unit = {}
     var onDeleted: () -> Unit = {}
+    var onMoved: () -> Unit = {}
     var onEdit: () -> Unit = {}
     var onView: () -> Unit = {}
 
@@ -50,23 +51,43 @@ class BeaconListItem(
         if (beacon.owner == BeaconOwner.User) {
             binding.beaconImage.setImageResource(R.drawable.ic_location)
             binding.beaconImage.imageTintList = ColorStateList.valueOf(beacon.color)
-        } else if (beacon.owner == BeaconOwner.CellSignal){
+        } else if (beacon.owner == BeaconOwner.CellSignal) {
             when {
                 beacon.name.contains(formatservice.formatQuality(Quality.Poor)) -> {
                     binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Poor))
-                    binding.beaconImage.imageTintList = ColorStateList.valueOf(CustomUiUtils.getQualityColor(view.context, Quality.Poor))
+                    binding.beaconImage.imageTintList = ColorStateList.valueOf(
+                        CustomUiUtils.getQualityColor(
+                            view.context,
+                            Quality.Poor
+                        )
+                    )
                 }
                 beacon.name.contains(formatservice.formatQuality(Quality.Moderate)) -> {
                     binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Moderate))
-                    binding.beaconImage.imageTintList = ColorStateList.valueOf(CustomUiUtils.getQualityColor(view.context, Quality.Moderate))
+                    binding.beaconImage.imageTintList = ColorStateList.valueOf(
+                        CustomUiUtils.getQualityColor(
+                            view.context,
+                            Quality.Moderate
+                        )
+                    )
                 }
                 beacon.name.contains(formatservice.formatQuality(Quality.Good)) -> {
                     binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Good))
-                    binding.beaconImage.imageTintList = ColorStateList.valueOf(CustomUiUtils.getQualityColor(view.context, Quality.Good))
+                    binding.beaconImage.imageTintList = ColorStateList.valueOf(
+                        CustomUiUtils.getQualityColor(
+                            view.context,
+                            Quality.Good
+                        )
+                    )
                 }
                 else -> {
                     binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Unknown))
-                    binding.beaconImage.imageTintList = ColorStateList.valueOf(CustomUiUtils.getQualityColor(view.context, Quality.Unknown))
+                    binding.beaconImage.imageTintList = ColorStateList.valueOf(
+                        CustomUiUtils.getQualityColor(
+                            view.context,
+                            Quality.Unknown
+                        )
+                    )
                 }
             }
         }
@@ -125,6 +146,25 @@ class BeaconListItem(
                     val sender = BeaconGeoSender(view.context)
                     sender.send(beacon)
                 }
+                R.id.action_move -> {
+                    CustomUiUtils.pickBeaconGroup(
+                        view.context,
+                        view.context.getString(R.string.move)
+                    ) {
+                        it ?: return@pickBeaconGroup
+                        val newGroupId = if (it.id == -1L) null else it.id
+                        scope.launch {
+                            withContext(Dispatchers.IO) {
+                                repo.addBeacon(BeaconEntity.from(beacon.copy(beaconGroupId = newGroupId)))
+                            }
+
+                            withContext(Dispatchers.Main) {
+                                UiUtils.shortToast(view.context, view.context.getString(R.string.beacon_moved_to, it.name))
+                                onMoved()
+                            }
+                        }
+                    }
+                }
                 R.id.action_edit_beacon -> {
                     onEdit()
                 }
@@ -156,7 +196,10 @@ class BeaconListItem(
         binding.beaconMenuBtn.setOnClickListener {
             val popup = PopupMenu(it.context, it)
             val inflater = popup.menuInflater
-            inflater.inflate(if (beacon.temporary) R.menu.temporary_beacon_item_menu else R.menu.beacon_item_menu, popup.menu)
+            inflater.inflate(
+                if (beacon.temporary) R.menu.temporary_beacon_item_menu else R.menu.beacon_item_menu,
+                popup.menu
+            )
             popup.setOnMenuItemClickListener(menuListener)
             popup.show()
         }

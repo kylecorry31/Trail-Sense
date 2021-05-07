@@ -251,6 +251,14 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     }
                 }
             }
+
+            listItem.onMoved = {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Main) {
+                        updateBeaconList()
+                    }
+                }
+            }
         } else if (beacon is BeaconGroup) {
             val listItem = BeaconGroupListItem(itemView, lifecycleScope, beacon)
             listItem.onDeleted = {

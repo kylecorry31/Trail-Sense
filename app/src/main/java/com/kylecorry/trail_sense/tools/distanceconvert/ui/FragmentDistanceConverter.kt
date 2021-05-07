@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolDistanceConvertBinding
-import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
@@ -16,7 +17,7 @@ import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 class FragmentDistanceConverter : BoundFragment<FragmentToolDistanceConvertBinding>() {
 
     private val unitService = UnitService()
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
 
     private val intervalometer = Intervalometer {
         update()
@@ -78,7 +79,7 @@ class FragmentDistanceConverter : BoundFragment<FragmentToolDistanceConvertBindi
 
         val converted = unitService.convert(distance, from, to)
 
-        binding.result.text = formatService.formatDistancePrecise(converted, to)
+        binding.result.text = formatService.formatDistance(Distance(converted, to), 4, false)
     }
 
     private fun getUnitName(unit: DistanceUnits): String {
