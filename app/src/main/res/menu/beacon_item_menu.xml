@@ -13,6 +13,9 @@
         android:id="@+id/action_map"
         android:title="@string/maps" />
     <item
+        android:id="@+id/action_move"
+        android:title="@string/move" />
+    <item
         android:id="@+id/action_delete_beacon"
         android:title="@string/delete_beacon" />
     <item
