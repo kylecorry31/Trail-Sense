@@ -51,7 +51,7 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
             }
             binding.rulerUnitBtn.text = getUnitText(rulerUnits)
             val displayDistance = currentDistance.convertTo(rulerUnits)
-            binding.measurement.text = formatService.formatDistance(displayDistance, precision)
+            binding.measurement.text = formatService.formatDistance(displayDistance, precision, false)
             ruler.setUnits(rulerUnits)
             calculateMapDistance()
         }
@@ -113,7 +113,7 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
     private fun onRulerTap(centimeters: Float) {
         currentDistance = Distance(centimeters, DistanceUnits.Centimeters)
         val displayDistance = currentDistance.convertTo(rulerUnits)
-        binding.measurement.text = formatService.formatDistance(displayDistance, precision)
+        binding.measurement.text = formatService.formatDistance(displayDistance, precision, false)
         calculateMapDistance()
     }
 
@@ -129,7 +129,8 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
                     val mapDistance = geoService.getMapDistance(currentDistance, scaleFrom, scaleTo)
                     formatService.formatDistance(
                         Distance(mapDistance.distance, scaleTo.units),
-                        mapPrecision
+                        mapPrecision,
+                        false
                     )
                 }
             }
@@ -142,7 +143,7 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
                 } else {
                     val mapDistance = geoService.getMapDistance(currentDistance, ratioFrom, ratioTo)
                     formatService.formatDistance(
-                        mapDistance.convertTo(rulerUnits).toRelativeDistance(), mapPrecision
+                        mapDistance.convertTo(rulerUnits).toRelativeDistance(), mapPrecision, false
                     )
                 }
             }

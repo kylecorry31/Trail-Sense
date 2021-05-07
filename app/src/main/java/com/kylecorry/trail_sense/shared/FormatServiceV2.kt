@@ -66,8 +66,8 @@ class FormatServiceV2(private val context: Context) {
         return "$date $time"
     }
 
-    fun formatDistance(distance: Distance, decimalPlaces: Int = 0): String {
-        val formatted = DecimalFormatter.format(distance.distance, decimalPlaces)
+    fun formatDistance(distance: Distance, decimalPlaces: Int = 0, strict: Boolean = true): String {
+        val formatted = DecimalFormatter.format(distance.distance, decimalPlaces, strict)
         return when (distance.units) {
             DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, formatted)
             DistanceUnits.Kilometers -> context.getString(
