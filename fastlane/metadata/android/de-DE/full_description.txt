@@ -1,0 +1,18 @@
+<h4>Navigation</h4>
+<p>Der Kompass kann verwendet werden, um die Richtung nach Norden herauszufindenund wenn er mit GPS kombiniert wird, ist auch eine Navigation zu vorher festgelegten Orten möglich. Diese vorher festgelegten Orte, die Wegpunkte, können an Ihrem Standort oder auch an jedem anderen Punkt erstellt werden, sodass Sie zurück navigieren können, wenn Sie einen Wegpunkt gesetzt haben.</p>
+<p>Beipiel-Wegpunkte: Campingplatz, Arbeit, Wegweiser</p>
+<p>Die Taschenlampe kann einfach vom Navigations-Tab aus aktiviert werden (normaler/SOS-Modus)</p>
+
+<h4>Wetter</h4>
+<p>Das Barometer kann genutzt werden, um herauszufinden, ob das Wetter sich in Kürze ändern wird oder ob ein Sturm aufkommen könnte. Der Druckverlauf (letzte 48 Stunden) wird als Diagramm angezeigt und eine Interpretation des aktuellen Wertes steht zur Verfügung. Wenn der Druck plötzlich fällt, wird eine Sturmbenachrichtigung gesendet.</p>
+
+<h4>Astronomie</h4>
+<p>Zeigt die Auf- und Untergangszeiten von Sonne/Mond und die Mondphase an Ihrer Position an.</p>
+
+<h4>Privatsphäre</h4>
+<p>Alle Standortdaten bleiben auf Ihrem Gerät und die App nutzt das Internet nicht.</p>
+
+<h4>Berechtigungen</h4>
+<p>Standort (genau, Hintergrund): Wird für Wegpunktnavigation, das Herausfinden der Richtung zum geographischen Norden, Höhenkorrigierung beim Höhenmessen (im Hintergrund) und Auf-/Untergangszeiten für Sonne/Mond verwendet.</p>
+<p>Taschenlampe: Wird für Taschenlampen-Funktion im Navigations-Tab verwendet.</p>
+<p>Körerliche Aktivität: Wird im Schrittzähler-basierten Kilometerzähler verwendet, um die Distanz herauszufinden.</p>
