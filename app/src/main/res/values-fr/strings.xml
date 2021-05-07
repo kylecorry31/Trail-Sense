@@ -447,7 +447,6 @@
     <string name="distance_to">à</string>
     <string name="distance_from">Depuis</string>
     <string name="distance_hint">Distance</string>
-    <string name="tool_distance_convert_title">Convertisseur de distance</string>
     <string name="action_inventory_delete_all_confirm">Supprimer tous les éléments de l\'inventaire \?</string>
     <string name="action_inventory_delete_all">Tout supprimer</string>
     <string name="tool_whistle_title">Sifflet</string>
@@ -546,7 +545,6 @@
     <string name="tool_white_noise_summary">Aide à s\'endormir</string>
     <string name="tool_white_noise_title">Bruit blanc</string>
     <string name="water_boil_timer_title">Désinfection de l\'eau par ébullition</string>
-    <string name="tool_coordinate_convert_title">Convertisseur de coordonnées</string>
     <string name="coordinate_format_mgrs">Système de référence de carroyage militaire (MGRS)</string>
     <string name="coordinate_format_utm">Transverse universelle de Mercator (UTM)</string>
     <string name="precise_temp_c_format">%s °C</string>

@@ -299,7 +299,6 @@
     <string name="distance_to">终点</string>
     <string name="distance_from">起点</string>
     <string name="distance_hint">距离</string>
-    <string name="tool_distance_convert_title">距离转换器</string>
     <string name="inventory_empty_text">无物品</string>
     <string name="action_inventory_delete_all_confirm">删除所有库存物品吗？</string>
     <string name="action_inventory_delete_all">删除全部</string>
@@ -544,7 +543,6 @@
     <string name="guide_thermometer_calibration_description">如何校正你的温度计</string>
     <string name="guide_thermometer_calibration_title">温度计校正</string>
     <string name="delete_waypoint_prompt">删除路径点？</string>
-    <string name="tool_coordinate_convert_title">坐标转换器</string>
     <string name="low_power_mode_on_message">已开启省电模式，一些功能可能被禁用。</string>
     <string name="pref_low_power_mode_title">省电模式</string>
     <string name="guide_barometer_calibration_description">如何把你的气压计校准到海平面</string>

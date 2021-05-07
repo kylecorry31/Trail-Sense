@@ -351,7 +351,6 @@
     <string name="pref_show_linear_compass_summary">Når telefonen er loddrett</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Angi gjeldende trykk ved havnivå i hPa</string>
     <string name="pref_auto_declination_summary">Basert på din nåværende posisjon</string>
-    <string name="tool_distance_convert_title">Distanseomregning</string>
     <string name="guide_avalanche_description">Hvordan bestemme skredfare</string>
     <string name="guide_avalanche_risk">Vurdering av skredfare</string>
     <string name="max_depth">Maks: %s</string>
@@ -489,7 +488,6 @@
     <string name="tool_thermometer_title">Termometer</string>
     <string name="guide_thermometer_calibration_description">Hvordan kalibrere termometeret</string>
     <string name="guide_thermometer_calibration_title">Termometerkalibrering</string>
-    <string name="tool_coordinate_convert_title">Koordinatomregning</string>
     <string name="guide_weather_prediction_description">Hvordan forutsi været med Trail Sense</string>
     <string name="guide_weather_prediction_title">Værprognose</string>
     <string name="coordinate_format_mgrs">MGRS</string>

@@ -338,8 +338,6 @@
     <string name="unit_kilometers">Kilometre</string>
     <string name="unit_meters">Metre</string>
     <string name="distance_hint">Mesafe</string>
-    <string name="tool_coordinate_convert_title">Koordinat Dönüştürücüsü</string>
-    <string name="tool_distance_convert_title">Mesafe Dönüştürücüsü</string>
     <string name="inventory_empty_text">Öge yok</string>
     <string name="action_inventory_delete_all_confirm">Bütün envanter ögelerini silmek istediğinden emin misin\?</string>
     <string name="action_inventory_delete_all">Hepsini sil</string>

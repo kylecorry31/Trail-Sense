@@ -259,8 +259,6 @@
     <string name="backtrack_disabled_low_power_toast">Історія маршруту вимкнена в режимі енергоощадження</string>
     <string name="dialog_leave">Покинути</string>
     <string name="unsaved_changes_message">Внесені вами зміни не будуть збережені.</string>
-    <string name="tool_coordinate_convert_title">Перетворювач координат</string>
-    <string name="tool_distance_convert_title">Перетворювач відстаней</string>
     <string name="inventory_empty_text">Порожньо</string>
     <string name="action_inventory_delete_all_confirm">Видалити всі речі інвентарю\?</string>
     <string name="action_inventory_delete_all">Видалити все</string>

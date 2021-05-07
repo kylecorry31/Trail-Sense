@@ -357,8 +357,6 @@
     <string name="tool_clock_title">Orologio</string>
     <string name="tool_boil_summary">Avvisa quando l’acqua è potabile</string>
     <string name="distance_hint">Distanza</string>
-    <string name="tool_coordinate_convert_title">Convertitore di coordinate</string>
-    <string name="tool_distance_convert_title">Convertitore di distanze</string>
     <string name="inventory_empty_text">Nessun oggetto</string>
     <string name="action_inventory_delete_all">Cancella tutti</string>
     <string name="tool_whistle_title">Fischio</string>

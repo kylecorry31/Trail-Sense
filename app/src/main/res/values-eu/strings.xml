@@ -377,7 +377,6 @@
     <string name="pref_privacy_policy_title">Pribatutasun politika</string>
     <string name="guide_recommended_apps">Gomendatutako aplikazioak</string>
     <string name="unit_nautical_miles">Itsas miliak</string>
-    <string name="tool_distance_convert_title">Distantzia bihurtzailea</string>
     <string name="inventory_empty_text">Elementurik ez</string>
     <string name="action_inventory_delete_all">Guztia ezabatu</string>
     <string name="max_depth">Gehi: %s</string>

@@ -387,7 +387,6 @@
     <string name="heat_alert_heat_caution_title">Ostrzeżenie przed wysoką temperaturą</string>
     <string name="beacon_elevation_hint_feet">Wysokość w stopach (opcjonalnie)</string>
     <string name="water_purification_step_3">Uruchom minutnik</string>
-    <string name="tool_distance_convert_title">Przelicznik odległości</string>
     <string name="precise_inches_format">%s cali</string>
     <string name="action_inventory_delete_all_confirm">Usunąć wszystkie przedmioty z ekwipunku\?</string>
     <string name="inventory_empty_text">Brak przedmiotów</string>
@@ -536,7 +535,6 @@
 \nMGRS (np. 27PXM 09601 05579)</string>
     <string name="action_waypoint_create_beacon">Dodaj punkt nawigacyjny</string>
     <string name="guide_create_beacons_title">Dodawanie punktów nawigacyjnych</string>
-    <string name="tool_coordinate_convert_title">Przelicznik współrzędnych</string>
     <string name="low_power_mode_on_message">Tryb oszczędzania energii jest włączony, niektóre funkcje mogą być wyłączone.</string>
     <string name="pref_low_power_mode_title">Tryb oszczędzania energii</string>
     <string name="guide_barometer_calibration_description">Jak skalibrować barometr do ciśnienia na poziomie morza</string>

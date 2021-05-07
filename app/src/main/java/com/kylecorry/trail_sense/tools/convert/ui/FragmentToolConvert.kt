@@ -21,7 +21,7 @@ class FragmentToolConvert : BoundFragment<FragmentToolConvertBinding>() {
         convertTools.add(FragmentToolCoordinateConvert())
         convertTools.add(FragmentDistanceConverter())
         val convertToolsNames = ArrayList<Int>()
-        convertToolsNames.add(R.string.distance)
+        convertToolsNames.add(R.string.distance_hint)
         convertToolsNames.add(R.string.coordinates)
 
         val viewPager: ViewPager = binding.convertViewpager

@@ -444,7 +444,6 @@
     <string name="distance_to">До</string>
     <string name="distance_from">От</string>
     <string name="distance_hint">Расстояние</string>
-    <string name="tool_distance_convert_title">Конвертер расстояний</string>
     <string name="inventory_empty_text">Пусто</string>
     <string name="action_inventory_delete_all_confirm">Удалить все предметы инвентаря\?</string>
     <string name="action_inventory_delete_all">Удалить все</string>
@@ -565,7 +564,6 @@
     <string name="create_at_distance">Создать на расстоянии</string>
     <string name="bearing">Маячок</string>
     <string name="update_gps_override">Обновить переопределение GPS</string>
-    <string name="tool_coordinate_convert_title">Конвертер координат</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="precise_temp_c_format">%s °C</string>

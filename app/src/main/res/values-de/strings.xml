@@ -369,7 +369,6 @@
     <string name="distance_to">entspricht</string>
     <string name="distance_from">Von</string>
     <string name="distance_hint">Entfernung</string>
-    <string name="tool_distance_convert_title">Einheitenrechner</string>
     <string name="inventory_empty_text">Keine Einträge</string>
     <string name="action_inventory_delete_all_confirm">Alle Gegenstände des Inventars löschen\?</string>
     <string name="action_inventory_delete_all">Alle löschen</string>
@@ -507,7 +506,6 @@
     <string name="freezing_temperatures_description">Wasser kann im Freien gefrieren, und Regen geht möglicherweise in Schneefall über</string>
     <string name="freezing_temperatures_warning">Frostgefahr</string>
     <string name="clock_sync_instructions">Bei Benachrichtigung Zeit auf %s setzen</string>
-    <string name="tool_coordinate_convert_title">Koordinatenrechner</string>
     <string name="pref_sea_level_pressure_change_thresh_title">Schwellwert für Druckänderung</string>
     <string name="pref_barometer_altitude_change_title">Schwellwert für Höhenänderung</string>
     <string name="charging_fast">Batterie lädt schnell (%s)</string>
