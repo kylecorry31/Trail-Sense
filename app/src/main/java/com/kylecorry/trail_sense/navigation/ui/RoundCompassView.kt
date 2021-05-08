@@ -3,31 +3,29 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.TypedValue
-import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.trail_sense.shared.views.CanvasView
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.math.deltaAngle
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.*
 
 
-class RoundCompassView : View, ICompassView {
-    private lateinit var paint: Paint
+class RoundCompassView : CanvasView, ICompassView {
     private val icons = mutableMapOf<Int, Bitmap>()
     private var indicators = listOf<BearingIndicator>()
     private var compass: Bitmap? = null
-    private var isInit = false
     private var azimuth = 0f
     private var destination: Float? = null
     @ColorInt
     private var destinationColor: Int? = null
 
     private var iconSize = 0
+    private var compassSize = 0
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -37,51 +35,30 @@ class RoundCompassView : View, ICompassView {
         defStyleAttr
     )
 
-    override fun onDraw(canvas: Canvas) {
-        if (visibility != VISIBLE) {
-            return
-        }
-        if (!isInit) {
-            paint = Paint()
-            iconSize =
-                TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP, 24f,
-                    resources.displayMetrics
-                ).toInt()
-            val compassSize = min(height, width) - 2 * iconSize - 2 * UiUtils.dp(context, 2f).toInt()
-            isInit = true
-            val compassDrawable = UiUtils.drawable(context, R.drawable.compass)
-            compass = compassDrawable?.toBitmap(compassSize, compassSize)
-        }
-        canvas.drawColor(Color.TRANSPARENT)
-        drawAzimuth(canvas)
-        canvas.save()
-        canvas.rotate(-azimuth, width / 2f, height / 2f)
-        drawCompass(canvas)
-        drawBearings(canvas)
-        drawDestination(canvas)
-        canvas.restore()
+    init {
+        runEveryCycle = false
+        setupAfterVisible = true
     }
 
-    private fun drawDestination(canvas: Canvas) {
-        destination ?: return
+    private fun drawDestination() {
+        val d = destination
+        d ?: return
         val color = destinationColor ?: UiUtils.color(context, R.color.colorPrimary)
-        canvas.save()
-        paint.color = color
-        paint.alpha = 100
-        val dp2 = UiUtils.dp(context, 2f)
-        canvas.drawArc(
+        push()
+        fill(color)
+        opacity(100)
+        val dp2 = dp(2f)
+        arc(
             iconSize.toFloat() + dp2,
             iconSize.toFloat() + dp2,
-            width - iconSize.toFloat() - dp2,
-            height - iconSize.toFloat() - dp2,
-            270f + azimuth,
-            deltaAngle(azimuth, destination!!),
-            true,
-            paint
+            compassSize.toFloat(),
+            compassSize.toFloat(),
+            azimuth - 90,
+            azimuth - 90 + deltaAngle(azimuth, d),
+            ArcMode.Pie
         )
-        paint.alpha = 255
-        canvas.restore()
+        opacity(255)
+        pop()
     }
 
     override fun setAzimuth(azimuth: Float) {
@@ -104,49 +81,38 @@ class RoundCompassView : View, ICompassView {
         invalidate()
     }
 
-    private fun drawAzimuth(canvas: Canvas) {
-        paint.colorFilter =
-            PorterDuffColorFilter(UiUtils.androidTextColorPrimary(context), PorterDuff.Mode.SRC_IN)
-        canvas.drawBitmap(
-            getBitmap(R.drawable.ic_arrow_target),
+    private fun drawAzimuth() {
+        tint(UiUtils.androidTextColorPrimary(context))
+        imageMode(ImageMode.Corner)
+        image(getBitmap(R.drawable.ic_arrow_target),
             width / 2f - iconSize / 2f,
-            0f,
-            paint
-        )
-        paint.colorFilter = null
+            0f)
+        noTint()
     }
 
-    private fun drawCompass(canvas: Canvas) {
-        paint.alpha = 255
-        canvas.drawBitmap(
-            compass!!,
-            iconSize.toFloat() + UiUtils.dp(context, 2f),
-            iconSize.toFloat() + UiUtils.dp(context, 2f),
-            paint
-        )
+    private fun drawCompass() {
+        opacity(255)
+        imageMode(ImageMode.Center)
+        image(compass!!, width / 2f, height / 2f)
     }
 
-    private fun drawBearings(canvas: Canvas) {
+    private fun drawBearings() {
         for (indicator in indicators) {
-            paint.colorFilter = if (indicator.tint != null) {
-                PorterDuffColorFilter(indicator.tint, PorterDuff.Mode.SRC_IN)
+            if (indicator.tint != null){
+                tint(indicator.tint)
             } else {
-                null
+                noTint()
             }
-            paint.alpha = (255 * indicator.opacity).toInt()
-            canvas.save()
-            canvas.rotate(indicator.bearing, width / 2f, height / 2f)
+            opacity((255 * indicator.opacity).toInt())
+            push()
+            rotate(indicator.bearing)
             val bitmap = getBitmap(indicator.icon)
-            canvas.drawBitmap(
-                bitmap,
-                width / 2f - iconSize / 2f,
-                0f,
-                paint
-            )
-            canvas.restore()
+            imageMode(ImageMode.Corner)
+            image(bitmap, width / 2f - iconSize / 2f, 0f)
+            pop()
         }
-        paint.colorFilter = null
-        paint.alpha = 255
+        noTint()
+        opacity(255)
     }
 
     override fun setDeclination(declination: Float) {
@@ -163,5 +129,25 @@ class RoundCompassView : View, ICompassView {
             icons[id]
         }
         return bitmap!!
+    }
+
+    override fun setup() {
+        iconSize = dp(24f).toInt()
+        compassSize = min(height, width) - 2 * iconSize - 2 * dp(2f).toInt()
+        compass = loadImage(R.drawable.compass, compassSize, compassSize)
+    }
+
+    override fun draw() {
+        if (!isVisible) {
+            return
+        }
+        clear()
+        drawAzimuth()
+        push()
+        rotate(-azimuth)
+        drawCompass()
+        drawBearings()
+        drawDestination()
+        pop()
     }
 }

@@ -9,23 +9,21 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.TypedValue
-import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.views.CanvasView
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.math.deltaAngle
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.absoluteValue
-import kotlin.math.min
 import kotlin.math.roundToInt
 
-class LinearCompassView : View, ICompassView {
+class LinearCompassView : CanvasView, ICompassView {
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -35,54 +33,47 @@ class LinearCompassView : View, ICompassView {
         defStyleAttr
     )
 
-    private val formatService = FormatService(context)
-    private lateinit var paint: Paint
+    private val formatService = FormatServiceV2(context)
     private val icons = mutableMapOf<Int, Bitmap>()
     private var indicators = listOf<BearingIndicator>()
-    private var compass: Bitmap? = null
-    private var isInit = false
     private var azimuth = 0f
     private var destination: Float? = null
     @ColorInt
     private var destinationColor: Int? = null
+
+    private val north by lazy { formatService.formatDirection(CompassDirection.North) }
+    private val south by lazy { formatService.formatDirection(CompassDirection.South) }
+    private val east by lazy { formatService.formatDirection(CompassDirection.East) }
+    private val west by lazy { formatService.formatDirection(CompassDirection.West) }
 
     var range = 180f
 
     private var iconSize = 0
     private var textSize = 0f
 
-
-    override fun onDraw(canvas: Canvas) {
-        if (visibility != VISIBLE) {
-            return
-        }
-        if (!isInit) {
-            paint = Paint(Paint.ANTI_ALIAS_FLAG)
-            paint.textAlign = Paint.Align.CENTER
-            iconSize = dp(25f).toInt()
-            textSize = sp(15f)
-            paint.textSize = textSize
-            val compassSize = min(height, width) - 2 * iconSize - 2 * dp(2f).toInt()
-            isInit = true
-            val compassDrawable = UiUtils.drawable(context, R.drawable.compass)
-            compass = compassDrawable?.toBitmap(compassSize, compassSize)
-        }
-        canvas.drawColor(Color.TRANSPARENT)
-
-        drawAzimuth(canvas)
-        drawCompass(canvas)
-        drawBearings(canvas)
-        drawDestination(canvas)
+    init {
+        runEveryCycle = false
+        setupAfterVisible = true
     }
 
-    private fun drawBearings(canvas: Canvas) {
+    fun finalize() {
+        try {
+            for (icon in icons){
+                icon.value.recycle()
+            }
+            icons.clear()
+        } catch (e: Exception) {
+        }
+    }
+
+    private fun drawBearings() {
         val minDegrees = (azimuth - range / 2).roundToInt()
         val maxDegrees = (azimuth + range / 2).roundToInt()
         for (indicator in indicators) {
-            paint.colorFilter = if (indicator.tint != null) {
-                PorterDuffColorFilter(indicator.tint, PorterDuff.Mode.SRC_IN)
+            if (indicator.tint != null){
+                tint(indicator.tint)
             } else {
-                null
+                noTint()
             }
             val delta = deltaAngle(
                 azimuth.roundToInt().toFloat(),
@@ -103,33 +94,29 @@ class LinearCompassView : View, ICompassView {
                     deltaMin * width
                 }
             }
-            paint.alpha = (255 * indicator.opacity).toInt()
+            opacity((255 * indicator.opacity).toInt())
             val bitmap = getBitmap(indicator.icon)
-            canvas.drawBitmap(
-                bitmap,
-                centerPixel - iconSize / 2f,
-                0f,
-                paint
+            imageMode(ImageMode.Corner)
+            image(bitmap, centerPixel - iconSize / 2f,
+                0f
             )
         }
-        paint.colorFilter = null
-        paint.alpha = 255
+        noTint()
+        opacity(255)
     }
 
-    private fun drawAzimuth(canvas: Canvas) {
-        paint.colorFilter =
-            PorterDuffColorFilter(UiUtils.androidTextColorPrimary(context), PorterDuff.Mode.SRC_IN)
-        canvas.drawBitmap(
-            getBitmap(R.drawable.ic_arrow_target),
+    private fun drawAzimuth() {
+        tint(UiUtils.androidTextColorPrimary(context))
+        imageMode(ImageMode.Corner)
+        image(getBitmap(R.drawable.ic_arrow_target),
             width / 2f - iconSize / 2f,
-            0f,
-            paint
+            0f
         )
-        paint.colorFilter = null
+        noTint()
     }
 
 
-    private fun drawCompass(canvas: Canvas) {
+    private fun drawCompass() {
         val pixDeg = width / range
         val minDegrees = (azimuth - range / 2).roundToInt()
         val maxDegrees = (azimuth + range / 2).roundToInt()
@@ -138,86 +125,72 @@ class LinearCompassView : View, ICompassView {
             if (i in minDegrees..maxDegrees) {
                 when {
                     i % 45 == 0 -> {
-                        paint.color = UiUtils.color(context, R.color.colorPrimary)
-                        paint.strokeWidth = 8f
+                        noFill()
+                        stroke(UiUtils.color(context, R.color.colorPrimary))
+                        strokeWeight(8f)
                     }
                     else -> {
-                        paint.color = UiUtils.androidTextColorPrimary(context)
-                        paint.strokeWidth = 8f
+                        stroke(UiUtils.androidTextColorPrimary(context))
+                        strokeWeight(8f)
                     }
                 }
                 when {
                     i % 90 == 0 -> {
-                        canvas.drawLine(
+                        line(
                             pixDeg * (i - minDegrees),
                             height.toFloat(),
                             pixDeg * (i - minDegrees),
                             0.5f * height,
-                            paint
                         )
                         val coord = when (i) {
-                            -90, 270 -> formatService.formatDirection(CompassDirection.West)
-                            0, 360 -> formatService.formatDirection(CompassDirection.North)
-                            90, 450 -> formatService.formatDirection(CompassDirection.East)
-                            -180, 180 -> formatService.formatDirection(CompassDirection.South)
+                            -90, 270 -> west
+                            0, 360 -> north
+                            90, 450 -> east
+                            -180, 180 -> south
                             else -> ""
                         }
-                        paint.color = UiUtils.androidTextColorPrimary(context)
-                        canvas.drawText(coord, pixDeg * (i - minDegrees), 5 / 12f * height, paint)
+                        noStroke()
+                        fill(UiUtils.androidTextColorPrimary(context))
+                        textMode(TextMode.Corner)
+                        text(coord, pixDeg * (i - minDegrees), 5 / 12f * height)
                     }
                     i % 15 == 0 -> {
-                        canvas.drawLine(
+                        line(
                             pixDeg * (i - minDegrees),
                             height.toFloat(),
                             pixDeg * (i - minDegrees),
-                            0.75f * height,
-                            paint
+                            0.75f * height
                         )
                     }
                     else -> {
-                        canvas.drawLine(
+                        line(
                             pixDeg * (i - minDegrees),
                             height.toFloat(),
                             pixDeg * (i - minDegrees),
-                            10 / 12f * height,
-                            paint
+                            10 / 12f * height
                         )
                     }
                 }
             }
             i += 5
         }
+        noStroke()
     }
 
-    private fun drawDestination(canvas: Canvas) {
-        destination ?: return
+    private fun drawDestination() {
+        val d = destination
+        d ?: return
         val color = destinationColor ?: UiUtils.color(context, R.color.colorPrimary)
         val delta = deltaAngle(
             azimuth.roundToInt().toFloat(),
-            destination!!.roundToInt().toFloat()
+            d.roundToInt().toFloat()
         )
 
         val pixelsPerDegree = width / range
-        paint.color = color
-        paint.alpha = 100
-        if (delta >= 0) {
-            canvas.drawRect(
-                width / 2f,
-                height - 0.5f * height,
-                width / 2f + delta * pixelsPerDegree,
-                height.toFloat(),
-                paint
-            )
-        } else {
-            canvas.drawRect(
-                width / 2f + delta * pixelsPerDegree,
-                height - 0.5f * height,
-                width / 2f,
-                height.toFloat(),
-                paint
-            )
-        }
-        paint.alpha = 255
+        fill(color)
+        opacity(100)
+        rect(width / 2f, height - 0.5f * height, delta * pixelsPerDegree, height * 0.5f)
+        opacity(255)
     }
 
     private fun getBitmap(@DrawableRes id: Int): Bitmap {
@@ -256,17 +229,21 @@ class LinearCompassView : View, ICompassView {
         invalidate()
     }
 
-    private fun dp(size: Float): Float {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, size,
-            resources.displayMetrics
-        )
+    override fun setup() {
+        textAlign(TextAlign.Center)
+        iconSize = dp(25f).toInt()
+        textSize = sp(15f)
+        textSize(textSize)
     }
 
-    private fun sp(size: Float): Float {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_SP, size,
-            resources.displayMetrics
-        )
+    override fun draw() {
+        if (!isVisible) {
+            return
+        }
+        clear()
+        drawAzimuth()
+        drawCompass()
+        drawBearings()
+        drawDestination()
     }
 }

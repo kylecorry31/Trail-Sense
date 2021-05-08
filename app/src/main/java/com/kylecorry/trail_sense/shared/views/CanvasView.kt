@@ -7,6 +7,7 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.isVisible
 import com.kylecorry.trailsensecore.infrastructure.canvas.getMaskedBitmap
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
@@ -23,6 +24,8 @@ abstract class CanvasView : View {
 
     private var isSetup = false
 
+    protected var setupAfterVisible = false
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -35,6 +38,9 @@ abstract class CanvasView : View {
         super.onDraw(canvas)
         canvas ?: return
         this.canvas = canvas
+        if (!isSetup && setupAfterVisible && !isVisible){
+            return
+        }
         if (!isSetup) {
             fillPaint = Paint()
             fillPaint.style = Paint.Style.FILL

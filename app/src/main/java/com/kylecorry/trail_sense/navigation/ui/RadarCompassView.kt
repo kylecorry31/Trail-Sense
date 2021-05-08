@@ -5,6 +5,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -31,7 +32,7 @@ class RadarCompassView : CanvasView, ICompassView {
     private val icons = mutableMapOf<Int, Bitmap>()
     private var indicators = listOf<BearingIndicator>()
     private var compass: Bitmap? = null
-    private lateinit var pathBitmap: Bitmap
+    private var pathBitmap: Bitmap? = null
     private var azimuth = 0f
     private var destination: Float? = null
 
@@ -79,6 +80,7 @@ class RadarCompassView : CanvasView, ICompassView {
 
     init {
         runEveryCycle = false
+        setupAfterVisible = true
     }
 
     private fun drawDestination() {
@@ -102,7 +104,7 @@ class RadarCompassView : CanvasView, ICompassView {
     }
 
     private fun drawPaths() {
-        val pathBitmap = mask(compass!!, pathBitmap){
+        val pathBitmap = mask(compass!!, pathBitmap!!){
             val dotted = DottedPathEffect()
             val arrow = ArrowPathEffect()
             clear()
@@ -165,7 +167,7 @@ class RadarCompassView : CanvasView, ICompassView {
     fun finalize() {
         try {
             compass?.recycle()
-            pathBitmap.recycle()
+            pathBitmap?.recycle()
             for (icon in icons){
                 icon.value.recycle()
             }
@@ -388,7 +390,7 @@ class RadarCompassView : CanvasView, ICompassView {
     }
 
     override fun draw() {
-        if (visibility != VISIBLE) {
+        if (!isVisible) {
             return
         }
         clear()
