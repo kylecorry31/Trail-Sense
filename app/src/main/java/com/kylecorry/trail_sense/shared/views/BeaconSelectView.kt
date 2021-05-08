@@ -137,11 +137,11 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
         val search = binding.searchboxBeaconPicker.query
         if (!search.isNullOrBlank()) {
             val all = if (displayedGroup == null) {
-                (allBeacons.filter { search in it.name }).map {
+                (allBeacons.filter { it.name.contains(search, true) }).map {
                     Pair(it, it.coordinate.distanceTo(location))
                 }
             } else {
-                (allBeacons.filter { search in it.name && it.beaconGroupId == displayedGroup?.id }).map {
+                (allBeacons.filter { it.name.contains(search, true) && it.beaconGroupId == displayedGroup?.id }).map {
                     Pair(it, it.coordinate.distanceTo(location))
                 }
             }
