@@ -34,6 +34,13 @@
             android:text="@string/all_beacons" />
     </LinearLayout>
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchbox_beacon_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:iconifiedByDefault="false"
+        app:queryHint="@string/search" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/beacon_recycler"
         android:layout_width="match_parent"

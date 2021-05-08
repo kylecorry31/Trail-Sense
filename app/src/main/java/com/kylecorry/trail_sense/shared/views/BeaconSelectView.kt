@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.View
 import android.widget.*
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
@@ -64,6 +65,17 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
                 displayedGroup = null
                 updateBeaconList()
             }
+            binding.searchboxBeaconPicker.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    onSearch()
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    onSearch()
+                    return true
+                }
+            })
             scope.launch {
                 loadBeacons()
             }
@@ -121,24 +133,43 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
     private fun updateBeaconList() {
         context ?: return
 
-        val beacons = if (displayedGroup == null) {
-            val ungrouped = allBeacons.filter { it.beaconGroupId == null }
-            val all = (ungrouped + allGroups).map {
-                if (it is Beacon) {
+        val beacons: List<IBeacon>
+        val search = binding.searchboxBeaconPicker.query
+        if (!search.isNullOrBlank()) {
+            val all = if (displayedGroup == null) {
+                (allBeacons.filter { search in it.name }).map {
                     Pair(it, it.coordinate.distanceTo(location))
-                } else {
-                    val groupBeacons =
-                        allBeacons.filter { beacon -> beacon.beaconGroupId == it.id }.map { b ->
-                            b.coordinate.distanceTo(location)
-                        }.minOrNull()
-                    Pair(it, groupBeacons ?: Float.POSITIVE_INFINITY)
+                }
+            } else {
+                (allBeacons.filter { search in it.name && it.beaconGroupId == displayedGroup?.id }).map {
+                    Pair(it, it.coordinate.distanceTo(location))
                 }
             }
-            all.sortedBy { it.second }.map { it.first }
+            beacons = all.sortedBy { it.second }.map { it.first }
         } else {
-            allBeacons.filter { beacon -> beacon.beaconGroupId == displayedGroup?.id }.sortedBy {
-                it.coordinate.distanceTo(location)
+
+            beacons = if (displayedGroup == null) {
+                val ungrouped = allBeacons.filter { it.beaconGroupId == null }
+                val all = (ungrouped + allGroups).map {
+                    if (it is Beacon) {
+                        Pair(it, it.coordinate.distanceTo(location))
+                    } else {
+                        val groupBeacons =
+                            allBeacons.filter { beacon -> beacon.beaconGroupId == it.id }.map { b ->
+                                b.coordinate.distanceTo(location)
+                            }.minOrNull()
+                        Pair(it, groupBeacons ?: Float.POSITIVE_INFINITY)
+                    }
+                }
+                all.sortedBy { it.second }.map { it.first }
+            } else {
+                allBeacons.filter { beacon -> beacon.beaconGroupId == displayedGroup?.id }
+                    .sortedBy {
+                        it.coordinate.distanceTo(location)
+                    }
             }
+
+            binding.searchboxBeaconPicker.isVisible = beacons.isNotEmpty()
         }
 
         binding.backBtn.isVisible = displayedGroup != null
@@ -147,6 +178,10 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
             displayedGroup?.name ?: context.getString(R.string.all_beacons)
         binding.beaconEmptyText.isVisible = beacons.isEmpty()
         beaconList.setData(beacons)
+    }
+
+    private fun onSearch() {
+        updateBeaconList()
     }
 
 }
