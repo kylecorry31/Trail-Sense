@@ -120,6 +120,8 @@ If an issue has a milestone and you would like to work on it, please leave a com
 - **Where can I find the time of high tide to calibrate?**
   - You can use a website such as NOAA's Tides and Currents (United States) or similar site for your country.
   - You may also be able to find a printed tide book or tide tables (from a newspaper or ranger station) in your area.
+- **I can't turn off the flashlight/white noise or they won't turn on**
+  - Please verify your notification settings for Trail Sense by long pressing the Trail Sense app icon, then opening App Settings, then opening Notifications. Ensure that Trail Sense has notifications enabled and that the Flashlight and White Noise channels are active.
 - **Flashlight notifications don't go away instantly when I turn it off**
   - Unfortunately, Android requires that notifications are present for certain services for at least 5 seconds, there is no way to get around this as it is a system "feature"
 - **What other apps would be useful in a survival situation?**
