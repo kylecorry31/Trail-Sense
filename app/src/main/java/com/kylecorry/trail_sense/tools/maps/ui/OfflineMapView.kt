@@ -153,8 +153,8 @@ class OfflineMapView : View {
             isInit = true
             primaryColor = UiUtils.color(context, R.color.colorPrimary)
             secondaryColor = UiUtils.color(context, R.color.colorSecondary)
-            val compassDrawable = UiUtils.drawable(context, R.drawable.radar)
-            compass = compassDrawable?.toBitmap(compassSize, compassSize)
+//            val compassDrawable = UiUtils.drawable(context, R.drawable.compass)
+//            compass = compassDrawable?.toBitmap(compassSize, compassSize)
         }
         if (visibility != VISIBLE) {
             postInvalidateDelayed(20)

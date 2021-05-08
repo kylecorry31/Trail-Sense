@@ -376,7 +376,7 @@ class RadarCompassView : CanvasView, ICompassView {
         cardinalSize = sp(10f)
         primaryColor = UiUtils.color(context, R.color.colorPrimary)
         secondaryColor = UiUtils.color(context, R.color.colorSecondary)
-        compass = loadImage(R.drawable.radar, compassSize, compassSize)
+        compass = loadImage(R.drawable.compass, compassSize, compassSize)
         pathBitmap = Bitmap.createBitmap(compassSize, compassSize, Bitmap.Config.ARGB_8888)
         useTrueNorth = prefs.navigation.useTrueNorth
         maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
