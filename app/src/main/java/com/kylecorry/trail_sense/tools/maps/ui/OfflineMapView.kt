@@ -10,6 +10,7 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.withMatrix
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.Bearing
@@ -105,6 +106,7 @@ class OfflineMapView : View {
             if (mapImage != null) {
                 val mapCoords = toMapCoordinate(PixelCoordinate(e.x, e.y))
                 val relativeClick = PixelCoordinate(e.x / scale, e.y / scale)
+                println(relativeClick)
                 val circles = beaconCircles.sortedBy { it.second.center.distanceTo(relativeClick) }
                 for (circle in circles) {
                     if (circle.second.contains(relativeClick)) {
@@ -172,7 +174,26 @@ class OfflineMapView : View {
             )
 //            val bitmap = BitmapFactory.decodeFile(file.path)
             // TODO: Scale instead of resize
-            mapImage = resize(bitmap, width, height)
+            val tempMapImage = resize(bitmap, width, height)
+             val matrix = Matrix()
+            matrix.setPolyToPoly(
+                floatArrayOf(
+                    79.991455f, 316.9709f,
+                    1056.9617f, 204.98181f,
+                    1053.9624f, 1413.8954f,
+                    217.99072f, 1413.8954f
+                    ),
+                0,
+                floatArrayOf(
+                    0f, 0f,
+                    tempMapImage.width.toFloat(), 0f,
+                    tempMapImage.width.toFloat(), tempMapImage.height.toFloat(),
+                    0f, tempMapImage.height.toFloat()
+                ),
+                0,
+                4
+            )
+            mapImage = Bitmap.createBitmap(tempMapImage, 0, 0, tempMapImage.width, tempMapImage.height, matrix, true)
             recenter()
         }
 
@@ -181,6 +202,7 @@ class OfflineMapView : View {
         }
 
         canvas.drawColor(Color.TRANSPARENT)
+
         canvas.scale(scale, scale)
         drawMap(canvas)
         drawPaths(canvas)
