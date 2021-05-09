@@ -177,7 +177,7 @@
 \n    %s der aktuellen Höhe
 \n    %s Satelliten
 \n
-\nEntfernen Sie sich von Metallgegenständen und rotieren Sie das Gerät in Form einer 8."</string>
+\nEntfernen Sie sich von Metallgegenständen und rotieren Sie das Gerät in Form einer 8 oder in alle Richtungen."</string>
     <string name="altitude">Höhe</string>
     <string name="pref_altimeter_calibration_title">Höhenmesser</string>
     <string name="request_permission">Berechtigung anfordern</string>
@@ -244,10 +244,10 @@
     <string name="altimeter_mode_barometer">Barometer</string>
     <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Geben Sie den aktuellen Luftdruck auf Meereshöhe in hPa ein</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Rotieren Sie das Telefon mehrfach in Form einer 8, drücken Sie %s wenn beendet.
+    <string name="calibrate_compass_on_navigate_dialog_content">Rotieren Sie das Telefon mehrfach in Form einer 8 oder in alle Richtungen, drücken Sie %s wenn beendet.
 \n
 \nDieser Hinweis kann in den Einstellungen deaktiviert werden.</string>
-    <string name="calibrate_compass_dialog_content">Rotieren Sie das Telefon mehrfach in Form einer 8, drücken Sie %s wenn beendet.</string>
+    <string name="calibrate_compass_dialog_content">Rotieren Sie das Telefon mehrfach in Form einer 8 oder in allen Richtungen, drücken Sie %s wenn beendet.</string>
     <string name="calibrate">Kalibrieren</string>
     <string name="compass_declination">Deklination</string>
     <string name="compass_azimuth">Azimut</string>
@@ -853,4 +853,11 @@
     <string name="pref_barometer_info_summary">Der Druck könnte von dem von benachbarten Stationen abweichen</string>
     <string name="battery_history">Batterienutzung - letzte %s</string>
     <string name="no_data">Keine Daten</string>
+    <string name="delete_map">Karte löschen\?</string>
+    <string name="pref_barometer_altitude_outlier_title">Entfernung von Höhenausreißern</string>
+    <string name="pref_barometer_altitude_smoothing_title">Höhenglättung</string>
+    <string name="pref_barometer_pressure_smoothing_title">Druckglättung</string>
+    <string name="pref_barometer_altitude_smoothing">pref_barometer_altitude_smoothing</string>
+    <string name="pref_experimental_barometer_calibration_title">Nutze experimentelle Kalibration</string>
+    <string name="battery_capacity_format">%s mAh</string>
 </resources>

@@ -460,10 +460,10 @@
     <string name="compass_accuracy_improved">Точність компаса поліпшено: %s</string>
     <string name="gps">GPS</string>
     <string name="compass_reported_accuracy">Поточна точність: %s</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Проведіть ваш пристрій по траєкторії вісімки кілька разів і натисніть %s.
+    <string name="calibrate_compass_on_navigate_dialog_content">Проведіть ваш пристрій за траєкторією вісімки чи всіма іншими напрямами кілька разів і натисніть %s.
 \n
 \nЦе повідомлення можна вимкнути в налаштуваннях.</string>
-    <string name="calibrate_compass_dialog_content">Проведіть ваш пристрій по траєкторії вісімки кілька разів і натисніть %s.</string>
+    <string name="calibrate_compass_dialog_content">Проведіть ваш пристрій за траєкторією вісімки чи всіма іншими напрямами кілька разів і натисніть %s.</string>
     <string name="pref_auto_declination_summary">З використанням вашого поточного місцеперебування</string>
     <string name="compass_declination">Магнітне схилення</string>
     <string name="compass_azimuth">Азимут</string>
@@ -793,7 +793,7 @@
 \n    %s на поточній висоті
 \n    %s супутників
 \n
-\nКомпас: Повертайте пристрій за траєкторією вісімки й постарайтеся знаходитися якомога далі від великих металоконструкцій."</string>
+\nКомпас: Повертайте пристрій за траєкторією вісімки чи за всіма іншими напрямами й постарайтеся знаходитися якомога далі від великих металоконструкцій."</string>
     <string name="accuracy_info_title">Поради щодо підвищення точності даних датників</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
@@ -865,4 +865,15 @@
     <string name="weather_monitor">Відстеження погоди</string>
     <string name="sunset_type">Захід сонця (%s)</string>
     <string name="sunrise_type">Схід сонця (%s)</string>
+    <string name="pref_barometer_altitude_outlier_title">Вилучення відхилень висоти</string>
+    <string name="delete_map">Видалити мапу\?</string>
+    <string name="pref_barometer_altitude_smoothing_title">Згладжування висоти</string>
+    <string name="pref_barometer_pressure_smoothing_title">Згладжування тиску</string>
+    <string name="pref_barometer_altitude_smoothing">pref_barometer_altitude_smoothing</string>
+    <string name="pref_experimental_barometer_calibration_title">Використовувати експериментальне калібрування</string>
+    <string name="pref_nmea_altitude_summary">Використовує зсуви NMEA для перетворення висоти</string>
+    <string name="pref_nmea_altitude_title">Зсуви висоти NMEA</string>
+    <string name="pref_barometer_info_summary">Тиск може відрізнятися від тиску сусідніх станцій</string>
+    <string name="battery_history">Історія батареї - остан. %s</string>
+    <string name="no_data">Немає даних</string>
 </resources>

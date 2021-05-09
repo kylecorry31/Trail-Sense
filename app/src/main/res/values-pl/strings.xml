@@ -396,10 +396,10 @@
     <string name="delete_beacon_group_message">%s i wszystkie punkty nawigacjne zostaną usunięte.</string>
     <string name="pref_center_sun_and_moon_title">Utrzymuj słońce/księżyc wyśrodkowane</string>
     <string name="compass_accuracy_improved">Dokładność kompasu zwiększona do %s</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Obróć telefon kilkakrotnie według wzoru cyfry 8, po zakończeniu kliknij %s.
+    <string name="calibrate_compass_on_navigate_dialog_content">Obróć telefon kilkakrotnie według wzoru cyfry 8 lub we wszystkich kierunkach, po zakończeniu kliknij %s.
 \n
 \nTą informację można wyłączyć w ustawieniach aplikacji.</string>
-    <string name="calibrate_compass_dialog_content">Obróć telefon kilkakrotnie według wzoru cyfry 8, po zakończeniu kliknij %s.</string>
+    <string name="calibrate_compass_dialog_content">Obróć telefon kilkakrotnie według wzoru cyfry 8 lub we wszystkich kierunkach, po zakończeniu kliknij %s.</string>
     <string name="compass_from_gps">Ustaw nadpisanie z GPS</string>
     <string name="temperature_disclaimer">Wyświetlana temperatura może być wyższa ze względu na ciepło telefonu.</string>
     <string name="heat_alert_heat_message">Ryzyko wyczerpania / udaru cieplnego. Pamiętaj, aby pozostać nawodnionym, pozostań w domu lub w cieniu, ogranicz ćwiczenia i uważaj na objawy wyczerpania lub udaru cieplnego.</string>
@@ -520,7 +520,7 @@
 \n    %s rzeczywistej wysokości
 \n    %s satelity
 \n
-\nKompas: Obróć urządzenie zgodnie ze wzorem cyfry 8 i odejdź od metalu."</string>
+\nKompas: Obróć urządzenie zgodnie ze wzorem cyfry 8 lub we wszystkie kierunki oraz odejdź od metalu."</string>
     <string name="create_at_distance">Utwórz w odległości</string>
     <string name="beacon_set_bearing_btn">Ustaw namiar (%s)</string>
     <string name="bearing">Namiar</string>
@@ -839,4 +839,13 @@
     <string name="sunrise_type">Wschód słońca (%s)</string>
     <string name="weather_monitor">Monitorowanie pogody</string>
     <string name="no_data">Brak danych</string>
+    <string name="backtrack_notification_channel">Ścieżka wycofywania się</string>
+    <string name="delete_map">Usunąć mapę\?</string>
+    <string name="pref_barometer_altitude_smoothing">pref_barometer_altitude_smoothing</string>
+    <string name="pref_nmea_altitude_title">Przesunięcia wysokości NMEA</string>
+    <string name="water_boil_guide_title">Spraw, aby woda była bezpieczna do picia</string>
+    <string name="solid">Stała</string>
+    <string name="arrow">Strzałka</string>
+    <string name="dotted">Kropkowana</string>
+    <string name="battery_capacity_format">%s mAh</string>
 </resources>

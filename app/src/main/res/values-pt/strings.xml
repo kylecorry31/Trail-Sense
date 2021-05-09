@@ -218,7 +218,7 @@
     <string name="distance_from">De</string>
     <string name="distance_hint">Distância</string>
     <string name="inventory_empty_text">Nenhum item</string>
-    <string name="action_inventory_delete_all_confirm">Excluir todos os itens do inventário\?</string>
+    <string name="action_inventory_delete_all_confirm">Apagar todos os itens do inventário\?</string>
     <string name="action_inventory_delete_all">tudo</string>
     <string name="tool_whistle_title">Assobio</string>
     <string name="max_depth">Max: %s</string>
@@ -284,8 +284,8 @@
     <string name="beacon_create_beacon">Ponto de Orientação</string>
     <string name="beacon_create">Criar</string>
     <string name="edit_beacon_group">Editar o grupo</string>
-    <string name="delete_beacon_group_message">%s e todos os seus Pontos de Orientação serão excluídos.</string>
-    <string name="delete_beacon_group">Excluir o grupo</string>
+    <string name="delete_beacon_group_message">%s e todos os seus Pontos de Orientação serão apagados.</string>
+    <string name="delete_beacon_group">Apagar o grupo</string>
     <string name="tool_user_guide_summary">Um guia de como usar o Trail Sense</string>
     <string name="tool_user_guide_title">Guia de Utilizador</string>
     <string name="error_occurred_message">O Trail Sense encontrou um erro e vai fechar. Por favor, envie um e-mail ao programador para corrigir este problema.</string>
@@ -409,7 +409,7 @@
     <string name="dialog_item_add">Adicionar</string>
     <string name="spinner_category_prompt">Categoria</string>
     <string name="action_item_edit">Editar</string>
-    <string name="action_item_delete">Excluir</string>
+    <string name="action_item_delete">Apagar</string>
     <string name="action_item_subtract">Subtrair</string>
     <string name="action_item_add">Adicionar</string>
     <string name="action_inventory">Inventário</string>
@@ -674,7 +674,7 @@
     <string name="tool_thermometer_title">Termômetro</string>
     <string name="guide_thermometer_calibration_description">Como calibrar o seu termômetro</string>
     <string name="guide_thermometer_calibration_title">Calibração de termômetro</string>
-    <string name="delete_waypoint_prompt">Excluir ponto de passagem\?</string>
+    <string name="delete_waypoint_prompt">Apagar ponto de passagem\?</string>
     <string name="pref_gps_override_title">Localização simulada</string>
     <string name="coordinate_input_invalid_location">Localização inválida</string>
     <string name="location_input_help">Graus decimais (p.ex. 1.00, -2.00) Graus decimais minutos (p.ex. 1°23.12\'N, 3°12.1\'W) Graus minutos segundos (p.ex. 1°23\'12.1\"N, 3°12\"1.2\'W) UTM (p.ex. 03T 12345E 67890N) MGRS (p.ex. 27PXM 09601 05579)</string>

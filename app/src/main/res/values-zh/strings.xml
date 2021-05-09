@@ -88,10 +88,10 @@
     <string name="gps_location">位置</string>
     <string name="compass_accuracy_improved">指南针的精确度提升至 %s</string>
     <string name="compass_reported_accuracy">报告的准确度： %s</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">将你的手机以 8 字形旋转几次，完成后轻触 %s 。
+    <string name="calibrate_compass_on_navigate_dialog_content">以8字形或全方位旋转手机几次，完成后轻触 %s 。
 \n
 \n该警告可在应用设定内停用。</string>
-    <string name="calibrate_compass_dialog_content">将你的手机以 8 字形旋转几次，完成后轻触 %s 。</string>
+    <string name="calibrate_compass_dialog_content">以8字形或全方位旋转手机几次，完成后轻触 %s 。</string>
     <string name="calibrate_compass_dialog_title">校准指南针</string>
     <string name="calibrate">校准</string>
     <string name="pref_auto_declination_summary">基于你现在的位置</string>
@@ -187,7 +187,7 @@
 \n    %s 的实际海拔
 \n    %s 颗卫星
 \n
-\n指南针:以8字形旋转手机，并远离金属。"</string>
+\n指南针：以8字形或全方位旋转设备，并使其远离金属。"</string>
     <string name="accuracy_info_title">提高传感器精确度的小提示</string>
     <string name="unknown">未知</string>
     <string name="degree_format">%.0f°</string>
@@ -840,4 +840,15 @@
     <string name="weather_monitor">天气监控器</string>
     <string name="sunset_type">日落 (%s)</string>
     <string name="sunrise_type">日出 (%s)</string>
+    <string name="pref_barometer_info_summary">压力可能与附近气象站的压力不同</string>
+    <string name="battery_history">电池历史 - 过去 %s</string>
+    <string name="no_data">无数据</string>
+    <string name="pref_nmea_altitude_title">NMEA高度偏移</string>
+    <string name="delete_map">删除地图？</string>
+    <string name="pref_barometer_altitude_outlier_title">海拔高度异常消除</string>
+    <string name="pref_barometer_altitude_smoothing_title">高度平滑</string>
+    <string name="pref_barometer_pressure_smoothing_title">压力平滑</string>
+    <string name="pref_barometer_altitude_smoothing">pref_barometer_altitude_smoothing</string>
+    <string name="pref_experimental_barometer_calibration_title">使用实验性校准</string>
+    <string name="pref_nmea_altitude_summary">使用NMEA偏移量进行高度转换</string>
 </resources>
