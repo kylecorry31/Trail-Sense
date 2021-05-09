@@ -10,6 +10,7 @@ import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.persistence.MemoryCachedValue
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.time.Instant
 
@@ -81,6 +82,7 @@ class WeatherContextualService private constructor(private val context: Context)
 
     suspend fun setDataChanged() {
         cachedValue.reset()
+        delay(50)
         resetWeatherService()
     }
 

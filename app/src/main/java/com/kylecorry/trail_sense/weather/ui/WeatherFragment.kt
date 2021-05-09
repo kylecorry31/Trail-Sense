@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -19,7 +20,6 @@ import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
-import com.kylecorry.trail_sense.weather.infrastructure.PressureCalibrationUtils
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
@@ -56,6 +56,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
+    private val formatServiceV2 by lazy { FormatServiceV2(requireContext()) }
     private val pressureRepo by lazy { PressureRepo.getInstance(requireContext()) }
 
     private val throttle = Throttle(20)
@@ -354,7 +355,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         withContext(Dispatchers.Main) {
-            binding.weatherNowLbl.text = getShortTermWeatherDescription(hourly)
+            binding.weatherNowLbl.text = formatServiceV2.formatShortTermWeather(hourly, prefs.weather.useRelativeWeatherPredictions)
+            binding.weatherNowPredictionLbl.isVisible = !prefs.weather.useRelativeWeatherPredictions && hourly != Weather.Storm
+            binding.weatherNowPredictionLbl.text = getString(R.string.weather_prediction, formatServiceV2.formatShortTermWeather(hourly, true))
             binding.weatherNowImg.setImageResource(
                 getWeatherImage(
                     hourly,
@@ -423,6 +426,17 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             Weather.WorseningFast -> getString(R.string.weather_worsening_fast)
             Weather.Storm -> getString(R.string.weather_storm_incoming)
             else -> getString(R.string.weather_not_changing)
+        }
+    }
+
+    private fun getShortTermTechnicalWeatherDescription(weather: Weather): String {
+        return when (weather) {
+            Weather.ImprovingFast -> getString(R.string.pressure_rising_fast)
+            Weather.ImprovingSlow -> getString(R.string.pressure_rising)
+            Weather.WorseningSlow -> getString(R.string.pressure_falling)
+            Weather.WorseningFast -> getString(R.string.pressure_falling_fast)
+            Weather.Storm -> getString(R.string.weather_storm_incoming)
+            else -> getString(R.string.pressure_no_change)
         }
     }
 

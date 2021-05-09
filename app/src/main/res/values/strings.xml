@@ -1017,4 +1017,10 @@
     <string name="no_groups">No groups</string>
     <string name="move">Move</string>
     <string name="beacon_moved_to">Moved to %s</string>
+    <string name="pressure_rising_fast">Pressure rising fast</string>
+    <string name="pressure_rising">Pressure rising</string>
+    <string name="pressure_falling">Pressure dropping</string>
+    <string name="pressure_falling_fast">Pressure dropping fast</string>
+    <string name="pressure_no_change">Pressure not changing</string>
+    <string name="weather_prediction">Weather: %s</string>
 </resources>

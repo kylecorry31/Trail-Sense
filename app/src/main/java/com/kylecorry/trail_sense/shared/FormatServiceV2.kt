@@ -8,6 +8,7 @@ import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.units.*
+import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import java.time.Duration
@@ -223,6 +224,28 @@ class FormatServiceV2(private val context: Context) {
     fun formatCandela(candela: Float, decimalPlaces: Int = 0): String {
         val formatted = DecimalFormatter.format(candela.toDouble(), decimalPlaces)
         return context.getString(R.string.candela_format, formatted)
+    }
+
+    fun formatShortTermWeather(weather: Weather, relative: Boolean): String {
+        return if (relative){
+            when (weather) {
+                Weather.ImprovingFast -> context.getString(R.string.weather_improving_fast)
+                Weather.ImprovingSlow -> context.getString(R.string.weather_improving_slow)
+                Weather.WorseningSlow -> context.getString(R.string.weather_worsening_slow)
+                Weather.WorseningFast -> context.getString(R.string.weather_worsening_fast)
+                Weather.Storm -> context.getString(R.string.weather_storm_incoming)
+                else -> context.getString(R.string.weather_not_changing)
+            }
+        } else {
+            when (weather) {
+                Weather.ImprovingFast -> context.getString(R.string.pressure_rising_fast)
+                Weather.ImprovingSlow -> context.getString(R.string.pressure_rising)
+                Weather.WorseningSlow -> context.getString(R.string.pressure_falling)
+                Weather.WorseningFast -> context.getString(R.string.pressure_falling_fast)
+                Weather.Storm -> context.getString(R.string.weather_storm_incoming)
+                else -> context.getString(R.string.pressure_no_change)
+            }
+        }
     }
 
 

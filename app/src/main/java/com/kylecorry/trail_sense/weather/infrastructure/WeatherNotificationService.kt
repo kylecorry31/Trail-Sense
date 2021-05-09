@@ -6,9 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.hardware.SensorManager
+import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
@@ -63,6 +65,7 @@ object WeatherNotificationService {
     ) {
         val prefs = UserPreferences(context)
         val units = prefs.pressureUnits
+        val formatService = FormatServiceV2(context)
         val pressure = lastReading ?: PressureReading(
             Instant.now(),
             SensorManager.PRESSURE_STANDARD_ATMOSPHERE
@@ -76,16 +79,7 @@ object WeatherNotificationService {
             else -> R.drawable.steady
         }
 
-        val description = context.getString(
-            when (forecast) {
-                Weather.ImprovingFast -> R.string.weather_improving_fast
-                Weather.ImprovingSlow -> R.string.weather_improving_slow
-                Weather.WorseningSlow -> R.string.weather_worsening_slow
-                Weather.WorseningFast -> R.string.weather_worsening_fast
-                Weather.Storm -> R.string.weather_storm_incoming
-                else -> R.string.weather_not_changing
-            }
-        )
+        val description = formatService.formatShortTermWeather(forecast, prefs.weather.useRelativeWeatherPredictions)
 
         val newNotification = getNotification(
             context,

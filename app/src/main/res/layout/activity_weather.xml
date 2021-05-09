@@ -137,19 +137,29 @@
             app:layout_constraintBottom_toBottomOf="@+id/weather_now_img"
             app:layout_constraintStart_toEndOf="@+id/weather_now_img"
             app:layout_constraintTop_toTopOf="@+id/weather_now_img"
-            tools:text="@string/weather_worsening_slow" />
+            tools:text="@string/pressure_falling" />
 
         <TextView
-            android:id="@+id/weather_later_lbl"
+            android:id="@+id/weather_now_prediction_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/weather_now_lbl"
+            app:layout_constraintEnd_toEndOf="@+id/weather_now_lbl"
             app:layout_constraintTop_toBottomOf="@+id/weather_now_img"
-            tools:text="@string/forecast_worsening" />
+            tools:text="Prediction: Worsening soon " />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/weather_later_lbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        tools:text="@string/forecast_worsening" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
