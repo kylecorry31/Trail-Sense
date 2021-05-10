@@ -218,4 +218,9 @@
     <string name="app_disclaimer_message_title">Cláusula de protección / Terminos de servicios</string>
     <string name="disclaimer_message_title">Aviso legal</string>
     <string name="copied_to_clipboard_toast">Copiado en el portapapeles</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="percent_format">%d%%</string>
+    <string name="degree">%s°</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="elevation_diff_format">%s%s</string>
 </resources>
