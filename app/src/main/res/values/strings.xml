@@ -1025,4 +1025,6 @@
     <string name="weather_prediction">Weather: %s</string>
     <string name="map_preview">Preview</string>
     <string name="map_edit">Edit</string>
+    <string name="map_perspective_instructions">Outline the map</string>
+    <string name="map_rotate_instructions">Rotate until North points up</string>
 </resources>

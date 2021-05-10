@@ -48,6 +48,7 @@
         android:id="@+id/instructions_holder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,10 +56,10 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Rotate until North points up" />
+            android:text="@string/map_rotate_instructions" />
 
         <Button
             android:id="@+id/next_button"
