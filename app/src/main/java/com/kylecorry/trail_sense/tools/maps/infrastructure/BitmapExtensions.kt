@@ -26,6 +26,23 @@ fun Bitmap.resize(maxWidth: Int, maxHeight: Int): Bitmap {
     }
 }
 
+fun Bitmap.getFitSize(maxWidth: Int, maxHeight: Int): Pair<Float, Float> {
+    return if (maxHeight > 0 && maxWidth > 0) {
+        val ratioBitmap = width.toFloat() / height.toFloat()
+        val ratioMax = maxWidth.toFloat() / maxHeight.toFloat()
+        var finalWidth = maxWidth.toFloat()
+        var finalHeight = maxHeight.toFloat()
+        if (ratioMax > ratioBitmap) {
+            finalWidth = (maxHeight.toFloat() * ratioBitmap)
+        } else {
+            finalHeight = (maxWidth.toFloat() / ratioBitmap)
+        }
+        finalWidth to finalHeight
+    } else {
+        width.toFloat() to height.toFloat()
+    }
+}
+
 // https://stackoverflow.com/questions/13161628/cropping-a-perspective-transformation-of-image-on-android
 fun Bitmap.fixPerspective(bounds: PixelBounds): Bitmap {
     val matrix = Matrix()

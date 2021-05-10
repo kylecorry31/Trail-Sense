@@ -89,13 +89,13 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         altimeter.asLiveData().observe(viewLifecycleOwner, { updateDestination() })
         compass.asLiveData().observe(viewLifecycleOwner, {
             compass.declination = geoService.getDeclination(gps.location, gps.altitude)
-            binding.map.setAzimuth(compass.bearing)
+            binding.map.setAzimuth(compass.bearing.value, false)
             updateDestination()
         })
         beaconRepo.getBeacons()
             .observe(
                 viewLifecycleOwner,
-                { binding.map.setBeacons(it.map { it.toBeacon() }.filter { it.visible }) })
+                { binding.map.showBeacons(it.map { it.toBeacon() }.filter { it.visible }) })
 
         if (prefs.navigation.showBacktrackPath) {
             backtrackRepo.getWaypoints()
@@ -233,7 +233,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
         val backtrackPath = backtrack?.copy(points = listOf(myLocation) + backtrack!!.points)
 
-        binding.map.setPaths(listOfNotNull(backtrackPath))
+        binding.map.showPaths(listOfNotNull(backtrackPath))
     }
 
     private fun updateDestination() {
@@ -254,14 +254,14 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
         destination = beacon
         if (!isCalibrating) {
-            binding.map.setDestination(beacon)
+            binding.map.showDestination(beacon)
             binding.cancelNavigationBtn.show()
             updateDestination()
         }
     }
 
     private fun hideNavigation() {
-        binding.map.setDestination(null)
+        binding.map.showDestination(null)
         binding.cancelNavigationBtn.hide()
         binding.navigationSheet.hide()
     }
@@ -274,7 +274,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun onMapLoad(map: Map) {
         this.map = map
-        binding.map.setMap(map)
+        binding.map.showMap(map)
         if (map.calibrationPoints.size < 2) {
             calibrateMap()
         }
@@ -301,7 +301,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         map = map?.copy(calibrationPoints = points)
-        binding.map.setMap(map!!, false)
+        binding.map.showMap(map!!)
     }
 
     fun calibrateMap() {

@@ -6,137 +6,62 @@ import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
-import android.view.View
 import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
-import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.views.CanvasView
 import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
-import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
+import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
+import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
+import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.pixels.*
 import com.kylecorry.trailsensecore.infrastructure.canvas.ArrowPathEffect
-import kotlin.math.max
-import kotlin.math.min
+import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
 
 
-class OfflineMapView : View {
-    private lateinit var paint: Paint
-    private val icons = mutableMapOf<Int, Bitmap>()
-    private var beacons = listOf<Beacon>()
-    private var paths = listOf<Path>()
+class OfflineMapView : CanvasView {
+
+    private var keepNorthUp = true
+    private var azimuth = 0f
+    private var map: Map? = null
+    private var mapImage: Bitmap? = null
+    private var mapSize = Pair(0f, 0f)
+    private var translateX = 0f
+    private var translateY = 0f
+    private var scale = 1f
+
     private var pathLines: List<PixelLine>? = null
+    private var beaconCircles: List<Pair<Beacon, PixelCircle>> = listOf()
+
+    // Features
+    private var myLocation: Coordinate? = null
+    private var beacons: List<Beacon> = listOf()
+    private var destination: Beacon? = null
+    private var paths: List<Path>? = null
     private var calibrationPoints = listOf<MapCalibrationPoint>()
     private var showCalibrationPoints = false
-    private var compass: Bitmap? = null
-    private var isInit = false
-    private var azimuth = Bearing(0f)
-    private var mapImage: Bitmap? = null
-    private var map: Map? = null
-    private var myLocation = Coordinate.zero
-    private var destination: Beacon? = null
-    private var mapX = 0f
-    private var mapY = 0f
 
-    private var beaconCircles = listOf<Pair<Beacon, PixelCircle>>()
-
-    private val fileService by lazy { LocalFileService(context) }
-    private val prefs by lazy { UserPreferences(context) }
-
+    // Listeners
     var onSelectLocation: ((coordinate: Coordinate) -> Unit)? = null
     var onSelectBeacon: ((beacon: Beacon) -> Unit)? = null
     var onMapImageClick: ((percent: PercentCoordinate) -> Unit)? = null
 
     @ColorInt
-    private var primaryColor: Int = Color.WHITE
+    private var primaryColor: Int = Color.BLACK
 
     @ColorInt
-    private var secondaryColor: Int = Color.WHITE
+    private var secondaryColor: Int = Color.BLACK
 
-    private var iconSize = 0
-    private var directionSize = 0
-    private var compassSize = 0
-
-    private var scale = 1f
-
-    private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
-        override fun onScroll(
-            e1: MotionEvent,
-            e2: MotionEvent,
-            distanceX: Float,
-            distanceY: Float
-        ): Boolean {
-            mapX -= distanceX / scale
-            mapY -= distanceY / scale
-
-            mapX = min(width.toFloat(), max(mapX, -mapImage!!.width.toFloat()))
-            mapY = min(height.toFloat(), max(mapY, -mapImage!!.height.toFloat()))
-            return true
-        }
-
-        override fun onLongPress(e: MotionEvent) {
-            super.onLongPress(e)
-            val x = e.x
-            val y = e.y
-
-            if (mapImage != null) {
-                val xMap = x / scale - mapX
-                val yMap = y / scale - mapY
-                val coordinate = map?.getCoordinate(
-                    PixelCoordinate(xMap, yMap),
-                    mapImage!!.width.toFloat(),
-                    mapImage!!.height.toFloat()
-                )
-                if (coordinate != null) {
-                    onSelectLocation?.invoke(coordinate)
-                }
-            }
-        }
-
-        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            if (mapImage != null) {
-                val mapCoords = toMapCoordinate(PixelCoordinate(e.x, e.y))
-                val relativeClick = PixelCoordinate(e.x / scale, e.y / scale)
-                println(relativeClick)
-                val circles = beaconCircles.sortedBy { it.second.center.distanceTo(relativeClick) }
-                for (circle in circles) {
-                    if (circle.second.contains(relativeClick)) {
-                        onSelectBeacon?.invoke(circle.first)
-                        return super.onSingleTapConfirmed(e)
-                    }
-                }
-
-                val percent = PercentCoordinate(
-                    mapCoords.x / mapImage!!.width,
-                    mapCoords.y / mapImage!!.height
-                )
-                onMapImageClick?.invoke(percent)
-            }
-            return super.onSingleTapConfirmed(e)
-        }
-    }
-
-    private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-
-        override fun onScale(detector: ScaleGestureDetector): Boolean {
-            scale *= detector.scaleFactor
-            scale = max(0.1f, min(scale, 8.0f))
-            return true
-        }
-    }
-
-    private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
-    private val mPanDetector = GestureDetector(context, mGestureListener)
+    private val fileService by lazy { LocalFileService(context) }
+    private val prefs by lazy { UserPreferences(context) }
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -146,78 +71,225 @@ class OfflineMapView : View {
         defStyleAttr
     )
 
-    override fun onDraw(canvas: Canvas) {
-        if (!isInit) {
-            paint = Paint(Paint.ANTI_ALIAS_FLAG)
-            paint.textAlign = Paint.Align.CENTER
-            iconSize = UiUtils.dp(context, 8f).toInt()
-            directionSize = UiUtils.dp(context, 16f).toInt()
-            compassSize = min(height, width) - 2 * iconSize - 2 * UiUtils.dp(context, 2f).toInt()
-            isInit = true
-            primaryColor = UiUtils.color(context, R.color.colorPrimary)
-            secondaryColor = UiUtils.color(context, R.color.colorSecondary)
-//            val compassDrawable = UiUtils.drawable(context, R.drawable.compass)
-//            compass = compassDrawable?.toBitmap(compassSize, compassSize)
-        }
-        if (visibility != VISIBLE) {
-            postInvalidateDelayed(20)
-            invalidate()
-            return
-        }
-        if (mapImage == null && map != null) {
-            // TODO: Determine tiles for when zoom is > X (they should be X by X pixels, smaller around the edges
-            // TODO: Load all visible tiles and overlay them over the map, unload them if zoomed out or out of view
-            val file = fileService.getFile(map!!.filename, false)
-            val bitmap = BitmapUtils.decodeBitmapScaled(
-                file.path,
-                width,
-                height
-            )
-            mapImage = bitmap.resize(width, height)
-            bitmap.recycle()
-        }
 
-        if (pathLines == null && paths.isNotEmpty() && mapImage != null && map?.calibrationPoints != null && map!!.calibrationPoints.size >= 2) {
+    override fun setup() {
+        primaryColor = UiUtils.color(context, R.color.colorPrimary)
+        secondaryColor = UiUtils.color(context, R.color.colorSecondary)
+    }
+
+    override fun draw() {
+        val map = map ?: return
+        if (mapImage == null) {
+            mapImage = loadMap(map)
+        }
+        val mapImage = mapImage ?: return
+
+        if (paths != null && pathLines == null && map.calibrationPoints.size >= 2) {
             createPathLines()
         }
 
-        canvas.drawColor(Color.TRANSPARENT)
+        push()
+        translate(translateX, translateY)
+        scale(scale)
+        if (!keepNorthUp) {
+            rotate(azimuth) // TODO: Rotate around my position
+        }
+        mapSize = mapImage.getFitSize(width, height)
+        image(mapImage, 0f, 0f, mapSize.first, mapSize.second, 0f, 0f)
 
-        canvas.scale(scale, scale)
-        drawMap(canvas)
-        drawPaths(canvas)
-        drawDestination(canvas)
-        drawCurrentPosition(canvas)
-        drawBeacons(canvas)
-        drawCalibrationPoints(canvas)
-        postInvalidateDelayed(20)
+        drawPaths()
+        drawDestination()
+        drawMyLocation()
+        drawBeacons()
+        drawCalibrationPoints()
+
+        pop()
+    }
+
+    private fun drawPaths() {
+        val pathLines = pathLines ?: return
+// TODO: Add mask
+//        val pathBitmap = mask(mapImage!!, pathBitmap!!){
+        val dotted = DottedPathEffect(3f / scale, 10f / scale)
+        val arrow = ArrowPathEffect(6f / scale)
+        clear()
+        for (line in pathLines) {
+
+            if (!shouldDisplayLine(line)) {
+                continue
+            }
+
+            when (line.style) {
+                PixelLineStyle.Solid -> {
+                    noPathEffect()
+                    noFill()
+                    stroke(line.color)
+                    strokeWeight(6f / scale)
+                }
+                PixelLineStyle.Arrow -> {
+                    pathEffect(arrow)
+                    noStroke()
+                    fill(line.color)
+                }
+                PixelLineStyle.Dotted -> {
+                    pathEffect(dotted)
+                    noStroke()
+                    fill(line.color)
+                }
+            }
+            opacity(line.alpha)
+            val xOffset = 0f
+            val yOffset = 0f
+            line(
+                line.start.x - xOffset,
+                line.start.y - yOffset,
+                line.end.x - xOffset,
+                line.end.y - yOffset
+            )
+            opacity(255)
+            noStroke()
+            fill(Color.WHITE)
+            noPathEffect()
+        }
+//        }
+//
+//        imageMode(ImageMode.Center)
+//        image(pathBitmap, width / 2f, height / 2f)
+    }
+
+    private fun shouldDisplayLine(line: PixelLine): Boolean {
+        if (line.alpha == 0) {
+            return false
+        }
+        // TODO: If off map, false
+
+        return true
+    }
+
+    private fun drawCalibrationPoints() {
+        if (!showCalibrationPoints) return
+        for (point in calibrationPoints) {
+            val coord = point.imageLocation.toPixels(
+                mapSize.first,
+                mapSize.second
+            )
+            stroke(Color.WHITE)
+            strokeWeight(dp(1f) / scale)
+            fill(secondaryColor)
+            circle(coord.x, coord.y, dp(8f) / scale)
+        }
+    }
+
+
+    fun showMap(map: Map) {
+        this.map = map
+        this.mapImage = null
+    }
+
+    fun setAzimuth(azimuth: Float, rotateMap: Boolean = false) {
+        this.azimuth = azimuth
+        this.keepNorthUp = !rotateMap
+    }
+
+    // TODO: Include error radius
+    fun setMyLocation(coordinate: Coordinate?) {
+        myLocation = coordinate
+    }
+
+    // TODO: Switch to layers
+    fun showBeacons(beacons: List<Beacon>) {
+        this.beacons = beacons
+    }
+
+    fun showDestination(destination: Beacon?) {
+        this.destination = destination
+    }
+
+    fun showPaths(paths: List<Path>) {
+        this.paths = paths
+        this.pathLines = null
         invalidate()
     }
 
-    private fun fixMapOrientation(image: Bitmap, bounds: PixelBounds): Bitmap {
-        val matrix = Matrix()
-        matrix.setPolyToPoly(
-            floatArrayOf(
-                bounds.topLeft.x, bounds.topLeft.y,
-                bounds.topRight.x, bounds.topRight.y,
-                bounds.bottomRight.x, bounds.bottomRight.y,
-                bounds.bottomLeft.x, bounds.bottomLeft.y,
-//                79.991455f, 316.9709f,
-//                1056.9617f, 204.98181f,
-//                1053.9624f, 1413.8954f,
-//                217.99072f, 1413.8954f
-            ),
-            0,
-            floatArrayOf(
-                0f, 0f,
-                image.width.toFloat(), 0f,
-                image.width.toFloat(), image.height.toFloat(),
-                0f, image.height.toFloat()
-            ),
-            0,
-            4
+    private fun createPathLines() {
+        mapImage ?: return
+        val paths = paths ?: return
+        val maxTimeAgo = prefs.navigation.showBacktrackPathDuration
+        pathLines = paths.flatMap {
+            it.toPixelLines(maxTimeAgo) {
+                getPixelCoordinate(it, false) ?: PixelCoordinate(0f, 0f)
+            }
+        }
+    }
+
+
+    private fun loadMap(map: Map): Bitmap {
+        // TODO: Have option to load lower quality image
+        val file = fileService.getFile(map.filename, false)
+        return BitmapFactory.decodeFile(file.path)
+    }
+
+    private fun drawMyLocation() {
+        val location = myLocation ?: return
+        val pixels = getPixelCoordinate(location) ?: return
+
+        stroke(Color.WHITE)
+        strokeWeight(dp(1f) / scale)
+        fill(primaryColor)
+        push()
+        if (keepNorthUp) {
+            rotate(azimuth, pixels.x, pixels.y)
+        }
+        triangle(
+            pixels.x, pixels.y - dp(6f) / scale,
+            pixels.x - dp(5f) / scale, pixels.y + dp(6f) / scale,
+            pixels.x + dp(5f) / scale, pixels.y + dp(6f) / scale
         )
-        return Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, true)
+        pop()
+    }
+
+    private fun drawDestination() {
+        val startLocation = myLocation ?: return
+        val endLocation = destination?.coordinate ?: return
+        val lineColor = destination?.color ?: return
+
+        val startPixel = getPixelCoordinate(startLocation) ?: return
+        val endPixel = getPixelCoordinate(endLocation) ?: return
+
+        noFill()
+        stroke(lineColor)
+        strokeWeight(dp(4f) / scale)
+        opacity(127)
+        line(startPixel.x, startPixel.y, endPixel.x, endPixel.y)
+        opacity(255)
+    }
+
+    private fun drawBeacons() {
+        val circles = mutableListOf<Pair<Beacon, PixelCircle>>()
+        for (beacon in beacons) {
+            val coord = getPixelCoordinate(beacon.coordinate)
+            if (coord != null) {
+                opacity(
+                    if (beacon.id == destination?.id || destination == null) {
+                        255
+                    } else {
+                        200
+                    }
+                )
+                stroke(Color.WHITE)
+                strokeWeight(dp(1f) / scale)
+                fill(beacon.color)
+                circle(coord.x, coord.y, dp(8f) / scale)
+                circles.add(
+                    beacon to PixelCircle(
+                        PixelCoordinate(coord.x, coord.y),
+                        3 * dp(4f) / scale
+                    )
+                )
+            }
+        }
+        beaconCircles = circles
+        opacity(255)
     }
 
     fun showCalibrationPoints(points: List<MapCalibrationPoint>? = null) {
@@ -229,267 +301,99 @@ class OfflineMapView : View {
         showCalibrationPoints = false
     }
 
-    fun setMap(map: Map, refreshImage: Boolean = true) {
-        this.map = map
-        if (refreshImage) {
-            mapImage = null
-        }
-    }
-
-    private fun drawDestination(canvas: Canvas) {
-        val dest = destination ?: return
-        val myLocation = getPixelCoordinate(myLocation)
-        val destLoc = getPixelCoordinate(dest.coordinate)
-        if (myLocation != null && destLoc != null) {
-            paint.color = dest.color
-            paint.strokeWidth = 6f / scale
-            paint.alpha = 127
-            paint.style = Paint.Style.STROKE
-            canvas.drawLine(
-                mapX + myLocation.x,
-                mapY + myLocation.y,
-                mapX + destLoc.x,
-                mapY + destLoc.y,
-                paint
-            )
-            paint.style = Paint.Style.FILL
-            paint.alpha = 255
-        }
-    }
-
-    fun setAzimuth(bearing: Bearing) {
-        azimuth = bearing
-    }
-
-    fun setScale(scale: Float) {
-        this.scale = scale
-    }
-
-    fun setMyLocation(location: Coordinate) {
-        myLocation = location
-    }
-
-    fun setBeacons(beacons: List<Beacon>) {
-        this.beacons = beacons
-    }
-
-    fun setPaths(paths: List<Path>) {
-        this.paths = paths
-        this.pathLines = null
-    }
-
-    fun setDestination(beacon: Beacon?) {
-        destination = beacon
-    }
-
-    fun finalize() {
-        try {
-            mapImage?.recycle()
-        } catch (e: Exception) {
-        }
-    }
-
-    fun recenter() {
-        scale = 1f
-        mapX = 0f
-        mapY = if (mapImage != null) {
-            height / 2f - mapImage!!.height / 2f
-        } else {
-            height / 2f
-        }
-    }
-
-    private fun drawMap(canvas: Canvas) {
-        mapImage ?: return
-        canvas.drawBitmap(
-            mapImage!!, mapX, mapY, paint
-        )
-    }
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        mScaleDetector.onTouchEvent(event)
-        mPanDetector.onTouchEvent(event)
-        return true
-    }
-
-    private fun drawCurrentPosition(canvas: Canvas) {
-        val myLocation = getPixelCoordinate(myLocation)
-        if (myLocation != null) {
-            canvas.save()
-            canvas.rotate(azimuth.value, mapX + myLocation.x, mapY + myLocation.y)
-            canvas.scale(1 / scale, 1 / scale)
-            // TODO: Resize based on scale
-            canvas.drawBitmap(
-                getBitmap(R.drawable.ic_my_location, directionSize),
-                (mapX + myLocation.x) * scale - directionSize / 2f,
-                (mapY + myLocation.y) * scale - directionSize / 2f,
-                paint
-            )
-            paint.colorFilter = null
-            canvas.restore()
-        }
-    }
-
-    private fun drawBeacons(canvas: Canvas) {
-        val circles = mutableListOf<Pair<Beacon, PixelCircle>>()
-        for (beacon in beacons) {
-            val coord = getPixelCoordinate(beacon.coordinate)
-            if (coord != null) {
-                val alpha = if (beacon.id == destination?.id || destination == null) {
-                    255
-                } else {
-                    200
-                }
-                paint.color = Color.WHITE
-                paint.alpha = alpha
-                circles.add(
-                    beacon to PixelCircle(
-                        PixelCoordinate(mapX + coord.x, mapY + coord.y),
-                        3 * (iconSize / 2f + UiUtils.dp(context, 1f)) / scale
-                    )
-                )
-                canvas.drawCircle(
-                    mapX + coord.x,
-                    mapY + coord.y,
-                    (iconSize / 2f + UiUtils.dp(context, 1f)) / scale,
-                    paint
-                )
-                paint.color = beacon.color
-                paint.alpha = alpha
-                canvas.drawCircle(mapX + coord.x, mapY + coord.y, (iconSize / 2f) / scale, paint)
-                paint.alpha = 255
-            }
-        }
-        beaconCircles = circles
-    }
-
-    private fun drawPaths(canvas: Canvas) {
-        mapImage ?: return
-
-        if (paths.isEmpty()) {
-            return
-        }
-
-        // TODO: Draw this on a masked bitmap
-        val dotted = DottedPathEffect(3f / scale, 10f / scale)
-        val arrow = ArrowPathEffect(6f / scale)
-        for (line in pathLines ?: listOf()) {
-            when (line.style){
-                PixelLineStyle.Solid -> {
-                    paint.pathEffect = null
-                    paint.style = Paint.Style.STROKE
-                    paint.strokeCap = Paint.Cap.ROUND
-                    paint.strokeWidth = 6f / scale
-                }
-                PixelLineStyle.Arrow -> {
-                    paint.pathEffect = arrow
-                    paint.style = Paint.Style.FILL
-                }
-                PixelLineStyle.Dotted -> {
-                    paint.pathEffect = dotted
-                    paint.style = Paint.Style.FILL
-                }
-            }
-            paint.color = line.color
-            paint.alpha = line.alpha
-
-            canvas.drawLine(
-                mapX + line.start.x,
-                mapY + line.start.y,
-                mapX + line.end.x,
-                mapY + line.end.y,
-                paint
-            )
-        }
-        paint.alpha = 255
-        paint.strokeCap = Paint.Cap.BUTT
-        paint.style = Paint.Style.FILL
-        paint.pathEffect = null
-    }
-
-    private fun drawCalibrationPoints(canvas: Canvas) {
-        if (!showCalibrationPoints || mapImage == null) return
-        for (point in calibrationPoints) {
-            val coord = point.imageLocation.toPixels(
-                mapImage!!.width.toFloat(),
-                mapImage!!.height.toFloat()
-            )
-            paint.color = Color.WHITE
-            canvas.drawCircle(
-                mapX + coord.x,
-                mapY + coord.y,
-                (iconSize / 2f + UiUtils.dp(context, 1f)) / scale,
-                paint
-            )
-            paint.color = secondaryColor
-            canvas.drawCircle(mapX + coord.x, mapY + coord.y, (iconSize / 2f) / scale, paint)
-        }
-    }
-
     private fun getPixelCoordinate(
         coordinate: Coordinate,
         nullIfOffMap: Boolean = true
     ): PixelCoordinate? {
-        mapImage ?: return null
-
         val pixels =
-            map?.getPixels(coordinate, mapImage!!.width.toFloat(), mapImage!!.height.toFloat())
+            map?.getPixels(coordinate, mapSize.first, mapSize.second)
                 ?: return null
 
-        if (nullIfOffMap && (pixels.x < 0 || pixels.x > mapImage!!.width)) {
+        if (nullIfOffMap && (pixels.x < 0 || pixels.x > mapSize.first)) {
             return null
         }
 
-        if (nullIfOffMap && (pixels.y < 0 || pixels.y > mapImage!!.height)) {
+        if (nullIfOffMap && (pixels.y < 0 || pixels.y > mapSize.second)) {
             return null
         }
 
         return pixels
     }
 
-    private fun resize(image: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
-        return if (maxHeight > 0 && maxWidth > 0) {
-            val width = image.width
-            val height = image.height
-            val ratioBitmap = width.toFloat() / height.toFloat()
-            val ratioMax = maxWidth.toFloat() / maxHeight.toFloat()
-            var finalWidth = maxWidth
-            var finalHeight = maxHeight
-            if (ratioMax > ratioBitmap) {
-                finalWidth = (maxHeight.toFloat() * ratioBitmap).toInt()
-            } else {
-                finalHeight = (maxWidth.toFloat() / ratioBitmap).toInt()
-            }
-            Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true)
-        } else {
-            image
-        }
-    }
 
-    private fun createPathLines() {
-        mapImage ?: return
-        val maxTimeAgo = prefs.navigation.showBacktrackPathDuration
-        pathLines = paths.flatMap {
-            it.toPixelLines(maxTimeAgo) {
-                getPixelCoordinate(it, false) ?: PixelCoordinate(0f, 0f)
+    // Gesture detectors
+
+    private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
+        override fun onScroll(
+            e1: MotionEvent,
+            e2: MotionEvent,
+            distanceX: Float,
+            distanceY: Float
+        ): Boolean {
+            translateX -= distanceX
+            translateY -= distanceY
+            return true
+        }
+
+        override fun onLongPress(e: MotionEvent) {
+            super.onLongPress(e)
+            val x = e.x
+            val y = e.y
+
+            if (mapImage != null) {
+                val mapCoords = toMapCoordinate(PixelCoordinate(x, y))
+                val coordinate = map?.getCoordinate(
+                    mapCoords,
+                    mapSize.first,
+                    mapSize.second
+                )
+                if (coordinate != null) {
+                    onSelectLocation?.invoke(coordinate)
+                }
             }
+        }
+
+        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+            if (mapImage != null) {
+                val mapCoords = toMapCoordinate(PixelCoordinate(e.x, e.y))
+                val circles = beaconCircles.sortedBy { it.second.center.distanceTo(mapCoords) }
+                for (circle in circles) {
+                    if (circle.second.contains(mapCoords)) {
+                        onSelectBeacon?.invoke(circle.first)
+                        return super.onSingleTapConfirmed(e)
+                    }
+                }
+
+                val percent = PercentCoordinate(
+                    mapCoords.x / mapSize.first,
+                    mapCoords.y / mapSize.second
+                )
+                onMapImageClick?.invoke(percent)
+            }
+            return super.onSingleTapConfirmed(e)
         }
     }
 
     private fun toMapCoordinate(screen: PixelCoordinate): PixelCoordinate {
-        return PixelCoordinate(screen.x / scale - mapX, screen.y / scale - mapY)
+        return PixelCoordinate((screen.x - translateX) / scale, (screen.y - translateY) / scale)
     }
 
-    private fun getBitmap(@DrawableRes id: Int, size: Int = iconSize): Bitmap {
-        val bitmap = if (icons.containsKey(id)) {
-            icons[id]
-        } else {
-            val drawable = UiUtils.drawable(context, id)
-            val bm = drawable?.toBitmap(size, size)
-            icons[id] = bm!!
-            icons[id]
+    private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+
+        override fun onScale(detector: ScaleGestureDetector): Boolean {
+            scale *= detector.scaleFactor
+            // TODO: Scale with the center pivot
+            return true
         }
-        return bitmap!!
+    }
+
+    private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
+    private val mPanDetector = GestureDetector(context, mGestureListener)
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        mScaleDetector.onTouchEvent(event)
+        mPanDetector.onTouchEvent(event)
+        return true
     }
 
 }
