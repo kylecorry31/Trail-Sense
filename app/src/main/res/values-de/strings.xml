@@ -736,7 +736,7 @@
     <string name="weather_worse_than_today">Schlechter als heute</string>
     <string name="weather_better_than_today">Besser als heute</string>
     <string name="tomorrows_forecast">Vorhersage für morgen</string>
-    <string name="guide_light_meter_description">Wie man die Reichweite einer Taschenlampe herausfindet</string>
+    <string name="guide_light_meter_description">Reichweite einer Taschenlampe herausfinden</string>
     <string name="set">Festlegen</string>
     <string name="tool_light_meter_description">Reichweite einer Taschenlampe messen</string>
     <string name="tool_light_meter_title">Lichtmeter</string>
@@ -860,4 +860,10 @@
     <string name="pref_barometer_altitude_smoothing">pref_barometer_altitude_smoothing</string>
     <string name="pref_experimental_barometer_calibration_title">Nutze experimentelle Kalibration</string>
     <string name="battery_capacity_format">%s mAh</string>
+    <string name="beacon_moved_to">Nach %s verschoben</string>
+    <string name="move">Verschieben</string>
+    <string name="no_groups">Keine Gruppen</string>
+    <string name="coordinates_tab">Koordinaten</string>
+    <string name="distance">Entfernung</string>
+    <string name="convert">Umrechner</string>
 </resources>
