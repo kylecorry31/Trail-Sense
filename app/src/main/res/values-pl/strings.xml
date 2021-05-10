@@ -848,4 +848,8 @@
     <string name="arrow">Strzałka</string>
     <string name="dotted">Kropkowana</string>
     <string name="battery_capacity_format">%s mAh</string>
+    <string name="convert">Przelicznik</string>
+    <string name="distance">Odległość</string>
+    <string name="coordinates_tab">Współrzędne</string>
+    <string name="no_groups">Brak grup</string>
 </resources>
