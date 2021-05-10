@@ -71,6 +71,10 @@ class OfflineMapView : CanvasView {
         defStyleAttr
     )
 
+    init {
+        runEveryCycle = false
+    }
+
 
     override fun setup() {
         primaryColor = UiUtils.color(context, R.color.colorPrimary)
@@ -81,6 +85,11 @@ class OfflineMapView : CanvasView {
         val map = map ?: return
         if (mapImage == null) {
             mapImage = loadMap(map)
+            val size = mapImage?.getFitSize(width, height)
+            size?.let {
+                translateX = (width - it.first) / 2f
+                translateY = (height - it.second) / 2f
+            }
         }
         val mapImage = mapImage ?: return
 
@@ -184,25 +193,30 @@ class OfflineMapView : CanvasView {
     fun showMap(map: Map) {
         this.map = map
         this.mapImage = null
+        invalidate()
     }
 
     fun setAzimuth(azimuth: Float, rotateMap: Boolean = false) {
         this.azimuth = azimuth
         this.keepNorthUp = !rotateMap
+        invalidate()
     }
 
     // TODO: Include error radius
     fun setMyLocation(coordinate: Coordinate?) {
         myLocation = coordinate
+        invalidate()
     }
 
     // TODO: Switch to layers
     fun showBeacons(beacons: List<Beacon>) {
         this.beacons = beacons
+        invalidate()
     }
 
     fun showDestination(destination: Beacon?) {
         this.destination = destination
+        invalidate()
     }
 
     fun showPaths(paths: List<Path>) {
@@ -295,10 +309,12 @@ class OfflineMapView : CanvasView {
     fun showCalibrationPoints(points: List<MapCalibrationPoint>? = null) {
         calibrationPoints = points ?: map?.calibrationPoints ?: listOf()
         showCalibrationPoints = true
+        invalidate()
     }
 
     fun hideCalibrationPoints() {
         showCalibrationPoints = false
+        invalidate()
     }
 
     private fun getPixelCoordinate(
@@ -393,6 +409,7 @@ class OfflineMapView : CanvasView {
     override fun onTouchEvent(event: MotionEvent): Boolean {
         mScaleDetector.onTouchEvent(event)
         mPanDetector.onTouchEvent(event)
+        invalidate()
         return true
     }
 

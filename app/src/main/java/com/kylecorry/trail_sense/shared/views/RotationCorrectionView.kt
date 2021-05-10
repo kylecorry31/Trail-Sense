@@ -4,9 +4,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
 import androidx.annotation.DrawableRes
-import com.kylecorry.trail_sense.tools.maps.infrastructure.BitmapUtils2
 import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import com.kylecorry.trail_sense.tools.maps.infrastructure.rotate
+import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 
 class RotationCorrectionView : CanvasView {
@@ -47,19 +47,23 @@ class RotationCorrectionView : CanvasView {
         if (image == null && imagePath != null){
             imagePath?.let {
                 val file = localFileService.getFile(it, false)
-                val bitmap = BitmapUtils2.decodeBitmapScaled(
+                val bitmap = BitmapUtils.decodeBitmapScaled(
                     file.path,
                     width,
                     height
                 )
                 image = bitmap.resize(width, height)
-                bitmap.recycle()
+                if (image != bitmap) {
+                    bitmap.recycle()
+                }
             }
         } else if (image == null && imageDrawable != null){
             imageDrawable?.let {
                 val img = loadImage(it)
                 image = img.resize(width, height)
-                img.recycle()
+                if (image != img) {
+                    img.recycle()
+                }
             }
         }
 
@@ -72,7 +76,9 @@ class RotationCorrectionView : CanvasView {
         scale(scale)
         image(bitmap, 0f, 0f)
         pop()
-        bitmap.recycle()
+        if (bitmap != image) {
+            bitmap.recycle()
+        }
     }
 
     fun setImage(bitmap: Bitmap) {

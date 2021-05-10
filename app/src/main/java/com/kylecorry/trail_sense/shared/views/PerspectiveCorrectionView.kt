@@ -10,11 +10,11 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.maps.domain.PercentBounds
 import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
-import com.kylecorry.trail_sense.tools.maps.infrastructure.BitmapUtils2
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
 import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
+import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
@@ -66,19 +66,23 @@ class PerspectiveCorrectionView : CanvasView {
         if (image == null && imagePath != null){
             imagePath?.let {
                 val file = localFileService.getFile(it, false)
-                val bitmap = BitmapUtils2.decodeBitmapScaled(
+                val bitmap = BitmapUtils.decodeBitmapScaled(
                     file.path,
                     width,
                     height
                 )
                 image = bitmap.resize(width, height)
-                bitmap.recycle()
+                if (image != bitmap) {
+                    bitmap.recycle()
+                }
             }
         } else if (image == null && imageDrawable != null){
             imageDrawable?.let {
                 val img = loadImage(it)
                 image = img.resize(width, height)
-                img.recycle()
+                if (img != image) {
+                    img.recycle()
+                }
             }
         }
 
@@ -135,7 +139,9 @@ class PerspectiveCorrectionView : CanvasView {
         val bitmap = image ?: return
         val warped = bitmap.fixPerspective(getBounds())
         image(warped, 0f, 0f)
-        warped.recycle()
+        if (warped != bitmap) {
+            warped.recycle()
+        }
     }
 
     private fun drawEditCanvas(){
