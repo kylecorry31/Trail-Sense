@@ -709,7 +709,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.kylecorry.trail_sense.tools.maps.ui.MapsFragment"
+        android:name="com.kylecorry.trail_sense.tools.maps.ui.ImportMapFragment"
         android:label="MapsFragment">
         <argument
             android:name="mapId"

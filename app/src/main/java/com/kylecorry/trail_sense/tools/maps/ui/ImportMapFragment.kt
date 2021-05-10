@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Instant
 
-class MapsFragment : BoundFragment<FragmentMapsBinding>() {
+class ImportMapFragment : BoundFragment<FragmentMapsBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
@@ -88,13 +88,13 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         altimeter.asLiveData().observe(viewLifecycleOwner, { updateDestination() })
         compass.asLiveData().observe(viewLifecycleOwner, {
             compass.declination = geoService.getDeclination(gps.location, gps.altitude)
-            binding.map.setAzimuth(compass.bearing)
+            binding.map.setAzimuth(compass.bearing.value, false)
             updateDestination()
         })
         beaconRepo.getBeacons()
             .observe(
                 viewLifecycleOwner,
-                { binding.map.setBeacons(it.map { it.toBeacon() }.filter { it.visible }) })
+                { binding.map.showBeacons(it.map { it.toBeacon() }.filter { it.visible }) })
 
         if (prefs.navigation.showBacktrackPath) {
             backtrackRepo.getWaypoints()
@@ -132,7 +132,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                     navigateTo(destination!!)
                 }
                 binding.mapCalibrationBottomPanel.isVisible = false
-                binding.map.hideCalibrationPoints()
+//                binding.map.hideCalibrationPoints()
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
                         map?.let {
@@ -217,44 +217,44 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                 }
 
                 updateMapCalibration()
-                binding.map.showCalibrationPoints()
+//                binding.map.showCalibrationPoints()
             }
         }
 
-        binding.map.onMapImageClick = {
-            if (isCalibrating) {
-                if (calibrationIndex == 0) {
-                    calibrationPoint1Percent = it
-                } else {
-                    calibrationPoint2Percent = it
-                }
-                updateMapCalibration()
-                binding.map.showCalibrationPoints()
-            }
-        }
+//        binding.map.onMapImageClick = {
+//            if (isCalibrating) {
+//                if (calibrationIndex == 0) {
+//                    calibrationPoint1Percent = it
+//                } else {
+//                    calibrationPoint2Percent = it
+//                }
+//                updateMapCalibration()
+//                binding.map.showCalibrationPoints()
+//            }
+//        }
 
-        binding.map.onSelectLocation = {
-            val formatted = formatService.formatLocation(it)
-            // TODO: ask to create or navigate
-            UiUtils.alertWithCancel(
-                requireContext(),
-                getString(R.string.create_beacon_title),
-                getString(R.string.place_beacon_at, formatted),
-                getString(R.string.beacon_create),
-                getString(R.string.dialog_cancel)
-            ) { cancelled ->
-                if (!cancelled) {
-                    val bundle = bundleOf(
-                        "initial_location" to MyNamedCoordinate(it)
-                    )
-                    findNavController().navigate(R.id.place_beacon, bundle)
-                }
-            }
-        }
-
-        binding.map.onSelectBeacon = {
-            navigateTo(it)
-        }
+//        binding.map.onSelectLocation = {
+//            val formatted = formatService.formatLocation(it)
+//            // TODO: ask to create or navigate
+//            UiUtils.alertWithCancel(
+//                requireContext(),
+//                getString(R.string.create_beacon_title),
+//                getString(R.string.place_beacon_at, formatted),
+//                getString(R.string.beacon_create),
+//                getString(R.string.dialog_cancel)
+//            ) { cancelled ->
+//                if (!cancelled) {
+//                    val bundle = bundleOf(
+//                        "initial_location" to MyNamedCoordinate(it)
+//                    )
+//                    findNavController().navigate(R.id.place_beacon, bundle)
+//                }
+//            }
+//        }
+//
+//        binding.map.onSelectBeacon = {
+//            navigateTo(it)
+//        }
 
         binding.cancelNavigationBtn.setOnClickListener {
             cancelNavigation()
@@ -290,7 +290,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
         val backtrackPath = backtrack?.copy(points = listOf(myLocation) + backtrack!!.points)
 
-        binding.map.setPaths(listOfNotNull(backtrackPath))
+        binding.map.showPaths(listOfNotNull(backtrackPath))
     }
 
     private fun updateDestination() {
@@ -311,14 +311,14 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
         destination = beacon
         if (!isCalibrating) {
-            binding.map.setDestination(beacon)
+            binding.map.showDestination(beacon)
             binding.cancelNavigationBtn.show()
             updateDestination()
         }
     }
 
     private fun hideNavigation() {
-        binding.map.setDestination(null)
+        binding.map.showDestination(null)
         binding.cancelNavigationBtn.hide()
         binding.navigationSheet.hide()
     }
@@ -332,7 +332,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private fun onMapLoad(map: Map) {
         this.map = map
         binding.mapName.text = map.name
-        binding.map.setMap(map)
+        binding.map.showMap(map)
         if (map.calibrationPoints.size < 2) {
             calibrateMap()
         }
@@ -359,7 +359,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         }
 
         map = map?.copy(calibrationPoints = points)
-        binding.map.setMap(map!!, false)
+        binding.map.showMap(map!!)
     }
 
     private fun calibrateMap() {
@@ -375,7 +375,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         }
 
         calibratePoint(calibrationIndex)
-        binding.map.showCalibrationPoints()
+//        binding.map.showCalibrationPoints()
     }
 
     private fun calibratePoint(index: Int) {

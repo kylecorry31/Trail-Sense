@@ -13,6 +13,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.withMatrix
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.maps.domain.MapPixelBounds
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
@@ -174,26 +175,16 @@ class OfflineMapView : View {
             )
 //            val bitmap = BitmapFactory.decodeFile(file.path)
             // TODO: Scale instead of resize
-            val tempMapImage = resize(bitmap, width, height)
-             val matrix = Matrix()
-            matrix.setPolyToPoly(
-                floatArrayOf(
-                    79.991455f, 316.9709f,
-                    1056.9617f, 204.98181f,
-                    1053.9624f, 1413.8954f,
-                    217.99072f, 1413.8954f
-                    ),
-                0,
-                floatArrayOf(
-                    0f, 0f,
-                    tempMapImage.width.toFloat(), 0f,
-                    tempMapImage.width.toFloat(), tempMapImage.height.toFloat(),
-                    0f, tempMapImage.height.toFloat()
-                ),
-                0,
-                4
+            // TODO: Load do this before the image is saved
+            val mapBounds = MapPixelBounds(
+                topLeft = PixelCoordinate(79.991455f, 316.9709f),
+                topRight = PixelCoordinate(1056.9617f, 204.98181f),
+                bottomLeft = PixelCoordinate(217.99072f, 1413.8954f),
+                bottomRight = PixelCoordinate(1053.9624f, 1413.8954f)
             )
-            mapImage = Bitmap.createBitmap(tempMapImage, 0, 0, tempMapImage.width, tempMapImage.height, matrix, true)
+            val tempMapImage = resize(bitmap, width, height)
+            mapImage = fixMapOrientation(tempMapImage, mapBounds)
+            tempMapImage.recycle()
             recenter()
         }
 
@@ -212,6 +203,32 @@ class OfflineMapView : View {
         drawCalibrationPoints(canvas)
         postInvalidateDelayed(20)
         invalidate()
+    }
+
+    private fun fixMapOrientation(image: Bitmap, bounds: MapPixelBounds): Bitmap {
+        val matrix = Matrix()
+        matrix.setPolyToPoly(
+            floatArrayOf(
+                bounds.topLeft.x, bounds.topLeft.y,
+                bounds.topRight.x, bounds.topRight.y,
+                bounds.bottomRight.x, bounds.bottomRight.y,
+                bounds.bottomLeft.x, bounds.bottomLeft.y,
+//                79.991455f, 316.9709f,
+//                1056.9617f, 204.98181f,
+//                1053.9624f, 1413.8954f,
+//                217.99072f, 1413.8954f
+            ),
+            0,
+            floatArrayOf(
+                0f, 0f,
+                image.width.toFloat(), 0f,
+                image.width.toFloat(), image.height.toFloat(),
+                0f, image.height.toFloat()
+            ),
+            0,
+            4
+        )
+        return Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, true)
     }
 
     fun showCalibrationPoints(points: List<MapCalibrationPoint>? = null) {
