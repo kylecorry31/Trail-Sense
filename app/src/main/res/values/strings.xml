@@ -1023,4 +1023,6 @@
     <string name="pressure_falling_fast">Pressure dropping fast</string>
     <string name="pressure_no_change">Pressure not changing</string>
     <string name="weather_prediction">Weather: %s</string>
+    <string name="map_preview">Preview</string>
+    <string name="map_edit">Edit</string>
 </resources>

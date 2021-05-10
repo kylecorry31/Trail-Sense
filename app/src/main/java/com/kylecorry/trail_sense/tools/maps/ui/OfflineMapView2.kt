@@ -9,7 +9,7 @@ import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.CanvasView
-import com.kylecorry.trail_sense.tools.maps.domain.MapPixelBounds
+import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
@@ -18,7 +18,7 @@ import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.domain.geo.Path
-import com.kylecorry.trailsensecore.domain.geo.cartography.Map
+import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trailsensecore.domain.pixels.*
 
 
@@ -113,21 +113,9 @@ class OfflineMapView2 : CanvasView {
             width,
             height
         )
-//        val resized = bitmap.resize(width, height)
-//        bitmap.recycle()
-//        return resized
-
-        // TODO: Don't actually keep this here
-        val mapBounds = MapPixelBounds(
-            topLeft = PixelCoordinate(79.991455f, 316.9709f),
-            topRight = PixelCoordinate(1056.9617f, 204.98181f),
-            bottomLeft = PixelCoordinate(217.99072f, 1413.8954f),
-            bottomRight = PixelCoordinate(1053.9624f, 1413.8954f)
-        )
-        val tempMapImage = bitmap.resize(width, height)
-        val image = tempMapImage.fixPerspective(mapBounds)
-        tempMapImage.recycle()
-        return image
+        val resized = bitmap.resize(width, height)
+        bitmap.recycle()
+        return resized
     }
 
     private fun drawMyLocation() {

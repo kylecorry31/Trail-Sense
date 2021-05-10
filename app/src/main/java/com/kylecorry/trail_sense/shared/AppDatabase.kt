@@ -37,7 +37,7 @@ import java.io.File
  */
 @Database(
     entities = [InventoryItem::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class],
-    version = 13,
+    version = 14,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -174,6 +174,13 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_13_14 = object : Migration(13, 14) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `warped` INTEGER NOT NULL DEFAULT 1")
+                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `rotated` INTEGER NOT NULL DEFAULT 1")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -187,7 +194,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_9_10,
                     MIGRATION_10_11,
                     MIGRATION_11_12,
-                    MIGRATION_12_13
+                    MIGRATION_12_13,
+                    MIGRATION_13_14
                 )
                 .addCallback(object: RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {

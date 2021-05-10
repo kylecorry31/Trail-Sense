@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         ExceptionUtils.onUncaughtException(Duration.ofMinutes(1)) {
+            it.printStackTrace()
             UiUtils.alertWithCancel(
                 this@MainActivity,
                 getString(R.string.error_occurred),

@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
+import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
@@ -23,7 +24,7 @@ import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
-import com.kylecorry.trailsensecore.domain.geo.cartography.Map
+import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
@@ -37,7 +38,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Instant
 
-class ImportMapFragment : BoundFragment<FragmentMapsBinding>() {
+class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
@@ -74,8 +75,8 @@ class ImportMapFragment : BoundFragment<FragmentMapsBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentMapsBinding {
-        return FragmentMapsBinding.inflate(layoutInflater, container, false)
+    ): FragmentMapsViewBinding {
+        return FragmentMapsViewBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -88,13 +89,13 @@ class ImportMapFragment : BoundFragment<FragmentMapsBinding>() {
         altimeter.asLiveData().observe(viewLifecycleOwner, { updateDestination() })
         compass.asLiveData().observe(viewLifecycleOwner, {
             compass.declination = geoService.getDeclination(gps.location, gps.altitude)
-            binding.map.setAzimuth(compass.bearing.value, false)
+            binding.map.setAzimuth(compass.bearing)
             updateDestination()
         })
         beaconRepo.getBeacons()
             .observe(
                 viewLifecycleOwner,
-                { binding.map.showBeacons(it.map { it.toBeacon() }.filter { it.visible }) })
+                { binding.map.setBeacons(it.map { it.toBeacon() }.filter { it.visible }) })
 
         if (prefs.navigation.showBacktrackPath) {
             backtrackRepo.getWaypoints()
@@ -132,7 +133,7 @@ class ImportMapFragment : BoundFragment<FragmentMapsBinding>() {
                     navigateTo(destination!!)
                 }
                 binding.mapCalibrationBottomPanel.isVisible = false
-//                binding.map.hideCalibrationPoints()
+                binding.map.hideCalibrationPoints()
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
                         map?.let {
@@ -149,64 +150,6 @@ class ImportMapFragment : BoundFragment<FragmentMapsBinding>() {
             calibratePoint(--calibrationIndex)
         }
 
-        binding.menuBtn.setOnClickListener {
-            UiUtils.openMenu(it, R.menu.map_menu) {
-                when (it) {
-                    R.id.action_map_delete -> {
-                        UiUtils.alertWithCancel(
-                            requireContext(),
-                            getString(R.string.delete_map),
-                            map?.name ?: "",
-                            getString(R.string.dialog_ok),
-                            getString(R.string.dialog_cancel)
-                        ) { cancelled ->
-                            if (!cancelled) {
-                                lifecycleScope.launch {
-                                    withContext(Dispatchers.IO) {
-                                        map?.let {
-                                            mapRepo.deleteMap(it)
-                                        }
-                                    }
-                                    withContext(Dispatchers.IO) {
-                                        requireActivity().onBackPressed()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    R.id.action_map_guide -> {
-                        UserGuideUtils.openGuide(this, R.raw.importing_maps)
-                    }
-                    R.id.action_map_rename -> {
-                        CustomUiUtils.pickText(
-                            requireContext(),
-                            getString(R.string.create_map),
-                            getString(R.string.create_map_description),
-                            map?.name,
-                            hint = getString(R.string.name_hint)
-                        ) {
-                            if (it != null) {
-                                map = map?.copy(name = it)
-                                binding.mapName.text = it
-                                lifecycleScope.launch {
-                                    withContext(Dispatchers.IO) {
-                                        map?.let {
-                                            mapRepo.addMap(it)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    R.id.action_map_calibrate -> {
-                        calibrateMap()
-                    }
-                    else -> {
-                    }
-                }
-                true
-            }
-        }
 
         binding.mapCalibrationCoordinate.setOnCoordinateChangeListener {
             if (isCalibrating) {
@@ -217,44 +160,44 @@ class ImportMapFragment : BoundFragment<FragmentMapsBinding>() {
                 }
 
                 updateMapCalibration()
-//                binding.map.showCalibrationPoints()
+                binding.map.showCalibrationPoints()
             }
         }
 
-//        binding.map.onMapImageClick = {
-//            if (isCalibrating) {
-//                if (calibrationIndex == 0) {
-//                    calibrationPoint1Percent = it
-//                } else {
-//                    calibrationPoint2Percent = it
-//                }
-//                updateMapCalibration()
-//                binding.map.showCalibrationPoints()
-//            }
-//        }
+        binding.map.onMapImageClick = {
+            if (isCalibrating) {
+                if (calibrationIndex == 0) {
+                    calibrationPoint1Percent = it
+                } else {
+                    calibrationPoint2Percent = it
+                }
+                updateMapCalibration()
+                binding.map.showCalibrationPoints()
+            }
+        }
 
-//        binding.map.onSelectLocation = {
-//            val formatted = formatService.formatLocation(it)
-//            // TODO: ask to create or navigate
-//            UiUtils.alertWithCancel(
-//                requireContext(),
-//                getString(R.string.create_beacon_title),
-//                getString(R.string.place_beacon_at, formatted),
-//                getString(R.string.beacon_create),
-//                getString(R.string.dialog_cancel)
-//            ) { cancelled ->
-//                if (!cancelled) {
-//                    val bundle = bundleOf(
-//                        "initial_location" to MyNamedCoordinate(it)
-//                    )
-//                    findNavController().navigate(R.id.place_beacon, bundle)
-//                }
-//            }
-//        }
-//
-//        binding.map.onSelectBeacon = {
-//            navigateTo(it)
-//        }
+        binding.map.onSelectLocation = {
+            val formatted = formatService.formatLocation(it)
+            // TODO: ask to create or navigate
+            UiUtils.alertWithCancel(
+                requireContext(),
+                getString(R.string.create_beacon_title),
+                getString(R.string.place_beacon_at, formatted),
+                getString(R.string.beacon_create),
+                getString(R.string.dialog_cancel)
+            ) { cancelled ->
+                if (!cancelled) {
+                    val bundle = bundleOf(
+                        "initial_location" to MyNamedCoordinate(it)
+                    )
+                    findNavController().navigate(R.id.place_beacon, bundle)
+                }
+            }
+        }
+
+        binding.map.onSelectBeacon = {
+            navigateTo(it)
+        }
 
         binding.cancelNavigationBtn.setOnClickListener {
             cancelNavigation()
@@ -290,7 +233,7 @@ class ImportMapFragment : BoundFragment<FragmentMapsBinding>() {
 
         val backtrackPath = backtrack?.copy(points = listOf(myLocation) + backtrack!!.points)
 
-        binding.map.showPaths(listOfNotNull(backtrackPath))
+        binding.map.setPaths(listOfNotNull(backtrackPath))
     }
 
     private fun updateDestination() {
@@ -311,14 +254,14 @@ class ImportMapFragment : BoundFragment<FragmentMapsBinding>() {
         cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
         destination = beacon
         if (!isCalibrating) {
-            binding.map.showDestination(beacon)
+            binding.map.setDestination(beacon)
             binding.cancelNavigationBtn.show()
             updateDestination()
         }
     }
 
     private fun hideNavigation() {
-        binding.map.showDestination(null)
+        binding.map.setDestination(null)
         binding.cancelNavigationBtn.hide()
         binding.navigationSheet.hide()
     }
@@ -331,8 +274,7 @@ class ImportMapFragment : BoundFragment<FragmentMapsBinding>() {
 
     private fun onMapLoad(map: Map) {
         this.map = map
-        binding.mapName.text = map.name
-        binding.map.showMap(map)
+        binding.map.setMap(map)
         if (map.calibrationPoints.size < 2) {
             calibrateMap()
         }
@@ -359,10 +301,10 @@ class ImportMapFragment : BoundFragment<FragmentMapsBinding>() {
         }
 
         map = map?.copy(calibrationPoints = points)
-        binding.map.showMap(map!!)
+        binding.map.setMap(map!!, false)
     }
 
-    private fun calibrateMap() {
+    fun calibrateMap() {
         map ?: return
         isCalibrating = true
         hideNavigation()
@@ -375,7 +317,7 @@ class ImportMapFragment : BoundFragment<FragmentMapsBinding>() {
         }
 
         calibratePoint(calibrationIndex)
-//        binding.map.showCalibrationPoints()
+        binding.map.showCalibrationPoints()
     }
 
     private fun calibratePoint(index: Int) {

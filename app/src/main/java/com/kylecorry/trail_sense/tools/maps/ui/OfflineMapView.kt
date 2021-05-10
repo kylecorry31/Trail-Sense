@@ -10,10 +10,9 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.graphics.withMatrix
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.maps.domain.MapPixelBounds
+import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
@@ -23,7 +22,8 @@ import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.domain.geo.Path
-import com.kylecorry.trailsensecore.domain.geo.cartography.Map
+import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import com.kylecorry.trailsensecore.domain.pixels.*
 import com.kylecorry.trailsensecore.infrastructure.canvas.ArrowPathEffect
 import kotlin.math.max
@@ -173,19 +173,8 @@ class OfflineMapView : View {
                 width,
                 height
             )
-//            val bitmap = BitmapFactory.decodeFile(file.path)
-            // TODO: Scale instead of resize
-            // TODO: Load do this before the image is saved
-            val mapBounds = MapPixelBounds(
-                topLeft = PixelCoordinate(79.991455f, 316.9709f),
-                topRight = PixelCoordinate(1056.9617f, 204.98181f),
-                bottomLeft = PixelCoordinate(217.99072f, 1413.8954f),
-                bottomRight = PixelCoordinate(1053.9624f, 1413.8954f)
-            )
-            val tempMapImage = resize(bitmap, width, height)
-            mapImage = fixMapOrientation(tempMapImage, mapBounds)
-            tempMapImage.recycle()
-            recenter()
+            mapImage = bitmap.resize(width, height)
+            bitmap.recycle()
         }
 
         if (pathLines == null && paths.isNotEmpty() && mapImage != null && map?.calibrationPoints != null && map!!.calibrationPoints.size >= 2) {
@@ -205,7 +194,7 @@ class OfflineMapView : View {
         invalidate()
     }
 
-    private fun fixMapOrientation(image: Bitmap, bounds: MapPixelBounds): Bitmap {
+    private fun fixMapOrientation(image: Bitmap, bounds: PixelBounds): Bitmap {
         val matrix = Matrix()
         matrix.setPolyToPoly(
             floatArrayOf(

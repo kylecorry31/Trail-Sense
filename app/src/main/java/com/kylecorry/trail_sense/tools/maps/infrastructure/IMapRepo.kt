@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure
 
 import androidx.lifecycle.LiveData
-import com.kylecorry.trailsensecore.domain.geo.cartography.Map
+import com.kylecorry.trail_sense.tools.maps.domain.Map
 
 interface IMapRepo {
     fun getMaps(): LiveData<List<Map>>

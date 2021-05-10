@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
-import com.kylecorry.trailsensecore.domain.geo.cartography.Map
 
 @Entity(tableName = "maps")
 data class MapEntity(
@@ -19,7 +18,9 @@ data class MapEntity(
     @ColumnInfo(name = "latitude2") val latitude2: Double?,
     @ColumnInfo(name = "longitude2") val longitude2: Double?,
     @ColumnInfo(name = "percentX2") val percentX2: Float?,
-    @ColumnInfo(name = "percentY2") val percentY2: Float?
+    @ColumnInfo(name = "percentY2") val percentY2: Float?,
+    @ColumnInfo(name = "warped") val warped: Boolean,
+    @ColumnInfo(name = "rotated") val rotated: Boolean
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -28,15 +29,25 @@ data class MapEntity(
     fun toMap(): Map {
         val points = mutableListOf<MapCalibrationPoint>()
 
-        if (percentX1 != null && percentY1 != null && longitude1 != null && latitude1 != null){
-            points.add(MapCalibrationPoint(Coordinate(latitude1, longitude1), PercentCoordinate(percentX1, percentY1)))
+        if (percentX1 != null && percentY1 != null && longitude1 != null && latitude1 != null) {
+            points.add(
+                MapCalibrationPoint(
+                    Coordinate(latitude1, longitude1),
+                    PercentCoordinate(percentX1, percentY1)
+                )
+            )
         }
 
-        if (percentX2 != null && percentY2 != null && longitude2 != null && latitude2 != null){
-            points.add(MapCalibrationPoint(Coordinate(latitude2, longitude2), PercentCoordinate(percentX2, percentY2)))
+        if (percentX2 != null && percentY2 != null && longitude2 != null && latitude2 != null) {
+            points.add(
+                MapCalibrationPoint(
+                    Coordinate(latitude2, longitude2),
+                    PercentCoordinate(percentX2, percentY2)
+                )
+            )
         }
 
-        return Map(id, name, filename, points)
+        return Map(id, name, filename, points, warped, rotated)
     }
 
     companion object {
@@ -52,13 +63,19 @@ data class MapEntity(
                 if (map.calibrationPoints.size > 1) map.calibrationPoints[1].location.longitude else null,
                 if (map.calibrationPoints.size > 1) map.calibrationPoints[1].imageLocation.x else null,
                 if (map.calibrationPoints.size > 1) map.calibrationPoints[1].imageLocation.y else null,
+                map.warped,
+                map.rotated
             ).also {
                 it.id = map.id
             }
         }
 
         fun new(name: String, filename: String): MapEntity {
-            return MapEntity(name, filename, null, null, null, null, null, null, null, null)
+            return MapEntity(
+                name, filename, null, null, null, null, null, null, null, null,
+                warped = false,
+                rotated = false
+            )
         }
     }
 

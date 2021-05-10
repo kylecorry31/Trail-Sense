@@ -30,7 +30,7 @@ import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
-import com.kylecorry.trailsensecore.domain.geo.cartography.Map
+import com.kylecorry.trail_sense.tools.maps.domain.Map
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -274,7 +274,9 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                         0,
                         mapName,
                         filename,
-                        listOfNotNull(calibration1, calibration2)
+                        listOfNotNull(calibration1, calibration2),
+                        warped = false,
+                        rotated = false
                     )
                 )
 
