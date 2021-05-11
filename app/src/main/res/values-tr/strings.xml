@@ -861,4 +861,14 @@
     <string name="coordinates_tab">Koordinatlar</string>
     <string name="distance">Mesafe</string>
     <string name="convert">Dönüştür</string>
+    <string name="map_rotate_instructions">Kuzey yukarıyı işaret edene kadar döndür</string>
+    <string name="map_perspective_instructions">Haritanın ana hatlarını çiz</string>
+    <string name="map_edit">Düzenle</string>
+    <string name="map_preview">Ön izleme</string>
+    <string name="weather_prediction">Hava durumu: %s</string>
+    <string name="pressure_no_change">Basınç değişmiyor</string>
+    <string name="pressure_falling_fast">Basınç hızla düşüyor</string>
+    <string name="pressure_falling">Basınç düşüyor</string>
+    <string name="pressure_rising">Basınç yükseliyor</string>
+    <string name="pressure_rising_fast">Basınç hızla yükseliyor</string>
 </resources>
