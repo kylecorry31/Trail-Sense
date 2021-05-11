@@ -25,6 +25,7 @@ import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.pixels.*
 import com.kylecorry.trailsensecore.infrastructure.canvas.ArrowPathEffect
 import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
+import kotlin.math.roundToInt
 
 
 class OfflineMapView : CanvasView {
@@ -99,9 +100,14 @@ class OfflineMapView : CanvasView {
 
         push()
         translate(translateX, translateY)
-        scale(scale)
+        scale(scale, scale, width / 2f, height / 2f)
         if (!keepNorthUp) {
-            rotate(azimuth) // TODO: Rotate around my position
+            myLocation?.let {
+                getPixelCoordinate(it, false)?.let { pos ->
+                    rotate(-azimuth, pos.x, pos.y)
+                }
+            }
+
         }
         mapSize = mapImage.getFitSize(width, height)
         image(mapImage, 0f, 0f, mapSize.first, mapSize.second, 0f, 0f)
@@ -190,9 +196,11 @@ class OfflineMapView : CanvasView {
     }
 
 
-    fun showMap(map: Map) {
+    fun showMap(map: Map, refresh: Boolean = true) {
         this.map = map
-        this.mapImage = null
+        if (refresh) {
+            this.mapImage = null
+        }
         invalidate()
     }
 
@@ -369,6 +377,14 @@ class OfflineMapView : CanvasView {
             }
         }
 
+        override fun onDoubleTap(e: MotionEvent): Boolean {
+            // TODO: Zoom to the place tapped
+            scale *= 2
+            translateY *= 2
+            translateX *= 2
+            return super.onDoubleTap(e)
+        }
+
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             if (mapImage != null) {
                 val mapCoords = toMapCoordinate(PixelCoordinate(e.x, e.y))
@@ -398,7 +414,8 @@ class OfflineMapView : CanvasView {
 
         override fun onScale(detector: ScaleGestureDetector): Boolean {
             scale *= detector.scaleFactor
-            // TODO: Scale with the center pivot
+            translateX *= detector.scaleFactor
+            translateY *= detector.scaleFactor
             return true
         }
     }

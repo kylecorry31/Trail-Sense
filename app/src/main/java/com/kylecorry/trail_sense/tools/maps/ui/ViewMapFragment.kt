@@ -65,6 +65,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private var backtrack: Path? = null
 
+    private var rotateMap = false
+
     private val throttle = Throttle(20)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,7 +91,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         altimeter.asLiveData().observe(viewLifecycleOwner, { updateDestination() })
         compass.asLiveData().observe(viewLifecycleOwner, {
             compass.declination = geoService.getDeclination(gps.location, gps.altitude)
-            binding.map.setAzimuth(compass.bearing.value, false)
+            binding.map.setAzimuth(compass.bearing.value, rotateMap)
             updateDestination()
         })
         beaconRepo.getBeacons()
@@ -301,7 +303,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         map = map?.copy(calibrationPoints = points)
-        binding.map.showMap(map!!)
+        binding.map.showMap(map!!, false)
     }
 
     fun calibrateMap() {
