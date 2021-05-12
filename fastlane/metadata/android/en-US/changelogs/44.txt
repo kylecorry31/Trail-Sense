@@ -1,4 +1,4 @@
-- Sighting compass (experimantal, get a more accurate bearing with your camera)
+- Sighting compass (experimental, get a more accurate bearing with your camera)
    - Enable sighting compass by turning on experimental features, camera features, and linear compass
 - Custom beacon colors
 - NMEA altitude support
