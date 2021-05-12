@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.infrastructure.json.JsonConvert
 
 class JsonBeaconImporter(private val context: Context) {
@@ -26,7 +27,7 @@ class JsonBeaconImporter(private val context: Context) {
         }
 
         val beaconEntities = dto.beacons.map {
-            BeaconEntity.from(it).copy(
+            BeaconEntity.from(it.copy(owner = BeaconOwner.User)).copy(
                 beaconGroupId = when {
                     it.beaconGroupId == null -> {
                         null
