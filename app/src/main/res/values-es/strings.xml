@@ -208,4 +208,19 @@
     <string name="dialog_grant">Actualizar ajustes</string>
     <string name="access_background_location_rationale">"Trail Sense utiliza datos de ubicación en segundo plano.  Se utiliza para la calibración de la presión a nivel del mar en el monitoreo del clima y para proporcionar alertas de puesta de sol más precisas.  [Ver política de privacidad] (https://kylecorry.com/Trail-Sense/privacy_policy.html)"</string>
     <string name="access_background_location">Actualizar la configuración de ubicación</string>
+    <string name="accuracy_distance_unknown">\?</string>
+    <string name="dash">-</string>
+    <string name="current_format">%.0f mA</string>
+    <string name="battery_capacity_format">%s mAh</string>
+    <string name="decrease">-</string>
+    <string name="direction_south_east">SE</string>
+    <string name="precise_nautical_miles_format">%s Millas nauticas</string>
+    <string name="app_disclaimer_message_title">Cláusula de protección / Terminos de servicios</string>
+    <string name="disclaimer_message_title">Aviso legal</string>
+    <string name="copied_to_clipboard_toast">Copiado en el portapapeles</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="percent_format">%d%%</string>
+    <string name="degree">%s°</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="elevation_diff_format">%s%s</string>
 </resources>

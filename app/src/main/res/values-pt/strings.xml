@@ -505,7 +505,7 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Indeterminada</string>
-    <string name="battery_temp">Celular: %s</string>
+    <string name="battery_temp">Telemóvel: %s</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Descarregando rápido (%s)</string>
     <string name="discharging_slow">Descarregando lento (%s)</string>
