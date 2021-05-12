@@ -876,4 +876,10 @@
     <string name="pref_barometer_info_summary">Тиск може відрізнятися від тиску сусідніх станцій</string>
     <string name="battery_history">Історія батареї - остан. %s</string>
     <string name="no_data">Немає даних</string>
+    <string name="beacon_moved_to">Переміщено до %s</string>
+    <string name="move">Перемістити</string>
+    <string name="no_groups">Немає груп</string>
+    <string name="coordinates_tab">Координати</string>
+    <string name="distance">Відстань</string>
+    <string name="convert">Перетворити</string>
 </resources>
