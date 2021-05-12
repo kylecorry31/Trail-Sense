@@ -10,12 +10,8 @@ import androidx.annotation.ColorInt
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.views.CanvasView
-import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
-import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
-import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.domain.geo.Path
@@ -407,7 +403,13 @@ class OfflineMapView : CanvasView {
     }
 
     private fun toMapCoordinate(screen: PixelCoordinate): PixelCoordinate {
-        return PixelCoordinate((screen.x - translateX) / scale, (screen.y - translateY) / scale)
+        val matrix = Matrix()
+        val point = floatArrayOf(screen.x, screen.y)
+        matrix.postScale(scale, scale, width / 2f, height / 2f)
+        matrix.postTranslate(translateX, translateY)
+        matrix.invert(matrix)
+        matrix.mapPoints(point)
+        return PixelCoordinate(point[0], point[1])
     }
 
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {

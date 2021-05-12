@@ -2,18 +2,14 @@ package com.kylecorry.trail_sense.tools.maps.ui
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.lifecycle.lifecycleScope
-import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentMapsPerspectiveBinding
 import com.kylecorry.trail_sense.databinding.FragmentMapsRotateBinding
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
-import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.rotate
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
