@@ -1,14 +1,14 @@
 ## How to create a map?
 
-From the 'Offline Maps' tool, tap the plus button in the bottom right and give your map a name. You will then be prompted to select an image of a map. At this time, the image must already exist on your phone, so you may need to have downloaded a map image or taken a picture already. Only image files are supported at this point (i.e. no PDFs), this will change in the future. After selecting a map you can open it from the list and calibrate it.
+From the 'Offline Maps' tool, tap the plus button in the bottom right and give your map a name. You will then be prompted to select an image of a map. At this time, the image must already exist on your phone, so you may need to have downloaded a map image or taken a picture already. After selecting a map you can open it from the list and calibrate it.
 
-Caltopo is a great source for downloading high quality trail maps, which are easy to calibrate in Trail Sense. Just 'print' the map to a JPG with UTM gridlines on, and import it into Trail Sense on your phone, then calibrate using the grid lines.
-
-**Maps must be flat and with True North pointing up**
+Caltopo is a great source for downloading high quality trail maps, which are easy to calibrate in Trail Sense. Just 'print' the map to a Geospatial PDF and Trail Sense can automatically import it and calibrate.
 
 ## How to calibrate a map?
 
-Once a map has been imported, you can calibrate by selecting two known points and entering their real world location.
+Once you select a map, you can drag the corners of the bounding rectangle to the corners of the map, which will make it flat (aspect ratios are a work in progress). You can then rotate the map so it faces North.
+
+After the map image has been corrected, you can calibrate by selecting two known points and entering their real world location.
 
 ### With beacons
 

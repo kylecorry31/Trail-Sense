@@ -1,0 +1,11 @@
+- Sighting compass (experimantal, get a more accurate bearing with your camera)
+   - Enable sighting compass by turning on experimental features, camera features, and linear compass
+- Custom beacon colors
+- NMEA altitude support
+- Battery history
+- Last signal beacon (when Backtrack is enabled)
+- Merge distance and coordinate convert
+- Map improvements (experimental, fix perspective, rotate)
+- New barometer auto calibration method (experimental, enable in barometer settings) - feedback would be really helpful
+- Reduce memory usage
+- Bug fixes
