@@ -7,7 +7,7 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+    buildToolsVersion "30.0.3"
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
         applicationId "com.kylecorry.trail_sense"

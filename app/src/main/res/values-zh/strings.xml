@@ -817,11 +817,9 @@
     <string name="time_until_full">距离充满剩</string>
     <string name="pref_show_last_signal_beacon_summary">为上一个手机信号位置创建一个信标</string>
     <string name="pref_show_last_signal_beacon_title">上一个信号信标</string>
-    <string name="pref_show_last_signal_beacon">pref_show_last_signal_beacon</string>
     <string name="last_signal_beacon_name">上个信号 - %s (%s)</string>
     <string name="camera_permission_denied">相机权限被拒绝，无法打开相机功能。 你可以在设置中启用它。</string>
     <string name="pref_use_camera_features_title">启用相机功能</string>
-    <string name="pref_use_camera_features">pref_use_camera_features</string>
     <string name="color">颜色</string>
     <string name="water_boil_guide_desc">如何使用水煮定时器</string>
     <string name="water_boil_guide_title">使水可以安全饮用</string>
@@ -848,7 +846,6 @@
     <string name="pref_barometer_altitude_outlier_title">海拔高度异常消除</string>
     <string name="pref_barometer_altitude_smoothing_title">高度平滑</string>
     <string name="pref_barometer_pressure_smoothing_title">压力平滑</string>
-    <string name="pref_barometer_altitude_smoothing">pref_barometer_altitude_smoothing</string>
     <string name="pref_experimental_barometer_calibration_title">使用实验性校准</string>
     <string name="pref_nmea_altitude_summary">使用NMEA偏移量进行高度转换</string>
     <string name="beacon_moved_to">已移动到 %s</string>

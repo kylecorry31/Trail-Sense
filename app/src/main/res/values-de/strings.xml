@@ -825,11 +825,9 @@
     <string name="theme_sunset_sunrise">Sonnenaufgang/Sonnenuntergang</string>
     <string name="pref_show_last_signal_beacon_summary">Erstellt einen Wegpunkt am Punkt, an dem das letzte Mal eine Mobilfunkverbindung verfügbar war</string>
     <string name="pref_show_last_signal_beacon_title">Wegpunkt am letzten Signal</string>
-    <string name="pref_show_last_signal_beacon">pref_show_last_signal_beacon</string>
     <string name="last_signal_beacon_name">Letztes Signal - %s (%s)</string>
     <string name="camera_permission_denied">Kameraberechtigung abgelehnt, kann die Kamerafunktionen nicht anschalten. Sie können sie in den Einstellungen aktivieren.</string>
     <string name="pref_use_camera_features_title">Kamerafunktionen aktivieren</string>
-    <string name="pref_use_camera_features">pref_use_camera_features</string>
     <string name="color">Farbe</string>
     <string name="water_boil_guide_desc">Wie man den Wasserkocher-Timer benutzt</string>
     <string name="water_boil_guide_title">Wasser zum Trinken aufbereiten</string>
@@ -857,7 +855,6 @@
     <string name="pref_barometer_altitude_outlier_title">Entfernung von Höhenausreißern</string>
     <string name="pref_barometer_altitude_smoothing_title">Höhenglättung</string>
     <string name="pref_barometer_pressure_smoothing_title">Druckglättung</string>
-    <string name="pref_barometer_altitude_smoothing">pref_barometer_altitude_smoothing</string>
     <string name="pref_experimental_barometer_calibration_title">Nutze experimentelle Kalibration</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="beacon_moved_to">Nach %s verschoben</string>

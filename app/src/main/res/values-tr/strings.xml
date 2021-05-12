@@ -484,7 +484,6 @@
     <string name="pref_barometer_pressure_title">Basınç</string>
     <string name="pref_altimeter_calibration_mode_title">Otomatik kalibrasyon</string>
     <string name="calibration_mode_barometer_alert_title">Barometre</string>
-    <string name="calibration_mode_barometer_alert_msg">Barometreyi bir irtifaölçer olarak kullanmak hava tahmin doğruluğunu azaltabilir.</string>
     <string name="altimeter_mode_gps_barometer">GPS ve Barometre</string>
     <string name="altimeter_mode_override">Asla</string>
     <string name="altimeter_mode_barometer">Barometre</string>
@@ -852,7 +851,6 @@
     <string name="delete_map">Harita silinsin mi\?</string>
     <string name="pref_barometer_altitude_outlier_title">İrtifa uç değerini kaldırma</string>
     <string name="pref_barometer_pressure_smoothing_title">Basınç düzenleme</string>
-    <string name="pref_barometer_altitude_smoothing">pref_barometer_altitude_smoothing</string>
     <string name="pref_experimental_barometer_calibration_title">Deneysel kalibrasyon kullan</string>
     <string name="pref_barometer_info_summary">Basınç, yakındaki istasyonlardan farklı olabilir</string>
     <string name="battery_history">Pil geçmişi - son %s</string>

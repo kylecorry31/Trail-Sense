@@ -375,11 +375,9 @@
     </plurals>
     <string name="pref_show_last_signal_beacon_summary">Створює маячок для визначення місцеперебування останнього сигналу стільника</string>
     <string name="pref_show_last_signal_beacon_title">Останній сигнал маячка</string>
-    <string name="pref_show_last_signal_beacon" translatable="false">pref_show_last_signal_beacon</string>
     <string name="last_signal_beacon_name">Останній сигнал - %s (%s)</string>
     <string name="camera_permission_denied">Відмовлено в дозволі на камеру, дозвольте, щоб увімкнути функції камери. Ви можете надати дозвіл у налаштуваннях.</string>
     <string name="pref_use_camera_features_title">Увімкнути функції камери</string>
-    <string name="pref_use_camera_features" translatable="false">pref_use_camera_features</string>
     <string name="update_120_minutes">2 години</string>
     <string name="update_90_minutes">1 година 30 хвилин</string>
     <string name="pref_center_sun_and_moon_title">Тримати сонце/місяць посередині</string>
@@ -869,7 +867,6 @@
     <string name="delete_map">Видалити мапу\?</string>
     <string name="pref_barometer_altitude_smoothing_title">Згладжування висоти</string>
     <string name="pref_barometer_pressure_smoothing_title">Згладжування тиску</string>
-    <string name="pref_barometer_altitude_smoothing">pref_barometer_altitude_smoothing</string>
     <string name="pref_experimental_barometer_calibration_title">Використовувати експериментальне калібрування</string>
     <string name="pref_nmea_altitude_summary">Використовує зсуви NMEA для перетворення висоти</string>
     <string name="pref_nmea_altitude_title">Зсуви висоти NMEA</string>
