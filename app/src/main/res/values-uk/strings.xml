@@ -879,4 +879,14 @@
     <string name="coordinates_tab">Координати</string>
     <string name="distance">Відстань</string>
     <string name="convert">Перетворити</string>
+    <string name="map_rotate_instructions">Обертайте, поки північ не буде вгорі</string>
+    <string name="map_perspective_instructions">Накресліть мапу</string>
+    <string name="map_edit">Редагувати</string>
+    <string name="map_preview">Попередній перегляд</string>
+    <string name="weather_prediction">Погода: %s</string>
+    <string name="pressure_no_change">Тиск не змінюється</string>
+    <string name="pressure_falling_fast">Тиск швидко спадає</string>
+    <string name="pressure_falling">Тиск спадає</string>
+    <string name="pressure_rising">Тиск зростає</string>
+    <string name="pressure_rising_fast">Тиск швидко зростає</string>
 </resources>
