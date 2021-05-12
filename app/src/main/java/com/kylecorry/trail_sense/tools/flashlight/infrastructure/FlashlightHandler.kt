@@ -6,6 +6,7 @@ import android.hardware.camera2.CameraManager.TorchCallback
 import android.os.Handler
 import android.os.Looper
 import androidx.core.content.getSystemService
+import com.kylecorry.trail_sense.settings.FlashlightPreferenceRepo
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 
@@ -15,12 +16,16 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
     private val torchCallback: TorchCallback
     private val handler: Handler
     private var isTurningOff = false
+    private val flashlightSettings by lazy { FlashlightPreferenceRepo(context) }
 
     init {
         torchCallback = object : TorchCallback() {
             override fun onTorchModeChanged(cameraId: String, enabled: Boolean) {
                 try {
                     super.onTorchModeChanged(cameraId, enabled)
+                    if (!flashlightSettings.toggleWithSystem){
+                        return
+                    }
                     if (isTurningOff) {
                         return
                     }

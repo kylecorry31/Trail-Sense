@@ -1,0 +1,16 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/flashlight_title">
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="@string/pref_flashlight_toggle_with_system"
+            android:summary="@string/pref_flashlight_toggle_with_system_summary"
+            android:title="@string/pref_flashlight_toggle_with_system_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

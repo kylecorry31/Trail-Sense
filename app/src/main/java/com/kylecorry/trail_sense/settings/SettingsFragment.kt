@@ -83,6 +83,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
             preference(R.string.pref_astronomy_category),
             R.id.action_action_settings_to_astronomySettingsFragment
         )
+        navigateOnClick(
+            preference(R.string.pref_flashlight_settings),
+            R.id.action_action_settings_to_flashlightSettingsFragment
+        )
 
         refreshOnChange(list(R.string.pref_theme))
 

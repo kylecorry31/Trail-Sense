@@ -114,6 +114,12 @@
             app:singleLineTitle="false"
             app:title="@string/astronomy" />
 
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_flashlight_settings"
+            app:singleLineTitle="false"
+            app:title="@string/flashlight_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

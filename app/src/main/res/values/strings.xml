@@ -1006,7 +1006,7 @@
     <string name="pref_experimental_barometer_calibration_title">Use experimental calibration</string>
     <string name="pref_barometer_altitude_outlier" translatable="false">pref_barometer_altitude_outlier</string>
     <string name="pref_barometer_pressure_smoothing" translatable="false">pref_barometer_pressure_smoothing</string>
-    <string name="pref_barometer_altitude_smoothing">pref_barometer_altitude_smoothing</string>
+    <string name="pref_barometer_altitude_smoothing" translatable="false">pref_barometer_altitude_smoothing</string>
     <string name="pref_barometer_pressure_smoothing_title">Pressure smoothing</string>
     <string name="pref_barometer_altitude_smoothing_title">Altitude smoothing</string>
     <string name="pref_barometer_altitude_outlier_title">Altitude outlier removal</string>
@@ -1027,4 +1027,8 @@
     <string name="map_edit">Edit</string>
     <string name="map_perspective_instructions">Outline the map</string>
     <string name="map_rotate_instructions">Rotate until North points up</string>
+    <string name="pref_flashlight_toggle_with_system" translatable="false">pref_flashlight_toggle_with_system</string>
+    <string name="pref_flashlight_toggle_with_system_title">Toggle with system</string>
+    <string name="pref_flashlight_toggle_with_system_summary">Displays a notification when the flashlight is turned on outside of Trail Sense</string>
+    <string name="pref_flashlight_settings">pref_flashlight_settings</string>
 </resources>
