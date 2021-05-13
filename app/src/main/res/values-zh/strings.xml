@@ -854,4 +854,14 @@
     <string name="coordinates_tab">坐标</string>
     <string name="distance">距离</string>
     <string name="convert">转换</string>
+    <string name="map_rotate_instructions">旋转直到北指向上</string>
+    <string name="map_perspective_instructions">勾勒地图轮廓</string>
+    <string name="map_edit">编辑</string>
+    <string name="map_preview">预览</string>
+    <string name="weather_prediction">天气：%s</string>
+    <string name="pressure_no_change">气压未更改</string>
+    <string name="pressure_falling_fast">气压在快速下降</string>
+    <string name="pressure_falling">气压在下降</string>
+    <string name="pressure_rising">气压在上升</string>
+    <string name="pressure_rising_fast">气压快速上升</string>
 </resources>
