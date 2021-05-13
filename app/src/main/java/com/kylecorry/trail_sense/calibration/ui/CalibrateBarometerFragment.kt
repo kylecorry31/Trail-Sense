@@ -123,6 +123,11 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
                 R.string.pref_sea_level_use_rapid,
                 R.string.pref_pressure_history,
                 R.string.pref_use_sea_level_pressure,
+                R.string.pref_barometer_info_holder,
+                R.string.pref_holder_pressure_chart,
+                R.string.pref_barometer_altitude_outlier,
+                R.string.pref_barometer_pressure_smoothing,
+                R.string.pref_barometer_altitude_smoothing,
                 R.string.pref_experimental_barometer_calibration
             ).forEach {
                 preferenceScreen.removePreferenceRecursively(getString(it))
