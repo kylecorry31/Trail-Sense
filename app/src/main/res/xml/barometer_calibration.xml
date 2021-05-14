@@ -3,9 +3,8 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:key="@string/pref_category_barometer_and_thermometer"
         app:singleLineTitle="false"
-        app:title="@string/barometer_thermometer">
+        app:title="@string/barometer">
 
         <Preference
             android:summary="@string/dash"
@@ -140,89 +139,6 @@
             android:summary="@string/pref_barometer_info_summary"
             app:key="@string/pref_barometer_info_holder"
             app:selectable="false" />
-
-        <Preference
-            android:summary="@string/dash"
-            android:title="@string/pref_temperature_holder_title"
-            app:icon="@drawable/thermometer_colored"
-            app:key="@string/pref_temperature_holder"
-            app:selectable="false"
-            app:singleLineTitle="false" />
-
-        <!--        Celsius calibration-->
-        <EditTextPreference
-            android:defaultValue="0.0"
-            android:inputType="numberDecimal"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_min_uncalibrated_temp_c"
-            app:singleLineTitle="false"
-            app:title="@string/min_temp_uncalibrated"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:defaultValue="0.0"
-            android:inputType="numberDecimal"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_min_calibrated_temp_c"
-            app:singleLineTitle="false"
-            app:title="@string/min_temp_calibrated"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:defaultValue="100.0"
-            android:inputType="numberDecimal"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_max_uncalibrated_temp_c"
-            app:singleLineTitle="false"
-            app:title="@string/max_temp_uncalibrated"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:defaultValue="100.0"
-            android:inputType="numberDecimal"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_max_calibrated_temp_c"
-            app:singleLineTitle="false"
-            app:title="@string/max_temp_calibrated"
-            app:useSimpleSummaryProvider="true" />
-
-        <!--        Fahrenheit calibration-->
-        <EditTextPreference
-            android:defaultValue="32.0"
-            android:inputType="numberDecimal"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_min_uncalibrated_temp_f"
-            app:singleLineTitle="false"
-            app:title="@string/min_temp_uncalibrated"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:defaultValue="32.0"
-            android:inputType="numberDecimal"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_min_calibrated_temp_f"
-            app:singleLineTitle="false"
-            app:title="@string/min_temp_calibrated"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:defaultValue="212.0"
-            android:inputType="numberDecimal"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_max_uncalibrated_temp_f"
-            app:singleLineTitle="false"
-            app:title="@string/max_temp_uncalibrated"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:defaultValue="212.0"
-            android:inputType="numberDecimal"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_max_calibrated_temp_f"
-            app:singleLineTitle="false"
-            app:title="@string/max_temp_calibrated"
-            app:useSimpleSummaryProvider="true" />
-
 
     </PreferenceCategory>
 

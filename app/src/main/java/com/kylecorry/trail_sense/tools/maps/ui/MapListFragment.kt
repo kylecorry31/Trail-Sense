@@ -269,14 +269,15 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     bitmap.recycle()
                 }
 
+                val calibrationPoints = listOfNotNull(calibration1, calibration2)
                 val id = mapRepo.addMap(
                     Map(
                         0,
                         mapName,
                         filename,
-                        listOfNotNull(calibration1, calibration2),
-                        warped = false,
-                        rotated = false
+                        calibrationPoints,
+                        warped = calibrationPoints.isNotEmpty(),
+                        rotated = calibrationPoints.isNotEmpty()
                     )
                 )
 
