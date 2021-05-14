@@ -66,6 +66,7 @@ object Tools {
 
         val location = ToolGroup(
             context.getString(R.string.tool_category_location), listOfNotNull(
+                Tool("Height Map", R.drawable.ic_altitude, R.id.testFragment),
                 if (experimental) Tool(
                     context.getString(R.string.offline_maps),
                     R.drawable.maps,
