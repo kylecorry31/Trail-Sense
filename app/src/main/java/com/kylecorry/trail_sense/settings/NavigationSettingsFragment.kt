@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.settings
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
-import androidx.navigation.Navigation
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
@@ -13,8 +12,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import com.kylecorry.trailsensecore.domain.units.UnitService
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 
@@ -34,7 +31,7 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         prefBacktrack = switch(R.string.pref_backtrack_enabled)
         prefLeftQuickAction = list(R.string.pref_navigation_quick_action_left)
         prefRightQuickAction = list(R.string.pref_navigation_quick_action_right)
-        prefLockScreenPresense = switch(R.string.pref_navigation_show_on_lock_screen)
+        prefLockScreenPresense = switch(R.string.pref_navigation_lock_screen_presence)
     }
 
     private fun restartBacktrack() {
@@ -52,7 +49,7 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         bindPreferences()
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) {
-            preferenceScreen.removePreferenceRecursively(getString(R.string.pref_navigation_show_on_lock_screen))
+            preferenceScreen.removePreferenceRecursively(getString(R.string.pref_navigation_lock_screen_presence))
         }
 
         val actions = QuickActionUtils.navigation(requireContext())
