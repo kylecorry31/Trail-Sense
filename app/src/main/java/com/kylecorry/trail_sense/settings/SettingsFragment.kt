@@ -48,8 +48,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val sensorChecker = SensorChecker(requireContext())
         if (!sensorChecker.hasBarometer()) {
             preferenceScreen.removePreferenceRecursively(getString(R.string.pref_weather_category))
-            preference(R.string.pref_barometer_calibration)?.title =
-                getString(R.string.tool_thermometer_title)
+            preferenceScreen.removePreferenceRecursively(getString(R.string.pref_barometer_calibration))
         }
         navigateOnClick(
             preference(R.string.pref_compass_sensor),
@@ -66,6 +65,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         navigateOnClick(
             preference(R.string.pref_barometer_calibration),
             R.id.action_action_settings_to_calibrateBarometerFragment
+        )
+        navigateOnClick(
+            preference(R.string.pref_temperature_settings),
+            R.id.action_action_settings_to_thermometerSettingsFragment
         )
         navigateOnClick(
             preference(R.string.pref_odometer_calibration),

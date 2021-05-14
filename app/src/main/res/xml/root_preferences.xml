@@ -146,7 +146,13 @@
 
         <Preference
             android:key="@string/pref_barometer_calibration"
-            android:title="@string/barometer_thermometer"
+            android:title="@string/barometer"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:key="@string/pref_temperature_settings"
+            android:title="@string/tool_thermometer_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
