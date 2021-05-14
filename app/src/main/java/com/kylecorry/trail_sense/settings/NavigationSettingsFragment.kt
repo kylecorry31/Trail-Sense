@@ -23,7 +23,6 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
     private var prefBacktrack: SwitchPreferenceCompat? = null
     private var prefLeftQuickAction: ListPreference? = null
     private var prefRightQuickAction: ListPreference? = null
-    private var prefLockScreenPresense: SwitchPreferenceCompat? = null
     private val formatService by lazy { FormatServiceV2(requireContext()) }
 
     private lateinit var prefs: UserPreferences
@@ -33,7 +32,6 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         prefBacktrack = switch(R.string.pref_backtrack_enabled)
         prefLeftQuickAction = list(R.string.pref_navigation_quick_action_left)
         prefRightQuickAction = list(R.string.pref_navigation_quick_action_right)
-        prefLockScreenPresense = switch(R.string.pref_navigation_lock_screen_presence)
     }
 
     private fun restartBacktrack() {
@@ -68,17 +66,6 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
                 BacktrackScheduler.start(requireContext())
             } else {
                 BacktrackScheduler.stop(requireContext())
-            }
-            true
-        }
-
-        prefLockScreenPresense?.setOnPreferenceClickListener {
-            if (!prefs.navigation.lockScreenPresence) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-                    activity?.setShowWhenLocked(false)
-                } else {
-                    activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
-                }
             }
             true
         }

@@ -133,7 +133,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         leftQuickAction?.onDestroy()
     }
 
-    
+
     override fun onDestroyView() {
         super.onDestroyView()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
