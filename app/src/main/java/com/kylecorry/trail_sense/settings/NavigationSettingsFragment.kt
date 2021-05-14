@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.settings
 
+import android.os.Build
 import android.os.Bundle
 import android.text.InputType
+import androidx.navigation.Navigation
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
@@ -22,6 +24,7 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
     private var prefBacktrack: SwitchPreferenceCompat? = null
     private var prefLeftQuickAction: ListPreference? = null
     private var prefRightQuickAction: ListPreference? = null
+    private var prefLockScreenPresense: SwitchPreferenceCompat? = null
     private val formatService by lazy { FormatServiceV2(requireContext()) }
 
     private lateinit var prefs: UserPreferences
@@ -31,6 +34,7 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         prefBacktrack = switch(R.string.pref_backtrack_enabled)
         prefLeftQuickAction = list(R.string.pref_navigation_quick_action_left)
         prefRightQuickAction = list(R.string.pref_navigation_quick_action_right)
+        prefLockScreenPresense = switch(R.string.pref_navigation_show_on_lock_screen)
     }
 
     private fun restartBacktrack() {
@@ -46,6 +50,10 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         val userPrefs = UserPreferences(requireContext())
         prefs = userPrefs
         bindPreferences()
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) {
+            preferenceScreen.removePreferenceRecursively(getString(R.string.pref_navigation_show_on_lock_screen))
+        }
 
         val actions = QuickActionUtils.navigation(requireContext())
         val actionNames = actions.map { QuickActionUtils.getName(requireContext(), it) }
@@ -65,6 +73,13 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
                 BacktrackScheduler.start(requireContext())
             } else {
                 BacktrackScheduler.stop(requireContext())
+            }
+            true
+        }
+
+        prefLockScreenPresense?.setOnPreferenceClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 && !prefs.navigation.lockScreenPresence) {
+                activity?.setShowWhenLocked(false)
             }
             true
         }

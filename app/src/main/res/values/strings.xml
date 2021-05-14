@@ -1031,4 +1031,6 @@
     <string name="pref_flashlight_toggle_with_system_title">Toggle with system</string>
     <string name="pref_flashlight_toggle_with_system_summary">Displays a notification when the flashlight is turned on outside of Trail Sense</string>
     <string name="pref_flashlight_settings">pref_flashlight_settings</string>
+    <string name="pref_navigation_show_on_lock_screen" translatable="false">pref_navigation_show_on_lock_screen</string>
+    <string name="pref_navigation_show_on_lock_screen_title">Lock screen presence while navigating</string>
 </resources>

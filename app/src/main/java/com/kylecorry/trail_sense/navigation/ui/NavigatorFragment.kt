@@ -652,7 +652,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateNavigationButton()
 
         // show on lock screen
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 && userPrefs.navigation.lockScreenPresence) {
             if (destination != null) {
                 activity?.setShowWhenLocked(true)
             } else {

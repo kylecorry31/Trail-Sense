@@ -13,6 +13,13 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:title="@string/pref_navigation_show_on_lock_screen_title"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_show_on_lock_screen"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_linear_compass"
