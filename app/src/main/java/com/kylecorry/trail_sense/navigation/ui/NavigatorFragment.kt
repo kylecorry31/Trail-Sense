@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
@@ -129,6 +131,16 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         super.onDestroy()
         rightQuickAction?.onDestroy()
         leftQuickAction?.onDestroy()
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            activity?.setShowWhenLocked(false)
+        } else {
+            activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+        }
     }
 
 
@@ -649,6 +661,23 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.location.text = formatService.formatLocation(gps.location)
 
         updateNavigationButton()
+
+        // show on lock screen
+        if (userPrefs.navigation.lockScreenPresence) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                if (destination != null || destinationBearing != null) {
+                    activity?.setShowWhenLocked(true)
+                } else {
+                    activity?.setShowWhenLocked(false)
+                }
+            } else {
+                if (destination != null || destinationBearing != null) {
+                    activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+                } else {
+                    activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+                }
+            }
+        }
     }
 
     private fun shouldShowLinearCompass(): Boolean {
