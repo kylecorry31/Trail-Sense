@@ -786,7 +786,7 @@
     <string name="importing_map">Karte importieren</string>
     <string name="hour_symbol">h</string>
     <string name="minute_symbol">min</string>
-    <string name="pref_backtrack_path_radar_title">Zeige Weg aus Rückweg</string>
+    <string name="pref_backtrack_path_radar_title">Zeige Pfad von Rückweg</string>
     <string name="map_auto_calibrated">Karte wurde automatisch kalibriert, bitte überprüfe die Genauigkeit</string>
     <string name="time_until_empty">bis leer</string>
     <plurals name="import_beacons">
@@ -810,7 +810,7 @@
     <string name="pref_backtrack_path_radar_summary">Auf dem Radarkompass und der Karte</string>
     <string name="app_disclaimer_message_title">Haftungsausschluss / Nutzungsbedingungen</string>
     <string name="disclaimer_message_title">Haftungsausschluss</string>
-    <string name="solid">Fest</string>
+    <string name="solid">Durchgängig</string>
     <string name="calibrate_new_tide">Für eine neue Gezeit kalibrieren\?</string>
     <string name="background_update">Hintergrundaktualisierungen</string>
     <string name="sunset_alert_location_update">Aktualisiere Standort für Sonnenuntergangsalarme</string>
@@ -863,4 +863,17 @@
     <string name="coordinates_tab">Koordinaten</string>
     <string name="distance">Entfernung</string>
     <string name="convert">Umrechner</string>
+    <string name="pref_flashlight_settings">pref_flashlight_settings</string>
+    <string name="pref_flashlight_toggle_with_system_summary">Zeigt eine Benachrichtigung an, wenn die Taschenlampe außerhalb von Trail Sense aktiviert wird</string>
+    <string name="pref_flashlight_toggle_with_system_title">Mit System ändern</string>
+    <string name="map_rotate_instructions">Rotieren, bis Norden nach oben zeigt</string>
+    <string name="map_perspective_instructions">Umriss der Karte</string>
+    <string name="map_edit">Bearbeiten</string>
+    <string name="map_preview">Vorschau</string>
+    <string name="weather_prediction">Wetter: %s</string>
+    <string name="pressure_no_change">Druck ändert sich nicht</string>
+    <string name="pressure_falling_fast">Druck fällt schnell</string>
+    <string name="pressure_falling">Druckabfall</string>
+    <string name="pressure_rising">Druckanstieg</string>
+    <string name="pressure_rising_fast">Druck steigt schnell</string>
 </resources>
