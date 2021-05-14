@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
@@ -132,6 +134,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        activity?.let {
+            LockUtils.setShowWhenLocked(it, false)
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val beaconId = arguments?.getLong("destination") ?: 0L
@@ -142,6 +152,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 withContext(Dispatchers.IO) {
                     destination = beaconRepo.getBeacon(beaconId)?.toBeacon()
                     cache.putLong(LAST_BEACON_ID, beaconId)
+                }
+                withContext(Dispatchers.Main){
+                    handleShowWhenLocked()
                 }
             }
         }
@@ -332,6 +345,20 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             destinationBearing = null
             cache.remove(LAST_DEST_BEARING)
         }
+
+        handleShowWhenLocked()
+    }
+
+    private fun handleShowWhenLocked(){
+        if (userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)) {
+            activity?.let {
+                LockUtils.setShowWhenLocked(it, true)
+            }
+        } else {
+            activity?.let {
+                LockUtils.setShowWhenLocked(it, false)
+            }
+        }
     }
 
     private fun displayAccuracyTips() {
@@ -450,6 +477,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     destination = beaconRepo.getBeacon(lastBeaconId)?.toBeacon()
+                }
+                withContext(Dispatchers.Main){
+                    handleShowWhenLocked()
                 }
             }
         }
@@ -649,6 +679,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.location.text = formatService.formatLocation(gps.location)
 
         updateNavigationButton()
+
+        // show on lock screen
+        if (userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)) {
+            activity?.let {
+                LockUtils.setShowWhenLocked(it, true)
+            }
+        }
     }
 
     private fun shouldShowLinearCompass(): Boolean {
@@ -730,6 +767,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun updateNavigator() {
+        handleShowWhenLocked()
         onLocationUpdate()
         updateNavigationButton()
     }

@@ -35,6 +35,9 @@ class NavigationPreferences(private val context: Context) {
             context.getString(R.string.pref_show_calibrate_on_navigate_dialog)
         ) ?: true
 
+    val lockScreenPresence: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_navigation_lock_screen_presence)) ?: false
+
     var useLegacyCompass: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_use_legacy_compass)) ?: false
         set(value) = cache.putBoolean(

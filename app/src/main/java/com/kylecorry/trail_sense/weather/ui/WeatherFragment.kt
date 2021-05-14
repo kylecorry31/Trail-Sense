@@ -31,9 +31,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant
 
@@ -42,6 +40,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private val barometer by lazy { sensorService.getBarometer() }
     private val altimeter by lazy { sensorService.getGPSAltimeter() }
     private val thermometer by lazy { sensorService.getThermometer() }
+    private var isBound = false
 
     private var altitude = 0F
     private var useSeaLevelPressure = false
@@ -71,6 +70,21 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private var rightQuickAction: QuickActionButton? = null
 
     private val weatherForecastService by lazy { WeatherContextualService.getInstance(requireContext()) }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val ret = super.onCreateView(inflater, container, savedInstanceState)
+        isBound = true
+        return ret
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        isBound = false
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -191,11 +205,15 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         super.onPause()
         leftQuickAction?.onPause()
         rightQuickAction?.onPause()
+        if (lifecycleScope.isActive) {
+            lifecycleScope.cancel()
+        }
     }
 
 
     private fun update() {
         if (context == null) return
+        if (!isBound) return
         if (barometer.pressure == 0.0f) return
 
         if (throttle.isThrottled()) {
