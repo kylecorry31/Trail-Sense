@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense.settings
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
+import android.view.Window
+import android.view.WindowManager
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
@@ -48,10 +50,6 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         prefs = userPrefs
         bindPreferences()
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) {
-            preferenceScreen.removePreferenceRecursively(getString(R.string.pref_navigation_lock_screen_presence))
-        }
-
         val actions = QuickActionUtils.navigation(requireContext())
         val actionNames = actions.map { QuickActionUtils.getName(requireContext(), it) }
         val actionValues = actions.map { it.id.toString() }
@@ -75,8 +73,12 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
         }
 
         prefLockScreenPresense?.setOnPreferenceClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 && !prefs.navigation.lockScreenPresence) {
-                activity?.setShowWhenLocked(false)
+            if (!prefs.navigation.lockScreenPresence) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                    activity?.setShowWhenLocked(false)
+                } else {
+                    activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+                }
             }
             true
         }

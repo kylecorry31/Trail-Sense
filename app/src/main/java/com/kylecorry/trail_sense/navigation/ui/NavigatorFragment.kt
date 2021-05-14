@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
@@ -652,11 +653,19 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateNavigationButton()
 
         // show on lock screen
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 && userPrefs.navigation.lockScreenPresence) {
-            if (destination != null) {
-                activity?.setShowWhenLocked(true)
+        if (userPrefs.navigation.lockScreenPresence) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                if (destination != null || destinationBearing != null) {
+                    activity?.setShowWhenLocked(true)
+                } else {
+                    activity?.setShowWhenLocked(false)
+                }
             } else {
-                activity?.setShowWhenLocked(false)
+                if (destination != null || destinationBearing != null) {
+                    activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+                } else {
+                    activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+                }
             }
         }
     }
