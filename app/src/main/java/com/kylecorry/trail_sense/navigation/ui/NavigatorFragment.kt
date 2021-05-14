@@ -133,6 +133,16 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         leftQuickAction?.onDestroy()
     }
 
+    
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            activity?.setShowWhenLocked(false)
+        } else {
+            activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
