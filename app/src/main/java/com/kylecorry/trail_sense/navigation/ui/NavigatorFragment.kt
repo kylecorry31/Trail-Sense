@@ -136,10 +136,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            activity?.setShowWhenLocked(false)
-        } else {
-            activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+        activity?.let {
+            LockUtils.setShowWhenLocked(it, false)
         }
     }
 
@@ -154,6 +152,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 withContext(Dispatchers.IO) {
                     destination = beaconRepo.getBeacon(beaconId)?.toBeacon()
                     cache.putLong(LAST_BEACON_ID, beaconId)
+                }
+                withContext(Dispatchers.Main){
+                    handleShowWhenLocked()
                 }
             }
         }
@@ -344,6 +345,20 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             destinationBearing = null
             cache.remove(LAST_DEST_BEARING)
         }
+
+        handleShowWhenLocked()
+    }
+
+    private fun handleShowWhenLocked(){
+        if (userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)) {
+            activity?.let {
+                LockUtils.setShowWhenLocked(it, true)
+            }
+        } else {
+            activity?.let {
+                LockUtils.setShowWhenLocked(it, false)
+            }
+        }
     }
 
     private fun displayAccuracyTips() {
@@ -462,6 +477,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     destination = beaconRepo.getBeacon(lastBeaconId)?.toBeacon()
+                }
+                withContext(Dispatchers.Main){
+                    handleShowWhenLocked()
                 }
             }
         }
@@ -663,19 +681,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateNavigationButton()
 
         // show on lock screen
-        if (userPrefs.navigation.lockScreenPresence) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-                if (destination != null || destinationBearing != null) {
-                    activity?.setShowWhenLocked(true)
-                } else {
-                    activity?.setShowWhenLocked(false)
-                }
-            } else {
-                if (destination != null || destinationBearing != null) {
-                    activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
-                } else {
-                    activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
-                }
+        if (userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)) {
+            activity?.let {
+                LockUtils.setShowWhenLocked(it, true)
             }
         }
     }
@@ -759,6 +767,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun updateNavigator() {
+        handleShowWhenLocked()
         onLocationUpdate()
         updateNavigationButton()
     }

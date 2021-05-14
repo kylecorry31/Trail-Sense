@@ -14,7 +14,7 @@
 
         <SwitchPreferenceCompat
             android:title="@string/pref_navigation_lock_screen_presence_title"
-            app:defaultValue="true"
+            app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_navigation_lock_screen_presence"
             app:singleLineTitle="false" />
