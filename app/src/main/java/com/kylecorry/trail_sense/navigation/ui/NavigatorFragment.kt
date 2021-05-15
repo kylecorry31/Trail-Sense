@@ -1,12 +1,10 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.Manifest
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
@@ -54,6 +52,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.camera.Camera
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
@@ -137,7 +136,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onDestroyView() {
         super.onDestroyView()
         activity?.let {
-            LockUtils.setShowWhenLocked(it, false)
+            tryOrNothing {
+                UiUtils.setShowWhenLocked(it, false)
+            }
         }
     }
 
@@ -350,13 +351,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun handleShowWhenLocked(){
-        if (userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)) {
-            activity?.let {
-                LockUtils.setShowWhenLocked(it, true)
-            }
-        } else {
-            activity?.let {
-                LockUtils.setShowWhenLocked(it, false)
+        activity?.let {
+            val shouldShow = isBound && userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)
+            tryOrNothing {
+                UiUtils.setShowWhenLocked(it, shouldShow)
             }
         }
     }
@@ -582,7 +580,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun updateUI() {
 
-        if (throttle.isThrottled() || context == null) {
+        if (throttle.isThrottled() || !isBound) {
             return
         }
 
@@ -683,7 +681,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // show on lock screen
         if (userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)) {
             activity?.let {
-                LockUtils.setShowWhenLocked(it, true)
+                tryOrNothing {
+                    UiUtils.setShowWhenLocked(it, true)
+                }
             }
         }
     }

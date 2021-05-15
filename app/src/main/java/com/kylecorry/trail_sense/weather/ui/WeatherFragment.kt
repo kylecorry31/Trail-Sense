@@ -40,7 +40,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private val barometer by lazy { sensorService.getBarometer() }
     private val altimeter by lazy { sensorService.getGPSAltimeter() }
     private val thermometer by lazy { sensorService.getThermometer() }
-    private var isBound = false
 
     private var altitude = 0F
     private var useSeaLevelPressure = false
@@ -70,21 +69,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private var rightQuickAction: QuickActionButton? = null
 
     private val weatherForecastService by lazy { WeatherContextualService.getInstance(requireContext()) }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val ret = super.onCreateView(inflater, container, savedInstanceState)
-        isBound = true
-        return ret
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        isBound = false
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -212,7 +196,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
 
     private fun update() {
-        if (context == null) return
         if (!isBound) return
         if (barometer.pressure == 0.0f) return
 
