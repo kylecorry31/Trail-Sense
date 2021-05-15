@@ -73,6 +73,9 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         threshold = binding.threshold.progress.toFloat()
         binding.thresholdAmount.text = formatService.formatMagneticField(threshold)
 
+        // TODO: This needs a low pass filter
+        binding.magnetometerView.setMagneticField(magnetometer.magneticField, threshold)
+
         val metalDetected = metalDetectionService.isMetal(magneticField, threshold)
         binding.magneticField.text = formatService.formatMagneticField(magneticField)
         binding.metalDetected.visibility = if (metalDetected) {

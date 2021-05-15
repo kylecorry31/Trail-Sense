@@ -80,9 +80,7 @@
         android:layout_height="200dp"
         app:layout_constraintBottom_toTopOf="@+id/metal_detector_disclaimer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calibrate_btn" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/metal_detector_disclaimer"
@@ -93,5 +91,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.kylecorry.trail_sense.tools.metaldetector.ui.MagnetometerView
+        android:id="@+id/magnetometerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/metal_chart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calibrate_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
