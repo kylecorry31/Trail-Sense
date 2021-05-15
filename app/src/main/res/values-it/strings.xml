@@ -33,7 +33,7 @@
     <string name="continue_button">CONTINUA</string>
     <string name="moon_rise">Alba lunare</string>
     <string name="moon_set">Tramonto lunare</string>
-    <string name="stop_monitoring">Stop</string>
+    <string name="stop_monitoring">Ferma</string>
     <string name="pref_compass_filter_amt_title">Lisciatura della bussola</string>
     <string name="pref_compass_filter_amt_summary">Valori elevati possono ridurre il rumore</string>
     <string name="pref_theme_title">Tema</string>
@@ -186,8 +186,8 @@
     <string name="moon_phase">Fase lunare</string>
     <string name="copied_to_clipboard_toast">Copiato negli appunti</string>
     <string name="pressure_format">%s %s</string>
-    <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
+    <string name="pressure_tendency_format_2">%s / 3 h</string>
+    <string name="pressure_tendency_format">%s %s / 3 h</string>
     <string name="units_inhg_short">in</string>
     <string name="eta">~ %s distanza</string>
     <string name="sos">SOS</string>
@@ -280,7 +280,7 @@
 \n-  Impostare questo valore a 1.
 \n- Misurare il valore del righello di Trail Sense corrispondente a una unità del righello fisico.
 \n- Riportare qui il valore misurato."</string>
-    <string name="notification_monitoring_weather">Controllo del meteo in background</string>
+    <string name="notification_monitoring_weather">Controllo del meteo in sfondo</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="coordinate_format_mgrs">MGRS</string>
@@ -296,7 +296,7 @@
     <string name="notification_storm_alert_channel_desc">Allarme temporali</string>
     <string name="notification_storm_alert_channel_name">Allarmi</string>
     <string name="pressure_reading_time_ago">%s - %s fa</string>
-    <string name="pressure_setpoint_format">Set: %s - %s fa</string>
+    <string name="pressure_setpoint_format">Impostato: %s - %s fa</string>
     <string name="quality_good">Buono</string>
     <string name="quality_moderate">Medio</string>
     <string name="quality_poor">Debole</string>
@@ -430,7 +430,7 @@
     <string name="delete_beacon_group">Cancella gruppo</string>
     <string name="tool_user_guide_title">Guida utente</string>
     <string name="error_occurred">Si è verificato un errore</string>
-    <string name="pref_email_title">Email sviluppatore</string>
+    <string name="pref_email_title">Contatta lo sviluppatore</string>
     <string name="pref_github_title">GitHub</string>
     <string name="pref_app_version_title">Versione</string>
     <string name="pref_category_about">Informazioni</string>
@@ -550,4 +550,5 @@
     <string name="pref_sea_level_use_rapid_summary">Utilizza cambiamenti rapidi di pressione nelle conversioni di pressione su livello mare</string>
     <string name="pref_sea_level_use_rapid_title">Fattore nel rapido cambiamento di pressione</string>
     <string name="pref_adjust_for_temperature_summary">Utilizza la temperatura nelle conversioni della pressione su livello mare</string>
+    <string name="no_data">Nessun dato</string>
 </resources>
