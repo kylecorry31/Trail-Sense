@@ -33,7 +33,7 @@
     <string name="continue_button">FORTSETZEN</string>
     <string name="moon_rise">Mondaufgang</string>
     <string name="moon_set">Monduntergang</string>
-    <string name="stop_monitoring">Halt</string>
+    <string name="stop_monitoring">Stopp</string>
     <string name="pref_compass_filter_amt_title">Kompassrauschen</string>
     <string name="pref_compass_filter_amt_summary">Hohe Werte können Signalrauschen reduzieren</string>
     <string name="pref_theme_title">Thema</string>
@@ -516,7 +516,7 @@
     <string name="low_power_mode_on_message">Energiespar-Modus ist eingeschaltet, einige Features können ausgeschaltet sein.</string>
     <string name="pref_low_power_mode_title">Energiespar-Modus</string>
     <string name="guide_barometer_calibration_description">Wie man das Barometer auf Meereshöhe kalibriert</string>
-    <string name="guide_backtrack_description">Wie man \"Rückweg\" benutzt</string>
+    <string name="guide_backtrack_description">Wie man „Rückweg“ benutzt</string>
     <string name="battery_power_wireless">Drahtlos</string>
     <string name="tool_thermometer_title">Thermometer</string>
     <string name="location_input_help">Dezimalgrad (z.B. 1.00, -2.00), Grad und Dezimalminuten (z.B. 1°23.12\'N, 3°12.1\'W), Grad Minuten Sekunden (z.B. 1°23\'12.1\"N, 3°12\"1.2\'W), UTM (z.B. 03T 12345E 67890N), MGRS (z.B. 27PXM 09601 05579)</string>
@@ -758,7 +758,7 @@
     <string name="speedometer_real_time">Echte Zeit</string>
     <string name="pref_daily_weather_time_title">Zeit der täglichen Benachrichtigung</string>
     <string name="quick_action_none">Keine</string>
-    <string name="backtrack_notification_channel_description">Standortaktualisierungen für \"Rückweg\"</string>
+    <string name="backtrack_notification_channel_description">Standortaktualisierungen für Rückweg</string>
     <string name="update_gps_override">GPS-Override aktualisieren</string>
     <string name="guide_speedometer_desc">Wie man die zurückgelegte Distanz und Ankunftszeiten herausfindet</string>
     <string name="guide_speedometer_title">Geschwindigkeit und Distanz herausfinden</string>
