@@ -34,7 +34,7 @@ class MagnetometerView : CanvasView {
         radius = min(height / 2f * 0.75f, width / 2f * 0.75f)
         textMode(TextMode.Center)
         textSize(sp(18f))
-        indicatorSize = dp(24f)
+        indicatorSize = dp(20f)
     }
 
     override fun draw() {

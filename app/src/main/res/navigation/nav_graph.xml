@@ -759,10 +759,6 @@
         android:name="com.kylecorry.trail_sense.settings.ThermometerSettingsFragment"
         android:label="ThermometerSettingsFragment" />
     <fragment
-        android:id="@+id/testFragment"
-        android:name="com.kylecorry.trail_sense.tools.maps.ui.TestFragment"
-        android:label="TestFragment" />
-    <fragment
         android:id="@+id/cellSignalSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.CellSignalSettingsFragment"
         android:label="CellSignalSettingsFragment" />
