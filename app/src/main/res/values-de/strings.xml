@@ -33,7 +33,7 @@
     <string name="continue_button">FORTSETZEN</string>
     <string name="moon_rise">Mondaufgang</string>
     <string name="moon_set">Monduntergang</string>
-    <string name="stop_monitoring">Halt</string>
+    <string name="stop_monitoring">Stopp</string>
     <string name="pref_compass_filter_amt_title">Kompassrauschen</string>
     <string name="pref_compass_filter_amt_summary">Hohe Werte können Signalrauschen reduzieren</string>
     <string name="pref_theme_title">Thema</string>
@@ -516,7 +516,7 @@
     <string name="low_power_mode_on_message">Energiespar-Modus ist eingeschaltet, einige Features können ausgeschaltet sein.</string>
     <string name="pref_low_power_mode_title">Energiespar-Modus</string>
     <string name="guide_barometer_calibration_description">Wie man das Barometer auf Meereshöhe kalibriert</string>
-    <string name="guide_backtrack_description">Wie man \"Rückweg\" benutzt</string>
+    <string name="guide_backtrack_description">Wie man „Rückweg“ benutzt</string>
     <string name="battery_power_wireless">Drahtlos</string>
     <string name="tool_thermometer_title">Thermometer</string>
     <string name="location_input_help">Dezimalgrad (z.B. 1.00, -2.00), Grad und Dezimalminuten (z.B. 1°23.12\'N, 3°12.1\'W), Grad Minuten Sekunden (z.B. 1°23\'12.1\"N, 3°12\"1.2\'W), UTM (z.B. 03T 12345E 67890N), MGRS (z.B. 27PXM 09601 05579)</string>
@@ -758,7 +758,7 @@
     <string name="speedometer_real_time">Echte Zeit</string>
     <string name="pref_daily_weather_time_title">Zeit der täglichen Benachrichtigung</string>
     <string name="quick_action_none">Keine</string>
-    <string name="backtrack_notification_channel_description">Standortaktualisierungen für \"Rückweg\"</string>
+    <string name="backtrack_notification_channel_description">Standortaktualisierungen für Rückweg</string>
     <string name="update_gps_override">GPS-Override aktualisieren</string>
     <string name="guide_speedometer_desc">Wie man die zurückgelegte Distanz und Ankunftszeiten herausfindet</string>
     <string name="guide_speedometer_title">Geschwindigkeit und Distanz herausfinden</string>
@@ -786,7 +786,7 @@
     <string name="importing_map">Karte importieren</string>
     <string name="hour_symbol">h</string>
     <string name="minute_symbol">min</string>
-    <string name="pref_backtrack_path_radar_title">Zeige Weg aus Rückweg</string>
+    <string name="pref_backtrack_path_radar_title">Zeige Pfad von Rückweg</string>
     <string name="map_auto_calibrated">Karte wurde automatisch kalibriert, bitte überprüfe die Genauigkeit</string>
     <string name="time_until_empty">bis leer</string>
     <plurals name="import_beacons">
@@ -810,7 +810,7 @@
     <string name="pref_backtrack_path_radar_summary">Auf dem Radarkompass und der Karte</string>
     <string name="app_disclaimer_message_title">Haftungsausschluss / Nutzungsbedingungen</string>
     <string name="disclaimer_message_title">Haftungsausschluss</string>
-    <string name="solid">Fest</string>
+    <string name="solid">Durchgängig</string>
     <string name="calibrate_new_tide">Für eine neue Gezeit kalibrieren\?</string>
     <string name="background_update">Hintergrundaktualisierungen</string>
     <string name="sunset_alert_location_update">Aktualisiere Standort für Sonnenuntergangsalarme</string>
@@ -863,4 +863,17 @@
     <string name="coordinates_tab">Koordinaten</string>
     <string name="distance">Entfernung</string>
     <string name="convert">Umrechner</string>
+    <string name="pref_flashlight_settings">pref_flashlight_settings</string>
+    <string name="pref_flashlight_toggle_with_system_summary">Zeigt eine Benachrichtigung an, wenn die Taschenlampe außerhalb von Trail Sense aktiviert wird</string>
+    <string name="pref_flashlight_toggle_with_system_title">Mit System ändern</string>
+    <string name="map_rotate_instructions">Rotieren, bis Norden nach oben zeigt</string>
+    <string name="map_perspective_instructions">Umriss der Karte</string>
+    <string name="map_edit">Bearbeiten</string>
+    <string name="map_preview">Vorschau</string>
+    <string name="weather_prediction">Wetter: %s</string>
+    <string name="pressure_no_change">Druck ändert sich nicht</string>
+    <string name="pressure_falling_fast">Druck fällt schnell</string>
+    <string name="pressure_falling">Druckabfall</string>
+    <string name="pressure_rising">Druckanstieg</string>
+    <string name="pressure_rising_fast">Druck steigt schnell</string>
 </resources>

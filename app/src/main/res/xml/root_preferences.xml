@@ -163,6 +163,12 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <Preference
+            android:key="@string/pref_cell_signal_settings"
+            android:title="@string/cell_signal"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <EditTextPreference
             android:inputType="numberDecimal"
             app:defaultValue="1"

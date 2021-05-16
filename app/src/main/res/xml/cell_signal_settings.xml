@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/cell_signal">
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="@string/pref_cell_signal_refresh_cache"
+            android:summary="@string/pref_cell_signal_refresh_cache_summary"
+            android:title="@string/pref_cell_signal_refresh_cache_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

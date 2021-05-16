@@ -4,13 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.rotate
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
+import com.kylecorry.trailsensecore.domain.math.Vector3
 import com.kylecorry.trailsensecore.domain.metaldetection.MetalDetectionService
+import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.LowPassMagnetometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.Magnetometer
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.vibration.Vibrator
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import java.time.Duration
@@ -21,6 +29,8 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     private val vibrator by lazy { Vibrator(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private val metalDetectionService = MetalDetectionService()
+    private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
+    private val gyro by lazy { SensorService(requireContext()).getGyro() }
 
     private val filter = LowPassFilter(0.2f, 0f)
 
@@ -33,6 +43,16 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     private val readings = mutableListOf<Float>()
 
+    private val throttle = Throttle(20)
+    private val prefs by lazy { UserPreferences(requireContext()) }
+
+    private var calibratedField = Vector3.zero
+
+    private val calibrateTimer = Intervalometer {
+        calibratedField = lowPassMagnetometer.magneticField
+        gyro.calibrate()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chart = MetalDetectorChart(
@@ -42,22 +62,45 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         binding.calibrateBtn.setOnClickListener {
             binding.threshold.progress =
                 metalDetectionService.getFieldStrength(magnetometer.magneticField).roundToInt() + 5
+            calibratedField = lowPassMagnetometer.magneticField
+            gyro.calibrate()
+            calibrateTimer.stop()
         }
+        binding.magnetometerView.isVisible = prefs.metalDetector.showMetalDirection
     }
 
     override fun onResume() {
         super.onResume()
         magnetometer.start(this::onMagnetometerUpdate)
+        lowPassMagnetometer.start(this::onLowPassMagnetometerUpdate)
+        gyro.start(this::onMagnetometerUpdate)
+        calibrateTimer.once(Duration.ofSeconds(2))
     }
 
     override fun onPause() {
         super.onPause()
         magnetometer.stop(this::onMagnetometerUpdate)
+        lowPassMagnetometer.stop(this::onLowPassMagnetometerUpdate)
+        gyro.stop(this::onMagnetometerUpdate)
         vibrator.stop()
         isVibrating = false
+        calibrateTimer.stop()
     }
 
-    private fun onMagnetometerUpdate(): Boolean {
+    private fun onLowPassMagnetometerUpdate(): Boolean {
+        update()
+        return true
+    }
+
+    private fun update(){
+
+        if (throttle.isThrottled()){
+            return
+        }
+
+        // TODO: Detect if phone is flat, if not display message in magnetometer view
+        binding.magnetometerView.setMagneticField(lowPassMagnetometer.magneticField)
+        binding.magnetometerView.setGeomagneticField(calibratedField.rotate(-gyro.rotation.z, 2))
         val magneticField =
             filter.filter(metalDetectionService.getFieldStrength(magnetometer.magneticField))
 
@@ -88,6 +131,10 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             isVibrating = false
             vibrator.stop()
         }
+    }
+
+    private fun onMagnetometerUpdate(): Boolean {
+        update()
         return true
     }
 

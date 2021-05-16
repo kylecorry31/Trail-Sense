@@ -112,7 +112,7 @@
     <string name="tomorrows_forecast">Завтрашній прогноз</string>
     <string name="todays_forecast">Сьогоднішній прогноз</string>
     <string name="guide_light_meter_description">Як визначити відстань променя ліхтарика</string>
-    <string name="guide_light_meter_title">Визначити дієвість ліхтарика</string>
+    <string name="guide_light_meter_title">Визначення дієвості ліхтарика</string>
     <string name="gps_cache">GPS-кеш</string>
     <string name="location_disabled">Місцеперебування вимкнено</string>
     <string name="set">Установити</string>
@@ -355,7 +355,7 @@
     <string name="pref_open_source_licenses_title">Ліцензії</string>
     <string name="pref_sunset_alert_time_title">Попереджати про захід за</string>
     <string name="pref_sunset_alerts_title">Попередження про захід сонця</string>
-    <string name="update_60_minutes">1 година</string>
+    <string name="update_60_minutes">1 годину</string>
     <string name="update_45_minutes">45 хвилин</string>
     <string name="update_30_minutes">30 хвилин</string>
     <string name="update_15_minutes">15 хвилин</string>
@@ -379,7 +379,7 @@
     <string name="camera_permission_denied">Відмовлено в дозволі на камеру, дозвольте, щоб увімкнути функції камери. Ви можете надати дозвіл у налаштуваннях.</string>
     <string name="pref_use_camera_features_title">Увімкнути функції камери</string>
     <string name="update_120_minutes">2 години</string>
-    <string name="update_90_minutes">1 година 30 хвилин</string>
+    <string name="update_90_minutes">1 годину 30 хвилин</string>
     <string name="pref_center_sun_and_moon_title">Тримати сонце/місяць посередині</string>
     <string name="sun_moon_compass_never">Ніколи</string>
     <string name="sun_moon_compass_when_up">Коли зійшло</string>
@@ -604,7 +604,7 @@
     <string name="backtrack_notification_channel_description">Оновлення місцеперебування історії маршруту</string>
     <string name="backtrack_notification_channel">Історія маршруту</string>
     <string name="guide_location_no_gps_description">Як визначити своє місцеперебування, коли у вас немає сигналу GPS</string>
-    <string name="guide_location_no_gps_title">Визначити місцеперебування без GPS</string>
+    <string name="guide_location_no_gps_title">Визначення місцеперебування без GPS</string>
     <string name="guide_create_beacons_description">Як створювати маячки</string>
     <string name="guide_create_beacons_title">Створення маячків</string>
     <string name="beacon_set_bearing_btn">Установити маячок (%s)</string>
@@ -792,7 +792,7 @@
 \n    %s супутників
 \n
 \nКомпас: Повертайте пристрій за траєкторією вісімки чи за всіма іншими напрямами й постарайтеся знаходитися якомога далі від великих металоконструкцій."</string>
-    <string name="accuracy_info_title">Поради щодо підвищення точності даних датників</string>
+    <string name="accuracy_info_title">Поради щодо уточнення датників</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Невідомо</string>
@@ -878,7 +878,7 @@
     <string name="no_groups">Немає груп</string>
     <string name="coordinates_tab">Координати</string>
     <string name="distance">Відстань</string>
-    <string name="convert">Перетворити</string>
+    <string name="convert">Перетворення одиниць</string>
     <string name="map_rotate_instructions">Обертайте, поки північ не буде вгорі</string>
     <string name="map_perspective_instructions">Накресліть мапу</string>
     <string name="map_edit">Редагувати</string>
@@ -889,4 +889,7 @@
     <string name="pressure_falling">Тиск спадає</string>
     <string name="pressure_rising">Тиск зростає</string>
     <string name="pressure_rising_fast">Тиск швидко зростає</string>
+    <string name="pref_flashlight_settings">pref_flashlight_settings</string>
+    <string name="pref_flashlight_toggle_with_system_summary">Показує сповіщення, коли ліхтарик увімкнено за межами Trail Sense</string>
+    <string name="pref_flashlight_toggle_with_system_title">Перемикати із системою</string>
 </resources>
