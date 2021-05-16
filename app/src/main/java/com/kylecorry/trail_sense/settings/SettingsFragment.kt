@@ -1,35 +1,28 @@
 package com.kylecorry.trail_sense.settings
 
 import android.Manifest
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.hardware.Sensor
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
-import androidx.annotation.ArrayRes
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.RequestCodes
-import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
-import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorDetailProvider
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
+import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils.getPackageName
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -143,6 +136,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
             R.id.action_action_settings_to_diagnosticFragment
         )
 
+        onClick(switch(R.string.pref_enable_experimental)) {
+            val pm: PackageManager? = context?.applicationContext?.packageManager
+            val compName = ComponentName(
+                getPackageName(requireContext()),
+                getPackageName(requireContext()) + ".AliasMainActivity"
+            )
+            pm?.setComponentEnabledSetting(
+                compName,
+                if (prefs.experimentalEnabled) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP
+            )
+        }
 
         // Camera features
         onClick(switch(R.string.pref_use_camera_features)) {
