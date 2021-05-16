@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense
 
 import android.Manifest
+import android.content.ComponentName
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -117,6 +119,16 @@ class MainActivity : AppCompatActivity() {
             bottomNavigation.setBackgroundColor(Color.BLACK)
         }
 
+        val pm: PackageManager? = applicationContext?.packageManager
+        val compName = ComponentName(
+            PackageUtils.getPackageName(this),
+            PackageUtils.getPackageName(this) + ".AliasMainActivity"
+        )
+        pm?.setComponentEnabledSetting(
+            compName,
+            if (UserPreferences(this).experimentalEnabled) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP
+        )
 
         if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
             startActivity(Intent(this, OnboardingActivity::class.java))
