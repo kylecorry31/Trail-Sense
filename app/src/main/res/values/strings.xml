@@ -1038,4 +1038,5 @@
     <string name="pref_cell_signal_refresh_cache_title">Refresh signal cache</string>
     <string name="pref_cell_signal_refresh_cache_summary">Forces loading the latest signal strengths</string>
     <string name="pref_cell_signal_settings">pref_cell_signal_settings</string>
+    <string name="import_map">Import map</string>
 </resources>

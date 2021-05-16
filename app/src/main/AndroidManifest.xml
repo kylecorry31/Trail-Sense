@@ -58,6 +58,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity-alias
+            android:targetActivity=".MainActivity"
+            android:name=".AliasMainActivity"
+            android:label="@string/app_name">
+            <intent-filter android:label="@string/import_map">
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="image/*"/>
+                <data android:mimeType="application/pdf"/>
+            </intent-filter>
+        </activity-alias>
+
 
         <activity
             android:name="com.kylecorry.trail_sense.onboarding.OnboardingActivity"

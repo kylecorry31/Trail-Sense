@@ -65,6 +65,23 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val mapIntentUri: Uri? = arguments?.getParcelable("map_intent_uri")
+        arguments?.remove("map_intent_uri")
+        if (mapIntentUri != null) {
+            CustomUiUtils.pickText(
+                requireContext(),
+                getString(R.string.create_map),
+                getString(R.string.create_map_description),
+                null,
+                hint = getString(R.string.name_hint)
+            ) {
+                if (it != null) {
+                    mapName = it
+                    mapFromUri(mapIntentUri)
+                }
+            }
+        }
+
         if (cache.getBoolean("tool_maps_experimental_disclaimer_shown") != true) {
             UiUtils.alertWithCancel(
                 requireContext(),
