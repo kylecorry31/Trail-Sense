@@ -6,6 +6,7 @@ import android.text.format.DateFormat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.settings.CellSignalPreferences
 import com.kylecorry.trail_sense.settings.FlashlightPreferenceRepo
 import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
@@ -31,6 +32,7 @@ class UserPreferences(private val context: Context) {
     val weather by lazy { WeatherPreferences(context) }
     val astronomy by lazy { AstronomyPreferences(context) }
     val flashlight by lazy { FlashlightPreferenceRepo(context) }
+    val cellSignal by lazy { CellSignalPreferences(context) }
 
     val distanceUnits: DistanceUnits
         get() {

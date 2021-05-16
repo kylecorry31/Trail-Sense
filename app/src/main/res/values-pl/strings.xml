@@ -837,7 +837,7 @@
     <string name="sunrise_type">Wschód słońca (%s)</string>
     <string name="weather_monitor">Monitorowanie pogody</string>
     <string name="no_data">Brak danych</string>
-    <string name="backtrack_notification_channel">Ścieżka wycofywania się</string>
+    <string name="backtrack_notification_channel">Ścieżka wsteczna</string>
     <string name="delete_map">Usunąć mapę\?</string>
     <string name="pref_nmea_altitude_title">Przesunięcia wysokości NMEA</string>
     <string name="water_boil_guide_title">Spraw, aby woda była bezpieczna do picia</string>
@@ -849,4 +849,8 @@
     <string name="distance">Odległość</string>
     <string name="coordinates_tab">Współrzędne</string>
     <string name="no_groups">Brak grup</string>
+    <string name="weather_prediction">Pogoda: %s</string>
+    <string name="map_preview">Podgląd</string>
+    <string name="map_edit">Edytuj</string>
+    <string name="pref_flashlight_settings">pref_flashlight_settings</string>
 </resources>
