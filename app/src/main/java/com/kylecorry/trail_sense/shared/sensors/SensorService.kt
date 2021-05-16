@@ -13,6 +13,8 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
+import com.kylecorry.trail_sense.tools.metaldetector.ui.Gyroscope
+import com.kylecorry.trail_sense.tools.metaldetector.ui.IGyroscope
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.GravitySensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.IAccelerometer
@@ -201,6 +203,14 @@ class SensorService(ctx: Context) {
 
     fun getMagnetometer(): IMagnetometer {
         return Magnetometer(context)
+    }
+
+    fun getGyro(): IGyroscope {
+        if (!sensorChecker.hasSensor(Sensor.TYPE_GYROSCOPE)){
+            return NullGyroscrope()
+        }
+
+        return Gyroscope(context)
     }
 
 }
