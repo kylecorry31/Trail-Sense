@@ -56,12 +56,18 @@ class MagnetometerView : CanvasView {
             return
         }
 
+        // TODO: Measure change in position, if magnitude increasing and position increasing Y, then choose point closest (and opposite)
+        // TODO: Measure change in position, if magnitude increasing and position increasing X, then choose point closest (and opposite)
+
         val angle = atan2(calibrated.y, calibrated.x)
         val x = cos(angle) * radius
         val y = sin(angle) * radius
 
-        fill(AppColor.Green.color)
+        fill(AppColor.Red.color)
         circle(width / 2f + x, height / 2f - y, indicatorSize)
+
+        fill(AppColor.Blue.color)
+        circle(width / 2f - x, height / 2f + y, indicatorSize)
     }
 
     fun setMagneticField(field: Vector3) {
