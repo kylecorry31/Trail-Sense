@@ -77,7 +77,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             ) {
                 if (it != null) {
                     mapName = it
-                    //intentMapImported = true
                     mapFromUri(mapIntentUri)
                 }
             }
