@@ -1,12 +1,10 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.Manifest
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
@@ -54,6 +52,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.camera.Camera
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
@@ -136,10 +135,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            activity?.setShowWhenLocked(false)
-        } else {
-            activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+        activity?.let {
+            tryOrNothing {
+                UiUtils.setShowWhenLocked(it, false)
+            }
         }
     }
 
@@ -154,6 +153,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 withContext(Dispatchers.IO) {
                     destination = beaconRepo.getBeacon(beaconId)?.toBeacon()
                     cache.putLong(LAST_BEACON_ID, beaconId)
+                }
+                withContext(Dispatchers.Main){
+                    handleShowWhenLocked()
                 }
             }
         }
@@ -344,6 +346,17 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             destinationBearing = null
             cache.remove(LAST_DEST_BEARING)
         }
+
+        handleShowWhenLocked()
+    }
+
+    private fun handleShowWhenLocked(){
+        activity?.let {
+            val shouldShow = isBound && userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)
+            tryOrNothing {
+                UiUtils.setShowWhenLocked(it, shouldShow)
+            }
+        }
     }
 
     private fun displayAccuracyTips() {
@@ -463,6 +476,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 withContext(Dispatchers.IO) {
                     destination = beaconRepo.getBeacon(lastBeaconId)?.toBeacon()
                 }
+                withContext(Dispatchers.Main){
+                    handleShowWhenLocked()
+                }
             }
         }
 
@@ -564,7 +580,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun updateUI() {
 
-        if (throttle.isThrottled() || context == null) {
+        if (throttle.isThrottled() || !isBound) {
             return
         }
 
@@ -663,18 +679,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateNavigationButton()
 
         // show on lock screen
-        if (userPrefs.navigation.lockScreenPresence) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-                if (destination != null || destinationBearing != null) {
-                    activity?.setShowWhenLocked(true)
-                } else {
-                    activity?.setShowWhenLocked(false)
-                }
-            } else {
-                if (destination != null || destinationBearing != null) {
-                    activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
-                } else {
-                    activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+        if (userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)) {
+            activity?.let {
+                tryOrNothing {
+                    UiUtils.setShowWhenLocked(it, true)
                 }
             }
         }
@@ -759,6 +767,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun updateNavigator() {
+        handleShowWhenLocked()
         onLocationUpdate()
         updateNavigationButton()
     }

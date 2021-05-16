@@ -86,6 +86,7 @@
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_use_camera_features"
+            android:summary="@string/experimental"
             app:singleLineTitle="false"
             app:title="@string/pref_use_camera_features_title" />
 

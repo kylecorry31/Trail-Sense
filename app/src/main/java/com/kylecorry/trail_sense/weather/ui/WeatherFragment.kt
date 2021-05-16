@@ -31,9 +31,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant
 
@@ -191,11 +189,14 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         super.onPause()
         leftQuickAction?.onPause()
         rightQuickAction?.onPause()
+        if (lifecycleScope.isActive) {
+            lifecycleScope.cancel()
+        }
     }
 
 
     private fun update() {
-        if (context == null) return
+        if (!isBound) return
         if (barometer.pressure == 0.0f) return
 
         if (throttle.isThrottled()) {
