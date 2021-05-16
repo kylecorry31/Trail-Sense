@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/action_astronomy"
         android:name="com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment"
-        android:label="AstronomyFragment" >
+        android:label="AstronomyFragment">
         <action
             android:id="@+id/action_astronomyFragment_to_calibrateGPSFragment"
             app:destination="@id/calibrateGPSFragment"
@@ -209,28 +209,28 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_fragmentBacktrack"
             app:destination="@id/fragmentBacktrack"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_thermometerFragment"
             app:destination="@id/thermometerFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_cloudFragment"
             app:destination="@id/cloudFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_toolsFragment_to_toolLightFragment"
             app:destination="@id/toolLightFragment"
@@ -257,7 +257,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/action_settings"
@@ -301,6 +301,14 @@
         <action
             android:id="@+id/action_action_settings_to_calibrateOdometerFragment"
             app:destination="@id/calibrateOdometerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_action_settings_to_cellSignalSettingsFragment"
+            app:destination="@id/cellSignalSettingsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -353,7 +361,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/beacon_list"
@@ -750,5 +758,9 @@
         android:id="@+id/thermometerSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ThermometerSettingsFragment"
         android:label="ThermometerSettingsFragment" />
+    <fragment
+        android:id="@+id/cellSignalSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.CellSignalSettingsFragment"
+        android:label="CellSignalSettingsFragment" />
 
 </navigation>
