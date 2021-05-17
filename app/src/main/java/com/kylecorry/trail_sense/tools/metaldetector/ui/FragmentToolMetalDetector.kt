@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 import com.kylecorry.trailsensecore.domain.math.Vector3
 import com.kylecorry.trailsensecore.domain.metaldetection.MetalDetectionService
+import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.GravitySensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.LowPassMagnetometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.Magnetometer
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -31,6 +32,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     private val metalDetectionService = MetalDetectionService()
     private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
     private val gyro by lazy { SensorService(requireContext()).getGyro() }
+    private val gravity by lazy { GravitySensor(requireContext()) }
 
     private val filter = LowPassFilter(0.2f, 0f)
 
@@ -74,6 +76,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         magnetometer.start(this::onMagnetometerUpdate)
         lowPassMagnetometer.start(this::onLowPassMagnetometerUpdate)
         gyro.start(this::onMagnetometerUpdate)
+        gravity.start(this::onMagnetometerUpdate)
         calibrateTimer.once(Duration.ofSeconds(2))
     }
 
@@ -82,6 +85,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         magnetometer.stop(this::onMagnetometerUpdate)
         lowPassMagnetometer.stop(this::onLowPassMagnetometerUpdate)
         gyro.stop(this::onMagnetometerUpdate)
+        gravity.stop(this::onMagnetometerUpdate)
         vibrator.stop()
         isVibrating = false
         calibrateTimer.stop()
@@ -100,7 +104,8 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
         // TODO: Detect if phone is flat, if not display message in magnetometer view
         binding.magnetometerView.setMagneticField(lowPassMagnetometer.magneticField)
-        binding.magnetometerView.setGeomagneticField(calibratedField.rotate(-gyro.rotation.z, 2))
+        binding.magnetometerView.setGravity(gravity.acceleration)
+        binding.magnetometerView.setGeomagneticField(calibratedField.rotate(-gyro.rotation.x, 0).rotate(-gyro.rotation.y, 1).rotate(-gyro.rotation.z, 2))
         val magneticField =
             filter.filter(metalDetectionService.getFieldStrength(magnetometer.magneticField))
 
