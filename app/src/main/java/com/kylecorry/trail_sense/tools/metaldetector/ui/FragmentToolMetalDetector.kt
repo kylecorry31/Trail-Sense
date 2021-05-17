@@ -31,7 +31,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     private val formatService by lazy { FormatService(requireContext()) }
     private val metalDetectionService = MetalDetectionService()
     private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
-    private val gyro by lazy { SensorService(requireContext()).getGyro() }
+    private val gyro by lazy { Gyroscope(requireContext()) } //SensorService(requireContext()).getGyro() }
     private val gravity by lazy { GravitySensor(requireContext()) }
 
     private val filter = LowPassFilter(0.2f, 0f)
@@ -96,16 +96,25 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         return true
     }
 
-    private fun update(){
+    private fun update() {
 
-        if (throttle.isThrottled()){
+        if (throttle.isThrottled()) {
             return
         }
 
         // TODO: Detect if phone is flat, if not display message in magnetometer view
         binding.magnetometerView.setMagneticField(lowPassMagnetometer.magneticField)
         binding.magnetometerView.setGravity(gravity.acceleration)
-        binding.magnetometerView.setGeomagneticField(calibratedField.rotate(-gyro.rotation.x, 0).rotate(-gyro.rotation.y, 1).rotate(-gyro.rotation.z, 2))
+
+        val useQuaternion = false
+        if (useQuaternion) {
+            binding.magnetometerView.setGeomagneticField(gyro.quaternion.rotate(calibratedField))
+        } else {
+            binding.magnetometerView.setGeomagneticField(
+                calibratedField.rotate(-gyro.rotation.x, 0).rotate(-gyro.rotation.y, 1)
+                    .rotate(-gyro.rotation.z, 2)
+            )
+        }
         val magneticField =
             filter.filter(metalDetectionService.getFieldStrength(magnetometer.magneticField))
 

@@ -207,7 +207,7 @@ class SensorService(ctx: Context) {
 
     fun getGyro(): IGyroscope {
         if (!sensorChecker.hasSensor(Sensor.TYPE_GYROSCOPE)){
-            return NullGyroscrope()
+            return NullGyroscope()
         }
 
         return Gyroscope(context)

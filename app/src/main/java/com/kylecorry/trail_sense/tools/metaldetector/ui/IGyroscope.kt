@@ -6,5 +6,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.ISensor
 interface IGyroscope: ISensor {
     val rawRotation: FloatArray
     val rotation: Vector3
+    val quaternion: Quaternion
+    val rawQuaternion: FloatArray
     fun calibrate()
 }
