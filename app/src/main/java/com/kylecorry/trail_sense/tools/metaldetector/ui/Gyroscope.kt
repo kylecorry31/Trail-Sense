@@ -16,9 +16,9 @@ class Gyroscope(context: Context): BaseSensor(context, Sensor.TYPE_GYROSCOPE, Se
         get() {
             return synchronized(lock) {
                 floatArrayOf(
-                    wrap(_rotation[0] - zero[0], 0f, 360f),
-                    wrap(_rotation[1] - zero[1], 0f, 360f),
-                    wrap(_rotation[2] - zero[2], 0f, 360f)
+                    wrap(_rotation[0], 0f, 360f),
+                    wrap(_rotation[1], 0f, 360f),
+                    wrap(_rotation[2], 0f, 360f)
                 )
             }
         }
@@ -27,15 +27,14 @@ class Gyroscope(context: Context): BaseSensor(context, Sensor.TYPE_GYROSCOPE, Se
         get() {
             return synchronized(lock) {
                 Vector3(
-                    wrap(_rotation[0] - zero[0], 0f, 360f),
-                    wrap(_rotation[1] - zero[1], 0f, 360f),
-                    wrap(_rotation[2] - zero[2], 0f, 360f)
+                    wrap(_rotation[0], 0f, 360f),
+                    wrap(_rotation[1], 0f, 360f),
+                    wrap(_rotation[2], 0f, 360f)
                 )
             }
         }
 
     private val _rotation = FloatArray(3)
-    private val zero = FloatArray(3)
 
     private val NS2S = 1.0f / 1000000000.0f
 
@@ -71,9 +70,9 @@ class Gyroscope(context: Context): BaseSensor(context, Sensor.TYPE_GYROSCOPE, Se
 
     override fun calibrate(){
         synchronized(lock) {
-            zero[0] = _rotation[0]
-            zero[1] = _rotation[1]
-            zero[2] = _rotation[2]
+            _rotation[0] = 0f
+            _rotation[1] = 0f
+            _rotation[2] = 0f
         }
     }
 
