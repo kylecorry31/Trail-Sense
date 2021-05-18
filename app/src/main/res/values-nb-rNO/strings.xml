@@ -190,12 +190,12 @@
     <string name="beacon_invalid_elevation">Ugyldig høyde</string>
     <string name="eta">~ %s unna</string>
     <string name="sos">SOS</string>
-    <string name="accuracy_info">"GPS: Kom deg ut med fri sikt til himmelen.
+    <string name="accuracy_info">"GPS: Gå ut med fri sikt mot himmelen.
 \n    %s av faktisk posisjon
 \n    %s av faktisk høyde
 \n    %s satellitter
 \n
-\nKompass: Roter enheten i et åttetallsmønster og kom deg unna metall."</string>
+\nKompass: Roter enheten i et åttetallsmønster eller i alle retninger og flytt deg unna metall."</string>
     <string name="dash">-</string>
     <string name="percent_format">%d%%</string>
     <string name="kilometers_per_hour_format">%.1f km/t</string>
@@ -230,10 +230,10 @@
     <string name="storm_sensitivity_low_hpa">Lav (6 hPa / 3t)</string>
     <string name="pref_altitude_offsets_summary">Korrigerer GPS-høyde til over gjennomsnittlig havnivå</string>
     <string name="add_elevation_offsets">Bruk meter over havet (moh.)</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Roter telefonen i et figur-8-mønster flere ganger, trykk %s når du er ferdig.
+    <string name="calibrate_compass_on_navigate_dialog_content">Roter telefonen i et åttetallsmønster eller i alle retninger flere ganger, trykk %s når du er ferdig.
 \n
 \nDenne meldingen kan slås av i appinnstillingene.</string>
-    <string name="calibrate_compass_dialog_content">Roter telefonen i et åttetalsmønster flere ganger, og trykk %s når du er ferdig.</string>
+    <string name="calibrate_compass_dialog_content">Roter telefonen i et åttetallsmønster eller i alle retninger flere ganger, trykk %s når du er ferdig.</string>
     <string name="calibrate_compass_dialog_title">Kalibrer kompasset</string>
     <string name="pref_use_true_north_title">Sann nord</string>
     <string name="pref_ruler_calibration_title">Linjalskala</string>
@@ -601,7 +601,7 @@
     <string name="quality_poor">Dårlig</string>
     <string name="help">Hjelp</string>
     <string name="pref_sea_level_use_rapid_title">Ta hensyn til hurtige lufttrykksendringer</string>
-    <string name="pref_sea_level_use_rapid_summary">Bruk hurtige lufttrykksnivåendringer i konverteringer ved havnivå</string>
+    <string name="pref_sea_level_use_rapid_summary">Bruk hurtige lufttrykkendringer i omregninger for havnivåtrykk</string>
     <string name="pref_daily_weather_notification_title">Daglig værmelding</string>
     <string name="weather_same_as_yesterday">Samme som i går</string>
     <string name="weather_worse_than_yesterday">Verre enn i går</string>
@@ -672,4 +672,29 @@
     <string name="sunset_type">Solnedgang (%s)</string>
     <string name="sunrise_type">Soloppgang (%s)</string>
     <string name="weather_monitor">Værovervåking</string>
+    <string name="weather_prediction">Vær: %s</string>
+    <string name="pressure_no_change">Trykket endres ikke</string>
+    <string name="pressure_falling_fast">Trykket faller raskt</string>
+    <string name="pressure_falling">Trykkfall</string>
+    <string name="pressure_rising">Trykkstigning</string>
+    <string name="pressure_rising_fast">Trykket stiger raskt</string>
+    <string name="no_groups">Ingen grupper</string>
+    <string name="coordinates_tab">Koordinater</string>
+    <string name="distance">Distanse</string>
+    <string name="convert">Omregning</string>
+    <string name="whistle_signal_come_here">Kom hit</string>
+    <string name="whistle_signal_acknowledged">Mottatt</string>
+    <string name="pref_show_civil_times_title">Alminnelig tid</string>
+    <string name="pref_show_astronomical_times_title">Astronomisk tid</string>
+    <string name="pref_show_nautical_times_title">Nautisk tid</string>
+    <string name="noon">Kulminasjon</string>
+    <string name="fields">Felter</string>
+    <string name="dotted">Stiplet</string>
+    <string name="solid">Heltrukken</string>
+    <string name="pref_odometer_reset_daily_title">Nullstill daglig</string>
+    <string name="import_gpx">Importer GPX</string>
+    <string name="time_until_full">til fullt</string>
+    <string name="time_until_empty">til tomt</string>
+    <string name="magnetic_field_format_precise">%s uT</string>
+    <string name="pref_adjust_for_temperature_summary">Bruk temperaturen i omregninger for havnivåtrykk</string>
 </resources>
