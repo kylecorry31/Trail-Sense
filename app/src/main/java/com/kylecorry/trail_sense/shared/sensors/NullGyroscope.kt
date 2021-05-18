@@ -1,28 +1,28 @@
 package com.kylecorry.trail_sense.shared.sensors
 
-import com.kylecorry.trail_sense.tools.metaldetector.ui.IGyroscope
-import com.kylecorry.trail_sense.tools.metaldetector.ui.Quaternion
-import com.kylecorry.trailsensecore.domain.math.Vector3
+import com.kylecorry.trailsensecore.domain.math.Euler
+import com.kylecorry.trailsensecore.domain.math.Quaternion
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.IGyroscope
 
 class NullGyroscope : AbstractSensor(), IGyroscope {
 
     private val empty = FloatArray(3)
 
-    override val rawRotation: FloatArray
-        get() = empty
-    override val rotation: Vector3
-        get() = Vector3.zero
     override val quaternion: Quaternion
         get() = Quaternion.zero
+    override val rawEuler: FloatArray
+        get() = quaternion.toEuler().toFloatArray()
     override val rawQuaternion: FloatArray
         get() = Quaternion.zero.toFloatArray()
-
-    override fun calibrate() {
-    }
+    override val euler: Euler
+        get() = quaternion.toEuler()
 
     override val hasValidReading: Boolean
         get() = true
+
+    override fun calibrate() {
+    }
 
     override fun startImpl() {
         notifyListeners()

@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.diagnostics
 
 import android.Manifest
 import android.graphics.Color
+import android.hardware.Sensor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -64,6 +65,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     private val hygrometer by lazy { sensorService.getHygrometer() }
     private val gravity by lazy { sensorService.getGravity() }
     private val magnetometer by lazy { sensorService.getMagnetometer() }
+    private val gyroscope by lazy { sensorService.getGyro() }
     private val battery by lazy { Battery(requireContext()) }
     private val intervalometer = Intervalometer {
         updateClock()
@@ -103,6 +105,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         cellSignal.asLiveData().observe(viewLifecycleOwner, { updateCellSignal() })
         magnetometer.asLiveData().observe(viewLifecycleOwner, { updateMagnetometer() })
         battery.asLiveData().observe(viewLifecycleOwner, { updateBattery() })
+        gyroscope.asLiveData().observe(viewLifecycleOwner, { updateGyro() })
     }
 
     override fun onResume() {
@@ -114,6 +117,33 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     override fun onPause() {
         super.onPause()
         intervalometer.stop()
+    }
+
+    private fun updateGyro(){
+        if (!sensorChecker.hasSensor(Sensor.TYPE_GYROSCOPE)){
+            sensorDetailsMap["gyroscope"] = SensorDetails(
+                getString(R.string.sensor_gyroscope),
+                "",
+                getString(R.string.gps_unavailable),
+                CustomUiUtils.getQualityColor(requireContext(), Quality.Poor),
+                R.drawable.ic_gyro
+            )
+            updateSensorList()
+            return
+        }
+        val euler = gyroscope.euler
+        sensorDetailsMap["gyroscope"] = SensorDetails(
+                getString(R.string.sensor_gyroscope),
+            getString(R.string.roll_pitch_yaw,
+                formatService.formatDegrees(euler.roll),
+                formatService.formatDegrees(euler.pitch),
+                formatService.formatDegrees(euler.yaw)
+            ),
+            formatService.formatQuality(gyroscope.quality),
+            CustomUiUtils.getQualityColor(requireContext(), gyroscope.quality),
+            R.drawable.ic_gyro
+        )
+        updateSensorList()
     }
 
     private fun updateClock() {

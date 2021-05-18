@@ -1039,4 +1039,6 @@
     <string name="pref_cell_signal_refresh_cache_summary">Forces loading the latest signal strengths</string>
     <string name="pref_cell_signal_settings">pref_cell_signal_settings</string>
     <string name="import_map">Import map</string>
+    <string name="sensor_gyroscope">Gyroscope</string>
+    <string name="roll_pitch_yaw">Roll: %s, Pitch: %s, Yaw: %s</string>
 </resources>

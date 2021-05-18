@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.rotate
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 import com.kylecorry.trailsensecore.domain.math.Vector3
 import com.kylecorry.trailsensecore.domain.metaldetection.MetalDetectionService
@@ -30,7 +30,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     private val formatService by lazy { FormatService(requireContext()) }
     private val metalDetectionService = MetalDetectionService()
     private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
-    private val gyro by lazy { Gyroscope(requireContext()) } //SensorService(requireContext()).getGyro() }
+    private val gyro by lazy { SensorService(requireContext()).getGyro() }
     private val gravity by lazy { GravitySensor(requireContext()) }
 
     private val filter = LowPassFilter(0.2f, 0f)
@@ -106,16 +106,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         binding.magnetometerView.setMagneticField(lowPassMagnetometer.magneticField)
         binding.magnetometerView.setGravity(gravity.acceleration)
         binding.magnetometerView.setSensitivity(prefs.metalDetector.directionSensitivity)
-
-        if (prefs.metalDetector.useQuaternion) {
-            binding.magnetometerView.setGeomagneticField(gyro.quaternion.rotate(calibratedField))
-        } else {
-            binding.magnetometerView.setGeomagneticField(
-                calibratedField.rotate(-gyro.rotation.x, 0)
-                    .rotate(-gyro.rotation.y, 1)
-                    .rotate(-gyro.rotation.z, 2)
-            )
-        }
+        binding.magnetometerView.setGeomagneticField(gyro.quaternion.rotate(calibratedField))
         val magneticField =
             filter.filter(metalDetectionService.getFieldStrength(magnetometer.magneticField))
 

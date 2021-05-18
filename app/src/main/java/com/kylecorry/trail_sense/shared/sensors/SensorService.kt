@@ -13,8 +13,6 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
-import com.kylecorry.trail_sense.tools.metaldetector.ui.Gyroscope
-import com.kylecorry.trail_sense.tools.metaldetector.ui.IGyroscope
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.GravitySensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.IAccelerometer
@@ -36,9 +34,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.IMagneto
 import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.Magnetometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.network.CellSignalSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.network.ICellSignalSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
-import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientationSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.IOrientationSensor
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.*
 import com.kylecorry.trailsensecore.infrastructure.sensors.speedometer.ISpeedometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.BatteryTemperatureSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
@@ -206,7 +202,7 @@ class SensorService(ctx: Context) {
     }
 
     fun getGyro(): IGyroscope {
-        if (!sensorChecker.hasSensor(Sensor.TYPE_GYROSCOPE)){
+        if (!sensorChecker.hasGyroscope()){
             return NullGyroscope()
         }
 
