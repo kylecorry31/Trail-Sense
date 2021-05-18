@@ -20,6 +20,8 @@ class MagnetometerView : CanvasView {
     private var gravity = Vector3.zero
     private var radius = 0f
     private var indicatorSize = 0f
+    private var singlePole = false
+    private var sensitivity = 1f
 
     private val formatService by lazy { FormatServiceV2(context) }
 
@@ -50,30 +52,36 @@ class MagnetometerView : CanvasView {
         circle(width / 2f, height / 2f, radius * 2)
         noStroke()
 
-        val calibrated = magneticField - geomagneticField
+        val calibrated = magneticField - geomagneticField // magneticField - magneticField.normalize() * geomagneticField.magnitude()
 
         val magnitude = calibrated.magnitude()
 
         fill(Color.WHITE)
         text(formatService.formatMagneticField(magnitude), width / 2f, height / 2f)
 
-        if (magnitude < 1f){
+        if (magnitude < sensitivity){
             return
         }
 
-        // TODO: Measure change in position, if magnitude increasing and position increasing Y, then choose point closest (and opposite)
-        // TODO: Measure change in position, if magnitude increasing and position increasing X, then choose point closest (and opposite)
         val azimuth = AzimuthCalculator.calculate(gravity, calibrated)?.value ?: return
 
         push()
         rotate(-azimuth)
 
-        fill(AppColor.Red.color)
-        circle(width / 2f, height / 2f - radius, indicatorSize)
+        if (singlePole){
+            fill(AppColor.Green.color)
+            if (azimuth in 90f..270f){
+                rotate(180f)
+            }
+            circle(width / 2f, height / 2f - radius, indicatorSize)
+        } else {
+            fill(AppColor.Red.color)
+            circle(width / 2f, height / 2f - radius, indicatorSize)
 
-        rotate(180f)
-        fill(AppColor.Blue.color)
-        circle(width / 2f, height / 2f - radius, indicatorSize)
+            rotate(180f)
+            fill(AppColor.Blue.color)
+            circle(width / 2f, height / 2f - radius, indicatorSize)
+        }
         pop()
     }
 
@@ -89,6 +97,16 @@ class MagnetometerView : CanvasView {
 
     fun setGravity(vec: Vector3){
         gravity = vec
+        invalidate()
+    }
+
+    fun setSinglePoleMode(singlePole: Boolean){
+        this.singlePole = singlePole
+        invalidate()
+    }
+
+    fun setSensitivity(sensitivity: Float){
+        this.sensitivity = sensitivity
         invalidate()
     }
 

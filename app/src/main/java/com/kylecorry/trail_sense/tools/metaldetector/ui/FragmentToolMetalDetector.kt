@@ -10,7 +10,6 @@ import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.rotate
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 import com.kylecorry.trailsensecore.domain.math.Vector3
 import com.kylecorry.trailsensecore.domain.metaldetection.MetalDetectionService
@@ -73,6 +72,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     override fun onResume() {
         super.onResume()
+        binding.magnetometerView.setSinglePoleMode(prefs.metalDetector.showSinglePole)
         magnetometer.start(this::onMagnetometerUpdate)
         lowPassMagnetometer.start(this::onLowPassMagnetometerUpdate)
         gyro.start(this::onMagnetometerUpdate)
@@ -105,13 +105,14 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         // TODO: Detect if phone is flat, if not display message in magnetometer view
         binding.magnetometerView.setMagneticField(lowPassMagnetometer.magneticField)
         binding.magnetometerView.setGravity(gravity.acceleration)
+        binding.magnetometerView.setSensitivity(prefs.metalDetector.directionSensitivity)
 
-        val useQuaternion = false
-        if (useQuaternion) {
+        if (prefs.metalDetector.useQuaternion) {
             binding.magnetometerView.setGeomagneticField(gyro.quaternion.rotate(calibratedField))
         } else {
             binding.magnetometerView.setGeomagneticField(
-                calibratedField.rotate(-gyro.rotation.x, 0).rotate(-gyro.rotation.y, 1)
+                calibratedField.rotate(-gyro.rotation.x, 0)
+                    .rotate(-gyro.rotation.y, 1)
                     .rotate(-gyro.rotation.z, 2)
             )
         }
