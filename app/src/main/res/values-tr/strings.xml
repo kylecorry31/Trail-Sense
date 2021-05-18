@@ -874,4 +874,5 @@
     <string name="pref_flashlight_settings">pref_flashlight_settings</string>
     <string name="pref_flashlight_toggle_with_system_summary">El feneri Trail Sense dışında açıldığında bir bildirim görüntüler</string>
     <string name="pref_flashlight_toggle_with_system_title">Sistem ile aç/kapat</string>
+    <string name="pref_navigation_lock_screen_presence_title">Gezinirken kilit ekranında göster</string>
 </resources>
