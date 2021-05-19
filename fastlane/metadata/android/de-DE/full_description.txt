@@ -15,4 +15,4 @@
 <h4>Berechtigungen</h4>
 <p>Standort (genau, Hintergrund): Wird für Wegpunktnavigation, das Herausfinden der Richtung zum geographischen Norden, Höhenkorrigierung beim Höhenmessen (im Hintergrund) und Auf-/Untergangszeiten für Sonne/Mond verwendet.</p>
 <p>Taschenlampe: Wird für Taschenlampen-Funktion im Navigations-Tab verwendet.</p>
-<p>Körerliche Aktivität: Wird im Schrittzähler-basierten Kilometerzähler verwendet, um die Distanz herauszufinden.</p>
+<p>Körperliche Aktivität: Wird im Schrittzähler-basierten Kilometerzähler verwendet, um die Distanz herauszufinden.</p>
