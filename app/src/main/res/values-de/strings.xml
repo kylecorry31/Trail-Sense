@@ -877,4 +877,9 @@
     <string name="pressure_rising">Druckanstieg</string>
     <string name="pressure_rising_fast">Druck steigt schnell</string>
     <string name="pref_navigation_lock_screen_presence_title">Während der Navigation auf dem Sperrbildschirm zeigen</string>
+    <string name="import_map">Karte importieren</string>
+    <string name="pref_cell_signal_settings">pref_cell_signal_settings</string>
+    <string name="pref_cell_signal_refresh_cache_summary">Erzwingt das Laden der letzten Signalstärke</string>
+    <string name="pref_cell_signal_refresh_cache_title">Signalcache auffrischen</string>
+    <string name="pref_cell_signal_refresh_cache">pref_cell_signal_refresh_cache</string>
 </resources>
