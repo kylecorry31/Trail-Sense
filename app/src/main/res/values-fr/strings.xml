@@ -291,7 +291,7 @@
     <string name="pref_altitude_override_sea_level_dialog_title">Saisissez la valeur de pression au niveau de la mer</string>
     <string name="altitude_override_updated_toast">Nouvelle valeur d\'altitude obtenue</string>
     <string name="pref_altitude_override_title">Saisie manuelle de l\'altitude</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Déplacez votre téléphone selon une trajectoire décrivant un «8» de manière répétée, puis appuyez sur %s.
+    <string name="calibrate_compass_on_navigate_dialog_content">Déplacez votre téléphone selon une trajectoire décrivant un «8» de manière répétée, puis appuyez sur %s quand vous avez terminé.
 \n
 \nVous pouvez désactiver ce message dans les paramètres de l\'application.</string>
     <string name="calibrate_compass_dialog_content">Déplacez votre téléphone selon une trajectoire décrivant un « 8 » ou dans toutes les directions, de manière répétée, puis appuyez sur %s.</string>
