@@ -833,8 +833,8 @@
     <string name="whistle_signal_come_here">Chodź tu</string>
     <string name="whistle_signal_acknowledged">Potwierdzony</string>
     <string name="whistle_signal_where_are_you">Gdzie jesteś\?</string>
-    <string name="sunset_type">Zachód słońca (%s)</string>
-    <string name="sunrise_type">Wschód słońca (%s)</string>
+    <string name="dusk_type">Zachód słońca (%s)</string>
+    <string name="dawn_type">Wschód słońca (%s)</string>
     <string name="weather_monitor">Monitorowanie pogody</string>
     <string name="no_data">Brak danych</string>
     <string name="backtrack_notification_channel">Ścieżka wsteczna</string>

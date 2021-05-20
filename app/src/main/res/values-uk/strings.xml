@@ -861,8 +861,8 @@
     <string name="noon">Полудень</string>
     <string name="fields">Поля</string>
     <string name="weather_monitor">Відстеження погоди</string>
-    <string name="sunset_type">Захід сонця (%s)</string>
-    <string name="sunrise_type">Схід сонця (%s)</string>
+    <string name="dusk_type">Захід сонця (%s)</string>
+    <string name="dawn_type">Схід сонця (%s)</string>
     <string name="pref_barometer_altitude_outlier_title">Вилучення відхилень висоти</string>
     <string name="delete_map">Видалити мапу\?</string>
     <string name="pref_barometer_altitude_smoothing_title">Згладжування висоти</string>

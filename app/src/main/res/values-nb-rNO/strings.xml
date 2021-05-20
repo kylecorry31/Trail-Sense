@@ -669,8 +669,8 @@
     <string name="experimental_features">Tidevann, kart og siktkompass</string>
     <string name="camera_permission_denied">Kameratillatelse avslått, kan ikke slå på kamerafunksjoner. Du kan aktivere tillatelse i innstillinger.</string>
     <string name="pref_show_noon_summary">Solens og månens kulminasjon</string>
-    <string name="sunset_type">Solnedgang (%s)</string>
-    <string name="sunrise_type">Soloppgang (%s)</string>
+    <string name="dusk_type">Solnedgang (%s)</string>
+    <string name="dawn_type">Soloppgang (%s)</string>
     <string name="weather_monitor">Værovervåking</string>
     <string name="weather_prediction">Vær: %s</string>
     <string name="pressure_no_change">Trykket endres ikke</string>

@@ -465,24 +465,24 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private suspend fun getCivilDetails(): List<AstroDetail> {
         return getSunDetails(
             SunTimesMode.Civil,
-            getString(R.string.sun_dawn),
-            getString(R.string.sun_dusk)
+            getString(R.string.dawn_type, getString(R.string.sun_civil)),
+            getString(R.string.dusk_type, getString(R.string.sun_civil))
         )
     }
 
     private suspend fun getNauticalDetails(): List<AstroDetail> {
         return getSunDetails(
             SunTimesMode.Nautical,
-            getString(R.string.sunrise_type, getString(R.string.sun_nautical)),
-            getString(R.string.sunset_type, getString(R.string.sun_nautical))
+            getString(R.string.dawn_type, getString(R.string.sun_nautical)),
+            getString(R.string.dusk_type, getString(R.string.sun_nautical))
         )
     }
 
     private suspend fun getAstronomicalSunDetails(): List<AstroDetail> {
         return getSunDetails(
             SunTimesMode.Astronomical,
-            getString(R.string.sunrise_type, getString(R.string.sun_astronomical)),
-            getString(R.string.sunset_type, getString(R.string.sun_astronomical))
+            getString(R.string.dawn_type, getString(R.string.sun_astronomical)),
+            getString(R.string.dusk_type, getString(R.string.sun_astronomical))
         )
     }
 

@@ -843,8 +843,8 @@
     <string name="pref_show_noon_summary">Sonnen- und Mondmittag</string>
     <string name="noon">Mittag</string>
     <string name="fields">Felder</string>
-    <string name="sunset_type">Sonnenuntergang (%s)</string>
-    <string name="sunrise_type">Sonnenaufgang (%s)</string>
+    <string name="dusk_type">Sonnenuntergang (%s)</string>
+    <string name="dawn_type">Sonnenaufgang (%s)</string>
     <string name="weather_monitor">Wettermonitor</string>
     <string name="pref_nmea_altitude_summary">Nutzt NMEA-Ausgleiche für die Höhenumrechnung</string>
     <string name="pref_nmea_altitude_title">NMEA-Höhenausgleich</string>

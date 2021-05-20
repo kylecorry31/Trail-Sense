@@ -836,8 +836,8 @@
     <string name="noon">正午</string>
     <string name="fields">视野</string>
     <string name="weather_monitor">天气监控器</string>
-    <string name="sunset_type">日落 (%s)</string>
-    <string name="sunrise_type">日出 (%s)</string>
+    <string name="dusk_type">日落 (%s)</string>
+    <string name="dawn_type">日出 (%s)</string>
     <string name="pref_barometer_info_summary">压力可能与附近气象站的压力不同</string>
     <string name="battery_history">电池历史 - 过去 %s</string>
     <string name="no_data">无数据</string>

@@ -994,8 +994,8 @@
     <string name="whistle_signal_acknowledged">Acknowledged</string>
     <string name="whistle_signal_come_here">Come here</string>
     <string name="weather_monitor">Weather Monitor</string>
-    <string name="sunrise_type">Sunrise (%s)</string>
-    <string name="sunset_type">Sunset (%s)</string>
+    <string name="dawn_type">Dawn (%s)</string>
+    <string name="dusk_type">Dusk (%s)</string>
     <string name="battery_history">Battery history - last %s</string>
     <string name="pref_nmea_altitude" translatable="false">pref_nmea_altitude</string>
     <string name="pref_barometer_info_holder" translatable="false">pref_barometer_info_holder</string>
