@@ -50,10 +50,10 @@ class MagnetometerView : CanvasView {
         circle(width / 2f, height / 2f, radius * 2)
         noStroke()
 
-        val calibrated =
-            magneticField - geomagneticField // magneticField - magneticField.normalize() * geomagneticField.magnitude()
+        val calibrated =  magneticField - geomagneticField
 
-        val magnitude = calibrated.magnitude()
+        val magnitude = abs(geomagneticField.magnitude() - magneticField.magnitude())
+        // TODO: calibrated.magnitude if high compared to magnitude, need to recalibrate again
 
         fill(Color.WHITE)
         text(formatService.formatMagneticField(magnitude), width / 2f, height / 2f)

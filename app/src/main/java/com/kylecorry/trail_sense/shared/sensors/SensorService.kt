@@ -202,11 +202,17 @@ class SensorService(ctx: Context) {
     }
 
     fun getGyro(): IGyroscope {
+        // TODO: In this order (should specify if magnetometer should be used)
+        // Geomagnetic rotation vector (if magnetometer)
+        // Game rotation vector
+        // Gyro + gravity (or just gyro for now)
+
+
         if (!sensorChecker.hasGyroscope()){
             return NullGyroscope()
         }
 
-        return Gyroscope(context)
+        return GameRotationSensor(context)
     }
 
 }
