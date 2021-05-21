@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
+import com.kylecorry.trailsensecore.domain.math.Quaternion
 import com.kylecorry.trailsensecore.domain.math.Vector3
 import com.kylecorry.trailsensecore.domain.metaldetection.MetalDetectionService
 import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.GravitySensor
@@ -30,7 +31,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     private val formatService by lazy { FormatService(requireContext()) }
     private val metalDetectionService = MetalDetectionService()
     private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
-    private val gyro by lazy { SensorService(requireContext()).getGyro() }
+    private val gyro by lazy { SensorService(requireContext()).getRotationSensor() }
     private val gravity by lazy { GravitySensor(requireContext()) }
 
     private val filter = LowPassFilter(0.2f, 0f)
@@ -48,10 +49,11 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var calibratedField = Vector3.zero
+    private var calibratedOrientation = Quaternion.zero
 
     private val calibrateTimer = Intervalometer {
         calibratedField = lowPassMagnetometer.magneticField
-        gyro.calibrate()
+        calibratedOrientation = gyro.quaternion
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,7 +66,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             binding.threshold.progress =
                 metalDetectionService.getFieldStrength(magnetometer.magneticField).roundToInt() + 5
             calibratedField = lowPassMagnetometer.magneticField
-            gyro.calibrate()
+            calibratedOrientation = gyro.quaternion
             calibrateTimer.stop()
         }
         binding.magnetometerView.isVisible = prefs.metalDetector.showMetalDirection
@@ -106,7 +108,9 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         binding.magnetometerView.setMagneticField(lowPassMagnetometer.magneticField)
         binding.magnetometerView.setGravity(gravity.acceleration)
         binding.magnetometerView.setSensitivity(prefs.metalDetector.directionSensitivity)
-        binding.magnetometerView.setGeomagneticField(gyro.quaternion.rotate(calibratedField))
+        // TODO: Make a subtract method
+        val orientation = (calibratedOrientation.inverse() * gyro.quaternion).normalize()
+        binding.magnetometerView.setGeomagneticField(orientation.rotate(calibratedField))
         val magneticField =
             filter.filter(metalDetectionService.getFieldStrength(magnetometer.magneticField))
 

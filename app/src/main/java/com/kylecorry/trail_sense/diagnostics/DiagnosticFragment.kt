@@ -65,7 +65,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     private val hygrometer by lazy { sensorService.getHygrometer() }
     private val gravity by lazy { sensorService.getGravity() }
     private val magnetometer by lazy { sensorService.getMagnetometer() }
-    private val gyroscope by lazy { sensorService.getGyro() }
+    private val gyroscope by lazy { sensorService.getRotationSensor() }
     private val battery by lazy { Battery(requireContext()) }
     private val intervalometer = Intervalometer {
         updateClock()
