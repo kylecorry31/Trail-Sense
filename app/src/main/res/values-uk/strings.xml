@@ -898,4 +898,6 @@
     <string name="pref_cell_signal_refresh_cache_summary">Змушує завантажувати останні сили сигналу</string>
     <string name="pref_cell_signal_refresh_cache_title">Оновити кеш сигналу</string>
     <string name="pref_cell_signal_refresh_cache">pref_cell_signal_refresh_cache</string>
+    <string name="roll_pitch_yaw">Поздовж. вісь: %s, Попереч. вісь: %s, Вертик. вісь: %s</string>
+    <string name="sensor_gyroscope">Гіроскоп</string>
 </resources>
