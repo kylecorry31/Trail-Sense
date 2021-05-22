@@ -873,4 +873,6 @@
     <string name="pref_cell_signal_refresh_cache_summary">强制加载最新信号强度</string>
     <string name="pref_cell_signal_refresh_cache_title">刷新信号缓存</string>
     <string name="pref_cell_signal_refresh_cache">pref_cell_signal_refresh_cache</string>
+    <string name="roll_pitch_yaw">横滚角：%s，俯仰角：%s，偏航角：%s</string>
+    <string name="sensor_gyroscope">陀螺仪</string>
 </resources>
