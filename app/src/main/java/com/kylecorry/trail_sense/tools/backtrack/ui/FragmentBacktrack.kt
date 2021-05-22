@@ -41,7 +41,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
     private val waypointRepo by lazy { WaypointRepo.getInstance(requireContext()) }
     private lateinit var waypointsLiveData: LiveData<List<WaypointEntity>>
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
 
@@ -71,7 +71,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 val date = waypoint.createdInstant.toZonedDateTime()
                 val time = date.toLocalTime()
                 itemBinding.waypointTime.text = getString(
-                    R.string.waypoint_time_format, formatService.formatDayOfWeek(date),
+                    R.string.waypoint_time_format, formatService.formatRelativeDate(date.toLocalDate()),
                     formatService.formatTime(time, false)
                 )
 
@@ -122,7 +122,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                                     formatService.formatDate(
                                         date,
                                         includeWeekDay = false
-                                    ), formatService.formatTime(time, showSeconds = false)
+                                    ), formatService.formatTime(time, includeSeconds = false)
                                 ),
                                 waypoint.coordinate,
                                 visible = false,
@@ -226,7 +226,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
             formatService.formatDate(
                 date,
                 includeWeekDay = false
-            ), formatService.formatTime(time, showSeconds = false)
+            ), formatService.formatTime(time, includeSeconds = false)
         )
     }
 

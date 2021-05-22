@@ -122,7 +122,14 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_interval"
             app:singleLineTitle="false"
-            app:title="@string/pref_backtrack_frequency_title"/>
+            app:title="@string/pref_backtrack_frequency_title" />
+
+        <Preference
+            app:dependency="@string/pref_backtrack_enabled"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_history_days"
+            app:singleLineTitle="false"
+            app:title="@string/pref_backtrack_history_days_title" />
 
         <SwitchPreferenceCompat
             android:dependency="@string/pref_backtrack_enabled"
@@ -144,11 +151,11 @@
 
         <SwitchPreferenceCompat
             android:dependency="@string/pref_backtrack_enabled"
+            android:summary="@string/pref_backtrack_path_radar_summary"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_path_radar"
             app:singleLineTitle="false"
-            android:summary="@string/pref_backtrack_path_radar_summary"
             app:title="@string/pref_backtrack_path_radar_title" />
 
         <ListPreference
@@ -156,11 +163,11 @@
             app:defaultValue="dotted"
             app:entries="@array/line_style_entries"
             app:entryValues="@array/line_style_values"
-            app:useSimpleSummaryProvider="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_path_style"
             app:singleLineTitle="false"
-            app:title="@string/pref_backtrack_path_style_title" />
+            app:title="@string/pref_backtrack_path_style_title"
+            app:useSimpleSummaryProvider="true" />
 
         <Preference
             android:dependency="@string/pref_backtrack_path_radar"

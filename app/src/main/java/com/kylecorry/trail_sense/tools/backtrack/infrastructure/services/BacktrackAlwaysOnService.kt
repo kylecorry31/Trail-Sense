@@ -27,7 +27,15 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
     private val formatService by lazy { FormatServiceV2(this) }
 
     private val backtrack by lazy {
-        Backtrack(this, gps, cellSignal, waypointRepo, beaconRepo, prefs.backtrackSaveCellHistory)
+        Backtrack(
+            this,
+            gps,
+            cellSignal,
+            waypointRepo,
+            beaconRepo,
+            prefs.backtrackSaveCellHistory,
+            prefs.navigation.backtrackHistory
+        )
     }
 
     override val foregroundNotificationId: Int

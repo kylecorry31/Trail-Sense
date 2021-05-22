@@ -138,6 +138,10 @@ class FormatServiceV2(private val context: Context) {
             CompassDirection.SouthWest -> context.getString(R.string.direction_south_west)
         }
     }
+    
+    fun formatDays(days: Int): String {
+        return context.resources.getQuantityString(R.plurals.number_days, days, days)
+    }
 
     fun formatDuration(duration: Duration, short: Boolean = false): String {
         val hours = duration.toHours()

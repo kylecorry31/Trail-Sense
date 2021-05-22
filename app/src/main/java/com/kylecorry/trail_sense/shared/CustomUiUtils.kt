@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.text.InputType
 import android.view.View
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
@@ -13,6 +14,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.*
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.math.toDoubleCompat
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.units.Distance
@@ -192,9 +194,10 @@ object CustomUiUtils {
         val view = View.inflate(context, R.layout.view_beacon_select_prompt, null)
         val beaconSelect = view.findViewById<BeaconSelectView>(R.id.prompt_beacons)
         beaconSelect.location = location
-        val alert = UiUtils.alertView(context, title, view, context.getString(R.string.dialog_cancel)) {
-            onBeaconPick.invoke(beaconSelect.beacon)
-        }
+        val alert =
+            UiUtils.alertView(context, title, view, context.getString(R.string.dialog_cancel)) {
+                onBeaconPick.invoke(beaconSelect.beacon)
+            }
         beaconSelect?.setOnBeaconChangeListener {
             onBeaconPick.invoke(it)
             alert.dismiss()
@@ -208,9 +211,10 @@ object CustomUiUtils {
     ) {
         val view = View.inflate(context, R.layout.view_beacon_group_select_prompt, null)
         val beaconSelect = view.findViewById<BeaconGroupSelectView>(R.id.prompt_beacon_groups)
-        val alert = UiUtils.alertView(context, title, view, context.getString(R.string.dialog_cancel)) {
-            onBeaconGroupPick.invoke(beaconSelect.group)
-        }
+        val alert =
+            UiUtils.alertView(context, title, view, context.getString(R.string.dialog_cancel)) {
+                onBeaconGroupPick.invoke(beaconSelect.group)
+            }
         beaconSelect?.setOnBeaconGroupChangeListener {
             onBeaconGroupPick.invoke(it)
             alert.dismiss()
@@ -245,6 +249,47 @@ object CustomUiUtils {
             }
             setNegativeButton(context.getString(R.string.dialog_cancel)) { dialog, _ ->
                 onTextEnter.invoke(null)
+                dialog.dismiss()
+            }
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    fun pickNumber(
+        context: Context,
+        title: String?,
+        description: String?,
+        default: Number?,
+        allowDecimals: Boolean = true,
+        allowNegative: Boolean = false,
+        hint: String? = null,
+        onNumberEnter: (number: Number?) -> Unit
+    ) {
+        val layout = FrameLayout(context)
+        val editTextView = EditText(context)
+        editTextView.setText(default.toString())
+        editTextView.inputType = InputType.TYPE_CLASS_NUMBER or
+                (if (allowDecimals) InputType.TYPE_NUMBER_FLAG_DECIMAL else 0) or
+                (if (allowNegative) InputType.TYPE_NUMBER_FLAG_SIGNED else 0)
+        editTextView.hint = hint
+        layout.setPadding(64, 0, 64, 0)
+        layout.addView(editTextView)
+
+        val builder = AlertDialog.Builder(context)
+        builder.apply {
+            setTitle(title)
+            if (description != null) {
+                setMessage(description)
+            }
+            setView(layout)
+            setPositiveButton(context.getString(R.string.dialog_ok)) { dialog, _ ->
+                onNumberEnter.invoke(editTextView.text.toString().toDoubleCompat())
+                dialog.dismiss()
+            }
+            setNegativeButton(context.getString(R.string.dialog_cancel)) { dialog, _ ->
+                onNumberEnter.invoke(null)
                 dialog.dismiss()
             }
         }

@@ -124,7 +124,7 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
 
         val prefBacktrackPathColor = preference(R.string.pref_backtrack_path_color)
         prefBacktrackPathColor?.icon?.setTint(
-                prefs.navigation.backtrackPathColor.color
+            prefs.navigation.backtrackPathColor.color
         )
 
         prefBacktrackPathColor?.setOnPreferenceClickListener {
@@ -145,6 +145,27 @@ class NavigationSettingsFragment : CustomPreferenceFragment() {
             ?.setOnBindEditTextListener { editText ->
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             }
+
+        val backtrackHistory = preference(R.string.pref_backtrack_history_days)
+        backtrackHistory?.summary =
+            formatService.formatDays(prefs.navigation.backtrackHistory.toDays().toInt())
+        backtrackHistory?.setOnPreferenceClickListener {
+            CustomUiUtils.pickNumber(
+                requireContext(),
+                it.title.toString(),
+                null,
+                prefs.navigation.backtrackHistory.toDays().toInt(),
+                allowDecimals = false,
+                allowNegative = false,
+                hint = getString(R.string.days)
+            ) { days ->
+                if (days != null) {
+                    prefs.navigation.backtrackHistory = Duration.ofDays(days.toLong())
+                    it.summary = formatService.formatDays(if (days.toInt() > 0) days.toInt() else 1)
+                }
+            }
+            true
+        }
 
         updateNearbyRadius()
     }

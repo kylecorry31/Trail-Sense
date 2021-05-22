@@ -36,7 +36,8 @@ class NavigationPreferences(private val context: Context) {
         ) ?: true
 
     val lockScreenPresence: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_navigation_lock_screen_presence)) ?: false
+        get() = cache.getBoolean(context.getString(R.string.pref_navigation_lock_screen_presence))
+            ?: false
 
     var useLegacyCompass: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_use_legacy_compass)) ?: false
@@ -68,13 +69,14 @@ class NavigationPreferences(private val context: Context) {
         }
 
     val useRadarCompass: Boolean
-        get() = showMultipleBeacons && (cache.getBoolean(context.getString(R.string.pref_nearby_radar)) ?: false)
+        get() = showMultipleBeacons && (cache.getBoolean(context.getString(R.string.pref_nearby_radar))
+            ?: false)
 
     val showBacktrackPath: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_backtrack_path_radar)) ?: true
 
     var backtrackPathColor: AppColor
-        get(){
+        get() {
             val id = cache.getInt(context.getString(R.string.pref_backtrack_path_color))
             return AppColor.values().firstOrNull { it.id == id } ?: AppColor.Blue
         }
@@ -85,7 +87,7 @@ class NavigationPreferences(private val context: Context) {
     val backtrackPathStyle: PathStyle
         get() {
             val raw = cache.getString(context.getString(R.string.pref_backtrack_path_style))
-            return when(raw){
+            return when (raw) {
                 "solid" -> PathStyle.Solid
                 "arrow" -> PathStyle.Arrow
                 else -> PathStyle.Dotted
@@ -94,6 +96,19 @@ class NavigationPreferences(private val context: Context) {
 
     val showBacktrackPathDuration: Duration
         get() = Duration.ofDays(1)
+
+    var backtrackHistory: Duration
+        get() {
+            val days = cache.getInt(context.getString(R.string.pref_backtrack_history_days)) ?: 2
+            return Duration.ofDays(days.toLong())
+        }
+        set(value) {
+            val d = value.toDays().toInt()
+            cache.putInt(
+                context.getString(R.string.pref_backtrack_history_days),
+                if (d > 0) d else 1
+            )
+        }
 
     var maxBeaconDistance: Float
         get() {
@@ -132,21 +147,25 @@ class NavigationPreferences(private val context: Context) {
         get() = cache.getBoolean(context.getString(R.string.pref_non_linear_distances)) ?: true
 
     val leftQuickAction: QuickActionType
-        get(){
-            val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_left))?.toIntCompat()
+        get() {
+            val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_left))
+                ?.toIntCompat()
             return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Backtrack
         }
 
     val rightQuickAction: QuickActionType
-        get(){
-            val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_right))?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Flashlight
+        get() {
+            val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_right))
+                ?.toIntCompat()
+            return QuickActionType.values().firstOrNull { it.id == id }
+                ?: QuickActionType.Flashlight
         }
 
     val speedometerMode: SpeedometerMode
-        get(){
-            val raw = cache.getString(context.getString(R.string.pref_navigation_speedometer_type)) ?: "instant"
-            return when (raw){
+        get() {
+            val raw = cache.getString(context.getString(R.string.pref_navigation_speedometer_type))
+                ?: "instant"
+            return when (raw) {
                 "average" -> SpeedometerMode.Average
                 else -> SpeedometerMode.Instantaneous
             }

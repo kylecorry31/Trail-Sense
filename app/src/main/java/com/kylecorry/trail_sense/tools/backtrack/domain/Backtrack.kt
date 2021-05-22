@@ -25,7 +25,8 @@ class Backtrack(
     private val cellSignalSensor: ICellSignalSensor,
     private val backtrackRepo: IWaypointRepo,
     private val beaconRepo: IBeaconRepo,
-    private val recordCellSignal: Boolean = true
+    private val recordCellSignal: Boolean = true,
+    private val history: Duration = Duration.ofDays(2)
 ) {
 
     private val formatService by lazy { FormatServiceV2(context) }
@@ -94,7 +95,7 @@ class Backtrack(
             )
 
             backtrackRepo.addWaypoint(waypoint)
-            backtrackRepo.deleteOlderThan(Instant.now().minus(Duration.ofDays(2)))
+            backtrackRepo.deleteOlderThan(Instant.now().minus(history))
             waypoint.toPathPoint()
         }
     }

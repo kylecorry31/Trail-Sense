@@ -1041,4 +1041,11 @@
     <string name="import_map">Import map</string>
     <string name="sensor_gyroscope">Gyroscope</string>
     <string name="roll_pitch_yaw">Roll: %s, Pitch: %s, Yaw: %s</string>
+    <string name="pref_backtrack_history_days">pref_backtrack_history_days</string>
+    <string name="pref_backtrack_history_days_title">Backtrack history</string>
+    <plurals name="number_days">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+    <string name="days">Days</string>
 </resources>
