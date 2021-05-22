@@ -868,4 +868,9 @@
     <string name="pref_flashlight_settings">pref_flashlight_settings</string>
     <string name="pref_flashlight_toggle_with_system_title">随系统切换</string>
     <string name="pref_navigation_lock_screen_presence_title">导航时在锁定屏幕上显示</string>
+    <string name="import_map">导入地图</string>
+    <string name="pref_cell_signal_settings">pref_cell_signal_settings</string>
+    <string name="pref_cell_signal_refresh_cache_summary">强制加载最新信号强度</string>
+    <string name="pref_cell_signal_refresh_cache_title">刷新信号缓存</string>
+    <string name="pref_cell_signal_refresh_cache">pref_cell_signal_refresh_cache</string>
 </resources>
