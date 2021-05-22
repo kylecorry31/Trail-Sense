@@ -231,7 +231,7 @@
     <string name="coordinate_format_decimal_degrees">Desetinné stupně</string>
     <string name="your_height">Vaše výška</string>
     <string name="set_inclination_instructions">Klepnutím kamkoli nastavte/zrušte úhel sklonu</string>
-    <string name="tide_neap"></string>
+    <string name="tide_neap"/>
     <string name="waxing_gibbous">Měsíc Dorůstá</string>
     <string name="waning_gibbous">Měsíc Couvá</string>
     <string name="sun_down_no_set">Slunce zapadlo</string>
@@ -267,4 +267,6 @@
     <string name="battery_temp">Telefon: %s</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
+    <string name="all_beacons">Všechny majáky</string>
+    <string name="battery_capacity_format">%s mAh</string>
 </resources>
