@@ -18,6 +18,7 @@ import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
+import com.kylecorry.trailsensecore.domain.math.constrain
 import com.kylecorry.trailsensecore.domain.pixels.*
 import com.kylecorry.trailsensecore.infrastructure.canvas.ArrowPathEffect
 import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
@@ -116,6 +117,22 @@ class OfflineMapView : CanvasView {
         drawCalibrationPoints()
 
         pop()
+    }
+
+    private fun getVisiblePartOfMap(): Rect {
+        var topLeft = toMapCoordinate(PixelCoordinate(0f, 0f))
+        var bottomRight = toMapCoordinate(PixelCoordinate(width.toFloat(), height.toFloat()))
+
+        topLeft = PixelCoordinate(
+            constrain(topLeft.x, 0f, mapSize.first),
+            constrain(topLeft.y, 0f, mapSize.second)
+        )
+        bottomRight = PixelCoordinate(
+            constrain(bottomRight.x, 0f, mapSize.first),
+            constrain(bottomRight.y, 0f, mapSize.second)
+        )
+
+        return Rect(topLeft.x.toInt(), topLeft.y.toInt(), bottomRight.x.toInt(), bottomRight.y.toInt())
     }
 
     fun recenter(){
@@ -352,6 +369,38 @@ class OfflineMapView : CanvasView {
         return pixels
     }
 
+    private fun keepMapOnScreen(){
+
+        var wasOffScreen: Boolean
+        var iterations = 0
+        val maxIterations = 100
+
+        do {
+            wasOffScreen = false
+            val bounds = getVisiblePartOfMap()
+            // TODO: Calculate how much to move on screen
+            if (bounds.width() == 0) {
+                if (translateX < 0){
+                    translateX++
+                } else {
+                    translateX--
+                }
+                wasOffScreen = true
+            }
+
+            if (bounds.height() == 0) {
+                if (translateY < 0){
+                    translateY++
+                } else {
+                    translateY--
+                }
+                wasOffScreen = true
+            }
+            iterations++
+        } while(wasOffScreen && iterations < maxIterations)
+
+    }
+
 
     // Gesture detectors
 
@@ -364,6 +413,9 @@ class OfflineMapView : CanvasView {
         ): Boolean {
             translateX -= distanceX
             translateY -= distanceY
+
+            keepMapOnScreen()
+
             return true
         }
 
@@ -390,6 +442,7 @@ class OfflineMapView : CanvasView {
             scale *= 2
             translateY *= 2
             translateX *= 2
+            keepMapOnScreen()
             return super.onDoubleTap(e)
         }
 
@@ -430,6 +483,7 @@ class OfflineMapView : CanvasView {
             scale *= detector.scaleFactor
             translateX *= detector.scaleFactor
             translateY *= detector.scaleFactor
+            keepMapOnScreen()
             return true
         }
     }
