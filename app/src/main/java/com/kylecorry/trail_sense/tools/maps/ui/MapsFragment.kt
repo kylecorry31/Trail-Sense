@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.kylecorry.trail_sense.R
@@ -43,8 +45,17 @@ class MapsFragment: BoundFragment<FragmentMapsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.recenterBtn.isVisible = false
+
         lifecycleScope.launch {
            loadMap()
+        }
+
+        binding.recenterBtn.setOnClickListener {
+            val fragment = currentFragment
+            if (fragment != null && fragment is ViewMapFragment) {
+                fragment.recenter()
+            }
         }
 
         binding.menuBtn.setOnClickListener {
@@ -151,6 +162,7 @@ class MapsFragment: BoundFragment<FragmentMapsBinding>() {
                 }
             }
             else -> {
+                binding.recenterBtn.isVisible = true
                 ViewMapFragment().apply {
                     arguments = bundleOf("mapId" to mapId)
                 }

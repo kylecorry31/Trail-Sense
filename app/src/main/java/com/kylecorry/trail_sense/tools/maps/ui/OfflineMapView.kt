@@ -21,6 +21,7 @@ import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.pixels.*
 import com.kylecorry.trailsensecore.infrastructure.canvas.ArrowPathEffect
 import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
+import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import kotlin.math.roundToInt
 
 
@@ -116,6 +117,16 @@ class OfflineMapView : CanvasView {
 
         pop()
     }
+
+    fun recenter(){
+        val size = mapImage?.getFitSize(width, height)
+        size?.let {
+            translateX = (width - it.first) / 2f
+            translateY = (height - it.second) / 2f
+        }
+        scale = 1f
+    }
+
 
     private fun drawPaths() {
         val pathLines = pathLines ?: return
@@ -244,7 +255,8 @@ class OfflineMapView : CanvasView {
     private fun loadMap(map: Map): Bitmap {
         // TODO: Have option to load lower quality image
         val file = fileService.getFile(map.filename, false)
-        return BitmapFactory.decodeFile(file.path)
+        return BitmapUtils.decodeBitmapScaled(file.path, width * 4, height * 4)
+//        return BitmapFactory.decodeFile(file.path)
     }
 
     private fun drawMyLocation() {

@@ -322,6 +322,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.map.showCalibrationPoints()
     }
 
+    fun recenter(){
+        binding.map.recenter()
+    }
+
     private fun calibratePoint(index: Int) {
         loadCalibrationPointsFromMap()
         binding.mapCalibrationTitle.text = "Calibrate point ${index + 1}"
