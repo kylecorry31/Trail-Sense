@@ -637,4 +637,14 @@
     <string name="battery_capacity_format">%s mAh</string>
     <string name="app_disclaimer_message_title">Avis de non-responsabilité / Conditions d\'utilisation</string>
     <string name="disclaimer_message_title">Avertissement</string>
+    <string name="cumulonimbus">Cumulonimbus</string>
+    <string name="cumulus">Cumulus</string>
+    <string name="stratocumulus">Stratocumulus</string>
+    <string name="stratus">Stratus</string>
+    <string name="nimbostratus">Nimbostratus</string>
+    <string name="altostratus">Altostratus</string>
+    <string name="altocumulus">Altocumulus</string>
+    <string name="cirrostratus">Cirrostratus</string>
+    <string name="cirrocumulus">Cirrocumulus</string>
+    <string name="pref_low_power_mode_summary">Désactive certaines fonctionnalités pour économiser de l\'énergie</string>
 </resources>
