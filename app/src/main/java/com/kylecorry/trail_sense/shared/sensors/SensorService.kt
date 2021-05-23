@@ -64,7 +64,7 @@ class SensorService(ctx: Context) {
     }
 
     private fun hasLocationPermission(background: Boolean): Boolean {
-        return if (background){
+        return if (background) {
             PermissionUtils.isBackgroundLocationEnabled(context)
         } else {
             PermissionUtils.isLocationEnabled(context)
@@ -74,7 +74,7 @@ class SensorService(ctx: Context) {
     fun getSpeedometer(realTime: Boolean? = null): ISpeedometer {
         val useRealTime = realTime
             ?: (userPrefs.navigation.speedometerMode == NavigationPreferences.SpeedometerMode.Instantaneous)
-        return if (useRealTime){
+        return if (useRealTime) {
             getGPS(false)
         } else {
             BacktrackSpeedometer(context)
@@ -146,10 +146,6 @@ class SensorService(ctx: Context) {
         return Inclinometer(context)
     }
 
-    fun getOrientationSensor(): IOrientationSensor {
-        return DeviceOrientationSensor(context)
-    }
-
     @Suppress("DEPRECATION")
     fun getThermometer(): IThermometer {
         if (sensorChecker.hasSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)) {
@@ -165,7 +161,7 @@ class SensorService(ctx: Context) {
         val first = builtInSensors.filter {
             it.name.contains("temperature", true) ||
                     it.name.contains("thermometer", true)
-        }.minBy { it.resolution }
+        }.minByOrNull { it.resolution }
 
         if (first != null) {
             return Thermometer(context, first.type)
@@ -183,14 +179,14 @@ class SensorService(ctx: Context) {
     }
 
     fun getCellSignal(background: Boolean = false): ICellSignalSensor {
-        if (!hasLocationPermission(background)){
+        if (!hasLocationPermission(background)) {
             return NullCellSignalSensor()
         }
         return CellSignalSensor(context, userPrefs.cellSignal.populateCache)
     }
 
     fun getGravity(): IAccelerometer {
-        return if (sensorChecker.hasSensor(Sensor.TYPE_GRAVITY)){
+        return if (sensorChecker.hasSensor(Sensor.TYPE_GRAVITY)) {
             GravitySensor(context)
         } else {
             LowPassAccelerometer(context)
@@ -201,21 +197,21 @@ class SensorService(ctx: Context) {
         return Magnetometer(context)
     }
 
-    fun getRotationSensor(): IRotationSensor {
-        // TODO: In this order (should specify if magnetometer should be used)
-        // Geomagnetic rotation vector (if magnetometer)
-        // Game rotation vector
-        // Gyro + gravity (or just gyro for now)
+    fun getOrientationSensor(
+        useGyro: Boolean = true,
+        useMag: Boolean = true,
+        useAcc: Boolean = true
+    ): IOrientationSensor {
+        // TODO: Add IMUs (gyro + mag + accel, gyro + accel)
         return when {
-            sensorChecker.hasSensor(Sensor.TYPE_GAME_ROTATION_VECTOR) -> {
-                GameRotationSensor(context)
-            }
-            sensorChecker.hasGyroscope() -> {
-                Gyroscope(context)
-            }
-            else -> {
-                NullGyroscope()
-            }
+            useGyro && sensorChecker.hasSensor(Sensor.TYPE_GYROSCOPE) -> Gyroscope(context)
+            useMag && useAcc -> OrientationSensor(
+                context,
+                userPrefs.navigation.compassSmoothing,
+                userPrefs.navigation.useTrueNorth
+            )
+            useAcc -> GravityOrientationSensor(context)
+            else -> NullGyroscope()
         }
     }
 

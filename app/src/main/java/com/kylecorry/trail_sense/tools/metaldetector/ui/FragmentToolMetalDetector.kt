@@ -31,7 +31,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     private val formatService by lazy { FormatService(requireContext()) }
     private val metalDetectionService = MetalDetectionService()
     private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
-    private val gyro by lazy { SensorService(requireContext()).getRotationSensor() }
+    private val orientation by lazy { SensorService(requireContext()).getOrientationSensor(useMag = false) }
     private val gravity by lazy { GravitySensor(requireContext()) }
 
     private val filter = LowPassFilter(0.2f, 0f)
@@ -53,7 +53,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     private val calibrateTimer = Intervalometer {
         calibratedField = lowPassMagnetometer.magneticField
-        calibratedOrientation = gyro.quaternion
+        calibratedOrientation = orientation.orientation
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,7 +67,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
                 metalDetectionService.getFieldStrength(magnetometer.magneticField).roundToInt() + 5
             if (prefs.metalDetector.showMetalDirection) {
                 calibratedField = lowPassMagnetometer.magneticField
-                calibratedOrientation = gyro.quaternion
+                calibratedOrientation = orientation.orientation
                 calibrateTimer.stop()
             }
         }
@@ -80,7 +80,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         magnetometer.start(this::onMagnetometerUpdate)
         if (prefs.metalDetector.showMetalDirection) {
             lowPassMagnetometer.start(this::onLowPassMagnetometerUpdate)
-            gyro.start(this::onMagnetometerUpdate)
+            orientation.start(this::onMagnetometerUpdate)
             gravity.start(this::onMagnetometerUpdate)
             calibrateTimer.once(Duration.ofSeconds(2))
         }
@@ -91,7 +91,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         magnetometer.stop(this::onMagnetometerUpdate)
         if (prefs.metalDetector.showMetalDirection) {
             lowPassMagnetometer.stop(this::onLowPassMagnetometerUpdate)
-            gyro.stop(this::onMagnetometerUpdate)
+            orientation.stop(this::onMagnetometerUpdate)
             gravity.stop(this::onMagnetometerUpdate)
             calibrateTimer.stop()
         }
@@ -115,8 +115,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             binding.magnetometerView.setMagneticField(lowPassMagnetometer.magneticField)
             binding.magnetometerView.setGravity(gravity.acceleration)
             binding.magnetometerView.setSensitivity(prefs.metalDetector.directionSensitivity)
-            // TODO: Make a subtract method
-            val orientation = (calibratedOrientation.inverse() * gyro.quaternion).normalize()
+            val orientation = orientation.orientation.subtractRotation(calibratedOrientation)
             binding.magnetometerView.setGeomagneticField(orientation.rotate(calibratedField))
         }
         val magneticField =

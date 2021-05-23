@@ -9,20 +9,17 @@ class NullGyroscope : AbstractSensor(), IGyroscope {
 
     private val empty = FloatArray(3)
 
-    override val quaternion: Quaternion
+    override val orientation: Quaternion
         get() = Quaternion.zero
-    override val rawEuler: FloatArray
-        get() = quaternion.toEuler().toFloatArray()
-    override val rawQuaternion: FloatArray
+    override val rawAngularRate: FloatArray
+        get() = empty
+    override val rawOrientation: FloatArray
         get() = Quaternion.zero.toFloatArray()
-    override val euler: Euler
-        get() = quaternion.toEuler()
+    override val angularRate: Euler
+        get() = Euler(0f, 0f, 0f)
 
     override val hasValidReading: Boolean
         get() = true
-
-    override fun calibrate() {
-    }
 
     override fun startImpl() {
         notifyListeners()

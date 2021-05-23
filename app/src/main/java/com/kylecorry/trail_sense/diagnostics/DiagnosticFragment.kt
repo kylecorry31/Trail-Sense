@@ -31,6 +31,8 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.BarometricA
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.Gyroscope
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.RotationSensor
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
@@ -65,7 +67,13 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     private val hygrometer by lazy { sensorService.getHygrometer() }
     private val gravity by lazy { sensorService.getGravity() }
     private val magnetometer by lazy { sensorService.getMagnetometer() }
-    private val gyroscope by lazy { sensorService.getRotationSensor() }
+    private val gyroscope by lazy {
+        sensorService.getOrientationSensor(
+            useMag = false,
+            useAcc = false,
+            useGyro = true
+        )
+    }
     private val battery by lazy { Battery(requireContext()) }
     private val intervalometer = Intervalometer {
         updateClock()
@@ -119,8 +127,8 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         intervalometer.stop()
     }
 
-    private fun updateGyro(){
-        if (!sensorChecker.hasSensor(Sensor.TYPE_GYROSCOPE)){
+    private fun updateGyro() {
+        if (!sensorChecker.hasSensor(Sensor.TYPE_GYROSCOPE)) {
             sensorDetailsMap["gyroscope"] = SensorDetails(
                 getString(R.string.sensor_gyroscope),
                 "",
@@ -131,10 +139,11 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             updateSensorList()
             return
         }
-        val euler = gyroscope.euler
+        val euler = gyroscope.orientation.toEuler()
         sensorDetailsMap["gyroscope"] = SensorDetails(
-                getString(R.string.sensor_gyroscope),
-            getString(R.string.roll_pitch_yaw,
+            getString(R.string.sensor_gyroscope),
+            getString(
+                R.string.roll_pitch_yaw,
                 formatService.formatDegrees(euler.roll),
                 formatService.formatDegrees(euler.pitch),
                 formatService.formatDegrees(euler.yaw)
@@ -175,7 +184,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         updateSensorList()
     }
 
-    private fun updateGPSCache(){
+    private fun updateGPSCache() {
         sensorDetailsMap["gps_cache"] = SensorDetails(
             getString(R.string.gps_cache),
             formatService.formatLocation(cachedGPS.location),
@@ -451,7 +460,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     }
 
     private fun getGPSCacheStatus(): String {
-        return if (cachedGPS.location == Coordinate.zero){
+        return if (cachedGPS.location == Coordinate.zero) {
             getString(R.string.gps_unavailable)
         } else {
             formatService.formatQuality(Quality.Good)
@@ -459,7 +468,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     }
 
     private fun getGPSCacheQuality(): Quality {
-        return if (cachedGPS.location == Coordinate.zero){
+        return if (cachedGPS.location == Coordinate.zero) {
             Quality.Poor
         } else {
             Quality.Good

@@ -17,7 +17,8 @@ class LevelFragment : BoundFragment<FragmentLevelBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
-    private val orientationSensor by lazy { sensorService.getOrientationSensor() }
+    // TODO: Eventually switch to the rotation sensors
+    private val orientationSensor by lazy { sensorService.getOrientationSensor(useGyro = false, useMag = false) }
     private val throttle = Throttle(20)
 
     override fun onResume() {
@@ -36,9 +37,9 @@ class LevelFragment : BoundFragment<FragmentLevelBinding>() {
             return true
         }
 
-        val x = orientationSensor.orientation.x
-        val y = orientationSensor.orientation.y
-
+        val euler = orientationSensor.orientation.toEuler()
+        val x = euler.roll
+        val y = euler.pitch
         align(
             binding.bubbleX,
             null,
