@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import com.kylecorry.trailsensecore.infrastructure.flashlight.HasFlashlightSpecification
@@ -55,18 +56,15 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
             if (flashlight.getState() == FlashlightState.Strobe) {
                 flashlight.set(FlashlightState.Off)
             } else {
-                if (cache.getBoolean(getString(R.string.pref_fine_with_strobe)) == true) {
-                    flashlight.set(FlashlightState.Strobe)
-                } else {
-                    UiUtils.alertWithCancel(
-                        requireContext(), getString(R.string.strobe_warning_title), getString(
-                            R.string.strobe_warning_content
-                        ), getString(R.string.dialog_ok), getString(R.string.dialog_cancel)
-                    ) { cancelled ->
-                        if (!cancelled) {
-                            cache.putBoolean(getString(R.string.pref_fine_with_strobe), true)
-                            flashlight.set(FlashlightState.Strobe)
-                        }
+                CustomUiUtils.disclaimer(
+                    requireContext(),
+                    getString(R.string.strobe_warning_title),
+                    getString(R.string.strobe_warning_content),
+                    getString(R.string.pref_fine_with_strobe),
+                    considerShownIfCancelled = false,
+                ) { cancelled ->
+                    if (!cancelled) {
+                        flashlight.set(FlashlightState.Strobe)
                     }
                 }
             }

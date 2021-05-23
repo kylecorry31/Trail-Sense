@@ -65,9 +65,11 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         binding.calibrateBtn.setOnClickListener {
             binding.threshold.progress =
                 metalDetectionService.getFieldStrength(magnetometer.magneticField).roundToInt() + 5
-            calibratedField = lowPassMagnetometer.magneticField
-            calibratedOrientation = gyro.quaternion
-            calibrateTimer.stop()
+            if (prefs.metalDetector.showMetalDirection) {
+                calibratedField = lowPassMagnetometer.magneticField
+                calibratedOrientation = gyro.quaternion
+                calibrateTimer.stop()
+            }
         }
         binding.magnetometerView.isVisible = prefs.metalDetector.showMetalDirection
     }
@@ -76,21 +78,25 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         super.onResume()
         binding.magnetometerView.setSinglePoleMode(prefs.metalDetector.showSinglePole)
         magnetometer.start(this::onMagnetometerUpdate)
-        lowPassMagnetometer.start(this::onLowPassMagnetometerUpdate)
-        gyro.start(this::onMagnetometerUpdate)
-        gravity.start(this::onMagnetometerUpdate)
-        calibrateTimer.once(Duration.ofSeconds(2))
+        if (prefs.metalDetector.showMetalDirection) {
+            lowPassMagnetometer.start(this::onLowPassMagnetometerUpdate)
+            gyro.start(this::onMagnetometerUpdate)
+            gravity.start(this::onMagnetometerUpdate)
+            calibrateTimer.once(Duration.ofSeconds(2))
+        }
     }
 
     override fun onPause() {
         super.onPause()
         magnetometer.stop(this::onMagnetometerUpdate)
-        lowPassMagnetometer.stop(this::onLowPassMagnetometerUpdate)
-        gyro.stop(this::onMagnetometerUpdate)
-        gravity.stop(this::onMagnetometerUpdate)
+        if (prefs.metalDetector.showMetalDirection) {
+            lowPassMagnetometer.stop(this::onLowPassMagnetometerUpdate)
+            gyro.stop(this::onMagnetometerUpdate)
+            gravity.stop(this::onMagnetometerUpdate)
+            calibrateTimer.stop()
+        }
         vibrator.stop()
         isVibrating = false
-        calibrateTimer.stop()
     }
 
     private fun onLowPassMagnetometerUpdate(): Boolean {
@@ -104,13 +110,15 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             return
         }
 
-        // TODO: Detect if phone is flat, if not display message in magnetometer view
-        binding.magnetometerView.setMagneticField(lowPassMagnetometer.magneticField)
-        binding.magnetometerView.setGravity(gravity.acceleration)
-        binding.magnetometerView.setSensitivity(prefs.metalDetector.directionSensitivity)
-        // TODO: Make a subtract method
-        val orientation = (calibratedOrientation.inverse() * gyro.quaternion).normalize()
-        binding.magnetometerView.setGeomagneticField(orientation.rotate(calibratedField))
+        if (prefs.metalDetector.showMetalDirection) {
+            // TODO: Detect if phone is flat, if not display message in magnetometer view
+            binding.magnetometerView.setMagneticField(lowPassMagnetometer.magneticField)
+            binding.magnetometerView.setGravity(gravity.acceleration)
+            binding.magnetometerView.setSensitivity(prefs.metalDetector.directionSensitivity)
+            // TODO: Make a subtract method
+            val orientation = (calibratedOrientation.inverse() * gyro.quaternion).normalize()
+            binding.magnetometerView.setGeomagneticField(orientation.rotate(calibratedField))
+        }
         val magneticField =
             filter.filter(metalDetectionService.getFieldStrength(magnetometer.magneticField))
 

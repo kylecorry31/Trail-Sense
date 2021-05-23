@@ -20,6 +20,7 @@ import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.Quality
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 
@@ -296,6 +297,37 @@ object CustomUiUtils {
 
         val dialog = builder.create()
         dialog.show()
+    }
+
+
+    fun disclaimer(
+        context: Context,
+        title: String,
+        message: String,
+        shownKey: String,
+        okText: String = context.getString(R.string.dialog_ok),
+        cancelText: String = context.getString(R.string.dialog_cancel),
+        considerShownIfCancelled: Boolean = true,
+        onClose: (cancelled: Boolean) -> Unit = {}
+    ) {
+        val cache = Cache(context)
+        if (cache.getBoolean(shownKey) != true) {
+            if (considerShownIfCancelled) {
+                UiUtils.alert(context, title, message, okText) {
+                    cache.putBoolean(shownKey, true)
+                    onClose(false)
+                }
+            } else {
+                UiUtils.alertWithCancel(context, title, message, okText, cancelText) { cancelled ->
+                    if (!cancelled) {
+                        cache.putBoolean(shownKey, true)
+                    }
+                    onClose(cancelled)
+                }
+            }
+        } else {
+            onClose(false)
+        }
     }
 
 }

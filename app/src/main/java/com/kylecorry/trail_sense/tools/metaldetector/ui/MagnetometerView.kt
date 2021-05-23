@@ -33,6 +33,7 @@ class MagnetometerView : CanvasView {
 
     init {
         runEveryCycle = false
+        setupAfterVisible = true
     }
 
     override fun setup() {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolDepthBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -38,15 +39,12 @@ class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (cache.getBoolean("cache_dialog_tool_depth") != true) {
-            UiUtils.alert(
-                requireContext(),
-                getString(R.string.disclaimer_message_title),
-                getString(R.string.depth_disclaimer)
-            ){
-                cache.putBoolean("cache_dialog_tool_depth", true)
-            }
-        }
+        CustomUiUtils.disclaimer(
+            requireContext(),
+            getString(R.string.disclaimer_message_title),
+            getString(R.string.depth_disclaimer),
+            "cache_dialog_tool_depth"
+        )
     }
 
     override fun onResume() {
