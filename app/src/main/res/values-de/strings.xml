@@ -884,4 +884,11 @@
     <string name="pref_cell_signal_refresh_cache">pref_cell_signal_refresh_cache</string>
     <string name="roll_pitch_yaw">Roll: %s, Nick: %s, Gier: %s</string>
     <string name="sensor_gyroscope">Gyroskop</string>
+    <string name="days">Tage</string>
+    <plurals name="number_days">
+        <item quantity="one">%d Tag</item>
+        <item quantity="other">%d Tage</item>
+    </plurals>
+    <string name="pref_backtrack_history_days_title">Rückweg-Verlauf</string>
+    <string name="pref_backtrack_history_days">pref_backtrack_history_days</string>
 </resources>
