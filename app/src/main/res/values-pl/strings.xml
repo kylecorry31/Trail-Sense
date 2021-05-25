@@ -862,4 +862,15 @@
     <string name="pressure_rising_fast">Ciśnienie szybko rośnie</string>
     <string name="import_map">Importuj mapę</string>
     <string name="pref_cell_signal_settings">pref_cell_signal_settings</string>
+    <string name="camera_permission_denied">Odmowa dostępu do aparatu, nie można włączyć funkcji aparatu. Możesz to włączyć w ustawieniach.</string>
+    <string name="water_boil_guide_desc">Jak korzystać z minutnika przegotowywania wody</string>
+    <string name="pref_backtrack_history_days">pref_backtrack_history_days</string>
+    <string name="days">Dni</string>
+    <plurals name="number_days">
+        <item quantity="one">%d dzień</item>
+        <item quantity="few">%d dni</item>
+        <item quantity="many">%d dni</item>
+        <item quantity="other">%d dni</item>
+    </plurals>
+    <string name="sensor_gyroscope">Żyroskop</string>
 </resources>

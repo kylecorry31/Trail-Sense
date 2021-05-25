@@ -875,4 +875,10 @@
     <string name="pref_cell_signal_refresh_cache">pref_cell_signal_refresh_cache</string>
     <string name="roll_pitch_yaw">横滚角：%s，俯仰角：%s，偏航角：%s</string>
     <string name="sensor_gyroscope">陀螺仪</string>
+    <string name="days">天数</string>
+    <plurals name="number_days">
+        <item quantity="other">%d 天</item>
+    </plurals>
+    <string name="pref_backtrack_history_days_title">Backtrack 历史</string>
+    <string name="pref_backtrack_history_days">pref_backtrack_history_days</string>
 </resources>
