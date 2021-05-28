@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import com.kylecorry.trail_sense.R
 
 class FloatingActionButtonMenu(context: Context, attrs: AttributeSet?) : FrameLayout(
@@ -41,7 +40,7 @@ class FloatingActionButtonMenu(context: Context, attrs: AttributeSet?) : FrameLa
                 val fab = FloatingActionButtonMenuItem(context, null)
                 fab.setText(text.toString())
                 fab.setImageDrawable(icon)
-                fab.setFabOnClickListener {
+                fab.setItemOnClickListener {
                     onMenuItemClick?.onMenuItemClick(menuItem)
                 }
                 fabMenu.addView(fab)

@@ -880,4 +880,13 @@
     <string name="pref_cell_signal_refresh_cache_summary">En yeni sinyal güçlerini yüklemeye zorlar</string>
     <string name="pref_cell_signal_refresh_cache_title">Sinyal önbelleğini yenile</string>
     <string name="pref_cell_signal_refresh_cache">pref_cell_signal_refresh_cache</string>
+    <string name="days">Günler</string>
+    <plurals name="number_days">
+        <item quantity="one">%d gün</item>
+        <item quantity="other">%d gün</item>
+    </plurals>
+    <string name="pref_backtrack_history_days_title">Geri iz sürme geçmişi</string>
+    <string name="pref_backtrack_history_days">pref_backtrack_history_days</string>
+    <string name="roll_pitch_yaw">Boylamsal: %s, Yatay: %s, Dikey: %s</string>
+    <string name="sensor_gyroscope">Jiroskop</string>
 </resources>
