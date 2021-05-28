@@ -4,10 +4,13 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuide
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuideCategory
+import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 
 object Guides {
 
     fun guides(context: Context): List<UserGuideCategory> {
+
+        val sensorChecker = SensorChecker(context)
 
         val general = UserGuideCategory(
             context.getString(R.string.pref_general_header), listOf(
@@ -55,17 +58,18 @@ object Guides {
         )
 
         val weather = UserGuideCategory(
-            context.getString(R.string.weather), listOf(
-                UserGuide(
-                    context.getString(R.string.guide_weather_prediction_title),
-                    context.getString(R.string.guide_weather_prediction_description),
-                    R.raw.weather
-                ),
-                UserGuide(
+            context.getString(R.string.weather), listOfNotNull(
+                if (sensorChecker.hasBarometer())
+                    UserGuide(
+                        context.getString(R.string.guide_weather_prediction_title),
+                        context.getString(R.string.guide_weather_prediction_description),
+                        R.raw.weather
+                    ) else null,
+                if (sensorChecker.hasBarometer()) UserGuide(
                     context.getString(R.string.guide_barometer_calibration_title),
                     context.getString(R.string.guide_barometer_calibration_description),
                     R.raw.calibrating_barometer
-                ),
+                ) else null,
                 UserGuide(
                     context.getString(R.string.guide_thermometer_calibration_title),
                     context.getString(R.string.guide_thermometer_calibration_description),
