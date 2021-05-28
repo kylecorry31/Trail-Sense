@@ -1,0 +1,119 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/pref_units_header">
+
+        <Preference
+            app:icon="@drawable/ruler"
+            app:title="Units" />
+        <Preference
+            android:summary="Compass, GPS, altimeter, barometer, etc."
+            app:icon="@drawable/satellite"
+            app:title="Sensors" />
+        <ListPreference
+            app:defaultValue="system"
+            app:entries="@array/theme_entries"
+            app:entryValues="@array/theme_values"
+            app:icon="@drawable/ic_theme"
+            app:key="@string/pref_theme"
+            app:singleLineTitle="false"
+            app:title="@string/pref_theme_title"
+            app:useSimpleSummaryProvider="true" />
+        <Preference
+            app:icon="@drawable/ic_tool_battery"
+            app:title="Power" />
+        <Preference
+            app:icon="@drawable/ic_visible"
+            app:title="Privacy" />
+        <Preference
+            app:icon="@drawable/ic_help"
+            app:title="Experimental" />
+
+        <!--        <SwitchPreferenceCompat-->
+        <!--            android:summary="@string/experimental_features"-->
+        <!--            app:defaultValue="false"-->
+        <!--            app:iconSpaceReserved="false"-->
+        <!--            app:key="@string/pref_enable_experimental"-->
+        <!--            app:singleLineTitle="false"-->
+        <!--            app:title="@string/experimental_tools_title" />-->
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/tools">
+
+        <Preference
+            app:icon="@drawable/ic_compass_icon"
+            app:key="@string/pref_navigation_header_key"
+            app:singleLineTitle="false"
+            app:title="@string/navigation" />
+
+        <Preference
+            app:icon="@drawable/ic_weather"
+            app:key="@string/pref_weather_category"
+            app:singleLineTitle="false"
+            app:title="@string/weather" />
+
+        <Preference
+            app:icon="@drawable/ic_astronomy"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_astronomy_category"
+            app:singleLineTitle="false"
+            app:title="@string/astronomy" />
+
+        <Preference
+            app:icon="@drawable/flashlight"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_flashlight_settings"
+            app:singleLineTitle="false"
+            app:title="@string/flashlight_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_category_about"
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false">
+
+        <Preference
+            android:key="@string/pref_app_version"
+            android:title="@string/pref_app_version_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:summary="@string/privacy_policy_url"
+            android:title="@string/pref_privacy_policy_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_privacy_policy"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:summary="@string/email"
+            android:title="@string/pref_email_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_email"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:summary="https://github.com/kylecorry31/Trail-Sense"
+            android:title="@string/pref_github_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_github"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:key="@string/pref_open_source_licenses"
+            android:title="@string/pref_open_source_licenses_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
