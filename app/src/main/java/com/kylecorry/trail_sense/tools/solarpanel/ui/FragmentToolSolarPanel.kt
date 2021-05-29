@@ -16,6 +16,7 @@ import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
 import com.kylecorry.trailsensecore.domain.astronomy.SolarPanelPosition
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.math.deltaAngle
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.GravityOrientationSensor
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
@@ -28,7 +29,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
-    private val orientation by lazy { sensorService.getOrientationSensor(useMag = false, useGyro = false) }
+    private val orientation by lazy { GravityOrientationSensor(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private val geoService = GeoService()
     private val prefs by lazy { UserPreferences(requireContext()) }

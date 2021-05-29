@@ -31,7 +31,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     private val formatService by lazy { FormatService(requireContext()) }
     private val metalDetectionService = MetalDetectionService()
     private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
-    private val orientation by lazy { SensorService(requireContext()).getOrientationSensor(useMag = false) }
+    private val orientation by lazy { SensorService(requireContext()).getGyroscope() }
     private val gravity by lazy { GravitySensor(requireContext()) }
 
     private val filter = LowPassFilter(0.2f, 0f)
@@ -111,12 +111,19 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         }
 
         if (prefs.metalDetector.showMetalDirection) {
-            // TODO: Detect if phone is flat, if not display message in magnetometer view
-            binding.magnetometerView.setMagneticField(lowPassMagnetometer.magneticField)
-            binding.magnetometerView.setGravity(gravity.acceleration)
-            binding.magnetometerView.setSensitivity(prefs.metalDetector.directionSensitivity)
             val orientation = orientation.orientation.subtractRotation(calibratedOrientation)
-            binding.magnetometerView.setGeomagneticField(orientation.rotate(calibratedField))
+            val metal = metalDetectionService.removeGeomagneticField(
+                lowPassMagnetometer.magneticField,
+                calibratedField,
+                orientation
+            )
+            val direction = metalDetectionService.getMetalDirection(
+                metal,
+                gravity.acceleration
+            )
+            binding.magnetometerView.setFieldStrength(metalDetectionService.getFieldStrength(metal))
+            binding.magnetometerView.setMetalDirection(direction)
+            binding.magnetometerView.setSensitivity(prefs.metalDetector.directionSensitivity)
         }
         val magneticField =
             filter.filter(metalDetectionService.getFieldStrength(magnetometer.magneticField))

@@ -16,7 +16,7 @@ class MetalDetectorPreferences(context: Context): PreferenceRepo(context) {
             return hasGyro && experimental
         }
 
-    val showSinglePole: Boolean = true
+    val showSinglePole: Boolean = false
 
     val directionSensitivity: Float = 0.6f
 
