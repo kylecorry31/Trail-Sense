@@ -6,21 +6,20 @@ import android.util.AttributeSet
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.views.CanvasView
+import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.math.Vector3
 import kotlin.math.*
 
 class MagnetometerView : CanvasView {
 
-    private var magneticField = Vector3.zero
-    private var geomagneticField = Vector3.zero
-    private var gravity = Vector3.zero
+    private var fieldStrength = 0f
+    private var direction = Bearing(0f) to Bearing(180f)
     private var radius = 0f
     private var indicatorSize = 0f
     private var singlePole = false
     private var sensitivity = 1f
 
-    private val geoService = GeoService()
     private val formatService by lazy { FormatServiceV2(context) }
 
     constructor(context: Context?) : super(context)
@@ -51,26 +50,19 @@ class MagnetometerView : CanvasView {
         circle(width / 2f, height / 2f, radius * 2)
         noStroke()
 
-        val calibrated =  magneticField - geomagneticField
-
-        val magnitude = abs(geomagneticField.magnitude() - magneticField.magnitude())
-        // TODO: calibrated.magnitude if high compared to magnitude, need to recalibrate again
-
         fill(Color.WHITE)
-        text(formatService.formatMagneticField(magnitude), width / 2f, height / 2f)
+        text(formatService.formatMagneticField(fieldStrength), width / 2f, height / 2f)
 
-        if (magnitude < sensitivity) {
+        if (fieldStrength < sensitivity) {
             return
         }
 
-        val azimuth = geoService.getAzimuth(gravity, calibrated)?.value ?: return
-
         push()
-        rotate(-azimuth)
+        rotate(-direction.first.value)
 
         if (singlePole) {
             fill(AppColor.Green.color)
-            if (azimuth in 90f..270f) {
+            if (direction.first.value in 90f..270f) {
                 rotate(180f)
             }
             circle(width / 2f, height / 2f - radius, indicatorSize)
@@ -85,18 +77,13 @@ class MagnetometerView : CanvasView {
         pop()
     }
 
-    fun setMagneticField(field: Vector3) {
-        magneticField = field.copy()
+    fun setFieldStrength(strength: Float) {
+        fieldStrength = strength
         invalidate()
     }
 
-    fun setGeomagneticField(field: Vector3) {
-        geomagneticField = field
-        invalidate()
-    }
-
-    fun setGravity(vec: Vector3) {
-        gravity = vec
+    fun setMetalDirection(direction: Pair<Bearing, Bearing>) {
+        this.direction = direction
         invalidate()
     }
 

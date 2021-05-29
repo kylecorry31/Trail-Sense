@@ -16,6 +16,7 @@ import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
 import com.kylecorry.trailsensecore.domain.astronomy.SolarPanelPosition
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.math.deltaAngle
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.GravityOrientationSensor
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
@@ -28,7 +29,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
-    private val orientation by lazy { sensorService.getOrientationSensor(useMag = false, useGyro = false) }
+    private val orientation by lazy { GravityOrientationSensor(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private val geoService = GeoService()
     private val prefs by lazy { UserPreferences(requireContext()) }
@@ -146,11 +147,11 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             if (!azimuthAligned && azimuthDiff > 0) View.VISIBLE else View.INVISIBLE
 
         val euler = orientation.orientation.toEuler()
-        val altitudeDiff = solarPosition.angle + euler.pitch
+        val altitudeDiff = solarPosition.tilt + euler.pitch
         val altitudeAligned = altitudeDiff.absoluteValue < ALTITUDE_THRESHOLD
         binding.altitudeComplete.visibility = if (altitudeAligned) View.VISIBLE else View.INVISIBLE
         binding.currentAltitude.text = formatService.formatDegrees(-euler.pitch)
-        binding.desiredAltitude.text = formatService.formatDegrees(solarPosition.angle)
+        binding.desiredAltitude.text = formatService.formatDegrees(solarPosition.tilt)
         binding.arrowUp.visibility =
             if (!altitudeAligned && altitudeDiff > 0) View.VISIBLE else View.INVISIBLE
         binding.arrowDown.visibility =

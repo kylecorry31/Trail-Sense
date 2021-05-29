@@ -130,7 +130,6 @@
     <string name="select_beacon">Vybrat maják</string>
     <string name="eta">~ %s daleko</string>
     <string name="sos">SOS</string>
-    <string name="tap_to_turn_off">Ztisknutím vypnete svítilnu</string>
     <string name="flashlight_title">Svítilna</string>
     <string name="accuracy_info">"GPS: Jděte ven, kde budete mít nerušený výhled na oblohu.
 \n    %s od skutečné polohy

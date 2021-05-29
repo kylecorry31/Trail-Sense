@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
+import com.kylecorry.trail_sense.tiles.WeatherMonitorTile
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogService
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
@@ -105,6 +106,8 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(mode)
         super.onCreate(savedInstanceState)
 
+        ScreenUtils.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
+
         disclaimer = DisclaimerMessage(this)
         val cache = Cache(this)
 
@@ -119,15 +122,10 @@ class MainActivity : AppCompatActivity() {
             bottomNavigation.setBackgroundColor(Color.BLACK)
         }
 
-        val pm: PackageManager? = applicationContext?.packageManager
-        val compName = ComponentName(
-            PackageUtils.getPackageName(this),
-            PackageUtils.getPackageName(this) + ".AliasMainActivity"
-        )
-        pm?.setComponentEnabledSetting(
-            compName,
-            if (UserPreferences(this).experimentalEnabled) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-            PackageManager.DONT_KILL_APP
+        PackageUtils.setComponentEnabled(
+            this,
+            "com.kylecorry.trail_sense.AliasMainActivity",
+            userPrefs.experimentalEnabled
         )
 
         if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
@@ -141,7 +139,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startApp() {
         errorBanner.dismissAll()
-        if (navController.currentDestination?.id == R.id.action_navigation){
+        if (navController.currentDestination?.id == R.id.action_navigation) {
             navController.navigate(R.id.action_navigation)
         }
 
@@ -159,7 +157,15 @@ class MainActivity : AppCompatActivity() {
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)
             item.isVisible = false
         }
-        
+
+        tryOrNothing {
+            PackageUtils.setComponentEnabled(
+                this,
+                "com.kylecorry.trail_sense.tiles.WeatherMonitorTile",
+                sensorChecker.hasBarometer()
+            )
+        }
+
         handleIntentAction(intent)
     }
 
@@ -214,7 +220,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         if (requestCode == RequestCodes.REQUEST_CODE_LOCATION_PERMISSION && shouldRequestBackgroundLocation()) {
             requestBackgroundLocation()
-        } else if (requestCode == RequestCodes.REQUEST_CODE_LOCATION_PERMISSION || requestCode == RequestCodes.REQUEST_CODE_BACKGROUND_LOCATION_PERMISSION){
+        } else if (requestCode == RequestCodes.REQUEST_CODE_LOCATION_PERMISSION || requestCode == RequestCodes.REQUEST_CODE_BACKGROUND_LOCATION_PERMISSION) {
             startApp()
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -252,7 +258,10 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun requestPermissions(permissions: List<String>, requestCode: Int = RequestCodes.REQUEST_CODE_LOCATION_PERMISSION) {
+    private fun requestPermissions(
+        permissions: List<String>,
+        requestCode: Int = RequestCodes.REQUEST_CODE_LOCATION_PERMISSION
+    ) {
         PermissionUtils.requestPermissions(this, permissions, requestCode)
     }
 

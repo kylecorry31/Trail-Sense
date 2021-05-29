@@ -231,7 +231,6 @@
     <string name="edit_beacon">Modifier le repère</string>
     <string name="eta">À environ ~ %s</string>
     <string name="sos">SOS</string>
-    <string name="tap_to_turn_off">Appuyez pour éteindre la lampe torche</string>
     <string name="flashlight_title">Lampe torche</string>
     <string name="accuracy_info">GPS : Placez vous en extérieur avec une vue dégagée du ciel.
 \n\tIncertitude sur la localisation : %s

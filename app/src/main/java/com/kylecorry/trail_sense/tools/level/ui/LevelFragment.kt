@@ -8,6 +8,8 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toDegrees
 import com.kylecorry.trailsensecore.domain.math.Vector3
+import com.kylecorry.trailsensecore.domain.math.wrap
+import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.GravityOrientationSensor
 import com.kylecorry.trailsensecore.infrastructure.system.*
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
@@ -15,10 +17,9 @@ import kotlin.math.*
 
 class LevelFragment : BoundFragment<FragmentLevelBinding>() {
 
-    private val sensorService by lazy { SensorService(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     // TODO: Eventually switch to the rotation sensors
-    private val orientationSensor by lazy { sensorService.getOrientationSensor(useGyro = false, useMag = false) }
+    private val orientationSensor by lazy { GravityOrientationSensor(requireContext()) }
     private val throttle = Throttle(20)
 
     override fun onResume() {
@@ -38,7 +39,11 @@ class LevelFragment : BoundFragment<FragmentLevelBinding>() {
         }
 
         val euler = orientationSensor.orientation.toEuler()
-        val x = euler.roll
+        val x = when {
+            euler.roll in -90f..90f -> euler.roll
+            euler.roll > 90f -> 180 - euler.roll
+            else -> -(180 + euler.roll)
+        }
         val y = euler.pitch
         align(
             binding.bubbleX,

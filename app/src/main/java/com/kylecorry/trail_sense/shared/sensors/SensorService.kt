@@ -31,6 +31,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.hygrometer.IHygromete
 import com.kylecorry.trailsensecore.infrastructure.sensors.inclinometer.IInclinometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.inclinometer.Inclinometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.IMagnetometer
+import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.LowPassMagnetometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.Magnetometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.network.CellSignalSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.network.ICellSignalSensor
@@ -197,22 +198,23 @@ class SensorService(ctx: Context) {
         return Magnetometer(context)
     }
 
+    fun getGyroscope(): IGyroscope {
+        if (!sensorChecker.hasGyroscope()){
+            return NullGyroscope()
+        }
+        return Gyroscope(context)
+    }
+
     fun getOrientationSensor(
         useGyro: Boolean = true,
         useMag: Boolean = true,
         useAcc: Boolean = true
     ): IOrientationSensor {
-        // TODO: Add IMUs (gyro + mag + accel, gyro + accel)
-        return when {
-            useGyro && sensorChecker.hasSensor(Sensor.TYPE_GYROSCOPE) -> Gyroscope(context)
-            useMag && useAcc -> OrientationSensor(
-                context,
-                userPrefs.navigation.compassSmoothing,
-                userPrefs.navigation.useTrueNorth
-            )
-            useAcc -> GravityOrientationSensor(context)
-            else -> NullGyroscope()
-        }
+        return MadgwickAHRS(context,
+            accelerometer = if (useAcc) LowPassAccelerometer(context) else NullAccelerometer(),
+            gyro = if (useGyro && sensorChecker.hasGyroscope()) Gyroscope(context) else NullGyroscope(),
+            magnetometer = if (useMag) LowPassMagnetometer(context) else NullMagnetometer()
+        )
     }
 
 }
