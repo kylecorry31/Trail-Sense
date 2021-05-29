@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 
 enum class QuickActionType(val id: Int) {
     None(-1),
@@ -19,7 +20,7 @@ enum class QuickActionType(val id: Int) {
 object QuickActionUtils {
 
     fun getName(context: Context, quickActionType: QuickActionType): String {
-        return when(quickActionType){
+        return when (quickActionType) {
             QuickActionType.None -> context.getString(R.string.quick_action_none)
             QuickActionType.Backtrack -> context.getString(R.string.tool_backtrack_title)
             QuickActionType.Flashlight -> context.getString(R.string.flashlight_title)
@@ -37,23 +38,23 @@ object QuickActionUtils {
         val list = mutableListOf(
             QuickActionType.None,
             QuickActionType.Backtrack,
-            QuickActionType.Flashlight,
+            if (Flashlight.hasFlashlight(context)) QuickActionType.Flashlight else null,
             QuickActionType.Whistle,
             QuickActionType.Ruler,
             QuickActionType.LowPowerMode
         )
 
-        if (UserPreferences(context).experimentalEnabled){
+        if (UserPreferences(context).experimentalEnabled) {
             list.add(QuickActionType.Maps)
         }
 
-        return list
+        return list.filterNotNull()
     }
 
     fun weather(context: Context): List<QuickActionType> {
-        return listOf(
+        return listOfNotNull(
             QuickActionType.None,
-            QuickActionType.Flashlight,
+            if (Flashlight.hasFlashlight(context)) QuickActionType.Flashlight else null,
             QuickActionType.Whistle,
             QuickActionType.Clouds,
             QuickActionType.Temperature,
@@ -62,9 +63,9 @@ object QuickActionUtils {
     }
 
     fun astronomy(context: Context): List<QuickActionType> {
-        return listOf(
+        return listOfNotNull(
             QuickActionType.None,
-            QuickActionType.Flashlight,
+            if (Flashlight.hasFlashlight(context)) QuickActionType.Flashlight else null,
             QuickActionType.Whistle,
             QuickActionType.WhiteNoise,
             QuickActionType.LowPowerMode

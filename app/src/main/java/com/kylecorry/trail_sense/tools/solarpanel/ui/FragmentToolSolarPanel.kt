@@ -146,11 +146,11 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             if (!azimuthAligned && azimuthDiff > 0) View.VISIBLE else View.INVISIBLE
 
         val euler = orientation.orientation.toEuler()
-        val altitudeDiff = solarPosition.angle + euler.pitch
+        val altitudeDiff = solarPosition.tilt + euler.pitch
         val altitudeAligned = altitudeDiff.absoluteValue < ALTITUDE_THRESHOLD
         binding.altitudeComplete.visibility = if (altitudeAligned) View.VISIBLE else View.INVISIBLE
         binding.currentAltitude.text = formatService.formatDegrees(-euler.pitch)
-        binding.desiredAltitude.text = formatService.formatDegrees(solarPosition.angle)
+        binding.desiredAltitude.text = formatService.formatDegrees(solarPosition.tilt)
         binding.arrowUp.visibility =
             if (!altitudeAligned && altitudeDiff > 0) View.VISIBLE else View.INVISIBLE
         binding.arrowDown.visibility =
