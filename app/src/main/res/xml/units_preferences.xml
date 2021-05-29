@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="Units">
+
+        <ListPreference
+            app:defaultValue="meters"
+            app:entries="@array/distance_unit_entries"
+            app:entryValues="@array/distance_unit_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_distance_units"
+            app:singleLineTitle="false"
+            app:title="@string/pref_distance_units_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="hpa"
+            app:entries="@array/pressure_unit_entries"
+            app:entryValues="@array/pressure_unit_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_pressure_units"
+            app:singleLineTitle="false"
+            app:title="@string/pref_pressure_units_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="c"
+            app:entries="@array/temperature_unit_entries"
+            app:entryValues="@array/temperature_unit_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_temperature_units"
+            app:singleLineTitle="false"
+            app:title="@string/pref_temperature_units_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="dd"
+            app:entries="@array/coordinate_format_entries"
+            app:entryValues="@array/coordinate_format_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_coordinate_format"
+            app:singleLineTitle="false"
+            app:title="@string/pref_coordinate_format_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_use_24_hour"
+            app:singleLineTitle="false"
+            app:title="@string/pref_use_24_hour_title" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
