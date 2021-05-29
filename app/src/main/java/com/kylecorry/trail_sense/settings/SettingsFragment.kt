@@ -18,11 +18,8 @@ import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
-import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
+import com.kylecorry.trailsensecore.infrastructure.system.*
 import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils.getPackageName
-import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -103,6 +100,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
             preferenceScreen.findPreference(getString(R.string.pref_open_source_licenses)),
             R.id.action_action_settings_to_licenseFragment
         )
+
+        onClick(preference(R.string.pref_privacy_screenshot_protection)){
+            ScreenUtils.setAllowScreenshots(requireActivity().window, !prefs.privacy.isScreenshotProtectionOn)
+        }
 
         onClick(switch(R.string.pref_low_power_mode)) {
             if (prefs.isLowPowerModeOn) {

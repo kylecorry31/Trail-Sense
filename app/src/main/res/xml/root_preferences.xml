@@ -83,12 +83,19 @@
 
         <SwitchPreferenceCompat
             android:dependency="@string/pref_enable_experimental"
+            android:summary="@string/experimental"
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_use_camera_features"
-            android:summary="@string/experimental"
             app:singleLineTitle="false"
             app:title="@string/pref_use_camera_features_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_privacy_screenshot_protection"
+            app:singleLineTitle="false"
+            app:title="@string/pref_privacy_screenshot_protection_title" />
 
     </PreferenceCategory>
 

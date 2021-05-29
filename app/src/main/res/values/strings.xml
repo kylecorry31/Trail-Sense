@@ -20,7 +20,7 @@
     <string name="disclaimer_message_title">Disclaimer</string>
     <string name="app_disclaimer_message_title">Disclaimer / Terms of Service</string>
 
-<!--    This is a legal statement, not to be translated-->
+    <!--    This is a legal statement, not to be translated-->
     <string name="disclaimer_message_content" translatable="false">Trail Sense is for informational purposes only and the developers make no warranties concerning the accuracy of the information provided by the app, which may further be limited by the quality of your device\'s sensors and the current environmental conditions.\n\nBy using this app, you understand that the developers of Trail Sense cannot and do not assume responsibility for any personal injury, death, property damage, and other dangers associated with activities where you would use Trail Sense.\n\nThe developers of Trail Sense are not responsible for how you use the data provided, and what you do with it is done at your own risk. While it can be used in survival situations, you should not rely upon it, always have backup plans and gear, and use common sense. And definitely avoid using Trail Sense (and your phone in general) while driving or riding a bike.</string>
     <!--Navigation Tab - Unit Formats-->
     <string name="precise_feet_format">%s ft</string>
@@ -953,7 +953,7 @@
     <string name="pref_backtrack_path_style" translatable="false">pref_backtrack_path_dotted</string>
     <string name="solid">Solid</string>
     <string name="dotted">Dotted</string>
-<!--    The arrow line style-->
+    <!--    The arrow line style-->
     <string name="arrow">Arrow</string>
     <string name="pref_backtrack_path_style_title">Backtrack path style</string>
     <string name="pref_backtrack_path_color_title">Backtrack path color</string>
@@ -1034,18 +1034,20 @@
     <string name="pref_navigation_lock_screen_presence" translatable="false">pref_navigation_show_on_lock_screen</string>
     <string name="pref_navigation_lock_screen_presence_title">Show on lock screen while navigating</string>
     <string name="pref_temperature_settings" translatable="false">pref_temperature_settings</string>
-    <string name="pref_cell_signal_refresh_cache">pref_cell_signal_refresh_cache</string>
+    <string name="pref_cell_signal_refresh_cache" translatable="false">pref_cell_signal_refresh_cache</string>
     <string name="pref_cell_signal_refresh_cache_title">Refresh signal cache</string>
     <string name="pref_cell_signal_refresh_cache_summary">Forces loading the latest signal strengths</string>
-    <string name="pref_cell_signal_settings">pref_cell_signal_settings</string>
+    <string name="pref_cell_signal_settings" translatable="false">pref_cell_signal_settings</string>
     <string name="import_map">Import map</string>
     <string name="sensor_gyroscope">Gyroscope</string>
     <string name="roll_pitch_yaw">Roll: %s, Pitch: %s, Yaw: %s</string>
-    <string name="pref_backtrack_history_days">pref_backtrack_history_days</string>
+    <string name="pref_backtrack_history_days" translatable="false">pref_backtrack_history_days</string>
     <string name="pref_backtrack_history_days_title">Backtrack history</string>
     <plurals name="number_days">
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>
     </plurals>
     <string name="days">Days</string>
+    <string name="pref_privacy_screenshot_protection" translatable="false">pref_privacy_screenshot_protection</string>
+    <string name="pref_privacy_screenshot_protection_title">Prevent screenshots</string>
 </resources>

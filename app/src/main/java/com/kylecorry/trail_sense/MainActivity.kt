@@ -105,6 +105,8 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(mode)
         super.onCreate(savedInstanceState)
 
+        ScreenUtils.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
+
         disclaimer = DisclaimerMessage(this)
         val cache = Cache(this)
 
