@@ -126,6 +126,16 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             }
         }
 
+        binding.nextDate.setOnClickListener {
+            displayDate = displayDate.plusDays(1)
+            updateUI()
+        }
+
+        binding.prevDate.setOnClickListener {
+            displayDate = displayDate.minusDays(1)
+            updateUI()
+        }
+
         gps = sensorService.getGPS()
 
         sunTimesMode = prefs.astronomy.sunTimesMode
