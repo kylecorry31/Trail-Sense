@@ -14,7 +14,6 @@ class TimeChangeReceiver : BroadcastReceiver() {
             Intent.ACTION_DATE_CHANGED
         )
         if (validIntentActions.contains(intent?.action) && context != null) {
-            Log.d("TimeChangeReceiver", "Time Change Receiver Called - ${intent?.action}")
             TrailSenseServiceUtils.restartServices(context)
         }
     }
