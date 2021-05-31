@@ -733,7 +733,15 @@
     <fragment
         android:id="@+id/privacySettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.PrivacySettingsFragment"
-        android:label="PrivacySettingsFragment" />
+        android:label="PrivacySettingsFragment">
+        <action
+            android:id="@+id/action_privacy_settings_to_gps_calibration"
+            app:destination="@id/calibrateGPSFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/powerSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.PowerSettingsFragment"

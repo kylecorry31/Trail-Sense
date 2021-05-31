@@ -12,7 +12,7 @@
             app:title="@string/units" />
         <Preference
             android:summary="Compass, GPS, altimeter, barometer, etc."
-            app:icon="@drawable/satellite"
+            app:icon="@drawable/ic_sensors"
             app:key="@string/pref_sensor_settings"
             app:title="@string/sensors" />
         <ListPreference

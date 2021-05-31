@@ -1061,4 +1061,6 @@
     <string name="sighting_compass">Sighting compass</string>
     <string name="pref_experimental_settings" translatable="false">pref_experimental_settings</string>
     <string name="pref_sensor_settings" translatable="false">pref_sensor_settings</string>
+    <string name="location_mocked">Using mocked location</string>
+    <string name="location_not_mocked">Using actual location</string>
 </resources>
