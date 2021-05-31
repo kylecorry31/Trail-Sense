@@ -1,13 +1,16 @@
 package com.kylecorry.trail_sense.settings.ui
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 
-abstract class CustomPreferenceFragment: PreferenceFragmentCompat() {
+abstract class CustomPreferenceFragment : PreferenceFragmentCompat() {
 
     protected fun switch(@StringRes id: Int): SwitchPreferenceCompat? {
         return preferenceManager.findPreference(getString(id))
@@ -43,14 +46,20 @@ abstract class CustomPreferenceFragment: PreferenceFragmentCompat() {
         }
     }
 
-    protected fun setIconTint(preference: Preference, color: Int) {
+    protected fun setIconColor(@ColorInt color: Int?){
+        setIconColor(preferenceScreen, color)
+    }
+
+    protected fun setIconColor(preference: Preference, @ColorInt color: Int?) {
         if (preference is PreferenceGroup) {
             for (i in 0 until preference.preferenceCount) {
-                setIconTint(preference.getPreference(i), color)
+                setIconColor(preference.getPreference(i), color)
             }
         } else {
-            if (preference.icon != null) {
-                DrawableCompat.setTint(preference.icon, color)
+            if (preference.icon != null && color != null) {
+                preference.icon.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+            } else if (preference.icon != null) {
+                DrawableCompat.clearColorFilter(preference.icon)
             }
         }
     }

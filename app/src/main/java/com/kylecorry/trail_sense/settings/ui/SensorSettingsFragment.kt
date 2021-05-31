@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
 import android.text.InputType
-import androidx.preference.EditTextPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class SensorSettingsFragment : CustomPreferenceFragment() {
 
@@ -22,6 +22,8 @@ class SensorSettingsFragment : CustomPreferenceFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.sensor_preferences, rootKey)
+
+        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
 
         for (nav in navigationMap) {
             navigateOnClick(preference(nav.key), nav.value)

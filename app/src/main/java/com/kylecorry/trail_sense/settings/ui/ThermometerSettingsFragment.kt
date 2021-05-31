@@ -12,6 +12,7 @@ import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.units.Temperature
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class ThermometerSettingsFragment : CustomPreferenceFragment() {
 
@@ -33,6 +34,7 @@ class ThermometerSettingsFragment : CustomPreferenceFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.thermometer_settings, rootKey)
+        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
 
         minTempCalibratedC = editText(R.string.pref_min_calibrated_temp_c)
         maxTempCalibratedC = editText(R.string.pref_max_calibrated_temp_c)

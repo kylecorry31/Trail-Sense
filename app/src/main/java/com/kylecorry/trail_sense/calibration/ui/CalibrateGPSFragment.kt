@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.calibration.ui
 import android.os.Bundle
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.settings.ui.CustomPreferenceFragment
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -15,10 +16,11 @@ import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 
-class CalibrateGPSFragment : PreferenceFragmentCompat() {
+class CalibrateGPSFragment : CustomPreferenceFragment() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val sensorService by lazy { SensorService(requireContext()) }
@@ -39,6 +41,7 @@ class CalibrateGPSFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.gps_calibration, rootKey)
+        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
         wasUsingRealGPS = shouldUseRealGPS()
         wasUsingCachedGPS = shouldUseCachedGPS()
         gps = sensorService.getGPS()

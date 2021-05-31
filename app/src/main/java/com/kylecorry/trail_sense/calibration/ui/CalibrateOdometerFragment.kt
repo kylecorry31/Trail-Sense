@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.RequestCodes
+import com.kylecorry.trail_sense.settings.ui.CustomPreferenceFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -18,7 +19,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
 
-class CalibrateOdometerFragment : PreferenceFragmentCompat() {
+class CalibrateOdometerFragment : CustomPreferenceFragment() {
 
     private lateinit var strideLengthPref: Preference
     private lateinit var permissionPref: Preference
@@ -39,6 +40,7 @@ class CalibrateOdometerFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.odometer_calibration, rootKey)
+        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
         bindPreferences()
     }
 

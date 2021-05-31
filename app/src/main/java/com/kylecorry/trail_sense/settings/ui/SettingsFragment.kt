@@ -62,7 +62,7 @@ class SettingsFragment : CustomPreferenceFragment() {
 
         val version = PackageUtils.getVersionName(requireContext())
         preference(R.string.pref_app_version)?.summary = version
-        setIconTint(preferenceScreen, UiUtils.androidTextColorSecondary(requireContext()))
+        setIconColor(preferenceScreen, UiUtils.androidTextColorSecondary(requireContext()))
     }
 
     private fun refreshOnChange(pref: Preference?) {

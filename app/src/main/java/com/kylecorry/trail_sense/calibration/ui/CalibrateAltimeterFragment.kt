@@ -49,6 +49,8 @@ class CalibrateAltimeterFragment : CustomPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.altimeter_calibration, rootKey)
 
+        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
+
         prefs = UserPreferences(requireContext())
         sensorService = SensorService(requireContext())
 

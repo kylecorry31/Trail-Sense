@@ -65,6 +65,8 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.barometer_calibration, rootKey)
 
+        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
+
         prefs = UserPreferences(requireContext())
         sensorService = SensorService(requireContext())
         units = prefs.pressureUnits

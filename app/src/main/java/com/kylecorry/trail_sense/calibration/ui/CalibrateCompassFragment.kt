@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.InputType
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.settings.ui.CustomPreferenceFragment
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -15,7 +16,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 
-class CalibrateCompassFragment : PreferenceFragmentCompat() {
+class CalibrateCompassFragment : CustomPreferenceFragment() {
 
     private lateinit var prefs: UserPreferences
     private val formatService by lazy { FormatServiceV2(requireContext()) }
@@ -40,6 +41,8 @@ class CalibrateCompassFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.compass_calibration, rootKey)
+
+        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
 
         prefs = UserPreferences(requireContext())
         sensorService = SensorService(requireContext())
