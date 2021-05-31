@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/experimental">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:disableDependentsState="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_experimental_tide_clock"
+            app:singleLineTitle="false"
+            app:title="@string/tides" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:disableDependentsState="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_experimental_maps"
+            app:singleLineTitle="false"
+            app:title="@string/maps" />
+
+        <SwitchPreferenceCompat
+            android:summary="@string/tool_metal_detector_title"
+            app:defaultValue="false"
+            app:disableDependentsState="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_experimental_metal_direction"
+            app:singleLineTitle="false"
+            app:title="@string/pref_experimental_metal_direction_title" />
+
+        <SwitchPreferenceCompat
+            android:summary="@string/uses_camera"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_experimental_sighting_compass"
+            app:singleLineTitle="false"
+            app:title="@string/sighting_compass" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

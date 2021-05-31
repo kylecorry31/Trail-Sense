@@ -16,12 +16,11 @@
     <string name="pref_compass_filter_amt_title">Urovnávání kompas</string>
     <string name="pref_use_true_north_title">Pravý sever</string>
     <string name="pref_compass_sensor_title">Kompas</string>
-    <string name="pref_category_sensors_title">Senzory</string>
+    <string name="sensors">Senzory</string>
     <string name="pref_temperature_units_title">Teplota</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="pref_coordinate_format_title">Formát souřadnic</string>
-    <string name="experimental_tools_title">Experimetální funkce</string>
     <string name="theme_system">Výchozí vzhled systému</string>
     <string name="theme_black">Černý</string>
     <string name="theme_dark">Tmavý</string>

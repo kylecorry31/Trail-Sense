@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmR
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
+import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -94,6 +95,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         NotificationChannels.createChannels(applicationContext)
+        PreferenceMigrator.getInstance().migrate(this)
 
         userPrefs = UserPreferences(this)
         val mode = when (userPrefs.theme) {
@@ -125,7 +127,7 @@ class MainActivity : AppCompatActivity() {
         PackageUtils.setComponentEnabled(
             this,
             "com.kylecorry.trail_sense.AliasMainActivity",
-            userPrefs.experimentalEnabled
+            userPrefs.navigation.areMapsEnabled
         )
 
         if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
@@ -182,7 +184,7 @@ class MainActivity : AppCompatActivity() {
                     bundle
                 )
             }
-        } else if ((intent.type?.startsWith("image/") == true || intent.type?.startsWith("application/pdf") == true) && userPrefs.experimentalEnabled) {
+        } else if ((intent.type?.startsWith("image/") == true || intent.type?.startsWith("application/pdf") == true) && userPrefs.navigation.areMapsEnabled) {
             bottomNavigation.selectedItemId = R.id.action_experimental_tools
             val intentUri = intent.clipData?.getItemAt(0)?.uri
             val bundle = bundleOf("map_intent_uri" to intentUri)

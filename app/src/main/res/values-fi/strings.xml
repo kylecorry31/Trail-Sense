@@ -255,7 +255,7 @@
 \n- Mittaa Trail Sense -viivoittimella mitta, joka vastaa yhtä fyysisen viivoittimen yksikköä.
 \n- Ilmoita mitattu arvo täällä.</string>
     <string name="pref_ruler_calibration_title">Viivoittimen skaalaus</string>
-    <string name="pref_category_sensors_title">Anturit</string>
+    <string name="sensors">Anturit</string>
     <string name="pref_temperature_units_title">Lämpötila</string>
     <string name="pref_coordinate_format_title">Koordinaatti formaatti</string>
     <string name="coordinate_format_mgrs">MGRS-koordinaatit</string>
@@ -263,7 +263,6 @@
     <string name="coordinate_format_degrees_minutes_seconds">Astetta minuuttia sekuntia</string>
     <string name="coordinate_format_degrees_decimal_minutes">Astetta desimaaliminuuttia</string>
     <string name="coordinate_format_decimal_degrees">Desimaaliarvot</string>
-    <string name="experimental_tools_title">Kokeelliset ominaisuudet</string>
     <string name="theme_system">Järjestelmä</string>
     <string name="theme_black">Musta</string>
     <string name="theme_dark">Tumma</string>

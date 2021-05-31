@@ -116,10 +116,9 @@
     <string name="compass_declination">Магнитное склонение</string>
     <string name="compass_azimuth">Азимут</string>
     <string name="pref_compass_sensor_title">Компас</string>
-    <string name="pref_category_sensors_title">Датчики</string>
+    <string name="sensors">Датчики</string>
     <string name="pref_temperature_units_title">Температура</string>
     <string name="pref_coordinate_format_title">Формат координат</string>
-    <string name="experimental_tools_title">Экспериментальные функции</string>
     <string name="inclinometer_title">Инклинометр (креномер)</string>
     <string name="offline_maps">Офлайн-карты</string>
     <string name="moon_phase">Фазы Луны</string>
@@ -456,7 +455,7 @@
     <string name="strobe_warning_content">Функция стробоскопа содержит мигающие огни, которые могут быть опасны для некоторых пользователей.</string>
     <string name="strobe_warning_title">Мигающие огни</string>
     <string name="clock_waiting_for_gps">Обновление времени с GPS…</string>
-    <string name="tool_category_power">Энергия</string>
+    <string name="power">Энергия</string>
     <string name="metal_detector_disclaimer">Обнаруживает только магнитные металлы (например, железо)</string>
     <string name="metal_detector_calibrate">Калибровать</string>
     <string name="tool_metal_detector_title">Металлоискатель</string>
@@ -639,7 +638,7 @@
     <string name="onboarding_user_guide">Узнайте, как использовать функции Trail Sense, с помощью руководства пользователя. Доступно в нижней части вкладки Инструменты.
 \n
 \nСкоро появятся другие руководства.</string>
-    <string name="privacy">Конфиденциальность и местоположение</string>
+    <string name="privacy_and_location">Конфиденциальность и местоположение</string>
     <string name="onboarding_tools">- Доступные инструменты, которые помогут в любой ситуации в дикой природе
 \n
 \n- Подать сигнал фонариком или свистком
@@ -777,7 +776,6 @@
     <string name="tool_speedometer_odometer_title">Спидометр / Одометр</string>
     <string name="delete_tide_prompt">Удалить прилив\?</string>
     <string name="your_height">Ваш рост</string>
-    <string name="experimental_features">Приливы, карты и ручной компас</string>
     <string name="pref_backtrack_path_radar_title">Показать путь истории маршрута</string>
     <string name="import_gpx">Импорт GPX</string>
     <string name="error_importing_map">Ошибка при импорте карты</string>

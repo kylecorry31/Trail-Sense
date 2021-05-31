@@ -5,8 +5,8 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.CustomPreferenceFragment
-import com.kylecorry.trail_sense.settings.PressureChartPreference
+import com.kylecorry.trail_sense.settings.ui.CustomPreferenceFragment
+import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -102,8 +102,6 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
         altitudeOutlierSeekBar = seekBar(R.string.pref_barometer_altitude_outlier)
         pressureSmoothingSeekBar = seekBar(R.string.pref_barometer_pressure_smoothing)
         altitudeSmoothingSeekBar = seekBar(R.string.pref_barometer_altitude_smoothing)
-
-        experimentalCalibrationSwitch?.isVisible = prefs.experimentalEnabled
 
         pressureTxt = findPreference(getString(R.string.pref_holder_pressure))
         seaLevelSwitch = findPreference(getString(R.string.pref_use_sea_level_pressure))
@@ -297,7 +295,7 @@ class CalibrateBarometerFragment : CustomPreferenceFragment() {
 
         val experimentalCalibration = prefs.weather.useExperimentalCalibration
 
-        experimentalCalibrationSwitch?.isVisible = prefs.experimentalEnabled && !isOnTheWallMode
+        experimentalCalibrationSwitch?.isVisible = !isOnTheWallMode
         altitudeOutlierSeekBar?.isVisible = experimentalCalibration && !isOnTheWallMode
         pressureSmoothingSeekBar?.isVisible = experimentalCalibration && !isOnTheWallMode
         altitudeSmoothingSeekBar?.isVisible = experimentalCalibration && !isOnTheWallMode

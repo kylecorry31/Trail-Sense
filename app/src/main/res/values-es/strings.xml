@@ -111,7 +111,7 @@
     <string name="flashlight_title">Linterna</string>
     <string name="unknown">Desconocida</string>
     <string name="compass_azimuth">Azimut</string>
-    <string name="pref_category_sensors_title">Sensores</string>
+    <string name="sensors">Sensores</string>
     <string name="pref_temperature_units_title">Temperatura</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>

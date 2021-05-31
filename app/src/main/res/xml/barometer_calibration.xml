@@ -14,7 +14,7 @@
             app:selectable="false"
             app:singleLineTitle="false" />
 
-        <com.kylecorry.trail_sense.settings.PressureChartPreference
+        <com.kylecorry.trail_sense.settings.ui.PressureChartPreference
             app:iconSpaceReserved="false"
             app:key="@string/pref_holder_pressure_chart" />
 

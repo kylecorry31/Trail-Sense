@@ -5,7 +5,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="Units">
+        app:title="@string/units">
 
         <ListPreference
             app:defaultValue="meters"

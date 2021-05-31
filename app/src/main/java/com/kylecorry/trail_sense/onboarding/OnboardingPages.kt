@@ -10,7 +10,7 @@ object OnboardingPages {
         OnboardingPage(R.string.astronomy, R.string.onboarding_astronomy, R.drawable.ic_astronomy),
         OnboardingPage(R.string.tools, R.string.onboarding_tools, R.drawable.inclinometer),
         OnboardingPage(R.string.tool_user_guide_title, R.string.onboarding_user_guide, R.drawable.ic_user_guide),
-        OnboardingPage(R.string.privacy, R.string.onboarding_privacy, R.drawable.ic_not_visible),
+        OnboardingPage(R.string.privacy_and_location, R.string.onboarding_privacy, R.drawable.ic_not_visible),
     )
 
 }

@@ -129,7 +129,7 @@
     <string name="calibrate">Kalibratu</string>
     <string name="compass_azimuth">Azimut</string>
     <string name="pref_compass_sensor_title">Iparrorratza</string>
-    <string name="pref_category_sensors_title">Sentsoreak</string>
+    <string name="sensors">Sentsoreak</string>
     <string name="pref_temperature_units_title">Tenperatura</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
@@ -245,7 +245,7 @@
     <string name="tool_category_location">Kokapena</string>
     <string name="tool_category_angles">Angeluak</string>
     <string name="tool_category_time">Denbora</string>
-    <string name="tool_category_power">Energia</string>
+    <string name="power">Energia</string>
     <string name="tool_category_distance">Distantzia</string>
     <string name="battery_health_overheat">Gainberotua</string>
     <string name="battery_health_good">Ona</string>
@@ -258,7 +258,6 @@
     <string name="pref_ruler_calibration_title">Erregelaren eskala</string>
     <string name="pref_coordinate_format_title">Koordenatuen formatua</string>
     <string name="coordinate_format_decimal_degrees">Gradu dezimalak</string>
-    <string name="experimental_tools_title">Ezaugarri esperimentalak</string>
     <string name="edit_item_title">Elementua editatu</string>
     <string name="create_item_title">Elementua sortu</string>
     <string name="estimated_height">ustezko altuera</string>

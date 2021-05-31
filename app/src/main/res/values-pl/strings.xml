@@ -117,7 +117,6 @@
     <string name="pref_temperature_units_title">Temperatura</string>
     <string name="celsius">Stopnie Celsjusza</string>
     <string name="fahrenheit">Stopnie Fahrenheita</string>
-    <string name="experimental_tools_title">Funkcje eksperymentalne</string>
     <string name="pref_general_header">Ogólne</string>
     <string name="dialog_item_add">Dodaj</string>
     <string name="spinner_category_prompt">Kategoria</string>
@@ -285,7 +284,7 @@
     <string name="tide_neap">Pływ kwadraturowy</string>
     <string name="tidal_range">Zakres pływów</string>
     <string name="pref_ruler_calibration_title">Skala linijki</string>
-    <string name="pref_category_sensors_title">Czujniki</string>
+    <string name="sensors">Czujniki</string>
     <string name="inclinometer_title">Inklinometr</string>
     <string name="moon_illumination">Oświetlenie Księżyca</string>
     <string name="waning_gibbous">Garbaty Księżyc</string>
@@ -444,7 +443,7 @@
     <string name="inches_format">%.2f cali</string>
     <string name="centimeters_format">%.2f cm</string>
     <string name="declination_override_updated_toast">Deklinacja nadpisana</string>
-    <string name="tool_category_power">Zasilanie</string>
+    <string name="power">Zasilanie</string>
     <string name="tool_solar_panel_title">Pozycjonowanie paneli słonecznych</string>
     <string name="solar_panel_instructions">Połóż telefon na powierzchni ogniwa słonecznego.</string>
     <string name="note_content_hint">Treść</string>
@@ -558,7 +557,7 @@
     <string name="compass_calibrate_toast">Dokładność kompasu %s, zalecana kalibracja</string>
     <string name="open_beacon_in_maps">Zobacz na mapie</string>
     <string name="unit_centimeters_abbreviation">cm</string>
-    <string name="privacy">Prywatność i lokalizacja</string>
+    <string name="privacy_and_location">Prywatność i lokalizacja</string>
     <string name="cumulonimbus">Cumulonimbus</string>
     <string name="cumulus">Cumulus</string>
     <string name="stratocumulus">Stratocumulus</string>
@@ -762,7 +761,6 @@
     <string name="guide_using_printed_maps_desc">Jak korzystać z map drukowanych w programie Trail Sense</string>
     <string name="guide_using_printed_maps">Korzystanie z map drukowanych</string>
     <string name="guide_navigation_description">Jak nawigować za pomocą programu Trail Sence</string>
-    <string name="experimental_features">Pływy, mapy i kompas</string>
     <string name="previous">Poprzedni</string>
     <string name="next">Dalej</string>
     <string name="guide_importing_maps_title">Importowanie mapy</string>

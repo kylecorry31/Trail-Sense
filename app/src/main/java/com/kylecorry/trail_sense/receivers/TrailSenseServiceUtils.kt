@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.receivers
 import android.content.Context
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogService
@@ -14,6 +15,7 @@ import java.time.Duration
 object TrailSenseServiceUtils {
 
     fun restartServices(context: Context){
+        PreferenceMigrator.getInstance().migrate(context)
         NotificationChannels.createChannels(context)
         startWeatherMonitoring(context)
         startSunsetAlarm(context)

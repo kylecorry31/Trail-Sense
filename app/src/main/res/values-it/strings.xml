@@ -133,13 +133,12 @@
     <string name="temperature_disclaimer">La temperatura mostrata può essere più elevata a causa del riscaldamento del telefono.</string>
     <string name="pref_compass_sensor_title">Bussola</string>
     <string name="pref_ruler_calibration_title">Scala righello</string>
-    <string name="pref_category_sensors_title">Sensori</string>
+    <string name="sensors">Sensori</string>
     <string name="pref_temperature_units_title">Temperatura</string>
     <string name="pref_coordinate_format_title">Formato coordinate</string>
     <string name="coordinate_format_degrees_minutes_seconds">Gradi Minuti Secondi</string>
     <string name="coordinate_format_degrees_decimal_minutes">Gradi Minuti Decimali</string>
     <string name="coordinate_format_decimal_degrees">Gradi decimali</string>
-    <string name="experimental_tools_title">Funzionalità sperimentali</string>
     <string name="pref_general_header">Generale</string>
     <string name="edit_item_title">Modifica voce</string>
     <string name="create_item_title">Crea voce</string>
@@ -339,7 +338,7 @@
     <string name="tool_triangulate_title">Triangolazione della posizione</string>
     <string name="tool_category_signaling">Segnalazione</string>
     <string name="tool_category_other">Altro</string>
-    <string name="tool_category_power">Energia</string>
+    <string name="power">Energia</string>
     <string name="battery_health">Salute: %s</string>
     <string name="battery_health_over_voltage">In sovratensione</string>
     <string name="battery_health_overheat">Surriscaldata</string>

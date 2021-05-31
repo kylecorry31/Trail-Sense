@@ -103,12 +103,11 @@
 \n-  用标准刻度尺测量，观察在标准刻度尺上的一个单位相当于 Trail Sense 刻度尺上的多少个单位
 \n-  在此处汇报测量的值。"</string>
     <string name="pref_compass_sensor_title">指南针</string>
-    <string name="pref_category_sensors_title">传感器</string>
+    <string name="sensors">传感器</string>
     <string name="pref_temperature_units_title">温度</string>
     <string name="celsius">摄氏度</string>
     <string name="fahrenheit">华氏度</string>
     <string name="pref_coordinate_format_title">坐标格式</string>
-    <string name="experimental_tools_title">实验性功能</string>
     <string name="pref_general_header">一般</string>
     <string name="estimated_height">预计的高度</string>
     <string name="set_inclination_instructions">轻触任何地方以设定/复位倾斜角度</string>
@@ -245,7 +244,7 @@
     <string name="tool_category_location">位置</string>
     <string name="tool_category_angles">角度</string>
     <string name="tool_category_time">时间</string>
-    <string name="tool_category_power">能源</string>
+    <string name="power">能源</string>
     <string name="tool_category_distance">距离</string>
     <string name="battery_health">健康状况：%s</string>
     <string name="battery_health_over_voltage">过电压</string>
@@ -618,7 +617,7 @@
     <string name="onboarding_user_guide">通过用户指南学习如何使用 Trail Sense 的功能。可以在“工具”选项卡的底部找到。
 \n
 \n更多指南将会很快到来。</string>
-    <string name="privacy">隐私和位置</string>
+    <string name="privacy_and_location">隐私和位置</string>
     <string name="onboarding_tools">- 访问工具，以协助任何野外情况
 \n
 \n- 使用手电筒或口哨发出信号
@@ -760,7 +759,6 @@
     <string name="guide_using_printed_maps_desc">如何将纸质地图和 Trail Sense 一起使用</string>
     <string name="guide_using_printed_maps">使用印刷地图</string>
     <string name="guide_navigation_description">如何使用 Trail Sense 进行导航</string>
-    <string name="experimental_features">潮汐、地图和瞄准指南针</string>
     <string name="guide_speedometer_desc">如何确定行进距离和到达时间</string>
     <string name="guide_speedometer_title">确定速度和距离</string>
     <string name="next">下一张</string>

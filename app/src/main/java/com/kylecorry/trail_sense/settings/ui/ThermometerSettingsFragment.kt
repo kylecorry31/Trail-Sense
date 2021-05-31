@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.settings
+package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
 import android.view.View

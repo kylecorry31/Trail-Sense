@@ -709,10 +709,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun isSightingCompassEnabled(): Boolean {
-        return userPrefs.experimentalEnabled && userPrefs.useCameraFeatures && PermissionUtils.hasPermission(
-            requireContext(),
-            Manifest.permission.CAMERA
-        )
+        return userPrefs.navigation.isSightingCompassEnabled && PermissionUtils.isCameraEnabled(requireContext())
     }
 
     private fun onOrientationUpdate(): Boolean {

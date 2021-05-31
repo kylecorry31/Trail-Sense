@@ -228,7 +228,6 @@
     <string name="theme_black">Black</string>
     <string name="theme_system">System</string>
     <string name="theme_sunset_sunrise">Sunrise/sunset</string>
-    <string name="experimental_tools_title">Experimental features</string>
     <string name="coordinate_format_decimal_degrees">Decimal Degrees</string>
     <!--A coordinate format as such:  X° X.XXX' N-->
     <string name="coordinate_format_degrees_decimal_minutes">Degrees Decimal Minutes</string>
@@ -240,7 +239,7 @@
     <string name="celsius">Celsius</string>
     <string name="pref_temperature_units_title">Temperature</string>
     <!--Settings - Sensors-->
-    <string name="pref_category_sensors_title">Sensors</string>
+    <string name="sensors">Sensors</string>
     <!--Settings - Sensors - Ruler-->
     <string name="pref_ruler_calibration_title">Ruler scale</string>
     <string name="pref_ruler_calibration_summary">"Calibration protocol:
@@ -453,7 +452,6 @@
     <string name="pref_github" translatable="false">pref_github</string>
     <string name="pref_email" translatable="false">pref_email</string>
     <string name="tool_inclinometer" translatable="false">tool_inclinometer</string>
-    <string name="pref_enable_experimental" translatable="false">pref_enable_experimental</string>
     <string name="pref_non_linear_distances" translatable="false">pref_non_linear_distances</string>
     <string name="pref_temperature_units" translatable="false">pref_temperature_units</string>
     <string name="pref_adjust_for_temperature" translatable="false">pref_adjust_for_temperature</string>
@@ -610,7 +608,7 @@
     <string name="battery_health_over_voltage">Over voltage</string>
     <string name="battery_health">Health: %s</string>
     <string name="tool_category_distance">Distance</string>
-    <string name="tool_category_power">Power</string>
+    <string name="power">Power</string>
     <string name="tool_category_time">Time</string>
     <string name="tool_category_angles">Angles</string>
     <string name="tool_category_location">Location</string>
@@ -769,7 +767,7 @@
     <string name="onboarding_astronomy">- Know when the sun/moon will rise and set\n\n- Be alerted when the sun is going to set\n\n- Locate the sun and moon on the compass</string>
     <!--This is in Markdown format-->
     <string name="onboarding_tools">- Access tools to assist in any wilderness situation\n\n- Signal using the flashlight or whistle\n\n- Convert locations from a paper map to your phone\n\n- Measure angles and determine the heights of objects\n\n- Synchronize your clock without an Internet connection\n\n- Take notes and keep track of items on hand\n\n- Find dropped iron/steel objects</string>
-    <string name="privacy">Privacy and Location</string>
+    <string name="privacy_and_location">Privacy and Location</string>
     <!--This is in Markdown format-->
     <string name="onboarding_user_guide">Learn how to use Trail Sense\'s features with the user guide. Available at the bottom of the Tools tab.\n\nMore guides will be coming soon.</string>
     <!--This is in Markdown format-->
@@ -870,7 +868,6 @@
     <string name="pref_daily_weather_time_holder" translatable="false">pref_daily_weather_time_holder</string>
     <string name="pref_daily_weather_time_title">Daily weather time</string>
     <string name="pref_daily_weather_time" translatable="false">pref_daily_weather_time</string>
-    <string name="experimental_features">Tides, maps and sighting compass</string>
     <string name="tide_calibration">Tide Calibration</string>
     <string name="screen_flashlight">Screen</string>
     <string name="speedometer_real_time">Real Time</string>
@@ -1050,4 +1047,18 @@
     <string name="days">Days</string>
     <string name="pref_privacy_screenshot_protection" translatable="false">pref_privacy_screenshot_protection</string>
     <string name="pref_privacy_screenshot_protection_title">Prevent screenshots</string>
+    <string name="units">Units</string>
+    <string name="privacy">Privacy</string>
+    <string name="pref_privacy_settings" translatable="false">pref_privacy_settings</string>
+    <string name="pref_power_settings" translatable="false">pref_power_settings</string>
+    <string name="pref_unit_settings" translatable="false">pref_unit_settings</string>
+    <string name="pref_experimental_tide_clock" translatable="false">pref_experimental_tide_clock</string>
+    <string name="pref_experimental_maps" translatable="false">pref_experimental_maps</string>
+    <string name="pref_experimental_metal_direction" translatable="false">pref_experimental_metal_direction</string>
+    <string name="pref_experimental_metal_direction_title">Show metal direction</string>
+    <string name="uses_camera">Uses camera</string>
+    <string name="pref_experimental_sighting_compass" translatable="false">pref_experimental_sighting_compass</string>
+    <string name="sighting_compass">Sighting compass</string>
+    <string name="pref_experimental_settings" translatable="false">pref_experimental_settings</string>
+    <string name="pref_sensor_settings" translatable="false">pref_sensor_settings</string>
 </resources>

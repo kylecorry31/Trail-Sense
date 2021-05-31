@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/sensors">
+
+        <Preference
+            android:key="@string/pref_sensor_details"
+            android:title="@string/pref_sensor_details_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:key="@string/pref_compass_sensor"
+            android:title="@string/pref_compass_sensor_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:key="@string/pref_gps_calibration"
+            android:title="@string/gps"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:key="@string/pref_altimeter_calibration"
+            android:title="@string/pref_altimeter_calibration_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:key="@string/pref_barometer_calibration"
+            android:title="@string/barometer"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:key="@string/pref_temperature_settings"
+            android:title="@string/tool_thermometer_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:key="@string/pref_odometer_calibration"
+            android:title="@string/odometer"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:key="@string/pref_cell_signal_settings"
+            android:title="@string/cell_signal"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <EditTextPreference
+            android:inputType="numberDecimal"
+            app:defaultValue="1"
+            app:dialogMessage="@string/pref_ruler_calibration_summary"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_ruler_calibration"
+            app:min="0"
+            app:singleLineTitle="false"
+            app:title="@string/pref_ruler_calibration_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -182,7 +182,7 @@
     <string name="update_150_minutes">2 horas 30 minutos</string>
     <string name="update_180_minutes">3 horas</string>
     <string name="pref_compass_sensor_title">Bússola</string>
-    <string name="pref_category_sensors_title">Sensores</string>
+    <string name="sensors">Sensores</string>
     <string name="compass_from_gps">Substituição do GPS</string>
     <string name="compass_declination_override">Substituir Declinação</string>
     <string name="compass_auto_declination">Declinação de ajuste automático</string>
@@ -248,7 +248,6 @@
     <string name="storm_sensitivity_low_in">Baixa (0.177 in / 3h)</string>
     <string name="storm_sensitivity_med_in">Média (0.133 in / 3h)</string>
     <string name="storm_sensitivity_high_in">Alta (0.089 in / 3h)</string>
-    <string name="experimental_tools_title">Recursos experimentais</string>
     <string name="inclinometer_title">Inclinômetro</string>
     <string name="tool_inclinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
     <string name="tools">Ferramentas</string>
@@ -478,7 +477,7 @@
     <string name="tool_category_location">Localização</string>
     <string name="tool_category_angles">Ângulos</string>
     <string name="tool_category_time">Tempo</string>
-    <string name="tool_category_power">Energia</string>
+    <string name="power">Energia</string>
     <string name="tool_category_distance">Distância</string>
     <string name="battery_health">Estado: %s</string>
     <string name="battery_health_over_voltage">Sobre-tensão</string>
@@ -565,7 +564,7 @@
     <string name="onboarding_user_guide">Saiba como usar as funcionalidades de Trail Sense com o guia do usuário. Disponível na parte inferior da aba de Ferramentas.
 \n
 \nMais guias estarão disponíveis em breve.</string>
-    <string name="privacy">Privacidade e localização</string>
+    <string name="privacy_and_location">Privacidade e localização</string>
     <string name="onboarding_tools">- Acesse as ferramentas para ajudar em qualquer situação silvestres
 \n
 \n- Sinalize usando a lanterna ou apito

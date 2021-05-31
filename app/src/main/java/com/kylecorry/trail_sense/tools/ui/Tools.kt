@@ -20,7 +20,6 @@ object Tools {
     fun getTools(context: Context): List<ToolGroup> {
         val prefs = UserPreferences(context)
         val sensorChecker = SensorChecker(context)
-        val experimental = prefs.experimentalEnabled
         val hasLightMeter = sensorChecker.hasSensor(Sensor.TYPE_LIGHT)
         val hasBarometer = sensorChecker.hasBarometer()
         val signaling = ToolGroup(
@@ -66,7 +65,7 @@ object Tools {
 
         val location = ToolGroup(
             context.getString(R.string.tool_category_location), listOfNotNull(
-                if (experimental) Tool(
+                if (prefs.navigation.areMapsEnabled) Tool(
                     context.getString(R.string.offline_maps),
                     R.drawable.maps,
                     R.id.action_tools_to_maps_list,
@@ -117,7 +116,7 @@ object Tools {
                     R.id.action_action_experimental_tools_to_waterPurificationFragment,
                     context.getString(R.string.tool_boil_summary)
                 ),
-                if (experimental) Tool(
+                if (prefs.tides.areTidesEnabled) Tool(
                     context.getString(R.string.tides),
                     R.drawable.ic_tool_tides,
                     R.id.action_toolsFragment_to_tidesFragment,
@@ -127,7 +126,7 @@ object Tools {
         )
 
         val power = ToolGroup(
-            context.getString(R.string.tool_category_power), listOfNotNull(
+            context.getString(R.string.power), listOfNotNull(
                 Tool(
                     context.getString(R.string.tool_battery_title),
                     R.drawable.ic_tool_battery,

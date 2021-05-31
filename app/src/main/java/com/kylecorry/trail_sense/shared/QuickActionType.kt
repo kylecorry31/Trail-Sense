@@ -44,7 +44,7 @@ object QuickActionUtils {
             QuickActionType.LowPowerMode
         )
 
-        if (UserPreferences(context).experimentalEnabled) {
+        if (UserPreferences(context).navigation.areMapsEnabled) {
             list.add(QuickActionType.Maps)
         }
 

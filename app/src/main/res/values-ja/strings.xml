@@ -159,12 +159,11 @@
     <string name="compass_from_gps">Set override from GPS</string>
     <string name="pref_compass_sensor_title">Compass</string>
     <string name="pref_ruler_calibration_title">ものさしの大きさ</string>
-    <string name="pref_category_sensors_title">Sensors</string>
+    <string name="sensors">Sensors</string>
     <string name="pref_coordinate_format_title">座標の形式</string>
     <string name="coordinate_format_degrees_minutes_seconds">度分秒</string>
     <string name="coordinate_format_degrees_decimal_minutes">度分</string>
     <string name="coordinate_format_decimal_degrees">10進数</string>
-    <string name="experimental_tools_title">Experimental features</string>
     <string name="estimated_height">estimated height</string>
     <string name="set_inclination_instructions">Tap anywhere to set/unset inclination angle</string>
     <string name="inclinometer_rotate_device">Hold your phone vertically to measure inclination</string>

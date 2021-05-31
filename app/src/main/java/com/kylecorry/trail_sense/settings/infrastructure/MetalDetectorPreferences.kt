@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.settings
+package com.kylecorry.trail_sense.settings.infrastructure
 
 import android.content.Context
 import android.hardware.Sensor
@@ -12,8 +12,8 @@ class MetalDetectorPreferences(context: Context): PreferenceRepo(context) {
     val showMetalDirection: Boolean
         get(){
             val hasGyro = sensorChecker.hasSensor(Sensor.TYPE_GYROSCOPE)
-            val experimental = cache.getBoolean(getString(R.string.pref_enable_experimental)) ?: false
-            return hasGyro && experimental
+            val enabled = cache.getBoolean(getString(R.string.pref_experimental_metal_direction)) ?: false
+            return hasGyro && enabled
         }
 
     val showSinglePole: Boolean = false

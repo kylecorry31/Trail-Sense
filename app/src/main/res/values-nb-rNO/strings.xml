@@ -37,7 +37,7 @@
     <string name="calibrate">Kalibrer</string>
     <string name="compass_azimuth">Asimut</string>
     <string name="pref_compass_sensor_title">Kompass</string>
-    <string name="pref_category_sensors_title">Sensorer</string>
+    <string name="sensors">Sensorer</string>
     <string name="pref_temperature_units_title">Temperatur</string>
     <string name="celsius">Celsius</string>
     <string name="pref_coordinate_format_title">Koordinatformat</string>
@@ -145,7 +145,6 @@
     <string name="pref_auto_location_title">Automatisk justering av posisjon</string>
     <string name="compass_declination">Misvisning</string>
     <string name="fahrenheit">Fahrenheit</string>
-    <string name="experimental_tools_title">Eksperimentelle funksjoner</string>
     <string name="pref_use_24_hour_title">Bruk 24-timersklokke</string>
     <string name="pref_general_header">Generelt</string>
     <string name="set_inclination_instructions">Trykk hvor som helst for å velge/fjerne helningsvinkel</string>
@@ -418,7 +417,7 @@
     <string name="tool_category_location">Posisjon</string>
     <string name="tool_category_angles">Vinkler</string>
     <string name="tool_category_time">Tid</string>
-    <string name="tool_category_power">Strøm</string>
+    <string name="power">Strøm</string>
     <string name="tool_category_distance">Distanse</string>
     <string name="battery_health_good">Bra</string>
     <string name="battery_health_cold">Kaldt</string>
@@ -537,7 +536,7 @@
     <string name="select_import_file">Velg importfil</string>
     <string name="import_btn">Importer</string>
     <string name="export">Eksporter</string>
-    <string name="privacy">Personvern og posisjon</string>
+    <string name="privacy_and_location">Personvern og posisjon</string>
     <string name="dialog_leave">Forlat</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="category_natural">Naturlig</string>
@@ -666,7 +665,6 @@
     <string name="hour_symbol">t</string>
     <string name="minute_symbol">m</string>
     <string name="theme_sunset_sunrise">Soloppgang/solnedgang</string>
-    <string name="experimental_features">Tidevann, kart og siktkompass</string>
     <string name="camera_permission_denied">Kameratillatelse avslått, kan ikke slå på kamerafunksjoner. Du kan aktivere tillatelse i innstillinger.</string>
     <string name="pref_show_noon_summary">Solens og månens kulminasjon</string>
     <string name="dusk_type">Solnedgang (%s)</string>

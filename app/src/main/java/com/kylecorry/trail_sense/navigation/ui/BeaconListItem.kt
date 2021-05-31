@@ -94,7 +94,7 @@ class BeaconListItem(
         var beaconVisibility = beacon.visible
         val distance = navigationService.navigate(beacon.coordinate, myLocation, 0f).distance
         binding.beaconSummary.text = formatservice.formatLargeDistance(distance)
-        if (!(prefs.navigation.showMultipleBeacons || prefs.experimentalEnabled) || beacon.temporary) {
+        if (!(prefs.navigation.showMultipleBeacons || prefs.navigation.areMapsEnabled) || beacon.temporary) {
             binding.visibleBtn.visibility = View.GONE
         } else {
             binding.visibleBtn.visibility = View.VISIBLE

@@ -108,7 +108,7 @@
 \n- Meet de Trail Sense meetlat waarde die met één eenheid van een echte meetlat overeenstemt.
 \n- Geef de gemeten waarde hier in.</string>
     <string name="pref_ruler_calibration_title">Schaal meetlat</string>
-    <string name="pref_category_sensors_title">Sensoren</string>
+    <string name="sensors">Sensoren</string>
     <string name="pref_temperature_units_title">Temperatuur</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
@@ -118,7 +118,6 @@
     <string name="coordinate_format_degrees_minutes_seconds">Graden, minuten, seconden</string>
     <string name="coordinate_format_degrees_decimal_minutes">Graden en decimale minuten</string>
     <string name="coordinate_format_decimal_degrees">Decimale graden</string>
-    <string name="experimental_tools_title">Experimentele functies</string>
     <string name="pref_general_header">Algemeen</string>
     <string name="edit_item_title">Pas item aan</string>
     <string name="create_item_title">Maak item</string>

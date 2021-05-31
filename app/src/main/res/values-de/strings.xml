@@ -137,7 +137,7 @@
     <string name="units_inhg_short">in</string>
     <string name="inclinometer_title">Neigungsmesser</string>
     <string name="estimated_height">geschätzte Höhe</string>
-    <string name="pref_category_sensors_title">Sensoren</string>
+    <string name="sensors">Sensoren</string>
     <string name="pref_compass_sensor_title">Kompass</string>
     <string name="copied_to_clipboard_toast">In die Zwischenablage kopiert</string>
     <string name="accuracy_info_title">Tipps um die Sensorengenauigkeit zu verbessern</string>
@@ -186,7 +186,6 @@
     <string name="pref_temperature_units_title">Temperatur</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
-    <string name="experimental_tools_title">Experimentelle Funktionen</string>
     <string name="sun_dusk">Abenddämmerung</string>
     <string name="sun_dawn">Morgendämmerung</string>
     <string name="sun_down_no_set">Sonne geht unter</string>
@@ -475,7 +474,7 @@
     <string name="tool_triangulate_title">Standort mittels Triangulation bestimmen</string>
     <string name="tool_category_signaling">Signalisieren</string>
     <string name="tool_category_location">Position</string>
-    <string name="tool_category_power">Energie</string>
+    <string name="power">Energie</string>
     <string name="battery_health_over_voltage">Überspannung</string>
     <string name="battery_health_cold">Kalt</string>
     <string name="metal_detector_disclaimer">Erkennt nur magnetische Metalle (z.B. Eisen)</string>
@@ -620,7 +619,7 @@
     <string name="gps_unavailable">Nicht verfügbar</string>
     <string name="gps_searching">Suchend</string>
     <string name="gps_stale">Veraltet</string>
-    <string name="privacy">Datenschutz und Ortsbestimmung</string>
+    <string name="privacy_and_location">Datenschutz und Ortsbestimmung</string>
     <string name="gps_user">Benutzer</string>
     <string name="quality_poor">Schlecht</string>
     <string name="quality_moderate">Mittel</string>
@@ -724,7 +723,6 @@
     <string name="speedometer">Geschwindigkeitsanzeige</string>
     <string name="screen_flashlight">Bildschirm</string>
     <string name="tide_calibration">Gezeitenkalibrierung</string>
-    <string name="experimental_features">Gezeiten, Karten und Sichtkompass</string>
     <string name="date_not_set">Datum nicht festgelegt</string>
     <string name="time_not_set">Zeit nicht festgelegt</string>
     <string name="tide_calibration_instructions">Setzen Sie die Zeit während einer Flut, wenn möglich während einer Neu- oder Vollmonds. Das kann im Internet oder über gedruckte Gezeitentabellen herausgefunden werden. Die Gezeiten, die in Trail Sense gezeigt werden, können bis zu zwei Stunden von den realen Zeiten abweichen, was genug als Referenz ist, allerdings sollten Sie sich nicht alleine darauf verlassen.</string>

@@ -75,7 +75,6 @@
     <string name="speedometer_real_time">Наживо</string>
     <string name="screen_flashlight">Екран</string>
     <string name="tide_calibration">Калібрування припливів</string>
-    <string name="experimental_features">Припливи та відливи, мапи та ручний компас</string>
     <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
@@ -193,7 +192,7 @@
     <string name="onboarding_user_guide">Дізнайтеся, як використовувати функції Trail Sense, за допомогою посібника користувача. Доступно в нижній частині вкладки Засоби.
 \n
 \nСкоро з\'являться інші посібники.</string>
-    <string name="privacy">Приватність і місцеперебування</string>
+    <string name="privacy_and_location">Приватність і місцеперебування</string>
     <string name="onboarding_tools">- Доступні засоби, які допоможуть за будь-якого становища в дикій природі
 \n
 \n- Подання сигналу ліхтариком або свистком
@@ -473,7 +472,7 @@
     <string name="pref_use_true_north_title">Справжня Північ</string>
     <string name="pref_compass_sensor_title">Компас</string>
     <string name="pref_ruler_calibration_title">Шкала лінійки</string>
-    <string name="pref_category_sensors_title">Датники</string>
+    <string name="sensors">Датники</string>
     <string name="pref_temperature_units_title">Температура</string>
     <string name="celsius">За Цельсієм</string>
     <string name="fahrenheit">За фаренгейтом</string>
@@ -483,7 +482,6 @@
     <string name="coordinate_format_degrees_minutes_seconds">Градуси, мінути та секунди</string>
     <string name="coordinate_format_degrees_decimal_minutes">Десяткові градуси й мінути</string>
     <string name="coordinate_format_decimal_degrees">Тільки десяткові градуси</string>
-    <string name="experimental_tools_title">Експериментальні функції</string>
     <string name="theme_sunset_sunrise">Схід/захід сонця</string>
     <string name="theme_system">Системна</string>
     <string name="theme_black">Чорна</string>
@@ -661,7 +659,7 @@
     <string name="tool_category_location">Місцеперебування</string>
     <string name="tool_category_angles">Кути</string>
     <string name="tool_category_time">Час</string>
-    <string name="tool_category_power">Живлення</string>
+    <string name="power">Живлення</string>
     <string name="tool_category_distance">Відстань</string>
     <string name="battery_health_overheat">Перегрівання</string>
     <string name="battery_health_good">Хороше</string>

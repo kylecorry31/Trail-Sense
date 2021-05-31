@@ -15,7 +15,7 @@ class PackageReplacedReceiver : BroadcastReceiver() {
             PackageUtils.setComponentEnabled(
                 context,
                 "com.kylecorry.trail_sense.AliasMainActivity",
-                UserPreferences(context).experimentalEnabled
+                UserPreferences(context).navigation.areMapsEnabled
             )
             tryOrNothing {
                 PackageUtils.setComponentEnabled(

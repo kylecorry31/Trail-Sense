@@ -160,7 +160,7 @@
     <string name="tool_category_location">Localização</string>
     <string name="tool_category_angles">Ângulos</string>
     <string name="tool_category_time">Tempo</string>
-    <string name="tool_category_power">Energia</string>
+    <string name="power">Energia</string>
     <string name="tool_category_distance">Distância</string>
     <string name="battery_health">Estado: %s</string>
     <string name="battery_health_over_voltage">Sobre-tensão</string>
@@ -390,7 +390,7 @@
 \n- Meça o Trail Sense valor da régua correspondente a uma unidade de uma régua física.
 \n- Informe aqui o valor medido.</string>
     <string name="pref_ruler_calibration_title">Escala Régua</string>
-    <string name="pref_category_sensors_title">Sensores</string>
+    <string name="sensors">Sensores</string>
     <string name="pref_temperature_units_title">Temperatura</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
@@ -400,7 +400,6 @@
     <string name="coordinate_format_degrees_minutes_seconds">Graus Minutos Segundos</string>
     <string name="coordinate_format_degrees_decimal_minutes">Graus Minutos decimais</string>
     <string name="coordinate_format_decimal_degrees">Graus decimais</string>
-    <string name="experimental_tools_title">Recursos experimentais</string>
     <string name="pref_general_header">Geral</string>
     <string name="edit_item_title">Editar Item</string>
     <string name="create_item_title">Criar Item</string>
@@ -595,7 +594,7 @@
     <string name="onboarding_user_guide">Saiba como usar as funcionalidades de Trail Sense com o guia do utilizador. Disponível na parte inferior da guia de Ferramentas.
 \n
 \nMais guias estarão disponíveis em breve.</string>
-    <string name="privacy">Privacidade e localização</string>
+    <string name="privacy_and_location">Privacidade e localização</string>
     <string name="onboarding_tools">- Acesse as ferramentas para ajudar em qualquer situação silvestres
 \n
 \n- Sinalize usando a lanterna ou apito

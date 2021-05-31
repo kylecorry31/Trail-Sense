@@ -8,11 +8,13 @@
 
         <Preference
             app:icon="@drawable/ruler"
-            app:title="Units" />
+            app:key="@string/pref_unit_settings"
+            app:title="@string/units" />
         <Preference
             android:summary="Compass, GPS, altimeter, barometer, etc."
             app:icon="@drawable/satellite"
-            app:title="Sensors" />
+            app:key="@string/pref_sensor_settings"
+            app:title="@string/sensors" />
         <ListPreference
             app:defaultValue="system"
             app:entries="@array/theme_entries"
@@ -24,22 +26,16 @@
             app:useSimpleSummaryProvider="true" />
         <Preference
             app:icon="@drawable/ic_tool_battery"
-            app:title="Power" />
+            app:key="@string/pref_power_settings"
+            app:title="@string/power" />
         <Preference
             app:icon="@drawable/ic_visible"
-            app:title="Privacy" />
+            app:key="@string/pref_privacy_settings"
+            app:title="@string/privacy" />
         <Preference
-            app:icon="@drawable/ic_help"
-            app:title="Experimental" />
-
-        <!--        <SwitchPreferenceCompat-->
-        <!--            android:summary="@string/experimental_features"-->
-        <!--            app:defaultValue="false"-->
-        <!--            app:iconSpaceReserved="false"-->
-        <!--            app:key="@string/pref_enable_experimental"-->
-        <!--            app:singleLineTitle="false"-->
-        <!--            app:title="@string/experimental_tools_title" />-->
-
+            app:icon="@drawable/ic_experimental"
+            app:key="@string/pref_experimental_settings"
+            app:title="@string/experimental" />
     </PreferenceCategory>
 
     <PreferenceCategory

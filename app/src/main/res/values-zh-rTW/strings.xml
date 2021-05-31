@@ -35,7 +35,6 @@
     <string name="fahrenheit">華氏溫標</string>
     <string name="pref_coordinate_format_title">座標格式</string>
     <string name="coordinate_format_decimal_degrees">小數點位數</string>
-    <string name="experimental_tools_title">實驗性功能</string>
     <string name="theme_system">跟隨系統</string>
     <string name="theme_black">全黑</string>
     <string name="theme_dark">暗色</string>
@@ -345,7 +344,7 @@
     <string name="calibrate_compass_dialog_content">以8字旋轉您的手機數次， 完成時點擊 %s 。</string>
     <string name="pref_auto_declination_summary">根據您現在位置</string>
     <string name="compass_from_gps">設定自GPS覆寫</string>
-    <string name="pref_category_sensors_title">感測器</string>
+    <string name="sensors">感測器</string>
     <string name="pref_general_header">一般</string>
     <string name="moon_illumination">月球亮部</string>
     <string name="sun_down_no_set">太陽落下</string>

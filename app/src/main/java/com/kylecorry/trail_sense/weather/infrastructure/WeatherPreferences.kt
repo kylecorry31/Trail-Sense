@@ -33,16 +33,13 @@ class WeatherPreferences(private val context: Context) {
 
     val useExperimentalCalibration: Boolean
         get() {
-            val experimental = cache.getBoolean(context.getString(R.string.pref_enable_experimental)) ?: false
-            if (!experimental){
-                return false
-            }
-            return cache.getBoolean(context.getString(R.string.pref_experimental_barometer_calibration)) ?: false
+            return cache.getBoolean(context.getString(R.string.pref_experimental_barometer_calibration))
+                ?: false
         }
 
     val experimentalConverter: ISeaLevelPressureConverter?
         get() {
-            if (!useExperimentalCalibration){
+            if (!useExperimentalCalibration) {
                 return null
             }
             return KalmanSeaLevelPressureConverter(
@@ -59,17 +56,20 @@ class WeatherPreferences(private val context: Context) {
     val useAltitudeVariance: Boolean = true
 
     val altitudeOutlier: Float
-        get() = cache.getInt(context.getString(R.string.pref_barometer_altitude_outlier))?.toFloat() ?: 34f
+        get() = cache.getInt(context.getString(R.string.pref_barometer_altitude_outlier))?.toFloat()
+            ?: 34f
 
     val pressureSmoothing: Float
-        get(){
-            val raw = (cache.getInt(context.getString(R.string.pref_barometer_pressure_smoothing)) ?: 500) / 1000f
+        get() {
+            val raw = (cache.getInt(context.getString(R.string.pref_barometer_pressure_smoothing))
+                ?: 500) / 1000f
             return raw * 100
         }
 
     val altitudeSmoothing: Float
-        get(){
-            val raw = (cache.getInt(context.getString(R.string.pref_barometer_altitude_smoothing)) ?: 0) / 1000f
+        get() {
+            val raw = (cache.getInt(context.getString(R.string.pref_barometer_altitude_smoothing))
+                ?: 0) / 1000f
             return raw * 100
         }
 
@@ -80,7 +80,10 @@ class WeatherPreferences(private val context: Context) {
             return Duration.ofMinutes(raw.toLongOrNull() ?: 15)
         }
         set(value) {
-            cache.putString(context.getString(R.string.pref_weather_update_frequency), value.toMinutes().toString())
+            cache.putString(
+                context.getString(R.string.pref_weather_update_frequency),
+                value.toMinutes().toString()
+            )
         }
 
     val shouldShowDailyWeatherNotification: Boolean
@@ -283,8 +286,9 @@ class WeatherPreferences(private val context: Context) {
         get() = dailyForecastTime >= LocalTime.of(16, 0)
 
     var dailyForecastTime: LocalTime
-        get(){
-            val raw = (cache.getString(context.getString(R.string.pref_daily_weather_time)) ?: LocalTime.of(7, 0).toString())
+        get() {
+            val raw = (cache.getString(context.getString(R.string.pref_daily_weather_time))
+                ?: LocalTime.of(7, 0).toString())
             return LocalTime.parse(raw)
         }
         set(value) {
@@ -292,18 +296,22 @@ class WeatherPreferences(private val context: Context) {
         }
 
     val leftQuickAction: QuickActionType
-        get(){
-            val id = cache.getString(context.getString(R.string.pref_weather_quick_action_left))?.toIntCompat()
+        get() {
+            val id = cache.getString(context.getString(R.string.pref_weather_quick_action_left))
+                ?.toIntCompat()
             return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Clouds
         }
 
     val rightQuickAction: QuickActionType
-        get(){
-            val id = cache.getString(context.getString(R.string.pref_weather_quick_action_right))?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Temperature
+        get() {
+            val id = cache.getString(context.getString(R.string.pref_weather_quick_action_right))
+                ?.toIntCompat()
+            return QuickActionType.values().firstOrNull { it.id == id }
+                ?: QuickActionType.Temperature
         }
 
     val showColoredNotificationIcon: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon)) ?: true
+        get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon))
+            ?: true
 
 }

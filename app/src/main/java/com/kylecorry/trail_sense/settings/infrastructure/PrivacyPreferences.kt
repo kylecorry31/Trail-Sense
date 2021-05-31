@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.settings
+package com.kylecorry.trail_sense.settings.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R

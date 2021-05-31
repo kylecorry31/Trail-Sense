@@ -6,29 +6,21 @@ import android.text.format.DateFormat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
-import com.kylecorry.trail_sense.settings.CellSignalPreferences
-import com.kylecorry.trail_sense.settings.FlashlightPreferenceRepo
-import com.kylecorry.trail_sense.settings.MetalDetectorPreferences
-import com.kylecorry.trail_sense.settings.PrivacyPreferences
+import com.kylecorry.trail_sense.settings.infrastructure.*
 import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import java.time.Duration
-import java.time.Instant
-import java.time.ZoneId
-import java.time.ZonedDateTime
 
 class UserPreferences(private val context: Context) {
 
     private val cache by lazy { Cache(context) }
-    private val sensorChecker by lazy { SensorChecker(context) }
 
     val navigation by lazy { NavigationPreferences(context) }
     val weather by lazy { WeatherPreferences(context) }
@@ -37,6 +29,7 @@ class UserPreferences(private val context: Context) {
     val cellSignal by lazy { CellSignalPreferences(context) }
     val metalDetector by lazy { MetalDetectorPreferences(context) }
     val privacy by lazy { PrivacyPreferences(context) }
+    val tides by lazy { TidePreferences(context) }
 
     val distanceUnits: DistanceUnits
         get() {
@@ -93,9 +86,6 @@ class UserPreferences(private val context: Context) {
                 else -> Theme.System
             }
         }
-
-    val experimentalEnabled: Boolean
-        get() = cache.getBoolean(getString(R.string.pref_enable_experimental)) ?: false
 
     // Calibration
 

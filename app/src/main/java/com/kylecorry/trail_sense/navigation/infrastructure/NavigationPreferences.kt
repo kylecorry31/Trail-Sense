@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.QuickActionType
+import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.geo.PathStyle
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
@@ -170,6 +171,9 @@ class NavigationPreferences(private val context: Context) {
                 else -> SpeedometerMode.Instantaneous
             }
         }
+
+    val areMapsEnabled by BooleanPreference(cache, context.getString(R.string.pref_experimental_maps), false)
+    var isSightingCompassEnabled by BooleanPreference(cache, context.getString(R.string.pref_experimental_sighting_compass), false)
 
     enum class SpeedometerMode {
         Average,

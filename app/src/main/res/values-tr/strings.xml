@@ -59,7 +59,6 @@
     <string name="speedometer_real_time">Eş zamanlı</string>
     <string name="screen_flashlight">Ekran</string>
     <string name="tide_calibration">Gelgit kalibrasyonu</string>
-    <string name="experimental_features">Gelgitler, haritalar, ve pusula</string>
     <string name="pref_daily_weather_time_title">Günlük hava durumu vakti</string>
     <string name="date_not_set">Tarih belirlenmedi</string>
     <string name="time_not_set">Zaman belirlenmedi</string>
@@ -260,7 +259,7 @@
     <string name="tool_category_location">Konum</string>
     <string name="tool_category_angles">Açılar</string>
     <string name="tool_category_time">Zaman</string>
-    <string name="tool_category_power">Güç</string>
+    <string name="power">Güç</string>
     <string name="tool_category_distance">Mesafe</string>
     <string name="battery_health">Sağlık: %s</string>
     <string name="battery_health_over_voltage">Aşırı gerilim</string>
@@ -529,7 +528,7 @@
 \n-Fiziksel cetvelin bir birimine denk düşen Trail Sense cetvel değerini ölçün.
 \n-Ölçülen değeri buraya yazın.</string>
     <string name="pref_ruler_calibration_title">Cetvel ölçeği</string>
-    <string name="pref_category_sensors_title">Sensörler</string>
+    <string name="sensors">Sensörler</string>
     <string name="pref_temperature_units_title">Isı derecesi</string>
     <string name="celsius">Santigrat</string>
     <string name="fahrenheit">Fahrenhayt</string>
@@ -539,7 +538,6 @@
     <string name="coordinate_format_degrees_minutes_seconds">Derece, Dakika ve Saniye</string>
     <string name="coordinate_format_degrees_decimal_minutes">Derece, Ondalık Dakika</string>
     <string name="coordinate_format_decimal_degrees">Ondalık Dereceler</string>
-    <string name="experimental_tools_title">Deneysel özellikler</string>
     <string name="theme_sunset_sunrise">Gün doğumu/gün batımı</string>
     <string name="theme_system">Sistemdeki ayarlı tema</string>
     <string name="theme_black">Siyah</string>
@@ -762,7 +760,7 @@
     <string name="network_4g">4G</string>
     <string name="network_5g">5G</string>
     <string name="time_ago">%s önce</string>
-    <string name="privacy">Gizlilik ve Konum</string>
+    <string name="privacy_and_location">Gizlilik ve Konum</string>
     <string name="pref_require_satellites_description">En az 4 uydu gerektirir, doğruluğu arttırır</string>
     <string name="pref_require_satellites_title">Uydu düzeltmesi gerektir</string>
     <string name="pref_require_satellites">pref_require_satellites</string>
