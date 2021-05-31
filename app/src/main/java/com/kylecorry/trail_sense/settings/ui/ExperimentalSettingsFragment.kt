@@ -18,9 +18,10 @@ class ExperimentalSettingsFragment : CustomPreferenceFragment() {
         setPreferencesFromResource(R.xml.experimental_preferences, rootKey)
 
         val sensorChecker = SensorChecker(requireContext())
-        preference(R.string.pref_experimental_metal_direction)?.isVisible = sensorChecker.hasGyroscope()
+        preference(R.string.pref_experimental_metal_direction)?.isVisible =
+            sensorChecker.hasGyroscope()
 
-        onClick(switch(R.string.pref_experimental_maps)){
+        onClick(switch(R.string.pref_experimental_maps)) {
             PackageUtils.setComponentEnabled(
                 requireContext(),
                 "com.kylecorry.trail_sense.AliasMainActivity",
@@ -29,7 +30,10 @@ class ExperimentalSettingsFragment : CustomPreferenceFragment() {
         }
 
         onClick(switch(R.string.pref_experimental_sighting_compass)) {
-            if (prefs.navigation.isSightingCompassEnabled) {
+            if (prefs.navigation.isSightingCompassEnabled && !PermissionUtils.isCameraEnabled(
+                    requireContext()
+                )
+            ) {
                 // TODO: Extract this to PermissionUtils for fragments
                 // TODO: If previously denied, allow the user to open the settings
                 requestPermissions(
