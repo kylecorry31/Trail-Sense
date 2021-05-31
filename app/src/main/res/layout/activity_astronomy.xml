@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/astronomy_left_quick_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
         android:focusable="true"
         android:tint="?android:textColorSecondary"
@@ -73,25 +74,50 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/remaining_time_lbl"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/remaining_time_lbl">
+
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Today"/>
+            tools:text="Today" />
+
         <ImageButton
             android:id="@+id/date_picker"
-            android:layout_marginStart="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:background="@android:color/transparent"
-            android:tint="?android:textColorSecondary"
-            app:srcCompat="@drawable/ic_date" />
+            app:srcCompat="@drawable/ic_date"
+            app:tint="?android:textColorSecondary" />
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/prev_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
+        android:rotation="180"
+        app:layout_constraintBottom_toTopOf="@+id/sunMoonChart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_keyboard_arrow_right"
+        app:tint="?android:textColorSecondary" />
+
+    <ImageButton
+        android:id="@+id/next_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/sunMoonChart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_keyboard_arrow_right"
+        app:tint="?android:textColorSecondary" />
 
     <ImageView
         android:id="@+id/moon_position"
@@ -115,7 +141,7 @@
         app:layout_constraintStart_toStartOf="@+id/sunMoonChart"
         app:layout_constraintTop_toTopOf="@+id/sunMoonChart"
         app:srcCompat="@drawable/ic_sun"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
 
     <androidx.recyclerview.widget.RecyclerView
