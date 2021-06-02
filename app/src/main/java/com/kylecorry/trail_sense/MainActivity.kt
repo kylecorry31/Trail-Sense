@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
+import com.kylecorry.trail_sense.tiles.TileManager
 import com.kylecorry.trail_sense.tiles.WeatherMonitorTile
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogService
@@ -95,7 +96,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         NotificationChannels.createChannels(applicationContext)
-        PreferenceMigrator.getInstance().migrate(this)
 
         userPrefs = UserPreferences(this)
         val mode = when (userPrefs.theme) {
@@ -158,14 +158,6 @@ class MainActivity : AppCompatActivity() {
         if (!sensorChecker.hasBarometer()) {
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)
             item.isVisible = false
-        }
-
-        tryOrNothing {
-            PackageUtils.setComponentEnabled(
-                this,
-                "com.kylecorry.trail_sense.tiles.WeatherMonitorTile",
-                sensorChecker.hasBarometer()
-            )
         }
 
         handleIntentAction(intent)

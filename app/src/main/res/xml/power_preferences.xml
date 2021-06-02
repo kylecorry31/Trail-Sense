@@ -17,5 +17,15 @@
 
         <!--TODO: Allow user to decide what low power mode controls-->
 
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_tiles_enabled"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_tiles_enabled_summary"
+            app:title="@string/pref_tiles_enabled_title" />
+
+
     </PreferenceCategory>
 </PreferenceScreen>

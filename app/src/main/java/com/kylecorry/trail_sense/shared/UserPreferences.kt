@@ -30,6 +30,7 @@ class UserPreferences(private val context: Context) {
     val metalDetector by lazy { MetalDetectorPreferences(context) }
     val privacy by lazy { PrivacyPreferences(context) }
     val tides by lazy { TidePreferences(context) }
+    val power by lazy { PowerPreferences(context) }
 
     val distanceUnits: DistanceUnits
         get() {

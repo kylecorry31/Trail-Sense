@@ -5,6 +5,7 @@ import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tiles.TileManager
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
@@ -22,6 +23,7 @@ object TrailSenseServiceUtils {
         startBacktrack(context)
         startPedometer(context)
         BatteryLogWorker.scheduler(context).schedule(Duration.ZERO)
+        TileManager().setTilesEnabled(context, UserPreferences(context).power.areTilesEnabled)
     }
 
     private fun startPedometer(context: Context){

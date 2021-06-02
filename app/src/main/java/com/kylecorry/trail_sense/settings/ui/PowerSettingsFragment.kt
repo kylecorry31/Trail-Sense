@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tiles.TileManager
 
 class PowerSettingsFragment : CustomPreferenceFragment() {
 
@@ -20,6 +21,10 @@ class PowerSettingsFragment : CustomPreferenceFragment() {
             } else {
                 LowPowerMode(requireContext()).disable(requireActivity())
             }
+        }
+
+        onClick(switch(R.string.pref_tiles_enabled)){
+            TileManager().setTilesEnabled(requireContext(), prefs.power.areTilesEnabled)
         }
 
     }

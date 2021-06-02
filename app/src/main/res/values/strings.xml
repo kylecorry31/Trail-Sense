@@ -1063,4 +1063,7 @@
     <string name="pref_sensor_settings" translatable="false">pref_sensor_settings</string>
     <string name="location_mocked">Using mocked location</string>
     <string name="location_not_mocked">Using actual location</string>
+    <string name="pref_tiles_enabled">pref_tiles_enabled</string>
+    <string name="pref_tiles_enabled_title">System tiles</string>
+    <string name="pref_tiles_enabled_summary">May prevent battery saver apps from completely stopping Trail Sense</string>
 </resources>

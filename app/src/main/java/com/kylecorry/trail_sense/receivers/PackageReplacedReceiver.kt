@@ -17,13 +17,6 @@ class PackageReplacedReceiver : BroadcastReceiver() {
                 "com.kylecorry.trail_sense.AliasMainActivity",
                 UserPreferences(context).navigation.areMapsEnabled
             )
-            tryOrNothing {
-                PackageUtils.setComponentEnabled(
-                    context,
-                    "com.kylecorry.trail_sense.tiles.WeatherMonitorTile",
-                    SensorChecker(context).hasBarometer()
-                )
-            }
         }
     }
 }
