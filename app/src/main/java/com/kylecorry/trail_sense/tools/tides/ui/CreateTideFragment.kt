@@ -115,7 +115,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
                     }
 
                     withContext(Dispatchers.Main){
-                        findNavController().navigate(R.id.action_createTide_to_tideList)
+                        findNavController().popBackStack()
                     }
                 }
             }

@@ -112,7 +112,7 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
 
     private fun selectTide(tide: TideEntity){
         prefs.lastTide = tide.id
-        findNavController().navigate(R.id.action_tideList_to_tide)
+        findNavController().popBackStack()
     }
 
     private fun getTideTitle(tide: TideEntity): String {
