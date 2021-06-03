@@ -1,13 +1,10 @@
 package com.kylecorry.trail_sense
 
 import android.Manifest
-import android.content.ComponentName
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -18,21 +15,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
-import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
-import com.kylecorry.trail_sense.tiles.TileManager
-import com.kylecorry.trail_sense.tiles.WeatherMonitorTile
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
-import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogService
-import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -200,11 +189,21 @@ class MainActivity : AppCompatActivity() {
             "page",
             R.id.action_navigation
         )
+        if (savedInstanceState.containsKey("navigation")){
+            tryOrNothing {
+                navController.navigate(savedInstanceState.getInt("navigation"))
+            }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("page", bottomNavigation.selectedItemId)
+        val navState = navController.saveState()
+        outState.putAll(navState)
+        navController.currentDestination?.id?.let {
+            outState.putInt("navigation", it)
+        }
     }
 
     override fun onRequestPermissionsResult(
