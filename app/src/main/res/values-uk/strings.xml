@@ -907,4 +907,15 @@
     </plurals>
     <string name="pref_backtrack_history_days_title">Історія зворотного маршруту</string>
     <string name="pref_backtrack_history_days">pref_backtrack_history_days</string>
+    <string name="pref_tiles_enabled_summary">Може перешкоджати застосункам зарядоощадження повністю зупиняти Trail Sense</string>
+    <string name="pref_tiles_enabled_title">Системні плитки</string>
+    <string name="pref_tiles_enabled">pref_tiles_enabled</string>
+    <string name="location_not_mocked">Використання фактичного місцеперебування</string>
+    <string name="location_mocked">Використання імітації місцеперебування</string>
+    <string name="sighting_compass">Прицільний компас</string>
+    <string name="uses_camera">Використовує камеру</string>
+    <string name="pref_experimental_metal_direction_title">Показати напрямок металу</string>
+    <string name="privacy">Приватність</string>
+    <string name="units">Одиниці</string>
+    <string name="pref_privacy_screenshot_protection_title">Запобігати зняткам екрана</string>
 </resources>

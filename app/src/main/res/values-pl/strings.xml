@@ -871,4 +871,8 @@
         <item quantity="other">%d dni</item>
     </plurals>
     <string name="sensor_gyroscope">Żyroskop</string>
+    <string name="pref_tiles_enabled_title">Kafelki systemowe</string>
+    <string name="uses_camera">Wykorzystuje kamery</string>
+    <string name="privacy">Prywatność</string>
+    <string name="units">Jednostki</string>
 </resources>
