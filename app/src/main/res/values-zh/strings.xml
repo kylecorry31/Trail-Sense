@@ -879,4 +879,15 @@
     </plurals>
     <string name="pref_backtrack_history_days_title">Backtrack 历史</string>
     <string name="pref_backtrack_history_days">pref_backtrack_history_days</string>
+    <string name="units">单元</string>
+    <string name="pref_tiles_enabled_summary">可能阻止电池保护程序完全停止 Trail Sense</string>
+    <string name="pref_tiles_enabled_title">系统瓷贴</string>
+    <string name="pref_tiles_enabled">pref_tiles_enabled</string>
+    <string name="location_not_mocked">使用实际位置</string>
+    <string name="location_mocked">使用模拟位置</string>
+    <string name="sighting_compass">视线指南针</string>
+    <string name="uses_camera">使用相机</string>
+    <string name="pref_experimental_metal_direction_title">显示金属方向</string>
+    <string name="privacy">隐私</string>
+    <string name="pref_privacy_screenshot_protection_title">防止截屏</string>
 </resources>
