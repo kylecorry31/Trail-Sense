@@ -1066,4 +1066,5 @@
     <string name="pref_tiles_enabled">pref_tiles_enabled</string>
     <string name="pref_tiles_enabled_title">System tiles</string>
     <string name="pref_tiles_enabled_summary">May prevent battery saver apps from completely stopping Trail Sense</string>
+    <string name="surface_pressure">Surface: %s</string>
 </resources>

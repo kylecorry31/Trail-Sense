@@ -87,6 +87,9 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
     }
 
     private fun update() {
+        if (!isBound){
+            return
+        }
         val c1 = binding.triangulate1.coordinate ?: return
         val c2 = binding.triangulate2.coordinate ?: return
         val d1 = direction1 ?: return
@@ -97,14 +100,15 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         val bearing1 = d1.withDeclination(declination)
         val bearing2 = d2.withDeclination(declination)
 
-        location = navigationService.triangulate(c1, bearing1, c2, bearing2)
+        val location = navigationService.triangulate(c1, bearing1, c2, bearing2)
+        this.location = location
 
-        if (location == null || location!!.latitude.isNaN() || location!!.longitude.isNaN()) {
+        if (location == null || location.latitude.isNaN() || location.longitude.isNaN()) {
             binding.location.text = getString(R.string.could_not_triangulate)
             binding.copyLocation.visibility = View.INVISIBLE
             binding.gpsOverrideBtn.visibility = View.INVISIBLE
         } else {
-            binding.location.text = formatService.formatLocation(location!!)
+            binding.location.text = formatService.formatLocation(location)
             binding.copyLocation.visibility = View.VISIBLE
             if (!prefs.useAutoLocation) {
                 binding.gpsOverrideBtn.visibility = View.VISIBLE
