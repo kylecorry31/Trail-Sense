@@ -9,6 +9,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -76,8 +77,8 @@ class MapsFragment: BoundFragment<FragmentMapsBinding>() {
                                             mapRepo.deleteMap(it)
                                         }
                                     }
-                                    withContext(Dispatchers.IO) {
-                                        requireActivity().onBackPressed()
+                                    withContext(Dispatchers.Main) {
+                                        findNavController().popBackStack()
                                     }
                                 }
                             }

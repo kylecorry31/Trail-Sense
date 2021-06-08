@@ -32,29 +32,14 @@ fun Bitmap.getFitSize(maxWidth: Int, maxHeight: Int): Pair<Float, Float> {
 }
 
 // https://stackoverflow.com/questions/13161628/cropping-a-perspective-transformation-of-image-on-android
-fun Bitmap.fixPerspective(bounds: PixelBounds, keepAspectRatio: Boolean = true): Bitmap {
+fun Bitmap.fixPerspective(bounds: PixelBounds): Bitmap {
+    val top = bounds.topLeft.distanceTo(bounds.topRight)
+    val bottom = bounds.bottomLeft.distanceTo(bounds.bottomRight)
+    val newWidth = (top + bottom) / 2f
 
-    var newWidth = if (keepAspectRatio) {
-        width.toFloat()
-    } else {
-        val top = bounds.topLeft.distanceTo(bounds.topRight)
-        val bottom = bounds.bottomLeft.distanceTo(bounds.bottomRight)
-        (top + bottom) / 2f
-    }
-
-    var newHeight = if (keepAspectRatio) {
-        height.toFloat()
-    } else {
-        val left = bounds.topLeft.distanceTo(bounds.bottomLeft)
-        val right = bounds.topRight.distanceTo(bounds.bottomRight)
-        (left + right) / 2f
-    }
-
-    if (!keepAspectRatio) {
-        val fitSize = getLargestFitSize(newWidth.toInt(), newHeight.toInt(), width, height)
-        newWidth = fitSize.first
-        newHeight = fitSize.second
-    }
+    val left = bounds.topLeft.distanceTo(bounds.bottomLeft)
+    val right = bounds.topRight.distanceTo(bounds.bottomRight)
+    val newHeight = (left + right) / 2f
 
     val matrix = Matrix()
     matrix.setPolyToPoly(
@@ -74,16 +59,17 @@ fun Bitmap.fixPerspective(bounds: PixelBounds, keepAspectRatio: Boolean = true):
         0,
         4
     )
+
     val mappedTL = floatArrayOf(0f, 0f)
     matrix.mapPoints(mappedTL)
     val maptlx = mappedTL[0].roundToInt()
     val maptly = mappedTL[1].roundToInt()
 
-    val mappedTR = floatArrayOf(newWidth, 0f)
+    val mappedTR = floatArrayOf(width.toFloat(), 0f)
     matrix.mapPoints(mappedTR)
     val maptry = mappedTR[1].roundToInt()
 
-    val mappedLL = floatArrayOf(0f, newHeight)
+    val mappedLL = floatArrayOf(0f, height.toFloat())
     matrix.mapPoints(mappedLL)
     val mapllx = mappedLL[0].roundToInt()
 
