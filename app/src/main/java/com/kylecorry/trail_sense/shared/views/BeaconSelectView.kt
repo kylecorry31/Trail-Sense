@@ -93,6 +93,7 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
             ColorStateList.valueOf(UiUtils.color(context, R.color.colorPrimary))
         if (beacon is Beacon) {
             itemBinding.icon.setImageResource(R.drawable.ic_location)
+            itemBinding.icon.imageTintList = ColorStateList.valueOf(beacon.color)
             itemBinding.title.text = beacon.name
             val distance =
                 Distance.meters(location.distanceTo(beacon.coordinate)).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
