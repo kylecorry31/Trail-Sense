@@ -875,4 +875,8 @@
     <string name="uses_camera">Wykorzystuje kamery</string>
     <string name="privacy">Prywatność</string>
     <string name="units">Jednostki</string>
+    <string name="beacon_moved_to">Przeniesiono do %s</string>
+    <string name="move">Przenieś</string>
+    <string name="pref_privacy_screenshot_protection_title">Zapobiegaj zrzutom ekranu</string>
+    <string name="map_perspective_instructions">Obramowanie mapy</string>
 </resources>
