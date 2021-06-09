@@ -12,4 +12,10 @@ class FlashlightPreferenceRepo(context: Context) : PreferenceRepo(context) {
         true
     )
 
+    var toggleWithVolumeButtons by BooleanPreference(
+        cache,
+        getString(R.string.pref_flashlight_toggle_with_volume),
+        false
+    )
+
 }

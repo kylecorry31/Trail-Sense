@@ -3,6 +3,11 @@ package com.kylecorry.trail_sense.shared
 import android.content.Context
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationMenu
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kylecorry.trail_sense.MainActivity
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -102,4 +107,12 @@ fun Distance.times(value: Float): Distance {
 @ColorInt
 fun gray(value: Int): Int {
     return Color.rgb(value, value, value)
+}
+
+fun Fragment.requireMainActivity(): MainActivity {
+    return requireActivity() as MainActivity
+}
+
+fun Fragment.requireBottomNavigation(): BottomNavigationView {
+    return requireActivity().findViewById(R.id.bottom_navigation)
 }

@@ -3,6 +3,10 @@ package com.kylecorry.trail_sense.tools.depth.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolDepthBinding
 import com.kylecorry.trail_sense.shared.*
@@ -10,8 +14,11 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.depth.DepthService
 import com.kylecorry.trailsensecore.domain.units.*
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import java.time.Duration
+import java.time.Instant
 import kotlin.math.max
 
 class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
@@ -26,10 +33,17 @@ class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
 
     private var lastDepth: Float = 0f
     private var maxDepth: Float = 0f
+    private var underwaterOverride = false
 
     private var seaLevelPressure: Float = 0f
 
+    private var lastBackPress = Instant.MIN
+
     private lateinit var units: DistanceUnits
+
+    private var backListener: OnBackPressedCallback? = null
+
+    private var backConfirmDuration = Duration.ofSeconds(3)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +67,32 @@ class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
         units = userPrefs.baseDistanceUnits
         seaLevelPressure = 0f
         barometer.start(this::update)
+
+        underwaterOverride = false
+
+        binding.underwaterModeBtn.setOnClickListener {
+            underwaterOverride = true
+        }
+
+        backListener?.remove()
+        backListener = onBackPress {
+            val isUnderwater = lastDepth != 0f || underwaterOverride
+            val now = Instant.now()
+            if (isUnderwater && Duration.between(lastBackPress, now).abs() >= backConfirmDuration) {
+                UiUtils.shortToast(requireContext(), getString(R.string.back_press_confirm))
+            } else if (isUnderwater) {
+                return@onBackPress true
+            }
+            lastBackPress = now
+            !isUnderwater
+        }
     }
 
     override fun onPause() {
         super.onPause()
         barometer.stop(this::update)
+        requireBottomNavigation().isVisible = true
+        backListener?.remove()
     }
 
     fun update(): Boolean {
@@ -80,7 +115,12 @@ class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
             binding.saltwaterSwitch.isChecked
         ).distance.roundPlaces(1)
 
-        binding.saltwaterSwitch.isEnabled = depth == 0f
+        val isUnderwater = depth != 0f || underwaterOverride
+
+        binding.saltwaterSwitch.isEnabled = !isUnderwater
+        requireBottomNavigation().isVisible = !isUnderwater
+        binding.underwaterMode.isInvisible = !isUnderwater
+        binding.underwaterModeBtn.isInvisible = isUnderwater
 
         if (lastDepth == 0f && depth > 0) {
             maxDepth = depth
@@ -99,6 +139,19 @@ class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
         binding.maxDepth.text = getString(R.string.max_depth, formattedMax)
 
         return true
+    }
+
+    private fun onBackPress(listener: () -> Boolean): OnBackPressedCallback {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (listener()) {
+                    remove()
+                    findNavController().popBackStack()
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        return callback
     }
 
     private fun isSeaLevelSet(): Boolean {

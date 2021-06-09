@@ -1067,4 +1067,10 @@
     <string name="pref_tiles_enabled_title">System tiles</string>
     <string name="pref_tiles_enabled_summary">May prevent battery saver apps from completely stopping Trail Sense</string>
     <string name="surface_pressure">Surface: %s</string>
+    <string name="leave_underwater_mode">Underwater: press back to exit</string>
+    <string name="underwater_mode">Underwater mode</string>
+    <string name="back_press_confirm">Press back again to leave</string>
+    <string name="pref_flashlight_toggle_with_volume">pref_flashlight_toggle_with_volume</string>
+    <string name="pref_flashlight_toggle_with_volume_summary">While Trail Sense is open</string>
+    <string name="pref_flashlight_toggle_with_volume_title">Toggle with volume buttons</string>
 </resources>

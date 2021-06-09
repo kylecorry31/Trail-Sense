@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,10 @@ import com.kylecorry.trail_sense.shared.DisclaimerMessage
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
+import com.kylecorry.trail_sense.volumeactions.FlashlightToggleVolumeAction
+import com.kylecorry.trail_sense.volumeactions.VolumeAction
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
@@ -272,5 +277,65 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.MODE_NIGHT_YES
         }
     }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
+            return onVolumePressed(isVolumeUp = false, isButtonPressed = true)
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP){
+            return onVolumePressed(isVolumeUp = true, isButtonPressed = true)
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
+            return onVolumePressed(isVolumeUp = false, isButtonPressed = false)
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP){
+            return onVolumePressed(isVolumeUp = true, isButtonPressed = false)
+        }
+        return super.onKeyUp(keyCode, event)
+    }
+
+    private fun onVolumePressed(isVolumeUp: Boolean, isButtonPressed: Boolean): Boolean {
+        if (!shouldOverrideVolumePress()){
+            return false
+        }
+
+        val action = (if (isVolumeUp) getVolumeUpAction() else getVolumeDownAction()) ?: return false
+
+        if (isButtonPressed){
+            action.onButtonDown()
+        } else {
+            action.onButtonUp()
+        }
+
+        return true
+    }
+
+    private fun shouldOverrideVolumePress(): Boolean {
+        val excluded = listOf(R.id.toolWhistleFragment, R.id.fragmentToolWhiteNoise)
+        if (excluded.contains(navController.currentDestination?.id)){
+            return false
+        }
+        return true
+    }
+
+
+    private fun getVolumeDownAction(): VolumeAction? {
+        if (userPrefs.flashlight.toggleWithVolumeButtons){
+            return FlashlightToggleVolumeAction(this)
+        }
+
+        return null
+    }
+
+    private fun getVolumeUpAction(): VolumeAction? {
+        if (userPrefs.flashlight.toggleWithVolumeButtons){
+            return FlashlightToggleVolumeAction(this)
+        }
+
+        return null
+    }
+
 
 }
