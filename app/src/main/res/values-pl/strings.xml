@@ -879,4 +879,6 @@
     <string name="move">Przenieś</string>
     <string name="pref_privacy_screenshot_protection_title">Zapobiegaj zrzutom ekranu</string>
     <string name="map_perspective_instructions">Obramowanie mapy</string>
+    <string name="pref_tiles_enabled">pref_tiles_enabled</string>
+    <string name="surface_pressure">Nawierzchnia: %s</string>
 </resources>

@@ -317,7 +317,7 @@
     <string name="waning_crescent">Vähenevä kuunsirppi</string>
     <string name="waning_gibbous">Vähenevä puolikuu</string>
     <string name="new_moon">Uusikuu</string>
-    <string name="until_sun_time">%s päästä</string>
+    <string name="until_sun_time">%sun</string>
     <string name="moon_set">Kuu laskee</string>
     <string name="moon_rise">Kuu nousee</string>
     <string name="sunset_label">Auringonlasku</string>
@@ -325,7 +325,7 @@
     <string name="yesterday">Eilen</string>
     <string name="tomorrow">Huomenna</string>
     <string name="today">Tänään</string>
-    <string name="until_sunset_label">auringonlaskuun</string>
+    <string name="until_sunset_label">Auringonlaskuun</string>
     <string name="sun_down_no_set">Aurinko on laskeneut</string>
     <string name="sun_up_no_set">Aurinko on noussut</string>
     <string name="sun_does_not_rise">ei nouse</string>
