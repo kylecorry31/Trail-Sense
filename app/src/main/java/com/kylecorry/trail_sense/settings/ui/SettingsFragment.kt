@@ -42,6 +42,7 @@ class SettingsFragment : CustomPreferenceFragment() {
 
         val sensorChecker = SensorChecker(requireContext())
 
+        preference(R.string.pref_maps_header_key)?.isVisible = prefs.navigation.areMapsEnabled
         preference(R.string.pref_weather_category)?.isVisible = sensorChecker.hasBarometer()
 
         preference(R.string.pref_flashlight_settings)?.isVisible =

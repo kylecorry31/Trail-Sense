@@ -16,6 +16,8 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.Wayp
 import com.kylecorry.trailsensecore.infrastructure.services.CoroutineForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.time.ZonedDateTime
 
 class BacktrackService : CoroutineForegroundService() {
@@ -73,6 +75,9 @@ class BacktrackService : CoroutineForegroundService() {
         Log.i(TAG, "Started at ${ZonedDateTime.now()}")
         scheduleNextUpdate()
         backtrack.recordLocation()
+        withContext(Dispatchers.Main) {
+            stopService(true)
+        }
     }
 
 
