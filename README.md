@@ -88,6 +88,14 @@ If an issue has a milestone and you would like to work on it, please leave a com
 
 # FAQ
 
+- **Trail Sense sends too many notifications**
+  - All notifications from Trail Sense can be disabled/re-enabled under their respective settings
+  - Android requires background processes which access your location to send a notification (ex. Backtrack, weather monitor, and sunset alert). On most supported Android versions, you can disable the "Updates" notification channel to hide these notifications. (https://www.howtogeek.com/715614/what-are-android-notification-channels/)
+  - The processes which you may see notifications from frequently are Weather, Sunset Alert, Backtrack, and Pedometer. All of these processes can be disabled in Trail Sense settings.
+  - Weather: Under "Weather" settings in Trail Sense, turn off "Monitor weather" or disable "Show weather notification" and hide the "Updates" notification channel (Android's settings)
+  - Backtrack: Under "Navigation" settings in Trail Sense, turn off "Backtrack" or hide the "Updates" notification channel (Android's settings)
+  - Pedometer: Under "Odometer" settings in Trail Sense, change the source to "GPS"
+  - Sunset Alert: Under "Astronomy" settings in Trail Sense, disable Sunset Alerts
 - **Will there be an iOS version?**
   - No - unfortunately I don't have a Mac or iPhone, and wouldn't be able to develop and test an iOS version (at least, there won't be an iOS version from me)
 - **Can I request a new feature?**
@@ -110,14 +118,6 @@ If an issue has a milestone and you would like to work on it, please leave a com
   - You can attempt to diagnose GPS/location issues by opening Trail Sense Settings > Sensor Details and viewing the GPS and GPS Cache settings
 - **How can I report a bug?**
   - Either create a new issue here or email me at trailsense@protonmail.com
-- **Trail Sense sends too many notifications**
-  - All notifications from Trail Sense can be disabled/re-enabled under their respective settings
-  - Android requires background processes which access your location to send a notification (ex. Backtrack, weather monitor, and sunset alert). On most supported Android versions, you can disable the "Updates" notification channel to hide these notifications.
-  - The processes which you may see notifications from frequently are Weather, Sunset Alert, Backtrack, and Pedometer
-  - Weather: Under "Weather" settings in Trail Sense, turn off "Monitor weather" or disable "Show weather notification" and hide the "Updates" notification channel (Android's settings)
-  - Backtrack: Under "Navigation" settings in Trail Sense, turn off "Backtrack" or hide the "Updates" notification channel (Android's settings)
-  - Pedometer: Under "Odometer" settings in Trail Sense, change the source to "GPS"
-  - Sunset Alert: Under "Astronomy" settings in Trail Sense, disable Sunset Alerts
 - **The tide times are inaccurate**
   - The tide tool is experimental and is designed to mimic an analog tide clock. Tide clocks suffer the same inaccuracies as Trail Sense, so you can expect tide times to be off by up to 2 hours depending on the length of the lunar day. To ensure the best accuracy, calibrate the tide clock using a high tide on a day of a full or new moon, and do not correct the tide clock throughout the lunar month to remove inaccuracies - this will make it more inaccurate over time.
   - Currently Trail Sense can only predict tides in areas which experience twice daily high tides (semidiurnal), such as the Atlantic ocean.
