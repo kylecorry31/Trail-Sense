@@ -895,4 +895,6 @@
     <string name="back_press_confirm">再次按下返回离开</string>
     <string name="underwater_mode">水下模式</string>
     <string name="leave_underwater_mode">水下模式：按返回键退出</string>
+    <string name="pref_low_resolution_maps_title">使用低分辨率</string>
+    <string name="pref_low_resolution_maps_summary">对于内存有限的设备</string>
 </resources>
