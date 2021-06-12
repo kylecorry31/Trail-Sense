@@ -890,4 +890,5 @@
     <string name="pref_experimental_metal_direction_title">显示金属方向</string>
     <string name="privacy">隐私</string>
     <string name="pref_privacy_screenshot_protection_title">防止截屏</string>
+    <string name="surface_pressure">表面压力: %s</string>
 </resources>

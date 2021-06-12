@@ -889,4 +889,16 @@
     </plurals>
     <string name="pref_backtrack_history_days_title">Rückweg-Verlauf</string>
     <string name="pref_backtrack_history_days">pref_backtrack_history_days</string>
+    <string name="pref_tiles_enabled_summary">Könnte Batteriesparapps davon abhalten, Trail Sense vollständig zu stoppen</string>
+    <string name="pref_tiles_enabled_title">Schnelleinstellungskacheln</string>
+    <string name="pref_tiles_enabled">pref_tiles_enabled</string>
+    <string name="location_not_mocked">Nutze echten Standort</string>
+    <string name="location_mocked">Nutze nachgemachten Standort</string>
+    <string name="sighting_compass">Sichtkompass</string>
+    <string name="uses_camera">Nutzt die Kamera</string>
+    <string name="pref_experimental_metal_direction_title">Metallrichtung anzeigen</string>
+    <string name="privacy">Privatsphäre</string>
+    <string name="units">Einheiten</string>
+    <string name="pref_privacy_screenshot_protection_title">Screenshots verhindern</string>
+    <string name="surface_pressure">Oberfläche: %s</string>
 </resources>
