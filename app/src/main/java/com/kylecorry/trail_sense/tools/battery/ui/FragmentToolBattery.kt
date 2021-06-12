@@ -1,16 +1,14 @@
 package com.kylecorry.trail_sense.tools.battery.ui
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.github.mikephil.charting.charts.LineChart
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
-import com.kylecorry.trail_sense.databinding.ListItemPlainBinding
+import com.kylecorry.trail_sense.databinding.ListItemServiceBinding
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -52,12 +50,16 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         update()
     }
 
+    private val serviceIntervalometer = Intervalometer {
+        updateServices()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.batteryLevelProgress.horizontal = false
         servicesList =
-            ListView(binding.runningServices, R.layout.list_item_plain) { serviceView, service ->
-                val serviceBinding = ListItemPlainBinding.bind(serviceView)
+            ListView(binding.runningServices, R.layout.list_item_service) { serviceView, service ->
+                val serviceBinding = ListItemServiceBinding.bind(serviceView)
                 serviceBinding.title.text = service.name
                 serviceBinding.description.text = if (service.frequency == Duration.ZERO) {
                     getString(R.string.always_on)
@@ -67,6 +69,10 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
                         formatService.formatDuration(service.frequency)
                     )
                 } + " - " + getBatteryUsage(service)
+                serviceBinding.disableBtn.setOnClickListener {
+                    service.disable()
+                    updateServices()
+                }
             }
         servicesList.addLineSeparator()
         binding.lowPowerModeSwitch.isChecked = lowPowerMode.isEnabled()
@@ -76,6 +82,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             } else {
                 lowPowerMode.enable(requireActivity())
             }
+            updateServices()
         }
 
         CustomUiUtils.setButtonState(binding.batteryPhoneBatterySettings, false)
@@ -126,11 +133,13 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
     override fun onResume() {
         super.onResume()
         intervalometer.interval(20)
+        serviceIntervalometer.interval(1000)
         binding.batteryCurrent.text = ""
     }
 
     override fun onPause() {
         super.onPause()
+        serviceIntervalometer.stop()
         intervalometer.stop()
     }
 
@@ -226,7 +235,9 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
                 else -> ""
             }
         }
+    }
 
+    private fun updateServices(){
         val services = batteryService.getRunningServices(requireContext())
         servicesList.setData(services)
     }

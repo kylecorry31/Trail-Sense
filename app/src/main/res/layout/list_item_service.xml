@@ -14,7 +14,7 @@
         android:layout_marginEnd="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="?android:textColorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/disable_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Title" />
@@ -36,7 +36,7 @@
         tools:text="10" />
 
     <ImageButton
-        android:id="@+id/menu_btn"
+        android:id="@+id/disable_btn"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="16dp"
@@ -44,9 +44,10 @@
         android:contentDescription="@string/menu"
         android:background="@android:color/transparent"
         app:tint="?android:textColorSecondary"
+        app:srcCompat="@drawable/ic_cancel"
+        android:text="@string/stop_monitoring"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_menu_dots" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
