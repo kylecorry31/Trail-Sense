@@ -4,6 +4,13 @@ import com.kylecorry.trail_sense.R
 
 object OnboardingPages {
 
+    val NAVIGATION = 0
+    val WEATHER = 1
+    val ASTRONOMY = 2
+    val TOOLS = 3
+    val USER_GUIDE = 4
+    val PRIVACY = 5
+
     val pages = listOf(
         OnboardingPage(R.string.navigation, R.string.onboarding_navigation, R.drawable.ic_compass_icon),
         OnboardingPage(R.string.weather, R.string.onboarding_weather, R.drawable.ic_weather),

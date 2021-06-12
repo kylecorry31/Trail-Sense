@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.astronomy.infrastructure
 import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
+import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.math.toIntCompat
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
@@ -44,8 +45,7 @@ class AstronomyPreferences(private val context: Context) {
             return raw == "always"
         }
 
-    val sendSunsetAlerts: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_sunset_alerts)) ?: true
+    var sendSunsetAlerts by BooleanPreference(cache, context.getString(R.string.pref_sunset_alerts), true)
 
     val sunsetAlertMinutesBefore: Long
         get() {
