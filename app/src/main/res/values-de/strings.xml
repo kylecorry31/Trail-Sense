@@ -900,5 +900,4 @@
     <string name="privacy">Privatsphäre</string>
     <string name="units">Einheiten</string>
     <string name="pref_privacy_screenshot_protection_title">Screenshots verhindern</string>
-    <string name="surface_pressure">Oberfläche: %s</string>
 </resources>

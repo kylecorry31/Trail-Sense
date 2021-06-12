@@ -50,6 +50,12 @@
             app:title="@string/navigation" />
 
         <Preference
+            app:icon="@drawable/maps"
+            app:key="@string/pref_maps_header_key"
+            app:singleLineTitle="false"
+            app:title="@string/maps" />
+
+        <Preference
             app:icon="@drawable/ic_weather"
             app:key="@string/pref_weather_category"
             app:singleLineTitle="false"

@@ -132,10 +132,15 @@ class OfflineMapView : CanvasView {
             constrain(bottomRight.y, 0f, mapSize.second)
         )
 
-        return Rect(topLeft.x.toInt(), topLeft.y.toInt(), bottomRight.x.toInt(), bottomRight.y.toInt())
+        return Rect(
+            topLeft.x.toInt(),
+            topLeft.y.toInt(),
+            bottomRight.x.toInt(),
+            bottomRight.y.toInt()
+        )
     }
 
-    fun recenter(){
+    fun recenter() {
         val size = mapImage?.getFitSize(width, height)
         size?.let {
             translateX = (width - it.first) / 2f
@@ -270,10 +275,11 @@ class OfflineMapView : CanvasView {
 
 
     private fun loadMap(map: Map): Bitmap {
-        // TODO: Have option to load lower quality image
         val file = fileService.getFile(map.filename, false)
+        if (prefs.navigation.useLowResolutionMaps) {
+            return BitmapUtils.decodeBitmapScaled(file.path, width, height)
+        }
         return BitmapUtils.decodeBitmapScaled(file.path, width * 4, height * 4)
-//        return BitmapFactory.decodeFile(file.path)
     }
 
     private fun drawMyLocation() {
@@ -369,7 +375,7 @@ class OfflineMapView : CanvasView {
         return pixels
     }
 
-    private fun keepMapOnScreen(){
+    private fun keepMapOnScreen() {
 
         var wasOffScreen: Boolean
         var iterations = 0
@@ -380,7 +386,7 @@ class OfflineMapView : CanvasView {
             val bounds = getVisiblePartOfMap()
             // TODO: Calculate how much to move on screen
             if (bounds.width() == 0) {
-                if (translateX < 0){
+                if (translateX < 0) {
                     translateX++
                 } else {
                     translateX--
@@ -389,7 +395,7 @@ class OfflineMapView : CanvasView {
             }
 
             if (bounds.height() == 0) {
-                if (translateY < 0){
+                if (translateY < 0) {
                     translateY++
                 } else {
                     translateY--
@@ -397,7 +403,7 @@ class OfflineMapView : CanvasView {
                 wasOffScreen = true
             }
             iterations++
-        } while(wasOffScreen && iterations < maxIterations)
+        } while (wasOffScreen && iterations < maxIterations)
 
     }
 

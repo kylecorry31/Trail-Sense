@@ -1063,14 +1063,17 @@
     <string name="pref_sensor_settings" translatable="false">pref_sensor_settings</string>
     <string name="location_mocked">Using mocked location</string>
     <string name="location_not_mocked">Using actual location</string>
-    <string name="pref_tiles_enabled">pref_tiles_enabled</string>
+    <string name="pref_tiles_enabled" translatable="false">pref_tiles_enabled</string>
     <string name="pref_tiles_enabled_title">System tiles</string>
     <string name="pref_tiles_enabled_summary">May prevent battery saver apps from completely stopping Trail Sense</string>
-    <string name="surface_pressure">Surface: %s</string>
     <string name="leave_underwater_mode">Underwater: press back to exit</string>
     <string name="underwater_mode">Underwater mode</string>
     <string name="back_press_confirm">Press back again to leave</string>
-    <string name="pref_flashlight_toggle_with_volume">pref_flashlight_toggle_with_volume</string>
+    <string name="pref_flashlight_toggle_with_volume" translatable="false">pref_flashlight_toggle_with_volume</string>
     <string name="pref_flashlight_toggle_with_volume_summary">While Trail Sense is open</string>
     <string name="pref_flashlight_toggle_with_volume_title">Toggle with volume buttons</string>
+    <string name="pref_low_resolution_maps" translatable="false">pref_low_resolution_maps</string>
+    <string name="pref_maps_header_key" translatable="false">pref_maps_header_key</string>
+    <string name="pref_low_resolution_maps_summary">For devices with memory constraints</string>
+    <string name="pref_low_resolution_maps_title">Use low resolution</string>
 </resources>

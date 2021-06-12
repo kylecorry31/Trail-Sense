@@ -918,5 +918,4 @@
     <string name="privacy">Приватність</string>
     <string name="units">Одиниці</string>
     <string name="pref_privacy_screenshot_protection_title">Запобігати зняткам екрана</string>
-    <string name="surface_pressure">Поверхня: %s</string>
 </resources>

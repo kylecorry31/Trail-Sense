@@ -77,6 +77,11 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        removeExclusionRects()
+    }
+
 
     private fun onMapLoad(map: Map) {
         this.map = map
@@ -133,5 +138,10 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
 
         requireActivity().findViewById<View>(android.R.id.content).systemGestureExclusionRects =
             exclusionRects
+    }
+
+    private fun removeExclusionRects(){
+        if (Build.VERSION.SDK_INT < 29) return
+        requireActivity().findViewById<View>(android.R.id.content).systemGestureExclusionRects = mutableListOf()
     }
 }

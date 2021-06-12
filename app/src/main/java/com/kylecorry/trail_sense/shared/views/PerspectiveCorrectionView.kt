@@ -147,8 +147,6 @@ class PerspectiveCorrectionView : CanvasView {
     private fun drawEditCanvas(){
         val bitmap = image ?: return
 
-        // TODO: Show the full bitmap, just scale it
-//        image(bitmap, 0f, 0f, width.toFloat(), height.toFloat(), 0f, 0f)
         image(bitmap, 0f, 0f)
 
         noStroke()
