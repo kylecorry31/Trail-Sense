@@ -389,7 +389,7 @@
 \nNicht ohne wasserdichtes Gehäuse verwenden und in einer sicheren Tauchtiefe bleiben.</string>
     <string name="tool_depth_summary">Wassertiefe bestimmen</string>
     <string name="tool_depth_title">Tiefe</string>
-    <string name="tool_inventory_summary">Den Überblick über vorhandene Gegenstände behalten</string>
+    <string name="tool_inventory_summary">Überblick über vorhandene Gegenstände behalten</string>
     <string name="category_safety">Sicherheit</string>
     <string name="category_shelter">Unterstand</string>
     <string name="category_fire">Feuer</string>
@@ -900,4 +900,11 @@
     <string name="privacy">Privatsphäre</string>
     <string name="units">Einheiten</string>
     <string name="pref_privacy_screenshot_protection_title">Screenshots verhindern</string>
+    <string name="pref_low_resolution_maps_title">Geringe Auflösung verwenden</string>
+    <string name="pref_low_resolution_maps_summary">Für Geräte mit Speichereinschränkungen</string>
+    <string name="pref_flashlight_toggle_with_volume_title">Mit Lautstärketasten steuern</string>
+    <string name="pref_flashlight_toggle_with_volume_summary">Während Trail Sense geöffnet ist</string>
+    <string name="back_press_confirm">Drücken Sie \"Zurück\" erneut zum Verlassen</string>
+    <string name="underwater_mode">Unter-Wasser-Modus</string>
+    <string name="leave_underwater_mode">Unter Wasser: drücken Sie \"Zurück\" zum Verlassen</string>
 </resources>
