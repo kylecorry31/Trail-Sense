@@ -918,4 +918,11 @@
     <string name="privacy">Приватність</string>
     <string name="units">Одиниці</string>
     <string name="pref_privacy_screenshot_protection_title">Запобігати зняткам екрана</string>
+    <string name="pref_low_resolution_maps_title">Використовувати низьку роздільну здатність</string>
+    <string name="pref_low_resolution_maps_summary">Для пристроїв з обмеженнями пам’яті</string>
+    <string name="pref_flashlight_toggle_with_volume_title">Перемикання кнопками гучності</string>
+    <string name="pref_flashlight_toggle_with_volume_summary">Поки Trail Sense відкритий</string>
+    <string name="back_press_confirm">Натисніть ще раз, щоб вийти</string>
+    <string name="underwater_mode">Підводний режим</string>
+    <string name="leave_underwater_mode">Під водою: натисніть назад, щоб вийти</string>
 </resources>
