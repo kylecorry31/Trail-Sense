@@ -1076,4 +1076,7 @@
     <string name="pref_maps_header_key" translatable="false">pref_maps_header_key</string>
     <string name="pref_low_resolution_maps_summary">For devices with memory constraints</string>
     <string name="pref_low_resolution_maps_title">Use low resolution</string>
+    <string name="pref_auto_low_power" translatable="false">pref_auto_low_power</string>
+    <string name="pref_auto_low_power_summary">When your battery is low</string>
+    <string name="pref_auto_low_power_title">Automatic power saving</string>
 </resources>

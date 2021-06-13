@@ -37,6 +37,7 @@
             android:name="com.kylecorry.trail_sense.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            android:exported="true"
             tools:ignore="LockedOrientationActivity">
             <nav-graph android:value="@navigation/nav_graph" />
 
@@ -60,14 +61,16 @@
             </intent-filter>
         </activity>
         <activity-alias
-            android:targetActivity=".MainActivity"
             android:name=".AliasMainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:exported="true"
+            android:targetActivity=".MainActivity">
             <intent-filter android:label="@string/import_map">
-                <action android:name="android.intent.action.SEND"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="image/*"/>
-                <data android:mimeType="application/pdf"/>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+                <data android:mimeType="application/pdf" />
             </intent-filter>
         </activity-alias>
 
@@ -77,46 +80,62 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
-        <service android:name=".tools.flashlight.infrastructure.FlashlightService" />
-        <service android:name=".tools.flashlight.infrastructure.SosService" />
-        <service android:name=".tools.flashlight.infrastructure.StrobeService" />
-        <service android:name=".tools.waterpurification.infrastructure.WaterPurificationTimerService" />
+        <service
+            android:name=".tools.flashlight.infrastructure.FlashlightService"
+            android:exported="false" />
+        <service
+            android:name=".tools.flashlight.infrastructure.SosService"
+            android:exported="false" />
+        <service
+            android:name=".tools.flashlight.infrastructure.StrobeService"
+            android:exported="false" />
+        <service
+            android:name=".tools.waterpurification.infrastructure.WaterPurificationTimerService"
+            android:exported="false" />
 
         <service
             android:name=".weather.infrastructure.services.WeatherUpdateService"
             android:enabled="true"
+            android:exported="false"
             android:foregroundServiceType="location" />
         <service
             android:name=".astronomy.infrastructure.SunsetAlarmService"
             android:enabled="true"
+            android:exported="false"
             android:foregroundServiceType="location" />
 
         <service
             android:name=".tools.backtrack.infrastructure.services.BacktrackAlwaysOnService"
             android:enabled="true"
+            android:exported="false"
             android:foregroundServiceType="location" />
 
         <service
             android:name=".tools.speedometer.infrastructure.PedometerService"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="false" />
 
         <service
             android:name=".tools.battery.infrastructure.BatteryLogService"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="false" />
 
         <service
             android:name=".tools.backtrack.infrastructure.services.BacktrackService"
             android:enabled="true"
+            android:exported="false"
             android:foregroundServiceType="location" />
 
         <service
             android:name=".tools.whitenoise.infrastructure.WhiteNoiseService"
             android:enabled="true"
+            android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
 
         <!--Tiles-->
         <service
             android:name=".tiles.BacktrackTile"
+            android:exported="false"
             android:icon="@drawable/ic_tool_backtrack"
             android:label="@string/tool_backtrack_title"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -127,6 +146,7 @@
 
         <service
             android:name=".tiles.WeatherMonitorTile"
+            android:exported="false"
             android:icon="@drawable/cloud"
             android:label="@string/weather_monitor"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -137,6 +157,7 @@
 
         <service
             android:name=".tiles.PedometerTile"
+            android:exported="false"
             android:icon="@drawable/steps"
             android:label="@string/pedometer"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -147,19 +168,32 @@
 
         <receiver
             android:name="com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="false" />
         <receiver
             android:name=".tools.backtrack.infrastructure.receivers.StopBacktrackReceiver"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="false" />
         <receiver
             android:name=".tools.waterpurification.infrastructure.WaterPurificationCancelReceiver"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="false" />
         <receiver
             android:name=".tools.whitenoise.infrastructure.WhiteNoiseOffReceiver"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name=".tools.battery.infrastructure.BatteryLevelReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_LOW" />
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+            </intent-filter>
+        </receiver>
         <receiver
             android:name="com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.kylecorry.trail_sense.ALARM_SUNSET" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -167,20 +201,24 @@
         </receiver>
         <receiver
             android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="false" />
         <receiver
             android:name="com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightOffReceiver"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="false" />
         <receiver
             android:name="com.kylecorry.trail_sense.receivers.BootReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
             android:name="com.kylecorry.trail_sense.receivers.PackageReplacedReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
@@ -188,7 +226,8 @@
 
         <receiver
             android:name="com.kylecorry.trail_sense.receivers.TimeChangeReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.DATE_CHANGED" />

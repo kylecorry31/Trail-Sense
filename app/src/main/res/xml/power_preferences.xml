@@ -15,6 +15,15 @@
             app:singleLineTitle="false"
             app:title="@string/pref_low_power_mode_title" />
 
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_auto_low_power_summary"
+            app:defaultValue="false"
+            app:disableDependentsState="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_auto_low_power"
+            app:singleLineTitle="false"
+            app:title="@string/pref_auto_low_power_title" />
+
         <!--TODO: Allow user to decide what low power mode controls-->
 
 

@@ -9,10 +9,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.databinding.ListItemServiceBinding
-import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trail_sense.shared.LowPowerMode
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
@@ -39,6 +36,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
     private val batteryRepo by lazy { BatteryRepo.getInstance(requireContext()) }
 
     private val lowPowerMode by lazy { LowPowerMode(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
     private val batteryService = BatteryService()
     private lateinit var servicesList: ListView<RunningService>
 
@@ -78,8 +76,10 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         binding.lowPowerModeSwitch.isChecked = lowPowerMode.isEnabled()
         binding.lowPowerModeSwitch.setOnClickListener {
             if (lowPowerMode.isEnabled()) {
+                prefs.power.userEnabledLowPower = false
                 lowPowerMode.disable(requireActivity())
             } else {
+                prefs.power.userEnabledLowPower = true
                 lowPowerMode.enable(requireActivity())
             }
             updateServices()
