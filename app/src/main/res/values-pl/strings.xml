@@ -450,7 +450,7 @@
     <string name="tool_metal_detector_title">Wykrywacz metalu</string>
     <string name="metal_detected">Wykryto metal</string>
     <string name="magnetic_field_format">%.0f uT</string>
-    <string name="metal_detector_disclaimer">Wykrywa jedynie metale manetyczne (np. żelazo, stal)</string>
+    <string name="metal_detector_disclaimer">Wykrywa jedynie metale magnetyczne (np. żelazo, stal)</string>
     <string name="tool_triangulate_summary">Określ swoją lokalizację bez użycia GPS</string>
     <string name="tool_triangulate_title">Triangulacja położenia</string>
     <string name="tool_category_angles">Kąty</string>
@@ -880,4 +880,8 @@
     <string name="pref_privacy_screenshot_protection_title">Zapobiegaj zrzutom ekranu</string>
     <string name="map_perspective_instructions">Obramowanie mapy</string>
     <string name="pref_tiles_enabled">pref_tiles_enabled</string>
+    <string name="location_not_mocked">Korzystanie z rzeczywistej lokalizacji</string>
+    <string name="roll_pitch_yaw">Przechylenie: %s, Nachylenie: %s, Odchylenie: %s</string>
+    <string name="sleep_timer">Minutnik</string>
+    <string name="pref_experimental_metal_direction_title">Pokaż kierunek metalu</string>
 </resources>
