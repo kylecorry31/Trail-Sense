@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.astronomy.domain.AstronomyEvent
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
@@ -61,6 +62,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     private var leftQuickAction: QuickActionButton? = null
     private var rightQuickAction: QuickActionButton? = null
+
+    private var lastAstronomyEventSearch: AstronomyEvent? = null
 
     private var gpsErrorShown = false
 
@@ -124,6 +127,35 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     updateUI()
                 }
             }
+        }
+
+        binding.datePicker.setOnLongClickListener {
+            CustomUiUtils.pickItem(
+                requireContext(),
+                listOf(
+                    AstronomyEvent.FullMoon,
+                    AstronomyEvent.NewMoon,
+                    AstronomyEvent.MeteorShower
+                ),
+                listOf(
+                    getString(R.string.full_moon),
+                    getString(R.string.new_moon),
+                    getString(R.string.meteor_shower)
+                ),
+                lastAstronomyEventSearch,
+                getString(R.string.find_next_occurrence)
+            ) {
+                if (it != null) {
+                    lastAstronomyEventSearch = it
+                    displayDate = astronomyService.findNextEvent(
+                        it,
+                        gps.location,
+                        displayDate
+                    ) ?: displayDate
+                    updateUI()
+                }
+            }
+            true
         }
 
         binding.nextDate.setOnClickListener {
@@ -406,6 +438,22 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     it.first.first.second
                 )
             }.toMutableList()
+
+            details.addSection(
+                listOf(
+                    AstroDetail(
+                        R.drawable.ic_sun, getString(R.string.daylight),
+                        formatService.formatDuration(
+                            astronomyService.getLengthOfDay(
+                                gps.location,
+                                sunTimesMode,
+                                displayDate
+                            )
+                        ),
+                        -1
+                    )
+                )
+            )
 
             if (prefs.astronomy.showCivilTimes) {
                 details.addSection(getCivilDetails())

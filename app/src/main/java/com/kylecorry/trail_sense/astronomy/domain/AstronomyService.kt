@@ -7,7 +7,9 @@ import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.astronomy.*
 import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonPhase
+import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.time.Season
+import com.kylecorry.trailsensecore.domain.time.atStartOfDay
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import java.time.*
 
@@ -100,6 +102,14 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         )
     }
 
+    fun getLengthOfDay(
+        location: Coordinate,
+        sunTimesMode: SunTimesMode,
+        date: LocalDate
+    ): Duration {
+        return getDaylightLength(date.atStartOfDay().toZonedDateTime(), location, sunTimesMode)
+    }
+
     fun getTodaySunTimes(location: Coordinate, sunTimesMode: SunTimesMode): RiseSetTransitTimes {
         return getSunTimes(location, sunTimesMode, LocalDate.now(clock))
     }
@@ -178,6 +188,76 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getSeason(location: Coordinate, date: LocalDate = LocalDate.now()): Season {
-        return newAstronomyService.getAstronomicalSeason(location, date.atStartOfDay(ZoneId.systemDefault()))
+        return newAstronomyService.getAstronomicalSeason(
+            location,
+            date.atStartOfDay(ZoneId.systemDefault())
+        )
+    }
+
+    fun findNextEvent(
+        event: AstronomyEvent,
+        location: Coordinate,
+        start: LocalDate = LocalDate.now(),
+        maxSearch: Duration = Duration.ofDays(365)
+    ): LocalDate? {
+        // TODO: Add method to get date of true moon phase in TS Core and remove the is in event logic
+        var isInEvent = when (event) {
+            AstronomyEvent.FullMoon -> getMoonPhase(start).phase == MoonTruePhase.Full
+            AstronomyEvent.NewMoon -> getMoonPhase(start).phase == MoonTruePhase.New
+            AstronomyEvent.MeteorShower -> getMeteorShower(
+                location,
+                start
+            )?.peak?.toLocalDate() == start
+        }
+        var date = start.plusDays(1)
+        val end = start.plusDays(maxSearch.toDays())
+        while (date <= end) {
+            val hasEvent = when (event) {
+                AstronomyEvent.FullMoon -> getMoonPhase(date).phase == MoonTruePhase.Full
+                AstronomyEvent.NewMoon -> getMoonPhase(date).phase == MoonTruePhase.New
+                AstronomyEvent.MeteorShower -> getMeteorShower(
+                    location,
+                    date
+                )?.peak?.toLocalDate() == date
+            }
+            if (hasEvent && !isInEvent) {
+                return date
+            }
+            isInEvent = hasEvent
+            date = date.plusDays(1)
+        }
+        return null
+    }
+
+    // TODO: Put into TS Core
+    private fun getDaylightLength(
+        date: ZonedDateTime,
+        location: Coordinate,
+        sunTimesMode: SunTimesMode
+    ): Duration {
+        val startOfDay = date.atStartOfDay()
+        val sunrise = newAstronomyService.getNextSunrise(startOfDay, location, sunTimesMode)
+        val sunset = newAstronomyService.getNextSunset(startOfDay, location, sunTimesMode)
+
+        if (sunrise != null && sunset != null && sunset > sunrise) {
+            // Rise in morning, set at night
+            return Duration.between(sunrise, sunset)
+        } else if (sunrise == null && sunset == null) {
+            // Sun doesn't rise or set
+            return if (newAstronomyService.isSunUp(startOfDay, location)) Duration.between(
+                startOfDay,
+                startOfDay.plusDays(1)
+            ) else Duration.ZERO
+        } else if (sunrise != null && sunset == null) {
+            // Sun rises but doesn't set
+            return Duration.between(sunrise, startOfDay.plusDays(1))
+        } else if (sunset != null && sunrise == null) {
+            // Sun sets but doesn't rise
+            return Duration.between(startOfDay, sunset)
+        } else {
+            // Sun sets in morning, rises at night
+            return Duration.between(startOfDay, sunset)
+                .plus(Duration.between(sunrise, startOfDay.plusDays(1)))
+        }
     }
 }

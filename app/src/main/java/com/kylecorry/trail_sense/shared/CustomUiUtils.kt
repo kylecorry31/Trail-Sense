@@ -122,6 +122,49 @@ object CustomUiUtils {
         }
     }
 
+    fun <T> pickItem(
+        context: Context,
+        items: List<T>,
+        labels: List<String>,
+        default: T? = null,
+        title: String,
+        onItemPick: (item: T?) -> Unit
+    ) {
+        val view = View.inflate(context, R.layout.view_dropdown_entry_prompt, null)
+        val spinner = view.findViewById<Spinner>(R.id.prompt_spinner)
+        val adapter = ArrayAdapter(
+            context,
+            R.layout.spinner_item_plain,
+            R.id.item_name,
+            labels)
+        spinner.prompt = title
+        spinner.adapter = adapter
+        if (default != null){
+            val idx = items.indexOf(default)
+            if (idx != -1) {
+                spinner.setSelection(idx)
+            }
+        }
+        UiUtils.alertViewWithCancel(
+            context,
+            title,
+            view,
+            context.getString(R.string.dialog_ok),
+            context.getString(R.string.dialog_cancel)
+        ) { cancelled ->
+            if (cancelled) {
+                onItemPick.invoke(null)
+            } else {
+                val idx = spinner.selectedItemPosition
+                if (idx == -1){
+                    onItemPick.invoke(null)
+                } else {
+                    onItemPick.invoke(items[idx])
+                }
+            }
+        }
+    }
+
     fun pickColor(
         context: Context,
         default: AppColor? = null,
