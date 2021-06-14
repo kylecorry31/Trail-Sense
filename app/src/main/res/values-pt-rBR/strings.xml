@@ -720,4 +720,21 @@
     <string name="quality_moderate">Moderada</string>
     <string name="quality_poor">Baixa</string>
     <string name="magnetic_field_format_precise">%s uT</string>
+    <string name="value_since_time">%s desde %s</string>
+    <string name="speedometer">Velocímetro</string>
+    <string name="speedometer_average">Média (do Recuar)</string>
+    <string name="speedometer_real_time">Tempo Real</string>
+    <string name="screen_flashlight">Tela</string>
+    <string name="tide_calibration">Calibração de maré</string>
+    <string name="date_not_set">Data não definida</string>
+    <string name="tide_high_short">Alta</string>
+    <string name="tide_low_short">Baixa</string>
+    <string name="low_tide">Baixa maré</string>
+    <string name="high_tide">Alta maré</string>
+    <string name="tides">Marés</string>
+    <string name="experimental">Experimental</string>
+    <string name="weather_same_as_today">O mesmo de hoje</string>
+    <string name="weather_worse_than_today">Pior que hoje</string>
+    <string name="weather_better_than_today">Melhor que hoje</string>
+    <string name="tomorrows_forecast">Previsão de amanhã</string>
 </resources>
