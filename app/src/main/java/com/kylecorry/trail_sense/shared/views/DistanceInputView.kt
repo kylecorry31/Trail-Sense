@@ -97,6 +97,7 @@ class DistanceInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
             DistanceUnits.NauticalMiles -> context.getString(R.string.unit_nautical_miles)
             DistanceUnits.Centimeters -> context.getString(R.string.unit_centimeters)
             DistanceUnits.Inches -> context.getString(R.string.unit_inches)
+            DistanceUnits.Yards -> context.getString(R.string.unit_yards)
         }
     }
 

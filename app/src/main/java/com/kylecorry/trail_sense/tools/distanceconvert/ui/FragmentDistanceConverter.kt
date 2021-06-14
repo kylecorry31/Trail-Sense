@@ -29,6 +29,7 @@ class FragmentDistanceConverter : BoundFragment<FragmentToolDistanceConvertBindi
         DistanceUnits.Kilometers,
         DistanceUnits.Inches,
         DistanceUnits.Feet,
+        DistanceUnits.Yards,
         DistanceUnits.Miles,
         DistanceUnits.NauticalMiles,
     )
@@ -91,6 +92,7 @@ class FragmentDistanceConverter : BoundFragment<FragmentToolDistanceConvertBindi
             DistanceUnits.NauticalMiles -> getString(R.string.unit_nautical_miles)
             DistanceUnits.Centimeters -> getString(R.string.unit_centimeters)
             DistanceUnits.Inches -> getString(R.string.unit_inches)
+            DistanceUnits.Yards -> getString(R.string.unit_yards)
         }
     }
 

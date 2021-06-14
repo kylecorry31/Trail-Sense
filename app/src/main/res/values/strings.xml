@@ -1081,4 +1081,6 @@
     <string name="pref_auto_low_power_title">Automatic power saving</string>
     <string name="daylight">Daylight</string>
     <string name="find_next_occurrence">Find next occurrence</string>
+    <string name="yards_format">%s yd</string>
+    <string name="unit_yards">Yards</string>
 </resources>

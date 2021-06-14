@@ -86,6 +86,7 @@ class FormatServiceV2(private val context: Context) {
                 R.string.precise_centimeters_format,
                 formatted
             )
+            DistanceUnits.Yards -> context.getString(R.string.yards_format, formatted)
         }
     }
 

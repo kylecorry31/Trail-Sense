@@ -10,7 +10,6 @@ import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonPhase
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.time.Season
 import com.kylecorry.trailsensecore.domain.time.atStartOfDay
-import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import java.time.*
 
 /**
@@ -19,7 +18,6 @@ import java.time.*
 class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
     private val newAstronomyService: IAstronomyService = AstronomyService()
-    private val weatherService = WeatherService()
 
     // PUBLIC MOON METHODS
 
@@ -107,7 +105,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         sunTimesMode: SunTimesMode,
         date: LocalDate
     ): Duration {
-        return getDaylightLength(date.atStartOfDay().toZonedDateTime(), location, sunTimesMode)
+        return newAstronomyService.getDaylightLength(date.atStartOfDay().toZonedDateTime(), location, sunTimesMode)
     }
 
     fun getTodaySunTimes(location: Coordinate, sunTimesMode: SunTimesMode): RiseSetTransitTimes {
@@ -227,37 +225,5 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             date = date.plusDays(1)
         }
         return null
-    }
-
-    // TODO: Put into TS Core
-    private fun getDaylightLength(
-        date: ZonedDateTime,
-        location: Coordinate,
-        sunTimesMode: SunTimesMode
-    ): Duration {
-        val startOfDay = date.atStartOfDay()
-        val sunrise = newAstronomyService.getNextSunrise(startOfDay, location, sunTimesMode)
-        val sunset = newAstronomyService.getNextSunset(startOfDay, location, sunTimesMode)
-
-        if (sunrise != null && sunset != null && sunset > sunrise) {
-            // Rise in morning, set at night
-            return Duration.between(sunrise, sunset)
-        } else if (sunrise == null && sunset == null) {
-            // Sun doesn't rise or set
-            return if (newAstronomyService.isSunUp(startOfDay, location)) Duration.between(
-                startOfDay,
-                startOfDay.plusDays(1)
-            ) else Duration.ZERO
-        } else if (sunrise != null && sunset == null) {
-            // Sun rises but doesn't set
-            return Duration.between(sunrise, startOfDay.plusDays(1))
-        } else if (sunset != null && sunrise == null) {
-            // Sun sets but doesn't rise
-            return Duration.between(startOfDay, sunset)
-        } else {
-            // Sun sets in morning, rises at night
-            return Duration.between(startOfDay, sunset)
-                .plus(Duration.between(sunrise, startOfDay.plusDays(1)))
-        }
     }
 }

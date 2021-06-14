@@ -114,6 +114,7 @@ class FormatService(private val context: Context) {
             )
             DistanceUnits.Centimeters -> context.getString(R.string.centimeters_format, distance)
             DistanceUnits.Inches -> context.getString(R.string.inches_format, distance)
+            DistanceUnits.Yards -> context.getString(R.string.yards_format, DecimalFormatter.format(distance, 2))
         }
     }
 
@@ -155,6 +156,7 @@ class FormatService(private val context: Context) {
                 R.string.precise_centimeters_format,
                 formatted
             )
+            DistanceUnits.Yards -> context.getString(R.string.yards_format, formatted)
         }
     }
 
@@ -170,6 +172,7 @@ class FormatService(private val context: Context) {
             )
             DistanceUnits.Inches -> context.getString(R.string.inches_format, distance)
             DistanceUnits.Centimeters -> context.getString(R.string.centimeters_format, distance)
+            DistanceUnits.Yards -> context.getString(R.string.yards_format, DecimalFormatter.format(distance, 2))
         }
     }
 
