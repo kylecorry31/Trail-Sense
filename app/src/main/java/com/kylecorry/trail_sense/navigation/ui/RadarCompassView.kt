@@ -3,6 +3,9 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
@@ -400,5 +403,29 @@ class RadarCompassView : CanvasView, ICompassView {
         drawBearings()
         drawDestination()
         pop()
+    }
+
+    private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+
+        override fun onScale(detector: ScaleGestureDetector): Boolean {
+            prefs.navigation.maxBeaconDistance *= detector.scaleFactor
+            maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
+            maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
+            metersPerPixel = maxDistanceMeters.distance / (compassSize / 2f)
+            return true
+        }
+
+        override fun onScaleEnd(detector: ScaleGestureDetector?) {
+            super.onScaleEnd(detector)
+            // TODO: Signal for the beacons to be rescanned
+        }
+    }
+
+    private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        mScaleDetector.onTouchEvent(event)
+        invalidate()
+        return true
     }
 }
