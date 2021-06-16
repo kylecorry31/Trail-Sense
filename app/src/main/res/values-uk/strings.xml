@@ -887,15 +887,12 @@
     <string name="pressure_falling">Тиск спадає</string>
     <string name="pressure_rising">Тиск зростає</string>
     <string name="pressure_rising_fast">Тиск швидко зростає</string>
-    <string name="pref_flashlight_settings">pref_flashlight_settings</string>
     <string name="pref_flashlight_toggle_with_system_summary">Показує сповіщення, коли ліхтарик увімкнено за межами Trail Sense</string>
     <string name="pref_flashlight_toggle_with_system_title">Перемикати із системою</string>
     <string name="pref_navigation_lock_screen_presence_title">Показувати на екрані блокування під час навігації</string>
     <string name="import_map">Імпортувати мапу</string>
-    <string name="pref_cell_signal_settings">pref_cell_signal_settings</string>
     <string name="pref_cell_signal_refresh_cache_summary">Змушує завантажувати останні сили сигналу</string>
     <string name="pref_cell_signal_refresh_cache_title">Оновити кеш сигналу</string>
-    <string name="pref_cell_signal_refresh_cache">pref_cell_signal_refresh_cache</string>
     <string name="roll_pitch_yaw">Поздовж. вісь: %s, Попереч. вісь: %s, Вертик. вісь: %s</string>
     <string name="sensor_gyroscope">Гіроскоп</string>
     <string name="days">Днів</string>
@@ -906,10 +903,8 @@
         <item quantity="other">%d днів</item>
     </plurals>
     <string name="pref_backtrack_history_days_title">Історія зворотного маршруту</string>
-    <string name="pref_backtrack_history_days">pref_backtrack_history_days</string>
     <string name="pref_tiles_enabled_summary">Може перешкоджати застосункам зарядоощадження повністю зупиняти Trail Sense</string>
     <string name="pref_tiles_enabled_title">Системні плитки</string>
-    <string name="pref_tiles_enabled">pref_tiles_enabled</string>
     <string name="location_not_mocked">Використання фактичного місцеперебування</string>
     <string name="location_mocked">Використання імітації місцеперебування</string>
     <string name="sighting_compass">Прицільний компас</string>

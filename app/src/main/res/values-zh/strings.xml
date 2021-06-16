@@ -863,14 +863,11 @@
     <string name="pressure_rising">气压在上升</string>
     <string name="pressure_rising_fast">气压快速上升</string>
     <string name="pref_flashlight_toggle_with_system_summary">当手电筒在 Trail Sense 外打开时显示一则通知</string>
-    <string name="pref_flashlight_settings">pref_flashlight_settings</string>
     <string name="pref_flashlight_toggle_with_system_title">随系统切换</string>
     <string name="pref_navigation_lock_screen_presence_title">导航时在锁定屏幕上显示</string>
     <string name="import_map">导入地图</string>
-    <string name="pref_cell_signal_settings">pref_cell_signal_settings</string>
     <string name="pref_cell_signal_refresh_cache_summary">强制加载最新信号强度</string>
     <string name="pref_cell_signal_refresh_cache_title">刷新信号缓存</string>
-    <string name="pref_cell_signal_refresh_cache">pref_cell_signal_refresh_cache</string>
     <string name="roll_pitch_yaw">横滚角：%s，俯仰角：%s，偏航角：%s</string>
     <string name="sensor_gyroscope">陀螺仪</string>
     <string name="days">天数</string>
@@ -878,11 +875,9 @@
         <item quantity="other">%d 天</item>
     </plurals>
     <string name="pref_backtrack_history_days_title">Backtrack 历史</string>
-    <string name="pref_backtrack_history_days">pref_backtrack_history_days</string>
     <string name="units">单元</string>
     <string name="pref_tiles_enabled_summary">可能阻止电池保护程序完全停止 Trail Sense</string>
     <string name="pref_tiles_enabled_title">系统瓷贴</string>
-    <string name="pref_tiles_enabled">pref_tiles_enabled</string>
     <string name="location_not_mocked">使用实际位置</string>
     <string name="location_mocked">使用模拟位置</string>
     <string name="sighting_compass">视线指南针</string>

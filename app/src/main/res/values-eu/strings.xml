@@ -445,8 +445,6 @@
     <string name="guide_thermometer_calibration_title">Termometroaren kalibrazioa</string>
     <string name="action_waypoint_create_beacon">Baliza sortu</string>
     <string name="pref_monitor_weather_title">Eguraldia monitorizatu</string>
-    <string name="pref_cell_signal_settings">pref_cell_signal_settings</string>
-    <string name="pref_cell_signal_refresh_cache">pref_cell_signal_refresh_cache</string>
     <string name="map_edit">Editatu</string>
     <string name="map_preview">Aurrebista</string>
     <string name="move">Mugitu</string>

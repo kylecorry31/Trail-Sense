@@ -850,8 +850,6 @@
     <string name="weather_prediction">Pogoda: %s</string>
     <string name="map_preview">Podgląd</string>
     <string name="map_edit">Edytuj</string>
-    <string name="pref_flashlight_settings">pref_flashlight_settings</string>
-    <string name="pref_cell_signal_refresh_cache">pref_cell_signal_refresh_cache</string>
     <string name="pref_flashlight_toggle_with_system_summary">Wyświetla powiadomienie, gdy latarka zostanie włączona poza programem Trail Sense</string>
     <string name="pressure_no_change">Ciśnienie się nie zmienia</string>
     <string name="pressure_falling_fast">Ciśnienie szybko spada</string>
@@ -859,10 +857,8 @@
     <string name="pressure_rising">Ciśnienie rośnie</string>
     <string name="pressure_rising_fast">Ciśnienie szybko rośnie</string>
     <string name="import_map">Importuj mapę</string>
-    <string name="pref_cell_signal_settings">pref_cell_signal_settings</string>
     <string name="camera_permission_denied">Odmowa dostępu do aparatu, nie można włączyć funkcji aparatu. Możesz to włączyć w ustawieniach.</string>
     <string name="water_boil_guide_desc">Jak korzystać z minutnika przegotowywania wody</string>
-    <string name="pref_backtrack_history_days">pref_backtrack_history_days</string>
     <string name="days">Dni</string>
     <plurals name="number_days">
         <item quantity="one">%d dzień</item>
@@ -879,7 +875,6 @@
     <string name="move">Przenieś</string>
     <string name="pref_privacy_screenshot_protection_title">Zapobiegaj zrzutom ekranu</string>
     <string name="map_perspective_instructions">Obramowanie mapy</string>
-    <string name="pref_tiles_enabled">pref_tiles_enabled</string>
     <string name="location_not_mocked">Korzystanie z rzeczywistej lokalizacji</string>
     <string name="roll_pitch_yaw">Przechylenie: %s, Nachylenie: %s, Odchylenie: %s</string>
     <string name="sleep_timer">Minutnik</string>

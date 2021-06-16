@@ -393,7 +393,6 @@
     <string name="compass_from_gps">Reemplazar con GPS</string>
     <string name="pref_compass_sensor_title">Brújula</string>
     <string name="coordinate_format_decimal_degrees">Grados Decimales</string>
-    <string name="experimental_tools_title">Funciones experimentales</string>
     <string name="theme_sunset_sunrise">Salida/Puesta del sol</string>
     <string name="pref_general_header">General</string>
     <string name="edit_item_title">Editar ítem</string>
