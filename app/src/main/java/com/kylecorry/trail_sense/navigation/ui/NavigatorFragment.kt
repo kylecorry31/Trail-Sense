@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -78,7 +77,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             analyze = false
         )
     }
-    private val orientation by lazy { sensorService.getDeviceOrientation() }
+    private val orientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val speedometer by lazy { sensorService.getSpeedometer() }
 

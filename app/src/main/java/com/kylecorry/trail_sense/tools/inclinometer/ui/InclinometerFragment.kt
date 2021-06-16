@@ -20,7 +20,7 @@ class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val inclinometer by lazy { sensorService.getInclinometer() }
-    private val deviceOrientation by lazy { sensorService.getDeviceOrientation() }
+    private val deviceOrientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val inclinationService = InclinationService()
     private val formatService by lazy { FormatServiceV2(requireContext()) }

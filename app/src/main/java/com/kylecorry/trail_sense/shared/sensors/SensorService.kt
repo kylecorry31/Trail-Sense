@@ -135,7 +135,7 @@ class SensorService(ctx: Context) {
         )
     }
 
-    fun getDeviceOrientation(): DeviceOrientation {
+    fun getDeviceOrientationSensor(): DeviceOrientation {
         return DeviceOrientation(context)
     }
 

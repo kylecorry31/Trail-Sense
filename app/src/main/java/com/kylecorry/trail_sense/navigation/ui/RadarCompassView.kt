@@ -424,8 +424,10 @@ class RadarCompassView : CanvasView, ICompassView {
     private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        mScaleDetector.onTouchEvent(event)
-        invalidate()
+        if (prefs.navigation.scaleRadarCompass) {
+            mScaleDetector.onTouchEvent(event)
+            invalidate()
+        }
         return true
     }
 }
