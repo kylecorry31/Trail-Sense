@@ -695,4 +695,8 @@
     <string name="time_until_empty">til tomt</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="pref_adjust_for_temperature_summary">Bruk temperaturen i omregninger for havnivåtrykk</string>
+    <string name="waypoints_empty_text">Ingen rutepunkter</string>
+    <string name="sensor_gyroscope">Gyroskop</string>
+    <string name="privacy">Personvern</string>
+    <string name="units">Enheter</string>
 </resources>
