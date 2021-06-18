@@ -906,12 +906,12 @@
     <string name="backtrack_high_priority_notification">Umieszczanie punktu trasy co %s</string>
     <string name="actual_frequency_disclaimer">Rzeczywista częstotliwość może się różnić, ponieważ niektóre urządzenia mają ograniczenia działania w tle.</string>
     <string name="pref_backtrack_path_radar_summary">Na kompasie radarowym i mapach</string>
-    <string name="speedometer_odometer_accuracy_dialog">Aby uzyskać najlepszą dokładność, włącz funkcję trasy wstecznej i ustaw źródło licznika kilometrów na krokomierz w ustawieniach.</string>
+    <string name="speedometer_odometer_accuracy_dialog">Aby uzyskać najlepszą dokładność, włącz funkcję śladu powrotnego i ustaw źródło licznika kilometrów na krokomierz w ustawieniach.</string>
     <string name="pref_nearby_radar_title">Pokaż pobliski kompas radarowy</string>
     <string name="cirrocumulus_desc">Tworzy falistą taflę, chmury wyglądają niemal dwuwymiarowo.</string>
     <string name="backtrack_disabled_low_power_toast">Funkcja trasy wstecznej jest wyłączona w trybie oszczędzania energii</string>
     <string name="pref_backtrack_frequency_title">Interwał trasy wstecznej</string>
-    <string name="backtrack_notification_channel_description">Aktualizacje lokalizacji trasy wstecznej</string>
+    <string name="backtrack_notification_channel_description">Aktualizacje lokalizacji śladu powrotnego</string>
     <string name="unit_yards">Jardy</string>
     <string name="yards_format">%s yd</string>
     <string name="find_next_occurrence">Znajdź następne wystąpienie</string>
