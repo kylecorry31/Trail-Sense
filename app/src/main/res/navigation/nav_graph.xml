@@ -464,7 +464,6 @@
 
         <argument
             android:name="guide_contents"
-            android:defaultValue="0"
             app:argType="integer" />
 
     </fragment>
