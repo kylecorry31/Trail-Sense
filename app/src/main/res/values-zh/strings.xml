@@ -892,4 +892,10 @@
     <string name="leave_underwater_mode">水下模式：按返回键退出</string>
     <string name="pref_low_resolution_maps_title">使用低分辨率</string>
     <string name="pref_low_resolution_maps_summary">对于内存有限的设备</string>
+    <string name="unit_yards">码</string>
+    <string name="yards_format">%s码</string>
+    <string name="find_next_occurrence">查找下一个出现</string>
+    <string name="daylight">日光</string>
+    <string name="pref_auto_low_power_title">自动电量节省</string>
+    <string name="pref_auto_low_power_summary">当你的电量低时</string>
 </resources>

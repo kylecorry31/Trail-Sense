@@ -753,7 +753,7 @@
     <string name="value_average">%s Durchschnitt</string>
     <string name="value_since_time">%s seit %s</string>
     <string name="speedometer_average">Durchschnitt (von Rückweg)</string>
-    <string name="speedometer_real_time">Echte Zeit</string>
+    <string name="speedometer_real_time">Echtzeit</string>
     <string name="pref_daily_weather_time_title">Zeit der täglichen Benachrichtigung</string>
     <string name="quick_action_none">Keine</string>
     <string name="backtrack_notification_channel_description">Standortaktualisierungen für Rückweg</string>
@@ -902,4 +902,10 @@
     <string name="back_press_confirm">Drücken Sie \"Zurück\" erneut zum Verlassen</string>
     <string name="underwater_mode">Unter-Wasser-Modus</string>
     <string name="leave_underwater_mode">Unter Wasser: drücken Sie \"Zurück\" zum Verlassen</string>
+    <string name="unit_yards">Yards</string>
+    <string name="yards_format">%s yd</string>
+    <string name="find_next_occurrence">Nächstes Vorkommen finden</string>
+    <string name="daylight">Tageslicht</string>
+    <string name="pref_auto_low_power_title">Automatisches Energiesparen</string>
+    <string name="pref_auto_low_power_summary">Wenn die Batterieladung niedrig ist</string>
 </resources>
