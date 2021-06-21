@@ -110,7 +110,7 @@ If an issue has a milestone and you would like to work on it, please leave a com
   - Sometimes Android stops reporting compass data to apps, and you may need to reboot your device to fix the issue.
 - **The compass is jittering**
   - You can apply smoothing to the compass by opening Trail Sense Settings > Compass and adjusting the smoothing bar. For my device, I find the 22 is a good smoothing value.
-- **The sunrise/set times are inaccurate or GPS isn't working**
+- **GPS isn't working or sunrise/set times are inaccurate**
   - The sunrise/set features need to know your approximate location to display accurate times, please check the following to see if it resolves your issue:
   - Validate your location settings by opening Trail Sense Settings > GPS and ensure your location appears and is correct. If your device location is disabled but Trail Sense has location permission, then the location in Trail Sense may be stale.
   - If you have GPS disabled (or the location permission denied), you will need to manually configure your location under Trail Sense's GPS settings (it defaults to 0, 0 - on the astronomy page you will see an error banner for this condition).
