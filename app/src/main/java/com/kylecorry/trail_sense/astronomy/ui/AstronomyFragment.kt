@@ -317,11 +317,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                         Duration.between(LocalDateTime.now(), it.first).abs()
                     }
                 val currentIdx = moonAltitudes.indexOf(current)
-                val point = chart.getPoint(1, currentIdx)
+                val point = chart.getPoint(0, currentIdx)
                 binding.moonPosition.x = point.first - binding.moonPosition.width / 2f
                 binding.moonPosition.y = point.second - binding.moonPosition.height / 2f
 
-                val point2 = chart.getPoint(2, currentIdx)
+                val point2 = chart.getPoint(1, currentIdx)
                 binding.sunPosition.x = point2.first - binding.sunPosition.width / 2f
                 binding.sunPosition.y = point2.second - binding.sunPosition.height / 2f
 

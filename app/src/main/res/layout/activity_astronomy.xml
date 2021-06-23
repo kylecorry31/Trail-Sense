@@ -38,6 +38,30 @@
         app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/flashlight" />
 
+    <ImageView
+        android:id="@+id/chart_night"
+        android:layout_width="0dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="@id/sunMoonChart"
+        app:layout_constraintEnd_toEndOf="@id/sunMoonChart"
+        app:layout_constraintStart_toStartOf="@id/sunMoonChart"
+        android:background="@color/colorSecondary"/>
+
+    <ImageView
+        android:id="@+id/chart_day"
+        android:layout_width="0dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toTopOf="@id/sunMoonChart"
+        app:layout_constraintEnd_toEndOf="@id/sunMoonChart"
+        app:layout_constraintStart_toStartOf="@id/sunMoonChart"
+        android:background="@color/colorAccent"/>
+
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/sunMoonChart"
         android:layout_width="0dp"

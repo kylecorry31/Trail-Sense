@@ -35,16 +35,14 @@ class AstroChart(private val chart: LineChart) {
         chart.setTouchEnabled(false)
         chart.isDragEnabled = false
         chart.setScaleEnabled(false)
-        chart.setGridBackgroundColor(chart.resources.getColor(R.color.colorAccent, null))
-        chart.setDrawGridBackground(true)
+        chart.setDrawGridBackground(false)
         chart.setDrawBorders(false)
 
         chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         chart.xAxis.valueFormatter = TimeLabelFormatter(chart.context)
-//        chart.xAxis.labelRotationAngle = 45f
         chart.axisRight.setDrawLabels(false)
         chart.axisLeft.setDrawLabels(false)
-        chart.axisLeft.setDrawZeroLine(true)
+        chart.axisLeft.setDrawZeroLine(false)
 
         val primaryColor = UiUtils.androidTextColorPrimary(chart.context)
         val r = primaryColor.red
@@ -78,21 +76,11 @@ class AstroChart(private val chart: LineChart) {
             Pair(time as Number, filters[idx].filter(a.second))
         } }.toMutableList()
 
-        val minValue = (values.map{ it.minByOrNull { it.second }?.second ?: 0f }.minOrNull() ?: 0f).coerceAtMost(-1f) - 10f
-        val maxValue = (values.map{ it.maxByOrNull { it.second }?.second ?: 0f }.maxOrNull() ?: 0f).coerceAtLeast(1f) + 10f
+        val minValue = -100f
+        val maxValue = 100f
 
         chart.axisLeft.axisMinimum = minValue
         chart.axisLeft.axisMaximum = maxValue
-
-        val start = values.map { it.first().first }.minByOrNull { it.toDouble() }?.toFloat() ?: 0f
-        val end = values.map { it.last().first }.maxByOrNull { it.toDouble() }?.toFloat() ?: 0f
-
-        values.add(0, listOf(
-            start to minValue,
-            end to minValue
-        ))
-
-        colors.add(0, chart.resources.getColor(R.color.colorSecondary, null))
 
         val sets = values.mapIndexed { index, data ->
             val entries = data.map { Entry(it.first.toFloat(), it.second) }
@@ -108,16 +96,9 @@ class AstroChart(private val chart: LineChart) {
             set1.cubicIntensity = 0.005f
             set1.setDrawCircles(false)
             set1.circleRadius = 1f
-            if (index == 0){
-                set1.setDrawCircles(false)
-                set1.lineWidth = 0f
-                set1.fillAlpha = 255
-                set1.setDrawFilled(true)
-            } else {
-                set1.setDrawFilled(false)
-            }
+            set1.setDrawFilled(false)
 
-            if (index == 1){
+            if (index == 0){
                 set1.valueFormatter = TimeLabelFormatter(chart.context)
             }
 
