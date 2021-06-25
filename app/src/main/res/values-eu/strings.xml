@@ -458,4 +458,19 @@
     <string name="theme_sunset_sunrise">Egunsentia/ilunabarra</string>
     <string name="experimental">Esperimentala</string>
     <string name="tides">Mareak</string>
+    <string name="your_height">Zure altuera</string>
+    <string name="value_average">%s batezbesteko</string>
+    <string name="unsaved_changes">Gorde gabeko aldaketak</string>
+    <string name="turn_off">Itzali</string>
+    <string name="tomorrows_forecast">Biharko iragarpena</string>
+    <string name="always_on">Beti piztuta</string>
+    <string name="todays_forecast">Gaurko iragarpena</string>
+    <string name="delete_waypoint_prompt">Erreferentzia puntua ezabatu\?</string>
+    <string name="waypoints_empty_text">Erreferentzia punturik ez</string>
+    <string name="unit_yards">Yardak</string>
+    <string name="daylight">Eguneko argia</string>
+    <string name="units">Unitateak</string>
+    <string name="days">Egunak</string>
+    <string name="sensor_gyroscope">Giroskopioa</string>
+    <string name="privacy">Pribatutasuna</string>
 </resources>
