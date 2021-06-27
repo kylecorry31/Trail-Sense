@@ -47,6 +47,7 @@ class FloatingActionButtonMenuItem(context: Context, attrs: AttributeSet?) : Fra
 
     fun setItemOnClickListener(l: OnClickListener){
         setOnClickListener(l)
+        fab.setOnClickListener(l)
     }
 
 }
