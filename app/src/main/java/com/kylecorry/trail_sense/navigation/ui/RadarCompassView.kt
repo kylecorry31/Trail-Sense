@@ -427,7 +427,8 @@ class RadarCompassView : CanvasView, ICompassView {
         if (prefs.navigation.scaleRadarCompass) {
             mScaleDetector.onTouchEvent(event)
             invalidate()
+            return true
         }
-        return true
+        return super.onTouchEvent(event)
     }
 }
