@@ -725,7 +725,7 @@
     <string name="tide_calibration">Gezeitenkalibrierung</string>
     <string name="date_not_set">Datum nicht festgelegt</string>
     <string name="time_not_set">Zeit nicht festgelegt</string>
-    <string name="tide_calibration_instructions">Setzen Sie die Zeit während einer Flut, wenn möglich während einer Neu- oder Vollmonds. Das kann im Internet oder über gedruckte Gezeitentabellen herausgefunden werden. Die Gezeiten, die in Trail Sense gezeigt werden, können bis zu zwei Stunden von den realen Zeiten abweichen, was genug als Referenz ist, allerdings sollten Sie sich nicht alleine darauf verlassen.</string>
+    <string name="tide_calibration_instructions">Setzen Sie die Zeit während einer Flut, wenn möglich während eines Neu- oder Vollmonds. Das kann im Internet oder über gedruckte Gezeitentabellen herausgefunden werden. Die Gezeiten, die in Trail Sense gezeigt werden, können bis zu zwei Stunden von den realen Zeiten abweichen, was genug als Referenz ist, allerdings sollten Sie sich nicht alleine darauf verlassen.</string>
     <string name="half_tide">Gezeitenmitte</string>
     <string name="low_tide">Ebbe</string>
     <string name="high_tide">Flut</string>
