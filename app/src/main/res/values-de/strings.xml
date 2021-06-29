@@ -170,14 +170,14 @@
     <string name="temperature_disclaimer">Die angezeigte Temperatur kann höher sein,
 \nwegen der Wärmeentwicklung Ihres Telefons.</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
-    <string name="pressure_setpoint_format">Setze %s - %s früher</string>
+    <string name="pressure_setpoint_format">Setze %s - vor %s</string>
     <string name="pressure_reading_time_ago">vor %s - %s</string>
     <string name="accuracy_info">"GPS: gehen Sie nach draußen mit einem freien Blick auf den Himmel.
 \n    %s der aktuellen Position
 \n    %s der aktuellen Höhe
 \n    %s Satelliten
 \n
-\nEntfernen Sie sich von Metallgegenständen und rotieren Sie das Gerät in Form einer 8 oder in alle Richtungen."</string>
+\nKompass: Entfernen Sie sich von Metallgegenständen und rotieren Sie das Gerät in Form einer 8 oder in alle Richtungen."</string>
     <string name="altitude">Höhe</string>
     <string name="pref_altimeter_calibration_title">Höhenmesser</string>
     <string name="request_permission">Berechtigung anfordern</string>
