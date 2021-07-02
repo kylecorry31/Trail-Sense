@@ -103,6 +103,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             backtrackRepo.getWaypoints()
                 .observe(viewLifecycleOwner, { waypoints ->
                     val sortedWaypoints = waypoints
+                        .filter { it.createdInstant > Instant.now().minus(prefs.navigation.backtrackHistory) }
                         .sortedByDescending { it.createdInstant }
 
                     backtrack = Path(

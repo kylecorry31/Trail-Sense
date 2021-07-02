@@ -15,6 +15,7 @@ import com.kylecorry.trailsensecore.domain.units.TimeUnits
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.speedometer.ISpeedometer
 import java.time.Duration
+import java.time.Instant
 
 class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISpeedometer {
 
@@ -25,7 +26,7 @@ class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISp
     private var waypoints = listOf<WaypointEntity>()
 
     private var waypointObserver = Observer<List<WaypointEntity>> {
-        waypoints = it.sortedBy { it.createdInstant }
+        waypoints = it.filter { it.createdInstant > Instant.now().minus(prefs.navigation.backtrackHistory) }.sortedBy { it.createdInstant }
         notifyListeners()
     }
 

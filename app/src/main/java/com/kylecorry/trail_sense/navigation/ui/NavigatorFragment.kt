@@ -179,7 +179,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         backtrackRepo.getWaypoints().observe(viewLifecycleOwner) {
-            val waypoints = it.sortedByDescending { it.createdInstant }
+            val waypoints = it.filter { it.createdInstant > Instant.now().minus(userPrefs.navigation.backtrackHistory) }.sortedByDescending { it.createdInstant }
             backtrack = Path(
                 WaypointRepo.BACKTRACK_PATH_ID,
                 getString(R.string.tool_backtrack_title),

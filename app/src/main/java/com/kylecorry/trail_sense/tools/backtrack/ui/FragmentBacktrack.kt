@@ -154,7 +154,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         waypointsLiveData = waypointRepo.getWaypoints()
         waypointsLiveData.observe(viewLifecycleOwner) { waypoints ->
             val filteredWaypoints =
-                waypoints.filter { it.createdInstant > Instant.now().minus(Duration.ofDays(2)) }
+                waypoints.filter { it.createdInstant > Instant.now().minus(prefs.navigation.backtrackHistory) }
                     .sortedByDescending { it.createdOn }
 
             listView.setData(filteredWaypoints)
