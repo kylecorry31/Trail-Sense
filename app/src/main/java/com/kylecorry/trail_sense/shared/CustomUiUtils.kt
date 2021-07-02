@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.text.InputType
 import android.view.View
 import android.widget.*
@@ -27,13 +29,30 @@ import java.time.Duration
 object CustomUiUtils {
 
     fun setButtonState(button: ImageButton, state: Boolean) {
-        UiUtils.setButtonState(
+        setButtonState(
             button,
             state,
             UiUtils.color(button.context, R.color.colorPrimary),
             UiUtils.color(button.context, R.color.colorSecondary)
         )
     }
+
+    private fun setButtonState(
+        button: ImageButton,
+        isOn: Boolean,
+        @ColorInt primaryColor: Int,
+        @ColorInt secondaryColor: Int
+    ){
+        if (isOn) {
+            button.drawable.colorFilter = PorterDuffColorFilter(secondaryColor, PorterDuff.Mode.SRC_IN)
+            button.backgroundTintList = ColorStateList.valueOf(primaryColor)
+        } else {
+            button.drawable.colorFilter = PorterDuffColorFilter(UiUtils.androidTextColorSecondary(button.context), PorterDuff.Mode.SRC_IN)
+            button.backgroundTintList =
+                ColorStateList.valueOf(UiUtils.androidBackgroundColorSecondary(button.context))
+        }
+    }
+
 
     fun setButtonState(
         button: Button,

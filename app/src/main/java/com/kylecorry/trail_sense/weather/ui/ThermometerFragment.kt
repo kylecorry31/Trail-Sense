@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentThermometerHygrometerBinding
 import com.kylecorry.trail_sense.shared.*
@@ -72,6 +74,12 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
                     R.string.freezing_temperatures_description
                 ), getString(R.string.dialog_ok)
             )
+        }
+
+        binding.temperatureEstimationBtn.isVisible = prefs.weather.isTemperatureEstimationEnabled
+        CustomUiUtils.setButtonState(binding.temperatureEstimationBtn, false)
+        binding.temperatureEstimationBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_thermometer_to_temperature_estimation)
         }
 
         thermometer.asLiveData().observe(viewLifecycleOwner, { onTemperatureUpdate() })

@@ -1083,4 +1083,10 @@
     <string name="find_next_occurrence">Find next occurrence</string>
     <string name="yards_format">%s yd</string>
     <string name="unit_yards">Yards</string>
+    <string name="pref_temperature_estimation">pref_temperature_estimation</string>
+    <string name="temperature_estimation">Temperature estimation</string>
+    <string name="pref_temperature_estimation_summary">Estimate the temperature at a different elevation</string>
+    <string name="base_elevation">Base elevation</string>
+    <string name="base_temperature">Base temperature</string>
+    <string name="destination_elevation">Destination elevation</string>
 </resources>

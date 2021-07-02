@@ -40,6 +40,14 @@
             app:singleLineTitle="false"
             app:title="@string/sighting_compass" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_temperature_estimation"
+            app:singleLineTitle="false"
+            app:title="@string/temperature_estimation"
+            android:summary="@string/pref_temperature_estimation_summary"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

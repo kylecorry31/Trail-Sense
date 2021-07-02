@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
+import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.math.toIntCompat
 import com.kylecorry.trailsensecore.domain.weather.ISeaLevelPressureConverter
@@ -36,6 +37,8 @@ class WeatherPreferences(private val context: Context) {
             return cache.getBoolean(context.getString(R.string.pref_experimental_barometer_calibration))
                 ?: false
         }
+
+    val isTemperatureEstimationEnabled by BooleanPreference(cache, context.getString(R.string.pref_temperature_estimation), false)
 
     val experimentalConverter: ISeaLevelPressureConverter?
         get() {

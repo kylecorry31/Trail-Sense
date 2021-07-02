@@ -427,7 +427,15 @@
     <fragment
         android:id="@+id/thermometerFragment"
         android:name="com.kylecorry.trail_sense.weather.ui.ThermometerFragment"
-        android:label="ThermometerFragment" />
+        android:label="ThermometerFragment">
+        <action
+            android:id="@+id/action_thermometer_to_temperature_estimation"
+            app:destination="@id/temperatureEstimationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/weatherSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.WeatherSettingsFragment"
@@ -807,5 +815,9 @@
         android:id="@+id/mapSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.MapSettingsFragment"
         android:label="MapSettingsFragment" />
+    <fragment
+        android:id="@+id/temperatureEstimationFragment"
+        android:name="com.kylecorry.trail_sense.weather.ui.TemperatureEstimationFragment"
+        android:label="TemperatureEstimationFragment" />
 
 </navigation>
