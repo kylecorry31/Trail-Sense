@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.CoordinatePreference
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
@@ -31,6 +32,7 @@ class CalibrateGPSFragment : CustomPreferenceFragment() {
     private lateinit var autoLocationSwitch: SwitchPreferenceCompat
     private lateinit var permissionBtn: Preference
     private lateinit var locationOverridePref: CoordinatePreference
+    private var clearCacheBtn: Preference? = null
     private val formatService by lazy { FormatService(requireContext()) }
 
     private lateinit var gps: IGPS
@@ -54,6 +56,7 @@ class CalibrateGPSFragment : CustomPreferenceFragment() {
         autoLocationSwitch = findPreference(getString(R.string.pref_auto_location))!!
         permissionBtn = findPreference(getString(R.string.pref_gps_request_permission))!!
         locationOverridePref = findPreference(getString(R.string.pref_gps_override))!!
+        clearCacheBtn = preference(R.string.pref_gps_clear_cache)
         locationOverridePref.setGPS(realGps)
         locationOverridePref.setLocation(prefs.locationOverride)
         locationOverridePref.setTitle(getString(R.string.pref_gps_override_title))
@@ -75,6 +78,10 @@ class CalibrateGPSFragment : CustomPreferenceFragment() {
             val intent = IntentUtils.appSettings(requireContext())
             startActivityForResult(intent, 1000)
             true
+        }
+
+        onClick(clearCacheBtn) {
+            clearCache()
         }
 
         update()
@@ -154,6 +161,15 @@ class CalibrateGPSFragment : CustomPreferenceFragment() {
         return sensorChecker.hasGPS()
     }
 
+    private fun clearCache() {
+        val cache = Cache(requireContext())
+        cache.remove(CustomGPS.LAST_ALTITUDE)
+        cache.remove(CustomGPS.LAST_UPDATE)
+        cache.remove(CustomGPS.LAST_SPEED)
+        cache.remove(CustomGPS.LAST_LONGITUDE)
+        cache.remove(CustomGPS.LAST_LATITUDE)
+    }
+
     private fun update() {
         if (throttle.isThrottled()) {
             return
@@ -162,7 +178,7 @@ class CalibrateGPSFragment : CustomPreferenceFragment() {
         val useReal = shouldUseRealGPS()
         val useCached = shouldUseCachedGPS()
 
-        if (useReal != wasUsingRealGPS || useCached != wasUsingCachedGPS){
+        if (useReal != wasUsingRealGPS || useCached != wasUsingCachedGPS) {
             resetRealGPS()
             resetGPS()
             wasUsingCachedGPS = useCached

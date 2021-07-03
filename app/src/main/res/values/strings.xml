@@ -1089,4 +1089,6 @@
     <string name="base_elevation">Base elevation</string>
     <string name="base_temperature">Base temperature</string>
     <string name="destination_elevation">Destination elevation</string>
+    <string name="clear_cache">Clear cache</string>
+    <string name="pref_gps_clear_cache" translatable="false">pref_gps_clear_cache</string>
 </resources>

@@ -36,6 +36,13 @@
             app:key="@string/pref_gps_request_permission"
             app:singleLineTitle="false" />
 
+        <Preference
+            android:title="@string/clear_cache"
+            android:dependency="@string/pref_auto_location"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_gps_clear_cache"
+            app:singleLineTitle="false" />
+
         <com.kylecorry.trail_sense.shared.views.CoordinatePreference
             app:iconSpaceReserved="false"
             app:key="@string/pref_gps_override">
