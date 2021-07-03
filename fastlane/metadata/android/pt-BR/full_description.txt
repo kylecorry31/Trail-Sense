@@ -1,0 +1,18 @@
+<h4>Navegação</h4>
+<p>A bússola pode ser usada para determinar a direção ao Norte e quando acompanhada de GPS pode ser usada para navegar aos lugares pré-definidos. Ao passar por alguns lugares você pode criar Pontos de Orientação e em qualquer momento pode usar a bússola para navegar de volta para eles.</p>
+<p>Exemplos: casa, trabalho, trilha, acampamento</p>
+<p>A lanterna pode ser facilmente acessada na tela de navegação (iluminação ou modo SOS).</p>
+
+<h4>Tempo</h4>
+<p>O barômetro pode ser usado para determinar se o tempo vai mudar em breve e se é provável que ocorra uma tempestade. O histórico da pressão barométrica (últimas 48 horas) é exibido como um gráfico e uma análise da leitura atual é mostrada. Se a pressão cair repentinamente, uma notificação de alerta de tempestade é emitida.</p>
+
+<h4>Astronomia</h4>
+<p>Veja o nascer do sol/lua e os tempos previstos assim como a fase atual da lua em sua localização.</p>
+
+<h4>Privacidade</h4>
+<p>Todos os dados de localização são armazenados em seu dispositivo e o App não usa a Internet de forma alguma.</p>
+
+<h4>Permissões</h4>
+<p>Localização (precisa, segundo plano): Usado para navegação por as referências, Norte Verdadeiro, correção de altitude do barômetro (em segundo plano), e tempos previstos de nascer do sol/lua.</p>
+<p>Lanterna: Usado para o recurso de lanterna na tela de navegação.</p>
+<p>Identificação de Atividades: Usado para o odômetro baseado em pedômetro, para medir a distância.</p>
