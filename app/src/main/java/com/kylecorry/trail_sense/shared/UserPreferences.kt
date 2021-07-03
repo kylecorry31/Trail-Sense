@@ -11,7 +11,6 @@ import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
-import com.kylecorry.trailsensecore.domain.geo.cartography.MapSite
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
@@ -247,11 +246,6 @@ class UserPreferences(private val context: Context) {
         }
 
     var useCameraFeatures: Boolean by BooleanPreference(cache, getString(R.string.pref_use_camera_features), false)
-
-    val mapSite: MapSite
-        get() {
-            return MapSite.OSM
-        }
 
     private fun getString(id: Int): String {
         return context.getString(id)
