@@ -126,7 +126,7 @@ class NavigationPreferences(private val context: Context) {
                 .toString()
         )
 
-    var scaleRadarCompass: Boolean = true
+    var scaleRadarCompass: Boolean = false
 
     val rulerScale: Float
         get() {
