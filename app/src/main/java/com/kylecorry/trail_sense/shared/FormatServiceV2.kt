@@ -90,6 +90,22 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
+    fun formatTime(
+        amount: Float,
+        units: TimeUnits,
+        decimalPlaces: Int = 0,
+        strict: Boolean = true
+    ): String {
+        val formatted = DecimalFormatter.format(amount, decimalPlaces, strict)
+        return when (units) {
+            TimeUnits.Milliseconds -> context.getString(R.string.milliseconds_format, formatted)
+            TimeUnits.Seconds -> context.getString(R.string.seconds_format, formatted)
+            TimeUnits.Minutes -> context.getString(R.string.minutes_format, formatted)
+            TimeUnits.Hours -> context.getString(R.string.hours_format, formatted)
+            TimeUnits.Days -> context.getString(R.string.days_format, formatted)
+        }
+    }
+
     fun formatVolume(volume: Volume, decimalPlaces: Int = 0, strict: Boolean = true): String {
         val formatted = DecimalFormatter.format(volume.volume, decimalPlaces, strict)
         return when (volume.units) {
@@ -103,7 +119,10 @@ class FormatServiceV2(private val context: Context) {
             VolumeUnits.ImperialCups -> context.getString(R.string.cup_format, formatted)
             VolumeUnits.ImperialPints -> context.getString(R.string.pint_format, formatted)
             VolumeUnits.ImperialQuarts -> context.getString(R.string.quart_format, formatted)
-            VolumeUnits.ImperialOunces -> context.getString(R.string.ounces_volume_format, formatted)
+            VolumeUnits.ImperialOunces -> context.getString(
+                R.string.ounces_volume_format,
+                formatted
+            )
             VolumeUnits.ImperialGallons -> context.getString(R.string.gallon_format, formatted)
         }
     }

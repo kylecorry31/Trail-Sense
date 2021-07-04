@@ -1031,7 +1031,6 @@
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>
     </plurals>
-    <string name="days">Days</string>
     <string name="pref_privacy_screenshot_protection" translatable="false">pref_privacy_screenshot_protection</string>
     <string name="pref_privacy_screenshot_protection_title">Prevent screenshots</string>
     <string name="units">Units</string>
@@ -1111,4 +1110,14 @@
     <string name="kilograms_format">%s kg</string>
     <string name="grams_format">%s g</string>
     <string name="weight">Weight</string>
+    <string name="seconds">Seconds</string>
+    <string name="minutes">Minutes</string>
+    <string name="hours">Hours</string>
+    <string name="days">Days</string>
+    <string name="milliseconds_format">%s ms</string>
+    <string name="seconds_format">%s s</string>
+    <string name="minutes_format">%s m</string>
+    <string name="hours_format">%s h</string>
+    <string name="days_format">%s d</string>
+    <string name="time">Time</string>
 </resources>
