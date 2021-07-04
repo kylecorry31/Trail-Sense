@@ -23,7 +23,7 @@ class FlashlightOffReceiver: BroadcastReceiver() {
         }
 
         fun pendingIntent(context: Context): PendingIntent {
-            return PendingIntent.getBroadcast(context, PI_ID, intent(context), PendingIntent.FLAG_CANCEL_CURRENT)
+            return PendingIntent.getBroadcast(context, PI_ID, intent(context), PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         }
     }
 }

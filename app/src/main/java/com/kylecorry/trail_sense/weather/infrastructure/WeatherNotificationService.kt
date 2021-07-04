@@ -34,7 +34,7 @@ object WeatherNotificationService {
         val prefs = UserPreferences(context)
 
         val stopPendingIntent: PendingIntent =
-            PendingIntent.getBroadcast(context, 0, stopIntent, 0)
+            PendingIntent.getBroadcast(context, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE)
 
         val stopAction = NotificationUtils.action(
             context.getString(R.string.stop_monitoring),

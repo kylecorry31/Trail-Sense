@@ -42,7 +42,7 @@ class NextMinuteBroadcastReceiver : BroadcastReceiver() {
                 context,
                 PENDING_INTENT_ID,
                 intent(context, timeString),
-                PendingIntent.FLAG_CANCEL_CURRENT
+                PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
         }
     }
