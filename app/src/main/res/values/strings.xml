@@ -491,11 +491,9 @@
     <string name="pref_astronomy_category" translatable="false">pref_astronomy_category</string>
     <string name="pref_category_tabs">Tabs</string>
     <string name="guide_conserving_battery_title">Conserving battery</string>
-    <string name="guide_conserving_battery_description">Saving battery while using Trail Sense</string>
     <string name="guide_beacons_title">Beacons</string>
     <string name="guide_beacons_description">How to navigate using beacons</string>
     <string name="guide_weather_prediction_title">Weather prediction</string>
-    <string name="guide_weather_prediction_description">How to predict weather using Trail Sense</string>
     <string name="tool_bubble_level" translatable="false">tool_bubble_level</string>
     <string name="tool_bubble_level_title">Bubble Level</string>
     <string name="tool_bubble_level_summary">Determine if surfaces are flat</string>
@@ -521,17 +519,14 @@
     <string name="depth_disclaimer">Use at your own risk.\n\nDo not use without a waterproof case and stay within a safe diving distance if possible.</string>
     <string name="item_name_hint">Name</string>
     <string name="item_amount_hint">Amount</string>
-    <string name="guide_avalanche_description">How to determine avalanche risk</string>
     <string name="guide_avalanche_risk">Avalanche risk estimation</string>
     <string name="object_height_guide">Estimate object heights</string>
-    <string name="object_height_guide_description">How to estimate the heights of objects</string>
     <string name="toast_destination_bearing_set">Destination bearing set</string>
     <string name="tool_cliff_height_title">Cliff Height</string>
     <string name="tool_cliff_height" translatable="false">tool_cliff_height</string>
     <string name="tool_cliff_height_description">Measure the height of a cliff or drop</string>
     <string name="tool_cliff_height_disclaimer">Only use this tool when it is safe to do so, and be sure to check what is below the cliff to avoid injury. See the user guide for instructions.</string>
     <string name="cliff_height_guide">Estimate cliff height</string>
-    <string name="cliff_height_guide_description">How to estimate the heights of cliffs or drops</string>
     <string name="max_depth">Max: %s</string>
     <string name="tool_whistle_title">Whistle</string>
     <string name="tool_whistle" translatable="false">tool_whistle</string>
@@ -678,7 +673,6 @@
     <string name="guide_create_beacons_title">Creating beacons</string>
     <string name="guide_create_beacons_description">How to create beacons</string>
     <string name="guide_location_no_gps_title">Determine location without GPS</string>
-    <string name="guide_location_no_gps_description">How to find your location when you don\'t have a GPS signal</string>
     <string name="backtrack_notification_channel">Backtrack</string>
     <string name="backtrack_notification_channel_description">Backtrack location updates</string>
     <string name="backtrack_notification_description">Placing location waypoint</string>
@@ -703,7 +697,6 @@
     <string name="delete_waypoint_prompt">Delete waypoint?</string>
     <string name="delete_tide_prompt">Delete tide?</string>
     <string name="guide_thermometer_calibration_title">Thermometer calibration</string>
-    <string name="guide_thermometer_calibration_description">How to calibrate your thermometer</string>
     <string name="tool_thermometer_title">Thermometer</string>
     <string name="tool_thermometer" translatable="false">tool_thermometer</string>
     <string name="pref_category_barometer_and_thermometer" translatable="false">pref_category_barometer_and_thermometer</string>
@@ -713,7 +706,6 @@
     <string name="charging_wireless">Charging (%s)</string>
     <string name="guide_backtrack_description">How to use Backtrack</string>
     <string name="guide_barometer_calibration_title">Barometer calibration</string>
-    <string name="guide_barometer_calibration_description">How to calibrate your barometer to sea level</string>
     <string name="pref_low_power_mode" translatable="false">pref_low_power_mode</string>
     <string name="pref_low_power_mode_weather" translatable="false">pref_low_power_mode_weather</string>
     <string name="pref_low_power_mode_backtrack" translatable="false">pref_low_power_mode_backtrack</string>
@@ -904,10 +896,7 @@
     <string name="pref_meteor_showers" translatable="false">pref_meteor_showers</string>
     <string name="pref_meteor_showers_title">Meteor showers</string>
     <string name="guide_signaling_for_help_title">Signaling for help</string>
-    <string name="guide_signaling_for_help_description">How to signal for help</string>
-    <string name="guide_navigation_description">How to navigate using Trail Sense</string>
     <string name="guide_using_printed_maps">Using printed maps</string>
-    <string name="guide_using_printed_maps_desc">How to use printed maps with Trail Sense</string>
     <string name="pedometer_disclaimer">The accuracy and battery usage of the pedometer is dependent on your device\'s manufacturer and the stride length entered. Try it out at home for a bit to verify battery drain and accuracy before using on the trail.</string>
     <string name="speedometer_odometer_accuracy_dialog">For the best accuracy, enable Backtrack and set the odometer source to pedometer in settings.</string>
     <string name="rename">Rename</string>
@@ -918,7 +907,6 @@
     <string name="create_map">Create map</string>
     <string name="create_map_description">Enter the name of the map</string>
     <string name="guide_importing_maps_title">Importing maps</string>
-    <string name="guide_importing_maps_desc">How to import and use maps in Trail Sense</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="guide_speedometer_title">Determine speed and distance</string>
@@ -962,7 +950,6 @@
     <string name="background_update">Background update</string>
     <string name="calibrate_new_tide">Calibrate to a new tide?</string>
     <string name="water_boil_guide_title">Make water safe to drink</string>
-    <string name="water_boil_guide_desc">How to use the Water Boil Timer</string>
     <string name="color">Color</string>
     <string name="pref_use_camera_features" translatable="false">pref_use_camera_features</string>
     <string name="pref_use_camera_features_title">Enable camera features</string>

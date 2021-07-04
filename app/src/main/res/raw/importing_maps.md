@@ -1,5 +1,7 @@
 ## How to create a map?
 
+To use maps in Trail Sense, you must enable the "Maps" setting in Trail Sense's "Experimental" settings. Note that maps is far from finished at this point, so don't make any decisions off of it, and email me at trailsense@protonmail.com with any crashes, bug reports, or feedback. I don't have a timeline for when maps will be ready for use.
+
 From the 'Offline Maps' tool, tap the plus button in the bottom right and give your map a name. You will then be prompted to select an image of a map. At this time, the image must already exist on your phone, so you may need to have downloaded a map image or taken a picture already. After selecting a map you can open it from the list and calibrate it.
 
 Caltopo is a great source for downloading high quality trail maps, which are easy to calibrate in Trail Sense. Just 'print' the map to a Geospatial PDF and Trail Sense can automatically import it and calibrate.

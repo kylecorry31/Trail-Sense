@@ -262,11 +262,9 @@
     <string name="beacon_action_view_details">Ver os detalhes</string>
     <string name="tool_bubble_level_summary">Determinar se as superfícies são planas</string>
     <string name="tool_bubble_level_title">Nível de Bolha</string>
-    <string name="guide_weather_prediction_description">Como prever o tempo usando o Trail Sense</string>
     <string name="guide_weather_prediction_title">Previsão de tempo</string>
     <string name="guide_beacons_description">Como navegar usando os Pontos de Orientação</string>
     <string name="guide_beacons_title">Pontos de Orientação</string>
-    <string name="guide_conserving_battery_description">Economia de bateria ao usar o Trail Sense</string>
     <string name="guide_conserving_battery_title">Economia de bateria</string>
     <string name="pref_category_tabs">Abas</string>
     <string name="navigation_nearby_category">Nas proximidades</string>
@@ -410,16 +408,13 @@
     <string name="action_inventory_delete_all">tudo</string>
     <string name="tool_whistle_title">Assobio</string>
     <string name="max_depth">Max: %s</string>
-    <string name="cliff_height_guide_description">Como estimar as alturas de penhascos ou quedas</string>
     <string name="cliff_height_guide">Estimar a altura do penhasco</string>
     <string name="tool_cliff_height_disclaimer">Use esta ferramenta somente quando for seguro para fazê-lo, e certifique-se de verificar o que está abaixo do penhasco para evitar ferimentos. Consulte o guia do usuário para mais instruções.</string>
     <string name="tool_cliff_height_description">Medir a altura de um penhasco ou queda</string>
     <string name="tool_cliff_height_title">Altura de Penhasco</string>
     <string name="toast_destination_bearing_set">Conjunto de suporte ao destino</string>
-    <string name="object_height_guide_description">Como estimar as alturas dos objetos</string>
     <string name="object_height_guide">Estimar as alturas dos objetos</string>
     <string name="guide_avalanche_risk">Estimativa de risco de avalanche</string>
-    <string name="guide_avalanche_description">Como determinar o risco de avalanche</string>
     <string name="item_amount_hint">Quantidade</string>
     <string name="depth_disclaimer">Use por sua própria conta e risco.
 \n
@@ -503,12 +498,10 @@
     <string name="freezing_temperatures_description">A água congelará se deixada de fora e a chuva pode se transformar em neve</string>
     <string name="waypoint_action_delete">Deletar</string>
     <string name="tool_thermometer_title">Termômetro</string>
-    <string name="guide_thermometer_calibration_description">Como calibrar seu termômetro</string>
     <string name="guide_thermometer_calibration_title">Calibração de termômetro</string>
     <string name="location_input_hint">Localização</string>
     <string name="location_input_help_title">Formatos de localização suportados</string>
     <string name="coordinate_input_invalid_location">Localização inválida</string>
-    <string name="guide_location_no_gps_description">Como encontrar sua localização quando você não tem sinal de GPS</string>
     <string name="guide_location_no_gps_title">Determinar localização sem GPS</string>
     <string name="tool_white_noise_summary">Ajuda você a dormir</string>
     <string name="guide_create_beacons_title">Criando sinais luminosos</string>
@@ -631,7 +624,6 @@
     <string name="unsaved_changes">Alterações não salvas</string>
     <string name="low_power_mode_on_message">Modo de economia de energia ativado, algumas funcionalidades podem ser desativadas.</string>
     <string name="pref_low_power_mode_title">Modo de economia de energia</string>
-    <string name="guide_barometer_calibration_description">Como calibrar seu barômetro ao nível do mar</string>
     <string name="guide_barometer_calibration_title">Calibração do barômetro</string>
     <string name="guide_backtrack_description">Como usar o Backtrack</string>
     <string name="charging_wireless">Carregando (%s)</string>

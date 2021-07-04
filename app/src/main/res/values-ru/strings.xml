@@ -350,11 +350,9 @@
     <string name="forecasts_category">Прогнозы</string>
     <string name="pref_category_tabs">Вкладки</string>
     <string name="guide_conserving_battery_title">Экономия батареи</string>
-    <string name="guide_conserving_battery_description">Экономия заряда батареи при использовании Trail Sense</string>
     <string name="guide_beacons_title">Маячки</string>
     <string name="guide_beacons_description">Как ориентироваться с помощью маячков</string>
     <string name="guide_weather_prediction_title">Прогноз погоды</string>
-    <string name="guide_weather_prediction_description">Как предсказывать погоду с помощью Trail Sense</string>
     <string name="item_amount_hint">Количество</string>
     <string name="item_name_hint">Имя</string>
     <string name="depth_disclaimer">Используй на свой страх и риск.
@@ -385,15 +383,12 @@
     <string name="action_inventory">Инвентарь</string>
     <string name="depth_meters_format">%.2f м</string>
     <string name="depth_feet_format">%.1f фт</string>
-    <string name="guide_avalanche_description">Как определить риск схода лавин</string>
     <string name="guide_avalanche_risk">Оценка риска схода лавин</string>
     <string name="object_height_guide">Оценить высоту объекта</string>
-    <string name="object_height_guide_description">Как оценить высоту объектов</string>
     <string name="tool_cliff_height_title">Высота скалы</string>
     <string name="tool_cliff_height_description">Измерьте высоту скалы или обрыва</string>
     <string name="tool_cliff_height_disclaimer">Используйте этот инструмент только тогда, когда это безопасно, и обязательно проверяйте, что находится под скалой, чтобы избежать травм. Инструкции смотрите в руководстве пользователя.</string>
     <string name="cliff_height_guide">Оценка высоты скалы</string>
-    <string name="cliff_height_guide_description">Как оценить высоту скал или обрывов</string>
     <string name="max_depth">Макс: %s</string>
     <string name="precise_inches_format">%s in</string>
     <string name="thunder">Гром</string>
@@ -523,7 +518,6 @@
     <string name="inches_format">%.2f in</string>
     <string name="low_power_mode_on_message">Включен режим энергосбережения, некоторые функции могут быть отключены.</string>
     <string name="pref_low_power_mode_title">Режим энергосбережения</string>
-    <string name="guide_barometer_calibration_description">Как откалибровать барометр по уровню моря</string>
     <string name="guide_barometer_calibration_title">Калибровка барометра</string>
     <string name="guide_backtrack_description">Как использовать историю маршрута</string>
     <string name="charging_wireless">Зарядка (%s)</string>
@@ -531,7 +525,6 @@
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_ac">AC</string>
     <string name="tool_thermometer_title">Термометр</string>
-    <string name="guide_thermometer_calibration_description">Как откалибровать термометр</string>
     <string name="guide_thermometer_calibration_title">Калибровка термометра</string>
     <string name="delete_waypoint_prompt">Удалить путевую точку\?</string>
     <string name="pref_gps_override_title">Переопределение местоположения</string>
@@ -555,7 +548,6 @@
     <string name="backtrack_notification_description">Размещение путевой точки</string>
     <string name="backtrack_notification_channel_description">Обновление местоположения истории маршрута</string>
     <string name="backtrack_notification_channel">История маршрута</string>
-    <string name="guide_location_no_gps_description">Как определить свое местоположение, когда у вас нет сигнала GPS</string>
     <string name="guide_location_no_gps_title">Определить местоположение без GPS</string>
     <string name="guide_create_beacons_description">Как создавать маячки</string>
     <string name="guide_create_beacons_title">Создание маячков</string>
@@ -751,10 +743,7 @@
     <string name="meteor_shower">Звездопад</string>
     <string name="speedometer_odometer_accuracy_dialog">Для максимальной точности включите историю маршрута и установите в настройках в качестве источника одометра шагомер.</string>
     <string name="pedometer_disclaimer">Точность шагомера и его использование батареи зависят от производителя вашего устройства и введенной длины шага. Попробуйте походить немного дома, чтобы проверить разряд батареи и точность перед использованием на тропе.</string>
-    <string name="guide_using_printed_maps_desc">Как использовать печатные карты с Trail Sense</string>
     <string name="guide_using_printed_maps">Использование печатных карт</string>
-    <string name="guide_navigation_description">Как ориентироваться с помощью Trail Sense</string>
-    <string name="guide_signaling_for_help_description">Как подать сигнал о помощи</string>
     <string name="guide_signaling_for_help_title">Сигнал о помощи</string>
     <string name="meteors_per_hour">Максимум %d метеоров / ч</string>
     <string name="tomorrow_at">Завтра в %s</string>
@@ -788,7 +777,6 @@
     <string name="guide_speedometer_title">Определите скорость и расстояние</string>
     <string name="next">Далее</string>
     <string name="previous">Назад</string>
-    <string name="guide_importing_maps_desc">Как импортировать и использовать карты в Trail Sense</string>
     <string name="guide_importing_maps_title">Импорт карт</string>
     <string name="create_map_description">Введите название карты</string>
     <string name="create_map">Создать карту</string>
@@ -856,7 +844,6 @@
     <string name="camera_permission_denied">В разрешении камеры отказано, невозможно включить функции камеры. Вы можете включить его в настройках.</string>
     <string name="pref_use_camera_features_title">Включить функции камеры</string>
     <string name="color">Цвет</string>
-    <string name="water_boil_guide_desc">Как использовать таймер кипячения воды</string>
     <string name="water_boil_guide_title">Сделайте воду безопасной для питья</string>
     <string name="map_perspective_instructions">Наклонить карту</string>
     <string name="pref_barometer_altitude_outlier_title">Удалить высотное отклонение</string>

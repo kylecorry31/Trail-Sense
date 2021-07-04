@@ -9,7 +9,6 @@
     <string name="fields">Alanlar</string>
     <string name="pref_show_last_signal_beacon_summary">Son telefon sinyali konumu için işaret oluşturur</string>
     <string name="pref_show_last_signal_beacon_title">Son sinyal işareti</string>
-    <string name="water_boil_guide_desc">Su Kaynatma Zamanlayıcısı nasıl kullanılır</string>
     <string name="water_boil_guide_title">Suyu içilebilir hale getir</string>
     <string name="calibrate_new_tide">Yeni gelgit için kalibre etmek istediğinizden emin misiniz\?</string>
     <string name="background_update">Arkaplan güncellemesi</string>
@@ -202,7 +201,6 @@
     <string name="backtrack_notification_description">Konum hedefi yerleştiriliyor</string>
     <string name="backtrack_notification_channel_description">Geri iz sürme konum güncellemeleri</string>
     <string name="backtrack_notification_channel">Geri iz sürme</string>
-    <string name="guide_location_no_gps_description">GPS sinyaliniz yoksa konumunuzu nasıl bulursunuz</string>
     <string name="guide_location_no_gps_title">GPS olmadan konum belirle</string>
     <string name="guide_create_beacons_description">İşaret nasıl oluşturulur</string>
     <string name="guide_create_beacons_title">İşaretler oluşturuluyor</string>
@@ -342,15 +340,12 @@
     <string name="action_inventory_delete_all">Hepsini sil</string>
     <string name="tool_whistle_title">Islık</string>
     <string name="max_depth">Maks.: %s</string>
-    <string name="cliff_height_guide_description">Kayalık yüksekliği nasıl tahmin edilir</string>
     <string name="cliff_height_guide">Kayalık yüksekliğini tahmin et</string>
     <string name="tool_cliff_height_disclaimer">Bu aracı yalnızca kullanımı güvenli olduğunda kullanın ve yaralanmayı önlemek için uçurumun altında ne olduğunu kontrol ettiğinizden emin olun. Talimatlar için kullanım kılavuzuna bakın.</string>
     <string name="tool_cliff_height_title">Kayalık Yüksekliği</string>
     <string name="tool_cliff_height_description">Kayalığın yüksekliğini belirleyin</string>
-    <string name="object_height_guide_description">Nesnelerin boyutu nasıl belirlenir</string>
     <string name="object_height_guide">Nesnelerin boyutunu belirle</string>
     <string name="guide_avalanche_risk">Çığ riski tahmini</string>
-    <string name="guide_avalanche_description">Çığ riski nasıl belirlenir</string>
     <string name="item_amount_hint">Miktar</string>
     <string name="item_name_hint">İsim</string>
     <string name="depth_disclaimer">Riski size ait olmak üzere kullanın.
@@ -370,7 +365,6 @@
     <string name="category_other">Diğer</string>
     <string name="pref_sea_level_pressure_change_thresh_title">Seyahat basıncı değişikliği eşiği</string>
     <string name="pref_barometer_altitude_change_title">Seyahat irtifası değişikliği eşiği</string>
-    <string name="guide_conserving_battery_description">Trail Sense kullanırken güç tasarrufu</string>
     <string name="guide_conserving_battery_title">Güç tasarrufu</string>
     <string name="pref_category_tabs">Sekmeler</string>
     <string name="navigation_nearby_category">Yakındakiler</string>
@@ -710,7 +704,6 @@
     <string name="beacon_action_view_details">Detayları gör</string>
     <string name="tool_bubble_level_summary">yüzeylerin düz olup olmadığını belirle</string>
     <string name="tool_bubble_level_title">Su Terazisi</string>
-    <string name="guide_weather_prediction_description">Trail Sense kullanarak hava durumu tahmini nasıl yapılır</string>
     <string name="guide_weather_prediction_title">Hava durumu tahmini</string>
     <string name="guide_beacons_description">İşaretleri kullanarak nasıl yön bulunur</string>
     <string name="guide_beacons_title">İşaretler</string>
@@ -774,12 +767,10 @@
     <string name="pref_low_power_mode_summary">Güç tasarrufu için bazı özellikleri devre dışı bırakır</string>
     <string name="low_power_mode_on_message">Güç tasarrufu modu açık, bazı özellikler devre dışı bırakılabilir.</string>
     <string name="pref_low_power_mode_title">Güç tasarrufu modu</string>
-    <string name="guide_barometer_calibration_description">Barometreniz deniz seviyesine nasıl kalibre edilir</string>
     <string name="guide_barometer_calibration_title">Barometre kalibrasyonu</string>
     <string name="battery_power_wireless">Kablosuz</string>
     <string name="battery_power_usb">USB</string>
     <string name="tool_thermometer_title">Termometre</string>
-    <string name="guide_thermometer_calibration_description">Termometreniz nasıl kalibre edilir</string>
     <string name="guide_thermometer_calibration_title">Termometre kalibrasyonu</string>
     <string name="pref_gps_override_title">Konumun üzerine yaz</string>
     <string name="coordinate_input_invalid_location">Geçersiz konum</string>
@@ -794,7 +785,6 @@
     <string name="map_auto_calibrated">Harita otomatik olarak kalibre edildi, lütfen doğruluğunu onaylayın</string>
     <string name="next">Sonraki</string>
     <string name="previous">Önceki</string>
-    <string name="guide_importing_maps_desc">Trail Sense\'de haritalar nasıl içe aktarılır ve kullanılır</string>
     <string name="guide_importing_maps_title">Haritaları içe aktarma</string>
     <string name="create_map_description">Haritanın adını girin</string>
     <string name="create_map">Harita oluştur</string>
@@ -802,10 +792,7 @@
     <string name="on_map">Harita üzerinde</string>
     <string name="no_maps">Harita yok</string>
     <string name="rename">Yeniden adlandır</string>
-    <string name="guide_using_printed_maps_desc">Trail Sense ile basılı haritalar nasıl kullanılır</string>
     <string name="guide_using_printed_maps">Basılı haritaları kullanarak</string>
-    <string name="guide_navigation_description">Trail Sense kullanarak nasıl yön bulunur</string>
-    <string name="guide_signaling_for_help_description">Yardım için nasıl sinyal verilir</string>
     <string name="guide_signaling_for_help_title">Yardım sinyali</string>
     <string name="pref_meteor_showers_title">Gök taşı yağmurları</string>
     <string name="meteors_per_hour">Saatte en fazla %d gök taşı</string>

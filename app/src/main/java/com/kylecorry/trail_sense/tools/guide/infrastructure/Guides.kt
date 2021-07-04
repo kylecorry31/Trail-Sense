@@ -16,12 +16,12 @@ object Guides {
             context.getString(R.string.pref_general_header), listOf(
                 UserGuide(
                     context.getString(R.string.guide_conserving_battery_title),
-                    context.getString(R.string.guide_conserving_battery_description),
+                    null,
                     R.raw.conserving_battery
                 ),
                 UserGuide(
                     context.getString(R.string.guide_signaling_for_help_title),
-                    context.getString(R.string.guide_signaling_for_help_description),
+                    null,
                     R.raw.signaling_for_help
                 )
             )
@@ -31,22 +31,22 @@ object Guides {
             context.getString(R.string.navigation), listOf(
                 UserGuide(
                     context.getString(R.string.navigation),
-                    context.getString(R.string.guide_navigation_description),
+                    null,
                     R.raw.navigate
                 ),
                 UserGuide(
                     context.getString(R.string.guide_using_printed_maps),
-                    context.getString(R.string.guide_using_printed_maps_desc),
+                    null,
                     R.raw.using_printed_maps
                 ),
                 UserGuide(
                     context.getString(R.string.guide_importing_maps_title),
-                    context.getString(R.string.guide_importing_maps_desc),
+                    context.getString(R.string.experimental),
                     R.raw.importing_maps
                 ),
                 UserGuide(
                     context.getString(R.string.guide_location_no_gps_title),
-                    context.getString(R.string.guide_location_no_gps_description),
+                    null,
                     R.raw.determine_location_without_gps
                 ),
                 UserGuide(
@@ -62,17 +62,17 @@ object Guides {
                 if (sensorChecker.hasBarometer())
                     UserGuide(
                         context.getString(R.string.guide_weather_prediction_title),
-                        context.getString(R.string.guide_weather_prediction_description),
+                        null,
                         R.raw.weather
                     ) else null,
                 if (sensorChecker.hasBarometer()) UserGuide(
                     context.getString(R.string.guide_barometer_calibration_title),
-                    context.getString(R.string.guide_barometer_calibration_description),
+                    null,
                     R.raw.calibrating_barometer
                 ) else null,
                 UserGuide(
                     context.getString(R.string.guide_thermometer_calibration_title),
-                    context.getString(R.string.guide_thermometer_calibration_description),
+                    null,
                     R.raw.calibrating_thermometer
                 )
             )
@@ -82,17 +82,17 @@ object Guides {
             context.getString(R.string.tools), listOf(
                 UserGuide(
                     context.getString(R.string.guide_avalanche_risk),
-                    context.getString(R.string.guide_avalanche_description),
+                    null,
                     R.raw.determine_avalanche_risk
                 ),
                 UserGuide(
                     context.getString(R.string.object_height_guide),
-                    context.getString(R.string.object_height_guide_description),
+                    null,
                     R.raw.height_estimation
                 ),
                 UserGuide(
                     context.getString(R.string.cliff_height_guide),
-                    context.getString(R.string.cliff_height_guide_description),
+                    null,
                     R.raw.cliff_height
                 ),
                 UserGuide(
@@ -102,7 +102,7 @@ object Guides {
                 ),
                 UserGuide(
                     context.getString(R.string.water_boil_guide_title),
-                    context.getString(R.string.water_boil_guide_desc),
+                    null,
                     R.raw.making_water_potable
                 ),
                 UserGuide(

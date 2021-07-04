@@ -211,7 +211,6 @@
     <string name="sunset_alert_notification_title">Słońce niedługo zajdzie</string>
     <string name="cliff_height_guide">Szacowanie wysokości klifu</string>
     <string name="tool_cliff_height_title">Wysokość klifu</string>
-    <string name="object_height_guide_description">Jak oszacować wysokość obiektów</string>
     <string name="object_height_guide">Szacowanie wysokości obiektu</string>
     <string name="tool_depth_summary">Określ głębokość wody</string>
     <string name="tool_depth_title">Głębokość</string>
@@ -219,7 +218,6 @@
     <string name="category_clothing">Odzież</string>
     <string name="category_hydration">Nawodnienie</string>
     <string name="guide_beacons_title">Punkty nawigacyjne</string>
-    <string name="guide_conserving_battery_description">Oszczędzanie baterii podczas korzystania z Trail Sense</string>
     <string name="guide_conserving_battery_title">Oszczędzanie baterii</string>
     <string name="navigation_nearby_category">W pobliżu</string>
     <string name="forecasts_category">Prognozy</string>
@@ -295,7 +293,6 @@
     <string name="max_depth">Maks.: %s</string>
     <string name="tool_whistle_title">Gwizdek</string>
     <string name="guide_avalanche_risk">Ocena ryzyka lawinowego</string>
-    <string name="guide_avalanche_description">Jak określić zagrożenie lawinowe</string>
     <string name="item_amount_hint">Ilość</string>
     <string name="item_name_hint">Nazwa</string>
     <string name="category_shelter">Schronienie</string>
@@ -349,7 +346,6 @@
     <string name="distance_to">Do</string>
     <string name="distance_from">Od</string>
     <string name="action_inventory_delete_all">Usuń wszystko</string>
-    <string name="guide_weather_prediction_description">Jak prognozować pogodę przy użyciu programu Trail Sense</string>
     <string name="pref_sensor_details_title">Szczegóły czujników</string>
     <string name="pref_privacy_policy_title">Polityka prywatności</string>
     <string name="unit_nautical_miles">Mile morskie</string>
@@ -469,7 +465,6 @@
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">Wyświetl historię lokalizacji</string>
     <string name="waypoint_action_delete">Usuń</string>
-    <string name="guide_location_no_gps_description">Jak znaleźć swoją lokalizację, gdy nie masz sygnału GPS</string>
     <string name="guide_location_no_gps_title">Określ lokalizację bez GPS</string>
     <string name="min_temp_uncalibrated">Minimalna temperatura telefonu (nieskalibrowana)</string>
     <string name="min_temp_calibrated">Minimalna temperatura otoczenia (skalibrowana)</string>
@@ -494,7 +489,6 @@
     <string name="strobe_warning_title">Migające światła</string>
     <string name="clock_waiting_for_gps">Aktualizacja czasu z GPS…</string>
     <string name="tool_solar_panel_summary">Ustaw panele słoneczne, aby uzyskać optymalną produkcję energii</string>
-    <string name="cliff_height_guide_description">Jak oszacować wysokość klifów lub urwisk</string>
     <string name="tool_cliff_height_description">Zmierz wysokość klifu lub urwiska</string>
     <string name="depth_disclaimer">Używasz na własne ryzyko.
 \n
@@ -536,12 +530,10 @@
     <string name="guide_create_beacons_title">Dodawanie punktów nawigacyjnych</string>
     <string name="low_power_mode_on_message">Tryb oszczędzania energii jest włączony, niektóre funkcje mogą być wyłączone.</string>
     <string name="pref_low_power_mode_title">Tryb oszczędzania energii</string>
-    <string name="guide_barometer_calibration_description">Jak skalibrować barometr do ciśnienia na poziomie morza</string>
     <string name="guide_barometer_calibration_title">Kalibracja barometru</string>
     <string name="charging_wireless">Ładowanie (%s)</string>
     <string name="battery_power_wireless">Bezprzewodowe</string>
     <string name="tool_thermometer_title">Termometr</string>
-    <string name="guide_thermometer_calibration_description">Jak skalibrować termometr</string>
     <string name="guide_thermometer_calibration_title">Kalibracja termometru</string>
     <string name="battery_power_usb">USB</string>
     <string name="coordinate_format_mgrs">MGRS</string>
@@ -758,9 +750,7 @@
     <string name="meteors_per_hour">Maksymalnie %d meteorów / h</string>
     <string name="tomorrow_at">Jutro o %s</string>
     <string name="meteor_shower">Deszcz meteorów</string>
-    <string name="guide_using_printed_maps_desc">Jak korzystać z map drukowanych w programie Trail Sense</string>
     <string name="guide_using_printed_maps">Korzystanie z map drukowanych</string>
-    <string name="guide_navigation_description">Jak nawigować za pomocą programu Trail Sence</string>
     <string name="previous">Poprzedni</string>
     <string name="next">Dalej</string>
     <string name="guide_importing_maps_title">Importowanie mapy</string>
@@ -772,7 +762,6 @@
     <string name="rename">Zmień nazwę</string>
     <string name="experimental">Eksperymentalne</string>
     <string name="guide_speedometer_title">Określ prędkość i odległość</string>
-    <string name="guide_signaling_for_help_description">Jak wezwać pomoc</string>
     <string name="guide_signaling_for_help_title">Wzywanie pomocy</string>
     <string name="import_gpx">Importuj plik GPX</string>
     <string name="error_importing_map">Błąd podczas importowania mapy</string>
@@ -797,7 +786,6 @@
     <string name="search">Wyszukaj</string>
     <string name="map_auto_calibrated">Mapa skalibrowana automatycznie, sprawdź jej dokładność</string>
     <string name="guide_speedometer_desc">Jak określić przebytą odległość i czas przybycia</string>
-    <string name="guide_importing_maps_desc">Jak zaimportować i korzystać z map w programie Trail Sense</string>
     <string name="place_beacon_at">Czy umieścić punkt nawigacyjny na %s\?</string>
     <plurals name="beacons_exported">
         <item quantity="one">Wyeksportowano %d punkt nawigacyjny</item>
@@ -858,7 +846,6 @@
     <string name="pressure_rising_fast">Ciśnienie szybko rośnie</string>
     <string name="import_map">Importuj mapę</string>
     <string name="camera_permission_denied">Odmowa dostępu do aparatu, nie można włączyć funkcji aparatu. Możesz to włączyć w ustawieniach.</string>
-    <string name="water_boil_guide_desc">Jak korzystać z minutnika przegotowywania wody</string>
     <string name="days">Dni</string>
     <plurals name="number_days">
         <item quantity="one">%d dzień</item>
