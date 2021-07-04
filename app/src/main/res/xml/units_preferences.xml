@@ -47,6 +47,16 @@
             app:title="@string/pref_coordinate_format_title"
             app:useSimpleSummaryProvider="true" />
 
+        <ListPreference
+            app:defaultValue="osm"
+            app:entries="@array/map_url_entries"
+            app:entryValues="@array/map_url_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_map_url_source"
+            app:singleLineTitle="false"
+            app:title="@string/pref_map_url_source_title"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"

@@ -17,6 +17,7 @@ import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.trailsensecore.infrastructure.persistence.preferences.StringEnumPreference
 import java.time.Duration
 
 class UserPreferences(private val context: Context) {
@@ -195,7 +196,10 @@ class UserPreferences(private val context: Context) {
             return Duration.ofMinutes(raw.toLongOrNull() ?: 30L)
         }
         set(value) {
-            cache.putString(getString(R.string.pref_backtrack_frequency), value.toMinutes().toString())
+            cache.putString(
+                getString(R.string.pref_backtrack_frequency),
+                value.toMinutes().toString()
+            )
         }
 
     var isLowPowerModeOn: Boolean
@@ -224,7 +228,7 @@ class UserPreferences(private val context: Context) {
             return raw == "pedometer"
         }
         set(value) {
-            val str = if (value){
+            val str = if (value) {
                 "pedometer"
             } else {
                 "gps"
@@ -233,7 +237,7 @@ class UserPreferences(private val context: Context) {
         }
 
     val resetOdometerDaily: Boolean
-        get(){
+        get() {
             return cache.getBoolean(getString(R.string.pref_odometer_reset_daily)) ?: false
         }
 
@@ -246,12 +250,21 @@ class UserPreferences(private val context: Context) {
             cache.putFloat(getString(R.string.pref_stride_length), value.meters().distance)
         }
 
-    var useCameraFeatures: Boolean by BooleanPreference(cache, getString(R.string.pref_use_camera_features), false)
+    var useCameraFeatures: Boolean by BooleanPreference(
+        cache,
+        getString(R.string.pref_use_camera_features),
+        false
+    )
 
-    val mapSite: MapSite
-        get() {
-            return MapSite.OSM
-        }
+    val mapSite: MapSite by StringEnumPreference(
+        cache, context.getString(R.string.pref_map_url_source), mapOf(
+            "apple" to MapSite.Apple,
+            "bing" to MapSite.Bing,
+            "caltopo" to MapSite.Caltopo,
+            "google" to MapSite.Google,
+            "osm" to MapSite.OSM
+        ), MapSite.OSM
+    )
 
     private fun getString(id: Int): String {
         return context.getString(id)

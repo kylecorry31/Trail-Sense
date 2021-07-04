@@ -1083,7 +1083,7 @@
     <string name="find_next_occurrence">Find next occurrence</string>
     <string name="yards_format">%s yd</string>
     <string name="unit_yards">Yards</string>
-    <string name="pref_temperature_estimation">pref_temperature_estimation</string>
+    <string name="pref_temperature_estimation" translatable="false">pref_temperature_estimation</string>
     <string name="temperature_estimation">Temperature estimation</string>
     <string name="pref_temperature_estimation_summary">Estimate the temperature at a different elevation</string>
     <string name="base_elevation">Base elevation</string>
@@ -1091,4 +1091,6 @@
     <string name="destination_elevation">Destination elevation</string>
     <string name="clear_cache">Clear cache</string>
     <string name="pref_gps_clear_cache" translatable="false">pref_gps_clear_cache</string>
+    <string name="pref_map_url_source" translatable="false">pref_map_url_source</string>
+    <string name="pref_map_url_source_title">Location share map</string>
 </resources>

@@ -246,4 +246,20 @@
         <item>@string/help</item>
     </string-array>
 
+    <string-array name="map_url_entries">
+        <item>Apple</item>
+        <item>Bing</item>
+        <item>CalTopo</item>
+        <item>Google</item>
+        <item>OpenStreetMap</item>
+    </string-array>
+
+    <string-array name="map_url_values">
+        <item>apple</item>
+        <item>bing</item>
+        <item>caltopo</item>
+        <item>google</item>
+        <item>osm</item>
+    </string-array>
+
 </resources>
