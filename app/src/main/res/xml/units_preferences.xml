@@ -34,7 +34,7 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_temperature_units"
             app:singleLineTitle="false"
-            app:title="@string/pref_temperature_units_title"
+            app:title="@string/temperature"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference

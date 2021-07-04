@@ -114,7 +114,7 @@
     <string name="altimeter_mode_gps">GPS</string>
     <string name="gps_location">Lokalizacja</string>
     <string name="pref_compass_sensor_title">Kompas</string>
-    <string name="pref_temperature_units_title">Temperatura</string>
+    <string name="temperature">Temperatura</string>
     <string name="celsius">Stopnie Celsjusza</string>
     <string name="fahrenheit">Stopnie Fahrenheita</string>
     <string name="pref_general_header">Ogólne</string>

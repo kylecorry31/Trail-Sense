@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.viewpager.widget.ViewPager xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/convert_viewpager"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout_convert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="auto"/>
-</androidx.viewpager.widget.ViewPager>
+        app:tabMode="auto" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/convert_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

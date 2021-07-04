@@ -30,7 +30,7 @@
     <string name="pref_use_true_north_title">實際北方</string>
     <string name="pref_compass_sensor_title">羅盤</string>
     <string name="pref_ruler_calibration_title">尺大小縮放</string>
-    <string name="pref_temperature_units_title">溫度</string>
+    <string name="temperature">溫度</string>
     <string name="celsius">攝氏溫標</string>
     <string name="fahrenheit">華氏溫標</string>
     <string name="pref_coordinate_format_title">座標格式</string>

@@ -113,7 +113,7 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
 
             when (hours) {
                 0L -> binding.tempChartTitle.text =
-                    getString(R.string.pref_temperature_units_title) + " - " + context?.resources?.getQuantityString(
+                    getString(R.string.temperature) + " - " + context?.resources?.getQuantityString(
                         R.plurals.last_minutes,
                         minutes.toInt(),
                         minutes
@@ -121,7 +121,7 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
                 else -> {
                     if (minutes >= 30) hours++
                     binding.tempChartTitle.text =
-                        getString(R.string.pref_temperature_units_title) + " - " +
+                        getString(R.string.temperature) + " - " +
                                 context?.resources?.getQuantityString(
                                     R.plurals.last_hours,
                                     hours.toInt(),

@@ -117,7 +117,7 @@
     <string name="compass_azimuth">Азимут</string>
     <string name="pref_compass_sensor_title">Компас</string>
     <string name="sensors">Датчики</string>
-    <string name="pref_temperature_units_title">Температура</string>
+    <string name="temperature">Температура</string>
     <string name="pref_coordinate_format_title">Формат координат</string>
     <string name="inclinometer_title">Инклинометр (креномер)</string>
     <string name="offline_maps">Офлайн-карты</string>

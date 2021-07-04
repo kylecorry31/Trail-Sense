@@ -130,7 +130,7 @@
     <string name="compass_azimuth">Azimut</string>
     <string name="pref_compass_sensor_title">Iparrorratza</string>
     <string name="sensors">Sentsoreak</string>
-    <string name="pref_temperature_units_title">Tenperatura</string>
+    <string name="temperature">Tenperatura</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="theme_system">Sistemarena</string>

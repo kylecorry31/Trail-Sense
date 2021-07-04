@@ -523,7 +523,7 @@
 \n-Ölçülen değeri buraya yazın.</string>
     <string name="pref_ruler_calibration_title">Cetvel ölçeği</string>
     <string name="sensors">Sensörler</string>
-    <string name="pref_temperature_units_title">Isı derecesi</string>
+    <string name="temperature">Isı derecesi</string>
     <string name="celsius">Santigrat</string>
     <string name="fahrenheit">Fahrenhayt</string>
     <string name="pref_coordinate_format_title">Koordinat biçimi</string>

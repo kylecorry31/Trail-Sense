@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.coordinateconvert.ui
+package com.kylecorry.trail_sense.tools.convert.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

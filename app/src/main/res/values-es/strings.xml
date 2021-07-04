@@ -115,7 +115,7 @@
     <string name="unknown">Desconocida</string>
     <string name="compass_azimuth">Azimut</string>
     <string name="sensors">Sensores</string>
-    <string name="pref_temperature_units_title">Temperatura</string>
+    <string name="temperature">Temperatura</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="pref_coordinate_format_title">Formato de coordenada</string>

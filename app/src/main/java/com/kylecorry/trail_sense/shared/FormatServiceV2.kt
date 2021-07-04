@@ -112,9 +112,10 @@ class FormatServiceV2(private val context: Context) {
 
     fun formatTemperature(
         temperature: Temperature,
-        decimalPlaces: Int = 0
+        decimalPlaces: Int = 0,
+        strict: Boolean = true
     ): String {
-        val formatted = DecimalFormatter.format(temperature.temperature, decimalPlaces)
+        val formatted = DecimalFormatter.format(temperature.temperature, decimalPlaces, strict)
         return when (temperature.units) {
             TemperatureUnits.F -> context.getString(R.string.precise_temp_f_format, formatted)
             TemperatureUnits.C -> context.getString(R.string.precise_temp_c_format, formatted)

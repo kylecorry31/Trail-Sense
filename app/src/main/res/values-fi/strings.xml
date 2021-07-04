@@ -256,7 +256,7 @@
 \n- Ilmoita mitattu arvo täällä.</string>
     <string name="pref_ruler_calibration_title">Viivoittimen skaalaus</string>
     <string name="sensors">Anturit</string>
-    <string name="pref_temperature_units_title">Lämpötila</string>
+    <string name="temperature">Lämpötila</string>
     <string name="pref_coordinate_format_title">Koordinaatti formaatti</string>
     <string name="coordinate_format_mgrs">MGRS-koordinaatit</string>
     <string name="coordinate_format_utm">UTM-koordinaatit</string>

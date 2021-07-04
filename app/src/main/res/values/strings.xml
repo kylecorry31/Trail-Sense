@@ -237,7 +237,7 @@
     <string name="pref_coordinate_format_title">Coordinate format</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="celsius">Celsius</string>
-    <string name="pref_temperature_units_title">Temperature</string>
+    <string name="temperature">Temperature</string>
     <!--Settings - Sensors-->
     <string name="sensors">Sensors</string>
     <!--Settings - Sensors - Ruler-->
@@ -1080,4 +1080,5 @@
     <string name="pref_gps_clear_cache" translatable="false">pref_gps_clear_cache</string>
     <string name="pref_map_url_source" translatable="false">pref_map_url_source</string>
     <string name="pref_map_url_source_title">Location share map</string>
+    <string name="swap">Swap</string>
 </resources>

@@ -38,7 +38,7 @@
     <string name="compass_azimuth">Asimut</string>
     <string name="pref_compass_sensor_title">Kompass</string>
     <string name="sensors">Sensorer</string>
-    <string name="pref_temperature_units_title">Temperatur</string>
+    <string name="temperature">Temperatur</string>
     <string name="celsius">Celsius</string>
     <string name="pref_coordinate_format_title">Koordinatformat</string>
     <string name="theme_system">System</string>

@@ -172,7 +172,7 @@
 \n- reportez la valeur mesurée ici.</string>
     <string name="pref_ruler_calibration_title">Échelle de la règle graduée</string>
     <string name="sensors">Capteurs</string>
-    <string name="pref_temperature_units_title">Unité de température</string>
+    <string name="temperature">Unité de température</string>
     <string name="pref_coordinate_format_title">Unité des coordonnées géographiques</string>
     <string name="coordinate_format_degrees_minutes_seconds">Degrés (notation sexagésimale)</string>
     <string name="coordinate_format_decimal_degrees">Degrés (notation décimale)</string>

@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayoutMediator
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolConvertBinding
-import com.kylecorry.trail_sense.tools.coordinateconvert.ui.FragmentToolCoordinateConvert
-import com.kylecorry.trail_sense.tools.distanceconvert.ui.FragmentDistanceConverter
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
 class FragmentToolConvert : BoundFragment<FragmentToolConvertBinding>() {
@@ -17,18 +14,21 @@ class FragmentToolConvert : BoundFragment<FragmentToolConvertBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val convertTools = ArrayList<Fragment>()
-        convertTools.add(FragmentToolCoordinateConvert())
-        convertTools.add(FragmentDistanceConverter())
-        val convertToolsNames = ArrayList<Int>()
-        convertToolsNames.add(R.string.coordinates_tab)
-        convertToolsNames.add(R.string.distance_hint)
+        val convertTools = listOf(
+            FragmentToolCoordinateConvert(),
+            FragmentDistanceConverter(),
+            FragmentTemperatureConverter()
+        )
+        val convertNames = listOf(
+            getString(R.string.coordinates_tab),
+            getString(R.string.distance),
+            getString(R.string.temperature)
+        )
+        binding.convertViewpager.adapter = CustomViewPagerAdapter(this, convertTools)
 
-        val viewPager: ViewPager = binding.convertViewpager
-        viewPager.adapter = ConvertViewPagerAdapter(childFragmentManager, convertTools, convertToolsNames, requireContext())
-
-        val tabLayout = binding.tabLayoutConvert
-        tabLayout.setupWithViewPager(viewPager)
+        TabLayoutMediator(binding.tabLayoutConvert, binding.convertViewpager) { tab, position ->
+            tab.text = convertNames[position]
+        }.attach()
     }
 
     override fun generateBinding(

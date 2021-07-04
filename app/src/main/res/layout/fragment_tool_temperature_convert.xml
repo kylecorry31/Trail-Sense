@@ -10,34 +10,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
-        app:tint="?android:textColorSecondary"
+        android:contentDescription="@string/swap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/from_units"
-        app:srcCompat="@drawable/ic_import_export" />
+        app:srcCompat="@drawable/ic_import_export"
+        app:tint="?android:textColorSecondary" />
 
     <EditText
-        android:id="@+id/distance_edit"
+        android:id="@+id/temperature_edit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="@string/distance_hint"
-        android:inputType="numberDecimal"
+        android:hint="@string/temperature"
+        android:inputType="numberDecimal|numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
+    <TextView
         android:id="@+id/from_units"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/distance_edit"
+        android:layout_marginEnd="16dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/temperature_edit"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:text="Celsius" />
 
     <TextView
         android:id="@+id/textView2"
@@ -45,17 +51,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/distance_from"
-        app:layout_constraintStart_toStartOf="@+id/distance_edit"
-        app:layout_constraintTop_toBottomOf="@+id/distance_edit" />
+        app:layout_constraintStart_toStartOf="@+id/temperature_edit"
+        app:layout_constraintTop_toBottomOf="@+id/temperature_edit" />
 
-    <Spinner
+    <TextView
         android:id="@+id/to_units"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/distance_edit"
+        android:layout_marginEnd="16dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/temperature_edit"
         app:layout_constraintStart_toStartOf="@+id/to_units_text"
-        app:layout_constraintTop_toBottomOf="@+id/to_units_text" />
+        app:layout_constraintTop_toBottomOf="@+id/to_units_text"
+        tools:text="Celsius" />
 
     <TextView
         android:id="@+id/to_units_text"
@@ -74,6 +85,6 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintStart_toStartOf="@+id/to_units_text"
         app:layout_constraintTop_toBottomOf="@+id/to_units"
-        tools:text="2 m" />
+        tools:text="2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
