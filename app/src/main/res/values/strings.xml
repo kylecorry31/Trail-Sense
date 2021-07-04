@@ -1086,20 +1086,29 @@
     <string name="cup_format">%s c</string>
     <string name="pint_format">%s pt</string>
     <string name="quart_format">%s qt</string>
-    <string name="ounce_format">%s oz</string>
+    <string name="ounces_volume_format">%s oz</string>
     <string name="gallon_format">%s gal</string>
     <string name="liters">Liters</string>
     <string name="milliliters">Milliliters</string>
     <string name="us_cups">US Cups</string>
     <string name="us_pints">US Pints</string>
     <string name="us_quarts">US Quarts</string>
-    <string name="us_ounces">US Ounces</string>
+    <string name="us_ounces_volume">US Ounces</string>
     <string name="us_gallons">US Gallons</string>
     <string name="imperial_cups">Imperial Cups</string>
     <string name="imperial_pints">Imperial Pints</string>
     <string name="imperial_quarts">Imperial Quarts</string>
-    <string name="imperial_ounces">Imperial Ounces</string>
+    <string name="imperial_ounces_volume">Imperial Ounces</string>
     <string name="imperial_gallons">Imperial Gallons</string>
 <!--    The measure of how much space something takes up (liquid)-->
     <string name="volume">Volume</string>
+    <string name="pounds">Pounds</string>
+    <string name="ounces_weight">Ounces</string>
+    <string name="kilograms">Kilograms</string>
+    <string name="grams">Grams</string>
+    <string name="pounds_format">%s lb</string>
+    <string name="ounces_weight_format">%s oz</string>
+    <string name="kilograms_format">%s kg</string>
+    <string name="grams_format">%s g</string>
+    <string name="weight">Weight</string>
 </resources>

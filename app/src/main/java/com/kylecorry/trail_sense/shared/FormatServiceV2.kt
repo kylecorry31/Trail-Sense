@@ -98,13 +98,23 @@ class FormatServiceV2(private val context: Context) {
             VolumeUnits.USCups -> context.getString(R.string.cup_format, formatted)
             VolumeUnits.USPints -> context.getString(R.string.pint_format, formatted)
             VolumeUnits.USQuarts -> context.getString(R.string.quart_format, formatted)
-            VolumeUnits.USOunces -> context.getString(R.string.ounce_format, formatted)
+            VolumeUnits.USOunces -> context.getString(R.string.ounces_volume_format, formatted)
             VolumeUnits.USGallons -> context.getString(R.string.gallon_format, formatted)
             VolumeUnits.ImperialCups -> context.getString(R.string.cup_format, formatted)
             VolumeUnits.ImperialPints -> context.getString(R.string.pint_format, formatted)
             VolumeUnits.ImperialQuarts -> context.getString(R.string.quart_format, formatted)
-            VolumeUnits.ImperialOunces -> context.getString(R.string.ounce_format, formatted)
+            VolumeUnits.ImperialOunces -> context.getString(R.string.ounces_volume_format, formatted)
             VolumeUnits.ImperialGallons -> context.getString(R.string.gallon_format, formatted)
+        }
+    }
+
+    fun formatWeight(weight: Weight, decimalPlaces: Int = 0, strict: Boolean = true): String {
+        val formatted = DecimalFormatter.format(weight.weight, decimalPlaces, strict)
+        return when (weight.units) {
+            WeightUnits.Pounds -> context.getString(R.string.pounds_format, formatted)
+            WeightUnits.Ounces -> context.getString(R.string.ounces_weight_format, formatted)
+            WeightUnits.Kilograms -> context.getString(R.string.kilograms_format, formatted)
+            WeightUnits.Grams -> context.getString(R.string.grams_format, formatted)
         }
     }
 

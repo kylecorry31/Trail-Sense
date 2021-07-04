@@ -18,12 +18,12 @@ class FragmentVolumeConverter : SimpleConvertFragment<VolumeUnits>(VolumeUnits.L
             VolumeUnits.USCups -> getString(R.string.us_cups)
             VolumeUnits.USPints -> getString(R.string.us_pints)
             VolumeUnits.USQuarts -> getString(R.string.us_quarts)
-            VolumeUnits.USOunces -> getString(R.string.us_ounces)
+            VolumeUnits.USOunces -> getString(R.string.us_ounces_volume)
             VolumeUnits.USGallons -> getString(R.string.us_gallons)
             VolumeUnits.ImperialCups -> getString(R.string.imperial_cups)
             VolumeUnits.ImperialPints -> getString(R.string.imperial_pints)
             VolumeUnits.ImperialQuarts -> getString(R.string.imperial_quarts)
-            VolumeUnits.ImperialOunces -> getString(R.string.imperial_ounces)
+            VolumeUnits.ImperialOunces -> getString(R.string.imperial_ounces_volume)
             VolumeUnits.ImperialGallons -> getString(R.string.imperial_gallons)
         }
     }
