@@ -90,6 +90,24 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
+    fun formatVolume(volume: Volume, decimalPlaces: Int = 0, strict: Boolean = true): String {
+        val formatted = DecimalFormatter.format(volume.volume, decimalPlaces, strict)
+        return when (volume.units) {
+            VolumeUnits.Liters -> context.getString(R.string.liter_format, formatted)
+            VolumeUnits.Milliliter -> context.getString(R.string.milliliter_format, formatted)
+            VolumeUnits.USCups -> context.getString(R.string.cup_format, formatted)
+            VolumeUnits.USPints -> context.getString(R.string.pint_format, formatted)
+            VolumeUnits.USQuarts -> context.getString(R.string.quart_format, formatted)
+            VolumeUnits.USOunces -> context.getString(R.string.ounce_format, formatted)
+            VolumeUnits.USGallons -> context.getString(R.string.gallon_format, formatted)
+            VolumeUnits.ImperialCups -> context.getString(R.string.cup_format, formatted)
+            VolumeUnits.ImperialPints -> context.getString(R.string.pint_format, formatted)
+            VolumeUnits.ImperialQuarts -> context.getString(R.string.quart_format, formatted)
+            VolumeUnits.ImperialOunces -> context.getString(R.string.ounce_format, formatted)
+            VolumeUnits.ImperialGallons -> context.getString(R.string.gallon_format, formatted)
+        }
+    }
+
     fun formatDbm(dbm: Int): String {
         return context.getString(R.string.dbm_format, dbm.toString())
     }
@@ -140,7 +158,7 @@ class FormatServiceV2(private val context: Context) {
             CompassDirection.SouthWest -> context.getString(R.string.direction_south_west)
         }
     }
-    
+
     fun formatDays(days: Int): String {
         return context.resources.getQuantityString(R.plurals.number_days, days, days)
     }
@@ -214,7 +232,10 @@ class FormatServiceV2(private val context: Context) {
     }
 
     fun formatElectricalCapacity(capacity: Float): String {
-        return context.getString(R.string.battery_capacity_format, DecimalFormatter.format(capacity, 0))
+        return context.getString(
+            R.string.battery_capacity_format,
+            DecimalFormatter.format(capacity, 0)
+        )
     }
 
     fun formatCurrent(current: Float): String {
@@ -233,7 +254,7 @@ class FormatServiceV2(private val context: Context) {
     }
 
     fun formatShortTermWeather(weather: Weather, relative: Boolean): String {
-        return if (relative){
+        return if (relative) {
             when (weather) {
                 Weather.ImprovingFast -> context.getString(R.string.weather_improving_fast)
                 Weather.ImprovingSlow -> context.getString(R.string.weather_improving_slow)

@@ -17,12 +17,14 @@ class FragmentToolConvert : BoundFragment<FragmentToolConvertBinding>() {
         val convertTools = listOf(
             FragmentToolCoordinateConvert(),
             FragmentDistanceConverter(),
-            FragmentTemperatureConverter()
+            FragmentTemperatureConverter(),
+            FragmentVolumeConverter()
         )
         val convertNames = listOf(
             getString(R.string.coordinates_tab),
             getString(R.string.distance),
-            getString(R.string.temperature)
+            getString(R.string.temperature),
+            getString(R.string.volume)
         )
         binding.convertViewpager.adapter = CustomViewPagerAdapter(this, convertTools)
 
