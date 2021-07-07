@@ -688,4 +688,5 @@
     <string name="sensor_gyroscope">Gyroskop</string>
     <string name="privacy">Personvern</string>
     <string name="units">Enheter</string>
+    <string name="temperature_estimation">Temperaturberegning</string>
 </resources>
