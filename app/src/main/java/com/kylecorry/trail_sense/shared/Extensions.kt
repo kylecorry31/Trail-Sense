@@ -4,13 +4,10 @@ import android.content.Context
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationMenu
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import java.time.*
 import java.time.format.DateTimeFormatter
 import kotlin.math.pow
