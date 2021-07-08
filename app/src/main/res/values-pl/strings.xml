@@ -910,4 +910,27 @@
     <string name="pref_flashlight_toggle_with_volume_title">Przełącz za pomocą przycisków głośności</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Podczas, gdy program Trail Sense jest otwarty</string>
     <string name="back_press_confirm">Naciśnij jeszcze raz wstecz, aby wyjść</string>
+    <string name="time">Czas</string>
+    <string name="days_format">%s d</string>
+    <string name="hours_format">%s h</string>
+    <string name="minutes_format">%s m</string>
+    <string name="seconds_format">%s s</string>
+    <string name="milliseconds_format">%s ms</string>
+    <string name="hours">Godziny</string>
+    <string name="minutes">Minuty</string>
+    <string name="seconds">Sekundy</string>
+    <string name="weight">Waga</string>
+    <string name="grams_format">%s g</string>
+    <string name="kilograms_format">%s kg</string>
+    <string name="grams">Gramy</string>
+    <string name="kilograms">Kilogramy</string>
+    <string name="ounces_weight">Uncje</string>
+    <string name="pounds">Funty</string>
+    <string name="volume">Pojemność</string>
+    <string name="milliliters">Mililitry</string>
+    <string name="liters">Litry</string>
+    <string name="pint_format">%s pinta</string>
+    <string name="cup_format">%s kubek</string>
+    <string name="milliliter_format">%s ml</string>
+    <string name="liter_format">%s l</string>
 </resources>
