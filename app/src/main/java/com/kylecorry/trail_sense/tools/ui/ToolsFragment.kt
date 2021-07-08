@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
 import com.kylecorry.trail_sense.databinding.ListItemToolBinding
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 
@@ -43,7 +44,9 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
                 toolBinding.description.isVisible = tool.description != null
                 toolBinding.icon.setImageResource(tool.icon)
                 toolBinding.root.setOnClickListener {
-                    findNavController().navigate(tool.action)
+                    tryOrNothing {
+                        findNavController().navigate(tool.action)
+                    }
                 }
             } else {
                 // Tool group

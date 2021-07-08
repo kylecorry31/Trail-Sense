@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.ItemRepo
 import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryIconMapper
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
@@ -44,7 +45,7 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
         listView = ListView(binding.inventoryList, R.layout.list_item_inventory) { itemView, item ->
             val itemBinding = ListItemInventoryBinding.bind(itemView)
             itemBinding.name.text = item.name
-            itemBinding.count.text = DecimalFormatter.format(item.amount, 4)
+            itemBinding.count.text = DecimalFormatter.format(item.amount, 4, false)
 
             val imgMapper = ItemCategoryIconMapper()
             itemBinding.itemCategoryImg.setImageResource(imgMapper.getIcon(item.category))
@@ -125,7 +126,9 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
             }
 
             itemView.setOnClickListener {
-                editItem(item)
+                tryOrNothing {
+                    editItem(item)
+                }
             }
 
         }

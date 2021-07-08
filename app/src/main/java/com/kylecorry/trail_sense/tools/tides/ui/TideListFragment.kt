@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
 import com.kylecorry.trailsensecore.domain.oceanography.OceanographyService
 import com.kylecorry.trailsensecore.domain.oceanography.TideType
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
@@ -52,7 +53,9 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
             itemBinding.title.text = getTideTitle(tide)
             itemBinding.description.text = getTideTypeName(oceanographyService.getTideType(tide.reference))
             itemBinding.root.setOnClickListener {
-                selectTide(tide)
+                tryOrNothing {
+                    selectTide(tide)
+                }
             }
             
             itemBinding.menuBtn.setOnClickListener {

@@ -9,6 +9,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.guide.infrastructure.Guides
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideService
+import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 
 class GuideListFragment : PreferenceFragmentCompat() {
 
@@ -38,10 +39,14 @@ class GuideListFragment : PreferenceFragmentCompat() {
                 guidePref.isSingleLineTitle = false
                 guidePref.isIconSpaceReserved = false
                 onClick(guidePref){
-                    findNavController().navigate(R.id.action_guideListFragment_to_guideFragment, bundleOf(
-                        "guide_name" to guide.name,
-                        "guide_contents" to guide.contents
-                    ))
+                    tryOrNothing {
+                        findNavController().navigate(
+                            R.id.action_guideListFragment_to_guideFragment, bundleOf(
+                                "guide_name" to guide.name,
+                                "guide_contents" to guide.contents
+                            )
+                        )
+                    }
                 }
                 category.addPreference(guidePref)
             }

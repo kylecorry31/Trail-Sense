@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.Wayp
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
@@ -67,17 +68,28 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
             ListView(binding.waypointsList, R.layout.list_item_waypoint) { waypointView, waypoint ->
                 val itemBinding = ListItemWaypointBinding.bind(waypointView)
                 val timeAgo = Duration.between(waypoint.createdInstant, Instant.now())
-                itemBinding.waypointCoordinates.text = getString(R.string.time_ago, timeAgo.formatHM(true))
+                itemBinding.waypointCoordinates.text =
+                    getString(R.string.time_ago, timeAgo.formatHM(true))
                 val date = waypoint.createdInstant.toZonedDateTime()
                 val time = date.toLocalTime()
                 itemBinding.waypointTime.text = getString(
-                    R.string.waypoint_time_format, formatService.formatRelativeDate(date.toLocalDate()),
+                    R.string.waypoint_time_format,
+                    formatService.formatRelativeDate(date.toLocalDate()),
                     formatService.formatTime(time, false)
                 )
 
                 if (prefs.backtrackSaveCellHistory) {
-                    itemBinding.signalStrength.setStatusText(CellSignalUtils.getCellTypeString(requireContext(), waypoint.cellNetwork))
-                    itemBinding.signalStrength.setImageResource(CellSignalUtils.getCellQualityImage(waypoint.cellQuality))
+                    itemBinding.signalStrength.setStatusText(
+                        CellSignalUtils.getCellTypeString(
+                            requireContext(),
+                            waypoint.cellNetwork
+                        )
+                    )
+                    itemBinding.signalStrength.setImageResource(
+                        CellSignalUtils.getCellQualityImage(
+                            waypoint.cellQuality
+                        )
+                    )
                     itemBinding.signalStrength.setForegroundTint(Color.BLACK)
                     itemBinding.signalStrength.setBackgroundTint(
                         CustomUiUtils.getQualityColor(
@@ -111,38 +123,41 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 }
 
                 itemBinding.root.setOnClickListener {
-                    lifecycleScope.launch {
-                        var newTempId = 0L
-                        withContext(Dispatchers.IO) {
-                            val tempBeaconId = beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
-                            val beacon = Beacon(
-                                tempBeaconId,
-                                getString(
-                                    R.string.waypoint_beacon_title_template,
-                                    formatService.formatDate(
-                                        date,
-                                        includeWeekDay = false
-                                    ), formatService.formatTime(time, includeSeconds = false)
-                                ),
-                                waypoint.coordinate,
-                                visible = false,
-                                elevation = waypoint.altitude,
-                                temporary = true,
-                                color = prefs.navigation.backtrackPathColor.color,
-                                owner = BeaconOwner.Backtrack
-                            )
-                            beaconRepo.addBeacon(BeaconEntity.from(beacon))
+                    tryOrNothing {
+                        lifecycleScope.launch {
+                            var newTempId = 0L
+                            withContext(Dispatchers.IO) {
+                                val tempBeaconId =
+                                    beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
+                                val beacon = Beacon(
+                                    tempBeaconId,
+                                    getString(
+                                        R.string.waypoint_beacon_title_template,
+                                        formatService.formatDate(
+                                            date,
+                                            includeWeekDay = false
+                                        ), formatService.formatTime(time, includeSeconds = false)
+                                    ),
+                                    waypoint.coordinate,
+                                    visible = false,
+                                    elevation = waypoint.altitude,
+                                    temporary = true,
+                                    color = prefs.navigation.backtrackPathColor.color,
+                                    owner = BeaconOwner.Backtrack
+                                )
+                                beaconRepo.addBeacon(BeaconEntity.from(beacon))
 
-                            newTempId = beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
+                                newTempId =
+                                    beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
+                            }
+
+                            withContext(Dispatchers.Main) {
+                                findNavController().navigate(
+                                    R.id.action_fragmentBacktrack_to_action_navigation,
+                                    bundleOf("destination" to newTempId)
+                                )
+                            }
                         }
-
-                        withContext(Dispatchers.Main) {
-                            findNavController().navigate(
-                                R.id.action_fragmentBacktrack_to_action_navigation,
-                                bundleOf("destination" to newTempId)
-                            )
-                        }
-
                     }
 
                 }
@@ -154,7 +169,9 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         waypointsLiveData = waypointRepo.getWaypoints()
         waypointsLiveData.observe(viewLifecycleOwner) { waypoints ->
             val filteredWaypoints =
-                waypoints.filter { it.createdInstant > Instant.now().minus(prefs.navigation.backtrackHistory) }
+                waypoints.filter {
+                    it.createdInstant > Instant.now().minus(prefs.navigation.backtrackHistory)
+                }
                     .sortedByDescending { it.createdOn }
 
             listView.setData(filteredWaypoints)
@@ -174,8 +191,11 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         }
 
         binding.startBtn.setOnClickListener {
-            if (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack){
-                UiUtils.shortToast(requireContext(), getString(R.string.backtrack_disabled_low_power_toast))
+            if (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack) {
+                UiUtils.shortToast(
+                    requireContext(),
+                    getString(R.string.backtrack_disabled_low_power_toast)
+                )
             } else {
                 prefs.backtrackEnabled = !wasEnabled
                 if (!wasEnabled) {

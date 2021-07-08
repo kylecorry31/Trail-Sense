@@ -31,6 +31,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -123,10 +124,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             mapItemBinding.name.text = map.name
             mapItemBinding.description.text = if (onMap) getString(R.string.on_map) else ""
             mapItemBinding.root.setOnClickListener {
-                findNavController().navigate(
-                    R.id.action_mapList_to_maps,
-                    bundleOf("mapId" to map.id)
-                )
+                tryOrNothing {
+                    findNavController().navigate(
+                        R.id.action_mapList_to_maps,
+                        bundleOf("mapId" to map.id)
+                    )
+                }
             }
             mapItemBinding.menuBtn.setOnClickListener {
                 UiUtils.openMenu(it, R.menu.map_list_item_menu) {
