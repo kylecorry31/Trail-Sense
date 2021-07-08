@@ -126,8 +126,6 @@ class NavigationPreferences(private val context: Context) {
                 .toString()
         )
 
-    var scaleRadarCompass: Boolean = false
-
     val rulerScale: Float
         get() {
             val raw = cache.getString(context.getString(R.string.pref_ruler_calibration)) ?: "1"

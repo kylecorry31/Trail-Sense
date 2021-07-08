@@ -267,7 +267,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.roundCompass.setOnClickListener {
             toggleDestinationBearing()
         }
-        binding.radarCompass.setOnClickListener {
+        binding.radarCompass.setOnSingleTapListener {
             toggleDestinationBearing()
         }
         binding.linearCompass.setOnClickListener {

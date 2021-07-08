@@ -68,6 +68,8 @@ class RadarCompassView : CanvasView, ICompassView {
     private lateinit var maxDistanceBaseUnits: Distance
     private lateinit var maxDistanceMeters: Distance
 
+    private var singleTapAction: (() -> Unit)? = null
+
     private var north = ""
     private var south = ""
     private var east = ""
@@ -84,6 +86,10 @@ class RadarCompassView : CanvasView, ICompassView {
     init {
         runEveryCycle = false
         setupAfterVisible = true
+    }
+
+    fun setOnSingleTapListener(action: (() -> Unit)?){
+        singleTapAction = action
     }
 
     private fun drawDestination() {
@@ -421,14 +427,20 @@ class RadarCompassView : CanvasView, ICompassView {
         }
     }
 
+    private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
+        override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
+            singleTapAction?.invoke()
+            return super.onSingleTapConfirmed(e)
+        }
+    }
+
     private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
+    private val mGestureDetector = GestureDetector(context, gestureListener)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (prefs.navigation.scaleRadarCompass) {
-            mScaleDetector.onTouchEvent(event)
-            invalidate()
-            return true
-        }
-        return super.onTouchEvent(event)
+        mScaleDetector.onTouchEvent(event)
+        mGestureDetector.onTouchEvent(event)
+        invalidate()
+        return true
     }
 }
