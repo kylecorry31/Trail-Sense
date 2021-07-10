@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="navigation">Navigatie</string>
-    <string name="weather">: Weer</string>
+    <string name="weather">Weer</string>
     <string name="settings">Instellingen</string>
-    <string name="create_beacon_title">Drop Beacon</string>
-    <string name="name_hint">: Naam</string>
-    <string name="select_beacon">Selecteer Baken</string>
-    <string name="dialog_ok">OK</string>
+    <string name="create_beacon_title">Baken maken</string>
+    <string name="name_hint">Naam</string>
+    <string name="select_beacon">Baken selecteren</string>
+    <string name="dialog_ok">Akkoord</string>
     <string name="delete_beacon">Baken verwijderen</string>
     <string name="dialog_cancel">Annuleren</string>
     <string name="astronomy">Astronomie</string>
@@ -17,32 +17,32 @@
     <string name="pref_use_sea_level_pressure_title">Druk op zeeniveau</string>
     <string name="pref_units_header">Algemeen</string>
     <string name="pref_distance_units_title">Afstand</string>
-    <string name="pref_pressure_units_title">: Druk</string>
+    <string name="pref_pressure_units_title">Druk</string>
     <string name="pref_send_storm_alerts_title">Stormwaarschuwingen</string>
     <string name="pref_use_24_hour_title">Gebruik het 24-uursformaat</string>
     <string name="pref_sun_time_mode_title">Zonsopgang / zonsondergang tijden</string>
     <string name="weather_improving_fast">Verbetering zeer binnenkort</string>
     <string name="weather_improving_slow">: Binnenkort beter</string>
-    <string name="weather_worsening_slow">Binnenkort verergeren</string>
-    <string name="weather_worsening_fast">Zeer binnenkort verergeren</string>
-    <string name="weather_storm_incoming">: Storm die binnenkomt</string>
-    <string name="weather_not_changing">Niet snel veranderen</string>
-    <string name="forecast_improving">Mogelijke verbetering later</string>
-    <string name="forecast_worsening">Mogelijk later verergerend</string>
+    <string name="weather_worsening_slow">Verergert binnenkort</string>
+    <string name="weather_worsening_fast">Verergert zeer binnenkort</string>
+    <string name="weather_storm_incoming">Storm op komst</string>
+    <string name="weather_not_changing">Veranderd binnenkort niet</string>
+    <string name="forecast_improving">Verbetert mogelijk later</string>
+    <string name="forecast_worsening">Verergert mogelijk later</string>
     <string name="no_beacons">Geen bakens</string>
     <string name="continue_button">CONTINUE</string>
-    <string name="moon_rise">Mansopkomst</string>
-    <string name="moon_set">Moonset</string>
+    <string name="moon_rise">Maansopkomst</string>
+    <string name="moon_set">Maanondergang</string>
     <string name="stop_monitoring">Stop</string>
     <string name="pref_compass_filter_amt_title">Kompas gladstrijken</string>
     <string name="pref_compass_filter_amt_summary">Hoge waarden kunnen het lawaai verminderen</string>
     <string name="pref_theme_title">Thema</string>
     <string name="pref_use_legacy_compass_title">: Gebruik erfeniskompas</string>
     <string name="pref_use_legacy_compass_summary">Kan kompasproblemen oplossen</string>
-    <string name="pref_display_multi_beacons_title">: Toon bakens in de buurt</string>
-    <string name="pref_storm_alert_sensitivity_title">: Stormwaarschuwingsgevoeligheid</string>
+    <string name="pref_display_multi_beacons_title">Bakens in de buurt tonen</string>
+    <string name="pref_storm_alert_sensitivity_title">Stormgevoeligheid</string>
     <string name="pref_show_sun_moon_compass_title">Toon zon/maan op kompas</string>
-    <string name="pref_show_linear_compass_title">Toon lineair kompas</string>
+    <string name="pref_show_linear_compass_title">Lineair kompas tonen</string>
     <string name="pref_show_linear_compass_summary">Als de telefoon verticaal staat</string>
     <plurals name="last_hours">
         <item quantity="one">laatste %d uur</item>
@@ -57,16 +57,16 @@
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">mbar</string>
-    <string name="units_psi">PSI</string>
+    <string name="units_psi">psi</string>
     <string name="theme_light">Licht</string>
     <string name="theme_dark">Donker</string>
     <string name="theme_black">Zwart</string>
     <string name="theme_system">Systeem</string>
     <string name="gps">GPS</string>
-    <string name="sun_actual">Werkelijke tijd</string>
-    <string name="sun_civil">Burgerschemering</string>
-    <string name="sun_nautical">Nautische schemering</string>
-    <string name="sun_astronomical">Astronomische Schemering</string>
+    <string name="sun_actual">Daadwerkelijk</string>
+    <string name="sun_civil">Civiel</string>
+    <string name="sun_nautical">Nautisch</string>
+    <string name="sun_astronomical">Astronomisch</string>
     <string name="today">Vandaag</string>
     <string name="tomorrow">Morgen</string>
     <string name="yesterday">Gisteren</string>
@@ -90,12 +90,12 @@
     <string name="gps_location">Locatie</string>
     <string name="compass_accuracy_improved">Nauwkeurigheid kompas verbeterd naar %s</string>
     <string name="compass_reported_accuracy">Vastgestelde nauwkeurigheid: %s</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Draai je telefoon een paar keer in een 8-vormige figuur en klik %s als je klaar bent.
+    <string name="calibrate_compass_on_navigate_dialog_content">Draai je telefoon een paar keer in een 8-vormige figuur of in alle richtingen, en klik %s als je klaar bent.
 \n
 \nDeze melding kan je in de instellingen afzetten.</string>
-    <string name="calibrate_compass_dialog_content">Draai je telefoon een paar keer in een 8-vormige figuur en klik %s als je klaar bent.</string>
-    <string name="calibrate_compass_dialog_title">Kalibreer kompas</string>
-    <string name="calibrate">Kalibreer</string>
+    <string name="calibrate_compass_dialog_content">Draai je telefoon een paar keer in een 8-vormige figuur of in alle richtingen, en klik %s als je klaar bent.</string>
+    <string name="calibrate_compass_dialog_title">Kompas ijken</string>
+    <string name="calibrate">IJken</string>
     <string name="pref_auto_declination_summary">Gebaseerd op je huidige locatie</string>
     <string name="declination_override_updated_toast">Declinatie manueel ingesteld</string>
     <string name="compass_azimuth">Azimut</string>
@@ -105,7 +105,7 @@
     <string name="pref_compass_sensor_title">Kompas</string>
     <string name="pref_ruler_calibration_summary">Kalibratieprotocol:
 \n- Zet deze waarde op 1.
-\n- Meet de Trail Sense meetlat waarde die met één eenheid van een echte meetlat overeenstemt.
+\n- Meet de Trail Sense-meetlatwaarde die overeenkomt met één eenheid van een echte meetlat.
 \n- Geef de gemeten waarde hier in.</string>
     <string name="pref_ruler_calibration_title">Schaal meetlat</string>
     <string name="sensors">Sensoren</string>
@@ -150,7 +150,7 @@
     <string name="tide_neap">Doodtij</string>
     <string name="tidal_range">Getijdenverschil</string>
     <string name="sunset_alert_channel_title">Melding voor zonsondergang</string>
-    <string name="sunset_alert_channel_description">Meldingen voor zonsondergang</string>
+    <string name="sunset_alert_channel_description">Zonsondergangalarm</string>
     <string name="sunset_alert_notification_text">De zon gaat onder om %s</string>
     <string name="sunset_alert_notification_title">Zon gaat binnenkort onder</string>
     <string name="waxing_crescent">Wassende sikkelvormige maan</string>
@@ -199,8 +199,8 @@
     <string name="beacon_comment">Notities (Optioneel)</string>
     <string name="beacon_elevation_hint_meters">Hoogte in meter (Optioneel)</string>
     <string name="beacon_elevation_hint_feet">Hoogte in voet (Optioneel)</string>
-    <string name="beacon_invalid_elevation">Ongeldige hoogte</string>
-    <string name="beacon_invalid_name">Ongeldige naam</string>
+    <string name="beacon_invalid_elevation">Hoogte ongeldig</string>
+    <string name="beacon_invalid_name">Naam ongeldig</string>
     <string name="maps">Kaarten</string>
     <string name="share_action_copy">Kopiëren</string>
     <string name="share_action_send">Versturen</string>
@@ -210,26 +210,26 @@
     </plurals>
     <string name="edit_beacon">Baken aanpassen</string>
     <string name="eta">~ %s verwijderd</string>
-    <string name="sos">SOS</string>
+    <string name="sos">SOS (noodsignaal)</string>
     <string name="turn_off">Uitschakelen</string>
     <string name="tap_to_turn_off">Tik om uit te schakelen</string>
     <string name="flashlight_title">Zaklamp</string>
-    <string name="accuracy_info">"GPS: Ga naar buiten bij een vrij zicht op de hemel.
+    <string name="accuracy_info">"GPS: Ga naar buiten met een vrij zicht op de hemel.
 \n    %s van werkelijke locatie
 \n    %s van werkelijke hoogte
 \n    %s satellieten
 \n
-\nKompas: Draai het apparaat in een 8-vormige figuur en ga weg van metalen."</string>
-    <string name="accuracy_info_title">Tips voor het verbeteren van de nauwkeurigheid van de sensorgegevens</string>
+\nKompas: Draai het apparaat in een 8-vormige figuur of in alle richtingen en ga weg van metalen."</string>
+    <string name="accuracy_info_title">Tips voor het verbeteren van de juistheid van de sensorgegevens</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Onbekend</string>
     <string name="battery_temp">Apparaat: %s</string>
     <string name="dash">-</string>
-    <string name="discharging_fast">Snel ontladen (%s)</string>
-    <string name="discharging_slow">Langzaam ontladen (%s)</string>
-    <string name="charging_slow">Langzaam opladen (%s)</string>
-    <string name="charging_fast">Snel opladen (%s)</string>
+    <string name="discharging_fast">Snelle ontlading (%s)</string>
+    <string name="discharging_slow">Langzame ontlading (%s)</string>
+    <string name="charging_slow">Batterij laadt langzaam op (%s)</string>
+    <string name="charging_fast">Batterij laadt snel (%s)</string>
     <string name="current_format">%.0f mA</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="percent_format">%d%%</string>
@@ -257,17 +257,459 @@
     <string name="centimeters_format">%.2f cm</string>
     <string name="inches_format">%.2f in</string>
     <string name="nautical_miles_format">%.2f NM</string>
-    <string name="miles_format">%.2f mijl</string>
-    <string name="depth_feet_format">%.1f voet</string>
-    <string name="feet_format">%.0f voet</string>
+    <string name="miles_format">%.2f mi</string>
+    <string name="depth_feet_format">%.1f ft</string>
+    <string name="feet_format">%.0f ft</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s NM</string>
     <string name="precise_miles_format">%s mijl</string>
     <string name="precise_feet_format">%s voet</string>
     <string name="dialog_deny">Nee bedankt</string>
-    <string name="dialog_grant">Instellingen opslaan</string>
-    <string name="access_background_location_rationale">Trail Sense gebruikt je locatiegegevens in de achtergrond om de druk op zeeniveau te kalibreren voor weeranalyse en om nauwkeurige meldingen voor zonsondergang te geven. [Bekijk Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
-    <string name="access_background_location">Sla locatie instellingen op</string>
-    <string name="copied_to_clipboard_toast">Gekopiëerd naar klembord</string>
+    <string name="dialog_grant">Instellingen bijwerken</string>
+    <string name="access_background_location_rationale">Trail Sense gebruikt je locatiegegevens op de achtergrond. Ze worden gebruikt voor het ijken van de zeeniveauluchtdrukmeter voor weeranalyse, en om nauwkeurige meldingen voor zonsondergang te geven. [Privacybeleid bekijken](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location">Locatie-instellingen bijwerken</string>
+    <string name="copied_to_clipboard_toast">Naar klembord gekopieerd</string>
+    <string name="moderate">Matig</string>
+    <string name="high">Hoog</string>
+    <string name="battery_usage">%s batterijgebruik</string>
+    <string name="service_update_frequency">Updates iedere %s</string>
+    <string name="always_on">Altijd aan</string>
+    <string name="pref_daily_weather_notification_title">Dagelijkse weermelding</string>
+    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
+    <string name="weather_same_as_today">Hetzelfde als vandaag</string>
+    <string name="weather_worse_than_today">Slechter dan vandaag</string>
+    <string name="weather_better_than_today">Beter dan vandaag</string>
+    <string name="weather_same_as_yesterday">Hetzelfde als gisteren</string>
+    <string name="weather_worse_than_yesterday">Slechter dan gisteren</string>
+    <string name="weather_better_than_yesterday">Beter dan gisteren</string>
+    <string name="tomorrows_forecast">De voorspelling voor morgen</string>
+    <string name="todays_forecast">De voorspelling van vandaag</string>
+    <string name="guide_light_meter_description">De reikafstand van een zaklamp bepalen</string>
+    <string name="guide_light_meter_title">De effectiviteit van een zaklamp bepalen</string>
+    <string name="gps_cache">gps-cache</string>
+    <string name="location_disabled">Locatie is uitgeschakeld</string>
+    <string name="set">Instellen</string>
+    <string name="location_not_set">Locatie niet ingesteld</string>
+    <string name="tool_light_meter_description">Meet de reikafstand van de zaklampstraal</string>
+    <string name="tool_light_meter_title">Lichtmeter</string>
+    <string name="beam_distance">%s straalafstand</string>
+    <string name="candela_format">%s cd</string>
+    <string name="lux_format">%s lx</string>
+    <string name="distance_from_flashlight">Afstand van telefoon tot zaklamp</string>
+    <string name="beacon_export_error">Bakens konden niet geëxporteerd worden</string>
+    <string name="help">Help</string>
+    <string name="available">Beschikbaar</string>
+    <string name="permission_granted">Verleend</string>
+    <string name="permission_not_granted">Niet verleend</string>
+    <string name="permission_background_location">Achtergrondlocatie</string>
+    <string name="magnetometer">Magnetometer</string>
+    <string name="acceleration_m_s2_format">%s m/s²</string>
+    <string name="gravity">Zwaartekracht</string>
+    <string name="hygrometer">Hygrometer</string>
+    <string name="satellites">Satellieten</string>
+    <string name="dbm_format">%s dBm</string>
+    <string name="cell_signal">Mobiel signaal</string>
+    <string name="barometer">Barometer</string>
+    <string name="network_no_signal">Geen signaal</string>
+    <string name="network_3g">3G</string>
+    <string name="network_2g">2G</string>
+    <string name="network_4g">4G</string>
+    <string name="network_5g">5G</string>
+    <string name="time_ago">%s geleden</string>
+    <string name="quality_good">Goed</string>
+    <string name="quality_moderate">Matig</string>
+    <string name="quality_poor">Slecht</string>
+    <string name="gps_unavailable">Onbeschikbaar</string>
+    <string name="gps_searching">Zoekend</string>
+    <string name="gps_stale">Verouderd</string>
+    <string name="gps_user">Gebruiker</string>
+    <string name="import_btn">Importeren</string>
+    <string name="import_export_beacons">Bakens importeren/exporteren</string>
+    <string name="select_import_file">Bestand selecteren voor import</string>
+    <plurals name="beacons_exported">
+        <item quantity="one">%d baken geëxporteerd</item>
+        <item quantity="other">%d bakens geëxporteerd</item>
+    </plurals>
+    <plurals name="beacons_imported">
+        <item quantity="one">%d baken geïmporteerd</item>
+        <item quantity="other">%d bakens geïmporteerd</item>
+    </plurals>
+    <string name="export">Exporteren</string>
+    <string name="privacy_and_location">Privacy en locatie</string>
+    <string name="onboarding_astronomy">- Weet wanneer de zon/maan opkomt en ondergaat
+\n
+\n- Word gewaarschuwd wanneer de zon ondergaat
+\n
+\n- Lokaliseer de zon en de maan op het kompas</string>
+    <string name="onboarding_weather">- Ontvang hyperlocale voorspellingen met behulp van de barometer van je telefoon
+\n
+\n- Gebruikt geen internetverbinding
+\n
+\n- Word gewaarschuwd voor naderende stormen</string>
+    <string name="cirrus_desc">Hoog en als veren.</string>
+    <string name="cumulonimbus_desc">Donkergrijs, lang en aambeeldvormig.</string>
+    <string name="cumulus_desc">Ziet eruit als gezwollen watjes.</string>
+    <string name="stratocumulus_desc">Rollende massa\'s die een plaat vormen.</string>
+    <string name="stratus_desc">Bedekt de hemel, objecten werpen geen schaduwen.</string>
+    <string name="nimbostratus_desc">Donkergrijs en bedekt de hemel. Het regent mogelijk.</string>
+    <string name="altostratus_desc">Bedekt de hemel, en de zon is nauwelijks te zien.</string>
+    <string name="altocumulus_desc">Ziet eruit als gezwollen watjes.</string>
+    <string name="cirrostratus_desc">Bedekt de hemel, maar je kunt de zon erdoorheen zien.</string>
+    <string name="cirrocumulus_desc">Vormt een golvende plaat, wolken lijken bijna tweedimensionaal.</string>
+    <string name="cloud_possible_rain">Neerslag mogelijk</string>
+    <string name="cloud_likely_rain">Neerslag waarschijnlijk</string>
+    <string name="cloud_likely_storm">Storm waarschijnlijk</string>
+    <string name="cloud_fair">Waarschijnlijk mooi weer</string>
+    <string name="cumulonimbus">Cumulonimbus</string>
+    <string name="cumulus">Cumulus</string>
+    <string name="stratocumulus">Stratocumulus</string>
+    <string name="stratus">Stratus</string>
+    <string name="nimbostratus">Nimbostratus</string>
+    <string name="altostratus">Altostratus</string>
+    <string name="altocumulus">Altocumulus</string>
+    <string name="cirrostratus">Cirrostratus</string>
+    <string name="cirrocumulus">Cirrocumulus</string>
+    <string name="cirrus">Cirrus</string>
+    <string name="pref_require_satellites_description">Vereist minimaal 4 satellieten, verbetert de juistheid</string>
+    <string name="pref_require_satellites">pref_require_satellites</string>
+    <string name="cloud_low">LAAG</string>
+    <string name="cloud_middle">MIDDEN</string>
+    <string name="cloud_high">HOOG</string>
+    <string name="clouds">Wolken</string>
+    <string name="how">Hoe</string>
+    <string name="compass_calibrate_toast">Kompasjuistheid %s, ijking wordt geadviseerd</string>
+    <string name="open_beacon_in_maps">Op de kaart bekijken</string>
+    <string name="pref_low_power_mode_summary">Schakelt sommige functies uit om energie te besparen</string>
+    <string name="dialog_leave">Verlaten</string>
+    <string name="unsaved_changes_message">Wijzigingen die je hebt aangebracht, worden niet opgeslagen.</string>
+    <string name="unsaved_changes">Onopgeslagen Wijzigingen</string>
+    <string name="low_power_mode_on_message">Energiebesparingsmodus ingeschakeld, sommige functies zijn mogelijk uitgeschakeld.</string>
+    <string name="pref_low_power_mode_title">Energiebesparingsmodus</string>
+    <string name="guide_barometer_calibration_title">IJking van de barometer</string>
+    <string name="charging_wireless">Opladen (%s)</string>
+    <string name="battery_power_wireless">Draadloos</string>
+    <string name="battery_power_usb">USB</string>
+    <string name="battery_power_ac">wisselspanning</string>
+    <string name="tool_thermometer_title">Thermometer</string>
+    <string name="guide_thermometer_calibration_title">IJking van de thermometer</string>
+    <string name="delete_tide_prompt">Getijde verwijderen\?</string>
+    <string name="delete_waypoint_prompt">Routepunt verwijderen\?</string>
+    <string name="pref_gps_override_title">Locatie overschrijven</string>
+    <string name="coordinate_input_invalid_location">Locatie ongeldig</string>
+    <string name="pref_backtrack_history_days_title">Terugspeurgeschiedenis</string>
+    <string name="backtrack_battery_warning">Kleine intervallen (minder dan 10 minuten) kunnen de batterij snel doen leeglopen</string>
+    <string name="backtrack_high_priority_notification">Er wordt elke %s een routepunt geplaatst</string>
+    <string name="pref_backtrack_path_color_title">Padkleur voor Terugspeuren</string>
+    <string name="pref_backtrack_path_style_title">Padstijl voor Terugspeuren</string>
+    <string name="pref_backtrack_path_radar_summary">Op het radarkompas en op de kaarten</string>
+    <string name="pref_backtrack_path_radar_title">Terugspeurpad tonen</string>
+    <string name="speedometer_odometer_accuracy_dialog">Voor de hoogste juistheid zet je Terugspeuren aan en zet je in de instellingen de kilometertellerbron op stappenteller.</string>
+    <string name="speedometer_average">Gemiddeld (van Terugspeuren)</string>
+    <string name="pref_backtrack_save_cell_title">Mobiele signaal opnemen</string>
+    <string name="pref_backtrack_save_cell_summary">Registreert het mobiele signaal bij het routepunt. Maakt geen gebruik van het internet.</string>
+    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
+    <string name="onboarding_privacy">- Trail Sense respecteert je privacy en locatiegegevens verlaten nooit je apparaat
+\n
+\n- Trail Sense zal nooit internettoegang vereisen
+\n
+\n- Bekijk het [Privacybeleid](https://kylecorry.com/Trail-Sense/privacy_policy.html) (opent in de webbrowser van je telefoon)
+\n
+\n- Sommige functies van Trail Sense vereisen toegang tot je locatie
+\n
+\n- Het verlenen van locatietoegang schakelt de volgende functies in:
+\n
+\n\t- Navigeren naar bakens
+\n
+\n\t- Verbeterde juistheid van de weersvoorspelling (vereist achtergrondlocatie, niet op alle apparaten beschikbaar)
+\n
+\n\t- Terugspeuren (vereist achtergrondlocatie)
+\n
+\n\t- Zon- en maantijden voor je huidige locatie
+\n
+\n- Indien je kiest om geen locatietoegang te verlenen, kun je handmatig een locatie invoeren in het Instellingen &gt; gps-ijkmenu in Trail Sense.
+\n
+\n- Nadat je op doorgaan klikt, zul je worden gevraagd om locatietoegang en achtergrondlocatietoegang te verlenen. Als je dit weigert, heeft Trail Sense geen toegang tot je locatie, dus een handmatige locatie-invoer is aanbevolen.</string>
+    <string name="onboarding_navigation">- Plaats bakens en navigeer ernaar terug
+\n
+\n- Verkrijg je huidige locatie, hoogte, en snelheid
+\n
+\n- Volg je stappen terug met Terugspeuren (draait op de achtergrond wanneer ingeschakeld)</string>
+    <string name="backtrack_disabled_low_power_toast">Terugspeuren is uitgeschakeld in energiebesparende modus</string>
+    <string name="guide_backtrack_description">“Terugspeuren” gebruiken</string>
+    <string name="tool_backtrack_title">Terugspeuren</string>
+    <string name="backtrack_notification_channel">Terugspeuren</string>
+    <string name="backtrack_notification_description">Routepunt plaatsen</string>
+    <string name="backtrack_notification_channel_description">Locatie-updates voor terugsporen</string>
+    <string name="location_input_help_title">Ondersteunde locatieformaten</string>
+    <string name="location_input_hint">Locatie</string>
+    <string name="pref_backtrack_frequency_title">Afstand tussen routepunten</string>
+    <string name="pref_backtrack_enabled_summary">Routepunten opnemen</string>
+    <string name="waypoint_beacon_title_template">%s, %s Routepunt</string>
+    <string name="magnetic_field_format_precise">%s uT</string>
+    <string name="magnetic_field_format">%.0f uT</string>
+    <string name="metal_detected">Metaal gedetecteerd</string>
+    <string name="clock_sync_time_settings">Tijdsinstellingen openen\?</string>
+    <string name="clock_sync_instructions">Stel de tijd in op %s wanneer de melding binnenkomt</string>
+    <string name="clock_sync_notification">Kloksynchronisatie - %s</string>
+    <string name="notification_channel_clock_sync_description">Een melding om je klok te synchroniseren met gps-tijd</string>
+    <string name="notification_channel_clock_sync">Kloksynchronisatie</string>
+    <string name="pip_notification_scheduled">Melding gepland voor %s</string>
+    <string name="pip_button">Systeemtijd bijwerken</string>
+    <string name="beacon_2">Baken 2</string>
+    <string name="beacon_1">Baken 1</string>
+    <string name="could_not_triangulate">Driehoeksmeting mislukt</string>
+    <string name="triangulate_mark_beacon">Markeren</string>
+    <string name="tool_triangulate_summary">Je locatie bepalen zonder gps</string>
+    <string name="tool_triangulate_title">Locatie bepalen met driehoeksmeting</string>
+    <string name="tool_category_signaling">Signalering</string>
+    <string name="tool_category_other">Overig</string>
+    <string name="tool_category_location">Locatie</string>
+    <string name="tool_category_angles">Hoeken</string>
+    <string name="tool_category_time">Tijd</string>
+    <string name="power">Vermogen</string>
+    <string name="tool_category_distance">Afstand</string>
+    <string name="battery_health">Toestand: %s</string>
+    <string name="battery_health_over_voltage">Overspanning</string>
+    <string name="battery_health_overheat">Oververhit</string>
+    <string name="battery_health_good">Goed</string>
+    <string name="battery_health_dead">Kapot</string>
+    <string name="battery_health_cold">Koud</string>
+    <string name="tool_battery_title">Batterij</string>
+    <string name="strobe_warning_content">De stroboscoopfunctie bevat lichtflitsen, die voor sommige gebruikers gevaarlijk kunnen zijn.</string>
+    <string name="strobe_warning_title">Lichtflitsen</string>
+    <string name="clock_waiting_for_gps">Tijd bijwerken middels gps…</string>
+    <string name="water_purification_step_3">Start de timer</string>
+    <string name="water_purification_step_2">Breng water aan de kook, zodat het sterk borrelt</string>
+    <string name="water_purification_step_1">Filter het water</string>
+    <string name="three">3</string>
+    <string name="two">2</string>
+    <string name="guide_recommended_apps_description">Handige apps voor overlevingssituaties</string>
+    <string name="pref_display_multi_beacons_summary">Dichtstbijzijnde bakens tonen op het kompas</string>
+    <string name="unit_inches">Inch (Engelse duim)</string>
+    <string name="map_scale_verbal">Beschrijvend</string>
+    <string name="map_scale_ratio">Verhouding</string>
+    <string name="map_scale_title">Kaartschaal</string>
+    <string name="tool_white_noise_summary">Helpt je in slaap te vallen</string>
+    <string name="tool_white_noise_title">Witte ruis</string>
+    <string name="map_fractional_separator">:</string>
+    <string name="map_distance">Kaart: %s</string>
+    <string name="unit_inches_abbreviation">in</string>
+    <string name="unit_centimeters_abbreviation">cm</string>
+    <string name="freezing_temperatures_description">Water zal bevriezen als het buiten staat en regen kan in sneeuw veranderen</string>
+    <string name="freezing_temperatures_warning">Vriesgevaar</string>
+    <string name="bubble_level_angles">X: %s
+\nY: %s</string>
+    <string name="note_content_hint">Inhoud</string>
+    <string name="note_title_hint">Titel</string>
+    <string name="tool_notes_title">Notities</string>
+    <string name="delete_note_title">Notitie verwijderen\?</string>
+    <string name="untitled_note">(naamloze notitie)</string>
+    <string name="notes_empty_text">Geen notities</string>
+    <string name="location_override_updated">Locatieoverschrijving bijgewerkt</string>
+    <string name="update_gps_override">Gps-overschrijving bijwerken</string>
+    <string name="metal_detector_disclaimer">Detecteert alleen magnetische metalen (bijv. ijzer)</string>
+    <string name="metal_detector_calibrate">IJken</string>
+    <string name="tool_metal_detector_title">Metaaldetector</string>
+    <string name="threshold">Drempelwaarde</string>
+    <string name="inventory_empty_text">Geen objecten</string>
+    <string name="action_inventory_delete_all_confirm">Alle inventarisartikelen verwijderen\?</string>
+    <string name="action_inventory_delete_all">Alles verwijderen</string>
+    <string name="tool_whistle_title">Fluitje</string>
+    <string name="max_depth">Max.: %s</string>
+    <string name="cliff_height_guide">Klifhoogte schatten</string>
+    <string name="tool_cliff_height_disclaimer">Gebruik dit gereedschap allen als het veilig is en controleer wat zich onder de klif bevindt om letsel te voorkomen. Zie de handleiding voor instructies.</string>
+    <string name="tool_cliff_height_description">Klif- of dalhoogte meten</string>
+    <string name="tool_cliff_height_title">Klifhoogte</string>
+    <string name="toast_destination_bearing_set">Peiling bestemming ingesteld</string>
+    <string name="object_height_guide">Objecthoogtes schatten</string>
+    <string name="guide_avalanche_risk">Inschatting lawinegevaar</string>
+    <string name="item_amount_hint">Aantal</string>
+    <string name="item_name_hint">Naam</string>
+    <string name="depth_disclaimer">Gebruik op eigen risico.
+\n
+\nNiet gebruiken zonder waterdichte behuizing en blijf indien mogelijk binnen een veilige duikafstand.</string>
+    <string name="tool_depth_summary">Waterdiepte bepalen</string>
+    <string name="tool_depth_title">Diepte</string>
+    <string name="tool_inventory_summary">Houd bij wat je op voorraad hebt</string>
+    <string name="category_natural">Natuurlijk</string>
+    <string name="category_safety">Veiligheid</string>
+    <string name="category_shelter">Schuilplaats</string>
+    <string name="category_fire">Vuur</string>
+    <string name="category_medical">Medisch</string>
+    <string name="category_clothing">Kleding</string>
+    <string name="category_hydration">Hydratie</string>
+    <string name="category_food">Levensmiddelen</string>
+    <string name="category_other">Anders</string>
+    <string name="pref_barometer_altitude_change_title">Drempelwaarde voor hoogteverandering</string>
+    <string name="beacon_action_view_details">Details bekijken</string>
+    <string name="tool_bubble_level_summary">Bepalen of oppervlakken vlak zijn</string>
+    <string name="tool_bubble_level_title">Waterpas</string>
+    <string name="guide_weather_prediction_title">Weersvoorspelling</string>
+    <string name="guide_beacons_description">Navigeren met bakens</string>
+    <string name="guide_beacons_title">Bakens</string>
+    <string name="guide_conserving_battery_title">Batterijbesparing</string>
+    <string name="pref_category_tabs">Tabbladen</string>
+    <string name="navigation_nearby_category">In de buurt</string>
+    <string name="forecasts_category">Voorspellingen</string>
+    <string name="advanced_settings_category">Geavanceerd</string>
+    <string name="tap_sun_moon_hint">Tik op zon of maan voor positiedetails</string>
+    <string name="sun_and_moon_position_details">Sun
+\n\tElevatie: %s
+\n\tAzimut: %s
+\n
+\nMoon
+\n\tElevatie: %s
+\n\tAzimut: %s</string>
+    <string name="sun_and_moon">Zon- en maanposities</string>
+    <string name="pref_sea_level_require_dwell_title">Snelle hoogteveranderingen negeren</string>
+    <string name="pref_sea_level_require_dwell_summary">Alleen metingen tonen als de hoogte minstens een uur niet is veranderd. Verbetert de betrouwbaarheid van de voorspelling.</string>
+    <string name="weather_update_notification_channel">Weerupdate</string>
+    <string name="weather_update_notification_channel_desc">Weerupdates op de achtergrond</string>
+    <string name="beacon_group_spinner_title">Groep</string>
+    <string name="no_group">Geen groep</string>
+    <string name="beacon_group_name_hint">Naam</string>
+    <string name="beacon_create_group">Groep</string>
+    <string name="beacon_create_beacon">Baken</string>
+    <string name="beacon_create">Aanmaken</string>
+    <string name="edit_beacon_group">Groep bewerken</string>
+    <string name="delete_beacon_group_message">%s en al zijn bakens zullen worden verwijderd.</string>
+    <string name="delete_beacon_group">Groep verwijderen</string>
+    <string name="tool_user_guide_summary">Een handleiding voor het gebruik van Trail Sense</string>
+    <string name="tool_user_guide_title">Handleiding</string>
+    <string name="error_occurred_message">Trail Sense is op een fout gestuit en wordt gesloten. Stuur een e-mail naar de ontwikkelaar om dit probleem op te lossen.</string>
+    <string name="error_occurred">Er is een fout opgetreden</string>
+    <string name="pref_email_title">E-mail ontwikkelaar</string>
+    <string name="pref_github_title">GitHub</string>
+    <string name="pref_app_version_title">Versie</string>
+    <string name="pref_category_about">Over</string>
+    <string name="pref_open_source_licenses_title">Licenties</string>
+    <string name="pref_sunset_alert_time_title">Tijd zonsondergangalarm</string>
+    <string name="pref_sunset_alerts_title">Zonsondergangalarm</string>
+    <string name="update_60_minutes">1 uur</string>
+    <string name="update_45_minutes">45 minuten</string>
+    <string name="update_30_minutes">30 minuten</string>
+    <string name="update_15_minutes">15 minuten</string>
+    <string name="update_180_minutes">3 uur</string>
+    <string name="update_150_minutes">2 uur en 30 minuten</string>
+    <string name="update_120_minutes">2 uur</string>
+    <string name="update_90_minutes">1 uur en 30 minuten</string>
+    <string name="pref_center_sun_and_moon_title">Zon/maan gecentreerd houden</string>
+    <string name="sun_moon_compass_never">Nooit</string>
+    <string name="sun_moon_compass_when_up">Bij opkomst</string>
+    <string name="sun_moon_compass_always">Altijd</string>
+    <string name="pref_weather_update_frequency_title">Frequentie van weerupdates</string>
+    <string name="pref_show_pressure_in_notification_title">Druk tonen in melding</string>
+    <string name="pref_show_weather_notification_title">Weermelding tonen</string>
+    <string name="storm_sensitivity_high_in">Hoog (0.089 in / 3 uur)</string>
+    <string name="storm_sensitivity_med_in">Gemiddeld (0.133 in / 3 uur)</string>
+    <string name="storm_sensitivity_low_in">Laag (0.177 in / 3 uur)</string>
+    <string name="storm_sensitivity_high_psi">Hoog (0,044 psi / 3 uur)</string>
+    <string name="storm_sensitivity_med_psi">Gemiddeld (0,065 psi / 3 uur)</string>
+    <string name="storm_sensitivity_low_psi">Laag (0.087 psi / 3 uur)</string>
+    <string name="storm_sensitivity_high_mbar">Hoog (3 mbar / 3 uur)</string>
+    <string name="storm_sensitivity_med_mbar">Gemiddeld (4,5 mbar / 3 uur)</string>
+    <string name="storm_sensitivity_low_mbar">Laag (3 mbar / 3 uur)</string>
+    <string name="storm_sensitivity_high_hpa">Hoog (3 hPa / 3 uur)</string>
+    <string name="storm_sensitivity_med_hpa">Gemiddeld (4,5 hPa / 3 uur)</string>
+    <string name="storm_sensitivity_low_hpa">Laag (6 hPa / 3 uur)</string>
+    <string name="forecast_sensitivity_high_in">Hoog (0.015 in / 3 uur)</string>
+    <string name="forecast_sensitivity_med_in">Gemiddeld (0.044 in / 3 uur)</string>
+    <string name="forecast_sensitivity_low_in">Laag (0.074 in / 3 uur)</string>
+    <string name="forecast_sensitivity_high_psi">Hoog (0.007 psi / 3 uur)</string>
+    <string name="forecast_sensitivity_med_psi">Gemiddeld (0.022 psi / 3 uur)</string>
+    <string name="forecast_sensitivity_low_psi">Laag (0,036 psi / 3 uur)</string>
+    <string name="forecast_sensitivity_high_mbar">Hoog (0,5 mbar / 3 uur)</string>
+    <string name="forecast_sensitivity_med_mbar">Gemiddeld (1,5 mbar / 3 uur)</string>
+    <string name="forecast_sensitivity_low_mbar">Laag (2,5 mbar / 3 uur)</string>
+    <string name="forecast_sensitivity_high_hpa">Hoog (0,5 hPa / 3 uur)</string>
+    <string name="forecast_sensitivity_med_hpa">Gemiddeld (1,5 hPa / 3 uur)</string>
+    <string name="forecast_sensitivity_low_hpa">Laag (2,5 hPa / 3 uur)</string>
+    <string name="pref_forecast_sensitivity_title">Voorspellingsgevoeligheid</string>
+    <string name="pref_monitor_weather_title">Weermonitor</string>
+    <string name="pref_monitor_weather_summary">Op de achtergrond</string>
+    <string name="pref_max_beacon_distance_title">Nabijgelegen bakenradius</string>
+    <string name="pref_num_visible_beacons_title">Bakens in de buurt</string>
+    <string name="app_disclaimer_message_title">Disclaimer / Servicevoorwaarden</string>
+    <string name="disclaimer_message_title">Disclaimer</string>
+    <string name="pref_temperature_holder_title">Temperatuur</string>
+    <string name="pref_sea_level_use_rapid_summary">Snelle drukveranderingen gebruiken in zeeniveau-druk-conversies</string>
+    <string name="pref_sea_level_use_rapid_title">Snelle drukveranderingen meenemen</string>
+    <string name="pref_adjust_for_temperature_title">Temperatuur meenemen</string>
+    <string name="pref_adjust_for_temperature_summary">Temperatuur gebruiken in zeeniveau druk-conversies</string>
+    <string name="barometer_thermometer">Barometer en thermometer</string>
+    <string name="pref_barometer_pressure_title">Luchtdruk</string>
+    <string name="pref_altimeter_calibration_mode_title">Automatische kalibratie</string>
+    <string name="calibration_mode_barometer_alert_title">Barometer</string>
+    <string name="altimeter_mode_override">Nooit</string>
+    <string name="altimeter_mode_gps_barometer">Gps + barometer</string>
+    <string name="altimeter_mode_barometer">Barometer</string>
+    <string name="altimeter_mode_gps">Gps</string>
+    <string name="pref_altitude_override_sea_level_title">Een bekende zeespiegeldruk gebruiken</string>
+    <string name="request_permission">Toestemming vragen</string>
+    <string name="compass_declination">Magnetische declinatie</string>
+    <string name="theme_sunset_sunrise">Zonsopkomst/zonsondergang</string>
+    <string name="your_height">je lengte</string>
+    <string name="no_data">Geen gegevens</string>
+    <string name="all_beacons">Alle bakens</string>
+    <string name="battery_capacity_format">%s mAh</string>
+    <string name="tools">Hulpmiddelen</string>
+    <string name="one">1</string>
+    <string name="tool_ruler_title">Liniaal</string>
+    <string name="precise_inches_format">%s in</string>
+    <string name="precise_centimeters_format">%s cm</string>
+    <string name="tool_lightning_title">Afstand tot blikseminslag</string>
+    <string name="tool_lightning_description">De afstand tot een blikseminslag meten</string>
+    <string name="boil_start">Beginnen</string>
+    <string name="reset">Resetten</string>
+    <string name="thunder">Donder</string>
+    <string name="lightning">Bliksem</string>
+    <string name="utc_format">UTC %s</string>
+    <string name="tool_clock_title">Klok</string>
+    <string name="flashlight_strobe">Stroboscoop</string>
+    <string name="pref_sensor_details_title">Sensordetails</string>
+    <string name="tool_boil_title">Waterkookwekker</string>
+    <string name="tool_boil_summary">Bepalen wanneer water drinkbaar is</string>
+    <plurals name="water_boil_timer_content">
+        <item quantity="one">%d seconde tot drinkbaar</item>
+        <item quantity="other">%d seconden tot drinkbaar</item>
+    </plurals>
+    <string name="water_boil_timer_done_content">Je water is nu drinkbaar</string>
+    <string name="water_boil_timer_done_title">Het water is klaar met koken</string>
+    <string name="water_boil_timer_title">Het water kookt</string>
+    <string name="water_boil_timer_channel_description">Het water kookt</string>
+    <string name="water_boil_timer_channel">Waterkookwekker</string>
+    <string name="solar_panel_instructions">Plaats je telefoon op de voorkant van het zonnepaneel om te beginnen.</string>
+    <string name="solar_align_now">Nu</string>
+    <string name="tool_solar_panel_title">Zonnepaneeluitlijner</string>
+    <string name="tool_solar_panel_summary">Zonnepanelen plaatsen voor optimale energiewinning</string>
+    <string name="pref_show_calibrate_on_navigate_dialog_title">IJken voordat je navigeert</string>
+    <string name="unit_yards">Yard</string>
+    <string name="units">Eenheden</string>
+    <string name="unit_centimeters">Centimeter</string>
+    <string name="unit_feet">Engelse/internationale voet</string>
+    <string name="guide_recommended_apps">Aanbevolen apps</string>
+    <string name="unit_nautical_miles">Internationale zeemijl</string>
+    <string name="unit_miles">Engelse mijl</string>
+    <string name="pref_privacy_policy_title">Privacybeleid</string>
+    <string name="unit_kilometers">Kilometer</string>
+    <string name="unit_meters">Meter</string>
+    <string name="distance_to">Naar</string>
+    <string name="distance_from">Van</string>
+    <string name="distance_hint">Afstand</string>
+    <string name="waypoint_time_format">%s, %s</string>
+    <string name="tool_backtrack_summary">Locatiegeschiedenis tonen</string>
+    <string name="action_waypoint_create_beacon">Baken maken</string>
+    <string name="waypoint_action_delete">Verwijderen</string>
+    <string name="waypoints_empty_text">Geen tussenpunten</string>
+    <string name="guide_location_no_gps_title">Locatie bepalen zonder gps</string>
+    <string name="guide_create_beacons_description">Bakens maken</string>
+    <string name="guide_create_beacons_title">Bakens maken</string>
+    <string name="beacon_set_bearing_btn">Peiling vastzetten (%s)</string>
+    <string name="create_at_distance">Op afstand maken</string>
+    <string name="bearing">Peiling</string>
+    <string name="min_temp_uncalibrated">Minimale telefoontemperatuur (niet geijkt)</string>
+    <string name="min_temp_calibrated">Minimale omgevingstemperatuur (geijkt)</string>
+    <string name="max_temp_uncalibrated">Maximale telefoontemperatuur (niet geijkt)</string>
+    <string name="max_temp_calibrated">Maximale omgevingstemperatuur (geijkt)</string>
 </resources>
