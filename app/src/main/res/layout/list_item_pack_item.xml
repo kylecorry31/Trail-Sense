@@ -5,18 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <ImageView
+        android:id="@+id/item_category_img"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_category"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toTopOf="@+id/item_category"
+        tools:srcCompat="@drawable/ic_category_food" />
+
     <TextView
         android:id="@+id/item_category"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:drawablePadding="8dp"
         app:layout_constraintEnd_toStartOf="@+id/item_menu_btn"
-        app:layout_constraintStart_toEndOf="@+id/item_checkbox"
+        app:layout_constraintStart_toEndOf="@+id/item_category_img"
         app:layout_constraintTop_toTopOf="parent"
-        tools:drawableStartCompat="@drawable/ic_category_food"
         tools:text="Food" />
 
     <TextView
@@ -34,7 +41,7 @@
 
     <TextView
         android:id="@+id/count"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -57,18 +64,6 @@
         app:srcCompat="@drawable/ic_menu_dots"
         app:tint="?android:textColorSecondary" />
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/item_category_image"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="16dp"-->
-    <!--        android:alpha="0.86"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:srcCompat="@drawable/ic_category_other" />-->
-    <!--    -->
-
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/item_checkbox"
         android:layout_width="wrap_content"
@@ -80,13 +75,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_category_other" />
 
+    <ImageView
+        android:id="@+id/weight_img"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/weight"
+        app:layout_constraintBottom_toBottomOf="@id/weight"
+        app:layout_constraintEnd_toStartOf="@+id/weight"
+        app:layout_constraintTop_toTopOf="@+id/weight"
+        app:srcCompat="@drawable/ic_weight"
+        app:tint="?android:textColorSecondary" />
 
     <TextView
         android:id="@+id/weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawablePadding="8dp"
-        app:drawableStartCompat="@drawable/ic_weight"
         app:layout_constraintBottom_toBottomOf="@+id/count"
         app:layout_constraintEnd_toEndOf="@+id/name"
         app:layout_constraintTop_toTopOf="@+id/count"

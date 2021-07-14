@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.tools.inventory.ui
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -12,16 +14,21 @@ import android.widget.FrameLayout
 import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryColorMapper
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
-import com.kylecorry.trail_sense.databinding.ListItemInventoryBinding
+import com.kylecorry.trail_sense.databinding.ListItemPackItemBinding
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
+import com.kylecorry.trail_sense.tools.inventory.domain.PackItem
+import com.kylecorry.trail_sense.tools.inventory.infrastructure.InventoryItemMapper
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.ItemRepo
 import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryIconMapper
+import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryStringMapper
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
@@ -36,36 +43,62 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     private val itemRepo by lazy { ItemRepo.getInstance(requireContext()) }
     private lateinit var itemsLiveData: LiveData<List<InventoryItem>>
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
 
-    private lateinit var listView: ListView<InventoryItem>
+    private lateinit var listView: ListView<PackItem>
+
+    private val itemMapper = InventoryItemMapper()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listView = ListView(binding.inventoryList, R.layout.list_item_inventory) { itemView, item ->
-            val itemBinding = ListItemInventoryBinding.bind(itemView)
+        listView = ListView(binding.inventoryList, R.layout.list_item_pack_item) { itemView, item ->
+            val itemBinding = ListItemPackItemBinding.bind(itemView)
             itemBinding.name.text = item.name
-            itemBinding.count.text = DecimalFormatter.format(item.amount, 4, false)
 
+            // TODO: Support desired amount
+            val currentAmount = DecimalFormatter.format(item.amount, 4, false)
+            itemBinding.count.text = if (item.desiredAmount != 0.0) {
+                "$currentAmount / ${DecimalFormatter.format(item.desiredAmount, 4, false)}"
+            } else {
+                currentAmount
+            }
+
+            val categoryTextMapper = ItemCategoryStringMapper(requireContext())
+            itemBinding.itemCategory.text = categoryTextMapper.getString(item.category)
             val imgMapper = ItemCategoryIconMapper()
             itemBinding.itemCategoryImg.setImageResource(imgMapper.getIcon(item.category))
 
             val colorMapper = ItemCategoryColorMapper()
-            itemBinding.itemCategoryImg.imageTintList = ColorStateList.valueOf(
-                UiUtils.color(
-                    requireContext(),
-                    colorMapper.map(item.category)
-                )
-            )
+            val categoryColor = colorMapper.map(item.category).color
+            itemBinding.itemCategory.setTextColor(categoryColor)
+            itemBinding.itemCategoryImg.colorFilter =
+                PorterDuffColorFilter(categoryColor, PorterDuff.Mode.SRC_IN)
 
-            val textColor = if (item.amount == 0.0){
-                UiUtils.color(requireContext(), R.color.negative)
+            if (item.weight != null) {
+                itemBinding.weight.isVisible = true
+                itemBinding.weightImg.isVisible = true
+                itemBinding.weight.text =
+                    formatService.formatWeight(item.weight.copy(weight = item.weight.weight * item.amount.toFloat()))
             } else {
-                UiUtils.androidTextColorPrimary(requireContext())
+                itemBinding.weight.isVisible = false
+                itemBinding.weightImg.isVisible = false
             }
 
-            itemBinding.name.setTextColor(textColor)
-            itemBinding.count.setTextColor(textColor)
+            itemBinding.itemCheckbox.isChecked = item.amount >= item.desiredAmount && item.amount != 0.0
+
+            itemBinding.itemCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                itemBinding.itemCheckbox.setOnCheckedChangeListener(null)
+                if (isChecked) {
+                    if (item.desiredAmount == 0.0) {
+                        addAmount(item, 1.0)
+                    } else {
+                        addAmount(item, max(0.0, item.desiredAmount - item.amount))
+                    }
+                } else {
+                    addAmount(item, -item.amount)
+                }
+            }
 
             val menuListener = PopupMenu.OnMenuItemClickListener {
                 when (it.itemId) {
@@ -82,6 +115,7 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
                             if (!canceled) {
                                 val value = text?.toDoubleOrNull()
                                 if (value != null) {
+                                    itemBinding.itemCheckbox.setOnCheckedChangeListener(null)
                                     addAmount(item, value)
                                 }
                             }
@@ -101,6 +135,7 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
                             if (!canceled) {
                                 val value = text?.toDoubleOrNull()
                                 if (value != null) {
+                                    itemBinding.itemCheckbox.setOnCheckedChangeListener(null)
                                     addAmount(item, -value)
                                 }
                             }
@@ -137,7 +172,7 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
         itemsLiveData = itemRepo.getItems()
         itemsLiveData.observe(viewLifecycleOwner) { items ->
-            binding.inventoryEmptyText.visibility = if (items.isEmpty()){
+            binding.inventoryEmptyText.visibility = if (items.isEmpty()) {
                 View.VISIBLE
             } else {
                 View.GONE
@@ -148,7 +183,7 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
                         { it.category.id },
                         { it.name },
                         { it.amount })
-                )
+                ).map { itemMapper.mapToPackItem(it) }
             )
         }
 
@@ -165,8 +200,8 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
                         getString(R.string.action_inventory_delete_all_confirm),
                         getString(R.string.dialog_ok),
                         getString(R.string.dialog_cancel)
-                    ){ cancelled ->
-                        if (!cancelled){
+                    ) { cancelled ->
+                        if (!cancelled) {
                             lifecycleScope.launch {
                                 withContext(Dispatchers.IO) {
                                     itemRepo.deleteAll()
@@ -188,24 +223,25 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
         }
     }
 
-    private fun deleteItem(item: InventoryItem){
+    private fun deleteItem(item: PackItem) {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                itemRepo.deleteItem(item)
+                itemRepo.deleteItem(itemMapper.mapToInventoryItem(item))
             }
         }
     }
 
-    private fun editItem(item: InventoryItem) {
+    private fun editItem(item: PackItem) {
         val bundle = bundleOf("edit_item_id" to item.id)
         findNavController().navigate(R.id.action_action_inventory_to_createItemFragment, bundle)
     }
 
-    private fun addAmount(item: InventoryItem, amount: Double) {
+    private fun addAmount(item: PackItem, amount: Double) {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 itemRepo.addItem(
-                    item.copy(amount = max(0.0, item.amount + amount)).apply { id = item.id })
+                    itemMapper.mapToInventoryItem(item)
+                        .copy(amount = max(0.0, item.amount + amount)).apply { id = item.id })
             }
         }
     }

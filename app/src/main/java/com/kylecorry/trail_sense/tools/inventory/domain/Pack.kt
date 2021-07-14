@@ -1,3 +1,3 @@
 package com.kylecorry.trail_sense.tools.inventory.domain
 
-data class Pack(val id: Int, val name: String)
+data class Pack(val id: Long, val name: String)
