@@ -7,20 +7,20 @@ class ItemCategoryColorMapper {
 
     fun map(category: ItemCategory): AppColor {
         return when (category){
-            ItemCategory.Other -> AppColor.Orange // TODO: Gray
+            ItemCategory.Other -> AppColor.Gray
             ItemCategory.Food -> AppColor.Green
             ItemCategory.Hydration -> AppColor.Blue
-            ItemCategory.Tools -> AppColor.Yellow // TODO: Gray
+            ItemCategory.Tools -> AppColor.Yellow
             ItemCategory.Natural -> AppColor.Green
             ItemCategory.Clothing -> AppColor.Purple
             ItemCategory.Medical -> AppColor.Red
             ItemCategory.Fire -> AppColor.Orange
-            ItemCategory.Shelter -> AppColor.Purple // TODO: Brown
+            ItemCategory.Shelter -> AppColor.Brown
             ItemCategory.Safety -> AppColor.Yellow
             ItemCategory.Navigation -> AppColor.Yellow
-            ItemCategory.Electronics -> AppColor.Green // TODO: Unknown
-            ItemCategory.Documents -> AppColor.Blue // TODO: Unknown
-            ItemCategory.Hygiene -> AppColor.Blue // TODO: White (which won't work on dark)
+            ItemCategory.Electronics -> AppColor.Green
+            ItemCategory.Documents -> AppColor.Blue
+            ItemCategory.Hygiene -> AppColor.Gray
         }
     }
 
