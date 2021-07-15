@@ -11,5 +11,8 @@ enum class ItemCategory(val id: Int) {
     Safety(7),
     Medical(8),
     Natural(9),
-    Navigation(10)
+    Navigation(10),
+    Electronics(11),
+    Documents(12),
+    Hygiene(13)
 }

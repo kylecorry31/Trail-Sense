@@ -20,6 +20,9 @@ class ItemCategoryIconMapper {
             ItemCategory.Shelter -> R.drawable.ic_category_shelter
             ItemCategory.Safety -> R.drawable.ic_category_safety
             ItemCategory.Navigation -> R.drawable.ic_category_navigation
+            ItemCategory.Electronics -> R.drawable.ic_sensors
+            ItemCategory.Documents -> R.drawable.ic_file
+            ItemCategory.Hygiene -> R.drawable.ic_hygiene
         }
     }
 

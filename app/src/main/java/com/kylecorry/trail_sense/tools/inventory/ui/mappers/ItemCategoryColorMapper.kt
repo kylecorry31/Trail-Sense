@@ -18,6 +18,9 @@ class ItemCategoryColorMapper {
             ItemCategory.Shelter -> AppColor.Purple // TODO: Brown
             ItemCategory.Safety -> AppColor.Yellow
             ItemCategory.Navigation -> AppColor.Yellow
+            ItemCategory.Electronics -> AppColor.Green // TODO: Unknown
+            ItemCategory.Documents -> AppColor.Blue // TODO: Unknown
+            ItemCategory.Hygiene -> AppColor.Red // TODO: White (which won't work on dark)
         }
     }
 

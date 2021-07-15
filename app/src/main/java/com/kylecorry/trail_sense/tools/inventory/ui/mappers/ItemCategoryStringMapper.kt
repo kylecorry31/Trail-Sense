@@ -19,6 +19,9 @@ class ItemCategoryStringMapper(private val context: Context) {
             ItemCategory.Safety -> context.getString(R.string.category_safety)
             ItemCategory.Natural -> context.getString(R.string.category_natural)
             ItemCategory.Navigation -> context.getString(R.string.navigation)
+            ItemCategory.Electronics -> context.getString(R.string.electronics)
+            ItemCategory.Documents -> context.getString(R.string.documents)
+            ItemCategory.Hygiene -> context.getString(R.string.hygiene)
         }
     }
 

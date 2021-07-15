@@ -1125,4 +1125,7 @@
     <string name="packed_amount">Packed amount</string>
     <string name="desired_amount">Desired amount</string>
     <string name="clear_amounts">Clear amounts</string>
+    <string name="electronics">Electronics</string>
+    <string name="documents">Documents</string>
+    <string name="hygiene">Hygiene</string>
 </resources>
