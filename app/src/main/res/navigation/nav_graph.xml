@@ -100,7 +100,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_action_experimental_tools_to_action_inventory"
-            app:destination="@id/action_inventory"
+            app:destination="@id/packListFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -510,19 +510,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="pack_id"
+            android:defaultValue="0L"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/createItemFragment"
         android:name="com.kylecorry.trail_sense.tools.inventory.ui.CreateItemFragment"
         android:label="CreateItemFragment">
-        <action
-            android:id="@+id/action_createItemFragment_to_action_inventory"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@id/action_inventory" />
-
         <argument
             android:name="edit_item_id"
             android:defaultValue="0L"
@@ -824,5 +820,19 @@
         android:id="@+id/temperatureEstimationFragment"
         android:name="com.kylecorry.trail_sense.weather.ui.TemperatureEstimationFragment"
         android:label="TemperatureEstimationFragment" />
+    <fragment
+        android:id="@+id/packListFragment"
+        android:name="com.kylecorry.trail_sense.tools.inventory.ui.PackListFragment"
+        android:label="PackListFragment">
+
+        <action
+            android:id="@+id/action_pack_to_pack_items"
+            app:destination="@id/action_inventory"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
 
 </navigation>

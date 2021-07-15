@@ -41,7 +41,6 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     private lateinit var listView: ListView<PackItem>
 
-    // TODO: Load this before the rest of the data
     private var pack: Pack? = null
     private var packId: Long = 0L
 
@@ -49,8 +48,7 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TODO: Load from arguments
-        packId = 1
+        packId = arguments?.getLong("pack_id") ?: 0L
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -63,7 +63,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                     }
 
                     withContext(Dispatchers.Main) {
-                        findNavController().navigate(R.id.action_createItemFragment_to_action_inventory)
+                        findNavController().popBackStack()
                     }
                 }
             }

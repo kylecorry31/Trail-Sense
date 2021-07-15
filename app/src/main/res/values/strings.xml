@@ -1128,5 +1128,9 @@
     <string name="electronics">Electronics</string>
     <string name="documents">Documents</string>
     <string name="hygiene">Hygiene</string>
-    <string name="packing_list">Packing List</string>
+    <string name="packing_lists">Packing Lists</string>
+    <string name="percent_packed">%s packed</string>
+    <string name="no_packing_lists">No packing lists</string>
+    <string name="new_packing_list">New packing list</string>
+    <string name="delete_pack">Delete pack?</string>
 </resources>
