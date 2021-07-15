@@ -7,17 +7,18 @@
 
     <TextView
         android:id="@+id/inventory_list_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
-        android:text="@string/action_inventory"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="32sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@+id/inventory_menu_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/action_inventory" />
 
     <ImageButton
         android:id="@+id/inventory_menu_button"
@@ -26,7 +27,7 @@
         android:layout_marginEnd="16dp"
         android:alpha="0.86"
         android:background="@android:color/transparent"
-        android:tint="?android:textColorSecondary"
+        app:tint="?android:textColorSecondary"
         app:layout_constraintBottom_toBottomOf="@+id/inventory_list_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/inventory_list_title"

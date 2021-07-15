@@ -78,6 +78,7 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun setupUI() {
+        binding.inventoryListTitle.text = pack?.name
         listView = ListView(binding.inventoryList, R.layout.list_item_pack_item) { itemView, item ->
             val itemBinding = ListItemPackItemBinding.bind(itemView)
             itemBinding.name.text = item.name
