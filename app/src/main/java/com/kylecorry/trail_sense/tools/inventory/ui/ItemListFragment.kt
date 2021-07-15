@@ -177,21 +177,14 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
         binding.inventoryMenuButton.setOnClickListener {
             UiUtils.openMenu(binding.inventoryMenuButton, R.menu.inventory_menu) {
                 when (it) {
-                    R.id.action_inventory_delete_all -> {
-                        UiUtils.alertWithCancel(
-                            requireContext(),
-                            getString(R.string.action_inventory_delete_all),
-                            getString(R.string.action_inventory_delete_all_confirm),
-                            getString(R.string.dialog_ok),
-                            getString(R.string.dialog_cancel)
-                        ) { cancelled ->
-                            if (!cancelled) {
-                                lifecycleScope.launch {
-                                    withContext(Dispatchers.IO) {
-                                        itemRepo.deleteAll()
-                                    }
-                                }
-                            }
+                    R.id.action_pack_rename -> {
+                        pack?.let {
+                            renamePack(it)
+                        }
+                    }
+                    R.id.action_pack_delete -> {
+                        pack?.let {
+                            deletePack(it)
                         }
                     }
                     R.id.action_pack_clear_packed -> {
@@ -213,6 +206,46 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
                     }
                 }
                 true
+            }
+        }
+    }
+
+    private fun renamePack(pack: Pack) {
+        CustomUiUtils.pickText(
+            requireContext(),
+            getString(R.string.rename),
+            null,
+            pack.name,
+            hint = getString(R.string.name_hint)
+        ) {
+            if (it != null) {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        itemRepo.addPack(pack.copy(name = it))
+                    }
+                    withContext(Dispatchers.Main) {
+                        binding.inventoryListTitle.text = it
+                    }
+                }
+            }
+        }
+    }
+
+    private fun deletePack(pack: Pack) {
+        UiUtils.alertWithCancel(
+            requireContext(),
+            getString(R.string.delete_pack),
+            pack.name
+        ) { cancelled ->
+            if (!cancelled) {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        itemRepo.deletePack(pack)
+                    }
+                    withContext(Dispatchers.Main) {
+                        findNavController().popBackStack()
+                    }
+                }
             }
         }
     }

@@ -27,6 +27,9 @@ interface InventoryItemDao {
     @Query("DELETE FROM items")
     suspend fun deleteAll()
 
+    @Query("DELETE FROM items WHERE packId = :packId")
+    suspend fun deleteAllFromPack(packId: Long)
+
     @Update
     suspend fun update(item: InventoryItemDto)
 

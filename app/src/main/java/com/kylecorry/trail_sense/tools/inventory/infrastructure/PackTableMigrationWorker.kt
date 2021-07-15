@@ -23,7 +23,7 @@ class PackTableMigrationWorker(
             val pack = Pack(0, context.getString(R.string.default_pack_name))
             val packId = repo.addPack(pack)
 
-            val newItems = items.map { it.copy(packId = packId) }
+            val newItems = items.map { it.copy(packId = packId).apply { id = it.id } }
             newItems.forEach {
                 repo.addItem(it)
             }

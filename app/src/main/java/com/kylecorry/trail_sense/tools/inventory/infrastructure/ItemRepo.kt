@@ -37,6 +37,7 @@ class ItemRepo private constructor(context: Context) : IItemRepo {
     override suspend fun deleteItem(item: InventoryItemDto) = inventoryItemDao.delete(item)
 
     override suspend fun deletePack(pack: Pack) {
+        inventoryItemDao.deleteAllFromPack(pack.id)
         packDao.delete(mapper.mapToPackEntity(pack))
     }
 
