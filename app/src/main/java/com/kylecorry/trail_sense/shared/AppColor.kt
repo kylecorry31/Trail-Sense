@@ -11,4 +11,6 @@ enum class AppColor(val id: Int, @ColorInt val color: Int) {
     Blue(4, Color.parseColor("#a0caff")),
     Purple(5, Color.parseColor("#c034eb")),
     Pink(6, Color.parseColor("#ff33dd"))
+    // TODO: Have a text color primary / secondary app color
+    // TODO: Have a black / white app color
 }

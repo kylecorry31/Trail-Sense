@@ -192,10 +192,9 @@ object Tools {
                     R.id.action_action_experimental_tools_to_fragmentToolNotes
                 ),
                 Tool(
-                    context.getString(R.string.action_inventory),
-                    R.drawable.ic_inventory,
-                    R.id.action_action_experimental_tools_to_action_inventory,
-                    context.getString(R.string.tool_inventory_summary)
+                    context.getString(R.string.packing_list),
+                    R.drawable.ic_tool_pack,
+                    R.id.action_action_experimental_tools_to_action_inventory
                 ),
                 Tool(
                     context.getString(R.string.tool_user_guide_title),

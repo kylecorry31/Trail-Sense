@@ -10,7 +10,7 @@ class ItemCategoryColorMapper {
             ItemCategory.Other -> AppColor.Orange // TODO: Gray
             ItemCategory.Food -> AppColor.Green
             ItemCategory.Hydration -> AppColor.Blue
-            ItemCategory.Tools -> AppColor.Red // TODO: Gray
+            ItemCategory.Tools -> AppColor.Yellow // TODO: Gray
             ItemCategory.Natural -> AppColor.Green
             ItemCategory.Clothing -> AppColor.Purple
             ItemCategory.Medical -> AppColor.Red
@@ -20,7 +20,7 @@ class ItemCategoryColorMapper {
             ItemCategory.Navigation -> AppColor.Yellow
             ItemCategory.Electronics -> AppColor.Green // TODO: Unknown
             ItemCategory.Documents -> AppColor.Blue // TODO: Unknown
-            ItemCategory.Hygiene -> AppColor.Red // TODO: White (which won't work on dark)
+            ItemCategory.Hygiene -> AppColor.Blue // TODO: White (which won't work on dark)
         }
     }
 
