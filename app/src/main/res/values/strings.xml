@@ -1121,4 +1121,6 @@
     <string name="days_format">%s d</string>
     <string name="time">Time</string>
     <string name="default_pack_name">Default pack</string>
+    <string name="packed_amount">Packed amount</string>
+    <string name="desired_amount">Desired amount</string>
 </resources>

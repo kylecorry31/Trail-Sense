@@ -113,9 +113,8 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
             itemBinding.itemCheckbox.isChecked =
                 item.amount >= item.desiredAmount && item.amount != 0.0
 
-            itemBinding.itemCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                itemBinding.itemCheckbox.setOnCheckedChangeListener(null)
-                if (isChecked) {
+            itemBinding.itemCheckbox.setOnClickListener {
+                if (!(item.amount >= item.desiredAmount && item.amount != 0.0)) {
                     if (item.desiredAmount == 0.0) {
                         addAmount(item, 1.0)
                     } else {
@@ -195,6 +194,7 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
             } else {
                 View.GONE
             }
+            // TODO: Update sort criteria
             listView.setData(
                 items.sortedWith(
                     compareBy(

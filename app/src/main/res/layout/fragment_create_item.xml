@@ -41,11 +41,26 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="@string/item_amount_hint"
+        android:hint="@string/packed_amount"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_edit" />
+
+    <EditText
+        android:id="@+id/desired_amount_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/desired_amount"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/count_edit" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/create_btn"
@@ -67,7 +82,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:spinnerMode="dialog"
-        app:layout_constraintEnd_toEndOf="@+id/count_edit"
-        app:layout_constraintStart_toStartOf="@+id/count_edit"
-        app:layout_constraintTop_toBottomOf="@+id/count_edit" />
+        app:layout_constraintEnd_toEndOf="@+id/desired_amount_edit"
+        app:layout_constraintStart_toStartOf="@+id/desired_amount_edit"
+        app:layout_constraintTop_toBottomOf="@+id/desired_amount_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

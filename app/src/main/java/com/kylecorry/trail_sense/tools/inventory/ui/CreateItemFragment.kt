@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItemDto
 import com.kylecorry.trail_sense.tools.inventory.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.ItemRepo
+import com.kylecorry.trailsensecore.domain.math.toDoubleCompat
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlinx.coroutines.*
@@ -40,17 +41,25 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
         binding.createBtn.setOnClickListener {
             val name = binding.nameEdit.text?.toString()
-            val amount = binding.countEdit.text?.toString()?.toDoubleOrNull() ?: 0.0
+            val amount = binding.countEdit.text?.toString()?.toDoubleCompat() ?: 0.0
+            val desiredAmount = binding.desiredAmountEdit.text?.toString()?.toDoubleCompat() ?: 0.0
             val category = ItemCategory.values()[binding.categorySelectSpinner.selectedItemPosition]
 
             if (name != null) {
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
-                        itemRepo.addItem(InventoryItemDto(name, packId, category, amount).apply {
-                            editingItem?.let {
-                                id = it.id
-                            }
-                        })
+                        itemRepo.addItem(
+                            InventoryItemDto(
+                                name,
+                                packId,
+                                category,
+                                amount,
+                                desiredAmount
+                            ).apply {
+                                editingItem?.let {
+                                    id = it.id
+                                }
+                            })
                     }
 
                     withContext(Dispatchers.Main) {
@@ -87,7 +96,14 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                 editingItem?.let {
                     binding.createItemTitle.text = getString(R.string.edit_item_title)
                     binding.nameEdit.setText(it.name)
-                    binding.countEdit.setText(DecimalFormatter.format(it.amount, 4))
+                    binding.countEdit.setText(DecimalFormatter.format(it.amount, 4, false))
+                    binding.desiredAmountEdit.setText(
+                        DecimalFormatter.format(
+                            it.desiredAmount,
+                            4,
+                            false
+                        )
+                    )
                     binding.categorySelectSpinner.setSelection(it.category.ordinal)
                 }
             }
@@ -97,10 +113,11 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
     private fun hasChanges(): Boolean {
         val name = binding.nameEdit.text?.toString()
-        val amount = binding.countEdit.text?.toString()?.toDoubleOrNull() ?: 0.0
+        val amount = binding.countEdit.text?.toString()?.toDoubleCompat() ?: 0.0
+        val desiredAmount = binding.desiredAmountEdit.text?.toString()?.toDoubleCompat() ?: 0.0
         val category = ItemCategory.values()[binding.categorySelectSpinner.selectedItemPosition]
 
-        return !nothingEntered() && (name != editingItem?.name || amount != editingItem?.amount || category != editingItem?.category)
+        return !nothingEntered() && (name != editingItem?.name || amount != editingItem?.amount || desiredAmount != editingItem?.desiredAmount || category != editingItem?.category)
     }
 
     private fun nothingEntered(): Boolean {
@@ -110,9 +127,10 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
         val name = binding.nameEdit.text?.toString()
         val amount = binding.countEdit.text?.toString()
+        val desiredAmount = binding.desiredAmountEdit.text?.toString()
         val category = ItemCategory.values()[binding.categorySelectSpinner.selectedItemPosition]
 
-        return name.isNullOrBlank() && amount.isNullOrBlank() && category == ItemCategory.Other
+        return name.isNullOrBlank() && amount.isNullOrBlank() && desiredAmount.isNullOrBlank() && category == ItemCategory.Other
     }
 
     override fun generateBinding(
