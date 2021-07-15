@@ -527,6 +527,11 @@
             android:name="edit_item_id"
             android:defaultValue="0L"
             app:argType="long" />
+
+        <argument
+            android:name="pack_id"
+            android:defaultValue="0L"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/toolConvertFragment"

@@ -1120,4 +1120,5 @@
     <string name="hours_format">%s h</string>
     <string name="days_format">%s d</string>
     <string name="time">Time</string>
+    <string name="default_pack_name">Default pack</string>
 </resources>

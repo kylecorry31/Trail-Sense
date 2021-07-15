@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryStringMa
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
+import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItemDto
 import com.kylecorry.trail_sense.tools.inventory.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.ItemRepo
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
@@ -22,11 +22,14 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
     private val itemRepo by lazy { ItemRepo.getInstance(requireContext()) }
 
-    private var editingItem: InventoryItem? = null
+    private var editingItem: InventoryItemDto? = null
+
+    private var packId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val itemId = arguments?.getLong("edit_item_id") ?: 0L
+        packId = arguments?.getLong("pack_id") ?: 0L
         if (itemId != 0L) {
             loadEditingItem(itemId)
         }
@@ -43,7 +46,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
             if (name != null) {
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
-                        itemRepo.addItem(InventoryItem(name, category, amount).apply {
+                        itemRepo.addItem(InventoryItemDto(name, packId, category, amount).apply {
                             editingItem?.let {
                                 id = it.id
                             }

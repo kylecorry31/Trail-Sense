@@ -18,8 +18,11 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointDao
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryDao
-import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
+import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItemDto
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.InventoryItemDao
+import com.kylecorry.trail_sense.tools.inventory.infrastructure.PackDao
+import com.kylecorry.trail_sense.tools.inventory.infrastructure.PackEntity
+import com.kylecorry.trail_sense.tools.inventory.infrastructure.PackTableMigrationWorker
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapDao
 import com.kylecorry.trail_sense.tools.notes.domain.Note
@@ -36,13 +39,14 @@ import java.io.File
  * The Room database for this app
  */
 @Database(
-    entities = [InventoryItem::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class],
-    version = 14,
+    entities = [InventoryItemDto::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class],
+    version = 15,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun inventoryItemDao(): InventoryItemDao
+    abstract fun packDao(): PackDao
     abstract fun waypointDao(): WaypointDao
     abstract fun tideDao(): TideDao
     abstract fun pressureDao(): PressureReadingDao
@@ -75,7 +79,7 @@ abstract class AppDatabase : RoomDatabase() {
                     val shmFile = File(dbFile.parent, "inventory-shm")
                     val newShm = File(dbFile.parent, "trail_sense-shm")
                     shmFile.renameTo(newShm)
-                } catch (e: Exception){
+                } catch (e: Exception) {
                     // This file doesn't really matter
                 }
 
@@ -83,7 +87,7 @@ abstract class AppDatabase : RoomDatabase() {
                     val walFile = File(dbFile.parent, "inventory-wal")
                     val newWal = File(dbFile.parent, "trail_sense-wal")
                     walFile.renameTo(newWal)
-                } catch (e: Exception){
+                } catch (e: Exception) {
                     // This file doesn't really matter
                 }
 
@@ -181,6 +185,19 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_14_15 = object : Migration(14, 15) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("ALTER TABLE `items` ADD COLUMN `desiredAmount` REAL NOT NULL DEFAULT 0")
+                    database.execSQL("ALTER TABLE `items` ADD COLUMN `weight` REAL DEFAULT NULL")
+                    database.execSQL("ALTER TABLE `items` ADD COLUMN `weightUnits` INTEGER DEFAULT NULL")
+                    database.execSQL("ALTER TABLE `items` ADD COLUMN `packId` INTEGER NOT NULL DEFAULT 0")
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `packs` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)")
+                    val request =
+                        OneTimeWorkRequestBuilder<PackTableMigrationWorker>().build()
+                    WorkManager.getInstance(context).enqueue(request)
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -195,18 +212,21 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_10_11,
                     MIGRATION_11_12,
                     MIGRATION_12_13,
-                    MIGRATION_13_14
+                    MIGRATION_13_14,
+                    MIGRATION_14_15
                 )
-                .addCallback(object: RoomDatabase.Callback() {
+                .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                        if (context.getDatabasePath("weather").exists()){
-                            val request = OneTimeWorkRequestBuilder<PressureDatabaseMigrationWorker>().build()
+                        if (context.getDatabasePath("weather").exists()) {
+                            val request =
+                                OneTimeWorkRequestBuilder<PressureDatabaseMigrationWorker>().build()
                             WorkManager.getInstance(context).enqueue(request)
                         }
 
                         if (context.getDatabasePath("survive").exists()) {
-                            val request = OneTimeWorkRequestBuilder<BeaconDatabaseMigrationWorker>().build()
+                            val request =
+                                OneTimeWorkRequestBuilder<BeaconDatabaseMigrationWorker>().build()
                             WorkManager.getInstance(context).enqueue(request)
                         }
                     }

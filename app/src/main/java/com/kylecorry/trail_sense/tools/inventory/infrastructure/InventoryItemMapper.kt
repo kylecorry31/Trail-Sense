@@ -1,19 +1,50 @@
 package com.kylecorry.trail_sense.tools.inventory.infrastructure
 
-import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItem
+import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItemDto
+import com.kylecorry.trail_sense.tools.inventory.domain.Pack
 import com.kylecorry.trail_sense.tools.inventory.domain.PackItem
+import com.kylecorry.trailsensecore.domain.units.Weight
 
-// TODO: Add all the fields to an inventory item
-// TODO: Use this at the repo layer
 class InventoryItemMapper {
 
-    fun mapToPackItem(item: InventoryItem): PackItem {
-        return PackItem(item.id, 0, item.name, item.category, item.amount)
+    fun mapToPackItem(item: InventoryItemDto): PackItem {
+        val weight = if (item.weight != null && item.weightUnits != null) {
+            Weight(item.weight, item.weightUnits)
+        } else {
+            null
+        }
+        return PackItem(
+            item.id,
+            item.packId,
+            item.name,
+            item.category,
+            item.amount,
+            item.desiredAmount,
+            weight
+        )
     }
 
-    fun mapToInventoryItem(item: PackItem): InventoryItem {
-        return InventoryItem(item.name, item.category, item.amount).also {
+    fun mapToInventoryItem(item: PackItem): InventoryItemDto {
+        return InventoryItemDto(
+            item.name,
+            item.packId,
+            item.category,
+            item.amount,
+            item.desiredAmount,
+            item.weight?.weight,
+            item.weight?.units
+        ).also {
             it.id = item.id
+        }
+    }
+
+    fun mapToPack(pack: PackEntity): Pack {
+        return Pack(pack.id, pack.name)
+    }
+
+    fun mapToPackEntity(pack: Pack): PackEntity {
+        return PackEntity(pack.name).also {
+            it.id = pack.id
         }
     }
 
