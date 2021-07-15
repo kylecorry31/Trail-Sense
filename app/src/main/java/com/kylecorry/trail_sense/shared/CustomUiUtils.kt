@@ -332,7 +332,9 @@ object CustomUiUtils {
     ) {
         val layout = FrameLayout(context)
         val editTextView = EditText(context)
-        editTextView.setText(default.toString())
+        if (default != null) {
+            editTextView.setText(default.toString())
+        }
         editTextView.inputType = InputType.TYPE_CLASS_NUMBER or
                 (if (allowDecimals) InputType.TYPE_NUMBER_FLAG_DECIMAL else 0) or
                 (if (allowNegative) InputType.TYPE_NUMBER_FLAG_SIGNED else 0)

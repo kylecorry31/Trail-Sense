@@ -29,4 +29,7 @@ interface InventoryItemDao {
 
     @Update
     suspend fun update(item: InventoryItemDto)
+
+    @Query("UPDATE items SET amount = 0 WHERE packId = :packId")
+    suspend fun clearPackedAmounts(packId: Long)
 }

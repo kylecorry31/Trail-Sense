@@ -51,6 +51,9 @@ class ItemRepo private constructor(context: Context) : IItemRepo {
 
     override suspend fun deleteAll() = inventoryItemDao.deleteAll()
 
+    override suspend fun clearPackedAmounts(packId: Long) =
+        inventoryItemDao.clearPackedAmounts(packId)
+
     override suspend fun addItem(item: InventoryItemDto) {
         if (item.id != 0L) {
             inventoryItemDao.update(item)

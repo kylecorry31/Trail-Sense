@@ -532,6 +532,7 @@
     <string name="tool_whistle" translatable="false">tool_whistle</string>
     <string name="action_inventory_delete_all">Delete all</string>
     <string name="action_inventory_delete_all_confirm">Delete all inventory items?</string>
+    <string name="action_inventory_clear_confirm">Clear all packed amounts?</string>
     <string name="inventory_empty_text">No items</string>
     <string name="email" translatable="false">trailsense@protonmail.com</string>
     <string name="tool_distance_convert" translatable="false">tool_distance_convert</string>
@@ -1123,4 +1124,5 @@
     <string name="default_pack_name">Default pack</string>
     <string name="packed_amount">Packed amount</string>
     <string name="desired_amount">Desired amount</string>
+    <string name="clear_amounts">Clear amounts</string>
 </resources>

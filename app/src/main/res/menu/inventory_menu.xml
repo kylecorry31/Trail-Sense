@@ -3,4 +3,8 @@
     <item
         android:id="@+id/action_inventory_delete_all"
         android:title="@string/action_inventory_delete_all" />
+
+    <item
+        android:id="@+id/action_pack_clear_packed"
+        android:title="@string/clear_amounts"/>
 </menu>

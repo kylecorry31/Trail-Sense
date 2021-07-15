@@ -28,4 +28,6 @@ interface IItemRepo {
     suspend fun addItem(item: InventoryItemDto)
 
     suspend fun deleteAll()
+
+    suspend fun clearPackedAmounts(packId: Long)
 }
