@@ -1133,4 +1133,5 @@
     <string name="no_packing_lists">No packing lists</string>
     <string name="new_packing_list">New packing list</string>
     <string name="delete_pack">Delete pack?</string>
+    <string name="coordinate_format_usng">USNG</string>
 </resources>

@@ -21,7 +21,8 @@ class FragmentToolCoordinateConvert : BoundFragment<FragmentToolCoordinateConver
         CoordinateFormat.DegreesDecimalMinutes,
         CoordinateFormat.DegreesMinutesSeconds,
         CoordinateFormat.UTM,
-        CoordinateFormat.MGRS
+        CoordinateFormat.MGRS,
+        CoordinateFormat.USNG
     )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

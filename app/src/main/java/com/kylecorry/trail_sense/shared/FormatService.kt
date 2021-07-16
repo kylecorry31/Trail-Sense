@@ -201,17 +201,7 @@ class FormatService(private val context: Context) {
     }
 
     fun formatLocation(location: Coordinate, format: CoordinateFormat? = null): String {
-        val formatted = when (format ?: prefs.navigation.coordinateFormat) {
-            CoordinateFormat.DecimalDegrees -> location.toDecimalDegrees()
-            CoordinateFormat.DegreesDecimalMinutes -> location.toDegreeDecimalMinutes()
-            CoordinateFormat.DegreesMinutesSeconds -> location.toDegreeMinutesSeconds()
-            CoordinateFormat.UTM -> location.toUTM()
-            CoordinateFormat.MGRS -> location.toMGRS()
-        }
-        if (formatted == "?") {
-            return location.toDecimalDegrees()
-        }
-        return formatted
+        return v2.formatLocation(location, format)
     }
 
     private fun getBaseUnit(): DistanceUnits {
@@ -272,6 +262,7 @@ class FormatService(private val context: Context) {
             CoordinateFormat.DegreesMinutesSeconds -> context.getString(R.string.coordinate_format_degrees_minutes_seconds)
             CoordinateFormat.UTM -> context.getString(R.string.coordinate_format_utm)
             CoordinateFormat.MGRS -> context.getString(R.string.coordinate_format_mgrs)
+            CoordinateFormat.USNG -> context.getString(R.string.coordinate_format_usng)
         }
     }
 

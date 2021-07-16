@@ -165,6 +165,7 @@
         <item>@string/coordinate_format_degrees_minutes_seconds</item>
         <item>@string/coordinate_format_utm</item>
         <item>@string/coordinate_format_mgrs</item>
+        <item>@string/coordinate_format_usng</item>
     </string-array>
 
     <string-array name="coordinate_format_values">
@@ -173,6 +174,7 @@
         <item>dms</item>
         <item>utm</item>
         <item>mgrs</item>
+        <item>usng</item>
     </string-array>
 
     <string-array name="sunset_alert_time_entries">
