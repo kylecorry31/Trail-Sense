@@ -261,6 +261,17 @@ class FormatServiceV2(private val context: Context) {
         return formatted
     }
 
+    fun formatCoordinateType(type: CoordinateFormat): String {
+        return when (type) {
+            CoordinateFormat.DecimalDegrees -> context.getString(R.string.coordinate_format_decimal_degrees)
+            CoordinateFormat.DegreesDecimalMinutes -> context.getString(R.string.coordinate_format_degrees_decimal_minutes)
+            CoordinateFormat.DegreesMinutesSeconds -> context.getString(R.string.coordinate_format_degrees_minutes_seconds)
+            CoordinateFormat.UTM -> context.getString(R.string.coordinate_format_utm)
+            CoordinateFormat.MGRS -> context.getString(R.string.coordinate_format_mgrs)
+            CoordinateFormat.USNG -> context.getString(R.string.coordinate_format_usng)
+        }
+    }
+
     fun formatElectricalCapacity(capacity: Float): String {
         return context.getString(
             R.string.battery_capacity_format,

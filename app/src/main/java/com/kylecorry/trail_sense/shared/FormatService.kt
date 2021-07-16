@@ -256,14 +256,7 @@ class FormatService(private val context: Context) {
     }
 
     fun coordinateFormatString(unit: CoordinateFormat): String {
-        return when(unit){
-            CoordinateFormat.DecimalDegrees -> context.getString(R.string.coordinate_format_decimal_degrees)
-            CoordinateFormat.DegreesDecimalMinutes -> context.getString(R.string.coordinate_format_degrees_decimal_minutes)
-            CoordinateFormat.DegreesMinutesSeconds -> context.getString(R.string.coordinate_format_degrees_minutes_seconds)
-            CoordinateFormat.UTM -> context.getString(R.string.coordinate_format_utm)
-            CoordinateFormat.MGRS -> context.getString(R.string.coordinate_format_mgrs)
-            CoordinateFormat.USNG -> context.getString(R.string.coordinate_format_usng)
-        }
+        return v2.formatCoordinateType(unit)
     }
 
 }

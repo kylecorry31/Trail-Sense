@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.infrastructure.share
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
@@ -12,6 +13,7 @@ class LocationSharesheet(private val context: Context) : ILocationSender {
 
     private val geoService = GeoService()
     private val prefs by lazy { UserPreferences(context) }
+    private val formatService by lazy { FormatServiceV2(context) }
 
     override fun send(location: Coordinate) {
         val intent = Intent().apply {
@@ -22,11 +24,15 @@ class LocationSharesheet(private val context: Context) : ILocationSender {
         IntentUtils.openChooser(context, intent, context.getString(R.string.share_action_send))
     }
 
-    private fun getShareString(locationCoordinate: Coordinate): String {
-        val location = locationCoordinate.toDecimalDegrees()
-        val locationUtm = locationCoordinate.toUTM()
-        val mapUrl = geoService.getMapUrl(locationCoordinate, prefs.mapSite)
-        return "${location}\n\n${context.getString(R.string.coordinate_format_utm)}: ${locationUtm}\n\n${context.getString(R.string.maps)}: $mapUrl"
+    private fun getShareString(coordinate: Coordinate): String {
+        val location = coordinate.toDecimalDegrees()
+        val coordinateUser = formatService.formatLocation(coordinate)
+        val mapUrl = geoService.getMapUrl(coordinate, prefs.mapSite)
+        return "${location}\n\n${formatService.formatCoordinateType(prefs.navigation.coordinateFormat)}: ${coordinateUser}\n\n${
+            context.getString(
+                R.string.maps
+            )
+        }: $mapUrl"
     }
 
 }
