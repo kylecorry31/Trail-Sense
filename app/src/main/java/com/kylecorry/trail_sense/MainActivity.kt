@@ -196,7 +196,8 @@ class MainActivity : AppCompatActivity() {
         )
         if (savedInstanceState.containsKey("navigation")){
             tryOrNothing {
-                navController.navigate(savedInstanceState.getInt("navigation"))
+                val bundle = savedInstanceState.getBundle("navigation_arguments")
+                navController.navigate(savedInstanceState.getInt("navigation"), bundle)
             }
         }
     }
@@ -204,8 +205,9 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("page", bottomNavigation.selectedItemId)
-        val navState = navController.saveState()
-        outState.putAll(navState)
+        navController.currentBackStackEntry?.arguments?.let {
+            outState.putBundle("navigation_arguments", it)
+        }
         navController.currentDestination?.id?.let {
             outState.putInt("navigation", it)
         }

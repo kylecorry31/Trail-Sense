@@ -41,5 +41,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tint="?android:textColorSecondary"
         app:srcCompat="@drawable/ic_tool_pack" />
 </androidx.constraintlayout.widget.ConstraintLayout>
