@@ -14,13 +14,13 @@ data class PackItem(
     val packedWeight: Weight?
         get() {
             weight ?: return null
-            return Weight(weight.weight * amount.toFloat(), weight.units)
+            return weight * amount
         }
 
     val desiredWeight: Weight?
         get() {
             weight ?: return null
-            return Weight(weight.weight * desiredAmount.toFloat(), weight.units)
+            return weight * desiredAmount
         }
 
     val percentPacked: Float

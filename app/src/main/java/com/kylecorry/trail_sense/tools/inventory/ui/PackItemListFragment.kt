@@ -9,19 +9,19 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryColorMapper
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackItemBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItemDto
 import com.kylecorry.trail_sense.tools.inventory.domain.Pack
 import com.kylecorry.trail_sense.tools.inventory.domain.PackItem
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.InventoryItemMapper
 import com.kylecorry.trail_sense.tools.inventory.infrastructure.ItemRepo
+import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryColorMapper
 import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryIconMapper
 import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryStringMapper
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -33,10 +33,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Double.max
 
-class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
+class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     private val itemRepo by lazy { ItemRepo.getInstance(requireContext()) }
-    private lateinit var itemsLiveData: LiveData<List<InventoryItemDto>>
+    private lateinit var itemsLiveData: LiveData<List<PackItem>>
     private val formatService by lazy { FormatServiceV2(requireContext()) }
 
     private lateinit var listView: ListView<PackItem>
@@ -65,7 +65,10 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
             pack = itemRepo.getPack(packId)
         }
         withContext(Dispatchers.Main) {
-            itemsLiveData = itemRepo.getItemsFromPack(packId)
+            // TODO: Move this transformation into the repo
+            itemsLiveData = Transformations.map(itemRepo.getItemsFromPack(packId)) {
+                it.map { item -> itemMapper.mapToPackItem(item) }
+            }
             setupUI()
         }
     }
@@ -163,7 +166,7 @@ class ItemListFragment : BoundFragment<FragmentItemListBinding>() {
                     compareBy(
                         { it.category.id },
                         { it.name })
-                ).map { itemMapper.mapToPackItem(it) }
+                )
             )
         }
 

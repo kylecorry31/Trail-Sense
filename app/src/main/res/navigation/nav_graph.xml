@@ -501,7 +501,7 @@
 
     <fragment
         android:id="@+id/action_inventory"
-        android:name="com.kylecorry.trail_sense.tools.inventory.ui.ItemListFragment"
+        android:name="com.kylecorry.trail_sense.tools.inventory.ui.PackItemListFragment"
         android:label="ItemListFragment">
         <action
             android:id="@+id/action_action_inventory_to_createItemFragment"

@@ -8,7 +8,7 @@ import java.time.Instant
 
 class Converters {
     @TypeConverter
-    fun fromItemCategory(value: ItemCategory): Int{
+    fun fromItemCategory(value: ItemCategory): Int {
         return value.id
     }
 
@@ -19,13 +19,12 @@ class Converters {
 
     @TypeConverter
     fun fromWeightUnit(value: WeightUnits?): Int? {
-        return value?.ordinal
+        return value?.id
     }
 
     @TypeConverter
     fun toWeightUnit(value: Int?): WeightUnits? {
-        value ?: return null
-        return WeightUnits.values()[value]
+        return WeightUnits.values().firstOrNull { it.id == value }
     }
 
     @TypeConverter
