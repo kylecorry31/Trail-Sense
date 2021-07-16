@@ -478,7 +478,7 @@
     <string name="beacon_invalid_elevation">Elevação inválida</string>
     <string name="beacon_invalid_name">Nome inválido</string>
     <string name="maps">Mapas</string>
-    <string name="share_action_copy">Copiar</string>
+    <string name="action_copy">Copiar</string>
     <string name="share_action_send">Enviar</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d Ponto de Orientação</item>

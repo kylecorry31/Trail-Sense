@@ -753,7 +753,7 @@
     <string name="name_hint">Назва</string>
     <string name="create_beacon_title">Створити маячок</string>
     <string name="maps">Мапи</string>
-    <string name="share_action_copy">Копіювати</string>
+    <string name="action_copy">Копіювати</string>
     <string name="share_action_send">Надіслати</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d маячок</item>

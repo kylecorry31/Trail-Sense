@@ -108,7 +108,7 @@
     <string name="beacon_invalid_elevation">Elevación inválida</string>
     <string name="beacon_invalid_name">Nombre inválido</string>
     <string name="maps">Mapas</string>
-    <string name="share_action_copy">Copiar</string>
+    <string name="action_copy">Copiar</string>
     <string name="share_action_send">Enviar</string>
     <string name="edit_beacon">Editar baliza</string>
     <string name="flashlight_title">Linterna</string>

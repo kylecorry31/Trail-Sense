@@ -659,7 +659,7 @@
     <string name="name_hint">İsim</string>
     <string name="create_beacon_title">İşaret Oluştur</string>
     <string name="maps">Haritalar</string>
-    <string name="share_action_copy">Kopyala</string>
+    <string name="action_copy">Kopyala</string>
     <string name="share_action_send">Gönder</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d işaret</item>

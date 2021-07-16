@@ -5,7 +5,7 @@
         android:title="@string/beacon_action_view_details" />
     <item
         android:id="@+id/action_copy"
-        android:title="@string/share_action_copy" />
+        android:title="@string/action_copy" />
     <item
         android:id="@+id/action_send"
         android:title="@string/share_action_send" />

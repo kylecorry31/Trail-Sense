@@ -264,7 +264,7 @@
     <string name="solar_noon">太陽正午</string>
     <string name="tide_normal">正常</string>
     <string name="until_sunset_label">直到日落</string>
-    <string name="share_action_copy">複製</string>
+    <string name="action_copy">複製</string>
     <string name="centimeters_format">%.2f 公分</string>
     <string name="inches_format">%.2f 吋</string>
     <string name="navigation">導航</string>

@@ -135,7 +135,7 @@
     <string name="beacon_comment">Примечания (необязательно)</string>
     <string name="beacon_invalid_name">Неверное название</string>
     <string name="maps">Карты</string>
-    <string name="share_action_copy">Копировать</string>
+    <string name="action_copy">Копировать</string>
     <string name="share_action_send">Отправить</string>
     <string name="sos">СОС</string>
     <string name="tap_to_turn_off">Нажмите, чтобы выключить</string>

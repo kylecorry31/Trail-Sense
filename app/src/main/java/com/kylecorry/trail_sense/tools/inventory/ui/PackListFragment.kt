@@ -51,6 +51,9 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
                         R.id.action_pack_rename -> {
                             renamePack(pack)
                         }
+                        R.id.action_pack_copy -> {
+                            copyPack(pack)
+                        }
                         R.id.action_pack_delete -> {
                             deletePack(pack)
                         }
@@ -125,6 +128,28 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
                 lifecycleScope.launch {
                     val packId = withContext(Dispatchers.IO) {
                         packRepo.addPack(Pack(0, it))
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        openPack(packId)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun copyPack(oldPack: Pack) {
+        CustomUiUtils.pickText(
+            requireContext(),
+            getString(R.string.new_packing_list),
+            null,
+            null,
+            hint = getString(R.string.name_hint)
+        ) {
+            if (it != null) {
+                lifecycleScope.launch {
+                    val packId = withContext(Dispatchers.IO) {
+                        packRepo.copyPack(oldPack, Pack(0, it))
                     }
 
                     withContext(Dispatchers.Main) {

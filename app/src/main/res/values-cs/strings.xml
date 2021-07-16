@@ -116,7 +116,7 @@
     <string name="dialog_grant">Změnit nastavení</string>
     <string name="access_background_location_rationale">Trail Sense používá polohu na pozadí, která je používána ke kalibraci atmosférického tlaku v sekci Počasí a na poskytnutí přesnějšího času západu slunce. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="navigation">Navigace</string>
-    <string name="share_action_copy">Kopírovat</string>
+    <string name="action_copy">Kopírovat</string>
     <string name="share_action_send">Poslat</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d maják</item>

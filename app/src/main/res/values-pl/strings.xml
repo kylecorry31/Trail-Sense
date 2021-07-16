@@ -155,7 +155,7 @@
     <string name="beacon_comment">Uwagi (opcjonalnie)</string>
     <string name="beacon_invalid_elevation">Nieprawidłowa wysokość</string>
     <string name="maps">Mapy</string>
-    <string name="share_action_copy">Kopiuj</string>
+    <string name="action_copy">Kopiuj</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Naciśnij, aby wyłączyć</string>
     <string name="flashlight_title">Latarka</string>

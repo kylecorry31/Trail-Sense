@@ -225,7 +225,7 @@
     <string name="beacon_elevation_hint_feet">Altitude, en pieds (optionnel)</string>
     <string name="beacon_invalid_elevation">Altitude invalide</string>
     <string name="beacon_invalid_name">Nom invalide</string>
-    <string name="share_action_copy">Copier</string>
+    <string name="action_copy">Copier</string>
     <string name="share_action_send">Envoyer</string>
     <string name="edit_beacon">Modifier le repère</string>
     <string name="eta">À environ ~ %s</string>

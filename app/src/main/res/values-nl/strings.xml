@@ -202,7 +202,7 @@
     <string name="beacon_invalid_elevation">Hoogte ongeldig</string>
     <string name="beacon_invalid_name">Naam ongeldig</string>
     <string name="maps">Kaarten</string>
-    <string name="share_action_copy">Kopiëren</string>
+    <string name="action_copy">Kopiëren</string>
     <string name="share_action_send">Versturen</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d baken</item>

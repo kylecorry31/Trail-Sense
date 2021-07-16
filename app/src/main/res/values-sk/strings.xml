@@ -26,7 +26,7 @@
     <string name="beacon_invalid_name">Neplatný názov</string>
     <string name="name_hint">Názov</string>
     <string name="maps">Mapy</string>
-    <string name="share_action_copy">Kopírovať</string>
+    <string name="action_copy">Kopírovať</string>
     <string name="share_action_send">Poslať</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Vypnúť</string>

@@ -47,7 +47,7 @@
     <string name="no_beacons">Nenhum Ponto de Orientação</string>
     <!--Navigation Tab - Beacon List - Sharesheet-->
     <string name="share_action_send">Enviar</string>
-    <string name="share_action_copy">Copiar</string>
+    <string name="action_copy">Copiar</string>
     <!--Navigation Tab - Create beacon-->
     <string name="create_beacon_title">Criar Ponto de Orientação</string>
     <string name="name_hint">Nome</string>

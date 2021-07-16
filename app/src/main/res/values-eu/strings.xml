@@ -3,7 +3,7 @@
     <string name="name_hint">Izena</string>
     <string name="create_beacon_title">Baliza utzi</string>
     <string name="maps">Mapak</string>
-    <string name="share_action_copy">Kopiatu</string>
+    <string name="action_copy">Kopiatu</string>
     <string name="share_action_send">Bidali</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">Baliza %d</item>

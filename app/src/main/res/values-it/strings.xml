@@ -91,7 +91,7 @@
     <string name="beacon_elevation_hint_feet">Altezza in piedi (opzionale)</string>
     <string name="beacon_invalid_elevation">Altezza non valida</string>
     <string name="maps">Mappe</string>
-    <string name="share_action_copy">Copia</string>
+    <string name="action_copy">Copia</string>
     <string name="beacon_invalid_name">Nome non valido</string>
     <string name="share_action_send">Invia</string>
     <plurals name="beacon_group_summary">

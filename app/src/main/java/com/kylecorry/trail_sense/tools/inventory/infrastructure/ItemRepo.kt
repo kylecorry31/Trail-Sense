@@ -55,6 +55,16 @@ class ItemRepo private constructor(context: Context) : IItemRepo {
     override suspend fun clearPackedAmounts(packId: Long) =
         inventoryItemDao.clearPackedAmounts(packId)
 
+    override suspend fun copyPack(fromPack: Pack, toPack: Pack): Long {
+        val newId = addPack(toPack)
+        val items = getItemsFromPackAsync(fromPack.id)
+        val toItems = items.map { it.copy(packId = newId).apply { id = 0 } }
+        toItems.forEach {
+            addItem(it)
+        }
+        return newId
+    }
+
     override suspend fun addItem(item: InventoryItemDto) {
         if (item.id != 0L) {
             inventoryItemDao.update(item)

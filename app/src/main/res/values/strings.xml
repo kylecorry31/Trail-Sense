@@ -90,7 +90,7 @@
     </plurals>
     <!--Navigation Tab - Beacon List - Sharesheet-->
     <string name="share_action_send">Send</string>
-    <string name="share_action_copy">Copy</string>
+    <string name="action_copy">Copy</string>
     <string name="maps">Maps</string>
     <!--Navigation Tab - Create beacon-->
     <string name="create_beacon_title">Create Beacon</string>

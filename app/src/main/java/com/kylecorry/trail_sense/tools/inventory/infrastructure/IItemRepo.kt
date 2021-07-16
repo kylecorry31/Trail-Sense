@@ -30,4 +30,6 @@ interface IItemRepo {
     suspend fun deleteAll()
 
     suspend fun clearPackedAmounts(packId: Long)
+
+    suspend fun copyPack(fromPack: Pack, toPack: Pack): Long
 }

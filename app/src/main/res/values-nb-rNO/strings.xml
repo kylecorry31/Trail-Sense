@@ -85,7 +85,7 @@
     <string name="beacon_invalid_name">Ugyldig navn</string>
     <string name="name_hint">Navn</string>
     <string name="maps">Kart</string>
-    <string name="share_action_copy">Kopier</string>
+    <string name="action_copy">Kopier</string>
     <string name="share_action_send">Send</string>
     <string name="tap_to_turn_off">Trykk for å skru av</string>
     <string name="flashlight_title">Lommelykt</string>
