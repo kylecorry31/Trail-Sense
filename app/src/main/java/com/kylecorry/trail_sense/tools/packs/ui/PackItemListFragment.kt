@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.lifecycleScope
@@ -18,11 +19,13 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
+import com.kylecorry.trail_sense.tools.packs.domain.PackService
 import com.kylecorry.trail_sense.tools.packs.infrastructure.InventoryItemMapper
 import com.kylecorry.trail_sense.tools.packs.infrastructure.ItemRepo
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryColorMapper
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryIconMapper
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryStringMapper
+import com.kylecorry.trailsensecore.domain.units.WeightUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
@@ -31,12 +34,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Double.max
+import kotlin.math.floor
 
 class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     private val itemRepo by lazy { ItemRepo.getInstance(requireContext()) }
     private lateinit var itemsLiveData: LiveData<List<PackItem>>
     private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val packService = PackService()
 
     private lateinit var listView: ListView<PackItem>
 
@@ -160,6 +165,13 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         itemsLiveData.observe(viewLifecycleOwner) { items ->
             binding.inventoryEmptyText.isVisible = items.isEmpty()
             // TODO: Update sort criteria
+            // TODO: Actually implement pack weight
+            val totalWeight = packService.getPackWeight(items, WeightUnits.Kilograms)
+            val packedPercent = floor(packService.getPercentPacked(items))
+            binding.totalPackedWeight.isVisible = totalWeight.weight != 0f
+            binding.totalPackedWeight.text = formatService.formatWeight(totalWeight, 1, false)
+            binding.totalPercentPacked.text =
+                getString(R.string.percent_packed, formatService.formatPercentage(packedPercent))
             listView.setData(
                 items.sortedWith(
                     compareBy(

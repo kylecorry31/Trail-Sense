@@ -7,7 +7,8 @@ class PackService {
 
     fun getPackWeight(items: List<PackItem>, units: WeightUnits): Weight {
         val totalWeight =
-            items.mapNotNull { it.packedWeight }.reduce { weight, acc -> acc + weight }
+            items.mapNotNull { it.packedWeight }.reduceOrNull { weight, acc -> acc + weight }
+                ?: Weight(0f, units)
         return totalWeight.convertTo(units)
     }
 
