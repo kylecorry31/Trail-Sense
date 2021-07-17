@@ -18,11 +18,11 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointDao
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryDao
-import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItemDto
-import com.kylecorry.trail_sense.tools.inventory.infrastructure.InventoryItemDao
-import com.kylecorry.trail_sense.tools.inventory.infrastructure.PackDao
-import com.kylecorry.trail_sense.tools.inventory.infrastructure.PackEntity
-import com.kylecorry.trail_sense.tools.inventory.infrastructure.PackTableMigrationWorker
+import com.kylecorry.trail_sense.tools.packs.domain.InventoryItemDto
+import com.kylecorry.trail_sense.tools.packs.infrastructure.InventoryItemDao
+import com.kylecorry.trail_sense.tools.packs.infrastructure.PackDao
+import com.kylecorry.trail_sense.tools.packs.infrastructure.PackEntity
+import com.kylecorry.trail_sense.tools.packs.infrastructure.PackTableMigrationWorker
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapDao
 import com.kylecorry.trail_sense.tools.notes.domain.Note

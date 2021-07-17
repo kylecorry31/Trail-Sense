@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.inventory.ui
+package com.kylecorry.trail_sense.tools.packs.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryStringMapper
+import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryStringMapper
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItemDto
-import com.kylecorry.trail_sense.tools.inventory.domain.ItemCategory
-import com.kylecorry.trail_sense.tools.inventory.infrastructure.ItemRepo
+import com.kylecorry.trail_sense.tools.packs.domain.InventoryItemDto
+import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
+import com.kylecorry.trail_sense.tools.packs.infrastructure.ItemRepo
 import com.kylecorry.trailsensecore.domain.math.toDoubleCompat
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment

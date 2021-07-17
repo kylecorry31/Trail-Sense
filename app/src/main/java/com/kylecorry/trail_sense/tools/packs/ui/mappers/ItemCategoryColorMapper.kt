@@ -1,7 +1,7 @@
-package com.kylecorry.trail_sense.tools.inventory.ui.mappers
+package com.kylecorry.trail_sense.tools.packs.ui.mappers
 
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trail_sense.tools.inventory.domain.ItemCategory
+import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 
 class ItemCategoryColorMapper {
 

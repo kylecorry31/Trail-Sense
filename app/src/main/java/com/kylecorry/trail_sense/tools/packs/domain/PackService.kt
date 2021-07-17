@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.inventory.domain
+package com.kylecorry.trail_sense.tools.packs.domain
 
 import com.kylecorry.trailsensecore.domain.units.Weight
 import com.kylecorry.trailsensecore.domain.units.WeightUnits

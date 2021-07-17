@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.inventory.infrastructure
+package com.kylecorry.trail_sense.tools.packs.infrastructure
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

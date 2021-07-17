@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.inventory.ui
+package com.kylecorry.trail_sense.tools.packs.ui
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.lifecycleScope
@@ -17,13 +16,13 @@ import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackItemBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trail_sense.tools.inventory.domain.Pack
-import com.kylecorry.trail_sense.tools.inventory.domain.PackItem
-import com.kylecorry.trail_sense.tools.inventory.infrastructure.InventoryItemMapper
-import com.kylecorry.trail_sense.tools.inventory.infrastructure.ItemRepo
-import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryColorMapper
-import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryIconMapper
-import com.kylecorry.trail_sense.tools.inventory.ui.mappers.ItemCategoryStringMapper
+import com.kylecorry.trail_sense.tools.packs.domain.Pack
+import com.kylecorry.trail_sense.tools.packs.domain.PackItem
+import com.kylecorry.trail_sense.tools.packs.infrastructure.InventoryItemMapper
+import com.kylecorry.trail_sense.tools.packs.infrastructure.ItemRepo
+import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryColorMapper
+import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryIconMapper
+import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryStringMapper
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment

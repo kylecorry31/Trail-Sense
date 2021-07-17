@@ -1,11 +1,11 @@
-package com.kylecorry.trail_sense.tools.inventory.infrastructure
+package com.kylecorry.trail_sense.tools.packs.infrastructure
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.trail_sense.shared.AppDatabase
-import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItemDto
-import com.kylecorry.trail_sense.tools.inventory.domain.Pack
+import com.kylecorry.trail_sense.tools.packs.domain.InventoryItemDto
+import com.kylecorry.trail_sense.tools.packs.domain.Pack
 
 class ItemRepo private constructor(context: Context) : IItemRepo {
 

@@ -1,8 +1,8 @@
-package com.kylecorry.trail_sense.tools.inventory.infrastructure
+package com.kylecorry.trail_sense.tools.packs.infrastructure
 
-import com.kylecorry.trail_sense.tools.inventory.domain.InventoryItemDto
-import com.kylecorry.trail_sense.tools.inventory.domain.Pack
-import com.kylecorry.trail_sense.tools.inventory.domain.PackItem
+import com.kylecorry.trail_sense.tools.packs.domain.InventoryItemDto
+import com.kylecorry.trail_sense.tools.packs.domain.Pack
+import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trailsensecore.domain.units.Weight
 
 class InventoryItemMapper {

@@ -501,7 +501,7 @@
 
     <fragment
         android:id="@+id/action_inventory"
-        android:name="com.kylecorry.trail_sense.tools.inventory.ui.PackItemListFragment"
+        android:name="com.kylecorry.trail_sense.tools.packs.ui.PackItemListFragment"
         android:label="ItemListFragment">
         <action
             android:id="@+id/action_action_inventory_to_createItemFragment"
@@ -517,7 +517,7 @@
     </fragment>
     <fragment
         android:id="@+id/createItemFragment"
-        android:name="com.kylecorry.trail_sense.tools.inventory.ui.CreateItemFragment"
+        android:name="com.kylecorry.trail_sense.tools.packs.ui.CreateItemFragment"
         android:label="CreateItemFragment">
         <argument
             android:name="edit_item_id"
@@ -822,7 +822,7 @@
         android:label="TemperatureEstimationFragment" />
     <fragment
         android:id="@+id/packListFragment"
-        android:name="com.kylecorry.trail_sense.tools.inventory.ui.PackListFragment"
+        android:name="com.kylecorry.trail_sense.tools.packs.ui.PackListFragment"
         android:label="PackListFragment">
 
         <action

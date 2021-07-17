@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.inventory.domain
+package com.kylecorry.trail_sense.tools.packs.domain
 
 enum class ItemCategory(val id: Int) {
     Other(0),
