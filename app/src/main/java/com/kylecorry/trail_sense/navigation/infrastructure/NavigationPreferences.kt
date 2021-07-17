@@ -140,6 +140,7 @@ class NavigationPreferences(private val context: Context) {
                 "utm" -> CoordinateFormat.UTM
                 "mgrs" -> CoordinateFormat.MGRS
                 "usng" -> CoordinateFormat.USNG
+                "osng" -> CoordinateFormat.OSNG_OSGB36
                 else -> CoordinateFormat.DecimalDegrees
             }
         }

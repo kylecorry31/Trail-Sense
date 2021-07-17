@@ -16,14 +16,7 @@ class FragmentToolCoordinateConvert : BoundFragment<FragmentToolCoordinateConver
 
     private val formatService by lazy { FormatService(requireContext()) }
 
-    private val formats = listOf(
-        CoordinateFormat.DecimalDegrees,
-        CoordinateFormat.DegreesDecimalMinutes,
-        CoordinateFormat.DegreesMinutesSeconds,
-        CoordinateFormat.UTM,
-        CoordinateFormat.MGRS,
-        CoordinateFormat.USNG
-    )
+    private val formats = CoordinateFormat.values()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

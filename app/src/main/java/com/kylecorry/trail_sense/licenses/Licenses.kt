@@ -130,8 +130,17 @@ OTHER DEALINGS IN THE FONT SOFTWARE."""
             "https://github.com/kix2902/CompassView",
             apache2(
                 "year",
-                "owner",
+                "kix2902",
                 "Modifications made by Kyle Corry: Ported to Kotlin, changed styling."
+            )
+        ),
+        Library(
+            "osgb",
+            "https://github.com/dstl/osgb",
+            apache2(
+                "year",
+                "Defence Science and Technology Laboratory, UK",
+                "Modifications made by Kyle Corry: Fixed WGS84 conversion bug"
             )
         ),
         Library(
