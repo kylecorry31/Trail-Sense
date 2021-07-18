@@ -166,7 +166,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             binding.inventoryEmptyText.isVisible = items.isEmpty()
             val totalWeight = packService.getPackWeight(items, prefs.weightUnits)
             val packedPercent = floor(packService.getPercentPacked(items))
-            binding.totalPackedWeight.isVisible = (totalWeight?.weight ?: 0f) != 0f
+            binding.itemWeightOverview.isVisible = totalWeight != null
             binding.totalPackedWeight.text = if (totalWeight != null) {
                 formatService.formatWeight(totalWeight, 1, false)
             } else {
