@@ -19,47 +19,81 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/name_edit"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="@string/item_name_hint"
-        android:inputType="text"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="96dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_item_title" />
+        app:layout_constraintTop_toBottomOf="@id/create_item_title">
 
-    <EditText
-        android:id="@+id/count_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="@string/packed_amount"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_edit" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/desired_amount_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="@string/desired_amount"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/count_edit" />
+            <EditText
+                android:id="@+id/name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:hint="@string/item_name_hint"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/count_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:hint="@string/packed_amount"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/desired_amount_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:hint="@string/desired_amount"
+                android:inputType="numberDecimal" />
+
+            <Spinner
+                android:id="@+id/category_select_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:spinnerMode="dialog" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/weight_per_item" />
+
+            <com.kylecorry.trail_sense.shared.views.WeightInputView
+                android:id="@+id/item_weight_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp" />
+        </LinearLayout>
+
+    </ScrollView>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -75,14 +109,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_check" />
 
-    <Spinner
-        android:id="@+id/category_select_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:spinnerMode="dialog"
-        app:layout_constraintEnd_toEndOf="@+id/desired_amount_edit"
-        app:layout_constraintStart_toStartOf="@+id/desired_amount_edit"
-        app:layout_constraintTop_toBottomOf="@+id/desired_amount_edit" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

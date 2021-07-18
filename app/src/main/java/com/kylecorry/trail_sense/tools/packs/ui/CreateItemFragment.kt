@@ -7,17 +7,19 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryStringMapper
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
+import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryStringMapper
 import com.kylecorry.trailsensecore.domain.math.toDoubleCompat
 import com.kylecorry.trailsensecore.domain.packs.ItemCategory
 import com.kylecorry.trailsensecore.domain.packs.PackItem
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
@@ -44,6 +46,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
             val amount = binding.countEdit.text?.toString()?.toDoubleCompat() ?: 0.0
             val desiredAmount = binding.desiredAmountEdit.text?.toString()?.toDoubleCompat() ?: 0.0
             val category = ItemCategory.values()[binding.categorySelectSpinner.selectedItemPosition]
+            val weight = binding.itemWeightInput.weight
 
             if (name != null) {
                 lifecycleScope.launch {
@@ -55,7 +58,8 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                                 name,
                                 category,
                                 amount,
-                                desiredAmount
+                                desiredAmount,
+                                weight
                             )
                         )
                     }
@@ -103,6 +107,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                         )
                     )
                     binding.categorySelectSpinner.setSelection(it.category.ordinal)
+                    binding.itemWeightInput.updateWeight(it.weight)
                 }
             }
 
@@ -114,8 +119,9 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
         val amount = binding.countEdit.text?.toString()?.toDoubleCompat() ?: 0.0
         val desiredAmount = binding.desiredAmountEdit.text?.toString()?.toDoubleCompat() ?: 0.0
         val category = ItemCategory.values()[binding.categorySelectSpinner.selectedItemPosition]
+        val weight = binding.itemWeightInput.weight
 
-        return !nothingEntered() && (name != editingItem?.name || amount != editingItem?.amount || desiredAmount != editingItem?.desiredAmount || category != editingItem?.category)
+        return !nothingEntered() && (name != editingItem?.name || amount != editingItem?.amount || desiredAmount != editingItem?.desiredAmount || category != editingItem?.category || weight != editingItem?.weight)
     }
 
     private fun nothingEntered(): Boolean {
@@ -127,8 +133,9 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
         val amount = binding.countEdit.text?.toString()
         val desiredAmount = binding.desiredAmountEdit.text?.toString()
         val category = ItemCategory.values()[binding.categorySelectSpinner.selectedItemPosition]
+        val weight = binding.itemWeightInput.weight
 
-        return name.isNullOrBlank() && amount.isNullOrBlank() && desiredAmount.isNullOrBlank() && category == ItemCategory.Other
+        return name.isNullOrBlank() && amount.isNullOrBlank() && desiredAmount.isNullOrBlank() && category == ItemCategory.Other && weight == null
     }
 
     override fun generateBinding(
