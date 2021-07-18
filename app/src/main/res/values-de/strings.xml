@@ -511,7 +511,19 @@
     <string name="guide_backtrack_description">„Rückweg“ benutzen</string>
     <string name="battery_power_wireless">Drahtlos</string>
     <string name="tool_thermometer_title">Thermometer</string>
-    <string name="location_input_help">Dezimalgrad (z.B. 1.00, -2.00), Grad und Dezimalminuten (z.B. 1°23.12\'N, 3°12.1\'W), Grad Minuten Sekunden (z.B. 1°23\'12.1\"N, 3°12\"1.2\'W), UTM (z.B. 03T 12345E 67890N), MGRS (z.B. 27PXM 09601 05579)</string>
+    <string name="location_input_help">Dezimalgrad (z. B. 1,00, -2,00)
+\n
+\nGrad Dezimal Minuten (z. B. 1°23,12\'N, 3°12,1\'W)
+\n
+\nGrad Minuten Sekunden (zB 1°23\'12,1\"N, 3°12\"1,2\'W)
+\n
+\nUTM (z. B. 03T 12345E 67890N)
+\n
+\nMGRS (z. B. 27PXM 09601 05579)
+\n
+\nUSNG (z. B. 14S NJ 39521 41744)
+\n
+\nOSNG (OSGB36) (z. B. TG 51409 13177)</string>
     <string name="pref_backtrack_frequency_title">Abstand der Wegpunkte</string>
     <string name="pref_backtrack_enabled_summary">Wegpunkte aufzeichnen</string>
     <string name="waypoint_time_format">%s, %s</string>
@@ -889,7 +901,7 @@
     <string name="back_press_confirm">Drücken Sie \"Zurück\" erneut zum Verlassen</string>
     <string name="underwater_mode">Unter-Wasser-Modus</string>
     <string name="leave_underwater_mode">Unter Wasser: drücken Sie \"Zurück\" zum Verlassen</string>
-    <string name="unit_yards">Yards</string>
+    <string name="unit_yards">Höfe</string>
     <string name="yards_format">%s yd</string>
     <string name="find_next_occurrence">Nächstes Vorkommen finden</string>
     <string name="daylight">Tageslicht</string>
@@ -941,4 +953,19 @@
     <string name="base_elevation">Basishöhe</string>
     <string name="pref_temperature_estimation_summary">Temperatur in einer anderen Höhenlage schätzen</string>
     <string name="temperature_estimation">Temperaturschätzung</string>
+    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="delete_pack">Paket löschen\?</string>
+    <string name="new_packing_list">Neue Packliste</string>
+    <string name="no_packing_lists">Keine Packlisten</string>
+    <string name="percent_packed">%s gepackt</string>
+    <string name="packing_lists">Packungslisten</string>
+    <string name="hygiene">Hygiene</string>
+    <string name="documents">Unterlagen</string>
+    <string name="electronics">Elektronik</string>
+    <string name="clear_amounts">Beträge Löschen</string>
+    <string name="desired_amount">Gewünschte Menge</string>
+    <string name="packed_amount">Gepackte Menge</string>
+    <string name="default_pack_name">Standardpaket</string>
+    <string name="action_inventory_clear_confirm">Alle verpackten Mengen löschen\?</string>
 </resources>
