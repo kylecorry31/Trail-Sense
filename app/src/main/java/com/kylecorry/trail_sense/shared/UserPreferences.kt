@@ -8,14 +8,14 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.*
 import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapSite
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
+import com.kylecorry.trailsensecore.domain.units.WeightUnits
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.preferences.StringEnumPreference
 import java.time.Duration
@@ -33,6 +33,7 @@ class UserPreferences(private val context: Context) {
     val privacy by lazy { PrivacyPreferences(context) }
     val tides by lazy { TidePreferences(context) }
     val power by lazy { PowerPreferences(context) }
+    val packs by lazy { PackPreferences(context) }
 
     val distanceUnits: DistanceUnits
         get() {
@@ -40,6 +41,14 @@ class UserPreferences(private val context: Context) {
                 cache.getString(context.getString(R.string.pref_distance_units)) ?: "meters"
             return if (rawUnits == "meters") DistanceUnits.Meters else DistanceUnits.Feet
         }
+
+    val weightUnits by StringEnumPreference(
+        cache, getString(R.string.pref_weight_units), mapOf(
+            "kg" to WeightUnits.Kilograms,
+            "lbs" to WeightUnits.Pounds
+        ),
+        WeightUnits.Kilograms
+    )
 
     val baseDistanceUnits: com.kylecorry.trailsensecore.domain.units.DistanceUnits
         get() = if (distanceUnits == DistanceUnits.Meters) com.kylecorry.trailsensecore.domain.units.DistanceUnits.Meters else com.kylecorry.trailsensecore.domain.units.DistanceUnits.Feet

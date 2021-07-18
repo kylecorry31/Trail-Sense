@@ -14,10 +14,9 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackItemBinding
-import com.kylecorry.trail_sense.settings.infrastructure.PackPreferences
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trail_sense.tools.packs.infrastructure.PackMapper
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryColorMapper
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryIconMapper
@@ -26,10 +25,8 @@ import com.kylecorry.trailsensecore.domain.packs.Pack
 import com.kylecorry.trailsensecore.domain.packs.PackItem
 import com.kylecorry.trailsensecore.domain.packs.PackService
 import com.kylecorry.trailsensecore.domain.packs.sort.CategoryPackItemSort
-import com.kylecorry.trailsensecore.domain.packs.sort.IPackItemSort
 import com.kylecorry.trailsensecore.domain.packs.sort.PackedPercentPackItemSort
 import com.kylecorry.trailsensecore.domain.packs.sort.WeightPackItemSort
-import com.kylecorry.trailsensecore.domain.units.WeightUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
@@ -47,14 +44,12 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val packService = PackService()
     private var items: List<PackItem> = listOf()
-    private val packPreferences by lazy { PackPreferences(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private lateinit var listView: ListView<PackItem>
 
     private var pack: Pack? = null
     private var packId: Long = 0L
-
-    private val itemMapper = PackMapper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -169,8 +164,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         itemsLiveData.observe(viewLifecycleOwner) { items ->
             this.items = items
             binding.inventoryEmptyText.isVisible = items.isEmpty()
-            // TODO: Actually implement pack weight
-            val totalWeight = packService.getPackWeight(items, WeightUnits.Kilograms)
+            val totalWeight = packService.getPackWeight(items, prefs.weightUnits)
             val packedPercent = floor(packService.getPercentPacked(items))
             binding.totalPackedWeight.isVisible = (totalWeight?.weight ?: 0f) != 0f
             binding.totalPackedWeight.text = if (totalWeight != null) {
@@ -180,7 +174,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             }
             binding.totalPercentPacked.text =
                 getString(R.string.percent_packed, formatService.formatPercentage(packedPercent))
-            listView.setData(sorts[packPreferences.packSort]?.sort(items) ?: items)
+            listView.setData(sorts[prefs.packs.packSort]?.sort(items) ?: items)
         }
 
         binding.addBtn.setOnClickListener {
@@ -231,7 +225,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     private fun onSortChange(newSort: String) {
         listView.setData(sorts[newSort]?.sort(items) ?: items)
-        packPreferences.packSort = newSort
+        prefs.packs.packSort = newSort
     }
 
     private fun renamePack(pack: Pack) {
@@ -326,7 +320,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             requireContext(),
             sortsToDisplay,
             sortsToDisplay.map { getSortTitle(it) },
-            packPreferences.packSort,
+            prefs.packs.packSort,
             getString(R.string.sort)
         ) {
             if (it != null) {

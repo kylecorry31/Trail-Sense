@@ -266,4 +266,14 @@
         <item>osm</item>
     </string-array>
 
+    <string-array name="weight_entries">
+        <item>@string/kilograms</item>
+        <item>@string/pounds</item>
+    </string-array>
+
+    <string-array name="weight_values">
+        <item>kg</item>
+        <item>lbs</item>
+    </string-array>
+
 </resources>
