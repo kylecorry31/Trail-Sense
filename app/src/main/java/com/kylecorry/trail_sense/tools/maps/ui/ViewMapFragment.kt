@@ -206,11 +206,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         binding.zoomOutBtn.setOnClickListener {
-            binding.map.zoom(0.75F)
+            binding.map.zoom(0.5F)
         }
 
         binding.zoomInBtn.setOnClickListener {
-            binding.map.zoom(1.5F)
+            binding.map.zoom(2F)
         }
 
         val dest = cache.getLong(NavigatorFragment.LAST_BEACON_ID)

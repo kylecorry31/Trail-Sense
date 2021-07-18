@@ -445,10 +445,7 @@ class OfflineMapView : CanvasView {
 
         override fun onDoubleTap(e: MotionEvent): Boolean {
             // TODO: Zoom to the place tapped
-            scale *= 2
-            translateY *= 2
-            translateX *= 2
-            keepMapOnScreen()
+            zoom(2F)
             return super.onDoubleTap(e)
         }
 
@@ -486,10 +483,7 @@ class OfflineMapView : CanvasView {
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
 
         override fun onScale(detector: ScaleGestureDetector): Boolean {
-            scale *= detector.scaleFactor
-            translateX *= detector.scaleFactor
-            translateY *= detector.scaleFactor
-            keepMapOnScreen()
+            zoom(detector.scaleFactor)
             return true
         }
     }
