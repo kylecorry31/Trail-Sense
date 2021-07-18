@@ -1135,4 +1135,11 @@
     <string name="delete_pack">Delete pack?</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
+    <string name="sort">Sort</string>
+    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
+    <string name="pack_sort_category">Category</string>
+    <string name="pack_sort_percent_low_to_high">Percent packed (low to high)</string>
+    <string name="pack_sort_percent_high_to_low">Percent packed (high to low)</string>
+    <string name="pack_sort_weight_low_to_high">Weight (low to high)</string>
+    <string name="pack_sort_weight_high_to_low">Weight (high to low)</string>
 </resources>

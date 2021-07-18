@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackItemBinding
+import com.kylecorry.trail_sense.settings.infrastructure.PackPreferences
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackMapper
@@ -26,6 +27,8 @@ import com.kylecorry.trailsensecore.domain.packs.PackItem
 import com.kylecorry.trailsensecore.domain.packs.PackService
 import com.kylecorry.trailsensecore.domain.packs.sort.CategoryPackItemSort
 import com.kylecorry.trailsensecore.domain.packs.sort.IPackItemSort
+import com.kylecorry.trailsensecore.domain.packs.sort.PackedPercentPackItemSort
+import com.kylecorry.trailsensecore.domain.packs.sort.WeightPackItemSort
 import com.kylecorry.trailsensecore.domain.units.WeightUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
@@ -43,8 +46,8 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     private lateinit var itemsLiveData: LiveData<List<PackItem>>
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val packService = PackService()
-    private lateinit var itemSort: IPackItemSort
     private var items: List<PackItem> = listOf()
+    private val packPreferences by lazy { PackPreferences(requireContext()) }
 
     private lateinit var listView: ListView<PackItem>
 
@@ -79,8 +82,6 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun setupUI() {
-        // TODO: Load sort from cache
-        itemSort = CategoryPackItemSort()
         binding.inventoryListTitle.text = pack?.name
         listView = ListView(binding.inventoryList, R.layout.list_item_pack_item) { itemView, item ->
             val itemBinding = ListItemPackItemBinding.bind(itemView)
@@ -179,7 +180,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             }
             binding.totalPercentPacked.text =
                 getString(R.string.percent_packed, formatService.formatPercentage(packedPercent))
-            listView.setData(itemSort.sort(items))
+            listView.setData(sorts[packPreferences.packSort]?.sort(items) ?: items)
         }
 
         binding.addBtn.setOnClickListener {
@@ -192,6 +193,9 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         binding.inventoryMenuButton.setOnClickListener {
             UiUtils.openMenu(binding.inventoryMenuButton, R.menu.inventory_menu) {
                 when (it) {
+                    R.id.action_pack_sort -> {
+                        changeSort()
+                    }
                     R.id.action_pack_rename -> {
                         pack?.let {
                             renamePack(it)
@@ -225,10 +229,9 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         }
     }
 
-    private fun onSortChange(newSort: IPackItemSort) {
-        itemSort = newSort
-        listView.setData(itemSort.sort(items))
-        // TODO: Save sort to cache
+    private fun onSortChange(newSort: String) {
+        listView.setData(sorts[newSort]?.sort(items) ?: items)
+        packPreferences.packSort = newSort
     }
 
     private fun renamePack(pack: Pack) {
@@ -316,8 +319,43 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         }
     }
 
+    private fun changeSort() {
+        val sortsToDisplay =
+            listOf("category", "percent_asc", "percent_desc", "weight_asc", "weight_desc")
+        CustomUiUtils.pickItem(
+            requireContext(),
+            sortsToDisplay,
+            sortsToDisplay.map { getSortTitle(it) },
+            packPreferences.packSort,
+            getString(R.string.sort)
+        ) {
+            if (it != null) {
+                onSortChange(it)
+            }
+        }
+    }
+
     private fun formatAmount(amount: Double): String {
         return DecimalFormatter.format(amount, 4, false)
+    }
+
+    private val sorts = mapOf(
+        "category" to CategoryPackItemSort(),
+        "percent_asc" to PackedPercentPackItemSort(true),
+        "percent_desc" to PackedPercentPackItemSort(false),
+        "weight_asc" to WeightPackItemSort(true),
+        "weight_desc" to WeightPackItemSort(false),
+    )
+
+    private fun getSortTitle(sort: String): String {
+        return when (sort) {
+            "category" -> getString(R.string.pack_sort_category)
+            "percent_asc" -> getString(R.string.pack_sort_percent_low_to_high)
+            "percent_desc" -> getString(R.string.pack_sort_percent_high_to_low)
+            "weight_asc" -> getString(R.string.pack_sort_weight_low_to_high)
+            "weight_desc" -> getString(R.string.pack_sort_weight_high_to_low)
+            else -> ""
+        }
     }
 
     override fun generateBinding(
