@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
@@ -17,17 +16,16 @@ import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackItemBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trail_sense.tools.packs.domain.Pack
-import com.kylecorry.trail_sense.tools.packs.domain.PackItem
-import com.kylecorry.trail_sense.tools.packs.domain.PackService
-import com.kylecorry.trail_sense.tools.packs.domain.sort.CategoryPackItemSort
-import com.kylecorry.trail_sense.tools.packs.domain.sort.IPackItemSort
-import com.kylecorry.trail_sense.tools.packs.domain.sort.PackedPercentPackItemSort
-import com.kylecorry.trail_sense.tools.packs.infrastructure.InventoryItemMapper
-import com.kylecorry.trail_sense.tools.packs.infrastructure.ItemRepo
+import com.kylecorry.trail_sense.tools.packs.infrastructure.PackMapper
+import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryColorMapper
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryIconMapper
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryStringMapper
+import com.kylecorry.trailsensecore.domain.packs.Pack
+import com.kylecorry.trailsensecore.domain.packs.PackItem
+import com.kylecorry.trailsensecore.domain.packs.PackService
+import com.kylecorry.trailsensecore.domain.packs.sort.CategoryPackItemSort
+import com.kylecorry.trailsensecore.domain.packs.sort.IPackItemSort
 import com.kylecorry.trailsensecore.domain.units.WeightUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
@@ -41,7 +39,7 @@ import kotlin.math.floor
 
 class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
-    private val itemRepo by lazy { ItemRepo.getInstance(requireContext()) }
+    private val itemRepo by lazy { PackRepo.getInstance(requireContext()) }
     private lateinit var itemsLiveData: LiveData<List<PackItem>>
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val packService = PackService()
@@ -53,7 +51,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     private var pack: Pack? = null
     private var packId: Long = 0L
 
-    private val itemMapper = InventoryItemMapper()
+    private val itemMapper = PackMapper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -173,8 +171,12 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             // TODO: Actually implement pack weight
             val totalWeight = packService.getPackWeight(items, WeightUnits.Kilograms)
             val packedPercent = floor(packService.getPercentPacked(items))
-            binding.totalPackedWeight.isVisible = totalWeight.weight != 0f
-            binding.totalPackedWeight.text = formatService.formatWeight(totalWeight, 1, false)
+            binding.totalPackedWeight.isVisible = (totalWeight?.weight ?: 0f) != 0f
+            binding.totalPackedWeight.text = if (totalWeight != null) {
+                formatService.formatWeight(totalWeight, 1, false)
+            } else {
+                ""
+            }
             binding.totalPercentPacked.text =
                 getString(R.string.percent_packed, formatService.formatPercentage(packedPercent))
             listView.setData(itemSort.sort(items))

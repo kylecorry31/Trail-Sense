@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.packs.domain.Pack
+import com.kylecorry.trailsensecore.domain.packs.Pack
 import java.lang.Exception
 
 class PackTableMigrationWorker(
@@ -13,7 +13,7 @@ class PackTableMigrationWorker(
 ) : CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result {
         try {
-            val repo = ItemRepo.getInstance(context)
+            val repo = PackRepo.getInstance(context)
             val items = repo.getItemsFromPackAsync(0)
 
             if (items.isEmpty()) {

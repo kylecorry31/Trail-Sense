@@ -4,14 +4,14 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.trail_sense.shared.AppDatabase
-import com.kylecorry.trail_sense.tools.packs.domain.Pack
-import com.kylecorry.trail_sense.tools.packs.domain.PackItem
+import com.kylecorry.trailsensecore.domain.packs.Pack
+import com.kylecorry.trailsensecore.domain.packs.PackItem
 
-class ItemRepo private constructor(context: Context) : IItemRepo {
+class PackRepo private constructor(context: Context) : IPackRepo {
 
-    private val inventoryItemDao = AppDatabase.getInstance(context).inventoryItemDao()
+    private val inventoryItemDao = AppDatabase.getInstance(context).packItemDao()
     private val packDao = AppDatabase.getInstance(context).packDao()
-    private val mapper = InventoryItemMapper()
+    private val mapper = PackMapper()
 
     override suspend fun getItemsFromPackAsync(packId: Long) =
         inventoryItemDao.getFromPackAsync(packId).map { mapper.mapToPackItem(it) }
@@ -79,12 +79,12 @@ class ItemRepo private constructor(context: Context) : IItemRepo {
     }
 
     companion object {
-        private var instance: ItemRepo? = null
+        private var instance: PackRepo? = null
 
         @Synchronized
-        fun getInstance(context: Context): ItemRepo {
+        fun getInstance(context: Context): PackRepo {
             if (instance == null) {
-                instance = ItemRepo(context.applicationContext)
+                instance = PackRepo(context.applicationContext)
             }
             return instance!!
         }

@@ -12,8 +12,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPackListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.tools.packs.domain.Pack
-import com.kylecorry.trail_sense.tools.packs.infrastructure.ItemRepo
+import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
+import com.kylecorry.trailsensecore.domain.packs.Pack
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
@@ -24,7 +24,7 @@ import kotlinx.coroutines.withContext
 
 class PackListFragment : BoundFragment<FragmentPackListBinding>() {
 
-    private val packRepo by lazy { ItemRepo.getInstance(requireContext()) }
+    private val packRepo by lazy { PackRepo.getInstance(requireContext()) }
     private lateinit var packs: LiveData<List<Pack>>
     private lateinit var listView: ListView<Pack>
 

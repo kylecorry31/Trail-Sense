@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.packs.infrastructure
 
 import androidx.lifecycle.LiveData
-import com.kylecorry.trail_sense.tools.packs.domain.Pack
-import com.kylecorry.trail_sense.tools.packs.domain.PackItem
+import com.kylecorry.trailsensecore.domain.packs.Pack
+import com.kylecorry.trailsensecore.domain.packs.PackItem
 
-interface IItemRepo {
+interface IPackRepo {
     suspend fun getItem(id: Long): PackItem?
 
     suspend fun getItemsFromPackAsync(packId: Long): List<PackItem>

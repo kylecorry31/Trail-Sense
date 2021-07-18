@@ -11,17 +11,17 @@ import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryStringMapper
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
-import com.kylecorry.trail_sense.tools.packs.domain.PackItem
-import com.kylecorry.trail_sense.tools.packs.infrastructure.ItemRepo
+import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trailsensecore.domain.math.toDoubleCompat
+import com.kylecorry.trailsensecore.domain.packs.ItemCategory
+import com.kylecorry.trailsensecore.domain.packs.PackItem
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlinx.coroutines.*
 
 class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
-    private val itemRepo by lazy { ItemRepo.getInstance(requireContext()) }
+    private val itemRepo by lazy { PackRepo.getInstance(requireContext()) }
 
     private var editingItem: PackItem? = null
 

@@ -18,8 +18,8 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointDao
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryDao
-import com.kylecorry.trail_sense.tools.packs.infrastructure.InventoryItemEntity
-import com.kylecorry.trail_sense.tools.packs.infrastructure.InventoryItemDao
+import com.kylecorry.trail_sense.tools.packs.infrastructure.PackItemEntity
+import com.kylecorry.trail_sense.tools.packs.infrastructure.PackItemDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackEntity
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackTableMigrationWorker
@@ -39,13 +39,13 @@ import java.io.File
  * The Room database for this app
  */
 @Database(
-    entities = [InventoryItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class],
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class],
     version = 15,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun inventoryItemDao(): InventoryItemDao
+    abstract fun packItemDao(): PackItemDao
     abstract fun packDao(): PackDao
     abstract fun waypointDao(): WaypointDao
     abstract fun tideDao(): TideDao

@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.packs.ui.mappers
 
 import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
+import com.kylecorry.trailsensecore.domain.packs.ItemCategory
 
 class ItemCategoryIconMapper {
 
