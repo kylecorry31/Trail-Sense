@@ -1,17 +1,15 @@
 package com.kylecorry.trail_sense.tools.packs.infrastructure
 
 import androidx.lifecycle.LiveData
-import com.kylecorry.trail_sense.tools.packs.domain.InventoryItemDto
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
+import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 
 interface IItemRepo {
-    fun getItems(): LiveData<List<InventoryItemDto>>
+    suspend fun getItem(id: Long): PackItem?
 
-    suspend fun getItem(id: Long): InventoryItemDto?
+    suspend fun getItemsFromPackAsync(packId: Long): List<PackItem>
 
-    suspend fun getItemsFromPackAsync(packId: Long): List<InventoryItemDto>
-
-    fun getItemsFromPack(packId: Long): LiveData<List<InventoryItemDto>>
+    fun getItemsFromPack(packId: Long): LiveData<List<PackItem>>
 
     fun getPacks(): LiveData<List<Pack>>
 
@@ -19,13 +17,13 @@ interface IItemRepo {
 
     suspend fun getPack(packId: Long): Pack?
 
-    suspend fun deleteItem(item: InventoryItemDto)
+    suspend fun deleteItem(item: PackItem)
 
     suspend fun deletePack(pack: Pack)
 
     suspend fun addPack(pack: Pack): Long
 
-    suspend fun addItem(item: InventoryItemDto)
+    suspend fun addItem(item: PackItem)
 
     suspend fun deleteAll()
 

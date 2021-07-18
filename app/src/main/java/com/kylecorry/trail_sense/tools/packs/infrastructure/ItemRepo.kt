@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.trail_sense.shared.AppDatabase
-import com.kylecorry.trail_sense.tools.packs.domain.InventoryItemDto
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
+import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 
 class ItemRepo private constructor(context: Context) : IItemRepo {
 
@@ -13,12 +13,14 @@ class ItemRepo private constructor(context: Context) : IItemRepo {
     private val packDao = AppDatabase.getInstance(context).packDao()
     private val mapper = InventoryItemMapper()
 
-    override fun getItems() = inventoryItemDao.getAll()
-
     override suspend fun getItemsFromPackAsync(packId: Long) =
-        inventoryItemDao.getFromPackAsync(packId)
+        inventoryItemDao.getFromPackAsync(packId).map { mapper.mapToPackItem(it) }
 
-    override fun getItemsFromPack(packId: Long) = inventoryItemDao.getFromPack(packId)
+    override fun getItemsFromPack(packId: Long): LiveData<List<PackItem>> {
+        return Transformations.map(inventoryItemDao.getFromPack(packId)) {
+            it.map { item -> mapper.mapToPackItem(item) }
+        }
+    }
 
     override fun getPacks(): LiveData<List<Pack>> {
         return Transformations.map(packDao.getAll()) { it.map { mapper.mapToPack(it) } }
@@ -32,9 +34,12 @@ class ItemRepo private constructor(context: Context) : IItemRepo {
         return mapper.mapToPack(pack)
     }
 
-    override suspend fun getItem(id: Long) = inventoryItemDao.get(id)
+    override suspend fun getItem(id: Long): PackItem? {
+        val item = inventoryItemDao.get(id) ?: return null
+        return mapper.mapToPackItem(item)
+    }
 
-    override suspend fun deleteItem(item: InventoryItemDto) = inventoryItemDao.delete(item)
+    override suspend fun deleteItem(item: PackItem) = inventoryItemDao.delete(mapper.mapToItemEntity(item))
 
     override suspend fun deletePack(pack: Pack) {
         inventoryItemDao.deleteAllFromPack(pack.id)
@@ -58,18 +63,18 @@ class ItemRepo private constructor(context: Context) : IItemRepo {
     override suspend fun copyPack(fromPack: Pack, toPack: Pack): Long {
         val newId = addPack(toPack)
         val items = getItemsFromPackAsync(fromPack.id)
-        val toItems = items.map { it.copy(packId = newId).apply { id = 0 } }
+        val toItems = items.map { it.copy(id = 0, packId = newId) }
         toItems.forEach {
             addItem(it)
         }
         return newId
     }
 
-    override suspend fun addItem(item: InventoryItemDto) {
+    override suspend fun addItem(item: PackItem) {
         if (item.id != 0L) {
-            inventoryItemDao.update(item)
+            inventoryItemDao.update(mapper.mapToItemEntity(item))
         } else {
-            inventoryItemDao.insert(item)
+            inventoryItemDao.insert(mapper.mapToItemEntity(item))
         }
     }
 

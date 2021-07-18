@@ -1,13 +1,12 @@
 package com.kylecorry.trail_sense.tools.packs.infrastructure
 
-import com.kylecorry.trail_sense.tools.packs.domain.InventoryItemDto
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trailsensecore.domain.units.Weight
 
 class InventoryItemMapper {
 
-    fun mapToPackItem(item: InventoryItemDto): PackItem {
+    fun mapToPackItem(item: InventoryItemEntity): PackItem {
         val weight = if (item.weight != null && item.weightUnits != null) {
             Weight(item.weight, item.weightUnits)
         } else {
@@ -24,8 +23,8 @@ class InventoryItemMapper {
         )
     }
 
-    fun mapToInventoryItem(item: PackItem): InventoryItemDto {
-        return InventoryItemDto(
+    fun mapToItemEntity(item: PackItem): InventoryItemEntity {
+        return InventoryItemEntity(
             item.name,
             item.packId,
             item.category,

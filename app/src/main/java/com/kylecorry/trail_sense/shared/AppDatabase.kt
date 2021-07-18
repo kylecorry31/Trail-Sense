@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointDao
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryDao
-import com.kylecorry.trail_sense.tools.packs.domain.InventoryItemDto
+import com.kylecorry.trail_sense.tools.packs.infrastructure.InventoryItemEntity
 import com.kylecorry.trail_sense.tools.packs.infrastructure.InventoryItemDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackEntity
@@ -39,7 +39,7 @@ import java.io.File
  * The Room database for this app
  */
 @Database(
-    entities = [InventoryItemDto::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class],
+    entities = [InventoryItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class],
     version = 15,
     exportSchema = false
 )

@@ -20,6 +20,9 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trail_sense.tools.packs.domain.PackService
+import com.kylecorry.trail_sense.tools.packs.domain.sort.CategoryPackItemSort
+import com.kylecorry.trail_sense.tools.packs.domain.sort.IPackItemSort
+import com.kylecorry.trail_sense.tools.packs.domain.sort.PackedPercentPackItemSort
 import com.kylecorry.trail_sense.tools.packs.infrastructure.InventoryItemMapper
 import com.kylecorry.trail_sense.tools.packs.infrastructure.ItemRepo
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryColorMapper
@@ -42,6 +45,8 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     private lateinit var itemsLiveData: LiveData<List<PackItem>>
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val packService = PackService()
+    private lateinit var itemSort: IPackItemSort
+    private var items: List<PackItem> = listOf()
 
     private lateinit var listView: ListView<PackItem>
 
@@ -70,14 +75,14 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         }
         withContext(Dispatchers.Main) {
             // TODO: Move this transformation into the repo
-            itemsLiveData = Transformations.map(itemRepo.getItemsFromPack(packId)) {
-                it.map { item -> itemMapper.mapToPackItem(item) }
-            }
+            itemsLiveData = itemRepo.getItemsFromPack(packId)
             setupUI()
         }
     }
 
     private fun setupUI() {
+        // TODO: Load sort from cache
+        itemSort = CategoryPackItemSort()
         binding.inventoryListTitle.text = pack?.name
         listView = ListView(binding.inventoryList, R.layout.list_item_pack_item) { itemView, item ->
             val itemBinding = ListItemPackItemBinding.bind(itemView)
@@ -163,8 +168,8 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         listView.addLineSeparator()
 
         itemsLiveData.observe(viewLifecycleOwner) { items ->
+            this.items = items
             binding.inventoryEmptyText.isVisible = items.isEmpty()
-            // TODO: Update sort criteria
             // TODO: Actually implement pack weight
             val totalWeight = packService.getPackWeight(items, WeightUnits.Kilograms)
             val packedPercent = floor(packService.getPercentPacked(items))
@@ -172,13 +177,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             binding.totalPackedWeight.text = formatService.formatWeight(totalWeight, 1, false)
             binding.totalPercentPacked.text =
                 getString(R.string.percent_packed, formatService.formatPercentage(packedPercent))
-            listView.setData(
-                items.sortedWith(
-                    compareBy(
-                        { it.category.id },
-                        { it.name })
-                )
-            )
+            listView.setData(itemSort.sort(items))
         }
 
         binding.addBtn.setOnClickListener {
@@ -222,6 +221,12 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
                 true
             }
         }
+    }
+
+    private fun onSortChange(newSort: IPackItemSort) {
+        itemSort = newSort
+        listView.setData(itemSort.sort(items))
+        // TODO: Save sort to cache
     }
 
     private fun renamePack(pack: Pack) {
@@ -279,7 +284,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     private fun deleteItem(item: PackItem) {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                itemRepo.deleteItem(itemMapper.mapToInventoryItem(item))
+                itemRepo.deleteItem(item)
             }
         }
     }
@@ -293,8 +298,8 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 itemRepo.addItem(
-                    itemMapper.mapToInventoryItem(item)
-                        .copy(amount = max(0.0, item.amount + amount)).apply { id = item.id })
+                    item.copy(amount = max(0.0, item.amount + amount))
+                )
             }
         }
     }
@@ -303,8 +308,8 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 itemRepo.addItem(
-                    itemMapper.mapToInventoryItem(item).copy(amount = amount)
-                        .apply { id = item.id })
+                    item.copy(amount = amount)
+                )
             }
         }
     }

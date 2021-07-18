@@ -11,8 +11,8 @@ import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryStringMapper
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.tools.packs.domain.InventoryItemDto
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
+import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trail_sense.tools.packs.infrastructure.ItemRepo
 import com.kylecorry.trailsensecore.domain.math.toDoubleCompat
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
@@ -23,7 +23,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
     private val itemRepo by lazy { ItemRepo.getInstance(requireContext()) }
 
-    private var editingItem: InventoryItemDto? = null
+    private var editingItem: PackItem? = null
 
     private var packId: Long = 0
 
@@ -49,17 +49,15 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
                         itemRepo.addItem(
-                            InventoryItemDto(
-                                name,
+                            PackItem(
+                                editingItem?.id ?: 0,
                                 packId,
+                                name,
                                 category,
                                 amount,
                                 desiredAmount
-                            ).apply {
-                                editingItem?.let {
-                                    id = it.id
-                                }
-                            })
+                            )
+                        )
                     }
 
                     withContext(Dispatchers.Main) {
