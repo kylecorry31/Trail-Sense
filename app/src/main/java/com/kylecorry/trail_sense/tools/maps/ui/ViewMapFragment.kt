@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
@@ -17,7 +16,6 @@ import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
-import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
@@ -132,6 +130,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.calibrationNext.setOnClickListener {
             if (calibrationIndex == 1) {
                 isCalibrating = false
+                showZoomBtns()
                 if (destination != null) {
                     navigateTo(destination!!)
                 }
@@ -206,6 +205,14 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             cancelNavigation()
         }
 
+        binding.zoomOutBtn.setOnClickListener {
+            binding.map.zoom(0.75F)
+        }
+
+        binding.zoomInBtn.setOnClickListener {
+            binding.map.zoom(1.5F)
+        }
+
         val dest = cache.getLong(NavigatorFragment.LAST_BEACON_ID)
         if (dest != null) {
             lifecycleScope.launch {
@@ -269,6 +276,16 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.navigationSheet.hide()
     }
 
+    private fun hideZoomBtns() {
+        binding.zoomInBtn.hide()
+        binding.zoomOutBtn.hide()
+    }
+
+    private fun showZoomBtns() {
+        binding.zoomInBtn.show()
+        binding.zoomOutBtn.show()
+    }
+
     private fun cancelNavigation() {
         cache.remove(NavigatorFragment.LAST_BEACON_ID)
         destination = null
@@ -311,6 +328,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         map ?: return
         isCalibrating = true
         hideNavigation()
+        hideZoomBtns()
         loadCalibrationPointsFromMap()
 
         calibrationIndex = if (calibrationPoint1 == null || calibrationPoint1Percent == null) {

@@ -494,6 +494,13 @@ class OfflineMapView : CanvasView {
         }
     }
 
+    fun zoom(factor: Float) {
+        scale *= factor
+        translateX *= factor
+        translateY *= factor
+        keepMapOnScreen()
+    }
+
     private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
     private val mPanDetector = GestureDetector(context, mGestureListener)
 
