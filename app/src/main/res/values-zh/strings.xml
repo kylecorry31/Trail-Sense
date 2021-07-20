@@ -942,4 +942,13 @@
     <string name="packed_amount">包装数目</string>
     <string name="default_pack_name">默认包装</string>
     <string name="action_inventory_clear_confirm">清除所有包装数\?</string>
+    <string name="weight_per_item">每件重量</string>
+    <string name="pref_weight_units">重量单位</string>
+    <string name="pack_sort_weight_high_to_low">重量 (从高到低)</string>
+    <string name="pack_sort_weight_low_to_high">重量 (从低到高)</string>
+    <string name="pack_sort_percent_high_to_low">已打包百分比 (从高到低)</string>
+    <string name="pack_sort_percent_low_to_high">已打包百分比 (从低到高)</string>
+    <string name="pack_sort_category">类别</string>
+    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
+    <string name="sort">排序</string>
 </resources>
