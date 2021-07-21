@@ -41,7 +41,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     private lateinit var units: UserPreferences.DistanceUnits
     private val sensorService by lazy { SensorService(requireContext()) }
     private val compass by lazy { sensorService.getCompass() }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private lateinit var backCallback: OnBackPressedCallback

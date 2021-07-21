@@ -37,7 +37,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     private val formatService by lazy { FormatServiceV2(requireContext()) }
 
     private val intervalometer = Intervalometer {
-        if (!isBound){
+        if (!isBound) {
             return@Intervalometer
         }
         val temp = getEstimation()
@@ -91,7 +91,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     }
 
     private suspend fun setup() {
-        withContext(Dispatchers.Main){
+        withContext(Dispatchers.Main) {
             binding.loading.isVisible = true
             binding.temperatureEstimationInput.isVisible = false
         }
@@ -101,14 +101,18 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
             thermometer.read()
         }
 
-        val temp =
-            Temperature(thermometer.temperature, TemperatureUnits.C).convertTo(temperatureUnits)
+        val temp = Temperature(
+            getCalibratedReading(thermometer.temperature),
+            TemperatureUnits.C
+        ).convertTo(
+            prefs.temperatureUnits
+        )
         binding.baseElevation.updateDistance(
             Distance.meters(altimeter.altitude).convertTo(distanceUnits)
         )
         binding.baseTemperature.setText(temp.temperature.roundToInt().toString())
 
-        withContext(Dispatchers.Main){
+        withContext(Dispatchers.Main) {
             binding.loading.isVisible = false
             binding.temperatureEstimationInput.isVisible = true
         }
@@ -141,6 +145,16 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     private fun getDestElevation(): Distance? {
         val elevation = binding.destElevation.distance ?: return null
         return elevation.meters()
+    }
+
+    // TODO: Extract this
+    private fun getCalibratedReading(temp: Float): Float {
+        val calibrated1 = prefs.weather.minActualTemperature
+        val uncalibrated1 = prefs.weather.minBatteryTemperature
+        val calibrated2 = prefs.weather.maxActualTemperature
+        val uncalibrated2 = prefs.weather.maxBatteryTemperature
+
+        return calibrated1 + (calibrated2 - calibrated1) * (uncalibrated1 - temp) / (uncalibrated1 - uncalibrated2)
     }
 
 }

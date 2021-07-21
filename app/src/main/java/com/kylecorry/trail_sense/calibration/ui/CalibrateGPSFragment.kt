@@ -1,13 +1,13 @@
 package com.kylecorry.trail_sense.calibration.ui
 
 import android.os.Bundle
-import androidx.preference.*
+import androidx.preference.Preference
+import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.ui.CustomPreferenceFragment
-import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.shared.views.CoordinatePreference
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
+import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -33,7 +34,7 @@ class CalibrateGPSFragment : CustomPreferenceFragment() {
     private lateinit var permissionBtn: Preference
     private lateinit var locationOverridePref: CoordinatePreference
     private var clearCacheBtn: Preference? = null
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
 
     private lateinit var gps: IGPS
     private lateinit var realGps: IGPS

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
@@ -39,13 +40,13 @@ class FormatService(private val context: Context) {
     }
 
     fun formatSmallDistance(distanceMeters: Float): String {
-        val base = getBaseUnit()
+        val base = prefs.baseDistanceUnits
         return formatDistance(Distance(distanceMeters, DistanceUnits.Meters).convertTo(base))
     }
 
-    fun formatLargeDistance(distanceMeters: Float, prefUnits: UserPreferences.DistanceUnits? = null): String {
-        val units = getLargeDistanceUnits(distanceMeters, prefUnits)
-        return formatDistance(Distance(distanceMeters, DistanceUnits.Meters).convertTo(units))
+    fun formatLargeDistance(distanceMeters: Float): String {
+        val distance = Distance.meters(distanceMeters).convertTo(prefs.baseDistanceUnits)
+        return formatDistance(distance.toRelativeDistance())
     }
 
     fun formatQuality(quality: Quality): String {
@@ -60,41 +61,12 @@ class FormatService(private val context: Context) {
         return v2.formatLocation(location, format)
     }
 
-    private fun getBaseUnit(): DistanceUnits {
-        return prefs.baseDistanceUnits
-    }
-
-    private fun getLargeDistanceUnits(meters: Float, prefUnits: UserPreferences.DistanceUnits? = null): DistanceUnits {
-        val units = prefUnits ?: prefs.distanceUnits
-
-        if (units == UserPreferences.DistanceUnits.Feet) {
-            val feetThreshold = 1000
-            val feet = Distance(meters, DistanceUnits.Meters).convertTo(DistanceUnits.Feet).distance
-            return if (feet >= feetThreshold) {
-                DistanceUnits.Miles
-            } else {
-                DistanceUnits.Feet
-            }
-        } else {
-            val meterThreshold = 999
-            return if (meters >= meterThreshold) {
-                DistanceUnits.Kilometers
-            } else {
-                DistanceUnits.Meters
-            }
-        }
-    }
-
     fun formatPressure(pressure: Float, unit: PressureUnits): String {
         return v2.formatPressure(Pressure(pressure, unit), 1)
     }
 
     fun formatPercentage(percent: Int): String {
         return v2.formatPercentage(percent.toFloat())
-    }
-
-    fun coordinateFormatString(unit: CoordinateFormat): String {
-        return v2.formatCoordinateType(unit)
     }
 
 }

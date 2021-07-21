@@ -10,8 +10,10 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconDetailsBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,7 +22,8 @@ import kotlinx.coroutines.withContext
 class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var beacon: Beacon? = null
     private var beaconId: Long? = null
@@ -42,8 +45,8 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                     binding.locationText.text = formatService.formatLocation(this.coordinate)
 
                     if (this.elevation != null) {
-                        binding.altitudeText.text =
-                            formatService.formatSmallDistance(this.elevation!!)
+                        val d = Distance.meters(this.elevation!!).convertTo(prefs.baseDistanceUnits)
+                        binding.altitudeText.text = formatService.formatDistance(d)
                     } else {
                         binding.altitudeText.visibility = View.GONE
                         binding.altitudeIcon.visibility = View.GONE

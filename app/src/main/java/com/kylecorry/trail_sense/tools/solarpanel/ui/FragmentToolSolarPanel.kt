@@ -9,7 +9,7 @@ import android.widget.Button
 import androidx.annotation.ColorInt
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSolarPanelBinding
-import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
@@ -30,7 +30,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
     private val orientation by lazy { GravityOrientationSensor(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val geoService = GeoService()
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val throttle = Throttle(20)
@@ -139,8 +139,8 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
         val azimuthDiff = deltaAngle(desiredAzimuth.value, compass.bearing.value)
         val azimuthAligned = azimuthDiff.absoluteValue < AZIMUTH_THRESHOLD
         binding.azimuthComplete.visibility = if (azimuthAligned) View.VISIBLE else View.INVISIBLE
-        binding.currentAzimuth.text = formatService.formatDegrees(compass.bearing.value)
-        binding.desiredAzimuth.text = formatService.formatDegrees(desiredAzimuth.value)
+        binding.currentAzimuth.text = formatService.formatDegrees(compass.bearing.value, replace360 = true)
+        binding.desiredAzimuth.text = formatService.formatDegrees(desiredAzimuth.value, replace360 = true)
         binding.arrowLeft.visibility =
             if (!azimuthAligned && azimuthDiff < 0) View.VISIBLE else View.INVISIBLE
         binding.arrowRight.visibility =

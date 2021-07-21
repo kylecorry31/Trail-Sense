@@ -8,13 +8,13 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCoordinateConvertBinding
-import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
 class FragmentToolCoordinateConvert : BoundFragment<FragmentToolCoordinateConvertBinding>() {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
 
     private val formats = CoordinateFormat.values()
 
@@ -43,7 +43,7 @@ class FragmentToolCoordinateConvert : BoundFragment<FragmentToolCoordinateConver
             requireContext(),
             R.layout.spinner_item_plain,
             R.id.item_name,
-            formats.map { formatService.coordinateFormatString(it) })
+            formats.map { formatService.formatCoordinateType(it) })
         binding.toUnits.prompt = getString(R.string.distance_from)
         binding.toUnits.adapter = toAdapter
         binding.toUnits.setSelection(0)

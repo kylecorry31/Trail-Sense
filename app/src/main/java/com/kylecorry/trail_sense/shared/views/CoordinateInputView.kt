@@ -3,11 +3,14 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
@@ -17,7 +20,7 @@ import java.time.Duration
 
 class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
-    private val formatService by lazy { FormatService(getContext()) }
+    private val formatService by lazy { FormatServiceV2(getContext()) }
     private val sensorService by lazy { SensorService(getContext()) }
     lateinit var gps: IGPS
 
