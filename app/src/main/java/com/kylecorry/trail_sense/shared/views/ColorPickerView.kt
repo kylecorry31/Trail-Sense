@@ -2,12 +2,11 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.*
+import android.widget.FrameLayout
 import androidx.core.view.setPadding
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class ColorPickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {

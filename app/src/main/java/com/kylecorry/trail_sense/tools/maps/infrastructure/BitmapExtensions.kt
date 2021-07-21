@@ -1,12 +1,9 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
-import kotlin.math.absoluteValue
 import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.roundToInt
 
 

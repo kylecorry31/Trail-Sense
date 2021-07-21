@@ -8,7 +8,6 @@ import com.kylecorry.trailsensecore.domain.weather.*
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import java.time.Duration
 import java.time.Instant
-import kotlin.math.pow
 
 class WeatherService(
     private val stormThreshold: Float,

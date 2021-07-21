@@ -10,13 +10,9 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import kotlin.math.max
-import kotlin.math.min
 
 
 class TemperatureChart(private val chart: LineChart, private val color: Int) {
-
-    private var granularity = 1f
 
     init {
         chart.description.isEnabled = false

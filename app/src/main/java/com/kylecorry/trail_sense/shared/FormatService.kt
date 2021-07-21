@@ -6,7 +6,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.units.*
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
@@ -38,14 +37,6 @@ class FormatService(private val context: Context) {
             } else {
                 DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR
             }
-        )
-    }
-
-    fun formatDayOfWeek(date: ZonedDateTime): String {
-        return DateUtils.formatDateTime(
-            context,
-            date.toEpochSecond() * 1000,
-            DateUtils.FORMAT_SHOW_WEEKDAY
         )
     }
 
@@ -115,48 +106,6 @@ class FormatService(private val context: Context) {
             DistanceUnits.Centimeters -> context.getString(R.string.centimeters_format, distance)
             DistanceUnits.Inches -> context.getString(R.string.inches_format, distance)
             DistanceUnits.Yards -> context.getString(R.string.yards_format, DecimalFormatter.format(distance, 2))
-        }
-    }
-
-    fun formatFractionalDistance(distanceCentimeters: Float): String {
-        val units = prefs.distanceUnits
-        val smallDist = Distance(
-            distanceCentimeters,
-            DistanceUnits.Centimeters
-        ).convertTo(if (units == UserPreferences.DistanceUnits.Meters) DistanceUnits.Centimeters else DistanceUnits.Inches)
-        val formatted = DecimalFormatter.format(smallDist.distance, 4)
-        return when (units) {
-            UserPreferences.DistanceUnits.Meters -> context.getString(
-                R.string.precise_centimeters_format,
-                formatted
-            )
-            UserPreferences.DistanceUnits.Feet -> context.getString(
-                R.string.precise_inches_format,
-                formatted
-            )
-        }
-    }
-
-    fun formatDistancePrecise(distance: Float, units: DistanceUnits, strict: Boolean = true): String {
-        val formatted = DecimalFormatter.format(distance, 4, strict)
-        return when (units) {
-            DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, formatted)
-            DistanceUnits.Kilometers -> context.getString(
-                R.string.precise_kilometers_format,
-                formatted
-            )
-            DistanceUnits.Feet -> context.getString(R.string.precise_feet_format, formatted)
-            DistanceUnits.Miles -> context.getString(R.string.precise_miles_format, formatted)
-            DistanceUnits.NauticalMiles -> context.getString(
-                R.string.precise_nautical_miles_format,
-                formatted
-            )
-            DistanceUnits.Inches -> context.getString(R.string.precise_inches_format, formatted)
-            DistanceUnits.Centimeters -> context.getString(
-                R.string.precise_centimeters_format,
-                formatted
-            )
-            DistanceUnits.Yards -> context.getString(R.string.yards_format, formatted)
         }
     }
 
@@ -236,15 +185,6 @@ class FormatService(private val context: Context) {
 
     fun formatPressure(pressure: Float, unit: PressureUnits): String {
         return v2.formatPressure(Pressure(pressure, unit), 1)
-    }
-
-    private fun getPressureUnitString(unit: PressureUnits): String {
-        return when (unit) {
-            PressureUnits.Hpa -> context.getString(R.string.units_hpa)
-            PressureUnits.Mbar -> context.getString(R.string.units_mbar)
-            PressureUnits.Inhg -> context.getString(R.string.units_inhg_short)
-            PressureUnits.Psi -> context.getString(R.string.units_psi)
-        }
     }
 
     fun formatPercentage(percent: Int): String {

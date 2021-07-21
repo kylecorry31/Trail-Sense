@@ -7,9 +7,7 @@ import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.views.CanvasView
 import com.kylecorry.trailsensecore.domain.geo.Bearing
-import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trailsensecore.domain.math.Vector3
-import kotlin.math.*
+import kotlin.math.min
 
 class MagnetometerView : CanvasView {
 

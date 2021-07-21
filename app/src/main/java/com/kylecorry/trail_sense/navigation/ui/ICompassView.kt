@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import androidx.annotation.ColorInt
-import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 
 interface ICompassView {

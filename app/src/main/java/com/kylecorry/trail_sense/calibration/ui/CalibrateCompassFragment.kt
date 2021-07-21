@@ -2,17 +2,20 @@ package com.kylecorry.trail_sense.calibration.ui
 
 import android.os.Bundle
 import android.text.InputType
-import androidx.preference.*
+import androidx.preference.EditTextPreference
+import androidx.preference.Preference
+import androidx.preference.SeekBarPreference
+import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.ui.CustomPreferenceFragment
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.units.Quality
 import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 
@@ -163,11 +166,6 @@ class CalibrateCompassFragment : CustomPreferenceFragment() {
 
     private fun stopCompass() {
         compass.stop(this::onCompassUpdate)
-    }
-
-    private fun onDeclinationUpdate(): Boolean {
-        update()
-        return false
     }
 
     private fun onCompassUpdate(): Boolean {

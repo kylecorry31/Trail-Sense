@@ -12,8 +12,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import com.kylecorry.trailsensecore.infrastructure.flashlight.HasFlashlightSpecification
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
@@ -24,7 +22,6 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     private val intervalometer = Intervalometer {
         update()
     }
-    private val cache by lazy { Cache(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

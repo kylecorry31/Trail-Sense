@@ -115,6 +115,6 @@
             android:alpha="0.5"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_note"
-            android:tint="?android:textColorSecondary" />
+            app:tint="?android:textColorSecondary" />
     </LinearLayout>
 </LinearLayout>

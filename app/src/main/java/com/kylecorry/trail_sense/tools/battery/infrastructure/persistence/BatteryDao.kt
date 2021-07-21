@@ -1,10 +1,11 @@
 package com.kylecorry.trail_sense.tools.battery.infrastructure.persistence
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
-import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 import java.time.Instant
 
 @Dao

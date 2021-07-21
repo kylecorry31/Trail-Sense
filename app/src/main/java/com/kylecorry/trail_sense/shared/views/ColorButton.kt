@@ -5,11 +5,10 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
-import android.widget.*
+import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.annotation.ColorInt
-import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class ColorButton(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 

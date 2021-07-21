@@ -831,7 +831,6 @@
     <string name="camera_permission_denied">Permissão da câmera negada, não foi possível ativar os recursos da câmera. Você pode ativá-los em configurações.</string>
     <string name="pref_use_camera_features_title">Ativar os recursos da câmera</string>
     <string name="color">Cor</string>
-    <string name="water_boil_guide_desc">Como usar o timer de Ebulição da Água</string>
     <string name="water_boil_guide_title">Tornar a água segura para beber</string>
     <string name="calibrate_new_tide">Calibrar para uma nova maré\?</string>
     <string name="background_update">Atualização em segundo plano</string>
@@ -860,7 +859,6 @@
     <string name="guide_speedometer_title">Determinar velocidade e distância</string>
     <string name="next">Próximo</string>
     <string name="previous">Anterior</string>
-    <string name="guide_importing_maps_desc">Como importar e usar mapas no Trail Sense</string>
     <string name="guide_importing_maps_title">Importando mapas</string>
     <string name="create_map_description">Digite o nome do mapa</string>
     <string name="create_map">Criar mapa</string>
@@ -870,10 +868,7 @@
     <string name="rename">Renomear</string>
     <string name="speedometer_odometer_accuracy_dialog">Para a melhor precisão, ative o Recuo e defina a fonte do odômetro para pedômetro em configurações.</string>
     <string name="pedometer_disclaimer">A precisão e o consumo da bateria do pedômetro depende do fabricante de seu dispositivo e a distância definida entre os passos. Experimente-o em casa primeiro para verificar o consumo e a precisão antes de usá-lo na trilha.</string>
-    <string name="guide_using_printed_maps_desc">Como utilizar mapas impressos com o Trail Sense</string>
     <string name="guide_using_printed_maps">Usando mapas impressos</string>
-    <string name="guide_navigation_description">Como navegar usando o Trail Sense</string>
-    <string name="guide_signaling_for_help_description">Como sinalizar para ajuda</string>
     <string name="guide_signaling_for_help_title">Sinalização para ajuda</string>
     <string name="pref_meteor_showers_title">Chuvas de meteoros</string>
     <string name="meteors_per_hour">Máx %d meteoros / h</string>

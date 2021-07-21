@@ -1,11 +1,10 @@
 package com.kylecorry.trail_sense.astronomy.ui
 
-import android.content.Context
 import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 
-class MoonPhaseImageMapper(private val context: Context) {
+class MoonPhaseImageMapper {
 
     @DrawableRes
     fun getPhaseImage(phase: MoonTruePhase): Int {

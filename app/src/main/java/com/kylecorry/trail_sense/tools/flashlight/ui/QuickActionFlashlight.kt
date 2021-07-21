@@ -8,7 +8,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
 class QuickActionFlashlight(btn: FloatingActionButton, fragment: Fragment) :
@@ -27,7 +26,7 @@ class QuickActionFlashlight(btn: FloatingActionButton, fragment: Fragment) :
 
     override fun onCreate() {
         button.setImageResource(R.drawable.flashlight)
-        CustomUiUtils.setButtonState(button, false);
+        CustomUiUtils.setButtonState(button, false)
         if (!flashlight.isAvailable()) {
             button.visibility = View.GONE
         } else {

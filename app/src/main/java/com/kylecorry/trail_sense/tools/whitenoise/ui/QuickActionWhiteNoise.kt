@@ -22,7 +22,7 @@ class QuickActionWhiteNoise(btn: FloatingActionButton, fragment: Fragment) :
 
     override fun onCreate() {
         button.setImageResource(R.drawable.ic_tool_white_noise)
-        CustomUiUtils.setButtonState(button, false);
+        CustomUiUtils.setButtonState(button, false)
 
         button.setOnClickListener {
             if (isOn()) {

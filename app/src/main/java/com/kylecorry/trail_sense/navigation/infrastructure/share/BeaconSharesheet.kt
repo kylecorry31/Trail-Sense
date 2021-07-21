@@ -44,8 +44,4 @@ class BeaconSharesheet(private val context: Context) : IBeaconSender {
         return coordinate.toDecimalDegrees()
     }
 
-    private fun getCoordinateUtm(coordinate: Coordinate): String {
-        return coordinate.toUTM()
-    }
-
 }

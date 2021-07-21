@@ -33,12 +33,12 @@ data class WaypointEntity(
 
     val cellQuality: Quality
         get() {
-            return Quality.values().firstOrNull() { it.ordinal == cellQualityId } ?: Quality.Unknown
+            return Quality.values().firstOrNull { it.ordinal == cellQualityId } ?: Quality.Unknown
         }
 
     val cellNetwork: CellNetwork?
         get() {
-            return CellNetwork.values().firstOrNull() { it.id == cellTypeId }
+            return CellNetwork.values().firstOrNull { it.id == cellTypeId }
         }
 
     fun toPathPoint(): PathPoint {

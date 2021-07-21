@@ -31,8 +31,6 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.BarometricA
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
-import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.Gyroscope
-import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.RotationSensor
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer

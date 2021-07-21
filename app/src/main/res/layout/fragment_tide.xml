@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:tint="?android:textColorSecondary"
+            app:tint="?android:textColorSecondary"
             app:srcCompat="@drawable/ic_date" />
     </LinearLayout>
 
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:background="@android:color/transparent"
-        android:tint="?android:textColorSecondary"
+        app:tint="?android:textColorSecondary"
         app:layout_constraintBottom_toBottomOf="@id/tide_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tide_height"

@@ -13,11 +13,12 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
-import com.kylecorry.trail_sense.weather.domain.*
+import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
+import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
@@ -416,28 +417,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             Weather.WorseningFast -> if (currentPressure.isLow()) R.drawable.heavy_rain else R.drawable.light_rain
             Weather.Storm -> R.drawable.storm
             else -> R.drawable.steady
-        }
-    }
-
-    private fun getShortTermWeatherDescription(weather: Weather): String {
-        return when (weather) {
-            Weather.ImprovingFast -> getString(R.string.weather_improving_fast)
-            Weather.ImprovingSlow -> getString(R.string.weather_improving_slow)
-            Weather.WorseningSlow -> getString(R.string.weather_worsening_slow)
-            Weather.WorseningFast -> getString(R.string.weather_worsening_fast)
-            Weather.Storm -> getString(R.string.weather_storm_incoming)
-            else -> getString(R.string.weather_not_changing)
-        }
-    }
-
-    private fun getShortTermTechnicalWeatherDescription(weather: Weather): String {
-        return when (weather) {
-            Weather.ImprovingFast -> getString(R.string.pressure_rising_fast)
-            Weather.ImprovingSlow -> getString(R.string.pressure_rising)
-            Weather.WorseningSlow -> getString(R.string.pressure_falling)
-            Weather.WorseningFast -> getString(R.string.pressure_falling_fast)
-            Weather.Storm -> getString(R.string.weather_storm_incoming)
-            else -> getString(R.string.pressure_no_change)
         }
     }
 

@@ -20,7 +20,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="center"
-        android:tint="?android:textColorPrimary"
+        app:tint="?android:textColorPrimary"
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/ic_compass_icon" />
 

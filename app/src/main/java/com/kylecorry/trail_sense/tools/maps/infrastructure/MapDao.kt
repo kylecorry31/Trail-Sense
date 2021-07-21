@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 
 @Dao

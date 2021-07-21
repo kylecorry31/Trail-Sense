@@ -4,14 +4,13 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.widget.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.setPadding
-import androidx.core.view.updateLayoutParams
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.view.ViewMeasurementUtils
 
 class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
 

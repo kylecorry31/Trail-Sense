@@ -43,7 +43,7 @@ internal class DwellAltitudeCalculator(private val dwellThreshold: Duration, pri
                 newAltitudes.addAll(group)
                 continue
             }
-            val average = group.sumByDouble { it.value.toDouble() }.toFloat() / group.size
+            val average = group.sumOf { it.value.toDouble() }.toFloat() / group.size
             for (altitude in group) {
                 newAltitudes.add(AltitudeReading(altitude.time, average))
             }

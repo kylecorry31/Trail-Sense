@@ -1,8 +1,6 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
-import android.graphics.Color
-import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.MainActivity
@@ -99,11 +97,6 @@ fun Distance.dividedBy(value: Float): Distance {
 
 fun Distance.times(value: Float): Distance {
     return Distance(distance * value, units)
-}
-
-@ColorInt
-fun gray(value: Int): Int {
-    return Color.rgb(value, value, value)
 }
 
 fun Fragment.requireMainActivity(): MainActivity {

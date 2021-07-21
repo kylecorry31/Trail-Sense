@@ -31,7 +31,7 @@ class TideClockView : View {
     private var labels: List<String> = listOf()
     private val rect = Rect()
 
-    var time = ZonedDateTime.now()
+    var time: ZonedDateTime = ZonedDateTime.now()
     var nextTide: Tide? = null
 
     constructor(context: Context?) : super(context)

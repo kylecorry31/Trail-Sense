@@ -58,7 +58,7 @@ internal class PressureDwellAltitudeCalculator(
                 newAltitudes.addAll(group)
                 continue
             }
-            val average = group.sumByDouble { it.value.toDouble() }.toFloat() / group.size
+            val average = group.sumOf { it.value.toDouble() }.toFloat() / group.size
             for (altitude in group) {
                 newAltitudes.add(AltitudeReading(altitude.time, average))
             }

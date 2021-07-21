@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense
 
 import android.content.Context
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
-import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackAlwaysOnService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService

@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSend
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
@@ -58,7 +58,8 @@ import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.*
+import java.time.Duration
+import java.time.Instant
 import java.util.*
 
 
@@ -609,8 +610,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     USER_ERROR_COMPASS_POOR,
                     getString(
                         R.string.compass_calibrate_toast, formatService.formatQuality(
-                            compass.quality
-                        ).toLowerCase(Locale.getDefault())
+                                                compass.quality
+                                            ).lowercase(Locale.getDefault())
                     ),
                     R.drawable.ic_compass_icon,
                     getString(R.string.how)
@@ -863,7 +864,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     @DrawableRes
     private fun getMoonImage(): Int {
-        return MoonPhaseImageMapper(requireContext()).getPhaseImage(astronomyService.getCurrentMoonPhase().phase)
+        return MoonPhaseImageMapper().getPhaseImage(astronomyService.getCurrentMoonPhase().phase)
     }
 
     companion object {
