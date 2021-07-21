@@ -315,7 +315,6 @@
     <string name="depth_disclaimer">如果可能请保持在安全的潜水距离内。使用本软件测量水深，风险自负。
 \n
 \n不要在没有防水外壳的情况下使用，如果可能请保持在安全的潜水距离内。</string>
-    <string name="tool_depth_summary">确定水深</string>
     <string name="tool_depth_title">深度</string>
     <string name="tool_inventory_summary">记录手头物品的动向</string>
     <string name="category_natural">自然</string>

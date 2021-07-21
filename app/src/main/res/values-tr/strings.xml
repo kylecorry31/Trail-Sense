@@ -351,7 +351,6 @@
     <string name="depth_disclaimer">Riski size ait olmak üzere kullanın.
 \n
 \nSu geçirmez kılıf olmadan kullanmayın ve mümkünse güvenli bir dalış mesafesinde kalın.</string>
-    <string name="tool_depth_summary">Su derinliğini belirle</string>
     <string name="tool_depth_title">Derinlik</string>
     <string name="tool_inventory_summary">Mevcut ögeleri takip et</string>
     <string name="category_natural">Doğal</string>

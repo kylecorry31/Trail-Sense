@@ -34,6 +34,7 @@ class UserPreferences(private val context: Context) {
     val tides by lazy { TidePreferences(context) }
     val power by lazy { PowerPreferences(context) }
     val packs by lazy { PackPreferences(context) }
+    val depth by lazy { DepthPreferences(context) }
 
     val distanceUnits: DistanceUnits
         get() {

@@ -212,7 +212,6 @@
     <string name="cliff_height_guide">Szacowanie wysokości klifu</string>
     <string name="tool_cliff_height_title">Wysokość klifu</string>
     <string name="object_height_guide">Szacowanie wysokości obiektu</string>
-    <string name="tool_depth_summary">Określ głębokość wody</string>
     <string name="tool_depth_title">Głębokość</string>
     <string name="category_safety">Bezpieczeństwo</string>
     <string name="category_clothing">Odzież</string>

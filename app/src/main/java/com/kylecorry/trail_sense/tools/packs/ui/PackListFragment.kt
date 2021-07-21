@@ -69,7 +69,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
         listView.addLineSeparator()
 
         packs.observe(viewLifecycleOwner) {
-            listView.setData(it.sortedWith(compareBy({ it.name }, { it.id })))
+            listView.setData(it.sortedWith(compareBy { -it.id }))
         }
 
         binding.addBtn.setOnClickListener { createPack() }

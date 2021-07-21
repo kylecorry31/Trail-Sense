@@ -21,6 +21,8 @@ class ExperimentalSettingsFragment : CustomPreferenceFragment() {
         preference(R.string.pref_experimental_metal_direction)?.isVisible =
             sensorChecker.hasGyroscope()
 
+        preference(R.string.pref_depth_enabled)?.isVisible = sensorChecker.hasBarometer()
+
         onClick(switch(R.string.pref_experimental_maps)) {
             PackageUtils.setComponentEnabled(
                 requireContext(),

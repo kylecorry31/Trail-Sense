@@ -390,7 +390,6 @@
     <string name="unit_nautical_miles">Miglia nautiche</string>
     <string name="item_amount_hint">Quantità</string>
     <string name="item_name_hint">Nome</string>
-    <string name="tool_depth_summary">Determina profondità dell’acqua</string>
     <string name="category_natural">Naturali</string>
     <string name="category_safety">Sicurezza</string>
     <string name="category_shelter">Protettivi</string>

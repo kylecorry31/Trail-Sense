@@ -337,7 +337,6 @@
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_feet_format">%s ft</string>
-    <string name="tool_depth_summary">Bestem vanndybde</string>
     <string name="tool_inventory_summary">Hold oversikt over ting som er tilgjengelig</string>
     <string name="category_safety">Sikkerhet</string>
     <string name="category_other">Annet</string>

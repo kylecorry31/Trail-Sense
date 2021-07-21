@@ -515,7 +515,6 @@
     <string name="tool_inventory_summary">Keep track of items on hand</string>
     <string name="tool_depth_title">Depth</string>
     <string name="tool_depth" translatable="false">tool_depth</string>
-    <string name="tool_depth_summary">Determine water depth</string>
     <string name="depth_disclaimer">Use at your own risk.\n\nDo not use without a waterproof case and stay within a safe diving distance if possible.</string>
     <string name="item_name_hint">Name</string>
     <string name="item_amount_hint">Amount</string>
@@ -1144,4 +1143,5 @@
     <string name="pack_sort_weight_high_to_low">Weight (high to low)</string>
     <string name="pref_weight_units">pref_weight_units</string>
     <string name="weight_per_item">Weight per item</string>
+    <string name="pref_depth_enabled">pref_depth_enabled</string>
 </resources>

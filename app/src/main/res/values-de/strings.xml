@@ -382,7 +382,6 @@
     <string name="depth_disclaimer">Verwendung auf eigenes Risiko.
 \n
 \nNicht ohne wasserdichtes Gehäuse verwenden und in einer sicheren Tauchtiefe bleiben.</string>
-    <string name="tool_depth_summary">Wassertiefe bestimmen</string>
     <string name="tool_depth_title">Tiefe</string>
     <string name="tool_inventory_summary">Überblick über vorhandene Gegenstände behalten</string>
     <string name="category_safety">Sicherheit</string>

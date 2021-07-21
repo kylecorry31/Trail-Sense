@@ -24,6 +24,13 @@
             app:title="@string/maps" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_depth_enabled"
+            app:singleLineTitle="false"
+            app:title="@string/tool_depth_title" />
+
+        <SwitchPreferenceCompat
             android:summary="@string/tool_metal_detector_title"
             app:defaultValue="false"
             app:disableDependentsState="true"

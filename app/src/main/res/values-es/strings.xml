@@ -414,7 +414,6 @@
     <string name="temp_f_format">%.0f °F</string>
     <string name="pressure_setpoint_format">Establecido: hace %s - %s</string>
     <string name="object_height_guide">Estimar alturas de objetos</string>
-    <string name="tool_depth_summary">Determinar profundidad de agua</string>
     <string name="tool_depth_title">Profundidad</string>
     <string name="tool_inventory_summary">Mantener registro de ítems</string>
 </resources>

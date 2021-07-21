@@ -293,7 +293,6 @@
     <string name="pref_sensor_details_title">感應器細節</string>
     <string name="boil_start">開始</string>
     <string name="action_inventory_delete_all_confirm">刪除所有背包物品？</string>
-    <string name="tool_depth_summary">決定水深</string>
     <string name="navigation_nearby_category">附近</string>
     <string name="tap_sun_moon_hint">點擊太陽或月亮以取得詳細位置</string>
     <string name="sun_and_moon_position_details">太陽

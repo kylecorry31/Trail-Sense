@@ -136,7 +136,6 @@
     <string name="depth_disclaimer">Csak saját felelősségre!
 \n
 \nNe használja vízhatlan tok nélkül! Tartózkodjon biztonságos búvárkodási távolságon belül, ha lehetséges!</string>
-    <string name="tool_depth_summary">Vízmélység mérése</string>
     <string name="tool_depth_title">Mélység</string>
     <string name="solar_panel_instructions">Helyezze a telefont a napelem felületére a kezdéshez!</string>
     <string name="solar_align_now">Most</string>

@@ -54,11 +54,11 @@ object Tools {
                     R.id.action_action_experimental_tools_to_toolCliffHeightFragment,
                     context.getString(R.string.tool_cliff_height_description)
                 ),
-                if (hasBarometer) Tool(
+                if (hasBarometer && prefs.depth.isDepthEnabled) Tool(
                     context.getString(R.string.tool_depth_title),
                     R.drawable.ic_depth,
                     R.id.action_action_experimental_tools_to_toolDepthFragment,
-                    context.getString(R.string.tool_depth_summary)
+                    context.getString(R.string.experimental)
                 ) else null
             )
         )
