@@ -79,9 +79,6 @@
     <string name="today">今日</string>
     <string name="dew_point">露點溫度 %s</string>
     <string name="no_humidity_data">無濕度資料</string>
-    <string name="humidity_format">%.0f%% 濕度</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="temp_f_format">%.0f °F</string>
     <plurals name="last_hours">
         <item quantity="other">持續 %d 小時</item>
     </plurals>
@@ -118,7 +115,6 @@
     <string name="flashlight_title">手電筒</string>
     <string name="charging_slow">慢速充電中 (%s)</string>
     <string name="charging_fast">快速充電中 (%s)</string>
-    <string name="current_format">%.0f mA</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
@@ -136,11 +132,6 @@
     <string name="duration_hour_format">%d小時</string>
     <string name="miles_per_hour_format">%.1f 英里每小時</string>
     <string name="kilometers_per_hour_format">%.1f 公里每小時</string>
-    <string name="kilometers_format">%.2f 公里</string>
-    <string name="meters_format">%.0f 公尺</string>
-    <string name="nautical_miles_format">%.2f 奈米</string>
-    <string name="miles_format">%.2f 英里</string>
-    <string name="feet_format">%.0f 英呎</string>
     <string name="precise_kilometers_format">%s 公里</string>
     <string name="precise_meters_format">%s 公尺</string>
     <string name="precise_nautical_miles_format">%s 奈米</string>
@@ -262,8 +253,6 @@
     <string name="tide_normal">正常</string>
     <string name="until_sunset_label">直到日落</string>
     <string name="action_copy">複製</string>
-    <string name="centimeters_format">%.2f 公分</string>
-    <string name="inches_format">%.2f 吋</string>
     <string name="navigation">導航</string>
     <string name="map_scale_title">地圖縮放</string>
     <string name="map_scale_ratio">比例</string>

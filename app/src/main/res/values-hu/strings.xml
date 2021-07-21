@@ -24,9 +24,6 @@
     <string name="weather_worsening_slow">Nemsokára romlani fog</string>
     <string name="weather_improving_fast">Javulni fog nagyon hamar</string>
     <string name="no_humidity_data">Nincs páratartalom adat</string>
-    <string name="humidity_format">%.0f%% páratartalom</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="temp_f_format">%.0f °F</string>
     <plurals name="last_minutes">
         <item quantity="one">Utolsó %d perc</item>
         <item quantity="other">Utolsó %d perc</item>
@@ -101,11 +98,6 @@
     <string name="duration_hour_format">%dó</string>
     <string name="miles_per_hour_format">%.1f mérföld/h</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="kilometers_format">%.2f km</string>
-    <string name="meters_format">%.0f m</string>
-    <string name="nautical_miles_format">%.2f tengeri mérföld</string>
-    <string name="miles_format">%.2f mérföld</string>
-    <string name="feet_format">%.0f láb</string>
     <string name="dialog_deny">Köszönöm, nem</string>
     <string name="access_background_location">Tartózkodási hely beállítások frissítése</string>
     <string name="copied_to_clipboard_toast">Vágólapra másolva</string>

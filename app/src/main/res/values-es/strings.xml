@@ -92,7 +92,6 @@
     <string name="sun_down_no_set">el sol está abajo</string>
     <string name="tools">Herramientas</string>
     <string name="no_humidity_data">Sin datos de humedad</string>
-    <string name="humidity_format">%.0f%% de humedad</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_title">Alerta de tormenta</string>
     <string name="notification_storm_alert_text">Podría estar acercándose una tormenta</string>
@@ -194,13 +193,6 @@
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="kilometers_format">%.2f km</string>
-    <string name="meters_format">%.0f m</string>
-    <string name="centimeters_format">%.2f cm</string>
-    <string name="inches_format">%.2f pulgadas</string>
-    <string name="nautical_miles_format">%.2f mn</string>
-    <string name="miles_format">%.2f mi</string>
-    <string name="feet_format">%.0f pies</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_miles_format">%s mi</string>
@@ -211,7 +203,6 @@
     <string name="access_background_location">Actualizar la configuración de ubicación</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="dash">-</string>
-    <string name="current_format">%.0f mA</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="decrease">-</string>
     <string name="direction_south_east">SE</string>
@@ -407,8 +398,6 @@
     <string name="heat_alert_heat_caution_title">Precaución de calor</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="temp_f_format">%.0f °F</string>
     <string name="pressure_setpoint_format">Establecido: hace %s - %s</string>
     <string name="object_height_guide">Estimar alturas de objetos</string>
     <string name="tool_depth_title">Profundidad</string>

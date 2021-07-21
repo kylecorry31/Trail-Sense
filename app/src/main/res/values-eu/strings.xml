@@ -45,11 +45,6 @@
     <string name="duration_hour_format">%do</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="kilometers_format">%.2f km</string>
-    <string name="feet_format">%.0f ft</string>
-    <string name="miles_format">%.2f mi</string>
-    <string name="meters_format">%.0f m</string>
-    <string name="nautical_miles_format">%.2f nm</string>
     <string name="dialog_deny">Ez, eskerrik asko</string>
     <string name="dialog_grant">Ezarpenak eguneratu</string>
     <string name="access_background_location">Kokapen ezarpenak eguneratu</string>
@@ -72,9 +67,6 @@
     <string name="weather_improving_slow">Laster hobetuko du</string>
     <string name="dew_point">Ihintz-puntua %s</string>
     <string name="no_humidity_data">Ez dago hezetasun daturik</string>
-    <string name="humidity_format">%.0f%% hezetasuna</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="temp_f_format">%.0f °F</string>
     <plurals name="last_minutes">
         <item quantity="one">Azken %d minutua</item>
         <item quantity="other">Azken %d minutuak</item>
@@ -355,15 +347,12 @@
     <string name="untitled_note">(izenbururik gabeko oharra)</string>
     <string name="notes_empty_text">Oharrik ez</string>
     <string name="battery_temp">Telefonoa: %s</string>
-    <string name="centimeters_format">%.2f cm</string>
-    <string name="inches_format">%.2f in</string>
     <string name="tool_metal_detector_title">Metal-detektagailua</string>
     <string name="metal_detected">Metala antzeman da</string>
     <string name="beacon_2">2 baliza</string>
     <string name="beacon_1">1 baliza</string>
     <string name="tool_triangulate_title">Kokapena triangulatu</string>
     <string name="battery_health">Osasuna: %s</string>
-    <string name="current_format">%.0f mA</string>
     <string name="precise_inches_format">%s in</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="utc_format">UTC %s</string>

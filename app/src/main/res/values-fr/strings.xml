@@ -133,9 +133,6 @@
     <string name="pref_auto_declination_summary">Se base sur votre localisation actuelle</string>
     <string name="compass_declination">Déclinaison magnétique</string>
     <string name="compass_azimuth">Azimuth</string>
-    <string name="humidity_format">%.0f%% d\'humidité</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="temp_f_format">%.0f °F</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_tendency_format">%s %s / 3h</string>
@@ -159,9 +156,6 @@
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="kilometers_format">%.2f km</string>
-    <string name="meters_format">%.0f m</string>
-    <string name="nautical_miles_format">%.2f nm</string>
     <string name="fahrenheit">degré Fahrenheit °F</string>
     <string name="celsius">degré Celsius °C</string>
     <string name="pref_compass_sensor_title">Boussole</string>
@@ -243,8 +237,6 @@
     <string name="moon_phase">Phase de la lune</string>
     <string name="temperature_disclaimer">La température indiquée est à interpréter avec précaution car la valeur est influencée par la température de l\'appareil.</string>
     <string name="full_moon">Pleine lune</string>
-    <string name="miles_format">%.2f mi</string>
-    <string name="feet_format">%.0f ft</string>
     <string name="copied_to_clipboard_toast">Copié dans le presse-papier</string>
     <string name="lunar_noon">Midi lunaire</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
@@ -489,9 +481,6 @@
     <string name="precise_inches_format">%s pouces</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="battery_temp">Téléphone : %s</string>
-    <string name="current_format">%.0f mA</string>
-    <string name="centimeters_format">%.2f cm</string>
-    <string name="inches_format">%.2f po</string>
     <string name="low_power_mode_on_message">Le mode économie d\'énergie est activé, certaines fonctionnalités pourraient être désactivées.</string>
     <string name="pref_low_power_mode_title">Mode économie d\'énergie</string>
     <string name="guide_barometer_calibration_title">Étalonnage du baromètre</string>

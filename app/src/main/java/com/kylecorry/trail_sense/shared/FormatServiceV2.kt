@@ -281,9 +281,8 @@ class FormatServiceV2(private val context: Context) {
         )
     }
 
-    fun formatCurrent(current: Float): String {
-        // TODO: Use decimal formatter
-        return context.getString(R.string.current_format, current)
+    fun formatCurrent(current: Float, decimalPlaces: Int = 0): String {
+        return context.getString(R.string.current_format, DecimalFormatter.format(current, decimalPlaces))
     }
 
     fun formatLux(lux: Float, decimalPlaces: Int = 0): String {

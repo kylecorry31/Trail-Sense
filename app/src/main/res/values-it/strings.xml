@@ -206,7 +206,6 @@
     <string name="discharging_slow">In lenta scarica (%s)</string>
     <string name="charging_slow">In ricarica lenta (%s)</string>
     <string name="charging_fast">In ricarica rapida (%s)</string>
-    <string name="current_format">%.0f mA</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
@@ -226,13 +225,6 @@
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="kilometers_format">%.2f km</string>
-    <string name="meters_format">%.0f m</string>
-    <string name="centimeters_format">%.2f cm</string>
-    <string name="inches_format">%.2f in</string>
-    <string name="nautical_miles_format">%.2f nm</string>
-    <string name="miles_format">%.2f mi</string>
-    <string name="feet_format">%.0f ft</string>
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_feet_format">%s ft</string>
@@ -281,11 +273,8 @@
     <string name="fahrenheit">Fahrenheit</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="coordinate_format_utm">UTM</string>
-    <string name="humidity_format">%.0f%% umidità</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="temp_f_format">%.0f °F</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_title">Avviso temporale</string>
     <string name="notification_storm_alert_text">Potrebbe essere in arriv un temporale</string>

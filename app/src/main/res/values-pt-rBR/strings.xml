@@ -10,10 +10,6 @@
     <string name="dialog_cancel">Cancelar</string>
     <!--Disclaimer-->
     <!--Navigation Tab - Unit Formats-->
-    <string name="feet_format">%.0f pés</string>
-    <string name="miles_format">%.2f milhas</string>
-    <string name="meters_format">%.0f m</string>
-    <string name="kilometers_format">%.2f km</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="duration_hour_format">%dh</string>
@@ -338,9 +334,6 @@
     <string name="heat_alert_heat_danger_title">Risco de calor intenso</string>
     <string name="dew_point">Ponto de orvalho %s</string>
     <string name="no_humidity_data">Sem dados de umidade</string>
-    <string name="humidity_format">%.0f%% umidade</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="temp_f_format">%.0f °F</string>
     <string name="pressure_setpoint_format">Definir: %s - %s atrás</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="maps">Mapas</string>
@@ -351,7 +344,6 @@
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Toque para desligar</string>
     <string name="flashlight_title">Lanterna</string>
-    <string name="nautical_miles_format">%.2f nm</string>
     <string name="dialog_deny">Não, obrigado</string>
     <string name="dialog_grant">Atualizar as configurações</string>
     <string name="access_background_location_rationale">O Trail Sense utiliza dados de localização em segundo plano. Ele é usado para a calibração da pressão ao nível do mar no monitoramento meteorológico e para fornecer alertas mais precisos do pôr-do-sol. [Ver Política de Privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
@@ -485,7 +477,6 @@
     <string name="discharging_slow">Descarregando lento (%s)</string>
     <string name="charging_slow">Carregamento lento (%s)</string>
     <string name="charging_fast">Carregamento rápido (%s)</string>
-    <string name="current_format">%.0f mA</string>
     <string name="tool_notes_title">Anotações</string>
     <string name="note_title_hint">Título</string>
     <string name="note_content_hint">Conteúdos</string>
@@ -654,8 +645,6 @@
     <string name="update_gps_override">Atualizar GPS simulado</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="coordinate_format_utm">UTM</string>
-    <string name="centimeters_format">%.2f cm</string>
-    <string name="inches_format">%.2f in</string>
     <string name="network_5g">5G</string>
     <string name="right_quick_action">Ação rápida da direita</string>
     <string name="left_quick_action">Ação rápida da esquerda</string>

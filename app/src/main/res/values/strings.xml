@@ -28,13 +28,6 @@
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_kilometers_format">%s km</string>
-    <string name="feet_format">%.0f ft</string>
-    <string name="miles_format">%.2f mi</string>
-    <string name="nautical_miles_format">%.2f nm</string>
-    <string name="inches_format">%.2f in</string>
-    <string name="centimeters_format">%.2f cm</string>
-    <string name="meters_format">%.0f m</string>
-    <string name="kilometers_format">%.2f km</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="duration_hour_format">%dh</string>
@@ -55,7 +48,7 @@
     <string name="degree">%s°</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="battery_capacity_format">%s mAh</string>
-    <string name="current_format">%.0f mA</string>
+    <string name="current_format">%s mA</string>
     <string name="charging_fast">Charging rapidly (%s)</string>
     <string name="charging_slow">Charging slowly (%s)</string>
     <string name="discharging_slow">Discharging slowly (%s)</string>
@@ -123,11 +116,8 @@
         <item quantity="one">Last %d minute</item>
         <item quantity="other">Last %d minutes</item>
     </plurals>
-    <string name="temp_f_format">%.0f °F</string>
-    <string name="temp_c_format">%.0f °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_temp_c_format">%s °C</string>
-    <string name="humidity_format">%.0f%% humidity</string>
     <string name="no_humidity_data">No humidity data</string>
     <string name="no_data">No data</string>
     <string name="dew_point">Dew point %s</string>

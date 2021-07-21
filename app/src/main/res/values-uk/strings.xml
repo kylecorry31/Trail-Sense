@@ -272,7 +272,6 @@
 \n- Виміряйте значення однієї одиниці віртуальної лінійки.
 \n- Уведіть це значення сюди.</string>
     <string name="access_background_location_rationale">Trail Sense використовує дані про місцеперебування у тлі. Він використовується для калібрування тиску на рівні моря під час відстеження погоди та для забезпечення точніших попереджень про захід сонця. [Переглянути політику приватності] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
-    <string name="inches_format">%.2f дюйм</string>
     <string name="pref_sea_level_use_rapid_summary">Використовувати дані барометра під час обчислення тиску на рівні моря</string>
     <string name="barometer_thermometer">Барометр та термометр</string>
     <string name="calibration_mode_barometer_alert_title">Барометр</string>
@@ -709,11 +708,8 @@
     <string name="weather_improving_fast">Дуже скоро поліпшиться</string>
     <string name="dew_point">Точка роси %s</string>
     <string name="no_humidity_data">Немає даних про вологість</string>
-    <string name="humidity_format">%.0f%% вологість</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="temp_f_format">%.0f °F</string>
     <plurals name="last_minutes">
         <item quantity="one">Остання %d хвилина</item>
         <item quantity="few">Останні %d хвилини</item>
@@ -785,7 +781,6 @@
     <string name="discharging_slow">Повільне розряджання (%s)</string>
     <string name="charging_slow">Повільне заряджання (%s)</string>
     <string name="charging_fast">Швидке заряджання (%s)</string>
-    <string name="current_format">%.0f мА</string>
     <string name="battery_capacity_format">%s мА/год</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
@@ -806,14 +801,8 @@
     <string name="duration_hour_format">%d год.</string>
     <string name="miles_per_hour_format">%.1f миль/год</string>
     <string name="kilometers_per_hour_format">%.1f км/год</string>
-    <string name="kilometers_format">%.2f км</string>
-    <string name="meters_format">%.0f м</string>
-    <string name="centimeters_format">%.2f см</string>
     <string name="precise_nautical_miles_format">%s морські хвилі</string>
-    <string name="nautical_miles_format">%.2f морських миль</string>
-    <string name="miles_format">%.2f миль</string>
     <string name="precise_feet_format">%s фт</string>
-    <string name="feet_format">%.0f фт</string>
     <string name="precise_kilometers_format">%s км</string>
     <string name="precise_meters_format">%s м</string>
     <string name="precise_miles_format">%s миль</string>

@@ -175,9 +175,6 @@
     <string name="weather_improving_fast">Blir bedre veldig snart</string>
     <string name="weather_improving_slow">Blir bedre snart</string>
     <string name="dew_point">Duggpunkt %s</string>
-    <string name="humidity_format">%.0f%% luftfuktighet</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="temp_f_format">%.0f °F</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">%s - %s siden</string>
     <string name="pressure_setpoint_format">Satt: %s - %s siden</string>
@@ -197,10 +194,7 @@
 \nKompass: Roter enheten i et åttetallsmønster eller i alle retninger og flytt deg unna metall."</string>
     <string name="dash">-</string>
     <string name="kilometers_per_hour_format">%.1f km/t</string>
-    <string name="feet_format">%.0f fot</string>
-    <string name="kilometers_format">%.2f km</string>
     <string name="access_background_location_rationale">Trail Sense bruker posisjonsdata i bakgrunnen. Posisjonsdata brukes til kalibrering av havnivåtrykk i værovervåking og for å gi mer nøyaktige solnedgangsvarsler. [Vis personvernregler](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
-    <string name="meters_format">%.0f m</string>
     <string name="access_background_location">Oppdater posisjonsinnstillinger</string>
     <string name="beacon_action_view_details">Vis detaljer</string>
     <string name="weather_update_notification_channel_desc">Væroppdateringer i bakgrunnen</string>
@@ -295,7 +289,6 @@
     <string name="forecast_sensitivity_med_in">Middels (0,044 in / 3t)</string>
     <string name="forecast_sensitivity_low_in">Lav (0,074 in / 3t)</string>
     <string name="pref_use_legacy_compass_summary">Kan fikse kompassproblemer</string>
-    <string name="nautical_miles_format">%.2f nm</string>
     <string name="pref_privacy_policy_title">Personvernspraksis</string>
     <string name="solar_align_now">Nå</string>
     <string name="unit_miles">Engelsk mil</string>
@@ -328,7 +321,6 @@
     <string name="dialog_item_amount">Mengde</string>
     <string name="units_inhg_short">in</string>
     <string name="miles_per_hour_format">%.1f mph</string>
-    <string name="miles_format">%.2f mi</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>
@@ -419,7 +411,6 @@
     <string name="discharging_slow">Utlader sakte (%s)</string>
     <string name="charging_slow">Lader sakte (%s)</string>
     <string name="charging_fast">Lader raskt (%s)</string>
-    <string name="current_format">%.0f mA</string>
     <string name="metal_detector_disclaimer">Oppdager bare magnetiske metaller (f.eks. jern)</string>
     <string name="metal_detector_calibrate">Kalibrer</string>
     <string name="tool_metal_detector_title">Metalldetektor</string>
@@ -441,7 +432,6 @@
     <string name="note_content_hint">Innhold</string>
     <string name="note_title_hint">Tittel</string>
     <string name="tool_notes_title">Notater</string>
-    <string name="centimeters_format">%.2f cm</string>
     <string name="battery_temp">Telefon: %s</string>
     <string name="map_scale_verbal">Verbal</string>
     <string name="map_fractional_separator">:</string>

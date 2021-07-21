@@ -620,11 +620,8 @@
     <string name="weather_improving_fast">Çok yakında iyileşiyor</string>
     <string name="dew_point">Çiy noktası %s</string>
     <string name="no_humidity_data">Nemlilik verisi yok</string>
-    <string name="humidity_format">%%%.0f nemlilik oranı</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="temp_f_format">%.0f °F</string>
     <plurals name="last_minutes">
         <item quantity="one">Son %d dakika</item>
         <item quantity="other">Son %d dakika</item>
@@ -689,7 +686,6 @@
     <string name="discharging_slow">Şarj yavaş bitiyor (%s)</string>
     <string name="charging_slow">Yavaş şarj oluyor %s</string>
     <string name="charging_fast">Hızlı şarj oluyor %s</string>
-    <string name="current_format">%.0f mA</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="precise_percent_format">%%%s</string>
     <string name="degree">%s°</string>
@@ -716,13 +712,6 @@
     <string name="duration_hour_minute_format">%dsa %ddk</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="kilometers_format">%.2f km</string>
-    <string name="meters_format">%.0f m</string>
-    <string name="centimeters_format">%.2f cm</string>
-    <string name="inches_format">%.2f in</string>
-    <string name="nautical_miles_format">%.2f nm</string>
-    <string name="miles_format">%.2f mi</string>
-    <string name="feet_format">%.0f ft</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>

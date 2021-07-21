@@ -2,11 +2,8 @@
 <resources>
     <string name="dew_point">Rosný bod %s</string>
     <string name="no_humidity_data">Žiadne údaje o vlhkosti</string>
-    <string name="humidity_format">%.0f%% vlhkosť</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="temp_f_format">%.0f °F</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_monitoring_weather">Monitorovanie počasia na pozadí</string>
     <string name="notification_storm_alert_title">Výstraha pred búrkou</string>
@@ -38,7 +35,6 @@
     <string name="unknown">Neznáma</string>
     <string name="battery_temp">Telefón: %s</string>
     <string name="dash">-</string>
-    <string name="current_format">%.0f mA</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
@@ -57,13 +53,10 @@
     <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dh</string>
-    <string name="centimeters_format">%.2f cm</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="kilometers_format">%.2f km</string>
-    <string name="meters_format">%.0f m</string>
     <string name="dialog_deny">Nie, ďakujem</string>
     <string name="copied_to_clipboard_toast">Skopírované do schránky</string>
     <string name="dialog_cancel">Zrušiť</string>

@@ -86,9 +86,6 @@
     <string name="weather_improving_slow">Bude se brzo zlepšovat</string>
     <string name="weather_improving_fast">Bude se velmi brzo zlepšovat</string>
     <string name="no_humidity_data">Žádné data o vlhkosti</string>
-    <string name="humidity_format">Vlhkost %.0f%%</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="temp_f_format">%.0f °F</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_text">Bouře se může blížit</string>
     <string name="pressure_format">%s %s</string>
@@ -112,7 +109,6 @@
     <string name="discharging_slow">Pomalu vybíjeno (%s)</string>
     <string name="charging_slow">Pomalu nabíjeno (%s)</string>
     <string name="charging_fast">Rychle nabíjeno (%s)</string>
-    <string name="current_format">%.0f mA</string>
     <string name="dialog_grant">Změnit nastavení</string>
     <string name="access_background_location_rationale">Trail Sense používá polohu na pozadí, která je používána ke kalibraci atmosférického tlaku v sekci Počasí a na poskytnutí přesnějšího času západu slunce. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="navigation">Navigace</string>
@@ -158,11 +154,6 @@
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="kilometers_format">%.2f km</string>
-    <string name="meters_format">%.0f m</string>
-    <string name="nautical_miles_format">%.2f nm</string>
-    <string name="miles_format">%.2f mi</string>
-    <string name="feet_format">%.0f ft</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>
@@ -196,8 +187,6 @@
     <string name="pref_ruler_calibration_title">Měřítko pravítka</string>
     <string name="action_inventory_delete_all">Smazat vše</string>
     <string name="tool_whistle_title">Píšťalka</string>
-    <string name="centimeters_format">%.2f cm</string>
-    <string name="inches_format">%.2f in</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Zadejte tlak na úrovni hladiny moře</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Zadejte aktuální tlak na hladině moře v hPa</string>
     <string name="altitude_override_updated_toast">Přepsání nadmořské výšky aktualizováno</string>

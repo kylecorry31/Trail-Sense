@@ -156,7 +156,6 @@
     <string name="heat_alert_heat_danger_title">酷热威胁</string>
     <string name="dew_point">露点 %s</string>
     <string name="no_humidity_data">无湿度数据</string>
-    <string name="humidity_format">%.0f%% 湿度</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_monitoring_weather">后台监测天气</string>
     <string name="notification_storm_alert_title">暴风雨警报</string>
@@ -201,11 +200,6 @@
     <string name="duration_hour_minute_format">%d 小时 %d 分钟</string>
     <string name="duration_minute_format">%d 分钟</string>
     <string name="duration_hour_format">%d 小时</string>
-    <string name="kilometers_format">%.2f 公里</string>
-    <string name="meters_format">%.0f 米</string>
-    <string name="nautical_miles_format">%.2f 海里</string>
-    <string name="miles_format">%.2f 英里</string>
-    <string name="feet_format">%.0f 英尺</string>
     <string name="dialog_deny">不，谢谢</string>
     <string name="dialog_grant">更新设置</string>
     <string name="access_background_location_rationale">Trail Sense在后台使用位置数据。它用于在天气监测中校正海平面压力，并提供更准确的日落警报。[查看隐私政策] （https://kylecorry.com/Trail-Sense/privacy_policy.html）</string>
@@ -446,8 +440,6 @@
     <string name="action_item_add">添加</string>
     <string name="lunar_noon">月亮升到晚上的最高点</string>
     <string name="tide_normal">正常</string>
-    <string name="temp_c_format">%.0f 摄氏度</string>
-    <string name="temp_f_format">%.0f 华氏度</string>
     <string name="pressure_reading_time_ago">%s - %s 前</string>
     <string name="pressure_setpoint_format">设定: %s - %s 前</string>
     <string name="pressure_format">%s %s</string>
@@ -457,7 +449,6 @@
     <string name="discharging_slow">缓慢放电 (%s)</string>
     <string name="charging_slow">缓慢充电 (%s)</string>
     <string name="charging_fast">快速充电 (%s)</string>
-    <string name="current_format">%.0f 毫安</string>
     <string name="battery_capacity_format">%s 毫安时</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
@@ -495,8 +486,6 @@
     <string name="update_gps_override">更新 GPS 覆盖</string>
     <string name="compass_declination">磁偏角</string>
     <string name="battery_temp">手机电池：%s</string>
-    <string name="centimeters_format">%.2f 厘米</string>
-    <string name="inches_format">%.2f 英寸</string>
     <string name="bearing">方位</string>
     <string name="backtrack_notification_channel">依照记录的位置历史返回先前位置 （Backtrack）</string>
     <string name="pref_backtrack_frequency_title">Backtrack 间隔</string>

@@ -152,9 +152,6 @@
     <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%s %s</string>
-    <string name="temp_f_format">%.0f °F</string>
-    <string name="temp_c_format">%.0f °C</string>
-    <string name="humidity_format">%.0f%% Luftfeuchtigkeit</string>
     <string name="no_humidity_data">Keine Luftfeuchigkeitswerte</string>
     <string name="dew_point">Taupunkt %s</string>
     <string name="heat_alert_heat_danger_title">Hitzegefahr</string>
@@ -208,11 +205,6 @@
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="kilometers_format">%.2f km</string>
-    <string name="meters_format">%.0f m</string>
-    <string name="nautical_miles_format">%.2f nm</string>
-    <string name="miles_format">%.2f mi</string>
-    <string name="feet_format">%.0f ft</string>
     <string name="sun_does_not_set">kein Untergang</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
@@ -443,7 +435,6 @@
     <string name="three">3</string>
     <string name="two">2</string>
     <string name="one">1</string>
-    <string name="current_format">%.0f mA</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="unit_inches">Zoll</string>
@@ -545,8 +536,6 @@
     <string name="battery_temp">Gerät: %s</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
-    <string name="centimeters_format">%.2f cm</string>
-    <string name="inches_format">%.2f in</string>
     <string name="precise_nautical_miles_format">%s sm</string>
     <string name="charging_slow">Batterie lädt langsam (%s)</string>
     <string name="location_override_updated">Ort festgelegt</string>
