@@ -81,6 +81,11 @@ object Guides {
         val tools = UserGuideCategory(
             context.getString(R.string.tools), listOf(
                 UserGuide(
+                    context.getString(R.string.guide_packing_list),
+                    null,
+                    R.raw.packing_lists
+                ),
+                UserGuide(
                     context.getString(R.string.guide_avalanche_risk),
                     null,
                     R.raw.determine_avalanche_risk
