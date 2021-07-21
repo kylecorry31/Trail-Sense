@@ -306,11 +306,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
                     withContext(Dispatchers.Main) {
                         backCallback.remove()
-                        if (initialLocation != null) {
-                            requireActivity().onBackPressed()
-                        } else {
-                            navController.navigate(R.id.action_place_beacon_to_beacon_list)
-                        }
+                        navController.navigateUp()
                     }
                 }
             }

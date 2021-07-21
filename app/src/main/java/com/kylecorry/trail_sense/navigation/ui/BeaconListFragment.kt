@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
+import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconIOService
 import com.kylecorry.trail_sense.navigation.infrastructure.export.JsonBeaconImporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
@@ -31,6 +32,7 @@ import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
+import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.ExternalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -59,6 +61,19 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         lifecycleScope.launch {
             withContext(Dispatchers.Main) {
                 updateBeaconList()
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (requireArguments().containsKey("initial_location")) {
+            val loc: MyNamedCoordinate? = requireArguments().getParcelable("initial_location")
+            if (loc != null) {
+                findNavController().navigate(
+                    R.id.action_beaconListFragment_to_placeBeaconFragment,
+                    bundleOf("initial_location" to loc)
+                )
             }
         }
     }
@@ -177,7 +192,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 }
                 else -> {
                     remove()
-                    requireActivity().onBackPressed()
+                    navController.navigateUp()
                 }
             }
         }
@@ -240,8 +255,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             }
 
             listItem.onNavigate = {
-                val bundle = bundleOf("destination" to beacon.id)
-                navController.navigate(R.id.action_beacon_list_to_action_navigation, bundle)
+                Cache(requireContext()).putLong("last_beacon_id_long", beacon.id)
+                navController.navigateUp()
             }
 
             listItem.onDeleted = {
@@ -347,7 +362,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private suspend fun updateBeaconList() {
-        context ?: return
+        if (!isBound){
+            return
+        }
 
         val beacons = withContext(Dispatchers.IO) {
             val search = binding.searchbox.query

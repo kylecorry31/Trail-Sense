@@ -255,9 +255,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 val bundle = bundleOf(
                     "initial_location" to MyNamedCoordinate(gps.location)
                 )
-                navController.navigate(R.id.place_beacon, bundle)
+                navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment, bundle)
             } else {
-                navController.navigate(R.id.place_beacon)
+                navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment)
 
             }
             true

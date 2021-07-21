@@ -346,6 +346,12 @@
         android:id="@+id/beacon_list"
         android:name="com.kylecorry.trail_sense.navigation.ui.BeaconListFragment"
         android:label="BeaconListFragment">
+
+        <argument
+            android:name="initial_location"
+            android:defaultValue="@null"
+            app:argType="com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate" />
+
         <action
             android:id="@+id/action_beaconListFragment_to_placeBeaconFragment"
             app:destination="@id/place_beacon"
@@ -353,15 +359,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_beacon_list_to_action_navigation"
-            app:destination="@id/action_navigation"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@id/action_navigation"
-            app:popUpToInclusive="true" />
+<!--        <action-->
+<!--            android:id="@+id/action_beacon_list_to_action_navigation"-->
+<!--            app:destination="@id/action_navigation"-->
+<!--            app:enterAnim="@anim/slide_in_left"-->
+<!--            app:exitAnim="@anim/slide_out_right"-->
+<!--            app:popEnterAnim="@anim/slide_in_right"-->
+<!--            app:popExitAnim="@anim/slide_out_left"-->
+<!--            app:popUpTo="@id/action_navigation"-->
+<!--            app:popUpToInclusive="true" />-->
         <action
             android:id="@+id/action_beacon_list_to_beaconDetailsFragment"
             app:destination="@id/beaconDetailsFragment"
@@ -390,15 +396,15 @@
             android:defaultValue="@null"
             app:argType="com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate" />
 
-        <action
-            android:id="@+id/action_place_beacon_to_beacon_list"
-            app:destination="@id/beacon_list"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@id/beacon_list"
-            app:popUpToInclusive="true" />
+<!--        <action-->
+<!--            android:id="@+id/action_place_beacon_to_beacon_list"-->
+<!--            app:destination="@id/beacon_list"-->
+<!--            app:enterAnim="@anim/slide_in_left"-->
+<!--            app:exitAnim="@anim/slide_out_right"-->
+<!--            app:popEnterAnim="@anim/slide_in_right"-->
+<!--            app:popExitAnim="@anim/slide_out_left"-->
+<!--            app:popUpTo="@id/beacon_list"-->
+<!--            app:popUpToInclusive="true" />-->
     </fragment>
     <fragment
         android:id="@+id/action_inclinometer"
