@@ -84,7 +84,6 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Ismeretlen</string>
     <string name="dash">-</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
@@ -103,11 +102,9 @@
     <string name="miles_per_hour_format">%.1f mérföld/h</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="kilometers_format">%.2f km</string>
-    <string name="depth_meters_format">%.2f m</string>
     <string name="meters_format">%.0f m</string>
     <string name="nautical_miles_format">%.2f tengeri mérföld</string>
     <string name="miles_format">%.2f mérföld</string>
-    <string name="depth_feet_format">%.1f láb</string>
     <string name="feet_format">%.0f láb</string>
     <string name="dialog_deny">Köszönöm, nem</string>
     <string name="access_background_location">Tartózkodási hely beállítások frissítése</string>

@@ -29,13 +29,11 @@
     <string name="precise_meters_format">%s m</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="feet_format">%.0f ft</string>
-    <string name="depth_feet_format">%.1f ft</string>
     <string name="miles_format">%.2f mi</string>
     <string name="nautical_miles_format">%.2f nm</string>
     <string name="inches_format">%.2f in</string>
     <string name="centimeters_format">%.2f cm</string>
     <string name="meters_format">%.0f m</string>
-    <string name="depth_meters_format">%.2f m</string>
     <string name="kilometers_format">%.2f km</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="miles_per_hour_format">%.1f mph</string>
@@ -55,7 +53,6 @@
     <string name="elevation_diff_format">%s%s</string>
     <string name="degree_format">%.0f°</string>
     <string name="degree">%s°</string>
-    <string name="percent_format">%d%%</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="current_format">%.0f mA</string>
@@ -624,7 +621,6 @@
     <string name="clock_sync_instructions">Set the time to %s when the notification arrives</string>
     <string name="clock_sync_time_settings">Open time settings?</string>
     <string name="metal_detected">Metal detected</string>
-    <string name="magnetic_field_format">%.0f uT</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="threshold">Threshold</string>
     <string name="tool_metal_detector_title">Metal Detector</string>
@@ -1145,4 +1141,5 @@
     <string name="weight_per_item">Weight per item</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="guide_packing_list">Create packing lists</string>
+    <string name="humidity">%s humidity</string>
 </resources>

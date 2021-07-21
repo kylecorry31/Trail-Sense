@@ -224,7 +224,6 @@
     <string name="metal_detector_calibrate">校准</string>
     <string name="tool_metal_detector_title">金属探测器</string>
     <string name="threshold">阈值</string>
-    <string name="magnetic_field_format">%.0f 微特斯拉</string>
     <string name="metal_detected">检测到金属</string>
     <string name="clock_sync_time_settings">打开时间设置？</string>
     <string name="clock_sync_instructions">通知到来时，将时间设置为 %s</string>
@@ -460,13 +459,10 @@
     <string name="charging_fast">快速充电 (%s)</string>
     <string name="current_format">%.0f 毫安</string>
     <string name="battery_capacity_format">%s 毫安时</string>
-    <string name="percent_format">%d%%</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
     <string name="increase">+</string>
     <string name="miles_per_hour_format">%.1f 英里/时</string>
-    <string name="depth_meters_format">%.2f 米深</string>
-    <string name="depth_feet_format">%.1f 英尺深</string>
     <string name="precise_kilometers_format">%s 千米</string>
     <string name="precise_meters_format">%s 米</string>
     <string name="precise_nautical_miles_format">%s 海里</string>

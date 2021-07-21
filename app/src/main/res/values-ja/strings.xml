@@ -227,7 +227,6 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">不明</string>
     <string name="dash">-</string>
-    <string name="percent_format">%d%%</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
     <string name="increase">+</string>
@@ -252,11 +251,9 @@
     <string name="update_30_minutes">30分</string>
     <string name="update_15_minutes">15 分</string>
     <string name="centimeters_format">%.2f cm</string>
-    <string name="magnetic_field_format">%.0f uT</string>
     <string name="beacon_2">ビーコン2</string>
     <string name="beacon_1">ビーコン1</string>
     <string name="current_format">%.0f mA</string>
-    <string name="depth_meters_format">%.2f m</string>
     <string name="temp_c_format">%.0f °C</string>
     <string name="nautical_miles_format">%.2f nm</string>
     <string name="network_3g">3G</string>

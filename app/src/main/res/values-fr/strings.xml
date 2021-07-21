@@ -142,7 +142,6 @@
     <string name="units_inhg_short">in</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="dash">-</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
@@ -384,8 +383,6 @@
 \nN\'employer que si vous disposez d\'une coque étanche et ne plongez pas au delà d\'une profondeur qui pourrait vous mettre en danger.</string>
     <string name="tool_depth_title">Profondeur</string>
     <string name="tool_inventory_summary">Notez une liste des objets dont vous disposez</string>
-    <string name="depth_meters_format">%.2f m</string>
-    <string name="depth_feet_format">%.1f ft</string>
     <string name="solar_panel_instructions">Placez votre téléphone sur la surface du panneau solaire pour commencer.</string>
     <string name="tool_triangulate_summary">Vous géolocalise sans GPS</string>
     <string name="tool_category_distance">Distance</string>
@@ -467,7 +464,6 @@
     <string name="metal_detector_calibrate">Calibrer</string>
     <string name="tool_metal_detector_title">Détecteur de métaux</string>
     <string name="threshold">Seuil</string>
-    <string name="magnetic_field_format">%.0f uT</string>
     <string name="metal_detected">Métal détecté</string>
     <string name="clock_sync_time_settings">Ouvrir les paramètres de l\'horloge \?</string>
     <string name="clock_sync_instructions">Règle l\'horloge du téléphone à %s quand la notification apparaît</string>

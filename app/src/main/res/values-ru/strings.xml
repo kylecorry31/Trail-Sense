@@ -177,7 +177,6 @@
     <string name="humidity_format">%.0f%% влажность</string>
     <string name="dew_point">Точка росы %s</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
     <string name="access_background_location_rationale">Trail Sense использует данные о местоположении в фоновом режиме. Оно используется для калибровки давления на уровне моря при мониторинге погоды и для обеспечения более точных предупреждений о заходе солнца. [Просмотреть политику конфиденциальности] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="dialog_grant">Обновить настройки</string>
@@ -380,8 +379,6 @@
     <string name="action_item_subtract">Вычесть</string>
     <string name="action_item_add">Добавить</string>
     <string name="action_inventory">Инвентарь</string>
-    <string name="depth_meters_format">%.2f м</string>
-    <string name="depth_feet_format">%.1f фт</string>
     <string name="guide_avalanche_risk">Оценка риска схода лавин</string>
     <string name="object_height_guide">Оценить высоту объекта</string>
     <string name="tool_cliff_height_title">Высота скалы</string>
@@ -454,7 +451,6 @@
     <string name="metal_detector_calibrate">Калибровать</string>
     <string name="tool_metal_detector_title">Металлоискатель</string>
     <string name="threshold">Порог</string>
-    <string name="magnetic_field_format">%.0f uT</string>
     <string name="metal_detected">Обнаружен металл</string>
     <string name="clock_sync_time_settings">Открыть настройки времени\?</string>
     <string name="clock_sync_instructions">Установите время на %s, когда придёт уведомление</string>

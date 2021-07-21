@@ -625,7 +625,6 @@
     <string name="tool_metal_detector_title">Металошукач</string>
     <string name="threshold">Поріг</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="magnetic_field_format">%.0f uT</string>
     <string name="metal_detected">Виявлено метал</string>
     <string name="clock_sync_time_settings">Відкрити налаштування часу\?</string>
     <string name="clock_sync_instructions">Установіть час на %s, коли надійде сповіщення</string>
@@ -789,7 +788,6 @@
     <string name="current_format">%.0f мА</string>
     <string name="battery_capacity_format">%s мА/год</string>
     <string name="precise_percent_format">%s%%</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
@@ -809,13 +807,11 @@
     <string name="miles_per_hour_format">%.1f миль/год</string>
     <string name="kilometers_per_hour_format">%.1f км/год</string>
     <string name="kilometers_format">%.2f км</string>
-    <string name="depth_meters_format">%.2f м</string>
     <string name="meters_format">%.0f м</string>
     <string name="centimeters_format">%.2f см</string>
     <string name="precise_nautical_miles_format">%s морські хвилі</string>
     <string name="nautical_miles_format">%.2f морських миль</string>
     <string name="miles_format">%.2f миль</string>
-    <string name="depth_feet_format">%.1f фт</string>
     <string name="precise_feet_format">%s фт</string>
     <string name="feet_format">%.0f фт</string>
     <string name="precise_kilometers_format">%s км</string>

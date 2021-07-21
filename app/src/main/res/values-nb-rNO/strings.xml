@@ -196,7 +196,6 @@
 \n
 \nKompass: Roter enheten i et åttetallsmønster eller i alle retninger og flytt deg unna metall."</string>
     <string name="dash">-</string>
-    <string name="percent_format">%d%%</string>
     <string name="kilometers_per_hour_format">%.1f km/t</string>
     <string name="feet_format">%.0f fot</string>
     <string name="kilometers_format">%.2f km</string>
@@ -264,7 +263,6 @@
     <string name="units_mbar">mbar</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dt</string>
-    <string name="depth_meters_format">%.2f m</string>
     <string name="sun_dusk">Skumring</string>
     <string name="sun_dawn">Demring</string>
     <string name="sunset_alert_notification_text">Solen vil gå ned %s</string>
@@ -331,7 +329,6 @@
     <string name="units_inhg_short">in</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="miles_format">%.2f mi</string>
-    <string name="depth_feet_format">%.1f ft</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>
@@ -427,7 +424,6 @@
     <string name="metal_detector_calibrate">Kalibrer</string>
     <string name="tool_metal_detector_title">Metalldetektor</string>
     <string name="threshold">Terskel</string>
-    <string name="magnetic_field_format">%.0f uT</string>
     <string name="metal_detected">Metall oppdaget</string>
     <string name="clock_sync_time_settings">Åpne tidsinnstillinger\?</string>
     <string name="clock_sync_instructions">Sett tiden til %s når varselet kommer</string>

@@ -77,7 +77,6 @@
     <string name="pressure_4_hours">4 ঘণ্টা</string>
     <string name="pref_pressure_history_title">চাপ ইতিহাস</string>
     <string name="dash">-</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
     <string name="decrease">-</string>
     <string name="increase">+</string>

@@ -195,13 +195,11 @@
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="kilometers_format">%.2f km</string>
-    <string name="depth_meters_format">%.2f m</string>
     <string name="meters_format">%.0f m</string>
     <string name="centimeters_format">%.2f cm</string>
     <string name="inches_format">%.2f pulgadas</string>
     <string name="nautical_miles_format">%.2f mn</string>
     <string name="miles_format">%.2f mi</string>
-    <string name="depth_feet_format">%.1f pies</string>
     <string name="feet_format">%.0f pies</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
@@ -222,7 +220,6 @@
     <string name="disclaimer_message_title">Aviso legal</string>
     <string name="copied_to_clipboard_toast">Copiado en el portapapeles</string>
     <string name="precise_percent_format">%s%%</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>

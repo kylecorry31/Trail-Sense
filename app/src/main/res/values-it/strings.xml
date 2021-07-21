@@ -208,7 +208,6 @@
     <string name="charging_fast">In ricarica rapida (%s)</string>
     <string name="current_format">%.0f mA</string>
     <string name="precise_percent_format">%s%%</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
@@ -228,13 +227,11 @@
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="kilometers_format">%.2f km</string>
-    <string name="depth_meters_format">%.2f m</string>
     <string name="meters_format">%.0f m</string>
     <string name="centimeters_format">%.2f cm</string>
     <string name="inches_format">%.2f in</string>
     <string name="nautical_miles_format">%.2f nm</string>
     <string name="miles_format">%.2f mi</string>
-    <string name="depth_feet_format">%.1f ft</string>
     <string name="feet_format">%.0f ft</string>
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mi</string>

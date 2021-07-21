@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCliffHeightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.physics.PhysicsService
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
@@ -22,7 +22,7 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
     private val intervalometer = Intervalometer {
         update()
     }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
 
     private lateinit var units: DistanceUnits
@@ -57,11 +57,7 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
 
     override fun onResume() {
         super.onResume()
-        units = if (userPrefs.distanceUnits == UserPreferences.DistanceUnits.Meters) {
-            DistanceUnits.Meters
-        } else {
-            DistanceUnits.Feet
-        }
+        units = userPrefs.baseDistanceUnits
     }
 
     override fun onPause() {
@@ -76,8 +72,8 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
 
         val duration = Duration.between(startTime, Instant.now())
         val height = physicsService.fallHeight(duration)
-        val converted = height.convertTo(units).distance
-        val formatted = formatService.formatDepth(converted, units)
+        val converted = height.convertTo(units)
+        val formatted = formatService.formatDistance(converted, 2)
 
         binding.height.text = formatted
     }

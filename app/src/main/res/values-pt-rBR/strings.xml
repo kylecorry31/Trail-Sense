@@ -178,7 +178,6 @@
     <string name="moon_phase">Fase lunar</string>
     <string name="moon_illumination">Iluminação da lua</string>
     <string name="degree_format">%.0f°</string>
-    <string name="percent_format">%d%%</string>
     <string name="pref_show_weather_notification_title">Mostrar notificação meteorológica</string>
     <string name="notification_storm_alert_channel_name">Alertas</string>
     <string name="notification_storm_alert_channel_desc">Alertas de tempestade</string>
@@ -445,8 +444,6 @@
     <string name="action_item_subtract">Subtrair</string>
     <string name="action_item_add">Adicionar</string>
     <string name="action_inventory">Inventário</string>
-    <string name="depth_meters_format">%.2f m</string>
-    <string name="depth_feet_format">%.1f ft</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>
@@ -456,7 +453,6 @@
     <string name="metal_detector_calibrate">Calibrar</string>
     <string name="tool_metal_detector_title">Detector de metais</string>
     <string name="threshold">Patamar</string>
-    <string name="magnetic_field_format">%.0f uT</string>
     <string name="metal_detected">Metal detectado</string>
     <string name="clock_sync_time_settings">Abrir as configurações de tempo\?</string>
     <string name="clock_sync_instructions">Definir o tempo para %s quando a notificação chegar</string>

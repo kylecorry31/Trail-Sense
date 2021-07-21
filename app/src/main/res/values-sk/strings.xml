@@ -41,7 +41,6 @@
     <string name="current_format">%.0f mA</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="precise_percent_format">%s%%</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
@@ -64,7 +63,6 @@
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="kilometers_format">%.2f km</string>
-    <string name="depth_meters_format">%.2f m</string>
     <string name="meters_format">%.0f m</string>
     <string name="dialog_deny">Nie, ďakujem</string>
     <string name="copied_to_clipboard_toast">Skopírované do schránky</string>

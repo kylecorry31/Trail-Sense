@@ -28,7 +28,6 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Ezezaguna</string>
     <string name="dash">-</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
@@ -47,9 +46,7 @@
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="kilometers_format">%.2f km</string>
-    <string name="depth_meters_format">%.2f m</string>
     <string name="feet_format">%.0f ft</string>
-    <string name="depth_feet_format">%.1f ft</string>
     <string name="miles_format">%.2f mi</string>
     <string name="meters_format">%.0f m</string>
     <string name="nautical_miles_format">%.2f nm</string>
@@ -361,7 +358,6 @@
     <string name="centimeters_format">%.2f cm</string>
     <string name="inches_format">%.2f in</string>
     <string name="tool_metal_detector_title">Metal-detektagailua</string>
-    <string name="magnetic_field_format">%.0f uT</string>
     <string name="metal_detected">Metala antzeman da</string>
     <string name="beacon_2">2 baliza</string>
     <string name="beacon_1">1 baliza</string>

@@ -119,7 +119,6 @@
     <string name="charging_slow">慢速充電中 (%s)</string>
     <string name="charging_fast">快速充電中 (%s)</string>
     <string name="current_format">%.0f mA</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
@@ -138,11 +137,9 @@
     <string name="miles_per_hour_format">%.1f 英里每小時</string>
     <string name="kilometers_per_hour_format">%.1f 公里每小時</string>
     <string name="kilometers_format">%.2f 公里</string>
-    <string name="depth_meters_format">%.2f 公尺</string>
     <string name="meters_format">%.0f 公尺</string>
     <string name="nautical_miles_format">%.2f 奈米</string>
     <string name="miles_format">%.2f 英里</string>
-    <string name="depth_feet_format">%.1f 英呎</string>
     <string name="feet_format">%.0f 英呎</string>
     <string name="precise_kilometers_format">%s 公里</string>
     <string name="precise_meters_format">%s 公尺</string>
@@ -280,7 +277,6 @@
     <string name="notes_empty_text">無筆記</string>
     <string name="metal_detector_disclaimer">僅探測可磁化金屬(例: 鐵)</string>
     <string name="tool_metal_detector_title">金屬探測器</string>
-    <string name="magnetic_field_format">%.0f uT</string>
     <string name="metal_detected">探測到金屬</string>
     <string name="clock_sync_time_settings">開啟時間設定？</string>
     <string name="clock_sync_notification">時鐘同步 - %s</string>

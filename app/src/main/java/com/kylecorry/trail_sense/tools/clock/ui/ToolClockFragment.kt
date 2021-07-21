@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolClockBinding
-import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -17,12 +17,15 @@ import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
-import java.time.*
+import java.time.Duration
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
 
 class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(false) }
     private val prefs by lazy { UserPreferences(requireContext()) }

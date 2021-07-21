@@ -214,7 +214,6 @@
     <string name="miles_format">%.2f mi</string>
     <string name="feet_format">%.0f ft</string>
     <string name="sun_does_not_set">kein Untergang</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="pref_github_title">GitHub</string>
@@ -356,8 +355,6 @@
     <string name="action_item_subtract">Abziehen</string>
     <string name="action_item_add">Hinzufügen</string>
     <string name="action_inventory">Inventar</string>
-    <string name="depth_meters_format">%.2f m</string>
-    <string name="depth_feet_format">%.1f ft</string>
     <string name="water_purification_step_3">Starten Sie den Timer</string>
     <string name="water_purification_step_2">Bringen Sie das Wasser zum Kochen,
 \nsodass es stark sprudelt</string>
@@ -542,7 +539,6 @@
     <string name="charging_wireless">Batterie wird geladen (%s)</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="magnetic_field_format">%.0f uT</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>

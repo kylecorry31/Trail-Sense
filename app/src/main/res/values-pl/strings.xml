@@ -164,7 +164,6 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Nieznana</string>
     <string name="dash">-</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="decrease">-</string>
@@ -202,12 +201,10 @@
         <item quantity="other">%d punktów nawigacyjnych</item>
     </plurals>
     <string name="edit_beacon">Edytuj punkt nawigacyjny</string>
-    <string name="depth_feet_format">%.1f ft</string>
     <string name="feet_format">%.0f ft</string>
     <string name="miles_format">%.2f mil</string>
     <string name="nautical_miles_format">%.2f mil morskich</string>
     <string name="miles_per_hour_format">%.1f mph</string>
-    <string name="depth_meters_format">%.2f m</string>
     <string name="sunset_alert_notification_title">Słońce niedługo zajdzie</string>
     <string name="cliff_height_guide">Szacowanie wysokości klifu</string>
     <string name="tool_cliff_height_title">Wysokość klifu</string>
@@ -444,7 +441,6 @@
     <string name="note_content_hint">Treść</string>
     <string name="tool_metal_detector_title">Wykrywacz metalu</string>
     <string name="metal_detected">Wykryto metal</string>
-    <string name="magnetic_field_format">%.0f uT</string>
     <string name="metal_detector_disclaimer">Wykrywa jedynie metale magnetyczne (np. żelazo, stal)</string>
     <string name="tool_triangulate_summary">Określ swoją lokalizację bez użycia GPS</string>
     <string name="tool_triangulate_title">Triangulacja położenia</string>

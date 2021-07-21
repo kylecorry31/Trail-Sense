@@ -9,9 +9,10 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentThermometerHygrometerBinding
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.math.MovingAverageFilter
@@ -20,6 +21,7 @@ import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.weather.HeatAlert
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import java.time.Duration
 import java.time.Instant
@@ -30,8 +32,7 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
     private val thermometer by lazy { sensorService.getThermometer() }
     private val hygrometer by lazy { sensorService.getHygrometer() }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
-    private val formatService2 by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val newWeatherService = com.kylecorry.trailsensecore.domain.weather.WeatherService()
     private val weatherService by lazy {
         WeatherService(
@@ -172,12 +173,12 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
         } else {
             binding.batteryTemp.text = getString(
                 R.string.battery_temp,
-                formatService2.formatTemperature(
+                formatService.formatTemperature(
                     Temperature(uncalibrated, TemperatureUnits.C).convertTo(prefs.temperatureUnits)
                 )
             )
             binding.temperature.text =
-                formatService2.formatTemperature(
+                formatService.formatTemperature(
                     Temperature(reading, TemperatureUnits.C).convertTo(
                         prefs.temperatureUnits
                     )
@@ -188,7 +189,8 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
         if (!hasHumidity) {
             binding.humidity.text = getString(R.string.no_humidity_data)
         } else {
-            binding.humidity.text = formatService.formatHumidity(hygrometer.humidity)
+            binding.humidity.text =
+                getString(R.string.humidity, formatService.formatPercentage(hygrometer.humidity))
         }
 
         if (hasTemp && hasHumidity) {
@@ -198,7 +200,7 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
             val dewPoint = weatherService.getDewPoint(reading, hygrometer.humidity)
             binding.dewPoint.text = getString(
                 R.string.dew_point,
-                formatService2.formatTemperature(
+                formatService.formatTemperature(
                     Temperature(
                         dewPoint,
                         TemperatureUnits.C

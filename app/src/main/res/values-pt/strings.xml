@@ -140,7 +140,6 @@
     <string name="tool_metal_detector_title">Detector de metais</string>
     <string name="threshold">Patamar</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="magnetic_field_format">%.0f uT</string>
     <string name="metal_detected">Metal detectado</string>
     <string name="clock_sync_time_settings">Abrir as configurações de tempo\?</string>
     <string name="clock_sync_instructions">Definir o tempo para %s quando a notificação chegar</string>
@@ -506,7 +505,6 @@
     <string name="charging_fast">Carregamento rápido (%s)</string>
     <string name="current_format">%.0f mA</string>
     <string name="precise_percent_format">%s%%</string>
-    <string name="percent_format">%d%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
@@ -691,13 +689,11 @@
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="kilometers_format">%.2f km</string>
-    <string name="depth_meters_format">%.2f m</string>
     <string name="meters_format">%.0f m</string>
     <string name="centimeters_format">%.2f cm</string>
     <string name="inches_format">%.2f in</string>
     <string name="nautical_miles_format">%.2f nm</string>
     <string name="miles_format">%.2f milhas</string>
-    <string name="depth_feet_format">%.1f ft</string>
     <string name="feet_format">%.0f pés</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
