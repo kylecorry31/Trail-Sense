@@ -29,9 +29,6 @@ class FormatService(private val context: Context) {
     }
 
     fun formatDistance(distance: Float, units: DistanceUnits): String {
-        // 0: M, FT
-        // 2: KM,MI,NM,CM,IN,YD
-
         val places = if (units == DistanceUnits.Meters || units == DistanceUnits.Feet){
             0
         } else {
@@ -39,21 +36,6 @@ class FormatService(private val context: Context) {
         }
 
         return v2.formatDistance(Distance(distance, units), places, false)
-
-
-//        return when (units) {
-//            DistanceUnits.Meters -> context.getString(R.string.meters_format, distance)
-//            DistanceUnits.Kilometers -> context.getString(R.string.kilometers_format, distance)
-//            DistanceUnits.Feet -> context.getString(R.string.feet_format, distance)
-//            DistanceUnits.Miles -> context.getString(R.string.miles_format, distance)
-//            DistanceUnits.NauticalMiles -> context.getString(
-//                R.string.nautical_miles_format,
-//                distance
-//            )
-//            DistanceUnits.Centimeters -> context.getString(R.string.centimeters_format, distance)
-//            DistanceUnits.Inches -> context.getString(R.string.inches_format, distance)
-//            DistanceUnits.Yards -> context.getString(R.string.yards_format, DecimalFormatter.format(distance, 2))
-//        }
     }
 
     fun formatSmallDistance(distanceMeters: Float): String {
