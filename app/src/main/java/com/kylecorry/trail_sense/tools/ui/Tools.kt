@@ -176,6 +176,11 @@ object Tools {
                     R.id.action_toolsFragment_to_toolConvertFragment
                 ),
                 Tool(
+                    context.getString(R.string.packing_lists),
+                    R.drawable.ic_tool_pack,
+                    R.id.action_action_experimental_tools_to_action_inventory
+                ),
+                Tool(
                     context.getString(R.string.tool_metal_detector_title),
                     R.drawable.ic_tool_metal_detector,
                     R.id.action_action_experimental_tools_to_fragmentToolMetalDetector
@@ -190,11 +195,6 @@ object Tools {
                     context.getString(R.string.tool_notes_title),
                     R.drawable.ic_tool_notes,
                     R.id.action_action_experimental_tools_to_fragmentToolNotes
-                ),
-                Tool(
-                    context.getString(R.string.packing_lists),
-                    R.drawable.ic_tool_pack,
-                    R.id.action_action_experimental_tools_to_action_inventory
                 ),
                 Tool(
                     context.getString(R.string.tool_user_guide_title),

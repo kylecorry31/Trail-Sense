@@ -330,7 +330,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun formatAmount(amount: Double): String {
-        return DecimalFormatter.format(amount, 4, false)
+        return DecimalFormatter.format(amount, 8, false)
     }
 
     private val sorts = mapOf(

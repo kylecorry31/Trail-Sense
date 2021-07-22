@@ -98,11 +98,11 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                 editingItem?.let {
                     binding.createItemTitle.text = getString(R.string.edit_item_title)
                     binding.nameEdit.setText(it.name)
-                    binding.countEdit.setText(DecimalFormatter.format(it.amount, 4, false))
+                    binding.countEdit.setText(DecimalFormatter.format(it.amount, 8, false))
                     binding.desiredAmountEdit.setText(
                         DecimalFormatter.format(
                             it.desiredAmount,
-                            4,
+                            8,
                             false
                         )
                     )
