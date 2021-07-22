@@ -35,30 +35,30 @@
         android:id="@+id/zoom_out_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:alpha="0.86"
         android:clickable="true"
         android:focusable="true"
         android:tint="@color/white"
-        android:alpha="0.86"
         app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/cancel_navigation_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_zoom_out" />
+        android:layout_marginBottom="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navigation_sheet"
+        app:srcCompat="@drawable/ic_zoom_out"
+        tools:layout_editor_absoluteY="494dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/zoom_in_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:alpha="0.86"
         android:clickable="true"
         android:focusable="true"
         android:tint="@color/white"
-        android:alpha="0.86"
         app:fabSize="mini"
         app:layout_constraintBottom_toTopOf="@+id/zoom_out_btn"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/zoom_out_btn"
         app:srcCompat="@drawable/ic_plus" />
 
     <com.kylecorry.trail_sense.shared.views.BeaconDestinationView
