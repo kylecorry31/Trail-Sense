@@ -569,9 +569,13 @@
     <string name="pref_gps_override_title">Перевизначення місцеперебування</string>
     <string name="coordinate_input_invalid_location">Неприпустиме місцеперебування</string>
     <string name="location_input_help">Десяткові градуси (наприклад, 1,00, -2,00)
+\n
 \nДесяткові градуси мінути (наприклад, 1°23,12\'N, 3°12,1\'W)
+\n
 \nГрадуси мінути секунди (наприклад, 1°23\'12,1 \"N, 3°12\"1,2\'W)
+\n
 \nUTM (наприклад, 03T 12345E 67890N)
+\n
 \nMGRS (наприклад, 27PXM 09601 05579)</string>
     <string name="location_input_help_title">Підтримувані формати місцеперебування</string>
     <string name="location_input_hint">Місцеперебування</string>
@@ -943,4 +947,28 @@
     <string name="clear_cache">Очистити кеш</string>
     <string name="destination_elevation">Висота призначення</string>
     <string name="base_temperature">Основна температура</string>
+    <string name="weight_per_item">Вага на одиницю</string>
+    <string name="pref_weight_units">pref_weight_units</string>
+    <string name="pack_sort_weight_high_to_low">Вага (від більшої до меншої)</string>
+    <string name="pack_sort_weight_low_to_high">Вага (від меншої до більшої)</string>
+    <string name="pack_sort_percent_high_to_low">Відсоток упакованого (від більшого до меншого)</string>
+    <string name="pack_sort_percent_low_to_high">Відсоток упакованого (від меншого до більшого)</string>
+    <string name="pack_sort_category">Категорія</string>
+    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
+    <string name="sort">Упорядкування</string>
+    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="delete_pack">Видалити пакет\?</string>
+    <string name="new_packing_list">Новий список упакування</string>
+    <string name="no_packing_lists">Нема списків упакування</string>
+    <string name="percent_packed">%s упаковано</string>
+    <string name="packing_lists">Списки упакування</string>
+    <string name="hygiene">Гіґієна</string>
+    <string name="documents">Документи</string>
+    <string name="electronics">Електроніка</string>
+    <string name="clear_amounts">Очистити ємності</string>
+    <string name="desired_amount">Бажана ємність</string>
+    <string name="packed_amount">Запакована ємність</string>
+    <string name="default_pack_name">Типовий пакет</string>
+    <string name="action_inventory_clear_confirm">Очистити всі запаковані ємності\?</string>
 </resources>

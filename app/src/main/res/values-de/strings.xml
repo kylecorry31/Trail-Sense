@@ -885,7 +885,7 @@
     <string name="back_press_confirm">Drücken Sie \"Zurück\" erneut zum Verlassen</string>
     <string name="underwater_mode">Unter-Wasser-Modus</string>
     <string name="leave_underwater_mode">Unter Wasser: drücken Sie \"Zurück\" zum Verlassen</string>
-    <string name="unit_yards">Höfe</string>
+    <string name="unit_yards">Yards</string>
     <string name="yards_format">%s yd</string>
     <string name="find_next_occurrence">Nächstes Vorkommen finden</string>
     <string name="daylight">Tageslicht</string>
@@ -943,7 +943,7 @@
     <string name="new_packing_list">Neue Packliste</string>
     <string name="no_packing_lists">Keine Packlisten</string>
     <string name="percent_packed">%s gepackt</string>
-    <string name="packing_lists">Packungslisten</string>
+    <string name="packing_lists">Packlisten</string>
     <string name="hygiene">Hygiene</string>
     <string name="documents">Unterlagen</string>
     <string name="electronics">Elektronik</string>
@@ -951,5 +951,14 @@
     <string name="desired_amount">Gewünschte Menge</string>
     <string name="packed_amount">Gepackte Menge</string>
     <string name="default_pack_name">Standardpaket</string>
-    <string name="action_inventory_clear_confirm">Alle verpackten Mengen löschen\?</string>
+    <string name="action_inventory_clear_confirm">Alle gepackten Mengen löschen\?</string>
+    <string name="weight_per_item">Gewicht pro Stück</string>
+    <string name="pref_weight_units">pref_weight_units</string>
+    <string name="sort">Sortieren</string>
+    <string name="pack_sort_weight_high_to_low">Gewicht (hoch zu gering)</string>
+    <string name="pack_sort_weight_low_to_high">Gewicht (gering zu hoch)</string>
+    <string name="pack_sort_percent_high_to_low">Prozent gepackt (hoch zu wenig)</string>
+    <string name="pack_sort_percent_low_to_high">Prozent gepackt (wenig bis hoch)</string>
+    <string name="pack_sort_category">Kategorie</string>
+    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
 </resources>
