@@ -10,10 +10,10 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.kylecorry.trail_sense.shared.roundPlaces
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
+import com.kylecorry.trailsensecore.domain.math.roundPlaces
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 import kotlin.math.absoluteValue
 import kotlin.math.max

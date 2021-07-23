@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trail_sense.shared.views.CanvasView
+import com.kylecorry.trailsensecore.infrastructure.canvas.CanvasView
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import kotlin.math.min
 

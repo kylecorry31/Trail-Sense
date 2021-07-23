@@ -17,11 +17,15 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.AppColor
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.GeoService
+import com.kylecorry.trailsensecore.domain.math.roundPlaces
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.units.Distance

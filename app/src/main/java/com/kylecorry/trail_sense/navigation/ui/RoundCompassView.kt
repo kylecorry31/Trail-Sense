@@ -9,7 +9,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trail_sense.shared.views.CanvasView
+import com.kylecorry.trailsensecore.infrastructure.canvas.CanvasView
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.math.deltaAngle

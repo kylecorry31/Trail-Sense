@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.tides.domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
 import java.time.Instant
 import java.time.ZonedDateTime
 

@@ -7,9 +7,9 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
+import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
 import com.kylecorry.trailsensecore.infrastructure.gpx.GPXParser
 import com.kylecorry.trailsensecore.infrastructure.gpx.GPXWaypoint
 

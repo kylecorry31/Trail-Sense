@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackSchedul
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
+import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer

@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trail_sense.shared.toDegrees
 import com.kylecorry.trailsensecore.domain.math.Vector3
+import com.kylecorry.trailsensecore.domain.math.toDegrees
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.GravityOrientationSensor
 import com.kylecorry.trailsensecore.infrastructure.system.*
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle

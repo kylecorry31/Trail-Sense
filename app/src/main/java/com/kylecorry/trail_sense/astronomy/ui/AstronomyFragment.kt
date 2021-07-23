@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.astronomy.ui
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +30,7 @@ import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
+import com.kylecorry.trailsensecore.domain.time.roundNearestMinute
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -663,26 +663,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun getDateString(date: LocalDate): String {
-        val now = LocalDate.now()
-
-        return when (date) {
-            now -> {
-                getString(R.string.today)
-            }
-            now.plusDays(1) -> {
-                getString(R.string.tomorrow)
-            }
-            now.minusDays(1) -> {
-                getString(R.string.yesterday)
-            }
-            else -> {
-                DateUtils.formatDateTime(
-                    requireContext(),
-                    date.atStartOfDay().toEpochMillis(),
-                    DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_RELATIVE
-                )
-            }
-        }
+        return formatService.formatRelativeDate(date)
     }
 
     private fun getSunsetWording(): String {

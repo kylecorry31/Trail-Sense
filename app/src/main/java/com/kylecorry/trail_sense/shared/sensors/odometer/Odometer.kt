@@ -1,10 +1,11 @@
 package com.kylecorry.trail_sense.shared.sensors.odometer
 
 import android.content.Context
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.ApproximateCoordinate
 import com.kylecorry.trailsensecore.domain.geo.specifications.LocationChangedSpecification
 import com.kylecorry.trailsensecore.domain.geo.specifications.LocationIsAccurateSpecification
+import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor

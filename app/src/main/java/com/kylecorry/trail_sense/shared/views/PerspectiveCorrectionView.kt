@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
 import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
+import com.kylecorry.trailsensecore.infrastructure.canvas.CanvasView
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils

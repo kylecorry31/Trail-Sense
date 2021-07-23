@@ -11,6 +11,7 @@ import com.kylecorry.trailsensecore.domain.units.*
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
+import com.kylecorry.trailsensecore.domain.time.toEpochMillis
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime

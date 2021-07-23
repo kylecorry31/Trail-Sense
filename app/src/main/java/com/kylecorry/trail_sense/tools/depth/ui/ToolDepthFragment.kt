@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.databinding.FragmentToolDepthBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.depth.DepthService
+import com.kylecorry.trailsensecore.domain.math.roundPlaces
 import com.kylecorry.trailsensecore.domain.units.*
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils

@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.astronomy.domain
 
-import com.kylecorry.trail_sense.shared.roundNearestMinute
-import com.kylecorry.trail_sense.shared.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.astronomy.*
 import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonPhase
@@ -9,6 +7,8 @@ import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.time.Season
+import com.kylecorry.trailsensecore.domain.time.roundNearestMinute
+import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
 import java.time.*
 
 /**
