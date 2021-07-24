@@ -1133,4 +1133,10 @@
     <string name="guide_packing_list">Create packing lists</string>
     <string name="humidity">%s humidity</string>
     <string name="no_compass_message">Your device does not have a compass sensor</string>
+    <string name="num_satellites">%d satellites</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="climate_zone">%s zone</string>
+    <string name="climate_polar">Polar</string>
+    <string name="climate_temperate">Temperate</string>
+    <string name="climate_tropical">Tropical</string>
 </resources>

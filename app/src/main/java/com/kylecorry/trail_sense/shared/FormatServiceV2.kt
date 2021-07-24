@@ -7,11 +7,12 @@ import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
+import com.kylecorry.trailsensecore.domain.geo.Region
+import com.kylecorry.trailsensecore.domain.time.toEpochMillis
 import com.kylecorry.trailsensecore.domain.units.*
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
-import com.kylecorry.trailsensecore.domain.time.toEpochMillis
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -283,7 +284,10 @@ class FormatServiceV2(private val context: Context) {
     }
 
     fun formatCurrent(current: Float, decimalPlaces: Int = 0): String {
-        return context.getString(R.string.current_format, DecimalFormatter.format(current, decimalPlaces))
+        return context.getString(
+            R.string.current_format,
+            DecimalFormatter.format(current, decimalPlaces)
+        )
     }
 
     fun formatLux(lux: Float, decimalPlaces: Int = 0): String {
@@ -294,6 +298,16 @@ class FormatServiceV2(private val context: Context) {
     fun formatCandela(candela: Float, decimalPlaces: Int = 0): String {
         val formatted = DecimalFormatter.format(candela.toDouble(), decimalPlaces)
         return context.getString(R.string.candela_format, formatted)
+    }
+
+    fun formatRegion(region: Region): String {
+        val regionStr = when (region) {
+            Region.Polar -> context.getString(R.string.climate_polar)
+            Region.Temperate -> context.getString(R.string.climate_temperate)
+            Region.Tropical -> context.getString(R.string.climate_tropical)
+        }
+
+        return context.getString(R.string.climate_zone, regionStr)
     }
 
     fun formatShortTermWeather(weather: Weather, relative: Boolean): String {

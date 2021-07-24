@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 
@@ -25,9 +26,18 @@ class LocationSharesheet(private val context: Context) : ILocationSender {
     }
 
     private fun getShareString(coordinate: Coordinate): String {
-        val location = coordinate.toDecimalDegrees()
-        val coordinateUser = formatService.formatLocation(coordinate)
+        val location = formatService.formatLocation(coordinate, CoordinateFormat.DecimalDegrees)
         val mapUrl = geoService.getMapUrl(coordinate, prefs.mapSite)
+
+        if (prefs.navigation.coordinateFormat == CoordinateFormat.DecimalDegrees){
+            return "${location}\n\n${
+                context.getString(
+                    R.string.maps
+                )
+            }: $mapUrl"
+        }
+
+        val coordinateUser = formatService.formatLocation(coordinate)
         return "${location}\n\n${formatService.formatCoordinateType(prefs.navigation.coordinateFormat)}: ${coordinateUser}\n\n${
             context.getString(
                 R.string.maps
