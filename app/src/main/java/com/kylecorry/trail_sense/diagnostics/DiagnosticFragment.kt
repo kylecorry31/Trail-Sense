@@ -108,6 +108,16 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         magnetometer.asLiveData().observe(viewLifecycleOwner, { updateMagnetometer() })
         battery.asLiveData().observe(viewLifecycleOwner, { updateBattery() })
         gyroscope.asLiveData().observe(viewLifecycleOwner, { updateGyro() })
+
+        if (!sensorChecker.hasSensor(Sensor.TYPE_MAGNETIC_FIELD) && !sensorChecker.hasSensor(Sensor.TYPE_ORIENTATION)){
+            sensorDetailsMap["compass"] = SensorDetails(
+                getString(R.string.pref_compass_sensor_title),
+                "",
+                getString(R.string.gps_unavailable),
+                CustomUiUtils.getQualityColor(requireContext(), Quality.Poor),
+                R.drawable.ic_compass_icon
+            )
+        }
     }
 
     override fun onResume() {
