@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.hardware.Sensor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -154,7 +155,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     destination = beaconRepo.getBeacon(beaconId)?.toBeacon()
                     cache.putLong(LAST_BEACON_ID, beaconId)
                 }
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     handleShowWhenLocked()
                 }
             }
@@ -163,6 +164,16 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (!sensorChecker.hasSensor(Sensor.TYPE_MAGNETIC_FIELD) && !sensorChecker.hasSensor(Sensor.TYPE_ORIENTATION)) {
+            requireMainActivity().errorBanner.report(
+                UserError(
+                    USER_ERROR_NO_COMPASS,
+                    getString(R.string.no_compass_message),
+                    R.drawable.ic_compass_icon
+                )
+            )
+        }
 
         rightQuickAction = getQuickActionButton(
             userPrefs.navigation.rightQuickAction,
@@ -180,7 +191,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         backtrackRepo.getWaypoints().observe(viewLifecycleOwner) {
-            val waypoints = it.filter { it.createdInstant > Instant.now().minus(userPrefs.navigation.backtrackHistory) }.sortedByDescending { it.createdInstant }
+            val waypoints = it.filter {
+                it.createdInstant > Instant.now().minus(userPrefs.navigation.backtrackHistory)
+            }.sortedByDescending { it.createdInstant }
             backtrack = Path(
                 WaypointRepo.BACKTRACK_PATH_ID,
                 getString(R.string.tool_backtrack_title),
@@ -350,9 +363,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         handleShowWhenLocked()
     }
 
-    private fun handleShowWhenLocked(){
+    private fun handleShowWhenLocked() {
         activity?.let {
-            val shouldShow = isBound && userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)
+            val shouldShow =
+                isBound && userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)
             tryOrNothing {
                 UiUtils.setShowWhenLocked(it, shouldShow)
             }
@@ -390,7 +404,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private suspend fun updateAstronomyData() {
-        if (gps.location == Coordinate.zero){
+        if (gps.location == Coordinate.zero) {
             return
         }
 
@@ -476,7 +490,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 withContext(Dispatchers.IO) {
                     destination = beaconRepo.getBeacon(lastBeaconId)?.toBeacon()
                 }
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     handleShowWhenLocked()
                 }
             }
@@ -610,8 +624,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     USER_ERROR_COMPASS_POOR,
                     getString(
                         R.string.compass_calibrate_toast, formatService.formatQuality(
-                                                compass.quality
-                                            ).lowercase(Locale.getDefault())
+                            compass.quality
+                        ).lowercase(Locale.getDefault())
                     ),
                     R.drawable.ic_compass_icon,
                     getString(R.string.how)
@@ -709,12 +723,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun isSightingCompassEnabled(): Boolean {
-        return userPrefs.navigation.isSightingCompassEnabled && PermissionUtils.isCameraEnabled(requireContext())
+        return userPrefs.navigation.isSightingCompassEnabled && PermissionUtils.isCameraEnabled(
+            requireContext()
+        )
     }
 
     private fun onOrientationUpdate(): Boolean {
 
-        if (orientation.orientation == lastOrientation){
+        if (orientation.orientation == lastOrientation) {
             return true
         }
 

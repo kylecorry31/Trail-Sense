@@ -1132,4 +1132,5 @@
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="guide_packing_list">Create packing lists</string>
     <string name="humidity">%s humidity</string>
+    <string name="no_compass_message">Your device does not have a compass sensor</string>
 </resources>
