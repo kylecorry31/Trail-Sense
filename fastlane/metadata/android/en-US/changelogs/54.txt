@@ -1,0 +1,6 @@
+- "Inventory" was revamped into "Packing Lists"
+- Create packing lists to prepare for hiking trips
+- Keep track of pack weight
+- More item categories
+- More colors for beacons
+- Add USNG and OSNG coordinate formats
