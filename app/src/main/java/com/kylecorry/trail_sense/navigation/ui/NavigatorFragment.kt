@@ -234,7 +234,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             sheet.show(requireActivity().supportFragmentManager, "LocationBottomSheet")
         }
 
-        binding.altitude.setOnClickListener {
+        binding.altitudeHolder.setOnClickListener {
             val sheet = AltitudeBottomSheet()
             sheet.backtrackPath = backtrack
             sheet.currentAltitude = AltitudeReading(Instant.now(), altimeter.altitude)
