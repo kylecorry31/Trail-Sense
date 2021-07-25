@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.viewbinding.ViewBinding
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLocationBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainMenuBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
+import com.kylecorry.trail_sense.shared.BoundBottomSheetDialogFragment
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
@@ -25,7 +24,6 @@ import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.Instant
 
-// TODO: Make bottom sheet dialog utils like alert dialogs
 class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBinding>() {
 
     var gps: IGPS? = null
@@ -140,7 +138,6 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
 
         binding.climateZone.text = formatService.formatRegion(geoService.getRegion(gps.location))
 
-        // TODO: Show GPS time instead
         val timeAgo = Duration.between(gps.time, Instant.now())
         binding.time.text = getString(R.string.time_ago, formatService.formatDuration(timeAgo))
     }
@@ -153,32 +150,4 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
     }
 
     private data class CoordinateDisplay(val coordinate: String, val format: String)
-}
-
-// TODO: Move this to TS Core
-abstract class BoundBottomSheetDialogFragment<T : ViewBinding> : BottomSheetDialogFragment() {
-
-    abstract fun generateBinding(layoutInflater: LayoutInflater, container: ViewGroup?): T
-
-    protected val binding: T
-        get() = _binding!!
-
-    protected val isBound: Boolean
-        get() = context != null && _binding != null
-
-    private var _binding: T? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = generateBinding(inflater, container)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

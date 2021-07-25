@@ -230,7 +230,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.location.setOnClickListener {
             val sheet = LocationBottomSheet()
             sheet.gps = gps
-            sheet.show(requireActivity().supportFragmentManager, null)
+            sheet.show(requireActivity().supportFragmentManager, "LocationBottomSheet")
+        }
+
+        binding.altitude.setOnClickListener {
+            val sheet = AltitudeBottomSheet()
+            sheet.show(requireActivity().supportFragmentManager, "AltitudeBottomSheet")
         }
 
         CustomUiUtils.setButtonState(binding.sightingCompassBtn, sightingCompassActive)

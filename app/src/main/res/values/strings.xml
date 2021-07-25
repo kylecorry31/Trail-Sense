@@ -1139,4 +1139,6 @@
     <string name="climate_polar">Polar</string>
     <string name="climate_temperate">Temperate</string>
     <string name="climate_tropical">Tropical</string>
+    <string name="no_altitude_history">No altitude readings, enable Backtrack to start recording</string>
+    <string name="altitude_history">Altitude history</string>
 </resources>

@@ -11,6 +11,8 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.IWay
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
+import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.FusedAltimeter
+import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.network.ICellSignalSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
@@ -22,6 +24,7 @@ import java.time.Instant
 class Backtrack(
     private val context: Context,
     private val gps: IGPS,
+    private val altimeter: IAltimeter,
     private val cellSignalSensor: ICellSignalSensor,
     private val backtrackRepo: IWaypointRepo,
     private val beaconRepo: IBeaconRepo,
@@ -67,11 +70,15 @@ class Backtrack(
         }
     }
 
-    private suspend fun updateSensors(){
+    private suspend fun updateSensors() {
         withContext(Dispatchers.IO) {
             withTimeoutOrNull(Duration.ofSeconds(30).toMillis()) {
                 val jobs = mutableListOf<Job>()
                 jobs.add(launch { gps.read() })
+
+                if (shouldReadAltimeter()) {
+                    jobs.add(launch { altimeter.read() })
+                }
 
                 if (recordCellSignal && PermissionUtils.isBackgroundLocationEnabled(context)) {
                     jobs.add(launch { cellSignalSensor.read() })
@@ -82,13 +89,17 @@ class Backtrack(
         }
     }
 
+    private fun shouldReadAltimeter(): Boolean {
+        return altimeter !is IGPS && altimeter !is FusedAltimeter
+    }
+
     private suspend fun recordWaypoint(): PathPoint {
         return withContext(Dispatchers.IO) {
             val cell = cellSignalSensor.signals.maxByOrNull { it.strength }
             val waypoint = WaypointEntity(
                 gps.location.latitude,
                 gps.location.longitude,
-                gps.altitude,
+                if (shouldReadAltimeter()) altimeter.altitude else gps.altitude,
                 Instant.now().toEpochMilli(),
                 cell?.network?.id,
                 cell?.quality?.ordinal,

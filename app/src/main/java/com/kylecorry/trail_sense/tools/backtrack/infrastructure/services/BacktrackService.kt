@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.Backtrack
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
@@ -23,6 +23,7 @@ import java.time.ZonedDateTime
 class BacktrackService : CoroutineForegroundService() {
 
     private val gps by lazy { sensorService.getGPS(true) }
+    private val altimeter by lazy { sensorService.getAltimeter(true) }
     private val cellSignal by lazy { sensorService.getCellSignal(true) }
     private val sensorService by lazy { SensorService(this) }
     private val waypointRepo by lazy { WaypointRepo.getInstance(this) }
@@ -33,6 +34,7 @@ class BacktrackService : CoroutineForegroundService() {
         Backtrack(
             this,
             gps,
+            altimeter,
             cellSignal,
             waypointRepo,
             beaconRepo,

@@ -19,6 +19,7 @@ import java.time.Duration
 
 class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
     private val gps by lazy { sensorService.getGPS(true) }
+    private val altimeter by lazy { sensorService.getAltimeter(true) }
     private val cellSignal by lazy { sensorService.getCellSignal(true) }
     private val sensorService by lazy { SensorService(applicationContext) }
     private val waypointRepo by lazy { WaypointRepo.getInstance(applicationContext) }
@@ -30,6 +31,7 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
         Backtrack(
             this,
             gps,
+            altimeter,
             cellSignal,
             waypointRepo,
             beaconRepo,
