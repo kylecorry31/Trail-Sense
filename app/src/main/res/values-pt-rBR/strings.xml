@@ -623,7 +623,19 @@
     <string name="battery_power_ac">AC</string>
     <string name="delete_waypoint_prompt">Excluir o ponto de passagem\?</string>
     <string name="pref_gps_override_title">Localização simulada</string>
-    <string name="location_input_help">Graus decimais (p.ex. 1.00, -2.00) Graus decimais minutos (p.ex. 1°23.12\'N, 3°12.1\'W) Graus minutos segundos (p.ex. 1°23\'12.1\"N, 3°12\"1.2\'W) UTM (p.ex. 03T 12345E 67890N) MGRS (p.ex. 27PXM 09601 05579)</string>
+    <string name="location_input_help">Graus decimais (p.ex. 1.00, -2.00)
+\n
+\nGraus decimais minutos (p.ex. 1°23.12\'N, 3°12.1\'W)
+\n
+\nGraus minutos segundos (p.ex. 1°23\'12.1\"N, 3°12\"1.2\'W)
+\n
+\nUTM (p.ex. 03T 12345E 67890N)
+\n
+\nMGRS (p.ex. 27PXM 09601 05579)
+\n
+\nUSNG (p.ex. 14S NJ 39521 41744)
+\n
+\nOSNG (OSGB36) (p.ex. TG 51409 13177)</string>
     <string name="pref_backtrack_frequency_title">Intervalo de recuo</string>
     <string name="pref_backtrack_enabled_summary">Registrar histórico de localização</string>
     <string name="waypoint_beacon_title_template">%s, %s Ponto de passagem</string>
@@ -935,4 +947,32 @@
     <string name="base_elevation">Elevação de base</string>
     <string name="pref_temperature_estimation_summary">Estimar a temperatura numa elevação diferente</string>
     <string name="temperature_estimation">Estimativa de temperatura</string>
+    <string name="humidity">%s de umidade</string>
+    <string name="guide_packing_list">Criar listas de conteúdo</string>
+    <string name="pref_depth_enabled">pref_depth_enabled</string>
+    <string name="weight_per_item">Peso por item</string>
+    <string name="pref_weight_units">pref_weight_units</string>
+    <string name="pack_sort_weight_high_to_low">Peso (alto a baixo)</string>
+    <string name="pack_sort_weight_low_to_high">Peso (baixo a alto)</string>
+    <string name="pack_sort_percent_high_to_low">Porcentagem incluída (alta a baixa)</string>
+    <string name="pack_sort_percent_low_to_high">Porcentagem incluída (baixa a alta)</string>
+    <string name="pack_sort_category">Categoria</string>
+    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
+    <string name="sort">Ordenar</string>
+    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="delete_pack">Excluir o pacote\?</string>
+    <string name="new_packing_list">Nova lista de conteúdo</string>
+    <string name="no_packing_lists">Nenhuma lista com conteúdo</string>
+    <string name="percent_packed">%s incluído</string>
+    <string name="packing_lists">Listas de Conteúdo</string>
+    <string name="hygiene">Higiene</string>
+    <string name="documents">Documentos</string>
+    <string name="electronics">Eletrônicos</string>
+    <string name="clear_amounts">Limpar as quantidades</string>
+    <string name="desired_amount">Quantidade desejada</string>
+    <string name="packed_amount">Quantidade contido</string>
+    <string name="default_pack_name">Pacote padrão</string>
+    <string name="action_inventory_clear_confirm">Limpar todas as quantidades contidas\?</string>
+    <string name="current_format">%s mA</string>
 </resources>

@@ -506,10 +506,18 @@
     <string name="coordinate_input_invalid_location">Niepoprawna lokalizacja</string>
     <string name="location_input_help_title">Wspierane formaty współrzędnych</string>
     <string name="location_input_help">Stopnie dziesiętne (np. 1.00, -2.00)
+\n
 \nStopnie, minuty (np. 1°23.12\'N, 3°12.1\'W)
+\n
 \nStopnie, minuty, sekundy (np. 1°23\'12.1\"N, 3°12\"1.2\'W)
+\n
 \nUTM (np. 03T 12345E 67890N)
-\nMGRS (np. 27PXM 09601 05579)</string>
+\n
+\nMGRS (np. 27PXM 09601 05579)
+\n
+\nUSNG (np. 14S NJ 39521 41744)
+\n
+\nOSNG (OSGB36) (np. TG 51409 13177)</string>
     <string name="action_waypoint_create_beacon">Dodaj punkt nawigacyjny</string>
     <string name="guide_create_beacons_title">Dodawanie punktów nawigacyjnych</string>
     <string name="low_power_mode_on_message">Tryb oszczędzania energii jest włączony, niektóre funkcje mogą być wyłączone.</string>
@@ -913,8 +921,34 @@
     <string name="volume">Pojemność</string>
     <string name="milliliters">Mililitry</string>
     <string name="liters">Litry</string>
-    <string name="pint_format">%s pinta</string>
-    <string name="cup_format">%s kubek</string>
+    <string name="pint_format">%s pt</string>
+    <string name="cup_format">%s c</string>
     <string name="milliliter_format">%s ml</string>
     <string name="liter_format">%s l</string>
+    <string name="ounces_volume_format">%s oz</string>
+    <string name="gallon_format">%s gal</string>
+    <string name="quart_format">%s qt</string>
+    <string name="humidity">%s wilgotność</string>
+    <string name="pref_depth_enabled">pref_depth_enabled</string>
+    <string name="pref_weight_units">pref_weight_units</string>
+    <string name="pack_sort_weight_high_to_low">Waga (od najwyższej do najniższej)</string>
+    <string name="pack_sort_weight_low_to_high">Waga (od najniższej do najwyższej)</string>
+    <string name="pack_sort_category">Kategoria</string>
+    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
+    <string name="sort">Sortuj</string>
+    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="hygiene">Higiena</string>
+    <string name="documents">Dokumenty</string>
+    <string name="electronics">Elektronika</string>
+    <string name="ounces_weight_format">%s oz</string>
+    <string name="pounds_format">%s lb</string>
+    <string name="us_gallons">Galony amerykańskie</string>
+    <string name="us_ounces_volume">Uncje amerykańskie</string>
+    <string name="pref_map_url_source_title">Mapa udostępniania lokalizacji</string>
+    <string name="clear_cache">Wyczyść pamięć podręczną</string>
+    <string name="destination_elevation">Wysokość miejsca docelowego</string>
+    <string name="pref_temperature_estimation_summary">Oszacuj temperaturę na innej wysokości</string>
+    <string name="temperature_estimation">Oszacowanie temperatury</string>
+    <string name="current_format">%s mA</string>
 </resources>

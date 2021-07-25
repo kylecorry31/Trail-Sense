@@ -951,4 +951,8 @@
     <string name="pack_sort_category">类别</string>
     <string name="pref_pack_item_sort">pref_pack_item_sort</string>
     <string name="sort">排序</string>
+    <string name="humidity">%s 湿度</string>
+    <string name="guide_packing_list">创建包装清单</string>
+    <string name="pref_depth_enabled">pref_depth_enabled</string>
+    <string name="current_format">%s 毫安</string>
 </resources>
