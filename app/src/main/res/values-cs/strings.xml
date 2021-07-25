@@ -18,8 +18,8 @@
     <string name="pref_compass_sensor_title">Kompas</string>
     <string name="sensors">Senzory</string>
     <string name="temperature">Teplota</string>
-    <string name="celsius">Celsius</string>
-    <string name="fahrenheit">Fahrenheit</string>
+    <string name="celsius">Stupně Celsia</string>
+    <string name="fahrenheit">Stupně Fahrenheita</string>
     <string name="pref_coordinate_format_title">Formát souřadnic</string>
     <string name="theme_system">Výchozí vzhled systému</string>
     <string name="theme_black">Černý</string>
@@ -33,7 +33,7 @@
     <string name="pref_distance_units_title">Vzdálenost</string>
     <string name="pref_general_header">Obecné</string>
     <string name="pref_units_header">Obecné</string>
-    <string name="edit_item_title">Upravit věc</string>
+    <string name="edit_item_title">Upravit položku</string>
     <string name="create_item_title">Zapsat věc</string>
     <string name="dialog_item_subtract">Odečíst</string>
     <string name="dialog_item_amount">Množství</string>
@@ -131,7 +131,7 @@
 \n    %s od skutečné výšky
 \n    %s satelitů
 \n
-\nKompas: Otáčejte zařízením ve tvaru osmičky a odejděte od kovovových předmětů."</string>
+\nKompas: Otáčejte zařízením ve tvaru osmičky nebo všemi směry a odejděte od kovovových předmětů."</string>
     <string name="accuracy_info_title">Tipy na zlepšení přesnosti dat ze senzorů</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
@@ -197,10 +197,10 @@
     <string name="pref_auto_location_title">Automatické nastavení polohy</string>
     <string name="compass_accuracy_improved">Přesnost kompasu se zlepšila na %s</string>
     <string name="compass_reported_accuracy">Uváděná přesnost: %s</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Několikrát zatočte telefonem ve tvaru osmičky a po dokončení klikněte na tlačítko %s.
+    <string name="calibrate_compass_on_navigate_dialog_content">Několikrát zatočte telefonem ve tvaru osmičky nebo všemi směry a po dokončení klikněte na tlačítko %s.
 \n
 \nToto upozornění lze vypnout v nastavení aplikace.</string>
-    <string name="calibrate_compass_dialog_content">Několikrát zatočte telefonem ve tvaru osmičky a po dokončení klikněte na tlačítko %s.</string>
+    <string name="calibrate_compass_dialog_content">Několikrát zatočte telefonem ve tvaru osmičky nebo všemi směry a po dokončení klikněte na tlačítko %s.</string>
     <string name="pref_auto_declination_summary">Na základě vaší aktuální polohy</string>
     <string name="declination_override_updated_toast">Přepsání deklinace aktualizováno</string>
     <string name="compass_azimuth">Azimut</string>
@@ -253,4 +253,5 @@
     <string name="degree">%s°</string>
     <string name="all_beacons">Všechny majáky</string>
     <string name="battery_capacity_format">%s mAh</string>
+    <string name="current_format">%s mA</string>
 </resources>
