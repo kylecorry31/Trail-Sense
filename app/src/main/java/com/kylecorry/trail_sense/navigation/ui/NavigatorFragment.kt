@@ -39,6 +39,7 @@ import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
+import com.kylecorry.trail_sense.weather.domain.AltitudeReading
 import com.kylecorry.trailsensecore.domain.geo.*
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
@@ -235,6 +236,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         binding.altitude.setOnClickListener {
             val sheet = AltitudeBottomSheet()
+            sheet.backtrackPath = backtrack
+            sheet.currentAltitude = AltitudeReading(Instant.now(), altimeter.altitude)
             sheet.show(requireActivity().supportFragmentManager, "AltitudeBottomSheet")
         }
 

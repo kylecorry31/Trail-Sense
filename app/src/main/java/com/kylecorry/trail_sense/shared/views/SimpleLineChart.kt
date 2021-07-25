@@ -44,6 +44,7 @@ class SimpleLineChart(
         chart.axisLeft.setDrawAxisLine(false)
         chart.axisRight.setDrawAxisLine(false)
         chart.setNoDataText(emptyText)
+        chart.setNoDataTextColor(primaryColor)
     }
 
     fun configureYAxis(
