@@ -961,4 +961,15 @@
     <string name="pack_sort_percent_low_to_high">Prozent gepackt (wenig bis hoch)</string>
     <string name="pack_sort_category">Kategorie</string>
     <string name="pref_pack_item_sort">pref_pack_item_sort</string>
+    <string name="climate_tropical">Tropische</string>
+    <string name="climate_temperate">Gemäßigte</string>
+    <string name="climate_polar">Polare</string>
+    <string name="climate_zone">%s Zone</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="num_satellites">%d Satelliten</string>
+    <string name="no_compass_message">Ihr Gerät hat keinen Kompass</string>
+    <string name="humidity">%s Luftfeuchtigkeit</string>
+    <string name="guide_packing_list">Packlisten erstellen</string>
+    <string name="pref_depth_enabled">pref_depth_enabled</string>
+    <string name="current_format">%s mA</string>
 </resources>
