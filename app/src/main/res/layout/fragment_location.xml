@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -16,8 +16,8 @@
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textIsSelectable="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textIsSelectable="true"
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="0.0000, 0.00000" />
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            tools:text="Today, 1:00 PM" />
+            tools:text="1m ago" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -82,24 +82,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/climate_zone"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
+            android:layout_marginEnd="32dp"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            app:drawableStartCompat="@drawable/ic_earth"
+            app:drawableTint="?android:textColorSecondary"
             tools:text="Temperate zone" />
 
         <TextView
             android:id="@+id/datum"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
             android:text="@string/wgs84"
-            android:textAlignment="center" />
+            app:drawableStartCompat="@drawable/ic_datum"
+            app:drawableTint="?android:textColorSecondary" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:textColorSecondary" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/coordinate_formats"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

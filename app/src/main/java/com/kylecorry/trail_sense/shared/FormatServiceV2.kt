@@ -248,7 +248,7 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
-    fun formatLocation(location: Coordinate, format: CoordinateFormat? = null): String {
+    fun formatLocation(location: Coordinate, format: CoordinateFormat? = null, fallbackToDD: Boolean = true): String {
         val formatted = when (format ?: prefs.navigation.coordinateFormat) {
             CoordinateFormat.DecimalDegrees -> location.toDecimalDegrees()
             CoordinateFormat.DegreesDecimalMinutes -> location.toDegreeDecimalMinutes()
@@ -258,7 +258,7 @@ class FormatServiceV2(private val context: Context) {
             CoordinateFormat.USNG -> location.toUSNG()
             CoordinateFormat.OSNG_OSGB36 -> location.toOSNG()
         }
-        if (formatted == "?") {
+        if (formatted == "?" && fallbackToDD) {
             return location.toDecimalDegrees()
         }
         return formatted
