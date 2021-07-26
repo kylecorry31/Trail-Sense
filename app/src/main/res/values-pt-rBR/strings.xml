@@ -969,10 +969,18 @@
     <string name="hygiene">Higiene</string>
     <string name="documents">Documentos</string>
     <string name="electronics">Eletrônicos</string>
-    <string name="clear_amounts">Limpar as quantidades</string>
+    <string name="clear_amounts">Eliminar as quantidades</string>
     <string name="desired_amount">Quantidade desejada</string>
-    <string name="packed_amount">Quantidade contido</string>
+    <string name="packed_amount">Quantidade contida</string>
     <string name="default_pack_name">Pacote padrão</string>
-    <string name="action_inventory_clear_confirm">Limpar todas as quantidades contidas\?</string>
+    <string name="action_inventory_clear_confirm">Eliminar todas as quantidades contidas\?</string>
     <string name="current_format">%s mA</string>
+    <string name="climate_temperate">Moderada</string>
+    <string name="climate_zone">Zona %s</string>
+    <string name="altitude_history">Histórico de altitude</string>
+    <string name="climate_tropical">Tropical</string>
+    <string name="climate_polar">Polar</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="num_satellites">%d satélites</string>
+    <string name="no_compass_message">Seu dispositivo não possui um sensor de bússola</string>
 </resources>
