@@ -951,4 +951,12 @@
     <string name="pref_temperature_estimation_summary">Oszacuj temperaturę na innej wysokości</string>
     <string name="temperature_estimation">Oszacowanie temperatury</string>
     <string name="current_format">%s mA</string>
+    <string name="altitude_history">Historia wysokości</string>
+    <string name="climate_tropical">tropikalna</string>
+    <string name="climate_temperate">umiarkowana</string>
+    <string name="climate_polar">polarna</string>
+    <string name="climate_zone">Strefa %s</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="num_satellites">%d satelity(ów)</string>
+    <string name="no_compass_message">Urządzenie nie posiada czujnika kompasu</string>
 </resources>
