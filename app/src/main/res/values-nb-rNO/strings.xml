@@ -112,7 +112,7 @@
     <string name="settings">Innstillinger</string>
     <string name="weather">Vær</string>
     <string name="navigation">Navigasjon</string>
-    <string name="no_humidity_data">Ingen fuktighetsdata</string>
+    <string name="no_humidity_data">Ingen luftfuktighetsdata</string>
     <string name="pressure_format">%s %s</string>
     <string name="dialog_deny">Nei takk</string>
     <string name="dialog_grant">Oppdater innstillinger</string>
@@ -181,8 +181,8 @@
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Notater (valgfritt)</string>
-    <string name="beacon_elevation_hint_meters">Høydemeter (valgfritt)</string>
-    <string name="beacon_elevation_hint_feet">Høydefot (valgfritt)</string>
+    <string name="beacon_elevation_hint_meters">Høyde i meter (valgfritt)</string>
+    <string name="beacon_elevation_hint_feet">Høyde i fot (valgfritt)</string>
     <string name="beacon_invalid_elevation">Ugyldig høyde</string>
     <string name="eta">~ %s unna</string>
     <string name="sos">SOS</string>
@@ -453,10 +453,18 @@
     <string name="degree">%s°</string>
     <string name="coordinate_input_invalid_location">Ugyldig posisjon</string>
     <string name="location_input_help">Desimalgrader (eks. 1.00, -2.00)
+\n
 \nGrader desimalminutter (eks. 1°23.12\'N, 3°12.1\'W)
+\n
 \nGrader minutter sekunder (eks. 1°23\'12.1\"N, 3°12\'1.2\"W)
+\n
 \nUTM (eks. 03T 12345E 67890N)
-\nMGRS (eks. 27PXM 09601 05579)</string>
+\n
+\nMGRS (eks. 27PXM 09601 05579)
+\n
+\nUSNG (eks. 14S NJ 39521 41744)
+\n
+\nOSNG (OSGB36) (eks. TG 51409 13177)</string>
     <string name="location_input_help_title">Støttede posisjonsformater</string>
     <string name="location_input_hint">Posisjon</string>
     <string name="battery_power_usb">USB</string>
@@ -728,4 +736,66 @@
     <string name="base_temperature">Utgangspunkttemperatur</string>
     <string name="base_elevation">Utgangspunkthøyde</string>
     <string name="pref_temperature_estimation_summary">Beregn temperaturen i en annen høyde</string>
+    <string name="hygiene">Hygiene</string>
+    <string name="documents">Dokumenter</string>
+    <string name="electronics">Elektronikk</string>
+    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="altitude_history">Høydehistorikk</string>
+    <string name="climate_tropical">Tropisk</string>
+    <string name="climate_temperate">Temperert</string>
+    <string name="climate_polar">Arktisk</string>
+    <string name="climate_zone">%s sone</string>
+    <string name="num_satellites">%d satellitter</string>
+    <string name="no_compass_message">Enheten din har ikke kompassensor</string>
+    <string name="humidity">%s luftfuktighet</string>
+    <string name="pack_sort_category">Kategori</string>
+    <string name="sort">Sorter</string>
+    <string name="packing_lists">Pakkelister</string>
+    <string name="pref_backtrack_history_days_title">Tilbakesporingshistorikk</string>
+    <string name="speedometer_average">Gjennomsnitt (fra Tilbakesporing)</string>
+    <string name="backtrack_disabled_low_power_toast">Tilbakesporing er slått av i strømsparingsmodus</string>
+    <string name="pref_backtrack_frequency_title">Tilbakesporingsintervall</string>
+    <string name="tool_backtrack_title">Tilbakesporing</string>
+    <string name="backtrack_notification_channel_description">Posisjonsoppdateringer for tilbakesporing</string>
+    <string name="beacon_moved_to">Flyttet til %s</string>
+    <plurals name="import_beacons">
+        <item quantity="one">Importere %d navigeringsmarkør\?</item>
+        <item quantity="other">Importere %d navigeringsmarkører\?</item>
+    </plurals>
+    <string name="beacon_export_error">Kunne ikke eksportere navigeringsmarkører</string>
+    <string name="import_export_beacons">Importer/Eksporter navigeringsmarkører</string>
+    <plurals name="beacons_exported">
+        <item quantity="one">%d navigeringsmarkør eksportert</item>
+        <item quantity="other">%d navigeringsmarkører eksportert</item>
+    </plurals>
+    <plurals name="beacons_imported">
+        <item quantity="one">%d navigeringsmarkør importert</item>
+        <item quantity="other">%d navigeringsmarkører importert</item>
+    </plurals>
+    <string name="waypoint_beacon_title_template">%s, %s rutepunkt</string>
+    <string name="action_waypoint_create_beacon">Opprett navigeringsmarkør</string>
+    <string name="guide_beacons_description"></string>
+    <string name="pref_map_url_source_title">Posisjonsdelingskart</string>
+    <string name="beacon_2">Markør 2</string>
+    <string name="beacon_1">Markør 1</string>
+    <string name="delete_beacon_group_message">%s og alle tilhørende navigeringsmarkører blir slettet.</string>
+    <string name="pref_max_beacon_distance_title">Radius for navigeringsmarkører i nærheten</string>
+    <string name="pref_display_multi_beacons_summary">Vis nærmeste navigeringsmarkører på kompasset</string>
+    <string name="pref_num_visible_beacons_title">Navigeringsmarkører i nærheten</string>
+    <string name="pref_display_multi_beacons_title">Vis navigeringsmarkører i nærheten</string>
+    <string name="create_beacon_title">Opprett navigeringsmarkør</string>
+    <plurals name="beacon_group_summary">
+        <item quantity="one">%d navigeringsmarkør</item>
+        <item quantity="other">%d navigeringsmarkører</item>
+    </plurals>
+    <string name="no_beacons">Ingen navigeringsmarkører</string>
+    <string name="edit_beacon">Rediger navigeringsmarkør</string>
+    <string name="delete_beacon">Slett navigeringsmarkør</string>
+    <string name="all_beacons">Alle navigeringsmarkører</string>
+    <string name="select_beacon">Velg navigeringsmarkør</string>
+    <string name="backtrack_notification_channel">Tilbakesporing</string>
+    <string name="guide_beacons_title">Navigeringsmarkører</string>
+    <string name="beacon_create_beacon">Navigeringsmarkør</string>
 </resources>

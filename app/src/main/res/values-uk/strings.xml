@@ -975,4 +975,12 @@
     <string name="guide_packing_list">Створення списків пакування</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="current_format">%s мА</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="num_satellites">%d супутників</string>
+    <string name="no_compass_message">Ваш пристрій не має датника компаса</string>
+    <string name="altitude_history">Історія висот</string>
+    <string name="climate_tropical">Тропічна</string>
+    <string name="climate_zone">%s зона</string>
+    <string name="climate_temperate">Помірна</string>
+    <string name="climate_polar">Полярна</string>
 </resources>
