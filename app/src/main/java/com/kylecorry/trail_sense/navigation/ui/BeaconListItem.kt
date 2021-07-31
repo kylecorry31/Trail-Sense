@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.content.res.ColorStateList
 import android.view.View
 import android.widget.PopupMenu
+import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
@@ -28,6 +29,7 @@ import kotlinx.coroutines.withContext
 
 class BeaconListItem(
     private val view: View,
+    private val fragment: Fragment,
     private val scope: CoroutineScope,
     private val beacon: Beacon,
     myLocation: Coordinate
@@ -138,6 +140,14 @@ class BeaconListItem(
                     val sender = BeaconSharesheet(view.context)
                     sender.send(beacon)
                 }
+                R.id.action_qr -> {
+                    val sheet = BeaconQRBottomSheet()
+                    sheet.beacon = beacon
+                    sheet.show(
+                        fragment.requireActivity().supportFragmentManager,
+                        "BeaconQRBottomSheet"
+                    )
+                }
                 R.id.action_copy -> {
                     val sender = BeaconCopy(view.context, Clipboard(view.context))
                     sender.send(beacon)
@@ -159,7 +169,10 @@ class BeaconListItem(
                             }
 
                             withContext(Dispatchers.Main) {
-                                UiUtils.shortToast(view.context, view.context.getString(R.string.beacon_moved_to, it.name))
+                                UiUtils.shortToast(
+                                    view.context,
+                                    view.context.getString(R.string.beacon_moved_to, it.name)
+                                )
                                 onMoved()
                             }
                         }

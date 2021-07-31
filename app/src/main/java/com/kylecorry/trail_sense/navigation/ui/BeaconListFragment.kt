@@ -237,7 +237,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private fun updateBeaconListItem(itemView: View, beacon: IBeacon) {
         if (beacon is Beacon) {
-            val listItem = BeaconListItem(itemView, lifecycleScope, beacon, gps.location)
+            val listItem = BeaconListItem(itemView, this, lifecycleScope, beacon, gps.location)
             listItem.onView = {
                 val bundle = bundleOf("beacon_id" to beacon.id)
                 navController.navigate(

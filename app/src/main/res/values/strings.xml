@@ -1140,4 +1140,5 @@
     <string name="climate_temperate">Temperate</string>
     <string name="climate_tropical">Tropical</string>
     <string name="altitude_history">Altitude history</string>
+    <string name="qr_code">QR Code</string>
 </resources>
