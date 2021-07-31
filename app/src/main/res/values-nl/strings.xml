@@ -22,22 +22,22 @@
     <string name="pref_use_24_hour_title">Gebruik het 24-uursformaat</string>
     <string name="pref_sun_time_mode_title">Zonsopgang / zonsondergang tijden</string>
     <string name="weather_improving_fast">Verbetering zeer binnenkort</string>
-    <string name="weather_improving_slow">: Binnenkort beter</string>
+    <string name="weather_improving_slow">Binnenkort beter</string>
     <string name="weather_worsening_slow">Verergert binnenkort</string>
     <string name="weather_worsening_fast">Verergert zeer binnenkort</string>
     <string name="weather_storm_incoming">Storm op komst</string>
-    <string name="weather_not_changing">Veranderd binnenkort niet</string>
+    <string name="weather_not_changing">Verandert binnenkort niet</string>
     <string name="forecast_improving">Verbetert mogelijk later</string>
     <string name="forecast_worsening">Verergert mogelijk later</string>
     <string name="no_beacons">Geen bakens</string>
-    <string name="continue_button">CONTINUE</string>
+    <string name="continue_button">DOORGAAN</string>
     <string name="moon_rise">Maansopkomst</string>
     <string name="moon_set">Maanondergang</string>
     <string name="stop_monitoring">Stop</string>
-    <string name="pref_compass_filter_amt_title">Kompas gladstrijken</string>
+    <string name="pref_compass_filter_amt_title">Kompas vloeiend maken</string>
     <string name="pref_compass_filter_amt_summary">Hoge waarden kunnen het lawaai verminderen</string>
     <string name="pref_theme_title">Thema</string>
-    <string name="pref_use_legacy_compass_title">: Gebruik erfeniskompas</string>
+    <string name="pref_use_legacy_compass_title">Verouderd kompas gebruiken</string>
     <string name="pref_use_legacy_compass_summary">Kan kompasproblemen oplossen</string>
     <string name="pref_display_multi_beacons_title">Bakens in de buurt tonen</string>
     <string name="pref_storm_alert_sensitivity_title">Stormgevoeligheid</string>
@@ -70,12 +70,12 @@
     <string name="today">Vandaag</string>
     <string name="tomorrow">Morgen</string>
     <string name="yesterday">Gisteren</string>
-    <string name="pressure_tendency_indicator_alt">: Drukverschuivingsindicator</string>
+    <string name="pressure_tendency_indicator_alt">Drukverschuivingsindicator</string>
     <string name="pressure_48_hours">48 uur</string>
     <string name="pressure_24_hours">24 uur</string>
     <string name="pressure_12_hours">12 uur</string>
     <string name="pressure_4_hours">4 uur</string>
-    <string name="pref_pressure_history_title">: Drukgeschiedenis</string>
+    <string name="pref_pressure_history_title">Drukgeschiedenis</string>
     <string name="pref_altitude_offsets_summary">Corrigeert GPS hoogte naar gemiddeld zeeniveau</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Geef druk op zeeniveau in</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Geef de huidige luchtdruk op zeeniveau in hPa in</string>
@@ -166,7 +166,7 @@
     <string name="sun_up_no_set">Zon is opgekomen</string>
     <string name="sun_does_not_rise">komt niet op</string>
     <string name="sun_does_not_set">gaat niet onder</string>
-    <string name="temperature_disclaimer">De getoonde temperatuur is wellicht hoger door de warmte van uw telefoon.</string>
+    <string name="temperature_disclaimer">De getoonde temperatuur kan hoger zijn vanwege de warmte van je telefoon.</string>
     <string name="heat_alert_frostbite_danger_title">Onderkoelingsgevaar</string>
     <string name="heat_alert_frostbite_warning_title">Onderkoelingswaarschuwing</string>
     <string name="heat_alert_frostbite_caution_title">Wees alert op onderkoeling</string>
@@ -175,7 +175,7 @@
     <string name="heat_alert_heat_warning_title">Hittewaarschuwing</string>
     <string name="heat_alert_heat_alert_title">Hittemelding</string>
     <string name="heat_alert_frostbite_message">Risico op onderkoeling / bevriezing. Blijf gehydrateerd, kleed jezelf warm en bedekt, kijk uit voor tekenen van onderkoeling of bevriezing.</string>
-    <string name="heat_alert_heat_message">Risico op oververhitting. Blijf voldoende gehydrateerd, blijf binnen of in de schaduw, beperk uw inspanning en wees alert op oververhittingsverschijnselen.</string>
+    <string name="heat_alert_heat_message">Risico op oververhitting. Blijf voldoende gehydrateerd, blijf binnen of in de schaduw, beperk je inspanning en wees alert op oververhittingsverschijnselen.</string>
     <string name="heat_alert_heat_danger_title">Hittegevaar</string>
     <string name="dew_point">Dauwpunt %s</string>
     <string name="no_humidity_data">Geen luchtvochtigheidsgegevens</string>
@@ -836,7 +836,7 @@
     <string name="fields">Velden</string>
     <string name="pref_show_last_signal_beacon_summary">Creëert een baken voor de laatste celsignaallocatie</string>
     <string name="last_signal_beacon_name">Laatste signaal - %s (%s)</string>
-    <string name="camera_permission_denied">Cameratoestemming geweigerd, kan camerafuncties niet inschakelen. U kunt het inschakelen in de instellingen.</string>
+    <string name="camera_permission_denied">Cameratoestemming geweigerd, kan camerafuncties niet inschakelen. Je kunt het inschakelen in de instellingen.</string>
     <string name="pref_use_camera_features_title">Camerafuncties inschakelen</string>
     <string name="color">Kleur</string>
     <string name="water_boil_guide_title">Maak water veilig om te drinken</string>
@@ -874,7 +874,7 @@
     <string name="on_map">Op de kaart</string>
     <string name="no_maps">Geen kaarten</string>
     <string name="rename">Hernoemen</string>
-    <string name="pedometer_disclaimer">De nauwkeurigheid en het batterijgebruik van de stappenteller is afhankelijk van de fabrikant van uw apparaat en de ingevoerde staplengte. Probeer het een tijdje thuis om het leeglopen en de nauwkeurigheid van de batterij te controleren voordat u het op pad gaat gebruiken.</string>
+    <string name="pedometer_disclaimer">De nauwkeurigheid en het batterijgebruik van de stappenteller is afhankelijk van de fabrikant van je apparaat en de ingevoerde staplengte. Probeer het een tijdje thuis om het leeglopen en de nauwkeurigheid van de batterij te controleren voordat je het op pad gaat gebruiken.</string>
     <string name="guide_using_printed_maps">Gedrukte kaarten gebruiken</string>
     <string name="guide_signaling_for_help_title">Signaleren voor hulp</string>
     <string name="pref_meteor_showers_title">Meteorenregens</string>
@@ -919,14 +919,14 @@
     <string name="no_gps_signal">Geen GPS Signaal</string>
     <string name="no_temperature_history">Geen temperatuur geschiedenis</string>
     <string name="low">Laag</string>
-    <string name="onboarding_user_guide">Leer hoe u de functies van Trail Sense kunt gebruiken met de gebruikershandleiding. Beschikbaar onder aan het Hulpmiddelen-tabblad.
+    <string name="onboarding_user_guide">Leer hoe je de functies van Trail Sense kunt gebruiken met de gebruikershandleiding. Beschikbaar onder aan het Hulpmiddelen-tabblad.
 \n
 \nBinnenkort komen er meer gidsen aan.</string>
     <string name="onboarding_tools">- Toegang tot hulpmiddelen om te helpen in elke wildernissituatie
 \n
 \n- Signaal met de zaklamp of fluitje
 \n
-\n- Converteer locaties van een papieren kaart naar uw telefoon
+\n- Converteer locaties van een papieren kaart naar je telefoon
 \n
 \n- Meet hoeken en bepaal de hoogte van objecten
 \n
