@@ -83,7 +83,7 @@
     <string name="pref_altitude_override_title">Gebruik manuele hoogte</string>
     <string name="altitude_from_pressure">Gebruik hoogte van luchtdruk</string>
     <string name="altitude_from_gps">Gebruik hoogte van GPS</string>
-    <string name="add_elevation_offsets">Gebruik AMSL hoogte</string>
+    <string name="add_elevation_offsets">Hoogte boven zeeniveau gebruiken</string>
     <string name="altitude">Hoogte</string>
     <string name="pref_altimeter_calibration_title">Hoogtemeter</string>
     <string name="pref_auto_location_title">Locatie automatisch aanpassen</string>
@@ -119,8 +119,8 @@
     <string name="coordinate_format_degrees_decimal_minutes">Graden en decimale minuten</string>
     <string name="coordinate_format_decimal_degrees">Decimale graden</string>
     <string name="pref_general_header">Algemeen</string>
-    <string name="edit_item_title">Pas item aan</string>
-    <string name="create_item_title">Maak item</string>
+    <string name="edit_item_title">Voorwerp aanpassen</string>
+    <string name="create_item_title">Voorwerp aanmaken</string>
     <string name="dialog_item_subtract">Aftrekken</string>
     <string name="action_item_add">Toevoegen</string>
     <string name="dialog_item_amount">Hoeveelheid</string>
@@ -497,8 +497,8 @@
     <string name="metal_detector_calibrate">IJken</string>
     <string name="tool_metal_detector_title">Metaaldetector</string>
     <string name="threshold">Drempelwaarde</string>
-    <string name="inventory_empty_text">Geen objecten</string>
-    <string name="action_inventory_delete_all_confirm">Alle inventarisartikelen verwijderen\?</string>
+    <string name="inventory_empty_text">Geen voorwerpen</string>
+    <string name="action_inventory_delete_all_confirm">Alle inventarisvoorwerpen verwijderen\?</string>
     <string name="action_inventory_delete_all">Alles verwijderen</string>
     <string name="tool_whistle_title">Fluitje</string>
     <string name="max_depth">Max.: %s</string>
@@ -850,7 +850,7 @@
     <string name="solid">Vast</string>
     <string name="pref_weather_show_detailed_icon_title">Toon gekleurd meldingspictogram</string>
     <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
-    <string name="actual_frequency_disclaimer">De werkelijke frequentie kan variëren, aangezien sommige apparaten achtergrondlimieten hebben.</string>
+    <string name="actual_frequency_disclaimer">De werkelijke frequentie kan variëren, omdat sommige apparaten achtergrondlimieten hebben.</string>
     <string name="search">Zoeken</string>
     <string name="pref_odometer_reset_daily_title">Dagelijks resetten</string>
     <string name="sleep_timer">Slaaptimer</string>
@@ -889,7 +889,7 @@
     <string name="pref_nearby_radar_title">Toon nabijgelegen radarkompas</string>
     <string name="source">Bron</string>
     <string name="pref_stride_length_title">Paslengte</string>
-    <string name="pedometer">Pedometer</string>
+    <string name="pedometer">Stappenteller</string>
     <string name="odometer">Kilometerteller</string>
     <string name="saltwater_switch">Is het zout water\?</string>
     <string name="distance_away_not_set">afstand niet ingesteld</string>
@@ -932,7 +932,7 @@
 \n
 \n- Synchroniseer uw klok zonder internetverbinding
 \n
-\n- Maak aantekeningen en houd items bij de hand
+\n- Maak aantekeningen en houd een inventaris bij
 \n
 \n- Vind gevallen ijzeren/stalen voorwerpen</string>
     <string name="location_input_help">Decimaal graden (vb. 1.00, -2.00)
@@ -950,4 +950,25 @@
 \nOSNG (OSGB36) (vb. TG 51409 13177)</string>
     <string name="action_inventory_clear_confirm">Alle verpakte bedragen wissen\?</string>
     <string name="pref_sea_level_pressure_change_thresh_title">Reizende druk drempel veranderen</string>
+    <string name="altitude_history">Hoogtegeschiedenis</string>
+    <string name="climate_zone">%s klimaat</string>
+    <string name="climate_tropical">Tropisch</string>
+    <string name="climate_temperate">Gematigd</string>
+    <string name="climate_polar">Pool</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="num_satellites">%d satellieten</string>
+    <string name="no_compass_message">Je apparaat heeft geen kompassensor</string>
+    <string name="humidity">%s luchtvochtigheid</string>
+    <string name="guide_packing_list">Paklijsten aanmaken</string>
+    <string name="pref_depth_enabled">pref_depth_enabled</string>
+    <string name="weight_per_item">Gewicht per voorwerp</string>
+    <string name="pref_weight_units">pref_weight_units</string>
+    <string name="pack_sort_weight_high_to_low">Gewicht (hoog naar laag)</string>
+    <string name="pack_sort_weight_low_to_high">Gewicht (laag naar hoog)</string>
+    <string name="pack_sort_percent_high_to_low">Percentage ingepakt (hoog naar loog)</string>
+    <string name="pack_sort_percent_low_to_high">Percentage ingepakt (laag naar hoog)</string>
+    <string name="pack_sort_category">Categorie</string>
+    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
+    <string name="sort">Sorteren</string>
+    <string name="current_format">%s mA</string>
 </resources>
