@@ -2,11 +2,11 @@ package com.kylecorry.trail_sense.tools.whitenoise.ui
 
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
 class QuickActionWhiteNoise(btn: FloatingActionButton, fragment: Fragment) :
@@ -16,8 +16,10 @@ class QuickActionWhiteNoise(btn: FloatingActionButton, fragment: Fragment) :
         CustomUiUtils.setButtonState(button, isOn())
     }
 
+    private val notify by lazy { Notify(context) }
+
     private fun isOn(): Boolean {
-        return NotificationUtils.isNotificationActive(context, WhiteNoiseService.NOTIFICATION_ID)
+        return notify.isActive(WhiteNoiseService.NOTIFICATION_ID)
     }
 
     override fun onCreate() {

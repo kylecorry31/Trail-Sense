@@ -4,6 +4,7 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.kylecorry.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
@@ -23,12 +24,12 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.services.CoroutineForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import kotlinx.coroutines.*
 import java.time.*
 
 class WeatherUpdateService: CoroutineForegroundService() {
 
+    private val notify by lazy { Notify(this) }
     private val sensorService by lazy { SensorService(this) }
     private val altimeter by lazy { sensorService.getGPSAltimeter(true) }
     private val barometer by lazy { sensorService.getBarometer() }
@@ -138,8 +139,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
         if (forecast == Weather.Storm) {
             val shouldSend = prefs.weather.sendStormAlerts
             if (shouldSend && !sentAlert) {
-                val notification = NotificationUtils.alert(
-                    this,
+                val notification = notify.alert(
                     STORM_CHANNEL_ID,
                     getString(R.string.notification_storm_alert_title),
                     getString(R.string.notification_storm_alert_text),
@@ -147,11 +147,11 @@ class WeatherUpdateService: CoroutineForegroundService() {
                     group = NotificationChannels.GROUP_STORM,
                     intent = NavigationUtils.pendingIntent(this, R.id.action_weather)
                 )
-                NotificationUtils.send(this, STORM_ALERT_NOTIFICATION_ID, notification)
+                notify.send(STORM_ALERT_NOTIFICATION_ID, notification)
                 cache.putBoolean(getString(R.string.pref_just_sent_alert), true)
             }
         } else {
-            NotificationUtils.cancel(this, STORM_ALERT_NOTIFICATION_ID)
+            notify.cancel(STORM_ALERT_NOTIFICATION_ID)
             cache.putBoolean(getString(R.string.pref_just_sent_alert), false)
         }
     }
@@ -181,8 +181,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
 
         val openIntent = NavigationUtils.pendingIntent(this, R.id.action_weather)
 
-        val notification = NotificationUtils.status(
-            this,
+        val notification = notify.status(
             DAILY_CHANNEL_ID,
             getString(if (prefs.weather.dailyWeatherIsForTomorrow) R.string.tomorrows_forecast else R.string.todays_forecast),
             description,
@@ -192,7 +191,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
             intent = openIntent
         )
 
-        NotificationUtils.send(this, DAILY_NOTIFICATION_ID, notification)
+        notify.send(DAILY_NOTIFICATION_ID, notification)
     }
 
     private fun scheduleNextUpdate() {
@@ -202,8 +201,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
     }
 
     override fun getForegroundNotification(): Notification {
-        return NotificationUtils.background(
-            this,
+        return notify.background(
             NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
             getString(R.string.weather_update_notification_channel),
             getString(R.string.notification_monitoring_weather),

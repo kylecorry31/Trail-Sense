@@ -4,6 +4,7 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.kylecorry.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -17,7 +18,6 @@ import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.services.CoroutineForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -27,6 +27,7 @@ import java.time.ZonedDateTime
 
 class SunsetAlarmService : CoroutineForegroundService() {
 
+    private val notify by lazy { Notify(this) }
     private val gps by lazy { SensorService(this).getGPS(true) }
     private val userPrefs by lazy { UserPreferences(this) }
     private val astronomyService = AstronomyService()
@@ -131,8 +132,7 @@ class SunsetAlarmService : CoroutineForegroundService() {
 
         val openIntent = NavigationUtils.pendingIntent(this, R.id.action_astronomy)
 
-        val notification = NotificationUtils.alert(
-            this,
+        val notification = notify.alert(
             NOTIFICATION_CHANNEL_ID,
             getString(R.string.sunset_alert_notification_title),
             getString(
@@ -143,7 +143,7 @@ class SunsetAlarmService : CoroutineForegroundService() {
             intent = openIntent
         )
 
-        NotificationUtils.send(this, NOTIFICATION_ID, notification)
+        notify.send(NOTIFICATION_ID, notification)
     }
 
     private fun setAlarm(time: LocalDateTime) {
@@ -157,8 +157,7 @@ class SunsetAlarmService : CoroutineForegroundService() {
 
 
     override fun getForegroundNotification(): Notification {
-        return NotificationUtils.background(
-            this,
+        return notify.background(
             NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
             getString(R.string.background_update),
             getString(R.string.sunset_alert_location_update),

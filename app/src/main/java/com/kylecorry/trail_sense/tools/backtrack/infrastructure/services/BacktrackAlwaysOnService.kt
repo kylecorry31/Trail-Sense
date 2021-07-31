@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.backtrack.infrastructure.services
 import android.app.Notification
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -14,7 +15,6 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.Wayp
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.receivers.StopBacktrackReceiver
 import com.kylecorry.trailsensecore.infrastructure.services.CoroutineIntervalService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import java.time.Duration
 
 class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
@@ -26,6 +26,7 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
     private val beaconRepo by lazy { BeaconRepo.getInstance(applicationContext) }
     private val prefs by lazy { UserPreferences(applicationContext) }
     private val formatService by lazy { FormatServiceV2(this) }
+    private val notify by lazy { Notify(this) }
 
     private val backtrack by lazy {
         Backtrack(
@@ -49,14 +50,13 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
     override fun getForegroundNotification(): Notification {
         val openAction = NavigationUtils.pendingIntent(this, R.id.fragmentBacktrack)
 
-        val stopAction = NotificationUtils.action(
+        val stopAction = notify.action(
             getString(R.string.stop_monitoring),
             StopBacktrackReceiver.pendingIntent(this),
             R.drawable.ic_cancel
         )
 
-        return NotificationUtils.persistent(
-            this,
+        return notify.persistent(
             FOREGROUND_CHANNEL_ID,
             getString(R.string.backtrack_notification_channel),
             getString(

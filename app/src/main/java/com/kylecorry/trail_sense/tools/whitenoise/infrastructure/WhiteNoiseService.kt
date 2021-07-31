@@ -4,18 +4,19 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
+import com.kylecorry.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.PinkNoise
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
 import java.time.Instant
 
 class WhiteNoiseService : ForegroundService() {
 
+    private val notify by lazy { Notify(this) }
     private var whiteNoise: ISoundPlayer? = null
     private val cache by lazy { Cache(this) }
 
@@ -36,8 +37,7 @@ class WhiteNoiseService : ForegroundService() {
     }
 
     override fun getForegroundNotification(): Notification {
-        return NotificationUtils.persistent(
-            applicationContext,
+        return notify.persistent(
             NOTIFICATION_CHANNEL_ID,
             getString(R.string.tool_white_noise_title),
             getString(R.string.tap_to_turn_off),

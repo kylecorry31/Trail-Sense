@@ -6,16 +6,16 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import androidx.core.content.ContextCompat
+import com.kylecorry.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.flashlight.IFlashlight
 import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
-import java.lang.Exception
 
 class StrobeService : ForegroundService() {
 
+    private val notify by lazy { Notify(this) }
     private var flashlight: IFlashlight? = null
     private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
     private var on = false
@@ -46,8 +46,7 @@ class StrobeService : ForegroundService() {
         get() = NOTIFICATION_ID
 
     override fun getForegroundNotification(): Notification {
-        return NotificationUtils.persistent(
-            this,
+        return notify.persistent(
             CHANNEL_ID,
             getString(R.string.flashlight_strobe),
             getString(R.string.tap_to_turn_off),

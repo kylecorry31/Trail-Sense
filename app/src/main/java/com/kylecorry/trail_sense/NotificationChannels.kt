@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense
 
 import android.content.Context
+import com.kylecorry.notify.Notify
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackAlwaysOnService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
@@ -11,7 +12,6 @@ import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerServi
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 
 object NotificationChannels {
 
@@ -28,128 +28,116 @@ object NotificationChannels {
     const val CHANNEL_BACKGROUND_UPDATES = "background_updates"
 
     fun createChannels(context: Context) {
+        val notify = Notify(context)
         // Flashlight
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             StrobeService.CHANNEL_ID,
             context.getString(R.string.flashlight_title),
             context.getString(R.string.flashlight_title),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            Notify.CHANNEL_IMPORTANCE_LOW,
             muteSound = true
         )
 
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             FlashlightService.CHANNEL_ID,
             context.getString(R.string.flashlight_title),
             context.getString(R.string.flashlight_title),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            Notify.CHANNEL_IMPORTANCE_LOW,
             muteSound = true
         )
 
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             SosService.CHANNEL_ID,
             context.getString(R.string.flashlight_title),
             context.getString(R.string.flashlight_title),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            Notify.CHANNEL_IMPORTANCE_LOW,
             muteSound = true
         )
 
 
         // Backtrack
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             BacktrackAlwaysOnService.FOREGROUND_CHANNEL_ID,
             context.getString(R.string.backtrack_notification_channel),
             context.getString(R.string.backtrack_notification_channel_description),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            Notify.CHANNEL_IMPORTANCE_LOW,
             muteSound = true
         )
 
         // Background updates
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             CHANNEL_BACKGROUND_UPDATES,
             context.getString(R.string.updates),
             context.getString(R.string.updates),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            Notify.CHANNEL_IMPORTANCE_LOW,
             muteSound = true
         )
 
         // Clock
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             NextMinuteBroadcastReceiver.CHANNEL_ID,
             context.getString(R.string.notification_channel_clock_sync),
             context.getString(R.string.notification_channel_clock_sync_description),
-            NotificationUtils.CHANNEL_IMPORTANCE_HIGH,
+            Notify.CHANNEL_IMPORTANCE_HIGH,
             false
         )
 
         // Water boil timer
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             WaterPurificationTimerService.CHANNEL_ID,
             context.getString(R.string.water_boil_timer_channel),
             context.getString(R.string.water_boil_timer_channel_description),
-            NotificationUtils.CHANNEL_IMPORTANCE_HIGH,
+            Notify.CHANNEL_IMPORTANCE_HIGH,
             false
         )
 
         // White noise
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             WhiteNoiseService.NOTIFICATION_CHANNEL_ID,
             context.getString(R.string.tool_white_noise_title),
             context.getString(R.string.tool_white_noise_title),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW
+            Notify.CHANNEL_IMPORTANCE_LOW
         )
 
         // Storm alert
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             WeatherUpdateService.STORM_CHANNEL_ID,
             context.getString(R.string.notification_storm_alert_channel_name),
             context.getString(R.string.notification_storm_alert_channel_desc),
-            NotificationUtils.CHANNEL_IMPORTANCE_HIGH
+            Notify.CHANNEL_IMPORTANCE_HIGH
         )
 
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             WeatherUpdateService.WEATHER_CHANNEL_ID,
             context.getString(R.string.weather),
             context.getString(R.string.notification_monitoring_weather),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            Notify.CHANNEL_IMPORTANCE_LOW,
             true
         )
 
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             WeatherUpdateService.DAILY_CHANNEL_ID,
             context.getString(R.string.todays_forecast),
             context.getString(R.string.todays_forecast),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            Notify.CHANNEL_IMPORTANCE_LOW,
             true
         )
 
         // Sunset
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             SunsetAlarmService.NOTIFICATION_CHANNEL_ID,
             context.getString(R.string.sunset_alert_channel_title),
             context.getString(R.string.sunset_alert_channel_description),
-            NotificationUtils.CHANNEL_IMPORTANCE_HIGH,
+            Notify.CHANNEL_IMPORTANCE_HIGH,
             false
         )
 
         // Odometer
-        NotificationUtils.createChannel(
-            context,
+        notify.createChannel(
             PedometerService.CHANNEL_ID,
             context.getString(R.string.odometer),
             context.getString(R.string.odometer),
-            NotificationUtils.CHANNEL_IMPORTANCE_LOW,
+            Notify.CHANNEL_IMPORTANCE_LOW,
             true
         )
     }

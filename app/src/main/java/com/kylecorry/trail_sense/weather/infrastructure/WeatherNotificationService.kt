@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.hardware.SensorManager
+import com.kylecorry.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -17,7 +18,6 @@ import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import java.time.Instant
 
 object WeatherNotificationService {
@@ -32,7 +32,9 @@ object WeatherNotificationService {
         val stopPendingIntent: PendingIntent =
             PendingIntent.getBroadcast(context, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE)
 
-        val stopAction = NotificationUtils.action(
+        val notify = Notify(context)
+
+        val stopAction = notify.action(
             context.getString(R.string.stop_monitoring),
             stopPendingIntent,
             R.drawable.ic_cancel
@@ -40,8 +42,7 @@ object WeatherNotificationService {
 
         val title = context.getString(R.string.weather)
 
-        return NotificationUtils.persistent(
-            context,
+        return notify.persistent(
             WeatherUpdateService.WEATHER_CHANNEL_ID,
             title,
             text,
@@ -129,7 +130,8 @@ object WeatherNotificationService {
     }
 
     private fun updateNotificationText(context: Context, notification: Notification) {
-        NotificationUtils.send(context, WEATHER_NOTIFICATION_ID, notification)
+        val notify = Notify(context)
+        notify.send(WEATHER_NOTIFICATION_ID, notification)
     }
 
 }

@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Notification
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -16,11 +17,11 @@ import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import com.kylecorry.trailsensecore.infrastructure.sensors.pedometer.Pedometer
 import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 
 class PedometerService : ForegroundService() {
 
+    private val notify by lazy { Notify(this) }
     private val pedometer by lazy { Pedometer(this) }
     private val sensorService by lazy { SensorService(this) }
     private val odometer by lazy { sensorService.getOdometer() }
@@ -46,7 +47,7 @@ class PedometerService : ForegroundService() {
         val newSteps = pedometer.steps - lastSteps
         odometer.addDistance(Distance.meters(prefs.strideLength.meters().distance * newSteps))
         lastSteps = pedometer.steps
-        NotificationUtils.send(this, NOTIFICATION_ID, getNotification())
+        notify.send(NOTIFICATION_ID, getNotification())
         return true
     }
 
@@ -64,8 +65,7 @@ class PedometerService : ForegroundService() {
 
         val openIntent = NavigationUtils.pendingIntent(this, R.id.fragmentToolSpeedometer)
 
-        return NotificationUtils.persistent(
-            this,
+        return notify.persistent(
             CHANNEL_ID,
             getString(R.string.odometer),
             formatService.formatDistance(
@@ -99,7 +99,8 @@ class PedometerService : ForegroundService() {
                 return
             }
 
-            if (NotificationUtils.isNotificationActive(context, NOTIFICATION_ID)) {
+            val notify = Notify(context)
+            if (notify.isActive(NOTIFICATION_ID)) {
                 return
             }
 

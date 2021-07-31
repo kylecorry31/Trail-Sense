@@ -4,23 +4,24 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import android.os.CountDownTimer
+import com.kylecorry.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 import kotlin.math.roundToInt
 
 class WaterPurificationTimerService : ForegroundService() {
 
     private var timer: CountDownTimer? = null
     private var done = false
+    private val notify by lazy { Notify(this) }
 
     private var seconds = DEFAULT_SECONDS
 
     private val cancelAction by lazy {
-        NotificationUtils.action(
+        notify.action(
             getString(R.string.dialog_cancel),
             WaterPurificationCancelReceiver.pendingIntent(applicationContext),
             R.drawable.ic_cancel
@@ -42,7 +43,7 @@ class WaterPurificationTimerService : ForegroundService() {
     override fun onDestroy() {
         timer?.cancel()
         if (!done) {
-            NotificationUtils.cancel(this, NOTIFICATION_ID)
+            notify.cancel(NOTIFICATION_ID)
         }
         stopService(false)
         super.onDestroy()
@@ -66,16 +67,14 @@ class WaterPurificationTimerService : ForegroundService() {
         timer = object : CountDownTimer(seconds * ONE_SECOND, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = (millisUntilFinished / ONE_SECOND.toFloat()).roundToInt()
-                NotificationUtils.send(
-                    applicationContext,
+                notify.send(
                     NOTIFICATION_ID,
                     getNotification(secondsLeft)
                 )
             }
 
             override fun onFinish() {
-                val notification = NotificationUtils.alert(
-                    applicationContext,
+                val notification = notify.alert(
                     CHANNEL_ID,
                     getString(R.string.water_boil_timer_done_title),
                     getString(R.string.water_boil_timer_done_content),
@@ -83,7 +82,7 @@ class WaterPurificationTimerService : ForegroundService() {
                     group = NotificationChannels.GROUP_WATER,
                     intent = openIntent
                 )
-                NotificationUtils.send(applicationContext, NOTIFICATION_ID, notification)
+                notify.send(NOTIFICATION_ID, notification)
                 done = true
                 stopForeground(false)
             }
@@ -92,8 +91,7 @@ class WaterPurificationTimerService : ForegroundService() {
     }
 
     private fun getNotification(secondsLeft: Int): Notification {
-        return NotificationUtils.persistent(
-            applicationContext,
+        return notify.persistent(
             CHANNEL_ID,
             getString(R.string.water_boil_timer_title),
             resources.getQuantityString(

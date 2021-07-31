@@ -4,22 +4,24 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
+import com.kylecorry.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.flashlight.IFlashlight
 import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
-import com.kylecorry.trailsensecore.infrastructure.system.NotificationUtils
 
 class FlashlightService: ForegroundService() {
 
     private var flashlight: IFlashlight? = null
+
+    private val notify by lazy { Notify(this) }
+
     override val foregroundNotificationId: Int
         get() = NOTIFICATION_ID
 
     override fun getForegroundNotification(): Notification {
-        return NotificationUtils.persistent(
-            this,
+        return notify.persistent(
             CHANNEL_ID,
             getString(R.string.flashlight_title),
             getString(R.string.tap_to_turn_off),
