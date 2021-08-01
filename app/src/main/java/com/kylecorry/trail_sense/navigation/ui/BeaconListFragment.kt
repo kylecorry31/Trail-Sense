@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -35,6 +36,7 @@ import com.kylecorry.trailsensecore.domain.navigation.IBeacon
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.ExternalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
@@ -56,6 +58,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private lateinit var navController: NavController
     private val sensorService by lazy { SensorService(requireContext()) }
     private var displayedGroup: BeaconGroup? = null
+
+    private var cameraPermissionResultAction: (() -> Unit)? = null
 
     private val delayedUpdate = Intervalometer {
         lifecycleScope.launch {
@@ -129,6 +133,19 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         binding.createMenu.setOverlay(binding.overlayMask)
         binding.createMenu.setOnMenuItemClickListener {
             when (it.itemId) {
+                R.id.action_import_qr_beacon -> {
+                    requestCameraPermission {
+                        if (PermissionUtils.isCameraEnabled(requireContext())) {
+                            importBeaconFromQR()
+                        } else {
+                            UiUtils.longToast(
+                                requireContext(),
+                                getString(R.string.camera_permission_denied)
+                            )
+                        }
+                    }
+                    setCreateMenuVisibility(false)
+                }
                 R.id.action_import_gpx_beacons -> {
                     importBeacons()
                     setCreateMenuVisibility(false)
@@ -362,7 +379,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private suspend fun updateBeaconList(resetScroll: Boolean = false) {
-        if (!isBound){
+        if (!isBound) {
             return
         }
 
@@ -421,10 +438,38 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 displayedGroup?.name ?: getString(R.string.select_beacon)
             updateBeaconEmptyText(beacons.isNotEmpty())
             beaconList.setData(beacons)
-            if (resetScroll){
+            if (resetScroll) {
                 beaconList.scrollToPosition(0, false)
             }
         }
+    }
+
+    private fun requestCameraPermission(onPermissionResultAction: () -> Unit) {
+        if (PermissionUtils.isCameraEnabled(requireContext())) {
+            onPermissionResultAction.invoke()
+            return
+        }
+
+        cameraPermissionResultAction = onPermissionResultAction
+        // TODO: Extract this to PermissionUtils for fragments
+        // TODO: If previously denied, allow the user to open the settings
+        requestPermissions(
+            listOf(Manifest.permission.CAMERA).toTypedArray(),
+            RequestCodes.REQUEST_CODE_CAMERA_PERMISSION
+        )
+    }
+
+    private fun importBeaconFromQR() {
+        val sheet = BeaconImportQRBottomSheet()
+        sheet.onBeaconScanned = {
+            val bundle = bundleOf("initial_location" to it)
+            sheet.dismiss()
+            navController.navigate(
+                R.id.action_beaconListFragment_to_placeBeaconFragment,
+                bundle
+            )
+        }
+        sheet.show(requireActivity().supportFragmentManager, "BeaconImportQRBottomSheet")
     }
 
     private fun exportBeacons() {
@@ -568,6 +613,16 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             data?.data?.also { returnUri ->
                 exportToUri(returnUri)
             }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == RequestCodes.REQUEST_CODE_CAMERA_PERMISSION) {
+            cameraPermissionResultAction?.invoke()
         }
     }
 

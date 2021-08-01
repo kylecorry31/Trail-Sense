@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +32,7 @@ class BeaconQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrShare
             return
         }
         binding.beaconName.text = beacon.name
-        val encoded = Uri.parse("geo:${beacon.coordinate.latitude},${beacon.coordinate.longitude}?q=${beacon.name}").toString()
+        val encoded = "geo:${beacon.coordinate.latitude},${beacon.coordinate.longitude}"
         val size = UiUtils.dp(requireContext(), 250f).toInt()
         val bitmap = qr.encode(encoded, size, size)
         binding.beaconQr.setImageBitmap(bitmap)

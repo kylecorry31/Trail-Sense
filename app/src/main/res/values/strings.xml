@@ -1085,7 +1085,7 @@
     <string name="imperial_quarts">Imperial Quarts</string>
     <string name="imperial_ounces_volume">Imperial Ounces</string>
     <string name="imperial_gallons">Imperial Gallons</string>
-<!--    The measure of how much space something takes up (liquid)-->
+    <!--    The measure of how much space something takes up (liquid)-->
     <string name="volume">Volume</string>
     <string name="pounds">Pounds</string>
     <string name="ounces_weight">Ounces</string>
@@ -1141,4 +1141,5 @@
     <string name="climate_tropical">Tropical</string>
     <string name="altitude_history">Altitude history</string>
     <string name="qr_code">QR Code</string>
+    <string name="beacon_qr_import_instructions">Scan a QR code to import</string>
 </resources>
