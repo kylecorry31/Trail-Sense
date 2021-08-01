@@ -143,10 +143,7 @@ class BeaconListItem(
                 R.id.action_qr -> {
                     val sheet = BeaconQRBottomSheet()
                     sheet.beacon = beacon
-                    sheet.show(
-                        fragment.requireActivity().supportFragmentManager,
-                        "BeaconQRBottomSheet"
-                    )
+                    sheet.show(fragment)
                 }
                 R.id.action_copy -> {
                     val sender = BeaconCopy(view.context, Clipboard(view.context))

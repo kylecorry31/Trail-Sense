@@ -3,7 +3,7 @@
     <item
         android:id="@+id/action_import_qr_beacon"
         android:title="@string/qr_code"
-        android:icon="@drawable/ic_qr_code_scan"/>
+        android:icon="@drawable/ic_qr_code"/>
     <item
         android:id="@+id/action_import_gpx_beacons"
         android:title="@string/import_gpx"

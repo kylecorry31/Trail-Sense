@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_beacon_details.xml" value="0.1766304347826087" />
         <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_beacon_qr_import.xml" value="0.18297101449275363" />
+        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_tool_cliff_height.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_tool_flashlight.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/menu/beacon_create_menu.xml" value="0.23148148148148148" />
+        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/menu/beacon_item_menu.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/xml/experimental_preferences.xml" value="0.23169601482854496" />
         <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/xml/navigation_preferences.xml" value="0.12360688956433637" />
       </map>

@@ -455,7 +455,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 bundle
             )
         }
-        sheet.show(requireActivity().supportFragmentManager, "BeaconImportQRBottomSheet")
+        sheet.show(this)
     }
 
     private fun exportBeacons() {

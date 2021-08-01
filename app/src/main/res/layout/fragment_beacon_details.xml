@@ -80,6 +80,32 @@
         app:layout_constraintTop_toTopOf="@+id/comment_icon"
         tools:text="Comment" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/comment_text">
+
+        <com.kylecorry.trail_sense.shared.views.TileButton
+            android:id="@+id/beacon_qr_btn"
+            android:layout_width="102dp"
+            android:layout_height="102dp"
+            android:layout_marginEnd="8dp"
+            app:tileIcon="@drawable/ic_qr_code"
+            app:tileText="@string/qr_code" />
+
+        <com.kylecorry.trail_sense.shared.views.TileButton
+            android:id="@+id/beacon_map_btn"
+            android:layout_width="102dp"
+            android:layout_height="102dp"
+            android:layout_marginStart="8dp"
+            app:tileIcon="@drawable/maps"
+            app:tileText="@string/maps" />
+    </LinearLayout>
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/navigate_btn"
         android:layout_width="wrap_content"

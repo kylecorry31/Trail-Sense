@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconDetailsBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -65,6 +66,17 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                             R.id.action_beaconDetailsFragment_to_action_navigation,
                             bundle
                         )
+                    }
+
+                    binding.beaconQrBtn.setOnClickListener {
+                        val sheet = BeaconQRBottomSheet()
+                        sheet.beacon = this
+                        sheet.show(this@BeaconDetailsFragment)
+                    }
+
+                    binding.beaconMapBtn.setOnClickListener {
+                        val sender = LocationGeoSender(requireContext())
+                        sender.send(this.coordinate)
                     }
 
                 }
