@@ -59,8 +59,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private var displayedGroup: BeaconGroup? = null
 
-    private var cameraPermissionResultAction: (() -> Unit)? = null
-
     private val delayedUpdate = Intervalometer {
         lifecycleScope.launch {
             withContext(Dispatchers.Main) {
@@ -134,7 +132,10 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         binding.createMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_import_qr_beacon -> {
-                    requestCameraPermission {
+                    requestPermissions(
+                        RequestCodes.REQUEST_CODE_CAMERA_PERMISSION,
+                        listOf(Manifest.permission.CAMERA)
+                    ) {
                         if (PermissionUtils.isCameraEnabled(requireContext())) {
                             importBeaconFromQR()
                         } else {
@@ -444,21 +445,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         }
     }
 
-    private fun requestCameraPermission(onPermissionResultAction: () -> Unit) {
-        if (PermissionUtils.isCameraEnabled(requireContext())) {
-            onPermissionResultAction.invoke()
-            return
-        }
-
-        cameraPermissionResultAction = onPermissionResultAction
-        // TODO: Extract this to PermissionUtils for fragments
-        // TODO: If previously denied, allow the user to open the settings
-        requestPermissions(
-            listOf(Manifest.permission.CAMERA).toTypedArray(),
-            RequestCodes.REQUEST_CODE_CAMERA_PERMISSION
-        )
-    }
-
     private fun importBeaconFromQR() {
         val sheet = BeaconImportQRBottomSheet()
         sheet.onBeaconScanned = {
@@ -613,16 +599,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             data?.data?.also { returnUri ->
                 exportToUri(returnUri)
             }
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == RequestCodes.REQUEST_CODE_CAMERA_PERMISSION) {
-            cameraPermissionResultAction?.invoke()
         }
     }
 

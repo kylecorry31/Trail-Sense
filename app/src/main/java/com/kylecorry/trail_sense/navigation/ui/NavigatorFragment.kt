@@ -82,7 +82,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             analyze = false
         )
     }
-    private var cameraPermissionResultAction: (() -> Unit)? = null
     private val orientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val speedometer by lazy { sensorService.getSpeedometer() }
@@ -309,7 +308,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         sightingCompassActive = isOn
         CustomUiUtils.setButtonState(binding.sightingCompassBtn, isOn)
         if (isOn) {
-            requestCameraPermission {
+            requestPermissions(
+                RequestCodes.REQUEST_CODE_CAMERA_PERMISSION,
+                listOf(Manifest.permission.CAMERA)
+            ) {
                 if (PermissionUtils.isCameraEnabled(requireContext())) {
                     enableSightingCompass()
                 } else {
@@ -326,7 +328,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun enableSightingCompass() {
-        if (!PermissionUtils.isCameraEnabled(requireContext())){
+        if (!PermissionUtils.isCameraEnabled(requireContext())) {
             return
         }
         sightingCompassInitialized = true
@@ -776,21 +778,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         return true
     }
 
-    private fun requestCameraPermission(onPermissionResultAction: () -> Unit) {
-        if (PermissionUtils.isCameraEnabled(requireContext())) {
-            onPermissionResultAction.invoke()
-            return
-        }
-
-        cameraPermissionResultAction = onPermissionResultAction
-        // TODO: Extract this to PermissionUtils for fragments
-        // TODO: If previously denied, allow the user to open the settings
-        requestPermissions(
-            listOf(Manifest.permission.CAMERA).toTypedArray(),
-            RequestCodes.REQUEST_CODE_CAMERA_PERMISSION
-        )
-    }
-
     private fun onLocationUpdate() {
         nearbyBeacons = getNearbyBeacons()
         compass.declination = getDeclination()
@@ -909,17 +896,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             else -> QuickActionNone(button, this)
         }
     }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == RequestCodes.REQUEST_CODE_CAMERA_PERMISSION) {
-            cameraPermissionResultAction?.invoke()
-        }
-    }
-
 
     @DrawableRes
     private fun getMoonImage(): Int {

@@ -10,6 +10,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 
+// TODO: Extract this to TS Core and add permission support
 abstract class CustomPreferenceFragment : PreferenceFragmentCompat() {
 
     protected fun switch(@StringRes id: Int): SwitchPreferenceCompat? {
