@@ -14,12 +14,14 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.Wayp
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.geo.Path
+import com.kylecorry.trailsensecore.domain.math.KalmanFilter
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.BoundBottomSheetDialogFragment
 import java.time.Duration
 import java.time.Instant
+import kotlin.math.pow
 
 class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHistoryBinding>() {
 
@@ -78,7 +80,26 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private fun updateChart() {
         val readings =
             (backtrackReadings + weatherReadings + listOfNotNull(currentAltitude)).sortedBy { it.time }
-        val data = readings.map {
+
+        val filteredReadings = if (prefs.navigation.smoothAltitudeHistory) {
+            val kalman = KalmanFilter.filter(
+                readings.map { it.value.toDouble() },
+                34.0.pow(2) * 34.0,
+                10.0,
+                readings.map { it.time.toEpochMilli() / (1000.0 * 60.0) }
+            )
+
+            readings.mapIndexed { index, reading ->
+                AltitudeReading(
+                    reading.time,
+                    kalman[index].toFloat()
+                )
+            }
+        } else {
+            readings
+        }
+
+        val data = filteredReadings.map {
             it.time.toEpochMilli().toFloat() to Distance.meters(it.value).convertTo(units).distance
         }
         chart.plot(data, UiUtils.color(requireContext(), R.color.colorPrimary), filled = true)

@@ -1139,4 +1139,6 @@
     <string name="altitude_history">Altitude history</string>
     <string name="qr_code">QR Code</string>
     <string name="beacon_qr_import_instructions">Scan a QR code to import</string>
+    <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
+    <string name="pref_filter_altitude_history_title">Smooth altitude history</string>
 </resources>

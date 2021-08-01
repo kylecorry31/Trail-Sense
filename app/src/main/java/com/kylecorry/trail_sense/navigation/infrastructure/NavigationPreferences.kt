@@ -174,9 +174,23 @@ class NavigationPreferences(private val context: Context) {
             }
         }
 
-    val areMapsEnabled by BooleanPreference(cache, context.getString(R.string.pref_experimental_maps), false)
+    val smoothAltitudeHistory by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_filter_altitude_history),
+        true
+    )
 
-    val useLowResolutionMaps by BooleanPreference(cache, context.getString(R.string.pref_low_resolution_maps), false)
+    val areMapsEnabled by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_experimental_maps),
+        false
+    )
+
+    val useLowResolutionMaps by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_low_resolution_maps),
+        false
+    )
 
     enum class SpeedometerMode {
         Average,
