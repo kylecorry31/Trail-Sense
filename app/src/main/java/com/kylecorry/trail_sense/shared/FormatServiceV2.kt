@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.text.format.DateUtils
+import android.text.format.Formatter
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
@@ -248,7 +249,11 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
-    fun formatLocation(location: Coordinate, format: CoordinateFormat? = null, fallbackToDD: Boolean = true): String {
+    fun formatLocation(
+        location: Coordinate,
+        format: CoordinateFormat? = null,
+        fallbackToDD: Boolean = true
+    ): String {
         val formatted = when (format ?: prefs.navigation.coordinateFormat) {
             CoordinateFormat.DecimalDegrees -> location.toDecimalDegrees()
             CoordinateFormat.DegreesDecimalMinutes -> location.toDegreeDecimalMinutes()
@@ -298,6 +303,14 @@ class FormatServiceV2(private val context: Context) {
     fun formatCandela(candela: Float, decimalPlaces: Int = 0): String {
         val formatted = DecimalFormatter.format(candela.toDouble(), decimalPlaces)
         return context.getString(R.string.candela_format, formatted)
+    }
+
+    fun formatFileSize(bytes: Long, short: Boolean = true): String {
+        return if (short) {
+            Formatter.formatShortFileSize(context, bytes)
+        } else {
+            Formatter.formatFileSize(context, bytes)
+        }
     }
 
     fun formatRegion(region: Region): String {

@@ -18,8 +18,10 @@ import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.databinding.ListItemMapBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
+import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.PDFUtils
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
@@ -28,10 +30,9 @@ import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
-import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -45,6 +46,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val gps by lazy { sensorService.getGPS() }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val fileService by lazy { LocalFileService(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val localFileService by lazy { LocalFileService(requireContext()) }
     private val cache by lazy { Cache(requireContext()) }
 
@@ -53,6 +55,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     private var boundMap = mutableMapOf<Long, MapRegion>()
     private var bitmaps = mutableMapOf<Long, Bitmap>()
+    private var fileSizes = mutableMapOf<Long, Long>()
 
     private var mapName = ""
 
@@ -121,8 +124,10 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             } else {
                 mapItemBinding.mapImg.setImageResource(R.drawable.maps)
             }
+            mapItemBinding.fileSize.text = formatService.formatFileSize(fileSizes[map.id] ?: 0)
             mapItemBinding.name.text = map.name
             mapItemBinding.description.text = if (onMap) getString(R.string.on_map) else ""
+            mapItemBinding.description.isVisible = onMap
             mapItemBinding.root.setOnClickListener {
                 tryOrNothing {
                     findNavController().navigate(
@@ -180,6 +185,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                         bitmaps[it.id] = bitmap
                     }
 
+                    fileSizes[it.id] = file.length()
                     boundMap[it.id] = bounds
                 }
             }

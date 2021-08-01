@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <ImageView
         android:id="@+id/map_img"
@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
@@ -41,10 +41,23 @@
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/name"
         app:layout_constraintStart_toStartOf="@+id/name"
         app:layout_constraintTop_toBottomOf="@+id/name"
         tools:text="On map" />
+
+    <TextView
+        android:id="@+id/file_size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="?android:textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="@id/description"
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/description"
+        app:layout_constraintTop_toTopOf="@+id/description"
+        app:layout_goneMarginStart="0dp"
+        tools:text="1.4 MB" />
 
     <ImageButton
         android:id="@+id/menu_btn"
@@ -52,12 +65,12 @@
         android:layout_height="32dp"
         android:layout_marginEnd="16dp"
         android:alpha="0.86"
-        android:contentDescription="@string/menu"
         android:background="@android:color/transparent"
-        app:tint="?android:textColorSecondary"
+        android:contentDescription="@string/menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_menu_dots" />
+        app:srcCompat="@drawable/ic_menu_dots"
+        app:tint="?android:textColorSecondary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
