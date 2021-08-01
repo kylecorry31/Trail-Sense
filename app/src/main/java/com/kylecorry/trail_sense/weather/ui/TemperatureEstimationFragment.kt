@@ -73,6 +73,20 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
             DistanceUnits.Meters,
             DistanceUnits.Kilometers
         )
+
+        val baseUnits = prefs.baseDistanceUnits
+        binding.baseElevation.setUnit(baseUnits)
+        binding.destElevation.setUnit(baseUnits)
+
+        binding.baseElevation.hint = getString(R.string.altitude)
+        binding.destElevation.hint = getString(R.string.altitude)
+
+        binding.baseTemperature.hint = if (temperatureUnits == TemperatureUnits.C) {
+            getString(R.string.celsius)
+        } else {
+            getString(R.string.fahrenheit)
+        }
+
         // TODO: Use current temperature button
         // TODO: Use current altitude button
         lifecycleScope.launch {

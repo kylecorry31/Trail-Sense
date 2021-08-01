@@ -113,5 +113,11 @@ class DistanceInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         this.distance = distance
     }
 
+    fun setUnit(unit: DistanceUnits) {
+        if (units.contains(unit)) {
+            unitsSpinner.setSelection(units.indexOf(unit))
+        }
+    }
+
 
 }
