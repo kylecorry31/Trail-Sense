@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.qr.QRService
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrShareBinding
-import com.kylecorry.trail_sense.shared.BoundBottomSheetDialogFragment
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.view.BoundBottomSheetDialogFragment
 
 class BeaconQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrShareBinding>() {
 

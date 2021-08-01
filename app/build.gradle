@@ -58,7 +58,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
-    implementation 'com.github.kylecorry31:Trail-Sense-Core:3.7.1'
+    implementation 'com.github.kylecorry31:Trail-Sense-Core:3.8.0'
     implementation 'com.github.kylecorry31:Notify:1.0.1'
     implementation 'com.github.kylecorry31:QR:1.0.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'

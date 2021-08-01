@@ -11,7 +11,6 @@ import com.kylecorry.trail_sense.databinding.ListItemPlainMenuBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
-import com.kylecorry.trail_sense.shared.BoundBottomSheetDialogFragment
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
@@ -20,6 +19,7 @@ import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.trailsensecore.infrastructure.view.BoundBottomSheetDialogFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.Instant

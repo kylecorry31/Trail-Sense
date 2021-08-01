@@ -186,7 +186,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     displayedGroup = null
                     lifecycleScope.launch {
                         withContext(Dispatchers.Main) {
-                            updateBeaconList()
+                            updateBeaconList(true)
                         }
                     }
                 }
@@ -315,7 +315,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 displayedGroup = beacon
                 lifecycleScope.launch {
                     withContext(Dispatchers.Main) {
-                        updateBeaconList()
+                        updateBeaconList(true)
                     }
                 }
             }
@@ -361,7 +361,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         return dialog
     }
 
-    private suspend fun updateBeaconList() {
+    private suspend fun updateBeaconList(resetScroll: Boolean = false) {
         if (!isBound){
             return
         }
@@ -421,6 +421,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 displayedGroup?.name ?: getString(R.string.select_beacon)
             updateBeaconEmptyText(beacons.isNotEmpty())
             beaconList.setData(beacons)
+            if (resetScroll){
+                beaconList.scrollToPosition(0, false)
+            }
         }
     }
 
@@ -550,7 +553,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private fun onSearch() {
         lifecycleScope.launch {
             withContext(Dispatchers.Main) {
-                updateBeaconList()
+                updateBeaconList(true)
             }
         }
     }

@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentAltitudeHistoryBinding
-import com.kylecorry.trail_sense.shared.BoundBottomSheetDialogFragment
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
@@ -18,6 +17,7 @@ import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trailsensecore.infrastructure.view.BoundBottomSheetDialogFragment
 import java.time.Duration
 import java.time.Instant
 
