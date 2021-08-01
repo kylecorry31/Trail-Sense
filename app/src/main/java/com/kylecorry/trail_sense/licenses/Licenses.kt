@@ -126,6 +126,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE."""
             apache2("2019", "Dimitry Ivanov (legal@noties.io)", "")
         ),
         Library(
+            "ZXing",
+            "https://github.com/zxing/zxing",
+            apache2(
+                "year",
+                "zxing",
+                ""
+            )
+        ),
+        Library(
             "CompassView",
             "https://github.com/kix2902/CompassView",
             apache2(
