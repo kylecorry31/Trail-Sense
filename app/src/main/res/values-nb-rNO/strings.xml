@@ -776,7 +776,7 @@
     </plurals>
     <string name="waypoint_beacon_title_template">%s, %s rutepunkt</string>
     <string name="action_waypoint_create_beacon">Opprett navigeringsmarkør</string>
-    <string name="guide_beacons_description"></string>
+    <string name="guide_beacons_description"/>
     <string name="pref_map_url_source_title">Posisjonsdelingskart</string>
     <string name="beacon_2">Markør 2</string>
     <string name="beacon_1">Markør 1</string>
@@ -798,4 +798,12 @@
     <string name="backtrack_notification_channel">Tilbakesporing</string>
     <string name="guide_beacons_title">Navigeringsmarkører</string>
     <string name="beacon_create_beacon">Navigeringsmarkør</string>
+    <string name="qr_code">QR-kode</string>
+    <string name="pref_experimental_metal_direction_title">Vis retning til metall</string>
+    <string name="pref_flashlight_toggle_with_system_title">Slå av/på med system</string>
+    <string name="map_rotate_instructions">Roter til Nord peker opp</string>
+    <string name="pref_nmea_altitude_summary">Bruker NMEA-offset for høydeomregning</string>
+    <string name="pref_nmea_altitude_title">NMEA høyde-offset</string>
+    <string name="pref_backtrack_save_cell_title">Registrer mobiltelefonsignal</string>
+    <string name="pref_backtrack_save_cell_summary">Registrerer mobiltelefonsignal på rutepunktet. Bruker ikke internett.</string>
 </resources>
