@@ -961,4 +961,5 @@
     <string name="num_satellites">%d 颗卫星</string>
     <string name="no_compass_message">您的设备没有指南针传感器</string>
     <string name="altitude_history">海拔历史</string>
+    <string name="qr_code">二维码</string>
 </resources>
