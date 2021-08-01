@@ -872,8 +872,6 @@
     <string name="pref_tiles_enabled_title">Schnelleinstellungskacheln</string>
     <string name="location_not_mocked">Nutze echten Standort</string>
     <string name="location_mocked">Nutze nachgemachten Standort</string>
-    <string name="sighting_compass">Sichtkompass</string>
-    <string name="uses_camera">Nutzt die Kamera</string>
     <string name="pref_experimental_metal_direction_title">Metallrichtung anzeigen</string>
     <string name="privacy">Privatsphäre</string>
     <string name="units">Einheiten</string>

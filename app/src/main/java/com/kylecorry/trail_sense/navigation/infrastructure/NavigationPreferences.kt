@@ -178,8 +178,6 @@ class NavigationPreferences(private val context: Context) {
 
     val useLowResolutionMaps by BooleanPreference(cache, context.getString(R.string.pref_low_resolution_maps), false)
 
-    var isSightingCompassEnabled by BooleanPreference(cache, context.getString(R.string.pref_experimental_sighting_compass), false)
-
     enum class SpeedometerMode {
         Average,
         Instantaneous

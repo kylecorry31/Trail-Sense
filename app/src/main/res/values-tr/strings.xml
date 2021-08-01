@@ -857,8 +857,6 @@
     <string name="pref_tiles_enabled_summary">Şarj koruma uygulamalarının Trail Sense\'i durdurmasını önleyebilir</string>
     <string name="location_not_mocked">Gerçek konum kullanılıyor</string>
     <string name="location_mocked">Sahte konum kullanılıyor</string>
-    <string name="sighting_compass">Görüş pusulası</string>
-    <string name="uses_camera">Kamerayı kullanır</string>
     <string name="pref_experimental_metal_direction_title">Metal yönünü göster</string>
     <string name="privacy">Gizlilik</string>
     <string name="units">Birimler</string>

@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.Manifest
 import android.hardware.Sensor
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
@@ -80,6 +82,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             analyze = false
         )
     }
+    private var cameraPermissionResultAction: (() -> Unit)? = null
     private val orientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val speedometer by lazy { sensorService.getSpeedometer() }
@@ -126,7 +129,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateAstronomyData()
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
@@ -307,17 +309,26 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         sightingCompassActive = isOn
         CustomUiUtils.setButtonState(binding.sightingCompassBtn, isOn)
         if (isOn) {
-            enableSightingCompass()
+            requestCameraPermission {
+                if (PermissionUtils.isCameraEnabled(requireContext())) {
+                    enableSightingCompass()
+                } else {
+                    UiUtils.longToast(
+                        requireContext(),
+                        getString(R.string.camera_permission_denied)
+                    )
+                    setSightingCompassStatus(false)
+                }
+            }
         } else {
             disableSightingCompass()
         }
     }
 
     private fun enableSightingCompass() {
-        if (!isSightingCompassEnabled()) {
+        if (!PermissionUtils.isCameraEnabled(requireContext())){
             return
         }
-
         sightingCompassInitialized = true
 
         camera.start(this::onCameraUpdate)
@@ -736,12 +747,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
-    private fun isSightingCompassEnabled(): Boolean {
-        return userPrefs.navigation.isSightingCompassEnabled && PermissionUtils.isCameraEnabled(
-            requireContext()
-        )
-    }
-
     private fun onOrientationUpdate(): Boolean {
 
         if (orientation.orientation == lastOrientation) {
@@ -752,11 +757,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         if (shouldShowLinearCompass()) {
             binding.linearCompass.visibility = View.VISIBLE
-            val sightingCompassEnabled = isSightingCompassEnabled()
-            if (sightingCompassEnabled && sightingCompassActive && !sightingCompassInitialized) {
+            if (sightingCompassActive && !sightingCompassInitialized) {
                 enableSightingCompass()
             }
-            binding.sightingCompassBtn.isVisible = sightingCompassEnabled
+            binding.sightingCompassBtn.isVisible = true
             binding.roundCompass.visibility = View.INVISIBLE
             binding.radarCompass.visibility = View.INVISIBLE
         } else {
@@ -770,6 +774,21 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
         updateUI()
         return true
+    }
+
+    private fun requestCameraPermission(onPermissionResultAction: () -> Unit) {
+        if (PermissionUtils.isCameraEnabled(requireContext())) {
+            onPermissionResultAction.invoke()
+            return
+        }
+
+        cameraPermissionResultAction = onPermissionResultAction
+        // TODO: Extract this to PermissionUtils for fragments
+        // TODO: If previously denied, allow the user to open the settings
+        requestPermissions(
+            listOf(Manifest.permission.CAMERA).toTypedArray(),
+            RequestCodes.REQUEST_CODE_CAMERA_PERMISSION
+        )
     }
 
     private fun onLocationUpdate() {
@@ -888,6 +907,16 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             QuickActionType.Whistle -> QuickActionWhistle(button, this)
             QuickActionType.LowPowerMode -> LowPowerQuickAction(button, this)
             else -> QuickActionNone(button, this)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == RequestCodes.REQUEST_CODE_CAMERA_PERMISSION) {
+            cameraPermissionResultAction?.invoke()
         }
     }
 

@@ -882,8 +882,6 @@
     <string name="pref_tiles_enabled_title">Системні плитки</string>
     <string name="location_not_mocked">Використання фактичного місцеперебування</string>
     <string name="location_mocked">Використання імітації місцеперебування</string>
-    <string name="sighting_compass">Прицільний компас</string>
-    <string name="uses_camera">Використовує камеру</string>
     <string name="pref_experimental_metal_direction_title">Показати напрямок металу</string>
     <string name="privacy">Приватність</string>
     <string name="units">Одиниці</string>

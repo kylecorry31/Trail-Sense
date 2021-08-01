@@ -767,8 +767,6 @@
     <string name="pref_tiles_enabled_title">Tiles do sistema</string>
     <string name="location_not_mocked">Usando localização real</string>
     <string name="location_mocked">Usando localização simulada</string>
-    <string name="sighting_compass">Bússola de observação</string>
-    <string name="uses_camera">Usa câmera</string>
     <string name="pref_experimental_metal_direction_title">Mostrar a direção do metal</string>
     <string name="privacy">Privacidade</string>
     <string name="units">Unidades</string>

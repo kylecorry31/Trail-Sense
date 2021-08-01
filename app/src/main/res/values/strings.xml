@@ -1028,9 +1028,6 @@
     <string name="pref_experimental_maps" translatable="false">pref_experimental_maps</string>
     <string name="pref_experimental_metal_direction" translatable="false">pref_experimental_metal_direction</string>
     <string name="pref_experimental_metal_direction_title">Show metal direction</string>
-    <string name="uses_camera">Uses camera</string>
-    <string name="pref_experimental_sighting_compass" translatable="false">pref_experimental_sighting_compass</string>
-    <string name="sighting_compass">Sighting compass</string>
     <string name="pref_experimental_settings" translatable="false">pref_experimental_settings</string>
     <string name="pref_sensor_settings" translatable="false">pref_sensor_settings</string>
     <string name="location_mocked">Using mocked location</string>

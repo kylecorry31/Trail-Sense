@@ -847,7 +847,6 @@
     </plurals>
     <string name="sensor_gyroscope">Żyroskop</string>
     <string name="pref_tiles_enabled_title">Kafelki systemowe</string>
-    <string name="uses_camera">Wykorzystuje kamery</string>
     <string name="privacy">Prywatność</string>
     <string name="units">Jednostki</string>
     <string name="beacon_moved_to">Przeniesiono do %s</string>
@@ -868,7 +867,6 @@
     <string name="underwater_mode">Tryb podwodny</string>
     <string name="leave_underwater_mode">Pod wodą: naciśnij wstecz, aby wyjść</string>
     <string name="pref_tiles_enabled_summary">Może zapobiec aplikacjom oszczędzających baterię na całkowite zatrzymanie programu Trail Sense</string>
-    <string name="sighting_compass">Kompas celowniczy</string>
     <string name="pref_cell_signal_refresh_cache_summary">Wymusza wczytywanie najnowszych danych o mocy sygnału</string>
     <string name="pref_cell_signal_refresh_cache_title">Odśwież pamięć podręczną sygnału</string>
     <string name="pref_navigation_lock_screen_presence_title">Pokaż na ekranie blokady podczas nawigacji</string>

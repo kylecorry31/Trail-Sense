@@ -13,15 +13,10 @@ class PreferenceMigrator private constructor() {
             val cache = Cache(context)
             if (cache.contains("pref_enable_experimental")) {
                 val isExperimental = cache.getBoolean("pref_enable_experimental") ?: false
-                val useCamera = cache.getBoolean("pref_use_camera_features") ?: false
                 cache.putBoolean(context.getString(R.string.pref_experimental_maps), isExperimental)
                 cache.putBoolean(
                     context.getString(R.string.pref_experimental_tide_clock),
                     isExperimental
-                )
-                cache.putBoolean(
-                    context.getString(R.string.pref_experimental_sighting_compass),
-                    isExperimental && useCamera
                 )
                 cache.remove("pref_enable_experimental")
                 cache.remove("pref_use_camera_features")
