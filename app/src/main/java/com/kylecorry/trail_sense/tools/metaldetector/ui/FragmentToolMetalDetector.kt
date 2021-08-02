@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.kylecorry.buzz.Buzz
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -20,14 +21,13 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.Magnetom
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
-import com.kylecorry.trailsensecore.infrastructure.vibration.Vibrator
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 import java.time.Duration
 import kotlin.math.roundToInt
 
 class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding>() {
     private val magnetometer by lazy { Magnetometer(requireContext()) }
-    private val vibrator by lazy { Vibrator(requireContext()) }
+    private val buzz by lazy { Buzz(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val metalDetectionService = MetalDetectionService()
     private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
@@ -95,7 +95,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             gravity.stop(this::onMagnetometerUpdate)
             calibrateTimer.stop()
         }
-        vibrator.stop()
+        buzz.off()
         isVibrating = false
     }
 
@@ -150,10 +150,10 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
         if (metalDetected && !isVibrating) {
             isVibrating = true
-            vibrator.vibrate(Duration.ofMillis(VIBRATION_DURATION))
+            buzz.interval(VIBRATION_DURATION, VIBRATION_DURATION)
         } else if (!metalDetected) {
             isVibrating = false
-            vibrator.stop()
+            buzz.off()
         }
     }
 
@@ -163,7 +163,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     }
 
     companion object {
-        private const val VIBRATION_DURATION = 100L
+        private val VIBRATION_DURATION = Duration.ofMillis(200)
     }
 
     override fun generateBinding(
