@@ -164,8 +164,7 @@
     <string name="heat_alert_frostbite_warning_title">Warnung: Unterkühlung</string>
     <string name="heat_alert_frostbite_danger_title">Gefahr: Unterkühlung</string>
     <string name="heat_alert_normal_title">Keine Temeraturwarnungen</string>
-    <string name="temperature_disclaimer">Die angezeigte Temperatur kann höher sein,
-\nwegen der Wärmeentwicklung Ihres Telefons.</string>
+    <string name="temperature_disclaimer">Die angezeigte Temperatur kann aufgrund der Wärmeentwicklung Ihres Telefons höher sein.</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_setpoint_format">Setze %s - vor %s</string>
     <string name="pressure_reading_time_ago">vor %s - %s</string>
@@ -336,13 +335,13 @@
     <string name="pref_sea_level_use_rapid_summary">Verwende schnelle Luftdruckänderungen für die Umrechnung auf Meereshöhe</string>
     <string name="pref_adjust_for_temperature_summary">Verwende die Temperatur zur Umrechnung auf Meereshöhe</string>
     <string name="tool_bubble_level_title">Libelle</string>
-    <string name="edit_item_title">Gegenstand editieren</string>
+    <string name="edit_item_title">Gegenstand bearbeiten</string>
     <string name="create_item_title">Gegenstand erstellen</string>
     <string name="dialog_item_subtract">Abziehen</string>
     <string name="dialog_item_amount">Betrag</string>
     <string name="dialog_item_add">Hinzufügen</string>
     <string name="spinner_category_prompt">Kategorie</string>
-    <string name="action_item_edit">Editieren</string>
+    <string name="action_item_edit">Bearbeiten</string>
     <string name="action_item_delete">Löschen</string>
     <string name="action_item_subtract">Abziehen</string>
     <string name="action_item_add">Hinzufügen</string>
@@ -937,7 +936,7 @@
     <string name="temperature_estimation">Temperaturschätzung</string>
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
-    <string name="delete_pack">Paket löschen\?</string>
+    <string name="delete_pack">Packliste löschen\?</string>
     <string name="new_packing_list">Neue Packliste</string>
     <string name="no_packing_lists">Keine Packlisten</string>
     <string name="percent_packed">%s gepackt</string>
@@ -945,7 +944,7 @@
     <string name="hygiene">Hygiene</string>
     <string name="documents">Unterlagen</string>
     <string name="electronics">Elektronik</string>
-    <string name="clear_amounts">Beträge Löschen</string>
+    <string name="clear_amounts">Beträge löschen</string>
     <string name="desired_amount">Gewünschte Menge</string>
     <string name="packed_amount">Gepackte Menge</string>
     <string name="default_pack_name">Standardpaket</string>
@@ -956,7 +955,7 @@
     <string name="pack_sort_weight_high_to_low">Gewicht (hoch zu gering)</string>
     <string name="pack_sort_weight_low_to_high">Gewicht (gering zu hoch)</string>
     <string name="pack_sort_percent_high_to_low">Prozent gepackt (hoch zu wenig)</string>
-    <string name="pack_sort_percent_low_to_high">Prozent gepackt (wenig bis hoch)</string>
+    <string name="pack_sort_percent_low_to_high">Prozent gepackt (wenig zu hoch)</string>
     <string name="pack_sort_category">Kategorie</string>
     <string name="pref_pack_item_sort">pref_pack_item_sort</string>
     <string name="climate_tropical">Tropische</string>
@@ -970,4 +969,9 @@
     <string name="guide_packing_list">Packlisten erstellen</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="current_format">%s mA</string>
+    <string name="pref_filter_altitude_history_title">Weicher Höhenverlauf</string>
+    <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
+    <string name="beacon_qr_import_instructions">Einen QR-Code zum Importieren scannen</string>
+    <string name="qr_code">QR-Code</string>
+    <string name="altitude_history">Höhenverlauf</string>
 </resources>
