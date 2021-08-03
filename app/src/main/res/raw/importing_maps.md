@@ -4,7 +4,7 @@ To use maps in Trail Sense, you must enable the "Maps" setting in Trail Sense's 
 
 From the 'Offline Maps' tool, tap the plus button in the bottom right and give your map a name. You will then be prompted to select an image of a map. At this time, the image must already exist on your phone, so you may need to have downloaded a map image or taken a picture already. After selecting a map you can open it from the list and calibrate it.
 
-Caltopo is a great source for downloading high quality trail maps, which are easy to calibrate in Trail Sense. Just 'print' the map to a Geospatial PDF and Trail Sense can automatically import it and calibrate.
+CalTopo is a great source for downloading high quality trail maps, which are easy to calibrate in Trail Sense. Just 'print' the map to a Geospatial PDF and Trail Sense can automatically import it and calibrate.
 
 ## How to calibrate a map?
 
@@ -24,7 +24,7 @@ If you took a picture of the trail sign and are using that, you can mark you cur
 
 ### From the map grid
 
-If you took a picture of a printed map or downloaded a map online (ex. Caltopo), you can use the grid lines on the map to calculate the location of several features, and enter them into Trail Sense by tapping on them on the map and entering their grid coordinates. See the 'Using printed maps' guide for how to get coordinates from a map.
+If you took a picture of a printed map or downloaded a map online (ex. CalTopo), you can use the grid lines on the map to calculate the location of several features, and enter them into Trail Sense by tapping on them on the map and entering their grid coordinates. See the 'Using printed maps' guide for how to get coordinates from a map.
 
 The intersection points between gridlines are the easiest to calibrate off of.
 
