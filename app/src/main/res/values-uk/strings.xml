@@ -981,4 +981,8 @@
     <string name="climate_zone">%s зона</string>
     <string name="climate_temperate">Помірна</string>
     <string name="climate_polar">Полярна</string>
+    <string name="pref_filter_altitude_history_title">Історія плавності висот</string>
+    <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
+    <string name="beacon_qr_import_instructions">Зчитайте QR-код для імпорту</string>
+    <string name="qr_code">QR-код</string>
 </resources>
