@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.settings.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.preference.Preference
+import com.kylecorry.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
@@ -46,7 +46,7 @@ class SettingsFragment : CustomPreferenceFragment() {
         preference(R.string.pref_weather_category)?.isVisible = sensorChecker.hasBarometer()
 
         preference(R.string.pref_flashlight_settings)?.isVisible =
-            Flashlight.hasFlashlight(requireContext())
+            Torch.isAvailable(requireContext())
 
         refreshOnChange(list(R.string.pref_theme))
 

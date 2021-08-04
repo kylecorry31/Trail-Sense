@@ -7,16 +7,16 @@ import android.os.Handler
 import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.kylecorry.notify.Notify
+import com.kylecorry.torch.ITorch
+import com.kylecorry.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
-import com.kylecorry.trailsensecore.infrastructure.flashlight.IFlashlight
 import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
 
 class StrobeService : ForegroundService() {
 
     private val notify by lazy { Notify(this) }
-    private var flashlight: IFlashlight? = null
+    private var torch: ITorch? = null
     private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
     private var on = false
 
@@ -26,15 +26,15 @@ class StrobeService : ForegroundService() {
 
     private fun runNextState() {
         if (!isRunning) {
-            flashlight?.off()
+            torch?.off()
             on = false
             return
         }
 
         if (on){
-            flashlight?.off()
+            torch?.off()
         } else {
-            flashlight?.on()
+            torch?.on()
         }
 
         on = !on
@@ -59,13 +59,13 @@ class StrobeService : ForegroundService() {
     override fun onDestroy() {
         isRunning = false
         handler.removeCallbacks(runnable)
-        flashlight?.off()
+        torch?.off()
         stopService(true)
         super.onDestroy()
     }
 
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
-        flashlight = Flashlight(this)
+        torch = Torch(this)
         isRunning = true
         handler.post(runnable)
         return START_STICKY_COMPATIBILITY

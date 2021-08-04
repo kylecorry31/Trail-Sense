@@ -5,15 +5,15 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.kylecorry.notify.Notify
+import com.kylecorry.torch.ITorch
+import com.kylecorry.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
-import com.kylecorry.trailsensecore.infrastructure.flashlight.IFlashlight
 import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
 
 class FlashlightService: ForegroundService() {
 
-    private var flashlight: IFlashlight? = null
+    private var torch: ITorch? = null
 
     private val notify by lazy { Notify(this) }
 
@@ -32,7 +32,7 @@ class FlashlightService: ForegroundService() {
     }
 
     override fun onDestroy() {
-        flashlight?.off()
+        torch?.off()
         isRunning = false
         stopService(true)
         super.onDestroy()
@@ -40,8 +40,8 @@ class FlashlightService: ForegroundService() {
 
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
         isRunning = true
-        flashlight = Flashlight(this)
-        flashlight?.on()
+        torch = Torch(this)
+        torch?.on()
         return START_STICKY_COMPATIBILITY
     }
 

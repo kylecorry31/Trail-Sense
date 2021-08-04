@@ -6,9 +6,9 @@ import android.hardware.camera2.CameraManager.TorchCallback
 import android.os.Handler
 import android.os.Looper
 import androidx.core.content.getSystemService
+import com.kylecorry.torch.Torch
 import com.kylecorry.trail_sense.settings.infrastructure.FlashlightPreferenceRepo
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
-import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 
 
 class FlashlightHandler private constructor(private val context: Context) : IFlashlightHandler {
@@ -78,7 +78,7 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
             return
         }
         handler.postDelayed({
-            val flashlight = Flashlight(context)
+            val flashlight = Torch(context)
             flashlight.off()
             forceOff(millis - increment)
         }, increment)
@@ -117,7 +117,7 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
     }
 
     override fun isAvailable(): Boolean {
-        return Flashlight.hasFlashlight(context)
+        return Torch.isAvailable(context)
     }
 
     private fun registerTorchCallback() {

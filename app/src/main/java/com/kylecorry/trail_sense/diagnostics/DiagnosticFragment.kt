@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import com.kylecorry.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentDiagnosticsBinding
 import com.kylecorry.trail_sense.databinding.ListItemSensorBinding
@@ -25,7 +26,6 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.units.*
-import com.kylecorry.trailsensecore.infrastructure.flashlight.Flashlight
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.BarometricAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
@@ -174,7 +174,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     }
 
     private fun updateFlashlight() {
-        val hasFlashlight = Flashlight.hasFlashlight(requireContext())
+        val hasFlashlight = Torch.isAvailable(requireContext())
         sensorDetailsMap["flashlight"] = SensorDetails(
             getString(R.string.flashlight_title),
             "",

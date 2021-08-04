@@ -62,6 +62,7 @@ dependencies {
     implementation 'com.github.kylecorry31:Notify:1.0.1'
     implementation 'com.github.kylecorry31:QR:1.0.1'
     implementation 'com.github.kylecorry31:Buzz:1.1.0'
+    implementation 'com.github.kylecorry31:Torch:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'com.google.android:flexbox:2.0.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
