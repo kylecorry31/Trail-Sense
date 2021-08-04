@@ -347,8 +347,7 @@
     <string name="action_item_add">Hinzufügen</string>
     <string name="action_inventory">Inventar</string>
     <string name="water_purification_step_3">Starten Sie den Timer</string>
-    <string name="water_purification_step_2">Bringen Sie das Wasser zum Kochen,
-\nsodass es stark sprudelt</string>
+    <string name="water_purification_step_2">Wasser zum Kochen bringen</string>
     <string name="water_purification_step_1">Filtern Sie das Wasser</string>
     <string name="tool_ruler_title">Lineal</string>
     <string name="distance_to">entspricht</string>
