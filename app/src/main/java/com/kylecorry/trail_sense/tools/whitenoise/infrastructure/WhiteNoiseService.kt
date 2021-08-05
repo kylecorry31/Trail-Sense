@@ -25,9 +25,10 @@ class WhiteNoiseService : ForegroundService() {
     }
 
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
+        acquireWakelock("WhiteNoiseService")
         isRunning = true
         val stopAt = cache.getInstant(CACHE_KEY_OFF_TIME)
-        if (stopAt != null && Instant.now() < stopAt){
+        if (stopAt != null && Instant.now() < stopAt) {
             offTimer.once(Duration.between(Instant.now(), stopAt))
         }
 
@@ -55,6 +56,7 @@ class WhiteNoiseService : ForegroundService() {
         stopService(true)
         offTimer.stop()
         cache.remove(CACHE_KEY_OFF_TIME)
+        // super.onDestroy will release the wakelock
         super.onDestroy()
     }
 
