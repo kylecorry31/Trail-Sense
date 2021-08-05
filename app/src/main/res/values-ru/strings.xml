@@ -68,9 +68,9 @@
     <string name="theme_system">Системная</string>
     <string name="gps">GPS</string>
     <string name="sun_actual">Фактическое время</string>
-    <string name="sun_civil">Гражданские сумерки</string>
-    <string name="sun_nautical">Морские сумерки</string>
-    <string name="sun_astronomical">Астрономические сумерки</string>
+    <string name="sun_civil">Гражданское время</string>
+    <string name="sun_nautical">Морское время</string>
+    <string name="sun_astronomical">Астрономическое время</string>
     <string name="today">Сегодня</string>
     <string name="tomorrow">Завтра</string>
     <string name="yesterday">Вчера</string>
@@ -206,10 +206,10 @@
     <string name="pref_auto_location_title">Автоматически отслеживать перемещение</string>
     <string name="compass_accuracy_improved">Точность компаса поднялась: %s</string>
     <string name="compass_reported_accuracy">Текущая точность: %s</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Проведите ваше устройство по траектории восьмерки несколько раз и нажмите %s
+    <string name="calibrate_compass_on_navigate_dialog_content">Проведите ваше устройство по траектории восьмерки или во всех направлениях несколько раз и нажмите %s
 \n
 \nЭто сообщение можно отключить в настройках.</string>
-    <string name="calibrate_compass_dialog_content">Проведите ваше устройство по траектории восьмерки несколько раз и нажмите %s</string>
+    <string name="calibrate_compass_dialog_content">Проведите ваше устройство по траектории восьмерки или во всех направлениях несколько раз и нажмите %s</string>
     <string name="pref_auto_declination_summary">С использованием вашего текущего местоположения</string>
     <string name="declination_override_updated_toast">Смещение компаса обновлено</string>
     <string name="compass_from_gps">Направлять компас на географический север используя текущее местоположение GPS</string>
@@ -274,7 +274,7 @@
 \n    %s на текущей высоте
 \n    %s спутников
 \n
-\nКомпас: Вращайте устройство по траектории восьмерки и постарайтесь находиться подальше от крупных металлоконструкций."</string>
+\nКомпас: Вращайте устройство по траектории восьмерки или во всех направлениях и постарайтесь находиться подальше от крупных металлоконструкций."</string>
     <string name="forecast_sensitivity_low_in">Низкая (0.074 in / 3ч)</string>
     <string name="forecast_sensitivity_high_psi">Высокая (0.007 PSI / 3ч)</string>
     <string name="forecast_sensitivity_med_psi">Средняя (0.022 PSI / 3ч)</string>
@@ -315,7 +315,7 @@
     <string name="storm_sensitivity_med_in">Средняя (0,133 in / 3 ч)</string>
     <string name="storm_sensitivity_high_in">Высокая (0,089 in / 3 ч)</string>
     <string name="tool_user_guide_title">Руководство пользователя</string>
-    <string name="tool_user_guide_summary">Практическое руководство по использованию Trail Sense</string>
+    <string name="tool_user_guide_summary">Руководство по использованию Trail Sense</string>
     <string name="delete_beacon_group">Удалить группу</string>
     <string name="delete_beacon_group_message">%s и все его маячки будут удалены.</string>
     <string name="edit_beacon_group">Редактировать группу</string>
@@ -372,7 +372,7 @@
     <string name="action_item_add">Добавить</string>
     <string name="action_inventory">Инвентарь</string>
     <string name="guide_avalanche_risk">Оценка риска схода лавин</string>
-    <string name="object_height_guide">Оценить высоту объекта</string>
+    <string name="object_height_guide">Оценка высоты объекта</string>
     <string name="tool_cliff_height_title">Высота скалы</string>
     <string name="tool_cliff_height_description">Измерьте высоту скалы или обрыва</string>
     <string name="tool_cliff_height_disclaimer">Используйте этот инструмент только тогда, когда это безопасно, и обязательно проверяйте, что находится под скалой, чтобы избежать травм. Инструкции смотрите в руководстве пользователя.</string>
@@ -514,10 +514,18 @@
     <string name="pref_gps_override_title">Переопределение местоположения</string>
     <string name="coordinate_input_invalid_location">Неверное местоположение</string>
     <string name="location_input_help">Десятичные градусы (например, 1,00, -2,00)
-\nДесятичные градусы минуты (например, 1°23,12\'N, 3°12,1\'W) 
-\nГрадусы минуты секунды (например, 1°23\'12,1 \"N, 3°12\"1,2\'W) 
-\nUTM (например, 03T 12345E 67890N) 
-\nMGRS (например, 27PXM 09601 05579)</string>
+\n
+\nДесятичные градусы минуты (например, 1°23,12\'N, 3°12,1\'W)
+\n
+\nГрадусы минуты секунды (например, 1°23\'12,1 \"N, 3°12\"1,2\'W)
+\n
+\nUTM (например, 03T 12345E 67890N)
+\n
+\nMGRS (например, 27PXM 09601 05579)
+\n
+\nUSNG (например, 14S NJ 39521 41744)
+\n
+\nOSNG (OSGB36) (например, TG 51409 13177)</string>
     <string name="location_input_help_title">Поддерживаемые форматы местоположения</string>
     <string name="location_input_hint">Местоположение</string>
     <string name="pref_backtrack_frequency_title">Интервал истории маршрута</string>
@@ -698,15 +706,15 @@
     <string name="guide_light_meter_description">Как определить расстояние луча фонарика</string>
     <string name="guide_light_meter_title">Определить эффективность фонарика</string>
     <string name="gps_cache">GPS-Кэш</string>
-    <string name="pref_daily_weather_time_title">Время прогноза погоды на день</string>
+    <string name="pref_daily_weather_time_title">Ежедневное время погоды</string>
     <string name="date_not_set">Дата не установлена</string>
     <string name="time_not_set">Время не установлено</string>
     <string name="tide_calibration_instructions">Установите время прилива рядом с вами, желательно на дату новолуния или полнолуния. Его можно получить в Интернете или распечатав таблицы приливов и отливов. Приливы, показанные в Trail Sense, могут отличаться до двух часов, что достаточно для справки, но на что нельзя полагаться.</string>
-    <string name="tide_high_short">Прилив</string>
-    <string name="tide_low_short">Отлив</string>
+    <string name="tide_high_short">Высокий</string>
+    <string name="tide_low_short">Низкий</string>
     <string name="half_tide">Полприлива</string>
-    <string name="low_tide">Отлив</string>
-    <string name="high_tide">Прилив</string>
+    <string name="low_tide">Низкий прилив</string>
+    <string name="high_tide">Высокий прилив</string>
     <string name="right_quick_action">Быстрое действие направо</string>
     <string name="left_quick_action">Быстрое действие налево</string>
     <string name="quick_action_none">Ничего</string>
@@ -806,7 +814,7 @@
     <string name="pref_weather_show_detailed_icon_title">Показать цветной значок уведомления</string>
     <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="actual_frequency_disclaimer">Фактическая частота может отличаться, так как для некоторых устройств установлены фоновые ограничения.</string>
-    <string name="pref_backtrack_path_radar_summary">На радарном компасе и картах</string>
+    <string name="pref_backtrack_path_radar_summary">На компасе радара и картах</string>
     <string name="time_until_full">до полного</string>
     <string name="theme_sunset_sunrise">Восход/закат</string>
     <string name="app_disclaimer_message_title">Отказ от ответственности / Условия использования</string>
@@ -828,9 +836,9 @@
     <string name="camera_permission_denied">В разрешении камеры отказано, невозможно включить функции камеры. Вы можете включить его в настройках.</string>
     <string name="pref_use_camera_features_title">Включить функции камеры</string>
     <string name="color">Цвет</string>
-    <string name="water_boil_guide_title">Сделайте воду безопасной для питья</string>
-    <string name="map_perspective_instructions">Наклонить карту</string>
-    <string name="pref_barometer_altitude_outlier_title">Удалить высотное отклонение</string>
+    <string name="water_boil_guide_title">Сделать воду безопасной для питья</string>
+    <string name="map_perspective_instructions">Нарисуйте карту</string>
+    <string name="pref_barometer_altitude_outlier_title">Удалить отклонения высоты</string>
     <string name="days">Дни</string>
     <plurals name="number_days">
         <item quantity="one">%d день</item>
@@ -874,4 +882,111 @@
     <string name="dawn_type">Рассвет (%s)</string>
     <string name="weather_monitor">Монитор погоды</string>
     <string name="no_data">Нет данных</string>
+    <string name="pref_map_url_source_title">Поделиться местоположением на карте</string>
+    <string name="pref_filter_altitude_history_title">История плавности высоты</string>
+    <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
+    <string name="beacon_qr_import_instructions">Отсканируйте QR-код для импорта</string>
+    <string name="qr_code">QR-код</string>
+    <string name="altitude_history">История высот</string>
+    <string name="climate_tropical">Тропическая</string>
+    <string name="climate_temperate">Умеренная</string>
+    <string name="climate_polar">Полярная</string>
+    <string name="climate_zone">%s зона</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="num_satellites">%d спутников</string>
+    <string name="no_compass_message">В вашем устройстве отсутствует датчик компаса</string>
+    <string name="humidity">%s влажности</string>
+    <string name="guide_packing_list">Создание списков упаковки</string>
+    <string name="pref_depth_enabled">pref_depth_enabled</string>
+    <string name="weight_per_item">Вес на единицу</string>
+    <string name="pref_weight_units">pref_weight_units</string>
+    <string name="pack_sort_weight_high_to_low">Вес (по убыванию)</string>
+    <string name="pack_sort_weight_low_to_high">Вес (по возрастанию)</string>
+    <string name="pack_sort_percent_low_to_high">Процент упаковки (по возрастанию)</string>
+    <string name="pack_sort_percent_high_to_low">Процент упаковки (по убыванию)</string>
+    <string name="pack_sort_category">Категория</string>
+    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
+    <string name="sort">Сортировать</string>
+    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="delete_pack">Удалить пакет\?</string>
+    <string name="new_packing_list">Новый список упаковки</string>
+    <string name="no_packing_lists">Нет списков упаковок</string>
+    <string name="percent_packed">%s упаковано</string>
+    <string name="packing_lists">Списки упаковки</string>
+    <string name="hygiene">Гигиена</string>
+    <string name="documents">Документы</string>
+    <string name="electronics">Электроника</string>
+    <string name="clear_amounts">Очистить ёмкость</string>
+    <string name="desired_amount">Желаемая ёмкость</string>
+    <string name="packed_amount">Упакованная ёмкость</string>
+    <string name="default_pack_name">Пакет по умолчанию</string>
+    <string name="time">Время</string>
+    <string name="days_format">%s д</string>
+    <string name="hours_format">%s ч</string>
+    <string name="minutes_format">%s м</string>
+    <string name="seconds_format">%s с</string>
+    <string name="milliseconds_format">%s мс</string>
+    <string name="hours">Часы</string>
+    <string name="minutes">Минуты</string>
+    <string name="seconds">Секунды</string>
+    <string name="weight">Вес</string>
+    <string name="grams_format">%s г</string>
+    <string name="kilograms_format">%s кг</string>
+    <string name="ounces_weight_format">%s унций</string>
+    <string name="pounds_format">%s фунтов</string>
+    <string name="grams">Граммы</string>
+    <string name="kilograms">Килограммы</string>
+    <string name="ounces_weight">Унции</string>
+    <string name="pounds">Фунты</string>
+    <string name="volume">Объём</string>
+    <string name="imperial_gallons">Имперские галлоны</string>
+    <string name="imperial_ounces_volume">Имперские унции</string>
+    <string name="imperial_quarts">Имперские кварты</string>
+    <string name="imperial_pints">Имперские пинты</string>
+    <string name="imperial_cups">Имперские чашки</string>
+    <string name="us_gallons">Галлоны США</string>
+    <string name="us_ounces_volume">Унции США</string>
+    <string name="us_quarts">Кварты США</string>
+    <string name="us_pints">Пинты США</string>
+    <string name="us_cups">Чашки США</string>
+    <string name="milliliters">Миллилитры</string>
+    <string name="liters">Литры</string>
+    <string name="gallon_format">%s галлонов</string>
+    <string name="ounces_volume_format">%s унций</string>
+    <string name="quart_format">%s кварт</string>
+    <string name="pint_format">%s пинт</string>
+    <string name="cup_format">%s чшк</string>
+    <string name="milliliter_format">%s мл</string>
+    <string name="liter_format">%s л</string>
+    <string name="swap">Поменять</string>
+    <string name="clear_cache">Очистить кэш</string>
+    <string name="destination_elevation">Высота места назначения</string>
+    <string name="base_temperature">Базовая температура</string>
+    <string name="base_elevation">Базовая высота</string>
+    <string name="pref_temperature_estimation_summary">Оцените температуру на другой высоте</string>
+    <string name="temperature_estimation">Оценка температуры</string>
+    <string name="unit_yards">Ярды</string>
+    <string name="yards_format">%s ярд</string>
+    <string name="find_next_occurrence">Найти следующее вхождение</string>
+    <string name="daylight">Дневной свет</string>
+    <string name="pref_auto_low_power_title">Автоматическое энергосбережение</string>
+    <string name="pref_auto_low_power_summary">Когда батарея разряжена</string>
+    <string name="pref_low_resolution_maps_title">Использовать низкое разрешение</string>
+    <string name="pref_low_resolution_maps_summary">Для устройств с ограниченным объемом памяти</string>
+    <string name="pref_flashlight_toggle_with_volume_title">Переключение с помощью кнопок громкости</string>
+    <string name="pref_flashlight_toggle_with_volume_summary">Пока Trail Sense открыт</string>
+    <string name="back_press_confirm">Нажмите назад ещё раз, чтобы выйти</string>
+    <string name="underwater_mode">Подводный режим</string>
+    <string name="leave_underwater_mode">Под водой: нажмите назад для выхода</string>
+    <string name="pref_tiles_enabled_summary">Может помешать приложениям для экономии заряда батареи полностью остановить Trail Sense</string>
+    <string name="pref_tiles_enabled_title">Системные плитки</string>
+    <string name="location_not_mocked">Использование фактического местоположения</string>
+    <string name="location_mocked">Использование фиктивного местоположения</string>
+    <string name="pref_experimental_metal_direction_title">Показать направление металла</string>
+    <string name="privacy">Конфиденциальность</string>
+    <string name="units">Единицы измерения</string>
+    <string name="pref_privacy_screenshot_protection_title">Запретить снимки экрана</string>
+    <string name="action_inventory_clear_confirm">Очистить все упакованные ёмкости\?</string>
+    <string name="current_format">%s мА</string>
 </resources>
