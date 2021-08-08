@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
+import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.NullBarometer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
@@ -109,7 +110,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         battery.asLiveData().observe(viewLifecycleOwner, { updateBattery() })
         gyroscope.asLiveData().observe(viewLifecycleOwner, { updateGyro() })
 
-        if (!sensorChecker.hasSensor(Sensor.TYPE_MAGNETIC_FIELD) && !sensorChecker.hasSensor(Sensor.TYPE_ORIENTATION)){
+        if (!sensorChecker.hasSensor(Sensor.TYPE_MAGNETIC_FIELD) && !sensorChecker.hasSensor(Sensor.TYPE_ORIENTATION)) {
             sensorDetailsMap["compass"] = SensorDetails(
                 getString(R.string.pref_compass_sensor_title),
                 "",
@@ -456,7 +457,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             return UiUtils.color(requireContext(), R.color.yellow)
         }
 
-        if (!gps.hasValidReading || (prefs.requiresSatellites && gps.satellites < 4)) {
+        if (!gps.hasValidReading || (prefs.requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
             return UiUtils.color(requireContext(), R.color.yellow)
         }
 
@@ -492,7 +493,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             return getString(R.string.gps_stale)
         }
 
-        if (!gps.hasValidReading || (prefs.requiresSatellites && gps.satellites < 4)) {
+        if (!gps.hasValidReading || (prefs.requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
             return getString(R.string.gps_searching)
         }
 

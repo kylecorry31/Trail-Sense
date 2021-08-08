@@ -1143,4 +1143,5 @@
     <string name="pref_filter_altitude_history_title">Smooth altitude history</string>
     <string name="last_duration">Last %s</string>
     <string name="altitude_history_length">Altitude history length</string>
+    <string name="gps_signal_lost">GPS signal lost</string>
 </resources>
