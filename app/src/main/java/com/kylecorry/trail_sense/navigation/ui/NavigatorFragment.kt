@@ -15,7 +15,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -784,6 +783,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         if (gps is CustomGPS && !(gps as CustomGPS).isTimedOut) {
             gpsTimeoutShown = false
+            requireMainActivity().errorBanner.dismiss(USER_ERROR_GPS_TIMEOUT)
         }
 
         nearbyBeacons = getNearbyBeacons()
@@ -883,7 +883,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             gpsErrorShown = true
         } else if (gps is CustomGPS && (gps as CustomGPS).isTimedOut && !gpsTimeoutShown) {
             val error = UserError(
-                USER_ERROR_GPS_Timeout,
+                USER_ERROR_GPS_TIMEOUT,
                 getString(R.string.gps_signal_lost),
                 R.drawable.satellite
             )
