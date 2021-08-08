@@ -1,4 +1,4 @@
-- Share beacons as a QR code (even on devices without Trail Sense / Android) - importing requires the Camera permission
+- Share beacons as a QR code (even on devices without Trail Sense / Android) - importing requires the Camera permission or a QR scanning app
 - Sighting view for the linear compass mode - requires Camera permission
 - Altitude history (tap altitude on Navigation tab)
 - Location information (tap location on Navigation tab)
