@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentAltitudeHistoryBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
@@ -28,6 +30,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
     private val weatherRepo by lazy { PressureRepo.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
     private var units = DistanceUnits.Meters
     private lateinit var chart: SimpleLineChart
     private var backtrackReadings = listOf<AltitudeReading>()
@@ -50,13 +53,13 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
 
         chart.configureXAxis(
             labelCount = 0,
-            drawGridLines = false
+            drawGridLines = false,
+            minimum = (Instant.now().toEpochMilli() - maxHistoryDuration.toMillis()).toFloat(),
+            maximum = Instant.now().toEpochMilli().toFloat()
         )
         val path = backtrackPath
         if (path != null) {
-            backtrackReadings = path.points.filter {
-                Duration.between(it.time, Instant.now()).abs() <= maxHistoryDuration
-            }.mapNotNull { point ->
+            backtrackReadings = path.points.mapNotNull { point ->
                 point.elevation ?: return@mapNotNull null
                 point.time ?: return@mapNotNull null
                 AltitudeReading(point.time!!, point.elevation!!)
@@ -64,16 +67,32 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
             updateChart()
         } else {
             getBacktrackReadings().observe(viewLifecycleOwner) {
-                backtrackReadings = it.filter {
-                    Duration.between(it.time, Instant.now()).abs() <= maxHistoryDuration
-                }
+                backtrackReadings = it
                 updateChart()
             }
         }
         getWeatherReadings().observe(viewLifecycleOwner) {
-            weatherReadings =
-                it.filter { Duration.between(it.time, Instant.now()).abs() <= maxHistoryDuration }
+            weatherReadings = it
             updateChart()
+        }
+
+        binding.altitudeHistoryLength.setOnClickListener {
+            CustomUiUtils.pickDuration(
+                requireContext(),
+                maxHistoryDuration,
+                getString(R.string.altitude_history_length)
+            ) {
+                if (it != null) {
+                    maxHistoryDuration = it
+                    chart.configureXAxis(
+                        labelCount = 0,
+                        drawGridLines = false,
+                        minimum = (Instant.now().toEpochMilli() - maxHistoryDuration.toMillis()).toFloat(),
+                        maximum = Instant.now().toEpochMilli().toFloat()
+                    )
+                    updateChart()
+                }
+            }
         }
     }
 
@@ -97,6 +116,8 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
             }
         } else {
             readings
+        }.filter {
+            Duration.between(it.time, Instant.now()).abs() <= maxHistoryDuration
         }
 
         val data = filteredReadings.map {
@@ -104,34 +125,8 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
         }
         chart.plot(data, UiUtils.color(requireContext(), R.color.colorPrimary), filled = true)
 
-
-        // Set title
-        if (readings.size >= 2) {
-            val totalTime = Duration.between(
-                readings.first().time, readings.last().time
-            )
-            var hours = totalTime.toHours()
-            val minutes = totalTime.toMinutes() % 60
-
-            when (hours) {
-                0L -> binding.altitudeHistoryLength.text =
-                    context?.resources?.getQuantityString(
-                        R.plurals.last_minutes,
-                        minutes.toInt(),
-                        minutes
-                    )
-                else -> {
-                    if (minutes >= 30) hours++
-                    binding.altitudeHistoryLength.text =
-                        context?.resources?.getQuantityString(
-                            R.plurals.last_hours,
-                            hours.toInt(),
-                            hours
-                        )
-                }
-            }
-
-        }
+        binding.altitudeHistoryLength.text =
+            getString(R.string.last_duration, formatService.formatDuration(maxHistoryDuration))
     }
 
     private fun getWeatherReadings(): LiveData<List<AltitudeReading>> {

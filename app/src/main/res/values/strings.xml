@@ -1118,13 +1118,13 @@
     <string name="coordinate_format_usng">USNG</string>
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="sort">Sort</string>
-    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
+    <string name="pref_pack_item_sort" translatable="false">pref_pack_item_sort</string>
     <string name="pack_sort_category">Category</string>
     <string name="pack_sort_percent_low_to_high">Percent packed (low to high)</string>
     <string name="pack_sort_percent_high_to_low">Percent packed (high to low)</string>
     <string name="pack_sort_weight_low_to_high">Weight (low to high)</string>
     <string name="pack_sort_weight_high_to_low">Weight (high to low)</string>
-    <string name="pref_weight_units">pref_weight_units</string>
+    <string name="pref_weight_units" translatable="false">pref_weight_units</string>
     <string name="weight_per_item">Weight per item</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="guide_packing_list">Create packing lists</string>
@@ -1139,6 +1139,8 @@
     <string name="altitude_history">Altitude history</string>
     <string name="qr_code">QR Code</string>
     <string name="beacon_qr_import_instructions">Scan a QR code to import</string>
-    <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
+    <string name="pref_filter_altitude_history" translatable="false">pref_filter_altitude_history</string>
     <string name="pref_filter_altitude_history_title">Smooth altitude history</string>
+    <string name="last_duration">Last %s</string>
+    <string name="altitude_history_length">Altitude history length</string>
 </resources>

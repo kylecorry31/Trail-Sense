@@ -19,7 +19,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        tools:text="Last 14 hours" />
+        tools:text="Last 14 hours"
+        android:gravity="center_vertical"
+        app:drawableEndCompat="@drawable/ic_drop_down" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
