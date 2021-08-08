@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
+import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
+import com.kylecorry.trail_sense.shared.AppUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -51,6 +54,12 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
                     formatService.formatLocation(it),
                     getString(R.string.copied_to_clipboard_toast)
                 )
+            }
+        }
+
+        binding.placeBeaconBtn.setOnClickListener {
+            location?.let {
+                AppUtils.placeBeacon(requireContext(), MyNamedCoordinate(it))
             }
         }
 
@@ -106,12 +115,14 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         if (location == null || location.latitude.isNaN() || location.longitude.isNaN()) {
             binding.location.text = getString(R.string.could_not_triangulate)
             binding.copyLocation.visibility = View.INVISIBLE
-            binding.gpsOverrideBtn.visibility = View.INVISIBLE
+            binding.gpsOverrideBtn.isVisible = false
+            binding.placeBeaconBtn.isVisible = false
         } else {
             binding.location.text = formatService.formatLocation(location)
             binding.copyLocation.visibility = View.VISIBLE
+            binding.placeBeaconBtn.isVisible = true
             if (!prefs.useAutoLocation) {
-                binding.gpsOverrideBtn.visibility = View.VISIBLE
+                binding.gpsOverrideBtn.isVisible = true
             }
         }
     }
