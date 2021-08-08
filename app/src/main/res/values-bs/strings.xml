@@ -531,7 +531,7 @@
     <string name="tool_category_location">Položaj</string>
     <string name="tool_category_angles">Uglovi</string>
     <string name="tool_category_time">Vrijeme</string>
-    <string name="power">Snaga</string>
+    <string name="power">Energija</string>
     <string name="tool_category_distance">Razdaljina</string>
     <string name="battery_health">Zdravlje: %s</string>
     <string name="battery_health_over_voltage">Prenapon</string>
@@ -761,7 +761,7 @@
     </plurals>
     <string name="edit_beacon">Uredi svjetionik</string>
     <string name="all_beacons">Svi svjetionici</string>
-    <string name="eta">~ %s daleko</string>
+    <string name="eta">~ %s udaljeno</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Ugasi</string>
     <string name="tap_to_turn_off">Dodirnite da ugasite</string>
@@ -956,4 +956,29 @@
     <string name="solar_noon">Solarno podne</string>
     <string name="tidal_range">Plimni Raspon</string>
     <string name="sunset_alert_channel_description">Upozorenja na zalazke</string>
+    <string name="pref_filter_altitude_history_title">Povijest glatke visine</string>
+    <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
+    <string name="beacon_qr_import_instructions">Skenirajte QR kodu da uvezete</string>
+    <string name="qr_code">QR Koda</string>
+    <string name="altitude_history">Povijest visine</string>
+    <string name="climate_tropical">Tropska</string>
+    <string name="climate_temperate">Umjerena</string>
+    <string name="climate_polar">Polarna</string>
+    <string name="climate_zone">%s zona</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="num_satellites">%d satelita</string>
+    <string name="no_compass_message">Vas uređaj nema senzor za kompas</string>
+    <string name="humidity">%s vlaga</string>
+    <string name="guide_packing_list">Napravi liste za pakovanje</string>
+    <string name="pref_depth_enabled">pref_depth_enabled</string>
+    <string name="weight_per_item">Težina po stavci</string>
+    <string name="pref_weight_units">pref_weight_units</string>
+    <string name="pack_sort_weight_high_to_low">Težina (visoka do niske)</string>
+    <string name="pack_sort_weight_low_to_high">Težina (niska do visoke)</string>
+    <string name="pack_sort_percent_high_to_low">Postotina spakovana (visoka do niske)</string>
+    <string name="pack_sort_percent_low_to_high">Postotina spakovana (niska do visoke)</string>
+    <string name="pack_sort_category">Kategorija</string>
+    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
+    <string name="sort">Razvrstaj</string>
+    <string name="current_format">%s mA</string>
 </resources>

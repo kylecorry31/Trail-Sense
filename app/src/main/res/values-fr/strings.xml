@@ -58,7 +58,7 @@
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-    <string name="theme_light">Lumière</string>
+    <string name="theme_light">Clair</string>
     <string name="theme_dark">Sombre</string>
     <string name="theme_black">Noir</string>
     <string name="theme_system">Système</string>
