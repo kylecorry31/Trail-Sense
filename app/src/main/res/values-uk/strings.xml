@@ -985,4 +985,7 @@
     <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
     <string name="beacon_qr_import_instructions">Зчитайте QR-код для імпорту</string>
     <string name="qr_code">QR-код</string>
+    <string name="gps_signal_lost">Сигнал GPS втрачено</string>
+    <string name="altitude_history_length">Довжина історії висот</string>
+    <string name="last_duration">Остання %s</string>
 </resources>
