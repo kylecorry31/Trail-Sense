@@ -785,7 +785,7 @@
     <string name="pref_display_multi_beacons_summary">Vis nærmeste navigeringsmarkører på kompasset</string>
     <string name="pref_num_visible_beacons_title">Navigeringsmarkører i nærheten</string>
     <string name="pref_display_multi_beacons_title">Vis navigeringsmarkører i nærheten</string>
-    <string name="create_beacon_title">Opprett navigeringsmarkør</string>
+    <string name="create_beacon_title">Opprett markør</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d navigeringsmarkør</item>
         <item quantity="other">%d navigeringsmarkører</item>
@@ -806,4 +806,38 @@
     <string name="pref_nmea_altitude_title">NMEA høyde-offset</string>
     <string name="pref_backtrack_save_cell_title">Registrer mobiltelefonsignal</string>
     <string name="pref_backtrack_save_cell_summary">Registrerer mobiltelefonsignal på rutepunktet. Bruker ikke internett.</string>
+    <string name="pack_sort_weight_high_to_low">Vekt (høy til lav)</string>
+    <string name="pack_sort_weight_low_to_high">Vekt (lav til høy)</string>
+    <string name="pack_sort_percent_high_to_low">Prosent pakket (høy til lav)</string>
+    <string name="pack_sort_percent_low_to_high">Prosent pakket (lav til høy)</string>
+    <string name="new_packing_list">Ny pakkeliste</string>
+    <string name="no_packing_lists">Ingen pakkelister</string>
+    <string name="percent_packed">%s pakket</string>
+    <plurals name="number_days">
+        <item quantity="one">%d dag</item>
+        <item quantity="other">%d dager</item>
+    </plurals>
+    <string name="move">Flytt</string>
+    <string name="beacon_qr_import_instructions">Skann en QR-kode for å importere</string>
+    <string name="candela_format">%s cd</string>
+    <string name="lux_format">%s lx</string>
+    <string name="delete_waypoint_prompt">Slette rutepunkt\?</string>
+    <string name="waypoint_time_format">%s, %s</string>
+    <string name="beacon_set_bearing_btn">Sett retning (%s)</string>
+    <string name="create_at_distance">Opprett på avstand</string>
+    <string name="current_format">%s mA</string>
+    <string name="battery_capacity_format">%s mAh</string>
+    <string name="app_disclaimer_message_title">Ansvarsfraskrivelse / Bruksbetingelser</string>
+    <string name="disclaimer_message_title">Ansvarsfraskrivelse</string>
+    <string name="value_average">%s gjennomsnitt</string>
+    <string name="pref_backtrack_path_color_title">Farge for tilbakesporingssti</string>
+    <string name="pref_backtrack_path_style_title">Stil for tilbakesporingssti</string>
+    <string name="pref_show_last_signal_beacon_summary">Oppretter en navigeringsmarkør for den siste posisjonen med mobiltelefonsignal</string>
+    <string name="pref_show_last_signal_beacon_title">Siste signal navigeringsmarkør</string>
+    <string name="last_signal_beacon_name">Siste signal - %s (%s)</string>
+    <string name="pref_backtrack_path_radar_summary">På radarkompasset og kartene</string>
+    <string name="pref_backtrack_path_radar_title">Vis tilbakesporingssti</string>
+    <string name="pref_nearby_radar_title">Vis radarkompass for nære</string>
+    <string name="pref_barometer_altitude_smoothing_title">Høydeutjevning</string>
+    <string name="pref_barometer_pressure_smoothing_title">Trykkutjevning</string>
 </resources>
