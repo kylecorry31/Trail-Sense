@@ -6,7 +6,7 @@ import android.hardware.camera2.CameraManager.TorchCallback
 import android.os.Handler
 import android.os.Looper
 import androidx.core.content.getSystemService
-import com.kylecorry.torch.Torch
+import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.settings.infrastructure.FlashlightPreferenceRepo
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 

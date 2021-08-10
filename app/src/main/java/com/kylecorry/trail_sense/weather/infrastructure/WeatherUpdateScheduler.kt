@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
-import com.kylecorry.notify.Notify
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
 import com.kylecorry.trailsensecore.infrastructure.tasks.ITaskScheduler

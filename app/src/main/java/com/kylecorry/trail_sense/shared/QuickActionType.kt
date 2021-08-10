@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
-import com.kylecorry.torch.Torch
+import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
 
 enum class QuickActionType(val id: Int) {

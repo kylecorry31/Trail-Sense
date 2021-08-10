@@ -4,9 +4,9 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
-import com.kylecorry.notify.Notify
-import com.kylecorry.torch.ITorch
-import com.kylecorry.torch.Torch
+import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.torch.ITorch
+import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.asSignal

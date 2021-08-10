@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared
 
-import com.kylecorry.torch.ITorch
+import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.trailsensecore.infrastructure.morse.ISignalingDevice
 
 fun ITorch.asSignal(): ISignalingDevice {

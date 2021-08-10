@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.settings.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.preference.Preference
-import com.kylecorry.torch.Torch
+import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker

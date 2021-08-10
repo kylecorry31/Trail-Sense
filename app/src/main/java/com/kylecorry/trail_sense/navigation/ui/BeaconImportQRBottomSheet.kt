@@ -7,7 +7,7 @@ import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kylecorry.qr.QRService
+import com.kylecorry.andromeda.qr.QRService
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrImportBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils.toBitmap

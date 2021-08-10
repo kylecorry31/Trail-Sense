@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
-import com.kylecorry.notify.Notify
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo

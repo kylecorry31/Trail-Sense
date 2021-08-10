@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.kylecorry.buzz.Buzz
+import com.kylecorry.andromeda.buzz.Buzz
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2

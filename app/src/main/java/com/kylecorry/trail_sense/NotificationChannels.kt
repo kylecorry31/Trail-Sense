@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense
 
 import android.content.Context
-import com.kylecorry.notify.Notify
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackAlwaysOnService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver

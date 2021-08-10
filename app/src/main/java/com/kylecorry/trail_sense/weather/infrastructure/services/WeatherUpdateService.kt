@@ -4,7 +4,7 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.kylecorry.notify.Notify
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils

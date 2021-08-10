@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import com.kylecorry.torch.Torch
+import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentDiagnosticsBinding
 import com.kylecorry.trail_sense.databinding.ListItemSensorBinding

@@ -4,7 +4,7 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
-import com.kylecorry.notify.Notify
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.PinkNoise

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kylecorry.qr.QRService
+import com.kylecorry.andromeda.qr.QRService
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrShareBinding
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
