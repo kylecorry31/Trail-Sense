@@ -989,4 +989,7 @@
     <string name="pref_privacy_screenshot_protection_title">Запретить снимки экрана</string>
     <string name="action_inventory_clear_confirm">Очистить все упакованные ёмкости\?</string>
     <string name="current_format">%s мА</string>
+    <string name="gps_signal_lost">Сигнал GPS потерян</string>
+    <string name="altitude_history_length">Длина истории высот</string>
+    <string name="last_duration">Последняя %s</string>
 </resources>
