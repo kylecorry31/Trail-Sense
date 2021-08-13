@@ -25,7 +25,7 @@ import com.kylecorry.trailsensecore.domain.pixels.toPixelLines
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import com.kylecorry.trailsensecore.infrastructure.canvas.ArrowPathEffect
-import com.kylecorry.trailsensecore.infrastructure.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.min

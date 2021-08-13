@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.math.deltaAngle
-import com.kylecorry.trailsensecore.infrastructure.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt

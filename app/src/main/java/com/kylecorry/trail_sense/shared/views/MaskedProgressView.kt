@@ -8,7 +8,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.res.getColorOrThrow
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trailsensecore.infrastructure.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.Exception
 import kotlin.math.*

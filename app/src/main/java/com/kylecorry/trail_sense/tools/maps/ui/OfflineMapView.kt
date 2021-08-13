@@ -12,7 +12,7 @@ import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
 import com.kylecorry.trailsensecore.domain.geo.Coordinate

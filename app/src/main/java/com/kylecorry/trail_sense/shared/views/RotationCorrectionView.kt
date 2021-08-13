@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import com.kylecorry.trail_sense.tools.maps.infrastructure.rotate
-import com.kylecorry.trailsensecore.infrastructure.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 
