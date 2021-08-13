@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.shared.toDisplayFormat
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
-import com.kylecorry.trailsensecore.infrastructure.services.CoroutineForegroundService
+import com.kylecorry.andromeda.services.CoroutineForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

@@ -9,7 +9,7 @@ import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
+import com.kylecorry.andromeda.services.ForegroundService
 
 class FlashlightService: ForegroundService() {
 

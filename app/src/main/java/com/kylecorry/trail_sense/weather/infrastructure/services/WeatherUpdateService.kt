@@ -22,7 +22,7 @@ import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
-import com.kylecorry.trailsensecore.infrastructure.services.CoroutineForegroundService
+import com.kylecorry.andromeda.services.CoroutineForegroundService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import kotlinx.coroutines.*
 import java.time.*

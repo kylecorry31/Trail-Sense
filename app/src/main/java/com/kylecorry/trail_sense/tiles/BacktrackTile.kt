@@ -2,12 +2,13 @@ package com.kylecorry.trail_sense.tiles
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.kylecorry.andromeda.services.AndromedaTileService
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 
 @RequiresApi(Build.VERSION_CODES.N)
-class BacktrackTile: CustomTileService() {
+class BacktrackTile: AndromedaTileService() {
 
     private val prefs by lazy { UserPreferences(this) }
     private val formatService by lazy { FormatServiceV2(this) }

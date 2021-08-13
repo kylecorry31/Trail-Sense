@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.PinkNoise
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
-import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
+import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import java.time.Duration
 import java.time.Instant

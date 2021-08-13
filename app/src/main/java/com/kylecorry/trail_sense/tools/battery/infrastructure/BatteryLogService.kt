@@ -3,12 +3,12 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.kylecorry.andromeda.battery.Battery
+import com.kylecorry.andromeda.battery.BatteryChargingStatus
+import com.kylecorry.andromeda.core.sensors.read
+import com.kylecorry.andromeda.services.CoroutineService
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
-import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
-import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingStatus
-import com.kylecorry.trailsensecore.infrastructure.sensors.read
-import com.kylecorry.trailsensecore.infrastructure.services.CoroutineService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

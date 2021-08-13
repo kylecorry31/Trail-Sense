@@ -5,14 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.core.system.ScreenService
+import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
-import com.kylecorry.trail_sense.tools.flashlight.infrastructure.ScreenFlashlight
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
 
-class FragmentToolScreenFlashlight: BoundFragment<FragmentToolScreenFlashlightBinding>() {
+class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightBinding>() {
 
-    private val flashlight by lazy { ScreenFlashlight(requireActivity().window) }
+    private val flashlight by lazy { ScreenTorch(ScreenService(requireActivity().window)) }
     private val cache by lazy { Cache(requireContext()) }
 
     override fun generateBinding(
@@ -36,8 +37,7 @@ class FragmentToolScreenFlashlight: BoundFragment<FragmentToolScreenFlashlightBi
         if (cache.getBoolean("cache_red_light") == true) {
             binding.screenFlashlight.setBackgroundColor(Color.RED)
             binding.redWhiteSwitcher.setBackgroundColor(Color.WHITE)
-        }
-        else {
+        } else {
             binding.screenFlashlight.setBackgroundColor(Color.WHITE)
             binding.redWhiteSwitcher.setBackgroundColor(Color.RED)
         }
@@ -47,8 +47,7 @@ class FragmentToolScreenFlashlight: BoundFragment<FragmentToolScreenFlashlightBi
                 binding.screenFlashlight.setBackgroundColor(Color.WHITE)
                 binding.redWhiteSwitcher.setBackgroundColor(Color.RED)
                 cache.putBoolean("cache_red_light", false)
-            }
-            else {
+            } else {
                 binding.screenFlashlight.setBackgroundColor(Color.RED)
                 binding.redWhiteSwitcher.setBackgroundColor(Color.WHITE)
                 cache.putBoolean("cache_red_light", true)

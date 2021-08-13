@@ -4,6 +4,7 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.services.CoroutineIntervalService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -13,7 +14,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.Backtrack
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.receivers.StopBacktrackReceiver
-import com.kylecorry.trailsensecore.infrastructure.services.CoroutineIntervalService
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import java.time.Duration
 

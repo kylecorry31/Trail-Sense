@@ -59,11 +59,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
     implementation 'com.github.kylecorry31:Trail-Sense-Core:3.8.1'
-    def andromeda_version = "1.0.0-beta05"
-    implementation "com.github.kylecorry31.andromeda:notify:${andromeda_version}"
-    implementation "com.github.kylecorry31.andromeda:qr:${andromeda_version}"
-    implementation "com.github.kylecorry31.andromeda:buzz:${andromeda_version}"
-    implementation "com.github.kylecorry31.andromeda:torch:${andromeda_version}"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'com.google.android:flexbox:2.0.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
@@ -83,4 +78,14 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+    // Andromeda
+    def andromeda_version = "1.0.0-beta06"
+    implementation "com.github.kylecorry31.andromeda:core:${andromeda_version}"
+    implementation "com.github.kylecorry31.andromeda:services:${andromeda_version}"
+    implementation "com.github.kylecorry31.andromeda:notify:${andromeda_version}"
+    implementation "com.github.kylecorry31.andromeda:qr:${andromeda_version}"
+    implementation "com.github.kylecorry31.andromeda:buzz:${andromeda_version}"
+    implementation "com.github.kylecorry31.andromeda:torch:${andromeda_version}"
+    implementation "com.github.kylecorry31.andromeda:battery:${andromeda_version}"
 }

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared
 import android.content.Context
 import android.text.format.DateUtils
 import android.text.format.Formatter
+import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trailsensecore.domain.geo.CompassDirection
@@ -12,7 +13,6 @@ import com.kylecorry.trailsensecore.domain.geo.Region
 import com.kylecorry.trailsensecore.domain.time.toEpochMillis
 import com.kylecorry.trailsensecore.domain.units.*
 import com.kylecorry.trailsensecore.domain.weather.Weather
-import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import java.time.Duration
 import java.time.LocalDate

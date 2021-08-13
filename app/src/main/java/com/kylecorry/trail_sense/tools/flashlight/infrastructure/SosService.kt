@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
@@ -13,7 +14,6 @@ import com.kylecorry.trail_sense.shared.asSignal
 import com.kylecorry.trailsensecore.domain.morse.MorseService
 import com.kylecorry.trailsensecore.domain.morse.Signal
 import com.kylecorry.trailsensecore.infrastructure.morse.SignalPlayer
-import com.kylecorry.trailsensecore.infrastructure.services.ForegroundService
 import java.time.Duration
 
 class SosService : ForegroundService() {

@@ -6,6 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.battery.Battery
+import com.kylecorry.andromeda.battery.BatteryChargingMethod
+import com.kylecorry.andromeda.battery.BatteryChargingStatus
+import com.kylecorry.andromeda.battery.BatteryHealth
+import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.databinding.ListItemServiceBinding
@@ -15,11 +20,6 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
 import com.kylecorry.trailsensecore.domain.power.BatteryReading
 import com.kylecorry.trailsensecore.domain.power.PowerService
-import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
-import com.kylecorry.trailsensecore.infrastructure.sensors.battery.Battery
-import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingMethod
-import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryChargingStatus
-import com.kylecorry.trailsensecore.infrastructure.sensors.battery.BatteryHealth
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
