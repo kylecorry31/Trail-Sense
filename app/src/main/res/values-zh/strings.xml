@@ -965,4 +965,7 @@
     <string name="pref_filter_altitude_history_title">平滑的海拔历史</string>
     <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
     <string name="beacon_qr_import_instructions">扫描二维码来导入</string>
+    <string name="last_duration">持续时长 %s</string>
+    <string name="gps_signal_lost">GPS 信号丢失</string>
+    <string name="altitude_history_length">海拔历史长度</string>
 </resources>
