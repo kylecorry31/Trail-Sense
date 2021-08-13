@@ -7,23 +7,22 @@ import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.camera.Camera
+import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.qr.QRService
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrImportBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils.toBitmap
-import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
-import com.kylecorry.trailsensecore.infrastructure.sensors.camera.Camera
 import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
-import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 
 class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrImportBinding>() {
 
     private val qr = QRService()
     private val cameraSizePixels by lazy { UiUtils.dp(requireContext(), 250f).toInt() }
     private val camera by lazy {
-        // TODO: Add preview view
         Camera(
             requireContext(),
             viewLifecycleOwner,

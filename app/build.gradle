@@ -86,6 +86,7 @@ dependencies {
     implementation "com.github.kylecorry31.andromeda:services:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:notify:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:qr:${andromeda_version}"
+    implementation "com.github.kylecorry31.andromeda:camera:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:buzz:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:torch:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:battery:${andromeda_version}"

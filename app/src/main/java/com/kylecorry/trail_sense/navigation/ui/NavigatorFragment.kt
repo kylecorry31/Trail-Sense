@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -51,7 +52,6 @@ import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
-import com.kylecorry.trailsensecore.infrastructure.sensors.camera.Camera
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
