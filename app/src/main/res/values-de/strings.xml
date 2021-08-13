@@ -973,4 +973,7 @@
     <string name="beacon_qr_import_instructions">Einen QR-Code zum Importieren scannen</string>
     <string name="qr_code">QR-Code</string>
     <string name="altitude_history">Höhenverlauf</string>
+    <string name="gps_signal_lost">GPS-Signal verloren</string>
+    <string name="altitude_history_length">Länge des Höhenverlaufs</string>
+    <string name="last_duration">Letzte %s</string>
 </resources>
