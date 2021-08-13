@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.clipboard.Clipboard
+import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLocationBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainMenuBinding
@@ -16,10 +18,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.Instant

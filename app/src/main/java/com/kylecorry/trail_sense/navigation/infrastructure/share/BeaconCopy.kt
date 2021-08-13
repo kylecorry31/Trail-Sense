@@ -1,12 +1,12 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.share
 
 import android.content.Context
+import com.kylecorry.andromeda.clipboard.IClipboard
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 
-class BeaconCopy(private val context: Context, private val clipboard: Clipboard) :
+class BeaconCopy(private val context: Context, private val clipboard: IClipboard) :
     IBeaconSender {
 
     override fun send(beacon: Beacon) {

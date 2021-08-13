@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.view.View
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
@@ -20,7 +21,6 @@ import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.domain.units.Quality
-import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

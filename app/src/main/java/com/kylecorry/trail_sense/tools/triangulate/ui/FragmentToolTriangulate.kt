@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.clipboard.Clipboard
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
@@ -16,9 +18,7 @@ import com.kylecorry.trailsensecore.domain.geo.Bearing
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService
-import com.kylecorry.trailsensecore.infrastructure.persistence.Clipboard
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.fragments.BoundFragment
 
 class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
 
