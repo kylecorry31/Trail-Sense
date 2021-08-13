@@ -91,4 +91,5 @@ dependencies {
     implementation "com.github.kylecorry31.andromeda:buzz:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:torch:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:battery:${andromeda_version}"
+    implementation "com.github.kylecorry31.andromeda:compression:${andromeda_version}"
 }
