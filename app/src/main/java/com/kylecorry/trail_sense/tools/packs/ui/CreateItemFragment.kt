@@ -16,7 +16,7 @@ import com.kylecorry.trailsensecore.domain.math.toDoubleCompat
 import com.kylecorry.trailsensecore.domain.packs.ItemCategory
 import com.kylecorry.trailsensecore.domain.packs.PackItem
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
-import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

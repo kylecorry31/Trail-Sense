@@ -14,7 +14,7 @@ import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Instant
 
 class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {

@@ -13,7 +13,7 @@ import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.water.WaterService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
-import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.roundToInt

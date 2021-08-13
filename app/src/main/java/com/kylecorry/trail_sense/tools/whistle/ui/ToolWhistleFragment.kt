@@ -14,7 +14,7 @@ import com.kylecorry.trailsensecore.domain.morse.Signal
 import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.Whistle
 import com.kylecorry.trailsensecore.infrastructure.morse.SignalPlayer
-import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Duration
 
 class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {

@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import com.kylecorry.trailsensecore.infrastructure.flashlight.HasFlashlightSpecification
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.andromeda.fragments.BoundFragment
 
 class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 

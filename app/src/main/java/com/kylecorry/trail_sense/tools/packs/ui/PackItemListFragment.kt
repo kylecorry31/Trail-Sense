@@ -29,7 +29,7 @@ import com.kylecorry.trailsensecore.domain.packs.sort.PackedPercentPackItemSort
 import com.kylecorry.trailsensecore.domain.packs.sort.WeightPackItemSort
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
-import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

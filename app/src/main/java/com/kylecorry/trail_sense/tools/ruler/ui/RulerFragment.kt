@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.andromeda.fragments.BoundFragment
 
 class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
     private val formatService by lazy { FormatServiceV2(requireContext()) }

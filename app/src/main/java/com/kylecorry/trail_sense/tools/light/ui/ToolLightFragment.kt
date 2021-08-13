@@ -12,7 +12,7 @@ import com.kylecorry.trailsensecore.domain.light.LightService
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.sensors.light.LightSensor
-import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlin.math.max
 
 class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {

@@ -9,7 +9,7 @@ import com.kylecorry.andromeda.core.system.ScreenService
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
-import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.andromeda.fragments.BoundFragment
 
 class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightBinding>() {
 

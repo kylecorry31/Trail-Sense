@@ -16,7 +16,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.camera.Camera
 import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
-import com.kylecorry.trailsensecore.infrastructure.view.BoundBottomSheetDialogFragment
+import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 
 class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrImportBinding>() {
 

@@ -82,6 +82,7 @@ dependencies {
     // Andromeda
     def andromeda_version = "1.0.0-beta06"
     implementation "com.github.kylecorry31.andromeda:core:${andromeda_version}"
+    implementation "com.github.kylecorry31.andromeda:fragments:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:services:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:notify:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:qr:${andromeda_version}"

@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.qr.QRService
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrShareBinding
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.view.BoundBottomSheetDialogFragment
+import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 
 class BeaconQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrShareBinding>() {
 

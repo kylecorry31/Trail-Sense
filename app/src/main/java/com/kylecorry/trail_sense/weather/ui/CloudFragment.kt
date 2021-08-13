@@ -18,7 +18,7 @@ import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import com.kylecorry.trailsensecore.domain.weather.clouds.CloudHeight
 import com.kylecorry.trailsensecore.domain.weather.clouds.CloudType
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 
 class CloudFragment : BoundFragment<FragmentCloudsBinding>() {

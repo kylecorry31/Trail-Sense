@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSimpleConvertBinding
-import com.kylecorry.trailsensecore.infrastructure.view.BoundFragment
+import com.kylecorry.andromeda.fragments.BoundFragment
 
 abstract class SimpleConvertFragment<T>(private val defaultFrom: T, private val defaultTo: T) : BoundFragment<FragmentToolSimpleConvertBinding>() {
 

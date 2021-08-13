@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentAltitudeHistoryBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -20,7 +21,6 @@ import com.kylecorry.trailsensecore.domain.math.KalmanFilter
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.view.BoundBottomSheetDialogFragment
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.pow
