@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackItemBinding
@@ -29,10 +29,8 @@ import com.kylecorry.trailsensecore.domain.packs.sort.PackedPercentPackItemSort
 import com.kylecorry.trailsensecore.domain.packs.sort.WeightPackItemSort
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
-import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Double.max
 import kotlin.math.floor
@@ -58,7 +56,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch {
+        runInBackground {
             withContext(Dispatchers.IO) {
                 loadPack(packId)
             }
@@ -209,7 +207,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
                             getString(R.string.dialog_cancel)
                         ) { cancelled ->
                             if (!cancelled) {
-                                lifecycleScope.launch {
+                                runInBackground {
                                     withContext(Dispatchers.IO) {
                                         itemRepo.clearPackedAmounts(packId)
                                     }
@@ -237,7 +235,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             hint = getString(R.string.name_hint)
         ) {
             if (it != null) {
-                lifecycleScope.launch {
+                runInBackground {
                     withContext(Dispatchers.IO) {
                         itemRepo.addPack(pack.copy(name = it))
                     }
@@ -256,7 +254,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             pack.name
         ) { cancelled ->
             if (!cancelled) {
-                lifecycleScope.launch {
+                runInBackground {
                     withContext(Dispatchers.IO) {
                         itemRepo.deletePack(pack)
                     }
@@ -281,7 +279,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun deleteItem(item: PackItem) {
-        lifecycleScope.launch {
+        runInBackground {
             withContext(Dispatchers.IO) {
                 itemRepo.deleteItem(item)
             }
@@ -294,7 +292,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun addAmount(item: PackItem, amount: Double) {
-        lifecycleScope.launch {
+        runInBackground {
             withContext(Dispatchers.IO) {
                 itemRepo.addItem(
                     item.copy(amount = max(0.0, item.amount + amount))
@@ -304,7 +302,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun setAmount(item: PackItem, amount: Double) {
-        lifecycleScope.launch {
+        runInBackground {
             withContext(Dispatchers.IO) {
                 itemRepo.addItem(
                     item.copy(amount = amount)
