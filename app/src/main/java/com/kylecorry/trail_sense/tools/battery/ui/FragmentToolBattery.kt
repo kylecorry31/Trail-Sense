@@ -21,7 +21,7 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.Batter
 import com.kylecorry.trailsensecore.domain.power.BatteryReading
 import com.kylecorry.trailsensecore.domain.power.PowerService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
@@ -44,11 +44,11 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
 
     private val powerService = PowerService()
 
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         update()
     }
 
-    private val serviceIntervalometer = Intervalometer {
+    private val serviceIntervalometer = Timer {
         updateServices()
     }
 

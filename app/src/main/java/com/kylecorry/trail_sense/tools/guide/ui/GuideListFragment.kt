@@ -8,7 +8,7 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.guide.infrastructure.Guides
-import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
+import com.kylecorry.andromeda.core.tryOrNothing
 
 class GuideListFragment : PreferenceFragmentCompat() {
 

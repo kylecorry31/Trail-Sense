@@ -28,7 +28,7 @@ import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -8,14 +8,14 @@ import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.databinding.FragmentToolWhiteNoiseBinding
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Duration
 import java.time.Instant
 
 class FragmentToolWhiteNoise : BoundFragment<FragmentToolWhiteNoiseBinding>() {
 
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         update()
     }
 

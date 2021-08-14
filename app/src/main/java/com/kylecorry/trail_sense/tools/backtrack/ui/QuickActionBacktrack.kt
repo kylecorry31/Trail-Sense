@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import java.time.Duration
 
 class QuickActionBacktrack(btn: FloatingActionButton, fragment: Fragment) :
@@ -15,7 +15,7 @@ class QuickActionBacktrack(btn: FloatingActionButton, fragment: Fragment) :
 
     private val prefs by lazy { UserPreferences(context) }
 
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         update()
     }
 

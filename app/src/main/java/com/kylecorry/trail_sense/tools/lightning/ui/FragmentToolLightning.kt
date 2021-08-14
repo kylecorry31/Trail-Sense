@@ -13,7 +13,7 @@ import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Instant
 
@@ -27,7 +27,7 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
     private var lightningTime: Instant? = null
     private var distance: Distance? = null
 
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         val lightning = lightningTime
         if (lightning != null) {
             val d =

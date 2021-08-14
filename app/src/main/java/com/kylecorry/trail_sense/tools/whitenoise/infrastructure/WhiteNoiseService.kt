@@ -10,7 +10,7 @@ import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.PinkNoise
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.andromeda.services.ForegroundService
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import java.time.Duration
 import java.time.Instant
 
@@ -20,7 +20,7 @@ class WhiteNoiseService : ForegroundService() {
     private var whiteNoise: ISoundPlayer? = null
     private val cache by lazy { Cache(this) }
 
-    private val offTimer = Intervalometer {
+    private val offTimer = Timer {
         stopSelf()
     }
 

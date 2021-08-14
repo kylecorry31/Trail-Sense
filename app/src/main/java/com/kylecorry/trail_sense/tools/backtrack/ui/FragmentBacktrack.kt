@@ -10,6 +10,9 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
@@ -25,9 +28,6 @@ import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,8 +43,8 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
 
-    private val stateChecker = Intervalometer {
-        context ?: return@Intervalometer
+    private val stateChecker = Timer {
+        context ?: return@Timer
         wasEnabled = BacktrackScheduler.isOn(requireContext())
         if (wasEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)) {
             binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)

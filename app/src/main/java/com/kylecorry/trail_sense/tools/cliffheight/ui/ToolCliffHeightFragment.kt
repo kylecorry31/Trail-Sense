@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCliffHeightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -11,15 +13,13 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.physics.PhysicsService
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Duration
 import java.time.Instant
 
 class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() {
 
     private val physicsService = PhysicsService()
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         update()
     }
     private val formatService by lazy { FormatServiceV2(requireContext()) }

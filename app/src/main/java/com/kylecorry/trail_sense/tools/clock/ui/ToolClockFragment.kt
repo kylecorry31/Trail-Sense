@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
 import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import java.time.Duration
 import java.time.Instant
 import java.time.ZoneId
@@ -29,7 +29,7 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(false) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val timer = Intervalometer { update() }
+    private val timer = Timer { update() }
 
     private var gpsTime = Instant.now()
     private var systemTime = Instant.now()

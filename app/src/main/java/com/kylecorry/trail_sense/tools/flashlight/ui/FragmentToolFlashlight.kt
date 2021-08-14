@@ -12,14 +12,14 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import com.kylecorry.trailsensecore.infrastructure.flashlight.HasFlashlightSpecification
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 
 class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
     private var flashlightState = FlashlightState.Off
     private val flashlight by lazy { FlashlightHandler.getInstance(requireContext()) }
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         update()
     }
 

@@ -7,12 +7,12 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 
 class QuickActionWhiteNoise(btn: FloatingActionButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         CustomUiUtils.setButtonState(button, isOn())
     }
 

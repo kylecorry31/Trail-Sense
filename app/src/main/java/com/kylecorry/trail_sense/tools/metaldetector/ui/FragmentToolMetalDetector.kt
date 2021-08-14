@@ -19,7 +19,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.Gravity
 import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.LowPassMagnetometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.Magnetometer
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Duration
@@ -51,7 +51,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     private var calibratedField = Vector3.zero
     private var calibratedOrientation = Quaternion.zero
 
-    private val calibrateTimer = Intervalometer {
+    private val calibrateTimer = Timer {
         calibratedField = lowPassMagnetometer.magneticField
         calibratedOrientation = orientation.orientation
     }

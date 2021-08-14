@@ -16,7 +16,7 @@ import com.kylecorry.trailsensecore.domain.oceanography.OceanographyService
 import com.kylecorry.trailsensecore.domain.oceanography.TidalRange
 import com.kylecorry.trailsensecore.domain.oceanography.TideType
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
@@ -32,7 +32,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private var displayDate = LocalDate.now()
     private lateinit var tideList: ListView<Pair<String, String>>
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         update()
     }
     private val tideRepo by lazy { TideRepo.getInstance(requireContext()) }
