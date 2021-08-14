@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.tools.backtrack.infrastructure
 
 import android.content.Context
-import androidx.work.*
+import androidx.work.Worker
+import androidx.work.WorkerParameters
+import com.kylecorry.andromeda.jobs.DeferredTaskScheduler
+import com.kylecorry.andromeda.jobs.ITaskScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackService
-import com.kylecorry.trailsensecore.infrastructure.tasks.DeferredTaskScheduler
-import com.kylecorry.trailsensecore.infrastructure.tasks.ITaskScheduler
+
 
 class BacktrackWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     override fun doWork(): Result {

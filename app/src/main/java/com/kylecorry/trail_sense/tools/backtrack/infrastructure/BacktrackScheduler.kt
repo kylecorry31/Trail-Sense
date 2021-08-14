@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackAlwaysOnService
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackService
-import com.kylecorry.trailsensecore.infrastructure.tasks.ITaskScheduler
+import com.kylecorry.andromeda.jobs.ITaskScheduler
 import java.time.Duration
 
 object BacktrackScheduler {

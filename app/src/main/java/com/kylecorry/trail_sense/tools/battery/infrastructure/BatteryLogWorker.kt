@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.kylecorry.trailsensecore.infrastructure.tasks.DeferredTaskScheduler
-import com.kylecorry.trailsensecore.infrastructure.tasks.ITaskScheduler
+import com.kylecorry.andromeda.jobs.DeferredTaskScheduler
+import com.kylecorry.andromeda.jobs.ITaskScheduler
 
 class BatteryLogWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     override fun doWork(): Result {

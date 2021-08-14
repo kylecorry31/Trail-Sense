@@ -1,10 +1,11 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
-import androidx.work.*
+import androidx.work.Worker
+import androidx.work.WorkerParameters
+import com.kylecorry.andromeda.jobs.DeferredTaskScheduler
+import com.kylecorry.andromeda.jobs.ITaskScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
-import com.kylecorry.trailsensecore.infrastructure.tasks.DeferredTaskScheduler
-import com.kylecorry.trailsensecore.infrastructure.tasks.ITaskScheduler
 
 class WeatherUpdateWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     override fun doWork(): Result {

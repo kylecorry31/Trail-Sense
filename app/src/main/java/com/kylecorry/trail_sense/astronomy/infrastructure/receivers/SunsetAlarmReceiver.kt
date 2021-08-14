@@ -7,7 +7,6 @@ import android.content.Intent
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
-import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
 
 class SunsetAlarmReceiver : BroadcastReceiver() {
 
@@ -30,10 +29,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         }
 
         private fun alarmIntent(context: Context): Intent {
-            val i = Intent("com.kylecorry.trail_sense.ALARM_SUNSET")
-            i.`package` = PackageUtils.getPackageName(context)
-            i.addCategory("android.intent.category.DEFAULT")
-            return i
+            return IntentUtils.localIntent(context, "com.kylecorry.trail_sense.ALARM_SUNSET")
         }
 
         fun pendingIntent(context: Context): PendingIntent {
