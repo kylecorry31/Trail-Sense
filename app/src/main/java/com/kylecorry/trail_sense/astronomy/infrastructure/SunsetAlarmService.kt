@@ -4,7 +4,9 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.kylecorry.andromeda.jobs.AlarmService
+import com.kylecorry.andromeda.core.time.toZonedDateTime
+import com.kylecorry.andromeda.jobs.ExactTaskScheduler
+import com.kylecorry.andromeda.jobs.ITaskScheduler
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.services.CoroutineForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
@@ -147,13 +149,9 @@ class SunsetAlarmService : CoroutineForegroundService() {
     }
 
     private fun setAlarm(time: LocalDateTime) {
-        // TODO: Use exact task scheduler
-        val alarm = AlarmService(this)
-        val lastPi = SunsetAlarmReceiver.pendingIntent(this)
-        alarm.cancel(lastPi)
-
-        val newPi = SunsetAlarmReceiver.pendingIntent(this)
-        alarm.set(time, newPi, exact = true, allowWhileIdle = true)
+        val scheduler = scheduler(this)
+        scheduler.cancel()
+        scheduler.schedule(time.toZonedDateTime().toInstant())
         Log.i(TAG, "Set next sunset alarm at $time")
     }
 
@@ -173,6 +171,9 @@ class SunsetAlarmService : CoroutineForegroundService() {
         const val NOTIFICATION_ID = 1231
         const val NOTIFICATION_CHANNEL_ID = "Sunset alert"
 
+        fun scheduler(context: Context): ITaskScheduler {
+            return ExactTaskScheduler(context){ SunsetAlarmReceiver.pendingIntent(context) }
+        }
 
         fun intent(context: Context): Intent {
             return Intent(context, SunsetAlarmService::class.java)
