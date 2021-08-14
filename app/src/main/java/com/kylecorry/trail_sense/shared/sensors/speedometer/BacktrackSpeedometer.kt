@@ -3,17 +3,17 @@ package com.kylecorry.trail_sense.shared.sensors.speedometer
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.kylecorry.andromeda.core.sensors.AbstractSensor
+import com.kylecorry.andromeda.core.sensors.ISpeedometer
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.andromeda.core.units.Speed
+import com.kylecorry.andromeda.core.units.TimeUnits
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.geo.ApproximateCoordinate
 import com.kylecorry.trailsensecore.domain.geo.specifications.LocationChangedSpecification
-import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import com.kylecorry.trailsensecore.domain.units.Speed
-import com.kylecorry.trailsensecore.domain.units.TimeUnits
-import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.speedometer.ISpeedometer
 import java.time.Duration
 import java.time.Instant
 

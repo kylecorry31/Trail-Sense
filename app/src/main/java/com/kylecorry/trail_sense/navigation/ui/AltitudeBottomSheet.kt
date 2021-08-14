@@ -17,9 +17,9 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.Wayp
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.geo.Path
-import com.kylecorry.trailsensecore.domain.math.KalmanFilter
-import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
+import com.kylecorry.andromeda.core.math.KalmanFilter
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 import java.time.Instant

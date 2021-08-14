@@ -1,12 +1,13 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.export
 
 import android.content.Context
+import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
-import com.kylecorry.trailsensecore.infrastructure.json.JsonConvert
 
+// TODO: Remove this
 class JsonBeaconImporter(private val context: Context) {
 
     private val repo by lazy { BeaconRepo.getInstance(context) }

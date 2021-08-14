@@ -1,31 +1,29 @@
 package com.kylecorry.trail_sense.navigation.infrastructure
 
 import android.content.Context
+import com.kylecorry.andromeda.core.math.toFloatCompat
+import com.kylecorry.andromeda.core.math.toIntCompat
+import com.kylecorry.andromeda.core.units.CoordinateFormat
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.geo.PathStyle
-import com.kylecorry.trailsensecore.domain.math.toFloatCompat
-import com.kylecorry.trailsensecore.domain.math.toIntCompat
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import com.kylecorry.trailsensecore.domain.units.UnitService
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import java.time.Duration
 
 class NavigationPreferences(private val context: Context) {
 
     private val cache by lazy { Preferences(context) }
-    private val sensorChecker by lazy { SensorChecker(context) }
-    private val unitService = UnitService()
 
     var useTrueNorth: Boolean
         get() = (cache.getBoolean(
             context.getString(R.string.pref_use_true_north)
         ) ?: true
-                ) && sensorChecker.hasGPS()
+                ) && GPS.isAvailable(context)
         set(value) = cache.putBoolean(
             context.getString(R.string.pref_use_true_north),
             value
@@ -114,16 +112,11 @@ class NavigationPreferences(private val context: Context) {
     var maxBeaconDistance: Float
         get() {
             val raw = cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "100"
-            return unitService.convert(
-                raw.toFloatCompat() ?: 100f,
-                DistanceUnits.Kilometers,
-                DistanceUnits.Meters
-            )
+            return Distance.kilometers(raw.toFloatCompat() ?: 100f).meters().distance
         }
         set(value) = cache.putString(
             context.getString(R.string.pref_max_beacon_distance),
-            unitService.convert(value, DistanceUnits.Meters, DistanceUnits.Kilometers)
-                .toString()
+            Distance.meters(value).convertTo(DistanceUnits.Kilometers).distance.toString()
         )
 
     val rulerScale: Float

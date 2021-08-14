@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.andromeda.core.system.PackageUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
 
 class PackageReplacedReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {

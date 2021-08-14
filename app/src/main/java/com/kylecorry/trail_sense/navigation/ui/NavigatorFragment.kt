@@ -17,9 +17,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.clipboard.Clipboard
+import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
-import com.kylecorry.andromeda.permissions.requestPermissions
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
@@ -49,17 +50,18 @@ import com.kylecorry.trail_sense.weather.domain.AltitudeReading
 import com.kylecorry.trailsensecore.domain.geo.*
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
-import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.domain.units.Quality
+import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
-import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.units.Bearing
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.location.GPS
+import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -313,7 +315,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             requestPermissions(
                 listOf(Manifest.permission.CAMERA)
             ) {
-                if (PermissionUtils.isCameraEnabled(requireContext())) {
+                if (Camera.isAvailable(requireContext())) {
                     enableSightingCompass()
                 } else {
                     UiUtils.longToast(
@@ -329,7 +331,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun enableSightingCompass() {
-        if (!PermissionUtils.isCameraEnabled(requireContext())) {
+        if (!Camera.isAvailable(requireContext())) {
             return
         }
         sightingCompassInitialized = true
@@ -823,7 +825,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             return UiUtils.color(requireContext(), R.color.green)
         }
 
-        if (gps is CachedGPS || !sensorChecker.hasGPS()) {
+        if (gps is CachedGPS || !GPS.isAvailable(requireContext())) {
             return UiUtils.color(requireContext(), R.color.red)
         }
 
@@ -843,7 +845,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             return getString(R.string.gps_user)
         }
 
-        if (gps is CachedGPS || !sensorChecker.hasGPS()) {
+        if (gps is CachedGPS || !GPS.isAvailable(requireContext())) {
             return getString(R.string.gps_unavailable)
         }
 

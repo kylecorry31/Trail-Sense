@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.units.Distance
+import com.kylecorry.andromeda.core.units.Distance
 import java.time.*
 import java.time.format.DateTimeFormatter
 

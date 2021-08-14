@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Build
 import android.os.Bundle
+import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences

@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
@@ -28,7 +29,6 @@ import com.kylecorry.trailsensecore.domain.packs.sort.CategoryPackItemSort
 import com.kylecorry.trailsensecore.domain.packs.sort.PackedPercentPackItemSort
 import com.kylecorry.trailsensecore.domain.packs.sort.WeightPackItemSort
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

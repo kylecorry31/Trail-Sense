@@ -1,7 +1,8 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -9,24 +10,26 @@ import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.canvas.ArrowPathEffect
+import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.DottedPathEffect
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.times
 import com.kylecorry.trailsensecore.domain.geo.Path
-import com.kylecorry.trailsensecore.domain.math.cosDegrees
-import com.kylecorry.trailsensecore.domain.math.deltaAngle
-import com.kylecorry.trailsensecore.domain.math.sinDegrees
-import com.kylecorry.trailsensecore.domain.math.wrap
-import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
+import com.kylecorry.andromeda.core.math.cosDegrees
+import com.kylecorry.andromeda.core.math.deltaAngle
+import com.kylecorry.andromeda.core.math.sinDegrees
+import com.kylecorry.andromeda.core.math.wrap
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
 import com.kylecorry.trailsensecore.domain.pixels.toPixelLines
-import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
-import com.kylecorry.trailsensecore.infrastructure.canvas.ArrowPathEffect
-import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.min
 

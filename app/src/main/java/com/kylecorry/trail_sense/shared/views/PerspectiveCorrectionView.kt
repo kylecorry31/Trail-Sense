@@ -7,16 +7,16 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.files.LocalFileService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.maps.domain.PercentBounds
 import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
-import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
-import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
-import com.kylecorry.andromeda.files.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 

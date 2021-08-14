@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
 import androidx.preference.ListPreference
+import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.shared.QuickActionUtils

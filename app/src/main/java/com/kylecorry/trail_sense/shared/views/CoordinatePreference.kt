@@ -6,8 +6,8 @@ import android.widget.TextView
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.location.IGPS
 
 class CoordinatePreference(context: Context, attributeSet: AttributeSet) : Preference(context, attributeSet) {
 

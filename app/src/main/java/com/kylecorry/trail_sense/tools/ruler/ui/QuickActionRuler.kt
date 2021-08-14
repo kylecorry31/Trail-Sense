@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
+import com.kylecorry.andromeda.core.units.DistanceUnits
 
 class QuickActionRuler(btn: FloatingActionButton, fragment: Fragment, private val rulerView: ConstraintLayout): QuickActionButton(btn, fragment) {
     private lateinit var ruler: Ruler

@@ -15,10 +15,10 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trailsensecore.domain.geo.CompassDirection
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.domain.math.deltaAngle
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.core.math.deltaAngle
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.core.units.CompassDirection
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt

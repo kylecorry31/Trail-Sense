@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
+import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment

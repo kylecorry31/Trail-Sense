@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.tiles
 
 import android.content.Context
 import android.hardware.Sensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
+import com.kylecorry.andromeda.core.system.PackageUtils
+import com.kylecorry.andromeda.sense.SensorChecker
 
 class TileManager {
 

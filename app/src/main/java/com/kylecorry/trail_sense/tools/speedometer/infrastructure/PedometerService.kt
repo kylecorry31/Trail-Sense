@@ -1,10 +1,14 @@
 package com.kylecorry.trail_sense.tools.speedometer.infrastructure
 
-import android.Manifest
 import android.app.Notification
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.andromeda.core.system.IntentUtils
+import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.sense.pedometer.Pedometer
+import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -12,12 +16,7 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
-import com.kylecorry.trailsensecore.infrastructure.sensors.pedometer.Pedometer
-import com.kylecorry.andromeda.services.ForegroundService
-import com.kylecorry.andromeda.core.system.IntentUtils
-import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 
 class PedometerService : ForegroundService() {
 
@@ -95,7 +94,8 @@ class PedometerService : ForegroundService() {
                 return
             }
 
-            if (!PermissionUtils.hasPermission(context, Manifest.permission.ACTIVITY_RECOGNITION)) {
+            // TODO: Devices below Android X.X can support this without permission
+            if (!PermissionService(context).canRecognizeActivity()) {
                 return
             }
 

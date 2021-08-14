@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.qr.QRService
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrImportBinding
@@ -16,7 +17,6 @@ import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils.toBitmap
 import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 
 class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrImportBinding>() {
 

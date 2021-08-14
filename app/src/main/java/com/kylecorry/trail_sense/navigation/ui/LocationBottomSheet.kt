@@ -15,10 +15,10 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSend
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
+import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration

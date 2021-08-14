@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.navigation.domain
 
-import com.kylecorry.trailsensecore.domain.geo.Bearing
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.domain.math.deltaAngle
+import com.kylecorry.andromeda.core.units.Bearing
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.core.math.deltaAngle
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.INavigationService
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService

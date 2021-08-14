@@ -3,9 +3,18 @@ package com.kylecorry.trail_sense.calibration.ui
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.*
-import com.kylecorry.trail_sense.R
+import androidx.preference.Preference
+import androidx.preference.SeekBarPreference
+import androidx.preference.SwitchPreferenceCompat
+import com.kylecorry.andromeda.core.sensors.IAltimeter
+import com.kylecorry.andromeda.core.sensors.IThermometer
+import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.location.GPS
+import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.barometer.IBarometer
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -15,16 +24,10 @@ import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.PressureCalibrationUtils
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
+import com.kylecorry.trailsensecore.domain.units.Pressure
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
-import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Throttle
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
@@ -58,7 +61,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     private lateinit var weatherService: WeatherService
     private lateinit var units: PressureUnits
     private val formatService by lazy { FormatService(requireContext()) }
-    private val unitService = UnitService()
 
     private val pressureRepo by lazy { PressureRepo.getInstance(requireContext()) }
 
@@ -126,11 +128,10 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         pressureChangeSeekBar?.summary =
             (if (prefs.weather.maxNonTravellingPressureChange == 0f) "" else "± ") + getString(
                 R.string.pressure_tendency_format_2, formatService.formatPressure(
-                    unitService.convert(
+                    Pressure(
                         prefs.weather.maxNonTravellingPressureChange,
-                        PressureUnits.Hpa,
-                        prefs.pressureUnits
-                    ), prefs.pressureUnits
+                        PressureUnits.Hpa
+                    ).convertTo(prefs.pressureUnits).pressure, prefs.pressureUnits
                 )
             )
 
@@ -139,8 +140,10 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                 prefs.weather.altitudeOutlier
             )
 
-        pressureSmoothingSeekBar?.summary = formatService.formatPercentage(prefs.weather.pressureSmoothing.toInt())
-        altitudeSmoothingSeekBar?.summary = formatService.formatPercentage(prefs.weather.altitudeSmoothing.toInt())
+        pressureSmoothingSeekBar?.summary =
+            formatService.formatPercentage(prefs.weather.pressureSmoothing.toInt())
+        altitudeSmoothingSeekBar?.summary =
+            formatService.formatPercentage(prefs.weather.altitudeSmoothing.toInt())
 
 
 
@@ -172,11 +175,8 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             pressureChangeSeekBar?.summary =
                 (if (change == 0f) "" else "± ") + getString(
                     R.string.pressure_tendency_format_2, formatService.formatPressure(
-                        unitService.convert(
-                            change,
-                            PressureUnits.Hpa,
-                            prefs.pressureUnits
-                        ), prefs.pressureUnits
+                        Pressure(change, PressureUnits.Hpa).convertTo(prefs.pressureUnits).pressure,
+                        prefs.pressureUnits
                     )
                 )
             true
@@ -291,7 +291,10 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
         updateChart()
 
-        val isOnTheWallMode = prefs.altimeterMode == UserPreferences.AltimeterMode.Override || !sensorChecker.hasGPS()
+        val isOnTheWallMode =
+            prefs.altimeterMode == UserPreferences.AltimeterMode.Override || !GPS.isAvailable(
+                requireContext()
+            )
 
         val seaLevelPressure = prefs.weather.useSeaLevelPressure
 
@@ -303,8 +306,10 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         altitudeSmoothingSeekBar?.isVisible = experimentalCalibration && !isOnTheWallMode
         altitudeChangeSeekBar?.isVisible = !experimentalCalibration && !isOnTheWallMode
         pressureChangeSeekBar?.isVisible = !experimentalCalibration && !isOnTheWallMode
-        switch(R.string.pref_sea_level_use_rapid)?.isVisible = !experimentalCalibration && !isOnTheWallMode
-        switch(R.string.pref_sea_level_require_dwell)?.isVisible = !experimentalCalibration && !isOnTheWallMode
+        switch(R.string.pref_sea_level_use_rapid)?.isVisible =
+            !experimentalCalibration && !isOnTheWallMode
+        switch(R.string.pref_sea_level_require_dwell)?.isVisible =
+            !experimentalCalibration && !isOnTheWallMode
 
 
         val pressure = if (seaLevelPressure) {

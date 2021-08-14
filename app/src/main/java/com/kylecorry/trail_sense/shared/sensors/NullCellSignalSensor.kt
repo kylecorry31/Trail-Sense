@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.shared.sensors
 
-import com.kylecorry.trailsensecore.domain.network.CellSignal
-import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.network.ICellSignalSensor
+import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.signal.CellSignal
+import com.kylecorry.andromeda.signal.ICellSignalSensor
 
 class NullCellSignalSensor: AbstractSensor(), ICellSignalSensor {
     override val hasValidReading: Boolean

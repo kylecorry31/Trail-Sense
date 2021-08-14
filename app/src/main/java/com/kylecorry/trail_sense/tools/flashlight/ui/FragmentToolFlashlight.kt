@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
-import com.kylecorry.trailsensecore.infrastructure.flashlight.HasFlashlightSpecification
-import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.fragments.BoundFragment
 
 class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
@@ -25,7 +25,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val hasFlashlight = HasFlashlightSpecification().isSatisfiedBy(requireContext())
+        val hasFlashlight = Torch.isAvailable(requireContext())
         binding.flashlightBtn.isVisible = hasFlashlight
         binding.strobeBtn.isVisible = hasFlashlight
         binding.sosBtn.isVisible = hasFlashlight

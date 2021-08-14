@@ -7,14 +7,15 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
+import com.kylecorry.trail_sense.shared.asSignal
 import com.kylecorry.trailsensecore.domain.morse.MorseService
 import com.kylecorry.trailsensecore.domain.morse.Signal
-import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.Whistle
 import com.kylecorry.trailsensecore.infrastructure.morse.SignalPlayer
-import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Duration
 
 class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
@@ -51,7 +52,7 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
         )
     )
 
-    private val signalWhistle by lazy { SignalPlayer(whistle) }
+    private val signalWhistle by lazy { SignalPlayer(whistle.asSignal()) }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

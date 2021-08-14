@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import androidx.annotation.ColorInt
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.andromeda.core.units.Coordinate
 
 interface ICompassView {
     fun setAzimuth(azimuth: Float)

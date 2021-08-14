@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.diagnostics
 
-import android.Manifest
 import android.graphics.Color
 import android.hardware.Sensor
 import android.os.Bundle
@@ -11,9 +10,18 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryHealth
+import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.location.GPS
+import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.barometer.Barometer
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentDiagnosticsBinding
@@ -30,14 +38,11 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.domain.units.*
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.BarometricAltimeter
-import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
-import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
+import com.kylecorry.trailsensecore.domain.units.Pressure
+import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.trailsensecore.domain.units.Temperature
+import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.Instant
@@ -57,6 +62,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val sensorDetailsMap = mutableMapOf<String, SensorDetails?>()
 
+    private val permissions by lazy { PermissionService(requireContext()) }
     private val cachedGPS by lazy { CachedGPS(requireContext(), 500) }
     private val gps by lazy { sensorService.getGPS() }
     private val altimeter by lazy { sensorService.getAltimeter() }
@@ -233,10 +239,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     }
 
     private fun updatePermissions() {
-        val location = PermissionUtils.hasPermission(
-            requireContext(),
-            Manifest.permission.ACCESS_FINE_LOCATION
-        )
+        val location = permissions.canGetFineLocation()
 
         sensorDetailsMap["location-permission"] = SensorDetails(
             getString(R.string.gps_location),
@@ -250,10 +253,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         )
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-            val backgroundLocation = PermissionUtils.hasPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION
-            )
+            val backgroundLocation = permissions.isBackgroundLocationEnabled()
 
             sensorDetailsMap["background-location-permission"] = SensorDetails(
                 getString(R.string.permission_background_location),
@@ -417,7 +417,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             return UiUtils.color(requireContext(), R.color.red)
         }
 
-        if (altimeter is BarometricAltimeter) {
+        if (altimeter is Barometer) {
             return CustomUiUtils.getQualityColor(requireContext(), altimeter.quality)
         }
 
@@ -450,7 +450,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             return UiUtils.color(requireContext(), R.color.green)
         }
 
-        if (gps is CachedGPS || !sensorChecker.hasGPS()) {
+        if (gps is CachedGPS || !GPS.isAvailable(requireContext())) {
             return UiUtils.color(requireContext(), R.color.red)
         }
 
@@ -486,7 +486,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             return getString(R.string.gps_user)
         }
 
-        if (gps is CachedGPS || !sensorChecker.hasGPS()) {
+        if (gps is CachedGPS || !GPS.isAvailable(requireContext())) {
             return getString(R.string.gps_unavailable)
         }
 

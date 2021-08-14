@@ -3,23 +3,26 @@ package com.kylecorry.trail_sense.calibration.ui
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.text.InputType
-import androidx.preference.*
-import com.kylecorry.trail_sense.R
+import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import com.kylecorry.andromeda.core.sensors.IAltimeter
+import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.barometer.IBarometer
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.*
+import com.kylecorry.trail_sense.shared.sensors.CustomGPS
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.WeatherService
-import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
-import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.time.Throttle
 import java.time.Instant
 
 
@@ -199,6 +202,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             prefs.altimeterMode == UserPreferences.AltimeterMode.Override
         ).first()
         prefs.seaLevelPressureOverride = seaLevel.value
+        // TODO: Recreate barometer if altimeter mode == barometer
         return prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer
     }
 

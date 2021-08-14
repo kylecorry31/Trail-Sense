@@ -10,7 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleObserver
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.andromeda.core.units.Bearing
 
 
 class BearingInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs), LifecycleObserver {

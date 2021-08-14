@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared
 import android.content.Context
 import com.kylecorry.andromeda.compression.CompressionUtils
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.andromeda.core.units.Coordinate
 import kotlin.math.roundToInt
 
 /*

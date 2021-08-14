@@ -1,12 +1,12 @@
 package com.kylecorry.trail_sense.astronomy.infrastructure
 
 import android.content.Context
+import com.kylecorry.andromeda.core.math.toIntCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
-import com.kylecorry.trailsensecore.domain.math.toIntCompat
 import java.time.LocalDate
 
 class AstronomyPreferences(private val context: Context) {

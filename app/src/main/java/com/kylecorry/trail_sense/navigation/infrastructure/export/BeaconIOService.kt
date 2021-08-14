@@ -1,6 +1,9 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.export
 
 import android.content.Context
+import com.kylecorry.andromeda.core.time.toZonedDateTime
+import com.kylecorry.andromeda.gpx.GPXParser
+import com.kylecorry.andromeda.gpx.GPXWaypoint
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
@@ -9,9 +12,6 @@ import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
-import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
-import com.kylecorry.trailsensecore.infrastructure.gpx.GPXParser
-import com.kylecorry.trailsensecore.infrastructure.gpx.GPXWaypoint
 
 class BeaconIOService(private val context: Context) {
 

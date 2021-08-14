@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.ColorInt
+import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSolarPanelBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -15,11 +18,8 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
 import com.kylecorry.trailsensecore.domain.astronomy.SolarPanelPosition
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trailsensecore.domain.math.deltaAngle
-import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.GravityOrientationSensor
+import com.kylecorry.andromeda.core.math.deltaAngle
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.ZonedDateTime
 import kotlin.math.absoluteValue
 

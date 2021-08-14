@@ -6,7 +6,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.*
-import com.kylecorry.trailsensecore.domain.geo.Bearing
+import com.kylecorry.andromeda.core.units.Bearing
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.navigation.Beacon

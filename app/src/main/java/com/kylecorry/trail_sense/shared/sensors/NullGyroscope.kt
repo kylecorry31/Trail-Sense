@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.shared.sensors
 
-import com.kylecorry.trailsensecore.domain.math.Euler
-import com.kylecorry.trailsensecore.domain.math.Quaternion
-import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.IGyroscope
+import com.kylecorry.andromeda.core.math.Euler
+import com.kylecorry.andromeda.core.math.Quaternion
+import com.kylecorry.andromeda.core.sensors.AbstractSensor
+import com.kylecorry.andromeda.sense.orientation.IGyroscope
 
 class NullGyroscope : AbstractSensor(), IGyroscope {
 

@@ -10,8 +10,8 @@ import androidx.core.math.MathUtils
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.light.LightIntensity
 import com.kylecorry.trailsensecore.domain.light.LightService
-import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.*
 

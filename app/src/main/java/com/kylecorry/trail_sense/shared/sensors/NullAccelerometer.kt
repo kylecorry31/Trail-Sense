@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared.sensors
 
-import com.kylecorry.trailsensecore.domain.math.Vector3
-import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.IAccelerometer
+import com.kylecorry.andromeda.core.math.Vector3
+import com.kylecorry.andromeda.core.sensors.AbstractSensor
+import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 
 class NullAccelerometer : AbstractSensor(), IAccelerometer {
 

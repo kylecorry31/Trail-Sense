@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCoordinateConvertBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
+import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.andromeda.fragments.BoundFragment
 
 class FragmentToolCoordinateConvert : BoundFragment<FragmentToolCoordinateConvertBinding>() {

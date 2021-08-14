@@ -1,15 +1,15 @@
 package com.kylecorry.trail_sense.astronomy.infrastructure
 
 import android.content.Context
+import com.kylecorry.andromeda.core.sensors.read
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.geo.Region
 import com.kylecorry.trailsensecore.domain.time.Season
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDate

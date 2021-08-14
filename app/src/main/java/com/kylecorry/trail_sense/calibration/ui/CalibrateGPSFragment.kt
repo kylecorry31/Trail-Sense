@@ -5,7 +5,11 @@ import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.core.system.IntentUtils
 import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.location.GPS
+import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.permissions.PermissionService
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -15,10 +19,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.CoordinatePreference
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
@@ -26,7 +26,6 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private val throttle = Throttle(20)
 
     private lateinit var locationTxt: Preference
@@ -35,6 +34,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     private lateinit var locationOverridePref: CoordinatePreference
     private var clearCacheBtn: Preference? = null
     private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val permissions by lazy { PermissionService(requireContext()) }
 
     private lateinit var gps: IGPS
     private lateinit var realGps: IGPS
@@ -77,7 +77,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
 
         permissionBtn.setOnPreferenceClickListener {
             val intent = IntentUtils.appSettings(requireContext())
-            getResult(intent){ _, _ ->
+            getResult(intent) { _, _ ->
                 // Do nothing
             }
             true
@@ -151,17 +151,17 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
 
     private fun isAutoGPSPreferenceEnabled(): Boolean {
         // Only disable when GPS permission is denied
-        return PermissionUtils.isLocationEnabled(requireContext())
+        return permissions.canGetFineLocation()
     }
 
     private fun shouldUseCachedGPS(): Boolean {
         // Permission is granted, but GPS is disabled
-        return PermissionUtils.isLocationEnabled(requireContext()) && !sensorChecker.hasGPS()
+        return permissions.canGetFineLocation() && !GPS.isAvailable(requireContext())
     }
 
     private fun shouldUseRealGPS(): Boolean {
         // When both permission is granted and GPS is enabled
-        return sensorChecker.hasGPS()
+        return GPS.isAvailable(requireContext())
     }
 
     private fun clearCache() {

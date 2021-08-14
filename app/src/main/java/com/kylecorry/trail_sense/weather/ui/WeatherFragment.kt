@@ -9,6 +9,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.sensors.read
+import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
@@ -23,15 +28,10 @@ import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
+import com.kylecorry.trailsensecore.domain.units.Pressure
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.domain.units.UnitService
 import com.kylecorry.trailsensecore.domain.weather.*
-import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant
@@ -53,7 +53,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private lateinit var weatherService: WeatherService
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val unitService = UnitService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val formatServiceV2 by lazy { FormatServiceV2(requireContext()) }
     private val pressureRepo by lazy { PressureRepo.getInstance(requireContext()) }
@@ -401,7 +400,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     }
 
     private fun convertPressure(pressure: PressureReading): PressureReading {
-        val converted = unitService.convert(pressure.value, PressureUnits.Hpa, units)
+        val converted = Pressure(pressure.value, PressureUnits.Hpa).convertTo(units).pressure
         return pressure.copy(value = converted)
     }
 

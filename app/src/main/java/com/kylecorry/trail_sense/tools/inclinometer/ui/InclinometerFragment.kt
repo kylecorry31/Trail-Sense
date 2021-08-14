@@ -4,17 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentInclinometerBinding
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.inclinometer.AvalancheRisk
 import com.kylecorry.trailsensecore.domain.inclinometer.InclinationService
-import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
-import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.fragments.BoundFragment
 
 class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
 

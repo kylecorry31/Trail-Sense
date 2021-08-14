@@ -3,6 +3,9 @@ package com.kylecorry.trail_sense.shared
 import android.content.Context
 import android.hardware.SensorManager
 import android.text.format.DateFormat
+import com.kylecorry.andromeda.core.math.toFloatCompat
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.preferences.StringEnumPreference
@@ -11,10 +14,7 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.*
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapSite
-import com.kylecorry.trailsensecore.domain.math.toFloatCompat
-import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.units.WeightUnits
@@ -51,8 +51,8 @@ class UserPreferences(private val context: Context) {
         WeightUnits.Kilograms
     )
 
-    val baseDistanceUnits: com.kylecorry.trailsensecore.domain.units.DistanceUnits
-        get() = if (distanceUnits == DistanceUnits.Meters) com.kylecorry.trailsensecore.domain.units.DistanceUnits.Meters else com.kylecorry.trailsensecore.domain.units.DistanceUnits.Feet
+    val baseDistanceUnits: com.kylecorry.andromeda.core.units.DistanceUnits
+        get() = if (distanceUnits == DistanceUnits.Meters) com.kylecorry.andromeda.core.units.DistanceUnits.Meters else com.kylecorry.andromeda.core.units.DistanceUnits.Feet
 
     val pressureUnits: PressureUnits
         get() {

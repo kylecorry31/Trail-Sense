@@ -11,7 +11,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
-import com.kylecorry.trailsensecore.domain.math.roundPlaces
+import com.kylecorry.andromeda.core.math.roundPlaces
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration

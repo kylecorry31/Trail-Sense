@@ -17,6 +17,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.files.ExternalFileService
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -35,7 +36,6 @@ import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
-import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
@@ -132,7 +132,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     requestPermissions(
                         listOf(Manifest.permission.CAMERA)
                     ) {
-                        if (PermissionUtils.isCameraEnabled(requireContext())) {
+                        if (Camera.isAvailable(requireContext())) {
                             importBeaconFromQR()
                         } else {
                             UiUtils.longToast(

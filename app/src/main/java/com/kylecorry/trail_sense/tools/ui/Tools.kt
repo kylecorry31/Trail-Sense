@@ -4,9 +4,9 @@ import android.content.Context
 import android.hardware.Sensor
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
+import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 
 data class ToolGroup(val name: String, val tools: List<Tool>)
 data class Tool(

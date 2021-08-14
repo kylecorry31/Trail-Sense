@@ -3,11 +3,11 @@ package com.kylecorry.trail_sense.tiles
 import android.hardware.Sensor
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.andromeda.services.AndromedaTileService
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 
 @RequiresApi(Build.VERSION_CODES.N)
 class WeatherMonitorTile : AndromedaTileService() {

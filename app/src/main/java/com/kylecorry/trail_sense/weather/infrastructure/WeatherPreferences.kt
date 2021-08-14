@@ -3,14 +3,14 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trailsensecore.domain.math.toFloatCompat
-import com.kylecorry.trailsensecore.domain.math.toIntCompat
+import com.kylecorry.andromeda.core.math.toFloatCompat
+import com.kylecorry.andromeda.core.math.toIntCompat
 import com.kylecorry.trailsensecore.domain.weather.ISeaLevelPressureConverter
 import com.kylecorry.trailsensecore.domain.weather.KalmanSeaLevelPressureConverter
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate

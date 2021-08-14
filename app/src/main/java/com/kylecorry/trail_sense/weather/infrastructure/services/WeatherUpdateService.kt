@@ -20,8 +20,8 @@ import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.sensors.read
+import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.core.sensors.read
 import com.kylecorry.andromeda.services.CoroutineForegroundService
 import com.kylecorry.andromeda.core.system.IntentUtils
 import kotlinx.coroutines.*

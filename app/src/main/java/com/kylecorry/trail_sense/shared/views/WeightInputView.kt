@@ -5,10 +5,10 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
+import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.units.Weight
 import com.kylecorry.trailsensecore.domain.units.WeightUnits
-import com.kylecorry.trailsensecore.infrastructure.text.DecimalFormatter
 
 
 class WeightInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {

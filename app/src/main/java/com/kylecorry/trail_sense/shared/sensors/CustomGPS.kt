@@ -2,18 +2,17 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.kylecorry.andromeda.core.sensors.AbstractSensor
+import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.units.*
+import com.kylecorry.andromeda.location.GPS
+import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.ApproximateCoordinate
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.time.isInPast
-import com.kylecorry.trailsensecore.domain.units.*
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.GPS
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.andromeda.core.time.Timer
 import java.time.Duration
 import java.time.Instant
 
@@ -63,7 +62,6 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     private val baseGPS by lazy { GPS(context.applicationContext) }
     private val cache by lazy { Preferences(context.applicationContext) }
     private val userPrefs by lazy { UserPreferences(context) }
-    private val sensorChecker by lazy { SensorChecker(context) }
 
     private val timeout = Timer {
         onTimeout()
@@ -140,7 +138,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
 
     @SuppressLint("MissingPermission")
     override fun startImpl() {
-        if (!sensorChecker.hasGPS()) {
+        if (!GPS.isAvailable(context)) {
             return
         }
 

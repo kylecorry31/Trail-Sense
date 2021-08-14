@@ -15,8 +15,15 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kylecorry.andromeda.core.system.PackageUtils
+import com.kylecorry.andromeda.core.system.ScreenService
+import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.markdown.MarkdownService
+import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.permissions.requestPermissions
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
@@ -27,8 +34,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.volumeactions.VolumeAction
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.*
 import java.time.Duration
 import kotlin.system.exitProcess
@@ -43,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     private var geoIntentLocation: GeoUriParser.NamedCoordinate? = null
 
     private val sensorChecker by lazy { SensorChecker(this) }
+    private val permissionService by lazy { PermissionService(this) }
 
     private lateinit var userPrefs: UserPreferences
     private lateinit var disclaimer: DisclaimerMessage
@@ -100,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(mode)
         super.onCreate(savedInstanceState)
 
-        ScreenUtils.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
+        ScreenService(window).setAllowScreenshots(!userPrefs.privacy.isScreenshotProtectionOn)
 
         disclaimer = DisclaimerMessage(this)
         val cache = Preferences(this)
@@ -128,7 +134,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        requestPermissions(permissions)
+        requestPermissions(permissions, RequestCodes.REQUEST_CODE_LOCATION_PERMISSION)
     }
 
     private fun startApp() {
@@ -192,7 +198,7 @@ class MainActivity : AppCompatActivity() {
             "page",
             R.id.action_navigation
         )
-        if (savedInstanceState.containsKey("navigation")){
+        if (savedInstanceState.containsKey("navigation")) {
             tryOrNothing {
                 val bundle = savedInstanceState.getBundle("navigation_arguments")
                 navController.navigate(savedInstanceState.getInt("navigation"), bundle)
@@ -225,14 +231,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hasBackgroundLocation(): Boolean {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || PermissionUtils.hasPermission(
-            this,
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || permissionService.hasPermission(
             Manifest.permission.ACCESS_BACKGROUND_LOCATION
         )
     }
 
     private fun shouldRequestBackgroundLocation(): Boolean {
-        return PermissionUtils.isLocationEnabled(this) &&
+        return permissionService.canGetFineLocation() &&
                 !hasBackgroundLocation() &&
                 cache.getBoolean(Manifest.permission.ACCESS_BACKGROUND_LOCATION) != true
     }
@@ -256,13 +261,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun requestPermissions(
-        permissions: List<String>,
-        requestCode: Int = RequestCodes.REQUEST_CODE_LOCATION_PERMISSION
-    ) {
-        PermissionUtils.requestPermissions(this, permissions, requestCode)
-    }
-
     private fun sunriseSunsetTheme(): Int {
         val astronomyService = AstronomyService()
         val sensorService by lazy { SensorService(applicationContext) }
@@ -279,31 +277,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
             return onVolumePressed(isVolumeUp = false, isButtonPressed = true)
-        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP){
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
             return onVolumePressed(isVolumeUp = true, isButtonPressed = true)
         }
         return super.onKeyDown(keyCode, event)
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
             return onVolumePressed(isVolumeUp = false, isButtonPressed = false)
-        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP){
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
             return onVolumePressed(isVolumeUp = true, isButtonPressed = false)
         }
         return super.onKeyUp(keyCode, event)
     }
 
     private fun onVolumePressed(isVolumeUp: Boolean, isButtonPressed: Boolean): Boolean {
-        if (!shouldOverrideVolumePress()){
+        if (!shouldOverrideVolumePress()) {
             return false
         }
 
-        val action = (if (isVolumeUp) getVolumeUpAction() else getVolumeDownAction()) ?: return false
+        val action =
+            (if (isVolumeUp) getVolumeUpAction() else getVolumeDownAction()) ?: return false
 
-        if (isButtonPressed){
+        if (isButtonPressed) {
             action.onButtonDown()
         } else {
             action.onButtonUp()
@@ -314,7 +313,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun shouldOverrideVolumePress(): Boolean {
         val excluded = listOf(R.id.toolWhistleFragment, R.id.fragmentToolWhiteNoise)
-        if (excluded.contains(navController.currentDestination?.id)){
+        if (excluded.contains(navController.currentDestination?.id)) {
             return false
         }
         return true
@@ -322,7 +321,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun getVolumeDownAction(): VolumeAction? {
-        if (userPrefs.flashlight.toggleWithVolumeButtons){
+        if (userPrefs.flashlight.toggleWithVolumeButtons) {
             return FlashlightToggleVolumeAction(this)
         }
 
@@ -330,7 +329,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getVolumeUpAction(): VolumeAction? {
-        if (userPrefs.flashlight.toggleWithVolumeButtons){
+        if (userPrefs.flashlight.toggleWithVolumeButtons) {
             return FlashlightToggleVolumeAction(this)
         }
 

@@ -4,6 +4,33 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import androidx.core.content.getSystemService
+import com.kylecorry.andromeda.battery.Battery
+import com.kylecorry.andromeda.core.sensors.IAltimeter
+import com.kylecorry.andromeda.core.sensors.ISpeedometer
+import com.kylecorry.andromeda.core.sensors.IThermometer
+import com.kylecorry.andromeda.location.GPS
+import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
+import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
+import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
+import com.kylecorry.andromeda.sense.barometer.Barometer
+import com.kylecorry.andromeda.sense.barometer.IBarometer
+import com.kylecorry.andromeda.sense.compass.GravityCompensatedCompass
+import com.kylecorry.andromeda.sense.compass.ICompass
+import com.kylecorry.andromeda.sense.compass.LegacyCompass
+import com.kylecorry.andromeda.sense.hygrometer.Hygrometer
+import com.kylecorry.andromeda.sense.hygrometer.IHygrometer
+import com.kylecorry.andromeda.sense.inclinometer.IInclinometer
+import com.kylecorry.andromeda.sense.inclinometer.Inclinometer
+import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
+import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
+import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
+import com.kylecorry.andromeda.sense.orientation.*
+import com.kylecorry.andromeda.sense.temperature.AmbientThermometer
+import com.kylecorry.andromeda.signal.CellSignalSensor
+import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
@@ -13,34 +40,7 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.GravitySensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.IAccelerometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.LowPassAccelerometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.BarometricAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.FusedAltimeter
-import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
-import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.Barometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.compass.ICompass
-import com.kylecorry.trailsensecore.infrastructure.sensors.compass.LegacyCompass
-import com.kylecorry.trailsensecore.infrastructure.sensors.compass.VectorCompass
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.sensors.hygrometer.Hygrometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.hygrometer.IHygrometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.inclinometer.IInclinometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.inclinometer.Inclinometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.IMagnetometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.LowPassMagnetometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.Magnetometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.network.CellSignalSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.network.ICellSignalSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.*
-import com.kylecorry.trailsensecore.infrastructure.sensors.speedometer.ISpeedometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.BatteryTemperatureSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.IThermometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.temperature.Thermometer
-import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 
 class SensorService(ctx: Context) {
 
@@ -57,7 +57,7 @@ class SensorService(ctx: Context) {
             return OverrideGPS(context)
         }
 
-        if (hasLocationPermission(background) && sensorChecker.hasGPS()) {
+        if (hasLocationPermission(background) && GPS.isAvailable(context)) {
             return CustomGPS(context)
         }
 
@@ -65,10 +65,11 @@ class SensorService(ctx: Context) {
     }
 
     private fun hasLocationPermission(background: Boolean): Boolean {
+        val permissions = PermissionService(context)
         return if (background) {
-            PermissionUtils.isBackgroundLocationEnabled(context)
+            permissions.isBackgroundLocationEnabled()
         } else {
-            PermissionUtils.isLocationEnabled(context)
+            permissions.canGetFineLocation()
         }
     }
 
@@ -88,7 +89,7 @@ class SensorService(ctx: Context) {
         if (mode == UserPreferences.AltimeterMode.Override) {
             return OverrideAltimeter(context)
         } else {
-            if (!sensorChecker.hasGPS()) {
+            if (!GPS.isAvailable(context)) {
                 return CachedAltimeter(context)
             }
 
@@ -103,9 +104,10 @@ class SensorService(ctx: Context) {
         if (mode == UserPreferences.AltimeterMode.Override) {
             return OverrideAltimeter(context)
         } else if (mode == UserPreferences.AltimeterMode.Barometer && sensorChecker.hasBarometer()) {
-            return BarometricAltimeter(getBarometer()) { userPrefs.seaLevelPressureOverride }
+            // TODO: Verify this still works correctly
+            return Barometer(context, seaLevelPressure = userPrefs.seaLevelPressureOverride)
         } else {
-            if (!sensorChecker.hasGPS()) {
+            if (!GPS.isAvailable(context)) {
                 return CachedAltimeter(context)
             }
 
@@ -130,7 +132,7 @@ class SensorService(ctx: Context) {
             context,
             smoothing,
             useTrueNorth
-        ) else VectorCompass(
+        ) else GravityCompensatedCompass(
             context, smoothing, useTrueNorth
         )
     }
@@ -150,11 +152,11 @@ class SensorService(ctx: Context) {
     @Suppress("DEPRECATION")
     fun getThermometer(): IThermometer {
         if (sensorChecker.hasSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)) {
-            return Thermometer(context, Sensor.TYPE_AMBIENT_TEMPERATURE)
+            return AmbientThermometer(context, Sensor.TYPE_AMBIENT_TEMPERATURE)
         }
 
         if (sensorChecker.hasSensor(Sensor.TYPE_TEMPERATURE)) {
-            return Thermometer(context, Sensor.TYPE_TEMPERATURE)
+            return AmbientThermometer(context, Sensor.TYPE_TEMPERATURE)
         }
 
         val builtInSensors = sensorManager?.getSensorList(Sensor.TYPE_ALL) ?: listOf()
@@ -165,10 +167,10 @@ class SensorService(ctx: Context) {
         }.minByOrNull { it.resolution }
 
         if (first != null) {
-            return Thermometer(context, first.type)
+            return AmbientThermometer(context, first.type)
         }
 
-        return BatteryTemperatureSensor(context)
+        return Battery(context)
     }
 
     fun getHygrometer(): IHygrometer {

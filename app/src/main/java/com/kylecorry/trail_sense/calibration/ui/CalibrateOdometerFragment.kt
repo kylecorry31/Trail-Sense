@@ -6,18 +6,18 @@ import android.os.Build
 import android.os.Bundle
 import androidx.preference.ListPreference
 import androidx.preference.Preference
+import com.kylecorry.andromeda.core.system.IntentUtils
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.andromeda.core.system.IntentUtils
-import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Timer
 
 
 class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
@@ -30,6 +30,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private var wasEnabled = false
     private val cache by lazy { Preferences(requireContext()) }
+    private val permissions by lazy { PermissionService(requireContext()) }
 
 
     private val intervalometer = Timer {
@@ -105,17 +106,12 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     private fun updatePermissionRequestPreference() {
         val hasActivityRecognition =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                PermissionUtils.hasPermission(
-                    requireContext(),
-                    Manifest.permission.ACTIVITY_RECOGNITION
-                )
+                permissions.canRecognizeActivity()
             } else {
                 true
             }
         permissionPref.isVisible =
-            (userPrefs.usePedometer && !hasActivityRecognition) || (!userPrefs.usePedometer && !PermissionUtils.isBackgroundLocationEnabled(
-                requireContext()
-            ))
+            (userPrefs.usePedometer && !hasActivityRecognition) || (!userPrefs.usePedometer && !permissions.isBackgroundLocationEnabled())
     }
 
     private fun updatePedometerService() {

@@ -6,7 +6,10 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.jobs.ExactTaskScheduler
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolClockBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -14,9 +17,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
-import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Timer
 import java.time.Duration
 import java.time.Instant
 import java.time.ZoneId
@@ -121,16 +122,13 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
                     )
                 )
 
-                AlarmUtils.set(
-                    requireContext(),
-                    sendTime,
+                val scheduler = ExactTaskScheduler(requireContext()){
                     NextMinuteBroadcastReceiver.pendingIntent(
                         requireContext(),
                         formattedTime
-                    ),
-                    exact = true,
-                    allowWhileIdle = true
-                )
+                    )
+                }
+                scheduler.schedule(sendTime.toZonedDateTime().toInstant())
                 getResult(Intent(Settings.ACTION_DATE_SETTINGS)) { _, _ ->
                     // Do nothing
                 }

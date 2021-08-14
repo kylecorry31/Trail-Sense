@@ -1,10 +1,11 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
+import com.kylecorry.andromeda.core.system.PackageUtils
+import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
 
 class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
 

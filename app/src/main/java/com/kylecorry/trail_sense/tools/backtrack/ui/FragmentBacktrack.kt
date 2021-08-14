@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
@@ -79,7 +80,8 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                     itemBinding.signalStrength.setStatusText(
                         CellSignalUtils.getCellTypeString(
                             requireContext(),
-                            waypoint.cellNetwork
+                            // TODO: Return the correct cell network type
+                            CellNetwork.values().firstOrNull() { it.id == waypoint.cellNetwork?.id }
                         )
                     )
                     itemBinding.signalStrength.setImageResource(

@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.content.Context
 import androidx.annotation.DrawableRes
+import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.network.CellNetwork
-import com.kylecorry.trailsensecore.domain.units.Quality
 
 object CellSignalUtils {
 

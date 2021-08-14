@@ -4,13 +4,13 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
-import com.kylecorry.trailsensecore.infrastructure.audio.PinkNoise
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.services.ForegroundService
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.sound.ISoundPlayer
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trailsensecore.infrastructure.audio.PinkNoise
 import java.time.Duration
 import java.time.Instant
 

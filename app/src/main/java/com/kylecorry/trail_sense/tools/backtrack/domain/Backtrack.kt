@@ -1,6 +1,12 @@
 package com.kylecorry.trail_sense.tools.backtrack.domain
 
 import android.content.Context
+import com.kylecorry.andromeda.core.sensors.IAltimeter
+import com.kylecorry.andromeda.core.sensors.read
+import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.signal.CellNetwork
+import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.IBeaconRepo
@@ -12,11 +18,6 @@ import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.FusedAltimeter
-import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.sensors.network.ICellSignalSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.read
-import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant
@@ -54,7 +55,8 @@ class Backtrack(
                             R.string.last_signal_beacon_name,
                             CellSignalUtils.getCellTypeString(
                                 context,
-                                point.cellSignal!!.network
+                                // TODO: Return the correct cell network type
+                                CellNetwork.values().first { it.id == point.cellSignal!!.network.id }
                             ),
                             formatService.formatQuality(point.cellSignal!!.quality)
                         ),
@@ -80,7 +82,7 @@ class Backtrack(
                     jobs.add(launch { altimeter.read() })
                 }
 
-                if (recordCellSignal && PermissionUtils.isBackgroundLocationEnabled(context)) {
+                if (recordCellSignal && PermissionService(context).isBackgroundLocationEnabled()) {
                     jobs.add(launch { cellSignalSensor.read() })
                 }
 

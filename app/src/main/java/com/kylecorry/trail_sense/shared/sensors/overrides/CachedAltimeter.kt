@@ -1,12 +1,12 @@
 package com.kylecorry.trail_sense.shared.sensors.overrides
 
 import android.content.Context
+import com.kylecorry.andromeda.core.sensors.AbstractSensor
+import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
-import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 
 class CachedAltimeter(context: Context, private val updateFrequency: Long = 20L): AbstractSensor(),
     IAltimeter {

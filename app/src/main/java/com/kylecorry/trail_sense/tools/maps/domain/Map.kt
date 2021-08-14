@@ -1,15 +1,11 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
-import com.kylecorry.trailsensecore.domain.geo.Bearing
-import com.kylecorry.trailsensecore.domain.geo.CompassDirection
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
+import com.kylecorry.andromeda.core.units.*
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
-import com.kylecorry.trailsensecore.domain.math.cosDegrees
-import com.kylecorry.trailsensecore.domain.math.sinDegrees
-import com.kylecorry.trailsensecore.domain.math.wrap
-import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
-import com.kylecorry.trailsensecore.domain.units.Distance
+import com.kylecorry.andromeda.core.math.cosDegrees
+import com.kylecorry.andromeda.core.math.sinDegrees
+import com.kylecorry.andromeda.core.math.wrap
 
 data class Map(
     val id: Long,

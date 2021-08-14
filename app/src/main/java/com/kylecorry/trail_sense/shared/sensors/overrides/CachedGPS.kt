@@ -1,16 +1,16 @@
 package com.kylecorry.trail_sense.shared.sensors.overrides
 
 import android.content.Context
+import com.kylecorry.andromeda.core.sensors.AbstractSensor
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.andromeda.core.units.Speed
+import com.kylecorry.andromeda.core.units.TimeUnits
+import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
-import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.domain.units.DistanceUnits
-import com.kylecorry.trailsensecore.domain.units.Speed
-import com.kylecorry.trailsensecore.domain.units.TimeUnits
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
-import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.andromeda.core.time.Timer
 import java.time.Instant
 
 class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : AbstractSensor(),
