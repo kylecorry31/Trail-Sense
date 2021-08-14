@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.audio.ISoundPlayer
 import com.kylecorry.trailsensecore.infrastructure.audio.PinkNoise
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.andromeda.core.time.Timer
 import java.time.Duration
@@ -18,7 +18,7 @@ class WhiteNoiseService : ForegroundService() {
 
     private val notify by lazy { Notify(this) }
     private var whiteNoise: ISoundPlayer? = null
-    private val cache by lazy { Cache(this) }
+    private val cache by lazy { Preferences(this) }
 
     private val offTimer = Timer {
         stopSelf()

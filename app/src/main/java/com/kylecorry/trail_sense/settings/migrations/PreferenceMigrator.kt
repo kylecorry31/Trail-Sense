@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.settings.migrations
 
 import android.content.Context
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 
 class PreferenceMigrator private constructor() {
 
@@ -10,7 +10,7 @@ class PreferenceMigrator private constructor() {
 
     fun migrate(context: Context) {
         synchronized(lock) {
-            val cache = Cache(context)
+            val cache = Preferences(context)
             if (cache.contains("pref_enable_experimental")) {
                 val isExperimental = cache.getBoolean("pref_enable_experimental") ?: false
                 cache.putBoolean(context.getString(R.string.pref_experimental_maps), isExperimental)

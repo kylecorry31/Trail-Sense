@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.depth.DepthService
 import com.kylecorry.trailsensecore.domain.math.roundPlaces
 import com.kylecorry.trailsensecore.domain.units.*
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -29,7 +29,7 @@ class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
     private val depthService = DepthService()
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
-    private val cache by lazy { Cache(requireContext()) }
+    private val cache by lazy { Preferences(requireContext()) }
     private val throttle = Throttle(20)
 
     private var lastDepth: Float = 0f

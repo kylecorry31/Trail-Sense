@@ -2,11 +2,11 @@ package com.kylecorry.trail_sense.settings.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.Preferences
 
 class CellSignalPreferences(private val context: Context) {
-    private val cache by lazy { Cache(context) }
+    private val cache by lazy { Preferences(context) }
 
     val populateCache by BooleanPreference(
         cache,

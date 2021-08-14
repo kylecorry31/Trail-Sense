@@ -17,9 +17,11 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.files.ExternalFileService
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
@@ -33,10 +35,8 @@ import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -269,7 +269,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             }
 
             listItem.onNavigate = {
-                Cache(requireContext()).putLong("last_beacon_id_long", beacon.id)
+                Preferences(requireContext()).putLong("last_beacon_id_long", beacon.id)
                 navController.navigateUp()
             }
 

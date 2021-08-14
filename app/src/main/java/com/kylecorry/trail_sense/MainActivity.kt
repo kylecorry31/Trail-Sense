@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.markdown.MarkdownService
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
@@ -27,7 +28,6 @@ import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.volumeactions.VolumeAction
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.*
 import java.time.Duration
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var userPrefs: UserPreferences
     private lateinit var disclaimer: DisclaimerMessage
-    private val cache by lazy { Cache(this) }
+    private val cache by lazy { Preferences(this) }
 
     private val permissions = mutableListOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         ScreenUtils.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
 
         disclaimer = DisclaimerMessage(this)
-        val cache = Cache(this)
+        val cache = Preferences(this)
 
         setContentView(R.layout.activity_main)
         navController =

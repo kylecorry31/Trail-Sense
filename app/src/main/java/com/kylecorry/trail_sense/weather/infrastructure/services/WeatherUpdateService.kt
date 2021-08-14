@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
 import com.kylecorry.andromeda.services.CoroutineForegroundService
@@ -37,7 +37,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
     private val hygrometer by lazy { sensorService.getHygrometer() }
     private val prefs by lazy { UserPreferences(this) }
     private val pressureRepo by lazy { PressureRepo.getInstance(this) }
-    private val cache by lazy { Cache(this) }
+    private val cache by lazy { Preferences(this) }
     private val weatherForecastService by lazy { WeatherContextualService.getInstance(this) }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

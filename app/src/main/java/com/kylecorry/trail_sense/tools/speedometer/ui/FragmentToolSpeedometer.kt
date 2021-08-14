@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.andromeda.core.time.Throttle
@@ -27,7 +27,7 @@ class FragmentToolSpeedometer : BoundFragment<FragmentToolSpeedometerBinding>() 
     private val averageSpeedometer by lazy { sensorService.getSpeedometer(false) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val cache by lazy { Cache(requireContext()) }
+    private val cache by lazy { Preferences(requireContext()) }
 
     private val throttle = Throttle(20)
 

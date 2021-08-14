@@ -1,22 +1,24 @@
 package com.kylecorry.trail_sense.shared.sensors.odometer
 
 import android.content.Context
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.putCoordinate
 import com.kylecorry.trailsensecore.domain.geo.ApproximateCoordinate
+import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.specifications.LocationChangedSpecification
 import com.kylecorry.trailsensecore.domain.geo.specifications.LocationIsAccurateSpecification
 import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.units.Distance
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.odometer.IOdometer
-import com.kylecorry.andromeda.core.time.Timer
 import java.time.Instant
 import java.time.LocalDate
 
 class Odometer(private val context: Context): AbstractSensor(), IOdometer {
 
-    private val cache by lazy { Cache(context) }
+    private val cache by lazy { Preferences(context) }
     private val prefs by lazy { UserPreferences(context) }
 
     override val distance: Distance
@@ -48,7 +50,8 @@ class Odometer(private val context: Context): AbstractSensor(), IOdometer {
 
         var distance: Float
         synchronized(this) {
-            val lastLocation = cache.getCoordinate(LAST_LOCATION)
+            val loc = cache.getCoordinate(LAST_LOCATION)
+            val lastLocation = if (loc != null) Coordinate(loc.latitude, loc.longitude) else null
             val lastAccuracy = cache.getFloat(LAST_ACCURACY) ?: 0f
             if (lastLocation == null) {
                 cache.putCoordinate(LAST_LOCATION, location.coordinate)

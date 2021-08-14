@@ -51,7 +51,7 @@ import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.Quality
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOrientation
@@ -96,7 +96,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val sensorChecker by lazy { SensorChecker(requireContext()) }
-    private val cache by lazy { Cache(requireContext()) }
+    private val cache by lazy { Preferences(requireContext()) }
     private val throttle = Throttle(20)
 
     private val navigationService = NavigationService()

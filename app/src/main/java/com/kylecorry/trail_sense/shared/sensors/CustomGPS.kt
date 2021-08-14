@@ -8,7 +8,7 @@ import com.kylecorry.trailsensecore.domain.geo.ApproximateCoordinate
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.time.isInPast
 import com.kylecorry.trailsensecore.domain.units.*
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.GPS
@@ -61,7 +61,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
         get() = _isTimedOut
 
     private val baseGPS by lazy { GPS(context.applicationContext) }
-    private val cache by lazy { Cache(context.applicationContext) }
+    private val cache by lazy { Preferences(context.applicationContext) }
     private val userPrefs by lazy { UserPreferences(context) }
     private val sensorChecker by lazy { SensorChecker(context) }
 

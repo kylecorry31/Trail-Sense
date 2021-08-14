@@ -3,11 +3,13 @@ package com.kylecorry.trail_sense.shared
 import android.content.Context
 import android.hardware.SensorManager
 import android.text.format.DateFormat
+import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.*
-import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapSite
@@ -16,13 +18,11 @@ import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.units.WeightUnits
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
-import com.kylecorry.trailsensecore.infrastructure.persistence.preferences.StringEnumPreference
 import java.time.Duration
 
 class UserPreferences(private val context: Context) {
 
-    private val cache by lazy { Cache(context) }
+    private val cache by lazy { Preferences(context) }
 
     val navigation by lazy { NavigationPreferences(context) }
     val weather by lazy { WeatherPreferences(context) }

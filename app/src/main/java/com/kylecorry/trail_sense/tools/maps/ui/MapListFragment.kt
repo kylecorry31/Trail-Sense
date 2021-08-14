@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.PDFUtils
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
@@ -45,7 +45,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val fileService by lazy { LocalFileService(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val localFileService by lazy { LocalFileService(requireContext()) }
-    private val cache by lazy { Cache(requireContext()) }
+    private val cache by lazy { Preferences(requireContext()) }
 
     private lateinit var mapList: ListView<Map>
     private var maps: List<Map> = listOf()

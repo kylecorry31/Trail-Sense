@@ -3,12 +3,11 @@ package com.kylecorry.trail_sense.navigation.infrastructure.persistence
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.database.OldBeaconRepo
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
-import java.lang.Exception
 
 class BeaconDatabaseMigrationWorker(
     private val context: Context,
@@ -55,7 +54,7 @@ class BeaconDatabaseMigrationWorker(
                 db.addBeacon(it)
             }
 
-            val cache = Cache(context)
+            val cache = Preferences(context)
             cache.remove(NavigatorFragment.LAST_BEACON_ID)
 
 

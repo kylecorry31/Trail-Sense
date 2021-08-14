@@ -7,7 +7,7 @@ import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.Speed
 import com.kylecorry.trailsensecore.domain.units.TimeUnits
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.andromeda.core.time.Timer
@@ -38,7 +38,7 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : Abs
     override val mslAltitude: Float?
         get() = altitude
 
-    private val cache by lazy { Cache(context) }
+    private val cache by lazy { Preferences(context) }
     private val userPrefs by lazy { UserPreferences(context) }
     private val intervalometer = Timer { notifyListeners() }
 

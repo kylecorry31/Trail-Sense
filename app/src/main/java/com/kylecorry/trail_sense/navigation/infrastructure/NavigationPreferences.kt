@@ -1,23 +1,23 @@
 package com.kylecorry.trail_sense.navigation.infrastructure
 
 import android.content.Context
+import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
 import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.geo.PathStyle
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.math.toIntCompat
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.units.UnitService
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import java.time.Duration
 
 class NavigationPreferences(private val context: Context) {
 
-    private val cache by lazy { Cache(context) }
+    private val cache by lazy { Preferences(context) }
     private val sensorChecker by lazy { SensorChecker(context) }
     private val unitService = UnitService()
 

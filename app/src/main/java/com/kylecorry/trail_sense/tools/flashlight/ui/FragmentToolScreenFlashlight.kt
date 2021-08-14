@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import com.kylecorry.andromeda.core.system.ScreenService
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.fragments.BoundFragment
 
 class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightBinding>() {
 
     private val flashlight by lazy { ScreenTorch(ScreenService(requireActivity().window)) }
-    private val cache by lazy { Cache(requireContext()) }
+    private val cache by lazy { Preferences(requireContext()) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,

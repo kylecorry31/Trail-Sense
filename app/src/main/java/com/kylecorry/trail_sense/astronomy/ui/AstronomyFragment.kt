@@ -33,7 +33,7 @@ import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.time.roundNearestMinute
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
@@ -55,7 +55,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val cache by lazy { Cache(requireContext()) }
+    private val cache by lazy { Preferences(requireContext()) }
     private val astronomyService = AstronomyService()
     private val geoService = GeoService()
     private val formatService by lazy { FormatServiceV2(requireContext()) }

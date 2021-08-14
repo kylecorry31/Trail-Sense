@@ -10,14 +10,14 @@ import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
 class OnboardingActivity : AppCompatActivity() {
 
-    private val cache by lazy { Cache(this) }
+    private val cache by lazy { Preferences(this) }
     private val markdown by lazy { MarkdownService(this) }
     private val prefs by lazy { UserPreferences(this) }
 

@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.andromeda.core.time.Throttle
@@ -45,7 +45,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
     private val geoService by lazy { GeoService() }
-    private val cache by lazy { Cache(requireContext()) }
+    private val cache by lazy { Preferences(requireContext()) }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }

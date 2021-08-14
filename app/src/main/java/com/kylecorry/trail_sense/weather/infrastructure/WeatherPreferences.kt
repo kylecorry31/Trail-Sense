@@ -1,15 +1,15 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
+import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trail_sense.shared.preferences.BooleanPreference
 import com.kylecorry.trailsensecore.domain.math.toFloatCompat
 import com.kylecorry.trailsensecore.domain.math.toIntCompat
 import com.kylecorry.trailsensecore.domain.weather.ISeaLevelPressureConverter
 import com.kylecorry.trailsensecore.domain.weather.KalmanSeaLevelPressureConverter
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import java.time.Duration
 import java.time.Instant
@@ -20,7 +20,7 @@ import kotlin.math.pow
 class WeatherPreferences(private val context: Context) {
 
     private val sensorChecker = SensorChecker(context)
-    private val cache = Cache(context)
+    private val cache = Preferences(context)
 
     val hasBarometer: Boolean
         get() = sensorChecker.hasBarometer()

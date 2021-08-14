@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPur
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.water.WaterService
-import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Duration
 import java.time.Instant
@@ -22,7 +22,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val altimeter by lazy { sensorService.getAltimeter(false) }
-    private val cache by lazy { Cache(requireContext()) }
+    private val cache by lazy { Preferences(requireContext()) }
     private var timer: CountDownTimer? = null
     private var duration: Duration? = null
     private val waterService = WaterService()
