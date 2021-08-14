@@ -80,7 +80,7 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
     // Andromeda
-    def andromeda_version = "1.0.0-beta11"
+    def andromeda_version = "1.0.0-beta12"
     implementation "com.github.kylecorry31.andromeda:core:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:fragments:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:jobs:${andromeda_version}"
