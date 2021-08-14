@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.buzz.Buzz
+import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -19,9 +22,6 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.accelerometer.Gravity
 import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.LowPassMagnetometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.magnetometer.Magnetometer
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.trailsensecore.infrastructure.time.Throttle
-import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Duration
 import kotlin.math.roundToInt
 

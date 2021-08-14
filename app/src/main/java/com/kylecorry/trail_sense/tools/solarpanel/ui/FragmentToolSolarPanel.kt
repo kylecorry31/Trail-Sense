@@ -18,7 +18,7 @@ import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.math.deltaAngle
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.GravityOrientationSensor
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.ZonedDateTime
 import kotlin.math.absoluteValue

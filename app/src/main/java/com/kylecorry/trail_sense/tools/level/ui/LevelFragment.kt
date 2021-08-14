@@ -9,7 +9,7 @@ import com.kylecorry.trailsensecore.domain.math.Vector3
 import com.kylecorry.trailsensecore.domain.math.toDegrees
 import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.GravityOrientationSensor
 import com.kylecorry.trailsensecore.infrastructure.system.*
-import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlin.math.abs
 import kotlin.math.atan2

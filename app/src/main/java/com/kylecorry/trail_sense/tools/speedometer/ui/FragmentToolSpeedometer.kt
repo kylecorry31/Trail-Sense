@@ -15,7 +15,7 @@ import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.LocalDate
 

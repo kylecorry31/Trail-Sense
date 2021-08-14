@@ -16,7 +16,7 @@ import com.kylecorry.trailsensecore.domain.math.roundPlaces
 import com.kylecorry.trailsensecore.domain.units.*
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Duration
 import java.time.Instant
