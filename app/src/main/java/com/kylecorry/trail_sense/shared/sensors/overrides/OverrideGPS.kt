@@ -8,7 +8,7 @@ import com.kylecorry.trailsensecore.domain.units.Speed
 import com.kylecorry.trailsensecore.domain.units.TimeUnits
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import java.time.Instant
 
 class OverrideGPS(context: Context, private val updateFrequency: Long = 20L): AbstractSensor(),
@@ -34,7 +34,7 @@ class OverrideGPS(context: Context, private val updateFrequency: Long = 20L): Ab
         get() = altitude
 
     private val userPrefs by lazy { UserPreferences(context) }
-    private val intervalometer = Intervalometer { notifyListeners() }
+    private val intervalometer = Timer { notifyListeners() }
 
     override fun startImpl() {
         intervalometer.interval(updateFrequency)

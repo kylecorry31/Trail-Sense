@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyEvent
@@ -34,8 +36,6 @@ import com.kylecorry.trailsensecore.domain.time.roundNearestMinute
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.*
 import java.time.Duration
@@ -67,7 +67,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     private var gpsErrorShown = false
 
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         updateUI()
     }
 

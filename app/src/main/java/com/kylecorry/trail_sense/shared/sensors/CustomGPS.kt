@@ -13,7 +13,7 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.GPS
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import java.time.Duration
 import java.time.Instant
 
@@ -65,7 +65,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     private val userPrefs by lazy { UserPreferences(context) }
     private val sensorChecker by lazy { SensorChecker(context) }
 
-    private val timeout = Intervalometer {
+    private val timeout = Timer {
         onTimeout()
     }
 

@@ -14,10 +14,10 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
-import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.andromeda.core.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 
 
 class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
@@ -32,7 +32,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     private val cache by lazy { Cache(requireContext()) }
 
 
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         updateStrideLength()
         updatePermissionRequestPreference()
         if (wasEnabled != userPrefs.usePedometer) {

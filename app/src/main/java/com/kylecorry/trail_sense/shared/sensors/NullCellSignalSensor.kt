@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.sensors
 import com.kylecorry.trailsensecore.domain.network.CellSignal
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.network.ICellSignalSensor
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 
 class NullCellSignalSensor: AbstractSensor(), ICellSignalSensor {
     override val hasValidReading: Boolean
@@ -11,7 +11,7 @@ class NullCellSignalSensor: AbstractSensor(), ICellSignalSensor {
     override val signals: List<CellSignal>
         get() = listOf()
 
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         notifyListeners()
     }
 

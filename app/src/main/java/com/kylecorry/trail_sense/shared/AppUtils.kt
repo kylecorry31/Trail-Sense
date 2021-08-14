@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.core.content.ContextCompat
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
-import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.andromeda.core.system.IntentUtils
 
 object AppUtils {
 

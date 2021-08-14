@@ -10,7 +10,7 @@ import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.odometer.IOdometer
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import java.time.Instant
 import java.time.LocalDate
 
@@ -28,7 +28,7 @@ class Odometer(private val context: Context): AbstractSensor(), IOdometer {
     override val hasValidReading: Boolean
         get() = cache.contains(CACHE_KEY)
 
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         notifyListeners()
     }
 

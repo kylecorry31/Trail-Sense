@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 
 class CachedAltimeter(context: Context, private val updateFrequency: Long = 20L): AbstractSensor(),
     IAltimeter {
@@ -17,7 +17,7 @@ class CachedAltimeter(context: Context, private val updateFrequency: Long = 20L)
 
     private val cache by lazy { Cache(context) }
     private val userPrefs by lazy { UserPreferences(context) }
-    private val intervalometer = Intervalometer { notifyListeners() }
+    private val intervalometer = Timer { notifyListeners() }
 
     override val altitude: Float
         get() = cache.getFloat(CustomGPS.LAST_ALTITUDE) ?: userPrefs.altitudeOverride

@@ -16,7 +16,7 @@ import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import com.kylecorry.trailsensecore.infrastructure.sensors.pedometer.Pedometer
 import com.kylecorry.andromeda.services.ForegroundService
-import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.andromeda.core.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 
 class PedometerService : ForegroundService() {

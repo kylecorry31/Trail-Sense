@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTemperatureEstimationBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -18,8 +20,6 @@ import com.kylecorry.trailsensecore.domain.units.Temperature
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,9 +36,9 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     private val weatherService = WeatherService()
     private val formatService by lazy { FormatServiceV2(requireContext()) }
 
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         if (!isBound) {
-            return@Intervalometer
+            return@Timer
         }
         val temp = getEstimation()
         binding.destTemperature.text = if (temp == null) {

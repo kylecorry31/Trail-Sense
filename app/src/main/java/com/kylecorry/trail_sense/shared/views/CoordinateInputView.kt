@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import java.time.Duration
 
 class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
@@ -24,7 +24,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayou
     private val sensorService by lazy { SensorService(getContext()) }
     lateinit var gps: IGPS
 
-    private val errorHandler = Intervalometer {
+    private val errorHandler = Timer {
         locationEdit.error = getContext().getString(R.string.coordinate_input_invalid_location)
     }
 

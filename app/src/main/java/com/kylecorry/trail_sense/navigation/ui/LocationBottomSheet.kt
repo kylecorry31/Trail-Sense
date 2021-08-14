@@ -19,7 +19,7 @@ import com.kylecorry.trailsensecore.domain.geo.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.units.Distance
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.Instant
@@ -35,11 +35,11 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
 
     private lateinit var coordinateList: ListView<CoordinateDisplay>
 
-    private val intervalometer = Intervalometer {
+    private val intervalometer = Timer {
         updateUI()
     }
 
-    private val listIntervalometer = Intervalometer {
+    private val listIntervalometer = Timer {
         updateList()
     }
 

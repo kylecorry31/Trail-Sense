@@ -58,8 +58,8 @@ import com.kylecorry.trailsensecore.infrastructure.sensors.orientation.DeviceOri
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.Throttle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -125,7 +125,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private var lastOrientation: DeviceOrientation.Orientation? = null
 
-    private val astronomyIntervalometer = Intervalometer {
+    private val astronomyIntervalometer = Timer {
         lifecycleScope.launch {
             updateAstronomyData()
         }

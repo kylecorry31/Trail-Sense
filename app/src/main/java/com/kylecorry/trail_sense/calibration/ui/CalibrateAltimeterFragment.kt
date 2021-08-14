@@ -18,8 +18,8 @@ import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.IAltimeter
 import com.kylecorry.trailsensecore.infrastructure.sensors.barometer.IBarometer
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import com.kylecorry.trailsensecore.infrastructure.time.Throttle
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.Throttle
 import java.time.Instant
 
 
@@ -41,7 +41,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
     private lateinit var altitudeOverrideBarometerEdit: EditTextPreference
 
     private lateinit var lastMode: UserPreferences.AltimeterMode
-    private val intervalometer = Intervalometer(this::updateAltitude)
+    private val intervalometer = Timer(this::updateAltitude)
     private val formatService by lazy { FormatServiceV2(requireContext()) }
 
     private var seaLevelPressure = SensorManager.PRESSURE_STANDARD_ATMOSPHERE

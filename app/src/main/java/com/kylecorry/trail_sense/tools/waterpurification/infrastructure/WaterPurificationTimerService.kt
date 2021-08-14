@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.andromeda.services.ForegroundService
-import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
+import com.kylecorry.andromeda.core.system.IntentUtils
 import kotlin.math.roundToInt
 
 class WaterPurificationTimerService : ForegroundService() {

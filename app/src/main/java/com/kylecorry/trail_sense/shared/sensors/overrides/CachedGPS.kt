@@ -10,7 +10,7 @@ import com.kylecorry.trailsensecore.domain.units.TimeUnits
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
 import com.kylecorry.trailsensecore.infrastructure.sensors.AbstractSensor
 import com.kylecorry.trailsensecore.infrastructure.sensors.gps.IGPS
-import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
+import com.kylecorry.andromeda.core.time.Timer
 import java.time.Instant
 
 class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : AbstractSensor(),
@@ -40,7 +40,7 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : Abs
 
     private val cache by lazy { Cache(context) }
     private val userPrefs by lazy { UserPreferences(context) }
-    private val intervalometer = Intervalometer { notifyListeners() }
+    private val intervalometer = Timer { notifyListeners() }
 
     override fun startImpl() {
         intervalometer.interval(updateFrequency)
