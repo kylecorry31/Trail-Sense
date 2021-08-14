@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tiles.TileManager
 
-class PowerSettingsFragment : CustomPreferenceFragment() {
+class PowerSettingsFragment : AndromedaPreferenceFragment() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
 

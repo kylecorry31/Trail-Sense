@@ -17,7 +17,7 @@ import com.kylecorry.trailsensecore.domain.units.DistanceUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 
-class NavigationSettingsFragment : CustomPreferenceFragment() {
+class NavigationSettingsFragment : AndromedaPreferenceFragment() {
 
     private var prefNearbyRadius: Preference? = null
     private var prefBacktrack: SwitchPreferenceCompat? = null

@@ -14,7 +14,7 @@ import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.infrastructure.sensors.asLiveData
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
-class ThermometerSettingsFragment : CustomPreferenceFragment() {
+class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val thermometer by lazy { sensorService.getThermometer() }

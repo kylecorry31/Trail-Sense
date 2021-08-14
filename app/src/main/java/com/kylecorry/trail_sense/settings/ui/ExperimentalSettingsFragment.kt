@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
 
-class ExperimentalSettingsFragment : CustomPreferenceFragment() {
+class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
 

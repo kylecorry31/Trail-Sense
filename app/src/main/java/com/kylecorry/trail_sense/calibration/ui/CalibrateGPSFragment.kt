@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.ui.CustomPreferenceFragment
+import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -22,7 +22,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 
-class CalibrateGPSFragment : CustomPreferenceFragment() {
+class CalibrateGPSFragment : AndromedaPreferenceFragment() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val sensorService by lazy { SensorService(requireContext()) }
@@ -77,7 +77,9 @@ class CalibrateGPSFragment : CustomPreferenceFragment() {
 
         permissionBtn.setOnPreferenceClickListener {
             val intent = IntentUtils.appSettings(requireContext())
-            startActivityForResult(intent, 1000)
+            getResult(intent){ _, _ ->
+                // Do nothing
+            }
             true
         }
 

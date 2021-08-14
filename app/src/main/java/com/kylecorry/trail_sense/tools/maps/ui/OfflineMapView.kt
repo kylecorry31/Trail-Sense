@@ -24,7 +24,7 @@ import com.kylecorry.trailsensecore.domain.pixels.*
 import com.kylecorry.trailsensecore.infrastructure.canvas.ArrowPathEffect
 import com.kylecorry.trailsensecore.infrastructure.canvas.DottedPathEffect
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
-import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
+import com.kylecorry.andromeda.files.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 

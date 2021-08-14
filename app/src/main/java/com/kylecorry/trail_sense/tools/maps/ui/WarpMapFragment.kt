@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.databinding.FragmentMapsPerspectiveBinding
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
+import com.kylecorry.andromeda.files.LocalFileService
 import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

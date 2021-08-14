@@ -16,7 +16,7 @@ import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
 import com.kylecorry.trailsensecore.domain.pixels.PixelCoordinate
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
-import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
+import com.kylecorry.andromeda.files.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 

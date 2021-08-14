@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.ScreenUtils
 
-class PrivacySettingsFragment : CustomPreferenceFragment() {
+class PrivacySettingsFragment : AndromedaPreferenceFragment() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
 

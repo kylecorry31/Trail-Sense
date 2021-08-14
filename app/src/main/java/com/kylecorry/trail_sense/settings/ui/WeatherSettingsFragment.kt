@@ -17,7 +17,7 @@ import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlinx.coroutines.launch
 
-class WeatherSettingsFragment : CustomPreferenceFragment() {
+class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
     private var prefMonitorWeather: SwitchPreferenceCompat? = null
     private var prefWeatherUpdateFrequency: Preference? = null

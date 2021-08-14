@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.text.InputType
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.ui.CustomPreferenceFragment
+import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -23,7 +23,7 @@ import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 import java.time.Instant
 
 
-class CalibrateAltimeterFragment : CustomPreferenceFragment() {
+class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
     private lateinit var barometer: IBarometer
     private lateinit var gps: IGPS

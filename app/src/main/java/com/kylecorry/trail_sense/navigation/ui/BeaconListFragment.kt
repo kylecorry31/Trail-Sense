@@ -1,9 +1,7 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,8 +17,10 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.files.ExternalFileService
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
@@ -34,12 +34,9 @@ import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
-import com.kylecorry.trailsensecore.infrastructure.persistence.ExternalFileService
-import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -133,7 +130,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             when (it.itemId) {
                 R.id.action_import_qr_beacon -> {
                     requestPermissions(
-                        RequestCodes.REQUEST_CODE_CAMERA_PERMISSION,
                         listOf(Manifest.permission.CAMERA)
                     ) {
                         if (PermissionUtils.isCameraEnabled(requireContext())) {
@@ -460,16 +456,22 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private fun exportBeacons() {
         val exportFile = "trail-sense-${Instant.now().epochSecond}.gpx"
-        val intent = IntentUtils.createFile(exportFile, "application/gpx+xml")
-        startActivityForResult(intent, REQUEST_CODE_EXPORT)
+        createFile(exportFile, "application/gpx+xml") {
+            it?.also { returnUri ->
+                exportToUri(returnUri)
+            }
+        }
     }
 
     private fun importBeacons() {
-        val requestFileIntent = IntentUtils.pickFile(
+        pickFile(
             "*/*",
             getString(R.string.select_import_file)
-        )
-        startActivityForResult(requestFileIntent, REQUEST_CODE_IMPORT)
+        ) {
+            it?.also { returnUri ->
+                importFromUri(returnUri)
+            }
+        }
     }
 
     private fun importFromUri(uri: Uri) {
@@ -587,24 +589,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 updateBeaconList(true)
             }
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_IMPORT && resultCode == Activity.RESULT_OK) {
-            data?.data?.also { returnUri ->
-                importFromUri(returnUri)
-            }
-        } else if (requestCode == REQUEST_CODE_EXPORT && resultCode == Activity.RESULT_OK) {
-            data?.data?.also { returnUri ->
-                exportToUri(returnUri)
-            }
-        }
-    }
-
-    companion object {
-        private const val REQUEST_CODE_IMPORT = RequestCodes.REQUEST_CODE_IMPORT_BEACONS
-        private const val REQUEST_CODE_EXPORT = RequestCodes.REQUEST_CODE_EXPORT_BEACONS
     }
 
     override fun generateBinding(

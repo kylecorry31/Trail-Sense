@@ -7,7 +7,7 @@ import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.ui.CustomPreferenceFragment
+import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -19,7 +19,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
 
 
-class CalibrateCompassFragment : CustomPreferenceFragment() {
+class CalibrateCompassFragment : AndromedaPreferenceFragment() {
 
     private lateinit var prefs: UserPreferences
     private val formatService by lazy { FormatServiceV2(requireContext()) }

@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 
-class UnitSettingsFragment : CustomPreferenceFragment() {
+class UnitSettingsFragment : AndromedaPreferenceFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.units_preferences, rootKey)

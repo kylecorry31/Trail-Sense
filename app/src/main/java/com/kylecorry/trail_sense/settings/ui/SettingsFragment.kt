@@ -11,7 +11,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.IntentUtils
 import com.kylecorry.trailsensecore.infrastructure.system.PackageUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
-class SettingsFragment : CustomPreferenceFragment() {
+class SettingsFragment : AndromedaPreferenceFragment() {
 
     private val navigationMap = mapOf(
         R.string.pref_unit_settings to R.id.action_settings_to_unit_settings,

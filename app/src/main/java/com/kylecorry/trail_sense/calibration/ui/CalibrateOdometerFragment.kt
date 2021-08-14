@@ -2,11 +2,12 @@ package com.kylecorry.trail_sense.calibration.ui
 
 import android.Manifest
 import android.hardware.Sensor
+import android.os.Build
 import android.os.Bundle
-import androidx.preference.*
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.RequestCodes
-import com.kylecorry.trail_sense.settings.ui.CustomPreferenceFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -19,7 +20,7 @@ import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 
 
-class CalibrateOdometerFragment : CustomPreferenceFragment() {
+class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
 
     private lateinit var strideLengthPref: Preference
     private lateinit var permissionPref: Preference
@@ -30,10 +31,11 @@ class CalibrateOdometerFragment : CustomPreferenceFragment() {
     private var wasEnabled = false
     private val cache by lazy { Cache(requireContext()) }
 
+
     private val intervalometer = Intervalometer {
         updateStrideLength()
         updatePermissionRequestPreference()
-        if (wasEnabled != userPrefs.usePedometer){
+        if (wasEnabled != userPrefs.usePedometer) {
             updatePedometerService()
         }
     }
@@ -56,17 +58,18 @@ class CalibrateOdometerFragment : CustomPreferenceFragment() {
 
         permissionPref.setOnPreferenceClickListener {
             val intent = IntentUtils.appSettings(requireContext())
-            startActivityForResult(intent, 1000)
+            getResult(intent) { _, _ ->
+
+            }
             true
         }
 
         odometerSourceList.setOnPreferenceChangeListener { preference, newValue ->
             if (newValue == "pedometer") {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                    PermissionUtils.requestPermissions(
-                        requireActivity(),
-                        listOf(Manifest.permission.ACTIVITY_RECOGNITION), REQUEST_CODE
-                    )
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    requestPermissions(listOf(Manifest.permission.ACTIVITY_RECOGNITION)) {
+                        updatePedometerService()
+                    }
                 }
             }
             true
@@ -79,7 +82,7 @@ class CalibrateOdometerFragment : CustomPreferenceFragment() {
                 userPrefs.strideLength.convertTo(userPrefs.baseDistanceUnits),
                 getString(R.string.pref_stride_length_title)
             ) {
-                if (it != null){
+                if (it != null) {
                     userPrefs.strideLength = it
                     updateStrideLength()
                 }
@@ -99,19 +102,9 @@ class CalibrateOdometerFragment : CustomPreferenceFragment() {
         super.onPause()
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == REQUEST_CODE) {
-            updatePedometerService()
-        }
-    }
-
     private fun updatePermissionRequestPreference() {
         val hasActivityRecognition =
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 PermissionUtils.hasPermission(
                     requireContext(),
                     Manifest.permission.ACTIVITY_RECOGNITION
@@ -127,7 +120,7 @@ class CalibrateOdometerFragment : CustomPreferenceFragment() {
 
     private fun updatePedometerService() {
         if (userPrefs.usePedometer) {
-            if (cache.getBoolean("pedometer_battery_sent") != true){
+            if (cache.getBoolean("pedometer_battery_sent") != true) {
                 UiUtils.alert(
                     requireContext(),
                     getString(R.string.pedometer),
@@ -150,11 +143,6 @@ class CalibrateOdometerFragment : CustomPreferenceFragment() {
             userPrefs.strideLength.convertTo(userPrefs.baseDistanceUnits),
             2
         )
-    }
-
-
-    companion object {
-        private const val REQUEST_CODE = RequestCodes.REQUEST_CODE_ACTIVITY_RECOGNITION_PERMISSION
     }
 
 }

@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.clipboard.Clipboard
+import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity

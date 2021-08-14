@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmR
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 
-class AstronomySettingsFragment : CustomPreferenceFragment() {
+class AstronomySettingsFragment : AndromedaPreferenceFragment() {
 
     private lateinit var prefs: UserPreferences
     private var prefLeftQuickAction: ListPreference? = null

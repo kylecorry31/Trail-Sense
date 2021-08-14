@@ -17,8 +17,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.clipboard.Clipboard
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.permissions.requestPermissions
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
@@ -58,7 +60,6 @@ import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
 import com.kylecorry.trailsensecore.infrastructure.time.Throttle
-import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -310,7 +311,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         CustomUiUtils.setButtonState(binding.sightingCompassBtn, isOn)
         if (isOn) {
             requestPermissions(
-                RequestCodes.REQUEST_CODE_CAMERA_PERMISSION,
                 listOf(Manifest.permission.CAMERA)
             ) {
                 if (PermissionUtils.isCameraEnabled(requireContext())) {

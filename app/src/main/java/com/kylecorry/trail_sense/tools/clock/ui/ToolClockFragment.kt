@@ -6,6 +6,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolClockBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -16,7 +17,6 @@ import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastR
 import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.time.Intervalometer
-import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Duration
 import java.time.Instant
 import java.time.ZoneId
@@ -64,7 +64,7 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         gpsTime = gps.time
         systemTime = Instant.now()
 
-        if (gps is CustomGPS && (gps as CustomGPS).isTimedOut){
+        if (gps is CustomGPS && (gps as CustomGPS).isTimedOut) {
             UiUtils.shortToast(requireContext(), getString(R.string.no_gps_signal))
             gpsTime = Instant.now()
         }
@@ -80,8 +80,7 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         val myTime = ZonedDateTime.ofInstant(currentTime, ZoneId.systemDefault())
         if (ZoneId.systemDefault() == ZoneId.of("GMT")) {
             binding.utcClock.visibility = View.INVISIBLE
-        }
-        else {
+        } else {
             binding.utcClock.visibility = View.VISIBLE
             val utcTime = ZonedDateTime.ofInstant(currentTime, ZoneId.of("UTC"))
             binding.utcClock.text =
@@ -132,7 +131,9 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
                     exact = true,
                     allowWhileIdle = true
                 )
-                startActivityForResult(Intent(Settings.ACTION_DATE_SETTINGS), 0)
+                getResult(Intent(Settings.ACTION_DATE_SETTINGS)) { _, _ ->
+                    // Do nothing
+                }
             }
         }
 

@@ -80,11 +80,13 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
     // Andromeda
-    def andromeda_version = "1.0.0-beta06"
+    def andromeda_version = "1.0.0-beta11"
     implementation "com.github.kylecorry31.andromeda:core:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:fragments:${andromeda_version}"
+    implementation "com.github.kylecorry31.andromeda:permissions:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:services:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:canvas:${andromeda_version}"
+    implementation "com.github.kylecorry31.andromeda:files:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:notify:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:qr:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:camera:${andromeda_version}"

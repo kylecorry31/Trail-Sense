@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
-import android.app.Activity
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -13,8 +11,9 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.files.LocalFileService
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.RequestCodes
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.databinding.ListItemMapBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -28,10 +27,8 @@ import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
 import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
 import com.kylecorry.trailsensecore.infrastructure.persistence.Cache
-import com.kylecorry.trailsensecore.infrastructure.persistence.LocalFileService
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.system.tryOrNothing
-import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -201,24 +198,11 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     }
 
     private fun createMap() {
-        val requestFileIntent = pickFile(
+        pickFile(
             listOf("image/*", "application/pdf"),
             getString(R.string.select_map_image)
-        )
-        startActivityForResult(requestFileIntent, RequestCodes.REQUEST_CODE_SELECT_MAP_FILE)
-    }
-
-    fun pickFile(types: List<String>, message: String): Intent {
-        val requestFileIntent = Intent(Intent.ACTION_GET_CONTENT)
-        requestFileIntent.type = "*/*"
-        requestFileIntent.putExtra(Intent.EXTRA_MIME_TYPES, types.toTypedArray())
-        return Intent.createChooser(requestFileIntent, message)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RequestCodes.REQUEST_CODE_SELECT_MAP_FILE && resultCode == Activity.RESULT_OK) {
-            data?.data?.also { returnUri ->
+        ) {
+            it?.also { returnUri ->
                 mapFromUri(returnUri)
             }
         }

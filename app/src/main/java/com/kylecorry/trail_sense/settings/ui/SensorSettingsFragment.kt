@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.infrastructure.sensors.SensorChecker
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
-class SensorSettingsFragment : CustomPreferenceFragment() {
+class SensorSettingsFragment : AndromedaPreferenceFragment() {
 
     private val navigationMap = mapOf(
         R.string.pref_sensor_details to R.id.action_action_settings_to_diagnosticFragment,

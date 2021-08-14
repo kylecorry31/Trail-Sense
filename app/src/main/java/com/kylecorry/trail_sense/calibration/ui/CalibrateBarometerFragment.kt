@@ -5,7 +5,7 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.*
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.ui.CustomPreferenceFragment
+import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
 
-class CalibrateBarometerFragment : CustomPreferenceFragment() {
+class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
     private lateinit var prefs: UserPreferences
     private lateinit var sensorService: SensorService
