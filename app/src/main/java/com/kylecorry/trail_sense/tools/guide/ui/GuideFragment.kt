@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.databinding.FragmentGuideBinding
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideService
-import com.kylecorry.trailsensecore.infrastructure.text.MarkdownService
-import com.kylecorry.andromeda.fragments.BoundFragment
 
 class GuideFragment : BoundFragment<FragmentGuideBinding>() {
 
