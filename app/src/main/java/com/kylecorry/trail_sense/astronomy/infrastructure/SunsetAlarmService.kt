@@ -4,7 +4,9 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.kylecorry.andromeda.jobs.AlarmService
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.services.CoroutineForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -16,8 +18,6 @@ import com.kylecorry.trail_sense.shared.toDisplayFormat
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.geo.Coordinate
 import com.kylecorry.trailsensecore.infrastructure.sensors.read
-import com.kylecorry.andromeda.services.CoroutineForegroundService
-import com.kylecorry.trailsensecore.infrastructure.system.AlarmUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -47,7 +47,7 @@ class SunsetAlarmService : CoroutineForegroundService() {
 
         val now = LocalDateTime.now()
 
-        if (gps.location == Coordinate.zero){
+        if (gps.location == Coordinate.zero) {
             setAlarm(now.plusDays(1))
             return
         }
@@ -147,11 +147,13 @@ class SunsetAlarmService : CoroutineForegroundService() {
     }
 
     private fun setAlarm(time: LocalDateTime) {
+        // TODO: Use exact task scheduler
+        val alarm = AlarmService(this)
         val lastPi = SunsetAlarmReceiver.pendingIntent(this)
-        AlarmUtils.cancel(this, lastPi)
+        alarm.cancel(lastPi)
 
         val newPi = SunsetAlarmReceiver.pendingIntent(this)
-        AlarmUtils.set(this, time, newPi, exact = true, allowWhileIdle = true)
+        alarm.set(time, newPi, exact = true, allowWhileIdle = true)
         Log.i(TAG, "Set next sunset alarm at $time")
     }
 
