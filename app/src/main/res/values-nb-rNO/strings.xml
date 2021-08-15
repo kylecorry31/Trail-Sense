@@ -840,4 +840,7 @@
     <string name="pref_nearby_radar_title">Vis radarkompass for nære</string>
     <string name="pref_barometer_altitude_smoothing_title">Høydeutjevning</string>
     <string name="pref_barometer_pressure_smoothing_title">Trykkutjevning</string>
+    <string name="gps_signal_lost">GPS-signal mistet</string>
+    <string name="altitude_history_length">Lengde på høydehistorikk</string>
+    <string name="last_duration">Siste %s</string>
 </resources>
