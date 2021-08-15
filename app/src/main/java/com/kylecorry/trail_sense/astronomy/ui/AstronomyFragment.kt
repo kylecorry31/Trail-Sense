@@ -136,25 +136,26 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
 
         binding.datePicker.setOnLongClickListener {
-            CustomUiUtils.pickItem(
+            val options = listOf(
+                AstronomyEvent.FullMoon,
+                AstronomyEvent.NewMoon,
+                AstronomyEvent.MeteorShower
+            )
+            Pickers.item(
                 requireContext(),
-                listOf(
-                    AstronomyEvent.FullMoon,
-                    AstronomyEvent.NewMoon,
-                    AstronomyEvent.MeteorShower
-                ),
+                getString(R.string.find_next_occurrence),
                 listOf(
                     getString(R.string.full_moon),
                     getString(R.string.new_moon),
                     getString(R.string.meteor_shower)
                 ),
-                lastAstronomyEventSearch,
-                getString(R.string.find_next_occurrence)
+                options.indexOf(lastAstronomyEventSearch)
             ) {
                 if (it != null) {
-                    lastAstronomyEventSearch = it
+                    val search = options[it]
+                    lastAstronomyEventSearch = search
                     displayDate = astronomyService.findNextEvent(
-                        it,
+                        search,
                         gps.location,
                         displayDate
                     ) ?: displayDate

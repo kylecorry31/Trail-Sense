@@ -311,17 +311,15 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun changeSort() {
-        val sortsToDisplay =
-            listOf("category", "percent_asc", "percent_desc", "weight_asc", "weight_desc")
-        CustomUiUtils.pickItem(
+        val options = listOf("category", "percent_asc", "percent_desc", "weight_asc", "weight_desc")
+        Pickers.item(
             requireContext(),
-            sortsToDisplay,
-            sortsToDisplay.map { getSortTitle(it) },
-            prefs.packs.packSort,
-            getString(R.string.sort)
-        ) {
-            if (it != null) {
-                onSortChange(it)
+            getString(R.string.sort),
+            options.map { getSortTitle(it) },
+            options.indexOf(prefs.packs.packSort)
+        ){
+            if (it != null){
+                onSortChange(options[it])
             }
         }
     }
