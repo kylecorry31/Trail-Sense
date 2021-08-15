@@ -6,7 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.clipboard.Clipboard
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.units.CoordinateFormat
+import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
+import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLocationBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainMenuBinding
@@ -15,12 +20,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSend
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.Instant
 
@@ -31,7 +31,6 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val geoService = GeoService()
-    private val clipboard by lazy { Clipboard(requireContext()) }
 
     private lateinit var coordinateList: ListView<CoordinateDisplay>
 
@@ -55,7 +54,8 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
                 itemBinding.description.text = coordinate.format
                 itemBinding.menuBtn.setImageResource(R.drawable.ic_copy)
                 itemBinding.menuBtn.setOnClickListener {
-                    clipboard.copy(
+                    Clipboard.copy(
+                        requireContext(),
                         coordinate.coordinate,
                         getString(R.string.copied_to_clipboard_toast)
                     )
@@ -78,7 +78,7 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
         }
 
         binding.location.setOnLongClickListener {
-            val locationSender = LocationCopy(requireContext(), clipboard)
+            val locationSender = LocationCopy(requireContext())
             gps?.location?.let {
                 locationSender.send(it)
             }

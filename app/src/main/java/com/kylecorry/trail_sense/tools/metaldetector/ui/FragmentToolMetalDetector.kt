@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.buzz.Buzz
 import com.kylecorry.andromeda.core.math.Quaternion
 import com.kylecorry.andromeda.core.math.Vector3
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -21,13 +22,11 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 import com.kylecorry.trailsensecore.domain.metaldetection.MetalDetectionService
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 import kotlin.math.roundToInt
 
 class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding>() {
     private val magnetometer by lazy { Magnetometer(requireContext()) }
-    private val buzz by lazy { Buzz(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val metalDetectionService = MetalDetectionService()
     private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
@@ -60,7 +59,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         super.onViewCreated(view, savedInstanceState)
         chart = MetalDetectorChart(
             binding.metalChart,
-            UiUtils.color(requireContext(), R.color.colorPrimary)
+            Resources.color(requireContext(), R.color.colorPrimary)
         )
         binding.calibrateBtn.setOnClickListener {
             binding.threshold.progress =
@@ -95,7 +94,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             gravity.stop(this::onMagnetometerUpdate)
             calibrateTimer.stop()
         }
-        buzz.off()
+        Buzz.off(requireContext())
         isVibrating = false
     }
 
@@ -150,10 +149,10 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
         if (metalDetected && !isVibrating) {
             isVibrating = true
-            buzz.interval(VIBRATION_DURATION, VIBRATION_DURATION)
+            Buzz.interval(requireContext(), VIBRATION_DURATION, VIBRATION_DURATION)
         } else if (!metalDetected) {
             isVibrating = false
-            buzz.off()
+            Buzz.off(requireContext())
         }
     }
 

@@ -8,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.lifecycle.lifecycleScope
-import com.kylecorry.trail_sense.databinding.FragmentMapsRotateBinding
-import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
-import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trail_sense.tools.maps.infrastructure.rotate
-import com.kylecorry.andromeda.files.LocalFileService
+import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.trail_sense.databinding.FragmentMapsRotateBinding
+import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.maps.infrastructure.rotate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -23,7 +23,6 @@ import java.io.IOException
 class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
 
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
-    private val localFileService by lazy { LocalFileService(requireContext()) }
 
     private var mapId = 0L
     private var map: Map? = null
@@ -89,7 +88,7 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
         val rotation = binding.rotateView.angle
         withContext(Dispatchers.IO) {
             if (rotation != 0f) {
-                val file = localFileService.getFile(map.filename, false)
+                val file = LocalFiles.getFile(requireContext(), map.filename, false)
                 val bitmap = BitmapFactory.decodeFile(file.path)
                 val rotated = bitmap.rotate(rotation)
 

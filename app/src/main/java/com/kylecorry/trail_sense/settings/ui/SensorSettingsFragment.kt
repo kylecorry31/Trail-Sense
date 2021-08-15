@@ -2,10 +2,10 @@ package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
 import android.text.InputType
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class SensorSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -24,7 +24,7 @@ class SensorSettingsFragment : AndromedaPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.sensor_preferences, rootKey)
 
-        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
+        setIconColor(Resources.androidTextColorSecondary(requireContext()))
 
         for (nav in navigationMap) {
             navigateOnClick(preference(nav.key), nav.value)

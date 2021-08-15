@@ -5,15 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kylecorry.andromeda.core.system.ScreenService
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.fragments.BoundFragment
 
 class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightBinding>() {
 
-    private val flashlight by lazy { ScreenTorch(ScreenService(requireActivity().window)) }
+    private val flashlight by lazy { ScreenTorch(requireActivity().window) }
     private val cache by lazy { Preferences(requireContext()) }
 
     override fun generateBinding(

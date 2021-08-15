@@ -9,14 +9,15 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -59,15 +60,13 @@ class MapsFragment: BoundFragment<FragmentMapsBinding>() {
         }
 
         binding.menuBtn.setOnClickListener {
-            UiUtils.openMenu(it, R.menu.map_menu) {
+            Pickers.menu(it, R.menu.map_menu) {
                 when (it) {
                     R.id.action_map_delete -> {
-                        UiUtils.alertWithCancel(
+                        Alerts.dialog(
                             requireContext(),
                             getString(R.string.delete_map),
-                            map?.name ?: "",
-                            getString(R.string.dialog_ok),
-                            getString(R.string.dialog_cancel)
+                            map?.name,
                         ) { cancelled ->
                             if (!cancelled) {
                                 lifecycleScope.launch {

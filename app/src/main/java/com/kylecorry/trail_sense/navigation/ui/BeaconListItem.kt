@@ -4,7 +4,7 @@ import android.content.res.ColorStateList
 import android.view.View
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import com.kylecorry.andromeda.clipboard.Clipboard
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.fragments.show
@@ -22,7 +22,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -147,7 +146,7 @@ class BeaconListItem(
                     sheet.show(fragment)
                 }
                 R.id.action_copy -> {
-                    val sender = BeaconCopy(view.context, Clipboard(view.context))
+                    val sender = BeaconCopy(view.context)
                     sender.send(beacon)
                 }
                 R.id.action_map -> {
@@ -167,7 +166,7 @@ class BeaconListItem(
                             }
 
                             withContext(Dispatchers.Main) {
-                                UiUtils.shortToast(
+                                Alerts.toast(
                                     view.context,
                                     view.context.getString(R.string.beacon_moved_to, it.name)
                                 )
@@ -180,12 +179,10 @@ class BeaconListItem(
                     onEdit()
                 }
                 R.id.action_delete_beacon -> {
-                    UiUtils.alertWithCancel(
+                    Alerts.dialog(
                         view.context,
                         view.context.getString(R.string.delete_beacon),
-                        beacon.name,
-                        view.context.getString(R.string.dialog_ok),
-                        view.context.getString(R.string.dialog_cancel)
+                        beacon.name
                     ) { cancelled ->
                         if (!cancelled) {
                             scope.launch {

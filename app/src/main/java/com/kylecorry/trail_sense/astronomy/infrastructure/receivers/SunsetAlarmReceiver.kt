@@ -4,9 +4,9 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.core.system.IntentUtils
 
 class SunsetAlarmReceiver : BroadcastReceiver() {
 
@@ -17,7 +17,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             return
         }
 
-        IntentUtils.startService(context, SunsetAlarmService.intent(context), true)
+        Intents.startService(context, SunsetAlarmService.intent(context), true)
     }
 
     companion object {
@@ -29,7 +29,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         }
 
         private fun alarmIntent(context: Context): Intent {
-            return IntentUtils.localIntent(context, "com.kylecorry.trail_sense.ALARM_SUNSET")
+            return Intents.localIntent(context, "com.kylecorry.trail_sense.ALARM_SUNSET")
         }
 
         fun pendingIntent(context: Context): PendingIntent {

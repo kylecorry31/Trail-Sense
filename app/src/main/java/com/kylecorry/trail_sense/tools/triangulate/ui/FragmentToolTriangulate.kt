@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.clipboard.Clipboard
+import com.kylecorry.andromeda.core.units.Bearing
+import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
@@ -14,11 +17,8 @@ import com.kylecorry.trail_sense.shared.AppUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.andromeda.core.units.Bearing
-import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
 
@@ -27,7 +27,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
     private val geoService = GeoService()
     private val navigationService = NavigationService()
     private val formatService by lazy { FormatServiceV2(requireContext()) }
-    private val clipboard by lazy { Clipboard(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var direction1: Bearing? = null
@@ -50,7 +49,8 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         binding.copyLocation.setOnClickListener {
             location?.let {
-                clipboard.copy(
+                Clipboard.copy(
+                    requireContext(),
                     formatService.formatLocation(it),
                     getString(R.string.copied_to_clipboard_toast)
                 )
@@ -66,7 +66,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         binding.gpsOverrideBtn.setOnClickListener {
             location?.let { coord ->
                 prefs.locationOverride = coord
-                UiUtils.shortToast(requireContext(), getString(R.string.location_override_updated))
+                Alerts.toast(requireContext(), getString(R.string.location_override_updated))
             }
         }
 

@@ -9,7 +9,7 @@ import com.kylecorry.andromeda.core.sensors.read
 import com.kylecorry.andromeda.services.CoroutineService
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
-import com.kylecorry.andromeda.core.system.IntentUtils
+import com.kylecorry.andromeda.core.system.Intents
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -44,7 +44,7 @@ class BatteryLogService: CoroutineService() {
 
         fun start(context: Context) {
             try {
-                IntentUtils.startService(context, intent(context), foreground = false)
+                Intents.startService(context, intent(context), foreground = false)
             } catch (e: Exception){
                 Log.e("BatteryLogService", "Could not start the battery service")
                 e.printStackTrace()

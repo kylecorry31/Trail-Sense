@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.andromeda.core.system.IntentUtils
+import com.kylecorry.andromeda.core.system.Intents
 
 class LocationSharesheet(private val context: Context) : ILocationSender {
 
@@ -22,7 +22,7 @@ class LocationSharesheet(private val context: Context) : ILocationSender {
             putExtra(Intent.EXTRA_TEXT, getShareString(location))
             type = "text/plain"
         }
-        IntentUtils.openChooser(context, intent, context.getString(R.string.share_action_send))
+        Intents.openChooser(context, intent, context.getString(R.string.share_action_send))
     }
 
     private fun getShareString(coordinate: Coordinate): String {

@@ -6,10 +6,12 @@ import android.os.Build
 import android.os.Bundle
 import androidx.preference.ListPreference
 import androidx.preference.Preference
-import com.kylecorry.andromeda.core.system.IntentUtils
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.system.Intents
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
-import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.trail_sense.R
@@ -17,7 +19,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
 class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
@@ -30,7 +31,6 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private var wasEnabled = false
     private val cache by lazy { Preferences(requireContext()) }
-    private val permissions by lazy { PermissionService(requireContext()) }
 
 
     private val intervalometer = Timer {
@@ -43,7 +43,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.odometer_calibration, rootKey)
-        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
+        setIconColor(Resources.androidTextColorSecondary(requireContext()))
         bindPreferences()
     }
 
@@ -58,7 +58,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
         permissionPref.isVisible = hasPedometer
 
         permissionPref.setOnPreferenceClickListener {
-            val intent = IntentUtils.appSettings(requireContext())
+            val intent = Intents.appSettings(requireContext())
             getResult(intent) { _, _ ->
 
             }
@@ -104,24 +104,21 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     }
 
     private fun updatePermissionRequestPreference() {
-        val hasActivityRecognition =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                permissions.canRecognizeActivity()
-            } else {
-                true
-            }
+        val hasActivityRecognition = Permissions.canRecognizeActivity(requireContext())
         permissionPref.isVisible =
-            (userPrefs.usePedometer && !hasActivityRecognition) || (!userPrefs.usePedometer && !permissions.isBackgroundLocationEnabled())
+            (userPrefs.usePedometer && !hasActivityRecognition) || (!userPrefs.usePedometer && !Permissions.isBackgroundLocationEnabled(
+                requireContext()
+            ))
     }
 
     private fun updatePedometerService() {
         if (userPrefs.usePedometer) {
             if (cache.getBoolean("pedometer_battery_sent") != true) {
-                UiUtils.alert(
+                Alerts.dialog(
                     requireContext(),
                     getString(R.string.pedometer),
                     getString(R.string.pedometer_disclaimer),
-                    getString(R.string.dialog_ok)
+                    cancelText = null
                 )
                 cache.putBoolean("pedometer_battery_sent", true)
             }

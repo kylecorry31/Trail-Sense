@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
-import com.kylecorry.trail_sense.R
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.trail_sense.R
 
 class DisclaimerMessage(private val context: Context) {
 
@@ -15,10 +15,10 @@ class DisclaimerMessage(private val context: Context) {
 
     fun show() {
         cache.putBoolean(PREF_KEY, false)
-        UiUtils.alert(
+        Alerts.dialog(
             context, context.getString(R.string.app_disclaimer_message_title), context.getString(
                 R.string.disclaimer_message_content
-            ), R.string.dialog_ok
+            ), cancelText = null
         )
     }
 

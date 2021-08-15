@@ -19,8 +19,7 @@ object WeatherUpdateScheduler {
     }
 
     fun stop(context: Context) {
-        val notify = Notify(context)
-        notify.cancel(WeatherNotificationService.WEATHER_NOTIFICATION_ID)
+        Notify.cancel(context, WeatherNotificationService.WEATHER_NOTIFICATION_ID)
         val scheduler = getScheduler(context)
         scheduler.cancel()
         context.stopService(WeatherUpdateService.intent(context))

@@ -29,7 +29,6 @@ import java.time.ZonedDateTime
 
 class SunsetAlarmService : CoroutineForegroundService() {
 
-    private val notify by lazy { Notify(this) }
     private val gps by lazy { SensorService(this).getGPS(true) }
     private val userPrefs by lazy { UserPreferences(this) }
     private val astronomyService = AstronomyService()
@@ -134,7 +133,8 @@ class SunsetAlarmService : CoroutineForegroundService() {
 
         val openIntent = NavigationUtils.pendingIntent(this, R.id.action_astronomy)
 
-        val notification = notify.alert(
+        val notification = Notify.alert(
+            this,
             NOTIFICATION_CHANNEL_ID,
             getString(R.string.sunset_alert_notification_title),
             getString(
@@ -145,7 +145,7 @@ class SunsetAlarmService : CoroutineForegroundService() {
             intent = openIntent
         )
 
-        notify.send(NOTIFICATION_ID, notification)
+        Notify.send(this, NOTIFICATION_ID, notification)
     }
 
     private fun setAlarm(time: LocalDateTime) {
@@ -157,7 +157,8 @@ class SunsetAlarmService : CoroutineForegroundService() {
 
 
     override fun getForegroundNotification(): Notification {
-        return notify.background(
+        return Notify.background(
+            this,
             NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
             getString(R.string.background_update),
             getString(R.string.sunset_alert_location_update),
@@ -172,7 +173,7 @@ class SunsetAlarmService : CoroutineForegroundService() {
         const val NOTIFICATION_CHANNEL_ID = "Sunset alert"
 
         fun scheduler(context: Context): ITaskScheduler {
-            return ExactTaskScheduler(context){ SunsetAlarmReceiver.pendingIntent(context) }
+            return ExactTaskScheduler(context) { SunsetAlarmReceiver.pendingIntent(context) }
         }
 
         fun intent(context: Context): Intent {

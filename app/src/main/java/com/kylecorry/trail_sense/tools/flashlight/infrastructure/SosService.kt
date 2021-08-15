@@ -18,7 +18,6 @@ import java.time.Duration
 
 class SosService : ForegroundService() {
 
-    private val notify by lazy { Notify(this) }
     private var torch: ITorch? = null
     private val signalPlayer by lazy { if (torch == null) null else SignalPlayer(torch!!.asSignal()) }
     private val morseService = MorseService()
@@ -26,7 +25,8 @@ class SosService : ForegroundService() {
         get() = NOTIFICATION_ID
 
     override fun getForegroundNotification(): Notification {
-        return notify.persistent(
+        return Notify.persistent(
+            this,
             CHANNEL_ID,
             getString(R.string.sos),
             getString(R.string.tap_to_turn_off),

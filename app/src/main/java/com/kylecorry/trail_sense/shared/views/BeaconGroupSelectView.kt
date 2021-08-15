@@ -4,16 +4,16 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.View
-import android.widget.*
+import android.widget.LinearLayout
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.databinding.ViewBeaconGroupSelectBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.*
 
 class BeaconGroupSelectView(context: Context?, attrs: AttributeSet?) :
@@ -63,7 +63,7 @@ class BeaconGroupSelectView(context: Context?, attrs: AttributeSet?) :
         itemBinding.icon.alpha = 0.86f
         itemBinding.description.isVisible = false
         itemBinding.icon.imageTintList =
-            ColorStateList.valueOf(UiUtils.color(context, R.color.colorPrimary))
+            ColorStateList.valueOf(Resources.color(context, R.color.colorPrimary))
         itemBinding.icon.setImageResource(R.drawable.ic_beacon_group)
         itemBinding.title.text = beacon.name
         itemBinding.root.setOnClickListener {

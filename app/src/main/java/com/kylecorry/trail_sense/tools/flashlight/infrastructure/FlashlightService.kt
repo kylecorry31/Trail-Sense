@@ -5,23 +5,22 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.andromeda.services.ForegroundService
 
 class FlashlightService: ForegroundService() {
 
     private var torch: ITorch? = null
 
-    private val notify by lazy { Notify(this) }
-
     override val foregroundNotificationId: Int
         get() = NOTIFICATION_ID
 
     override fun getForegroundNotification(): Notification {
-        return notify.persistent(
+        return Notify.persistent(
+            this,
             CHANNEL_ID,
             getString(R.string.flashlight_title),
             getString(R.string.tap_to_turn_off),

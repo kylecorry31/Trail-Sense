@@ -16,7 +16,6 @@ import java.time.Instant
 
 class WhiteNoiseService : ForegroundService() {
 
-    private val notify by lazy { Notify(this) }
     private var whiteNoise: ISoundPlayer? = null
     private val cache by lazy { Preferences(this) }
 
@@ -38,7 +37,8 @@ class WhiteNoiseService : ForegroundService() {
     }
 
     override fun getForegroundNotification(): Notification {
-        return notify.persistent(
+        return Notify.persistent(
+            this,
             NOTIFICATION_CHANNEL_ID,
             getString(R.string.tool_white_noise_title),
             getString(R.string.tap_to_turn_off),

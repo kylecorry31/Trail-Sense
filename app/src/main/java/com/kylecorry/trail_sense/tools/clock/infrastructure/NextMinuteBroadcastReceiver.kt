@@ -12,9 +12,9 @@ import com.kylecorry.trail_sense.shared.NavigationUtils
 class NextMinuteBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return
-        val notify = Notify(context)
         val time = intent?.getStringExtra(EXTRA_TIME)
-        val notification = notify.alert(
+        val notification = Notify.alert(
+            context,
             CHANNEL_ID,
             context.getString(R.string.clock_sync_notification, time),
             null,
@@ -22,7 +22,7 @@ class NextMinuteBroadcastReceiver : BroadcastReceiver() {
             group = NotificationChannels.GROUP_CLOCK,
             intent = NavigationUtils.pendingIntent(context, R.id.toolClockFragment)
         )
-        notify.send(NOTIFICATION_ID, notification)
+        Notify.send(context, NOTIFICATION_ID, notification)
     }
 
     companion object {

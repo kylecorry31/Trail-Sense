@@ -5,9 +5,9 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.core.view.setPadding
 import com.google.android.flexbox.FlexboxLayout
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class ColorPickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
@@ -33,7 +33,7 @@ class ColorPickerView(context: Context, attrs: AttributeSet?) : FrameLayout(cont
         for (color in AppColor.values()) {
             val colorView = ColorButton(context, null)
             colorView.setButtonColor(color.color)
-            colorView.setPadding(UiUtils.dp(context, 16f).toInt())
+            colorView.setPadding(Resources.dp(context, 16f).toInt())
             colorView.setOnClickListener {
                 this.color = color
                 changeListener?.invoke(color)

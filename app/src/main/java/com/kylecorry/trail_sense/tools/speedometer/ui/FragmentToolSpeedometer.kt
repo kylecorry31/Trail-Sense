@@ -4,19 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.time.toZonedDateTime
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSpeedometerBinding
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.core.sensors.asLiveData
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.LocalDate
 
 class FragmentToolSpeedometer : BoundFragment<FragmentToolSpeedometerBinding>() {
@@ -41,11 +41,11 @@ class FragmentToolSpeedometer : BoundFragment<FragmentToolSpeedometerBinding>() 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (cache.getBoolean("speedometer_odometer_alert_sent") != true){
-            UiUtils.alert(
+            Alerts.dialog(
                 requireContext(),
                 getString(R.string.tool_speedometer_odometer_title),
                 getString(R.string.speedometer_odometer_accuracy_dialog),
-                getString(R.string.dialog_ok)
+                cancelText = null
             )
             cache.putBoolean("speedometer_odometer_alert_sent", true)
         }

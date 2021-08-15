@@ -6,6 +6,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -17,7 +18,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 import java.time.Instant
 import java.time.ZoneId
@@ -66,7 +66,7 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         systemTime = Instant.now()
 
         if (gps is CustomGPS && (gps as CustomGPS).isTimedOut) {
-            UiUtils.shortToast(requireContext(), getString(R.string.no_gps_signal))
+            Alerts.toast(requireContext(), getString(R.string.no_gps_signal))
             gpsTime = Instant.now()
         }
 
@@ -108,13 +108,13 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
 
         val formattedTime = formatService.formatTime(displayTime.toLocalTime())
 
-        UiUtils.alertWithCancel(
+        Alerts.dialog(
             requireContext(),
             getString(R.string.clock_sync_time_settings),
             getString(R.string.clock_sync_instructions, formattedTime)
         ) { cancelled ->
             if (!cancelled) {
-                UiUtils.shortToast(
+                Alerts.toast(
                     requireContext(),
                     getString(
                         R.string.pip_notification_scheduled,

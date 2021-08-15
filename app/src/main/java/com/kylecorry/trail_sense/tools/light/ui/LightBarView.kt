@@ -7,13 +7,15 @@ import android.util.TypedValue
 import android.view.View
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.math.MathUtils
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.light.LightIntensity
 import com.kylecorry.trailsensecore.domain.light.LightService
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import kotlin.math.*
+import kotlin.math.floor
+import kotlin.math.ln
+import kotlin.math.min
 
 
 class LightBarView : View {
@@ -49,7 +51,7 @@ class LightBarView : View {
                 ).toInt(), height
             )
             isInit = true
-            val drawable = UiUtils.drawable(context, R.drawable.tree)
+            val drawable = Resources.drawable(context, R.drawable.tree)
             drawable?.setTint(Color.WHITE)
             tree = drawable?.toBitmap(imageSize, imageSize)
         }

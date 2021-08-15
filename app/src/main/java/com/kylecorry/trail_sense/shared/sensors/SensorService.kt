@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.core.sensors.ISpeedometer
 import com.kylecorry.andromeda.core.sensors.IThermometer
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
@@ -65,11 +65,10 @@ class SensorService(ctx: Context) {
     }
 
     private fun hasLocationPermission(background: Boolean): Boolean {
-        val permissions = PermissionService(context)
         return if (background) {
-            permissions.isBackgroundLocationEnabled()
+            Permissions.isBackgroundLocationEnabled(context)
         } else {
-            permissions.canGetFineLocation()
+            Permissions.canGetFineLocation(context)
         }
     }
 

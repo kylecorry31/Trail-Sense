@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.battery.ui
 
 import com.github.mikephil.charting.charts.LineChart
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import com.kylecorry.trailsensecore.domain.power.BatteryReading
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class BatteryChart(chart: LineChart) {
 
@@ -31,7 +31,7 @@ class BatteryChart(chart: LineChart) {
             it.time.toEpochMilli().toFloat() to if (showCapacity) it.capacity else it.percent
         }
 
-        simpleChart.plot(data, UiUtils.color(context, R.color.colorPrimary), true)
+        simpleChart.plot(data, Resources.color(context, R.color.colorPrimary), true)
     }
 
 }

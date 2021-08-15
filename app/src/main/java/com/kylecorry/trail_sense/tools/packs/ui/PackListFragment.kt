@@ -9,16 +9,17 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPackListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trailsensecore.domain.packs.Pack
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -47,7 +48,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
             val packBinding = ListItemPackBinding.bind(itemView)
             packBinding.name.text = pack.name
             packBinding.packMenuItem.setOnClickListener {
-                UiUtils.openMenu(it, R.menu.pack_item_menu) { id ->
+                Pickers.menu(it, R.menu.pack_item_menu) { id ->
                     when (id) {
                         R.id.action_pack_rename -> {
                             renamePack(pack)
@@ -96,7 +97,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
     }
 
     private fun deletePack(pack: Pack) {
-        UiUtils.alertWithCancel(
+        Alerts.dialog(
             requireContext(),
             getString(R.string.delete_pack),
             pack.name

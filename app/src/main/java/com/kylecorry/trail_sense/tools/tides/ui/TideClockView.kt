@@ -5,10 +5,10 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.oceanography.Tide
 import com.kylecorry.trailsensecore.domain.oceanography.TideType
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 import java.time.ZonedDateTime
 import kotlin.math.cos
@@ -60,8 +60,8 @@ class TideClockView : View {
             )
         )
         textColor = Color.WHITE
-        accentColor = UiUtils.color(context, R.color.colorAccent)
-        clockColor = UiUtils.color(context, R.color.colorSecondary)
+        accentColor = Resources.color(context, R.color.colorAccent)
+        clockColor = Resources.color(context, R.color.colorSecondary)
         padding = numeralSpacing + 50
         fontSize = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_SP, 13f,

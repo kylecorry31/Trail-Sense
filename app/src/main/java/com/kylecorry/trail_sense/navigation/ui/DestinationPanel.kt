@@ -4,14 +4,15 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.domain.*
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.Bearing
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class DestinationPanel(private val view: View) {
 
@@ -35,7 +36,7 @@ class DestinationPanel(private val view: View) {
     init {
         beaconComments.setOnClickListener {
             if (!beacon?.comment.isNullOrEmpty()) {
-                UiUtils.alert(context, beacon?.name ?: "", beacon?.comment ?: "", R.string.dialog_ok)
+                Alerts.dialog(context, beacon?.name ?: "", beacon?.comment, cancelText = null)
             }
         }
     }
@@ -107,7 +108,7 @@ class DestinationPanel(private val view: View) {
                     R.color.negative
                 }
             }
-            beaconElevationDiff.setTextColor(UiUtils.color(context, changeColor))
+            beaconElevationDiff.setTextColor(Resources.color(context, changeColor))
         } else {
             beaconElevationView.visibility = View.GONE
         }

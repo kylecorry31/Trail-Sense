@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
-import com.kylecorry.andromeda.core.system.ScreenService
+import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
-import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 
@@ -15,7 +15,8 @@ class PrivacySettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.privacy_preferences, rootKey)
 
         onClick(preference(R.string.pref_privacy_screenshot_protection)) {
-            ScreenService(requireActivity().window).setAllowScreenshots(
+            Screen.setAllowScreenshots(
+                requireActivity().window,
                 !prefs.privacy.isScreenshotProtectionOn
             )
         }
@@ -35,7 +36,7 @@ class PrivacySettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun isLocationMocked(): Boolean {
-        return !prefs.useAutoLocation || !PermissionService(requireContext()).canGetFineLocation()
+        return !prefs.useAutoLocation || !Permissions.canGetFineLocation(requireContext())
     }
 
 }

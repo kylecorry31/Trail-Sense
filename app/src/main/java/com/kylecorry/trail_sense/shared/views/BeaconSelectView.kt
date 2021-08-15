@@ -4,9 +4,13 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.View
-import android.widget.*
+import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.databinding.ViewBeaconSelectBinding
@@ -14,14 +18,10 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRep
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
-import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.*
 
 
@@ -90,7 +90,7 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
         val itemBinding = ListItemPlainIconBinding.bind(itemView)
         itemBinding.icon.alpha = 0.86f
         itemBinding.icon.imageTintList =
-            ColorStateList.valueOf(UiUtils.color(context, R.color.colorPrimary))
+            ColorStateList.valueOf(Resources.color(context, R.color.colorPrimary))
         if (beacon is Beacon) {
             itemBinding.icon.setImageResource(R.drawable.ic_location)
             itemBinding.icon.imageTintList = ColorStateList.valueOf(beacon.color)

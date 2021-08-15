@@ -13,17 +13,18 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.math.toDoubleCompat
 import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.*
-import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.andromeda.core.math.toDoubleCompat
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 
 object CustomUiUtils {
@@ -32,8 +33,8 @@ object CustomUiUtils {
         setButtonState(
             button,
             state,
-            UiUtils.color(button.context, R.color.colorPrimary),
-            UiUtils.color(button.context, R.color.colorSecondary)
+            Resources.color(button.context, R.color.colorPrimary),
+            Resources.color(button.context, R.color.colorSecondary)
         )
     }
 
@@ -42,14 +43,18 @@ object CustomUiUtils {
         isOn: Boolean,
         @ColorInt primaryColor: Int,
         @ColorInt secondaryColor: Int
-    ){
+    ) {
         if (isOn) {
-            button.drawable.colorFilter = PorterDuffColorFilter(secondaryColor, PorterDuff.Mode.SRC_IN)
+            button.drawable.colorFilter =
+                PorterDuffColorFilter(secondaryColor, PorterDuff.Mode.SRC_IN)
             button.backgroundTintList = ColorStateList.valueOf(primaryColor)
         } else {
-            button.drawable.colorFilter = PorterDuffColorFilter(UiUtils.androidTextColorSecondary(button.context), PorterDuff.Mode.SRC_IN)
+            button.drawable.colorFilter = PorterDuffColorFilter(
+                Resources.androidTextColorSecondary(button.context),
+                PorterDuff.Mode.SRC_IN
+            )
             button.backgroundTintList =
-                ColorStateList.valueOf(UiUtils.androidBackgroundColorSecondary(button.context))
+                ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(button.context))
         }
     }
 
@@ -59,22 +64,22 @@ object CustomUiUtils {
         isOn: Boolean
     ) {
         if (isOn) {
-            button.setTextColor(UiUtils.color(button.context, R.color.colorSecondary))
+            button.setTextColor(Resources.color(button.context, R.color.colorSecondary))
             button.backgroundTintList =
-                ColorStateList.valueOf(UiUtils.color(button.context, R.color.colorPrimary))
+                ColorStateList.valueOf(Resources.color(button.context, R.color.colorPrimary))
         } else {
-            button.setTextColor(UiUtils.androidTextColorSecondary(button.context))
+            button.setTextColor(Resources.androidTextColorSecondary(button.context))
             button.backgroundTintList =
-                ColorStateList.valueOf(UiUtils.androidBackgroundColorSecondary(button.context))
+                ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(button.context))
         }
     }
 
     @ColorInt
     fun getQualityColor(context: Context, quality: Quality): Int {
         return when (quality) {
-            Quality.Poor, Quality.Unknown -> UiUtils.color(context, R.color.red)
-            Quality.Moderate -> UiUtils.color(context, R.color.yellow)
-            Quality.Good -> UiUtils.color(context, R.color.green)
+            Quality.Poor, Quality.Unknown -> Resources.color(context, R.color.red)
+            Quality.Moderate -> Resources.color(context, R.color.yellow)
+            Quality.Good -> Resources.color(context, R.color.green)
         }
     }
 
@@ -86,12 +91,11 @@ object CustomUiUtils {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (hasChanges()) {
-                    UiUtils.alertWithCancel(
+                    Alerts.dialog(
                         activity,
                         activity.getString(R.string.unsaved_changes),
                         activity.getString(R.string.unsaved_changes_message),
-                        activity.getString(R.string.dialog_leave),
-                        activity.getString(R.string.dialog_cancel)
+                        okText = activity.getString(R.string.dialog_leave)
                     ) { cancelled ->
                         if (!cancelled) {
                             remove()
@@ -126,12 +130,10 @@ object CustomUiUtils {
         distanceInput?.units = units
         distanceInput?.updateDistance(default)
 
-        UiUtils.alertViewWithCancel(
+        Alerts.dialog(
             context,
             title,
-            view,
-            context.getString(R.string.dialog_ok),
-            context.getString(R.string.dialog_cancel)
+            contentView = view
         ) { cancelled ->
             if (cancelled) {
                 onDistancePick.invoke(null)
@@ -155,27 +157,26 @@ object CustomUiUtils {
             context,
             R.layout.spinner_item_plain,
             R.id.item_name,
-            labels)
+            labels
+        )
         spinner.prompt = title
         spinner.adapter = adapter
-        if (default != null){
+        if (default != null) {
             val idx = items.indexOf(default)
             if (idx != -1) {
                 spinner.setSelection(idx)
             }
         }
-        UiUtils.alertViewWithCancel(
+        Alerts.dialog(
             context,
             title,
-            view,
-            context.getString(R.string.dialog_ok),
-            context.getString(R.string.dialog_cancel)
+            contentView = view
         ) { cancelled ->
             if (cancelled) {
                 onItemPick.invoke(null)
             } else {
                 val idx = spinner.selectedItemPosition
-                if (idx == -1){
+                if (idx == -1) {
                     onItemPick.invoke(null)
                 } else {
                     onItemPick.invoke(items[idx])
@@ -198,12 +199,10 @@ object CustomUiUtils {
         }
         colorPicker?.color = color
 
-        UiUtils.alertViewWithCancel(
+        Alerts.dialog(
             context,
             title,
-            view,
-            context.getString(R.string.dialog_ok),
-            context.getString(R.string.dialog_cancel)
+            contentView = view
         ) { cancelled ->
             if (cancelled) {
                 onColorPick.invoke(null)
@@ -233,12 +232,10 @@ object CustomUiUtils {
         }
         durationInput?.updateDuration(default)
 
-        UiUtils.alertViewWithCancel(
+        Alerts.dialog(
             context,
             title,
-            view,
-            context.getString(R.string.dialog_ok),
-            context.getString(R.string.dialog_cancel)
+            contentView = view
         ) { cancelled ->
             if (cancelled) {
                 onDurationPick.invoke(null)
@@ -258,7 +255,7 @@ object CustomUiUtils {
         val beaconSelect = view.findViewById<BeaconSelectView>(R.id.prompt_beacons)
         beaconSelect.location = location
         val alert =
-            UiUtils.alertView(context, title, view, context.getString(R.string.dialog_cancel)) {
+            Alerts.dialog(context, title ?: "", contentView = view, okText = null) {
                 onBeaconPick.invoke(beaconSelect.beacon)
             }
         beaconSelect?.setOnBeaconChangeListener {
@@ -275,7 +272,7 @@ object CustomUiUtils {
         val view = View.inflate(context, R.layout.view_beacon_group_select_prompt, null)
         val beaconSelect = view.findViewById<BeaconGroupSelectView>(R.id.prompt_beacon_groups)
         val alert =
-            UiUtils.alertView(context, title, view, context.getString(R.string.dialog_cancel)) {
+            Alerts.dialog(context, title ?: "", contentView = view, okText = null) {
                 onBeaconGroupPick.invoke(beaconSelect.group)
             }
         beaconSelect?.setOnBeaconGroupChangeListener {
@@ -369,20 +366,26 @@ object CustomUiUtils {
         title: String,
         message: String,
         shownKey: String,
-        okText: String = context.getString(R.string.dialog_ok),
-        cancelText: String = context.getString(R.string.dialog_cancel),
+        okText: String = context.getString(android.R.string.ok),
+        cancelText: String = context.getString(android.R.string.cancel),
         considerShownIfCancelled: Boolean = true,
         onClose: (cancelled: Boolean) -> Unit = {}
     ) {
         val cache = Preferences(context)
         if (cache.getBoolean(shownKey) != true) {
             if (considerShownIfCancelled) {
-                UiUtils.alert(context, title, message, okText) {
+                Alerts.dialog(context, title, message, okText = okText, cancelText = null) {
                     cache.putBoolean(shownKey, true)
                     onClose(false)
                 }
             } else {
-                UiUtils.alertWithCancel(context, title, message, okText, cancelText) { cancelled ->
+                Alerts.dialog(
+                    context,
+                    title,
+                    message,
+                    okText = okText,
+                    cancelText = cancelText
+                ) { cancelled ->
                     if (!cancelled) {
                         cache.putBoolean(shownKey, true)
                     }

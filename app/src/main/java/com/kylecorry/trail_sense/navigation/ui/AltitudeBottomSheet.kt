@@ -6,6 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.kylecorry.andromeda.core.math.KalmanFilter
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentAltitudeHistoryBinding
@@ -17,10 +21,6 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.Wayp
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.geo.Path
-import com.kylecorry.andromeda.core.math.KalmanFilter
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.pow
@@ -123,7 +123,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
         val data = filteredReadings.map {
             it.time.toEpochMilli().toFloat() to Distance.meters(it.value).convertTo(units).distance
         }
-        chart.plot(data, UiUtils.color(requireContext(), R.color.colorPrimary), filled = true)
+        chart.plot(data, Resources.color(requireContext(), R.color.colorPrimary), filled = true)
 
         binding.altitudeHistoryLength.text =
             getString(R.string.last_duration, formatService.formatDuration(maxHistoryDuration))

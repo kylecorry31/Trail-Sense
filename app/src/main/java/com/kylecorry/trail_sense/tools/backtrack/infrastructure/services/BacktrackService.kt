@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
+import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.services.CoroutineForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
@@ -15,14 +16,12 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.Backtrack
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
-import com.kylecorry.andromeda.core.system.IntentUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.ZonedDateTime
 
 class BacktrackService : CoroutineForegroundService() {
 
-    private val notify by lazy { Notify(this) }
     private val gps by lazy { sensorService.getGPS(true) }
     private val altimeter by lazy { sensorService.getAltimeter(true) }
     private val cellSignal by lazy { sensorService.getCellSignal(true) }
@@ -51,7 +50,8 @@ class BacktrackService : CoroutineForegroundService() {
     }
 
     override fun getForegroundNotification(): Notification {
-        return notify.background(
+        return Notify.background(
+            this,
             NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
             getString(R.string.backtrack_notification_channel),
             getString(R.string.backtrack_notification_description),
@@ -98,7 +98,7 @@ class BacktrackService : CoroutineForegroundService() {
         }
 
         fun start(context: Context) {
-            IntentUtils.startService(context, intent(context), foreground = true)
+            Intents.startService(context, intent(context), foreground = true)
         }
     }
 }

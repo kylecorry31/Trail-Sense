@@ -8,14 +8,14 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.core.widget.addTextChangedListener
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Timer
 import java.time.Duration
 
 class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
@@ -68,11 +68,11 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayou
             }
 
             helpBtn.setOnClickListener {
-                UiUtils.alert(
+                Alerts.dialog(
                     getContext(),
                     getContext().getString(R.string.location_input_help_title),
                     getContext().getString(R.string.location_input_help),
-                    getContext().getString(R.string.dialog_ok)
+                    cancelText = null
                 )
             }
 

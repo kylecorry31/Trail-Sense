@@ -6,7 +6,9 @@ import android.text.InputType
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.IAltimeter
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.units.Distance
@@ -22,7 +24,6 @@ import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Instant
 
 
@@ -52,7 +53,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.altimeter_calibration, rootKey)
 
-        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
+        setIconColor(Resources.androidTextColorSecondary(requireContext()))
 
         prefs = UserPreferences(requireContext())
         sensorService = SensorService(requireContext())
@@ -162,7 +163,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         prefs.altitudeOverride = elevation
         updateSeaLevelPressureOverride()
         updateAltitude()
-        UiUtils.shortToast(requireContext(), getString(R.string.altitude_override_updated_toast))
+        Alerts.toast(requireContext(), getString(R.string.altitude_override_updated_toast))
         return false
     }
 
@@ -216,7 +217,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         prefs.altitudeOverride = elevation
         updateSeaLevelPressureOverride()
         updateAltitude()
-        UiUtils.shortToast(requireContext(), getString(R.string.altitude_override_updated_toast))
+        Alerts.toast(requireContext(), getString(R.string.altitude_override_updated_toast))
         return false
     }
 

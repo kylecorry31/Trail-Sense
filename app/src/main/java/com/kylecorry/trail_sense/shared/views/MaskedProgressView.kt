@@ -1,17 +1,17 @@
 package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.util.AttributeSet
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.res.getColorOrThrow
+import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import kotlin.Exception
-import kotlin.math.*
+import kotlin.math.min
 
 
 class MaskedProgressView : CanvasView {
@@ -80,7 +80,7 @@ class MaskedProgressView : CanvasView {
         progressColor = try {
             a.getColorOrThrow(R.styleable.MaskedProgressView_android_progressTint)
         } catch (e: Exception){
-            UiUtils.color(context, R.color.colorPrimary)
+            Resources.color(context, R.color.colorPrimary)
         }
 
         horizontal = a.getBoolean(R.styleable.MaskedProgressView_horizontal, true)

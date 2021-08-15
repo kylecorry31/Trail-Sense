@@ -7,6 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.math.MovingAverageFilter
+import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentThermometerHygrometerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -15,14 +20,10 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
-import com.kylecorry.andromeda.core.math.MovingAverageFilter
 import com.kylecorry.trailsensecore.domain.units.Temperature
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.weather.HeatAlert
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
-import com.kylecorry.andromeda.core.sensors.asLiveData
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Duration
 import java.time.Instant
 
@@ -63,17 +64,17 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         temperatureChart =
-            TemperatureChart(binding.chart, UiUtils.color(requireContext(), R.color.colorPrimary))
+            TemperatureChart(binding.chart, Resources.color(requireContext(), R.color.colorPrimary))
 
         binding.heatAlert.setOnClickListener {
-            UiUtils.alert(requireContext(), heatAlertTitle, heatAlertContent, R.string.dialog_ok)
+            Alerts.dialog(requireContext(), heatAlertTitle, heatAlertContent, cancelText = null)
         }
 
         binding.freezingAlert.setOnClickListener {
-            UiUtils.alert(
+            Alerts.dialog(
                 requireContext(), getString(R.string.freezing_temperatures_warning), getString(
                     R.string.freezing_temperatures_description
-                ), getString(R.string.dialog_ok)
+                ), cancelText = null
             )
         }
 
@@ -231,11 +232,11 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
         }
 
         val alertColor = when (alert) {
-            HeatAlert.FrostbiteCaution, HeatAlert.FrostbiteWarning, HeatAlert.FrostbiteDanger -> UiUtils.color(
+            HeatAlert.FrostbiteCaution, HeatAlert.FrostbiteWarning, HeatAlert.FrostbiteDanger -> Resources.color(
                 requireContext(),
                 R.color.colorAccent
             )
-            else -> UiUtils.color(requireContext(), R.color.colorPrimary)
+            else -> Resources.color(requireContext(), R.color.colorPrimary)
         }
 
         binding.heatAlert.imageTintList = ColorStateList.valueOf(alertColor)

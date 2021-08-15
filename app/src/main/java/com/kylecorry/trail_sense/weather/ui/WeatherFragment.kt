@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.sensors.read
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.location.IGPS
@@ -31,7 +32,6 @@ import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.Pressure
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.weather.*
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant
@@ -93,7 +93,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         chart = PressureChart(
             binding.chart,
-            UiUtils.color(requireContext(), R.color.colorPrimary),
+            Resources.color(requireContext(), R.color.colorPrimary),
             object : IPressureChartSelectedListener {
                 override fun onNothingSelected() {
                     if (pressureSetpoint == null) {

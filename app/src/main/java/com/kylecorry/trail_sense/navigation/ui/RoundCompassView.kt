@@ -1,20 +1,21 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.util.AttributeSet
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
-import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.core.math.deltaAngle
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.CompassDirection
 import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.andromeda.core.math.deltaAngle
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import kotlin.math.*
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FormatServiceV2
+import kotlin.math.min
 
 
 class RoundCompassView : CanvasView, ICompassView {
@@ -94,7 +95,7 @@ class RoundCompassView : CanvasView, ICompassView {
     }
 
     private fun drawAzimuth() {
-        tint(UiUtils.androidTextColorPrimary(context))
+        tint(Resources.androidTextColorPrimary(context))
         imageMode(ImageMode.Corner)
         image(getBitmap(R.drawable.ic_arrow_target),
             width / 2f - iconSize / 2f,
@@ -119,7 +120,7 @@ class RoundCompassView : CanvasView, ICompassView {
 
         textSize(cardinalSize)
         textMode(TextMode.Center)
-        stroke(UiUtils.color(context, R.color.colorSecondary))
+        stroke(Resources.color(context, R.color.colorSecondary))
         strokeWeight(32f)
         push()
         rotate(0f)
@@ -191,7 +192,7 @@ class RoundCompassView : CanvasView, ICompassView {
         val bitmap = if (icons.containsKey(id)) {
             icons[id]
         } else {
-            val drawable = UiUtils.drawable(context, id)
+            val drawable = Resources.drawable(context, id)
             val bm = drawable?.toBitmap(iconSize, iconSize)
             icons[id] = bm!!
             icons[id]
@@ -204,7 +205,7 @@ class RoundCompassView : CanvasView, ICompassView {
         compassSize = min(height, width) - 2 * iconSize - 2 * dp(2f).toInt()
         compass = loadImage(R.drawable.compass, compassSize, compassSize)
         cardinalSize = sp(18f)
-        primaryColor = UiUtils.color(context, R.color.colorPrimary)
+        primaryColor = Resources.color(context, R.color.colorPrimary)
     }
 
     override fun draw() {

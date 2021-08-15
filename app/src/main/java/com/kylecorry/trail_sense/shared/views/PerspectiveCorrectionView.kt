@@ -8,16 +8,16 @@ import android.view.MotionEvent
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.files.LocalFileService
+import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.maps.domain.PercentBounds
 import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
-import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
 class PerspectiveCorrectionView : CanvasView {
@@ -28,7 +28,6 @@ class PerspectiveCorrectionView : CanvasView {
     private var imageDrawable: Int? = null
     private var linesLoaded = false
     private var scale = 0.9f
-    private val localFileService by lazy { LocalFileService(context) }
     private var topLeft = PixelCoordinate(0f, 0f)
     private var topRight = PixelCoordinate(0f, 0f)
     private var bottomLeft = PixelCoordinate(0f, 0f)
@@ -60,13 +59,13 @@ class PerspectiveCorrectionView : CanvasView {
     }
 
     override fun setup() {
-        primaryColor = UiUtils.color(context, R.color.colorPrimary)
+        primaryColor = Resources.color(context, R.color.colorPrimary)
     }
 
     override fun draw() {
         if (image == null && imagePath != null){
             imagePath?.let {
-                val file = localFileService.getFile(it, false)
+                val file = LocalFiles.getFile(context, it, false)
                 val bitmap = BitmapUtils.decodeBitmapScaled(
                     file.path,
                     width,

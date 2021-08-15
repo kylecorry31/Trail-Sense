@@ -9,7 +9,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
+import com.kylecorry.andromeda.core.system.Resources
 
 
 class SimpleLineChart(
@@ -28,7 +28,7 @@ class SimpleLineChart(
         chart.xAxis.setDrawLabels(false)
         chart.axisRight.setDrawLabels(false)
 
-        val primaryColor = UiUtils.androidTextColorPrimary(chart.context)
+        val primaryColor = Resources.androidTextColorPrimary(chart.context)
         val r = primaryColor.red
         val g = primaryColor.green
         val b = primaryColor.blue

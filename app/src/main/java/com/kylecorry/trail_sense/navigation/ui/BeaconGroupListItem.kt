@@ -3,13 +3,13 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.content.res.ColorStateList
 import android.view.View
 import android.widget.PopupMenu
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -59,12 +59,10 @@ class BeaconGroupListItem(
                     onEdit()
                 }
                 R.id.action_delete_beacon_group -> {
-                    UiUtils.alertWithCancel(
+                    Alerts.dialog(
                         view.context,
                         view.context.getString(R.string.delete_beacon_group),
                         view.context.getString(R.string.delete_beacon_group_message, group.name),
-                        view.context.getString(R.string.dialog_ok),
-                        view.context.getString(R.string.dialog_cancel)
                     ) { cancelled ->
                         if (!cancelled) {
                             scope.launch {

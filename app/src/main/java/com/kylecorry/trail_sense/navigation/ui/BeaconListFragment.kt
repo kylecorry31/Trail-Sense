@@ -17,11 +17,13 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.files.ExternalFileService
+import com.kylecorry.andromeda.files.ExternalFiles
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
@@ -36,8 +38,6 @@ import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,7 +48,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
-    private val externalFileService by lazy { ExternalFileService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private lateinit var beaconList: ListView<IBeacon>
@@ -135,9 +134,10 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                         if (Camera.isAvailable(requireContext())) {
                             importBeaconFromQR()
                         } else {
-                            UiUtils.longToast(
+                            Alerts.toast(
                                 requireContext(),
-                                getString(R.string.camera_permission_denied)
+                                getString(R.string.camera_permission_denied),
+                                short = false
                             )
                         }
                     }
@@ -476,7 +476,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private fun importFromUri(uri: Uri) {
         lifecycleScope.launch {
-            val text = externalFileService.read(uri)
+            val text = ExternalFiles.read(requireContext(), uri)
             text?.let {
                 if (text.startsWith("{")) {
                     // Legacy
@@ -485,7 +485,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                         importer.import(text)
                     }
                     withContext(Dispatchers.Main) {
-                        UiUtils.shortToast(
+                        Alerts.toast(
                             requireContext(),
                             resources.getQuantityString(R.plurals.beacons_imported, count, count)
                         )
@@ -499,16 +499,13 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     if (waypoints.isNotEmpty()) {
                         withContext(Dispatchers.Main) {
                             // TODO: Allow user to choose which beacons to import
-                            UiUtils.alertWithCancel(
+                            Alerts.dialog(
                                 requireContext(),
                                 resources.getQuantityString(
                                     R.plurals.import_beacons,
                                     waypoints.size,
                                     waypoints.size
-                                ),
-                                "",
-                                getString(R.string.dialog_ok),
-                                getString(R.string.dialog_cancel)
+                                )
                             ) { cancelled ->
                                 if (!cancelled) {
                                     lifecycleScope.launch {
@@ -516,7 +513,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                                             importer.import(waypoints)
                                         }
                                         withContext(Dispatchers.Main) {
-                                            UiUtils.shortToast(
+                                            Alerts.toast(
                                                 requireContext(),
                                                 resources.getQuantityString(
                                                     R.plurals.beacons_imported,
@@ -560,12 +557,12 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
 
             val success = withContext(Dispatchers.IO) {
-                externalFileService.write(uri, gpx)
+                ExternalFiles.write(requireContext(), uri, gpx)
             }
 
             withContext(Dispatchers.Main) {
                 if (success) {
-                    UiUtils.shortToast(
+                    Alerts.toast(
                         requireContext(),
                         resources.getQuantityString(
                             R.plurals.beacons_exported,
@@ -574,7 +571,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                         )
                     )
                 } else {
-                    UiUtils.shortToast(
+                    Alerts.toast(
                         requireContext(),
                         getString(R.string.beacon_export_error)
                     )

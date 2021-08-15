@@ -6,6 +6,7 @@ import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import com.kylecorry.andromeda.core.math.toFloatCompat
 import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -13,7 +14,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.units.Temperature
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -35,7 +35,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.thermometer_settings, rootKey)
-        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
+        setIconColor(Resources.androidTextColorSecondary(requireContext()))
 
         minTempCalibratedC = editText(R.string.pref_min_calibrated_temp_c)
         maxTempCalibratedC = editText(R.string.pref_max_calibrated_temp_c)

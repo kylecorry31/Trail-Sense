@@ -10,8 +10,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class StatusBadgeView(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
@@ -32,8 +32,8 @@ class StatusBadgeView(context: Context?, attrs: AttributeSet?) : LinearLayout(co
             statusText = findViewById(R.id.status_text)
             statusImage = findViewById(R.id.status_image)
             val a = it.theme.obtainStyledAttributes(attrs, R.styleable.StatusBadgeView, 0, 0)
-            backgroundTint = a.getColor(R.styleable.StatusBadgeView_backgroundTint, UiUtils.androidBackgroundColorSecondary(it))
-            foregroundTint = a.getColor(R.styleable.StatusBadgeView_foregroundTint, UiUtils.androidTextColorSecondary(it))
+            backgroundTint = a.getColor(R.styleable.StatusBadgeView_backgroundTint, Resources.androidBackgroundColorSecondary(it))
+            foregroundTint = a.getColor(R.styleable.StatusBadgeView_foregroundTint, Resources.androidTextColorSecondary(it))
             setImageResource(a.getResourceId(R.styleable.StatusBadgeView_icon, R.drawable.satellite))
             a.recycle()
         }

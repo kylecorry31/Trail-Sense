@@ -9,13 +9,13 @@ import androidx.annotation.IdRes
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
 import com.kylecorry.trail_sense.databinding.ListItemToolBinding
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 
 
 class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
@@ -25,8 +25,8 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val primaryColor = UiUtils.color(requireContext(), R.color.colorPrimary)
-        val textColor = UiUtils.androidTextColorPrimary(requireContext())
+        val primaryColor = Resources.color(requireContext(), R.color.colorPrimary)
+        val textColor = Resources.androidTextColorPrimary(requireContext())
         val attrs = intArrayOf(android.R.attr.selectableItemBackground)
         val typedArray = requireContext().obtainStyledAttributes(attrs)
         val selectableBackground = typedArray.getResourceId(0, 0)

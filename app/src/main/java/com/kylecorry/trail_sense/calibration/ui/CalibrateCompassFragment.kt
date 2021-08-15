@@ -6,7 +6,9 @@ import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.location.IGPS
@@ -16,7 +18,6 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
 class CalibrateCompassFragment : AndromedaPreferenceFragment() {
@@ -45,7 +46,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.compass_calibration, rootKey)
 
-        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
+        setIconColor(Resources.androidTextColorSecondary(requireContext()))
 
         prefs = UserPreferences(requireContext())
         sensorService = SensorService(requireContext())
@@ -100,11 +101,13 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
         }
 
         calibrateBtn.setOnPreferenceClickListener {
-            UiUtils.alert(
-                requireContext(), getString(R.string.calibrate_compass_dialog_title), getString(
+            Alerts.dialog(
+                requireContext(),
+                getString(R.string.calibrate_compass_dialog_title),
+                getString(
                     R.string.calibrate_compass_dialog_content, getString(R.string.dialog_ok)
                 ),
-                R.string.dialog_ok
+                cancelText = null
             )
             true
         }
@@ -139,7 +142,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
     }
 
     private fun getDeclination(): Float {
-        return if (!prefs.useAutoDeclination){
+        return if (!prefs.useAutoDeclination) {
             prefs.declinationOverride
         } else {
             geoService.getDeclination(gps.location, gps.altitude)
@@ -150,7 +153,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
         val declination = geoService.getDeclination(gps.location, gps.altitude)
         prefs.declinationOverride = declination
         declinationOverrideEdit.text = declination.toString()
-        UiUtils.shortToast(requireContext(), getString(R.string.declination_override_updated_toast))
+        Alerts.toast(requireContext(), getString(R.string.declination_override_updated_toast))
         return false
     }
 
@@ -181,7 +184,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
 
         if (prevQuality != Quality.Unknown && prevQuality != compass.quality) {
             if (compass.quality.ordinal > prevQuality.ordinal) {
-                UiUtils.shortToast(
+                Alerts.toast(
                     requireContext(),
                     getString(R.string.compass_accuracy_improved, getCompassAccuracy())
                 )

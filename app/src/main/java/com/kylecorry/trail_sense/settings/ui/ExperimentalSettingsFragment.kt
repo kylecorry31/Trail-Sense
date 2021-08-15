@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
-import com.kylecorry.andromeda.core.system.PackageUtils
+import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.trail_sense.R
@@ -21,7 +21,7 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
         preference(R.string.pref_depth_enabled)?.isVisible = sensorChecker.hasBarometer()
 
         onClick(switch(R.string.pref_experimental_maps)) {
-            PackageUtils.setComponentEnabled(
+            Package.setComponentEnabled(
                 requireContext(),
                 "com.kylecorry.trail_sense.AliasMainActivity",
                 prefs.navigation.areMapsEnabled

@@ -5,6 +5,7 @@ import android.text.InputType
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
@@ -15,7 +16,6 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 
 class NavigationSettingsFragment : AndromedaPreferenceFragment() {
@@ -89,11 +89,11 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
                     restartBacktrack()
 
                     if (it < Duration.ofMinutes(10)) {
-                        UiUtils.alert(
+                        Alerts.dialog(
                             requireContext(),
                             getString(R.string.battery_warning),
                             getString(R.string.backtrack_battery_warning),
-                            getString(R.string.dialog_ok)
+                            cancelText = null
                         )
                     }
 

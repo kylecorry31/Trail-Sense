@@ -5,10 +5,10 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.core.units.DistanceUnits
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import com.kylecorry.trailsensecore.infrastructure.view.ViewMeasurementUtils
 import kotlin.math.ceil
 
@@ -77,7 +77,7 @@ class Ruler(private val view: ConstraintLayout, private var units: DistanceUnits
 
         if (!isRulerSetup) {
             view.removeAllViews()
-            val primaryColor = UiUtils.androidTextColorPrimary(context)
+            val primaryColor = Resources.androidTextColorPrimary(context)
 
             val divisions = if (units == DistanceUnits.Inches) 8 else 10
 
@@ -124,7 +124,7 @@ class Ruler(private val view: ConstraintLayout, private var units: DistanceUnits
             }
             tapBar = View(context)
             tapBar?.let {
-                it.setBackgroundColor(UiUtils.color(context, R.color.colorPrimary))
+                it.setBackgroundColor(Resources.color(context, R.color.colorPrimary))
                 val layoutParams = ConstraintLayout.LayoutParams(1, 4)
                 it.layoutParams = layoutParams
                 it.layoutParams.width = view.width

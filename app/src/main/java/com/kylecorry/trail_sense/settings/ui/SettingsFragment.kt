@@ -3,14 +3,14 @@ package com.kylecorry.trail_sense.settings.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.preference.Preference
-import com.kylecorry.andromeda.core.system.IntentUtils
-import com.kylecorry.andromeda.core.system.PackageUtils
+import com.kylecorry.andromeda.core.system.Intents
+import com.kylecorry.andromeda.core.system.Package
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class SettingsFragment : AndromedaPreferenceFragment() {
 
@@ -52,23 +52,23 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         refreshOnChange(list(R.string.pref_theme))
 
         onClick(preference(R.string.pref_github)) {
-            val i = IntentUtils.url(it.summary.toString())
+            val i = Intents.url(it.summary.toString())
             startActivity(i)
         }
 
         onClick(preference(R.string.pref_privacy_policy)) {
-            val i = IntentUtils.url(it.summary.toString())
+            val i = Intents.url(it.summary.toString())
             startActivity(i)
         }
 
         onClick(preference(R.string.pref_email)) {
-            val intent = IntentUtils.email(it.summary.toString(), getString(R.string.app_name))
+            val intent = Intents.email(it.summary.toString(), getString(R.string.app_name))
             startActivity(Intent.createChooser(intent, it.title.toString()))
         }
 
-        val version = PackageUtils.getVersionName(requireContext())
+        val version = Package.getVersionName(requireContext())
         preference(R.string.pref_app_version)?.summary = version
-        setIconColor(preferenceScreen, UiUtils.androidTextColorSecondary(requireContext()))
+        setIconColor(preferenceScreen, Resources.androidTextColorSecondary(requireContext()))
     }
 
     override fun onResume() {

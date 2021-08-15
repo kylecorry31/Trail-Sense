@@ -11,8 +11,15 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.files.LocalFileService
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.databinding.ListItemMapBinding
@@ -25,11 +32,6 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.PDFUtils
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
-import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -42,9 +44,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
-    private val fileService by lazy { LocalFileService(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
-    private val localFileService by lazy { LocalFileService(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
 
     private lateinit var mapList: ListView<Map>
@@ -84,12 +84,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         }
 
         if (cache.getBoolean("tool_maps_experimental_disclaimer_shown") != true) {
-            UiUtils.alertWithCancel(
+            Alerts.dialog(
                 requireContext(),
                 getString(R.string.experimental),
                 "Offline Maps is an experimental feature, please only use this to test it out at this point. Feel free to share your feedback on this feature and note that there is still a lot to be done before this will be non-experimental.",
-                getString(R.string.tool_user_guide_title),
-                getString(R.string.dialog_ok)
+                okText = getString(R.string.tool_user_guide_title),
+                cancelText = getString(android.R.string.ok)
             ) { cancelled ->
                 cache.putBoolean("tool_maps_experimental_disclaimer_shown", true)
                 if (!cancelled) {
@@ -134,15 +134,13 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 }
             }
             mapItemBinding.menuBtn.setOnClickListener {
-                UiUtils.openMenu(it, R.menu.map_list_item_menu) {
+                Pickers.menu(it, R.menu.map_list_item_menu) {
                     when (it) {
                         R.id.action_map_delete -> {
-                            UiUtils.alertWithCancel(
+                            Alerts.dialog(
                                 requireContext(),
                                 getString(R.string.delete_map),
-                                map.name,
-                                getString(R.string.dialog_ok),
-                                getString(R.string.dialog_cancel)
+                                map.name
                             ) { cancelled ->
                                 if (!cancelled) {
                                     lifecycleScope.launch {
@@ -165,7 +163,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             maps = it
             // TODO: Show loading indicator
             maps.forEach {
-                val file = fileService.getFile(it.filename, false)
+                val file = LocalFiles.getFile(requireContext(), it.filename, false)
 
                 val size = BitmapUtils.getBitmapSize(file.path)
                 val bounds = it.boundary(size.first.toFloat(), size.second.toFloat())
@@ -176,8 +174,8 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     if (onMap || distance < 5000) {
                         val bitmap = BitmapUtils.decodeBitmapScaled(
                             file.path,
-                            UiUtils.dp(requireContext(), 64f).toInt(),
-                            UiUtils.dp(requireContext(), 64f).toInt()
+                            Resources.dp(requireContext(), 64f).toInt(),
+                            Resources.dp(requireContext(), 64f).toInt()
                         )
                         bitmaps[it.id] = bitmap
                     }
@@ -226,7 +224,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     val bp = PDFUtils.asBitmap(requireContext(), uri)
                     if (bp == null) {
                         withContext(Dispatchers.Main) {
-                            UiUtils.shortToast(
+                            Alerts.toast(
                                 requireContext(),
                                 getString(R.string.error_importing_map)
                             )
@@ -244,7 +242,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     }
                     if (stream == null) {
                         withContext(Dispatchers.Main) {
-                            UiUtils.shortToast(
+                            Alerts.toast(
                                 requireContext(),
                                 getString(R.string.error_importing_map)
                             )
@@ -262,12 +260,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 val filename = "maps/" + UUID.randomUUID().toString() + ".jpg"
                 try {
                     @Suppress("BlockingMethodInNonBlockingContext")
-                    FileOutputStream(localFileService.getFile(filename)).use { out ->
+                    FileOutputStream(LocalFiles.getFile(requireContext(), filename)).use { out ->
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
                     }
                 } catch (e: IOException) {
                     withContext(Dispatchers.Main) {
-                        UiUtils.shortToast(
+                        Alerts.toast(
                             requireContext(),
                             getString(R.string.error_importing_map)
                         )
@@ -293,7 +291,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
                 withContext(Dispatchers.Main) {
                     if (calibration1 != null) {
-                        UiUtils.shortToast(
+                        Alerts.toast(
                             requireContext(),
                             getString(R.string.map_auto_calibrated)
                         )

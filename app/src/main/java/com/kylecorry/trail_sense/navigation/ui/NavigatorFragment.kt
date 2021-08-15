@@ -15,12 +15,25 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
-import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.system.Screen
+import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.core.units.Bearing
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.location.GPS
+import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
@@ -47,21 +60,12 @@ import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
-import com.kylecorry.trailsensecore.domain.geo.*
+import com.kylecorry.trailsensecore.domain.geo.GeoService
+import com.kylecorry.trailsensecore.domain.geo.Path
+import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.trailsensecore.infrastructure.system.PermissionUtils
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.units.Bearing
-import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.andromeda.location.GPS
-import com.kylecorry.andromeda.sense.SensorChecker
-import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -144,7 +148,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         super.onDestroyView()
         activity?.let {
             tryOrNothing {
-                UiUtils.setShowWhenLocked(it, false)
+                Screen.setShowWhenLocked(it, false)
             }
         }
     }
@@ -204,7 +208,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 WaypointRepo.BACKTRACK_PATH_ID,
                 getString(R.string.tool_backtrack_title),
                 waypoints.map { it.toPathPoint() },
-                UiUtils.color(requireContext(), R.color.colorAccent),
+                Resources.color(requireContext(), R.color.colorAccent),
                 userPrefs.navigation.backtrackPathStyle
             )
             updateUI()
@@ -221,11 +225,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         speedometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
 
         binding.location.setOnLongClickListener {
-            UiUtils.openMenu(it, R.menu.location_share_menu) { menuItem ->
+            Pickers.menu(it, R.menu.location_share_menu) { menuItem ->
                 val sender = when (menuItem) {
                     R.id.action_send -> LocationSharesheet(requireContext())
                     R.id.action_maps -> LocationGeoSender(requireContext())
-                    else -> LocationCopy(requireContext(), Clipboard(requireContext()))
+                    else -> LocationCopy(requireContext())
                 }
                 sender.send(gps.location)
                 true
@@ -318,9 +322,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 if (Camera.isAvailable(requireContext())) {
                     enableSightingCompass()
                 } else {
-                    UiUtils.longToast(
+                    Alerts.toast(
                         requireContext(),
-                        getString(R.string.camera_permission_denied)
+                        getString(R.string.camera_permission_denied),
+                        short = false
                     )
                     setSightingCompassStatus(false)
                 }
@@ -381,7 +386,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         if (destinationBearing == null) {
             destinationBearing = compass.rawBearing
             cache.putFloat(LAST_DEST_BEARING, compass.rawBearing)
-            UiUtils.shortToast(
+            Alerts.toast(
                 requireContext(),
                 getString(R.string.toast_destination_bearing_set)
             )
@@ -398,7 +403,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val shouldShow =
                 isBound && userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)
             tryOrNothing {
-                UiUtils.setShowWhenLocked(it, shouldShow)
+                Screen.setShowWhenLocked(it, shouldShow)
             }
         }
     }
@@ -420,7 +425,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 formatService.formatSmallDistance(gpsVerticalAccuracy)
             )
 
-        UiUtils.alert(
+        Alerts.dialog(
             requireContext(),
             getString(R.string.accuracy_info_title),
             getString(
@@ -429,7 +434,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 gpsVAccuracyStr,
                 gps.satellites.toString()
             ),
-            R.string.dialog_ok
+            cancelText = null
         )
     }
 
@@ -485,7 +490,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 BearingIndicator(
                     destinationBearing!!,
                     R.drawable.ic_arrow_target,
-                    UiUtils.color(requireContext(), R.color.colorAccent)
+                    Resources.color(requireContext(), R.color.colorAccent)
                 )
             )
         }
@@ -678,7 +683,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // Compass
         val indicators = getIndicators()
         val destBearing = getDestinationBearing()
-        val destColor = if (destination != null) destination!!.color else UiUtils.color(
+        val destColor = if (destination != null) destination!!.color else Resources.color(
             requireContext(),
             R.color.colorAccent
         )
@@ -726,7 +731,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         if (userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)) {
             activity?.let {
                 tryOrNothing {
-                    UiUtils.setShowWhenLocked(it, true)
+                    Screen.setShowWhenLocked(it, true)
                 }
             }
         }
@@ -743,11 +748,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun showCalibrationDialog() {
         if (userPrefs.navigation.showCalibrationOnNavigateDialog) {
-            UiUtils.alert(
+            Alerts.dialog(
                 requireContext(), getString(R.string.calibrate_compass_dialog_title), getString(
                     R.string.calibrate_compass_on_navigate_dialog_content,
                     getString(R.string.dialog_ok)
-                ), R.string.dialog_ok
+                ), cancelText = null
             )
         }
     }
@@ -822,19 +827,19 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     @ColorInt
     private fun getGPSColor(): Int {
         if (gps is OverrideGPS) {
-            return UiUtils.color(requireContext(), R.color.green)
+            return Resources.color(requireContext(), R.color.green)
         }
 
         if (gps is CachedGPS || !GPS.isAvailable(requireContext())) {
-            return UiUtils.color(requireContext(), R.color.red)
+            return Resources.color(requireContext(), R.color.red)
         }
 
         if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
-            return UiUtils.color(requireContext(), R.color.yellow)
+            return Resources.color(requireContext(), R.color.yellow)
         }
 
         if (!gps.hasValidReading || (userPrefs.requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
-            return UiUtils.color(requireContext(), R.color.yellow)
+            return Resources.color(requireContext(), R.color.yellow)
         }
 
         return CustomUiUtils.getQualityColor(requireContext(), gps.quality)

@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kylecorry.andromeda.qr.QRService
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
+import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrShareBinding
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 
 class BeaconQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrShareBinding>() {
-
-    private val qr = QRService()
 
     var beacon: Beacon? = null
         set(value) {
@@ -33,8 +31,8 @@ class BeaconQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrShare
         }
         binding.beaconName.text = beacon.name
         val encoded = "geo:${beacon.coordinate.latitude},${beacon.coordinate.longitude}"
-        val size = UiUtils.dp(requireContext(), 250f).toInt()
-        val bitmap = qr.encode(encoded, size, size)
+        val size = Resources.dp(requireContext(), 250f).toInt()
+        val bitmap = QR.encode(encoded, size, size)
         binding.beaconQr.setImageBitmap(bitmap)
     }
 

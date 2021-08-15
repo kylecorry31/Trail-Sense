@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.databinding.FragmentCreateTideBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -78,7 +78,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.datePicker.setOnClickListener {
-            UiUtils.pickDate(requireContext(), referenceDate ?: LocalDate.now()) {
+            Pickers.date(requireContext(), referenceDate ?: LocalDate.now()) {
                 if (it != null) {
                     referenceDate = it
                     binding.date.text = formatService.formatDate(
@@ -93,7 +93,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         }
 
         binding.timePicker.setOnClickListener {
-            UiUtils.pickTime(
+            Pickers.time(
                 requireContext(),
                 prefs.use24HourTime,
                 referenceTime ?: LocalTime.now()

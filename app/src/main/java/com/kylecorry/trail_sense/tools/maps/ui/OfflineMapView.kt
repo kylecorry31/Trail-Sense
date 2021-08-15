@@ -13,20 +13,20 @@ import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ArrowPathEffect
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.DottedPathEffect
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.math.constrain
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.files.LocalFileService
+import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
 import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
-import com.kylecorry.andromeda.core.math.constrain
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.pixels.*
-import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
 class OfflineMapView : CanvasView {
@@ -62,7 +62,6 @@ class OfflineMapView : CanvasView {
     @ColorInt
     private var secondaryColor: Int = Color.BLACK
 
-    private val fileService by lazy { LocalFileService(context) }
     private val prefs by lazy { UserPreferences(context) }
 
     constructor(context: Context?) : super(context)
@@ -79,8 +78,8 @@ class OfflineMapView : CanvasView {
 
 
     override fun setup() {
-        primaryColor = UiUtils.color(context, R.color.colorPrimary)
-        secondaryColor = UiUtils.color(context, R.color.colorSecondary)
+        primaryColor = Resources.color(context, R.color.colorPrimary)
+        secondaryColor = Resources.color(context, R.color.colorSecondary)
     }
 
     override fun draw() {
@@ -278,7 +277,7 @@ class OfflineMapView : CanvasView {
 
 
     private fun loadMap(map: Map): Bitmap {
-        val file = fileService.getFile(map.filename, false)
+        val file = LocalFiles.getFile(context, map.filename, false)
         if (prefs.navigation.useLowResolutionMaps) {
             return BitmapUtils.decodeBitmapScaled(file.path, width, height)
         }

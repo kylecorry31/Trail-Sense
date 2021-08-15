@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.weather.ui
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
@@ -15,8 +16,8 @@ class QuickActionThermometer(btn: FloatingActionButton, fragment: Fragment) :
         UiUtils.setButtonState(
             button,
             false,
-            UiUtils.color(context, R.color.colorPrimary),
-            UiUtils.color(context, R.color.colorSecondary)
+            Resources.color(context, R.color.colorPrimary),
+            Resources.color(context, R.color.colorSecondary)
         )
         button.setOnClickListener {
             fragment.findNavController()

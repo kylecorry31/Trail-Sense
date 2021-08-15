@@ -4,11 +4,11 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
 import androidx.annotation.DrawableRes
+import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import com.kylecorry.trail_sense.tools.maps.infrastructure.rotate
-import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils
-import com.kylecorry.andromeda.files.LocalFileService
 
 class RotationCorrectionView : CanvasView {
 
@@ -18,7 +18,6 @@ class RotationCorrectionView : CanvasView {
     private var imageDrawable: Int? = null
     private var linesLoaded = false
     private var scale = 0.8f
-    private val localFileService by lazy { LocalFileService(context) }
 
     var angle = 0f
         set(value) {
@@ -47,7 +46,7 @@ class RotationCorrectionView : CanvasView {
     override fun draw() {
         if (image == null && imagePath != null){
             imagePath?.let {
-                val file = localFileService.getFile(it, false)
+                val file = LocalFiles.getFile(context, it, false)
                 val bitmap = BitmapUtils.decodeBitmapScaled(
                     file.path,
                     width,

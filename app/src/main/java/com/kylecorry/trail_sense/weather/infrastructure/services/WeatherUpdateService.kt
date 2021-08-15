@@ -4,7 +4,12 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.kylecorry.andromeda.core.sensors.read
+import com.kylecorry.andromeda.core.system.Intents
+import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.andromeda.services.CoroutineForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
@@ -19,17 +24,11 @@ import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.andromeda.core.sensors.read
-import com.kylecorry.andromeda.services.CoroutineForegroundService
-import com.kylecorry.andromeda.core.system.IntentUtils
 import kotlinx.coroutines.*
 import java.time.*
 
 class WeatherUpdateService: CoroutineForegroundService() {
 
-    private val notify by lazy { Notify(this) }
     private val sensorService by lazy { SensorService(this) }
     private val altimeter by lazy { sensorService.getGPSAltimeter(true) }
     private val barometer by lazy { sensorService.getBarometer() }
@@ -139,7 +138,8 @@ class WeatherUpdateService: CoroutineForegroundService() {
         if (forecast == Weather.Storm) {
             val shouldSend = prefs.weather.sendStormAlerts
             if (shouldSend && !sentAlert) {
-                val notification = notify.alert(
+                val notification = Notify.alert(
+                    this,
                     STORM_CHANNEL_ID,
                     getString(R.string.notification_storm_alert_title),
                     getString(R.string.notification_storm_alert_text),
@@ -147,11 +147,11 @@ class WeatherUpdateService: CoroutineForegroundService() {
                     group = NotificationChannels.GROUP_STORM,
                     intent = NavigationUtils.pendingIntent(this, R.id.action_weather)
                 )
-                notify.send(STORM_ALERT_NOTIFICATION_ID, notification)
+                Notify.send(this, STORM_ALERT_NOTIFICATION_ID, notification)
                 cache.putBoolean(getString(R.string.pref_just_sent_alert), true)
             }
         } else {
-            notify.cancel(STORM_ALERT_NOTIFICATION_ID)
+            Notify.cancel(this, STORM_ALERT_NOTIFICATION_ID)
             cache.putBoolean(getString(R.string.pref_just_sent_alert), false)
         }
     }
@@ -181,7 +181,8 @@ class WeatherUpdateService: CoroutineForegroundService() {
 
         val openIntent = NavigationUtils.pendingIntent(this, R.id.action_weather)
 
-        val notification = notify.status(
+        val notification = Notify.status(
+            this,
             DAILY_CHANNEL_ID,
             getString(if (prefs.weather.dailyWeatherIsForTomorrow) R.string.tomorrows_forecast else R.string.todays_forecast),
             description,
@@ -191,7 +192,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
             intent = openIntent
         )
 
-        notify.send(DAILY_NOTIFICATION_ID, notification)
+        Notify.send(this, DAILY_NOTIFICATION_ID, notification)
     }
 
     private fun scheduleNextUpdate() {
@@ -201,7 +202,8 @@ class WeatherUpdateService: CoroutineForegroundService() {
     }
 
     override fun getForegroundNotification(): Notification {
-        return notify.background(
+        return Notify.background(
+            this,
             NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
             getString(R.string.weather_update_notification_channel),
             getString(R.string.notification_monitoring_weather),
@@ -225,7 +227,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
         }
 
         fun start(context: Context) {
-            IntentUtils.startService(context, intent(context), foreground = true)
+            Intents.startService(context, intent(context), foreground = true)
         }
     }
 }

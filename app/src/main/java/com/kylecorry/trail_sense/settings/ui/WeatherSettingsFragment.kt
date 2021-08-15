@@ -7,6 +7,7 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -15,7 +16,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlinx.coroutines.launch
 
 class WeatherSettingsFragment : AndromedaPreferenceFragment() {
@@ -99,7 +99,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
         prefDailyWeatherTime?.summary = formatService.formatTime(prefs.weather.dailyForecastTime, false)
         prefDailyWeatherTime?.setOnPreferenceClickListener {
-            UiUtils.pickTime(requireContext(), prefs.use24HourTime, prefs.weather.dailyForecastTime){ time ->
+            Pickers.time(requireContext(), prefs.use24HourTime, prefs.weather.dailyForecastTime){ time ->
                 if (time != null){
                     prefs.weather.dailyForecastTime = time
                     it.summary = formatService.formatTime(time, false)

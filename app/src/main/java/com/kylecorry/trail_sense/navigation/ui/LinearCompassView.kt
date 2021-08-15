@@ -13,13 +13,13 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.core.math.deltaAngle
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.CompassDirection
+import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.andromeda.core.math.deltaAngle
-import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.core.units.CompassDirection
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
@@ -106,7 +106,7 @@ class LinearCompassView : CanvasView, ICompassView {
     }
 
     private fun drawAzimuth() {
-        tint(UiUtils.androidTextColorPrimary(context))
+        tint(Resources.androidTextColorPrimary(context))
         imageMode(ImageMode.Corner)
         image(getBitmap(R.drawable.ic_arrow_target),
             width / 2f - iconSize / 2f,
@@ -126,11 +126,11 @@ class LinearCompassView : CanvasView, ICompassView {
                 when {
                     i % 45 == 0 -> {
                         noFill()
-                        stroke(UiUtils.color(context, R.color.colorPrimary))
+                        stroke(Resources.color(context, R.color.colorPrimary))
                         strokeWeight(8f)
                     }
                     else -> {
-                        stroke(UiUtils.androidTextColorPrimary(context))
+                        stroke(Resources.androidTextColorPrimary(context))
                         strokeWeight(8f)
                     }
                 }
@@ -150,7 +150,7 @@ class LinearCompassView : CanvasView, ICompassView {
                             else -> ""
                         }
                         noStroke()
-                        fill(UiUtils.androidTextColorPrimary(context))
+                        fill(Resources.androidTextColorPrimary(context))
                         textMode(TextMode.Corner)
                         text(coord, pixDeg * (i - minDegrees), 5 / 12f * height)
                     }
@@ -180,7 +180,7 @@ class LinearCompassView : CanvasView, ICompassView {
     private fun drawDestination() {
         val d = destination
         d ?: return
-        val color = destinationColor ?: UiUtils.color(context, R.color.colorPrimary)
+        val color = destinationColor ?: Resources.color(context, R.color.colorPrimary)
         val delta = deltaAngle(
             azimuth.roundToInt().toFloat(),
             d.roundToInt().toFloat()
@@ -197,7 +197,7 @@ class LinearCompassView : CanvasView, ICompassView {
         val bitmap = if (icons.containsKey(id)) {
             icons[id]
         } else {
-            val drawable = UiUtils.drawable(context, id)
+            val drawable = Resources.drawable(context, id)
             val bm = drawable?.toBitmap(iconSize, iconSize)
             icons[id] = bm!!
             icons[id]

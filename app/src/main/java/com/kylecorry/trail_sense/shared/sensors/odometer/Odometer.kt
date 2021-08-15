@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.sensors.odometer
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.preferences.Preferences
@@ -10,7 +11,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.ApproximateCoordinate
 import com.kylecorry.trailsensecore.domain.geo.specifications.LocationChangedSpecification
 import com.kylecorry.trailsensecore.domain.geo.specifications.LocationIsAccurateSpecification
-import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
 import com.kylecorry.trailsensecore.infrastructure.sensors.odometer.IOdometer
 import java.time.Instant
 import java.time.LocalDate

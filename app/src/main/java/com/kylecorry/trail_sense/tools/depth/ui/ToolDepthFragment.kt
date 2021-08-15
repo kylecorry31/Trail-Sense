@@ -7,6 +7,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.math.roundPlaces
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
@@ -17,9 +19,7 @@ import com.kylecorry.trail_sense.databinding.FragmentToolDepthBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.depth.DepthService
-import com.kylecorry.andromeda.core.math.roundPlaces
 import com.kylecorry.trailsensecore.domain.units.*
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.max
@@ -82,7 +82,7 @@ class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
             val isUnderwater = lastDepth != 0f || underwaterOverride
             val now = Instant.now()
             if (isUnderwater && Duration.between(lastBackPress, now).abs() >= backConfirmDuration) {
-                UiUtils.shortToast(requireContext(), getString(R.string.back_press_confirm))
+                Alerts.toast(requireContext(), getString(R.string.back_press_confirm))
             } else if (isUnderwater) {
                 return@onBackPress true
             }

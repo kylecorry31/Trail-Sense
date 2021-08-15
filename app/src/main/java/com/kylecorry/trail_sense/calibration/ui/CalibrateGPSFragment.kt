@@ -3,13 +3,14 @@ package com.kylecorry.trail_sense.calibration.ui
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
-import com.kylecorry.andromeda.core.system.IntentUtils
+import com.kylecorry.andromeda.core.system.Intents
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -19,7 +20,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.CoordinatePreference
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
 class CalibrateGPSFragment : AndromedaPreferenceFragment() {
@@ -34,7 +34,6 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     private lateinit var locationOverridePref: CoordinatePreference
     private var clearCacheBtn: Preference? = null
     private val formatService by lazy { FormatServiceV2(requireContext()) }
-    private val permissions by lazy { PermissionService(requireContext()) }
 
     private lateinit var gps: IGPS
     private lateinit var realGps: IGPS
@@ -44,7 +43,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.gps_calibration, rootKey)
-        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
+        setIconColor(Resources.androidTextColorSecondary(requireContext()))
         wasUsingRealGPS = shouldUseRealGPS()
         wasUsingCachedGPS = shouldUseCachedGPS()
         gps = sensorService.getGPS()
@@ -76,7 +75,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
         }
 
         permissionBtn.setOnPreferenceClickListener {
-            val intent = IntentUtils.appSettings(requireContext())
+            val intent = Intents.appSettings(requireContext())
             getResult(intent) { _, _ ->
                 // Do nothing
             }
@@ -151,12 +150,12 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
 
     private fun isAutoGPSPreferenceEnabled(): Boolean {
         // Only disable when GPS permission is denied
-        return permissions.canGetFineLocation()
+        return Permissions.canGetFineLocation(requireContext())
     }
 
     private fun shouldUseCachedGPS(): Boolean {
         // Permission is granted, but GPS is disabled
-        return permissions.canGetFineLocation() && !GPS.isAvailable(requireContext())
+        return Permissions.canGetFineLocation(requireContext()) && !GPS.isAvailable(requireContext())
     }
 
     private fun shouldUseRealGPS(): Boolean {

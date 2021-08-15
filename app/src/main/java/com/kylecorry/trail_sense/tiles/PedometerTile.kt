@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tiles
 import android.hardware.Sensor
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.andromeda.services.AndromedaTileService
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -17,7 +17,6 @@ class PedometerTile : AndromedaTileService() {
 
     private val prefs by lazy { UserPreferences(this) }
     private val sensorChecker by lazy { SensorChecker(this) }
-    private val permissions by lazy { PermissionService(this) }
     private val formatService by lazy { FormatServiceV2(this) }
     private val odometer by lazy { SensorService(this).getOdometer() }
 
@@ -26,11 +25,7 @@ class PedometerTile : AndromedaTileService() {
     }
 
     override fun isDisabled(): Boolean {
-        val hasPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            permissions.canRecognizeActivity()
-        } else {
-            true
-        }
+        val hasPermission = Permissions.canRecognizeActivity(this)
         return !sensorChecker.hasSensor(Sensor.TYPE_STEP_COUNTER) || !hasPermission || prefs.isLowPowerModeOn
     }
 

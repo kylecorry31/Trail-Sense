@@ -10,8 +10,11 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackItemBinding
@@ -28,8 +31,6 @@ import com.kylecorry.trailsensecore.domain.packs.PackService
 import com.kylecorry.trailsensecore.domain.packs.sort.CategoryPackItemSort
 import com.kylecorry.trailsensecore.domain.packs.sort.PackedPercentPackItemSort
 import com.kylecorry.trailsensecore.domain.packs.sort.WeightPackItemSort
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Double.max
@@ -115,7 +116,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             }
 
             itemBinding.itemMenuBtn.setOnClickListener {
-                UiUtils.openMenu(itemBinding.itemMenuBtn, R.menu.inventory_item_menu) {
+                Pickers.menu(itemBinding.itemMenuBtn, R.menu.inventory_item_menu) {
                     when (it) {
                         R.id.action_item_add -> {
                             CustomUiUtils.pickNumber(
@@ -183,7 +184,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         }
 
         binding.inventoryMenuButton.setOnClickListener {
-            UiUtils.openMenu(binding.inventoryMenuButton, R.menu.inventory_menu) {
+            Pickers.menu(binding.inventoryMenuButton, R.menu.inventory_menu) {
                 when (it) {
                     R.id.action_pack_sort -> {
                         changeSort()
@@ -199,12 +200,10 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
                         }
                     }
                     R.id.action_pack_clear_packed -> {
-                        UiUtils.alertWithCancel(
+                        Alerts.dialog(
                             requireContext(),
                             getString(R.string.clear_amounts),
-                            getString(R.string.action_inventory_clear_confirm),
-                            getString(R.string.dialog_ok),
-                            getString(R.string.dialog_cancel)
+                            getString(R.string.action_inventory_clear_confirm)
                         ) { cancelled ->
                             if (!cancelled) {
                                 runInBackground {
@@ -248,7 +247,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun deletePack(pack: Pack) {
-        UiUtils.alertWithCancel(
+        Alerts.dialog(
             requireContext(),
             getString(R.string.delete_pack),
             pack.name

@@ -10,12 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.lifecycle.lifecycleScope
+import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsPerspectiveBinding
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.andromeda.files.LocalFileService
 import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +26,6 @@ import java.io.IOException
 class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
 
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
-    private val localFileService by lazy { LocalFileService(requireContext()) }
 
     private var mapId = 0L
     private var map: Map? = null
@@ -99,7 +98,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
         val map = map ?: return
         val percentBounds = binding.perspective.getPercentBounds() ?: return
         withContext(Dispatchers.IO) {
-            val file = localFileService.getFile(map.filename, false)
+            val file = LocalFiles.getFile(requireContext(), map.filename, false)
             val bitmap = BitmapFactory.decodeFile(file.path)
             val bounds =
                 percentBounds.toPixelBounds(bitmap.width.toFloat(), bitmap.height.toFloat())

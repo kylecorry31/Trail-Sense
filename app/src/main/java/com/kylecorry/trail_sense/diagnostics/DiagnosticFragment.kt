@@ -12,14 +12,16 @@ import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.GPS
-import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.andromeda.sense.barometer.Barometer
 import com.kylecorry.andromeda.torch.Torch
@@ -42,8 +44,6 @@ import com.kylecorry.trailsensecore.domain.units.Pressure
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.units.Temperature
 import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalTime
@@ -62,7 +62,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val sensorDetailsMap = mutableMapOf<String, SensorDetails?>()
 
-    private val permissions by lazy { PermissionService(requireContext()) }
     private val cachedGPS by lazy { CachedGPS(requireContext(), 500) }
     private val gps by lazy { sensorService.getGPS() }
     private val altimeter by lazy { sensorService.getAltimeter() }
@@ -239,7 +238,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     }
 
     private fun updatePermissions() {
-        val location = permissions.canGetFineLocation()
+        val location = Permissions.canGetFineLocation(requireContext())
 
         sensorDetailsMap["location-permission"] = SensorDetails(
             getString(R.string.gps_location),
@@ -253,7 +252,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         )
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-            val backgroundLocation = permissions.isBackgroundLocationEnabled()
+            val backgroundLocation = Permissions.isBackgroundLocationEnabled(requireContext())
 
             sensorDetailsMap["background-location-permission"] = SensorDetails(
                 getString(R.string.permission_background_location),
@@ -410,11 +409,11 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     @ColorInt
     private fun getAltimeterColor(): Int {
         if (altimeter is OverrideAltimeter) {
-            return UiUtils.color(requireContext(), R.color.green)
+            return Resources.color(requireContext(), R.color.green)
         }
 
         if (altimeter is CachedAltimeter) {
-            return UiUtils.color(requireContext(), R.color.red)
+            return Resources.color(requireContext(), R.color.red)
         }
 
         if (altimeter is Barometer) {
@@ -422,7 +421,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         }
 
         if (!altimeter.hasValidReading) {
-            return UiUtils.color(requireContext(), R.color.yellow)
+            return Resources.color(requireContext(), R.color.yellow)
         }
 
         return CustomUiUtils.getQualityColor(requireContext(), altimeter.quality)
@@ -447,19 +446,19 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     @ColorInt
     private fun getGPSColor(): Int {
         if (gps is OverrideGPS) {
-            return UiUtils.color(requireContext(), R.color.green)
+            return Resources.color(requireContext(), R.color.green)
         }
 
         if (gps is CachedGPS || !GPS.isAvailable(requireContext())) {
-            return UiUtils.color(requireContext(), R.color.red)
+            return Resources.color(requireContext(), R.color.red)
         }
 
         if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
-            return UiUtils.color(requireContext(), R.color.yellow)
+            return Resources.color(requireContext(), R.color.yellow)
         }
 
         if (!gps.hasValidReading || (prefs.requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
-            return UiUtils.color(requireContext(), R.color.yellow)
+            return Resources.color(requireContext(), R.color.yellow)
         }
 
         return CustomUiUtils.getQualityColor(requireContext(), gps.quality)

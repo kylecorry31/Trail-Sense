@@ -10,8 +10,8 @@ import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.weather.domain.LowPassFilter
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.LocalDateTime
 
 
@@ -43,7 +43,7 @@ class AstroChart(private val chart: LineChart) {
         chart.axisLeft.setDrawLabels(false)
         chart.axisLeft.setDrawZeroLine(false)
 
-        val primaryColor = UiUtils.androidTextColorPrimary(chart.context)
+        val primaryColor = Resources.androidTextColorPrimary(chart.context)
         val r = primaryColor.red
         val g = primaryColor.green
         val b = primaryColor.blue

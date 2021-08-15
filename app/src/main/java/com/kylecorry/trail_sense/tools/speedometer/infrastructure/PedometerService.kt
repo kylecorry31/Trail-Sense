@@ -3,10 +3,10 @@ package com.kylecorry.trail_sense.tools.speedometer.infrastructure
 import android.app.Notification
 import android.content.Context
 import android.content.Intent
-import com.kylecorry.andromeda.core.system.IntentUtils
+import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
@@ -20,7 +20,6 @@ import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 
 class PedometerService : ForegroundService() {
 
-    private val notify by lazy { Notify(this) }
     private val pedometer by lazy { Pedometer(this) }
     private val sensorService by lazy { SensorService(this) }
     private val odometer by lazy { sensorService.getOdometer() }
@@ -46,7 +45,7 @@ class PedometerService : ForegroundService() {
         val newSteps = pedometer.steps - lastSteps
         odometer.addDistance(Distance.meters(prefs.strideLength.meters().distance * newSteps))
         lastSteps = pedometer.steps
-        notify.send(NOTIFICATION_ID, getNotification())
+        Notify.send(this, NOTIFICATION_ID, getNotification())
         return true
     }
 
@@ -64,7 +63,8 @@ class PedometerService : ForegroundService() {
 
         val openIntent = NavigationUtils.pendingIntent(this, R.id.fragmentToolSpeedometer)
 
-        return notify.persistent(
+        return Notify.persistent(
+            this,
             CHANNEL_ID,
             getString(R.string.odometer),
             formatService.formatDistance(
@@ -94,17 +94,15 @@ class PedometerService : ForegroundService() {
                 return
             }
 
-            // TODO: Devices below Android X.X can support this without permission
-            if (!PermissionService(context).canRecognizeActivity()) {
+            if (!Permissions.canRecognizeActivity(context)) {
                 return
             }
 
-            val notify = Notify(context)
-            if (notify.isActive(NOTIFICATION_ID)) {
+            if (Notify.isActive(context, NOTIFICATION_ID)) {
                 return
             }
 
-            IntentUtils.startService(context, intent(context), true)
+            Intents.startService(context, intent(context), true)
         }
 
     }

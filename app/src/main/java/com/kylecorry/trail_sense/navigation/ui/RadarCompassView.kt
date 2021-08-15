@@ -13,6 +13,11 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.ArrowPathEffect
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.DottedPathEffect
+import com.kylecorry.andromeda.core.math.cosDegrees
+import com.kylecorry.andromeda.core.math.deltaAngle
+import com.kylecorry.andromeda.core.math.sinDegrees
+import com.kylecorry.andromeda.core.math.wrap
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -22,15 +27,10 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.times
 import com.kylecorry.trailsensecore.domain.geo.Path
-import com.kylecorry.andromeda.core.math.cosDegrees
-import com.kylecorry.andromeda.core.math.deltaAngle
-import com.kylecorry.andromeda.core.math.sinDegrees
-import com.kylecorry.andromeda.core.math.wrap
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
 import com.kylecorry.trailsensecore.domain.pixels.toPixelLines
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlin.math.min
 
 class RadarCompassView : CanvasView, ICompassView {
@@ -250,7 +250,7 @@ class RadarCompassView : CanvasView, ICompassView {
         circle(width / 2f, height / 2f, compassSize / 4f)
 
         fill(Color.WHITE)
-        stroke(UiUtils.color(context, R.color.colorSecondary))
+        stroke(Resources.color(context, R.color.colorSecondary))
 
         val quarterDist = maxDistanceBaseUnits.times(0.25f).toRelativeDistance()
         val threeQuarterDist = maxDistanceBaseUnits.times(0.75f).toRelativeDistance()
@@ -383,11 +383,11 @@ class RadarCompassView : CanvasView, ICompassView {
         iconSize = dp(24f).toInt()
         radarSize = dp(10f).toInt()
         directionSize = dp(16f).toInt()
-        compassSize = min(height, width) - 2 * iconSize - 2 * UiUtils.dp(context, 2f).toInt()
+        compassSize = min(height, width) - 2 * iconSize - 2 * Resources.dp(context, 2f).toInt()
         distanceSize = sp(8f)
         cardinalSize = sp(10f)
-        primaryColor = UiUtils.color(context, R.color.colorPrimary)
-        secondaryColor = UiUtils.color(context, R.color.colorSecondary)
+        primaryColor = Resources.color(context, R.color.colorPrimary)
+        secondaryColor = Resources.color(context, R.color.colorSecondary)
         compass = loadImage(R.drawable.compass, compassSize, compassSize)
         pathBitmap = Bitmap.createBitmap(compassSize, compassSize, Bitmap.Config.ARGB_8888)
         useTrueNorth = prefs.navigation.useTrueNorth

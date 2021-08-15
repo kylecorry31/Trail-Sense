@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.ColorInt
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.math.deltaAngle
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
@@ -18,8 +21,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
 import com.kylecorry.trailsensecore.domain.astronomy.SolarPanelPosition
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.andromeda.core.math.deltaAngle
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.ZonedDateTime
 import kotlin.math.absoluteValue
 
@@ -51,11 +52,11 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             updatePosition()
             updateButtonState()
         }
-        UiUtils.alert(
+        Alerts.dialog(
             requireContext(),
             getString(R.string.tool_solar_panel_title),
             getString(R.string.solar_panel_instructions),
-            getString(R.string.dialog_ok)
+            cancelText = null
         )
     }
 
@@ -104,14 +105,14 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
         setButtonState(
             binding.solarTodayBtn,
             useToday,
-            UiUtils.color(requireContext(), R.color.colorPrimary),
-            UiUtils.color(requireContext(), R.color.colorSecondary)
+            Resources.color(requireContext(), R.color.colorPrimary),
+            Resources.color(requireContext(), R.color.colorSecondary)
         )
         setButtonState(
             binding.solarNowBtn,
             !useToday,
-            UiUtils.color(requireContext(), R.color.colorPrimary),
-            UiUtils.color(requireContext(), R.color.colorSecondary)
+            Resources.color(requireContext(), R.color.colorPrimary),
+            Resources.color(requireContext(), R.color.colorSecondary)
         )
     }
 
@@ -170,9 +171,9 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             button.setTextColor(secondaryColor)
             button.backgroundTintList = ColorStateList.valueOf(primaryColor)
         } else {
-            button.setTextColor(UiUtils.androidTextColorSecondary(button.context))
+            button.setTextColor(Resources.androidTextColorSecondary(button.context))
             button.backgroundTintList =
-                ColorStateList.valueOf(UiUtils.androidBackgroundColorSecondary(button.context))
+                ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(button.context))
         }
     }
 

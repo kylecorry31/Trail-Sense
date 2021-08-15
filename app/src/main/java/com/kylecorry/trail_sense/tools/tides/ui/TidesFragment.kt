@@ -5,6 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
 import com.kylecorry.trail_sense.databinding.ListItemTideBinding
@@ -15,10 +20,6 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
 import com.kylecorry.trailsensecore.domain.oceanography.OceanographyService
 import com.kylecorry.trailsensecore.domain.oceanography.TidalRange
 import com.kylecorry.trailsensecore.domain.oceanography.TideType
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
@@ -56,7 +57,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             findNavController().navigate(R.id.action_tides_to_tideList)
         }
         binding.tideListDatePicker.setOnClickListener {
-            UiUtils.pickDate(requireContext(), displayDate){
+            Pickers.date(requireContext(), displayDate){
                 if (it != null){
                     displayDate = it
                     update()
@@ -69,7 +70,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             val lastTide = prefs.lastTide
             referenceTide = it.firstOrNull { tide -> tide.id == lastTide } ?: it.firstOrNull()
             if (referenceTide == null) {
-                UiUtils.alertWithCancel(requireContext(), getString(R.string.no_tides), getString(R.string.calibrate_new_tide), getString(R.string.dialog_ok), getString(R.string.dialog_cancel)){cancelled ->
+                Alerts.dialog(requireContext(), getString(R.string.no_tides), getString(R.string.calibrate_new_tide)){ cancelled ->
                     if (!cancelled){
                         findNavController().navigate(R.id.action_tides_to_tideList)
                     }

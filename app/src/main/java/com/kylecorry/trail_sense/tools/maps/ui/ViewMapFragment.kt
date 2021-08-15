@@ -8,29 +8,30 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
+import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
-import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
 import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.core.sensors.asLiveData
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -181,12 +182,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.map.onSelectLocation = {
             val formatted = formatService.formatLocation(it)
             // TODO: ask to create or navigate
-            UiUtils.alertWithCancel(
+            Alerts.dialog(
                 requireContext(),
                 getString(R.string.create_beacon_title),
                 getString(R.string.place_beacon_at, formatted),
-                getString(R.string.beacon_create),
-                getString(R.string.dialog_cancel)
+                okText = getString(R.string.beacon_create)
             ) { cancelled ->
                 if (!cancelled) {
                     val bundle = bundleOf(

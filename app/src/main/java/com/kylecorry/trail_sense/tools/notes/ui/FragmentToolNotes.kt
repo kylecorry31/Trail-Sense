@@ -9,14 +9,14 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolNotesBinding
 import com.kylecorry.trail_sense.databinding.ListItemNoteBinding
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -81,16 +81,14 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
     }
 
     private fun deleteNote(note: Note) {
-        UiUtils.alertWithCancel(
+        Alerts.dialog(
             requireContext(),
             getString(R.string.delete_note_title),
             if (note.title?.trim().isNullOrEmpty()) {
                 getString(R.string.untitled_note)
             } else {
                 note.title!!
-            },
-            getString(R.string.dialog_ok),
-            getString(R.string.dialog_cancel)
+            }
         ) { cancelled ->
             if (!cancelled) {
                 lifecycleScope.launch {

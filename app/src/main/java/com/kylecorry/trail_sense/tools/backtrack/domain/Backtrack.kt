@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.read
 import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.trail_sense.R
@@ -82,7 +82,7 @@ class Backtrack(
                     jobs.add(launch { altimeter.read() })
                 }
 
-                if (recordCellSignal && PermissionService(context).isBackgroundLocationEnabled()) {
+                if (recordCellSignal && Permissions.isBackgroundLocationEnabled(context)) {
                     jobs.add(launch { cellSignalSensor.read() })
                 }
 

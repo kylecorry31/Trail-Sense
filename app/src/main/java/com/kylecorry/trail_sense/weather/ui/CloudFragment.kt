@@ -10,6 +10,10 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
 import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
@@ -17,9 +21,6 @@ import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import com.kylecorry.trailsensecore.domain.weather.clouds.CloudHeight
 import com.kylecorry.trailsensecore.domain.weather.clouds.CloudType
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 
 class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
 
@@ -41,17 +42,17 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
             when(item.height){
                 CloudHeight.Low -> {
                     itemBinding.cloudHeightHigh.setTextColor(
-                        UiUtils.androidTextColorSecondary(
+                        Resources.androidTextColorSecondary(
                             requireContext()
                         )
                     )
                     itemBinding.cloudHeightMiddle.setTextColor(
-                        UiUtils.androidTextColorSecondary(
+                        Resources.androidTextColorSecondary(
                             requireContext()
                         )
                     )
                     itemBinding.cloudHeightLow.setTextColor(
-                        UiUtils.color(
+                        Resources.color(
                             requireContext(),
                             R.color.colorPrimary
                         )
@@ -62,18 +63,18 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
                 }
                 CloudHeight.Middle -> {
                     itemBinding.cloudHeightHigh.setTextColor(
-                        UiUtils.androidTextColorSecondary(
+                        Resources.androidTextColorSecondary(
                             requireContext()
                         )
                     )
                     itemBinding.cloudHeightMiddle.setTextColor(
-                        UiUtils.color(
+                        Resources.color(
                             requireContext(),
                             R.color.colorPrimary
                         )
                     )
                     itemBinding.cloudHeightLow.setTextColor(
-                        UiUtils.androidTextColorSecondary(
+                        Resources.androidTextColorSecondary(
                             requireContext()
                         )
                     )
@@ -83,18 +84,18 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
                 }
                 CloudHeight.High -> {
                     itemBinding.cloudHeightHigh.setTextColor(
-                        UiUtils.color(
+                        Resources.color(
                             requireContext(),
                             R.color.colorPrimary
                         )
                     )
                     itemBinding.cloudHeightMiddle.setTextColor(
-                        UiUtils.androidTextColorSecondary(
+                        Resources.androidTextColorSecondary(
                             requireContext()
                         )
                     )
                     itemBinding.cloudHeightLow.setTextColor(
-                        UiUtils.androidTextColorSecondary(
+                        Resources.androidTextColorSecondary(
                             requireContext()
                         )
                     )
@@ -105,7 +106,7 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
             }
 
             itemBinding.precipitation.setOnClickListener {
-                UiUtils.alert(requireContext(), cloudRepo.getCloudName(item), cloudRepo.getCloudWeatherString(weather), getString(R.string.dialog_ok))
+                Alerts.dialog(requireContext(), cloudRepo.getCloudName(item), cloudRepo.getCloudWeatherString(weather), cancelText = null)
             }
 
             itemBinding.cloudImg.setOnClickListener {

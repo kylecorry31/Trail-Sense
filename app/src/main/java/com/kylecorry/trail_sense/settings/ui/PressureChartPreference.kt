@@ -5,10 +5,10 @@ import android.util.AttributeSet
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import com.github.mikephil.charting.charts.LineChart
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.weather.ui.PressureChart
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class PressureChartPreference(context: Context, attributeSet: AttributeSet) : Preference(context, attributeSet) {
 
@@ -25,7 +25,7 @@ class PressureChartPreference(context: Context, attributeSet: AttributeSet) : Pr
         super.onBindViewHolder(holder)
         holder.itemView.isClickable = false
 
-        chart = PressureChart(holder.findViewById(R.id.chart) as LineChart, UiUtils.color(context, R.color.colorPrimary))
+        chart = PressureChart(holder.findViewById(R.id.chart) as LineChart, Resources.color(context, R.color.colorPrimary))
         chart?.setUnits(units)
         chart?.plot(data)
     }

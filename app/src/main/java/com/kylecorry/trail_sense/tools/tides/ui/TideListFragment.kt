@@ -8,6 +8,11 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainMenuBinding
@@ -18,10 +23,6 @@ import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
 import com.kylecorry.trailsensecore.domain.oceanography.OceanographyService
 import com.kylecorry.trailsensecore.domain.oceanography.TideType
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -58,7 +59,7 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
             }
             
             itemBinding.menuBtn.setOnClickListener {
-                UiUtils.openMenu(it, R.menu.tide_menu){ action ->
+                Pickers.menu(it, R.menu.tide_menu){ action ->
                     when (action){
                         R.id.action_tide_delete -> {
                             deleteTide(tide)
@@ -87,12 +88,10 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
     }
 
     private fun deleteTide(tide: TideEntity){
-        UiUtils.alertWithCancel(
+        Alerts.dialog(
             requireContext(),
             getString(R.string.delete_tide_prompt),
-            getTideTitle(tide),
-            getString(R.string.dialog_ok),
-            getString(R.string.dialog_cancel)
+            getTideTitle(tide)
         ) { cancelled ->
             if (!cancelled) {
                 lifecycleScope.launch {

@@ -8,20 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.camera.Camera
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.system.GeoUriParser
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
-import com.kylecorry.andromeda.qr.QRService
+import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrImportBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
-import com.kylecorry.trailsensecore.infrastructure.images.BitmapUtils.toBitmap
-import com.kylecorry.trailsensecore.infrastructure.system.GeoUriParser
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrImportBinding>() {
 
-    private val qr = QRService()
-    private val cameraSizePixels by lazy { UiUtils.dp(requireContext(), 250f).toInt() }
+    private val cameraSizePixels by lazy { Resources.dp(requireContext(), 250f).toInt() }
     private val camera by lazy {
         Camera(
             requireContext(),
@@ -54,7 +53,7 @@ class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQ
         var message: String? = null
         tryOrNothing {
             val bitmap = camera.image?.image?.toBitmap() ?: return@tryOrNothing
-            message = qr.decode(bitmap)
+            message = QR.decode(bitmap)
             bitmap.recycle()
         }
         camera.image?.close()
@@ -65,7 +64,7 @@ class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQ
     }
 
     private fun onQRScanned(message: String) {
-        val parsed = GeoUriParser().parse(Uri.parse(message)) ?: return
+        val parsed = GeoUriParser.parse(Uri.parse(message)) ?: return
         onBeaconScanned?.invoke(MyNamedCoordinate.from(parsed))
     }
 

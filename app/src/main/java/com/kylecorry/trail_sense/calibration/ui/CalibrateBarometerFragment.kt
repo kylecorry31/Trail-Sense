@@ -8,6 +8,7 @@ import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.IThermometer
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.location.GPS
@@ -27,7 +28,6 @@ import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.units.Pressure
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
@@ -67,7 +67,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.barometer_calibration, rootKey)
 
-        setIconColor(UiUtils.androidTextColorSecondary(requireContext()))
+        setIconColor(Resources.androidTextColorSecondary(requireContext()))
 
         prefs = UserPreferences(requireContext())
         sensorService = SensorService(requireContext())
@@ -208,7 +208,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         }
 
         preference(R.string.pref_barometer_info_holder)?.icon?.setTint(
-            UiUtils.getAndroidColorAttr(
+            Resources.getAndroidColorAttr(
                 requireContext(),
                 android.R.attr.textColorSecondary
             )

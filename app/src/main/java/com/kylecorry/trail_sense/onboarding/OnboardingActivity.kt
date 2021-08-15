@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.SensorChecker
@@ -12,7 +13,6 @@ import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
 class OnboardingActivity : AppCompatActivity() {
@@ -107,7 +107,7 @@ class OnboardingActivity : AppCompatActivity() {
             binding.pageName.text = getString(pageContents.title)
             binding.pageImage.setImageResource(pageContents.image)
             binding.pageImage.imageTintList =
-                ColorStateList.valueOf(UiUtils.androidTextColorPrimary(this))
+                ColorStateList.valueOf(Resources.androidTextColorPrimary(this))
             markdown.setMarkdown(binding.pageContents, getString(pageContents.contents))
         }
     }

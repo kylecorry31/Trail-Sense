@@ -10,9 +10,12 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
@@ -27,9 +30,6 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackSchedul
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
-import com.kylecorry.trailsensecore.domain.time.toZonedDateTime
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -191,7 +191,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
         binding.startBtn.setOnClickListener {
             if (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack) {
-                UiUtils.shortToast(
+                Alerts.toast(
                     requireContext(),
                     getString(R.string.backtrack_disabled_low_power_toast)
                 )
@@ -210,12 +210,10 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     }
 
     private fun deleteWaypoint(waypointEntity: WaypointEntity) {
-        UiUtils.alertWithCancel(
+        Alerts.dialog(
             requireContext(),
             getString(R.string.delete_waypoint_prompt),
-            getWaypointTitle(waypointEntity),
-            getString(R.string.dialog_ok),
-            getString(R.string.dialog_cancel)
+            getWaypointTitle(waypointEntity)
         ) { cancelled ->
             if (!cancelled) {
                 lifecycleScope.launch {

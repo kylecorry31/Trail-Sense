@@ -32,9 +32,7 @@ object WeatherNotificationService {
         val stopPendingIntent: PendingIntent =
             PendingIntent.getBroadcast(context, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE)
 
-        val notify = Notify(context)
-
-        val stopAction = notify.action(
+        val stopAction = Notify.action(
             context.getString(R.string.stop_monitoring),
             stopPendingIntent,
             R.drawable.ic_cancel
@@ -42,7 +40,8 @@ object WeatherNotificationService {
 
         val title = context.getString(R.string.weather)
 
-        return notify.persistent(
+        return Notify.persistent(
+            context,
             WeatherUpdateService.WEATHER_CHANNEL_ID,
             title,
             text,
@@ -130,8 +129,7 @@ object WeatherNotificationService {
     }
 
     private fun updateNotificationText(context: Context, notification: Notification) {
-        val notify = Notify(context)
-        notify.send(WEATHER_NOTIFICATION_ID, notification)
+        Notify.send(context, WEATHER_NOTIFICATION_ID, notification)
     }
 
 }

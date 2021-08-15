@@ -1,9 +1,11 @@
 package com.kylecorry.trail_sense.licenses
 
 import android.os.Bundle
-import androidx.preference.*
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 
 class LicenseFragment : PreferenceFragmentCompat() {
@@ -20,7 +22,12 @@ class LicenseFragment : PreferenceFragmentCompat() {
             pref.isIconSpaceReserved = false
             pref.isSingleLineTitle = false
             pref.setOnPreferenceClickListener {
-                UiUtils.alert(requireContext(), library.name, library.license, R.string.dialog_ok)
+                Alerts.dialog(
+                    requireContext(),
+                    library.name,
+                    library.license,
+                    cancelText = null
+                )
                 true
             }
             licenseSection?.addPreference(pref)

@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.setPadding
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 
 class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
 
@@ -47,16 +47,16 @@ class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
         isOn = on
         if (isOn) {
             icon.backgroundTintList =
-                ColorStateList.valueOf(UiUtils.color(icon.context, R.color.colorPrimary))
-            textView.setTextColor(UiUtils.color(icon.context, R.color.colorSecondary))
+                ColorStateList.valueOf(Resources.color(icon.context, R.color.colorPrimary))
+            textView.setTextColor(Resources.color(icon.context, R.color.colorSecondary))
             icon.imageTintList =
-                ColorStateList.valueOf(UiUtils.color(icon.context, R.color.colorSecondary))
+                ColorStateList.valueOf(Resources.color(icon.context, R.color.colorSecondary))
         } else {
-            textView.setTextColor(UiUtils.androidTextColorSecondary(icon.context))
+            textView.setTextColor(Resources.androidTextColorSecondary(icon.context))
             icon.imageTintList =
-                ColorStateList.valueOf(UiUtils.androidTextColorSecondary(icon.context))
+                ColorStateList.valueOf(Resources.androidTextColorSecondary(icon.context))
             icon.backgroundTintList =
-                ColorStateList.valueOf(UiUtils.androidBackgroundColorSecondary(icon.context))
+                ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(icon.context))
         }
     }
 

@@ -10,10 +10,15 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.roundNearestMinute
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
@@ -34,9 +39,6 @@ import com.kylecorry.trailsensecore.domain.astronomy.MeteorShowerPeak
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trailsensecore.domain.time.roundNearestMinute
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.LocalDate
@@ -112,7 +114,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     }
                     else -> {
                         iconView.imageTintList =
-                            ColorStateList.valueOf(UiUtils.androidTextColorSecondary(requireContext()))
+                            ColorStateList.valueOf(
+                                Resources.androidTextColorSecondary(
+                                    requireContext()
+                                )
+                            )
                     }
                 }
             }
@@ -121,7 +127,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         chart = AstroChart(binding.sunMoonChart)
 
         binding.datePicker.setOnClickListener {
-            UiUtils.pickDate(requireContext(), displayDate) {
+            Pickers.date(requireContext(), displayDate) {
                 if (it != null) {
                     displayDate = it
                     updateUI()
@@ -198,7 +204,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         if (cache.getBoolean("cache_tap_sun_moon_shown") != true) {
             cache.putBoolean("cache_tap_sun_moon_shown", true)
-            UiUtils.shortToast(requireContext(), getString(R.string.tap_sun_moon_hint))
+            Alerts.toast(requireContext(), getString(R.string.tap_sun_moon_hint))
         }
 
     }
@@ -368,14 +374,17 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
                 withContext(Dispatchers.Main) {
                     if (context != null) {
-                        UiUtils.alert(
-                            requireContext(), getString(R.string.sun_and_moon), getString(
+                        Alerts.dialog(
+                            requireContext(),
+                            getString(R.string.sun_and_moon),
+                            getString(
                                 R.string.sun_and_moon_position_details,
                                 getString(R.string.degree_format, sunAltitude),
                                 getString(R.string.degree_format, sunAzimuth),
                                 getString(R.string.degree_format, moonAltitude),
                                 getString(R.string.degree_format, moonAzimuth)
-                            )
+                            ),
+                            cancelText = null
                         )
                     }
                 }

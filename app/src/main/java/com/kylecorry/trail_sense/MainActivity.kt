@@ -15,12 +15,15 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.kylecorry.andromeda.core.system.PackageUtils
-import com.kylecorry.andromeda.core.system.ScreenService
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.system.Exceptions
+import com.kylecorry.andromeda.core.system.GeoUriParser
+import com.kylecorry.andromeda.core.system.Package
+import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.markdown.MarkdownService
-import com.kylecorry.andromeda.permissions.PermissionService
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.requestPermissions
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.SensorChecker
@@ -48,7 +51,6 @@ class MainActivity : AppCompatActivity() {
     private var geoIntentLocation: GeoUriParser.NamedCoordinate? = null
 
     private val sensorChecker by lazy { SensorChecker(this) }
-    private val permissionService by lazy { PermissionService(this) }
 
     private lateinit var userPrefs: UserPreferences
     private lateinit var disclaimer: DisclaimerMessage
@@ -71,14 +73,14 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        ExceptionUtils.onUncaughtException(Duration.ofMinutes(1)) {
+        Exceptions.onUncaughtException(Duration.ofMinutes(1)) {
             it.printStackTrace()
-            UiUtils.alertWithCancel(
+            Alerts.dialog(
                 this@MainActivity,
                 getString(R.string.error_occurred),
                 getString(R.string.error_occurred_message),
-                getString(R.string.pref_email_title),
-                getString(R.string.dialog_cancel)
+                okText = getString(R.string.pref_email_title),
+                cancelText = getString(R.string.dialog_cancel)
             ) { cancelled ->
                 if (cancelled) {
                     exitProcess(2)
@@ -106,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(mode)
         super.onCreate(savedInstanceState)
 
-        ScreenService(window).setAllowScreenshots(!userPrefs.privacy.isScreenshotProtectionOn)
+        Screen.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
 
         disclaimer = DisclaimerMessage(this)
         val cache = Preferences(this)
@@ -122,7 +124,7 @@ class MainActivity : AppCompatActivity() {
             bottomNavigation.setBackgroundColor(Color.BLACK)
         }
 
-        PackageUtils.setComponentEnabled(
+        Package.setComponentEnabled(
             this,
             "com.kylecorry.trail_sense.AliasMainActivity",
             userPrefs.navigation.areMapsEnabled
@@ -148,7 +150,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (userPrefs.isLowPowerModeOn) {
-            UiUtils.shortToast(this, getString(R.string.low_power_mode_on_message))
+            Alerts.toast(this, getString(R.string.low_power_mode_on_message))
         }
 
         TrailSenseServiceUtils.restartServices(this)
@@ -164,7 +166,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleIntentAction(intent: Intent) {
         val intentData = intent.data
         if (intent.scheme == "geo" && intentData != null) {
-            val namedCoordinate = GeoUriParser().parse(intentData)
+            val namedCoordinate = GeoUriParser.parse(intentData)
             geoIntentLocation = namedCoordinate
             bottomNavigation.selectedItemId = R.id.action_navigation
             if (namedCoordinate != null) {
@@ -231,13 +233,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hasBackgroundLocation(): Boolean {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || permissionService.hasPermission(
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || Permissions.hasPermission(
+            this,
             Manifest.permission.ACCESS_BACKGROUND_LOCATION
         )
     }
 
     private fun shouldRequestBackgroundLocation(): Boolean {
-        return permissionService.canGetFineLocation() &&
+        return Permissions.canGetFineLocation(this) &&
                 !hasBackgroundLocation() &&
                 cache.getBoolean(Manifest.permission.ACCESS_BACKGROUND_LOCATION) != true
     }

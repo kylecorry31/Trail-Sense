@@ -10,10 +10,10 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.andromeda.core.math.roundPlaces
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import java.time.Duration
 import kotlin.math.absoluteValue
 import kotlin.math.max
@@ -36,7 +36,7 @@ class PressureChart(private val chart: LineChart, private val color: Int, privat
         chart.xAxis.setDrawLabels(false)
         chart.axisRight.setDrawLabels(false)
 
-        val primaryColor = UiUtils.androidTextColorPrimary(chart.context)
+        val primaryColor = Resources.androidTextColorPrimary(chart.context)
         val r = primaryColor.red
         val g = primaryColor.green
         val b = primaryColor.blue

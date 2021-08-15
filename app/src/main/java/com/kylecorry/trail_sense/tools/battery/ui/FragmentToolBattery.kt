@@ -6,11 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryChargingMethod
 import com.kylecorry.andromeda.battery.BatteryChargingStatus
 import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.databinding.ListItemServiceBinding
@@ -20,10 +25,6 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
 import com.kylecorry.trailsensecore.domain.power.BatteryReading
 import com.kylecorry.trailsensecore.domain.power.PowerService
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
-import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.trailsensecore.infrastructure.view.ListView
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.absoluteValue
@@ -99,14 +100,14 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             val view = View.inflate(context, R.layout.view_chart_prompt, null)
             val chart = BatteryChart(view.findViewById(R.id.chart))
             chart.plot(readings, false)
-            UiUtils.alertView(
+            Alerts.dialog(
                 requireContext(),
                 getString(
                     R.string.battery_history,
                     formatService.formatDuration(readingDuration, false)
                 ),
-                view,
-                getString(R.string.dialog_ok)
+                contentView = view,
+                cancelText = null
             )
         }
 
@@ -192,13 +193,13 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             6f,
             0f,
             0f,
-            UiUtils.getAndroidColorAttr(requireContext(), android.R.attr.textColorPrimaryInverse)
+            Resources.getAndroidColorAttr(requireContext(), android.R.attr.textColorPrimaryInverse)
         )
         binding.batteryCapacity.setShadowLayer(
             6f,
             0f,
             0f,
-            UiUtils.getAndroidColorAttr(requireContext(), android.R.attr.textColorPrimaryInverse)
+            Resources.getAndroidColorAttr(requireContext(), android.R.attr.textColorPrimaryInverse)
         )
 
         binding.batteryLevelProgress.progressColor = when {
