@@ -6,9 +6,7 @@
     <string name="create_beacon_title">创建信标</string>
     <string name="name_hint">名称</string>
     <string name="select_beacon">选择信标</string>
-    <string name="dialog_ok">好</string>
     <string name="delete_beacon">删除信标</string>
-    <string name="dialog_cancel">取消</string>
     <string name="astronomy">天文学</string>
     <string name="sunrise_label">日出</string>
     <string name="sunset_label">日落</string>
@@ -480,7 +478,6 @@
     <string name="note_title_hint">标题</string>
     <string name="tool_notes_title">附注</string>
     <string name="delete_note_title">删除附注？</string>
-    <string name="untitled_note">（无标题附注）</string>
     <string name="notes_empty_text">无附注</string>
     <string name="location_override_updated">位置覆盖已更新</string>
     <string name="update_gps_override">更新 GPS 覆盖</string>
@@ -729,7 +726,6 @@
     <string name="pref_stride_length_title">步幅</string>
     <string name="pedometer">计步器</string>
     <string name="odometer">里程表</string>
-    <string name="untitled_tide">无标题的潮汐</string>
     <string name="menu">菜单</string>
     <string name="no_tides">无潮汐</string>
     <string name="create_tide">创建潮汐</string>

@@ -97,8 +97,8 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         binding.batteryHistoryBtn.setOnClickListener {
             val readingDuration =
                 Duration.between(readings.firstOrNull()?.time, readings.lastOrNull()?.time)
-            val view = View.inflate(context, R.layout.view_chart_prompt, null)
-            val chart = BatteryChart(view.findViewById(R.id.chart))
+            val chartView = View.inflate(context, R.layout.view_chart_prompt, null)
+            val chart = BatteryChart(chartView.findViewById(R.id.chart))
             chart.plot(readings, false)
             Alerts.dialog(
                 requireContext(),
@@ -106,7 +106,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
                     R.string.battery_history,
                     formatService.formatDuration(readingDuration, false)
                 ),
-                contentView = view,
+                contentView = chartView,
                 cancelText = null
             )
         }

@@ -48,10 +48,10 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tideList = ListView(binding.tideList, R.layout.list_item_tide) { view, tide ->
-            val tideView = ListItemTideBinding.bind(view)
-            tideView.tideType.text = tide.first
-            tideView.tideTime.text = tide.second
+        tideList = ListView(binding.tideList, R.layout.list_item_tide) { itemView, tide ->
+            val tideBinding = ListItemTideBinding.bind(itemView)
+            tideBinding.tideType.text = tide.first
+            tideBinding.tideTime.text = tide.second
         }
         binding.tideCalibration.setOnClickListener {
             findNavController().navigate(R.id.action_tides_to_tideList)
@@ -98,7 +98,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         binding.tideClock.time = ZonedDateTime.now()
         val next = oceanService.getNextTide(reference)
         binding.tideClock.nextTide = next
-        binding.tideLocation.text = referenceTide?.name ?: if (referenceTide?.coordinate != null) formatService.formatLocation(referenceTide!!.coordinate!!) else getString(R.string.untitled_tide)
+        binding.tideLocation.text = referenceTide?.name ?: if (referenceTide?.coordinate != null) formatService.formatLocation(referenceTide!!.coordinate!!) else getString(android.R.string.untitled)
         binding.tideHeight.text = getTideTypeName(oceanService.getTideType(reference))
         val tides = oceanService.getTides(reference, displayDate)
         val tideStrings = tides.map {

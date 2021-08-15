@@ -6,9 +6,7 @@
     <string name="create_beacon_title">Utwórz punkt nawigacyjny</string>
     <string name="name_hint">Nazwa</string>
     <string name="select_beacon">Wybierz punkt nawigacyjny</string>
-    <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Usuń punkt nawigacyjny</string>
-    <string name="dialog_cancel">Anuluj</string>
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Wschód Słońca</string>
     <string name="sunset_label">Zachód Słońca</string>
@@ -414,7 +412,6 @@
     <string name="compass_auto_declination">Automatyczna korekta deklinacji</string>
     <string name="compass_declination_override">Nadpisz deklinację</string>
     <string name="notes_empty_text">Brak notatek</string>
-    <string name="untitled_note">(notatka bez nazwy)</string>
     <string name="delete_note_title">Usunąć notatkę\?</string>
     <string name="tool_notes_title">Notatki</string>
     <string name="bubble_level_angles">X: %s
@@ -732,7 +729,6 @@
     <string name="pedometer">Krokomierz</string>
     <string name="odometer">Drogomierz</string>
     <string name="delete_tide_prompt">Usunąć pływ\?</string>
-    <string name="untitled_tide">Pływ bez nazwy</string>
     <string name="no_tides">Brak pływów</string>
     <string name="create_tide">Utwórz pływ</string>
     <string name="tide_location_label">Lokalizacja pływu (opcjonalnie)</string>

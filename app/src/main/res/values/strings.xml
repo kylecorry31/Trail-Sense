@@ -8,8 +8,6 @@
     <string name="astronomy">Astronomy</string>
     <string name="tools">Tools</string>
     <!--Dialogs-->
-    <string name="dialog_ok">OK</string>
-    <string name="dialog_cancel">Cancel</string>
     <string name="copied_to_clipboard_toast">Copied to clipboard</string>
     <!--Permissions-->
     <string name="access_background_location">Update location settings</string>
@@ -620,7 +618,6 @@
     <string name="update_gps_override">Update GPS override</string>
     <string name="location_override_updated">Location override updated</string>
     <string name="notes_empty_text">No notes</string>
-    <string name="untitled_note">(untitled note)</string>
     <string name="delete_note_title">Delete note?</string>
     <string name="tool_notes_title">Notes</string>
     <string name="tool_notes" translatable="false">tool_notes</string>
@@ -875,7 +872,6 @@
     <string name="create_tide">Create Tide</string>
     <string name="no_tides">No tides</string>
     <string name="menu">Menu</string>
-    <string name="untitled_tide">Untitled tide</string>
     <string name="meteor_shower">Meteor shower</string>
     <string name="tomorrow_at">Tomorrow at %s</string>
     <string name="meteors_per_hour">Max %d meteors / h</string>

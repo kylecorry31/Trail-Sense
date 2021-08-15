@@ -49,8 +49,6 @@
     <string name="dialog_grant">Ezarpenak eguneratu</string>
     <string name="access_background_location">Kokapen ezarpenak eguneratu</string>
     <string name="copied_to_clipboard_toast">Arbelera kopiatuta</string>
-    <string name="dialog_cancel">Utzi</string>
-    <string name="dialog_ok">Ados</string>
     <string name="tools">Tresnak</string>
     <string name="astronomy">Astronomia</string>
     <string name="settings">Ezarpenak</string>
@@ -344,7 +342,6 @@
     <string name="tool_white_noise_title">Zarata zuria</string>
     <string name="map_distance">Mapa: %s</string>
     <string name="delete_note_title">Oharra ezabatu\?</string>
-    <string name="untitled_note">(izenbururik gabeko oharra)</string>
     <string name="notes_empty_text">Oharrik ez</string>
     <string name="battery_temp">Telefonoa: %s</string>
     <string name="tool_metal_detector_title">Metal-detektagailua</string>

@@ -116,7 +116,7 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         battery.asLiveData().observe(viewLifecycleOwner, { updateBattery() })
         gyroscope.asLiveData().observe(viewLifecycleOwner, { updateGyro() })
 
-        if (!sensorChecker.hasSensor(Sensor.TYPE_MAGNETIC_FIELD) && !sensorChecker.hasSensor(Sensor.TYPE_ORIENTATION)) {
+        if (!sensorChecker.hasSensor(Sensor.TYPE_MAGNETIC_FIELD) && @Suppress("DEPRECATION")!sensorChecker.hasSensor(Sensor.TYPE_ORIENTATION)) {
             sensorDetailsMap["compass"] = SensorDetails(
                 getString(R.string.pref_compass_sensor_title),
                 "",

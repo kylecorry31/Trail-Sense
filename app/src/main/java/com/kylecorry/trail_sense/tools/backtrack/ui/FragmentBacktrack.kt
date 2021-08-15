@@ -124,7 +124,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 itemBinding.root.setOnClickListener {
                     tryOrNothing {
                         lifecycleScope.launch {
-                            var newTempId = 0L
+                            var newTempId: Long
                             withContext(Dispatchers.IO) {
                                 val tempBeaconId =
                                     beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L

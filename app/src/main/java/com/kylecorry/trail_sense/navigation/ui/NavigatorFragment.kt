@@ -65,7 +65,6 @@ import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
-import com.kylecorry.trailsensecore.infrastructure.system.UiUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -175,7 +174,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (!sensorChecker.hasSensor(Sensor.TYPE_MAGNETIC_FIELD) && !sensorChecker.hasSensor(Sensor.TYPE_ORIENTATION)) {
+        if (!sensorChecker.hasSensor(Sensor.TYPE_MAGNETIC_FIELD) && @Suppress("DEPRECATION")!sensorChecker.hasSensor(Sensor.TYPE_ORIENTATION)) {
             requireMainActivity().errorBanner.report(
                 UserError(
                     USER_ERROR_NO_COMPASS,
@@ -751,7 +750,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             Alerts.dialog(
                 requireContext(), getString(R.string.calibrate_compass_dialog_title), getString(
                     R.string.calibrate_compass_on_navigate_dialog_content,
-                    getString(R.string.dialog_ok)
+                    getString(android.R.string.ok)
                 ), cancelText = null
             )
         }

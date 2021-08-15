@@ -6,9 +6,7 @@
     <string name="create_beacon_title">Создать маячок</string>
     <string name="name_hint">Имя</string>
     <string name="select_beacon">Выберите маячок</string>
-    <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Удалить маячок</string>
-    <string name="dialog_cancel">Отмена</string>
     <string name="astronomy">Астрономия</string>
     <string name="sunrise_label">Восход солнца</string>
     <string name="sunset_label">Закат</string>
@@ -496,7 +494,6 @@
     <string name="note_title_hint">Название</string>
     <string name="tool_notes_title">Заметки</string>
     <string name="delete_note_title">Удалить заметку\?</string>
-    <string name="untitled_note">(без названия)</string>
     <string name="notes_empty_text">Нет заметок</string>
     <string name="location_override_updated">Переопределение местоположения обновлено</string>
     <string name="battery_temp">Телефон: %s</string>
@@ -739,7 +736,6 @@
     <string name="guide_signaling_for_help_title">Сигнал о помощи</string>
     <string name="meteors_per_hour">Максимум %d метеоров / ч</string>
     <string name="tomorrow_at">Завтра в %s</string>
-    <string name="untitled_tide">Безымянный прилив</string>
     <string name="menu">Меню</string>
     <string name="no_tides">Нет приливов</string>
     <string name="create_tide">Создать прилив</string>

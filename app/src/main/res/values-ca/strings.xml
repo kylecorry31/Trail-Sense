@@ -227,8 +227,6 @@
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_feet_format">%s ft</string>
-    <string name="dialog_ok">D\'acord</string>
-    <string name="dialog_cancel">Cancel·lar</string>
     <string name="app_disclaimer_message_title">Clàusula de protecció / Termes de serveis</string>
     <string name="disclaimer_message_title">Avís legal</string>
     <string name="dialog_deny">No, gràcies</string>

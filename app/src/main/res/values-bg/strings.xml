@@ -5,9 +5,7 @@
     <string name="create_beacon_title">Пуснете Маяк</string>
     <string name="name_hint">име</string>
     <string name="select_beacon">Изберете маяк</string>
-    <string name="dialog_ok">Добре</string>
     <string name="delete_beacon">Изтриване на маяк</string>
-    <string name="dialog_cancel">Отказ</string>
     <string name="astronomy">астрономия</string>
     <string name="sunrise_label">изгрев</string>
     <string name="sunset_label">залез</string>

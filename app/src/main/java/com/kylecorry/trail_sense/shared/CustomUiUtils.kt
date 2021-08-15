@@ -303,11 +303,11 @@ object CustomUiUtils {
                 setMessage(description)
             }
             setView(layout)
-            setPositiveButton(context.getString(R.string.dialog_ok)) { dialog, _ ->
+            setPositiveButton(context.getString(android.R.string.ok)) { dialog, _ ->
                 onTextEnter.invoke(editTextView.text.toString())
                 dialog.dismiss()
             }
-            setNegativeButton(context.getString(R.string.dialog_cancel)) { dialog, _ ->
+            setNegativeButton(context.getString(android.R.string.cancel)) { dialog, _ ->
                 onTextEnter.invoke(null)
                 dialog.dismiss()
             }
@@ -346,11 +346,11 @@ object CustomUiUtils {
                 setMessage(description)
             }
             setView(layout)
-            setPositiveButton(context.getString(R.string.dialog_ok)) { dialog, _ ->
+            setPositiveButton(context.getString(android.R.string.ok)) { dialog, _ ->
                 onNumberEnter.invoke(editTextView.text.toString().toDoubleCompat())
                 dialog.dismiss()
             }
-            setNegativeButton(context.getString(R.string.dialog_cancel)) { dialog, _ ->
+            setNegativeButton(context.getString(android.R.string.cancel)) { dialog, _ ->
                 onNumberEnter.invoke(null)
                 dialog.dismiss()
             }

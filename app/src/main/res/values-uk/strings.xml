@@ -49,7 +49,6 @@
     <string name="meteors_per_hour">Щонайбільше %d метеорів / год</string>
     <string name="tomorrow_at">Завтра о %s</string>
     <string name="meteor_shower">Зорепад</string>
-    <string name="untitled_tide">Приплив без назви</string>
     <string name="menu">Меню</string>
     <string name="no_tides">Немає припливів</string>
     <string name="create_tide">Створити прилив</string>
@@ -619,7 +618,6 @@
     <string name="note_title_hint">Заголовок</string>
     <string name="tool_notes_title">Примітки</string>
     <string name="delete_note_title">Видалити примітку\?</string>
-    <string name="untitled_note">(без назви)</string>
     <string name="notes_empty_text">Немає приміток</string>
     <string name="location_override_updated">Перевизначення місцеперебування оновлено</string>
     <string name="update_gps_override">Оновити перевизначення GPS</string>
@@ -816,8 +814,6 @@
     <string name="dialog_grant">Оновити налаштування</string>
     <string name="access_background_location">Оновити налаштування місцеперебування</string>
     <string name="copied_to_clipboard_toast">Скопійовано до буфера обміну</string>
-    <string name="dialog_cancel">Скасувати</string>
-    <string name="dialog_ok">Гаразд</string>
     <string name="astronomy">Астрономія</string>
     <string name="settings">Налаштування</string>
     <string name="weather">Погода</string>

@@ -71,7 +71,7 @@ class OnboardingActivity : AppCompatActivity() {
             val backtrackSwitch = SwitchCompat(this)
             backtrackSwitch.isChecked = prefs.backtrackEnabled
             backtrackSwitch.text = getString(R.string.tool_backtrack_title)
-            backtrackSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            backtrackSwitch.setOnCheckedChangeListener { _, isChecked ->
                 prefs.backtrackEnabled = isChecked
             }
             binding.pageSettings.addView(backtrackSwitch)
@@ -81,7 +81,7 @@ class OnboardingActivity : AppCompatActivity() {
             val sunsetAlertSwitch = SwitchCompat(this)
             sunsetAlertSwitch.isChecked = prefs.astronomy.sendSunsetAlerts
             sunsetAlertSwitch.text = getString(R.string.pref_sunset_alerts_title)
-            sunsetAlertSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            sunsetAlertSwitch.setOnCheckedChangeListener { _, isChecked ->
                 prefs.astronomy.sendSunsetAlerts = isChecked
             }
             binding.pageSettings.addView(sunsetAlertSwitch)
@@ -91,7 +91,7 @@ class OnboardingActivity : AppCompatActivity() {
             val weatherSwitch = SwitchCompat(this)
             weatherSwitch.isChecked = prefs.weather.shouldMonitorWeather
             weatherSwitch.text = getString(R.string.pref_monitor_weather_title)
-            weatherSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            weatherSwitch.setOnCheckedChangeListener { _, isChecked ->
                 prefs.weather.shouldMonitorWeather = isChecked
             }
             binding.pageSettings.addView(weatherSwitch)

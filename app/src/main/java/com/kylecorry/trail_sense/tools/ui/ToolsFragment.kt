@@ -31,8 +31,8 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
         val typedArray = requireContext().obtainStyledAttributes(attrs)
         val selectableBackground = typedArray.getResourceId(0, 0)
         typedArray.recycle()
-        toolsList = ListView(binding.toolRecycler, R.layout.list_item_tool) { view, tool ->
-            val toolBinding = ListItemToolBinding.bind(view)
+        toolsList = ListView(binding.toolRecycler, R.layout.list_item_tool) { itemView, tool ->
+            val toolBinding = ListItemToolBinding.bind(itemView)
 
             if (tool.action != null && tool.icon != null) {
                 // Tool

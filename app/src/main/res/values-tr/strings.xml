@@ -42,7 +42,6 @@
     <string name="place_beacon_at">%s\'de işaret yerleştirmek istediğinizden emin misiniz\?</string>
     <string name="speedometer_odometer_accuracy_dialog">En iyi doğruluk için geri iz sürmeyi etkinleştirin ve kilometre sayacı kaynağını ayarlarda adımsayar olarak ayarlayın.</string>
     <string name="pedometer_disclaimer">Adımsayarın doğruluğu ve pil tüketimi cihazınızın üreticisine ve girilen adım mesafesine bağlıdır. Yolda kullanmadan önce evinizde hassasiyeti doğrulayın.</string>
-    <string name="untitled_tide">İsimsiz gelgit</string>
     <string name="no_tides">Gelgit yok</string>
     <string name="create_tide">Gelgit Oluştur</string>
     <string name="tide_location_label">Gelgit konumu (isteğe bağlı)</string>
@@ -228,7 +227,6 @@
     <string name="note_title_hint">Başlık</string>
     <string name="tool_notes_title">Notlar</string>
     <string name="delete_note_title">Notu silmek istediğinden emin misin\?</string>
-    <string name="untitled_note">(isimsiz not)</string>
     <string name="notes_empty_text">Not yok</string>
     <string name="location_override_updated">Konum üzerine yazımı güncellendi</string>
     <string name="update_gps_override">GPS üzerine yazımını güncelle</string>
@@ -723,8 +721,6 @@
     <string name="dialog_grant">Ayarları güncelle</string>
     <string name="access_background_location">Konum bilgisini güncelle</string>
     <string name="copied_to_clipboard_toast">Panoya kopyalandı</string>
-    <string name="dialog_cancel">İptal</string>
-    <string name="dialog_ok">Tamam</string>
     <string name="tools">Araçlar</string>
     <string name="astronomy">Astronomi</string>
     <string name="settings">Ayarlar</string>

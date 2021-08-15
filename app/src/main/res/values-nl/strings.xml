@@ -6,9 +6,7 @@
     <string name="create_beacon_title">Baken maken</string>
     <string name="name_hint">Naam</string>
     <string name="select_beacon">Baken selecteren</string>
-    <string name="dialog_ok">Akkoord</string>
     <string name="delete_beacon">Baken verwijderen</string>
-    <string name="dialog_cancel">Annuleren</string>
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Zonsopgang</string>
     <string name="sunset_label">Zonsondergang</string>
@@ -490,7 +488,6 @@
     <string name="note_title_hint">Titel</string>
     <string name="tool_notes_title">Notities</string>
     <string name="delete_note_title">Notitie verwijderen\?</string>
-    <string name="untitled_note">(naamloze notitie)</string>
     <string name="notes_empty_text">Geen notities</string>
     <string name="location_override_updated">Locatieoverschrijving bijgewerkt</string>
     <string name="update_gps_override">Gps-overschrijving bijwerken</string>
@@ -880,7 +877,6 @@
     <string name="meteors_per_hour">Max %d meteoren / h</string>
     <string name="tomorrow_at">Morgen om %s</string>
     <string name="meteor_shower">Meteorenregen</string>
-    <string name="untitled_tide">Naamloos getij</string>
     <string name="menu">Menu</string>
     <string name="no_tides">Geen getijden</string>
     <string name="create_tide">Getijde Creëren</string>

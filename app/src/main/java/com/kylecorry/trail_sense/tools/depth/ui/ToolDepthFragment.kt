@@ -62,7 +62,7 @@ class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
         super.onResume()
         binding.saltwaterSwitch.isChecked = cache.getBoolean(CACHE_SALTWATER) ?: true
 
-        binding.saltwaterSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.saltwaterSwitch.setOnCheckedChangeListener { _, isChecked ->
             cache.putBoolean(CACHE_SALTWATER, isChecked)
             update()
         }

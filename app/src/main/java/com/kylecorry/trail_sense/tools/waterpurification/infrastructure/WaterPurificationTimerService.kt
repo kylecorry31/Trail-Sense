@@ -21,7 +21,7 @@ class WaterPurificationTimerService : ForegroundService() {
 
     private val cancelAction by lazy {
         Notify.action(
-            getString(R.string.dialog_cancel),
+            getString(android.R.string.cancel),
             WaterPurificationCancelReceiver.pendingIntent(applicationContext),
             R.drawable.ic_cancel
         )

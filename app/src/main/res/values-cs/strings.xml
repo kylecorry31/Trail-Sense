@@ -161,8 +161,6 @@
     <string name="precise_feet_format">%s ft</string>
     <string name="dialog_deny">Ne, děkuji</string>
     <string name="copied_to_clipboard_toast">Zkopírováno do schránky</string>
-    <string name="dialog_cancel">Zrušit</string>
-    <string name="dialog_ok">Budiž</string>
     <string name="tools">Nástroje</string>
     <string name="astronomy">Astronomie</string>
     <string name="settings">Nastavení</string>

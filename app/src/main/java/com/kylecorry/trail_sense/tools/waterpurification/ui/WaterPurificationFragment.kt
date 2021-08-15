@@ -5,15 +5,15 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBinding
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.trailsensecore.domain.water.WaterService
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.fragments.BoundFragment
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.roundToInt
@@ -72,7 +72,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
     }
 
     private fun resume(timeLeft: Duration) {
-        binding.boilButton.text = getString(R.string.dialog_cancel)
+        binding.boilButton.text = getString(android.R.string.cancel)
 
         timer = object : CountDownTimer(timeLeft.toMillis(), 1000) {
             override fun onTick(millisUntilFinished: Long) {

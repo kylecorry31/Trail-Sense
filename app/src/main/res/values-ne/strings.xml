@@ -5,9 +5,7 @@
     <string name="create_beacon_title">ड्रप बीकन</string>
     <string name="name_hint">नाम</string>
     <string name="select_beacon">बीकन चयन गर्नुहोस्</string>
-    <string name="dialog_ok">ठिक छ</string>
     <string name="delete_beacon">बीकन मेटाउनुहोस्</string>
-    <string name="dialog_cancel">रद्द गर्नुहोस्</string>
     <string name="astronomy">खगोल विज्ञान</string>
     <string name="sunrise_label">सूर्योदय</string>
     <string name="sunset_label">सूर्यास्त</string>

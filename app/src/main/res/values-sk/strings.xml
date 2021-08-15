@@ -59,8 +59,6 @@
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="dialog_deny">Nie, ďakujem</string>
     <string name="copied_to_clipboard_toast">Skopírované do schránky</string>
-    <string name="dialog_cancel">Zrušiť</string>
-    <string name="dialog_ok">OK</string>
     <string name="tools">Nástroje</string>
     <string name="astronomy">Astronómia</string>
     <string name="settings">Nastavenia</string>

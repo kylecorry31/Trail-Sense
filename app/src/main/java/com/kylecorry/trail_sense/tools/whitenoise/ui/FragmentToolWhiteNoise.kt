@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.kylecorry.trail_sense.databinding.FragmentToolWhiteNoiseBinding
-import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.trail_sense.databinding.FragmentToolWhiteNoiseBinding
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import java.time.Duration
 import java.time.Instant
 
@@ -30,7 +30,7 @@ class FragmentToolWhiteNoise : BoundFragment<FragmentToolWhiteNoiseBinding>() {
             binding.sleepTimerPicker.updateDuration(Duration.between(Instant.now(), stopTime))
         }
 
-        binding.sleepTimerSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.sleepTimerSwitch.setOnCheckedChangeListener { _, isChecked ->
             WhiteNoiseService.stop(requireContext())
             binding.sleepTimerPicker.isVisible = isChecked
         }

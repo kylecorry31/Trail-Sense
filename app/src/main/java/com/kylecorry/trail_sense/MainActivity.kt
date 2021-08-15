@@ -79,8 +79,7 @@ class MainActivity : AppCompatActivity() {
                 this@MainActivity,
                 getString(R.string.error_occurred),
                 getString(R.string.error_occurred_message),
-                okText = getString(R.string.pref_email_title),
-                cancelText = getString(R.string.dialog_cancel)
+                okText = getString(R.string.pref_email_title)
             ) { cancelled ->
                 if (cancelled) {
                     exitProcess(2)

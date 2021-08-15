@@ -75,7 +75,7 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
             builder.setTitle(R.string.tool_whistle_title)
                 .setItems(
                     R.array.whistle_signals_entries
-                ) { dialog, which ->
+                ) { _, which ->
                     whistle.off()
                     when (which) {
                         0 -> signalWhistle.play(

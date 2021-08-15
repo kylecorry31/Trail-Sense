@@ -65,7 +65,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        odometerSourceList.setOnPreferenceChangeListener { preference, newValue ->
+        odometerSourceList.setOnPreferenceChangeListener { _, newValue ->
             if (newValue == "pedometer") {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     requestPermissions(listOf(Manifest.permission.ACTIVITY_RECOGNITION)) {

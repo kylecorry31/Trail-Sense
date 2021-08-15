@@ -6,9 +6,7 @@
     <string name="create_beacon_title">Inserisci Segnaposto</string>
     <string name="name_hint">Nome</string>
     <string name="select_beacon">Selezione Segnaposto</string>
-    <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Cancellazione Segnaposto</string>
-    <string name="dialog_cancel">Annulla</string>
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Alba</string>
     <string name="sunset_label">Tramonto</string>

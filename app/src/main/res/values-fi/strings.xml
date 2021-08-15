@@ -107,8 +107,6 @@
     <string name="access_background_location_rationale">Trail Sense käyttää sijaintitietoja taustalla. Sitä käytetään merenpinnan kalibrointiin ilmanpaineen sääseurannassa ja tarkempien auringonlaskuhälytysten tarjoamiseksi. [Katso tietosuojakäytäntö] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Sijaintipäivityksen asetukset</string>
     <string name="copied_to_clipboard_toast">Kopioitu leikepöydälle</string>
-    <string name="dialog_cancel">Peruuta</string>
-    <string name="dialog_ok">OK</string>
     <string name="tools">Työkalut</string>
     <string name="astronomy">Astronomia</string>
     <string name="settings">Asetukset</string>

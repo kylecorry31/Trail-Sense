@@ -2,7 +2,8 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.*
+import android.widget.LinearLayout
+import android.widget.NumberPicker
 import com.kylecorry.trail_sense.R
 import java.time.Duration
 
@@ -26,11 +27,11 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
             minutes.minValue = 0
             minutes.maxValue = 59
 
-            hours.setOnValueChangedListener { picker, oldVal, newVal ->
+            hours.setOnValueChangedListener { _, _, _ ->
                 onChange()
             }
 
-            minutes.setOnValueChangedListener { picker, oldVal, newVal ->
+            minutes.setOnValueChangedListener { _, _, _ ->
                 onChange()
             }
         }

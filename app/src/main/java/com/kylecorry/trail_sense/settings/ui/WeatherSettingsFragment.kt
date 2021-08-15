@@ -113,7 +113,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_forecast_sensitivity))
         forecastSensitivity?.setEntries(getForecastSensitivityArray(userPrefs.pressureUnits))
 
-        forecastSensitivity?.setOnPreferenceChangeListener { preference, newValue ->
+        forecastSensitivity?.setOnPreferenceChangeListener { _, _ ->
             lifecycleScope.launch {
                 WeatherContextualService.getInstance(requireContext()).setDataChanged()
             }
@@ -124,7 +124,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_storm_alert_sensitivity))
         stormSensitivity?.setEntries(getStormSensitivityArray(userPrefs.pressureUnits))
 
-        stormSensitivity?.setOnPreferenceChangeListener { preference, newValue ->
+        stormSensitivity?.setOnPreferenceChangeListener { _, _ ->
             lifecycleScope.launch {
                 WeatherContextualService.getInstance(requireContext()).setDataChanged()
             }

@@ -141,8 +141,6 @@
     <string name="dialog_grant">更新設定</string>
     <string name="access_background_location">更新地點設定</string>
     <string name="copied_to_clipboard_toast">已複製到剪貼簿</string>
-    <string name="dialog_cancel">取消</string>
-    <string name="dialog_ok">OK</string>
     <string name="tools">工具包</string>
     <string name="astronomy">天體</string>
     <string name="settings">設定</string>
@@ -262,7 +260,6 @@
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="delete_note_title">刪除筆記？</string>
-    <string name="untitled_note">(無標題筆記)</string>
     <string name="notes_empty_text">無筆記</string>
     <string name="metal_detector_disclaimer">僅探測可磁化金屬(例: 鐵)</string>
     <string name="tool_metal_detector_title">金屬探測器</string>

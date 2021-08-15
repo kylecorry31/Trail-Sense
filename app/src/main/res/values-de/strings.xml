@@ -6,9 +6,7 @@
     <string name="create_beacon_title">Wegpunkt erstellen</string>
     <string name="name_hint">Name</string>
     <string name="select_beacon">Wegpunkt auswählen</string>
-    <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Wegpunkt löschen</string>
-    <string name="dialog_cancel">Abbrechen</string>
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Sonnenaufgang</string>
     <string name="sunset_label">Sonnenuntergang</string>
@@ -441,7 +439,6 @@
     <string name="note_title_hint">Titel</string>
     <string name="tool_notes_title">Notizen</string>
     <string name="delete_note_title">Notiz löschen\?</string>
-    <string name="untitled_note">(unbennante Notiz)</string>
     <string name="notes_empty_text">Keine Notizen</string>
     <string name="tool_metal_detector_title">Metalldetektor</string>
     <string name="threshold">Schwellenwert</string>
@@ -697,7 +694,6 @@
     <string name="meteors_per_hour">Maximal %d Meteore pro Stunde</string>
     <string name="tomorrow_at">Morgen um %s</string>
     <string name="meteor_shower">Meteorschauer</string>
-    <string name="untitled_tide">Unbenannte Gezeit</string>
     <string name="menu">Menü</string>
     <string name="no_tides">Keine Gezeiten</string>
     <string name="pedometer">Schrittzähler</string>

@@ -6,9 +6,7 @@
     <string name="create_beacon_title">Placer un repère</string>
     <string name="name_hint">Nom</string>
     <string name="select_beacon">Sélectionner un repère</string>
-    <string name="dialog_ok">D\'accord</string>
     <string name="delete_beacon">Supprimer repère</string>
-    <string name="dialog_cancel">Annuler</string>
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Lever du soleil</string>
     <string name="sunset_label">Coucher du soleil</string>
@@ -450,7 +448,6 @@
     <string name="note_title_hint">Titre</string>
     <string name="tool_notes_title">Notes</string>
     <string name="delete_note_title">Supprimer la note \?</string>
-    <string name="untitled_note">(note sans titre)</string>
     <string name="notes_empty_text">Aucune note</string>
     <string name="metal_detector_disclaimer">Ne détecte que les métaux magnétiques (ex. le fer)</string>
     <string name="metal_detector_calibrate">Calibrer</string>

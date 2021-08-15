@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
-import androidx.appcompat.app.AlertDialog
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -39,7 +38,7 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
             val weather = weatherService.getCloudPrecipitation(item)
             itemBinding.precipitation.setImageResource(cloudRepo.getCloudWeatherIcon(weather))
 
-            when(item.height){
+            when (item.height) {
                 CloudHeight.Low -> {
                     itemBinding.cloudHeightHigh.setTextColor(
                         Resources.androidTextColorSecondary(
@@ -106,14 +105,19 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
             }
 
             itemBinding.precipitation.setOnClickListener {
-                Alerts.dialog(requireContext(), cloudRepo.getCloudName(item), cloudRepo.getCloudWeatherString(weather), cancelText = null)
+                Alerts.dialog(
+                    requireContext(),
+                    cloudRepo.getCloudName(item),
+                    cloudRepo.getCloudWeatherString(weather),
+                    cancelText = null
+                )
             }
 
             itemBinding.cloudImg.setOnClickListener {
-                imageAlert(
-                    requireContext(), cloudRepo.getCloudName(item), cloudRepo.getCloudImage(
-                        item
-                    ), getString(R.string.dialog_ok)
+                showImage(
+                    requireContext(),
+                    cloudRepo.getCloudName(item),
+                    cloudRepo.getCloudImage(item)
                 )
             }
 
@@ -124,40 +128,30 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
     }
 
 
-    // TODO: Extract this
-    private fun imageAlert(
+    private fun showImage(
         context: Context,
         title: String,
-        @DrawableRes image: Int,
-        buttonOk: String,
-        onClose: (() -> Unit)? = null
-    ): AlertDialog {
-        val builder = AlertDialog.Builder(context)
+        @DrawableRes image: Int
+    ) {
         val view = LinearLayout(context)
-        val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
         params.gravity = Gravity.CENTER
         view.layoutParams = params
         val imageView = ImageView(context)
-        val imageParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+        val imageParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            1f
+        )
         imageParams.gravity = Gravity.CENTER
         imageView.layoutParams = imageParams
         imageView.setImageResource(image)
         view.addView(imageView)
 
-        builder.apply {
-            setView(view)
-            setTitle(title)
-            setPositiveButton(
-                buttonOk
-            ) { dialog, _ ->
-                onClose?.invoke()
-                dialog.dismiss()
-            }
-        }
-
-        val dialog = builder.create()
-        dialog.show()
-        return dialog
+        Alerts.dialog(context, title, contentView = view, cancelText = null)
     }
 
     override fun generateBinding(

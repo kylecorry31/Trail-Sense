@@ -6,9 +6,7 @@
     <string name="create_beacon_title">Napravi Svjetionik</string>
     <string name="name_hint">Ime</string>
     <string name="select_beacon">Odaberite Svjetionik</string>
-    <string name="dialog_ok">Uredu</string>
     <string name="delete_beacon">Izbriši svjetionik</string>
-    <string name="dialog_cancel">Otkaži</string>
     <string name="astronomy">Astronomija</string>
     <string name="sunrise_label">Izlazak sunca</string>
     <string name="sunset_label">Zalazak sunca</string>
@@ -292,7 +290,6 @@
     <string name="date_not_set">Datum nije određen</string>
     <string name="time_not_set">Vrijeme nije određeno</string>
     <string name="calibrate_new_tide">Kalibrirati na novu plimu\?</string>
-    <string name="untitled_tide">Plima bez naslova</string>
     <string name="no_tides">Nema plime ili oseke</string>
     <string name="create_tide">Napravi Plimu/Oseku</string>
     <string name="tide_location_label">Lokacija plime i oseke (opcionalno)</string>
@@ -498,7 +495,6 @@
     <string name="note_title_hint">Naslov</string>
     <string name="tool_notes_title">Napomene</string>
     <string name="delete_note_title">Izbrisati bilješku\?</string>
-    <string name="untitled_note">(napomena bez naslova)</string>
     <string name="notes_empty_text">Nema napomena</string>
     <string name="pref_gps_override_title">Nadjačavanje lokacije</string>
     <string name="altitude_from_pressure">Postavite nadjačavanje sa barometra</string>

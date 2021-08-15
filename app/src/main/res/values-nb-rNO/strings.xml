@@ -105,8 +105,6 @@
     <string name="direction_south">S</string>
     <string name="direction_north">N</string>
     <string name="copied_to_clipboard_toast">Kopiert til utklippstavle</string>
-    <string name="dialog_cancel">Avbryt</string>
-    <string name="dialog_ok">OK</string>
     <string name="tools">Verktøy</string>
     <string name="astronomy">Astronomi</string>
     <string name="settings">Innstillinger</string>
@@ -423,7 +421,6 @@
     <string name="notification_channel_clock_sync">Klokkesynkronisering</string>
     <string name="pip_notification_scheduled">Varsling planlagt for %s</string>
     <string name="pip_button">Oppdater systemtid</string>
-    <string name="untitled_note">(notat uten tittel)</string>
     <string name="notes_empty_text">Ingen notater</string>
     <string name="delete_note_title">Slette notat\?</string>
     <string name="unit_centimeters">Centimeter</string>

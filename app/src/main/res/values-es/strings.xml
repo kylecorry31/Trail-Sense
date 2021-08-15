@@ -6,9 +6,7 @@
     <string name="create_beacon_title">Crear baliza</string>
     <string name="name_hint">Nombre</string>
     <string name="select_beacon">Seleccione baliza</string>
-    <string name="dialog_ok">Aceptar</string>
     <string name="delete_beacon">Eliminar baliza</string>
-    <string name="dialog_cancel">Cancelar</string>
     <string name="astronomy">Astronomía</string>
     <string name="sunrise_label">amanecer</string>
     <string name="sunset_label">anochecer</string>

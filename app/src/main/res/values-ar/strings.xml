@@ -5,9 +5,7 @@
     <string name="create_beacon_title">إسقاط منارة</string>
     <string name="name_hint">اسم</string>
     <string name="select_beacon">حدد منارة</string>
-    <string name="dialog_ok">حسنا</string>
     <string name="delete_beacon">تحذف المرشد</string>
-    <string name="dialog_cancel">إلغاء</string>
     <string name="astronomy">الفلك</string>
     <string name="sunrise_label">شروق الشمس</string>
     <string name="sunset_label">غروب الشمس</string>

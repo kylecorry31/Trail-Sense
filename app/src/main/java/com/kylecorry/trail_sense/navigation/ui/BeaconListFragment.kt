@@ -1,14 +1,11 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.Manifest
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.FrameLayout
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
@@ -32,6 +29,7 @@ import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconIOService
 import com.kylecorry.trail_sense.navigation.infrastructure.export.JsonBeaconImporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -100,6 +98,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         })
 
         binding.importExportBeacons.setOnClickListener {
+            // TODO: Use bottom sheet instead or make this button export only
             val builder = AlertDialog.Builder(requireContext())
             builder.apply {
                 setTitle(getString(R.string.import_export_beacons))
@@ -107,7 +106,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     importBeacons()
                     dialog.dismiss()
                 }
-                setNeutralButton(getString(R.string.dialog_cancel)) { dialog, _ ->
+                setNeutralButton(getString(android.R.string.cancel)) { dialog, _ ->
                     dialog.dismiss()
                 }
                 setNegativeButton(getString(R.string.export)) { dialog, _ ->
@@ -148,19 +147,17 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     setCreateMenuVisibility(false)
                 }
                 R.id.action_create_beacon_group -> {
-                    editTextDialog(
+                    CustomUiUtils.pickText(
                         requireContext(),
                         getString(R.string.beacon_create_group),
-                        getString(R.string.beacon_group_name_hint),
                         null,
                         null,
-                        getString(R.string.dialog_ok),
-                        getString(R.string.dialog_cancel)
-                    ) { cancelled, text ->
-                        if (!cancelled) {
-                            lifecycleScope.launch {
+                        getString(R.string.beacon_group_name_hint)
+                    ) {
+                        if (it != null) {
+                            runInBackground {
                                 withContext(Dispatchers.IO) {
-                                    beaconRepo.addBeaconGroup(BeaconGroupEntity(text ?: ""))
+                                    beaconRepo.addBeaconGroup(BeaconGroupEntity(it))
                                 }
 
                                 withContext(Dispatchers.Main) {
@@ -298,23 +295,19 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 }
             }
             listItem.onEdit = {
-                editTextDialog(
+                CustomUiUtils.pickText(
                     requireContext(),
                     getString(R.string.beacon_create_group),
-                    getString(R.string.beacon_group_name_hint),
                     null,
                     beacon.name,
-                    getString(R.string.dialog_ok),
-                    getString(R.string.dialog_cancel)
-                ) { cancelled, text ->
-                    if (!cancelled) {
-                        lifecycleScope.launch {
+                    getString(R.string.beacon_group_name_hint)
+                ) {
+                    if (it != null) {
+                        runInBackground {
                             withContext(Dispatchers.IO) {
                                 beaconRepo.addBeaconGroup(
                                     BeaconGroupEntity.from(
-                                        beacon.copy(
-                                            name = text ?: ""
-                                        )
+                                        beacon.copy(name = it)
                                     )
                                 )
                             }
@@ -334,45 +327,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 }
             }
         }
-    }
-
-    private fun editTextDialog(
-        context: Context,
-        title: String,
-        hint: String?,
-        description: String?,
-        initialInputText: String?,
-        okButton: String,
-        cancelButton: String,
-        onClose: (cancelled: Boolean, text: String?) -> Unit
-    ): AlertDialog {
-        val layout = FrameLayout(context)
-        val editTextView = EditText(context)
-        editTextView.setText(initialInputText)
-        editTextView.hint = hint
-        layout.setPadding(64, 0, 64, 0)
-        layout.addView(editTextView)
-
-        val builder = AlertDialog.Builder(context)
-        builder.apply {
-            setTitle(title)
-            if (description != null) {
-                setMessage(description)
-            }
-            setView(layout)
-            setPositiveButton(okButton) { dialog, _ ->
-                onClose(false, editTextView.text.toString())
-                dialog.dismiss()
-            }
-            setNegativeButton(cancelButton) { dialog, _ ->
-                onClose(true, null)
-                dialog.dismiss()
-            }
-        }
-
-        val dialog = builder.create()
-        dialog.show()
-        return dialog
     }
 
     private suspend fun updateBeaconList(resetScroll: Boolean = false) {

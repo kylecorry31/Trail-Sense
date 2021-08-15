@@ -101,8 +101,6 @@
     <string name="dialog_deny">Köszönöm, nem</string>
     <string name="access_background_location">Tartózkodási hely beállítások frissítése</string>
     <string name="copied_to_clipboard_toast">Vágólapra másolva</string>
-    <string name="dialog_cancel">Mégse</string>
-    <string name="dialog_ok">OK</string>
     <string name="tools">Eszközök</string>
     <string name="astronomy">Csillagászat</string>
     <string name="settings">Beállítások</string>

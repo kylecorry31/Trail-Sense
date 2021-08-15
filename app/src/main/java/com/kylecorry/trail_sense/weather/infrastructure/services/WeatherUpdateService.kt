@@ -105,7 +105,7 @@ class WeatherUpdateService: CoroutineForegroundService() {
         var hourly: Weather
         var daily: Weather
         var tendency: PressureTendency
-        var lastReading: PressureReading? = null
+        var lastReading: PressureReading?
         withContext(Dispatchers.IO){
             hourly = weatherForecastService.getHourlyForecast()
             daily = weatherForecastService.getDailyForecast()

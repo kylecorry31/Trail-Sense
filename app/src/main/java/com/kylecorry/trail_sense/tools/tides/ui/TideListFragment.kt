@@ -117,7 +117,7 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
     }
 
     private fun getTideTitle(tide: TideEntity): String {
-        return tide.name ?: if (tide.coordinate != null) formatService.formatLocation(tide.coordinate!!) else getString(R.string.untitled_tide)
+        return tide.name ?: if (tide.coordinate != null) formatService.formatLocation(tide.coordinate!!) else getString(android.R.string.untitled)
     }
 
     private fun getTideTypeName(tideType: TideType): String {

@@ -6,8 +6,6 @@
     <string name="settings">Configurações</string>
     <string name="astronomy">Astronomia</string>
     <!--Dialogs-->
-    <string name="dialog_ok">OK</string>
-    <string name="dialog_cancel">Cancelar</string>
     <!--Disclaimer-->
     <!--Navigation Tab - Unit Formats-->
     <string name="kilometers_per_hour_format">%.1f km/h</string>
@@ -481,7 +479,6 @@
     <string name="note_title_hint">Título</string>
     <string name="note_content_hint">Conteúdos</string>
     <string name="delete_note_title">Excluir anotação\?</string>
-    <string name="untitled_note">(anotação sem título)</string>
     <string name="notes_empty_text">Sem anotações</string>
     <string name="unit_centimeters">Centímetros</string>
     <string name="unit_inches">Polegadas</string>
@@ -869,7 +866,6 @@
     <string name="meteors_per_hour">Máx %d meteoros / h</string>
     <string name="tomorrow_at">Amanhã em %s</string>
     <string name="meteor_shower">Chuva de meteoros</string>
-    <string name="untitled_tide">Maré sem nome</string>
     <string name="menu">Menu</string>
     <string name="no_tides">Sem marés</string>
     <string name="create_tide">Criar Maré</string>

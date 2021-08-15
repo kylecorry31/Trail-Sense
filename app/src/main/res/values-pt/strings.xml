@@ -6,9 +6,7 @@
     <string name="create_beacon_title">Drop Beacon</string>
     <string name="name_hint">Nome</string>
     <string name="select_beacon">Seleccione Beacon</string>
-    <string name="dialog_ok">OK</string>
     <string name="delete_beacon">Eliminar o farol</string>
-    <string name="dialog_cancel">Cancelar</string>
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Nascer do Sol</string>
     <string name="sunset_label">Pôr-do-sol</string>
@@ -131,7 +129,6 @@
     <string name="note_title_hint">Título</string>
     <string name="tool_notes_title">Notas</string>
     <string name="delete_note_title">Deletar anotação\?</string>
-    <string name="untitled_note">(anotação sem título)</string>
     <string name="notes_empty_text">Sem anotações</string>
     <string name="location_override_updated">Local simulado atualizado</string>
     <string name="update_gps_override">Atualizar GPS simulado</string>

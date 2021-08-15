@@ -34,7 +34,7 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
         listView = ListView(binding.noteList, R.layout.list_item_note) { noteView, note ->
             val noteBinding = ListItemNoteBinding.bind(noteView)
             noteBinding.title.text = if (note.title?.trim().isNullOrEmpty()) {
-                getString(R.string.untitled_note)
+                getString(android.R.string.untitled)
             } else {
                 note.title
             }
@@ -85,7 +85,7 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
             requireContext(),
             getString(R.string.delete_note_title),
             if (note.title?.trim().isNullOrEmpty()) {
-                getString(R.string.untitled_note)
+                getString(android.R.string.untitled)
             } else {
                 note.title!!
             }
