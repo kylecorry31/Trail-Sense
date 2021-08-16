@@ -19,7 +19,6 @@ import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.GPS
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.andromeda.sense.barometer.Barometer
 import com.kylecorry.andromeda.torch.Torch
@@ -129,9 +128,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
         updateClock()
         synchronized(this) {
             val details =
-                sensorDetailsMap.toList().mapNotNull { it.second }.sortedWith(
-                    compareBy({ it.type.ordinal }, { it.name })
-                )
+                sensorDetailsMap.toList().mapNotNull { it.second }.sortedBy { it.name }
             sensorListView.setData(details)
         }
     }
@@ -139,7 +136,6 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     override fun onResume() {
         super.onResume()
         updateFlashlight()
-        updatePermissions()
     }
 
     private fun updateGyro() {
@@ -232,31 +228,6 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             CustomUiUtils.getQualityColor(requireContext(), quality),
             R.drawable.ic_tool_battery
         )
-    }
-
-    private fun updatePermissions() {
-
-        val permissions = mapOf(
-            getString(R.string.camera) to Permissions.isCameraEnabled(requireContext()),
-            getString(R.string.gps_location) to Permissions.canGetFineLocation(requireContext()),
-            getString(R.string.permission_background_location) to Permissions.isBackgroundLocationEnabled(requireContext()),
-            getString(R.string.permission_activity_recognition) to Permissions.canRecognizeActivity(requireContext()),
-            getString(R.string.flashlight_title) to Permissions.canUseFlashlight(requireContext())
-        )
-
-        permissions.forEach {
-            sensorDetailsMap["permission-${it.key}"] = SensorDetails(
-                it.key,
-                getString(R.string.permission),
-                if (it.value) getString(R.string.permission_granted) else getString(R.string.permission_not_granted),
-                CustomUiUtils.getQualityColor(
-                    requireContext(),
-                    if (it.value) Quality.Good else Quality.Poor
-                ),
-                if (it.value) R.drawable.ic_check else R.drawable.ic_cancel,
-                DetailType.Permission
-            )
-        }
     }
 
     private fun updateBarometer() {
@@ -475,14 +446,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
         val description: String,
         val statusMessage: String,
         @ColorInt val statusColor: Int,
-        @DrawableRes val statusIcon: Int,
-        val type: DetailType = DetailType.Sensor
+        @DrawableRes val statusIcon: Int
     )
-
-    enum class DetailType {
-        Permission,
-        Sensor,
-        Notification
-    }
 
 }
