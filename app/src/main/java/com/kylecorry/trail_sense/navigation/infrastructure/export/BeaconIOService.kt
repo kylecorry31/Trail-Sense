@@ -18,13 +18,17 @@ class BeaconIOService(private val context: Context) {
     private val repo by lazy { BeaconRepo.getInstance(context) }
     private val formatService by lazy { FormatServiceV2(context) }
 
-    fun export(beacons: List<Beacon>, groups: List<BeaconGroup>): String {
+    fun export(waypoints: List<GPXWaypoint>): String {
+        return GPXParser.toGPX(waypoints, context.getString(R.string.app_name))
+    }
+
+    fun getGPXWaypoints(beacons: List<Beacon>, groups: List<BeaconGroup>): List<GPXWaypoint> {
         val groupNames = mutableMapOf<Long, String>()
         for (group in groups) {
             groupNames[group.id] = group.name
         }
 
-        val waypoints = beacons.map {
+        return beacons.map {
             GPXWaypoint(
                 it.coordinate,
                 it.name,
@@ -34,8 +38,6 @@ class BeaconIOService(private val context: Context) {
                 if (it.beaconGroupId == null) null else groupNames[it.beaconGroupId]
             )
         }
-
-        return GPXParser.toGPX(waypoints, context.getString(R.string.app_name))
     }
 
     fun getGPXWaypoints(gpx: String): List<GPXWaypoint> {
