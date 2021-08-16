@@ -29,7 +29,8 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_maps_header_key to R.id.action_settings_to_map_settings,
 
         // About
-        R.string.pref_open_source_licenses to R.id.action_action_settings_to_licenseFragment
+        R.string.pref_open_source_licenses to R.id.action_action_settings_to_licenseFragment,
+        R.string.pref_diagnostics to R.id.action_settings_to_diagnostics
     )
 
     private val prefs by lazy { UserPreferences(requireContext()) }

@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.R
 class SensorSettingsFragment : AndromedaPreferenceFragment() {
 
     private val navigationMap = mapOf(
-        R.string.pref_sensor_details to R.id.action_action_settings_to_diagnosticFragment,
+        R.string.pref_sensor_details to R.id.action_settings_to_sensor_details,
         R.string.pref_cell_signal_settings to R.id.action_action_settings_to_cellSignalSettingsFragment,
         R.string.pref_compass_sensor to R.id.action_action_settings_to_calibrateCompassFragment,
         R.string.pref_altimeter_calibration to R.id.action_action_settings_to_calibrateAltimeterFragment,

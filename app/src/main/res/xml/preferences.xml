@@ -83,6 +83,12 @@
         app:singleLineTitle="false">
 
         <Preference
+            android:key="@string/pref_diagnostics"
+            android:title="@string/diagnostics"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:key="@string/pref_app_version"
             android:title="@string/pref_app_version_title"
             app:iconSpaceReserved="false"

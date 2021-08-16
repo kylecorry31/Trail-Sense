@@ -1143,4 +1143,10 @@
     <string name="camera">Camera</string>
     <string name="permission_activity_recognition">Physical activity</string>
     <string name="permission">Permission</string>
+    <string name="no_permission">Permission not granted</string>
+    <string name="diagnostics">Diagnostics</string>
+    <string name="pref_diagnostics">pref_diagnostics</string>
+    <string name="altitude_overridden">Altitude overridden</string>
+    <string name="battery_usage_restricted">Battery usage restricted</string>
+    <string name="update">Update</string>
 </resources>

@@ -271,6 +271,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_settings_to_diagnostics"
+            app:destination="@id/diagnosticsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_settings_to_experimental_settings"
             app:destination="@id/experimentalSettingsFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -359,15 +366,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-<!--        <action-->
-<!--            android:id="@+id/action_beacon_list_to_action_navigation"-->
-<!--            app:destination="@id/action_navigation"-->
-<!--            app:enterAnim="@anim/slide_in_left"-->
-<!--            app:exitAnim="@anim/slide_out_right"-->
-<!--            app:popEnterAnim="@anim/slide_in_right"-->
-<!--            app:popExitAnim="@anim/slide_out_left"-->
-<!--            app:popUpTo="@id/action_navigation"-->
-<!--            app:popUpToInclusive="true" />-->
+        <!--        <action-->
+        <!--            android:id="@+id/action_beacon_list_to_action_navigation"-->
+        <!--            app:destination="@id/action_navigation"-->
+        <!--            app:enterAnim="@anim/slide_in_left"-->
+        <!--            app:exitAnim="@anim/slide_out_right"-->
+        <!--            app:popEnterAnim="@anim/slide_in_right"-->
+        <!--            app:popExitAnim="@anim/slide_out_left"-->
+        <!--            app:popUpTo="@id/action_navigation"-->
+        <!--            app:popUpToInclusive="true" />-->
         <action
             android:id="@+id/action_beacon_list_to_beaconDetailsFragment"
             app:destination="@id/beaconDetailsFragment"
@@ -396,15 +403,15 @@
             android:defaultValue="@null"
             app:argType="com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate" />
 
-<!--        <action-->
-<!--            android:id="@+id/action_place_beacon_to_beacon_list"-->
-<!--            app:destination="@id/beacon_list"-->
-<!--            app:enterAnim="@anim/slide_in_left"-->
-<!--            app:exitAnim="@anim/slide_out_right"-->
-<!--            app:popEnterAnim="@anim/slide_in_right"-->
-<!--            app:popExitAnim="@anim/slide_out_left"-->
-<!--            app:popUpTo="@id/beacon_list"-->
-<!--            app:popUpToInclusive="true" />-->
+        <!--        <action-->
+        <!--            android:id="@+id/action_place_beacon_to_beacon_list"-->
+        <!--            app:destination="@id/beacon_list"-->
+        <!--            app:enterAnim="@anim/slide_in_left"-->
+        <!--            app:exitAnim="@anim/slide_out_right"-->
+        <!--            app:popEnterAnim="@anim/slide_in_right"-->
+        <!--            app:popExitAnim="@anim/slide_out_left"-->
+        <!--            app:popUpTo="@id/beacon_list"-->
+        <!--            app:popUpToInclusive="true" />-->
     </fragment>
     <fragment
         android:id="@+id/action_inclinometer"
@@ -639,9 +646,9 @@
         android:name="com.kylecorry.trail_sense.weather.ui.CloudFragment"
         android:label="CloudFragment" />
     <fragment
-        android:id="@+id/diagnosticFragment"
-        android:name="com.kylecorry.trail_sense.diagnostics.DiagnosticFragment"
-        android:label="DiagnosticFragment" />
+        android:id="@+id/sensorDetailsFragment"
+        android:name="com.kylecorry.trail_sense.diagnostics.SensorDetailsFragment"
+        android:label="SensorDetailsFragment" />
     <fragment
         android:id="@+id/toolLightFragment"
         android:name="com.kylecorry.trail_sense.tools.light.ui.ToolLightFragment"
@@ -760,8 +767,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_action_settings_to_diagnosticFragment"
-            app:destination="@id/diagnosticFragment"
+            android:id="@+id/action_settings_to_sensor_details"
+            app:destination="@id/sensorDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -832,5 +839,9 @@
             app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
+    <fragment
+        android:id="@+id/diagnosticsFragment"
+        android:name="com.kylecorry.trail_sense.diagnostics.DiagnosticsFragment"
+        android:label="DiagnosticsFragment" />
 
 </navigation>

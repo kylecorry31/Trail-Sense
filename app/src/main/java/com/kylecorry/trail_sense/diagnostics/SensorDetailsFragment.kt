@@ -24,7 +24,7 @@ import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.andromeda.sense.barometer.Barometer
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentDiagnosticsBinding
+import com.kylecorry.trail_sense.databinding.FragmentSensorDetailsBinding
 import com.kylecorry.trail_sense.databinding.ListItemSensorBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -49,7 +49,7 @@ import java.time.ZonedDateTime
 import java.time.format.TextStyle
 import java.util.*
 
-class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
+class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val sensorChecker by lazy { SensorChecker(requireContext()) }
@@ -77,8 +77,8 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentDiagnosticsBinding {
-        return FragmentDiagnosticsBinding.inflate(layoutInflater, container, false)
+    ): FragmentSensorDetailsBinding {
+        return FragmentSensorDetailsBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
