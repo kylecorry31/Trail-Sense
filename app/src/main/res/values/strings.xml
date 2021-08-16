@@ -1140,4 +1140,5 @@
     <string name="last_duration">Last %s</string>
     <string name="altitude_history_length">Altitude history length</string>
     <string name="gps_signal_lost">GPS signal lost</string>
+    <string name="export_beacons">Export beacons to a file?</string>
 </resources>

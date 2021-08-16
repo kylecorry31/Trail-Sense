@@ -1,13 +1,13 @@
 package com.kylecorry.trail_sense.tools.whistle.ui
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
@@ -71,13 +71,15 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
         }
 
         binding.whistleEmergencyBtn.setOnLongClickListener {
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle(R.string.tool_whistle_title)
-                .setItems(
-                    R.array.whistle_signals_entries
-                ) { _, which ->
+            val options = resources.getStringArray(R.array.whistle_signals_entries).toList()
+            Pickers.item(
+                requireContext(),
+                getString(R.string.tool_whistle_title),
+                options
+            ){
+                if (it != null){
                     whistle.off()
-                    when (which) {
+                    when (it) {
                         0 -> signalWhistle.play(
                             whereAreYouAndAcknowledgedSignal, false
                         ) { toggleOffInternationWhistleSignals() }
@@ -90,20 +92,11 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
                         ) { toggleOffInternationWhistleSignals() }
                         3 -> signalWhistle.play(emergencySignal, true)
                     }
-                    binding.whistleEmergencyBtn.setText(
-                        when (which) {
-                            0 -> getText(R.string.whistle_signal_where_are_you).toString()
-                            1 -> getText(R.string.whistle_signal_acknowledged).toString()
-                            2 -> getText(R.string.whistle_signal_come_here).toString()
-                            else -> getText(R.string.help).toString()
-                        }
-                    )
+                    binding.whistleEmergencyBtn.setText(options[it])
                     state = WhistleState.Emergency
                     updateUI()
                 }
-            val alertdialog = builder.create()
-            alertdialog.setCanceledOnTouchOutside(true)
-            alertdialog.show()
+            }
             true
         }
 

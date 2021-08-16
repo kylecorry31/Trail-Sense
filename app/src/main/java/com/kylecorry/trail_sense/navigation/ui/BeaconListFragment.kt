@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -98,25 +97,15 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         })
 
         binding.importExportBeacons.setOnClickListener {
-            // TODO: Use bottom sheet instead or make this button export only
-            val builder = AlertDialog.Builder(requireContext())
-            builder.apply {
-                setTitle(getString(R.string.import_export_beacons))
-                setPositiveButton(getString(R.string.import_btn)) { dialog, _ ->
-                    importBeacons()
-                    dialog.dismiss()
-                }
-                setNeutralButton(getString(android.R.string.cancel)) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                setNegativeButton(getString(R.string.export)) { dialog, _ ->
+            Alerts.dialog(
+                requireContext(),
+                getString(R.string.export),
+                getString(R.string.export_beacons)
+            ){ cancelled ->
+                if (!cancelled){
                     exportBeacons()
-                    dialog.dismiss()
                 }
             }
-
-            val dialog = builder.create()
-            dialog.show()
         }
 
         binding.overlayMask.setOnClickListener {

@@ -4,22 +4,22 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
-import android.text.InputType
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.math.toDoubleCompat
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.*
@@ -247,32 +247,15 @@ object CustomUiUtils {
         hint: String? = null,
         onTextEnter: (text: String?) -> Unit
     ) {
-        val layout = FrameLayout(context)
-        val editTextView = EditText(context)
-        editTextView.setText(default)
-        editTextView.hint = hint
-        layout.setPadding(64, 0, 64, 0)
-        layout.addView(editTextView)
-
-        val builder = AlertDialog.Builder(context)
-        builder.apply {
-            setTitle(title)
-            if (description != null) {
-                setMessage(description)
-            }
-            setView(layout)
-            setPositiveButton(context.getString(android.R.string.ok)) { dialog, _ ->
-                onTextEnter.invoke(editTextView.text.toString())
-                dialog.dismiss()
-            }
-            setNegativeButton(context.getString(android.R.string.cancel)) { dialog, _ ->
-                onTextEnter.invoke(null)
-                dialog.dismiss()
-            }
+        Pickers.text(
+            context,
+            title ?: "",
+            description,
+            default,
+            hint
+        ){
+            onTextEnter.invoke(it)
         }
-
-        val dialog = builder.create()
-        dialog.show()
     }
 
     fun pickNumber(
@@ -285,37 +268,18 @@ object CustomUiUtils {
         hint: String? = null,
         onNumberEnter: (number: Number?) -> Unit
     ) {
-        val layout = FrameLayout(context)
-        val editTextView = EditText(context)
-        if (default != null) {
-            editTextView.setText(default.toString())
-        }
-        editTextView.inputType = InputType.TYPE_CLASS_NUMBER or
-                (if (allowDecimals) InputType.TYPE_NUMBER_FLAG_DECIMAL else 0) or
-                (if (allowNegative) InputType.TYPE_NUMBER_FLAG_SIGNED else 0)
-        editTextView.hint = hint
-        layout.setPadding(64, 0, 64, 0)
-        layout.addView(editTextView)
 
-        val builder = AlertDialog.Builder(context)
-        builder.apply {
-            setTitle(title)
-            if (description != null) {
-                setMessage(description)
-            }
-            setView(layout)
-            setPositiveButton(context.getString(android.R.string.ok)) { dialog, _ ->
-                onNumberEnter.invoke(editTextView.text.toString().toDoubleCompat())
-                dialog.dismiss()
-            }
-            setNegativeButton(context.getString(android.R.string.cancel)) { dialog, _ ->
-                onNumberEnter.invoke(null)
-                dialog.dismiss()
-            }
+        Pickers.number(
+            context,
+            title ?: "",
+            description,
+            default,
+            allowDecimals,
+            allowNegative,
+            hint
+        ){
+            onNumberEnter.invoke(it)
         }
-
-        val dialog = builder.create()
-        dialog.show()
     }
 
 
@@ -329,11 +293,11 @@ object CustomUiUtils {
         considerShownIfCancelled: Boolean = true,
         onClose: (cancelled: Boolean) -> Unit = {}
     ) {
-        val cache = Preferences(context)
-        if (cache.getBoolean(shownKey) != true) {
+        val prefs = Preferences(context)
+        if (prefs.getBoolean(shownKey) != true) {
             if (considerShownIfCancelled) {
                 Alerts.dialog(context, title, message, okText = okText, cancelText = null) {
-                    cache.putBoolean(shownKey, true)
+                    prefs.putBoolean(shownKey, true)
                     onClose(false)
                 }
             } else {
@@ -345,7 +309,7 @@ object CustomUiUtils {
                     cancelText = cancelText
                 ) { cancelled ->
                     if (!cancelled) {
-                        cache.putBoolean(shownKey, true)
+                        prefs.putBoolean(shownKey, true)
                     }
                     onClose(cancelled)
                 }
