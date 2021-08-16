@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import androidx.navigation.NavController
-import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.permissions.Permissions
@@ -17,14 +16,14 @@ class GPSDiagnostic(private val context: Context, private val navController: Nav
         val issues = mutableListOf<DiagnosticIssue>()
         val prefs = UserPreferences(context)
 
-        if (!prefs.useAutoLocation) {
+        if (!prefs.useAutoLocation || !Permissions.canGetFineLocation(context)) {
             if (prefs.locationOverride == Coordinate.zero) {
                 issues.add(
                     DiagnosticIssue(
                         context.getString(R.string.gps),
                         context.getString(R.string.location_not_set),
                         IssueSeverity.Error,
-                        IssueMessage(actionTitle = context.getString(R.string.update)) {
+                        IssueMessage(actionTitle = context.getString(R.string.settings)) {
                             navController.navigate(R.id.calibrateGPSFragment)
                         }
                     )
@@ -36,7 +35,7 @@ class GPSDiagnostic(private val context: Context, private val navController: Nav
                     context.getString(R.string.gps),
                     context.getString(R.string.location_mocked),
                     IssueSeverity.Warning,
-                    IssueMessage(actionTitle = context.getString(R.string.update)) {
+                    IssueMessage(actionTitle = context.getString(R.string.settings)) {
                         navController.navigate(R.id.calibrateGPSFragment)
                     }
                 )
@@ -44,19 +43,7 @@ class GPSDiagnostic(private val context: Context, private val navController: Nav
             return issues
         }
 
-        if (!Permissions.canGetFineLocation(context)) {
-            issues.add(
-                DiagnosticIssue(
-                    context.getString(R.string.gps),
-                    context.getString(R.string.no_permission),
-                    IssueSeverity.Error,
-                    IssueMessage(actionTitle = context.getString(R.string.update)) {
-                        val intent = Intents.appSettings(context)
-                        context.startActivity(intent)
-                    }
-                )
-            )
-        } else if (!GPS.isAvailable(context)) {
+        if (Permissions.canGetFineLocation(context) && !GPS.isAvailable(context)) {
             issues.add(
                 DiagnosticIssue(
                     context.getString(R.string.gps),

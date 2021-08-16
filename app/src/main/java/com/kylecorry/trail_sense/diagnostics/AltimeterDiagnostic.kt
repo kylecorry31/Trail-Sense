@@ -17,7 +17,7 @@ class AltimeterDiagnostic(private val context: Context, private val navControlle
                     context.getString(R.string.pref_altimeter_calibration_title),
                     context.getString(R.string.altitude_overridden),
                     IssueSeverity.Warning,
-                    IssueMessage(actionTitle = context.getString(R.string.update)) {
+                    IssueMessage(actionTitle = context.getString(R.string.settings)) {
                         navController.navigate(R.id.calibrateAltimeterFragment)
                     }
                 )

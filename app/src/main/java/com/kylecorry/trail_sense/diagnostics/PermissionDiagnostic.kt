@@ -16,9 +16,9 @@ class PermissionDiagnostic(
             return listOf(
                 DiagnosticIssue(
                     title,
-                    context.getString(R.string.permission_not_granted),
+                    context.getString(R.string.no_permission),
                     IssueSeverity.Error,
-                    IssueMessage(actionTitle = context.getString(R.string.update)) {
+                    IssueMessage(actionTitle = context.getString(R.string.settings)) {
                         val intent = Intents.appSettings(context)
                         context.startActivity(intent)
                     }

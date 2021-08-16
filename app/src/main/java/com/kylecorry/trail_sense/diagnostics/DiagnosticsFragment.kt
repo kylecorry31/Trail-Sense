@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -40,7 +39,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 val itemBinding = ListItemPlainIconBinding.bind(itemView)
                 itemBinding.title.text = result.title
                 itemBinding.description.text = result.message
-                itemBinding.icon.setImageResource(getStatusIcon(result.severity))
+                itemBinding.icon.setImageResource(android.R.drawable.stat_notify_error)
                 itemBinding.icon.colorFilter =
                     PorterDuffColorFilter(getStatusTint(result.severity), PorterDuff.Mode.SRC_IN)
                 itemBinding.root.setOnClickListener {
@@ -153,14 +152,14 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             AltimeterDiagnostic(requireContext(), findNavController()),
             CameraDiagnostic(requireContext()),
             FlashlightDiagnostic(requireContext()),
-            BatteryDiagnostic(requireContext(), findNavController())
+            BatteryDiagnostic(requireContext(), this, findNavController())
         )
         scheduleUpdates(1000)
     }
 
     override fun onUpdate() {
         super.onUpdate()
-        val results = diagnostics.flatMap { it.getIssues() }
+        val results = diagnostics.flatMap { it.getIssues() }.sortedBy { it.severity.ordinal }
         diagnosticListView.setData(results)
     }
 
@@ -170,11 +169,6 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             IssueSeverity.Error -> AppColor.Red.color
             IssueSeverity.Warning -> AppColor.Yellow.color
         }
-    }
-
-    @DrawableRes
-    private fun getStatusIcon(status: IssueSeverity): Int {
-        return android.R.drawable.stat_notify_error
     }
 
 }
