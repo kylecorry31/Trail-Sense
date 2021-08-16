@@ -26,7 +26,6 @@ import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconIOService
-import com.kylecorry.trail_sense.navigation.infrastructure.export.JsonBeaconImporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -101,8 +100,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 requireContext(),
                 getString(R.string.export),
                 getString(R.string.export_beacons)
-            ){ cancelled ->
-                if (!cancelled){
+            ) { cancelled ->
+                if (!cancelled) {
                     exportBeacons()
                 }
             }
@@ -418,58 +417,43 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun importFromUri(uri: Uri) {
-        lifecycleScope.launch {
+        runInBackground {
             val text = ExternalFiles.read(requireContext(), uri)
             text?.let {
-                if (text.startsWith("{")) {
-                    // Legacy
-                    val importer = JsonBeaconImporter(requireContext())
-                    val count = withContext(Dispatchers.IO) {
-                        importer.import(text)
-                    }
+                val importer = BeaconIOService(requireContext())
+                val waypoints = withContext(Dispatchers.IO) {
+                    importer.getGPXWaypoints(text)
+                }
+                if (waypoints.isNotEmpty()) {
                     withContext(Dispatchers.Main) {
-                        Alerts.toast(
+                        // TODO: Allow user to choose which beacons to import
+                        Alerts.dialog(
                             requireContext(),
-                            resources.getQuantityString(R.plurals.beacons_imported, count, count)
-                        )
-                        updateBeaconList()
-                    }
-                } else {
-                    val importer = BeaconIOService(requireContext())
-                    val waypoints = withContext(Dispatchers.IO) {
-                        importer.getGPXWaypoints(text)
-                    }
-                    if (waypoints.isNotEmpty()) {
-                        withContext(Dispatchers.Main) {
-                            // TODO: Allow user to choose which beacons to import
-                            Alerts.dialog(
-                                requireContext(),
-                                resources.getQuantityString(
-                                    R.plurals.import_beacons,
-                                    waypoints.size,
-                                    waypoints.size
-                                )
-                            ) { cancelled ->
-                                if (!cancelled) {
-                                    lifecycleScope.launch {
-                                        val count = withContext(Dispatchers.IO) {
-                                            importer.import(waypoints)
-                                        }
-                                        withContext(Dispatchers.Main) {
-                                            Alerts.toast(
-                                                requireContext(),
-                                                resources.getQuantityString(
-                                                    R.plurals.beacons_imported,
-                                                    count,
-                                                    count
-                                                )
+                            resources.getQuantityString(
+                                R.plurals.import_beacons,
+                                waypoints.size,
+                                waypoints.size
+                            )
+                        ) { cancelled ->
+                            if (!cancelled) {
+                                runInBackground {
+                                    val count = withContext(Dispatchers.IO) {
+                                        importer.import(waypoints)
+                                    }
+                                    withContext(Dispatchers.Main) {
+                                        Alerts.toast(
+                                            requireContext(),
+                                            resources.getQuantityString(
+                                                R.plurals.beacons_imported,
+                                                count,
+                                                count
                                             )
-                                            updateBeaconList()
-                                        }
+                                        )
+                                        updateBeaconList()
                                     }
                                 }
-
                             }
+
                         }
                     }
                 }
@@ -480,7 +464,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
 
     private fun exportToUri(uri: Uri) {
-        lifecycleScope.launch {
+        runInBackground {
             val groups = withContext(Dispatchers.IO) {
                 if (displayedGroup == null) {
                     beaconRepo.getGroupsSync().map { it.toBeaconGroup() }
