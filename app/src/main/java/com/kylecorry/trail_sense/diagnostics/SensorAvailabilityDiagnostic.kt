@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.trail_sense.R
 
-class SensorDiagnostic(
+class SensorAvailabilityDiagnostic(
     private val context: Context,
     private val sensor: Int,
     private val title: String

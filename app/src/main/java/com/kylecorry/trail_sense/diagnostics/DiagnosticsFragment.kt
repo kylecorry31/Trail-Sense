@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentDiagnosticsBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.shared.AppColor
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
@@ -58,6 +59,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 }
             }
         diagnosticListView.addLineSeparator()
+        val sensorService = SensorService(requireContext())
         diagnostics = listOfNotNull(
             PermissionDiagnostic(
                 requireContext(),
@@ -81,35 +83,71 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 Manifest.permission.CAMERA,
                 getString(R.string.camera)
             ),
-            SensorDiagnostic(
+            SensorAvailabilityDiagnostic(
                 requireContext(),
                 Sensor.TYPE_MAGNETIC_FIELD,
                 getString(R.string.pref_compass_sensor_title)
             ),
-            SensorDiagnostic(
+            SensorAvailabilityDiagnostic(
                 requireContext(),
                 Sensor.TYPE_ACCELEROMETER,
                 getString(R.string.gravity)
             ),
-            SensorDiagnostic(
+            SensorAvailabilityDiagnostic(
                 requireContext(),
                 Sensor.TYPE_GYROSCOPE,
                 getString(R.string.sensor_gyroscope)
             ),
-            SensorDiagnostic(
+            SensorAvailabilityDiagnostic(
                 requireContext(),
                 Sensor.TYPE_RELATIVE_HUMIDITY,
                 getString(R.string.hygrometer)
             ),
-            SensorDiagnostic(
+            SensorAvailabilityDiagnostic(
                 requireContext(),
                 Sensor.TYPE_PRESSURE,
                 getString(R.string.barometer)
             ),
-            SensorDiagnostic(
+            SensorAvailabilityDiagnostic(
                 requireContext(),
                 Sensor.TYPE_STEP_COUNTER,
                 getString(R.string.pedometer)
+            ),
+            SensorQualityDiagnostic(
+                requireContext(),
+                this,
+                sensorService.getBarometer(),
+                getString(R.string.barometer)
+            ),
+            SensorQualityDiagnostic(
+                requireContext(),
+                this,
+                sensorService.getGPS(false),
+                getString(R.string.gps)
+            ),
+            SensorQualityDiagnostic(
+                requireContext(),
+                this,
+                sensorService.getMagnetometer(),
+                getString(R.string.pref_compass_sensor_title)
+            ),
+            SensorQualityDiagnostic(
+                requireContext(),
+                this,
+                sensorService.getGravity(),
+                getString(R.string.gravity)
+            ),
+            SensorQualityDiagnostic(
+                requireContext(),
+                this,
+                sensorService.getGyroscope(),
+                getString(R.string.sensor_gyroscope)
+            ),
+            SensorQualityDiagnostic(
+                requireContext(),
+                this,
+                sensorService.getHygrometer(),
+                getString(R.string.hygrometer)
             ),
             GPSDiagnostic(requireContext(), findNavController()),
             AltimeterDiagnostic(requireContext(), findNavController()),

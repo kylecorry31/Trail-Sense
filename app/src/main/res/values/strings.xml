@@ -1149,4 +1149,5 @@
     <string name="altitude_overridden">Altitude overridden</string>
     <string name="battery_usage_restricted">Battery usage restricted</string>
     <string name="update">Update</string>
+    <string name="quality">Quality: %s</string>
 </resources>
