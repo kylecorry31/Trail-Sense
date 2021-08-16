@@ -139,7 +139,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             val options = listOf(
                 AstronomyEvent.FullMoon,
                 AstronomyEvent.NewMoon,
-                AstronomyEvent.MeteorShower
+                AstronomyEvent.QuarterMoon,
+                AstronomyEvent.MeteorShower,
             )
             Pickers.item(
                 requireContext(),
@@ -147,6 +148,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 listOf(
                     getString(R.string.full_moon),
                     getString(R.string.new_moon),
+                    getString(R.string.quarter_moon),
                     getString(R.string.meteor_shower)
                 ),
                 options.indexOf(lastAstronomyEventSearch)

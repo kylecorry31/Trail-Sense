@@ -1139,4 +1139,5 @@
     <string name="last_duration">Last %s</string>
     <string name="altitude_history_length">Altitude history length</string>
     <string name="gps_signal_lost">GPS signal lost</string>
+    <string name="quarter_moon">Quarter Moon</string>
 </resources>

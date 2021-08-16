@@ -104,7 +104,11 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         sunTimesMode: SunTimesMode,
         date: LocalDate
     ): Duration {
-        return newAstronomyService.getDaylightLength(date.atStartOfDay().toZonedDateTime(), location, sunTimesMode)
+        return newAstronomyService.getDaylightLength(
+            date.atStartOfDay().toZonedDateTime(),
+            location,
+            sunTimesMode
+        )
     }
 
     fun getTodaySunTimes(location: Coordinate, sunTimesMode: SunTimesMode): RiseSetTransitTimes {
@@ -201,6 +205,10 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         var isInEvent = when (event) {
             AstronomyEvent.FullMoon -> getMoonPhase(start).phase == MoonTruePhase.Full
             AstronomyEvent.NewMoon -> getMoonPhase(start).phase == MoonTruePhase.New
+            AstronomyEvent.QuarterMoon -> listOf(
+                MoonTruePhase.FirstQuarter,
+                MoonTruePhase.ThirdQuarter
+            ).contains(getMoonPhase(start).phase)
             AstronomyEvent.MeteorShower -> getMeteorShower(
                 location,
                 start
@@ -212,6 +220,10 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             val hasEvent = when (event) {
                 AstronomyEvent.FullMoon -> getMoonPhase(date).phase == MoonTruePhase.Full
                 AstronomyEvent.NewMoon -> getMoonPhase(date).phase == MoonTruePhase.New
+                AstronomyEvent.QuarterMoon -> listOf(
+                    MoonTruePhase.FirstQuarter,
+                    MoonTruePhase.ThirdQuarter
+                ).contains(getMoonPhase(date).phase)
                 AstronomyEvent.MeteorShower -> getMeteorShower(
                     location,
                     date
