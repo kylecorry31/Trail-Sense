@@ -518,7 +518,6 @@
     <string name="gps_stale">Obsoleto</string>
     <string name="gps_user">Usuário</string>
     <string name="import_btn">Importar</string>
-    <string name="import_export_beacons">Importar/Exportar Pontos</string>
     <string name="select_import_file">Selecione um arquivo a importar</string>
     <string name="export">Exportar</string>
     <string name="onboarding_privacy">- Trail Sense respeita sua privacidade e seus dados de localização nunca deixam seu dispositivo

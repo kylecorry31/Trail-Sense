@@ -310,7 +310,6 @@
     <string name="gps_stale">Verouderd</string>
     <string name="gps_user">Gebruiker</string>
     <string name="import_btn">Importeren</string>
-    <string name="import_export_beacons">Bakens importeren/exporteren</string>
     <string name="select_import_file">Bestand selecteren voor import</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d baken geëxporteerd</item>

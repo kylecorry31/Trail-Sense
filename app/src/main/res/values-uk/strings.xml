@@ -146,7 +146,6 @@
     <string name="gps_stale">Застаріло</string>
     <string name="gps_user">Користувач</string>
     <string name="import_btn">Імпорт</string>
-    <string name="import_export_beacons">Імпорт/експорт маячків</string>
     <string name="select_import_file">Вибрати тип імпорту</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d маячок експортовано</item>

@@ -595,7 +595,6 @@
 \n- Falls Sie sich entscheiden, den Zugriff auf Ihre Ortsdaten nicht zu erlauben, können Sie selber Koordinaten im Trail Sense Menu Einstellungen -&gt; GPS Kalibration eingeben.
 \n
 \n- Nach \"Weiter\" werden Sie darum gebeten, die Freigabe Ihrer Ortsdaten im Vorder- und Hintergrund zu erteilen. Ablehnung dieser Rechte wird verhindern, dass Trail Sense Zugriff auf Ihren Ort erlangt, in diesem Fall wird empfohlen, Koordinaten manuell einzugeben.</string>
-    <string name="import_export_beacons">Wegpunkte importieren/exportieren</string>
     <string name="select_import_file">Datei auswählen</string>
     <string name="export">Exportieren</string>
     <string name="import_btn">Importieren</string>

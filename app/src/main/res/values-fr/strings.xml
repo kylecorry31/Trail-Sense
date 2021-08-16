@@ -564,7 +564,6 @@
     <string name="gps_unavailable">Indisponible</string>
     <string name="gps_user">Utilisateur</string>
     <string name="import_btn">Importer</string>
-    <string name="import_export_beacons">Importer/exporter des repères</string>
     <string name="select_import_file">Sélectionnez un fichier</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d repère exporté</item>

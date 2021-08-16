@@ -587,7 +587,6 @@
     <string name="gps_unavailable">Niedostępny</string>
     <string name="gps_searching">Wyszukiwanie</string>
     <string name="gps_user">Użytkownika</string>
-    <string name="import_export_beacons">Import/eksport punktów nawigacyjnych</string>
     <string name="onboarding_privacy">- Program Trail Sense szanuje Twoją prywatność i dane lokalizacji nigdy nieopuszczą Twojego urzadzenia
 \n
 \n- Trail Sense nigdy nie wymaga połączenie z Internetem

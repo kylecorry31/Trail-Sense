@@ -4,16 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.trail_sense.R
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.databinding.FragmentToolNotesCreateBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
-import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Instant
 
@@ -42,13 +39,13 @@ class FragmentToolNotesCreate : BoundFragment<FragmentToolNotesCreateBinding>() 
             val note = existingNote?.copy(title = title, contents = content)
                 ?.apply { id = existingNote.id }
                 ?: Note(title, content, Instant.now().toEpochMilli())
-            lifecycleScope.launch {
+            runInBackground {
                 withContext(Dispatchers.IO) {
                     notesRepo.addNote(note)
                 }
 
                 withContext(Dispatchers.Main) {
-                    findNavController().navigate(R.id.action_fragmentToolNotesCreate_to_fragmentToolNotes)
+                    findNavController().navigateUp()
                 }
             }
         }
@@ -76,7 +73,7 @@ class FragmentToolNotesCreate : BoundFragment<FragmentToolNotesCreateBinding>() 
 
 
     private fun loadEditingNote(id: Long) {
-        lifecycleScope.launch {
+        runInBackground {
             withContext(Dispatchers.IO) {
                 editingNote = notesRepo.getNote(id)
             }

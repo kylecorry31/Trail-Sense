@@ -632,7 +632,6 @@
 \n
 \n- 用 Backtrack 追溯你的脚步 (启用时在后台运行)</string>
     <string name="import_btn">导入</string>
-    <string name="import_export_beacons">导入/导出信标</string>
     <string name="select_import_file">选择导入文件</string>
     <string name="export">导出</string>
     <string name="gps_unavailable">不可用</string>

@@ -369,7 +369,6 @@
     <string name="gps_stale">Zastarjelo</string>
     <string name="gps_user">Korisnik</string>
     <string name="import_btn">Uvezite</string>
-    <string name="import_export_beacons">Uvezite/Izvezite Svjetionike</string>
     <string name="select_import_file">Odaberite Datoteku za Uvoz</string>
     <plurals name="beacons_exported">
         <item quantity="one">Izvezen %d svjetionik</item>

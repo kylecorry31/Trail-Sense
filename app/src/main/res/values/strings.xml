@@ -757,7 +757,6 @@
         <item quantity="other">%d beacons exported</item>
     </plurals>
     <string name="select_import_file">Select Import File</string>
-    <string name="import_export_beacons">Import/Export Beacons</string>
     <string name="import_btn">Import</string>
     <string name="gps_user">User</string>
     <string name="gps_stale">Stale</string>
@@ -1140,5 +1139,4 @@
     <string name="last_duration">Last %s</string>
     <string name="altitude_history_length">Altitude history length</string>
     <string name="gps_signal_lost">GPS signal lost</string>
-    <string name="export_beacons">Export beacons to a file?</string>
 </resources>

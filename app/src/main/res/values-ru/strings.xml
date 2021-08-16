@@ -592,7 +592,6 @@
     <string name="gps_stale">Устаревший</string>
     <string name="gps_user">Пользователь</string>
     <string name="import_btn">Импорт</string>
-    <string name="import_export_beacons">Импорт/экспорт маячков</string>
     <string name="select_import_file">Выбрать тип импорта</string>
     <string name="export">Экспорт</string>
     <string name="onboarding_privacy">- Trail Sense уважает вашу конфиденциальность, и данные о местоположении никогда не покидают ваше устройство

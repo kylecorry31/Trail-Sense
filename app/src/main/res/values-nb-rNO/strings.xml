@@ -762,7 +762,6 @@
         <item quantity="other">Importere %d navigeringsmarkører\?</item>
     </plurals>
     <string name="beacon_export_error">Kunne ikke eksportere navigeringsmarkører</string>
-    <string name="import_export_beacons">Importer/Eksporter navigeringsmarkører</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d navigeringsmarkør eksportert</item>
         <item quantity="other">%d navigeringsmarkører eksportert</item>
