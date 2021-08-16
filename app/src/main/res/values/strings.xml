@@ -1140,4 +1140,7 @@
     <string name="altitude_history_length">Altitude history length</string>
     <string name="gps_signal_lost">GPS signal lost</string>
     <string name="quarter_moon">Quarter Moon</string>
+    <string name="camera">Camera</string>
+    <string name="permission_activity_recognition">Physical activity</string>
+    <string name="permission">Permission</string>
 </resources>

@@ -13,8 +13,6 @@ import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
@@ -53,7 +51,6 @@ import java.util.*
 
 class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
-    private val throttle = Throttle(500)
     private val sensorService by lazy { SensorService(requireContext()) }
     private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private lateinit var sensorListView: ListView<SensorDetails>
@@ -76,10 +73,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         sensorService.getGyroscope()
     }
     private val battery by lazy { Battery(requireContext()) }
-    private val intervalometer = Timer {
-        updateClock()
-        updatePermissions()
-    }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -116,7 +109,10 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         battery.asLiveData().observe(viewLifecycleOwner, { updateBattery() })
         gyroscope.asLiveData().observe(viewLifecycleOwner, { updateGyro() })
 
-        if (!sensorChecker.hasSensor(Sensor.TYPE_MAGNETIC_FIELD) && @Suppress("DEPRECATION")!sensorChecker.hasSensor(Sensor.TYPE_ORIENTATION)) {
+        if (!sensorChecker.hasSensor(Sensor.TYPE_MAGNETIC_FIELD) && @Suppress("DEPRECATION") !sensorChecker.hasSensor(
+                Sensor.TYPE_ORIENTATION
+            )
+        ) {
             sensorDetailsMap["compass"] = SensorDetails(
                 getString(R.string.pref_compass_sensor_title),
                 "",
@@ -125,17 +121,25 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 R.drawable.ic_compass_icon
             )
         }
+        scheduleUpdates(Duration.ofMillis(500))
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+        updateClock()
+        synchronized(this) {
+            val details =
+                sensorDetailsMap.toList().mapNotNull { it.second }.sortedWith(
+                    compareBy({ it.type.ordinal }, { it.name })
+                )
+            sensorListView.setData(details)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        intervalometer.interval(Duration.ofSeconds(1))
         updateFlashlight()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        intervalometer.stop()
+        updatePermissions()
     }
 
     private fun updateGyro() {
@@ -147,7 +151,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 CustomUiUtils.getQualityColor(requireContext(), Quality.Poor),
                 R.drawable.ic_gyro
             )
-            updateSensorList()
             return
         }
         val euler = gyroscope.orientation.toEuler()
@@ -163,7 +166,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             CustomUiUtils.getQualityColor(requireContext(), gyroscope.quality),
             R.drawable.ic_gyro
         )
-        updateSensorList()
     }
 
     private fun updateClock() {
@@ -177,7 +179,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             CustomUiUtils.getQualityColor(requireContext(), Quality.Good),
             R.drawable.ic_tool_clock
         )
-        updateSensorList()
     }
 
     private fun updateFlashlight() {
@@ -192,7 +193,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             ),
             R.drawable.flashlight
         )
-        updateSensorList()
     }
 
     private fun updateGPSCache() {
@@ -203,7 +203,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             CustomUiUtils.getQualityColor(requireContext(), getGPSCacheQuality()),
             R.drawable.satellite
         )
-        updateSensorList()
     }
 
     private fun updateAltimeter() {
@@ -218,7 +217,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             getAltimeterColor(),
             R.drawable.ic_altitude
         )
-        updateSensorList()
     }
 
     private fun updateBattery() {
@@ -234,38 +232,31 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             CustomUiUtils.getQualityColor(requireContext(), quality),
             R.drawable.ic_tool_battery
         )
-        updateSensorList()
     }
 
     private fun updatePermissions() {
-        val location = Permissions.canGetFineLocation(requireContext())
 
-        sensorDetailsMap["location-permission"] = SensorDetails(
-            getString(R.string.gps_location),
-            "",
-            if (location) getString(R.string.permission_granted) else getString(R.string.permission_not_granted),
-            CustomUiUtils.getQualityColor(
-                requireContext(),
-                if (location) Quality.Good else Quality.Poor
-            ),
-            if (location) R.drawable.ic_check else R.drawable.ic_cancel
+        val permissions = mapOf(
+            getString(R.string.camera) to Permissions.isCameraEnabled(requireContext()),
+            getString(R.string.gps_location) to Permissions.canGetFineLocation(requireContext()),
+            getString(R.string.permission_background_location) to Permissions.isBackgroundLocationEnabled(requireContext()),
+            getString(R.string.permission_activity_recognition) to Permissions.canRecognizeActivity(requireContext()),
+            getString(R.string.flashlight_title) to Permissions.canUseFlashlight(requireContext())
         )
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-            val backgroundLocation = Permissions.isBackgroundLocationEnabled(requireContext())
-
-            sensorDetailsMap["background-location-permission"] = SensorDetails(
-                getString(R.string.permission_background_location),
-                "",
-                if (backgroundLocation) getString(R.string.permission_granted) else getString(R.string.permission_not_granted),
+        permissions.forEach {
+            sensorDetailsMap["permission-${it.key}"] = SensorDetails(
+                it.key,
+                getString(R.string.permission),
+                if (it.value) getString(R.string.permission_granted) else getString(R.string.permission_not_granted),
                 CustomUiUtils.getQualityColor(
                     requireContext(),
-                    if (backgroundLocation) Quality.Good else Quality.Poor
+                    if (it.value) Quality.Good else Quality.Poor
                 ),
-                if (backgroundLocation) R.drawable.ic_check else R.drawable.ic_cancel
+                if (it.value) R.drawable.ic_check else R.drawable.ic_cancel,
+                DetailType.Permission
             )
         }
-        updateSensorList()
     }
 
     private fun updateBarometer() {
@@ -277,7 +268,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 CustomUiUtils.getQualityColor(requireContext(), Quality.Unknown),
                 R.drawable.ic_weather
             )
-            updateSensorList()
             return
         }
         val pressure =
@@ -289,7 +279,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             CustomUiUtils.getQualityColor(requireContext(), barometer.quality),
             R.drawable.ic_weather
         )
-        updateSensorList()
     }
 
     private fun updateGPS() {
@@ -300,7 +289,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             getGPSColor(),
             R.drawable.satellite
         )
-        updateSensorList()
     }
 
     private fun updateCompass() {
@@ -311,7 +299,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             CustomUiUtils.getQualityColor(requireContext(), compass.quality),
             R.drawable.ic_compass_icon
         )
-        updateSensorList()
     }
 
     private fun updateThermometer() {
@@ -326,7 +313,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             CustomUiUtils.getQualityColor(requireContext(), thermometer.quality),
             R.drawable.thermometer
         )
-        updateSensorList()
     }
 
     private fun updateHygrometer() {
@@ -338,7 +324,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 CustomUiUtils.getQualityColor(requireContext(), Quality.Unknown),
                 R.drawable.ic_category_water
             )
-            updateSensorList()
             return
         }
 
@@ -349,7 +334,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             CustomUiUtils.getQualityColor(requireContext(), hygrometer.quality),
             R.drawable.ic_category_water
         )
-        updateSensorList()
     }
 
     private fun updateGravity() {
@@ -360,7 +344,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             CustomUiUtils.getQualityColor(requireContext(), gravity.quality),
             R.drawable.ic_tool_cliff_height
         )
-        updateSensorList()
     }
 
     private fun updateCellSignal() {
@@ -381,7 +364,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             CustomUiUtils.getQualityColor(requireContext(), signal?.quality ?: Quality.Unknown),
             CellSignalUtils.getCellQualityImage(signal?.quality)
         )
-        updateSensorList()
     }
 
     private fun updateMagnetometer() {
@@ -392,18 +374,6 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             CustomUiUtils.getQualityColor(requireContext(), magnetometer.quality),
             R.drawable.ic_tool_metal_detector
         )
-        updateSensorList()
-    }
-
-    private fun updateSensorList() {
-        if (throttle.isThrottled()) {
-            return
-        }
-        synchronized(this) {
-            val details =
-                sensorDetailsMap.toList().mapNotNull { it.second }.sortedBy { it.name }
-            sensorListView.setData(details)
-        }
     }
 
     @ColorInt
@@ -505,7 +475,14 @@ class DiagnosticFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         val description: String,
         val statusMessage: String,
         @ColorInt val statusColor: Int,
-        @DrawableRes val statusIcon: Int
+        @DrawableRes val statusIcon: Int,
+        val type: DetailType = DetailType.Sensor
     )
+
+    enum class DetailType {
+        Permission,
+        Sensor,
+        Notification
+    }
 
 }
