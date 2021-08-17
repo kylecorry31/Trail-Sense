@@ -13,7 +13,6 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.andromeda.sense.SensorChecker
 import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
@@ -53,7 +52,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
     private var readingHistory: List<PressureAltitudeReading> = listOf()
 
-    private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
     private lateinit var thermometer: IThermometer

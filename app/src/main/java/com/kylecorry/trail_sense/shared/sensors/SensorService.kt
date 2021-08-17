@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.core.sensors.IThermometer
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
@@ -46,7 +46,6 @@ class SensorService(ctx: Context) {
 
     private var context = ctx.applicationContext
     private val userPrefs by lazy { UserPreferences(context) }
-    private val sensorChecker by lazy { SensorChecker(context) }
     private val sensorManager by lazy { context.getSystemService<SensorManager>() }
 
     fun getGPS(background: Boolean = false): IGPS {
@@ -102,7 +101,7 @@ class SensorService(ctx: Context) {
 
         if (mode == UserPreferences.AltimeterMode.Override) {
             return OverrideAltimeter(context)
-        } else if (mode == UserPreferences.AltimeterMode.Barometer && sensorChecker.hasBarometer()) {
+        } else if (mode == UserPreferences.AltimeterMode.Barometer && Sensors.hasBarometer(context)) {
             // TODO: Verify this still works correctly
             return Barometer(context, seaLevelPressure = userPrefs.seaLevelPressureOverride)
         } else {
@@ -112,7 +111,7 @@ class SensorService(ctx: Context) {
 
             val gps = getGPS(background)
 
-            return if (mode == UserPreferences.AltimeterMode.GPSBarometer && sensorChecker.hasBarometer()) {
+            return if (mode == UserPreferences.AltimeterMode.GPSBarometer && Sensors.hasBarometer(context)) {
                 FusedAltimeter(gps, Barometer(context))
             } else {
                 gps
@@ -150,11 +149,11 @@ class SensorService(ctx: Context) {
 
     @Suppress("DEPRECATION")
     fun getThermometer(): IThermometer {
-        if (sensorChecker.hasSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)) {
+        if (Sensors.hasSensor(context, Sensor.TYPE_AMBIENT_TEMPERATURE)) {
             return AmbientThermometer(context, Sensor.TYPE_AMBIENT_TEMPERATURE)
         }
 
-        if (sensorChecker.hasSensor(Sensor.TYPE_TEMPERATURE)) {
+        if (Sensors.hasSensor(context, Sensor.TYPE_TEMPERATURE)) {
             return AmbientThermometer(context, Sensor.TYPE_TEMPERATURE)
         }
 
@@ -173,7 +172,7 @@ class SensorService(ctx: Context) {
     }
 
     fun getHygrometer(): IHygrometer {
-        if (sensorChecker.hasHygrometer()) {
+        if (Sensors.hasHygrometer(context)) {
             return Hygrometer(context)
         }
 
@@ -188,7 +187,7 @@ class SensorService(ctx: Context) {
     }
 
     fun getGravity(): IAccelerometer {
-        return if (sensorChecker.hasSensor(Sensor.TYPE_GRAVITY)) {
+        return if (Sensors.hasSensor(context, Sensor.TYPE_GRAVITY)) {
             GravitySensor(context)
         } else {
             LowPassAccelerometer(context)
@@ -200,7 +199,7 @@ class SensorService(ctx: Context) {
     }
 
     fun getGyroscope(): IGyroscope {
-        if (!sensorChecker.hasGyroscope()){
+        if (!Sensors.hasGyroscope(context)){
             return NullGyroscope()
         }
         return Gyroscope(context)
@@ -213,7 +212,7 @@ class SensorService(ctx: Context) {
     ): IOrientationSensor {
         return MadgwickAHRS(context,
             accelerometer = if (useAcc) LowPassAccelerometer(context) else NullAccelerometer(),
-            gyro = if (useGyro && sensorChecker.hasGyroscope()) Gyroscope(context) else NullGyroscope(),
+            gyro = if (useGyro && Sensors.hasGyroscope(context)) Gyroscope(context) else NullGyroscope(),
             magnetometer = if (useMag) LowPassMagnetometer(context) else NullMagnetometer()
         )
     }

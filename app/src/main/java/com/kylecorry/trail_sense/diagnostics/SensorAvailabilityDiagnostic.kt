@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.diagnostics
 
 import android.content.Context
-import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 
 class SensorAvailabilityDiagnostic(
@@ -10,7 +10,7 @@ class SensorAvailabilityDiagnostic(
     private val title: String
 ) : IDiagnostic {
     override fun getIssues(): List<DiagnosticIssue> {
-        val exists = SensorChecker(context).hasSensor(sensor)
+        val exists = Sensors.hasSensor(context, sensor)
 
         if (!exists) {
             return listOf(

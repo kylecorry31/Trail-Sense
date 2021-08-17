@@ -4,7 +4,7 @@ import android.content.Context
 import android.hardware.Sensor
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
-import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 
@@ -19,9 +19,8 @@ data class Tool(
 object Tools {
     fun getTools(context: Context): List<ToolGroup> {
         val prefs = UserPreferences(context)
-        val sensorChecker = SensorChecker(context)
-        val hasLightMeter = sensorChecker.hasSensor(Sensor.TYPE_LIGHT)
-        val hasBarometer = sensorChecker.hasBarometer()
+        val hasLightMeter = Sensors.hasSensor(context, Sensor.TYPE_LIGHT)
+        val hasBarometer = Sensors.hasBarometer(context)
         val signaling = ToolGroup(
             context.getString(R.string.tool_category_signaling), listOf(
                 Tool(

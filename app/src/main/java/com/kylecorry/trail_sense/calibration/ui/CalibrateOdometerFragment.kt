@@ -13,7 +13,7 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
@@ -28,7 +28,6 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     private lateinit var odometerSourceList: ListPreference
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
-    private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private var wasEnabled = false
     private val cache by lazy { Preferences(requireContext()) }
 
@@ -52,7 +51,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
         odometerSourceList = findPreference(getString(R.string.pref_odometer_source))!!
         permissionPref = findPreference(getString(R.string.pref_odometer_request_permission))!!
 
-        val hasPedometer = sensorChecker.hasSensor(Sensor.TYPE_STEP_COUNTER)
+        val hasPedometer = Sensors.hasSensor(requireContext(), Sensor.TYPE_STEP_COUNTER)
         strideLengthPref.isVisible = hasPedometer
         odometerSourceList.isVisible = hasPedometer
         permissionPref.isVisible = hasPedometer

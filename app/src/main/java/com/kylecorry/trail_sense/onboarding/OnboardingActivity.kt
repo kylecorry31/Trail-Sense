@@ -8,7 +8,7 @@ import androidx.appcompat.widget.SwitchCompat
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
@@ -59,7 +59,7 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun load(page: Int) {
-        val pageToLoad = if (page == OnboardingPages.WEATHER && !SensorChecker(this).hasBarometer()) {
+        val pageToLoad = if (page == OnboardingPages.WEATHER && !Sensors.hasBarometer(this)) {
             page + 1
         } else {
             page

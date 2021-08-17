@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.guide.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuide
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuideCategory
@@ -9,8 +9,6 @@ import com.kylecorry.trail_sense.tools.guide.domain.UserGuideCategory
 object Guides {
 
     fun guides(context: Context): List<UserGuideCategory> {
-
-        val sensorChecker = SensorChecker(context)
 
         val general = UserGuideCategory(
             context.getString(R.string.pref_general_header), listOf(
@@ -59,13 +57,13 @@ object Guides {
 
         val weather = UserGuideCategory(
             context.getString(R.string.weather), listOfNotNull(
-                if (sensorChecker.hasBarometer())
+                if (Sensors.hasBarometer(context))
                     UserGuide(
                         context.getString(R.string.guide_weather_prediction_title),
                         null,
                         R.raw.weather
                     ) else null,
-                if (sensorChecker.hasBarometer()) UserGuide(
+                if (Sensors.hasBarometer(context)) UserGuide(
                     context.getString(R.string.guide_barometer_calibration_title),
                     null,
                     R.raw.calibrating_barometer

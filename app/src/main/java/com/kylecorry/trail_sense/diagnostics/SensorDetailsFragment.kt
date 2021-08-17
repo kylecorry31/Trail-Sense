@@ -19,7 +19,7 @@ import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.GPS
-import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.barometer.Barometer
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
@@ -51,7 +51,6 @@ import java.util.*
 class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private lateinit var sensorListView: ListView<SensorDetails>
     private val prefs by lazy { UserPreferences(requireContext()) }
 
@@ -108,10 +107,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
         battery.asLiveData().observe(viewLifecycleOwner, { updateBattery() })
         gyroscope.asLiveData().observe(viewLifecycleOwner, { updateGyro() })
 
-        if (!sensorChecker.hasSensor(Sensor.TYPE_MAGNETIC_FIELD) && @Suppress("DEPRECATION") !sensorChecker.hasSensor(
-                Sensor.TYPE_ORIENTATION
-            )
-        ) {
+        if (!Sensors.hasCompass(requireContext())) {
             sensorDetailsMap["compass"] = SensorDetails(
                 getString(R.string.pref_compass_sensor_title),
                 "",
@@ -139,7 +135,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     }
 
     private fun updateGyro() {
-        if (!sensorChecker.hasSensor(Sensor.TYPE_GYROSCOPE)) {
+        if (!Sensors.hasSensor(requireContext(), Sensor.TYPE_GYROSCOPE)) {
             sensorDetailsMap["gyroscope"] = SensorDetails(
                 getString(R.string.sensor_gyroscope),
                 "",

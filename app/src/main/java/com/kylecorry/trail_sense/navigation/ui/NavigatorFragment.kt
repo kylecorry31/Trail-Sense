@@ -32,7 +32,7 @@ import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -100,7 +100,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val sensorChecker by lazy { SensorChecker(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
     private val throttle = Throttle(20)
 
@@ -174,7 +173,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (!sensorChecker.hasSensor(Sensor.TYPE_MAGNETIC_FIELD) && @Suppress("DEPRECATION")!sensorChecker.hasSensor(Sensor.TYPE_ORIENTATION)) {
+        if (!Sensors.hasCompass(requireContext())) {
             requireMainActivity().errorBanner.report(
                 UserError(
                     USER_ERROR_NO_COMPASS,

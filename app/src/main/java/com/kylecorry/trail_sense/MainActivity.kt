@@ -26,7 +26,7 @@ import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.requestPermissions
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.sense.SensorChecker
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
@@ -49,8 +49,6 @@ class MainActivity : AppCompatActivity() {
     val errorBanner: ErrorBannerView by lazy { findViewById(R.id.error_banner) }
 
     private var geoIntentLocation: GeoUriParser.NamedCoordinate? = null
-
-    private val sensorChecker by lazy { SensorChecker(this) }
 
     private lateinit var userPrefs: UserPreferences
     private lateinit var disclaimer: DisclaimerMessage
@@ -154,7 +152,7 @@ class MainActivity : AppCompatActivity() {
 
         TrailSenseServiceUtils.restartServices(this)
 
-        if (!sensorChecker.hasBarometer()) {
+        if (!Sensors.hasBarometer(this)) {
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)
             item.isVisible = false
         }

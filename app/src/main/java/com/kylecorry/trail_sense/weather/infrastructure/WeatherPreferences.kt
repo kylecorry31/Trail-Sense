@@ -1,13 +1,13 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.preferences.BooleanPreference
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.sense.SensorChecker
-import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.andromeda.core.math.toFloatCompat
 import com.kylecorry.andromeda.core.math.toIntCompat
+import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trailsensecore.domain.weather.ISeaLevelPressureConverter
 import com.kylecorry.trailsensecore.domain.weather.KalmanSeaLevelPressureConverter
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
@@ -19,14 +19,13 @@ import kotlin.math.pow
 
 class WeatherPreferences(private val context: Context) {
 
-    private val sensorChecker = SensorChecker(context)
     private val cache = Preferences(context)
 
     val hasBarometer: Boolean
-        get() = sensorChecker.hasBarometer()
+        get() = Sensors.hasBarometer(context)
 
     var shouldMonitorWeather: Boolean
-        get() = sensorChecker.hasBarometer() && (cache.getBoolean(context.getString(R.string.pref_monitor_weather))
+        get() = Sensors.hasBarometer(context) && (cache.getBoolean(context.getString(R.string.pref_monitor_weather))
             ?: true)
         set(value) {
             cache.putBoolean(context.getString(R.string.pref_monitor_weather), value)
