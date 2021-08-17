@@ -7,6 +7,7 @@ import android.graphics.PorterDuffColorFilter
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
@@ -317,6 +318,10 @@ object CustomUiUtils {
         } else {
             onClose(false)
         }
+    }
+
+    fun setImageColor(view: ImageView, @ColorInt color: Int){
+        view.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
 
 }

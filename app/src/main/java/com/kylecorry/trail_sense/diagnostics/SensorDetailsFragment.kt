@@ -21,7 +21,6 @@ import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.barometer.Barometer
-import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentSensorDetailsBinding
 import com.kylecorry.trail_sense.databinding.ListItemSensorBinding
@@ -129,20 +128,8 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        updateFlashlight()
-    }
-
     private fun updateGyro() {
         if (!Sensors.hasSensor(requireContext(), Sensor.TYPE_GYROSCOPE)) {
-            sensorDetailsMap["gyroscope"] = SensorDetails(
-                getString(R.string.sensor_gyroscope),
-                "",
-                getString(R.string.gps_unavailable),
-                CustomUiUtils.getQualityColor(requireContext(), Quality.Poor),
-                R.drawable.ic_gyro
-            )
             return
         }
         val euler = gyroscope.orientation.toEuler()
@@ -170,20 +157,6 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             formatService.formatQuality(Quality.Good),
             CustomUiUtils.getQualityColor(requireContext(), Quality.Good),
             R.drawable.ic_tool_clock
-        )
-    }
-
-    private fun updateFlashlight() {
-        val hasFlashlight = Torch.isAvailable(requireContext())
-        sensorDetailsMap["flashlight"] = SensorDetails(
-            getString(R.string.flashlight_title),
-            "",
-            if (hasFlashlight) getString(R.string.available) else getString(R.string.gps_unavailable),
-            CustomUiUtils.getQualityColor(
-                requireContext(),
-                if (hasFlashlight) Quality.Good else Quality.Unknown
-            ),
-            R.drawable.flashlight
         )
     }
 
@@ -228,13 +201,6 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
 
     private fun updateBarometer() {
         if (barometer is NullBarometer) {
-            sensorDetailsMap["barometer"] = SensorDetails(
-                getString(R.string.barometer),
-                "",
-                getString(R.string.gps_unavailable),
-                CustomUiUtils.getQualityColor(requireContext(), Quality.Unknown),
-                R.drawable.ic_weather
-            )
             return
         }
         val pressure =
@@ -284,13 +250,6 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
 
     private fun updateHygrometer() {
         if (hygrometer is NullHygrometer) {
-            sensorDetailsMap["hygrometer"] = SensorDetails(
-                getString(R.string.hygrometer),
-                "",
-                getString(R.string.gps_unavailable),
-                CustomUiUtils.getQualityColor(requireContext(), Quality.Unknown),
-                R.drawable.ic_category_water
-            )
             return
         }
 
