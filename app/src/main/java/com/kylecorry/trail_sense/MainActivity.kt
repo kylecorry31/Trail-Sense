@@ -131,7 +131,6 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.action_navigation)
         }
 
-        println(cache.getBoolean(getString(R.string.pref_main_disclaimer_shown_key)))
         CustomUiUtils.disclaimer(
             this,
             getString(R.string.app_disclaimer_message_title),
