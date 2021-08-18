@@ -35,6 +35,9 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.sensorDetailsBtn.setOnClickListener {
+            findNavController().navigate(R.id.sensorDetailsFragment)
+        }
         diagnosticListView =
             ListView(binding.diagnosticsList, R.layout.list_item_plain_icon) { itemView, code ->
                 val itemBinding = ListItemPlainIconBinding.bind(itemView)
@@ -81,6 +84,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             GPSDiagnostic(requireContext(), this),
             AltimeterDiagnostic(requireContext()),
             BatteryDiagnostic(requireContext(), this),
+            LightSensorDiagnostic(requireContext(), this),
             CameraDiagnostic(requireContext()),
             FlashlightDiagnostic(requireContext()),
             PedometerDiagnostic(requireContext()),
@@ -116,6 +120,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.BarometerUnavailable -> getString(R.string.gps_unavailable)
             DiagnosticCode.MagnetometerUnavailable -> getString(R.string.gps_unavailable)
             DiagnosticCode.AccelerometerUnavailable -> getString(R.string.gps_unavailable)
+            DiagnosticCode.LightSensorUnavailable -> getString(R.string.gps_unavailable)
             DiagnosticCode.GPSUnavailable -> getString(R.string.gps_unavailable)
             DiagnosticCode.FlashlightUnavailable -> getString(R.string.gps_unavailable)
             DiagnosticCode.PedometerUnavailable -> getString(R.string.gps_unavailable)
@@ -142,7 +147,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.AltitudeOverridden -> getString(R.string.altitude)
             DiagnosticCode.LocationOverridden -> getString(R.string.gps)
             DiagnosticCode.LocationUnset -> getString(R.string.gps)
-            DiagnosticCode.PowerSavingMode -> getString(R.string.tool_battery_title)
+            DiagnosticCode.PowerSavingMode -> getString(R.string.pref_low_power_mode_title)
             DiagnosticCode.BatteryHealthPoor -> getString(R.string.tool_battery_title)
             DiagnosticCode.BatteryUsageRestricted -> getString(R.string.tool_battery_title)
             DiagnosticCode.CameraUnavailable -> getString(R.string.camera)
@@ -167,6 +172,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.FlashlightNotificationsBlocked -> getString(R.string.flashlight_title)
             DiagnosticCode.PedometerNotificationsBlocked -> getString(R.string.pedometer)
             DiagnosticCode.WeatherNotificationsBlocked -> getString(R.string.weather)
+            DiagnosticCode.LightSensorUnavailable -> getString(R.string.tool_light_meter_title)
         }
     }
 
@@ -236,6 +242,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.FlashlightNotificationsBlocked -> listOf(flashlight)
             DiagnosticCode.PedometerNotificationsBlocked -> listOf(odometer)
             DiagnosticCode.WeatherNotificationsBlocked -> listOf(weather)
+            DiagnosticCode.LightSensorUnavailable -> listOf(lightMeter)
         }
     }
 
@@ -303,6 +310,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 R.string.unblock_notification_channel,
                 getString(R.string.weather)
             )
+            DiagnosticCode.LightSensorUnavailable -> getString(R.string.no_resolution)
         }
     }
 
@@ -336,6 +344,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.FlashlightNotificationsBlocked -> notificationAction()
             DiagnosticCode.PedometerNotificationsBlocked -> notificationAction()
             DiagnosticCode.WeatherNotificationsBlocked -> notificationAction()
+            DiagnosticCode.LightSensorUnavailable -> null
         }
     }
 

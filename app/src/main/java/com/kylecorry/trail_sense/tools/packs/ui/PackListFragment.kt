@@ -17,7 +17,6 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPackListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trailsensecore.domain.packs.Pack
 import kotlinx.coroutines.Dispatchers
@@ -79,7 +78,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
     }
 
     private fun renamePack(pack: Pack) {
-        CustomUiUtils.pickText(
+        Pickers.text(
             requireContext(),
             getString(R.string.rename),
             null,
@@ -120,7 +119,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
     }
 
     private fun createPack() {
-        CustomUiUtils.pickText(
+        Pickers.text(
             requireContext(),
             getString(R.string.new_packing_list),
             null,
@@ -142,7 +141,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
     }
 
     private fun copyPack(oldPack: Pack) {
-        CustomUiUtils.pickText(
+        Pickers.text(
             requireContext(),
             getString(R.string.new_packing_list),
             null,

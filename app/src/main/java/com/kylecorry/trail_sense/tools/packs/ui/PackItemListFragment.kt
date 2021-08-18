@@ -18,7 +18,6 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackItemBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
@@ -119,7 +118,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
                 Pickers.menu(itemBinding.itemMenuBtn, R.menu.inventory_item_menu) {
                     when (it) {
                         R.id.action_item_add -> {
-                            CustomUiUtils.pickNumber(
+                            Pickers.number(
                                 requireContext(),
                                 getString(R.string.dialog_item_add),
                                 null,
@@ -133,7 +132,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
                             }
                         }
                         R.id.action_item_subtract -> {
-                            CustomUiUtils.pickNumber(
+                            Pickers.number(
                                 requireContext(),
                                 getString(R.string.dialog_item_subtract),
                                 null,
@@ -226,7 +225,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun renamePack(pack: Pack) {
-        CustomUiUtils.pickText(
+        Pickers.text(
             requireContext(),
             getString(R.string.rename),
             null,

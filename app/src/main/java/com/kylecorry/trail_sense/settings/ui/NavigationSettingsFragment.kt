@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -151,7 +152,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
         backtrackHistory?.summary =
             formatService.formatDays(prefs.navigation.backtrackHistory.toDays().toInt())
         backtrackHistory?.setOnPreferenceClickListener {
-            CustomUiUtils.pickNumber(
+            Pickers.number(
                 requireContext(),
                 it.title.toString(),
                 null,

@@ -14,7 +14,6 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
@@ -86,7 +85,7 @@ class MapsFragment: BoundFragment<FragmentMapsBinding>() {
                         UserGuideUtils.openGuide(this, R.raw.importing_maps)
                     }
                     R.id.action_map_rename -> {
-                        CustomUiUtils.pickText(
+                        Pickers.text(
                             requireContext(),
                             getString(R.string.create_map),
                             getString(R.string.create_map_description),

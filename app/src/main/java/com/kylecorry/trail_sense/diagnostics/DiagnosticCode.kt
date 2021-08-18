@@ -15,6 +15,7 @@ enum class DiagnosticCode(val severity: Severity) {
     CameraUnavailable(Severity.Warning),
     BarometerUnavailable(Severity.Warning),
     MagnetometerUnavailable(Severity.Error),
+    LightSensorUnavailable(Severity.Error),
     AccelerometerUnavailable(Severity.Error),
     GPSUnavailable(Severity.Error),
     FlashlightUnavailable(Severity.Warning),

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -20,7 +21,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.*
@@ -46,14 +46,10 @@ object CustomUiUtils {
         @ColorInt secondaryColor: Int
     ) {
         if (isOn) {
-            button.drawable.colorFilter =
-                PorterDuffColorFilter(secondaryColor, PorterDuff.Mode.SRC_IN)
+            setImageColor(button.drawable, secondaryColor)
             button.backgroundTintList = ColorStateList.valueOf(primaryColor)
         } else {
-            button.drawable.colorFilter = PorterDuffColorFilter(
-                Resources.androidTextColorSecondary(button.context),
-                PorterDuff.Mode.SRC_IN
-            )
+            setImageColor(button.drawable, Resources.androidTextColorSecondary(button.context))
             button.backgroundTintList =
                 ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(button.context))
         }
@@ -240,50 +236,6 @@ object CustomUiUtils {
         }
     }
 
-    fun pickText(
-        context: Context,
-        title: String?,
-        description: String?,
-        default: String?,
-        hint: String? = null,
-        onTextEnter: (text: String?) -> Unit
-    ) {
-        Pickers.text(
-            context,
-            title ?: "",
-            description,
-            default,
-            hint
-        ){
-            onTextEnter.invoke(it)
-        }
-    }
-
-    fun pickNumber(
-        context: Context,
-        title: String?,
-        description: String?,
-        default: Number?,
-        allowDecimals: Boolean = true,
-        allowNegative: Boolean = false,
-        hint: String? = null,
-        onNumberEnter: (number: Number?) -> Unit
-    ) {
-
-        Pickers.number(
-            context,
-            title ?: "",
-            description,
-            default,
-            allowDecimals,
-            allowNegative,
-            hint
-        ){
-            onNumberEnter.invoke(it)
-        }
-    }
-
-
     fun disclaimer(
         context: Context,
         title: String,
@@ -292,13 +244,14 @@ object CustomUiUtils {
         okText: String = context.getString(android.R.string.ok),
         cancelText: String = context.getString(android.R.string.cancel),
         considerShownIfCancelled: Boolean = true,
+        shownValue: Boolean = true,
         onClose: (cancelled: Boolean) -> Unit = {}
     ) {
         val prefs = Preferences(context)
-        if (prefs.getBoolean(shownKey) != true) {
+        if (prefs.getBoolean(shownKey) != shownValue) {
             if (considerShownIfCancelled) {
                 Alerts.dialog(context, title, message, okText = okText, cancelText = null) {
-                    prefs.putBoolean(shownKey, true)
+                    prefs.putBoolean(shownKey, shownValue)
                     onClose(false)
                 }
             } else {
@@ -310,7 +263,7 @@ object CustomUiUtils {
                     cancelText = cancelText
                 ) { cancelled ->
                     if (!cancelled) {
-                        prefs.putBoolean(shownKey, true)
+                        prefs.putBoolean(shownKey, shownValue)
                     }
                     onClose(cancelled)
                 }
@@ -322,6 +275,10 @@ object CustomUiUtils {
 
     fun setImageColor(view: ImageView, @ColorInt color: Int){
         view.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+    }
+
+    fun setImageColor(drawable: Drawable, @ColorInt color: Int){
+        drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
 
 }

@@ -31,7 +31,7 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
-import com.kylecorry.trail_sense.shared.DisclaimerMessage
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
@@ -48,22 +48,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigation: BottomNavigationView
     val errorBanner: ErrorBannerView by lazy { findViewById(R.id.error_banner) }
 
-    private var geoIntentLocation: GeoUriParser.NamedCoordinate? = null
-
     private lateinit var userPrefs: UserPreferences
-    private lateinit var disclaimer: DisclaimerMessage
     private val cache by lazy { Preferences(this) }
 
-    private val permissions = mutableListOf(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        "android.permission.FLASHLIGHT"
-    )
+    private val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION)
 
     init {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            permissions.add(Manifest.permission.FOREGROUND_SERVICE)
-        }
-
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
             permissions.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
         }
@@ -107,7 +97,6 @@ class MainActivity : AppCompatActivity() {
 
         Screen.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
 
-        disclaimer = DisclaimerMessage(this)
         val cache = Preferences(this)
 
         setContentView(R.layout.activity_main)
@@ -142,9 +131,15 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.action_navigation)
         }
 
-        if (disclaimer.shouldShow()) {
-            disclaimer.show()
-        }
+        println(cache.getBoolean(getString(R.string.pref_main_disclaimer_shown_key)))
+        CustomUiUtils.disclaimer(
+            this,
+            getString(R.string.app_disclaimer_message_title),
+            getString(R.string.disclaimer_message_content),
+            getString(R.string.pref_main_disclaimer_shown_key),
+            considerShownIfCancelled = true,
+            shownValue = false
+        )
 
         if (userPrefs.isLowPowerModeOn) {
             Alerts.toast(this, getString(R.string.low_power_mode_on_message))
@@ -164,7 +159,6 @@ class MainActivity : AppCompatActivity() {
         val intentData = intent.data
         if (intent.scheme == "geo" && intentData != null) {
             val namedCoordinate = GeoUriParser.parse(intentData)
-            geoIntentLocation = namedCoordinate
             bottomNavigation.selectedItemId = R.id.action_navigation
             if (namedCoordinate != null) {
                 val bundle = bundleOf("initial_location" to MyNamedCoordinate.from(namedCoordinate))
@@ -183,10 +177,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        if (intent == null) {
-            return
-        }
-
+        intent ?: return
         setIntent(intent)
         handleIntentAction(intent)
     }

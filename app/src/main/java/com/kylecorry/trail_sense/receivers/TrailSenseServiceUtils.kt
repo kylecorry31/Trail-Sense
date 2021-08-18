@@ -22,7 +22,7 @@ object TrailSenseServiceUtils {
         startSunsetAlarm(context)
         startBacktrack(context)
         startPedometer(context)
-        BatteryLogWorker.scheduler(context).schedule(Duration.ZERO)
+        BatteryLogWorker.scheduler(context).schedule(Duration.ofSeconds(1))
         TileManager().setTilesEnabled(
             context,
             UserPreferences(context).power.areTilesEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N

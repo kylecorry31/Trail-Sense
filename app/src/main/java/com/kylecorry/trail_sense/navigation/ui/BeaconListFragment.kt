@@ -29,7 +29,6 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconIOService
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -131,7 +130,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     setCreateMenuVisibility(false)
                 }
                 R.id.action_create_beacon_group -> {
-                    CustomUiUtils.pickText(
+                    Pickers.text(
                         requireContext(),
                         getString(R.string.beacon_create_group),
                         null,
@@ -297,7 +296,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 }
             }
             listItem.onEdit = {
-                CustomUiUtils.pickText(
+                Pickers.text(
                     requireContext(),
                     getString(R.string.beacon_create_group),
                     null,

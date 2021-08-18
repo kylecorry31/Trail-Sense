@@ -23,7 +23,6 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.databinding.ListItemMapBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
@@ -69,7 +68,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         val mapIntentUri: Uri? = arguments?.getParcelable("map_intent_uri")
         arguments?.remove("map_intent_uri")
         if (mapIntentUri != null) {
-            CustomUiUtils.pickText(
+            Pickers.text(
                 requireContext(),
                 getString(R.string.create_map),
                 getString(R.string.create_map_description),
@@ -99,7 +98,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         }
 
         binding.addBtn.setOnClickListener {
-            CustomUiUtils.pickText(
+            Pickers.text(
                 requireContext(),
                 getString(R.string.create_map),
                 getString(R.string.create_map_description),
