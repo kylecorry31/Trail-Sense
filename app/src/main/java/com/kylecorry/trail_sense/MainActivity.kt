@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
@@ -16,15 +15,16 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.system.Exceptions
 import com.kylecorry.andromeda.core.system.GeoUriParser
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.andromeda.permissions.requestPermissions
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -42,7 +42,7 @@ import java.time.Duration
 import kotlin.system.exitProcess
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AndromedaActivity() {
 
     private lateinit var navController: NavController
     private lateinit var bottomNavigation: BottomNavigationView
@@ -122,7 +122,15 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        requestPermissions(permissions, RequestCodes.REQUEST_CODE_LOCATION_PERMISSION)
+        requestPermissions(permissions){
+            if (shouldRequestBackgroundLocation()) {
+                requestBackgroundLocation {
+                    startApp()
+                }
+            } else {
+                startApp()
+            }
+        }
     }
 
     private fun startApp() {
@@ -206,19 +214,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == RequestCodes.REQUEST_CODE_LOCATION_PERMISSION && shouldRequestBackgroundLocation()) {
-            requestBackgroundLocation()
-        } else if (requestCode == RequestCodes.REQUEST_CODE_LOCATION_PERMISSION || requestCode == RequestCodes.REQUEST_CODE_BACKGROUND_LOCATION_PERMISSION) {
-            startApp()
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
     private fun hasBackgroundLocation(): Boolean {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || Permissions.hasPermission(
             this,
@@ -233,22 +228,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    private fun requestBackgroundLocation() {
+    private fun requestBackgroundLocation(action: () -> Unit) {
         cache.putBoolean(Manifest.permission.ACCESS_BACKGROUND_LOCATION, true)
 
         val markdown = MarkdownService(this)
         val contents = markdown.toMarkdown(getString(R.string.access_background_location_rationale))
 
-        PermissionUtils.requestPermissionsWithRationale(
-            this,
-            listOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), PermissionRationale(
-                getString(R.string.access_background_location),
-                contents
-            ),
-            RequestCodes.REQUEST_CODE_BACKGROUND_LOCATION_PERMISSION,
-            getString(R.string.dialog_grant),
-            getString(R.string.dialog_deny)
-        )
+        dialog(
+            getString(R.string.access_background_location),
+            contents,
+            okText = getString(R.string.dialog_grant),
+            cancelText = getString(R.string.dialog_deny),
+            allowLinks = true
+        ) { cancelled ->
+            if (!cancelled) {
+                requestPermissions(listOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION)){
+                    action()
+                }
+            } else {
+                action()
+            }
+        }
     }
 
     private fun sunriseSunsetTheme(): Int {
