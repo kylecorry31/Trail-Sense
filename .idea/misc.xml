@@ -1,28 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
-        <entry key="..\:/Users/Kylec/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/activity_list_item.xml" value="0.1875" />
-        <entry key="..\:/Users/Kylec/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/list_content.xml" value="0.1875" />
-        <entry key="..\:/Users/Kylec/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_list_item_1.xml" value="0.1875" />
-        <entry key="..\:/Users/Kylec/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_list_item_2.xml" value="0.1875" />
-        <entry key="..\:/Users/Kylec/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_selectable_list_item.xml" value="0.1875" />
-        <entry key="..\:/Users/Kylec/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/two_line_list_item.xml" value="0.1875" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/activity_astronomy.xml" value="0.12360688956433637" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_backtrack.xml" value="0.12360688956433637" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_beacon_list.xml" value="0.12360688956433637" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_diagnostics.xml" value="0.1640625" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_item_list.xml" value="0.12360688956433637" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_map_list.xml" value="0.12360688956433637" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_pack_list.xml" value="0.12360688956433637" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_tool_battery.xml" value="0.1358695652173913" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_tool_notes.xml" value="0.12360688956433637" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/list_item_plain_icon.xml" value="0.264" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/xml/preferences.xml" value="0.1213768115942029" />
-      </map>
-    </option>
-  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
