@@ -1164,12 +1164,5 @@
     <string name="power_saving_mode_resolution">Disable power saving mode</string>
     <string name="battery_restricted_resolution">Set Trail Sense as Not Optimized</string>
     <string name="gps_unavailable_resolution">Enable Location or change your location source to Device Only or High Accuracy</string>
-    <string name="diagnostic_message_template"># Description
-%s
-
-# Affected tools
-%s
-
-# Resolution
-%s</string>
+    <string name="diagnostic_message_template">%s\n\n### Affected tools\n%s\n\n### Resolution\n%s</string>
 </resources>

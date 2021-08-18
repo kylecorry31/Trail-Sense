@@ -50,8 +50,8 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                     val message = getString(
                         R.string.diagnostic_message_template,
                         getCodeDescription(code),
-                        getResolution(code),
-                        affectedTools
+                        affectedTools,
+                        getResolution(code)
                     )
 
                     if (action != null) {
