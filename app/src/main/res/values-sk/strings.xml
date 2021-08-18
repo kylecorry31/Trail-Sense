@@ -64,4 +64,5 @@
     <string name="settings">Nastavenia</string>
     <string name="weather">Počasie</string>
     <string name="navigation">Navigácia</string>
+    <string name="current_format">%s mA</string>
 </resources>
