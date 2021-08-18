@@ -5,7 +5,9 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.PopupMenu
 import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
 
@@ -50,8 +52,12 @@ class FloatingActionButtonMenu(context: Context, attrs: AttributeSet?) : FrameLa
     }
 
     fun setOverlay(overlay: View){
+        this.overlay?.setOnClickListener(null)
         overlay.isVisible = isVisible
         this.overlay = overlay
+        this.overlay?.setOnClickListener {
+            hide()
+        }
     }
 
     fun setOnMenuItemClickListener(menuItemClickListener: MenuItem.OnMenuItemClickListener){
