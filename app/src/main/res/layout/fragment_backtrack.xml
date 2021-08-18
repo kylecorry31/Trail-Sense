@@ -51,6 +51,7 @@
         android:text="@string/waypoints_empty_text"
         android:layout_marginTop="16dp"
         android:visibility="gone"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/waypoints_list"

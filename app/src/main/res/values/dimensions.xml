@@ -2,6 +2,7 @@
 <resources>
     <dimen name="default_top_margin">16dp</dimen>
     <dimen name="default_bottom_margin">16dp</dimen>
+    <dimen name="title_text_size">32sp</dimen>
     <dimen name="ruler_label">8dp</dimen>
     <dimen name="ruler_top">8dp</dimen>
     <dimen name="circular_display_size">248dp</dimen>

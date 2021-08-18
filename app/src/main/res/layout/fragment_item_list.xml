@@ -124,8 +124,10 @@
         android:layout_height="wrap_content"
         android:text="@string/inventory_empty_text"
         android:visibility="gone"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/inventory_list"
         app:layout_constraintTop_toTopOf="@+id/inventory_list"
         tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

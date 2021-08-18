@@ -1,13 +1,20 @@
 package com.kylecorry.trail_sense.diagnostics
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
+import androidx.annotation.IdRes
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentDiagnosticsBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
@@ -35,22 +42,38 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 itemBinding.description.text = getCodeDescription(code)
                 itemBinding.icon.setImageResource(android.R.drawable.stat_notify_error)
                 CustomUiUtils.setImageColor(itemBinding.icon, getStatusTint(code.severity))
-                // TODO: Allow the user to take action
                 // TODO: Provide a description of what the results of the error are
-//                itemBinding.root.setOnClickListener {
-//                    result.fullMessage?.let {
-//                        Alerts.dialog(
-//                            requireContext(),
-//                            result.title,
-//                            it.message ?: result.message,
-//                            okText = it.actionTitle ?: getString(android.R.string.ok)
-//                        ) { cancelled ->
-//                            if (!cancelled) {
-//                                it.action.invoke()
-//                            }
-//                        }
-//                    }
-//                }
+                itemBinding.root.setOnClickListener {
+                    val action = getAction(code)
+                    val affectedTools = getAffectedTools(code).joinToString("\n") { "- $it" }
+
+                    val message = getString(
+                        R.string.diagnostic_message_template,
+                        getCodeDescription(code),
+                        getResolution(code),
+                        affectedTools
+                    )
+
+                    if (action != null) {
+                        Alerts.dialog(
+                            requireContext(),
+                            getCodeTitle(code),
+                            MarkdownService(requireContext()).toMarkdown(message),
+                            okText = action.title
+                        ) { cancelled ->
+                            if (!cancelled) {
+                                action.action.invoke()
+                            }
+                        }
+                    } else {
+                        Alerts.dialog(
+                            requireContext(),
+                            getCodeTitle(code),
+                            MarkdownService(requireContext()).toMarkdown(message),
+                            cancelText = null
+                        )
+                    }
+                }
             }
         diagnosticListView.addLineSeparator()
         diagnostics = listOfNotNull(
@@ -147,5 +170,209 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.WeatherNotificationsBlocked -> getString(R.string.weather)
         }
     }
+
+    private fun getAffectedTools(code: DiagnosticCode): List<String> {
+        val weather = getString(R.string.weather)
+        val navigation = getString(R.string.navigation)
+        val backtrack = getString(R.string.tool_backtrack_title)
+        val astronomy = getString(R.string.astronomy)
+        val speedometer = getString(R.string.speedometer)
+        val odometer = getString(R.string.odometer)
+        val waterBoil = getString(R.string.water_boil_timer_title)
+        val inclinometer = getString(R.string.inclinometer_title)
+        val level = getString(R.string.tool_bubble_level_title)
+        val solar = getString(R.string.tool_solar_panel_title)
+        val lightMeter = getString(R.string.tool_light_meter_title)
+        val metalDetector = getString(R.string.tool_metal_detector_title)
+        val sightingCompass = getString(R.string.sighting_compass)
+        val flashlight = getString(R.string.flashlight_title)
+
+        val locationAffectedTools = listOf(
+            navigation,
+            backtrack,
+            astronomy,
+            speedometer,
+            odometer,
+            solar
+        )
+
+        val accelAffectedTools = listOf(
+            navigation,
+            inclinometer,
+            level,
+            solar
+        )
+
+        return when (code) {
+            DiagnosticCode.AltitudeOverridden -> listOf(weather, waterBoil)
+            DiagnosticCode.LocationOverridden -> locationAffectedTools
+            DiagnosticCode.LocationUnset -> locationAffectedTools
+            DiagnosticCode.PowerSavingMode -> listOf(backtrack, odometer)
+            DiagnosticCode.BatteryHealthPoor -> listOf()
+            DiagnosticCode.BatteryUsageRestricted -> listOf(backtrack, astronomy, odometer)
+            DiagnosticCode.CameraUnavailable -> listOf(navigation, sightingCompass)
+            DiagnosticCode.BarometerUnavailable -> listOf(weather)
+            DiagnosticCode.MagnetometerUnavailable -> listOf(navigation, metalDetector, solar)
+            DiagnosticCode.AccelerometerUnavailable -> accelAffectedTools
+            DiagnosticCode.GPSUnavailable -> locationAffectedTools
+            DiagnosticCode.FlashlightUnavailable -> listOf(flashlight)
+            DiagnosticCode.PedometerUnavailable -> listOf(odometer)
+            DiagnosticCode.CameraNoPermission -> listOf(navigation, sightingCompass)
+            DiagnosticCode.LocationNoPermission -> locationAffectedTools
+            DiagnosticCode.BackgroundLocationNoPermission -> listOf(
+                backtrack,
+                astronomy,
+                speedometer,
+                odometer
+            )
+            DiagnosticCode.PedometerNoPermission -> listOf(odometer)
+            DiagnosticCode.BarometerPoor -> listOf(weather)
+            DiagnosticCode.MagnetometerPoor -> listOf(navigation, metalDetector, solar)
+            DiagnosticCode.AccelerometerPoor -> accelAffectedTools
+            DiagnosticCode.GPSPoor -> locationAffectedTools
+            DiagnosticCode.GPSTimedOut -> locationAffectedTools
+            DiagnosticCode.SunsetAlertsBlocked -> listOf(astronomy)
+            DiagnosticCode.StormAlertsBlocked -> listOf(weather)
+            DiagnosticCode.DailyForecastNotificationsBlocked -> listOf(weather)
+            DiagnosticCode.FlashlightNotificationsBlocked -> listOf(flashlight)
+            DiagnosticCode.PedometerNotificationsBlocked -> listOf(odometer)
+            DiagnosticCode.WeatherNotificationsBlocked -> listOf(weather)
+        }
+    }
+
+    private fun getResolution(code: DiagnosticCode): String {
+        return when (code) {
+            DiagnosticCode.AltitudeOverridden -> getString(R.string.altitude_override_resolution)
+            DiagnosticCode.LocationOverridden -> getString(R.string.location_override_resolution)
+            DiagnosticCode.LocationUnset -> getString(R.string.location_override_not_set_resolution)
+            DiagnosticCode.PowerSavingMode -> getString(R.string.power_saving_mode_resolution)
+            DiagnosticCode.BatteryHealthPoor -> getString(R.string.no_resolution)
+            DiagnosticCode.BatteryUsageRestricted -> getString(R.string.battery_restricted_resolution)
+            DiagnosticCode.CameraUnavailable -> getString(R.string.no_resolution)
+            DiagnosticCode.BarometerUnavailable -> getString(R.string.no_resolution)
+            DiagnosticCode.MagnetometerUnavailable -> getString(R.string.no_resolution)
+            DiagnosticCode.AccelerometerUnavailable -> getString(R.string.no_resolution)
+            DiagnosticCode.GPSUnavailable -> getString(R.string.gps_unavailable_resolution)
+            DiagnosticCode.FlashlightUnavailable -> getString(R.string.no_resolution)
+            DiagnosticCode.PedometerUnavailable -> getString(R.string.no_resolution)
+            DiagnosticCode.CameraNoPermission -> getString(
+                R.string.grant_permission,
+                getString(R.string.camera)
+            )
+            DiagnosticCode.LocationNoPermission -> getString(
+                R.string.grant_permission,
+                getString(R.string.gps_location)
+            )
+            DiagnosticCode.BackgroundLocationNoPermission -> getString(
+                R.string.grant_permission, getString(
+                    R.string.background_location_permission
+                )
+            )
+            DiagnosticCode.PedometerNoPermission -> getString(
+                R.string.grant_permission,
+                getString(R.string.activity_recognition)
+            )
+            DiagnosticCode.BarometerPoor -> getString(R.string.no_resolution)
+            DiagnosticCode.MagnetometerPoor -> getString(
+                R.string.calibrate_compass_dialog_content,
+                getString(android.R.string.ok)
+            )
+            DiagnosticCode.AccelerometerPoor -> getString(R.string.no_resolution)
+            DiagnosticCode.GPSPoor -> getString(R.string.get_gps_signal)
+            DiagnosticCode.GPSTimedOut -> getString(R.string.get_gps_signal)
+            DiagnosticCode.SunsetAlertsBlocked -> getString(
+                R.string.unblock_notification_channel,
+                getString(R.string.sunset_alert_channel_title)
+            )
+            DiagnosticCode.StormAlertsBlocked -> getString(
+                R.string.unblock_notification_channel,
+                getString(R.string.notification_storm_alert_channel_name)
+            )
+            DiagnosticCode.DailyForecastNotificationsBlocked -> getString(
+                R.string.unblock_notification_channel,
+                getString(R.string.todays_forecast)
+            )
+            DiagnosticCode.FlashlightNotificationsBlocked -> getString(
+                R.string.unblock_notification_channel,
+                getString(R.string.flashlight_title)
+            )
+            DiagnosticCode.PedometerNotificationsBlocked -> getString(
+                R.string.unblock_notification_channel,
+                getString(R.string.odometer)
+            )
+            DiagnosticCode.WeatherNotificationsBlocked -> getString(
+                R.string.unblock_notification_channel,
+                getString(R.string.weather)
+            )
+        }
+    }
+
+    private fun getAction(code: DiagnosticCode): Action? {
+        return when (code) {
+            DiagnosticCode.AltitudeOverridden -> navigateAction(R.id.calibrateAltimeterFragment)
+            DiagnosticCode.LocationOverridden -> navigateAction(R.id.calibrateGPSFragment)
+            DiagnosticCode.LocationUnset -> navigateAction(R.id.calibrateGPSFragment)
+            DiagnosticCode.PowerSavingMode -> navigateAction(R.id.powerSettingsFragment)
+            DiagnosticCode.BatteryHealthPoor -> null
+            DiagnosticCode.BatteryUsageRestricted -> intentAction(Intents.batteryOptimizationSettings())
+            DiagnosticCode.CameraUnavailable -> null
+            DiagnosticCode.BarometerUnavailable -> null
+            DiagnosticCode.MagnetometerUnavailable -> null
+            DiagnosticCode.AccelerometerUnavailable -> null
+            DiagnosticCode.GPSUnavailable -> locationSourcesAction()
+            DiagnosticCode.FlashlightUnavailable -> null
+            DiagnosticCode.PedometerUnavailable -> null
+            DiagnosticCode.CameraNoPermission -> permissionAction()
+            DiagnosticCode.LocationNoPermission -> permissionAction()
+            DiagnosticCode.BackgroundLocationNoPermission -> permissionAction()
+            DiagnosticCode.PedometerNoPermission -> permissionAction()
+            DiagnosticCode.BarometerPoor -> null
+            DiagnosticCode.MagnetometerPoor -> null
+            DiagnosticCode.AccelerometerPoor -> null
+            DiagnosticCode.GPSPoor -> null
+            DiagnosticCode.GPSTimedOut -> null
+            DiagnosticCode.SunsetAlertsBlocked -> notificationAction()
+            DiagnosticCode.StormAlertsBlocked -> notificationAction()
+            DiagnosticCode.DailyForecastNotificationsBlocked -> notificationAction()
+            DiagnosticCode.FlashlightNotificationsBlocked -> notificationAction()
+            DiagnosticCode.PedometerNotificationsBlocked -> notificationAction()
+            DiagnosticCode.WeatherNotificationsBlocked -> notificationAction()
+        }
+    }
+
+    private fun locationSourcesAction(): Action {
+        return Action(getString(R.string.settings)) {
+            try {
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            } catch (e: Exception) {
+                startActivity(Intent(Settings.ACTION_SETTINGS))
+            }
+        }
+    }
+
+    private fun notificationAction(): Action {
+        return intentAction(Intents.appSettings(requireContext()))
+    }
+
+    private fun permissionAction(): Action {
+        return intentAction(Intents.appSettings(requireContext()))
+    }
+
+    private fun intentAction(to: Intent, title: String = getString(R.string.settings)): Action {
+        return Action(title) {
+            startActivity(to)
+        }
+    }
+
+    private fun navigateAction(
+        @IdRes to: Int,
+        title: String = getString(R.string.settings)
+    ): Action {
+        return Action(title) {
+            findNavController().navigate(to)
+        }
+    }
+
+    data class Action(val title: String, val action: () -> Unit)
 
 }

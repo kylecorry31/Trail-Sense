@@ -1150,4 +1150,26 @@
     <string name="on">On</string>
     <string name="notifications_blocked">Notifications blocked</string>
     <string name="no_issues">No issues detected</string>
+    <string name="sighting_compass">Sighting compass</string>
+    <string name="tools_might_not_work">These tools may not work:</string>
+    <string name="no_resolution">No resolution</string>
+    <string name="grant_permission">Grant the %s permission</string>
+    <string name="background_location_permission">Location: Allow all the time</string>
+    <string name="activity_recognition">Activity recognition</string>
+    <string name="get_gps_signal">Go outside with an unobstructed view of the sky.</string>
+    <string name="unblock_notification_channel">Unblock %s notification for Trail Sense</string>
+    <string name="altitude_override_resolution">Enable auto-calibration in settings.</string>
+    <string name="location_override_resolution">Enable auto adjust location in settings.</string>
+    <string name="location_override_not_set_resolution">Set the location override in settings</string>
+    <string name="power_saving_mode_resolution">Disable power saving mode</string>
+    <string name="battery_restricted_resolution">Set Trail Sense as Not Optimized</string>
+    <string name="gps_unavailable_resolution">Enable Location or change your location source to Device Only or High Accuracy</string>
+    <string name="diagnostic_message_template"># Description
+%s
+
+# Affected tools
+%s
+
+# Resolution
+%s</string>
 </resources>
