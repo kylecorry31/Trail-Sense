@@ -42,7 +42,6 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 itemBinding.description.text = getCodeDescription(code)
                 itemBinding.icon.setImageResource(android.R.drawable.stat_notify_error)
                 CustomUiUtils.setImageColor(itemBinding.icon, getStatusTint(code.severity))
-                // TODO: Provide a description of what the results of the error are
                 itemBinding.root.setOnClickListener {
                     val action = getAction(code)
                     val affectedTools = getAffectedTools(code).joinToString("\n") { "- $it" }
@@ -87,7 +86,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             PedometerDiagnostic(requireContext()),
             NotificationDiagnostic(requireContext())
         )
-        scheduleUpdates(1000)
+        scheduleUpdates(INTERVAL_1_FPS)
     }
 
     override fun onUpdate() {
