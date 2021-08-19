@@ -82,9 +82,10 @@ dependencies {
     implementation 'com.github.kylecorry31:Trail-Sense-Core:4.0.0-beta03'
 
     // Andromeda
-    def andromeda_version = "1.0.3"
+    def andromeda_version = "1.1.0"
     implementation "com.github.kylecorry31.andromeda:core:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:fragments:${andromeda_version}"
+    implementation "com.github.kylecorry31.andromeda:forms:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:jobs:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:location:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:camera:${andromeda_version}"

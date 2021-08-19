@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 
-class CoordinateInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
+class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
 
     private val formatService by lazy { FormatServiceV2(getContext()) }
     private val sensorService by lazy { SensorService(getContext()) }
