@@ -961,4 +961,35 @@
     <string name="last_duration">持续时长 %s</string>
     <string name="gps_signal_lost">GPS 信号丢失</string>
     <string name="altitude_history_length">海拔历史长度</string>
+    <string name="diagnostic_message_template">%s
+\n
+\n### 受影响工具
+\n%s
+\n
+\n### 解决方案
+\n%s</string>
+    <string name="gps_unavailable_resolution">启用位置或将您的位置源更改为仅设备或高精度</string>
+    <string name="battery_restricted_resolution">将 Trail Sense 设置为未优化</string>
+    <string name="power_saving_mode_resolution">禁用省电模式</string>
+    <string name="location_override_not_set_resolution">在设置中设定位置覆盖</string>
+    <string name="location_override_resolution">在设置中启用自动调整位置。</string>
+    <string name="altitude_override_resolution">在设置中启用自动校准。</string>
+    <string name="unblock_notification_channel">解锁 Trail Sense 的 %s 通知</string>
+    <string name="get_gps_signal">走到一览无余的天空下。</string>
+    <string name="activity_recognition">活动识别</string>
+    <string name="background_location_permission">位置（始终允许）</string>
+    <string name="grant_permission">授予 %s 权限</string>
+    <string name="no_resolution">无解决方案</string>
+    <string name="tools_might_not_work">这些工具可能不工作：</string>
+    <string name="sighting_compass">瞄准指南针</string>
+    <string name="no_issues">未检测到问题</string>
+    <string name="notifications_blocked">已屏蔽通知</string>
+    <string name="on">开</string>
+    <string name="overridden">覆盖</string>
+    <string name="update">更新</string>
+    <string name="battery_usage_restricted">电池使用受限</string>
+    <string name="diagnostics">诊断</string>
+    <string name="no_permission">未授予权限</string>
+    <string name="camera">相机</string>
+    <string name="quarter_moon">上弦月</string>
 </resources>
