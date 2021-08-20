@@ -918,8 +918,6 @@
     <string name="destination_elevation">目的地海拔</string>
     <string name="base_temperature">基础温度</string>
     <string name="base_elevation">基础海拔</string>
-    <string name="pref_temperature_estimation_summary">估计不同海拔处的温度</string>
-    <string name="temperature_estimation">温度估计</string>
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">删除包装？</string>

@@ -926,8 +926,6 @@
     <string name="destination_elevation">Zielhöhe</string>
     <string name="base_temperature">Basistemperatur</string>
     <string name="base_elevation">Basishöhe</string>
-    <string name="pref_temperature_estimation_summary">Temperatur in einer anderen Höhenlage schätzen</string>
-    <string name="temperature_estimation">Temperaturschätzung</string>
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">Packliste löschen\?</string>

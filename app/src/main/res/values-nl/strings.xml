@@ -753,8 +753,6 @@
     <string name="destination_elevation">Bestemmingshoogte</string>
     <string name="base_temperature">Basistemperatuur</string>
     <string name="base_elevation">Basis hoogte</string>
-    <string name="pref_temperature_estimation_summary">Schat de temperatuur op een andere hoogte</string>
-    <string name="temperature_estimation">Temperatuur schatting</string>
     <string name="yards_format">%s wv</string>
     <string name="find_next_occurrence">Volgende gebeurtenis zoeken</string>
     <string name="daylight">Daglicht</string>

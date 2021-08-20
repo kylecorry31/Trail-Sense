@@ -141,8 +141,6 @@
     <string name="destination_elevation">Visina odredišta</string>
     <string name="base_temperature">Osnovna temperatura</string>
     <string name="base_elevation">Osnovna nadmorska visina</string>
-    <string name="pref_temperature_estimation_summary">Procijenite temperaturu na drugoj visini</string>
-    <string name="temperature_estimation">Procjena temperature</string>
     <string name="unit_yards">Stope</string>
     <string name="yards_format">%s stp</string>
     <string name="find_next_occurrence">Pronađite sljedeću pojavu</string>

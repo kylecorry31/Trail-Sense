@@ -14,14 +14,12 @@
         android:clickable="true"
         android:focusable="true"
         android:tint="?android:textColorSecondary"
-        android:visibility="gone"
         app:backgroundTint="?android:colorBackgroundFloating"
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:rippleColor="@color/colorPrimary"
-        app:srcCompat="@drawable/ic_altitude"
-        tools:visibility="visible" />
+        app:srcCompat="@drawable/ic_altitude" />
 
     <TextView
         android:id="@+id/temperature"

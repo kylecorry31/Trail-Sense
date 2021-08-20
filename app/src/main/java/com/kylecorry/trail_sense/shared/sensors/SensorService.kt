@@ -29,6 +29,7 @@ import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 import com.kylecorry.andromeda.sense.orientation.*
 import com.kylecorry.andromeda.sense.temperature.AmbientThermometer
+import com.kylecorry.andromeda.sense.temperature.Thermometer
 import com.kylecorry.andromeda.signal.CellSignalSensor
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
@@ -150,22 +151,11 @@ class SensorService(ctx: Context) {
     @Suppress("DEPRECATION")
     fun getThermometer(): IThermometer {
         if (Sensors.hasSensor(context, Sensor.TYPE_AMBIENT_TEMPERATURE)) {
-            return AmbientThermometer(context, Sensor.TYPE_AMBIENT_TEMPERATURE)
+            return AmbientThermometer(context)
         }
 
         if (Sensors.hasSensor(context, Sensor.TYPE_TEMPERATURE)) {
-            return AmbientThermometer(context, Sensor.TYPE_TEMPERATURE)
-        }
-
-        val builtInSensors = sensorManager?.getSensorList(Sensor.TYPE_ALL) ?: listOf()
-
-        val first = builtInSensors.filter {
-            it.name.contains("temperature", true) ||
-                    it.name.contains("thermometer", true)
-        }.minByOrNull { it.resolution }
-
-        if (first != null) {
-            return AmbientThermometer(context, first.type)
+            return Thermometer(context)
         }
 
         return Battery(context)

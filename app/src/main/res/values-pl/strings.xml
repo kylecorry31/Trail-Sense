@@ -941,8 +941,6 @@
     <string name="pref_map_url_source_title">Mapa udostępniania lokalizacji</string>
     <string name="clear_cache">Wyczyść pamięć podręczną</string>
     <string name="destination_elevation">Wysokość miejsca docelowego</string>
-    <string name="pref_temperature_estimation_summary">Oszacuj temperaturę na innej wysokości</string>
-    <string name="temperature_estimation">Oszacowanie temperatury</string>
     <string name="current_format">%s mA</string>
     <string name="altitude_history">Historia wysokości</string>
     <string name="climate_tropical">tropikalna</string>

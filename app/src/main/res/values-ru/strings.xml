@@ -959,8 +959,6 @@
     <string name="destination_elevation">Высота места назначения</string>
     <string name="base_temperature">Базовая температура</string>
     <string name="base_elevation">Базовая высота</string>
-    <string name="pref_temperature_estimation_summary">Оцените температуру на другой высоте</string>
-    <string name="temperature_estimation">Оценка температуры</string>
     <string name="unit_yards">Ярды</string>
     <string name="yards_format">%s ярд</string>
     <string name="find_next_occurrence">Найти следующее вхождение</string>

@@ -351,6 +351,49 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
+    private fun getDistanceUnitAbbreviation(unit: DistanceUnits): String {
+        return when (unit) {
+            DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, "")
+                .replace(" ", "")
+            DistanceUnits.Kilometers -> context.getString(
+                R.string.precise_kilometers_format,
+                ""
+            ).replace(" ", "")
+            DistanceUnits.Feet -> context.getString(R.string.precise_feet_format, "")
+                .replace(" ", "")
+            DistanceUnits.Miles -> context.getString(R.string.precise_miles_format, "")
+                .replace(" ", "")
+            DistanceUnits.NauticalMiles -> context.getString(
+                R.string.precise_nautical_miles_format,
+                ""
+            ).replace(" ", "")
+            DistanceUnits.Centimeters -> context.getString(R.string.precise_centimeters_format, "")
+                .replace(
+                    " ",
+                    ""
+                )
+            DistanceUnits.Inches -> context.getString(R.string.precise_inches_format, "")
+                .replace(" ", "")
+            DistanceUnits.Yards -> context.getString(R.string.yards_format, "").replace(" ", "")
+        }
+    }
+
+    fun getDistanceUnitName(unit: DistanceUnits, short: Boolean = false): String {
+        if (short) {
+            return getDistanceUnitAbbreviation(unit)
+        }
+        return when (unit) {
+            DistanceUnits.Meters -> context.getString(R.string.unit_meters)
+            DistanceUnits.Kilometers -> context.getString(R.string.unit_kilometers)
+            DistanceUnits.Feet -> context.getString(R.string.unit_feet)
+            DistanceUnits.Miles -> context.getString(R.string.unit_miles)
+            DistanceUnits.NauticalMiles -> context.getString(R.string.unit_nautical_miles)
+            DistanceUnits.Centimeters -> context.getString(R.string.unit_centimeters)
+            DistanceUnits.Inches -> context.getString(R.string.unit_inches)
+            DistanceUnits.Yards -> context.getString(R.string.unit_yards)
+        }
+    }
+
 
     private fun getPressureUnitString(unit: PressureUnits): String {
         return when (unit) {

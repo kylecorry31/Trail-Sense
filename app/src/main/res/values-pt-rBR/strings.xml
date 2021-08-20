@@ -938,8 +938,6 @@
     <string name="destination_elevation">Elevação de local de destino</string>
     <string name="base_temperature">Temperatura de base</string>
     <string name="base_elevation">Elevação de base</string>
-    <string name="pref_temperature_estimation_summary">Estimar a temperatura numa elevação diferente</string>
-    <string name="temperature_estimation">Estimativa de temperatura</string>
     <string name="humidity">%s de umidade</string>
     <string name="guide_packing_list">Criar listas de conteúdo</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>

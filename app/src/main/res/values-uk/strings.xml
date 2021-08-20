@@ -895,8 +895,6 @@
     <string name="pref_auto_low_power_title">Автоматичне енергоощадження</string>
     <string name="pref_auto_low_power_summary">Коли заряд акумулятора низький</string>
     <string name="base_elevation">Основна висота</string>
-    <string name="pref_temperature_estimation_summary">Оцініть температуру на різній висоті</string>
-    <string name="temperature_estimation">Оцінка температури</string>
     <string name="time">Час</string>
     <string name="days_format">%s дн.</string>
     <string name="hours_format">%s год.</string>

@@ -78,7 +78,6 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
             )
         }
 
-        binding.temperatureEstimationBtn.isVisible = prefs.weather.isTemperatureEstimationEnabled
         CustomUiUtils.setButtonState(binding.temperatureEstimationBtn, false)
         binding.temperatureEstimationBtn.setOnClickListener {
             findNavController().navigate(R.id.action_thermometer_to_temperature_estimation)

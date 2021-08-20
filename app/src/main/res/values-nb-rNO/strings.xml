@@ -678,7 +678,6 @@
     <string name="sensor_gyroscope">Gyroskop</string>
     <string name="privacy">Personvern</string>
     <string name="units">Enheter</string>
-    <string name="temperature_estimation">Temperaturberegning</string>
     <string name="create_map_description">Skriv inn navnet på kartet</string>
     <string name="create_map">Opprett kart</string>
     <string name="battery_history">Batterihistorikk - siste %s</string>
@@ -732,7 +731,6 @@
     <string name="destination_elevation">Destinasjonshøyde</string>
     <string name="base_temperature">Utgangspunkttemperatur</string>
     <string name="base_elevation">Utgangspunkthøyde</string>
-    <string name="pref_temperature_estimation_summary">Beregn temperaturen i en annen høyde</string>
     <string name="hygiene">Hygiene</string>
     <string name="documents">Dokumenter</string>
     <string name="electronics">Elektronikk</string>
