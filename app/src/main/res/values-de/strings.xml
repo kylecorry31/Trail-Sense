@@ -969,4 +969,35 @@
     <string name="gps_signal_lost">GPS-Signal verloren</string>
     <string name="altitude_history_length">Länge des Höhenverlaufs</string>
     <string name="last_duration">Letzte %s</string>
+    <string name="altitude_override_resolution">Auto-Kalibrierung in den Einstellungen aktivieren.</string>
+    <string name="unblock_notification_channel">%s-Benachrichtigungen für Trail Sense entblockieren</string>
+    <string name="get_gps_signal">Gehen Sie nach draußen, mit ungestörtem Blick zum Himmel.</string>
+    <string name="activity_recognition">Körperliche Aktivität</string>
+    <string name="grant_permission">Die %s-Berechtigung erlauben</string>
+    <string name="no_resolution">Keine Auflösung</string>
+    <string name="tools_might_not_work">Diese Tools funktionieren vielleicht nicht:</string>
+    <string name="sighting_compass">Sichtkompass</string>
+    <string name="no_issues">Keine Probleme gefunden</string>
+    <string name="notifications_blocked">Benachrichtigungen blockiert</string>
+    <string name="on">An</string>
+    <string name="overridden">Überschrieben</string>
+    <string name="update">Update</string>
+    <string name="battery_usage_restricted">Batterienutzung beschränkt</string>
+    <string name="diagnostics">Diagnose</string>
+    <string name="no_permission">Berechtigung nicht erlaubt</string>
+    <string name="camera">Kamera</string>
+    <string name="quarter_moon">Viertelmond</string>
+    <string name="diagnostic_message_template">%s
+\n
+\n### Betroffene Tools
+\n%s
+\n
+\n### Lösungen
+\n%s</string>
+    <string name="gps_unavailable_resolution">Standort aktivieren oder ändern Sie Ihre Standortquelle zu Nur Gerät oder Hohe Genauigkeit</string>
+    <string name="background_location_permission">Standort (Immer zulassen)</string>
+    <string name="battery_restricted_resolution">Trail Sense auf Nicht optimiert setzen</string>
+    <string name="power_saving_mode_resolution">Stromsparmodus deaktivieren</string>
+    <string name="location_override_not_set_resolution">Standort in den Einstellungen überschreiben</string>
+    <string name="location_override_resolution">Automatisches Anpassen des Standorts in den Einstellungen aktivieren.</string>
 </resources>
