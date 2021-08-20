@@ -126,6 +126,9 @@ object CustomUiUtils {
         }
         distanceInput?.units = units
         distanceInput?.updateDistance(default)
+        if (default == null){
+            distanceInput?.setUnit(units.firstOrNull())
+        }
 
         Alerts.dialog(
             context,

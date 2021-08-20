@@ -62,12 +62,12 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
         super.onViewCreated(view, savedInstanceState)
 
         val distanceUnits = listOf(
-            getDisplayUnit(DistanceUnits.Feet),
-            getDisplayUnit(DistanceUnits.Yards),
-            getDisplayUnit(DistanceUnits.Miles),
-            getDisplayUnit(DistanceUnits.NauticalMiles),
-            getDisplayUnit(DistanceUnits.Meters),
-            getDisplayUnit(DistanceUnits.Kilometers)
+            DistanceUnits.Feet,
+            DistanceUnits.Yards,
+            DistanceUnits.Miles,
+            DistanceUnits.NauticalMiles,
+            DistanceUnits.Meters,
+            DistanceUnits.Kilometers
         )
 
         val tempHint = if (temperatureUnits == TemperatureUnits.C) {
@@ -78,17 +78,17 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
 
 
         form = Forms.Section(requireContext()) {
-            unit(
+            distance(
                 "base",
                 distanceUnits,
-                defaultValue = null to baseUnits,
+                defaultUnit = baseUnits,
                 label = getString(R.string.base_elevation),
                 hint = getString(R.string.altitude)
             )
-            unit(
+            distance(
                 "destination",
                 distanceUnits,
-                defaultValue = null to baseUnits,
+                defaultUnit = baseUnits,
                 label = getString(R.string.destination_elevation),
                 hint = getString(R.string.altitude)
             )
@@ -121,7 +121,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
             withContext(Dispatchers.Main) {
                 form?.hide("autofill")
                 form?.show("loading")
-                form?.get<UnitField<*>>("base")?.isEnabled = false
+                form?.get<DistanceField>("base")?.isEnabled = false
                 form?.get<NumberTextField>("temperature")?.isEnabled = false
             }
             withContext(Dispatchers.IO) {
@@ -137,7 +137,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
                 setFieldsFromSensors()
                 form?.show("autofill")
                 form?.hide("loading")
-                form?.get<UnitField<*>>("base")?.isEnabled = true
+                form?.get<DistanceField>("base")?.isEnabled = true
                 form?.get<NumberTextField>("temperature")?.isEnabled = true
             }
         }
@@ -146,7 +146,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     private fun setFieldsFromSensors(){
         if (altimeter.hasValidReading) {
             val altitude = Distance.meters(altimeter.altitude).convertTo(baseUnits)
-            form?.setValue<Pair<Number?, DistanceUnits?>?>("base", altitude.distance.roundToInt() to altitude.units)
+            form?.setValue<Distance?>("base", altitude)
         }
 
         if (thermometer.hasValidReading) {
@@ -181,19 +181,13 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     }
 
     private fun getBaseElevation(): Distance? {
-        val value = form?.getValue<Pair<Number?, DistanceUnits?>?>("base") ?: return null
-        value.first ?: return null
-        value.second ?: return null
-        val elevation = Distance(value.first!!.toFloat(), value.second!!)
-        return elevation.meters()
+        val value = form?.getValue<Distance?>("base") ?: return null
+        return value.meters()
     }
 
     private fun getDestElevation(): Distance? {
-        val value = form?.getValue<Pair<Number?, DistanceUnits?>?>("destination") ?: return null
-        value.first ?: return null
-        value.second ?: return null
-        val elevation = Distance(value.first!!.toFloat(), value.second!!)
-        return elevation.meters()
+        val value = form?.getValue<Distance?>("destination") ?: return null
+        return value.meters()
     }
 
     // TODO: Extract this
@@ -204,14 +198,6 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
         val uncalibrated2 = prefs.weather.maxBatteryTemperature
 
         return calibrated1 + (calibrated2 - calibrated1) * (uncalibrated1 - temp) / (uncalibrated1 - uncalibrated2)
-    }
-
-    private fun getDisplayUnit(unit: DistanceUnits): UnitInputView.DisplayUnit<DistanceUnits> {
-        return UnitInputView.DisplayUnit(
-            unit,
-            formatService.getDistanceUnitName(unit, true),
-            formatService.getDistanceUnitName(unit)
-        )
     }
 
 }
