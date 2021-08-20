@@ -981,4 +981,35 @@
     <string name="gps_signal_lost">Сигнал GPS втрачено</string>
     <string name="altitude_history_length">Довжина історії висот</string>
     <string name="last_duration">Остання %s</string>
+    <string name="diagnostic_message_template">%s
+\n
+\n### Залучені засоби
+\n%s
+\n
+\n### Роздільна здатність
+\n%s</string>
+    <string name="gps_unavailable_resolution">Увімкніть \"Місцезнаходження\" або змініть джерело місцезнаходження на \"Лише пристрій\" або \"Висока точність\"</string>
+    <string name="battery_restricted_resolution">Установіть Trail Sense як Не оптимізований</string>
+    <string name="power_saving_mode_resolution">Вимкніть режим енергозбереження</string>
+    <string name="location_override_not_set_resolution">Установіть перевизначення розташування в налаштуваннях</string>
+    <string name="location_override_resolution">Увімкніть автоматичне налаштування розташування в налаштуваннях.</string>
+    <string name="altitude_override_resolution">Увімкніть автоматичне калібрування в налаштуваннях.</string>
+    <string name="unblock_notification_channel">Розблокувати сповіщення %s для Trail Sense</string>
+    <string name="get_gps_signal">Вийдіть на вулицю з безперепонним видом на небо.</string>
+    <string name="activity_recognition">Розпізнавання діяльності</string>
+    <string name="background_location_permission">Розташування (дозволити весь час)</string>
+    <string name="grant_permission">Надання дозволу %s</string>
+    <string name="no_resolution">Немає роздільної здатності</string>
+    <string name="tools_might_not_work">Ці засоби можуть не працювати:</string>
+    <string name="sighting_compass">Ручний компас</string>
+    <string name="no_issues">Хиб не виявлено</string>
+    <string name="notifications_blocked">Сповіщення заблоковано</string>
+    <string name="on">Увімк.</string>
+    <string name="overridden">Перевизначено</string>
+    <string name="update">Оновлення</string>
+    <string name="battery_usage_restricted">Використання акумулятора обмежено</string>
+    <string name="diagnostics">Діагностика</string>
+    <string name="no_permission">Дозвіл не надано</string>
+    <string name="camera">Камера</string>
+    <string name="quarter_moon">Чверть Місяця</string>
 </resources>
