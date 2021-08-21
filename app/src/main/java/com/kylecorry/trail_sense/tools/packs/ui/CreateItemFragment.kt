@@ -108,6 +108,9 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                     )
                     binding.categorySelectSpinner.setSelection(it.category.ordinal)
                     binding.itemWeightInput.value = it.weight
+                    if (it.weight == null){
+                        binding.itemWeightInput.unit = binding.itemWeightInput.units.firstOrNull()
+                    }
                 }
             }
 
