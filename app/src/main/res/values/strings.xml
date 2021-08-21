@@ -1164,4 +1164,5 @@
     <string name="diagnostic_message_template">%s\n\n### Affected tools\n%s\n\n### Resolution\n%s</string>
     <string name="pref_main_disclaimer_shown_key" translatable="false">pref_show_disclaimer_message_4_2021</string>
     <string name="autofill">Autofill</string>
+    <string name="lightning_dangerously_close">Lightning dangerously close</string>
 </resources>

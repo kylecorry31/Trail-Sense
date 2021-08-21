@@ -10,12 +10,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="10.5 mi" />
+
+    <LinearLayout
+        android:id="@+id/strike_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/strike_distance"
+        app:layout_constraintStart_toStartOf="@id/strike_distance"
+        app:layout_constraintTop_toBottomOf="@id/strike_distance"
+        tools:ignore="UseCompoundDrawables"
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:src="@android:drawable/stat_notify_error"
+            app:tint="@color/red" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lightning_dangerously_close" />
+    </LinearLayout>
 
     <com.kylecorry.trail_sense.shared.views.TileButton
         android:id="@+id/start_btn"
@@ -26,8 +54,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tileIcon="@drawable/ic_lightning"
+        app:tilePadding="64dp"
         app:tileText="@string/lightning"
-        app:tileTextSize="24dp"
-        app:tilePadding="64dp" />
+        app:tileTextSize="24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
