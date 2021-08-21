@@ -15,9 +15,9 @@ import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.*
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapSite
-import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
-import com.kylecorry.trailsensecore.domain.units.WeightUnits
+import com.kylecorry.andromeda.core.units.PressureUnits
+import com.kylecorry.andromeda.core.units.TemperatureUnits
+import com.kylecorry.andromeda.core.units.WeightUnits
 import java.time.Duration
 
 class UserPreferences(private val context: Context) {

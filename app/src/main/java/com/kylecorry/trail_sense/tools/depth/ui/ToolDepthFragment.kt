@@ -12,6 +12,8 @@ import com.kylecorry.andromeda.core.math.roundPlaces
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.andromeda.core.units.Pressure
+import com.kylecorry.andromeda.core.units.PressureUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R

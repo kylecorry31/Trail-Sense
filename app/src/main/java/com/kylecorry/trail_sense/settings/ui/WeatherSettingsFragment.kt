@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
-import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.andromeda.core.units.PressureUnits
 import kotlinx.coroutines.launch
 
 class WeatherSettingsFragment : AndromedaPreferenceFragment() {

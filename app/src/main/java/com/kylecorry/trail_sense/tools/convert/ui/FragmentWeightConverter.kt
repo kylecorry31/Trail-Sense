@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.convert.ui
 
-import com.kylecorry.trail_sense.R
+import com.kylecorry.andromeda.core.units.Weight
+import com.kylecorry.andromeda.core.units.WeightUnits
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trailsensecore.domain.units.*
 import kotlin.math.absoluteValue
 
 class FragmentWeightConverter : SimpleConvertFragment<WeightUnits>(WeightUnits.Kilograms, WeightUnits.Pounds) {
@@ -12,12 +12,7 @@ class FragmentWeightConverter : SimpleConvertFragment<WeightUnits>(WeightUnits.K
     override val units = WeightUnits.values().toList()
 
     override fun getUnitName(unit: WeightUnits): String {
-        return when (unit) {
-            WeightUnits.Pounds -> getString(R.string.pounds)
-            WeightUnits.Ounces -> getString(R.string.ounces_weight)
-            WeightUnits.Kilograms -> getString(R.string.kilograms)
-            WeightUnits.Grams -> getString(R.string.grams)
-        }
+        return formatService.getWeightUnitName(unit)
     }
 
     override fun convert(amount: Float, from: WeightUnits, to: WeightUnits): String {

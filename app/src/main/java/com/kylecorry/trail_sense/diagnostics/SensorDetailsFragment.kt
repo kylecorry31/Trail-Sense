@@ -36,10 +36,10 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
-import com.kylecorry.trailsensecore.domain.units.Pressure
-import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.domain.units.Temperature
-import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
+import com.kylecorry.andromeda.core.units.Pressure
+import com.kylecorry.andromeda.core.units.PressureUnits
+import com.kylecorry.andromeda.core.units.Temperature
+import com.kylecorry.andromeda.core.units.TemperatureUnits
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalTime

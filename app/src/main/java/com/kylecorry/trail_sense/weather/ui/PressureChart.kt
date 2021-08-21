@@ -13,7 +13,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.kylecorry.andromeda.core.math.roundPlaces
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
-import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.andromeda.core.units.PressureUnits
 import java.time.Duration
 import kotlin.math.absoluteValue
 import kotlin.math.max

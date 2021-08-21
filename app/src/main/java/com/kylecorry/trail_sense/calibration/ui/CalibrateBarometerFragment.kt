@@ -24,8 +24,8 @@ import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.PressureCalibrationUtils
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
-import com.kylecorry.trailsensecore.domain.units.Pressure
-import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.andromeda.core.units.Pressure
+import com.kylecorry.andromeda.core.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import kotlinx.coroutines.launch
 import java.time.Duration

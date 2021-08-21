@@ -1,8 +1,9 @@
 package com.kylecorry.trail_sense.tools.convert.ui
 
+import com.kylecorry.andromeda.core.units.Temperature
+import com.kylecorry.andromeda.core.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trailsensecore.domain.units.*
 
 class FragmentTemperatureConverter :
     SimpleConvertFragment<TemperatureUnits>(TemperatureUnits.C, TemperatureUnits.F) {

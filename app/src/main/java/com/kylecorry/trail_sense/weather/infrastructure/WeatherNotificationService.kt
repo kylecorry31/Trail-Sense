@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
-import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.andromeda.core.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather

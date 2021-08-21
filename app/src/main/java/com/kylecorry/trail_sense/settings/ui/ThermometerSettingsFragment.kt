@@ -12,8 +12,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.units.Temperature
-import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
+import com.kylecorry.andromeda.core.units.Temperature
+import com.kylecorry.andromeda.core.units.TemperatureUnits
 
 class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 

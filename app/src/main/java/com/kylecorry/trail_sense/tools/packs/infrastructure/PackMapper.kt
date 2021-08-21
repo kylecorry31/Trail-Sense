@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.packs.infrastructure
 
 import com.kylecorry.trailsensecore.domain.packs.Pack
 import com.kylecorry.trailsensecore.domain.packs.PackItem
-import com.kylecorry.trailsensecore.domain.units.Weight
+import com.kylecorry.andromeda.core.units.Weight
 
 class PackMapper {
 

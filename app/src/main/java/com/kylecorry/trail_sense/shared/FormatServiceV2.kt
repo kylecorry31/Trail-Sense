@@ -11,14 +11,6 @@ import com.kylecorry.andromeda.core.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trailsensecore.domain.geo.Region
-import com.kylecorry.trailsensecore.domain.units.Pressure
-import com.kylecorry.trailsensecore.domain.units.PressureUnits
-import com.kylecorry.trailsensecore.domain.units.Temperature
-import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
-import com.kylecorry.trailsensecore.domain.units.Volume
-import com.kylecorry.trailsensecore.domain.units.VolumeUnits
-import com.kylecorry.trailsensecore.domain.units.Weight
-import com.kylecorry.trailsensecore.domain.units.WeightUnits
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import java.time.Duration
 import java.time.LocalDate
@@ -351,36 +343,41 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
-    private fun getDistanceUnitAbbreviation(unit: DistanceUnits): String {
+    fun getWeightUnitName(unit: WeightUnits, short: Boolean = false): String {
+        if (short) {
+            return when (unit) {
+                WeightUnits.Pounds -> context.getString(R.string.pounds_format, "")
+                WeightUnits.Ounces -> context.getString(R.string.ounces_weight_format, "")
+                WeightUnits.Kilograms -> context.getString(R.string.kilograms_format, "")
+                WeightUnits.Grams -> context.getString(R.string.grams_format, "")
+            }.replace(" ", "")
+        }
         return when (unit) {
-            DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, "")
-                .replace(" ", "")
-            DistanceUnits.Kilometers -> context.getString(
-                R.string.precise_kilometers_format,
-                ""
-            ).replace(" ", "")
-            DistanceUnits.Feet -> context.getString(R.string.precise_feet_format, "")
-                .replace(" ", "")
-            DistanceUnits.Miles -> context.getString(R.string.precise_miles_format, "")
-                .replace(" ", "")
-            DistanceUnits.NauticalMiles -> context.getString(
-                R.string.precise_nautical_miles_format,
-                ""
-            ).replace(" ", "")
-            DistanceUnits.Centimeters -> context.getString(R.string.precise_centimeters_format, "")
-                .replace(
-                    " ",
-                    ""
-                )
-            DistanceUnits.Inches -> context.getString(R.string.precise_inches_format, "")
-                .replace(" ", "")
-            DistanceUnits.Yards -> context.getString(R.string.yards_format, "").replace(" ", "")
+            WeightUnits.Pounds -> context.getString(R.string.pounds)
+            WeightUnits.Ounces -> context.getString(R.string.ounces_weight)
+            WeightUnits.Kilograms -> context.getString(R.string.kilograms)
+            WeightUnits.Grams -> context.getString(R.string.grams)
         }
     }
 
     fun getDistanceUnitName(unit: DistanceUnits, short: Boolean = false): String {
         if (short) {
-            return getDistanceUnitAbbreviation(unit)
+            return when (unit) {
+                DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, "")
+                DistanceUnits.Kilometers -> context.getString(
+                    R.string.precise_kilometers_format,
+                    ""
+                )
+                DistanceUnits.Feet -> context.getString(R.string.precise_feet_format, "")
+                DistanceUnits.Miles -> context.getString(R.string.precise_miles_format, "")
+                DistanceUnits.NauticalMiles -> context.getString(
+                    R.string.precise_nautical_miles_format,
+                    ""
+                )
+                DistanceUnits.Centimeters -> context.getString(R.string.precise_centimeters_format, "")
+                DistanceUnits.Inches -> context.getString(R.string.precise_inches_format, "")
+                DistanceUnits.Yards -> context.getString(R.string.yards_format, "")
+            }.replace(" ", "")
         }
         return when (unit) {
             DistanceUnits.Meters -> context.getString(R.string.unit_meters)

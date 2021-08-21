@@ -143,8 +143,7 @@
         <com.kylecorry.trail_sense.shared.views.DistanceInputView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/verbal_map_scale_from"
-            app:hint="@string/distance_from">
+            android:id="@+id/verbal_map_scale_from">
         </com.kylecorry.trail_sense.shared.views.DistanceInputView>
 
         <TextView
@@ -159,8 +158,7 @@
         <com.kylecorry.trail_sense.shared.views.DistanceInputView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/verbal_map_scale_to"
-            app:hint="@string/distance_to">
+            android:id="@+id/verbal_map_scale_to">
         </com.kylecorry.trail_sense.shared.views.DistanceInputView>
 
     </LinearLayout>

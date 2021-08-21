@@ -4,8 +4,8 @@ import android.content.Context
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.units.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trailsensecore.domain.units.Pressure
-import com.kylecorry.trailsensecore.domain.units.PressureUnits
+import com.kylecorry.andromeda.core.units.Pressure
+import com.kylecorry.andromeda.core.units.PressureUnits
 import java.time.Duration
 
 class FormatService(private val context: Context) {

@@ -19,8 +19,8 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.*
-import com.kylecorry.trailsensecore.domain.units.Temperature
-import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
+import com.kylecorry.andromeda.core.units.Temperature
+import com.kylecorry.andromeda.core.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import kotlinx.coroutines.*
 import java.time.Duration

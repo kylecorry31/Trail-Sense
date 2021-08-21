@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_thermometer_hygrometer.xml" value="0.1408514492753623" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/layout/fragment_tool_light.xml" value="0.13949275362318841" />
-        <entry key="..\:/Users/Kylec/Documents/GitHub/Trail-Sense/app/src/main/res/xml/experimental_preferences.xml" value="0.1408514492753623" />
-      </map>
-    </option>
-  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

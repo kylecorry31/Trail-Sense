@@ -78,6 +78,8 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
             DistanceUnits.Centimeters,
             DistanceUnits.Inches
         )
+        binding.verbalMapScaleFrom.hint = getString(R.string.distance_from)
+        binding.verbalMapScaleTo.hint = getString(R.string.distance_to)
 
         binding.verbalMapScaleTo.units = listOf(
             DistanceUnits.Kilometers,

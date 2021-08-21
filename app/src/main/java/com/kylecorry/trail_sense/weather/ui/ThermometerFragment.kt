@@ -20,8 +20,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
-import com.kylecorry.trailsensecore.domain.units.Temperature
-import com.kylecorry.trailsensecore.domain.units.TemperatureUnits
+import com.kylecorry.andromeda.core.units.Temperature
+import com.kylecorry.andromeda.core.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.weather.HeatAlert
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import java.time.Duration
