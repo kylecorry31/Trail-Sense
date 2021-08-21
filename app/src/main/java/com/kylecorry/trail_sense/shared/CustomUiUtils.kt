@@ -121,13 +121,13 @@ object CustomUiUtils {
         val view = View.inflate(context, R.layout.view_distance_entry_prompt, null)
         var distance: Distance? = default
         val distanceInput = view.findViewById<DistanceInputView>(R.id.prompt_distance)
-        distanceInput?.setOnDistanceChangeListener {
+        distanceInput?.setOnValueChangeListener {
             distance = it
         }
         distanceInput?.units = units
-        distanceInput?.updateDistance(default)
+        distanceInput?.value = default
         if (default == null){
-            distanceInput?.setUnit(units.firstOrNull())
+            distanceInput?.unit = units.firstOrNull()
         }
 
         Alerts.dialog(

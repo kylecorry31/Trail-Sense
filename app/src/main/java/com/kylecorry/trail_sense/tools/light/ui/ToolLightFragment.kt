@@ -40,7 +40,7 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
             updateLight()
         }
 
-        binding.beamDistance.setOnDistanceChangeListener {
+        binding.beamDistance.setOnValueChangeListener {
             maxLux = 0f
             if (it != null) {
                 binding.lightChart.setDistanceUnits(it.units)
@@ -66,7 +66,7 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
         binding.lux.text = formatService.formatLux(lightSensor.illuminance)
         maxLux = max(lightSensor.illuminance, maxLux)
 
-        val distance = binding.beamDistance.distance
+        val distance = binding.beamDistance.value
         if (distance == null) {
             binding.intensity.text = ""
             binding.beamDistanceText.text = ""

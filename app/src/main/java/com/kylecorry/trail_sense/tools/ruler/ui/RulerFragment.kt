@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolRulerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -12,9 +15,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
-import com.kylecorry.andromeda.fragments.BoundFragment
 
 class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
     private val formatService by lazy { FormatServiceV2(requireContext()) }
@@ -87,11 +87,11 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
             DistanceUnits.Feet
         )
 
-        binding.verbalMapScaleFrom.setOnDistanceChangeListener {
+        binding.verbalMapScaleFrom.setOnValueChangeListener {
             calculateMapDistance()
         }
 
-        binding.verbalMapScaleTo.setOnDistanceChangeListener {
+        binding.verbalMapScaleTo.setOnValueChangeListener {
             calculateMapDistance()
         }
 
@@ -120,8 +120,8 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
     private fun calculateMapDistance() {
         val displayDistance = when (scaleMode) {
             MapScaleMode.Relational -> {
-                val scaleTo = binding.verbalMapScaleTo.distance
-                val scaleFrom = binding.verbalMapScaleFrom.distance
+                val scaleTo = binding.verbalMapScaleTo.value
+                val scaleFrom = binding.verbalMapScaleFrom.value
 
                 if (scaleFrom == null || scaleTo == null) {
                     null

@@ -11,6 +11,12 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.math.roundPlaces
+import com.kylecorry.andromeda.core.units.Bearing
+import com.kylecorry.andromeda.core.units.CompassDirection
+import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
@@ -22,15 +28,9 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.andromeda.core.units.Bearing
-import com.kylecorry.andromeda.core.units.CompassDirection
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.andromeda.core.math.roundPlaces
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
-import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -231,7 +231,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             updateDoneButtonState()
         }
 
-        binding.distanceAway.setOnDistanceChangeListener {
+        binding.distanceAway.setOnValueChangeListener {
             updateDoneButtonState()
         }
 
@@ -248,7 +248,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             val name = binding.beaconName.text.toString()
             val createAtDistance = binding.createAtDistance.isChecked
             val distanceTo =
-                binding.distanceAway.distance?.convertTo(DistanceUnits.Meters)?.distance?.toDouble()
+                binding.distanceAway.value?.convertTo(DistanceUnits.Meters)?.distance?.toDouble()
                     ?: 0.0
             val bearingTo = bearingTo ?: Bearing.from(CompassDirection.North)
             val comment = binding.comment.text.toString()
@@ -376,7 +376,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             return true
         }
 
-        if (binding.distanceAway.distance == null) {
+        if (binding.distanceAway.value == null) {
             return false
         }
 
@@ -397,7 +397,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         val name = binding.beaconName.text.toString()
         val createAtDistance = binding.createAtDistance.isChecked
         val distanceTo =
-            binding.distanceAway.distance?.convertTo(DistanceUnits.Meters)?.distance?.toDouble()
+            binding.distanceAway.value?.convertTo(DistanceUnits.Meters)?.distance?.toDouble()
                 ?: 0.0
         val bearingTo = bearingTo ?: Bearing.from(CompassDirection.North)
         val comment = binding.comment.text.toString()
