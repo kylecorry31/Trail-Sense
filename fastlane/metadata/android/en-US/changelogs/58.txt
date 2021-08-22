@@ -1,3 +1,4 @@
+- Add temperature estimation at different altitudes (available through thermometer tool)
 - Add diagnostic tool to settings
 - Choose which beacons to import
 - Long press astronomy calendar icon to search for events

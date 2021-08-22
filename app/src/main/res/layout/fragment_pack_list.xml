@@ -51,9 +51,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_packing_lists"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/pack_list"
+        app:layout_constraintBottom_toBottomOf="@id/pack_list"
         tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>
