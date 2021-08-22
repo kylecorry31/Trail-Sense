@@ -9,10 +9,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.math.toDoubleCompat
+import com.kylecorry.andromeda.core.units.WeightUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryStringMapper
 import com.kylecorry.trailsensecore.domain.packs.ItemCategory
@@ -24,6 +26,7 @@ import kotlinx.coroutines.withContext
 class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
     private val itemRepo by lazy { PackRepo.getInstance(requireContext()) }
+    private val formatService by lazy { FormatServiceV2(requireContext()) }
 
     private var editingItem: PackItem? = null
 
@@ -40,6 +43,8 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.itemWeightInput.units = formatService.sortWeightUnits(WeightUnits.values().toList())
 
         binding.createBtn.setOnClickListener {
             val name = binding.nameEdit.text?.toString()
@@ -108,7 +113,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                     )
                     binding.categorySelectSpinner.setSelection(it.category.ordinal)
                     binding.itemWeightInput.value = it.weight
-                    if (it.weight == null){
+                    if (it.weight == null) {
                         binding.itemWeightInput.unit = binding.itemWeightInput.units.firstOrNull()
                     }
                 }

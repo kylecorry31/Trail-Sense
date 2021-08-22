@@ -49,17 +49,7 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
         }
 
         binding.beamDistance.units =
-            if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) {
-                listOf(
-                    DistanceUnits.Meters,
-                    DistanceUnits.Feet
-                )
-            } else {
-                listOf(
-                    DistanceUnits.Feet,
-                    DistanceUnits.Meters
-                )
-            }
+            formatService.sortDistanceUnits(listOf(DistanceUnits.Feet, DistanceUnits.Meters))
     }
 
     private fun updateLight() {

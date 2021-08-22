@@ -14,7 +14,6 @@ class WeightInputView(context: Context, attributeSet: AttributeSet? = null) : Ba
 
     init {
         hint = context.getString(R.string.weight)
-        units = WeightUnits.values().toList()
     }
 
     override fun createDisplayUnit(units: WeightUnits): UnitInputView.DisplayUnit<WeightUnits> {

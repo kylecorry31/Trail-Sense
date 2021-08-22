@@ -324,13 +324,13 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         binding.bearingToBtn.text =
             getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(0f))
-        binding.distanceAway.units = listOf(
+        binding.distanceAway.units = formatService.sortDistanceUnits(listOf(
             DistanceUnits.Meters,
             DistanceUnits.Kilometers,
             DistanceUnits.Feet,
             DistanceUnits.Miles,
             DistanceUnits.NauticalMiles
-        )
+        ))
     }
 
     override fun onResume() {

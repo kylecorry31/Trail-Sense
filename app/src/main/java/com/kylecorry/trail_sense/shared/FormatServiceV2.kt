@@ -343,6 +343,38 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
+    fun sortDistanceUnits(
+        units: List<DistanceUnits>,
+        metric: Boolean = prefs.baseDistanceUnits == DistanceUnits.Meters
+    ): List<DistanceUnits> {
+        // TODO: Secondary sort by size
+        val metricUnits =
+            listOf(DistanceUnits.Centimeters, DistanceUnits.Meters, DistanceUnits.Kilometers)
+        return units.sortedBy {
+            if (metric) {
+                if (metricUnits.contains(it)) 0 else 1
+            } else {
+                if (metricUnits.contains(it)) 1 else 0
+            }
+        }
+    }
+
+    fun sortWeightUnits(
+        units: List<WeightUnits>,
+        metric: Boolean = prefs.weightUnits == WeightUnits.Kilograms
+    ): List<WeightUnits> {
+        // TODO: Secondary sort by size
+        val metricUnits =
+            listOf(WeightUnits.Grams, WeightUnits.Kilograms)
+        return units.sortedBy {
+            if (metric) {
+                if (metricUnits.contains(it)) 0 else 1
+            } else {
+                if (metricUnits.contains(it)) 1 else 0
+            }
+        }
+    }
+
     fun getWeightUnitName(unit: WeightUnits, short: Boolean = false): String {
         if (short) {
             return when (unit) {
@@ -374,7 +406,10 @@ class FormatServiceV2(private val context: Context) {
                     R.string.precise_nautical_miles_format,
                     ""
                 )
-                DistanceUnits.Centimeters -> context.getString(R.string.precise_centimeters_format, "")
+                DistanceUnits.Centimeters -> context.getString(
+                    R.string.precise_centimeters_format,
+                    ""
+                )
                 DistanceUnits.Inches -> context.getString(R.string.precise_inches_format, "")
                 DistanceUnits.Yards -> context.getString(R.string.yards_format, "")
             }.replace(" ", "")

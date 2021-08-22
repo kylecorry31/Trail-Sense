@@ -74,20 +74,21 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
             calculateMapDistance()
         }
 
-        binding.verbalMapScaleFrom.units = listOf(
-            DistanceUnits.Centimeters,
-            DistanceUnits.Inches
-        )
         binding.verbalMapScaleFrom.hint = getString(R.string.distance_from)
         binding.verbalMapScaleTo.hint = getString(R.string.distance_to)
 
-        binding.verbalMapScaleTo.units = listOf(
+        binding.verbalMapScaleFrom.units = formatService.sortDistanceUnits(listOf(
+            DistanceUnits.Centimeters,
+            DistanceUnits.Inches
+        ))
+
+        binding.verbalMapScaleTo.units = formatService.sortDistanceUnits(listOf(
             DistanceUnits.Kilometers,
             DistanceUnits.Miles,
             DistanceUnits.NauticalMiles,
             DistanceUnits.Meters,
             DistanceUnits.Feet
-        )
+        ))
 
         binding.verbalMapScaleFrom.setOnValueChangeListener {
             calculateMapDistance()

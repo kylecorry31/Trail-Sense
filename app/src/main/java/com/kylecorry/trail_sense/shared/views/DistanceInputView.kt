@@ -15,7 +15,6 @@ class DistanceInputView(context: Context, attrs: AttributeSet? = null) :
 
     init {
         hint = context.getString(R.string.distance_hint)
-        units = DistanceUnits.values().toList()
     }
 
     override fun createDisplayUnit(units: DistanceUnits): UnitInputView.DisplayUnit<DistanceUnits> {

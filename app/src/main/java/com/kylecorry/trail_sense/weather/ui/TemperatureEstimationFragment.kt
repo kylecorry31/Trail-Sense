@@ -10,6 +10,8 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.andromeda.core.units.Temperature
+import com.kylecorry.andromeda.core.units.TemperatureUnits
 import com.kylecorry.andromeda.forms.*
 import com.kylecorry.andromeda.forms.Forms.add
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -19,8 +21,6 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.*
-import com.kylecorry.andromeda.core.units.Temperature
-import com.kylecorry.andromeda.core.units.TemperatureUnits
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import kotlinx.coroutines.*
 import java.time.Duration
@@ -61,13 +61,15 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val distanceUnits = listOf(
-            DistanceUnits.Feet,
-            DistanceUnits.Yards,
-            DistanceUnits.Miles,
-            DistanceUnits.NauticalMiles,
-            DistanceUnits.Meters,
-            DistanceUnits.Kilometers
+        val distanceUnits = formatService.sortDistanceUnits(
+            listOf(
+                DistanceUnits.Feet,
+                DistanceUnits.Yards,
+                DistanceUnits.Miles,
+                DistanceUnits.NauticalMiles,
+                DistanceUnits.Meters,
+                DistanceUnits.Kilometers
+            )
         )
 
         val tempHint = if (temperatureUnits == TemperatureUnits.C) {
@@ -143,7 +145,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
         }
     }
 
-    private fun setFieldsFromSensors(){
+    private fun setFieldsFromSensors() {
         if (altimeter.hasValidReading) {
             val altitude = Distance.meters(altimeter.altitude).convertTo(baseUnits)
             form?.setValue<Distance?>("base", altitude)
