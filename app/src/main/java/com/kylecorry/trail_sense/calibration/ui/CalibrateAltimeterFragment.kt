@@ -203,8 +203,8 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             prefs.altimeterMode == UserPreferences.AltimeterMode.Override
         ).first()
         prefs.seaLevelPressureOverride = seaLevel.value
-        // TODO: Recreate barometer if altimeter mode == barometer
-        return prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer
+        restartAltimeter()
+        return false
     }
 
     private fun updateElevationFromBarometer(seaLevelPressure: Float) {

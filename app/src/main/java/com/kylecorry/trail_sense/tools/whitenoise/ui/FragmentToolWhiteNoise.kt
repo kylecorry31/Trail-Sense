@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.databinding.FragmentToolWhiteNoiseBinding
@@ -14,10 +13,6 @@ import java.time.Duration
 import java.time.Instant
 
 class FragmentToolWhiteNoise : BoundFragment<FragmentToolWhiteNoiseBinding>() {
-
-    private val intervalometer = Timer {
-        update()
-    }
 
     private val cache by lazy { Preferences(requireContext()) }
 
@@ -55,19 +50,13 @@ class FragmentToolWhiteNoise : BoundFragment<FragmentToolWhiteNoiseBinding>() {
                 WhiteNoiseService.start(requireContext())
             }
         }
+
+        scheduleUpdates(INTERVAL_30_FPS)
     }
 
-    override fun onResume() {
-        super.onResume()
-        intervalometer.interval(20)
-    }
 
-    override fun onPause() {
-        super.onPause()
-        intervalometer.stop()
-    }
-
-    private fun update() {
+    override fun onUpdate() {
+        super.onUpdate()
         binding.whiteNoiseBtn.setState(WhiteNoiseService.isRunning)
         val stopTime = cache.getInstant(WhiteNoiseService.CACHE_KEY_OFF_TIME)
         if (stopTime != null && stopTime > Instant.now()){
