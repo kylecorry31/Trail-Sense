@@ -1,0 +1,5 @@
+- Add diagnostic tool to settings
+- Choose which beacons to import
+- Long press astronomy calendar icon to search for events
+- Improved distance entry
+- Bug fixes
