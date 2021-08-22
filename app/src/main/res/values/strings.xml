@@ -1165,4 +1165,5 @@
     <string name="pref_main_disclaimer_shown_key" translatable="false">pref_show_disclaimer_message_4_2021</string>
     <string name="autofill">Autofill</string>
     <string name="lightning_dangerously_close">Lightning dangerously close</string>
+    <string name="auto">Auto</string>
 </resources>
