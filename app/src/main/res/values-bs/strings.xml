@@ -950,7 +950,6 @@
     <string name="tidal_range">Plimni Raspon</string>
     <string name="sunset_alert_channel_description">Upozorenja na zalazke</string>
     <string name="pref_filter_altitude_history_title">Povijest glatke visine</string>
-    <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
     <string name="beacon_qr_import_instructions">Skenirajte QR kodu da uvezete</string>
     <string name="qr_code">QR Koda</string>
     <string name="altitude_history">Povijest visine</string>
@@ -965,13 +964,11 @@
     <string name="guide_packing_list">Napravi liste za pakovanje</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Težina po stavci</string>
-    <string name="pref_weight_units">pref_weight_units</string>
     <string name="pack_sort_weight_high_to_low">Težina (visoka do niske)</string>
     <string name="pack_sort_weight_low_to_high">Težina (niska do visoke)</string>
     <string name="pack_sort_percent_high_to_low">Postotina spakovana (visoka do niske)</string>
     <string name="pack_sort_percent_low_to_high">Postotina spakovana (niska do visoke)</string>
     <string name="pack_sort_category">Kategorija</string>
-    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
     <string name="sort">Razvrstaj</string>
     <string name="current_format">%s mA</string>
 </resources>

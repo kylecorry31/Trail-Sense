@@ -879,7 +879,6 @@
     <string name="no_data">Нет данных</string>
     <string name="pref_map_url_source_title">Поделиться местоположением на карте</string>
     <string name="pref_filter_altitude_history_title">История плавности высоты</string>
-    <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
     <string name="beacon_qr_import_instructions">Отсканируйте QR-код для импорта</string>
     <string name="qr_code">QR-код</string>
     <string name="altitude_history">История высот</string>
@@ -894,13 +893,11 @@
     <string name="guide_packing_list">Создание списков упаковки</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Вес на единицу</string>
-    <string name="pref_weight_units">pref_weight_units</string>
     <string name="pack_sort_weight_high_to_low">Вес (по убыванию)</string>
     <string name="pack_sort_weight_low_to_high">Вес (по возрастанию)</string>
     <string name="pack_sort_percent_low_to_high">Процент упаковки (по возрастанию)</string>
     <string name="pack_sort_percent_high_to_low">Процент упаковки (по убыванию)</string>
     <string name="pack_sort_category">Категория</string>
-    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
     <string name="sort">Сортировать</string>
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>

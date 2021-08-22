@@ -939,13 +939,11 @@
     <string name="destination_elevation">Висота призначення</string>
     <string name="base_temperature">Основна температура</string>
     <string name="weight_per_item">Вага на одиницю</string>
-    <string name="pref_weight_units">pref_weight_units</string>
     <string name="pack_sort_weight_high_to_low">Вага (від більшої до меншої)</string>
     <string name="pack_sort_weight_low_to_high">Вага (від меншої до більшої)</string>
     <string name="pack_sort_percent_high_to_low">Відсоток упакованого (від більшого до меншого)</string>
     <string name="pack_sort_percent_low_to_high">Відсоток упакованого (від меншого до більшого)</string>
     <string name="pack_sort_category">Категорія</string>
-    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
     <string name="sort">Упорядкування</string>
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
@@ -975,7 +973,6 @@
     <string name="climate_temperate">Помірна</string>
     <string name="climate_polar">Полярна</string>
     <string name="pref_filter_altitude_history_title">Історія плавності висот</string>
-    <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
     <string name="beacon_qr_import_instructions">Зчитайте QR-код для імпорту</string>
     <string name="qr_code">QR-код</string>
     <string name="gps_signal_lost">Сигнал GPS втрачено</string>

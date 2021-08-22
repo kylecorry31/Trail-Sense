@@ -942,14 +942,12 @@
     <string name="default_pack_name">Standardpaket</string>
     <string name="action_inventory_clear_confirm">Alle gepackten Mengen löschen\?</string>
     <string name="weight_per_item">Gewicht pro Stück</string>
-    <string name="pref_weight_units">pref_weight_units</string>
     <string name="sort">Sortieren</string>
     <string name="pack_sort_weight_high_to_low">Gewicht (hoch zu gering)</string>
     <string name="pack_sort_weight_low_to_high">Gewicht (gering zu hoch)</string>
     <string name="pack_sort_percent_high_to_low">Prozent gepackt (hoch zu wenig)</string>
     <string name="pack_sort_percent_low_to_high">Prozent gepackt (wenig zu hoch)</string>
     <string name="pack_sort_category">Kategorie</string>
-    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
     <string name="climate_tropical">Tropische</string>
     <string name="climate_temperate">Gemäßigte</string>
     <string name="climate_polar">Polare</string>
@@ -962,7 +960,6 @@
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="current_format">%s mA</string>
     <string name="pref_filter_altitude_history_title">Weicher Höhenverlauf</string>
-    <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
     <string name="beacon_qr_import_instructions">Einen QR-Code zum Importieren scannen</string>
     <string name="qr_code">QR-Code</string>
     <string name="altitude_history">Höhenverlauf</string>

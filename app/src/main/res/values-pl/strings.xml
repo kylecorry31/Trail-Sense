@@ -923,11 +923,9 @@
     <string name="quart_format">%s qt</string>
     <string name="humidity">%s wilgotność</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
-    <string name="pref_weight_units">pref_weight_units</string>
     <string name="pack_sort_weight_high_to_low">Waga (od najwyższej do najniższej)</string>
     <string name="pack_sort_weight_low_to_high">Waga (od najniższej do najwyższej)</string>
     <string name="pack_sort_category">Kategoria</string>
-    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
     <string name="sort">Sortuj</string>
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>

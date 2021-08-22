@@ -954,17 +954,14 @@
     <string name="guide_packing_list">Paklijsten aanmaken</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Gewicht per voorwerp</string>
-    <string name="pref_weight_units">pref_weight_units</string>
     <string name="pack_sort_weight_high_to_low">Gewicht (hoog naar laag)</string>
     <string name="pack_sort_weight_low_to_high">Gewicht (laag naar hoog)</string>
     <string name="pack_sort_percent_high_to_low">Percentage ingepakt (hoog naar loog)</string>
     <string name="pack_sort_percent_low_to_high">Percentage ingepakt (laag naar hoog)</string>
     <string name="pack_sort_category">Categorie</string>
-    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
     <string name="sort">Sorteren</string>
     <string name="current_format">%s mA</string>
     <string name="pref_filter_altitude_history_title">Vloeiende hoogtegeschiedenis</string>
-    <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
     <string name="beacon_qr_import_instructions">Scan een QR-code om te importeren</string>
     <string name="qr_code">QR-code</string>
 </resources>

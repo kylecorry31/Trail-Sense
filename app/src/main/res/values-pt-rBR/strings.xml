@@ -942,13 +942,11 @@
     <string name="guide_packing_list">Criar listas de conteúdo</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Peso por item</string>
-    <string name="pref_weight_units">pref_weight_units</string>
     <string name="pack_sort_weight_high_to_low">Peso (alto a baixo)</string>
     <string name="pack_sort_weight_low_to_high">Peso (baixo a alto)</string>
     <string name="pack_sort_percent_high_to_low">Porcentagem incluída (alta a baixa)</string>
     <string name="pack_sort_percent_low_to_high">Porcentagem incluída (baixa a alta)</string>
     <string name="pack_sort_category">Categoria</string>
-    <string name="pref_pack_item_sort">pref_pack_item_sort</string>
     <string name="sort">Ordenar</string>
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
@@ -975,7 +973,6 @@
     <string name="num_satellites">%d satélites</string>
     <string name="no_compass_message">Seu dispositivo não possui um sensor de bússola</string>
     <string name="pref_filter_altitude_history_title">O histórico de altitude</string>
-    <string name="pref_filter_altitude_history">pref_filter_altitude_history</string>
     <string name="beacon_qr_import_instructions">Digitalizar um código QR para importar</string>
     <string name="qr_code">Código QR</string>
 </resources>
