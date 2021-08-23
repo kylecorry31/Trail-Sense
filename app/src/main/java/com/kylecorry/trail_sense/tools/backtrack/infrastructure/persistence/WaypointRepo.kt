@@ -15,10 +15,13 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
 
     override suspend fun deleteWaypoint(waypoint: WaypointEntity) = waypointDao.delete(waypoint)
 
-    override suspend fun deleteOlderThan(instant: Instant) = waypointDao.deleteOlderThan(instant.toEpochMilli())
+    override suspend fun deleteOlderThan(instant: Instant) =
+        waypointDao.deleteOlderThan(instant.toEpochMilli())
+
+    override suspend fun getLastPathId(): Long? = waypointDao.getLastPathId()
 
     override suspend fun addWaypoint(waypoint: WaypointEntity) {
-        if (waypoint.id != 0L){
+        if (waypoint.id != 0L) {
             waypointDao.update(waypoint)
         } else {
             waypointDao.insert(waypoint)
@@ -27,8 +30,6 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
 
     companion object {
         private var instance: WaypointRepo? = null
-
-        const val BACKTRACK_PATH_ID = -1L
 
         @Synchronized
         fun getInstance(context: Context): WaypointRepo {

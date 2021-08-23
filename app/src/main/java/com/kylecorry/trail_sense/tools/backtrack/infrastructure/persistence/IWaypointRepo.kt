@@ -14,4 +14,6 @@ interface IWaypointRepo {
     suspend fun addWaypoint(waypoint: WaypointEntity)
 
     suspend fun deleteOlderThan(instant: Instant)
+
+    suspend fun getLastPathId(): Long?
 }

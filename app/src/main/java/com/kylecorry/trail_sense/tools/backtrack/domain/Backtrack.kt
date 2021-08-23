@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.read
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.trail_sense.R
@@ -30,7 +31,8 @@ class Backtrack(
     private val backtrackRepo: IWaypointRepo,
     private val beaconRepo: IBeaconRepo,
     private val recordCellSignal: Boolean = true,
-    private val history: Duration = Duration.ofDays(2)
+    private val history: Duration = Duration.ofDays(2),
+    private val cache: Preferences
 ) {
 
     private val formatService by lazy { FormatServiceV2(context) }
@@ -56,7 +58,8 @@ class Backtrack(
                             CellSignalUtils.getCellTypeString(
                                 context,
                                 // TODO: Return the correct cell network type
-                                CellNetwork.values().first { it.id == point.cellSignal!!.network.id }
+                                CellNetwork.values()
+                                    .first { it.id == point.cellSignal!!.network.id }
                             ),
                             formatService.formatQuality(point.cellSignal!!.quality)
                         ),
@@ -97,6 +100,11 @@ class Backtrack(
 
     private suspend fun recordWaypoint(): PathPoint {
         return withContext(Dispatchers.IO) {
+            val pathId = cache.getLong(context.getString(R.string.pref_last_backtrack_path_id))
+                ?: ((backtrackRepo.getLastPathId() ?: 0L) + 1)
+
+            cache.putLong(context.getString(R.string.pref_last_backtrack_path_id), pathId)
+
             val cell = cellSignalSensor.signals.maxByOrNull { it.strength }
             val waypoint = WaypointEntity(
                 gps.location.latitude,
@@ -105,6 +113,7 @@ class Backtrack(
                 Instant.now().toEpochMilli(),
                 cell?.network?.id,
                 cell?.quality?.ordinal,
+                pathId
             )
 
             backtrackRepo.addWaypoint(waypoint)

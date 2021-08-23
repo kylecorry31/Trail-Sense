@@ -39,7 +39,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
     private fun restartBacktrack() {
         if (prefs.backtrackEnabled) {
             BacktrackScheduler.stop(requireContext())
-            BacktrackScheduler.start(requireContext())
+            BacktrackScheduler.start(requireContext(), false)
         }
     }
 
@@ -65,7 +65,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
 
         prefBacktrack?.setOnPreferenceClickListener {
             if (prefs.backtrackEnabled) {
-                BacktrackScheduler.start(requireContext())
+                BacktrackScheduler.start(requireContext(), true)
             } else {
                 BacktrackScheduler.stop(requireContext())
             }

@@ -66,8 +66,9 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
             ListView(binding.waypointsList, R.layout.list_item_waypoint) { waypointView, waypoint ->
                 val itemBinding = ListItemWaypointBinding.bind(waypointView)
                 val timeAgo = Duration.between(waypoint.createdInstant, Instant.now())
+                // TODO: This is temporary
                 itemBinding.waypointCoordinates.text =
-                    getString(R.string.time_ago, timeAgo.formatHM(true))
+                    getString(R.string.time_ago, timeAgo.formatHM(true)) + " (${waypoint.pathId})"
                 val date = waypoint.createdInstant.toZonedDateTime()
                 val time = date.toLocalTime()
                 itemBinding.waypointTime.text = getString(
@@ -173,6 +174,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 }
                     .sortedByDescending { it.createdOn }
 
+            // TODO: Insert segment headers
             listView.setData(filteredWaypoints)
 
             if (filteredWaypoints.isEmpty()) {
@@ -199,7 +201,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 prefs.backtrackEnabled = !wasEnabled
                 if (!wasEnabled) {
                     binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)
-                    BacktrackScheduler.start(requireContext())
+                    BacktrackScheduler.start(requireContext(), true)
                 } else {
                     binding.startBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24)
                     BacktrackScheduler.stop(requireContext())

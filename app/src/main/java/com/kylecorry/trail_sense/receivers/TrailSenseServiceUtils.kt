@@ -50,7 +50,7 @@ object TrailSenseServiceUtils {
     private fun startBacktrack(context: Context) {
         val prefs = UserPreferences(context)
         if (prefs.backtrackEnabled) {
-            BacktrackScheduler.start(context)
+            BacktrackScheduler.start(context, false)
         } else {
             BacktrackScheduler.stop(context)
         }

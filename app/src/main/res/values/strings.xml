@@ -1166,4 +1166,5 @@
     <string name="autofill">Autofill</string>
     <string name="lightning_dangerously_close">Lightning dangerously close</string>
     <string name="auto">Auto</string>
+    <string name="pref_last_backtrack_path_id" translatable="false">last_backtrack_path_id</string>
 </resources>

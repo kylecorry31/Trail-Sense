@@ -203,7 +203,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 it.createdInstant > Instant.now().minus(userPrefs.navigation.backtrackHistory)
             }.sortedByDescending { it.createdInstant }
             backtrack = Path(
-                WaypointRepo.BACKTRACK_PATH_ID,
+                waypoints.firstOrNull()?.pathId ?: 0L,
                 getString(R.string.tool_backtrack_title),
                 waypoints.map { it.toPathPoint() },
                 Resources.color(requireContext(), R.color.colorAccent),
@@ -697,14 +697,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val points = listOf(
                 PathPoint(
                     0,
-                    WaypointRepo.BACKTRACK_PATH_ID,
+                    bt.id,
                     gps.location,
                     time = Instant.now()
                 )
             ) + bt.points
 
             val path = Path(
-                WaypointRepo.BACKTRACK_PATH_ID,
+                bt.id,
                 getString(R.string.tool_backtrack_title),
                 points,
                 userPrefs.navigation.backtrackPathColor.color,

@@ -23,4 +23,7 @@ interface WaypointDao {
 
     @Update
     suspend fun update(waypoint: WaypointEntity)
+
+    @Query("SELECT MAX(pathId) FROM waypoints")
+    suspend fun getLastPathId(): Long?
 }

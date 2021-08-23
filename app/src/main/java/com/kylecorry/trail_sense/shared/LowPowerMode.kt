@@ -39,7 +39,7 @@ class LowPowerMode(val context: Context) {
         }
 
         if (prefs.backtrackEnabled) {
-            BacktrackScheduler.start(context)
+            BacktrackScheduler.start(context, false)
         }
 
         if (prefs.usePedometer){

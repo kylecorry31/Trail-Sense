@@ -106,7 +106,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                         .sortedByDescending { it.createdInstant }
 
                     backtrack = Path(
-                        WaypointRepo.BACKTRACK_PATH_ID,
+                        waypoints.firstOrNull()?.pathId ?: 0L,
                         getString(R.string.tool_backtrack_title),
                         sortedWaypoints.map { it.toPathPoint() },
                         prefs.navigation.backtrackPathColor.color,
@@ -236,7 +236,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private fun displayPaths() {
         val myLocation = PathPoint(
             0,
-            WaypointRepo.BACKTRACK_PATH_ID,
+            backtrack?.id ?: 0L,
             gps.location,
             time = Instant.now()
         )

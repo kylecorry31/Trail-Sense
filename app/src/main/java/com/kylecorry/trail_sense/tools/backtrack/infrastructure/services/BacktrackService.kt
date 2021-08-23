@@ -7,6 +7,7 @@ import android.os.IBinder
 import android.util.Log
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.services.CoroutineForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
@@ -29,6 +30,7 @@ class BacktrackService : CoroutineForegroundService() {
     private val waypointRepo by lazy { WaypointRepo.getInstance(this) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(this) }
     private val prefs by lazy { UserPreferences(applicationContext) }
+    private val cache by lazy { Preferences(this) }
 
     private val backtrack by lazy {
         Backtrack(
@@ -39,7 +41,8 @@ class BacktrackService : CoroutineForegroundService() {
             waypointRepo,
             beaconRepo,
             prefs.backtrackSaveCellHistory,
-            prefs.navigation.backtrackHistory
+            prefs.navigation.backtrackHistory,
+            cache
         )
     }
 

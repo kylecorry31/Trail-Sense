@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.andromeda.signal.CellNetworkQuality
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import java.time.Instant
 
@@ -18,7 +17,8 @@ data class WaypointEntity(
     @ColumnInfo(name = "altitude") val altitude: Float?,
     @ColumnInfo(name = "createdOn") val createdOn: Long,
     @ColumnInfo(name = "cellType") val cellTypeId: Int?,
-    @ColumnInfo(name = "cellQuality") val cellQualityId: Int?
+    @ColumnInfo(name = "cellQuality") val cellQualityId: Int?,
+    @ColumnInfo(name = "pathId") val pathId: Long = 0
 
 ) {
     @PrimaryKey(autoGenerate = true)
@@ -43,7 +43,7 @@ data class WaypointEntity(
 
     fun toPathPoint(): PathPoint {
         val network = if (cellNetwork == null) null else CellNetworkQuality(cellNetwork!!, cellQuality)
-        return PathPoint(id, WaypointRepo.BACKTRACK_PATH_ID, coordinate, time = createdInstant, cellSignal = network)
+        return PathPoint(id, pathId, coordinate, time = createdInstant, cellSignal = network)
     }
 
 }

@@ -27,7 +27,7 @@ class BacktrackTile: AndromedaTileService() {
 
     override fun start() {
         prefs.backtrackEnabled = true
-        BacktrackScheduler.start(this)
+        BacktrackScheduler.start(this, true)
     }
 
     override fun stop() {
