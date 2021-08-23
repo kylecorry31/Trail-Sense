@@ -68,7 +68,44 @@ class FormatServiceV2(private val context: Context) {
         return "$date $time"
     }
 
-    fun formatDistance(distance: Distance, decimalPlaces: Int = 0, strict: Boolean = true): String {
+    fun formatTimeSpan(
+        start: ZonedDateTime,
+        end: ZonedDateTime,
+        relative: Boolean = false
+    ): String {
+        val startTime = start.toLocalTime()
+        val endTime = end.toLocalTime()
+
+        val dateFormatFn =
+            if (relative) { date: ZonedDateTime ->
+                formatRelativeDate(date.toLocalDate())
+            } else { date: ZonedDateTime ->
+                formatDate(date)
+            }
+
+        return if (start.toLocalDate() == end.toLocalDate()) {
+            "${dateFormatFn(start)} ${
+                formatTime(
+                    startTime,
+                    false
+                )
+            } - ${formatTime(endTime, false)}"
+        } else {
+            "${dateFormatFn(end)} ${
+                formatTime(
+                    startTime,
+                    false
+                )
+            } - ${dateFormatFn(end)} ${formatTime(endTime, false)}"
+        }
+
+    }
+
+    fun formatDistance(
+        distance: Distance,
+        decimalPlaces: Int = 0,
+        strict: Boolean = true
+    ): String {
         val formatted = DecimalFormatter.format(distance.distance, decimalPlaces, strict)
         return when (distance.units) {
             DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, formatted)
@@ -170,7 +207,11 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
-    fun formatDegrees(degrees: Float, decimalPlaces: Int = 0, replace360: Boolean = false): String {
+    fun formatDegrees(
+        degrees: Float,
+        decimalPlaces: Int = 0,
+        replace360: Boolean = false
+    ): String {
         val formatted = DecimalFormatter.format(degrees.toDouble(), decimalPlaces)
         val finalFormatted = if (replace360) formatted.replace("360", "0") else formatted
         return context.getString(R.string.degree, finalFormatted)

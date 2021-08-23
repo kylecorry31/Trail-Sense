@@ -1,11 +1,9 @@
 package com.kylecorry.trail_sense.tools.backtrack.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +14,6 @@ import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
-import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
@@ -24,12 +21,12 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
+import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -43,6 +40,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
+    private val navigationService = NavigationService()
 
     private val stateChecker = Timer {
         context ?: return@Timer
@@ -56,132 +54,21 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
     private var wasEnabled = false
 
-    private lateinit var listView: ListView<WaypointEntity>
+    private lateinit var listView: ListView<BacktrackListItem>
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listView =
-            ListView(binding.waypointsList, R.layout.list_item_waypoint) { waypointView, waypoint ->
-                val itemBinding = ListItemWaypointBinding.bind(waypointView)
-                val timeAgo = Duration.between(waypoint.createdInstant, Instant.now())
-                // TODO: This is temporary
-                itemBinding.waypointCoordinates.text =
-                    getString(R.string.time_ago, timeAgo.formatHM(true)) + " (${waypoint.pathId})"
-                val date = waypoint.createdInstant.toZonedDateTime()
-                val time = date.toLocalTime()
-                itemBinding.waypointTime.text = getString(
-                    R.string.waypoint_time_format,
-                    formatService.formatRelativeDate(date.toLocalDate()),
-                    formatService.formatTime(time, false)
-                )
-
-                if (prefs.backtrackSaveCellHistory) {
-                    itemBinding.signalStrength.setStatusText(
-                        CellSignalUtils.getCellTypeString(
-                            requireContext(),
-                            // TODO: Return the correct cell network type
-                            CellNetwork.values().firstOrNull() { it.id == waypoint.cellNetwork?.id }
-                        )
-                    )
-                    itemBinding.signalStrength.setImageResource(
-                        CellSignalUtils.getCellQualityImage(
-                            waypoint.cellQuality
-                        )
-                    )
-                    itemBinding.signalStrength.setForegroundTint(Color.BLACK)
-                    itemBinding.signalStrength.setBackgroundTint(
-                        CustomUiUtils.getQualityColor(
-                            requireContext(),
-                            waypoint.cellQuality
-                        )
-                    )
-                    itemBinding.signalStrength.visibility = View.VISIBLE
-                } else {
-                    itemBinding.signalStrength.visibility = View.GONE
-                }
-
-                val menuListener = PopupMenu.OnMenuItemClickListener {
-                    when (it.itemId) {
-                        R.id.action_waypoint_create_beacon -> {
-                            createBeacon(waypoint)
-                        }
-                        R.id.action_waypoint_delete -> {
-                            deleteWaypoint(waypoint)
-                        }
-                    }
-                    true
-                }
-
-                itemBinding.waypointMenuBtn.setOnClickListener {
-                    val popup = PopupMenu(it.context, it)
-                    val inflater = popup.menuInflater
-                    inflater.inflate(R.menu.waypoint_item_menu, popup.menu)
-                    popup.setOnMenuItemClickListener(menuListener)
-                    popup.show()
-                }
-
-                itemBinding.root.setOnClickListener {
-                    tryOrNothing {
-                        lifecycleScope.launch {
-                            var newTempId: Long
-                            withContext(Dispatchers.IO) {
-                                val tempBeaconId =
-                                    beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
-                                val beacon = Beacon(
-                                    tempBeaconId,
-                                    getString(
-                                        R.string.waypoint_beacon_title_template,
-                                        formatService.formatDate(
-                                            date,
-                                            includeWeekDay = false
-                                        ), formatService.formatTime(time, includeSeconds = false)
-                                    ),
-                                    waypoint.coordinate,
-                                    visible = false,
-                                    elevation = waypoint.altitude,
-                                    temporary = true,
-                                    color = prefs.navigation.backtrackPathColor.color,
-                                    owner = BeaconOwner.Backtrack
-                                )
-                                beaconRepo.addBeacon(BeaconEntity.from(beacon))
-
-                                newTempId =
-                                    beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
-                            }
-
-                            withContext(Dispatchers.Main) {
-                                findNavController().navigate(
-                                    R.id.action_fragmentBacktrack_to_action_navigation,
-                                    bundleOf("destination" to newTempId)
-                                )
-                            }
-                        }
-                    }
-
-                }
-
-            }
+        listView = ListView(binding.waypointsList, R.layout.list_item_waypoint) { itemView, item ->
+            drawListItem(ListItemWaypointBinding.bind(itemView), item)
+        }
 
         listView.addLineSeparator()
 
         waypointsLiveData = waypointRepo.getWaypoints()
         waypointsLiveData.observe(viewLifecycleOwner) { waypoints ->
-            val filteredWaypoints =
-                waypoints.filter {
-                    it.createdInstant > Instant.now().minus(prefs.navigation.backtrackHistory)
-                }
-                    .sortedByDescending { it.createdOn }
-
-            // TODO: Insert segment headers
-            listView.setData(filteredWaypoints)
-
-            if (filteredWaypoints.isEmpty()) {
-                binding.waypointsEmptyText.visibility = View.VISIBLE
-            } else {
-                binding.waypointsEmptyText.visibility = View.INVISIBLE
-            }
+            onWaypointsChanged(waypoints)
         }
 
         wasEnabled = prefs.backtrackEnabled
@@ -228,13 +115,10 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     }
 
     private fun createBeacon(waypoint: WaypointEntity) {
-        val bundle = bundleOf(
-            "initial_location" to MyNamedCoordinate(
-                waypoint.coordinate,
-                getWaypointTitle(waypoint)
-            )
+        AppUtils.placeBeacon(
+            requireContext(),
+            MyNamedCoordinate(waypoint.coordinate, getWaypointTitle(waypoint))
         )
-        findNavController().navigate(R.id.place_beacon, bundle)
     }
 
     private fun getWaypointTitle(waypoint: WaypointEntity): String {
@@ -265,5 +149,109 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     ): FragmentBacktrackBinding {
         return FragmentBacktrackBinding.inflate(layoutInflater, container, false)
     }
+
+    private fun onWaypointsChanged(waypoints: List<WaypointEntity>) {
+        val filteredWaypoints = filterCurrentWaypoints(waypoints)
+        val groupedWaypoints =
+            groupWaypointsByPath(filteredWaypoints).toList().sortedByDescending { it.first }
+                .map { it.second }
+
+        val listItems = mutableListOf<BacktrackListItem>()
+        for (group in groupedWaypoints) {
+            listItems.add(PathListItem(group))
+            listItems.addAll(group.sortedByDescending { it.createdOn }
+                .map { WaypointListItem(it) })
+        }
+
+        listView.setData(listItems)
+
+        if (filteredWaypoints.isEmpty()) {
+            binding.waypointsEmptyText.visibility = View.VISIBLE
+        } else {
+            binding.waypointsEmptyText.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun drawListItem(itemBinding: ListItemWaypointBinding, item: BacktrackListItem) {
+        if (item is WaypointListItem) {
+            drawWaypointListItem(itemBinding, item)
+        } else if (item is PathListItem) {
+            drawPathListItem(itemBinding, item)
+        }
+    }
+
+    private fun drawWaypointListItem(itemBinding: ListItemWaypointBinding, item: WaypointListItem) {
+        val itemStrategy = WaypointListItemStrategy(
+            requireContext(),
+            formatService,
+            prefs,
+            { createBeacon(it) },
+            { deleteWaypoint(it) },
+            { navigateToWaypoint(it) }
+        )
+
+        itemStrategy.display(itemBinding, item)
+    }
+
+    private fun drawPathListItem(itemBinding: ListItemWaypointBinding, item: PathListItem) {
+        val itemStrategy =
+            PathListItemStrategy(requireContext(), formatService, prefs, navigationService)
+        itemStrategy.display(itemBinding, item)
+    }
+
+    private fun filterCurrentWaypoints(waypoints: List<WaypointEntity>): List<WaypointEntity> {
+        return waypoints.filter {
+            it.createdInstant > Instant.now().minus(prefs.navigation.backtrackHistory)
+        }
+    }
+
+    private fun groupWaypointsByPath(waypoints: List<WaypointEntity>): Map<Long, List<WaypointEntity>> {
+        return waypoints.groupBy { it.pathId }
+    }
+
+    private fun navigateToWaypoint(waypoint: WaypointEntity) {
+        tryOrNothing {
+            lifecycleScope.launch {
+                val date = waypoint.createdInstant.toZonedDateTime()
+                val time = date.toLocalTime()
+                var newTempId: Long
+                withContext(Dispatchers.IO) {
+                    val tempBeaconId =
+                        beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
+                    val beacon = Beacon(
+                        tempBeaconId,
+                        getString(
+                            R.string.waypoint_beacon_title_template,
+                            formatService.formatDate(
+                                date,
+                                includeWeekDay = false
+                            ), formatService.formatTime(time, includeSeconds = false)
+                        ),
+                        waypoint.coordinate,
+                        visible = false,
+                        elevation = waypoint.altitude,
+                        temporary = true,
+                        color = prefs.navigation.backtrackPathColor.color,
+                        owner = BeaconOwner.Backtrack
+                    )
+                    beaconRepo.addBeacon(BeaconEntity.from(beacon))
+
+                    newTempId =
+                        beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
+                }
+
+                withContext(Dispatchers.Main) {
+                    findNavController().navigate(
+                        R.id.action_fragmentBacktrack_to_action_navigation,
+                        bundleOf("destination" to newTempId)
+                    )
+                }
+            }
+        }
+    }
+
+    interface BacktrackListItem
+    data class WaypointListItem(val waypoint: WaypointEntity) : BacktrackListItem
+    data class PathListItem(val path: List<WaypointEntity>) : BacktrackListItem
 
 }
