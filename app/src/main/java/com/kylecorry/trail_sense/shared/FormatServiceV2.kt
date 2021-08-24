@@ -84,19 +84,23 @@ class FormatServiceV2(private val context: Context) {
             }
 
         return if (start.toLocalDate() == end.toLocalDate()) {
-            "${dateFormatFn(start)} ${
-                formatTime(
-                    startTime,
-                    false
-                )
-            } - ${formatTime(endTime, false)}"
+            context.getString(
+                R.string.dash_separated_pair, "${dateFormatFn(start)} ${
+                    formatTime(
+                        startTime,
+                        false
+                    )
+                }", formatTime(endTime, false)
+            )
         } else {
-            "${dateFormatFn(end)} ${
-                formatTime(
-                    startTime,
-                    false
-                )
-            } - ${dateFormatFn(end)} ${formatTime(endTime, false)}"
+            context.getString(
+                R.string.dash_separated_pair, "${dateFormatFn(end)} ${
+                    formatTime(
+                        startTime,
+                        false
+                    )
+                }", "${dateFormatFn(end)} ${formatTime(endTime, false)}"
+            )
         }
 
     }

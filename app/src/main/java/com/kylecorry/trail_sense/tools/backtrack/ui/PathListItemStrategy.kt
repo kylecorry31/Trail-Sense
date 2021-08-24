@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.time.toZonedDateTime
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.shared.DistanceUtils.isLarge
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trailsensecore.domain.navigation.INavigationService
 import java.time.Duration
 
@@ -17,7 +19,8 @@ class PathListItemStrategy(
     private val context: Context,
     private val formatService: FormatServiceV2,
     private val prefs: UserPreferences,
-    private val navigationService: INavigationService
+    private val navigationService: INavigationService,
+    private val delete: (path: List<WaypointEntity>) -> Unit
 ) : BacktrackListItemStrategy {
 
     override fun display(
@@ -44,7 +47,14 @@ class PathListItemStrategy(
         itemBinding.waypointImage.isInvisible = true
         itemBinding.root.setOnClickListener(null)
         itemBinding.waypointMenuBtn.setOnClickListener {
-            // TODO: Open a menu
+            Pickers.menu(it, R.menu.path_item_menu) {
+                when (it) {
+                    R.id.action_path_delete -> {
+                        delete(item.path)
+                    }
+                }
+                true
+            }
         }
     }
 }

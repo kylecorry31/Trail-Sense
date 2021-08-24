@@ -16,4 +16,6 @@ interface IWaypointRepo {
     suspend fun deleteOlderThan(instant: Instant)
 
     suspend fun getLastPathId(): Long?
+
+    suspend fun deletePath(pathId: Long)
 }

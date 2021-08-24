@@ -195,7 +195,12 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
     private fun drawPathListItem(itemBinding: ListItemWaypointBinding, item: PathListItem) {
         val itemStrategy =
-            PathListItemStrategy(requireContext(), formatService, prefs, navigationService)
+            PathListItemStrategy(
+                requireContext(),
+                formatService,
+                prefs,
+                navigationService,
+                { deletePath(it) })
         itemStrategy.display(itemBinding, item)
     }
 
@@ -207,6 +212,22 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
     private fun groupWaypointsByPath(waypoints: List<WaypointEntity>): Map<Long, List<WaypointEntity>> {
         return waypoints.groupBy { it.pathId }
+    }
+
+    private fun deletePath(path: List<WaypointEntity>) {
+        Alerts.dialog(
+            requireContext(),
+            getString(R.string.delete_path),
+            resources.getQuantityString(R.plurals.waypoints_to_be_deleted, path.size, path.size)
+        ) { cancelled ->
+            if (!cancelled) {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        waypointRepo.deletePath(path.first().pathId)
+                    }
+                }
+            }
+        }
     }
 
     private fun navigateToWaypoint(waypoint: WaypointEntity) {

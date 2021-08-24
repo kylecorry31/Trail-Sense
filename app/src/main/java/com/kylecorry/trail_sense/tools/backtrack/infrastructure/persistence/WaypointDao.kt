@@ -26,4 +26,7 @@ interface WaypointDao {
 
     @Query("SELECT MAX(pathId) FROM waypoints")
     suspend fun getLastPathId(): Long?
+
+    @Query("DELETE FROM waypoints WHERE pathId = :pathId")
+    suspend fun deletePath(pathId: Long)
 }
