@@ -7,8 +7,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
 import java.time.Duration
@@ -91,4 +93,14 @@ fun List<Coordinate>.toPixelLines(
         lines.add(line)
     }
     return lines
+}
+
+fun IGPS.getPathPoint(pathId: Long): PathPoint {
+    return PathPoint(
+        -1,
+        pathId,
+        location,
+        altitude,
+        time
+    )
 }

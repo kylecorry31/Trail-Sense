@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.Manifest
-import android.hardware.Sensor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -46,12 +45,14 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSend
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.paths.BacktrackPathSplitter
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
@@ -61,7 +62,6 @@ import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
@@ -109,7 +109,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
 
     private var beacons: Collection<Beacon> = listOf()
-    private var backtrack: Path? = null
+    private var backtrack: List<PathPoint>? = null
     private var nearbyBeacons: Collection<Beacon> = listOf()
 
     private var destination: Beacon? = null
@@ -202,13 +202,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val waypoints = it.filter {
                 it.createdInstant > Instant.now().minus(userPrefs.navigation.backtrackHistory)
             }.sortedByDescending { it.createdInstant }
-            backtrack = Path(
-                waypoints.firstOrNull()?.pathId ?: 0L,
-                getString(R.string.tool_backtrack_title),
-                waypoints.map { it.toPathPoint() },
-                Resources.color(requireContext(), R.color.colorAccent),
-                userPrefs.navigation.backtrackPathStyle
-            )
+            backtrack = waypoints.map { it.toPathPoint() }
             updateUI()
         }
 
@@ -243,7 +237,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         binding.altitudeHolder.setOnClickListener {
             val sheet = AltitudeBottomSheet()
-            sheet.backtrackPath = backtrack
+            sheet.backtrackPoints = backtrack
             sheet.currentAltitude = AltitudeReading(Instant.now(), altimeter.altitude)
             sheet.show(this)
         }
@@ -694,23 +688,18 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.radarCompass.setLocation(gps.location)
         val bt = backtrack
         if (userPrefs.navigation.showBacktrackPath && bt != null) {
-            val points = listOf(
-                PathPoint(
-                    0,
-                    bt.id,
-                    gps.location,
-                    time = Instant.now()
-                )
-            ) + bt.points
+            val isTracking = BacktrackScheduler.isOn(requireContext())
+            val currentPathId = cache.getLong(getString(R.string.pref_last_backtrack_path_id))
 
-            val path = Path(
-                bt.id,
-                getString(R.string.tool_backtrack_title),
-                points,
-                userPrefs.navigation.backtrackPathColor.color,
-                userPrefs.navigation.backtrackPathStyle
-            )
-            binding.radarCompass.setPaths(listOf(path))
+            val points = if (isTracking && currentPathId != null){
+                bt + listOf(gps.getPathPoint(currentPathId))
+            } else {
+                bt
+            }.sortedByDescending { it.time }
+
+            val paths = BacktrackPathSplitter(userPrefs).getPaths(points)
+
+            binding.radarCompass.setPaths(paths)
         }
         binding.radarCompass.setDestination(destBearing, destColor)
         binding.linearCompass.setIndicators(indicators)

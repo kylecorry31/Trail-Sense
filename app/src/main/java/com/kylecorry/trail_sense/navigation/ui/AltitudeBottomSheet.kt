@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.Wayp
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.geo.Path
+import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.pow
@@ -36,7 +37,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private var backtrackReadings = listOf<AltitudeReading>()
     private var weatherReadings = listOf<AltitudeReading>()
 
-    var backtrackPath: Path? = null
+    var backtrackPoints: List<PathPoint>? = null
     var currentAltitude: AltitudeReading? = null
 
     // TODO: Allow user configuration of this (maybe directly from the sheet)
@@ -57,9 +58,9 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
             minimum = (Instant.now().toEpochMilli() - maxHistoryDuration.toMillis()).toFloat(),
             maximum = Instant.now().toEpochMilli().toFloat()
         )
-        val path = backtrackPath
+        val path = backtrackPoints
         if (path != null) {
-            backtrackReadings = path.points.mapNotNull { point ->
+            backtrackReadings = path.mapNotNull { point ->
                 point.elevation ?: return@mapNotNull null
                 point.time ?: return@mapNotNull null
                 AltitudeReading(point.time!!, point.elevation!!)
