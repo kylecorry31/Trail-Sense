@@ -237,7 +237,12 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
     private fun mergePreviousPath(path: List<WaypointEntity>) {
         val current = path.first().pathId
-        val previous = pathIds.filter { it < current }.maxOrNull() ?: return
+        val previous = pathIds.filter { it < current }.maxOrNull()
+
+        if (previous == null){
+            Alerts.toast(requireContext(), getString(R.string.no_previous_path))
+            return
+        }
 
         Alerts.dialog(
             requireContext(),

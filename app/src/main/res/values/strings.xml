@@ -1171,6 +1171,7 @@
     <string name="delete_path">Delete path?</string>
     <string name="path_merge_previous">Merge previous</string>
     <string name="merge_previous_path_title">Merge with previous path?</string>
+    <string name="no_previous_path">No previous path</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d waypoint will be deleted</item>
         <item quantity="other">%d waypoints will be deleted</item>
