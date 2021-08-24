@@ -93,7 +93,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             Distance.meters(if (distance.meters().distance < 500f) 10f else 100f)
         } else {
             Distance.feet(
-                if (distance.convertTo(baseUnits).distance < 500f) {
+                if (distance.meters().distance < 500f) {
                     30f
                 } else {
                     300f
