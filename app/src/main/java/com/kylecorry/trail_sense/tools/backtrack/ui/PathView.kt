@@ -50,6 +50,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private val formatService by lazy { FormatServiceV2(context) }
     private val pathColor by lazy { prefs.navigation.backtrackPathColor }
     private val pathStyle by lazy { prefs.navigation.backtrackPathStyle }
+    private var drawWaypoints = true
 
     init {
         runEveryCycle = false
@@ -159,7 +160,9 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private fun drawPaths(pathLines: List<PixelLine>) {
         val dotted = DottedPathEffect(3f, 10f)
         val arrow = ArrowPathEffect(6f)
+        val pointDiameter = dp(5f)
         clear()
+        var isFirst = true
         for (line in pathLines) {
             when (line.style) {
                 PixelLineStyle.Solid -> {
@@ -188,8 +191,17 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
                 line.end.x - xOffset,
                 line.end.y - yOffset
             )
-            opacity(255)
             noStroke()
+            if (drawWaypoints) {
+                noPathEffect()
+                fill(line.color)
+                circle(line.end.x, line.end.y, pointDiameter)
+                if (isFirst) {
+                    circle(line.start.x, line.start.y, pointDiameter)
+                    isFirst = false
+                }
+            }
+            opacity(255)
             fill(Color.WHITE)
             noPathEffect()
         }

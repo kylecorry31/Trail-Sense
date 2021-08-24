@@ -125,21 +125,18 @@
             app:title="@string/tool_backtrack_title" />
 
         <Preference
-            app:dependency="@string/pref_backtrack_enabled"
             app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_interval"
             app:singleLineTitle="false"
             app:title="@string/pref_backtrack_frequency_title" />
 
         <Preference
-            app:dependency="@string/pref_backtrack_enabled"
             app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_history_days"
             app:singleLineTitle="false"
             app:title="@string/pref_backtrack_history_days_title" />
 
         <SwitchPreferenceCompat
-            android:dependency="@string/pref_backtrack_enabled"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_save_cell"
@@ -157,7 +154,6 @@
             app:title="@string/pref_show_last_signal_beacon_title" />
 
         <SwitchPreferenceCompat
-            android:dependency="@string/pref_backtrack_enabled"
             android:summary="@string/pref_backtrack_path_radar_summary"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
@@ -166,7 +162,6 @@
             app:title="@string/pref_backtrack_path_radar_title" />
 
         <ListPreference
-            android:dependency="@string/pref_backtrack_path_radar"
             app:defaultValue="dotted"
             app:entries="@array/line_style_entries"
             app:entryValues="@array/line_style_values"
@@ -177,7 +172,6 @@
             app:useSimpleSummaryProvider="true" />
 
         <Preference
-            android:dependency="@string/pref_backtrack_path_radar"
             app:icon="@drawable/bubble"
             app:key="@string/pref_backtrack_path_color"
             app:singleLineTitle="false"
