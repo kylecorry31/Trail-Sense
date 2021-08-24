@@ -21,12 +21,14 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRep
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.getPathPoint
+import com.kylecorry.trail_sense.shared.paths.BacktrackPathSplitter
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -62,7 +64,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private var calibrationIndex = 0
     private var isCalibrating = false
 
-    private var backtrack: Path? = null
+    private var backtrack: List<PathPoint>? = null
 
     private var rotateMap = false
 
@@ -101,17 +103,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         if (prefs.navigation.showBacktrackPath) {
             backtrackRepo.getWaypoints()
                 .observe(viewLifecycleOwner, { waypoints ->
-                    val sortedWaypoints = waypoints
+                    backtrack = waypoints
                         .filter { it.createdInstant > Instant.now().minus(prefs.navigation.backtrackHistory) }
                         .sortedByDescending { it.createdInstant }
+                        .map { it.toPathPoint() }
 
-                    backtrack = Path(
-                        waypoints.firstOrNull()?.pathId ?: 0L,
-                        getString(R.string.tool_backtrack_title),
-                        sortedWaypoints.map { it.toPathPoint() },
-                        prefs.navigation.backtrackPathColor.color,
-                        prefs.navigation.backtrackPathStyle
-                    )
                     displayPaths()
                 })
         }
@@ -234,16 +230,19 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun displayPaths() {
-        val myLocation = PathPoint(
-            0,
-            backtrack?.id ?: 0L,
-            gps.location,
-            time = Instant.now()
-        )
+        val isTracking = BacktrackScheduler.isOn(requireContext())
+        val currentPathId = cache.getLong(getString(R.string.pref_last_backtrack_path_id))
+        val backtrack = backtrack ?: return
 
-        val backtrackPath = backtrack?.copy(points = listOf(myLocation) + backtrack!!.points)
+        val points = if (isTracking && currentPathId != null){
+            backtrack + listOf(gps.getPathPoint(currentPathId))
+        } else {
+            backtrack
+        }.sortedByDescending { it.time }
 
-        binding.map.showPaths(listOfNotNull(backtrackPath))
+        val paths = BacktrackPathSplitter(prefs).split(points)
+
+        binding.map.showPaths(paths)
     }
 
     private fun updateDestination() {

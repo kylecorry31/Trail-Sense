@@ -6,7 +6,7 @@ import com.kylecorry.trailsensecore.domain.geo.PathOwner
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 
 class BacktrackPathSplitter(private val prefs: UserPreferences) : IBacktrackPathSplitter {
-    override fun getPaths(points: List<PathPoint>): List<Path> {
+    override fun split(points: List<PathPoint>): List<Path> {
         val grouped = points.groupBy { it.pathId }
         val color = prefs.navigation.backtrackPathColor.color
         val style = prefs.navigation.backtrackPathStyle

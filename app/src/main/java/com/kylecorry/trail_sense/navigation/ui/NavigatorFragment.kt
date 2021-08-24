@@ -697,7 +697,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 bt
             }.sortedByDescending { it.time }
 
-            val paths = BacktrackPathSplitter(userPrefs).getPaths(points)
+            val paths = BacktrackPathSplitter(userPrefs).split(points)
 
             binding.radarCompass.setPaths(paths)
         }

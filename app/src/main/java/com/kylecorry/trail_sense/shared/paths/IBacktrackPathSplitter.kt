@@ -4,5 +4,5 @@ import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 
 interface IBacktrackPathSplitter {
-    fun getPaths(points: List<PathPoint>): List<Path>
+    fun split(points: List<PathPoint>): List<Path>
 }
