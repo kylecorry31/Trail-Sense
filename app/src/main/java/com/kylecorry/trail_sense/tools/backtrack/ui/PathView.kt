@@ -7,10 +7,10 @@ import com.kylecorry.andromeda.canvas.ArrowPathEffect
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.DottedPathEffect
 import com.kylecorry.andromeda.core.math.cosDegrees
+import com.kylecorry.andromeda.core.math.deltaAngle
 import com.kylecorry.andromeda.core.math.sinDegrees
 import com.kylecorry.andromeda.core.math.wrap
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.toPixelLines
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
+import com.kylecorry.trailsensecore.domain.geo.PathStyle
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
@@ -71,21 +72,13 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         val w = width.toFloat() - dp(32f)
 
         val metersPerPixel = max(distanceY / h, distanceX / w)
-        val dpi = Screen.dpi(context)
-        val scale = prefs.navigation.rulerScale
-        val realWidth = Distance(scale * w / dpi, DistanceUnits.Inches).meters().distance
-        val displayScale = (distanceX / realWidth).toInt()
 
-        textMode(TextMode.Corner)
-        textSize(sp(14f))
-        fill(Resources.androidTextColorSecondary(context))
-        val distanceText = "1 : $displayScale"
-        val textHeight = textHeight(distanceText)
-        val textWidth = textWidth(distanceText)
-        text(distanceText, width - textWidth - dp(8f), height - textHeight + dp(8f))
+        val gridGap = getGridSize(Distance.meters(distanceX))
+        drawGrid(metersPerPixel, gridGap.meters().distance)
+        drawLegend(gridGap)
 
         val pathLines =
-            path.map { it.coordinate }.toPixelLines(pathColor.color, PixelLineStyle.Solid) {
+            path.map { it.coordinate }.toPixelLines(pathColor.color, mapPixelLineStyle(pathStyle)) {
                 getPixels(bounds.center, metersPerPixel, it)
             }
         drawPaths(pathLines)
@@ -94,7 +87,62 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         }
     }
 
-    private fun drawLocation(pixels: PixelCoordinate){
+    private fun getGridSize(distance: Distance): Distance {
+        val baseUnits = prefs.baseDistanceUnits
+        return if (baseUnits == DistanceUnits.Meters) {
+            Distance.meters(if (distance.meters().distance < 500f) 10f else 100f)
+        } else {
+            Distance.feet(
+                if (distance.convertTo(baseUnits).distance < 500f) {
+                    30f
+                } else {
+                    300f
+                }
+            )
+        }
+    }
+
+    private fun drawLegend(gridGap: Distance) {
+        textMode(TextMode.Corner)
+        textSize(sp(14f))
+        strokeWeight(0f)
+        fill(Color.WHITE)
+        val distanceText = context.getString(
+            R.string.grid_size,
+            formatService.formatDistance(gridGap)
+        )
+        val textWidth = textWidth(distanceText)
+        text(distanceText, width - textWidth - dp(16f), height.toFloat() - dp(16f))
+    }
+
+    private fun drawGrid(
+        metersPerPixel: Float,
+        gap: Float,
+        offsetX: Float = 0f,
+        offsetY: Float = 0f
+    ) {
+        noFill()
+        stroke(Color.WHITE)
+        strokeWeight(dp(0.5f))
+        opacity(50)
+        // Vertical
+        var i = offsetX / metersPerPixel
+        while (i < width) {
+            line(i, 0f, i, height.toFloat())
+            i += gap / metersPerPixel
+        }
+
+        // Horizontal
+        i = offsetY / metersPerPixel
+        while (i < height) {
+            line(0f, i, width.toFloat(), i)
+            i += gap / metersPerPixel
+        }
+
+        opacity(255)
+    }
+
+    private fun drawLocation(pixels: PixelCoordinate) {
         stroke(Color.WHITE)
         strokeWeight(dp(1f))
         fill(Resources.color(context, R.color.colorPrimary))
@@ -169,14 +217,24 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         return MapRegion(north, east, south, west)
     }
 
-    // TODO: This isn't right
     private fun getWestLongitudeBound(locations: List<Coordinate>): Double? {
-        return locations.minByOrNull { it.longitude }?.longitude
+        val first = locations.firstOrNull() ?: return null
+        return locations.minByOrNull {
+            deltaAngle(
+                first.longitude.toFloat() + 180,
+                it.longitude.toFloat() + 180
+            )
+        }?.longitude
     }
 
-    // TODO: This isn't right
     private fun getEastLongitudeBound(locations: List<Coordinate>): Double? {
-        return locations.maxByOrNull { it.longitude }?.longitude
+        val first = locations.firstOrNull() ?: return null
+        return locations.maxByOrNull {
+            deltaAngle(
+                first.longitude.toFloat() + 180,
+                it.longitude.toFloat() + 180
+            )
+        }?.longitude
     }
 
     private fun getSouthLatitudeBound(locations: List<Coordinate>): Double? {
@@ -185,6 +243,14 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
     private fun getNorthLatitudeBound(locations: List<Coordinate>): Double? {
         return locations.maxByOrNull { it.latitude }?.latitude
+    }
+
+    private fun mapPixelLineStyle(style: PathStyle): PixelLineStyle {
+        return when (style) {
+            PathStyle.Solid -> PixelLineStyle.Solid
+            PathStyle.Dotted -> PixelLineStyle.Dotted
+            PathStyle.Arrow -> PixelLineStyle.Arrow
+        }
     }
 
 }

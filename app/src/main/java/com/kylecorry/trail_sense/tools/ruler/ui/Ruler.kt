@@ -1,11 +1,14 @@
 package com.kylecorry.trail_sense.tools.ruler.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.system.Screen
+import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -153,6 +156,15 @@ class Ruler(private val view: ConstraintLayout, private var units: DistanceUnits
         }
 
         isRulerSetup = true
+    }
+
+    companion object {
+        fun measure(context: Context, pixels: Float): Distance {
+            val prefs = UserPreferences(context)
+            val dpi = Screen.dpi(context)
+            val scale = prefs.navigation.rulerScale
+            return Distance(scale * pixels / dpi, DistanceUnits.Inches).meters()
+        }
     }
 
 }
