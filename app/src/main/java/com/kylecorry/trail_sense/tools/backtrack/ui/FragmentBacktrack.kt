@@ -239,7 +239,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         val current = path.first().pathId
         val previous = pathIds.filter { it < current }.maxOrNull()
 
-        if (previous == null){
+        if (previous == null) {
             Alerts.toast(requireContext(), getString(R.string.no_previous_path))
             return
         }
