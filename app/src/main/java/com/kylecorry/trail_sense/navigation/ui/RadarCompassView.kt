@@ -10,7 +10,6 @@ import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.canvas.ArrowPathEffect
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.DottedPathEffect
 import com.kylecorry.andromeda.core.math.cosDegrees
@@ -24,6 +23,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.PathEffectFactory
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.times
 import com.kylecorry.trailsensecore.domain.geo.Path
@@ -91,7 +91,7 @@ class RadarCompassView : CanvasView, ICompassView {
         setupAfterVisible = true
     }
 
-    fun setOnSingleTapListener(action: (() -> Unit)?){
+    fun setOnSingleTapListener(action: (() -> Unit)?) {
         singleTapAction = action
     }
 
@@ -116,9 +116,9 @@ class RadarCompassView : CanvasView, ICompassView {
     }
 
     private fun drawPaths() {
-        val pathBitmap = mask(compass!!, pathBitmap!!){
+        val pathBitmap = mask(compass!!, pathBitmap!!) {
             val dotted = DottedPathEffect()
-            val arrow = ArrowPathEffect()
+            val pathFactory = PathEffectFactory()
             clear()
             for (line in pathLines) {
 
@@ -134,6 +134,9 @@ class RadarCompassView : CanvasView, ICompassView {
                         strokeWeight(6f)
                     }
                     PixelLineStyle.Arrow -> {
+                        val arrow = pathFactory.getArrowPathEffect(
+                            line.start.distanceTo(line.end)
+                        )
                         pathEffect(arrow)
                         noStroke()
                         fill(line.color)
@@ -147,7 +150,12 @@ class RadarCompassView : CanvasView, ICompassView {
                 opacity(line.alpha)
                 val xOffset = (width - compassSize) / 2f
                 val yOffset = (height - compassSize) / 2f
-                line(line.start.x - xOffset, line.start.y - yOffset, line.end.x - xOffset, line.end.y - yOffset)
+                line(
+                    line.start.x - xOffset,
+                    line.start.y - yOffset,
+                    line.end.x - xOffset,
+                    line.end.y - yOffset
+                )
                 opacity(255)
                 noStroke()
                 fill(Color.WHITE)
@@ -180,7 +188,7 @@ class RadarCompassView : CanvasView, ICompassView {
         try {
             compass?.recycle()
             pathBitmap?.recycle()
-            for (icon in icons){
+            for (icon in icons) {
                 icon.value.recycle()
             }
             icons.clear()

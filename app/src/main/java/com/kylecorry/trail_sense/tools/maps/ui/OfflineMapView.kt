@@ -10,7 +10,6 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
-import com.kylecorry.andromeda.canvas.ArrowPathEffect
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.DottedPathEffect
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
@@ -20,6 +19,7 @@ import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.PathEffectFactory
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
@@ -156,8 +156,8 @@ class OfflineMapView : CanvasView {
         val pathLines = pathLines ?: return
 // TODO: Add mask
 //        val pathBitmap = mask(mapImage!!, pathBitmap!!){
+        val pathEffectFactory = PathEffectFactory()
         val dotted = DottedPathEffect(3f / scale, 10f / scale)
-        val arrow = ArrowPathEffect(6f / scale)
         clear()
         for (line in pathLines) {
 
@@ -173,6 +173,10 @@ class OfflineMapView : CanvasView {
                     strokeWeight(6f / scale)
                 }
                 PixelLineStyle.Arrow -> {
+                    val arrow = pathEffectFactory.getArrowPathEffect(
+                        line.start.distanceTo(line.end),
+                        scale
+                    )
                     pathEffect(arrow)
                     noStroke()
                     fill(line.color)

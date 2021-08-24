@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.backtrack.ui
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
-import com.kylecorry.andromeda.canvas.ArrowPathEffect
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.DottedPathEffect
 import com.kylecorry.andromeda.core.math.cosDegrees
@@ -17,6 +16,7 @@ import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.PathEffectFactory
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.toPixelLines
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
@@ -159,8 +159,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
     private fun drawPaths(pathLines: List<PixelLine>) {
         val dotted = DottedPathEffect(3f, 10f)
-        val arrow = ArrowPathEffect(6f)
         val pointDiameter = dp(5f)
+        val pathFactory = PathEffectFactory()
         clear()
         var isFirst = true
         for (line in pathLines) {
@@ -172,6 +172,9 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
                     strokeWeight(6f)
                 }
                 PixelLineStyle.Arrow -> {
+                    val arrow = pathFactory.getArrowPathEffect(
+                        line.start.distanceTo(line.end)
+                    )
                     pathEffect(arrow)
                     noStroke()
                     fill(line.color)
