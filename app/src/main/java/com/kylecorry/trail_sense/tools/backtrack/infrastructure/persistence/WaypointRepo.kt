@@ -22,6 +22,9 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
 
     override suspend fun deletePath(pathId: Long) = waypointDao.deletePath(pathId)
 
+    override suspend fun moveToPath(fromPathId: Long, toPathId: Long) =
+        waypointDao.changePath(fromPathId, toPathId)
+
     override suspend fun addWaypoint(waypoint: WaypointEntity) {
         if (waypoint.id != 0L) {
             waypointDao.update(waypoint)

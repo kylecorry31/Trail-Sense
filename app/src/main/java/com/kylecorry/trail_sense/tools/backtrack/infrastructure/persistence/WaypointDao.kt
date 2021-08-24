@@ -29,4 +29,7 @@ interface WaypointDao {
 
     @Query("DELETE FROM waypoints WHERE pathId = :pathId")
     suspend fun deletePath(pathId: Long)
+
+    @Query("UPDATE waypoints SET pathId = :toPathId WHERE pathId = :fromPathId")
+    suspend fun changePath(fromPathId: Long, toPathId: Long)
 }

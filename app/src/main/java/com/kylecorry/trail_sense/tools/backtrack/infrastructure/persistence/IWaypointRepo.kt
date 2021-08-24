@@ -18,4 +18,6 @@ interface IWaypointRepo {
     suspend fun getLastPathId(): Long?
 
     suspend fun deletePath(pathId: Long)
+
+    suspend fun moveToPath(fromPathId: Long, toPathId: Long)
 }

@@ -42,6 +42,8 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val navigationService = NavigationService()
 
+    private var pathIds: List<Long> = emptyList()
+
     private val stateChecker = Timer {
         context ?: return@Timer
         wasEnabled = BacktrackScheduler.isOn(requireContext())
@@ -154,12 +156,13 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         val filteredWaypoints = filterCurrentWaypoints(waypoints)
         val groupedWaypoints =
             groupWaypointsByPath(filteredWaypoints).toList().sortedByDescending { it.first }
-                .map { it.second }
+
+        pathIds = groupedWaypoints.map { it.first }
 
         val listItems = mutableListOf<BacktrackListItem>()
         for (group in groupedWaypoints) {
-            listItems.add(PathListItem(group))
-            listItems.addAll(group.sortedByDescending { it.createdOn }
+            listItems.add(PathListItem(group.second))
+            listItems.addAll(group.second.sortedByDescending { it.createdOn }
                 .map { WaypointListItem(it) })
         }
 
@@ -200,7 +203,9 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 formatService,
                 prefs,
                 navigationService,
-                { deletePath(it) })
+                { deletePath(it) },
+                { mergePreviousPath(it) }
+            )
         itemStrategy.display(itemBinding, item)
     }
 
@@ -224,6 +229,24 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
                         waypointRepo.deletePath(path.first().pathId)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun mergePreviousPath(path: List<WaypointEntity>) {
+        val current = path.first().pathId
+        val previous = pathIds.filter { it < current }.maxOrNull() ?: return
+
+        Alerts.dialog(
+            requireContext(),
+            getString(R.string.merge_previous_path_title)
+        ) { cancelled ->
+            if (!cancelled) {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        waypointRepo.moveToPath(previous, current)
                     }
                 }
             }

@@ -20,7 +20,8 @@ class PathListItemStrategy(
     private val formatService: FormatServiceV2,
     private val prefs: UserPreferences,
     private val navigationService: INavigationService,
-    private val delete: (path: List<WaypointEntity>) -> Unit
+    private val delete: (path: List<WaypointEntity>) -> Unit,
+    private val merge: (path: List<WaypointEntity>) -> Unit,
 ) : BacktrackListItemStrategy {
 
     override fun display(
@@ -52,6 +53,9 @@ class PathListItemStrategy(
                 when (it) {
                     R.id.action_path_delete -> {
                         delete(item.path)
+                    }
+                    R.id.action_path_merge -> {
+                        merge(item.path)
                     }
                 }
                 true
