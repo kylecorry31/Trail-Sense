@@ -981,4 +981,36 @@
     <string name="gps_signal_lost">Сигнал GPS потерян</string>
     <string name="altitude_history_length">Длина истории высот</string>
     <string name="last_duration">Последняя %s</string>
+    <string name="overridden">Переопределенный</string>
+    <string name="update">Обновление</string>
+    <string name="autofill">Автозаполнение</string>
+    <string name="diagnostic_message_template">%s
+\n
+\n### Затронутые инструменты
+\n%s
+\n
+\n### Разрешение
+\n%s</string>
+    <string name="gps_unavailable_resolution">Включите определение местоположения или измените источник местоположения на \"Только устройство\" или \"Высокая точность\"</string>
+    <string name="battery_restricted_resolution">Установите Trail Sense как НЕ оптимизированный</string>
+    <string name="power_saving_mode_resolution">Отключите режим энергосбережения</string>
+    <string name="location_override_not_set_resolution">Установите переопределение местоположения в настройках</string>
+    <string name="location_override_resolution">Включите автоматическую настройку местоположения в настройках.</string>
+    <string name="altitude_override_resolution">Включите автоматическую калибровку в настройках.</string>
+    <string name="unblock_notification_channel">Разблокировать уведомления %s для Trail Sense</string>
+    <string name="get_gps_signal">Выйдите на улицу с беспрепятственным видом на небо.</string>
+    <string name="activity_recognition">Распознавание активности</string>
+    <string name="background_location_permission">Местоположение (разрешить постоянно)</string>
+    <string name="grant_permission">Предоставить разрешение %s</string>
+    <string name="no_resolution">Нет разрешения</string>
+    <string name="tools_might_not_work">Эти инструменты могут не работать:</string>
+    <string name="sighting_compass">Ручной компас</string>
+    <string name="no_issues">Проблем не обнаружено</string>
+    <string name="notifications_blocked">Уведомления заблокированы</string>
+    <string name="on">Вкл.</string>
+    <string name="battery_usage_restricted">Использование аккумулятора ограничено</string>
+    <string name="diagnostics">Диагностика</string>
+    <string name="no_permission">Разрешение не выдано</string>
+    <string name="camera">Камера</string>
+    <string name="quarter_moon">Четверть Луны</string>
 </resources>
