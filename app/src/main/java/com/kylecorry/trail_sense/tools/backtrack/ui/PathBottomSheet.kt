@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import java.time.Duration
+import java.time.Instant
 
 class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBinding>() {
 
@@ -23,6 +24,12 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val throttle = Throttle(20)
+
+    var drawPathToGPS: Boolean = false
+        set(value) {
+            field = value
+            onPathChanged()
+        }
 
     var path: List<WaypointEntity> = emptyList()
         set(value) {
@@ -48,7 +55,7 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
     }
 
     private fun onPathChanged() {
-        if (!isBound || throttle.isThrottled()){
+        if (!isBound || throttle.isThrottled()) {
             return
         }
 
@@ -75,9 +82,25 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
         binding.pathDistance.text =
             formatService.formatDistance(distance, if (distance.units.isLarge()) 2 else 0, false)
 
-        binding.pathImage.path = path
+        binding.pathImage.path = if (drawPathToGPS && location != null) {
+            path + getGPSWaypoint(path.firstOrNull()?.pathId ?: 0L)
+        } else {
+            path
+        }
         binding.pathImage.location = location
         binding.pathImage.azimuth = azimuth
+    }
+
+    private fun getGPSWaypoint(pathId: Long): WaypointEntity {
+        return WaypointEntity(
+            location!!.latitude,
+            location!!.longitude,
+            null,
+            Instant.now().toEpochMilli(),
+            pathId = pathId,
+            cellQualityId = null,
+            cellTypeId = null
+        )
     }
 
     override fun generateBinding(

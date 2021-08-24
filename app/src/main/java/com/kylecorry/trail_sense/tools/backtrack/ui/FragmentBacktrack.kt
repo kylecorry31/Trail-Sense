@@ -16,6 +16,7 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
@@ -49,6 +50,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
+    private val cache by lazy { Preferences(requireContext()) }
 
     private var pathIds: List<Long> = emptyList()
 
@@ -149,13 +151,13 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         )
     }
 
-    private fun onLocationUpdate(){
+    private fun onLocationUpdate() {
         pathSheet?.location = gps.location
         compass.declination = getDeclination()
         onCompassUpdate()
     }
 
-    private fun onCompassUpdate(){
+    private fun onCompassUpdate() {
         pathSheet?.azimuth = compass.rawBearing
     }
 
@@ -262,6 +264,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         pathSheet?.path = path
         pathSheet?.location = gps.location
         displayedPathId = path.firstOrNull()?.pathId
+        pathSheet?.drawPathToGPS = isCurrentPath(path.firstOrNull()?.pathId ?: 0L)
         pathSheet?.show(this)
     }
 
@@ -279,6 +282,12 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 }
             }
         }
+    }
+
+    private fun isCurrentPath(pathId: Long): Boolean {
+        if (!prefs.backtrackEnabled || (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)) return false
+        val current = cache.getLong(getString(R.string.pref_last_backtrack_path_id))
+        return current == pathId
     }
 
     private fun mergePreviousPath(path: List<WaypointEntity>) {
