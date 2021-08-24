@@ -94,7 +94,7 @@ class FormatServiceV2(private val context: Context) {
             )
         } else {
             context.getString(
-                R.string.dash_separated_pair, "${dateFormatFn(end)} ${
+                R.string.dash_separated_pair, "${dateFormatFn(start)} ${
                     formatTime(
                         startTime,
                         false

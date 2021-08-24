@@ -22,6 +22,7 @@ class PathListItemStrategy(
     private val navigationService: INavigationService,
     private val delete: (path: List<WaypointEntity>) -> Unit,
     private val merge: (path: List<WaypointEntity>) -> Unit,
+    private val show: (path: List<WaypointEntity>) -> Unit
 ) : BacktrackListItemStrategy {
 
     override fun display(
@@ -33,7 +34,7 @@ class PathListItemStrategy(
         }
 
         itemBinding.waypointImage.setImageResource(R.drawable.ic_tool_backtrack)
-        CustomUiUtils.setImageColor(itemBinding.waypointImage, Resources.androidTextColorSecondary(context))//Resources.color(context, R.color.colorPrimary))
+        CustomUiUtils.setImageColor(itemBinding.waypointImage, Resources.androidTextColorSecondary(context))
         itemBinding.waypointImage.alpha = 1f
 
         val start = item.path.first().createdInstant
@@ -45,9 +46,12 @@ class PathListItemStrategy(
             formatService.formatTimeSpan(start.toZonedDateTime(), end.toZonedDateTime(), true)
         itemBinding.waypointCoordinates.text = formatService.formatDistance(
             distance,
-            if (distance.units.isLarge()) 2 else 0
+            if (distance.units.isLarge()) 2 else 0,
+            false
         )
-        itemBinding.root.setOnClickListener(null)
+        itemBinding.root.setOnClickListener {
+            show(item.path)
+        }
         itemBinding.waypointMenuBtn.setOnClickListener {
             Pickers.menu(it, R.menu.path_item_menu) {
                 when (it) {

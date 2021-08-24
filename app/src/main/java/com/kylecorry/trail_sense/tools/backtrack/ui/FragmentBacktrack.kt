@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
@@ -204,7 +205,8 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 prefs,
                 navigationService,
                 { deletePath(it) },
-                { mergePreviousPath(it) }
+                { mergePreviousPath(it) },
+                { showPath(it) }
             )
         itemStrategy.display(itemBinding, item)
     }
@@ -217,6 +219,12 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
     private fun groupWaypointsByPath(waypoints: List<WaypointEntity>): Map<Long, List<WaypointEntity>> {
         return waypoints.groupBy { it.pathId }
+    }
+
+    private fun showPath(path: List<WaypointEntity>){
+        val sheet = PathBottomSheet()
+        sheet.path = path
+        sheet.show(this)
     }
 
     private fun deletePath(path: List<WaypointEntity>) {
