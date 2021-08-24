@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.backtrack.ui
 import android.content.Context
 import android.graphics.Color
 import android.view.View
-import androidx.core.view.isVisible
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.signal.CellNetwork
@@ -32,6 +32,11 @@ class WaypointListItemStrategy(
         if (item !is FragmentBacktrack.WaypointListItem) {
             return
         }
+
+        itemBinding.waypointImage.setImageResource(R.drawable.ic_location)
+        CustomUiUtils.setImageColor(itemBinding.waypointImage, Resources.androidTextColorSecondary(context))
+        itemBinding.waypointImage.alpha = 0.2f
+
         val waypoint = item.waypoint
         val timeAgo = Duration.between(waypoint.createdInstant, Instant.now())
         itemBinding.waypointCoordinates.text =
@@ -82,8 +87,6 @@ class WaypointListItemStrategy(
                 true
             }
         }
-
-        itemBinding.waypointImage.isVisible = true
 
         itemBinding.root.setOnClickListener {
             navigate(waypoint)

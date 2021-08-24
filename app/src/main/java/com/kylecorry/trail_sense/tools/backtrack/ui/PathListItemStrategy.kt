@@ -1,19 +1,19 @@
 package com.kylecorry.trail_sense.tools.backtrack.ui
 
 import android.content.Context
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.isLarge
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trailsensecore.domain.navigation.INavigationService
-import java.time.Duration
 
 class PathListItemStrategy(
     private val context: Context,
@@ -30,21 +30,22 @@ class PathListItemStrategy(
         if (item !is FragmentBacktrack.PathListItem) {
             return
         }
+
+        itemBinding.waypointImage.setImageResource(R.drawable.ic_tool_backtrack)
+        CustomUiUtils.setImageColor(itemBinding.waypointImage, Resources.androidTextColorSecondary(context))//Resources.color(context, R.color.colorPrimary))
+        itemBinding.waypointImage.alpha = 1f
+
         val start = item.path.first().createdInstant
         val end = item.path.last().createdInstant
-        val duration = Duration.between(start, end)
         val distance = navigationService.getPathDistance(item.path.map { it.coordinate })
             .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
         itemBinding.signalStrength.isVisible = false
         itemBinding.waypointTime.text =
             formatService.formatTimeSpan(start.toZonedDateTime(), end.toZonedDateTime(), true)
-        itemBinding.waypointCoordinates.text = context.getString(
-            R.string.dot_separated_pair, formatService.formatDistance(
-                distance,
-                if (distance.units.isLarge()) 2 else 0
-            ), formatService.formatDuration(duration)
+        itemBinding.waypointCoordinates.text = formatService.formatDistance(
+            distance,
+            if (distance.units.isLarge()) 2 else 0
         )
-        itemBinding.waypointImage.isInvisible = true
         itemBinding.root.setOnClickListener(null)
         itemBinding.waypointMenuBtn.setOnClickListener {
             Pickers.menu(it, R.menu.path_item_menu) {
