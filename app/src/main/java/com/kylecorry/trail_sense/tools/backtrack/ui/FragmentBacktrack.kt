@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -22,9 +23,11 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
+import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService
@@ -42,6 +45,10 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val navigationService = NavigationService()
+    private val geoService = GeoService()
+    private val sensorService by lazy { SensorService(requireContext()) }
+    private val gps by lazy { sensorService.getGPS(false) }
+    private val compass by lazy { sensorService.getCompass() }
 
     private var pathIds: List<Long> = emptyList()
 
@@ -58,6 +65,8 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     private var wasEnabled = false
 
     private lateinit var listView: ListView<BacktrackListItem>
+    private var pathSheet: PathBottomSheet? = null
+    private var displayedPathId: Long? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -99,6 +108,10 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 wasEnabled = !wasEnabled
             }
         }
+
+        // TODO: Only listen when the path sheet is open
+        gps.asLiveData().observe(viewLifecycleOwner, { onLocationUpdate() })
+        compass.asLiveData().observe(viewLifecycleOwner, { onCompassUpdate() })
     }
 
     private fun deleteWaypoint(waypointEntity: WaypointEntity) {
@@ -136,6 +149,24 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         )
     }
 
+    private fun onLocationUpdate(){
+        pathSheet?.location = gps.location
+        compass.declination = getDeclination()
+        onCompassUpdate()
+    }
+
+    private fun onCompassUpdate(){
+        pathSheet?.azimuth = compass.rawBearing
+    }
+
+    private fun getDeclination(): Float {
+        return if (!prefs.useAutoDeclination) {
+            prefs.declinationOverride
+        } else {
+            geoService.getDeclination(gps.location, gps.altitude)
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         stateChecker.interval(Duration.ofSeconds(1))
@@ -165,6 +196,10 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
             listItems.add(PathListItem(group.second))
             listItems.addAll(group.second.sortedByDescending { it.createdOn }
                 .map { WaypointListItem(it) })
+
+            if (group.first == displayedPathId) {
+                pathSheet?.path = group.second
+            }
         }
 
         listView.setData(listItems)
@@ -221,10 +256,13 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         return waypoints.groupBy { it.pathId }
     }
 
-    private fun showPath(path: List<WaypointEntity>){
-        val sheet = PathBottomSheet()
-        sheet.path = path
-        sheet.show(this)
+    private fun showPath(path: List<WaypointEntity>) {
+        pathSheet?.dismiss()
+        pathSheet = PathBottomSheet()
+        pathSheet?.path = path
+        pathSheet?.location = gps.location
+        displayedPathId = path.firstOrNull()?.pathId
+        pathSheet?.show(this)
     }
 
     private fun deletePath(path: List<WaypointEntity>) {

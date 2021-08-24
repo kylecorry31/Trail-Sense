@@ -57,4 +57,10 @@
 
     </LinearLayout>
 
+    <com.kylecorry.trail_sense.tools.backtrack.ui.PathView
+        android:id="@+id/path_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>

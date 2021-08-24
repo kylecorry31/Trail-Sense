@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.toZonedDateTime
+import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.trail_sense.databinding.FragmentPathBottomSheetBinding
 import com.kylecorry.trail_sense.shared.DistanceUtils.isLarge
@@ -20,8 +22,21 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
     private val navigationService = NavigationService()
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val throttle = Throttle(20)
 
     var path: List<WaypointEntity> = emptyList()
+        set(value) {
+            field = value
+            onPathChanged()
+        }
+
+    var location: Coordinate? = null
+        set(value) {
+            field = value
+            onPathChanged()
+        }
+
+    var azimuth: Float = 0f
         set(value) {
             field = value
             onPathChanged()
@@ -33,7 +48,7 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
     }
 
     private fun onPathChanged() {
-        if (!isBound){
+        if (!isBound || throttle.isThrottled()){
             return
         }
 
@@ -60,6 +75,9 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
         binding.pathDistance.text =
             formatService.formatDistance(distance, if (distance.units.isLarge()) 2 else 0, false)
 
+        binding.pathImage.path = path
+        binding.pathImage.location = location
+        binding.pathImage.azimuth = azimuth
     }
 
     override fun generateBinding(
