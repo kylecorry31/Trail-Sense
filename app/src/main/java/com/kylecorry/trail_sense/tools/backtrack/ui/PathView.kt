@@ -88,7 +88,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
         val h = height.toFloat() - dp(32f)
         val w = width.toFloat() - dp(32f)
-        val scale = calculateBestFitScale(w, h, distanceX, distanceY)
+        val scale = scaleToFit(distanceX, distanceY, w, h)
         metersPerPixel = 1 / scale
         center = bounds.center
 
@@ -108,11 +108,11 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     // TODO: Extract this
-    private fun calculateBestFitScale(
-        maxWidth: Float,
-        maxHeight: Float,
+    private fun scaleToFit(
         width: Float,
-        height: Float
+        height: Float,
+        maxWidth: Float,
+        maxHeight: Float
     ): Float {
         return min(maxWidth / width, maxHeight / height)
     }

@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathBottomSheetBinding
 import com.kylecorry.trail_sense.shared.AppColor
@@ -31,6 +32,7 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
 
     private val navigationService = NavigationService()
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val cache by lazy { Preferences(requireContext()) }
     private val formatService by lazy { FormatServiceV2(requireContext()) }
     private val throttle = Throttle(20)
 
@@ -75,11 +77,17 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
                     pointColoringStyle =
                         PointColoringStyle.values().find { style -> style.ordinal == it }
                             ?: PointColoringStyle.None
+                    cache.putInt("pref_path_waypoint_style", pointColoringStyle.ordinal)
                     updatePointStyleLegend()
                     onPathChanged()
                 }
             }
         }
+
+        val lastStyle = cache.getInt("pref_path_waypoint_style")
+        pointColoringStyle =
+            PointColoringStyle.values().find { style -> style.ordinal == lastStyle }
+                ?: PointColoringStyle.None
 
         updatePointStyleLegend()
         onPathChanged()
