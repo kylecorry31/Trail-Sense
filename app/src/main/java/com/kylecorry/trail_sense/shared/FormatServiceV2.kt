@@ -478,6 +478,7 @@ class FormatServiceV2(private val context: Context) {
             PressureUnits.Mbar -> context.getString(R.string.units_mbar)
             PressureUnits.Inhg -> context.getString(R.string.units_inhg_short)
             PressureUnits.Psi -> context.getString(R.string.units_psi)
+            PressureUnits.MmHg -> context.getString(R.string.units_mmhg_short)
         }
     }
 

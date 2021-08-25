@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.canvas.DottedPathEffect
 import com.kylecorry.andromeda.core.math.cosDegrees
 import com.kylecorry.andromeda.core.math.deltaAngle
 import com.kylecorry.andromeda.core.math.sinDegrees
@@ -16,8 +15,8 @@ import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trail_sense.shared.PathEffectFactory
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.toPixelLines
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trailsensecore.domain.geo.PathStyle
@@ -158,56 +157,18 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     private fun drawPaths(pathLines: List<PixelLine>) {
-        val dotted = DottedPathEffect(3f, 10f)
-        val pointDiameter = dp(5f)
-        val pathFactory = PathEffectFactory()
+
+        val lineDrawerFactory = PathLineDrawerFactory()
+
         clear()
-        var isFirst = true
         for (line in pathLines) {
-            when (line.style) {
-                PixelLineStyle.Solid -> {
-                    noPathEffect()
-                    noFill()
-                    stroke(line.color)
-                    strokeWeight(6f)
-                }
-                PixelLineStyle.Arrow -> {
-                    val arrow = pathFactory.getArrowPathEffect(
-                        line.start.distanceTo(line.end)
-                    )
-                    pathEffect(arrow)
-                    noStroke()
-                    fill(line.color)
-                }
-                PixelLineStyle.Dotted -> {
-                    pathEffect(dotted)
-                    noStroke()
-                    fill(line.color)
-                }
-            }
-            opacity(line.alpha)
-            val xOffset = 0f
-            val yOffset = 0f
-            line(
-                line.start.x - xOffset,
-                line.start.y - yOffset,
-                line.end.x - xOffset,
-                line.end.y - yOffset
-            )
-            noStroke()
-            if (drawWaypoints) {
-                noPathEffect()
-                fill(line.color)
-                circle(line.end.x, line.end.y, pointDiameter)
-                if (isFirst) {
-                    circle(line.start.x, line.start.y, pointDiameter)
-                    isFirst = false
-                }
-            }
-            opacity(255)
-            fill(Color.WHITE)
-            noPathEffect()
+            val drawer = lineDrawerFactory.create(line.style)
+            drawer.drawLine(this, line)
         }
+        opacity(255)
+        noStroke()
+        fill(Color.WHITE)
+        noPathEffect()
     }
 
     private fun getPixels(

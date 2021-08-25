@@ -11,7 +11,6 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.canvas.DottedPathEffect
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.math.constrain
 import com.kylecorry.andromeda.core.system.Resources
@@ -19,14 +18,17 @@ import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.PathEffectFactory
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
 import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.domain.pixels.*
+import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
+import com.kylecorry.trailsensecore.domain.pixels.PixelCircle
+import com.kylecorry.trailsensecore.domain.pixels.PixelLine
+import com.kylecorry.trailsensecore.domain.pixels.toPixelLines
 
 
 class OfflineMapView : CanvasView {
@@ -156,8 +158,7 @@ class OfflineMapView : CanvasView {
         val pathLines = pathLines ?: return
 // TODO: Add mask
 //        val pathBitmap = mask(mapImage!!, pathBitmap!!){
-        val pathEffectFactory = PathEffectFactory()
-        val dotted = DottedPathEffect(3f / scale, 10f / scale)
+        val lineDrawerFactory = PathLineDrawerFactory()
         clear()
         for (line in pathLines) {
 
@@ -165,42 +166,13 @@ class OfflineMapView : CanvasView {
                 continue
             }
 
-            when (line.style) {
-                PixelLineStyle.Solid -> {
-                    noPathEffect()
-                    noFill()
-                    stroke(line.color)
-                    strokeWeight(6f / scale)
-                }
-                PixelLineStyle.Arrow -> {
-                    val arrow = pathEffectFactory.getArrowPathEffect(
-                        line.start.distanceTo(line.end),
-                        scale
-                    )
-                    pathEffect(arrow)
-                    noStroke()
-                    fill(line.color)
-                }
-                PixelLineStyle.Dotted -> {
-                    pathEffect(dotted)
-                    noStroke()
-                    fill(line.color)
-                }
-            }
-            opacity(line.alpha)
-            val xOffset = 0f
-            val yOffset = 0f
-            line(
-                line.start.x - xOffset,
-                line.start.y - yOffset,
-                line.end.x - xOffset,
-                line.end.y - yOffset
-            )
-            opacity(255)
-            noStroke()
-            fill(Color.WHITE)
-            noPathEffect()
+            val drawer = lineDrawerFactory.create(line.style)
+            drawer.drawLine(this, line, scale)
         }
+        opacity(255)
+        noStroke()
+        fill(Color.WHITE)
+        noPathEffect()
 //        }
 //
 //        imageMode(ImageMode.Center)

@@ -11,7 +11,6 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.canvas.DottedPathEffect
 import com.kylecorry.andromeda.core.math.cosDegrees
 import com.kylecorry.andromeda.core.math.deltaAngle
 import com.kylecorry.andromeda.core.math.sinDegrees
@@ -23,12 +22,11 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trail_sense.shared.PathEffectFactory
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.times
 import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
-import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
 import com.kylecorry.trailsensecore.domain.pixels.toPixelLines
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import kotlin.math.min
@@ -117,50 +115,24 @@ class RadarCompassView : CanvasView, ICompassView {
 
     private fun drawPaths() {
         val pathBitmap = mask(compass!!, pathBitmap!!) {
-            val dotted = DottedPathEffect()
-            val pathFactory = PathEffectFactory()
+            val lineDrawerFactory = PathLineDrawerFactory()
             clear()
+            push()
+            translate(-(width - compassSize) / 2f, -(height - compassSize) / 2f)
             for (line in pathLines) {
 
                 if (!shouldDisplayLine(line)) {
                     continue
                 }
 
-                when (line.style) {
-                    PixelLineStyle.Solid -> {
-                        noPathEffect()
-                        noFill()
-                        stroke(line.color)
-                        strokeWeight(6f)
-                    }
-                    PixelLineStyle.Arrow -> {
-                        val arrow = pathFactory.getArrowPathEffect(
-                            line.start.distanceTo(line.end)
-                        )
-                        pathEffect(arrow)
-                        noStroke()
-                        fill(line.color)
-                    }
-                    PixelLineStyle.Dotted -> {
-                        pathEffect(dotted)
-                        noStroke()
-                        fill(line.color)
-                    }
-                }
-                opacity(line.alpha)
-                val xOffset = (width - compassSize) / 2f
-                val yOffset = (height - compassSize) / 2f
-                line(
-                    line.start.x - xOffset,
-                    line.start.y - yOffset,
-                    line.end.x - xOffset,
-                    line.end.y - yOffset
-                )
-                opacity(255)
-                noStroke()
-                fill(Color.WHITE)
-                noPathEffect()
+                val drawer = lineDrawerFactory.create(line.style)
+                drawer.drawLine(this, line)
             }
+            pop()
+            opacity(255)
+            noStroke()
+            fill(Color.WHITE)
+            noPathEffect()
         }
 
         imageMode(ImageMode.Center)
