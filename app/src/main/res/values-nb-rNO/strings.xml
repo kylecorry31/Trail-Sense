@@ -816,4 +816,6 @@
     <string name="camera">Kamera</string>
     <string name="quarter_moon">Halvmåne</string>
     <string name="autofill">Auto-utfyll</string>
+    <string name="overridden">Overstyrt</string>
+    <string name="lightning_dangerously_close">Lyn faretruende nært</string>
 </resources>
