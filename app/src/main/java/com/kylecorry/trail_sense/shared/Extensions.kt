@@ -106,7 +106,7 @@ fun IGPS.getPathPoint(pathId: Long): PathPoint {
     )
 }
 
-fun List<Float>.rangeOrNull(): Range<Float>? {
+fun <T : Comparable<T>> List<T>.rangeOrNull(): Range<T>? {
     val min = minOrNull() ?: return null
     val max = maxOrNull() ?: return null
     return Range(min, max)

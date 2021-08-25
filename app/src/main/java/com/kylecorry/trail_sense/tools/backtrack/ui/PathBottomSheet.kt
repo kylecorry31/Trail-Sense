@@ -20,10 +20,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.rangeOrNull
-import com.kylecorry.trail_sense.tools.backtrack.domain.AltitudePointColoringStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.CellSignalPointColoringStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.DefaultPointColoringStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
+import com.kylecorry.trail_sense.tools.backtrack.domain.*
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import java.time.Duration
 import java.time.Instant
@@ -69,7 +66,8 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
                 requireContext(), "", listOf(
                     getString(R.string.path),
                     getString(R.string.cell_signal),
-                    getString(R.string.altitude)
+                    getString(R.string.altitude),
+                    getString(R.string.time)
                 ),
                 defaultSelectedIndex = pointColoringStyle.ordinal
             ) {
@@ -136,8 +134,16 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
                 val altitudeRange = path.mapNotNull { it.altitude }.rangeOrNull() ?: Range(0f, 0f)
                 AltitudePointColoringStrategy(
                     altitudeRange,
-                    AppColor.Blue.color,
-                    AppColor.Red.color
+                    AppColor.Red.color,
+                    AppColor.DarkBlue.color
+                )
+            }
+            PointColoringStyle.Time -> {
+                val timeRange = path.map { it.createdInstant }.rangeOrNull() ?: Range(Instant.now(), Instant.now())
+                TimePointColoringStrategy(
+                    timeRange,
+                    Color.WHITE,
+                    AppColor.DarkBlue.color
                 )
             }
         }
@@ -149,7 +155,8 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
         binding.pathPointStyle.text = listOf(
             getString(R.string.path),
             getString(R.string.cell_signal),
-            getString(R.string.altitude)
+            getString(R.string.altitude),
+            getString(R.string.time)
         )[pointColoringStyle.ordinal]
     }
 
@@ -168,7 +175,8 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
     private enum class PointColoringStyle {
         None,
         CellSignal,
-        Altitude
+        Altitude,
+        Time
     }
 
     override fun generateBinding(
