@@ -26,7 +26,7 @@ import com.kylecorry.trailsensecore.domain.geo.PathStyle
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
-import kotlin.math.max
+import kotlin.math.min
 
 class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs) {
 
@@ -88,8 +88,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
         val h = height.toFloat() - dp(32f)
         val w = width.toFloat() - dp(32f)
-
-        metersPerPixel = max(distanceY / h, distanceX / w)
+        val scale = calculateBestFitScale(w, h, distanceX, distanceY)
+        metersPerPixel = 1 / scale
         center = bounds.center
 
         val gridGap = getGridSize(Distance.meters(distanceX))
@@ -105,6 +105,16 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         location?.let {
             drawLocation(getPixels(it))
         }
+    }
+
+    // TODO: Extract this
+    private fun calculateBestFitScale(
+        maxWidth: Float,
+        maxHeight: Float,
+        width: Float,
+        height: Float
+    ): Float {
+        return min(maxWidth / width, maxHeight / height)
     }
 
     private fun getGridSize(distance: Distance): Distance {
@@ -194,7 +204,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
         clear()
         for (line in pathLines) {
-            val drawer = if (arePointsHighlighted){
+            val drawer = if (arePointsHighlighted) {
                 GrayPathLineDrawerDecoratorStrategy(lineDrawerFactory.create(line.style))
             } else {
                 lineDrawerFactory.create(line.style)
