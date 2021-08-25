@@ -29,8 +29,8 @@ import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.PDFUtils
+import com.kylecorry.trailsensecore.domain.geo.cartography.CoordinateBounds
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
-import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -49,7 +49,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private lateinit var mapList: ListView<Map>
     private var maps: List<Map> = listOf()
 
-    private var boundMap = mutableMapOf<Long, MapRegion>()
+    private var boundMap = mutableMapOf<Long, CoordinateBounds>()
     private var bitmaps = mutableMapOf<Long, Bitmap>()
     private var fileSizes = mutableMapOf<Long, Long>()
 

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.backtrack.domain.scales
+package com.kylecorry.trail_sense.shared.scales
 
 import androidx.annotation.ColorInt
 import androidx.core.graphics.ColorUtils

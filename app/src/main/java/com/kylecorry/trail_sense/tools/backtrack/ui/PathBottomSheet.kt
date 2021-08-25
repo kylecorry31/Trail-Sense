@@ -19,9 +19,9 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.isLarge
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.tools.backtrack.domain.*
-import com.kylecorry.trail_sense.tools.backtrack.domain.scales.ContinuousColorScale
-import com.kylecorry.trail_sense.tools.backtrack.domain.scales.DiscreteColorScale
-import com.kylecorry.trail_sense.tools.backtrack.domain.scales.IColorScale
+import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
+import com.kylecorry.trail_sense.shared.scales.DiscreteColorScale
+import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.AltitudePointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.CellSignalPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.DefaultPointColoringStrategy

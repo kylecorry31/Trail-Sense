@@ -4,7 +4,10 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.core.math.*
+import com.kylecorry.andromeda.core.math.cosDegrees
+import com.kylecorry.andromeda.core.math.power
+import com.kylecorry.andromeda.core.math.sinDegrees
+import com.kylecorry.andromeda.core.math.wrap
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
@@ -19,8 +22,8 @@ import com.kylecorry.trail_sense.shared.toPixelLines
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
+import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.geo.PathStyle
-import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
 import kotlin.math.floor
@@ -65,6 +68,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private val formatService by lazy { FormatServiceV2(context) }
     private val pathColor by lazy { prefs.navigation.backtrackPathColor }
     private val pathStyle by lazy { prefs.navigation.backtrackPathStyle }
+    private val geoService = GeoService()
     private var metersPerPixel: Float = 1f
     private var center: Coordinate = Coordinate.zero
 
@@ -81,9 +85,14 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     private fun drawMap() {
-        val bounds = getPathBounds(path.map { it.coordinate }) ?: return
-        val distanceX = bounds.southEast.distanceTo(bounds.southWest)
-        val distanceY = bounds.northWest.distanceTo(bounds.southWest)
+        val bounds = geoService.getBounds(path.map { it.coordinate })
+
+        val distanceX = bounds.width().meters().distance
+        val distanceY = bounds.height().meters().distance
+
+        if (distanceX == 0f || distanceY == 0f) {
+            return
+        }
 
         val h = height.toFloat() - dp(32f)
         val w = width.toFloat() - dp(32f)
@@ -121,13 +130,13 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
         val d = distance.meters().distance
 
-        if (d == 0f){
+        if (d == 0f) {
             return Distance(1f, baseUnits)
         }
 
         val exponent = (floor(log10(d)) - 1).coerceAtLeast(1f).toInt()
 
-        return if (baseUnits == DistanceUnits.Meters){
+        return if (baseUnits == DistanceUnits.Meters) {
             Distance.meters(power(10, exponent).toFloat())
         } else {
             Distance.feet(power(10, exponent) * 3f)
@@ -232,42 +241,6 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         return PixelCoordinate(width / 2f + xDiff, height / 2f - yDiff)
     }
 
-    private fun getPathBounds(locations: List<Coordinate>): MapRegion? {
-        val west = getWestLongitudeBound(locations) ?: return null
-        val east = getEastLongitudeBound(locations) ?: return null
-        val north = getNorthLatitudeBound(locations) ?: return null
-        val south = getSouthLatitudeBound(locations) ?: return null
-        return MapRegion(north, east, south, west)
-    }
-
-    private fun getWestLongitudeBound(locations: List<Coordinate>): Double? {
-        val first = locations.firstOrNull() ?: return null
-        return locations.minByOrNull {
-            deltaAngle(
-                first.longitude.toFloat() + 180,
-                it.longitude.toFloat() + 180
-            )
-        }?.longitude
-    }
-
-    private fun getEastLongitudeBound(locations: List<Coordinate>): Double? {
-        val first = locations.firstOrNull() ?: return null
-        return locations.maxByOrNull {
-            deltaAngle(
-                first.longitude.toFloat() + 180,
-                it.longitude.toFloat() + 180
-            )
-        }?.longitude
-    }
-
-    private fun getSouthLatitudeBound(locations: List<Coordinate>): Double? {
-        return locations.minByOrNull { it.latitude }?.latitude
-    }
-
-    private fun getNorthLatitudeBound(locations: List<Coordinate>): Double? {
-        return locations.maxByOrNull { it.latitude }?.latitude
-    }
-
     private fun mapPixelLineStyle(style: PathStyle): PixelLineStyle {
         return when (style) {
             PathStyle.Solid -> PixelLineStyle.Solid
@@ -275,5 +248,4 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             PathStyle.Arrow -> PixelLineStyle.Arrow
         }
     }
-
 }

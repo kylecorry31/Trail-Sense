@@ -54,7 +54,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     kapt "androidx.room:room-compiler:2.3.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.30"
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
@@ -79,7 +79,7 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
     // TS Core
-    implementation 'com.github.kylecorry31:Trail-Sense-Core:4.0.3'
+    implementation 'com.github.kylecorry31:Trail-Sense-Core:4.1.0'
 
     // Andromeda
     def andromeda_version = "1.2.0"

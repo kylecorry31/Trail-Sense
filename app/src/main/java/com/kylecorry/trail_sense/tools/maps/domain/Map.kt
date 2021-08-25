@@ -1,11 +1,11 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
-import com.kylecorry.andromeda.core.units.*
-import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
-import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
 import com.kylecorry.andromeda.core.math.cosDegrees
 import com.kylecorry.andromeda.core.math.sinDegrees
 import com.kylecorry.andromeda.core.math.wrap
+import com.kylecorry.andromeda.core.units.*
+import com.kylecorry.trailsensecore.domain.geo.cartography.CoordinateBounds
+import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 
 data class Map(
     val id: Long,
@@ -61,7 +61,7 @@ data class Map(
         return Distance.meters(meters / pixels)
     }
 
-    fun boundary(width: Float, height: Float): MapRegion? {
+    fun boundary(width: Float, height: Float): CoordinateBounds? {
         if (calibrationPoints.isEmpty()) {
             // Or throw, not enough calibration points
             return null
@@ -88,7 +88,7 @@ data class Map(
             Bearing.from(CompassDirection.West)
         ).longitude
 
-        return MapRegion(north, east, south, west)
+        return CoordinateBounds(north, east, south, west)
     }
 
 }
