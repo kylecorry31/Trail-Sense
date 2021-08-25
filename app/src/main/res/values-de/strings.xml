@@ -54,7 +54,6 @@
     <string name="meters">Meter</string>
     <string name="feet_miles">Fuß / Meilen</string>
     <string name="units_hpa">hPa</string>
-    <string name="units_inhg">mm Hg</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
     <string name="theme_light">Hell</string>
@@ -997,4 +996,5 @@
     <string name="power_saving_mode_resolution">Stromsparmodus deaktivieren</string>
     <string name="location_override_not_set_resolution">Standort in den Einstellungen überschreiben</string>
     <string name="location_override_resolution">Automatisches Anpassen des Standorts in den Einstellungen aktivieren.</string>
+    <string name="units_inhg">inHg</string>
 </resources>

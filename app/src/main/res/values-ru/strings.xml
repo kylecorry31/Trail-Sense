@@ -57,7 +57,6 @@
     <string name="meters">Метры</string>
     <string name="feet_miles">Футы / мили</string>
     <string name="units_hpa">гПа</string>
-    <string name="units_inhg">мм. рт. ст.</string>
     <string name="units_mbar">мбар</string>
     <string name="units_psi">PSI</string>
     <string name="theme_light">Светлая</string>

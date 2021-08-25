@@ -738,7 +738,6 @@
     <string name="units_psi">фт-сила/дюйм²</string>
     <string name="units_mbar">мбар</string>
     <string name="units_inhg_short">дюйм</string>
-    <string name="units_inhg">мм. рт. ст.</string>
     <string name="units_hpa">гПа</string>
     <string name="beacon_comment">Примітки (необов\'язково)</string>
     <string name="beacon_elevation_hint_meters">Висота в метрах (не обов\'язково)</string>

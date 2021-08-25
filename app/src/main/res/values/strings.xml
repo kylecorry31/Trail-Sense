@@ -90,7 +90,10 @@
     <string name="beacon_comment">Notes (Optional)</string>
     <!--Weather Tab-->
     <string name="units_hpa">hPa</string>
+
+<!--    This will always be in inches-->
     <string name="units_inhg">inHg</string>
+    <!--    This will always be in inches-->
     <string name="units_inhg_short">in</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
