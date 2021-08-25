@@ -954,4 +954,15 @@
     <string name="camera">相机</string>
     <string name="quarter_moon">上弦月</string>
     <string name="autofill">自动填充</string>
+    <string name="lightning_dangerously_close">你离闪电太近了</string>
+    <string name="merge_previous_path_title">与先前路径合并？</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="other">%d 个航点将被删除</item>
+    </plurals>
+    <string name="grid_size">%s 网格</string>
+    <string name="no_previous_path">无先前路径</string>
+    <string name="path_merge_previous">合并先前路径</string>
+    <string name="delete_path">删除路径？</string>
+    <string name="dash_separated_pair">%s - %s</string>
+    <string name="auto">自动</string>
 </resources>
