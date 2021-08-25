@@ -4,7 +4,7 @@ import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 
 class SolidPathLineDrawerStrategy: IPathLineDrawerStrategy {
-    override fun drawLine(canvas: CanvasView, line: PixelLine, strokeScale: Float) {
+    override fun draw(canvas: CanvasView, line: PixelLine, strokeScale: Float) {
         canvas.apply {
             noPathEffect()
             noFill()

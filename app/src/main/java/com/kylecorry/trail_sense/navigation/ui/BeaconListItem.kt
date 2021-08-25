@@ -59,7 +59,6 @@ class BeaconListItem(
                     binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Poor))
                     binding.beaconImage.imageTintList = ColorStateList.valueOf(
                         CustomUiUtils.getQualityColor(
-                            view.context,
                             Quality.Poor
                         )
                     )
@@ -68,7 +67,6 @@ class BeaconListItem(
                     binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Moderate))
                     binding.beaconImage.imageTintList = ColorStateList.valueOf(
                         CustomUiUtils.getQualityColor(
-                            view.context,
                             Quality.Moderate
                         )
                     )
@@ -77,7 +75,6 @@ class BeaconListItem(
                     binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Good))
                     binding.beaconImage.imageTintList = ColorStateList.valueOf(
                         CustomUiUtils.getQualityColor(
-                            view.context,
                             Quality.Good
                         )
                     )
@@ -86,7 +83,6 @@ class BeaconListItem(
                     binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Unknown))
                     binding.beaconImage.imageTintList = ColorStateList.valueOf(
                         CustomUiUtils.getQualityColor(
-                            view.context,
                             Quality.Unknown
                         )
                     )

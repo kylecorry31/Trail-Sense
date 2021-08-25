@@ -65,7 +65,6 @@ class WaypointListItemStrategy(
             itemBinding.signalStrength.setForegroundTint(Color.BLACK)
             itemBinding.signalStrength.setBackgroundTint(
                 CustomUiUtils.getQualityColor(
-                    context,
                     waypoint.cellQuality
                 )
             )

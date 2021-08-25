@@ -16,8 +16,11 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.paths.GrayPathLineDrawerDecoratorStrategy
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.toPixelLines
+import com.kylecorry.trail_sense.tools.backtrack.domain.DefaultPointColoringStrategy
+import com.kylecorry.trail_sense.tools.backtrack.domain.IPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trailsensecore.domain.geo.PathStyle
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
@@ -26,6 +29,13 @@ import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
 import kotlin.math.max
 
 class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs) {
+
+    var pointColoringStrategy: IPointColoringStrategy =
+        DefaultPointColoringStrategy(Color.TRANSPARENT)
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     var path: List<WaypointEntity> = emptyList()
         set(value) {
@@ -45,11 +55,19 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             invalidate()
         }
 
+    var arePointsHighlighted: Boolean = false
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+
     private val prefs by lazy { UserPreferences(context) }
     private val formatService by lazy { FormatServiceV2(context) }
     private val pathColor by lazy { prefs.navigation.backtrackPathColor }
     private val pathStyle by lazy { prefs.navigation.backtrackPathStyle }
-    private var drawWaypoints = true
+    private var metersPerPixel: Float = 1f
+    private var center: Coordinate = Coordinate.zero
 
     init {
         runEveryCycle = false
@@ -71,7 +89,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         val h = height.toFloat() - dp(32f)
         val w = width.toFloat() - dp(32f)
 
-        val metersPerPixel = max(distanceY / h, distanceX / w)
+        metersPerPixel = max(distanceY / h, distanceX / w)
+        center = bounds.center
 
         val gridGap = getGridSize(Distance.meters(distanceX))
         drawGrid(metersPerPixel, gridGap.meters().distance)
@@ -79,11 +98,12 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
         val pathLines =
             path.map { it.coordinate }.toPixelLines(pathColor.color, mapPixelLineStyle(pathStyle)) {
-                getPixels(bounds.center, metersPerPixel, it)
+                getPixels(it)
             }
         drawPaths(pathLines)
+        drawWaypoints(path)
         location?.let {
-            drawLocation(getPixels(bounds.center, metersPerPixel, it))
+            drawLocation(getPixels(it))
         }
     }
 
@@ -99,6 +119,18 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
                     300f
                 }
             )
+        }
+    }
+
+    private fun drawWaypoints(points: List<WaypointEntity>) {
+        val pointDiameter = dp(5f)
+        noPathEffect()
+        noStroke()
+        for (point in points) {
+            val color = pointColoringStrategy.getColor(point.toPathPoint())
+            fill(color)
+            val position = getPixels(point.coordinate)
+            circle(position.x, position.y, pointDiameter)
         }
     }
 
@@ -162,8 +194,13 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
         clear()
         for (line in pathLines) {
-            val drawer = lineDrawerFactory.create(line.style)
-            drawer.drawLine(this, line)
+            val drawer = if (arePointsHighlighted){
+                GrayPathLineDrawerDecoratorStrategy(lineDrawerFactory.create(line.style))
+            } else {
+                lineDrawerFactory.create(line.style)
+            }
+
+            drawer.draw(this, line)
         }
         opacity(255)
         noStroke()
@@ -172,8 +209,6 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     private fun getPixels(
-        center: Coordinate,
-        metersPerPixel: Float,
         location: Coordinate
     ): PixelCoordinate {
         val distance = center.distanceTo(location)

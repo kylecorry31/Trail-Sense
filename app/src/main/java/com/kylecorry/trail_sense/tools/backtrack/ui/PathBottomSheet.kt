@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.tools.backtrack.ui
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Range
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +10,18 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
+import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathBottomSheetBinding
+import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.isLarge
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.rangeOrNull
+import com.kylecorry.trail_sense.tools.backtrack.domain.AltitudePointColoringStrategy
+import com.kylecorry.trail_sense.tools.backtrack.domain.CellSignalPointColoringStrategy
+import com.kylecorry.trail_sense.tools.backtrack.domain.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import java.time.Duration
@@ -49,8 +58,30 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
             onPathChanged()
         }
 
+    private var pointColoringStyle = PointColoringStyle.None
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.pathPointStyle.setOnClickListener {
+            Pickers.item(
+                requireContext(), "", listOf(
+                    getString(R.string.path),
+                    getString(R.string.cell_signal),
+                    getString(R.string.altitude)
+                ),
+                defaultSelectedIndex = pointColoringStyle.ordinal
+            ) {
+                if (it != null) {
+                    pointColoringStyle =
+                        PointColoringStyle.values().find { style -> style.ordinal == it }
+                            ?: PointColoringStyle.None
+                    updatePointStyleLegend()
+                    onPathChanged()
+                }
+            }
+        }
+
+        updatePointStyleLegend()
         onPathChanged()
     }
 
@@ -89,6 +120,29 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
         }
         binding.pathImage.location = location
         binding.pathImage.azimuth = azimuth
+
+        binding.pathImage.pointColoringStrategy = when (pointColoringStyle) {
+            PointColoringStyle.None -> DefaultPointColoringStrategy(Color.TRANSPARENT)
+            PointColoringStyle.CellSignal -> CellSignalPointColoringStrategy()
+            PointColoringStyle.Altitude -> {
+                val altitudeRange = path.mapNotNull { it.altitude }.rangeOrNull() ?: Range(0f, 0f)
+                AltitudePointColoringStrategy(
+                    altitudeRange,
+                    AppColor.Blue.color,
+                    AppColor.Red.color
+                )
+            }
+        }
+
+        binding.pathImage.arePointsHighlighted = pointColoringStyle != PointColoringStyle.None
+    }
+
+    private fun updatePointStyleLegend() {
+        binding.pathPointStyle.text = listOf(
+            getString(R.string.path),
+            getString(R.string.cell_signal),
+            getString(R.string.altitude)
+        )[pointColoringStyle.ordinal]
     }
 
     private fun getGPSWaypoint(pathId: Long): WaypointEntity {
@@ -101,6 +155,12 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
             cellQualityId = null,
             cellTypeId = null
         )
+    }
+
+    private enum class PointColoringStyle {
+        None,
+        CellSignal,
+        Altitude
     }
 
     override fun generateBinding(

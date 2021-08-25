@@ -57,11 +57,23 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/path_point_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawablePadding="16dp"
+        android:layout_gravity="end"
+        android:gravity="center_vertical"
+        app:drawableEndCompat="@drawable/ic_drop_down"
+        app:drawableTint="?android:textColorSecondary"
+        tools:text="Cell Signal" />
+
     <com.kylecorry.trail_sense.tools.backtrack.ui.PathView
-        android:background="@color/colorSecondary"
         android:id="@+id/path_image"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="8dp"
+        android:background="@color/colorSecondary" />
 
 </LinearLayout>

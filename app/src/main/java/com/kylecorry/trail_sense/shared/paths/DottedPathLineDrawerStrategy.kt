@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.canvas.DottedPathEffect
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 
 class DottedPathLineDrawerStrategy: IPathLineDrawerStrategy {
-    override fun drawLine(canvas: CanvasView, line: PixelLine, strokeScale: Float) {
+    override fun draw(canvas: CanvasView, line: PixelLine, strokeScale: Float) {
         val dotted = DottedPathEffect(3f / strokeScale, 10f / strokeScale)
         canvas.apply {
             pathEffect(dotted)

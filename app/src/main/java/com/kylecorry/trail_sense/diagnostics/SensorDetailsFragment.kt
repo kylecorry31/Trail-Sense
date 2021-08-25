@@ -111,7 +111,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
                 getString(R.string.pref_compass_sensor_title),
                 "",
                 getString(R.string.gps_unavailable),
-                CustomUiUtils.getQualityColor(requireContext(), Quality.Poor),
+                CustomUiUtils.getQualityColor(Quality.Poor),
                 R.drawable.ic_compass_icon
             )
         }
@@ -142,7 +142,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
                 formatService.formatDegrees(euler.yaw)
             ),
             formatService.formatQuality(gyroscope.quality),
-            CustomUiUtils.getQualityColor(requireContext(), gyroscope.quality),
+            CustomUiUtils.getQualityColor(gyroscope.quality),
             R.drawable.ic_gyro
         )
     }
@@ -155,7 +155,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
                 Locale.getDefault()
             ),
             formatService.formatQuality(Quality.Good),
-            CustomUiUtils.getQualityColor(requireContext(), Quality.Good),
+            CustomUiUtils.getQualityColor(Quality.Good),
             R.drawable.ic_tool_clock
         )
     }
@@ -165,7 +165,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             getString(R.string.gps_cache),
             formatService.formatLocation(cachedGPS.location),
             getGPSCacheStatus(),
-            CustomUiUtils.getQualityColor(requireContext(), getGPSCacheQuality()),
+            CustomUiUtils.getQualityColor(getGPSCacheQuality()),
             R.drawable.satellite
         )
     }
@@ -194,7 +194,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             getString(R.string.tool_battery_title),
             formatService.formatPercentage(battery.percent),
             formatService.formatBatteryHealth(battery.health),
-            CustomUiUtils.getQualityColor(requireContext(), quality),
+            CustomUiUtils.getQualityColor(quality),
             R.drawable.ic_tool_battery
         )
     }
@@ -209,7 +209,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             getString(R.string.barometer),
             formatService.formatPressure(pressure),
             formatService.formatQuality(barometer.quality),
-            CustomUiUtils.getQualityColor(requireContext(), barometer.quality),
+            CustomUiUtils.getQualityColor(barometer.quality),
             R.drawable.ic_weather
         )
     }
@@ -229,7 +229,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             getString(R.string.pref_compass_sensor_title),
             formatService.formatDegrees(compass.bearing.value, replace360 = true),
             formatService.formatQuality(compass.quality),
-            CustomUiUtils.getQualityColor(requireContext(), compass.quality),
+            CustomUiUtils.getQualityColor(compass.quality),
             R.drawable.ic_compass_icon
         )
     }
@@ -243,7 +243,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             getString(R.string.tool_thermometer_title),
             formatService.formatTemperature(temperature),
             formatService.formatQuality(thermometer.quality),
-            CustomUiUtils.getQualityColor(requireContext(), thermometer.quality),
+            CustomUiUtils.getQualityColor(thermometer.quality),
             R.drawable.thermometer
         )
     }
@@ -257,7 +257,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             getString(R.string.hygrometer),
             formatService.formatPercentage(hygrometer.humidity),
             formatService.formatQuality(hygrometer.quality),
-            CustomUiUtils.getQualityColor(requireContext(), hygrometer.quality),
+            CustomUiUtils.getQualityColor(hygrometer.quality),
             R.drawable.ic_category_water
         )
     }
@@ -267,7 +267,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             getString(R.string.gravity),
             formatService.formatAcceleration(gravity.acceleration.magnitude(), 2),
             formatService.formatQuality(gravity.quality),
-            CustomUiUtils.getQualityColor(requireContext(), gravity.quality),
+            CustomUiUtils.getQualityColor(gravity.quality),
             R.drawable.ic_tool_cliff_height
         )
     }
@@ -287,7 +287,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
                 )
             })",
             formatService.formatQuality(signal?.quality ?: Quality.Unknown),
-            CustomUiUtils.getQualityColor(requireContext(), signal?.quality ?: Quality.Unknown),
+            CustomUiUtils.getQualityColor(signal?.quality ?: Quality.Unknown),
             CellSignalUtils.getCellQualityImage(signal?.quality)
         )
     }
@@ -297,7 +297,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             getString(R.string.magnetometer),
             formatService.formatMagneticField(magnetometer.magneticField.magnitude()),
             formatService.formatQuality(magnetometer.quality),
-            CustomUiUtils.getQualityColor(requireContext(), magnetometer.quality),
+            CustomUiUtils.getQualityColor(magnetometer.quality),
             R.drawable.ic_tool_metal_detector
         )
     }
@@ -313,14 +313,14 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
         }
 
         if (altimeter is Barometer) {
-            return CustomUiUtils.getQualityColor(requireContext(), altimeter.quality)
+            return CustomUiUtils.getQualityColor(altimeter.quality)
         }
 
         if (!altimeter.hasValidReading) {
             return Resources.color(requireContext(), R.color.yellow)
         }
 
-        return CustomUiUtils.getQualityColor(requireContext(), altimeter.quality)
+        return CustomUiUtils.getQualityColor(altimeter.quality)
     }
 
     private fun getAltimeterStatus(): String {
@@ -357,7 +357,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             return Resources.color(requireContext(), R.color.yellow)
         }
 
-        return CustomUiUtils.getQualityColor(requireContext(), gps.quality)
+        return CustomUiUtils.getQualityColor(gps.quality)
     }
 
     private fun getGPSCacheStatus(): String {

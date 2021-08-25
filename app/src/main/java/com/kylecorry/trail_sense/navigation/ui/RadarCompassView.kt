@@ -126,7 +126,7 @@ class RadarCompassView : CanvasView, ICompassView {
                 }
 
                 val drawer = lineDrawerFactory.create(line.style)
-                drawer.drawLine(this, line)
+                drawer.draw(this, line)
             }
             pop()
             opacity(255)

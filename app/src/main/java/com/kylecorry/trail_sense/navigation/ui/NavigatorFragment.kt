@@ -808,7 +808,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     @ColorInt
     private fun getCompassColor(): Int {
-        return CustomUiUtils.getQualityColor(requireContext(), compass.quality)
+        return CustomUiUtils.getQualityColor(compass.quality)
     }
 
     @ColorInt
@@ -829,7 +829,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             return Resources.color(requireContext(), R.color.yellow)
         }
 
-        return CustomUiUtils.getQualityColor(requireContext(), gps.quality)
+        return CustomUiUtils.getQualityColor(gps.quality)
     }
 
     private fun getGPSStatus(): String {

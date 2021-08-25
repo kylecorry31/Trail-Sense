@@ -43,7 +43,7 @@ data class WaypointEntity(
 
     fun toPathPoint(): PathPoint {
         val network = if (cellNetwork == null) null else CellNetworkQuality(cellNetwork!!, cellQuality)
-        return PathPoint(id, pathId, coordinate, time = createdInstant, cellSignal = network)
+        return PathPoint(id, pathId, coordinate, time = createdInstant, cellSignal = network, elevation = altitude)
     }
 
 }

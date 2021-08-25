@@ -5,7 +5,7 @@ import com.kylecorry.trail_sense.shared.PathEffectFactory
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 
 class ArrowPathLineDrawerStrategy : IPathLineDrawerStrategy {
-    override fun drawLine(canvas: CanvasView, line: PixelLine, strokeScale: Float) {
+    override fun draw(canvas: CanvasView, line: PixelLine, strokeScale: Float) {
         val arrow = PathEffectFactory().getArrowPathEffect(
             line.start.distanceTo(line.end),
             strokeScale

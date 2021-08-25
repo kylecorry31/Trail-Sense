@@ -1178,6 +1178,7 @@
     <string name="grid_size">%s grid</string>
 <!--    This will always be in mm-->
     <string name="units_mmhg_short">mm</string>
+    <string name="path">Path</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d waypoint will be deleted</item>
         <item quantity="other">%d waypoints will be deleted</item>

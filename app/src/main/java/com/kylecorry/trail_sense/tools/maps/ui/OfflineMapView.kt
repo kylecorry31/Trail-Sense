@@ -167,7 +167,7 @@ class OfflineMapView : CanvasView {
             }
 
             val drawer = lineDrawerFactory.create(line.style)
-            drawer.drawLine(this, line, scale)
+            drawer.draw(this, line, scale)
         }
         opacity(255)
         noStroke()

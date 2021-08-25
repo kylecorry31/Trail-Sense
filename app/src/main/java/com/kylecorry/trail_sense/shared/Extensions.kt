@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import android.util.Range
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -103,4 +104,10 @@ fun IGPS.getPathPoint(pathId: Long): PathPoint {
         altitude,
         time
     )
+}
+
+fun List<Float>.rangeOrNull(): Range<Float>? {
+    val min = minOrNull() ?: return null
+    val max = maxOrNull() ?: return null
+    return Range(min, max)
 }
