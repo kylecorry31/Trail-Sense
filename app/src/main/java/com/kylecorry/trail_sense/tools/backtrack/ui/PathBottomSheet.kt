@@ -6,6 +6,7 @@ import android.util.Range
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.core.units.Coordinate
@@ -14,13 +15,17 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathBottomSheetBinding
-import com.kylecorry.trail_sense.shared.AppColor
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.isLarge
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.FormatServiceV2
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.rangeOrNull
 import com.kylecorry.trail_sense.tools.backtrack.domain.*
+import com.kylecorry.trail_sense.tools.backtrack.domain.scales.ContinuousColorScale
+import com.kylecorry.trail_sense.tools.backtrack.domain.scales.DiscreteColorScale
+import com.kylecorry.trail_sense.tools.backtrack.domain.scales.IColorScale
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.AltitudePointColoringStrategy
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.CellSignalPointColoringStrategy
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.DefaultPointColoringStrategy
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.TimePointColoringStrategy
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import java.time.Duration
 import java.time.Instant
@@ -129,21 +134,22 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
 
         binding.pathImage.pointColoringStrategy = when (pointColoringStyle) {
             PointColoringStyle.None -> DefaultPointColoringStrategy(Color.TRANSPARENT)
-            PointColoringStyle.CellSignal -> CellSignalPointColoringStrategy()
+            PointColoringStyle.CellSignal -> CellSignalPointColoringStrategy(cellSignalColorScale)
             PointColoringStyle.Altitude -> {
                 val altitudeRange = path.mapNotNull { it.altitude }.rangeOrNull() ?: Range(0f, 0f)
                 AltitudePointColoringStrategy(
                     altitudeRange,
-                    AppColor.Red.color,
-                    AppColor.DarkBlue.color
+                    altitudeColorScale
                 )
             }
             PointColoringStyle.Time -> {
-                val timeRange = path.map { it.createdInstant }.rangeOrNull() ?: Range(Instant.now(), Instant.now())
+                val timeRange = path.map { it.createdInstant }.rangeOrNull() ?: Range(
+                    Instant.now(),
+                    Instant.now()
+                )
                 TimePointColoringStrategy(
                     timeRange,
-                    Color.WHITE,
-                    AppColor.DarkBlue.color
+                    timeColorScale
                 )
             }
         }
@@ -184,5 +190,20 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
         container: ViewGroup?
     ): FragmentPathBottomSheetBinding {
         return FragmentPathBottomSheetBinding.inflate(layoutInflater, container, false)
+    }
+
+
+    companion object {
+        private val timeColorScale: IColorScale =
+            ContinuousColorScale(Color.WHITE, AppColor.DarkBlue.color)
+        private val altitudeColorScale: IColorScale =
+            ContinuousColorScale(AppColor.Red.color, AppColor.DarkBlue.color)
+        private val cellSignalColorScale: IColorScale = DiscreteColorScale(
+            listOf(
+                Quality.Poor,
+                Quality.Moderate,
+                Quality.Good
+            ).map { CustomUiUtils.getQualityColor(it) }
+        )
     }
 }

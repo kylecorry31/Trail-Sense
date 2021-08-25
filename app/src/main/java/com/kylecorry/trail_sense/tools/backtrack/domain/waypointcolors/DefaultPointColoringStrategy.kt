@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.backtrack.domain
+package com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors
 
 import androidx.annotation.ColorInt
 import com.kylecorry.trailsensecore.domain.geo.PathPoint

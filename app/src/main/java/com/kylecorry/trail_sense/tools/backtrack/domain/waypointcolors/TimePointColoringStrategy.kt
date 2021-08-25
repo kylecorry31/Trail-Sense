@@ -1,20 +1,18 @@
-package com.kylecorry.trail_sense.tools.backtrack.domain
+package com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors
 
 import android.util.Range
-import androidx.annotation.ColorInt
-import androidx.core.graphics.ColorUtils
 import com.kylecorry.andromeda.core.math.constrain
 import com.kylecorry.andromeda.core.math.norm
+import com.kylecorry.trail_sense.tools.backtrack.domain.scales.IColorScale
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import java.time.Instant
 
 class TimePointColoringStrategy(
     private val timeRange: Range<Instant>,
-    @ColorInt private val oldestColor: Int,
-    @ColorInt private val newestColor: Int
+    private val colorScale: IColorScale
 ) : IPointColoringStrategy {
     override fun getColor(point: PathPoint): Int {
-        val time = point.time ?: return oldestColor
+        val time = point.time ?: return colorScale.getColor(0f)
         val ratio = constrain(
             norm(
                 time.toEpochMilli().toFloat(),
@@ -22,6 +20,6 @@ class TimePointColoringStrategy(
                 timeRange.upper.toEpochMilli().toFloat()
             ), 0f, 1f
         )
-        return ColorUtils.blendARGB(oldestColor, newestColor, ratio)
+        return colorScale.getColor(ratio)
     }
 }

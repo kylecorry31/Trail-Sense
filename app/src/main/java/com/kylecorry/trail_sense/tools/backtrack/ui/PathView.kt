@@ -4,10 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.core.math.cosDegrees
-import com.kylecorry.andromeda.core.math.deltaAngle
-import com.kylecorry.andromeda.core.math.sinDegrees
-import com.kylecorry.andromeda.core.math.wrap
+import com.kylecorry.andromeda.core.math.*
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
@@ -19,13 +16,15 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.paths.GrayPathLineDrawerDecoratorStrategy
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.toPixelLines
-import com.kylecorry.trail_sense.tools.backtrack.domain.DefaultPointColoringStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.IPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.DefaultPointColoringStrategy
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
 import com.kylecorry.trailsensecore.domain.geo.PathStyle
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapRegion
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
+import kotlin.math.floor
+import kotlin.math.log10
 import kotlin.math.min
 
 class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs) {
@@ -119,16 +118,19 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
     private fun getGridSize(distance: Distance): Distance {
         val baseUnits = prefs.baseDistanceUnits
-        return if (baseUnits == DistanceUnits.Meters) {
-            Distance.meters(if (distance.meters().distance < 500f) 10f else 100f)
+
+        val d = distance.meters().distance
+
+        if (d == 0f){
+            return Distance(1f, baseUnits)
+        }
+
+        val exponent = (floor(log10(d)) - 1).coerceAtLeast(1f).toInt()
+
+        return if (baseUnits == DistanceUnits.Meters){
+            Distance.meters(power(10, exponent).toFloat())
         } else {
-            Distance.feet(
-                if (distance.meters().distance < 500f) {
-                    30f
-                } else {
-                    300f
-                }
-            )
+            Distance.feet(power(10, exponent) * 3f)
         }
     }
 
