@@ -134,7 +134,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             return Distance(1f, baseUnits)
         }
 
-        val exponent = (floor(log10(d)) - 1).coerceAtLeast(1f).toInt()
+        val exponent = (floor(log10(d / 5f))).coerceAtLeast(1f).toInt()
 
         return if (baseUnits == DistanceUnits.Meters) {
             Distance.meters(power(10, exponent).toFloat())
