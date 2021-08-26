@@ -982,7 +982,7 @@
 \n### Залучені засоби
 \n%s
 \n
-\n### Роздільна здатність
+\n### Дозвіл
 \n%s</string>
     <string name="gps_unavailable_resolution">Увімкніть \"Місцезнаходження\" або змініть джерело місцезнаходження на \"Лише пристрій\" або \"Висока точність\"</string>
     <string name="battery_restricted_resolution">Установіть Trail Sense як Не оптимізований</string>
@@ -1008,4 +1008,5 @@
     <string name="no_permission">Дозвіл не надано</string>
     <string name="camera">Камера</string>
     <string name="quarter_moon">Чверть Місяця</string>
+    <string name="autofill">Самозаповнення</string>
 </resources>
