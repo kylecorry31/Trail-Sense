@@ -18,10 +18,10 @@ import com.kylecorry.trail_sense.databinding.FragmentPathBottomSheetBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.isLarge
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.tools.backtrack.domain.*
 import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
 import com.kylecorry.trail_sense.shared.scales.DiscreteColorScale
 import com.kylecorry.trail_sense.shared.scales.IColorScale
+import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.AltitudePointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.CellSignalPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.DefaultPointColoringStrategy
@@ -164,6 +164,30 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
             getString(R.string.altitude),
             getString(R.string.time)
         )[pointColoringStyle.ordinal]
+
+        binding.pathLegend.colorScale = when (pointColoringStyle) {
+            PointColoringStyle.None -> null
+            PointColoringStyle.CellSignal -> cellSignalColorScale
+            PointColoringStyle.Altitude -> altitudeColorScale
+            PointColoringStyle.Time -> timeColorScale
+        }
+
+        binding.pathLegend.labels = when (pointColoringStyle){
+            PointColoringStyle.None -> emptyMap()
+            PointColoringStyle.CellSignal -> mapOf(
+                0.167f to formatService.formatQuality(Quality.Poor),
+                0.5f to formatService.formatQuality(Quality.Moderate),
+                0.833f to formatService.formatQuality(Quality.Good),
+            )
+            PointColoringStyle.Altitude -> mapOf(
+                0.167f to getString(R.string.low),
+                0.833f to getString(R.string.high),
+            )
+            PointColoringStyle.Time -> mapOf(
+                0.167f to getString(R.string.old),
+                0.833f to getString(R.string.new_text),
+            )
+        }
     }
 
     private fun getGPSWaypoint(pathId: Long): WaypointEntity {

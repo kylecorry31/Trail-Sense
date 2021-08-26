@@ -1179,6 +1179,8 @@
 <!--    This will always be in mm-->
     <string name="units_mmhg_short">mm</string>
     <string name="path">Path</string>
+    <string name="old">Old</string>
+    <string name="new_text">New</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d waypoint will be deleted</item>
         <item quantity="other">%d waypoints will be deleted</item>

@@ -61,9 +61,9 @@
         android:id="@+id/path_point_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="end"
         android:layout_marginTop="16dp"
         android:drawablePadding="16dp"
-        android:layout_gravity="end"
         android:gravity="center_vertical"
         app:drawableEndCompat="@drawable/ic_drop_down"
         app:drawableTint="?android:textColorSecondary"
@@ -75,5 +75,12 @@
         android:layout_height="400dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorSecondary" />
+
+    <com.kylecorry.trail_sense.shared.views.ColorScaleView
+        android:id="@+id/path_legend"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp" />
 
 </LinearLayout>

@@ -13,7 +13,7 @@ class DiscreteColorScale(@ColorInt private val colors: List<Int>) :
         val percentPerColor = 1 / colors.size.toFloat()
 
         for (i in colors.indices) {
-            if (percent <= percentPerColor) {
+            if (percent <= percentPerColor * (i + 1)) {
                 return colors[i]
             }
         }
