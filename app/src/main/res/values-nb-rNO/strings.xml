@@ -837,4 +837,12 @@
     <string name="gps_signal_lost">GPS-signal mistet</string>
     <string name="altitude_history_length">Lengde på høydehistorikk</string>
     <string name="last_duration">Siste %s</string>
+    <string name="diagnostics">Diagnostikk</string>
+    <string name="power_saving_mode_resolution">Slå av strømsparingsmodus</string>
+    <string name="grant_permission">Gi %s-tillatelsen</string>
+    <string name="get_gps_signal">Gå ut med fri sikt mot himmelen.</string>
+    <string name="no_permission">Tillatelse ikke gitt</string>
+    <string name="camera">Kamera</string>
+    <string name="quarter_moon">Halvmåne</string>
+    <string name="autofill">Auto-utfyll</string>
 </resources>

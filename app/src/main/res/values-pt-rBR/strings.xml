@@ -975,4 +975,39 @@
     <string name="pref_filter_altitude_history_title">O histórico de altitude</string>
     <string name="beacon_qr_import_instructions">Digitalizar um código QR para importar</string>
     <string name="qr_code">Código QR</string>
+    <string name="autofill">Preenchimento automático</string>
+    <string name="diagnostic_message_template">%s
+\n
+\n### Ferramentas afetadas
+\n%s
+\n
+\n### Resolução
+\n%s</string>
+    <string name="gps_unavailable_resolution">Ative a localização ou mude o tipo de localização para Apenas Dispositivo ou Alta Precisão</string>
+    <string name="battery_restricted_resolution">Definir o Trail Sense como Não Otimizado</string>
+    <string name="power_saving_mode_resolution">Desativar o modo de economia da bateria</string>
+    <string name="location_override_not_set_resolution">Definir a substituição de localização em configurações</string>
+    <string name="location_override_resolution">Ativar o ajuste automático de localização em configurações.</string>
+    <string name="altitude_override_resolution">Ativar a auto-calibração em configurações.</string>
+    <string name="unblock_notification_channel">Desbloquear %s notificação para o Trail Sense</string>
+    <string name="get_gps_signal">Vá fora e encontre um lugar desobstruído do céu.</string>
+    <string name="activity_recognition">Reconhecimento de atividades</string>
+    <string name="background_location_permission">Localização (Permitir sempre)</string>
+    <string name="grant_permission">Conceder a permissão de %s</string>
+    <string name="no_resolution">Nenhuma resolução</string>
+    <string name="tools_might_not_work">Essas ferramentas podem não funcionar:</string>
+    <string name="sighting_compass">Bússola de observação</string>
+    <string name="no_issues">Nenhum problema detectado</string>
+    <string name="notifications_blocked">Notificações bloqueadas</string>
+    <string name="on">Ligado</string>
+    <string name="overridden">Substituído</string>
+    <string name="update">Atualizar</string>
+    <string name="battery_usage_restricted">Uso da bateria é restrito</string>
+    <string name="diagnostics">Diagnóstico</string>
+    <string name="no_permission">Permissão não concedida</string>
+    <string name="camera">Câmera</string>
+    <string name="quarter_moon">Quarto Crescente</string>
+    <string name="gps_signal_lost">Sinal do GPS perdido</string>
+    <string name="altitude_history_length">Histórico de altitude</string>
+    <string name="last_duration">Último %s</string>
 </resources>

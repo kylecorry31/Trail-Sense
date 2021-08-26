@@ -989,4 +989,5 @@
     <string name="no_permission">未授予权限</string>
     <string name="camera">相机</string>
     <string name="quarter_moon">上弦月</string>
+    <string name="autofill">自动填充</string>
 </resources>
