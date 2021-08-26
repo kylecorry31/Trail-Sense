@@ -3,18 +3,16 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.math.toFloatCompat
 import com.kylecorry.andromeda.core.math.toIntCompat
+import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trailsensecore.domain.weather.ISeaLevelPressureConverter
-import com.kylecorry.trailsensecore.domain.weather.KalmanSeaLevelPressureConverter
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
-import kotlin.math.pow
 
 class WeatherPreferences(private val context: Context) {
 
@@ -30,27 +28,11 @@ class WeatherPreferences(private val context: Context) {
             cache.putBoolean(context.getString(R.string.pref_monitor_weather), value)
         }
 
-    val useExperimentalCalibration: Boolean
-        get() {
-            return cache.getBoolean(context.getString(R.string.pref_experimental_barometer_calibration))
-                ?: false
-        }
-
-    val experimentalConverter: ISeaLevelPressureConverter?
-        get() {
-            if (!useExperimentalCalibration) {
-                return null
-            }
-            return KalmanSeaLevelPressureConverter(
-                altitudeOutlierThreshold = altitudeOutlier,
-                defaultGPSError = if (useAltitudeVariance) 34f.pow(2) else 34f,
-                defaultPressureError = 1f,
-                pressureProcessError = (1 - pressureSmoothing / 100f).pow(4) * 0.1f,
-                altitudeProcessError = (1 - altitudeSmoothing / 100f).pow(4) * 10f,
-                adjustWithTime = true,
-                replaceLastOutlier = true
-            )
-        }
+    val useExperimentalCalibration by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_experimental_barometer_calibration),
+        false
+    )
 
     val useAltitudeVariance: Boolean = true
 

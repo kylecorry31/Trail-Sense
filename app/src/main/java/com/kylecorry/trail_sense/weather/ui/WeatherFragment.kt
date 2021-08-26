@@ -359,15 +359,15 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private fun getCurrentPressure(): PressureReading {
         return if (useSeaLevelPressure) {
-            weatherForecastService.getSeaLevelPressure(
-                PressureAltitudeReading(
-                    Instant.now(),
-                    barometer.pressure,
-                    altimeter.altitude,
-                    thermometer.temperature,
-                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
-                ), readingHistory
+            val reading = PressureAltitudeReading(
+                Instant.now(),
+                barometer.pressure,
+                altimeter.altitude,
+                thermometer.temperature,
+                if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
             )
+            weatherService.calibrate(readingHistory + listOf(reading), prefs).lastOrNull()
+                ?: reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
         } else {
             PressureReading(Instant.now(), barometer.pressure)
         }

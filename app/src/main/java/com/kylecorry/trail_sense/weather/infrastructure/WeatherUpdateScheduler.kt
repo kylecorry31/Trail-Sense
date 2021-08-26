@@ -19,7 +19,7 @@ object WeatherUpdateScheduler {
     }
 
     fun stop(context: Context) {
-        Notify.cancel(context, WeatherNotificationService.WEATHER_NOTIFICATION_ID)
+        Notify.cancel(context, WEATHER_NOTIFICATION_ID)
         val scheduler = getScheduler(context)
         scheduler.cancel()
         context.stopService(WeatherUpdateService.intent(context))
@@ -28,4 +28,6 @@ object WeatherUpdateScheduler {
     fun getScheduler(context: Context): ITaskScheduler {
         return WeatherUpdateWorker.scheduler(context)
     }
+
+    const val WEATHER_NOTIFICATION_ID = 1
 }

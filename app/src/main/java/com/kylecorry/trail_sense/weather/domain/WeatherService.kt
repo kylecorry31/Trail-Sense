@@ -53,7 +53,6 @@ class WeatherService(
         readings: List<PressureAltitudeReading>,
         prefs: UserPreferences
     ): List<PressureReading> {
-
         val calibrationStrategy = SeaLevelCalibrationFactory().create(prefs)
         return calibrationStrategy.calibrate(readings)
     }
