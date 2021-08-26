@@ -6,9 +6,13 @@ import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.kylecorry.andromeda.core.system.Resources
 
 
@@ -16,6 +20,8 @@ class SimpleLineChart(
     private val chart: LineChart,
     emptyText: String = ""
 ) {
+
+    private var onValueSelectedListener: OnChartValueSelectedListener? = null
 
     init {
         chart.description.isEnabled = false
@@ -52,7 +58,8 @@ class SimpleLineChart(
         maximum: Float? = null,
         granularity: Float? = null,
         labelCount: Int? = null,
-        drawGridLines: Boolean = true
+        drawGridLines: Boolean = true,
+        labelFormatter: ((value: Float) -> String)?
     ) {
         if (minimum != null) {
             chart.axisLeft.axisMinimum = minimum
@@ -82,6 +89,12 @@ class SimpleLineChart(
             chart.axisLeft.setLabelCount(6, false)
         }
 
+        chart.axisLeft.valueFormatter = object : ValueFormatter() {
+            override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                return labelFormatter?.invoke(value) ?: ""
+            }
+        }
+
         chart.axisLeft.setDrawGridLines(drawGridLines)
     }
 
@@ -90,7 +103,8 @@ class SimpleLineChart(
         maximum: Float? = null,
         granularity: Float? = null,
         labelCount: Int? = null,
-        drawGridLines: Boolean = false
+        drawGridLines: Boolean = false,
+        labelFormatter: ((value: Float) -> String)?
     ) {
         if (minimum != null) {
             chart.xAxis.axisMinimum = minimum
@@ -120,6 +134,12 @@ class SimpleLineChart(
             chart.xAxis.setLabelCount(6, false)
         }
 
+        chart.xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                return labelFormatter?.invoke(value) ?: ""
+            }
+        }
+
         chart.xAxis.setDrawGridLines(drawGridLines)
     }
 
@@ -147,5 +167,29 @@ class SimpleLineChart(
 
     fun plotIndexed(data: List<Float>, @ColorInt color: Int, filled: Boolean = false) {
         plot(data.mapIndexed { index, value -> index.toFloat() to value }, color, filled)
+    }
+
+    fun setOnValueSelectedListener(listener: ((point: Pair<Float, Float>?) -> Unit)?) {
+        if (listener == null) {
+            chart.setTouchEnabled(false)
+            chart.setOnChartValueSelectedListener(null)
+        } else {
+            chart.setTouchEnabled(true)
+            onValueSelectedListener = object : OnChartValueSelectedListener {
+                override fun onValueSelected(e: Entry?, h: Highlight?) {
+                    if (e == null) {
+                        listener.invoke(null)
+                        return
+                    }
+                    listener.invoke(e.x to e.y)
+                }
+
+                override fun onNothingSelected() {
+                    listener.invoke(null)
+                }
+
+            }
+            chart.setOnChartValueSelectedListener(onValueSelectedListener)
+        }
     }
 }
