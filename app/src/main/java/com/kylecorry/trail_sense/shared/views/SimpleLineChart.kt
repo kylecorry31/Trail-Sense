@@ -59,7 +59,7 @@ class SimpleLineChart(
         granularity: Float? = null,
         labelCount: Int? = null,
         drawGridLines: Boolean = true,
-        labelFormatter: ((value: Float) -> String)?
+        labelFormatter: ((value: Float) -> String)? = null
     ) {
         if (minimum != null) {
             chart.axisLeft.axisMinimum = minimum
@@ -104,7 +104,7 @@ class SimpleLineChart(
         granularity: Float? = null,
         labelCount: Int? = null,
         drawGridLines: Boolean = false,
-        labelFormatter: ((value: Float) -> String)?
+        labelFormatter: ((value: Float) -> String)? = null
     ) {
         if (minimum != null) {
             chart.xAxis.axisMinimum = minimum

@@ -20,7 +20,6 @@ import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
-import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import java.time.Duration
 import java.time.Instant
@@ -40,7 +39,6 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     var backtrackPoints: List<PathPoint>? = null
     var currentAltitude: AltitudeReading? = null
 
-    // TODO: Allow user configuration of this (maybe directly from the sheet)
     private var maxHistoryDuration = Duration.ofDays(1)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
