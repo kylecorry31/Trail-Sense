@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.weather.infrastructure.persistence
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
 
 @Dao
 interface PressureReadingDao {

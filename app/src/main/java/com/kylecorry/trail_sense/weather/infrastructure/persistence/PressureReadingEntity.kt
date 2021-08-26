@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.domain
+package com.kylecorry.trail_sense.weather.infrastructure.persistence
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

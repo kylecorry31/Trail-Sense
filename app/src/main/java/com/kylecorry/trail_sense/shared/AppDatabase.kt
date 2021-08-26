@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.tools.packs.infrastructure.*
 import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDao
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDatabaseMigrationSharedPrefWorker
-import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureDatabaseMigrationWorker
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingDao
 import java.io.File
