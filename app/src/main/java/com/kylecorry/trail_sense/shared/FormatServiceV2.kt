@@ -275,9 +275,9 @@ class FormatServiceV2(private val context: Context) {
         }
     }
 
-    fun formatPressure(pressure: Pressure, decimalPlaces: Int = 0): String {
+    fun formatPressure(pressure: Pressure, decimalPlaces: Int = 0, strict: Boolean = true): String {
         val symbol = getPressureUnitString(pressure.units)
-        val amt = DecimalFormatter.format(pressure.pressure.toDouble(), decimalPlaces)
+        val amt = DecimalFormatter.format(pressure.pressure, decimalPlaces, strict)
         return context.getString(R.string.pressure_format, amt, symbol)
     }
 

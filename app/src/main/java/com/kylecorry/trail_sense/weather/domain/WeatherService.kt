@@ -1,9 +1,8 @@
 package com.kylecorry.trail_sense.weather.domain
 
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster
-import com.kylecorry.trail_sense.weather.domain.sealevel.AltimeterSeaLevelPressureConverter
-import com.kylecorry.trail_sense.weather.domain.sealevel.DwellAltitudeCalculator
-import com.kylecorry.trail_sense.weather.domain.sealevel.PressureDwellAltitudeCalculator
+import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trailsensecore.domain.weather.*
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import java.time.Duration
@@ -12,9 +11,7 @@ import java.time.Instant
 class WeatherService(
     private val stormThreshold: Float,
     dailyForecastChangeThreshold: Float,
-    private val hourlyForecastChangeThreshold: Float,
-    private val adjustSeaLevelWithBarometer: Boolean = true,
-    private val adjustSeaLevelWithTemp: Boolean = false
+    private val hourlyForecastChangeThreshold: Float
 ) {
     private val longTermForecaster = DailyForecaster(dailyForecastChangeThreshold)
     private val newWeatherService: IWeatherService = WeatherService()
@@ -52,35 +49,13 @@ class WeatherService(
         return newWeatherService.getTendency(last, current, hourlyForecastChangeThreshold)
     }
 
-    fun convertToSeaLevel(
+    fun calibrate(
         readings: List<PressureAltitudeReading>,
-        requiresDwell: Boolean,
-        maxAltitudeChange: Float,
-        maxPressureChange: Float,
-        experimentalConverter: ISeaLevelPressureConverter?,
-        onTheWallMode: Boolean
+        prefs: UserPreferences
     ): List<PressureReading> {
 
-        if (onTheWallMode){
-            return readings.map { it.seaLevel(adjustSeaLevelWithTemp) }
-        }
-
-        if (experimentalConverter != null) {
-//            val r = readings.map { it.copy(altitudeError = it.altitudeError?.pow(2)) }
-            return experimentalConverter.convert(readings, adjustSeaLevelWithTemp)
-        }
-
-        val seaLevelConverter = AltimeterSeaLevelPressureConverter(
-            if (adjustSeaLevelWithBarometer) PressureDwellAltitudeCalculator(
-                Duration.ofHours(1),
-                maxAltitudeChange, maxPressureChange / 3f
-            ) else DwellAltitudeCalculator(
-                Duration.ofHours(1),
-                maxAltitudeChange
-            ),
-            adjustSeaLevelWithTemp
-        )
-        return seaLevelConverter.convert(readings, !requiresDwell)
+        val calibrationStrategy = SeaLevelCalibrationFactory().create(prefs)
+        return calibrationStrategy.calibrate(readings)
     }
 
     fun getHeatIndex(tempCelsius: Float, relativeHumidity: Float): Float {

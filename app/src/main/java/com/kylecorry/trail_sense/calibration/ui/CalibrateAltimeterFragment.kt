@@ -22,7 +22,7 @@ import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.weather.domain.WeatherService
+import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import java.time.Instant
 
@@ -107,7 +107,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
                 Distance.meters(prefs.altitudeOverride).convertTo(distanceUnits),
                 it.title.toString()
             ) {
-                if (it != null){
+                if (it != null) {
                     prefs.altitudeOverride = it.meters().distance
                     updateAltitude()
                 }
@@ -186,22 +186,17 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
     private fun onSeaLevelPressureOverrideCallback(): Boolean {
         val altitude = prefs.altitudeOverride
-        val seaLevel = WeatherService(0f, 0f, 0f).convertToSeaLevel(
-            listOf(
-                PressureAltitudeReading(
-                    Instant.now(),
-                    barometer.pressure,
-                    altitude,
-                    16f,
-                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
-                )
-            ),
-            prefs.weather.requireDwell,
-            prefs.weather.maxNonTravellingAltitudeChange,
-            prefs.weather.maxNonTravellingPressureChange,
-            prefs.weather.experimentalConverter,
-            prefs.altimeterMode == UserPreferences.AltimeterMode.Override
-        ).first()
+        val calibrator = SeaLevelCalibrationFactory().create(prefs)
+        val readings = listOf(
+            PressureAltitudeReading(
+                Instant.now(),
+                barometer.pressure,
+                altitude,
+                16f,
+                if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
+            )
+        )
+        val seaLevel = calibrator.calibrate(readings).first()
         prefs.seaLevelPressureOverride = seaLevel.value
         restartAltimeter()
         return false

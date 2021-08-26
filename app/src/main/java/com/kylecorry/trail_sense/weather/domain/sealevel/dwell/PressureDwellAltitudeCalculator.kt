@@ -1,30 +1,45 @@
-package com.kylecorry.trail_sense.weather.domain.sealevel
+package com.kylecorry.trail_sense.weather.domain.sealevel.dwell
 
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import java.time.Duration
 import kotlin.math.abs
 
-internal class DwellAltitudeCalculator(private val dwellThreshold: Duration, private val changeThreshold: Float) : IAltitudeCalculator {
-    override fun convert(readings: List<PressureAltitudeReading>, interpolateAltitudeChanges: Boolean): List<AltitudeReading> {
+internal class PressureDwellAltitudeCalculator(
+    private val dwellThreshold: Duration,
+    private val changeThreshold: Float,
+    private val pressureChangeThreshold: Float
+) : IAltitudeCalculator {
+    override fun convert(
+        readings: List<PressureAltitudeReading>,
+        interpolateAltitudeChanges: Boolean
+    ): List<AltitudeReading> {
 
         if (readings.size <= 1) {
             return readings.map { AltitudeReading(it.time, it.altitude) }
         }
 
+        var lastReading = readings.first()
+
         val groups = mutableListOf<MutableList<AltitudeReading>>()
         for (reading in readings) {
             if (groups.isEmpty()) {
                 groups.add(mutableListOf(AltitudeReading(reading.time, reading.altitude)))
+                lastReading = reading
                 continue
             }
 
             val lastGroup = groups.last()
-            if (abs(lastGroup.first().value - reading.altitude) < changeThreshold) {
-                lastGroup.add(AltitudeReading(reading.time, reading.altitude))
-            } else {
+            val dt = Duration.between(lastReading.time, reading.time).toMillis() * MILLIS_TO_HOURS
+            val dp = (reading.pressure - lastReading.pressure) / dt
+
+            if (abs(lastGroup.first().value - reading.altitude) > changeThreshold && (abs(dp) > pressureChangeThreshold && dt > 1000 * 60 * MILLIS_TO_HOURS)) {
                 groups.add(mutableListOf(AltitudeReading(reading.time, reading.altitude)))
+            } else {
+                lastGroup.add(AltitudeReading(reading.time, reading.altitude))
             }
+
+            lastReading = reading
         }
 
         for (group in groups) {
@@ -98,5 +113,9 @@ internal class DwellAltitudeCalculator(private val dwellThreshold: Duration, pri
             }
         }
         return fallback
+    }
+
+    companion object {
+        private const val MILLIS_TO_HOURS = 1f / (1000f * 60f * 60f)
     }
 }

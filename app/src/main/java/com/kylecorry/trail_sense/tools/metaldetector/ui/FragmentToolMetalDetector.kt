@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.buzz.Buzz
+import com.kylecorry.andromeda.core.math.LowPassFilter
 import com.kylecorry.andromeda.core.math.Quaternion
 import com.kylecorry.andromeda.core.math.Vector3
 import com.kylecorry.andromeda.core.system.Resources
@@ -20,7 +21,6 @@ import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
 import com.kylecorry.trail_sense.shared.FormatServiceV2
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.weather.domain.LowPassFilter
 import com.kylecorry.trailsensecore.domain.metaldetection.MetalDetectionService
 import java.time.Duration
 import kotlin.math.roundToInt

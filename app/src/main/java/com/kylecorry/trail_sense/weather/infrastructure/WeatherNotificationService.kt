@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.hardware.SensorManager
+import com.kylecorry.andromeda.core.units.Pressure
 import com.kylecorry.andromeda.core.units.PressureUnits
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
@@ -20,6 +21,7 @@ import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import java.time.Instant
 
+// TODO: This class shouldn't exist
 object WeatherNotificationService {
 
     const val WEATHER_NOTIFICATION_ID = 1
@@ -75,7 +77,10 @@ object WeatherNotificationService {
             else -> R.drawable.steady
         }
 
-        val description = formatService.formatShortTermWeather(forecast, prefs.weather.useRelativeWeatherPredictions)
+        val description = formatService.formatShortTermWeather(
+            forecast,
+            prefs.weather.useRelativeWeatherPredictions
+        )
 
         val newNotification = getNotification(
             context,
@@ -98,13 +103,9 @@ object WeatherNotificationService {
         if (pressure == null) {
             return "?"
         }
-        val symbol = getPressureUnitString(context, units)
-        val format = PressureUnitUtils.getDecimalFormat(units)
-        return context.getString(
-            R.string.pressure_format,
-            format.format(PressureUnitUtils.convert(pressure, units)),
-            symbol
-        )
+        val formatService = FormatServiceV2(context)
+        val p = Pressure(pressure, PressureUnits.Hpa).convertTo(units)
+        return formatService.formatPressure(p, PressureUnitUtils.getDecimalPlaces(units), false)
     }
 
     private fun getTendencyString(
@@ -112,22 +113,16 @@ object WeatherNotificationService {
         tendency: PressureTendency,
         units: PressureUnits
     ): String {
-        val symbol = getPressureUnitString(context, units)
-        val format = PressureUnitUtils.getTendencyDecimalFormat(units)
-        val formattedTendencyAmount =
-            format.format(PressureUnitUtils.convert(tendency.amount, units))
-        return context.getString(R.string.pressure_tendency_format, formattedTendencyAmount, symbol)
+        val formatService = FormatServiceV2(context)
+        val pressure = Pressure(tendency.amount, PressureUnits.Hpa).convertTo(units)
+        val formatted = formatService.formatPressure(
+            pressure,
+            PressureUnitUtils.getDecimalPlaces(units) + 1,
+            false
+        )
+        return context.getString(R.string.pressure_tendency_format_2, formatted)
     }
 
-    private fun getPressureUnitString(context: Context, unit: PressureUnits): String {
-        return when (unit) {
-            PressureUnits.Hpa -> context.getString(R.string.units_hpa)
-            PressureUnits.Mbar -> context.getString(R.string.units_mbar)
-            PressureUnits.Inhg -> context.getString(R.string.units_inhg_short)
-            PressureUnits.Psi -> context.getString(R.string.units_psi)
-            PressureUnits.MmHg -> context.getString(R.string.units_mmhg_short)
-        }
-    }
 
     private fun updateNotificationText(context: Context, notification: Notification) {
         Notify.send(context, WEATHER_NOTIFICATION_ID, notification)

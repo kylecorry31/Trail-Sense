@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.weather.domain
 
 import com.kylecorry.andromeda.core.units.Pressure
 import com.kylecorry.andromeda.core.units.PressureUnits
-import java.text.DecimalFormat
 
 /**
  * A collection of weather utilities
@@ -19,17 +18,8 @@ object PressureUnitUtils {
         return Pressure(pressure, PressureUnits.Hpa).convertTo(units).pressure
     }
 
-    fun getDecimalFormat(units: PressureUnits): DecimalFormat {
-        return when(units){
-            PressureUnits.Hpa, PressureUnits.Mbar, PressureUnits.MmHg -> DecimalFormat("0")
-            else -> DecimalFormat("0.##")
-        }
-    }
-
-    fun getTendencyDecimalFormat(units: PressureUnits): DecimalFormat {
-        return when(units){
-            PressureUnits.Hpa, PressureUnits.Mbar, PressureUnits.MmHg -> DecimalFormat("0.#")
-            else -> DecimalFormat("0.###")
-        }
+    fun getDecimalPlaces(units: PressureUnits): Int {
+        val isLarge = listOf(PressureUnits.Psi, PressureUnits.Inhg).contains(units)
+        return if (isLarge) 2 else 0
     }
 }

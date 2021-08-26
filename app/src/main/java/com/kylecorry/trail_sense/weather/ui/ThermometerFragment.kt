@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.MovingAverageFilter
@@ -39,9 +38,7 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
         WeatherService(
             prefs.weather.stormAlertThreshold,
             prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold,
-            prefs.weather.seaLevelFactorInRapidChanges,
-            prefs.weather.seaLevelFactorInTemp
+            prefs.weather.hourlyForecastChangeThreshold
         )
     }
 

@@ -13,6 +13,8 @@ import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.sensors.read
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.units.Pressure
+import com.kylecorry.andromeda.core.units.PressureUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.trail_sense.R
@@ -26,11 +28,8 @@ import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.domain.PressureReadingEntity
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
-import com.kylecorry.trail_sense.weather.domain.sealevel.NullPressureConverter
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
-import com.kylecorry.andromeda.core.units.Pressure
-import com.kylecorry.andromeda.core.units.PressureUnits
 import com.kylecorry.trailsensecore.domain.weather.*
 import kotlinx.coroutines.*
 import java.time.Duration
@@ -86,9 +85,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         weatherService = WeatherService(
             prefs.weather.stormAlertThreshold,
             prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold,
-            prefs.weather.seaLevelFactorInRapidChanges,
-            prefs.weather.seaLevelFactorInTemp
+            prefs.weather.hourlyForecastChangeThreshold
         )
 
         chart = PressureChart(
@@ -203,11 +200,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             return
         }
 
-        val readings = if (useSeaLevelPressure) {
-            getSeaLevelPressureHistory()
-        } else {
-            getPressureHistory()
-        }
+        val readings = getCalibratedPressures()
 
         displayChart(readings)
 
@@ -237,8 +230,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         )
     }
 
-    private fun getSeaLevelPressureHistory(includeCurrent: Boolean = false): List<PressureReading> {
-        val readings = getReadingHistory().toMutableList()
+    private fun getCalibratedPressures(includeCurrent: Boolean = false): List<PressureReading> {
+        val readings = readingHistory.toMutableList()
         if (includeCurrent) {
             readings.add(
                 PressureAltitudeReading(
@@ -251,28 +244,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             )
         }
 
-        return weatherService.convertToSeaLevel(
-            readings, prefs.weather.requireDwell, prefs.weather.maxNonTravellingAltitudeChange,
-            prefs.weather.maxNonTravellingPressureChange,
-            prefs.weather.experimentalConverter,
-            prefs.altimeterMode == UserPreferences.AltimeterMode.Override
-        )
-    }
-
-    private fun getPressureHistory(includeCurrent: Boolean = false): List<PressureReading> {
-        val readings = getReadingHistory().toMutableList()
-        if (includeCurrent) {
-            readings.add(
-                PressureAltitudeReading(
-                    Instant.now(),
-                    barometer.pressure,
-                    altimeter.altitude,
-                    thermometer.temperature,
-                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
-                )
-            )
-        }
-        return NullPressureConverter().convert(readings)
+        return weatherService.calibrate(readings, prefs)
     }
 
     private fun displayChart(readings: List<PressureReading>) {
@@ -356,9 +328,16 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         withContext(Dispatchers.Main) {
-            binding.weatherNowLbl.text = formatServiceV2.formatShortTermWeather(hourly, prefs.weather.useRelativeWeatherPredictions)
-            binding.weatherNowPredictionLbl.isVisible = !prefs.weather.useRelativeWeatherPredictions && hourly != Weather.Storm
-            binding.weatherNowPredictionLbl.text = getString(R.string.weather_prediction, formatServiceV2.formatShortTermWeather(hourly, true))
+            binding.weatherNowLbl.text = formatServiceV2.formatShortTermWeather(
+                hourly,
+                prefs.weather.useRelativeWeatherPredictions
+            )
+            binding.weatherNowPredictionLbl.isVisible =
+                !prefs.weather.useRelativeWeatherPredictions && hourly != Weather.Storm
+            binding.weatherNowPredictionLbl.text = getString(
+                R.string.weather_prediction,
+                formatServiceV2.formatShortTermWeather(hourly, true)
+            )
             binding.weatherNowImg.setImageResource(
                 getWeatherImage(
                     hourly,
@@ -402,10 +381,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private fun convertPressure(pressure: PressureReading): PressureReading {
         val converted = Pressure(pressure.value, PressureUnits.Hpa).convertTo(units).pressure
         return pressure.copy(value = converted)
-    }
-
-    private fun getReadingHistory(): List<PressureAltitudeReading> {
-        return readingHistory
     }
 
     private fun getWeatherImage(weather: Weather, currentPressure: PressureReading): Int {

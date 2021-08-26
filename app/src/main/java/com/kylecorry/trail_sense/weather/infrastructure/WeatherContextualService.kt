@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.Context
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.WeatherService
+import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
@@ -58,7 +59,9 @@ class WeatherContextualService private constructor(private val context: Context)
             .map { it.toPressureAltitudeReading() }
             .sortedBy { it.time }
             .filter { it.time <= Instant.now() }
-        return PressureCalibrationUtils.calibratePressures(context, readings)
+
+        val calibrator = SeaLevelCalibrationFactory().create(prefs)
+        return calibrator.calibrate(readings)
     }
 
     suspend fun getTemperatureHistory(): List<Pair<Instant, Float>> {
@@ -75,8 +78,12 @@ class WeatherContextualService private constructor(private val context: Context)
             .filter { it.first <= Instant.now() }
     }
 
-    fun getSeaLevelPressure(reading: PressureAltitudeReading, history: List<PressureAltitudeReading> = listOf()): PressureReading {
-        val readings = PressureCalibrationUtils.calibratePressures(context, history + listOf(reading), true)
+    fun getSeaLevelPressure(
+        reading: PressureAltitudeReading,
+        history: List<PressureAltitudeReading> = listOf()
+    ): PressureReading {
+        val calibrator = SeaLevelCalibrationFactory().create(prefs)
+        val readings = calibrator.calibrate(history + listOf(reading))
         return readings.lastOrNull() ?: reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
     }
 
@@ -116,9 +123,7 @@ class WeatherContextualService private constructor(private val context: Context)
         weatherService = WeatherService(
             prefs.weather.stormAlertThreshold,
             prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold,
-            prefs.weather.seaLevelFactorInRapidChanges,
-            prefs.weather.seaLevelFactorInTemp
+            prefs.weather.hourlyForecastChangeThreshold
         )
     }
 
