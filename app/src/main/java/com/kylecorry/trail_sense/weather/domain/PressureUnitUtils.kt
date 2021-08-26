@@ -21,14 +21,14 @@ object PressureUnitUtils {
 
     fun getDecimalFormat(units: PressureUnits): DecimalFormat {
         return when(units){
-            PressureUnits.Hpa, PressureUnits.Mbar -> DecimalFormat("0")
+            PressureUnits.Hpa, PressureUnits.Mbar, PressureUnits.MmHg -> DecimalFormat("0")
             else -> DecimalFormat("0.##")
         }
     }
 
     fun getTendencyDecimalFormat(units: PressureUnits): DecimalFormat {
         return when(units){
-            PressureUnits.Hpa, PressureUnits.Mbar -> DecimalFormat("0.#")
+            PressureUnits.Hpa, PressureUnits.Mbar, PressureUnits.MmHg -> DecimalFormat("0.#")
             else -> DecimalFormat("0.###")
         }
     }
