@@ -198,7 +198,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         } else {
             binding.createMenu.hide()
         }
-        binding.createBtn.setImageResource(if (!isShowing) R.drawable.ic_plus else R.drawable.ic_cancel)
+        binding.createBtn.setImageResource(if (!isShowing) R.drawable.ic_add else R.drawable.ic_cancel)
     }
 
     private fun isCreateMenuOpen(): Boolean {

@@ -16,6 +16,7 @@ import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
 import com.kylecorry.trail_sense.databinding.ListItemToolBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 
 
 class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
@@ -43,6 +44,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
                 toolBinding.icon.isVisible = true
                 toolBinding.description.isVisible = tool.description != null
                 toolBinding.icon.setImageResource(tool.icon)
+                CustomUiUtils.setImageColor(toolBinding.icon, Resources.androidTextColorSecondary(requireContext()))
                 toolBinding.root.setOnClickListener {
                     tryOrNothing {
                         findNavController().navigate(tool.action)

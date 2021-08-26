@@ -43,7 +43,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 val itemBinding = ListItemPlainIconBinding.bind(itemView)
                 itemBinding.title.text = getCodeTitle(code)
                 itemBinding.description.text = getCodeDescription(code)
-                itemBinding.icon.setImageResource(android.R.drawable.stat_notify_error)
+                itemBinding.icon.setImageResource(R.drawable.ic_alert)
                 CustomUiUtils.setImageColor(itemBinding.icon, getStatusTint(code.severity))
                 itemBinding.root.setOnClickListener {
                     val action = getAction(code)

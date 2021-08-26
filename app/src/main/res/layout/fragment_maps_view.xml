@@ -59,7 +59,7 @@
         app:fabSize="mini"
         app:layout_constraintBottom_toTopOf="@+id/zoom_out_btn"
         app:layout_constraintStart_toStartOf="@+id/zoom_out_btn"
-        app:srcCompat="@drawable/ic_plus" />
+        app:srcCompat="@drawable/ic_add" />
 
     <com.kylecorry.trail_sense.shared.views.BeaconDestinationView
         android:id="@+id/navigation_sheet"

@@ -36,7 +36,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="16dp"
-            android:src="@android:drawable/stat_notify_error"
+            android:src="@drawable/ic_alert"
             app:tint="@color/red" />
 
         <TextView

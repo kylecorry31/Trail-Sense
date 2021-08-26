@@ -21,7 +21,7 @@ class FloatingActionButtonMenuItem(context: Context, attrs: AttributeSet?) : Fra
         textView = findViewById(R.id.fab_text)
         fab = findViewById(R.id.fab)
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.FloatingActionButtonMenuItem, 0, 0)
-        setImageResource(a.getResourceId(R.styleable.FloatingActionButtonMenuItem_android_src, R.drawable.ic_plus))
+        setImageResource(a.getResourceId(R.styleable.FloatingActionButtonMenuItem_android_src, R.drawable.ic_add))
         textView.text = a.getString(R.styleable.FloatingActionButtonMenuItem_android_text)
         // TODO: Allow background and icon color
         a.recycle()
