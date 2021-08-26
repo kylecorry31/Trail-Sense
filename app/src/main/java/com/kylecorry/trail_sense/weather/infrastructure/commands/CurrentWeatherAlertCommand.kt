@@ -27,12 +27,12 @@ class CurrentWeatherAlertCommand(
     private val hourly: Weather,
     private val tendency: PressureTendency,
     private val lastReading: PressureReading?
-) {
+) : IWeatherAlertCommand {
 
     private val prefs by lazy { UserPreferences(context) }
     private val formatService by lazy { FormatServiceV2(context) }
 
-    fun execute() {
+    override fun execute() {
         if (prefs.weather.shouldShowWeatherNotification) {
             updateNotificationForecast(
                 hourly,

@@ -12,11 +12,12 @@ import com.kylecorry.trailsensecore.domain.weather.Weather
 import java.time.LocalDate
 import java.time.LocalTime
 
-class DailyWeatherAlertCommand(private val context: Context, private val forecast: Weather) {
+class DailyWeatherAlertCommand(private val context: Context, private val forecast: Weather) :
+    IWeatherAlertCommand {
 
     private val prefs by lazy { UserPreferences(context) }
 
-    fun execute() {
+    override fun execute() {
         if (!prefs.weather.shouldShowDailyWeatherNotification) {
             return
         }

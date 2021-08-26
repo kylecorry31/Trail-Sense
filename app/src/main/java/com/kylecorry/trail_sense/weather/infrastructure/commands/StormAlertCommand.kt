@@ -10,12 +10,13 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
 import com.kylecorry.trailsensecore.domain.weather.Weather
 
-class StormAlertCommand(private val context: Context, private val forecast: Weather) {
+class StormAlertCommand(private val context: Context, private val forecast: Weather) :
+    IWeatherAlertCommand {
 
     private val cache by lazy { Preferences(context) }
     private val prefs by lazy { UserPreferences(context) }
 
-    fun execute() {
+    override fun execute() {
         val sentAlert = cache.getBoolean(context.getString(R.string.pref_just_sent_alert)) ?: false
 
         if (forecast == Weather.Storm) {

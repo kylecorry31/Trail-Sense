@@ -115,10 +115,14 @@ class WeatherUpdateService : CoroutineForegroundService() {
             lastReading = weatherForecastService.getLastReading()
         }
 
+        val commands = listOf(
+            DailyWeatherAlertCommand(this@WeatherUpdateService, daily),
+            StormAlertCommand(this@WeatherUpdateService, hourly),
+            CurrentWeatherAlertCommand(this@WeatherUpdateService, hourly, tendency, lastReading),
+        )
+
         withContext(Dispatchers.Main) {
-            DailyWeatherAlertCommand(this@WeatherUpdateService, daily).execute()
-            StormAlertCommand(this@WeatherUpdateService, hourly).execute()
-            CurrentWeatherAlertCommand(this@WeatherUpdateService, hourly, tendency, lastReading).execute()
+            commands.forEach { it.execute() }
         }
     }
 
