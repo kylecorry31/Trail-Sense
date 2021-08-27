@@ -90,7 +90,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             if (timeAgo == null || pressure == null) {
                 binding.pressureMarker.text = ""
             } else {
-                val formatted = formatService.formatPressure(Pressure(pressure, units))
+                val formatted = formatService.formatPressure(Pressure(pressure, units), PressureUnitUtils.getDecimalPlaces(units))
                 binding.pressureMarker.text = getString(
                     R.string.pressure_reading_time_ago,
                     formatted,
@@ -209,7 +209,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private fun displaySetpoint(setpoint: PressureReading) {
         val formatted = formatService.formatPressure(
-            Pressure(setpoint.value, PressureUnits.Hpa).convertTo(units)
+            Pressure(setpoint.value, PressureUnits.Hpa).convertTo(units),
+            PressureUnitUtils.getDecimalPlaces(units)
         )
 
         val timeAgo = Duration.between(setpoint.time, Instant.now())
@@ -291,7 +292,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private fun displayTendency(tendency: PressureTendency) {
         val formatted = formatService.formatPressure(
-            Pressure(tendency.amount, PressureUnits.Hpa).convertTo(units)
+            Pressure(tendency.amount, PressureUnits.Hpa).convertTo(units),
+            PressureUnitUtils.getDecimalPlaces(units) + 1
         )
         binding.tendencyAmount.text =
             getString(R.string.pressure_tendency_format_2, formatted)
@@ -366,14 +368,10 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private fun displayPressure(pressure: PressureReading) {
         val formatted = formatService.formatPressure(
-            Pressure(pressure.value, PressureUnits.Hpa).convertTo(units)
+            Pressure(pressure.value, PressureUnits.Hpa).convertTo(units),
+            PressureUnitUtils.getDecimalPlaces(units)
         )
         binding.pressure.text = formatted
-    }
-
-    private fun convertPressure(pressure: PressureReading): PressureReading {
-        val converted = Pressure(pressure.value, PressureUnits.Hpa).convertTo(units).pressure
-        return pressure.copy(value = converted)
     }
 
     private fun getWeatherImage(weather: Weather, currentPressure: PressureReading): Int {

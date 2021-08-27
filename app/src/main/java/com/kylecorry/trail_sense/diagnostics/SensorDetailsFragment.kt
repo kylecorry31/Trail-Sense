@@ -13,9 +13,7 @@ import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.andromeda.core.units.*
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.GPS
@@ -36,10 +34,7 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
-import com.kylecorry.andromeda.core.units.Pressure
-import com.kylecorry.andromeda.core.units.PressureUnits
-import com.kylecorry.andromeda.core.units.Temperature
-import com.kylecorry.andromeda.core.units.TemperatureUnits
+import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalTime
@@ -207,7 +202,10 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             Pressure(barometer.pressure, PressureUnits.Hpa).convertTo(prefs.pressureUnits)
         sensorDetailsMap["barometer"] = SensorDetails(
             getString(R.string.barometer),
-            formatService.formatPressure(pressure),
+            formatService.formatPressure(
+                pressure,
+                PressureUnitUtils.getDecimalPlaces(prefs.pressureUnits)
+            ),
             formatService.formatQuality(barometer.quality),
             CustomUiUtils.getQualityColor(barometer.quality),
             R.drawable.ic_weather

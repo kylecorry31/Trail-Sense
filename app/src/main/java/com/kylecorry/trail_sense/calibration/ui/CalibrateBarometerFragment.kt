@@ -128,7 +128,8 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                     Pressure(
                         prefs.weather.maxNonTravellingPressureChange,
                         PressureUnits.Hpa
-                    ).convertTo(prefs.pressureUnits)
+                    ).convertTo(units),
+                    PressureUnitUtils.getDecimalPlaces(units)
                 )
             )
 
@@ -172,7 +173,8 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             pressureChangeSeekBar?.summary =
                 (if (change == 0f) "" else "± ") + getString(
                     R.string.pressure_tendency_format_2, formatService.formatPressure(
-                        Pressure(change, PressureUnits.Hpa).convertTo(prefs.pressureUnits)
+                        Pressure(change, PressureUnits.Hpa).convertTo(units),
+                        PressureUnitUtils.getDecimalPlaces(units)
                     )
                 )
             true
@@ -329,7 +331,10 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         }
 
         pressureTxt?.summary =
-            formatService.formatPressure(Pressure(pressure, PressureUnits.Hpa).convertTo(units))
+            formatService.formatPressure(
+                Pressure(pressure, PressureUnits.Hpa).convertTo(units),
+                PressureUnitUtils.getDecimalPlaces(units)
+            )
     }
 
 

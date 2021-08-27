@@ -114,7 +114,7 @@ class CurrentWeatherAlertCommand(
             return "?"
         }
         val p = Pressure(pressure, PressureUnits.Hpa).convertTo(units)
-        return formatService.formatPressure(p, PressureUnitUtils.getDecimalPlaces(units), false)
+        return formatService.formatPressure(p, PressureUnitUtils.getDecimalPlaces(units))
     }
 
     private fun getTendencyString(
@@ -124,8 +124,7 @@ class CurrentWeatherAlertCommand(
         val pressure = Pressure(tendency.amount, PressureUnits.Hpa).convertTo(units)
         val formatted = formatService.formatPressure(
             pressure,
-            PressureUnitUtils.getDecimalPlaces(units) + 1,
-            false
+            PressureUnitUtils.getDecimalPlaces(units) + 1
         )
         return context.getString(R.string.pressure_tendency_format_2, formatted)
     }
