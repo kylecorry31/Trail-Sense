@@ -1,70 +1,53 @@
 package com.kylecorry.trail_sense.weather.ui
 
-import android.graphics.Color
-import androidx.core.graphics.blue
-import androidx.core.graphics.green
-import androidx.core.graphics.red
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.highlight.Highlight
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.kylecorry.andromeda.core.math.roundPlaces
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.andromeda.core.units.PressureUnits
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.views.SimpleLineChart
+import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import java.time.Duration
 import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
 
 
-class PressureChart(private val chart: LineChart, private val color: Int, private val selectionListener: IPressureChartSelectedListener? = null) {
+class PressureChart(
+    chart: LineChart,
+    private val selectionListener: ((timeAgo: Duration?, pressure: Float?) -> Unit)? = null
+) {
+
+
+    private val simpleChart = SimpleLineChart(chart, chart.context.getString(R.string.no_data))
 
     private var minRange = MIN_RANGE
     private var granularity = 1f
 
+    private val color = Resources.color(chart.context, R.color.colorPrimary)
+
     init {
-        chart.description.isEnabled = false
-        chart.setTouchEnabled(true)
-        chart.isDragEnabled = false
-        chart.setScaleEnabled(false)
-        chart.setDrawGridBackground(false)
-        chart.setDrawBorders(false)
+        simpleChart.configureYAxis(
+            granularity = granularity,
+            labelCount = 5,
+            drawGridLines = true
+        )
 
-        chart.xAxis.setDrawLabels(false)
-        chart.axisRight.setDrawLabels(false)
+        simpleChart.configureXAxis(
+            labelCount = 0,
+            drawGridLines = false
+        )
 
-        val primaryColor = Resources.androidTextColorPrimary(chart.context)
-        val r = primaryColor.red
-        val g = primaryColor.green
-        val b = primaryColor.blue
 
-        chart.xAxis.setDrawGridLines(false)
-        chart.axisLeft.setDrawGridLines(true)
-        chart.axisLeft.gridColor = Color.argb(50, r, g, b)
-        chart.axisLeft.textColor = Color.argb(150, r, g, b)
-        chart.axisLeft.setLabelCount(5, true)
-        chart.axisRight.setDrawGridLines(false)
-        chart.xAxis.setDrawAxisLine(false)
-        chart.axisLeft.setDrawAxisLine(false)
-        chart.axisRight.setDrawAxisLine(false)
-        chart.setNoDataText("")
-
-        chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
-            override fun onNothingSelected() {
-                selectionListener?.onNothingSelected()
+        simpleChart.setOnValueSelectedListener {
+            if (it == null) {
+                selectionListener?.invoke(null, null)
+                return@setOnValueSelectedListener
             }
-
-            override fun onValueSelected(e: Entry?, h: Highlight?) {
-                e ?: return
-                val seconds = e.x * 60 * 60
-                val duration = Duration.ofSeconds(seconds.absoluteValue.toLong())
-                selectionListener?.onValueSelected(duration, e.y)
-            }
-
-        })
+            val seconds = it.first * 60 * 60
+            val duration = Duration.ofSeconds(seconds.absoluteValue.toLong())
+            selectionListener?.invoke(duration, it.second)
+        }
     }
 
     fun setUnits(units: PressureUnits) {
@@ -73,37 +56,25 @@ class PressureChart(private val chart: LineChart, private val color: Int, privat
     }
 
     fun plot(data: List<Pair<Number, Number>>) {
-        val values = data.map { Entry(it.first.toFloat(), it.second.toFloat()) }
+        val values = data.map { it.first.toFloat() to it.second.toFloat() }
 
-        val pressures = data.map { it.second.toFloat() }
+        val pressures = values.map { it.second }
         var minPressure = pressures.minOrNull() ?: 0f
         var maxPressure = pressures.maxOrNull() ?: 0f
         val middle = (minPressure + maxPressure) / 2f
         minPressure = min(minPressure - granularity, middle - minRange / 2)
         maxPressure = max(maxPressure + granularity, middle + minRange / 2)
 
-        chart.axisLeft.axisMinimum = minPressure
-        chart.axisLeft.axisMaximum = maxPressure
-        chart.axisLeft.granularity = granularity
 
-        val set1 = LineDataSet(values, "Pressure")
-        set1.color = color
-        set1.fillAlpha = 180
-        set1.lineWidth = 3f
-        set1.setDrawValues(false)
-        set1.fillColor = color
-        set1.setCircleColor(color)
-        set1.setDrawCircleHole(false)
-        set1.setDrawCircles(true)
-        set1.circleRadius = 1.5f
-        set1.setDrawFilled(false)
+        simpleChart.configureYAxis(
+            minimum = minPressure,
+            maximum = maxPressure,
+            granularity = granularity,
+            labelCount = 5,
+            drawGridLines = true
+        )
 
-
-        val lineData = LineData(set1)
-        chart.data = lineData
-        chart.legend.isEnabled = false
-        chart.notifyDataSetChanged()
-        chart.invalidate()
+        simpleChart.plot(values, color)
     }
 
     companion object {

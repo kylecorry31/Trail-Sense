@@ -89,9 +89,13 @@ class SimpleLineChart(
             chart.axisLeft.setLabelCount(6, false)
         }
 
-        chart.axisLeft.valueFormatter = object : ValueFormatter() {
-            override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                return labelFormatter?.invoke(value) ?: ""
+        if (labelFormatter == null){
+            chart.axisLeft.valueFormatter = null
+        } else {
+            chart.axisLeft.valueFormatter = object : ValueFormatter() {
+                override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                    return labelFormatter.invoke(value)
+                }
             }
         }
 

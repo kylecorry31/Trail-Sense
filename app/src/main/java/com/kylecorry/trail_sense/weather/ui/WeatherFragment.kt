@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.sensors.read
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.units.Pressure
 import com.kylecorry.andromeda.core.units.PressureUnits
@@ -25,10 +24,10 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import com.kylecorry.trailsensecore.domain.weather.*
 import kotlinx.coroutines.*
@@ -88,28 +87,19 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             prefs.weather.hourlyForecastChangeThreshold
         )
 
-        chart = PressureChart(
-            binding.chart,
-            Resources.color(requireContext(), R.color.colorPrimary),
-            object : IPressureChartSelectedListener {
-                override fun onNothingSelected() {
-                    if (pressureSetpoint == null) {
-                        binding.pressureMarker.text = ""
-                    }
-                }
-
-                override fun onValueSelected(timeAgo: Duration, pressure: Float) {
-                    val formatted = formatService.formatPressure(pressure, units)
-                    binding.pressureMarker.text = getString(
-                        R.string.pressure_reading_time_ago,
-                        formatted,
-                        timeAgo.formatHM(false)
-                    )
-                    valueSelectedTime = System.currentTimeMillis()
-                }
-
+        chart = PressureChart(binding.chart) { timeAgo, pressure ->
+            if (timeAgo == null || pressure == null) {
+                binding.pressureMarker.text = ""
+            } else {
+                val formatted = formatService.formatPressure(pressure, units)
+                binding.pressureMarker.text = getString(
+                    R.string.pressure_reading_time_ago,
+                    formatted,
+                    timeAgo.formatHM(false)
+                )
+                valueSelectedTime = System.currentTimeMillis()
             }
-        )
+        }
 
         binding.pressure.setOnLongClickListener {
             pressureSetpoint = if (pressureSetpoint == null) {
