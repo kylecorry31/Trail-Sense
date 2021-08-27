@@ -94,7 +94,11 @@ class DestinationPanel(private val view: View) {
 
             val destElevationDist =
                 Distance.meters(destinationElevation).convertTo(prefs.baseDistanceUnits)
-            beaconElevation.text = formatService.formatDistance(destElevationDist)
+            beaconElevation.text = formatService.formatDistance(
+                destElevationDist,
+                Units.getDecimalPlaces(destElevationDist.units),
+                false
+            )
 
             val direction = when {
                 elevationChange == 0.0f -> ""
@@ -108,7 +112,10 @@ class DestinationPanel(private val view: View) {
             beaconElevationDiff.text = context.getString(
                 R.string.elevation_diff_format,
                 direction,
-                formatService.formatDistance(elevationChangeDist)
+                formatService.formatDistance(
+                    elevationChangeDist, Units.getDecimalPlaces(elevationChangeDist.units),
+                    false
+                )
             )
             val changeColor = when {
                 elevationChange >= 0 -> {

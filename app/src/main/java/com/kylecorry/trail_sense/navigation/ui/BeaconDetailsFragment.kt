@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.trail_sense.shared.Units
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,7 +49,8 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
                     if (this.elevation != null) {
                         val d = Distance.meters(this.elevation!!).convertTo(prefs.baseDistanceUnits)
-                        binding.altitudeText.text = formatService.formatDistance(d)
+                        binding.altitudeText.text =
+                            formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
                     } else {
                         binding.altitudeText.visibility = View.GONE
                         binding.altitudeIcon.visibility = View.GONE
