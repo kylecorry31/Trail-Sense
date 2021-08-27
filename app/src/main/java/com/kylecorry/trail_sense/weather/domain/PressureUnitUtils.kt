@@ -20,6 +20,6 @@ object PressureUnitUtils {
 
     fun getDecimalPlaces(units: PressureUnits): Int {
         val isLarge = listOf(PressureUnits.Psi, PressureUnits.Inhg).contains(units)
-        return if (isLarge) 2 else 0
+        return if (isLarge) 2 else 1
     }
 }
