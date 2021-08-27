@@ -14,7 +14,7 @@ import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentAltitudeHistoryBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
@@ -30,7 +30,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
     private val weatherRepo by lazy { PressureRepo.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private var units = DistanceUnits.Meters
     private lateinit var chart: SimpleLineChart
     private var backtrackReadings = listOf<AltitudeReading>()

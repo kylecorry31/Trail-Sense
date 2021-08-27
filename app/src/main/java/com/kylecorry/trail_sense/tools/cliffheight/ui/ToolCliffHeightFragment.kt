@@ -9,7 +9,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCliffHeightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.physics.PhysicsService
 import com.kylecorry.andromeda.core.units.DistanceUnits
@@ -22,7 +22,7 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
     private val intervalometer = Timer {
         update()
     }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
 
     private lateinit var units: DistanceUnits

@@ -20,7 +20,7 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 fun LocalDateTime.toDisplayFormat(ctx: Context): String {
-    val formatService = FormatServiceV2(ctx)
+    val formatService = FormatService(ctx)
     return formatService.formatTime(toLocalTime(), false)
 }
 

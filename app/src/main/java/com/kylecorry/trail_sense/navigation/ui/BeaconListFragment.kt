@@ -29,7 +29,7 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconIOService
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -51,7 +51,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private lateinit var beaconList: ListView<IBeacon>
     private lateinit var navController: NavController
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private var displayedGroup: BeaconGroup? = null
 
     private val delayedUpdate = Timer {

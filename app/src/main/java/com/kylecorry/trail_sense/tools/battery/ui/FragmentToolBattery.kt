@@ -32,7 +32,7 @@ import kotlin.math.roundToInt
 
 class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
 
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val battery by lazy { Battery(requireContext()) }
     private val batteryRepo by lazy { BatteryRepo.getInstance(requireContext()) }
 

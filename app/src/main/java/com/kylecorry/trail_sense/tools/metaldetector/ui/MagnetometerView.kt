@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.andromeda.core.units.Bearing
 import kotlin.math.min
 
@@ -18,7 +18,7 @@ class MagnetometerView : CanvasView {
     private var singlePole = false
     private var sensitivity = 1f
 
-    private val formatService by lazy { FormatServiceV2(context) }
+    private val formatService by lazy { FormatService(context) }
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)

@@ -14,7 +14,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryStringMapper
 import com.kylecorry.trailsensecore.domain.packs.ItemCategory
@@ -26,7 +26,7 @@ import kotlinx.coroutines.withContext
 class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
     private val itemRepo by lazy { PackRepo.getInstance(requireContext()) }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
 
     private var editingItem: PackItem? = null
 

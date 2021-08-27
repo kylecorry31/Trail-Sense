@@ -17,7 +17,7 @@ import com.kylecorry.andromeda.forms.Forms.add
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTemperatureEstimationBinding
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.*
@@ -35,7 +35,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     private val temperatureUnits by lazy { prefs.temperatureUnits }
     private val baseUnits by lazy { prefs.baseDistanceUnits }
     private val weatherService = WeatherService()
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
 
     private var form: Forms.Section? = null
 

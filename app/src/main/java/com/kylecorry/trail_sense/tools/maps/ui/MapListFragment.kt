@@ -23,7 +23,7 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.databinding.ListItemMapBinding
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
@@ -43,7 +43,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
 
     private lateinit var mapList: ListView<Map>

@@ -12,7 +12,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightningBinding
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import com.kylecorry.trailsensecore.domain.weather.WeatherService
@@ -20,7 +20,7 @@ import java.time.Instant
 
 class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
     private val weatherService = WeatherService()
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private lateinit var units: DistanceUnits

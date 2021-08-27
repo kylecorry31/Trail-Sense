@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.navigation.infrastructure.share
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.CoordinateFormat
@@ -14,7 +14,7 @@ class LocationSharesheet(private val context: Context) : ILocationSender {
 
     private val geoService = GeoService()
     private val prefs by lazy { UserPreferences(context) }
-    private val formatService by lazy { FormatServiceV2(context) }
+    private val formatService by lazy { FormatService(context) }
 
     override fun send(location: Coordinate) {
         val intent = Intent().apply {

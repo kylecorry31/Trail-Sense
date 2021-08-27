@@ -3,12 +3,12 @@ package com.kylecorry.trail_sense.tools.convert.ui
 import com.kylecorry.andromeda.core.units.Volume
 import com.kylecorry.andromeda.core.units.VolumeUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.absoluteValue
 
 class FragmentVolumeConverter : SimpleConvertFragment<VolumeUnits>(VolumeUnits.Liters, VolumeUnits.USGallons) {
 
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
 
     override val units = VolumeUnits.values().toList()
 

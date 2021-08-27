@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.getPathPoint
 import com.kylecorry.trail_sense.shared.paths.BacktrackPathSplitter
@@ -50,7 +50,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val geoService by lazy { GeoService() }
     private val cache by lazy { Preferences(requireContext()) }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var mapId = 0L

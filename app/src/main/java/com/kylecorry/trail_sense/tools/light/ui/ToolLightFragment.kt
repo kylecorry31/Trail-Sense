@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.light.LightSensor
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightBinding
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.light.LightService
 import kotlin.math.max
@@ -19,7 +19,7 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
 
     private val lightSensor by lazy { LightSensor(requireContext()) }
     private val lightService = LightService()
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private var maxLux = 0f
 

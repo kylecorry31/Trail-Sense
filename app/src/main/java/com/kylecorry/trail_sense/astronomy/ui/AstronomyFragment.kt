@@ -60,7 +60,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private val cache by lazy { Preferences(requireContext()) }
     private val astronomyService = AstronomyService()
     private val geoService = GeoService()
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
 
     private var leftQuickAction: QuickActionButton? = null
     private var rightQuickAction: QuickActionButton? = null

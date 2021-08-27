@@ -16,7 +16,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainMenuBinding
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
@@ -30,7 +30,7 @@ import kotlinx.coroutines.withContext
 class TideListFragment: BoundFragment<FragmentTideListBinding>() {
 
     private lateinit var listView: ListView<TideEntity>
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val oceanographyService = OceanographyService()
     private val tideRepo by lazy { TideRepo.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }

@@ -31,7 +31,7 @@ class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val barometer by lazy { sensorService.getBarometer() }
     private val depthService = DepthService()
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
     private val throttle = Throttle(20)

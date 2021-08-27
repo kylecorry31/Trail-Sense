@@ -10,14 +10,14 @@ import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.isLarge
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trailsensecore.domain.navigation.INavigationService
 
 class PathListItemStrategy(
     private val context: Context,
-    private val formatService: FormatServiceV2,
+    private val formatService: FormatService,
     private val prefs: UserPreferences,
     private val navigationService: INavigationService,
     private val delete: (path: List<WaypointEntity>) -> Unit,

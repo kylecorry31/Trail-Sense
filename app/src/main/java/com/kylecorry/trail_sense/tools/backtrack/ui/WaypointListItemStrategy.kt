@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
@@ -19,7 +19,7 @@ import java.time.Instant
 
 class WaypointListItemStrategy(
     private val context: Context,
-    private val formatService: FormatServiceV2,
+    private val formatService: FormatService,
     private val prefs: UserPreferences,
     private val createBeacon: (waypoint: WaypointEntity) -> Unit,
     private val delete: (waypoint: WaypointEntity) -> Unit,

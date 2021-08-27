@@ -23,7 +23,7 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.AppUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
@@ -42,7 +42,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
     private val waypointRepo by lazy { WaypointRepo.getInstance(requireContext()) }
     private lateinit var waypointsLiveData: LiveData<List<WaypointEntity>>
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val navigationService = NavigationService()

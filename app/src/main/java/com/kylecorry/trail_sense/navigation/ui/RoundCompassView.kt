@@ -14,7 +14,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.CompassDirection
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.min
 
 
@@ -30,7 +30,7 @@ class RoundCompassView : CanvasView, ICompassView {
     private var iconSize = 0
     private var compassSize = 0
 
-    private val formatService by lazy { FormatServiceV2(context) }
+    private val formatService by lazy { FormatService(context) }
     private val north by lazy { formatService.formatDirection(CompassDirection.North) }
     private val south by lazy { formatService.formatDirection(CompassDirection.South) }
     private val east by lazy { formatService.formatDirection(CompassDirection.East) }

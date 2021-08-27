@@ -52,7 +52,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private lateinit var weatherService: WeatherService
     private val sensorService by lazy { SensorService(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
-    private val formatServiceV2 by lazy { FormatServiceV2(requireContext()) }
     private val pressureRepo by lazy { PressureRepo.getInstance(requireContext()) }
 
     private val throttle = Throttle(20)
@@ -91,7 +90,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             if (timeAgo == null || pressure == null) {
                 binding.pressureMarker.text = ""
             } else {
-                val formatted = formatService.formatPressure(pressure, units)
+                val formatted = formatService.formatPressure(Pressure(pressure, units))
                 binding.pressureMarker.text = getString(
                     R.string.pressure_reading_time_ago,
                     formatted,
@@ -209,8 +208,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     }
 
     private fun displaySetpoint(setpoint: PressureReading) {
-        val converted = convertPressure(setpoint)
-        val formatted = formatService.formatPressure(converted.value, units)
+        val formatted = formatService.formatPressure(
+            Pressure(setpoint.value, PressureUnits.Hpa).convertTo(units)
+        )
 
         val timeAgo = Duration.between(setpoint.time, Instant.now())
         binding.pressureMarker.text = getString(
@@ -290,8 +290,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     }
 
     private fun displayTendency(tendency: PressureTendency) {
-        val converted = convertPressure(PressureReading(Instant.now(), tendency.amount))
-        val formatted = formatService.formatPressure(converted.value, units)
+        val formatted = formatService.formatPressure(
+            Pressure(tendency.amount, PressureUnits.Hpa).convertTo(units)
+        )
         binding.tendencyAmount.text =
             getString(R.string.pressure_tendency_format_2, formatted)
 
@@ -318,7 +319,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         withContext(Dispatchers.Main) {
-            binding.weatherNowLbl.text = formatServiceV2.formatShortTermWeather(
+            binding.weatherNowLbl.text = formatService.formatShortTermWeather(
                 hourly,
                 prefs.weather.useRelativeWeatherPredictions
             )
@@ -326,7 +327,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 !prefs.weather.useRelativeWeatherPredictions && hourly != Weather.Storm
             binding.weatherNowPredictionLbl.text = getString(
                 R.string.weather_prediction,
-                formatServiceV2.formatShortTermWeather(hourly, true)
+                formatService.formatShortTermWeather(hourly, true)
             )
             binding.weatherNowImg.setImageResource(
                 getWeatherImage(
@@ -364,7 +365,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     }
 
     private fun displayPressure(pressure: PressureReading) {
-        val formatted = formatService.formatPressure(convertPressure(pressure).value, units)
+        val formatted = formatService.formatPressure(
+            Pressure(pressure.value, PressureUnits.Hpa).convertTo(units)
+        )
         binding.pressure.text = formatted
     }
 

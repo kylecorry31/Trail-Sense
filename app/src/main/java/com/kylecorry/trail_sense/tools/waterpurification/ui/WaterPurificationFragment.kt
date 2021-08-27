@@ -14,7 +14,7 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import com.kylecorry.trailsensecore.domain.water.WaterService
@@ -25,7 +25,7 @@ import java.time.Instant
 class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val altimeter by lazy { sensorService.getAltimeter(false) }
     private val cache by lazy { Preferences(requireContext()) }
     private var duration: Duration? = null

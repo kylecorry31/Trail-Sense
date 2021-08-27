@@ -25,7 +25,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentSensorDetailsBinding
 import com.kylecorry.trail_sense.databinding.ListItemSensorBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -53,7 +53,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     private lateinit var sensorListView: ListView<SensorDetails>
     private val prefs by lazy { UserPreferences(requireContext()) }
 
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val sensorDetailsMap = mutableMapOf<String, SensorDetails?>()
 
     private val cachedGPS by lazy { CachedGPS(requireContext(), 500) }

@@ -6,11 +6,11 @@ import com.kylecorry.andromeda.core.units.Weight
 import com.kylecorry.andromeda.core.units.WeightUnits
 import com.kylecorry.andromeda.forms.UnitInputView
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 
 class WeightInputView(context: Context, attributeSet: AttributeSet? = null) : BaseUnitInputView<Weight, WeightUnits>(context, attributeSet) {
 
-    private val formatService by lazy { FormatServiceV2(context) }
+    private val formatService by lazy { FormatService(context) }
 
     init {
         hint = context.getString(R.string.weight)

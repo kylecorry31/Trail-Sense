@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
@@ -17,11 +18,13 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconSharesheet
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
+import com.kylecorry.trailsensecore.domain.units.isLarge
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,7 +45,7 @@ class BeaconListItem(
     var onView: () -> Unit = {}
 
     private val navigationService = NavigationService()
-    private val formatservice by lazy { FormatService(view.context) }
+    private val formatService by lazy { FormatService(view.context) }
     private val prefs by lazy { UserPreferences(view.context) }
     private val repo by lazy { BeaconRepo.getInstance(view.context) }
 
@@ -55,7 +58,7 @@ class BeaconListItem(
             binding.beaconImage.imageTintList = ColorStateList.valueOf(beacon.color)
         } else if (beacon.owner == BeaconOwner.CellSignal) {
             when {
-                beacon.name.contains(formatservice.formatQuality(Quality.Poor)) -> {
+                beacon.name.contains(formatService.formatQuality(Quality.Poor)) -> {
                     binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Poor))
                     binding.beaconImage.imageTintList = ColorStateList.valueOf(
                         CustomUiUtils.getQualityColor(
@@ -63,7 +66,7 @@ class BeaconListItem(
                         )
                     )
                 }
-                beacon.name.contains(formatservice.formatQuality(Quality.Moderate)) -> {
+                beacon.name.contains(formatService.formatQuality(Quality.Moderate)) -> {
                     binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Moderate))
                     binding.beaconImage.imageTintList = ColorStateList.valueOf(
                         CustomUiUtils.getQualityColor(
@@ -71,7 +74,7 @@ class BeaconListItem(
                         )
                     )
                 }
-                beacon.name.contains(formatservice.formatQuality(Quality.Good)) -> {
+                beacon.name.contains(formatService.formatQuality(Quality.Good)) -> {
                     binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Good))
                     binding.beaconImage.imageTintList = ColorStateList.valueOf(
                         CustomUiUtils.getQualityColor(
@@ -91,7 +94,9 @@ class BeaconListItem(
         }
         var beaconVisibility = beacon.visible
         val distance = navigationService.navigate(beacon.coordinate, myLocation, 0f).distance
-        binding.beaconSummary.text = formatservice.formatLargeDistance(distance)
+        val d = Distance.meters(distance).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+        binding.beaconSummary.text =
+            formatService.formatDistance(d, if (d.units.isLarge()) 2 else 0)
         if (!(prefs.navigation.showMultipleBeacons || prefs.navigation.areMapsEnabled) || beacon.temporary) {
             binding.visibleBtn.visibility = View.GONE
         } else {

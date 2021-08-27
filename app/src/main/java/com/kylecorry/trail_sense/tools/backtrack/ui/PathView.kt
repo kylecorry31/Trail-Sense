@@ -14,7 +14,7 @@ import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.paths.GrayPathLineDrawerDecoratorStrategy
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
@@ -65,7 +65,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
 
     private val prefs by lazy { UserPreferences(context) }
-    private val formatService by lazy { FormatServiceV2(context) }
+    private val formatService by lazy { FormatService(context) }
     private val pathColor by lazy { prefs.navigation.backtrackPathColor }
     private val pathStyle by lazy { prefs.navigation.backtrackPathStyle }
     private val geoService = GeoService()

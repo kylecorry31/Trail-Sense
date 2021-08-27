@@ -18,7 +18,7 @@ import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.metaldetection.MetalDetectionService
@@ -27,7 +27,7 @@ import kotlin.math.roundToInt
 
 class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding>() {
     private val magnetometer by lazy { Magnetometer(requireContext()) }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val metalDetectionService = MetalDetectionService()
     private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
     private val orientation by lazy { SensorService(requireContext()).getGyroscope() }

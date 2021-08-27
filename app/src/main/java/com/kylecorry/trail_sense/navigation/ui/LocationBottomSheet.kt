@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.databinding.ListItemPlainMenuBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import java.time.Duration
@@ -28,7 +28,7 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
 
     var gps: IGPS? = null
 
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val geoService = GeoService()
 

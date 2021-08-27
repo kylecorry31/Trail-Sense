@@ -9,14 +9,14 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 
 class BeaconIOService(private val context: Context) {
 
     private val repo by lazy { BeaconRepo.getInstance(context) }
-    private val formatService by lazy { FormatServiceV2(context) }
+    private val formatService by lazy { FormatService(context) }
 
     fun export(waypoints: List<GPXWaypoint>): String {
         return GPXParser.toGPX(waypoints, context.getString(R.string.app_name))

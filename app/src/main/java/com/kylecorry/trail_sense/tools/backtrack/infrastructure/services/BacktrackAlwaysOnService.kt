@@ -9,7 +9,7 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.services.CoroutineIntervalService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -26,7 +26,7 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
     private val waypointRepo by lazy { WaypointRepo.getInstance(applicationContext) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(applicationContext) }
     private val prefs by lazy { UserPreferences(applicationContext) }
-    private val formatService by lazy { FormatServiceV2(this) }
+    private val formatService by lazy { FormatService(this) }
     private val cache by lazy { Preferences(this) }
 
     private val backtrack by lazy {

@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconDetailsBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.andromeda.core.units.Distance
@@ -24,7 +24,7 @@ import kotlinx.coroutines.withContext
 class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var beacon: Beacon? = null

@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tiles
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.kylecorry.andromeda.services.AndromedaTileService
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 
@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackSchedul
 class BacktrackTile: AndromedaTileService() {
 
     private val prefs by lazy { UserPreferences(this) }
-    private val formatService by lazy { FormatServiceV2(this) }
+    private val formatService by lazy { FormatService(this) }
 
     override fun isOn(): Boolean {
         return BacktrackScheduler.isOn(this)

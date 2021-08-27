@@ -2,11 +2,11 @@ package com.kylecorry.trail_sense.tools.convert.ui
 
 import com.kylecorry.andromeda.core.units.TimeUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 
 class FragmentTimeConverter : SimpleConvertFragment<TimeUnits>(TimeUnits.Minutes, TimeUnits.Hours) {
 
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
 
     override val units = listOf(
         TimeUnits.Seconds,

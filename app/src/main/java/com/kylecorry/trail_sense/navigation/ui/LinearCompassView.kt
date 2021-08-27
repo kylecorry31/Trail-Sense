@@ -19,7 +19,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.CompassDirection
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
@@ -33,7 +33,7 @@ class LinearCompassView : CanvasView, ICompassView {
         defStyleAttr
     )
 
-    private val formatService = FormatServiceV2(context)
+    private val formatService = FormatService(context)
     private val icons = mutableMapOf<Int, Bitmap>()
     private var indicators = listOf<BearingIndicator>()
     private var azimuth = 0f

@@ -409,12 +409,16 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         val gpsHAccuracyStr =
             if (gpsHorizontalAccuracy == null) getString(R.string.accuracy_distance_unknown) else getString(
                 R.string.accuracy_distance_format,
-                formatService.formatSmallDistance(gpsHorizontalAccuracy)
+                formatService.formatDistance(
+                    Distance.meters(gpsHorizontalAccuracy).convertTo(userPrefs.baseDistanceUnits)
+                )
             )
         val gpsVAccuracyStr =
             if (gpsVerticalAccuracy == null) getString(R.string.accuracy_distance_unknown) else getString(
                 R.string.accuracy_distance_format,
-                formatService.formatSmallDistance(gpsVerticalAccuracy)
+                formatService.formatDistance(
+                    Distance.meters(gpsVerticalAccuracy).convertTo(userPrefs.baseDistanceUnits)
+                )
             )
 
         Alerts.dialog(
@@ -691,7 +695,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val isTracking = BacktrackScheduler.isOn(requireContext())
             val currentPathId = cache.getLong(getString(R.string.pref_last_backtrack_path_id))
 
-            val points = if (isTracking && currentPathId != null){
+            val points = if (isTracking && currentPathId != null) {
                 bt + listOf(gps.getPathPoint(currentPathId))
             } else {
                 bt
@@ -707,7 +711,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.linearCompass.setDestination(destBearing, destColor)
 
         // Altitude
-        binding.altitude.text = formatService.formatSmallDistance(altimeter.altitude)
+        binding.altitude.text = formatService.formatDistance(
+            Distance.meters(altimeter.altitude).convertTo(userPrefs.baseDistanceUnits)
+        )
 
         // Location
         binding.location.text = formatService.formatLocation(gps.location)

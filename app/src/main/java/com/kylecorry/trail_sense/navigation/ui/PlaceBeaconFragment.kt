@@ -25,7 +25,7 @@ import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.GeoService
@@ -45,7 +45,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     private lateinit var units: UserPreferences.DistanceUnits
     private val sensorService by lazy { SensorService(requireContext()) }
     private val compass by lazy { sensorService.getCompass() }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private lateinit var backCallback: OnBackPressedCallback

@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.databinding.FragmentCreateTideBinding
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
@@ -25,7 +25,7 @@ import java.time.ZonedDateTime
 
 class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private var referenceDate: LocalDate? = null
     private var referenceTime: LocalTime? = null
     private var editingId: Long? = null

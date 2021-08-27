@@ -35,7 +35,7 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
     private val navigationService = NavigationService()
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val throttle = Throttle(20)
 
     var drawPathToGPS: Boolean = false

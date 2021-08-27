@@ -3,12 +3,12 @@ package com.kylecorry.trail_sense.tools.convert.ui
 import com.kylecorry.andromeda.core.units.Temperature
 import com.kylecorry.andromeda.core.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 
 class FragmentTemperatureConverter :
     SimpleConvertFragment<TemperatureUnits>(TemperatureUnits.C, TemperatureUnits.F) {
 
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
 
     override fun getUnitName(unit: TemperatureUnits): String {
         return when (unit) {

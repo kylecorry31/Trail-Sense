@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.andromeda.core.math.Vector3
 import com.kylecorry.andromeda.core.math.toDegrees
 import com.kylecorry.trailsensecore.infrastructure.system.*
@@ -16,7 +16,7 @@ import kotlin.math.atan2
 
 class LevelFragment : BoundFragment<FragmentLevelBinding>() {
 
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     // TODO: Eventually switch to the rotation sensors
     private val orientationSensor by lazy { GravityOrientationSensor(requireContext()) }
     private val throttle = Throttle(20)

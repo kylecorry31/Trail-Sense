@@ -13,7 +13,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
@@ -25,7 +25,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
     private var prefBacktrack: SwitchPreferenceCompat? = null
     private var prefLeftQuickAction: ListPreference? = null
     private var prefRightQuickAction: ListPreference? = null
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
 
     private lateinit var prefs: UserPreferences
 

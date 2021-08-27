@@ -13,7 +13,7 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSpeedometerBinding
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
@@ -25,7 +25,7 @@ class FragmentToolSpeedometer : BoundFragment<FragmentToolSpeedometerBinding>() 
     private val odometer by lazy { sensorService.getOdometer() }
     private val instantSpeedometer by lazy { sensorService.getSpeedometer(true) }
     private val averageSpeedometer by lazy { sensorService.getSpeedometer(false) }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
 

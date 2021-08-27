@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.IThermometer
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.Pressure
 import com.kylecorry.andromeda.core.units.PressureUnits
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
@@ -117,7 +118,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         }
 
         altitudeChangeSeekBar?.summary =
-            (if (prefs.weather.maxNonTravellingAltitudeChange == 0f) "" else "± ") + formatService.formatSmallDistance(
+            (if (prefs.weather.maxNonTravellingAltitudeChange == 0f) "" else "± ") + formatSmallDistance(
                 prefs.weather.maxNonTravellingAltitudeChange
             )
 
@@ -127,19 +128,19 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                     Pressure(
                         prefs.weather.maxNonTravellingPressureChange,
                         PressureUnits.Hpa
-                    ).convertTo(prefs.pressureUnits).pressure, prefs.pressureUnits
+                    ).convertTo(prefs.pressureUnits)
                 )
             )
 
         altitudeOutlierSeekBar?.summary =
-            (if (prefs.weather.altitudeOutlier == 0f) "" else "± ") + formatService.formatSmallDistance(
+            (if (prefs.weather.altitudeOutlier == 0f) "" else "± ") + formatSmallDistance(
                 prefs.weather.altitudeOutlier
             )
 
         pressureSmoothingSeekBar?.summary =
-            formatService.formatPercentage(prefs.weather.pressureSmoothing.toInt())
+            formatService.formatPercentage(prefs.weather.pressureSmoothing)
         altitudeSmoothingSeekBar?.summary =
-            formatService.formatPercentage(prefs.weather.altitudeSmoothing.toInt())
+            formatService.formatPercentage(prefs.weather.altitudeSmoothing)
 
 
 
@@ -159,7 +160,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             altitudeChangeSeekBar?.summary =
                 (if (newValue.toString()
                         .toFloat() == 0f
-                ) "" else "± ") + formatService.formatSmallDistance(
+                ) "" else "± ") + formatSmallDistance(
                     newValue.toString().toFloat()
                 )
             true
@@ -171,8 +172,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             pressureChangeSeekBar?.summary =
                 (if (change == 0f) "" else "± ") + getString(
                     R.string.pressure_tendency_format_2, formatService.formatPressure(
-                        Pressure(change, PressureUnits.Hpa).convertTo(prefs.pressureUnits).pressure,
-                        prefs.pressureUnits
+                        Pressure(change, PressureUnits.Hpa).convertTo(prefs.pressureUnits)
                     )
                 )
             true
@@ -183,7 +183,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             altitudeOutlierSeekBar?.summary =
                 (if (newValue.toString()
                         .toFloat() == 0f
-                ) "" else "± ") + formatService.formatSmallDistance(
+                ) "" else "± ") + formatSmallDistance(
                     newValue.toString().toFloat()
                 )
             true
@@ -192,14 +192,14 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         pressureSmoothingSeekBar?.updatesContinuously = true
         pressureSmoothingSeekBar?.setOnPreferenceChangeListener { _, newValue ->
             val change = 100 * newValue.toString().toFloat() / 1000f
-            pressureSmoothingSeekBar?.summary = formatService.formatPercentage(change.toInt())
+            pressureSmoothingSeekBar?.summary = formatService.formatPercentage(change)
             true
         }
 
         altitudeSmoothingSeekBar?.updatesContinuously = true
         altitudeSmoothingSeekBar?.setOnPreferenceChangeListener { _, newValue ->
             val change = 100 * newValue.toString().toFloat() / 1000f
-            altitudeSmoothingSeekBar?.summary = formatService.formatPercentage(change.toInt())
+            altitudeSmoothingSeekBar?.summary = formatService.formatPercentage(change)
             true
         }
 
@@ -210,6 +210,11 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             )
         )
 
+    }
+
+    private fun formatSmallDistance(meters: Float): String {
+        val distance = Distance.meters(meters).convertTo(prefs.baseDistanceUnits)
+        return formatService.formatDistance(distance)
     }
 
     private fun updateChart() {
@@ -324,7 +329,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         }
 
         pressureTxt?.summary =
-            formatService.formatPressure(PressureUnitUtils.convert(pressure, units), units)
+            formatService.formatPressure(Pressure(pressure, PressureUnits.Hpa).convertTo(units))
     }
 
 

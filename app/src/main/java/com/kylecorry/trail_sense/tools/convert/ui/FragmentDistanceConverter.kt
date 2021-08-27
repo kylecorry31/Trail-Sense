@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.convert.ui
 
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
 import kotlin.math.absoluteValue
@@ -9,7 +9,7 @@ import kotlin.math.absoluteValue
 class FragmentDistanceConverter :
     SimpleConvertFragment<DistanceUnits>(DistanceUnits.Meters, DistanceUnits.Feet) {
 
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
 
     override val units = listOf(
         DistanceUnits.Centimeters,

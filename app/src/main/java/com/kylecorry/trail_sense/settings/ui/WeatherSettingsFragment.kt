@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
@@ -29,7 +29,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private var prefRightQuickAction: ListPreference? = null
     private var prefDailyWeatherTime: Preference? = null
     private var prefStormAlerts: SwitchPreferenceCompat? = null
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
 
     private lateinit var prefs: UserPreferences
 

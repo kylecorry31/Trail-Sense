@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.IBeaconRepo
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.IWaypointRepo
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
@@ -35,7 +35,7 @@ class Backtrack(
     private val cache: Preferences
 ) {
 
-    private val formatService by lazy { FormatServiceV2(context) }
+    private val formatService by lazy { FormatService(context) }
 
     suspend fun recordLocation() {
         updateSensors()

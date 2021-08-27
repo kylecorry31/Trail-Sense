@@ -7,12 +7,15 @@ import android.widget.TextView
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.Bearing
+import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
+import com.kylecorry.trailsensecore.domain.units.isLarge
 
 class DestinationPanel(private val view: View) {
 
@@ -77,8 +80,10 @@ class DestinationPanel(private val view: View) {
     }
 
     private fun updateDestinationEta(position: Position, beacon: Beacon) {
+        val d = Distance.meters(position.location.distanceTo(beacon.coordinate))
+            .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
         beaconDistance.text =
-            formatService.formatLargeDistance(position.location.distanceTo(beacon.coordinate))
+            formatService.formatDistance(d, if (d.units.isLarge()) 2 else 0)
         val eta = navigationService.eta(position, beacon, nonLinearDistances)
         beaconEta.text = context.getString(R.string.eta, formatService.formatDuration(eta, false))
     }
@@ -87,7 +92,9 @@ class DestinationPanel(private val view: View) {
         if (elevationChange != null && destinationElevation != null) {
             beaconElevationView.visibility = View.VISIBLE
 
-            beaconElevation.text = formatService.formatSmallDistance(destinationElevation)
+            val destElevationDist =
+                Distance.meters(destinationElevation).convertTo(prefs.baseDistanceUnits)
+            beaconElevation.text = formatService.formatDistance(destElevationDist)
 
             val direction = when {
                 elevationChange == 0.0f -> ""
@@ -95,10 +102,13 @@ class DestinationPanel(private val view: View) {
                 else -> context.getString(R.string.decrease)
             }
 
+            val elevationChangeDist =
+                Distance.meters(elevationChange).convertTo(prefs.baseDistanceUnits)
+
             beaconElevationDiff.text = context.getString(
                 R.string.elevation_diff_format,
                 direction,
-                formatService.formatSmallDistance(elevationChange)
+                formatService.formatDistance(elevationChangeDist)
             )
             val changeColor = when {
                 elevationChange >= 0 -> {

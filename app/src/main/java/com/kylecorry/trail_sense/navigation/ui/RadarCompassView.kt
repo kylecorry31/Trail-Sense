@@ -21,7 +21,7 @@ import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.times
@@ -51,7 +51,7 @@ class RadarCompassView : CanvasView, ICompassView {
     @ColorInt
     private var secondaryColor: Int = Color.WHITE
 
-    private val formatService by lazy { FormatServiceV2(context) }
+    private val formatService by lazy { FormatService(context) }
 
     private var iconSize = 0
     private var radarSize = 0

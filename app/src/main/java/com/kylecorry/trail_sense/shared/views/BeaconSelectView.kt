@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.databinding.ViewBeaconSelectBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
@@ -37,7 +37,7 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
     private var allBeacons: List<Beacon> = listOf()
     private var allGroups: List<BeaconGroup> = listOf()
     private var displayedGroup: BeaconGroup? = null
-    private val formatService by lazy { FormatServiceV2(this.context) }
+    private val formatService by lazy { FormatService(this.context) }
     private val prefs by lazy { UserPreferences(this.context) }
     private lateinit var binding: ViewBeaconSelectBinding
 

@@ -12,7 +12,7 @@ import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -23,7 +23,7 @@ class PedometerService : ForegroundService() {
     private val pedometer by lazy { Pedometer(this) }
     private val sensorService by lazy { SensorService(this) }
     private val odometer by lazy { sensorService.getOdometer() }
-    private val formatService by lazy { FormatServiceV2(this) }
+    private val formatService by lazy { FormatService(this) }
     private val prefs by lazy { UserPreferences(this) }
 
     private var lastSteps = -1

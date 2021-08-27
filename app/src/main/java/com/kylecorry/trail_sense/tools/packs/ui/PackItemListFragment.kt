@@ -18,7 +18,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackItemBinding
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryColorMapper
@@ -39,7 +39,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     private val itemRepo by lazy { PackRepo.getInstance(requireContext()) }
     private lateinit var itemsLiveData: LiveData<List<PackItem>>
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private val packService = PackService()
     private var items: List<PackItem> = listOf()
     private val prefs by lazy { UserPreferences(requireContext()) }

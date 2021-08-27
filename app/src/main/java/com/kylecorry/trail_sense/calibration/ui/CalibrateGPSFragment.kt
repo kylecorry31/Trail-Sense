@@ -13,7 +13,7 @@ import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -33,7 +33,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     private lateinit var permissionBtn: Preference
     private lateinit var locationOverridePref: CoordinatePreference
     private var clearCacheBtn: Preference? = null
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
 
     private lateinit var gps: IGPS
     private lateinit var realGps: IGPS

@@ -16,7 +16,7 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 
@@ -27,7 +27,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     private lateinit var permissionPref: Preference
     private lateinit var odometerSourceList: ListPreference
     private val userPrefs by lazy { UserPreferences(requireContext()) }
-    private val formatService by lazy { FormatServiceV2(requireContext()) }
+    private val formatService by lazy { FormatService(requireContext()) }
     private var wasEnabled = false
     private val cache by lazy { Preferences(requireContext()) }
 
