@@ -12,10 +12,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.Position
-import com.kylecorry.trailsensecore.domain.units.isLarge
 
 class DestinationPanel(private val view: View) {
 
@@ -83,7 +83,7 @@ class DestinationPanel(private val view: View) {
         val d = Distance.meters(position.location.distanceTo(beacon.coordinate))
             .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
         beaconDistance.text =
-            formatService.formatDistance(d, if (d.units.isLarge()) 2 else 0)
+            formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
         val eta = navigationService.eta(position, beacon, nonLinearDistances)
         beaconEta.text = context.getString(R.string.eta, formatService.formatDuration(eta, false))
     }

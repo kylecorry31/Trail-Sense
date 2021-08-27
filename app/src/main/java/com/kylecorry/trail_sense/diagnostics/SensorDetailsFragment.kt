@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.databinding.FragmentSensorDetailsBinding
 import com.kylecorry.trail_sense.databinding.ListItemSensorBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -34,7 +35,6 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
-import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalTime
@@ -204,7 +204,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             getString(R.string.barometer),
             formatService.formatPressure(
                 pressure,
-                PressureUnitUtils.getDecimalPlaces(prefs.pressureUnits)
+                Units.getDecimalPlaces(prefs.pressureUnits)
             ),
             formatService.formatQuality(barometer.quality),
             CustomUiUtils.getQualityColor(barometer.quality),

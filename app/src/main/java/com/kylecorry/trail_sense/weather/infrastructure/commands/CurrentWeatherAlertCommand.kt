@@ -12,8 +12,8 @@ import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
 import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
@@ -114,7 +114,7 @@ class CurrentWeatherAlertCommand(
             return "?"
         }
         val p = Pressure(pressure, PressureUnits.Hpa).convertTo(units)
-        return formatService.formatPressure(p, PressureUnitUtils.getDecimalPlaces(units))
+        return formatService.formatPressure(p, Units.getDecimalPlaces(units))
     }
 
     private fun getTendencyString(
@@ -124,7 +124,7 @@ class CurrentWeatherAlertCommand(
         val pressure = Pressure(tendency.amount, PressureUnits.Hpa).convertTo(units)
         val formatted = formatService.formatPressure(
             pressure,
-            PressureUnitUtils.getDecimalPlaces(units) + 1
+            Units.getDecimalPlaces(units) + 1
         )
         return context.getString(R.string.pressure_tendency_format_2, formatted)
     }

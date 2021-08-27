@@ -8,9 +8,9 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.DistanceUtils.isLarge
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trailsensecore.domain.navigation.INavigationService
@@ -46,7 +46,7 @@ class PathListItemStrategy(
             formatService.formatTimeSpan(start.toZonedDateTime(), end.toZonedDateTime(), true)
         itemBinding.waypointCoordinates.text = formatService.formatDistance(
             distance,
-            if (distance.units.isLarge()) 2 else 0,
+            Units.getDecimalPlaces(distance.units),
             false
         )
         itemBinding.root.setOnClickListener {

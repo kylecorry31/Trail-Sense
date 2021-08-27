@@ -20,6 +20,7 @@ import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
@@ -129,7 +130,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                         prefs.weather.maxNonTravellingPressureChange,
                         PressureUnits.Hpa
                     ).convertTo(units),
-                    PressureUnitUtils.getDecimalPlaces(units)
+                    Units.getDecimalPlaces(units)
                 )
             )
 
@@ -174,7 +175,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                 (if (change == 0f) "" else "± ") + getString(
                     R.string.pressure_tendency_format_2, formatService.formatPressure(
                         Pressure(change, PressureUnits.Hpa).convertTo(units),
-                        PressureUnitUtils.getDecimalPlaces(units)
+                        Units.getDecimalPlaces(units)
                     )
                 )
             true
@@ -333,7 +334,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         pressureTxt?.summary =
             formatService.formatPressure(
                 Pressure(pressure, PressureUnits.Hpa).convertTo(units),
-                PressureUnitUtils.getDecimalPlaces(units)
+                Units.getDecimalPlaces(units)
             )
     }
 

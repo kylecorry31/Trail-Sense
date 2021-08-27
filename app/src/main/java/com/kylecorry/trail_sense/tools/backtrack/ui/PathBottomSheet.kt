@@ -16,7 +16,6 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathBottomSheetBinding
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.DistanceUtils.isLarge
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
 import com.kylecorry.trail_sense.shared.scales.DiscreteColorScale
@@ -122,7 +121,7 @@ class PathBottomSheet : BoundBottomSheetDialogFragment<FragmentPathBottomSheetBi
         binding.pathWaypoints.text = path.size.toString()
 
         binding.pathDistance.text =
-            formatService.formatDistance(distance, if (distance.units.isLarge()) 2 else 0, false)
+            formatService.formatDistance(distance, Units.getDecimalPlaces(distance.units), false)
 
         binding.pathImage.path = if (drawPathToGPS && location != null) {
             path + getGPSWaypoint(path.firstOrNull()?.pathId ?: 0L)

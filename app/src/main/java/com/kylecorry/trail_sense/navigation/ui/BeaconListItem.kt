@@ -20,11 +20,11 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.BeaconShareshee
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
-import com.kylecorry.trailsensecore.domain.units.isLarge
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -96,7 +96,7 @@ class BeaconListItem(
         val distance = navigationService.navigate(beacon.coordinate, myLocation, 0f).distance
         val d = Distance.meters(distance).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
         binding.beaconSummary.text =
-            formatService.formatDistance(d, if (d.units.isLarge()) 2 else 0)
+            formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
         if (!(prefs.navigation.showMultipleBeacons || prefs.navigation.areMapsEnabled) || beacon.temporary) {
             binding.visibleBtn.visibility = View.GONE
         } else {

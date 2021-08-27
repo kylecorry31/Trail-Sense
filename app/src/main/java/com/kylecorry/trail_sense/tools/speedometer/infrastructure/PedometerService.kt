@@ -14,9 +14,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 
 class PedometerService : ForegroundService() {
 
@@ -69,7 +69,8 @@ class PedometerService : ForegroundService() {
             getString(R.string.odometer),
             formatService.formatDistance(
                 distance,
-                if (IsLargeUnitSpecification().isSatisfiedBy(distance.units)) 2 else 0
+                Units.getDecimalPlaces(distance.units),
+                false
             ),
             R.drawable.steps,
             intent = openIntent,

@@ -14,9 +14,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSpeedometerBinding
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import java.time.LocalDate
 
 class FragmentToolSpeedometer : BoundFragment<FragmentToolSpeedometerBinding>() {
@@ -40,7 +40,7 @@ class FragmentToolSpeedometer : BoundFragment<FragmentToolSpeedometerBinding>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (cache.getBoolean("speedometer_odometer_alert_sent") != true){
+        if (cache.getBoolean("speedometer_odometer_alert_sent") != true) {
             Alerts.dialog(
                 requireContext(),
                 getString(R.string.tool_speedometer_odometer_title),
@@ -87,7 +87,11 @@ class FragmentToolSpeedometer : BoundFragment<FragmentToolSpeedometerBinding>() 
         }
         binding.odometer.text = getString(
             R.string.value_since_time,
-            formatService.formatDistance(odometerDistance, if (IsLargeUnitSpecification().isSatisfiedBy(odometerDistance.units)) 2 else 0),
+            formatService.formatDistance(
+                odometerDistance,
+                Units.getDecimalPlaces(odometerDistance.units),
+                false
+            ),
             dateString
         )
     }

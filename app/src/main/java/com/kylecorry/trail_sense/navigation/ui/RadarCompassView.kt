@@ -22,13 +22,13 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.times
 import com.kylecorry.trailsensecore.domain.geo.Path
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 import com.kylecorry.trailsensecore.domain.pixels.toPixelLines
-import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import kotlin.math.min
 
 class RadarCompassView : CanvasView, ICompassView {
@@ -240,11 +240,13 @@ class RadarCompassView : CanvasView, ICompassView {
         // TODO: This doesn't need to happen on every draw
         val quarterText = formatService.formatDistance(
             quarterDist,
-            if (IsLargeUnitSpecification().isSatisfiedBy(quarterDist.units)) 1 else 0
+            Units.getDecimalPlaces(quarterDist.units),
+            false
         )
         val threeQuarterText = formatService.formatDistance(
             threeQuarterDist,
-            if (IsLargeUnitSpecification().isSatisfiedBy(threeQuarterDist.units)) 1 else 0
+            Units.getDecimalPlaces(quarterDist.units),
+            false
         )
 
         textMode(TextMode.Center)

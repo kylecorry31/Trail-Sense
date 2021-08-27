@@ -17,11 +17,11 @@ import com.kylecorry.trail_sense.databinding.ViewBeaconSelectBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
 import com.kylecorry.trailsensecore.domain.navigation.IBeacon
-import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
 import kotlinx.coroutines.*
 
 
@@ -99,7 +99,8 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
                 Distance.meters(location.distanceTo(beacon.coordinate)).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
             itemBinding.description.text = formatService.formatDistance(
                 distance,
-                if (IsLargeUnitSpecification().isSatisfiedBy(distance.units)) 2 else 0
+                Units.getDecimalPlaces(distance.units),
+                false
             )
             itemBinding.root.setOnClickListener {
                 this.beacon = beacon
