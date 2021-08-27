@@ -116,8 +116,6 @@
     <string name="tool_inclinometer_summary">预估雪崩风险与物体高度</string>
     <string name="inclinometer_title">测斜仪</string>
     <string name="offline_maps">离线地图</string>
-    <string name="sun_dusk">黄昏</string>
-    <string name="sun_dawn">黎明</string>
     <string name="moon_illumination">月光亮度</string>
     <string name="moon_phase">月相</string>
     <string name="solar_noon">太阳达到白天最高点</string>
@@ -204,7 +202,6 @@
     <string name="access_background_location">更新位置设置</string>
     <string name="copied_to_clipboard_toast">已复制到剪贴板</string>
     <string name="tools">工具</string>
-    <string name="barometer_thermometer">气压计和温度计</string>
     <string name="pref_barometer_pressure_title">气压</string>
     <string name="pref_altimeter_calibration_mode_title">自动校准</string>
     <string name="kilometers_per_hour_format">%.1f 千米/时</string>
@@ -216,7 +213,6 @@
     <string name="metal_detector_calibrate">校准</string>
     <string name="tool_metal_detector_title">金属探测器</string>
     <string name="threshold">阈值</string>
-    <string name="metal_detected">检测到金属</string>
     <string name="clock_sync_time_settings">打开时间设置？</string>
     <string name="clock_sync_instructions">通知到来时，将时间设置为 %s</string>
     <string name="clock_sync_notification">时钟同步 - %s</string>
@@ -227,7 +223,6 @@
     <string name="beacon_2">信标 2</string>
     <string name="beacon_1">信标 1</string>
     <string name="could_not_triangulate">无法进行三角定位</string>
-    <string name="triangulate_mark_beacon">标记</string>
     <string name="tool_triangulate_summary">在没有GPS的情况下确定你的位置</string>
     <string name="tool_triangulate_title">三角定位</string>
     <string name="tool_category_signaling">信号传递</string>
@@ -290,8 +285,6 @@
     <string name="distance_from">起点</string>
     <string name="distance_hint">距离</string>
     <string name="inventory_empty_text">无物品</string>
-    <string name="action_inventory_delete_all_confirm">删除所有库存物品吗？</string>
-    <string name="action_inventory_delete_all">删除全部</string>
     <string name="tool_whistle_title">哨子</string>
     <string name="max_depth">最大值：%s</string>
     <string name="cliff_height_guide">预估悬崖高度</string>
@@ -301,13 +294,11 @@
     <string name="toast_destination_bearing_set">已设定目的地方位</string>
     <string name="object_height_guide">预测物体高度</string>
     <string name="guide_avalanche_risk">雪崩风险预测</string>
-    <string name="item_amount_hint">数量</string>
     <string name="item_name_hint">名称</string>
     <string name="depth_disclaimer">如果可能请保持在安全的潜水距离内。使用本软件测量水深，风险自负。
 \n
 \n不要在没有防水外壳的情况下使用，如果可能请保持在安全的潜水距离内。</string>
     <string name="tool_depth_title">深度</string>
-    <string name="tool_inventory_summary">记录手头物品的动向</string>
     <string name="category_natural">自然</string>
     <string name="category_safety">安全</string>
     <string name="category_shelter">庇护所</string>
@@ -323,12 +314,8 @@
     <string name="tool_bubble_level_summary">确定表面是否平坦</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="tool_bubble_level_title">气泡水平仪</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="guide_weather_prediction_title">天气预测</string>
-    <string name="guide_beacons_description">如何使用信标进行导航</string>
-    <string name="guide_beacons_title">信标</string>
     <string name="guide_conserving_battery_title">节约电池</string>
-    <string name="pref_category_tabs">标签</string>
     <string name="navigation_nearby_category">附近</string>
     <string name="forecasts_category">预测</string>
     <string name="advanced_settings_category">高级设置</string>
@@ -343,7 +330,6 @@
     <string name="sun_and_moon">太阳 &amp; 月亮位置</string>
     <string name="pref_sea_level_require_dwell_title">忽略快速高度变化</string>
     <string name="pref_sea_level_require_dwell_summary">只有当高度至少一小时没有变化时才显示读数。提高预报的可靠性。</string>
-    <string name="weather_update_notification_channel_desc">后台天气更新</string>
     <string name="weather_update_notification_channel">天气更新</string>
     <string name="beacon_group_spinner_title">群组</string>
     <string name="no_group">无群组</string>
@@ -366,9 +352,7 @@
     <string name="pref_sunset_alert_time_title">日落警告时间</string>
     <string name="pref_sunset_alerts_title">日落警告</string>
     <string name="update_60_minutes">1 小时</string>
-    <string name="update_45_minutes">45 分钟</string>
     <string name="update_30_minutes">30 分钟</string>
-    <string name="update_15_minutes">15 分钟</string>
     <string name="update_180_minutes">3 小时</string>
     <string name="update_150_minutes">2.5 小时</string>
     <string name="update_120_minutes">2 小时</string>
@@ -414,14 +398,10 @@
     <string name="pref_sea_level_use_rapid_title">将快速压力变化考虑在内</string>
     <string name="pref_adjust_for_temperature_summary">使用海平面压力转换中的温度</string>
     <string name="pref_adjust_for_temperature_title">将温度考虑在内</string>
-    <string name="calibration_mode_barometer_alert_title">气压计</string>
-    <string name="pref_altitude_offsets_summary">纠正GPS高度到平均海拔高度</string>
     <string name="altitude_override_updated_toast">海拔覆盖已更新</string>
     <string name="pref_altitude_override_title">海拔覆盖</string>
-    <string name="action_inventory">库存</string>
     <string name="altitude_from_pressure">从气压计设置覆盖</string>
     <string name="altitude_from_gps">从 GPS 设置覆盖</string>
-    <string name="add_elevation_offsets">使用平均海平面以上 (AMSL) 海拔</string>
     <string name="declination_override_updated_toast">赤纬覆盖已更新</string>
     <string name="compass_declination_override">赤纬覆盖</string>
     <string name="compass_from_gps">从 GPS 设置覆盖</string>
@@ -497,8 +477,6 @@
     <string name="backtrack_notification_description">放置位置路径点</string>
     <string name="backtrack_notification_channel_description">Backtrack 位置更新</string>
     <string name="guide_location_no_gps_title">不用 GPS 进行定位</string>
-    <string name="guide_create_beacons_description">如何创建信标</string>
-    <string name="guide_create_beacons_title">正在创建信标</string>
     <string name="beacon_set_bearing_btn">设定方位（%s）</string>
     <string name="create_at_distance">在远处创建</string>
     <string name="precise_temp_c_format">%s °C</string>
@@ -531,7 +509,6 @@
     <string name="low_power_mode_on_message">已开启省电模式，一些功能可能被禁用。</string>
     <string name="pref_low_power_mode_title">省电模式</string>
     <string name="guide_barometer_calibration_title">气压计校准</string>
-    <string name="guide_backtrack_description">如何使用 Backtrack</string>
     <string name="charging_wireless">充电中 （%s）</string>
     <string name="battery_power_wireless">无线</string>
     <string name="battery_power_usb">USB</string>
@@ -638,10 +615,6 @@
     <string name="gps_searching">正在搜索</string>
     <string name="gps_stale">过时的</string>
     <string name="gps_user">用户</string>
-    <string name="available">可用</string>
-    <string name="permission_granted">已授予</string>
-    <string name="permission_not_granted">未授予</string>
-    <string name="permission_background_location">后台位置</string>
     <string name="magnetometer">磁强计</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
     <string name="gravity">重力</string>
@@ -669,7 +642,6 @@
     <string name="beacon_export_error">无法导出信标</string>
     <string name="pref_backtrack_save_cell_summary">在航点记录电池信号。 不使用互联网。</string>
     <string name="pref_backtrack_save_cell_title">记录电池信号</string>
-    <string name="tool_light_meter_description">测量手电筒光束距离</string>
     <string name="tool_light_meter_title">照度计</string>
     <string name="location_disabled">位置被禁用</string>
     <string name="set">设置</string>
@@ -708,7 +680,6 @@
     <string name="weather_better_than_today">好于今天</string>
     <string name="tomorrows_forecast">明日预报</string>
     <string name="screen_flashlight">屏幕</string>
-    <string name="tide_calibration">潮汐校准</string>
     <string name="turn_off">关闭</string>
     <string name="speedometer">速度计</string>
     <string name="speedometer_average">平均 (来自 Backtrack)</string>
@@ -763,9 +734,6 @@
     <string name="time_until_empty">离空还剩</string>
     <string name="pref_odometer_reset_daily_title">每天重置</string>
     <string name="sleep_timer">睡眠定时器</string>
-    <plurals name="import_beacons">
-        <item quantity="other">导入 %d 个信标？</item>
-    </plurals>
     <string name="search">搜索</string>
     <plurals name="beacons_exported">
         <item quantity="other">%d 个信标已被导出</item>
@@ -796,7 +764,6 @@
     <string name="pref_show_last_signal_beacon_title">上一个信号信标</string>
     <string name="last_signal_beacon_name">上个信号 - %s (%s)</string>
     <string name="camera_permission_denied">相机权限被拒绝，无法打开相机功能。 你可以在设置中启用它。</string>
-    <string name="pref_use_camera_features_title">启用相机功能</string>
     <string name="color">颜色</string>
     <string name="water_boil_guide_title">使水可以安全饮用</string>
     <string name="arrow">箭头线</string>
@@ -912,7 +879,6 @@
     <string name="cup_format">%s cup</string>
     <string name="milliliter_format">%s 毫升</string>
     <string name="liter_format">%s 升</string>
-    <string name="swap">交换</string>
     <string name="pref_map_url_source_title">位置分享地图</string>
     <string name="clear_cache">清除缓存</string>
     <string name="destination_elevation">目的地海拔</string>
@@ -977,13 +943,11 @@
     <string name="background_location_permission">位置（始终允许）</string>
     <string name="grant_permission">授予 %s 权限</string>
     <string name="no_resolution">无解决方案</string>
-    <string name="tools_might_not_work">这些工具可能不工作：</string>
     <string name="sighting_compass">瞄准指南针</string>
     <string name="no_issues">未检测到问题</string>
     <string name="notifications_blocked">已屏蔽通知</string>
     <string name="on">开</string>
     <string name="overridden">覆盖</string>
-    <string name="update">更新</string>
     <string name="battery_usage_restricted">电池使用受限</string>
     <string name="diagnostics">诊断</string>
     <string name="no_permission">未授予权限</string>

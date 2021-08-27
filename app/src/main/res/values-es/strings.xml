@@ -98,7 +98,6 @@
     <string name="pressure_reading_time_ago">%s - hace %s</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="beacon_comment">Notas (opcional)</string>
     <string name="beacon_elevation_hint_meters">Medidores de elevación (opcional)</string>
     <string name="beacon_elevation_hint_feet">Pies de elevación (opcional)</string>
@@ -128,8 +127,6 @@
     <string name="avalanche_risk_low">Riesgo bajo de avalancha</string>
     <string name="tool_inclinometer_summary">Estimar los riesgos de avalanchas y la altura de los objetos.</string>
     <string name="inclinometer_title">Inclinómetro</string>
-    <string name="sun_dusk">Anochecer</string>
-    <string name="sun_dawn">Amanecer</string>
     <string name="moon_illumination">Iluminación de la luna</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="lunar_noon">Mediodía lunar</string>
@@ -233,8 +230,6 @@
     <string name="distance_from">Desde</string>
     <string name="distance_hint">Distancia</string>
     <string name="inventory_empty_text">Sin ítems</string>
-    <string name="action_inventory_delete_all_confirm">¿Eliminar todos los ítems del inventario\?</string>
-    <string name="action_inventory_delete_all">Eliminar todo</string>
     <string name="tool_whistle_title">Silbato</string>
     <string name="max_depth">Máximo: %s</string>
     <string name="tool_cliff_height_description">Mida la altura de un precipicio o una caída</string>
@@ -243,7 +238,6 @@
     <string name="tool_cliff_height_title">Altura de precipicio</string>
     <string name="toast_destination_bearing_set">Orientación al destino establecida</string>
     <string name="guide_avalanche_risk">Estimación de riesgo de avalancha</string>
-    <string name="item_amount_hint">Cantidad</string>
     <string name="item_name_hint">Nombre</string>
     <string name="depth_disclaimer">Use bajo su propio riesgo
 \n
@@ -261,10 +255,7 @@
     <string name="tool_bubble_level_summary">Determine si una superficie es plana</string>
     <string name="tool_bubble_level_title">Nivel de burbuja</string>
     <string name="guide_weather_prediction_title">Predicción de clima</string>
-    <string name="guide_beacons_description">Cómo navegar usando balizas</string>
-    <string name="guide_beacons_title">Balizas</string>
     <string name="guide_conserving_battery_title">Conservación de batería</string>
-    <string name="pref_category_tabs">Pestañas</string>
     <string name="navigation_nearby_category">Cerca</string>
     <string name="forecasts_category">Pronósticos</string>
     <string name="advanced_settings_category">Avanzado</string>
@@ -279,7 +270,6 @@
     <string name="sun_and_moon">Posiciones de Luna y Sol</string>
     <string name="pref_sea_level_require_dwell_title">Ignorar cambios rápidos de altitud</string>
     <string name="pref_sea_level_require_dwell_summary">Sólo mostrar lecturas cuando la altitud no cambió en al menos una hora. Mejora la legibilidad del pronóstico.</string>
-    <string name="weather_update_notification_channel_desc">Actualizaciones de clima en segundo plano</string>
     <string name="weather_update_notification_channel">Actualización de clima</string>
     <string name="beacon_group_spinner_title">Grupo</string>
     <string name="no_group">Sin grupo</string>
@@ -302,9 +292,7 @@
     <string name="pref_sunset_alert_time_title">Tiempo de alerta de anochecer</string>
     <string name="pref_sunset_alerts_title">Alertas de anochecer</string>
     <string name="update_60_minutes">1 hora</string>
-    <string name="update_45_minutes">45 minutos</string>
     <string name="update_30_minutes">30 minutos</string>
-    <string name="update_15_minutes">15 minutos</string>
     <string name="update_180_minutes">3 horas</string>
     <string name="update_150_minutes">2 horas 30 minutos</string>
     <string name="update_120_minutes">2 horas</string>
@@ -348,10 +336,8 @@
     <string name="pref_sea_level_use_rapid_title">Factor en cambios rápidos de presión</string>
     <string name="pref_adjust_for_temperature_summary">Usar la temperatura en conversiones de presión atmosférica</string>
     <string name="pref_adjust_for_temperature_title">Factor en temperatura</string>
-    <string name="barometer_thermometer">Barómetro y termómetro</string>
     <string name="pref_barometer_pressure_title">Presión</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibración</string>
-    <string name="calibration_mode_barometer_alert_title">Barómetro</string>
     <string name="altimeter_mode_override">Nunca</string>
     <string name="altimeter_mode_gps_barometer">GPS + barómetro</string>
     <string name="altimeter_mode_barometer">Barómetro</string>
@@ -386,7 +372,6 @@
     <string name="action_item_delete">Eliminar</string>
     <string name="action_item_subtract">Restar</string>
     <string name="action_item_add">Agregar</string>
-    <string name="action_inventory">Inventario</string>
     <string name="your_height">Tu altura</string>
     <string name="sunset_alert_channel_title">Alerta de puesta de sol</string>
     <string name="sunset_alert_channel_description">Alertas de puesta de sol</string>
@@ -399,5 +384,4 @@
     <string name="pressure_setpoint_format">Establecido: hace %s - %s</string>
     <string name="object_height_guide">Estimar alturas de objetos</string>
     <string name="tool_depth_title">Profundidad</string>
-    <string name="tool_inventory_summary">Mantener registro de ítems</string>
 </resources>

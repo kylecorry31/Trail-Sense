@@ -146,7 +146,6 @@
     <string name="beacon_elevation_hint_feet">Höhe in Fuß (optional)</string>
     <string name="beacon_elevation_hint_meters">Höhe in Metern (optional)</string>
     <string name="beacon_comment">Anmerkungen (optional)</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%s %s</string>
     <string name="no_humidity_data">Keine Luftfeuchigkeitswerte</string>
@@ -179,8 +178,6 @@
     <string name="temperature">Temperatur</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
-    <string name="sun_dusk">Abenddämmerung</string>
-    <string name="sun_dawn">Morgendämmerung</string>
     <string name="sun_down_no_set">Sonne geht unter</string>
     <string name="sun_up_no_set">Sonne geht auf</string>
     <string name="accuracy_distance_format">± %s</string>
@@ -214,17 +211,12 @@
     <string name="altitude_override_updated_toast">Höhe festgelegt</string>
     <string name="pref_altitude_override_title">Höhe setzen</string>
     <string name="compass_accuracy_improved">Kompassgenauigkeit verbessert zu %s</string>
-    <string name="add_elevation_offsets">Zeige Höhe über Meeresspiegel</string>
     <string name="pref_auto_location_title">Automatisches Anpassen des Ortes</string>
     <string name="update_60_minutes">1 Stunde</string>
-    <string name="update_45_minutes">45 Minuten</string>
     <string name="update_30_minutes">30 Minuten</string>
-    <string name="update_15_minutes">15 Minuten</string>
     <string name="pref_max_beacon_distance_title">Radius für nahegelegene Wegpunkte</string>
     <string name="pref_temperature_holder_title">Temperatur</string>
-    <string name="barometer_thermometer">Barometer und Thermometer</string>
     <string name="pref_altimeter_calibration_mode_title">Autokalibrierung</string>
-    <string name="calibration_mode_barometer_alert_title">Barometer</string>
     <string name="altimeter_mode_override">Nie</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometer</string>
     <string name="altimeter_mode_barometer">Barometer</string>
@@ -267,9 +259,6 @@
     <string name="dialog_grant">Einstellungen aktualisieren</string>
     <string name="pref_sea_level_use_rapid_title">Faktor für schnelle Luftdruckänderungen</string>
     <string name="pref_adjust_for_temperature_title">Faktor für Temperatur</string>
-    <string name="guide_beacons_description">Navigation unter Verwendung von Wegpunkten</string>
-    <string name="guide_beacons_title">Wegpunkte</string>
-    <string name="pref_category_tabs">Tabs</string>
     <string name="navigation_nearby_category">Nahegelegen</string>
     <string name="forecasts_category">Vorhersagen</string>
     <string name="tap_sun_moon_hint">Tippe Sonne oder Mond an, um Positionseinzelheiten zu sehen</string>
@@ -306,7 +295,6 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">Vor dem Navigieren kalibrieren</string>
     <string name="pref_barometer_pressure_title">Luftdruck</string>
     <string name="pref_altitude_override_sea_level_title">Verwendung bekannten Luftdrucks auf Meereshöhe</string>
-    <string name="pref_altitude_offsets_summary">Korrigiert GPS-Höhe auf mittlere Meereshöhe</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Geben sie den Luftdruck auf Meereshöhe ein</string>
     <string name="altitude_from_pressure">Überschreibung durch Barometer einstellen</string>
     <string name="altitude_from_gps">Überschreibung durch GPS einstellen</string>
@@ -315,7 +303,6 @@
     <string name="pref_general_header">Allgemein</string>
     <string name="set_inclination_instructions">Tippen um den Inklinationswinkel zu setzen/löschen</string>
     <string name="tool_user_guide_summary">Ein Handbuch für die Benutzung von Trail Sense</string>
-    <string name="weather_update_notification_channel_desc">Wetteraktualisierungen im Hintergrund</string>
     <string name="advanced_settings_category">Fortgeschritten</string>
     <string name="tool_bubble_level_summary">Feststellen, ob eine Oberfläche flach ist</string>
     <string name="beacon_action_view_details">Zeige Details</string>
@@ -342,7 +329,6 @@
     <string name="action_item_delete">Löschen</string>
     <string name="action_item_subtract">Abziehen</string>
     <string name="action_item_add">Hinzufügen</string>
-    <string name="action_inventory">Inventar</string>
     <string name="water_purification_step_3">Starten Sie den Timer</string>
     <string name="water_purification_step_2">Wasser zum Kochen bringen</string>
     <string name="water_purification_step_1">Filtern Sie das Wasser</string>
@@ -351,8 +337,6 @@
     <string name="distance_from">Von</string>
     <string name="distance_hint">Entfernung</string>
     <string name="inventory_empty_text">Keine Einträge</string>
-    <string name="action_inventory_delete_all_confirm">Alle Gegenstände des Inventars löschen\?</string>
-    <string name="action_inventory_delete_all">Alle löschen</string>
     <string name="tool_whistle_title">Trillerpfeife</string>
     <string name="max_depth">Max.: %s</string>
     <string name="cliff_height_guide">Höhe einer Klippe abschätzen</string>
@@ -361,13 +345,11 @@
     <string name="tool_cliff_height_title">Höhe einer Klippe</string>
     <string name="object_height_guide">Höhe von Objekten abschätzen</string>
     <string name="guide_avalanche_risk">Lawinengefahr bestimmen</string>
-    <string name="item_amount_hint">Anzahl</string>
     <string name="item_name_hint">Name</string>
     <string name="depth_disclaimer">Verwendung auf eigenes Risiko.
 \n
 \nNicht ohne wasserdichtes Gehäuse verwenden und in einer sicheren Tauchtiefe bleiben.</string>
     <string name="tool_depth_title">Tiefe</string>
-    <string name="tool_inventory_summary">Überblick über vorhandene Gegenstände behalten</string>
     <string name="category_safety">Sicherheit</string>
     <string name="category_shelter">Unterstand</string>
     <string name="category_fire">Feuer</string>
@@ -441,12 +423,10 @@
     <string name="notes_empty_text">Keine Notizen</string>
     <string name="tool_metal_detector_title">Metalldetektor</string>
     <string name="threshold">Schwellenwert</string>
-    <string name="metal_detected">Metal erkannt</string>
     <string name="clock_sync_time_settings">Einstellungen zur Zeit öffnen\?</string>
     <string name="notification_channel_clock_sync_description">Eine Benachrichtigung, um die Uhr mit der GPS-Zeit zu synchronisieren</string>
     <string name="beacon_2">Wegpunkt 2</string>
     <string name="beacon_1">Wegpunkt 1</string>
-    <string name="triangulate_mark_beacon">Markieren</string>
     <string name="tool_triangulate_title">Standort mittels Triangulation bestimmen</string>
     <string name="tool_category_signaling">Signalisieren</string>
     <string name="tool_category_location">Position</string>
@@ -489,7 +469,6 @@
     <string name="battery_power_usb">USB</string>
     <string name="low_power_mode_on_message">Energiespar-Modus ist eingeschaltet, einige Features können ausgeschaltet sein.</string>
     <string name="pref_low_power_mode_title">Energiespar-Modus</string>
-    <string name="guide_backtrack_description">„Rückweg“ benutzen</string>
     <string name="battery_power_wireless">Drahtlos</string>
     <string name="tool_thermometer_title">Thermometer</string>
     <string name="location_input_help">Dezimalgrad (z. B. 1,00, -2,00)
@@ -519,8 +498,6 @@
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="waypoint_beacon_title_template">%s, %s Wegpunkt</string>
     <string name="action_waypoint_create_beacon">Wegpunkt anlegen</string>
-    <string name="guide_create_beacons_description">Wegpunkte anlegen</string>
-    <string name="guide_create_beacons_title">Wegpunkte anlegen</string>
     <string name="charging_wireless">Batterie wird geladen (%s)</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
@@ -619,10 +596,6 @@
     <string name="gravity">Schwerkraft</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
     <string name="magnetometer">Magnetometer</string>
-    <string name="permission_background_location">Ortsbestimmung im Hintergrund</string>
-    <string name="permission_not_granted">Nicht erlaubt</string>
-    <string name="permission_granted">Erlaubt</string>
-    <string name="available">Verfügbar</string>
     <string name="help">Hilfe</string>
     <string name="lux_format">%s lx</string>
     <string name="candela_format">%s cd</string>
@@ -699,7 +672,6 @@
     <string name="tool_speedometer_odometer_title">Geschwindigkeitsanzeige / Kilometerzähler</string>
     <string name="speedometer">Geschwindigkeitsanzeige</string>
     <string name="screen_flashlight">Bildschirm</string>
-    <string name="tide_calibration">Gezeitenkalibrierung</string>
     <string name="date_not_set">Datum nicht festgelegt</string>
     <string name="time_not_set">Zeit nicht festgelegt</string>
     <string name="tide_calibration_instructions">Setzen Sie die Zeit während einer Flut, wenn möglich während eines Neu- oder Vollmonds. Das kann im Internet oder über gedruckte Gezeitentabellen herausgefunden werden. Die Gezeiten, die in Trail Sense gezeigt werden, können bis zu zwei Stunden von den realen Zeiten abweichen, was genug als Referenz ist, allerdings sollten Sie sich nicht alleine darauf verlassen.</string>
@@ -713,7 +685,6 @@
     <string name="tomorrows_forecast">Vorhersage für morgen</string>
     <string name="guide_light_meter_description">Reichweite einer Taschenlampe herausfinden</string>
     <string name="set">Festlegen</string>
-    <string name="tool_light_meter_description">Reichweite einer Taschenlampe messen</string>
     <string name="tool_light_meter_title">Lichtmeter</string>
     <string name="beam_distance">%s Reichweite</string>
     <string name="stratocumulus_desc">Rollende Massen, die eine Platte formen.</string>
@@ -763,10 +734,6 @@
     <string name="pref_backtrack_path_radar_title">Zeige Pfad von Rückweg</string>
     <string name="map_auto_calibrated">Karte wurde automatisch kalibriert, bitte überprüfe die Genauigkeit</string>
     <string name="time_until_empty">bis leer</string>
-    <plurals name="import_beacons">
-        <item quantity="one">%d Wegpunkt importieren\?</item>
-        <item quantity="other">%d Wegpunkte importieren\?</item>
-    </plurals>
     <string name="search">Suche</string>
     <string name="pref_odometer_reset_daily_title">Täglich zurücksetzen</string>
     <string name="sleep_timer">Schlaf-Timer</string>
@@ -801,7 +768,6 @@
     <string name="pref_show_last_signal_beacon_title">Wegpunkt am letzten Signal</string>
     <string name="last_signal_beacon_name">Letztes Signal - %s (%s)</string>
     <string name="camera_permission_denied">Kameraberechtigung abgelehnt, kann die Kamerafunktionen nicht anschalten. Sie können sie in den Einstellungen aktivieren.</string>
-    <string name="pref_use_camera_features_title">Kamerafunktionen aktivieren</string>
     <string name="color">Farbe</string>
     <string name="water_boil_guide_title">Wasser zum Trinken aufbereiten</string>
     <string name="arrow">Pfeil</string>
@@ -919,7 +885,6 @@
     <string name="pint_format">%s pt</string>
     <string name="milliliter_format">%s ml</string>
     <string name="liter_format">%s l</string>
-    <string name="swap">Tauschen</string>
     <string name="pref_map_url_source_title">Kartenformat beim Senden eines Standorts</string>
     <string name="clear_cache">Cache leeren</string>
     <string name="destination_elevation">Zielhöhe</string>
@@ -971,13 +936,11 @@
     <string name="activity_recognition">Körperliche Aktivität</string>
     <string name="grant_permission">Die %s-Berechtigung erlauben</string>
     <string name="no_resolution">Keine Auflösung</string>
-    <string name="tools_might_not_work">Diese Tools funktionieren vielleicht nicht:</string>
     <string name="sighting_compass">Sichtkompass</string>
     <string name="no_issues">Keine Probleme gefunden</string>
     <string name="notifications_blocked">Benachrichtigungen blockiert</string>
     <string name="on">An</string>
     <string name="overridden">Überschrieben</string>
-    <string name="update">Update</string>
     <string name="battery_usage_restricted">Batterienutzung beschränkt</string>
     <string name="diagnostics">Diagnose</string>
     <string name="no_permission">Berechtigung nicht erlaubt</string>

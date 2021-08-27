@@ -83,7 +83,6 @@
     <string name="pressure_reading_time_ago">Orain dela %s - %s</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3o</string>
-    <string name="pressure_tendency_format">%s %s / 3o</string>
     <string name="stop_monitoring">Gelditu</string>
     <string name="units_psi">PSI</string>
     <string name="units_mbar">mbar</string>
@@ -106,7 +105,6 @@
     <string name="sun_moon_compass_always">Beti</string>
     <string name="pref_temperature_holder_title">Tenperatura</string>
     <string name="pref_barometer_pressure_title">Presioa</string>
-    <string name="calibration_mode_barometer_alert_title">Barometroa</string>
     <string name="altimeter_mode_barometer">Barometroa</string>
     <string name="altimeter_mode_gps">GPS</string>
     <string name="altitude">Altitudea</string>
@@ -138,7 +136,6 @@
     <string name="action_item_delete">Ezabatu</string>
     <string name="action_item_subtract">Atera</string>
     <string name="action_item_add">Gehitu</string>
-    <string name="action_inventory">Inbentarioa</string>
     <string name="inclinometer_title">Klinometroa</string>
     <string name="tide_normal">Arrunta</string>
     <string name="sunset_alert_notification_text">Eguzkia %setan sartuko da</string>
@@ -177,8 +174,6 @@
     <string name="precise_feet_format">%s ft</string>
     <string name="category_food">Janaria</string>
     <string name="category_other">Besteak</string>
-    <string name="guide_beacons_title">Balizak</string>
-    <string name="pref_category_tabs">Fitxak</string>
     <string name="navigation_nearby_category">Hurbil</string>
     <string name="forecasts_category">Iragarpenak</string>
     <string name="advanced_settings_category">Aurreratua</string>
@@ -187,8 +182,6 @@
     <string name="beacon_create_group">Taldea</string>
     <string name="beacon_create_beacon">Baliza</string>
     <string name="beacon_create">Sortu</string>
-    <string name="sun_dusk">Ilunsentia</string>
-    <string name="sun_dawn">Egunsentia</string>
     <string name="tide_spring">Bizia</string>
     <string name="tide_neap">Hila</string>
     <string name="moon_set">Ilargia sartzea</string>
@@ -215,7 +208,6 @@
     <string name="distance_from">Hemendik</string>
     <string name="distance_hint">Distantzia</string>
     <string name="tool_whistle_title">Txilibitua</string>
-    <string name="item_amount_hint">Kopurua</string>
     <string name="item_name_hint">Izena</string>
     <string name="category_natural">Naturala</string>
     <string name="map_fractional_separator">:</string>
@@ -226,7 +218,6 @@
     <string name="tool_notes_title">Oharrak</string>
     <string name="metal_detector_calibrate">Kalibratu</string>
     <string name="threshold">Atalasea</string>
-    <string name="triangulate_mark_beacon">Marka</string>
     <string name="tool_category_signaling">Seinaleztapena</string>
     <string name="tool_category_other">Beste batzuk</string>
     <string name="tool_category_location">Kokapena</string>
@@ -261,8 +252,6 @@
     <string name="high">Altua</string>
     <string name="set">Ezarri</string>
     <string name="help">Laguntza</string>
-    <string name="available">Eskuragarri</string>
-    <string name="permission_granted">Emanda</string>
     <string name="magnetometer">Magnetometroa</string>
     <string name="gravity">Grabitatea</string>
     <string name="hygrometer">Higrometroa</string>
@@ -332,9 +321,7 @@
     <string name="bearing">Norabidea</string>
     <string name="map_scale_verbal">Hitzez</string>
     <string name="update_60_minutes">Ordu 1</string>
-    <string name="update_45_minutes">45 minutu</string>
     <string name="update_30_minutes">30 minutu</string>
-    <string name="update_15_minutes">15 minutu</string>
     <string name="update_180_minutes">3 ordu</string>
     <string name="update_120_minutes">2 ordu</string>
     <string name="precise_temp_c_format">%s °C</string>
@@ -345,7 +332,6 @@
     <string name="notes_empty_text">Oharrik ez</string>
     <string name="battery_temp">Telefonoa: %s</string>
     <string name="tool_metal_detector_title">Metal-detektagailua</string>
-    <string name="metal_detected">Metala antzeman da</string>
     <string name="beacon_2">2 baliza</string>
     <string name="beacon_1">1 baliza</string>
     <string name="tool_triangulate_title">Kokapena triangulatu</string>
@@ -359,7 +345,6 @@
     <string name="guide_recommended_apps">Gomendatutako aplikazioak</string>
     <string name="unit_nautical_miles">Itsas miliak</string>
     <string name="inventory_empty_text">Elementurik ez</string>
-    <string name="action_inventory_delete_all">Guztia ezabatu</string>
     <string name="max_depth">Gehi: %s</string>
     <string name="beacon_action_view_details">Xehetasunak ikusi</string>
     <string name="guide_weather_prediction_title">Eguraldiaren iragarpena</string>
@@ -380,7 +365,6 @@
     <string name="tide_high_short">Altua</string>
     <string name="tide_low_short">Baxua</string>
     <string name="backtrack_notification_channel">Kokapenen erregistroa</string>
-    <string name="guide_create_beacons_title">Balizak sortu</string>
     <string name="map_scale_title">Maparen eskala</string>
     <string name="freezing_temperatures_warning">Izozte tenperaturak</string>
     <string name="battery_health_over_voltage">Gaintentsioa</string>
@@ -411,7 +395,6 @@
     <string name="tool_light_meter_title">Argi neurgailua</string>
     <string name="candela_format">%s cd</string>
     <string name="lux_format">%s lx</string>
-    <string name="permission_background_location">Atzealdeko kokapena</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
     <string name="dbm_format">%s dBm</string>
     <string name="cell_signal">Estaldura seinalea</string>

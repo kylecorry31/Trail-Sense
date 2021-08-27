@@ -82,9 +82,7 @@
     <string name="pref_category_about">À propos</string>
     <string name="pref_open_source_licenses_title">Licences</string>
     <string name="update_60_minutes">1 heure</string>
-    <string name="update_45_minutes">45 minutes</string>
     <string name="update_30_minutes">30 minutes</string>
-    <string name="update_15_minutes">15 minutes</string>
     <string name="update_180_minutes">3 heures</string>
     <string name="update_150_minutes">2 heures 30 minutes</string>
     <string name="update_120_minutes">2 heures</string>
@@ -102,7 +100,6 @@
     <string name="pref_altitude_override_sea_level_dialog_msg">Entrez la pression au niveau de la mer en hPa</string>
     <string name="altitude_from_pressure">Utiliser la donnée du baromètre pour l\'altitude</string>
     <string name="altitude_from_gps">Utiliser la donnée GPS pour l\'altitude</string>
-    <string name="add_elevation_offsets">Utiliser l\'altitude au-dessus du niveau moyen de la mer</string>
     <string name="altitude">Altitude</string>
     <string name="pref_altimeter_calibration_title">Altimètre</string>
     <string name="tidal_range">Amplitude de marée</string>
@@ -111,10 +108,8 @@
     <string name="sun_does_not_rise">pas de lever</string>
     <string name="sun_does_not_set">pas de coucher</string>
     <string name="pref_center_sun_and_moon_title">Centrer les astres sur le graphe</string>
-    <string name="barometer_thermometer">Baromètre et thermomètre</string>
     <string name="pref_barometer_pressure_title">Pression</string>
     <string name="pref_altimeter_calibration_mode_title">Étalonnage automatique</string>
-    <string name="calibration_mode_barometer_alert_title">Baromètre</string>
     <string name="altimeter_mode_override">Jamais</string>
     <string name="altimeter_mode_gps_barometer">GPS + baromètre</string>
     <string name="altimeter_mode_barometer">Baromètre</string>
@@ -133,7 +128,6 @@
     <string name="compass_azimuth">Azimuth</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="units_inhg_short">in</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="dash">-</string>
@@ -175,8 +169,6 @@
     <string name="avalanche_risk_low">Risque d\'avalanche faible</string>
     <string name="tool_inclinometer_summary">Permet d\'estimer la hauteur des objets et le risque d\'avalanches</string>
     <string name="inclinometer_title">Inclinomètre</string>
-    <string name="sun_dusk">Crépuscule</string>
-    <string name="sun_dawn">Aube</string>
     <string name="solar_noon">Midi solaire</string>
     <string name="sunset_alert_channel_title">Alerte de coucher de soleil</string>
     <string name="sunset_alert_channel_description">Alertes associées au coucher de soleil</string>
@@ -274,7 +266,6 @@
     <string name="pref_forecast_sensitivity_title">Niveau de sensibilité pour les prévisions</string>
     <string name="pref_num_visible_beacons_title">Repères à proximité</string>
     <string name="pref_altitude_override_sea_level_title">En se basant sur une valeur de pression au niveau de la mer</string>
-    <string name="pref_altitude_offsets_summary">Tient compte du niveau moyen de la mer pour la valeur d\'altitude fournie par le GPS</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Saisissez la valeur de pression au niveau de la mer</string>
     <string name="altitude_override_updated_toast">Nouvelle valeur d\'altitude obtenue</string>
     <string name="pref_altitude_override_title">Saisie manuelle de l\'altitude</string>
@@ -309,10 +300,7 @@
         <item quantity="one">%d repère</item>
         <item quantity="other">%d repères</item>
     </plurals>
-    <string name="guide_beacons_description">Comment naviguer en utilisant les balises</string>
-    <string name="guide_beacons_title">Balises</string>
     <string name="guide_conserving_battery_title">Préserver la batterie</string>
-    <string name="pref_category_tabs">Onglets</string>
     <string name="navigation_nearby_category">À proximité</string>
     <string name="forecasts_category">Prévisions</string>
     <string name="advanced_settings_category">Avancé</string>
@@ -331,7 +319,6 @@
     <string name="sun_and_moon">Position du soleil et de la lune</string>
     <string name="pref_sea_level_require_dwell_title">Ignorer les variations d\'altitude rapides</string>
     <string name="pref_sea_level_require_dwell_summary">Ne fournir des informations que lorsque l\'altitude a été constante pour au moins une heure. Cela permet d\'améliorer la fiabilité des prévisions.</string>
-    <string name="weather_update_notification_channel_desc">Mise à jour des données météorologiques en tâche de fond</string>
     <string name="weather_update_notification_channel">Mise à jour des données météorologiques</string>
     <string name="tool_user_guide_summary">Un manuel pour la prise en main de Trail Sense</string>
     <string name="tool_user_guide_title">Guide d\'utilisation</string>
@@ -355,7 +342,6 @@
     <string name="action_item_delete">Supprimer</string>
     <string name="action_item_subtract">Soustraire</string>
     <string name="action_item_add">Ajouter</string>
-    <string name="action_inventory">Inventaire</string>
     <string name="max_depth">Max : %s</string>
     <string name="edit_item_title">Éditer un objet</string>
     <string name="create_item_title">Créer un objet</string>
@@ -366,13 +352,11 @@
     <string name="toast_destination_bearing_set">Orientation établie</string>
     <string name="object_height_guide">Estimation de la hauteur</string>
     <string name="guide_avalanche_risk">Estimation du risque d\'avalanche</string>
-    <string name="item_amount_hint">Quantité</string>
     <string name="item_name_hint">Nom</string>
     <string name="depth_disclaimer">À utiliser avec précaution.
 \n
 \nN\'employer que si vous disposez d\'une coque étanche et ne plongez pas au delà d\'une profondeur qui pourrait vous mettre en danger.</string>
     <string name="tool_depth_title">Profondeur</string>
-    <string name="tool_inventory_summary">Notez une liste des objets dont vous disposez</string>
     <string name="solar_panel_instructions">Placez votre téléphone sur la surface du panneau solaire pour commencer.</string>
     <string name="tool_triangulate_summary">Vous géolocalise sans GPS</string>
     <string name="tool_category_distance">Distance</string>
@@ -426,8 +410,6 @@
     <string name="distance_to">à</string>
     <string name="distance_from">Depuis</string>
     <string name="distance_hint">Distance</string>
-    <string name="action_inventory_delete_all_confirm">Supprimer tous les éléments de l\'inventaire \?</string>
-    <string name="action_inventory_delete_all">Tout supprimer</string>
     <string name="tool_whistle_title">Sifflet</string>
     <string name="tool_battery_title">Batterie</string>
     <string name="map_distance">Carte : %s</string>
@@ -453,7 +435,6 @@
     <string name="metal_detector_calibrate">Calibrer</string>
     <string name="tool_metal_detector_title">Détecteur de métaux</string>
     <string name="threshold">Seuil</string>
-    <string name="metal_detected">Métal détecté</string>
     <string name="clock_sync_time_settings">Ouvrir les paramètres de l\'horloge \?</string>
     <string name="clock_sync_instructions">Règle l\'horloge du téléphone à %s quand la notification apparaît</string>
     <string name="clock_sync_notification">Synchronisation de l\'horloge - %s</string>
@@ -464,7 +445,6 @@
     <string name="beacon_2">Marqueur №2</string>
     <string name="beacon_1">Marqueur №1</string>
     <string name="could_not_triangulate">Impossible d\'effectuer la triangulation</string>
-    <string name="triangulate_mark_beacon">Marquer</string>
     <string name="tool_triangulate_title">Triangulation</string>
     <string name="tool_category_signaling">Signalisation</string>
     <string name="tool_category_other">Divers</string>
@@ -501,8 +481,6 @@
     <string name="waypoint_action_delete">Supprimer</string>
     <string name="backtrack_notification_channel">Historique de l\'itinéraire</string>
     <string name="guide_location_no_gps_title">Déterminer sa position sans GPS</string>
-    <string name="guide_create_beacons_description">Comment créer des repères</string>
-    <string name="guide_create_beacons_title">Placer des repères</string>
     <string name="beacon_set_bearing_btn">Assigner l\'orientation (%s)</string>
     <string name="create_at_distance">Créer une distance</string>
     <string name="bearing">Orientation</string>
@@ -541,11 +519,7 @@
     <string name="tomorrows_forecast">Prévisions pour demain</string>
     <string name="todays_forecast">Prévisions pour aujourd\'hui</string>
     <string name="set">Définir</string>
-    <string name="permission_background_location">Localisation en arrière-plan</string>
-    <string name="permission_granted">Accordée</string>
-    <string name="permission_not_granted">Non accordée</string>
     <string name="help">Aide</string>
-    <string name="available">Disponible</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
     <string name="gravity">Gravité</string>
     <string name="satellites">satellites</string>

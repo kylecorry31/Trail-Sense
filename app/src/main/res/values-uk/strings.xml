@@ -68,7 +68,6 @@
     <string name="speedometer_average">Середня (зі зворотного шляху)</string>
     <string name="speedometer_real_time">Наживо</string>
     <string name="screen_flashlight">Екран</string>
-    <string name="tide_calibration">Калібрування припливів</string>
     <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
@@ -112,7 +111,6 @@
     <string name="location_not_set">Місцеперебування не встановлено</string>
     <string name="pref_backtrack_save_cell_title">Запис стільникового сигналу</string>
     <string name="pref_backtrack_save_cell_summary">Записує стільниковий зв\'язок в шляховій точці. Інтернет не використовується.</string>
-    <string name="tool_light_meter_description">Виміряйте відстань променя ліхтарика</string>
     <string name="tool_light_meter_title">Світломір</string>
     <string name="beam_distance">%s відстань променя</string>
     <string name="candela_format">%s кандела</string>
@@ -120,10 +118,6 @@
     <string name="distance_from_flashlight">Відстань від телефону до ліхтарика</string>
     <string name="beacon_export_error">Не вдалося експортувати маячки</string>
     <string name="help">Довідка</string>
-    <string name="available">Доступно</string>
-    <string name="permission_granted">Дозволено</string>
-    <string name="permission_not_granted">Не дозволено</string>
-    <string name="permission_background_location">Операції у тлі</string>
     <string name="magnetometer">Магнітометр</string>
     <string name="acceleration_m_s2_format">%s м/с²</string>
     <string name="gravity">Гравітація</string>
@@ -252,8 +246,6 @@
     <string name="dialog_leave">Покинути</string>
     <string name="unsaved_changes_message">Внесені вами зміни не будуть збережені.</string>
     <string name="inventory_empty_text">Порожньо</string>
-    <string name="action_inventory_delete_all_confirm">Видалити всі речі інвентарю\?</string>
-    <string name="action_inventory_delete_all">Видалити все</string>
     <string name="tool_whistle_title">Свисток</string>
     <string name="max_depth">Макс: %s</string>
     <string name="cliff_height_guide">Оцінка висоти скелі</string>
@@ -271,19 +263,15 @@
 \n- Уведіть це значення сюди.</string>
     <string name="access_background_location_rationale">Trail Sense використовує дані про місцеперебування у тлі. Він використовується для калібрування тиску на рівні моря під час відстеження погоди та для забезпечення точніших попереджень про захід сонця. [Переглянути політику приватності] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="pref_sea_level_use_rapid_summary">Використовувати дані барометра під час обчислення тиску на рівні моря</string>
-    <string name="barometer_thermometer">Барометр та термометр</string>
-    <string name="calibration_mode_barometer_alert_title">Барометр</string>
     <string name="altimeter_mode_gps_barometer">GPS + Барометр</string>
     <string name="altimeter_mode_barometer">Барометр</string>
     <string name="altitude_from_pressure">Задати зсув за допомогою барометра на пристрої</string>
     <string name="guide_avalanche_risk">Оцінка ризику зсуву лавин</string>
-    <string name="item_amount_hint">Кількість</string>
     <string name="item_name_hint">Назва</string>
     <string name="depth_disclaimer">Використовуйте на свій страх і ризик.
 \n
 \nНе використовуйте без водонепроникного чохла і за можливості залишайтеся на безпечній відстані для плавання.</string>
     <string name="tool_depth_title">Глибина</string>
-    <string name="tool_inventory_summary">Стежте за речами під рукою</string>
     <string name="category_natural">Природне</string>
     <string name="category_safety">Безпека</string>
     <string name="category_shelter">Укриття</string>
@@ -299,10 +287,7 @@
     <string name="tool_bubble_level_summary">Визначте, чи є поверхні плоскими</string>
     <string name="tool_bubble_level_title">Рівномір</string>
     <string name="guide_weather_prediction_title">Прогноз погоди</string>
-    <string name="guide_beacons_description">Як орієнтуватися за допомогою маячків</string>
-    <string name="guide_beacons_title">Маячки</string>
     <string name="guide_conserving_battery_title">Ощада батареї</string>
-    <string name="pref_category_tabs">Вкладки</string>
     <string name="navigation_nearby_category">Поблизу</string>
     <string name="forecasts_category">Прогнози</string>
     <string name="advanced_settings_category">Додатково</string>
@@ -317,7 +302,6 @@
     <string name="sun_and_moon">Положення Сонця і Місяця</string>
     <string name="pref_sea_level_require_dwell_title">Нехтувати швидкими змінами висоти</string>
     <string name="pref_sea_level_require_dwell_summary">Відображати показники тільки тоді, коли висота не змінювалася щонайменш протягом години. Підвищує надійність прогнозів.</string>
-    <string name="weather_update_notification_channel_desc">Оновлення погоди у тлі</string>
     <string name="weather_update_notification_channel">Оновлення погоди</string>
     <string name="beacon_group_spinner_title">Група</string>
     <string name="no_group">Немає групи</string>
@@ -341,9 +325,7 @@
     <string name="pref_sunset_alert_time_title">Попереджати про захід за</string>
     <string name="pref_sunset_alerts_title">Попередження про захід сонця</string>
     <string name="update_60_minutes">1 годину</string>
-    <string name="update_45_minutes">45 хвилин</string>
     <string name="update_30_minutes">30 хвилин</string>
-    <string name="update_15_minutes">15 хвилин</string>
     <string name="update_180_minutes">3 години</string>
     <string name="update_150_minutes">2 години 30 хвилин</string>
     <string name="note_content_hint">Зміст</string>
@@ -352,17 +334,10 @@
     <string name="declination_override_updated_toast">Зсув компаса оновлено</string>
     <string name="compass_declination_override">Задати зсув компаса</string>
     <string name="compass_from_gps">Направляти компас на Справжню Північ, використовуючи поточне місцеперебування GPS</string>
-    <plurals name="import_beacons">
-        <item quantity="one">Імпортувати %d маячок\?</item>
-        <item quantity="few">Імпортувати %d маячки\?</item>
-        <item quantity="many">Імпортувати %d маячків\?</item>
-        <item quantity="other">Імпортувати %d маячків\?</item>
-    </plurals>
     <string name="pref_show_last_signal_beacon_summary">Створює маячок для визначення місцеперебування останнього сигналу стільника</string>
     <string name="pref_show_last_signal_beacon_title">Останній сигнал маячка</string>
     <string name="last_signal_beacon_name">Останній сигнал - %s (%s)</string>
     <string name="camera_permission_denied">Відмовлено в дозволі на камеру, дозвольте, щоб увімкнути функції камери. Ви можете надати дозвіл у налаштуваннях.</string>
-    <string name="pref_use_camera_features_title">Увімкнути функції камери</string>
     <string name="update_120_minutes">2 години</string>
     <string name="update_90_minutes">1 годину 30 хвилин</string>
     <string name="pref_center_sun_and_moon_title">Тримати сонце/місяць посередині</string>
@@ -429,12 +404,10 @@
     <string name="altimeter_mode_override">Ніколи</string>
     <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_title">Використовуючи дані про тиск на рівні моря</string>
-    <string name="pref_altitude_offsets_summary">Виправляє показники висоти з урахуванням даних про висоту середнього рівня моря</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Уведіть поточний тиск рівня моря в гПа</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Уведення значення тиску рівня моря</string>
     <string name="altitude_override_updated_toast">Значення висоти буде зсунуто на задане число</string>
     <string name="altitude_from_gps">Задати зсув за допомогою GPS</string>
-    <string name="add_elevation_offsets">Обчислювати від середнього рівня моря</string>
     <string name="altitude">Висота</string>
     <string name="pref_altimeter_calibration_title">Висотомір</string>
     <string name="request_permission">Запит дозволу</string>
@@ -491,7 +464,6 @@
     <string name="action_item_delete">Видалити</string>
     <string name="action_item_subtract">Відняти</string>
     <string name="action_item_add">Додати</string>
-    <string name="action_inventory">Інвентар</string>
     <string name="your_height">Ваш зріст</string>
     <string name="estimated_height">розрахункова висота</string>
     <string name="set_inclination_instructions">Торкніться екрана для закріплення значення</string>
@@ -502,8 +474,6 @@
     <string name="tool_inclinometer_summary">Оцінка ризику лавин і висоти об\'єктів</string>
     <string name="inclinometer_title">Нахиломір</string>
     <string name="offline_maps">Безмережеві мапи</string>
-    <string name="sun_dusk">Сутінки</string>
-    <string name="sun_dawn">Світанок</string>
     <string name="moon_illumination">Місячне освітлення</string>
     <string name="moon_phase">Фаза Місяця</string>
     <string name="lunar_noon">Полуніч</string>
@@ -555,7 +525,6 @@
     <string name="low_power_mode_on_message">Режим енергоощадження ввімкнувся, деякі функції може бути вимкнено.</string>
     <string name="pref_low_power_mode_title">Режим енергоощадження</string>
     <string name="guide_barometer_calibration_title">Калібрування барометра</string>
-    <string name="guide_backtrack_description">Як використовувати історію маршруту</string>
     <string name="charging_wireless">Заряджання (%s)</string>
     <string name="battery_power_wireless">Безпровідне</string>
     <string name="battery_power_usb">USB</string>
@@ -590,8 +559,6 @@
     <string name="backtrack_notification_channel_description">Оновлення місцеперебування історії маршруту</string>
     <string name="backtrack_notification_channel">Історія маршруту</string>
     <string name="guide_location_no_gps_title">Визначення місцеперебування без GPS</string>
-    <string name="guide_create_beacons_description">Як створювати маячки</string>
-    <string name="guide_create_beacons_title">Створення маячків</string>
     <string name="beacon_set_bearing_btn">Установити маячок (%s)</string>
     <string name="create_at_distance">Створити на відстані</string>
     <string name="bearing">Маячок</string>
@@ -625,7 +592,6 @@
     <string name="tool_metal_detector_title">Металошукач</string>
     <string name="threshold">Поріг</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="metal_detected">Виявлено метал</string>
     <string name="clock_sync_time_settings">Відкрити налаштування часу\?</string>
     <string name="clock_sync_instructions">Установіть час на %s, коли надійде сповіщення</string>
     <string name="clock_sync_notification">Синхронізація годинника - %s</string>
@@ -636,7 +602,6 @@
     <string name="beacon_2">Маячок 2</string>
     <string name="beacon_1">Маячок 1</string>
     <string name="could_not_triangulate">Не вдалося виконати триангуляцію</string>
-    <string name="triangulate_mark_beacon">Відмітити</string>
     <string name="tool_triangulate_summary">Визначте своє місцеперебування без GPS</string>
     <string name="tool_triangulate_title">Триангуляція місцеперебування</string>
     <string name="tool_category_signaling">Сигналізація</string>
@@ -733,7 +698,6 @@
     <string name="pressure_setpoint_format">Задано: %s - %s тому</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3 год</string>
-    <string name="pressure_tendency_format">%s %s / 3 год</string>
     <string name="stop_monitoring">Зупин</string>
     <string name="units_psi">фт-сила/дюйм²</string>
     <string name="units_mbar">мбар</string>
@@ -932,7 +896,6 @@
     <string name="cup_format">%s чшк</string>
     <string name="milliliter_format">%s мл</string>
     <string name="liter_format">%s л</string>
-    <string name="swap">Поміняти</string>
     <string name="pref_map_url_source_title">Мапа спільних геолокацій</string>
     <string name="clear_cache">Очистити кеш</string>
     <string name="destination_elevation">Висота призначення</string>
@@ -996,13 +959,11 @@
     <string name="background_location_permission">Розташування (дозволити весь час)</string>
     <string name="grant_permission">Надання дозволу %s</string>
     <string name="no_resolution">Немає роздільної здатності</string>
-    <string name="tools_might_not_work">Ці засоби можуть не працювати:</string>
     <string name="sighting_compass">Ручний компас</string>
     <string name="no_issues">Хиб не виявлено</string>
     <string name="notifications_blocked">Сповіщення заблоковано</string>
     <string name="on">Увімк.</string>
     <string name="overridden">Перевизначено</string>
-    <string name="update">Оновлення</string>
     <string name="battery_usage_restricted">Використання акумулятора обмежено</string>
     <string name="diagnostics">Діагностика</string>
     <string name="no_permission">Дозвіл не надано</string>

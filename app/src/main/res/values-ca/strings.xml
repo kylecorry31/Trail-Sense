@@ -13,10 +13,7 @@
     <string name="tool_bubble_level_summary">Determina si una superfície es plana</string>
     <string name="tool_bubble_level_title">Nivel de bombolla</string>
     <string name="guide_weather_prediction_title">Previsions meteorològiques</string>
-    <string name="guide_beacons_description">Com navegar utilitzant fites</string>
-    <string name="guide_beacons_title">Fites</string>
     <string name="guide_conserving_battery_title">Conservació de la bateria</string>
-    <string name="pref_category_tabs">Pestanyes</string>
     <string name="navigation_nearby_category">Properes</string>
     <string name="forecasts_category">Previsions</string>
     <string name="advanced_settings_category">Avançat</string>
@@ -31,7 +28,6 @@
     <string name="sun_and_moon">Posicions de la Lluna i el Sol</string>
     <string name="pref_sea_level_require_dwell_title">Ignorar els canvis ràpids d\'altitud</string>
     <string name="pref_sea_level_require_dwell_summary">Només mostrar les lectures quan la altitud no canvii en una hora. Permet millorar la fiabilitat del pronòstic.</string>
-    <string name="weather_update_notification_channel_desc">Actualizacions de les dades del clima en una tasca de fons</string>
     <string name="weather_update_notification_channel">Actualizar les dades del clima</string>
     <string name="beacon_group_spinner_title">Grup</string>
     <string name="no_group">Sense grup</string>
@@ -55,9 +51,7 @@
     <string name="pref_sunset_alert_time_title">Temps de notificació de l\'ocàs</string>
     <string name="pref_sunset_alerts_title">Notificació en l\'ocàs</string>
     <string name="update_60_minutes">1 hora</string>
-    <string name="update_45_minutes">45 minuts</string>
     <string name="update_30_minutes">30 minuts</string>
-    <string name="update_15_minutes">15 minuts</string>
     <string name="update_180_minutes">3 hores</string>
     <string name="update_90_minutes">1 hora i 30 minuts</string>
     <string name="update_150_minutes">2 hores i 30 minuts</string>
@@ -122,7 +116,6 @@
     <string name="pref_sea_level_use_rapid_title">Factor en canvis ràpids de pressió</string>
     <string name="pref_adjust_for_temperature_summary">Utilitzar la temperatura en les conversions de pressió atmosfèrica</string>
     <string name="pref_adjust_for_temperature_title">Factor en temperatura</string>
-    <string name="barometer_thermometer">Baròmetre i termòmetre</string>
     <string name="pref_use_sea_level_pressure_title">Pressió a nivell del mar</string>
     <string name="pref_barometer_pressure_title">Pressió</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibració</string>
@@ -153,7 +146,6 @@
     <string name="pressure_setpoint_format">Establert: fa %s - %s</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="stop_monitoring">Aturar</string>
     <string name="units_psi">PSI</string>
     <string name="units_mbar">mbar</string>
@@ -238,20 +230,17 @@
     <string name="settings">Configuració</string>
     <string name="weather">Clima</string>
     <string name="navigation">Navegació</string>
-    <string name="calibration_mode_barometer_alert_title">Baròmetre</string>
     <string name="altimeter_mode_override">Mai</string>
     <string name="altimeter_mode_gps_barometer">GPS + Baròmetre</string>
     <string name="altimeter_mode_barometer">Baròmetre</string>
     <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_title">Utilitza una pressió coneguda al nivell del mar</string>
-    <string name="pref_altitude_offsets_summary">Corretgeix l\'altitud obtinguda pel GPS amb el nivell del mar</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Introdueixi la pressió a nivell de mar</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Introdueixi la pressió a nivell de mar en hPa</string>
     <string name="altitude_override_updated_toast">Substitució d’altitud actualitzada</string>
     <string name="pref_altitude_override_title">Substitució d’altitud</string>
     <string name="altitude_from_pressure">Utilitzar les dades del baròmetre per l\'altitud</string>
     <string name="altitude_from_gps">Utilitzar les dades de GPS per obtenir l\'altitud</string>
-    <string name="add_elevation_offsets">Utilitza l\'elevació AMSL</string>
     <string name="altitude">Altitud</string>
     <string name="pref_altimeter_calibration_title">Altímetre</string>
     <string name="request_permission">Sol·licitar permís</string>
@@ -317,7 +306,6 @@
     <string name="action_item_delete">Eliminar</string>
     <string name="action_item_subtract">Restar</string>
     <string name="action_item_add">Afegir</string>
-    <string name="action_inventory">Inventari</string>
     <string name="your_height">La teva alçada</string>
     <string name="estimated_height">alçada estimada</string>
     <string name="set_inclination_instructions">Premeu en qualsevol lloc per establir / desactivar l\'angle d\'inclinació</string>
@@ -328,8 +316,6 @@
     <string name="tool_inclinometer_summary">Permet d\'estimar l\'alçada dels objectes i evaluar el risc d’allau</string>
     <string name="inclinometer_title">Inclinòmetre</string>
     <string name="offline_maps">Mapes Offline</string>
-    <string name="sun_dusk">Ocàs</string>
-    <string name="sun_dawn">Albada</string>
     <string name="moon_illumination">Iluminació de la lluna</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="lunar_noon">Migdia llunar</string>

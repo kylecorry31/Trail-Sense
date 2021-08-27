@@ -11,11 +11,9 @@
     <string name="pref_num_visible_beacons_title">鄰近地標</string>
     <string name="pref_show_linear_compass_summary">當手機垂直時</string>
     <string name="pref_temperature_holder_title">溫度</string>
-    <string name="barometer_thermometer">氣壓計與溫度計</string>
     <string name="pref_use_sea_level_pressure_title">海平面壓力</string>
     <string name="pref_barometer_pressure_title">壓力</string>
     <string name="pref_altimeter_calibration_mode_title">自動校準</string>
-    <string name="calibration_mode_barometer_alert_title">氣壓計</string>
     <string name="altimeter_mode_override">永不</string>
     <string name="altimeter_mode_gps_barometer">GPS + 氣壓計</string>
     <string name="altimeter_mode_barometer">氣壓計</string>
@@ -53,8 +51,6 @@
     <string name="action_item_delete">刪除</string>
     <string name="action_item_add">新增</string>
     <string name="offline_maps">離線地圖</string>
-    <string name="sun_dusk">黃昏</string>
-    <string name="sun_dawn">破曉</string>
     <string name="moon_phase">月相</string>
     <string name="tidal_range">潮汐範圍</string>
     <string name="sunset_alert_channel_title">日落提醒</string>
@@ -152,7 +148,6 @@
     <string name="pref_privacy_policy_title">隱私權政策</string>
     <string name="guide_recommended_apps">推薦的應用程式</string>
     <string name="inventory_empty_text">無項目</string>
-    <string name="action_inventory_delete_all">全部刪除</string>
     <string name="max_depth">最大: %s</string>
     <string name="tool_cliff_height_title">懸崖高度</string>
     <string name="beacon_action_view_details">查看細節</string>
@@ -166,9 +161,7 @@
     <string name="tool_user_guide_title">使用說明</string>
     <string name="pref_email_title">寄送電子郵件給開發者</string>
     <string name="update_60_minutes">1 小時</string>
-    <string name="update_45_minutes">45 分鐘</string>
     <string name="update_30_minutes">30 分鐘</string>
-    <string name="update_15_minutes">15 分鐘</string>
     <string name="update_180_minutes">3 小時</string>
     <string name="update_120_minutes">2 小時</string>
     <string name="sun_actual">實際時間</string>
@@ -206,7 +199,6 @@
     <string name="distance_from">從</string>
     <string name="distance_hint">距離</string>
     <string name="tool_whistle_title">哨子</string>
-    <string name="item_amount_hint">數量</string>
     <string name="item_name_hint">名稱</string>
     <string name="tool_depth_title">深度</string>
     <string name="category_fire">火</string>
@@ -214,8 +206,6 @@
     <string name="category_clothing">衣物</string>
     <string name="category_food">食物</string>
     <string name="category_other">其他</string>
-    <string name="guide_beacons_title">地標</string>
-    <string name="pref_category_tabs">分頁</string>
     <string name="forecasts_category">預報</string>
     <string name="advanced_settings_category">進階</string>
     <string name="beacon_group_spinner_title">群組</string>
@@ -263,7 +253,6 @@
     <string name="notes_empty_text">無筆記</string>
     <string name="metal_detector_disclaimer">僅探測可磁化金屬(例: 鐵)</string>
     <string name="tool_metal_detector_title">金屬探測器</string>
-    <string name="metal_detected">探測到金屬</string>
     <string name="clock_sync_time_settings">開啟時間設定？</string>
     <string name="clock_sync_notification">時鐘同步 - %s</string>
     <string name="pip_button">更新系統時間</string>
@@ -274,7 +263,6 @@
     <string name="tool_lightning_title">閃電雷聲測距</string>
     <string name="pref_sensor_details_title">感應器細節</string>
     <string name="boil_start">開始</string>
-    <string name="action_inventory_delete_all_confirm">刪除所有背包物品？</string>
     <string name="navigation_nearby_category">附近</string>
     <string name="tap_sun_moon_hint">點擊太陽或月亮以取得詳細位置</string>
     <string name="sun_and_moon_position_details">太陽
@@ -285,7 +273,6 @@
 \n\t高度: %s
 \n\t方位角: %s</string>
     <string name="sun_and_moon">太陽與月亮位置</string>
-    <string name="weather_update_notification_channel_desc">背景天氣更新</string>
     <string name="error_occurred_message">Trail Sense 遇到一個錯誤且將會關閉。請發送電子郵件給開發者以解決此問題。</string>
     <string name="error_occurred">一個錯誤發生</string>
     <string name="pref_open_source_licenses_title">許可證</string>
@@ -343,7 +330,6 @@
     <string name="pressure_reading_time_ago">%s - %s 之前</string>
     <string name="pressure_setpoint_format">Set: %s - %s 之前</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="share_action_send">寄送</string>
     <string name="accuracy_info">"GPS: 走到室外無視野遮擋的天空下
 \n    實際位置的 %s  

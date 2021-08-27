@@ -114,7 +114,6 @@
     <string name="dialog_grant">Aggiorna le impostazioni</string>
     <string name="pref_barometer_pressure_title">Pressione</string>
     <string name="pref_num_visible_beacons_title">Segnaposto vicini</string>
-    <string name="barometer_thermometer">Barometro e termometro</string>
     <string name="altimeter_mode_override">Mai</string>
     <string name="altimeter_mode_barometer">Barometro</string>
     <string name="tools">Strumenti</string>
@@ -148,7 +147,6 @@
     <string name="action_item_edit">Modifica</string>
     <string name="action_item_delete">Elimina</string>
     <string name="action_item_add">Aggiungi</string>
-    <string name="action_inventory">Inventario</string>
     <string name="estimated_height">altezza stimata</string>
     <string name="set_inclination_instructions">Tocca un qualsiasi punto per impostare/rimuovere l\'angolo di inclinazione</string>
     <string name="inclinometer_rotate_device">Tieni il telefono in posizione verticale per misurare l\'inclinazione</string>
@@ -158,8 +156,6 @@
     <string name="tool_inclinometer_summary">Stima del rischio valanghe e dell\'altezza degli oggetti</string>
     <string name="inclinometer_title">Inclinometro</string>
     <string name="offline_maps">Mappe Offline</string>
-    <string name="sun_dusk">Crepuscolo serale</string>
-    <string name="sun_dawn">Crepuscolo mattutino</string>
     <string name="moon_illumination">Illuminazione lunare</string>
     <string name="tide_neap">di quadratura</string>
     <string name="tide_spring">sizigiale</string>
@@ -184,7 +180,6 @@
     <string name="copied_to_clipboard_toast">Copiato negli appunti</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3 h</string>
-    <string name="pressure_tendency_format">%s %s / 3 h</string>
     <string name="units_inhg_short">in</string>
     <string name="eta">~ %s distanza</string>
     <string name="sos">SOS</string>
@@ -234,18 +229,15 @@
     <string name="pref_temperature_holder_title">Temperatura</string>
     <string name="pref_adjust_for_temperature_title">Fattore in temperatura</string>
     <string name="pref_altimeter_calibration_mode_title">Auto calibrazione</string>
-    <string name="calibration_mode_barometer_alert_title">Barometro</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometro</string>
     <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_title">Utilizza una pressione nota al livello del mare</string>
-    <string name="pref_altitude_offsets_summary">Corregge l’atitudine del GPS al livello del mare medio</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Inserire la pressione attuale al livello del mare</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Inserire la pressione attuale al livello del mare in hPa</string>
     <string name="altitude_override_updated_toast">Aggiornato l’override dell’altitudine</string>
     <string name="pref_altitude_override_title">Override altitudine</string>
     <string name="altitude_from_pressure">Impostare gli override del barometro</string>
     <string name="altitude_from_gps">Impostare gli override del GPS</string>
-    <string name="add_elevation_offsets">Utilizza l’elevazione AMSL</string>
     <string name="altitude">Altitudine</string>
     <string name="pref_altimeter_calibration_title">Altimetro</string>
     <string name="request_permission">Richiesta permessi</string>
@@ -301,8 +293,6 @@
     <string name="backtrack_notification_description">Posizionamento del waypoint</string>
     <string name="backtrack_notification_channel_description">Aggiornamento delle posizioni per il ritorno</string>
     <string name="backtrack_notification_channel">Ritorno</string>
-    <string name="guide_create_beacons_description">Come creare Segnaposto</string>
-    <string name="guide_create_beacons_title">Creazione Segnaposto</string>
     <string name="map_scale_title">Scala della mappa</string>
     <string name="tool_white_noise_summary">Aiuta ad addormentarsi</string>
     <string name="tool_white_noise_title">Rumore Bianco</string>
@@ -310,14 +300,12 @@
     <string name="metal_detector_calibrate">Calibrazione</string>
     <string name="tool_metal_detector_title">Metal Detector</string>
     <string name="threshold">Soglia</string>
-    <string name="metal_detected">Rilevato metallo</string>
     <string name="notification_channel_clock_sync">Sincronizzazione orologio</string>
     <string name="pip_notification_scheduled">Notifica schedulata per %s</string>
     <string name="pip_button">Aggiorna l’orologio di sistema</string>
     <string name="beacon_2">Segnaposto 2</string>
     <string name="beacon_1">Segnaposto 1</string>
     <string name="could_not_triangulate">Triangolazione non possibile</string>
-    <string name="triangulate_mark_beacon">Segna</string>
     <string name="tool_triangulate_summary">Determina la posizione senza GPS</string>
     <string name="tool_triangulate_title">Triangolazione della posizione</string>
     <string name="tool_category_signaling">Segnalazione</string>
@@ -341,18 +329,14 @@
     <string name="tool_boil_summary">Avvisa quando l’acqua è potabile</string>
     <string name="distance_hint">Distanza</string>
     <string name="inventory_empty_text">Nessun oggetto</string>
-    <string name="action_inventory_delete_all">Cancella tutti</string>
     <string name="tool_whistle_title">Fischio</string>
     <string name="tool_cliff_height_description">Misurare l’altezza di un precipizio o di una caduta</string>
     <string name="tool_cliff_height_title">Altezza precipizio</string>
     <string name="object_height_guide">Stima dell’altezza di oggetti</string>
     <string name="guide_avalanche_risk">Stima del rischio valanghe</string>
     <string name="tool_depth_title">Profondità</string>
-    <string name="tool_inventory_summary">Tenere traccia degli oggetti posseduti</string>
     <string name="beacon_action_view_details">Vedere i dettagli</string>
     <string name="tool_bubble_level_summary">Determinare se le superfici sono piane</string>
-    <string name="guide_beacons_description">Come muoversi utilizzando i Segnaposto</string>
-    <string name="guide_beacons_title">Segnaposto</string>
     <string name="error_occurred_message">Trail Sense</string>
     <string name="quick_action_none">Nessuno</string>
     <string name="no_temperature_history">Nessuno storico temperatura</string>
@@ -372,7 +356,6 @@
     <string name="guide_recommended_apps_description">App utili in situazioni di emergenza</string>
     <string name="guide_recommended_apps">App consigliate</string>
     <string name="unit_nautical_miles">Miglia nautiche</string>
-    <string name="item_amount_hint">Quantità</string>
     <string name="item_name_hint">Nome</string>
     <string name="category_natural">Naturali</string>
     <string name="category_safety">Sicurezza</string>
@@ -395,7 +378,6 @@
 \n\tAzimut: %s</string>
     <string name="sun_and_moon">Posizioni di sole e luna</string>
     <string name="pref_sea_level_require_dwell_title">Ignora cambiamenti rapidi di altitudine</string>
-    <string name="weather_update_notification_channel_desc">Aggiornamenti meteo in background</string>
     <string name="weather_update_notification_channel">Aggiornamenti meteo</string>
     <string name="beacon_group_spinner_title">Gruppo</string>
     <string name="no_group">Nessun gruppo</string>
@@ -416,9 +398,7 @@
     <string name="pref_sunset_alert_time_title">Avviso tramonto</string>
     <string name="pref_sunset_alerts_title">Avvisi tramonto</string>
     <string name="update_60_minutes">1 ora</string>
-    <string name="update_45_minutes">45 minuti</string>
     <string name="update_30_minutes">30 minuti</string>
-    <string name="update_15_minutes">15 minuti</string>
     <string name="update_180_minutes">3 ore</string>
     <string name="update_150_minutes">2 ore 30 minuti</string>
     <string name="update_120_minutes">2 ore</string>
@@ -437,7 +417,6 @@
     <string name="tool_speedometer_odometer_title">Tachimetro / Contachilometri</string>
     <string name="speedometer">Tachimetro</string>
     <string name="speedometer_real_time">Tempo reale</string>
-    <string name="tide_calibration">Calibrazione maree</string>
     <string name="date_not_set">Data non impostata</string>
     <string name="time_not_set">Ora non impostata</string>
     <string name="tide_high_short">Alta</string>
@@ -449,7 +428,6 @@
     <string name="set">Imposta</string>
     <string name="location_not_set">Posizione non impostata</string>
     <string name="help">Aiuto</string>
-    <string name="available">Disponibile</string>
     <string name="magnetometer">Magnetometro</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
     <string name="gravity">Gravità</string>
@@ -464,7 +442,6 @@
     <string name="network_5g">5G</string>
     <string name="compass_calibrate_toast">Precisione bussola %s, è suggerita la calibrazione</string>
     <string name="open_beacon_in_maps">Visualizza sulla mappa</string>
-    <string name="guide_backtrack_description">Come utilizzare Ritorno</string>
     <string name="charging_wireless">In carica (%s)</string>
     <string name="guide_thermometer_calibration_title">Calibrazione termometro</string>
     <string name="pref_gps_override_title">Sovrascrittura posizione</string>
@@ -490,7 +467,6 @@
     <string name="unit_meters">Metri</string>
     <string name="distance_to">Aggiorna l’orologio di sistema</string>
     <string name="distance_from">Da</string>
-    <string name="action_inventory_delete_all_confirm">Cancellare tutti gli oggetti in inventario\?</string>
     <string name="navigation_nearby_category">Vicino</string>
     <string name="forecasts_category">Previsioni</string>
     <string name="advanced_settings_category">Avanzate</string>

@@ -137,7 +137,6 @@
     <string name="tool_metal_detector_title">Detector de metais</string>
     <string name="threshold">Patamar</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="metal_detected">Metal detectado</string>
     <string name="clock_sync_time_settings">Abrir as configurações de tempo\?</string>
     <string name="clock_sync_instructions">Definir o tempo para %s quando a notificação chegar</string>
     <string name="clock_sync_notification">Sinc. relógio - %s</string>
@@ -148,7 +147,6 @@
     <string name="beacon_2">Ponto de Orientação 2</string>
     <string name="beacon_1">Ponto de Orientação 1</string>
     <string name="could_not_triangulate">Não foi possível triangular</string>
-    <string name="triangulate_mark_beacon">Marcar</string>
     <string name="tool_triangulate_summary">Determinar a sua localização sem GPS</string>
     <string name="tool_triangulate_title">Triangular localização</string>
     <string name="tool_category_signaling">Indicações</string>
@@ -214,8 +212,6 @@
     <string name="distance_from">De</string>
     <string name="distance_hint">Distância</string>
     <string name="inventory_empty_text">Nenhum item</string>
-    <string name="action_inventory_delete_all_confirm">Apagar todos os itens do inventário\?</string>
-    <string name="action_inventory_delete_all">tudo</string>
     <string name="tool_whistle_title">Assobio</string>
     <string name="max_depth">Max: %s</string>
     <string name="cliff_height_guide">Estimar a altura do penhasco</string>
@@ -225,13 +221,11 @@
     <string name="toast_destination_bearing_set">Conjunto de suporte ao destino</string>
     <string name="object_height_guide">Estimar as alturas dos objetos</string>
     <string name="guide_avalanche_risk">Estimativa de risco de avalanche</string>
-    <string name="item_amount_hint">Quantidade</string>
     <string name="item_name_hint">Nome</string>
     <string name="depth_disclaimer">Use por sua própria conta e risco.
 \n
 \nNão utilize sem uma caixa à prova d\'água e se possível, fique a uma distância segura de mergulho.</string>
     <string name="tool_depth_title">Profundidade</string>
-    <string name="tool_inventory_summary">Acompanhar de perto os itens nas mãos</string>
     <string name="category_natural">Natural</string>
     <string name="category_safety">Segurança</string>
     <string name="category_shelter">Abrigo</string>
@@ -247,10 +241,7 @@
     <string name="tool_bubble_level_summary">Determinar se as superfícies são planas</string>
     <string name="tool_bubble_level_title">Nível de Bolha</string>
     <string name="guide_weather_prediction_title">Previsão de tempo</string>
-    <string name="guide_beacons_description">Como navegar usando os Pontos de Orientação</string>
-    <string name="guide_beacons_title">Pontos de Orientação</string>
     <string name="guide_conserving_battery_title">Economia de bateria</string>
-    <string name="pref_category_tabs">Abas</string>
     <string name="navigation_nearby_category">Nas proximidades</string>
     <string name="forecasts_category">Previsões</string>
     <string name="advanced_settings_category">Avançado</string>
@@ -265,7 +256,6 @@
     <string name="sun_and_moon">Posições do Sol e da Lua</string>
     <string name="pref_sea_level_require_dwell_title">Ignorar as mudanças rápidas de altitude</string>
     <string name="pref_sea_level_require_dwell_summary">Mostrar as leituras somente quando a altitude não mudou por pelo menos uma hora. Melhora a confiabilidade da previsão.</string>
-    <string name="weather_update_notification_channel_desc">Atualizações meteorológicas de fundo</string>
     <string name="weather_update_notification_channel">Atualização meteorológica</string>
     <string name="beacon_group_spinner_title">Grupo</string>
     <string name="no_group">Nenhum grupo</string>
@@ -288,9 +278,7 @@
     <string name="pref_sunset_alert_time_title">Tempo de alerta ao pôr-do-sol</string>
     <string name="pref_sunset_alerts_title">Alertas ao pôr-do-sol</string>
     <string name="update_60_minutes">1 hora</string>
-    <string name="update_45_minutes">45 minutos</string>
     <string name="update_30_minutes">30 minutos</string>
-    <string name="update_15_minutes">15 minutos</string>
     <string name="update_180_minutes">3 horas</string>
     <string name="update_150_minutes">2 horas 30 minutos</string>
     <string name="update_120_minutes">2 horas</string>
@@ -338,23 +326,19 @@
     <string name="pref_sea_level_use_rapid_title">Fator em rápidas mudanças de pressão</string>
     <string name="pref_adjust_for_temperature_summary">Usar a temperatura em conversões de pressão ao nível do mar</string>
     <string name="pref_adjust_for_temperature_title">Fator em temperatura</string>
-    <string name="barometer_thermometer">Barômetro e termômetro</string>
     <string name="pref_barometer_pressure_title">Pressão</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibração</string>
-    <string name="calibration_mode_barometer_alert_title">Barómetro</string>
     <string name="altimeter_mode_override">Nunca</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barômetro</string>
     <string name="altimeter_mode_barometer">Barômetro</string>
     <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_title">Usando uma pressão conhecida ao nível do mar</string>
-    <string name="pref_altitude_offsets_summary">Corrige a altitude do GPS para acima do nível médio do mar</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Digite pressão ao nível do mar</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Digite a pressão atual ao nível do mar em hPa</string>
     <string name="altitude_override_updated_toast">Substituição da altitude atualizada</string>
     <string name="pref_altitude_override_title">Substituição da altitude</string>
     <string name="altitude_from_pressure">Substituição do barômetro</string>
     <string name="altitude_from_gps">Substituição do GPS</string>
-    <string name="add_elevation_offsets">Use a elevação AMSL</string>
     <string name="altitude">Altitude</string>
     <string name="pref_altimeter_calibration_title">Altímetro</string>
     <string name="request_permission">Solicitar permissão</string>
@@ -401,7 +385,6 @@
     <string name="action_item_delete">Apagar</string>
     <string name="action_item_subtract">Subtrair</string>
     <string name="action_item_add">Adicionar</string>
-    <string name="action_inventory">Inventário</string>
     <string name="estimated_height">altura estimada</string>
     <string name="set_inclination_instructions">Toque em qualquer lugar para definir/anular o ângulo de inclinação</string>
     <string name="inclinometer_rotate_device">Segure o seu telefone na vertical para medir a inclinação</string>
@@ -411,8 +394,6 @@
     <string name="tool_inclinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
     <string name="inclinometer_title">Inclinômetro</string>
     <string name="offline_maps">Mapas off-line</string>
-    <string name="sun_dusk">Anoitecer</string>
-    <string name="sun_dawn">Madrugada</string>
     <string name="moon_illumination">Iluminação da lua</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="lunar_noon">Meio-dia Lunar</string>
@@ -462,7 +443,6 @@
     <string name="pressure_setpoint_format">Definir: %s - %s atrás</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="units_inhg_short">in</string>
     <string name="beacon_comment">Notas (Opcional)</string>
     <string name="beacon_elevation_hint_meters">Elevação Metros (Opcional)</string>
@@ -517,7 +497,6 @@
     <string name="location_not_set">Localização não definida</string>
     <string name="pref_backtrack_save_cell_title">Registar sinal do telefone</string>
     <string name="pref_backtrack_save_cell_summary">Regista o sinal do telefone no ponto de passagem. Não utiliza a Internet.</string>
-    <string name="tool_light_meter_description">Medir a distância do sinal da lanterna</string>
     <string name="tool_light_meter_title">Medidor de luz</string>
     <string name="beam_distance">%s distância do sinal</string>
     <string name="candela_format">%s cd</string>
@@ -525,10 +504,6 @@
     <string name="distance_from_flashlight">Distância entre o telefone e a lanterna</string>
     <string name="beacon_export_error">Não foi possível exportar referências</string>
     <string name="help">Ajuda</string>
-    <string name="available">Disponível</string>
-    <string name="permission_granted">Concedida</string>
-    <string name="permission_not_granted">Não concedida</string>
-    <string name="permission_background_location">Localização em segundo plano</string>
     <string name="magnetometer">Magnetômetro</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
     <string name="gravity">Gravidade</string>
@@ -649,7 +624,6 @@
     <string name="low_power_mode_on_message">Modo de economia de energia ativado, algumas funcionalidades podem ser desativadas.</string>
     <string name="pref_low_power_mode_title">Modo de economia de energia</string>
     <string name="guide_barometer_calibration_title">Calibração do barômetro</string>
-    <string name="guide_backtrack_description">Como usar o Backtrack</string>
     <string name="charging_wireless">Carregando (%s)</string>
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_ac">AC</string>
@@ -674,8 +648,6 @@
     <string name="backtrack_notification_channel_description">Atualização de localização de recuo</string>
     <string name="backtrack_notification_channel">Voltar atrás</string>
     <string name="guide_location_no_gps_title">Determinar localização sem GPS</string>
-    <string name="guide_create_beacons_description">Como criar sinais luminosos</string>
-    <string name="guide_create_beacons_title">Criando sinais luminosos</string>
     <string name="beacon_set_bearing_btn">Definir rumo (%s)</string>
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>

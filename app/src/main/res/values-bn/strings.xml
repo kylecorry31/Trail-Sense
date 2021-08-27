@@ -90,5 +90,4 @@
     <string name="duration_hour_format">%dঘ</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / ৩ঘ</string>
-    <string name="pressure_tendency_format">%s %s / ৩ঘ</string>
 </resources>

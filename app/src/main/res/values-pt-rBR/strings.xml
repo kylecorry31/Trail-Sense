@@ -56,7 +56,6 @@
     <string name="units_inhg_short">in</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_reading_time_ago">%s - %s atrás</string>
     <!--Weather Tab - Forecasts-->
@@ -188,7 +187,6 @@
     <string name="compass_declination">Declinação magnética</string>
     <string name="pref_altimeter_calibration_title">Altímetro</string>
     <string name="altitude">Altitude</string>
-    <string name="add_elevation_offsets">Use a elevação AMSL</string>
     <string name="altitude_from_gps">Substituição do GPS</string>
     <string name="altitude_from_pressure">Substituição do barômetro</string>
     <string name="pref_altitude_override_title">Substituição da altitude</string>
@@ -197,7 +195,6 @@
     <string name="pref_altitude_override_sea_level_dialog_msg">Digite a pressão atual ao nível do mar em hPa</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Digite pressão ao nível do mar</string>
     <string name="pref_auto_declination_summary">Com base em sua localização atual</string>
-    <string name="pref_altitude_offsets_summary">Corrige a altitude do GPS para acima do nível médio do mar</string>
     <string name="pref_barometer_pressure_title">Pressão</string>
     <string name="gps_location">Localização</string>
     <string name="pref_auto_location_title">Ajuste automático de Localização</string>
@@ -261,10 +258,7 @@
     <string name="tool_bubble_level_summary">Determinar se as superfícies são planas</string>
     <string name="tool_bubble_level_title">Nível de Bolha</string>
     <string name="guide_weather_prediction_title">Previsão de tempo</string>
-    <string name="guide_beacons_description">Como navegar usando Pontos de Orientação</string>
-    <string name="guide_beacons_title">Pontos de Orientação</string>
     <string name="guide_conserving_battery_title">Economia de bateria</string>
-    <string name="pref_category_tabs">Abas</string>
     <string name="navigation_nearby_category">Nas proximidades</string>
     <string name="forecasts_category">Previsões</string>
     <string name="advanced_settings_category">Avançado</string>
@@ -279,7 +273,6 @@
     <string name="sun_and_moon">Posições do Sol e da Lua</string>
     <string name="pref_sea_level_require_dwell_title">Ignorar as mudanças rápidas de altitude</string>
     <string name="pref_sea_level_require_dwell_summary">Mostrar as leituras somente quando a altitude não mudou por pelo menos uma hora. Melhora a confiabilidade da previsão.</string>
-    <string name="weather_update_notification_channel_desc">Atualizações meteorológicas de fundo</string>
     <string name="weather_update_notification_channel">Atualização meteorológica</string>
     <string name="beacon_group_spinner_title">Grupo</string>
     <string name="no_group">Nenhum grupo</string>
@@ -295,9 +288,7 @@
     <string name="error_occurred_message">O Trail Sense encontrou um erro e vai fechar. Por favor, envie um e-mail ao desenvolvedor para corrigir este problema.</string>
     <string name="error_occurred">Ocorreu um erro</string>
     <string name="update_60_minutes">1 hora</string>
-    <string name="update_45_minutes">45 minutos</string>
     <string name="update_30_minutes">30 minutos</string>
-    <string name="update_15_minutes">15 minutos</string>
     <string name="pref_weather_update_frequency_title">Freqüência de atualização meteorológica</string>
     <string name="pref_max_beacon_distance_title">Raio de Pontos de Orientação mais próximos</string>
     <string name="pref_temperature_holder_title">Temperatura</string>
@@ -305,9 +296,7 @@
     <string name="pref_sea_level_use_rapid_title">Fator em rápidas mudanças de pressão</string>
     <string name="pref_adjust_for_temperature_summary">Usar a temperatura em conversões de pressão ao nível do mar</string>
     <string name="pref_adjust_for_temperature_title">Fator em temperatura</string>
-    <string name="barometer_thermometer">Barômetro e termômetro</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibração</string>
-    <string name="calibration_mode_barometer_alert_title">Barómetro</string>
     <string name="altimeter_mode_override">Nunca</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barômetro</string>
     <string name="altimeter_mode_barometer">Barômetro</string>
@@ -317,8 +306,6 @@
     <string name="fahrenheit">Fahrenheit</string>
     <string name="pref_general_header">Geral</string>
     <string name="offline_maps">Mapas off-line</string>
-    <string name="sun_dusk">Anoitecer</string>
-    <string name="sun_dawn">Madrugada</string>
     <string name="temperature_disclaimer">A temperatura mostrada pode ser mais alta devido ao calor do seu telefone.</string>
     <string name="heat_alert_frostbite_danger_title">Perigo de hipotermia</string>
     <string name="heat_alert_frostbite_warning_title">Aviso de hipotermia</string>
@@ -398,8 +385,6 @@
     <string name="distance_to">A</string>
     <string name="distance_hint">Distância</string>
     <string name="inventory_empty_text">Nenhum item</string>
-    <string name="action_inventory_delete_all_confirm">Excluir todos os itens do inventário\?</string>
-    <string name="action_inventory_delete_all">Excluir tudo</string>
     <string name="tool_whistle_title">Assobio</string>
     <string name="max_depth">Max: %s</string>
     <string name="cliff_height_guide">Estimar a altura do penhasco</string>
@@ -409,12 +394,10 @@
     <string name="toast_destination_bearing_set">Conjunto de suporte ao destino</string>
     <string name="object_height_guide">Estimar as alturas dos objetos</string>
     <string name="guide_avalanche_risk">Estimativa de risco de avalanche</string>
-    <string name="item_amount_hint">Quantidade</string>
     <string name="depth_disclaimer">Use por sua própria conta e risco.
 \n
 \nNão utilize sem uma caixa à prova d\'água e se possível, fique a uma distância segura de mergulho.</string>
     <string name="tool_depth_title">Profundidade</string>
-    <string name="tool_inventory_summary">Acompanhar de perto os itens nas mãos</string>
     <string name="category_natural">Natural</string>
     <string name="category_safety">Segurança</string>
     <string name="category_shelter">Abrigo</string>
@@ -433,7 +416,6 @@
     <string name="action_item_delete">Excluir</string>
     <string name="action_item_subtract">Subtrair</string>
     <string name="action_item_add">Adicionar</string>
-    <string name="action_inventory">Inventário</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>
@@ -443,7 +425,6 @@
     <string name="metal_detector_calibrate">Calibrar</string>
     <string name="tool_metal_detector_title">Detector de metais</string>
     <string name="threshold">Patamar</string>
-    <string name="metal_detected">Metal detectado</string>
     <string name="clock_sync_time_settings">Abrir as configurações de tempo\?</string>
     <string name="clock_sync_instructions">Definir o tempo para %s quando a notificação chegar</string>
     <string name="clock_sync_notification">Sinc. relógio - %s</string>
@@ -453,7 +434,6 @@
     <string name="pip_button">Atualizar o tempo do sistema</string>
     <string name="beacon_2">Ponto de Orientação 2</string>
     <string name="beacon_1">Ponto de Orientação 1</string>
-    <string name="triangulate_mark_beacon">Marcar</string>
     <string name="could_not_triangulate">Não foi possível triangular</string>
     <string name="tool_triangulate_summary">Determinar sua localização sem GPS</string>
     <string name="tool_triangulate_title">Triangular localização</string>
@@ -492,8 +472,6 @@
     <string name="coordinate_input_invalid_location">Localização inválida</string>
     <string name="guide_location_no_gps_title">Determinar localização sem GPS</string>
     <string name="tool_white_noise_summary">Ajuda você a dormir</string>
-    <string name="guide_create_beacons_title">Criando Pontos de Orientação</string>
-    <string name="guide_create_beacons_description">Como criar Pontos de Orientação</string>
     <string name="map_scale_ratio">Proporção</string>
     <string name="map_scale_title">Escala do mapa</string>
     <string name="max_temp_calibrated">Temperatura ambiente máxima (calibrado)</string>
@@ -612,7 +590,6 @@
     <string name="low_power_mode_on_message">Modo de economia de energia ativado, algumas funcionalidades podem ser desativadas.</string>
     <string name="pref_low_power_mode_title">Modo de economia de energia</string>
     <string name="guide_barometer_calibration_title">Calibração do barômetro</string>
-    <string name="guide_backtrack_description">Como usar opção de Recuo</string>
     <string name="charging_wireless">Carregando (%s)</string>
     <string name="battery_power_wireless">Wireless</string>
     <string name="battery_power_usb">USB</string>
@@ -679,7 +656,6 @@
     <string name="location_not_set">Localização não definida</string>
     <string name="pref_backtrack_save_cell_title">Registrar sinal do telefone</string>
     <string name="pref_backtrack_save_cell_summary">Registra o sinal do telefone no ponto de passagem. Sem usar a internet.</string>
-    <string name="tool_light_meter_description">Medir a distância do sinal da lanterna</string>
     <string name="tool_light_meter_title">Medidor de luz</string>
     <string name="beam_distance">%s distância do sinal</string>
     <string name="candela_format">%s cd</string>
@@ -687,10 +663,6 @@
     <string name="distance_from_flashlight">Distância entre o telefone e a lanterna</string>
     <string name="beacon_export_error">Não foi possível exportar referências</string>
     <string name="help">Ajuda</string>
-    <string name="available">Disponível</string>
-    <string name="permission_granted">Concedida</string>
-    <string name="permission_not_granted">Não concedida</string>
-    <string name="permission_background_location">Localização em segundo plano</string>
     <string name="magnetometer">Magnetômetro</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
     <string name="gravity">Gravidade</string>
@@ -714,7 +686,6 @@
     <string name="speedometer_average">Média (do Recuar)</string>
     <string name="speedometer_real_time">Tempo Real</string>
     <string name="screen_flashlight">Tela</string>
-    <string name="tide_calibration">Calibração da Maré</string>
     <string name="date_not_set">Data não definida</string>
     <string name="tide_high_short">Alta</string>
     <string name="tide_low_short">Baixa</string>
@@ -727,10 +698,6 @@
     <string name="weather_better_than_today">Melhor que hoje</string>
     <string name="tomorrows_forecast">Previsão de amanhã</string>
     <string name="pref_cell_signal_refresh_cache_summary">Força o carregamento dos últimos níveis de sinal</string>
-    <plurals name="import_beacons">
-        <item quantity="one">Importar %d Ponto de Orientação\?</item>
-        <item quantity="other">Importar %d Pontos de Orientação\?</item>
-    </plurals>
     <string name="pref_show_last_signal_beacon_summary">Cria um Ponto de Orientação para a localização do último sinal de celular</string>
     <string name="pref_show_last_signal_beacon_title">Último sinal do Ponto de Orientação</string>
     <string name="place_beacon_at">Colocar um Ponto de Orientação em %s\?</string>
@@ -820,7 +787,6 @@
     <string name="fields">Áreas</string>
     <string name="last_signal_beacon_name">Último sinal - %s (%s)</string>
     <string name="camera_permission_denied">Permissão da câmera negada, não foi possível ativar os recursos da câmera. Você pode ativá-los em configurações.</string>
-    <string name="pref_use_camera_features_title">Ativar os recursos da câmera</string>
     <string name="color">Cor</string>
     <string name="water_boil_guide_title">Tornar a água segura para beber</string>
     <string name="calibrate_new_tide">Calibrar para uma nova maré\?</string>
@@ -932,7 +898,6 @@
     <string name="cup_format">%s c</string>
     <string name="milliliter_format">%s ml</string>
     <string name="liter_format">%s l</string>
-    <string name="swap">Trocar</string>
     <string name="pref_map_url_source_title">Compartilhamento de localização no mapa</string>
     <string name="clear_cache">Limpar o cache</string>
     <string name="destination_elevation">Elevação de local de destino</string>
@@ -995,13 +960,11 @@
     <string name="background_location_permission">Localização (Permitir sempre)</string>
     <string name="grant_permission">Conceder a permissão de %s</string>
     <string name="no_resolution">Nenhuma resolução</string>
-    <string name="tools_might_not_work">Essas ferramentas podem não funcionar:</string>
     <string name="sighting_compass">Bússola de observação</string>
     <string name="no_issues">Nenhum problema detectado</string>
     <string name="notifications_blocked">Notificações bloqueadas</string>
     <string name="on">Ligado</string>
     <string name="overridden">Substituído</string>
-    <string name="update">Atualizar</string>
     <string name="battery_usage_restricted">Uso da bateria é restrito</string>
     <string name="diagnostics">Diagnóstico</string>
     <string name="no_permission">Permissão não concedida</string>

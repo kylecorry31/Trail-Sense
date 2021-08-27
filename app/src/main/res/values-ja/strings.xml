@@ -130,14 +130,12 @@
     <string name="pref_display_multi_beacons_summary">最も近いビーコンをコンパスに表示</string>
     <string name="pref_barometer_pressure_title">Pressure</string>
     <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
-    <string name="pref_altitude_offsets_summary">Corrects GPS altitude to above mean sea level</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Enter sea level pressure</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Enter the current pressure at sea level in hPa</string>
     <string name="altitude_override_updated_toast">Altitude override updated</string>
     <string name="pref_altitude_override_title">Altitude override</string>
     <string name="altitude_from_pressure">Set override from barometer</string>
     <string name="altitude_from_gps">Set override from GPS</string>
-    <string name="add_elevation_offsets">Use AMSL elevation</string>
     <string name="altitude">高度</string>
     <string name="pref_altimeter_calibration_title">高度計</string>
     <string name="request_permission">Request permission</string>
@@ -202,7 +200,6 @@
     <string name="notification_storm_alert_channel_desc">暴風雨アラート</string>
     <string name="notification_storm_alert_channel_name">アラート</string>
     <string name="pressure_format">%s %s</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="units_inhg_short">in</string>
     <string name="beacon_comment">ノート (オプション)</string>
     <string name="beacon_elevation_hint_meters">メートルで表わした標高 (オプション)</string>
@@ -241,9 +238,7 @@
     <string name="duration_hour_format">%d時間</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="update_45_minutes">45分</string>
     <string name="update_30_minutes">30分</string>
-    <string name="update_15_minutes">15 分</string>
     <string name="beacon_2">ビーコン2</string>
     <string name="beacon_1">ビーコン1</string>
     <string name="network_3g">3G</string>

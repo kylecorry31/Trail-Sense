@@ -74,14 +74,12 @@
     <string name="pressure_12_hours">12 uur</string>
     <string name="pressure_4_hours">4 uur</string>
     <string name="pref_pressure_history_title">Drukgeschiedenis</string>
-    <string name="pref_altitude_offsets_summary">Corrigeert GPS hoogte naar gemiddeld zeeniveau</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Geef druk op zeeniveau in</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Geef de huidige luchtdruk op zeeniveau in hPa in</string>
     <string name="altitude_override_updated_toast">Nieuwe hoogte ingesteld</string>
     <string name="pref_altitude_override_title">Gebruik manuele hoogte</string>
     <string name="altitude_from_pressure">Gebruik hoogte van luchtdruk</string>
     <string name="altitude_from_gps">Gebruik hoogte van GPS</string>
-    <string name="add_elevation_offsets">Hoogte boven zeeniveau gebruiken</string>
     <string name="altitude">Hoogte</string>
     <string name="pref_altimeter_calibration_title">Hoogtemeter</string>
     <string name="pref_auto_location_title">Locatie automatisch aanpassen</string>
@@ -127,7 +125,6 @@
     <string name="action_item_edit">Aanpassen</string>
     <string name="action_item_delete">Verwijderen</string>
     <string name="action_item_subtract">Aftrekken</string>
-    <string name="action_inventory">Inventaris</string>
     <string name="estimated_height">geschatte hoogte</string>
     <string name="set_inclination_instructions">Tik om de hellingshoek vast te zetten of los te maken</string>
     <string name="inclinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>
@@ -137,8 +134,6 @@
     <string name="tool_inclinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
     <string name="inclinometer_title">Hellingsmeter</string>
     <string name="offline_maps">Offline Kaarten</string>
-    <string name="sun_dusk">Schemering</string>
-    <string name="sun_dawn">Dageraad</string>
     <string name="moon_illumination">Maanverlichting</string>
     <string name="moon_phase">Maanstand</string>
     <string name="lunar_noon">Maanmiddag</string>
@@ -190,7 +185,6 @@
     <string name="pressure_setpoint_format">Stel in: %s - %s geleden</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3u</string>
-    <string name="pressure_tendency_format">%s %s / 3u</string>
     <string name="units_inhg_short">in</string>
     <string name="beacon_comment">Notities (Optioneel)</string>
     <string name="beacon_elevation_hint_meters">Hoogte in meter (Optioneel)</string>
@@ -276,7 +270,6 @@
     <string name="location_disabled">Locatie is uitgeschakeld</string>
     <string name="set">Instellen</string>
     <string name="location_not_set">Locatie niet ingesteld</string>
-    <string name="tool_light_meter_description">Meet de reikafstand van de zaklampstraal</string>
     <string name="tool_light_meter_title">Lichtmeter</string>
     <string name="beam_distance">%s straalafstand</string>
     <string name="candela_format">%s cd</string>
@@ -284,10 +277,6 @@
     <string name="distance_from_flashlight">Afstand van telefoon tot zaklamp</string>
     <string name="beacon_export_error">Bakens konden niet geëxporteerd worden</string>
     <string name="help">Help</string>
-    <string name="available">Beschikbaar</string>
-    <string name="permission_granted">Verleend</string>
-    <string name="permission_not_granted">Niet verleend</string>
-    <string name="permission_background_location">Achtergrondlocatie</string>
     <string name="magnetometer">Magnetometer</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
     <string name="gravity">Zwaartekracht</string>
@@ -420,7 +409,6 @@
 \n
 \n- Dezelfde weg teruglopen met Terugweg (draait op de achtergrond indien ingeschakeld)</string>
     <string name="backtrack_disabled_low_power_toast">Terugweg is uitgeschakeld in energiebesparingsmodus</string>
-    <string name="guide_backtrack_description">“Terugweg” gebruiken</string>
     <string name="tool_backtrack_title">Terugweg</string>
     <string name="backtrack_notification_channel">Terugweg</string>
     <string name="backtrack_notification_description">Routepunt plaatsen</string>
@@ -431,7 +419,6 @@
     <string name="pref_backtrack_enabled_summary">Routepunten opnemen</string>
     <string name="waypoint_beacon_title_template">%s, %s Routepunt</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="metal_detected">Metaal gedetecteerd</string>
     <string name="clock_sync_time_settings">Tijdsinstellingen openen\?</string>
     <string name="clock_sync_instructions">Stel de tijd in op %s wanneer de melding binnenkomt</string>
     <string name="clock_sync_notification">Kloksynchronisatie - %s</string>
@@ -442,7 +429,6 @@
     <string name="beacon_2">Baken 2</string>
     <string name="beacon_1">Baken 1</string>
     <string name="could_not_triangulate">Driehoeksmeting mislukt</string>
-    <string name="triangulate_mark_beacon">Markeren</string>
     <string name="tool_triangulate_summary">Zonder gps je locatie bepalen</string>
     <string name="tool_triangulate_title">Driehoeksmeting</string>
     <string name="tool_category_signaling">Seinen</string>
@@ -495,8 +481,6 @@
     <string name="tool_metal_detector_title">Metaaldetector</string>
     <string name="threshold">Drempelwaarde</string>
     <string name="inventory_empty_text">Geen voorwerpen</string>
-    <string name="action_inventory_delete_all_confirm">Alle inventarisvoorwerpen verwijderen\?</string>
-    <string name="action_inventory_delete_all">Alles verwijderen</string>
     <string name="tool_whistle_title">Fluitje</string>
     <string name="max_depth">Max.: %s</string>
     <string name="cliff_height_guide">Klifhoogte schatten</string>
@@ -506,13 +490,11 @@
     <string name="toast_destination_bearing_set">Peiling bestemming ingesteld</string>
     <string name="object_height_guide">Objecthoogtes schatten</string>
     <string name="guide_avalanche_risk">Inschatting lawinegevaar</string>
-    <string name="item_amount_hint">Aantal</string>
     <string name="item_name_hint">Naam</string>
     <string name="depth_disclaimer">Gebruik op eigen risico.
 \n
 \nNiet gebruiken zonder waterdichte behuizing en blijf indien mogelijk binnen een veilige duikafstand.</string>
     <string name="tool_depth_title">Diepte</string>
-    <string name="tool_inventory_summary">Houd bij wat je op voorraad hebt</string>
     <string name="category_natural">Natuurlijk</string>
     <string name="category_safety">Veiligheid</string>
     <string name="category_shelter">Schuilplaats</string>
@@ -527,10 +509,7 @@
     <string name="tool_bubble_level_summary">Bepalen of oppervlakken vlak zijn</string>
     <string name="tool_bubble_level_title">Waterpas</string>
     <string name="guide_weather_prediction_title">Weersvoorspelling</string>
-    <string name="guide_beacons_description">Navigeren met bakens</string>
-    <string name="guide_beacons_title">Bakens</string>
     <string name="guide_conserving_battery_title">Batterijbesparing</string>
-    <string name="pref_category_tabs">Tabbladen</string>
     <string name="navigation_nearby_category">In de buurt</string>
     <string name="forecasts_category">Voorspellingen</string>
     <string name="advanced_settings_category">Geavanceerd</string>
@@ -546,7 +525,6 @@
     <string name="pref_sea_level_require_dwell_title">Snelle hoogteveranderingen negeren</string>
     <string name="pref_sea_level_require_dwell_summary">Alleen metingen tonen als de hoogte minstens een uur niet is veranderd. Verbetert de betrouwbaarheid van de voorspelling.</string>
     <string name="weather_update_notification_channel">Weerupdate</string>
-    <string name="weather_update_notification_channel_desc">Weerupdates op de achtergrond</string>
     <string name="beacon_group_spinner_title">Groep</string>
     <string name="no_group">Geen groep</string>
     <string name="beacon_group_name_hint">Naam</string>
@@ -568,9 +546,7 @@
     <string name="pref_sunset_alert_time_title">Tijd zonsondergangalarm</string>
     <string name="pref_sunset_alerts_title">Zonsondergangalarm</string>
     <string name="update_60_minutes">1 uur</string>
-    <string name="update_45_minutes">45 minuten</string>
     <string name="update_30_minutes">30 minuten</string>
-    <string name="update_15_minutes">15 minuten</string>
     <string name="update_180_minutes">3 uur</string>
     <string name="update_150_minutes">2 uur en 30 minuten</string>
     <string name="update_120_minutes">2 uur</string>
@@ -618,10 +594,8 @@
     <string name="pref_sea_level_use_rapid_title">Snelle drukveranderingen meenemen</string>
     <string name="pref_adjust_for_temperature_title">Temperatuur meenemen</string>
     <string name="pref_adjust_for_temperature_summary">Temperatuur gebruiken in zeeniveau druk-conversies</string>
-    <string name="barometer_thermometer">Barometer en thermometer</string>
     <string name="pref_barometer_pressure_title">Luchtdruk</string>
     <string name="pref_altimeter_calibration_mode_title">Automatische kalibratie</string>
-    <string name="calibration_mode_barometer_alert_title">Barometer</string>
     <string name="altimeter_mode_override">Nooit</string>
     <string name="altimeter_mode_gps_barometer">Gps + barometer</string>
     <string name="altimeter_mode_barometer">Barometer</string>
@@ -684,8 +658,6 @@
     <string name="waypoint_action_delete">Verwijderen</string>
     <string name="waypoints_empty_text">Geen tussenpunten</string>
     <string name="guide_location_no_gps_title">Locatie bepalen zonder gps</string>
-    <string name="guide_create_beacons_description">Bakens maken</string>
-    <string name="guide_create_beacons_title">Bakens maken</string>
     <string name="beacon_set_bearing_btn">Peiling vastzetten (%s)</string>
     <string name="create_at_distance">Op afstand maken</string>
     <string name="bearing">Peiling</string>
@@ -747,7 +719,6 @@
     <string name="cup_format">%s c</string>
     <string name="milliliter_format">%s ml</string>
     <string name="liter_format">%s l</string>
-    <string name="swap">Ruilen</string>
     <string name="pref_map_url_source_title">Locatie delen kaart</string>
     <string name="clear_cache">Cache wissen</string>
     <string name="destination_elevation">Bestemmingshoogte</string>
@@ -815,10 +786,6 @@
     <string name="whistle_signal_come_here">Kom hier</string>
     <string name="whistle_signal_acknowledged">Erkend</string>
     <string name="whistle_signal_where_are_you">Waar bent u\?</string>
-    <plurals name="import_beacons">
-        <item quantity="one">%d baken importeren\?</item>
-        <item quantity="other">%d bakens importeren\?</item>
-    </plurals>
     <string name="pref_show_civil_times_summary">Dageraad en schemering</string>
     <string name="pref_show_civil_times_title">Burgerlijke tijden</string>
     <string name="pref_show_astronomical_times_title">Astronomische tijden</string>
@@ -830,7 +797,6 @@
     <string name="pref_show_last_signal_beacon_summary">Creëert een baken op de plek waar er voor het laatst een mobiel signaal gemeten werd</string>
     <string name="last_signal_beacon_name">Laatste signaal - %s (%s)</string>
     <string name="camera_permission_denied">Cameratoestemming geweigerd, kan camerafuncties niet inschakelen. Je kunt het inschakelen in de instellingen.</string>
-    <string name="pref_use_camera_features_title">Camerafuncties inschakelen</string>
     <string name="color">Kleur</string>
     <string name="water_boil_guide_title">Maak water veilig om te drinken</string>
     <string name="calibrate_new_tide">Kalibreren voor een nieuw tij\?</string>
@@ -893,7 +859,6 @@
     <string name="speedometer_real_time">Echte tijd</string>
     <string name="pref_require_satellites_title">Satellietfix nodig</string>
     <string name="screen_flashlight">Afschermen</string>
-    <string name="tide_calibration">Getijdenkalibratie</string>
     <string name="pref_daily_weather_time_title">Dagelijkse weertijd</string>
     <string name="date_not_set">Datum niet ingesteld</string>
     <string name="time_not_set">Tijd niet ingesteld</string>

@@ -2,7 +2,6 @@
 <resources>
     <string name="pref_barometer_pressure_title">Tlak</string>
     <string name="pref_altimeter_calibration_mode_title">Automatická kalibrace</string>
-    <string name="calibration_mode_barometer_alert_title">Barometr</string>
     <string name="altimeter_mode_override">Nikdy</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometr</string>
     <string name="altimeter_mode_barometer">Barometr</string>
@@ -43,7 +42,6 @@
     <string name="action_item_delete">Smazat</string>
     <string name="action_item_subtract">Odečíst</string>
     <string name="action_item_add">Přidat</string>
-    <string name="action_inventory">Seznam věcí</string>
     <string name="estimated_height">odhadovaná výška</string>
     <string name="inclinometer_rotate_device">Držte svůj telefon svisle na změření sklonu</string>
     <string name="avalanche_risk_high">Vysoká pravděpodobnost laviny</string>
@@ -52,8 +50,6 @@
     <string name="tool_inclinometer_summary">Odhadněte pravděpodobnost laviny a výšku objektů</string>
     <string name="inclinometer_title">Sklonoměr</string>
     <string name="offline_maps">Offline mapy</string>
-    <string name="sun_dusk">Stmívání</string>
-    <string name="sun_dawn">Rozbřesk</string>
     <string name="moon_illumination">Osvětlení Měsíce</string>
     <string name="moon_phase">Měsíční fáze</string>
     <string name="lunar_noon">Měsíční poledne</string>
@@ -90,7 +86,6 @@
     <string name="notification_storm_alert_text">Bouře se může blížit</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="stop_monitoring">Zastavit</string>
     <string name="units_psi">PSI</string>
     <string name="units_mbar">mbar</string>
@@ -165,7 +160,6 @@
     <string name="astronomy">Astronomie</string>
     <string name="settings">Nastavení</string>
     <string name="weather">Počasí</string>
-    <string name="add_elevation_offsets">Používat výšku v m n.m.</string>
     <string name="altitude">Nadmořská výška</string>
     <string name="pref_altimeter_calibration_title">Výškoměr</string>
     <string name="pref_ruler_calibration_summary">Pravidla kalibrace:
@@ -183,7 +177,6 @@
     <string name="tool_lightning_title">Vzdálenost od místa úderu blesku</string>
     <string name="tool_ruler_title">Pravítko</string>
     <string name="pref_ruler_calibration_title">Měřítko pravítka</string>
-    <string name="action_inventory_delete_all">Smazat vše</string>
     <string name="tool_whistle_title">Píšťalka</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Zadejte tlak na úrovni hladiny moře</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Zadejte aktuální tlak na hladině moře v hPa</string>

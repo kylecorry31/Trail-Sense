@@ -12,7 +12,6 @@
     <string name="notification_storm_alert_channel_name">Výstrahy</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="pressure_tendency_format">%s %s / 3h</string>
     <string name="stop_monitoring">Zastaviť</string>
     <string name="units_psi">PSI</string>
     <string name="units_mbar">mbar</string>
