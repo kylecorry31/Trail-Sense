@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.asLiveData
-import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -23,7 +22,9 @@ import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.AppUtils
+import com.kylecorry.trail_sense.shared.FormatServiceV2
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
@@ -35,7 +36,6 @@ import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.Duration
 import java.time.Instant
 
 class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
@@ -53,16 +53,6 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     private val cache by lazy { Preferences(requireContext()) }
 
     private var pathIds: List<Long> = emptyList()
-
-    private val stateChecker = Timer {
-        context ?: return@Timer
-        wasEnabled = BacktrackScheduler.isOn(requireContext())
-        if (wasEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)) {
-            binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)
-        } else {
-            binding.startBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-        }
-    }
 
     private var wasEnabled = false
 
@@ -114,6 +104,16 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         // TODO: Only listen when the path sheet is open
         gps.asLiveData().observe(viewLifecycleOwner, { onLocationUpdate() })
         compass.asLiveData().observe(viewLifecycleOwner, { onCompassUpdate() })
+        scheduleUpdates(INTERVAL_1_FPS)
+    }
+
+    override fun onUpdate() {
+        wasEnabled = BacktrackScheduler.isOn(requireContext())
+        if (wasEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)) {
+            binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)
+        } else {
+            binding.startBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+        }
     }
 
     private fun deleteWaypoint(waypointEntity: WaypointEntity) {
@@ -167,16 +167,6 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         } else {
             geoService.getDeclination(gps.location, gps.altitude)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        stateChecker.interval(Duration.ofSeconds(1))
-    }
-
-    override fun onPause() {
-        super.onPause()
-        stateChecker.stop()
     }
 
     override fun generateBinding(

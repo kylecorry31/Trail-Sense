@@ -168,30 +168,36 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         text(distanceText, width - textWidth - dp(16f), height.toFloat() - dp(16f))
     }
 
+    // TODO: Use Andromeda CanvasView.grid method
+    fun CanvasView.grid(
+        spacing: Float,
+        width: Float = this.width.toFloat(),
+        height: Float = this.height.toFloat()
+    ) {
+        // Vertical
+        var i = 0f
+        while (i < width) {
+            line(i, 0f, i, height)
+            i += spacing
+        }
+
+        // Horizontal
+        i = 0f
+        while (i < height) {
+            line(0f, i, width, i)
+            i += spacing
+        }
+    }
+
     private fun drawGrid(
         metersPerPixel: Float,
-        gap: Float,
-        offsetX: Float = 0f,
-        offsetY: Float = 0f
+        gap: Float
     ) {
         noFill()
         stroke(Color.WHITE)
         strokeWeight(dp(0.5f))
         opacity(50)
-        // Vertical
-        var i = offsetX / metersPerPixel
-        while (i < width) {
-            line(i, 0f, i, height.toFloat())
-            i += gap / metersPerPixel
-        }
-
-        // Horizontal
-        i = offsetY / metersPerPixel
-        while (i < height) {
-            line(0f, i, width.toFloat(), i)
-            i += gap / metersPerPixel
-        }
-
+        grid(gap / metersPerPixel)
         opacity(255)
     }
 
