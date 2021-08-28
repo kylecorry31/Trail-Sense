@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_waypoint_delete"
-        android:title="@string/waypoint_action_delete" />
+        android:id="@+id/action_waypoint_navigate"
+        android:title="@string/navigate" />
     <item
         android:id="@+id/action_waypoint_create_beacon"
         android:title="@string/action_waypoint_create_beacon" />
+    <item
+        android:id="@+id/action_waypoint_delete"
+        android:title="@string/waypoint_action_delete" />
 </menu>

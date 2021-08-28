@@ -31,10 +31,7 @@ import com.kylecorry.trail_sense.shared.scales.DiscreteColorScale
 import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.AltitudePointColoringStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.CellSignalPointColoringStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.DefaultPointColoringStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.TimePointColoringStrategy
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.*
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsCurrentPathSpecification
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsValidBacktrackPointSpecification
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
@@ -66,6 +63,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     private var drawPathToGPS = false
     private var path: List<PathPoint> = emptyList()
     private var pathId: Long = 0L
+    private var selectedPointId: Long? = null
     private lateinit var listView: ListView<PathPoint>
 
 
@@ -84,8 +82,16 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         }
         listView.addLineSeparator()
 
+        binding.pathImage.setOnPointClickListener {
+            viewWaypoint(it)
+        }
+
         waypointRepo.getWaypointsByPath(pathId).observe(viewLifecycleOwner, {
             path = filterCurrentWaypoints(it).sortedByDescending { p -> p.time }
+            val selected = selectedPointId
+            if (selected != null && path.find { it.id == selected } == null) {
+                selectedPointId = null
+            }
             listView.setData(path)
             onPathChanged()
         })
@@ -173,8 +179,10 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         binding.pathImage.location = gps.location
         binding.pathImage.azimuth = compass.bearing.value
 
-        binding.pathImage.pointColoringStrategy = when (pointColoringStyle) {
-            PointColoringStyle.None -> DefaultPointColoringStrategy(Color.TRANSPARENT)
+        val baseStrategy = when (pointColoringStyle) {
+            PointColoringStyle.None -> DefaultPointColoringStrategy(
+                if (selectedPointId != null) prefs.navigation.backtrackPathColor.color else Color.TRANSPARENT
+            )
             PointColoringStyle.CellSignal -> CellSignalPointColoringStrategy(cellSignalColorScale)
             PointColoringStyle.Altitude -> {
                 val altitudeRange = path.mapNotNull { it.elevation }.rangeOrNull() ?: Range(0f, 0f)
@@ -195,7 +203,19 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             }
         }
 
-        binding.pathImage.arePointsHighlighted = pointColoringStyle != PointColoringStyle.None
+        val selected = selectedPointId
+        binding.pathImage.pointColoringStrategy = if (selected == null) {
+            baseStrategy
+        } else {
+            SelectedPointDecorator(
+                selected,
+                baseStrategy,
+                DefaultPointColoringStrategy(Color.TRANSPARENT)
+            )
+        }
+
+        binding.pathImage.arePointsHighlighted =
+            selected != null || pointColoringStyle != PointColoringStyle.None
     }
 
     private fun updatePointStyleLegend() {
@@ -262,16 +282,31 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     private fun drawWaypointListItem(itemBinding: ListItemWaypointBinding, item: PathPoint) {
         val itemStrategy = WaypointListItem(
             requireContext(),
+            selectedPointId == item.id,
             formatService,
             prefs,
             { createBeacon(it) },
             { deleteWaypoint(it) },
-            { navigateToWaypoint(it) }
+            { navigateToWaypoint(it) },
+            { viewWaypoint(it) }
         )
 
         itemStrategy.display(itemBinding, item)
     }
 
+    private fun viewWaypoint(point: PathPoint) {
+        selectedPointId = if (selectedPointId == point.id) {
+            null
+        } else {
+            point.id
+        }
+        // TODO: Only redraw the last selected point and new point
+        listView.setData(path)
+        if (selectedPointId != null) {
+            listView.scrollToPosition(path.indexOf(point), true)
+        }
+        onPathChanged()
+    }
 
     private fun navigateToWaypoint(point: PathPoint) {
         tryOrNothing {
@@ -325,6 +360,11 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
                 runInBackground {
                     withContext(Dispatchers.IO) {
                         waypointRepo.deleteWaypoint(WaypointEntity.from(point))
+                    }
+                    withContext(Dispatchers.Main) {
+                        if (selectedPointId == point.id) {
+                            selectedPointId = null
+                        }
                     }
                 }
             }

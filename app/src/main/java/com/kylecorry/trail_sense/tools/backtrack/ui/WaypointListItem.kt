@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.signal.CellNetwork
@@ -19,11 +20,13 @@ import java.time.Instant
 
 class WaypointListItem(
     private val context: Context,
+    private val isSelected: Boolean,
     private val formatService: FormatService,
     private val prefs: UserPreferences,
     private val createBeacon: (waypoint: PathPoint) -> Unit,
     private val delete: (waypoint: PathPoint) -> Unit,
     private val navigate: (waypoint: PathPoint) -> Unit,
+    private val view: (waypoint: PathPoint) -> Unit
 ) {
     fun display(
         itemBinding: ListItemWaypointBinding,
@@ -77,13 +80,24 @@ class WaypointListItem(
                     R.id.action_waypoint_delete -> {
                         delete(item)
                     }
+                    R.id.action_waypoint_navigate -> {
+                        navigate(item)
+                    }
                 }
                 true
             }
         }
 
+        itemBinding.root.setBackgroundColor(
+            if (isSelected) {
+                Resources.color(context, R.color.colorPrimary)
+            } else {
+                Resources.getAndroidColorAttr(context, android.R.attr.colorBackground)
+            }
+        )
+
         itemBinding.root.setOnClickListener {
-            navigate(item)
+            view(item)
         }
     }
 }

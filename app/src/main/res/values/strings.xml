@@ -1113,6 +1113,7 @@
     <string name="path">Path</string>
     <string name="old">Old</string>
     <string name="new_text">New</string>
+    <string name="navigate">Navigate</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d waypoint will be deleted</item>
         <item quantity="other">%d waypoints will be deleted</item>

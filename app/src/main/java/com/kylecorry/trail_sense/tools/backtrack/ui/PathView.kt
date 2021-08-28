@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense.tools.backtrack.ui
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
+import android.view.GestureDetector
+import android.view.MotionEvent
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.math.cosDegrees
 import com.kylecorry.andromeda.core.math.power
@@ -24,6 +26,7 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointCol
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.geo.PathStyle
+import com.kylecorry.trailsensecore.domain.pixels.PixelCircle
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
 import kotlin.math.floor
@@ -63,6 +66,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             invalidate()
         }
 
+    private var pointClickListener: (point: PathPoint) -> Unit = {}
+    private var pathCircles: List<Pair<PathPoint, PixelCircle>> = listOf()
 
     private val prefs by lazy { UserPreferences(context) }
     private val formatService by lazy { FormatService(context) }
@@ -82,6 +87,10 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     override fun draw() {
         clear()
         drawMap()
+    }
+
+    fun setOnPointClickListener(listener: (point: PathPoint) -> Unit) {
+        pointClickListener = listener
     }
 
     private fun drawMap() {
@@ -147,12 +156,21 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         val pointDiameter = dp(5f)
         noPathEffect()
         noStroke()
+        val circles = mutableListOf<Pair<PathPoint, PixelCircle>>()
         for (point in points) {
             val color = pointColoringStrategy.getColor(point)
             fill(color)
             val position = getPixels(point.coordinate)
             circle(position.x, position.y, pointDiameter)
+            circles.add(
+                point to PixelCircle(
+                    PixelCoordinate(position.x, position.y),
+                    pointDiameter
+                )
+            )
         }
+
+        pathCircles = circles
     }
 
     private fun drawLegend(gridGap: Distance) {
@@ -253,5 +271,29 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             PathStyle.Dotted -> PixelLineStyle.Dotted
             PathStyle.Arrow -> PixelLineStyle.Arrow
         }
+    }
+
+    private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
+
+        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+            val screenCoord = PixelCoordinate(e.x, e.y)
+
+            val tapRadius = dp(12f)
+            val closest = pathCircles.minByOrNull { it.second.center.distanceTo(screenCoord) }
+
+            if (closest != null && closest.second.center.distanceTo(screenCoord) < tapRadius) {
+                pointClickListener.invoke(closest.first)
+            }
+
+            return super.onSingleTapConfirmed(e)
+        }
+    }
+
+    private val gestureDetector = GestureDetector(context, mGestureListener)
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        gestureDetector.onTouchEvent(event)
+        invalidate()
+        return true
     }
 }
