@@ -6,7 +6,11 @@ import com.kylecorry.andromeda.core.units.Coordinate
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class MyNamedCoordinate(val coordinate: Coordinate, val name: String? = null) : Parcelable {
+data class MyNamedCoordinate(
+    val coordinate: Coordinate,
+    val name: String? = null,
+    val elevation: Float? = null
+) : Parcelable {
     companion object {
         fun from(namedCoordinate: GeoUriParser.NamedCoordinate): MyNamedCoordinate {
             return MyNamedCoordinate(namedCoordinate.coordinate, namedCoordinate.name)

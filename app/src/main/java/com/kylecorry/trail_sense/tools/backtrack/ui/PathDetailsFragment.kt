@@ -374,7 +374,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     private fun createBeacon(waypoint: PathPoint) {
         AppUtils.placeBeacon(
             requireContext(),
-            MyNamedCoordinate(waypoint.coordinate, getWaypointTitle(waypoint))
+            MyNamedCoordinate(waypoint.coordinate, getWaypointTitle(waypoint), waypoint.elevation)
         )
     }
 

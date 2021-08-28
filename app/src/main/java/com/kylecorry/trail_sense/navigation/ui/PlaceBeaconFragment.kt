@@ -176,6 +176,15 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         if (initialLocation != null) {
             binding.beaconName.setText(initialLocation!!.name ?: "")
             binding.beaconLocation.coordinate = initialLocation!!.coordinate
+            binding.beaconElevation.setText(
+                if (initialLocation!!.elevation != null) {
+                    val dist = Distance.meters(initialLocation!!.elevation!!)
+                    val userUnits = dist.convertTo(prefs.baseDistanceUnits)
+                    userUnits.distance.toString()
+                } else {
+                    ""
+                }
+            )
             updateDoneButtonState()
         }
 
@@ -324,13 +333,15 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         binding.bearingToBtn.text =
             getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(0f))
-        binding.distanceAway.units = formatService.sortDistanceUnits(listOf(
-            DistanceUnits.Meters,
-            DistanceUnits.Kilometers,
-            DistanceUnits.Feet,
-            DistanceUnits.Miles,
-            DistanceUnits.NauticalMiles
-        ))
+        binding.distanceAway.units = formatService.sortDistanceUnits(
+            listOf(
+                DistanceUnits.Meters,
+                DistanceUnits.Kilometers,
+                DistanceUnits.Feet,
+                DistanceUnits.Miles,
+                DistanceUnits.NauticalMiles
+            )
+        )
     }
 
     override fun onResume() {

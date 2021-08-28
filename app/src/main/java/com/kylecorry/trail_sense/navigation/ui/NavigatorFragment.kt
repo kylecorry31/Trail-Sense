@@ -281,7 +281,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.beaconBtn.setOnLongClickListener {
             if (gps.hasValidReading) {
                 val bundle = bundleOf(
-                    "initial_location" to MyNamedCoordinate(gps.location)
+                    "initial_location" to MyNamedCoordinate(
+                        gps.location,
+                        elevation = if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
+                    )
                 )
                 navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment, bundle)
             } else {
