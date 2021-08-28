@@ -21,7 +21,8 @@ class PathListItem(
     private val navigationService: INavigationService,
     private val delete: (path: List<PathPoint>) -> Unit,
     private val merge: (path: List<PathPoint>) -> Unit,
-    private val show: (path: List<PathPoint>) -> Unit
+    private val show: (path: List<PathPoint>) -> Unit,
+    private val export: (path: List<PathPoint>) -> Unit
 ) {
 
     fun display(
@@ -56,6 +57,9 @@ class PathListItem(
                 when (it) {
                     R.id.action_path_delete -> {
                         delete(item)
+                    }
+                    R.id.action_path_export -> {
+                        export(item)
                     }
                     R.id.action_path_merge -> {
                         merge(item)

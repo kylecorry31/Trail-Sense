@@ -3,9 +3,9 @@
     <item
         android:id="@+id/action_path_delete"
         android:title="@string/waypoint_action_delete" />
-<!--    <item-->
-<!--        android:id="@+id/action_path_export"-->
-<!--        android:title="@string/export" />-->
+    <item
+        android:id="@+id/action_path_export"
+        android:title="@string/export" />
     <item
         android:id="@+id/action_path_merge"
         android:title="@string/path_merge_previous" />

@@ -1114,6 +1114,8 @@
     <string name="new_text">New</string>
     <string name="navigate">Navigate</string>
     <string name="no_paths">No paths</string>
+    <string name="path_exported">Path exported</string>
+    <string name="export_path_error">Could not export path</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d waypoint will be deleted</item>
         <item quantity="other">%d waypoints will be deleted</item>

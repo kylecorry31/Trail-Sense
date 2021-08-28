@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.navigation.infrastructure.export
 
 import android.content.Context
 import com.kylecorry.andromeda.core.time.toZonedDateTime
+import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.gpx.GPXParser
 import com.kylecorry.andromeda.gpx.GPXWaypoint
 import com.kylecorry.trail_sense.R
@@ -19,7 +20,7 @@ class BeaconIOService(private val context: Context) {
     private val formatService by lazy { FormatService(context) }
 
     fun export(waypoints: List<GPXWaypoint>): String {
-        return GPXParser.toGPX(waypoints, context.getString(R.string.app_name))
+        return GPXParser.toGPX(GPXData(waypoints, listOf()), context.getString(R.string.app_name))
     }
 
     fun getGPXWaypoints(beacons: List<Beacon>, groups: List<BeaconGroup>): List<GPXWaypoint> {
@@ -41,7 +42,7 @@ class BeaconIOService(private val context: Context) {
     }
 
     fun getGPXWaypoints(gpx: String): List<GPXWaypoint> {
-        return GPXParser.getWaypoints(gpx)
+        return GPXParser.parse(gpx).waypoints
     }
 
     suspend fun import(waypoints: List<GPXWaypoint>): Int {
