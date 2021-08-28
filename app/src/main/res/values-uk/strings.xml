@@ -970,4 +970,19 @@
     <string name="camera">Камера</string>
     <string name="quarter_moon">Чверть Місяця</string>
     <string name="autofill">Самозаповнення</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d шляхову точку буде видалено</item>
+        <item quantity="few">%d шляхові точки буде видалено</item>
+        <item quantity="many">%d шляхових точок буде видалено</item>
+        <item quantity="other">%d шляхових точок буде видалено</item>
+    </plurals>
+    <string name="grid_size">Сітка %s</string>
+    <string name="no_previous_path">Попереднього шляху немає</string>
+    <string name="merge_previous_path_title">Об’єднати з попереднім шляхом\?</string>
+    <string name="path_merge_previous">Об\'єднати попередні</string>
+    <string name="delete_path">Видалити шлях\?</string>
+    <string name="dash_separated_pair">%s - %s</string>
+    <string name="auto">Авто</string>
+    <string name="lightning_dangerously_close">Блискавка небезпечно близько</string>
+    <string name="units_inhg">дюйм рт.ст.</string>
 </resources>
