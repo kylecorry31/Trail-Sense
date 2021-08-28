@@ -42,8 +42,32 @@ data class WaypointEntity(
         }
 
     fun toPathPoint(): PathPoint {
-        val network = if (cellNetwork == null) null else CellNetworkQuality(cellNetwork!!, cellQuality)
-        return PathPoint(id, pathId, coordinate, time = createdInstant, cellSignal = network, elevation = altitude)
+        val network =
+            if (cellNetwork == null) null else CellNetworkQuality(cellNetwork!!, cellQuality)
+        return PathPoint(
+            id,
+            pathId,
+            coordinate,
+            time = createdInstant,
+            cellSignal = network,
+            elevation = altitude
+        )
+    }
+
+    companion object {
+        fun from(point: PathPoint): WaypointEntity {
+            return WaypointEntity(
+                point.coordinate.latitude,
+                point.coordinate.longitude,
+                point.elevation,
+                point.time?.toEpochMilli() ?: Instant.now().toEpochMilli(),
+                point.cellSignal?.network?.id,
+                point.cellSignal?.quality?.ordinal,
+                point.pathId
+            ).also {
+                it.id = point.id
+            }
+        }
     }
 
 }

@@ -19,10 +19,10 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.paths.GrayPathLineDrawerDecoratorStrategy
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.toPixelLines
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
 import com.kylecorry.trailsensecore.domain.geo.GeoService
+import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.geo.PathStyle
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
@@ -39,7 +39,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             invalidate()
         }
 
-    var path: List<WaypointEntity> = emptyList()
+    var path: List<PathPoint> = emptyList()
         set(value) {
             field = value
             invalidate()
@@ -143,12 +143,12 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         }
     }
 
-    private fun drawWaypoints(points: List<WaypointEntity>) {
+    private fun drawWaypoints(points: List<PathPoint>) {
         val pointDiameter = dp(5f)
         noPathEffect()
         noStroke()
         for (point in points) {
-            val color = pointColoringStrategy.getColor(point.toPathPoint())
+            val color = pointColoringStrategy.getColor(point)
             fill(color)
             val position = getPixels(point.coordinate)
             circle(position.x, position.y, pointDiameter)

@@ -1,8 +1,11 @@
 package com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.kylecorry.trail_sense.shared.AppDatabase
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
+import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import java.time.Instant
 
 class WaypointRepo private constructor(context: Context) : IWaypointRepo {
@@ -12,6 +15,11 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
     override fun getWaypoints() = waypointDao.getAll()
 
     override suspend fun getWaypoint(id: Long) = waypointDao.get(id)
+
+    override fun getWaypointsByPath(pathId: Long): LiveData<List<PathPoint>> {
+        val all = waypointDao.getAllInPath(pathId)
+        return Transformations.map(all) { it.map { w -> w.toPathPoint() } }
+    }
 
     override suspend fun deleteWaypoint(waypoint: WaypointEntity) = waypointDao.delete(waypoint)
 

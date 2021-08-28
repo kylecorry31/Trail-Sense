@@ -12,6 +12,9 @@ interface WaypointDao {
     @Query("SELECT * FROM waypoints WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): WaypointEntity?
 
+    @Query("SELECT * FROM waypoints WHERE pathId = :pathId")
+    fun getAllInPath(pathId: Long): LiveData<List<WaypointEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(waypoint: WaypointEntity): Long
 

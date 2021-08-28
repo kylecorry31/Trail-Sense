@@ -5,6 +5,7 @@ import android.util.Range
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kylecorry.andromeda.core.specifications.Specification
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -110,4 +111,12 @@ fun <T : Comparable<T>> List<T>.rangeOrNull(): Range<T>? {
     val min = minOrNull() ?: return null
     val max = maxOrNull() ?: return null
     return Range(min, max)
+}
+
+fun <T> List<T>.filterSatisfied(spec: Specification<T>): List<T> {
+    return filter { spec.isSatisfiedBy(it) }
+}
+
+fun <T> List<T>.filterNotSatisfied(spec: Specification<T>): List<T> {
+    return filterNot { spec.isSatisfiedBy(it) }
 }

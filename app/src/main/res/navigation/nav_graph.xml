@@ -640,6 +640,15 @@
             app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/action_navigation"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_backtrack_to_path"
+            app:destination="@id/pathDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
     <fragment
         android:id="@+id/cloudFragment"
@@ -843,5 +852,14 @@
         android:id="@+id/diagnosticsFragment"
         android:name="com.kylecorry.trail_sense.diagnostics.DiagnosticsFragment"
         android:label="DiagnosticsFragment" />
+    <fragment
+        android:id="@+id/pathDetailsFragment"
+        android:name="com.kylecorry.trail_sense.tools.backtrack.ui.PathDetailsFragment"
+        android:label="PathDetailsFragment">
+        <argument
+            android:name="destination"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
 
 </navigation>
