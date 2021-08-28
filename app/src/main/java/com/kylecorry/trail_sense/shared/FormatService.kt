@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.toEpochMillis
 import com.kylecorry.andromeda.core.units.*
+import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trailsensecore.domain.geo.Region
@@ -468,6 +469,16 @@ class FormatService(private val context: Context) {
             DistanceUnits.Centimeters -> context.getString(R.string.unit_centimeters)
             DistanceUnits.Inches -> context.getString(R.string.unit_inches)
             DistanceUnits.Yards -> context.getString(R.string.unit_yards)
+        }
+    }
+
+    fun formatCellNetwork(cellType: CellNetwork?): String {
+        return when (cellType) {
+            CellNetwork.Nr -> context.getString(R.string.network_5g)
+            CellNetwork.Lte -> context.getString(R.string.network_4g)
+            CellNetwork.Cdma, CellNetwork.Gsm -> context.getString(R.string.network_2g)
+            CellNetwork.Wcdma -> context.getString(R.string.network_3g)
+            else -> context.getString(R.string.network_no_signal)
         }
     }
 

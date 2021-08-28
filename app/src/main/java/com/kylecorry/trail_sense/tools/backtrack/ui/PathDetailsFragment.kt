@@ -1,15 +1,12 @@
 package com.kylecorry.trail_sense.tools.backtrack.ui
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Range
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.toZonedDateTime
@@ -26,12 +23,11 @@ import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
-import com.kylecorry.trail_sense.shared.scales.DiscreteColorScale
-import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.*
+import com.kylecorry.trail_sense.tools.backtrack.domain.factories.*
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.NoDrawPointColoringStrategy
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.SelectedPointDecorator
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsCurrentPathSpecification
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsValidBacktrackPointSpecification
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
@@ -93,6 +89,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
                 selectedPointId = null
             }
             listView.setData(path)
+            updatePointStyleLegend()
             onPathChanged()
         })
 
@@ -179,33 +176,23 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         binding.pathImage.location = gps.location
         binding.pathImage.azimuth = compass.bearing.value
 
-        val baseStrategy = when (pointColoringStyle) {
-            PointColoringStyle.None -> if (selectedPointId != null) {
-                DefaultPointColoringStrategy(prefs.navigation.backtrackPathColor.color)
-            } else {
-                NoDrawPointColoringStrategy()
-            }
-            PointColoringStyle.CellSignal -> CellSignalPointColoringStrategy(cellSignalColorScale)
-            PointColoringStyle.Altitude -> {
-                val altitudeRange = path.mapNotNull { it.elevation }.rangeOrNull() ?: Range(0f, 0f)
-                AltitudePointColoringStrategy(
-                    altitudeRange,
-                    altitudeColorScale
-                )
-            }
-            PointColoringStyle.Time -> {
-                val timeRange = path.mapNotNull { it.time }.rangeOrNull() ?: Range(
-                    Instant.now(),
-                    Instant.now()
-                )
-                TimePointColoringStrategy(
-                    timeRange,
-                    timeColorScale
-                )
-            }
-        }
+        val factory = getPointFactory()
+
+        val baseStrategy = factory.createColoringStrategy(path)
 
         val selected = selectedPointId
+
+        binding.pathPointValue.text = if (selected != null) {
+            val found = path.find { it.id == selected }
+            if (found != null) {
+                factory.createValueStrategy(path).getValue(found)
+            } else {
+                ""
+            }
+        } else {
+            ""
+        }
+
         binding.pathImage.pointColoringStrategy = if (selected == null) {
             baseStrategy
         } else {
@@ -221,6 +208,9 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     }
 
     private fun updatePointStyleLegend() {
+
+        val factory = getPointFactory()
+
         binding.pathPointStyle.text = listOf(
             getString(R.string.path),
             getString(R.string.cell_signal),
@@ -228,29 +218,8 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             getString(R.string.time)
         )[pointColoringStyle.ordinal]
 
-        binding.pathLegend.colorScale = when (pointColoringStyle) {
-            PointColoringStyle.None -> null
-            PointColoringStyle.CellSignal -> cellSignalColorScale
-            PointColoringStyle.Altitude -> altitudeColorScale
-            PointColoringStyle.Time -> timeColorScale
-        }
-
-        binding.pathLegend.labels = when (pointColoringStyle) {
-            PointColoringStyle.None -> emptyMap()
-            PointColoringStyle.CellSignal -> mapOf(
-                0.167f to formatService.formatQuality(Quality.Poor),
-                0.5f to formatService.formatQuality(Quality.Moderate),
-                0.833f to formatService.formatQuality(Quality.Good),
-            )
-            PointColoringStyle.Altitude -> mapOf(
-                0.167f to getString(R.string.low),
-                0.833f to getString(R.string.high),
-            )
-            PointColoringStyle.Time -> mapOf(
-                0.167f to getString(R.string.old),
-                0.833f to getString(R.string.new_text),
-            )
-        }
+        binding.pathLegend.colorScale = factory.createColorScale(path)
+        binding.pathLegend.labels = factory.createLabelMap(path)
     }
 
     private fun getGPSWaypoint(pathId: Long): PathPoint {
@@ -393,17 +362,12 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         )
     }
 
-    companion object {
-        private val timeColorScale: IColorScale =
-            ContinuousColorScale(Color.WHITE, AppColor.DarkBlue.color)
-        private val altitudeColorScale: IColorScale =
-            ContinuousColorScale(AppColor.DarkBlue.color, AppColor.Red.color)
-        private val cellSignalColorScale: IColorScale = DiscreteColorScale(
-            listOf(
-                Quality.Poor,
-                Quality.Moderate,
-                Quality.Good
-            ).map { CustomUiUtils.getQualityColor(it) }
-        )
+    private fun getPointFactory(): IPointDisplayFactory {
+        return when (pointColoringStyle) {
+            PointColoringStyle.None -> PathDisplayFactory(requireContext())
+            PointColoringStyle.CellSignal -> CellSignalPointDisplayFactory(requireContext())
+            PointColoringStyle.Altitude -> AltitudePointDisplayFactory(requireContext())
+            PointColoringStyle.Time -> TimePointDisplayFactory(requireContext())
+        }
     }
 }
