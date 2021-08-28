@@ -10,24 +10,43 @@ class PreferenceMigrator private constructor() {
 
     fun migrate(context: Context) {
         synchronized(lock) {
-            val cache = Preferences(context)
-            if (cache.contains("pref_enable_experimental")) {
-                val isExperimental = cache.getBoolean("pref_enable_experimental") ?: false
-                cache.putBoolean(context.getString(R.string.pref_experimental_maps), isExperimental)
-                cache.putBoolean(
-                    context.getString(R.string.pref_experimental_tide_clock),
-                    isExperimental
-                )
-                cache.remove("pref_enable_experimental")
-                cache.remove("pref_use_camera_features")
+            val prefs = Preferences(context)
+            var currentVersion = prefs.getInt("pref_version") ?: 0
+
+            while (currentVersion < version) {
+                val current = currentVersion
+                val next = currentVersion + 1
+                val migration =
+                    migrations.find { it.fromVersion == current && it.toVersion == next }
+                migration?.action?.invoke(context, prefs)
+                currentVersion++
+                prefs.putInt("pref_version", currentVersion)
             }
         }
     }
 
-
     companion object {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
+
+        private const val version = 1
+        private val migrations = listOf(
+            PreferenceMigration(0, 1) { context, prefs ->
+                if (prefs.contains("pref_enable_experimental")) {
+                    val isExperimental = prefs.getBoolean("pref_enable_experimental") ?: false
+                    prefs.putBoolean(
+                        context.getString(R.string.pref_experimental_maps),
+                        isExperimental
+                    )
+                    prefs.putBoolean(
+                        context.getString(R.string.pref_experimental_tide_clock),
+                        isExperimental
+                    )
+                    prefs.remove("pref_enable_experimental")
+                    prefs.remove("pref_use_camera_features")
+                }
+            }
+        )
 
         fun getInstance(): PreferenceMigrator {
             return synchronized(staticLock) {

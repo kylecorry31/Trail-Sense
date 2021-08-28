@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.andromeda.files.LocalFiles
-import com.kylecorry.trail_sense.shared.AppDatabase
+import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 

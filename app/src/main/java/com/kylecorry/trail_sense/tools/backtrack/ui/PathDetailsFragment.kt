@@ -223,7 +223,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     }
 
     private fun getGPSWaypoint(pathId: Long): PathPoint {
-        return PathPoint(-1, pathId, gps.location, gps.altitude, Instant.now(), null)
+        return gps.getPathPoint(pathId)
     }
 
     private enum class PointColoringStyle {

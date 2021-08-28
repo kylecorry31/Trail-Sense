@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure.persistence
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import com.kylecorry.trail_sense.shared.AppDatabase
+import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import java.time.Instant
 

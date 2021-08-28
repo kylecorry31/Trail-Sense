@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure.persistence
 
 import android.content.Context
-import com.kylecorry.trail_sense.shared.AppDatabase
+import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import java.time.Instant
 

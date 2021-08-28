@@ -1,7 +1,8 @@
-package com.kylecorry.trail_sense.shared
+package com.kylecorry.trail_sense.shared.database
 
 import androidx.room.TypeConverter
 import com.kylecorry.andromeda.core.units.WeightUnits
+import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import com.kylecorry.trailsensecore.domain.packs.ItemCategory
 import java.time.Instant
