@@ -180,9 +180,11 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         binding.pathImage.azimuth = compass.bearing.value
 
         val baseStrategy = when (pointColoringStyle) {
-            PointColoringStyle.None -> DefaultPointColoringStrategy(
-                if (selectedPointId != null) prefs.navigation.backtrackPathColor.color else Color.TRANSPARENT
-            )
+            PointColoringStyle.None -> if (selectedPointId != null) {
+                DefaultPointColoringStrategy(prefs.navigation.backtrackPathColor.color)
+            } else {
+                NoDrawPointColoringStrategy()
+            }
             PointColoringStyle.CellSignal -> CellSignalPointColoringStrategy(cellSignalColorScale)
             PointColoringStyle.Altitude -> {
                 val altitudeRange = path.mapNotNull { it.elevation }.rangeOrNull() ?: Range(0f, 0f)
@@ -210,7 +212,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             SelectedPointDecorator(
                 selected,
                 baseStrategy,
-                DefaultPointColoringStrategy(Color.TRANSPARENT)
+                NoDrawPointColoringStrategy()
             )
         }
 

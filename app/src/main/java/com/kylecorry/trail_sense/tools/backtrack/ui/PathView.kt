@@ -21,8 +21,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.paths.GrayPathLineDrawerDecoratorStrategy
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.toPixelLines
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.geo.PathStyle
@@ -35,8 +35,7 @@ import kotlin.math.min
 
 class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs) {
 
-    var pointColoringStrategy: IPointColoringStrategy =
-        DefaultPointColoringStrategy(Color.TRANSPARENT)
+    var pointColoringStrategy: IPointColoringStrategy = NoDrawPointColoringStrategy()
         set(value) {
             field = value
             invalidate()
@@ -158,7 +157,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         noStroke()
         val circles = mutableListOf<Pair<PathPoint, PixelCircle>>()
         for (point in points) {
-            val color = pointColoringStrategy.getColor(point)
+            val color = pointColoringStrategy.getColor(point) ?: continue
             fill(color)
             val position = getPixels(point.coordinate)
             circle(position.x, position.y, pointDiameter)

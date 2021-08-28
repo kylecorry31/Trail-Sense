@@ -11,8 +11,8 @@ class TimePointColoringStrategy(
     private val timeRange: Range<Instant>,
     private val colorScale: IColorScale
 ) : IPointColoringStrategy {
-    override fun getColor(point: PathPoint): Int {
-        val time = point.time ?: return colorScale.getColor(0f)
+    override fun getColor(point: PathPoint): Int? {
+        val time = point.time ?: return null
         val ratio = constrain(
             norm(
                 time.toEpochMilli().toFloat(),

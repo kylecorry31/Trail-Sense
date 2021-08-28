@@ -10,8 +10,8 @@ class AltitudePointColoringStrategy(
     private val altitudeRange: Range<Float>,
     private val colorScale: IColorScale
 ) : IPointColoringStrategy {
-    override fun getColor(point: PathPoint): Int {
-        val altitude = point.elevation ?: return colorScale.getColor(0f)
+    override fun getColor(point: PathPoint): Int? {
+        val altitude = point.elevation ?: return null
         val ratio = constrain(norm(altitude, altitudeRange.lower, altitudeRange.upper), 0f, 1f)
         return colorScale.getColor(ratio)
     }

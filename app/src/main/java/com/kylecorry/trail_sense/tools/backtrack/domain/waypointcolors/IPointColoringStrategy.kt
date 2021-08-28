@@ -6,6 +6,6 @@ import com.kylecorry.trailsensecore.domain.geo.PathPoint
 interface IPointColoringStrategy {
 
     @ColorInt
-    fun getColor(point: PathPoint): Int
+    fun getColor(point: PathPoint): Int?
 
 }
