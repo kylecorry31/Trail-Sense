@@ -192,7 +192,6 @@
     <string name="tool_backtrack_summary">Konum geçmişini görüntüle</string>
     <string name="action_waypoint_create_beacon">İşaret oluştur</string>
     <string name="waypoint_action_delete">Sil</string>
-    <string name="waypoints_empty_text">Belirlenen konum hedefi yok</string>
     <string name="backtrack_notification_description">Konum hedefi yerleştiriliyor</string>
     <string name="backtrack_notification_channel_description">Geri iz sürme konum güncellemeleri</string>
     <string name="backtrack_notification_channel">Geri iz sürme</string>

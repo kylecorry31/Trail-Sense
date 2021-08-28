@@ -289,7 +289,6 @@
     <string name="tool_backtrack_summary">Visualizza lo storico delle posizioni</string>
     <string name="action_waypoint_create_beacon">Crea Segnaposto</string>
     <string name="waypoint_action_delete">Cancella</string>
-    <string name="waypoints_empty_text">Nessun waypoint</string>
     <string name="backtrack_notification_description">Posizionamento del waypoint</string>
     <string name="backtrack_notification_channel_description">Aggiornamento delle posizioni per il ritorno</string>
     <string name="backtrack_notification_channel">Ritorno</string>

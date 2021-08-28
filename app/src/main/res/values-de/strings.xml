@@ -446,7 +446,6 @@
     <string name="location_input_help_title">Unterstützte Ortsformate</string>
     <string name="location_input_hint">Ort</string>
     <string name="waypoint_action_delete">Löschen</string>
-    <string name="waypoints_empty_text">Keine Wegpunkte verfügbar</string>
     <string name="backtrack_notification_channel">Rückweg</string>
     <string name="guide_location_no_gps_title">Ortsbestimmung ohne GPS</string>
     <string name="min_temp_uncalibrated">Minimale Gerätetemperatur (nicht geeicht)</string>

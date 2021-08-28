@@ -564,7 +564,6 @@
     <string name="unsaved_changes_message">Les modifications que vous avez apportées ne seront pas enregistrées.</string>
     <string name="unsaved_changes">Modifications non enregistrées</string>
     <string name="pref_gps_override_title">Remplacement d\'emplacement</string>
-    <string name="waypoints_empty_text">Aucun repère</string>
     <string name="backtrack_notification_description">Placer un repère de localisation</string>
     <string name="backtrack_notification_channel_description">Mises à jour des emplacements de retour</string>
     <string name="map_fractional_separator">:</string>

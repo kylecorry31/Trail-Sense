@@ -473,7 +473,6 @@
     <string name="tool_backtrack_summary">查看位置历史</string>
     <string name="action_waypoint_create_beacon">创建信标</string>
     <string name="waypoint_action_delete">删除</string>
-    <string name="waypoints_empty_text">无路径点</string>
     <string name="backtrack_notification_description">放置位置路径点</string>
     <string name="backtrack_notification_channel_description">Backtrack 位置更新</string>
     <string name="guide_location_no_gps_title">不用 GPS 进行定位</string>

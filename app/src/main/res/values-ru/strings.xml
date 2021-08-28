@@ -511,7 +511,6 @@
     <string name="tool_backtrack_summary">Просмотр истории местоположений</string>
     <string name="action_waypoint_create_beacon">Создать маячок</string>
     <string name="waypoint_action_delete">Удалить</string>
-    <string name="waypoints_empty_text">Нет путевых точек</string>
     <string name="backtrack_notification_description">Размещение путевой точки</string>
     <string name="backtrack_notification_channel_description">Обновление местоположения истории маршрута</string>
     <string name="backtrack_notification_channel">История маршрута</string>

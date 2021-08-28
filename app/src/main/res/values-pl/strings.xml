@@ -609,7 +609,6 @@
     <string name="pref_require_satellites_title">Wymagane ustalenie pozycji satelitarnej</string>
     <string name="delete_waypoint_prompt">Usunąć punkt orientacyjny\?</string>
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
-    <string name="waypoints_empty_text">Brak punktów orientacyjnych</string>
     <string name="backtrack_notification_description">Umieszczanie punktu orientacyjnego</string>
     <string name="location_override_updated">Zaktualizowano zastępowanie lokalizacji</string>
     <string name="tool_cliff_height_disclaimer">Używaj tego narzędzia tylko wtedy, gdy jest to bezpieczne i sprawdź, co znajduje się pod urwiskiem, aby uniknąć obrażeń. Instrukcje znajdują się w podręczniku użytkownika.</string>

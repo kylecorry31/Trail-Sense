@@ -656,7 +656,6 @@
     <string name="tool_backtrack_summary">Locatiegeschiedenis tonen</string>
     <string name="action_waypoint_create_beacon">Baken maken</string>
     <string name="waypoint_action_delete">Verwijderen</string>
-    <string name="waypoints_empty_text">Geen tussenpunten</string>
     <string name="guide_location_no_gps_title">Locatie bepalen zonder gps</string>
     <string name="beacon_set_bearing_btn">Peiling vastzetten (%s)</string>
     <string name="create_at_distance">Op afstand maken</string>

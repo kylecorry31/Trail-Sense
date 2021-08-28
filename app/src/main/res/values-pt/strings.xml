@@ -643,7 +643,6 @@
     <string name="tool_backtrack_summary">Ver histórico de localização</string>
     <string name="action_waypoint_create_beacon">Criar sinal luminoso</string>
     <string name="waypoint_action_delete">Deletar</string>
-    <string name="waypoints_empty_text">Sem pontos de passagem</string>
     <string name="backtrack_notification_description">Inserir ponto de passagem de localização</string>
     <string name="backtrack_notification_channel_description">Atualização de localização de recuo</string>
     <string name="backtrack_notification_channel">Voltar atrás</string>

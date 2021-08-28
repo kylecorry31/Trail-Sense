@@ -810,7 +810,6 @@
     <string name="tool_backtrack_title">Izatrag</string>
     <string name="tool_backtrack_summary">Pogledajte lokacijsku historiju</string>
     <string name="waypoint_action_delete">Izbriši</string>
-    <string name="waypoints_empty_text">Nema putnih točaka</string>
     <string name="backtrack_notification_description">Postavljanje međutočke lokacije</string>
     <string name="backtrack_notification_channel_description">Ažuriranja lokacija Izatraga</string>
     <string name="backtrack_notification_channel">Izatrag</string>

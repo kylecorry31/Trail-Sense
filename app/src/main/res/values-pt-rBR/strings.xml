@@ -614,7 +614,6 @@
     <string name="waypoint_beacon_title_template">%s, %s Ponto de passagem</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_title">Recuar</string>
-    <string name="waypoints_empty_text">Sem pontos de passagem</string>
     <string name="backtrack_notification_description">Colocando ponto de passagem de localização</string>
     <string name="backtrack_notification_channel_description">Atualizações de localização do recuo</string>
     <string name="backtrack_notification_channel">Recuar</string>

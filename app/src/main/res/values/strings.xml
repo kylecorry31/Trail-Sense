@@ -616,7 +616,6 @@
     <string name="backtrack_notification_channel">Backtrack</string>
     <string name="backtrack_notification_channel_description">Backtrack location updates</string>
     <string name="backtrack_notification_description">Placing location waypoint</string>
-    <string name="waypoints_empty_text">No waypoints</string>
     <string name="waypoint_action_delete">Delete</string>
     <string name="action_waypoint_create_beacon">Create beacon</string>
     <string name="tool_backtrack_summary">View location history</string>
@@ -1114,6 +1113,7 @@
     <string name="old">Old</string>
     <string name="new_text">New</string>
     <string name="navigate">Navigate</string>
+    <string name="no_paths">No paths</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d waypoint will be deleted</item>
         <item quantity="other">%d waypoints will be deleted</item>

@@ -430,7 +430,6 @@
     <string name="always_on">Beti piztuta</string>
     <string name="todays_forecast">Gaurko iragarpena</string>
     <string name="delete_waypoint_prompt">Erreferentzia puntua ezabatu\?</string>
-    <string name="waypoints_empty_text">Erreferentzia punturik ez</string>
     <string name="unit_yards">Yardak</string>
     <string name="daylight">Eguneko argia</string>
     <string name="units">Unitateak</string>

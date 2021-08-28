@@ -554,7 +554,6 @@
     <string name="tool_backtrack_summary">Перегляд історії місцеперебувань</string>
     <string name="action_waypoint_create_beacon">Створити маячок</string>
     <string name="waypoint_action_delete">Видалити</string>
-    <string name="waypoints_empty_text">Немає шляхових точок</string>
     <string name="backtrack_notification_description">Розміщення шляхової точки</string>
     <string name="backtrack_notification_channel_description">Оновлення місцеперебування історії маршруту</string>
     <string name="backtrack_notification_channel">Історія маршруту</string>
