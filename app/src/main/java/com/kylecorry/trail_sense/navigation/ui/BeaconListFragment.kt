@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.Manifest
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,21 +15,25 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.files.ExternalFiles
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
-import com.kylecorry.andromeda.gpx.GPXWaypoint
+import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
+import com.kylecorry.trail_sense.navigation.domain.BeaconGpxConverter
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
-import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconIOService
+import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconGpxImporter
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.filterIndices
+import com.kylecorry.trail_sense.shared.io.ExternalUriService
+import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
+import com.kylecorry.trail_sense.shared.io.GpxIOService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
@@ -53,6 +56,13 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private var displayedGroup: BeaconGroup? = null
+
+    private val gpxService by lazy {
+        GpxIOService(
+            FragmentUriPicker(this),
+            ExternalUriService(requireContext())
+        )
+    }
 
     private val delayedUpdate = Timer {
         lifecycleScope.launch {
@@ -205,18 +215,19 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         return binding.createMenu.isVisible
     }
 
-    private fun onExportBeacons(){
+    private fun onExportBeacons() {
         runInBackground {
-            val waypoints = getWaypointsToExport()
+            val gpx = getExportGPX()
             withContext(Dispatchers.Main) {
                 Pickers.items(
                     requireContext(),
                     getString(R.string.export),
-                    waypoints.map { it.name ?: formatService.formatLocation(it.coordinate) },
-                    List(waypoints.size) { it },
+                    gpx.waypoints.map { it.name ?: formatService.formatLocation(it.coordinate) },
+                    List(gpx.waypoints.size) { it },
                 ) {
                     if (it != null && it.isNotEmpty()) {
-                        exportWaypoints(waypoints.filterIndexed { index, _ -> it.contains(index) })
+                        val selectedWaypoints = gpx.waypoints.filterIndices(it)
+                        export(gpx.copy(waypoints = selectedWaypoints))
                     }
                 }
             }
@@ -409,75 +420,69 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         sheet.show(this)
     }
 
-    private fun exportWaypoints(waypoints: List<GPXWaypoint>) {
-        val exportFile = "trail-sense-${Instant.now().epochSecond}.gpx"
-        createFile(exportFile, "application/gpx+xml") {
-            it?.also { returnUri ->
-                exportToUri(returnUri, waypoints)
+    private fun export(gpx: GPXData) {
+        runInBackground {
+            val exportFile = "trail-sense-${Instant.now().epochSecond}.gpx"
+            val success = gpxService.export(gpx, exportFile)
+            withContext(Dispatchers.Main) {
+                if (success) {
+                    Alerts.toast(
+                        requireContext(),
+                        resources.getQuantityString(
+                            R.plurals.beacons_exported,
+                            gpx.waypoints.size,
+                            gpx.waypoints.size
+                        )
+                    )
+                } else {
+                    Alerts.toast(
+                        requireContext(),
+                        getString(R.string.beacon_export_error)
+                    )
+                }
             }
         }
     }
 
     private fun importBeacons() {
-        pickFile(
-            "*/*",
-            getString(R.string.select_import_file)
-        ) {
-            it?.also { returnUri ->
-                importFromUri(returnUri)
-            }
-        }
-    }
-
-    private fun importFromUri(uri: Uri) {
+        val importer = BeaconGpxImporter(requireContext())
         runInBackground {
-            val text = ExternalFiles.read(requireContext(), uri)
-            text?.let {
-                val importer = BeaconIOService(requireContext())
-                val waypoints = withContext(Dispatchers.IO) {
-                    importer.getGPXWaypoints(text)
-                }
-                if (waypoints.isNotEmpty()) {
-                    withContext(Dispatchers.Main) {
-                        Pickers.items(
-                            requireContext(),
-                            getString(R.string.import_btn),
-                            waypoints.map {
-                                it.name ?: formatService.formatLocation(it.coordinate)
-                            },
-                            List(waypoints.size) { it }
-                        ) {
-                            if (it != null) {
-                                runInBackground {
-                                    val count = withContext(Dispatchers.IO) {
-                                        importer.import(waypoints.filterIndexed { index, _ ->
-                                            it.contains(
-                                                index
-                                            )
-                                        })
-                                    }
-                                    withContext(Dispatchers.Main) {
-                                        Alerts.toast(
-                                            requireContext(),
-                                            resources.getQuantityString(
-                                                R.plurals.beacons_imported,
-                                                count,
-                                                count
-                                            )
-                                        )
-                                        updateBeaconList()
-                                    }
-                                }
+            val gpx = gpxService.import()
+            val waypoints = gpx?.waypoints ?: emptyList()
+            withContext(Dispatchers.Main) {
+                Pickers.items(
+                    requireContext(),
+                    getString(R.string.import_btn),
+                    waypoints.map {
+                        it.name ?: formatService.formatLocation(it.coordinate)
+                    },
+                    List(waypoints.size) { it }
+                ) {
+                    if (it != null) {
+                        runInBackground {
+                            val gpxToImport = GPXData(waypoints.filterIndices(it), emptyList())
+                            val count = withContext(Dispatchers.IO) {
+                                importer.import(gpxToImport)
+                            }
+                            withContext(Dispatchers.Main) {
+                                Alerts.toast(
+                                    requireContext(),
+                                    resources.getQuantityString(
+                                        R.plurals.beacons_imported,
+                                        count,
+                                        count
+                                    )
+                                )
+                                updateBeaconList()
                             }
                         }
                     }
                 }
-
             }
         }
     }
 
-    private suspend fun getWaypointsToExport(): List<GPXWaypoint> {
+    private suspend fun getExportGPX(): GPXData {
         val groups = withContext(Dispatchers.IO) {
             if (displayedGroup == null) {
                 beaconRepo.getGroupsSync().map { it.toBeaconGroup() }
@@ -493,35 +498,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             }
         }
 
-        return BeaconIOService(requireContext()).getGPXWaypoints(beacons, groups)
-    }
-
-    private fun exportToUri(uri: Uri, waypoints: List<GPXWaypoint>) {
-        runInBackground {
-            val gpx = BeaconIOService(requireContext()).export(waypoints)
-
-            val success = withContext(Dispatchers.IO) {
-                ExternalFiles.write(requireContext(), uri, gpx)
-            }
-
-            withContext(Dispatchers.Main) {
-                if (success) {
-                    Alerts.toast(
-                        requireContext(),
-                        resources.getQuantityString(
-                            R.plurals.beacons_exported,
-                            waypoints.size,
-                            waypoints.size
-                        )
-                    )
-                } else {
-                    Alerts.toast(
-                        requireContext(),
-                        getString(R.string.beacon_export_error)
-                    )
-                }
-            }
-        }
+        return BeaconGpxConverter().toGPX(beacons, groups)
     }
 
     private fun onSearch() {

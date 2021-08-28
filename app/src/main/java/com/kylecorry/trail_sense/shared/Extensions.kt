@@ -120,3 +120,7 @@ fun <T> List<T>.filterSatisfied(spec: Specification<T>): List<T> {
 fun <T> List<T>.filterNotSatisfied(spec: Specification<T>): List<T> {
     return filterNot { spec.isSatisfiedBy(it) }
 }
+
+fun <T> List<T>.filterIndices(indices: List<Int>): List<T> {
+    return filterIndexed { index, _ -> indices.contains(index) }
+}

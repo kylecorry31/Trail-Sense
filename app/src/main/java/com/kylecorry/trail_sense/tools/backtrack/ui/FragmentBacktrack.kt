@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.backtrack.ui
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.files.ExternalFiles
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
@@ -19,10 +17,13 @@ import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.filterSatisfied
+import com.kylecorry.trail_sense.shared.io.ExternalUriService
+import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
+import com.kylecorry.trail_sense.shared.io.GpxIOService
+import com.kylecorry.trail_sense.tools.backtrack.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsValidBacktrackPointSpecification
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.PathIOService
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService
@@ -38,6 +39,13 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val navigationService = NavigationService()
+
+    private val gpxService by lazy {
+        GpxIOService(
+            FragmentUriPicker(this),
+            ExternalUriService(requireContext())
+        )
+    }
 
     private var pathIds: List<Long> = emptyList()
 
@@ -150,22 +158,10 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     }
 
     private fun exportPath(path: List<PathPoint>) {
-        val exportFile = "trail-sense-${Instant.now().epochSecond}.gpx"
-        createFile(exportFile, "application/gpx+xml") {
-            it?.also { returnUri ->
-                exportToUri(returnUri, path)
-            }
-        }
-    }
-
-    private fun exportToUri(uri: Uri, path: List<PathPoint>) {
         runInBackground {
-            val gpx = PathIOService(requireContext()).toGPX(path)
-
-            val success = withContext(Dispatchers.IO) {
-                ExternalFiles.write(requireContext(), uri, gpx)
-            }
-
+            val gpx = PathGPXConverter().toGPX(path)
+            val exportFile = "trail-sense-${Instant.now().epochSecond}.gpx"
+            val success = gpxService.export(gpx, exportFile)
             withContext(Dispatchers.Main) {
                 if (success) {
                     Alerts.toast(
