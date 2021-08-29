@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_path_delete"
-        android:title="@string/waypoint_action_delete" />
+        android:title="@string/delete" />
     <item
         android:id="@+id/action_path_export"
         android:title="@string/export" />

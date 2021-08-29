@@ -30,7 +30,7 @@ class OverrideGPS(context: Context, private val updateFrequency: Long = 20L): Ab
         get() = true
     override val altitude: Float
         get() = userPrefs.altitudeOverride
-    override val mslAltitude: Float?
+    override val mslAltitude: Float
         get() = altitude
 
     private val userPrefs by lazy { UserPreferences(context) }

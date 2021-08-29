@@ -2,8 +2,7 @@
     <string name="navigation">навигация</string>
     <string name="weather">Метеорологично време</string>
     <string name="settings">Настройки</string>
-    <string name="create_beacon_title">Пуснете Маяк</string>
-    <string name="name_hint">име</string>
+    <string name="name">име</string>
     <string name="select_beacon">Изберете маяк</string>
     <string name="delete_beacon">Изтриване на маяк</string>
     <string name="astronomy">астрономия</string>
@@ -14,10 +13,8 @@
 
     <string name="pref_use_true_north_title">Истински Север</string>
     <string name="pref_use_sea_level_pressure_title">Налягане на морското ниво</string>
-    <string name="pref_units_header">Общ</string>
-    <string name="pref_distance_units_title">разстояние</string>
-    <string name="pref_pressure_units_title">налягане</string>
-    <string name="pref_send_storm_alerts_title">Сигнали за буря</string>
+    <string name="general">Общ</string>
+    <string name="pressure">налягане</string>
     <string name="pref_use_24_hour_title">Използвайте 24-часов формат</string>
     <string name="pref_sun_time_mode_title">Време за изгрев /залез</string>
     <string name="weather_improving_fast">Подобряване много скоро</string>
@@ -54,7 +51,6 @@
         <item quantity="other">последно %d минути</item>
     </plurals>
 
-    <string name="meters">метри</string>
     <string name="feet_miles">Крака /мили</string>
     <string name="units_hpa">HPA</string>
     <string name="units_inhg">inHg</string>

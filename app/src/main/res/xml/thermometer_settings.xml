@@ -9,7 +9,7 @@
 
         <Preference
             android:summary="@string/dash"
-            android:title="@string/pref_temperature_holder_title"
+            android:title="@string/temperature"
             app:icon="@drawable/thermometer_colored"
             app:key="@string/pref_temperature_holder"
             app:selectable="false"

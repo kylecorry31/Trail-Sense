@@ -73,7 +73,7 @@
 
         <Preference
             android:dependency="@string/pref_auto_declination"
-            android:title="@string/compass_from_gps"
+            android:title="@string/override_from_gps"
             app:iconSpaceReserved="false"
             app:key="@string/pref_declination_override_gps_btn"
             app:singleLineTitle="false" />

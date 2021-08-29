@@ -40,7 +40,7 @@
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/colorPrimary"
         android:clickable="true"
-        android:contentDescription="@string/action_item_add"
+        android:contentDescription="@string/add"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

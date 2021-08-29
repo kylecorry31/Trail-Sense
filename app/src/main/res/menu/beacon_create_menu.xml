@@ -10,7 +10,7 @@
         android:icon="@drawable/ic_file"/>
     <item
         android:id="@+id/action_create_beacon_group"
-        android:title="@string/beacon_create_group"
+        android:title="@string/group"
         android:icon="@drawable/ic_beacon_group"/>
     <item
         android:id="@+id/action_create_beacon"

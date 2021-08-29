@@ -2,8 +2,7 @@
     <string name="navigation">navigasie</string>
     <string name="weather">weer</string>
     <string name="settings">instellings</string>
-    <string name="create_beacon_title">Laat val Beacon</string>
-    <string name="name_hint">naam</string>
+    <string name="name">naam</string>
     <string name="select_beacon">Kies Beacon</string>
     <string name="delete_beacon">Skrap baken</string>
     <string name="astronomy">Sterrekunde</string>
@@ -14,10 +13,8 @@
 
     <string name="pref_use_true_north_title">Ware Noord</string>
     <string name="pref_use_sea_level_pressure_title">Seevlak druk</string>
-    <string name="pref_units_header">algemene</string>
-    <string name="pref_distance_units_title">afstand</string>
-    <string name="pref_pressure_units_title">druk</string>
-    <string name="pref_send_storm_alerts_title">Storm waarskuwings</string>
+    <string name="general">algemene</string>
+    <string name="pressure">druk</string>
     <string name="pref_use_24_hour_title">Gebruik 24-uur-formaat</string>
     <string name="pref_sun_time_mode_title">Sonop /sonsondergang tye</string>
     <string name="weather_improving_fast">Verbeter baie vinnig</string>
@@ -54,7 +51,6 @@
         <item quantity="other">laaste %d minute</item>
     </plurals>
 
-    <string name="meters">meter</string>
     <string name="feet_miles">Voete /myl</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>

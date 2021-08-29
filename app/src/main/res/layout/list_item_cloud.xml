@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
-            android:text="@string/cloud_high"
+            android:textAllCaps="true"
+            android:text="@string/high"
             android:textColor="@color/colorPrimary"
             android:textSize="10sp" />
 
@@ -42,7 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
-            android:text="@string/cloud_middle"
+            android:text="@string/middle"
+            android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
             android:textSize="10sp" />
 
@@ -52,7 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
-            android:text="@string/cloud_low"
+            android:text="@string/low"
+            android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
             android:textSize="10sp" />
 

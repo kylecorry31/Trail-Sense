@@ -49,14 +49,14 @@ class TideClockView : View {
             "3",
             "2",
             "1",
-            context.getString(R.string.tide_low_short),
+            context.getString(R.string.low),
             "5",
             "4",
             "3",
             "2",
             "1",
             context.getString(
-                R.string.tide_high_short
+                R.string.high
             )
         )
         textColor = Color.WHITE

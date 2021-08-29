@@ -1,6 +1,6 @@
 <resources>
     <string-array name="distance_unit_entries">
-        <item>@string/meters</item>
+        <item>@string/unit_meters</item>
         <item>@string/feet_miles</item>
     </string-array>
 
@@ -138,9 +138,9 @@
     </string-array>
 
     <string-array name="sun_moon_compass_entries">
-        <item>@string/sun_moon_compass_always</item>
+        <item>@string/always</item>
         <item>@string/sun_moon_compass_when_up</item>
-        <item>@string/sun_moon_compass_never</item>
+        <item>@string/never</item>
     </string-array>
 
     <string-array name="sun_moon_compass_values">
@@ -199,9 +199,9 @@
 
     <string-array name="altimeter_mode_entries">
         <item>@string/altimeter_mode_gps_barometer</item>
-        <item>@string/altimeter_mode_gps</item>
-        <item>@string/altimeter_mode_barometer</item>
-        <item>@string/altimeter_mode_override</item>
+        <item>@string/gps</item>
+        <item>@string/barometer</item>
+        <item>@string/never</item>
     </string-array>
 
     <string-array name="altimeter_mode_values">
@@ -212,8 +212,8 @@
     </string-array>
 
     <string-array name="altimeter_mode_no_barometer_entries">
-        <item>@string/altimeter_mode_gps</item>
-        <item>@string/altimeter_mode_override</item>
+        <item>@string/gps</item>
+        <item>@string/never</item>
     </string-array>
 
     <string-array name="altimeter_mode_no_barometer_values">

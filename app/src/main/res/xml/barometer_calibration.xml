@@ -8,7 +8,7 @@
 
         <Preference
             android:summary="@string/dash"
-            android:title="@string/pref_barometer_pressure_title"
+            android:title="@string/pressure"
             app:icon="@drawable/barometer"
             app:key="@string/pref_holder_pressure"
             app:selectable="false"

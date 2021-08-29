@@ -22,10 +22,10 @@ object QuickActionUtils {
     fun getName(context: Context, quickActionType: QuickActionType): String {
         return when (quickActionType) {
             QuickActionType.None -> context.getString(R.string.quick_action_none)
-            QuickActionType.Backtrack -> context.getString(R.string.tool_backtrack_title)
+            QuickActionType.Backtrack -> context.getString(R.string.backtrack)
             QuickActionType.Flashlight -> context.getString(R.string.flashlight_title)
             QuickActionType.Clouds -> context.getString(R.string.clouds)
-            QuickActionType.Temperature -> context.getString(R.string.pref_temperature_holder_title)
+            QuickActionType.Temperature -> context.getString(R.string.temperature)
             QuickActionType.Ruler -> context.getString(R.string.tool_ruler_title)
             QuickActionType.Maps -> context.getString(R.string.offline_maps)
             QuickActionType.Whistle -> context.getString(R.string.tool_whistle_title)

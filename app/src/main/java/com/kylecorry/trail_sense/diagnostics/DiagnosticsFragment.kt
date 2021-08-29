@@ -82,6 +82,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             AccelerometerDiagnostic(requireContext(), this),
             MagnetometerDiagnostic(requireContext(), this),
             GPSDiagnostic(requireContext(), this),
+            BarometerDiagnostic(requireContext(), this),
             AltimeterDiagnostic(requireContext()),
             BatteryDiagnostic(requireContext(), this),
             LightSensorDiagnostic(requireContext(), this),
@@ -116,14 +117,14 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.PowerSavingMode -> getString(R.string.on)
             DiagnosticCode.BatteryHealthPoor -> getString(R.string.quality_poor)
             DiagnosticCode.BatteryUsageRestricted -> getString(R.string.battery_usage_restricted)
-            DiagnosticCode.CameraUnavailable -> getString(R.string.gps_unavailable)
-            DiagnosticCode.BarometerUnavailable -> getString(R.string.gps_unavailable)
-            DiagnosticCode.MagnetometerUnavailable -> getString(R.string.gps_unavailable)
-            DiagnosticCode.AccelerometerUnavailable -> getString(R.string.gps_unavailable)
-            DiagnosticCode.LightSensorUnavailable -> getString(R.string.gps_unavailable)
-            DiagnosticCode.GPSUnavailable -> getString(R.string.gps_unavailable)
-            DiagnosticCode.FlashlightUnavailable -> getString(R.string.gps_unavailable)
-            DiagnosticCode.PedometerUnavailable -> getString(R.string.gps_unavailable)
+            DiagnosticCode.CameraUnavailable -> getString(R.string.unavailable)
+            DiagnosticCode.BarometerUnavailable -> getString(R.string.unavailable)
+            DiagnosticCode.MagnetometerUnavailable -> getString(R.string.unavailable)
+            DiagnosticCode.AccelerometerUnavailable -> getString(R.string.unavailable)
+            DiagnosticCode.LightSensorUnavailable -> getString(R.string.unavailable)
+            DiagnosticCode.GPSUnavailable -> getString(R.string.unavailable)
+            DiagnosticCode.FlashlightUnavailable -> getString(R.string.unavailable)
+            DiagnosticCode.PedometerUnavailable -> getString(R.string.unavailable)
             DiagnosticCode.CameraNoPermission -> getString(R.string.no_permission)
             DiagnosticCode.LocationNoPermission -> getString(R.string.no_permission)
             DiagnosticCode.BackgroundLocationNoPermission -> getString(R.string.no_permission)
@@ -166,8 +167,8 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.AccelerometerPoor -> getString(R.string.gravity)
             DiagnosticCode.GPSPoor -> getString(R.string.gps)
             DiagnosticCode.GPSTimedOut -> getString(R.string.gps)
-            DiagnosticCode.SunsetAlertsBlocked -> getString(R.string.pref_sunset_alerts_title)
-            DiagnosticCode.StormAlertsBlocked -> getString(R.string.notification_storm_alert_channel_desc)
+            DiagnosticCode.SunsetAlertsBlocked -> getString(R.string.sunset_alerts)
+            DiagnosticCode.StormAlertsBlocked -> getString(R.string.storm_alerts)
             DiagnosticCode.DailyForecastNotificationsBlocked -> getString(R.string.todays_forecast)
             DiagnosticCode.FlashlightNotificationsBlocked -> getString(R.string.flashlight_title)
             DiagnosticCode.PedometerNotificationsBlocked -> getString(R.string.pedometer)
@@ -179,7 +180,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     private fun getAffectedTools(code: DiagnosticCode): List<String> {
         val weather = getString(R.string.weather)
         val navigation = getString(R.string.navigation)
-        val backtrack = getString(R.string.tool_backtrack_title)
+        val backtrack = getString(R.string.backtrack)
         val astronomy = getString(R.string.astronomy)
         val speedometer = getString(R.string.speedometer)
         val odometer = getString(R.string.odometer)
@@ -267,7 +268,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             )
             DiagnosticCode.LocationNoPermission -> getString(
                 R.string.grant_permission,
-                getString(R.string.gps_location)
+                getString(R.string.location)
             )
             DiagnosticCode.BackgroundLocationNoPermission -> getString(
                 R.string.grant_permission, getString(

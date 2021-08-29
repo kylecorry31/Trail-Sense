@@ -36,7 +36,7 @@ object Tools {
             )
         )
         val distance = ToolGroup(
-            context.getString(R.string.tool_category_distance), listOfNotNull(
+            context.getString(R.string.distance), listOfNotNull(
                 Tool(
                     context.getString(R.string.tool_ruler_title),
                     R.drawable.ruler,
@@ -63,7 +63,7 @@ object Tools {
         )
 
         val location = ToolGroup(
-            context.getString(R.string.tool_category_location), listOfNotNull(
+            context.getString(R.string.location), listOfNotNull(
                 if (prefs.navigation.areMapsEnabled) Tool(
                     context.getString(R.string.offline_maps),
                     R.drawable.maps,
@@ -71,7 +71,7 @@ object Tools {
                     context.getString(R.string.experimental)
                 ) else null,
                 Tool(
-                    context.getString(R.string.tool_backtrack_title),
+                    context.getString(R.string.backtrack),
                     R.drawable.ic_tool_backtrack,
                     R.id.action_action_experimental_tools_to_fragmentBacktrack,
                     context.getString(R.string.tool_backtrack_summary)
@@ -103,14 +103,14 @@ object Tools {
         )
 
         val time = ToolGroup(
-            context.getString(R.string.tool_category_time), listOfNotNull(
+            context.getString(R.string.time), listOfNotNull(
                 Tool(
                     context.getString(R.string.tool_clock_title),
                     R.drawable.ic_tool_clock,
                     R.id.action_action_experimental_tools_to_toolClockFragment
                 ),
                 Tool(
-                    context.getString(R.string.tool_boil_title),
+                    context.getString(R.string.water_boil_timer),
                     R.drawable.ic_tool_boil,
                     R.id.action_action_experimental_tools_to_waterPurificationFragment,
                     context.getString(R.string.tool_boil_summary)
@@ -168,7 +168,7 @@ object Tools {
         )
 
         val other = ToolGroup(
-            context.getString(R.string.tool_category_other), listOfNotNull(
+            context.getString(R.string.other), listOfNotNull(
                 Tool(
                     context.getString(R.string.convert),
                     R.drawable.ic_tool_distance_convert,

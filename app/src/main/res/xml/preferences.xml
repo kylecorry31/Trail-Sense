@@ -4,7 +4,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/pref_units_header">
+        app:title="@string/general">
 
         <Preference
             app:icon="@drawable/ruler"

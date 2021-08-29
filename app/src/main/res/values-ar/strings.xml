@@ -2,8 +2,7 @@
     <string name="navigation">التنقل</string>
     <string name="weather">طقس</string>
     <string name="settings">الإعدادات</string>
-    <string name="create_beacon_title">إسقاط منارة</string>
-    <string name="name_hint">اسم</string>
+    <string name="name">اسم</string>
     <string name="select_beacon">حدد منارة</string>
     <string name="delete_beacon">تحذف المرشد</string>
     <string name="astronomy">الفلك</string>
@@ -14,10 +13,8 @@
 
     <string name="pref_use_true_north_title">الشمال الحقيقي</string>
     <string name="pref_use_sea_level_pressure_title">ضغط مستوى البحر</string>
-    <string name="pref_units_header">جنرال لواء</string>
-    <string name="pref_distance_units_title">مسافة</string>
-    <string name="pref_pressure_units_title">الضغط</string>
-    <string name="pref_send_storm_alerts_title">تنبيهات العاصفة</string>
+    <string name="general">جنرال لواء</string>
+    <string name="pressure">الضغط</string>
     <string name="pref_use_24_hour_title">استخدم تنسيق 24 ساعة</string>
     <string name="pref_sun_time_mode_title">أوقات شروق /غروب الشمس</string>
     <string name="weather_improving_fast">تتحسن قريبًا جدًا</string>
@@ -62,7 +59,6 @@
         <item quantity="zero">آخر 0 دقيقة</item>
     </plurals>
 
-    <string name="meters">أمتار</string>
     <string name="feet_miles">قدم /ميل</string>
     <string name="units_hpa">هبا</string>
     <string name="units_inhg">زئبق</string>

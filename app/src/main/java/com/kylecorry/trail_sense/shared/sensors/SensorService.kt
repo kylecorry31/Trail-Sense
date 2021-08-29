@@ -2,8 +2,6 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.content.Context
 import android.hardware.Sensor
-import android.hardware.SensorManager
-import androidx.core.content.getSystemService
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.ISpeedometer
@@ -47,7 +45,6 @@ class SensorService(ctx: Context) {
 
     private var context = ctx.applicationContext
     private val userPrefs by lazy { UserPreferences(context) }
-    private val sensorManager by lazy { context.getSystemService<SensorManager>() }
 
     fun getGPS(background: Boolean = false): IGPS {
 

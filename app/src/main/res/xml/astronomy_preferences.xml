@@ -3,7 +3,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/pref_general_header">
+        app:title="@string/general">
 
         <ListPreference
             app:defaultValue="actual"
@@ -96,14 +96,14 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/pref_sunset_alerts_title">
+        app:title="@string/sunset_alerts">
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_sunset_alerts"
             app:singleLineTitle="false"
-            app:title="@string/pref_sunset_alerts_title" />
+            app:title="@string/sunset_alerts" />
 
         <ListPreference
             android:dependency="@string/pref_sunset_alerts"

@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_copy"
-        android:title="@string/action_copy" />
+        android:title="@android:string/copy" />
     <item
         android:id="@+id/action_send"
         android:title="@string/share_action_send" />

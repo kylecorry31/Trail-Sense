@@ -847,7 +847,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         if (gps is CachedGPS || !GPS.isAvailable(requireContext())) {
-            return getString(R.string.gps_unavailable)
+            return getString(R.string.unavailable)
         }
 
         if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {

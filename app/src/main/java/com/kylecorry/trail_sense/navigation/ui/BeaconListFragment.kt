@@ -137,10 +137,10 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 R.id.action_create_beacon_group -> {
                     Pickers.text(
                         requireContext(),
-                        getString(R.string.beacon_create_group),
+                        getString(R.string.group),
                         null,
                         null,
-                        getString(R.string.beacon_group_name_hint)
+                        getString(R.string.name)
                     ) {
                         if (it != null) {
                             runInBackground {
@@ -304,10 +304,10 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             listItem.onEdit = {
                 Pickers.text(
                     requireContext(),
-                    getString(R.string.beacon_create_group),
+                    getString(R.string.group),
                     null,
                     beacon.name,
-                    getString(R.string.beacon_group_name_hint)
+                    getString(R.string.name)
                 ) {
                     if (it != null) {
                         runInBackground {

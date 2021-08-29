@@ -105,7 +105,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             sensorDetailsMap["compass"] = SensorDetails(
                 getString(R.string.pref_compass_sensor_title),
                 "",
-                getString(R.string.gps_unavailable),
+                getString(R.string.unavailable),
                 CustomUiUtils.getQualityColor(Quality.Poor),
                 R.drawable.ic_compass_icon
             )
@@ -324,7 +324,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
         }
 
         if (altimeter is CachedGPS) {
-            return getString(R.string.gps_unavailable)
+            return getString(R.string.unavailable)
         }
 
         if (!altimeter.hasValidReading) {
@@ -357,7 +357,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
 
     private fun getGPSCacheStatus(): String {
         return if (cachedGPS.location == Coordinate.zero) {
-            getString(R.string.gps_unavailable)
+            getString(R.string.unavailable)
         } else {
             formatService.formatQuality(Quality.Good)
         }
@@ -377,7 +377,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
         }
 
         if (gps is CachedGPS || !GPS.isAvailable(requireContext())) {
-            return getString(R.string.gps_unavailable)
+            return getString(R.string.unavailable)
         }
 
         if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {

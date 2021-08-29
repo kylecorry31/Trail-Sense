@@ -103,7 +103,7 @@ class DestinationPanel(private val view: View) {
             val direction = when {
                 elevationChange == 0.0f -> ""
                 elevationChange > 0 -> context.getString(R.string.increase)
-                else -> context.getString(R.string.decrease)
+                else -> context.getString(R.string.dash)
             }
 
             val elevationChangeDist =

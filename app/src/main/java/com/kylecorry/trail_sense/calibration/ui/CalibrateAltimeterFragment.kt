@@ -71,7 +71,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         altitudeTxt = findPreference(getString(R.string.pref_holder_altitude))!!
         calibrationModeList = findPreference(getString(R.string.pref_altimeter_calibration_mode))!!
         altitudeOverridePref = findPreference(getString(R.string.pref_altitude_override))!!
-        altitudeOverrideGpsBtn = findPreference(getString(R.string.pref_altitude_from_gps_btn))!!
+        altitudeOverrideGpsBtn = findPreference(getString(R.string.override_from_gps))!!
         altitudeOverrideBarometerEdit =
             findPreference(getString(R.string.pref_altitude_override_sea_level))!!
 

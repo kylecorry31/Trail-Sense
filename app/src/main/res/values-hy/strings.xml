@@ -2,8 +2,7 @@
     <string name="navigation">Նավիգացիա</string>
     <string name="weather">Եղանակ</string>
     <string name="settings">Կարգավորումներ</string>
-    <string name="create_beacon_title">Կաթիլ փարոս</string>
-    <string name="name_hint">Անուն</string>
+    <string name="name">Անուն</string>
     <string name="select_beacon">Ընտրեք փարոս</string>
     <string name="delete_beacon">Deleteնջել փարոսը</string>
     <string name="astronomy">Աստղագիտություն</string>
@@ -14,10 +13,8 @@
 
     <string name="pref_use_true_north_title">Իսկական Հյուսիս</string>
     <string name="pref_use_sea_level_pressure_title">Ծովի մակարդակի ճնշում</string>
-    <string name="pref_units_header">Գեներալ</string>
-    <string name="pref_distance_units_title">Հեռավորությունը</string>
-    <string name="pref_pressure_units_title">Նշում</string>
-    <string name="pref_send_storm_alerts_title">Փոթորիկ ազդանշաններ</string>
+    <string name="general">Գեներալ</string>
+    <string name="pressure">Նշում</string>
     <string name="pref_use_24_hour_title">Օգտագործեք 24-ժամյա ձևաչափ</string>
     <string name="pref_sun_time_mode_title">Արևածագ /մայրամուտի ժամերը</string>
     <string name="weather_improving_fast">Շատ շուտով բարելավվում է</string>
@@ -54,7 +51,6 @@
         <item quantity="other">Վերջին %d րոպեներ</item>
     </plurals>Վերջին
 
-    <string name="meters">Մետր</string>
     <string name="feet_miles">Ոտքեր /մղոններ</string>
     <string name="units_hpa">հՊա</string>
     <string name="units_inhg">inHg</string>

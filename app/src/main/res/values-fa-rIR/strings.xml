@@ -3,8 +3,7 @@
     <string name="navigation">جهت یابی</string>
     <string name="weather">آب و هوا</string>
     <string name="settings">تنظیمات</string>
-    <string name="create_beacon_title">علامت زدن مکان</string>
-    <string name="name_hint">عنوان</string>
+    <string name="name">عنوان</string>
     <string name="select_beacon">انتخاب مکان</string>
     <string name="delete_beacon">حذف مکان</string>
     <string name="astronomy">ستاره شناسی</string>
@@ -15,10 +14,8 @@
 
     <string name="pref_use_true_north_title">شمال جغرافیایی</string>
     <string name="pref_use_sea_level_pressure_title">فشار سطح دریا</string>
-    <string name="pref_units_header">عمومی</string>
-    <string name="pref_distance_units_title">فاصله</string>
-    <string name="pref_pressure_units_title">فشار</string>
-    <string name="pref_send_storm_alerts_title">هشدار طوفان</string>
+    <string name="general">عمومی</string>
+    <string name="pressure">فشار</string>
     <string name="pref_use_24_hour_title">از قالب 24 ساعته استفاده کنید</string>
     <string name="pref_sun_time_mode_title">زمان طلوع آفتاب / غروب خورشید</string>
     <string name="weather_improving_fast">خیلی زود بهبود می یابیم</string>
@@ -56,7 +53,6 @@
         <item quantity="other">آخرین %d دقایق</item>
     </plurals>
 
-    <string name="meters">متر</string>
     <string name="feet_miles">فوت / مایل</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">جیوه</string>
@@ -103,7 +99,6 @@
     <string name="waxing_gibbous">Waxing Gibbous</string>
     <string name="first_quarter">ربع اول</string>
     <string name="waxing_crescent">Waxing Crescent</string>
-    <string name="sun_moon_compass_always">همیشه</string>
+    <string name="always">همیشه</string>
     <string name="sun_moon_compass_when_up">وقتی بالا هست</string>
-    <string name="sun_moon_compass_never">هرگز</string>
 </resources>

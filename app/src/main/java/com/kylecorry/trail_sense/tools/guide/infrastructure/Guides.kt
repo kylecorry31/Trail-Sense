@@ -11,7 +11,7 @@ object Guides {
     fun guides(context: Context): List<UserGuideCategory> {
 
         val general = UserGuideCategory(
-            context.getString(R.string.pref_general_header), listOf(
+            context.getString(R.string.general), listOf(
                 UserGuide(
                     context.getString(R.string.guide_conserving_battery_title),
                     null,

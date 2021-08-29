@@ -83,7 +83,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
             R.layout.spinner_item_plain,
             R.id.item_name,
             ItemCategory.values().map { nameMapper.getString(it) })
-        binding.categorySelectSpinner.prompt = getString(R.string.spinner_category_prompt)
+        binding.categorySelectSpinner.prompt = getString(R.string.category)
         binding.categorySelectSpinner.adapter = adapter
 
         if (editingItem == null) {

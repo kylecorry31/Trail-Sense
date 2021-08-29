@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pref_barometer_pressure_title">Tlak</string>
     <string name="pref_altimeter_calibration_mode_title">Automatická kalibrace</string>
-    <string name="altimeter_mode_override">Nikdy</string>
+    <string name="never">Nikdy</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometr</string>
-    <string name="altimeter_mode_barometer">Barometr</string>
-    <string name="altimeter_mode_gps">GPS</string>
-    <string name="gps_location">Poloha</string>
+    <string name="location">Poloha</string>
     <string name="gps">GPS</string>
     <string name="calibrate_compass_dialog_title">Kalibrovat kompas</string>
     <string name="calibrate">Kalibrovat</string>
@@ -26,22 +23,17 @@
     <string name="theme_light">Světlý</string>
     <string name="pref_theme_title">Motiv</string>
     <string name="pref_use_24_hour_title">Používej 24hodinový formát</string>
-    <string name="pref_pressure_units_title">Tlak</string>
+    <string name="pressure">Tlak</string>
     <string name="feet_miles">Stopy / míle</string>
-    <string name="meters">Metry</string>
-    <string name="pref_distance_units_title">Vzdálenost</string>
-    <string name="pref_general_header">Obecné</string>
-    <string name="pref_units_header">Obecné</string>
+    <string name="general">Obecné</string>
     <string name="edit_item_title">Upravit položku</string>
     <string name="create_item_title">Zapsat věc</string>
-    <string name="dialog_item_subtract">Odečíst</string>
     <string name="dialog_item_amount">Množství</string>
-    <string name="dialog_item_add">Přidat</string>
-    <string name="spinner_category_prompt">Kategorie</string>
-    <string name="action_item_edit">Upravit</string>
-    <string name="action_item_delete">Smazat</string>
-    <string name="action_item_subtract">Odečíst</string>
-    <string name="action_item_add">Přidat</string>
+    <string name="category">Kategorie</string>
+    <string name="edit">Upravit</string>
+    <string name="delete">Smazat</string>
+    <string name="subtract">Odečíst</string>
+    <string name="add">Přidat</string>
     <string name="estimated_height">odhadovaná výška</string>
     <string name="inclinometer_rotate_device">Držte svůj telefon svisle na změření sklonu</string>
     <string name="avalanche_risk_high">Vysoká pravděpodobnost laviny</string>
@@ -97,8 +89,7 @@
     <string name="beacon_elevation_hint_feet">Nadmořská výška ve stopách (Volitelné)</string>
     <string name="beacon_invalid_elevation">Neplatná nadmořská výška</string>
     <string name="beacon_invalid_name">Neplatné jméno</string>
-    <string name="name_hint">Název</string>
-    <string name="create_beacon_title">Vytvořit maják</string>
+    <string name="name">Název</string>
     <string name="maps">Mapy</string>
     <string name="discharging_fast">Rychle vybíjeno (%s)</string>
     <string name="discharging_slow">Pomalu vybíjeno (%s)</string>
@@ -107,7 +98,6 @@
     <string name="dialog_grant">Změnit nastavení</string>
     <string name="access_background_location_rationale">Trail Sense používá polohu na pozadí, která je používána ke kalibraci atmosférického tlaku v sekci Počasí a na poskytnutí přesnějšího času západu slunce. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="navigation">Navigace</string>
-    <string name="action_copy">Kopírovat</string>
     <string name="share_action_send">Poslat</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d maják</item>
@@ -134,7 +124,6 @@
     <string name="dash">-</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
-    <string name="decrease">-</string>
     <string name="increase">+</string>
     <string name="direction_south_west">JZ</string>
     <string name="direction_north_west">SZ</string>
@@ -167,7 +156,7 @@
 \n- Změřte, jaká hodnota pravítka této aplikace odpovídá jedné jednotce hmotného pravítka.
 \n- Zadejte změřenou hodnotu zde.</string>
     <string name="sunset_alert_channel_title">Upozornění na západ slunce</string>
-    <string name="sunset_alert_channel_description">Upozornění na západ slunce</string>
+    <string name="sunset_alerts">Upozornění na západ slunce</string>
     <string name="waxing_crescent">Dorůstající srpek</string>
     <string name="waning_crescent">Couvající srpek</string>
     <string name="temperature_disclaimer">Zobrazovaná teplota může být vyšší kvůli teplu vytvářené telefonem.</string>
@@ -183,7 +172,6 @@
     <string name="altitude_override_updated_toast">Přepsání nadmořské výšky aktualizováno</string>
     <string name="pref_altitude_override_title">Přepsání nadmořské výšky</string>
     <string name="altitude_from_pressure">Nastavení přepisu z barometru</string>
-    <string name="altitude_from_gps">Nastavení přepisu z GPS</string>
     <string name="request_permission">Vyžádat oprávnění</string>
     <string name="pref_auto_location_title">Automatické nastavení polohy</string>
     <string name="compass_accuracy_improved">Přesnost kompasu se zlepšila na %s</string>
@@ -197,7 +185,7 @@
     <string name="compass_azimuth">Azimut</string>
     <string name="compass_auto_declination">Automaticky upravit deklinaci</string>
     <string name="compass_declination_override">Přepis deklinace</string>
-    <string name="compass_from_gps">Nastavit přepsání z GPS</string>
+    <string name="override_from_gps">Nastavit přepsání z GPS</string>
     <string name="pref_use_legacy_compass_title">Využívat starší API senzoru kompasu</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="coordinate_format_utm">UTM</string>
@@ -234,7 +222,7 @@
     </plurals>
     <string name="notification_monitoring_weather">Sledování počasí na pozadí</string>
     <string name="notification_storm_alert_title">Výstraha před bouří</string>
-    <string name="notification_storm_alert_channel_desc">Výstrahy před bouřkami</string>
+    <string name="storm_alerts">Výstrahy před bouřkami</string>
     <string name="notification_storm_alert_channel_name">Výstrahy</string>
     <string name="pressure_reading_time_ago">před %s - %s</string>
     <string name="pressure_setpoint_format">Nastaveno před: %s - %s</string>

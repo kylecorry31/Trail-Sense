@@ -135,7 +135,7 @@
             android:name=".tiles.BacktrackTile"
             android:exported="true"
             android:icon="@drawable/ic_tool_backtrack"
-            android:label="@string/tool_backtrack_title"
+            android:label="@string/backtrack"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />

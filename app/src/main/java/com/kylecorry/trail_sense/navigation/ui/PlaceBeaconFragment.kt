@@ -23,10 +23,7 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -89,6 +86,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             }
         }
 
+        binding.createBeaconTitle.text = getString(R.string.edit_beacon).capitalizeWords()
         color = AppColor.values().firstOrNull { it.color == beacon.color } ?: AppColor.Orange
         binding.beaconColor.imageTintList = ColorStateList.valueOf(beacon.color)
         binding.beaconName.setText(beacon.name)
@@ -113,7 +111,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             R.layout.beacon_group_spinner_item,
             R.id.beacon_group_name,
             groups.map { it.name })
-        binding.beaconGroupSpinner.prompt = getString(R.string.beacon_group_spinner_title)
+        binding.beaconGroupSpinner.prompt = getString(R.string.group)
         binding.beaconGroupSpinner.adapter = adapter
         val idx = if (initialGroupId != null) {
             val i = groups.indexOfFirst { it.id == initialGroupId }
@@ -152,6 +150,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         navController = findNavController()
 
+        binding.createBeaconTitle.text = getString(R.string.create_beacon).capitalizeWords()
         binding.beaconColor.imageTintList = ColorStateList.valueOf(color.color)
 
         // TODO: Prevent interaction until groups loaded

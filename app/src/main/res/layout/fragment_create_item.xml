@@ -41,7 +41,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
-                android:hint="@string/item_name_hint"
+                android:hint="@string/name"
                 android:inputType="text" />
 
             <EditText

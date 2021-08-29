@@ -8,7 +8,7 @@
     <string name="notification_monitoring_weather">Monitorovanie počasia na pozadí</string>
     <string name="notification_storm_alert_title">Výstraha pred búrkou</string>
     <string name="notification_storm_alert_text">Možno sa blíži búrka</string>
-    <string name="notification_storm_alert_channel_desc">Výstrahy pred búrkami</string>
+    <string name="storm_alerts">Výstrahy pred búrkami</string>
     <string name="notification_storm_alert_channel_name">Výstrahy</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
@@ -20,9 +20,8 @@
     <string name="beacon_comment">Poznámky (Voliteľné)</string>
     <string name="beacon_invalid_elevation">Neplatná nadmorská výška</string>
     <string name="beacon_invalid_name">Neplatný názov</string>
-    <string name="name_hint">Názov</string>
+    <string name="name">Názov</string>
     <string name="maps">Mapy</string>
-    <string name="action_copy">Kopírovať</string>
     <string name="share_action_send">Poslať</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Vypnúť</string>
@@ -39,7 +38,6 @@
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
-    <string name="decrease">-</string>
     <string name="increase">+</string>
     <string name="direction_south_west">JZ</string>
     <string name="direction_north_west">SZ</string>

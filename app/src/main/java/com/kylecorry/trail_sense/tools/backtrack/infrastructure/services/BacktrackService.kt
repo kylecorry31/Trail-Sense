@@ -56,7 +56,7 @@ class BacktrackService : CoroutineForegroundService() {
         return Notify.background(
             this,
             NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
-            getString(R.string.backtrack_notification_channel),
+            getString(R.string.backtrack),
             getString(R.string.backtrack_notification_description),
             R.drawable.ic_update
         )

@@ -64,20 +64,6 @@ class WeatherContextualService private constructor(private val context: Context)
         return calibrator.calibrate(readings)
     }
 
-    suspend fun getTemperatureHistory(): List<Pair<Instant, Float>> {
-        return weatherRepo.getPressuresSync()
-            .map { Instant.ofEpochMilli(it.time) to it.temperature }
-            .sortedBy { it.first }
-            .filter { it.first <= Instant.now() }
-    }
-
-    suspend fun getHumidityHistory(): List<Pair<Instant, Float>> {
-        return weatherRepo.getPressuresSync()
-            .map { Instant.ofEpochMilli(it.time) to it.humidity }
-            .sortedBy { it.first }
-            .filter { it.first <= Instant.now() }
-    }
-
     fun getSeaLevelPressure(
         reading: PressureAltitudeReading,
         history: List<PressureAltitudeReading> = listOf()

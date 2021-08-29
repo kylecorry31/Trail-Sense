@@ -36,7 +36,7 @@
     <string name="notification_monitoring_weather">Időjárás figyelése a háttérben</string>
     <string name="notification_storm_alert_title">Vihar riasztás</string>
     <string name="notification_storm_alert_text">Vihar közeledhet</string>
-    <string name="notification_storm_alert_channel_desc">Vihar riasztások</string>
+    <string name="storm_alerts">Vihar riasztások</string>
     <string name="notification_storm_alert_channel_name">Riasztások</string>
     <string name="pressure_reading_time_ago">%s - %s óta</string>
     <string name="pressure_setpoint_format">Beállítva ennyi ideje: %s - %s</string>
@@ -52,10 +52,8 @@
     <string name="beacon_elevation_hint_meters">Magasság méterben (nem kötelező)</string>
     <string name="beacon_invalid_elevation">Érvénytelen magasság</string>
     <string name="beacon_invalid_name">Érvénytelen név</string>
-    <string name="name_hint">Név</string>
-    <string name="create_beacon_title">Jelölő elhelyezése</string>
+    <string name="name">Név</string>
     <string name="maps">Térképek</string>
-    <string name="action_copy">Másolás</string>
     <string name="share_action_send">Küldés</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d jelölő</item>
@@ -82,7 +80,6 @@
     <string name="dash">-</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%s%s</string>
-    <string name="decrease">-</string>
     <string name="increase">+</string>
     <string name="direction_south_west">DNy</string>
     <string name="direction_north_west">ÉNy</string>
@@ -113,7 +110,6 @@
     <string name="precise_miles_format">%s mi</string>
     <string name="unit_kilometers">Kilométer</string>
     <string name="unit_meters">Méter</string>
-    <string name="meters">Méter</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="distance_to">Mibe</string>
@@ -134,15 +130,13 @@
     <string name="tool_cliff_height_title">Szikla magasság</string>
     <string name="tool_bubble_level_summary">Felületek dőlésének mérése</string>
     <string name="tool_bubble_level_title">Vízmérték</string>
-    <string name="beacon_group_spinner_title">Csoport</string>
     <string name="no_group">Nincs csoport</string>
-    <string name="beacon_group_name_hint">Név</string>
-    <string name="beacon_create_group">Csoport</string>
+    <string name="group">Csoport</string>
     <string name="edit_beacon_group">Csoport szerkesztése</string>
     <string name="delete_beacon_group_message">%s és az összes hozzá tartozó jelölő törölve lesz</string>
     <string name="delete_beacon_group">Csoport törlése</string>
     <string name="sunset_alert_channel_title">Napnyugta figyelmeztetés</string>
-    <string name="sunset_alert_channel_description">Napnyugta figyelmeztetések</string>
+    <string name="sunset_alerts">Napnyugta figyelmeztetések</string>
     <string name="sunset_alert_notification_text">A nap %s-kor fog lenyugodni</string>
     <string name="sunset_alert_notification_title">A nap hamarosan nyugszik</string>
     <string name="until_sunset_label">napnyugtáig</string>

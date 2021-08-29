@@ -35,7 +35,7 @@ class BatteryService {
         if (prefs.backtrackEnabled && !prefs.isLowPowerModeOn) {
             services.add(
                 RunningService(
-                    context.getString(R.string.tool_backtrack_title),
+                    context.getString(R.string.backtrack),
                     prefs.backtrackRecordFrequency
                 ) {
                     prefs.backtrackEnabled = false
@@ -60,7 +60,7 @@ class BatteryService {
         if (prefs.astronomy.sendSunsetAlerts) {
             services.add(
                 RunningService(
-                    context.getString(R.string.pref_sunset_alerts_title),
+                    context.getString(R.string.sunset_alerts),
                     Duration.ofDays(1)
                 ) {
                     prefs.astronomy.sendSunsetAlerts = false

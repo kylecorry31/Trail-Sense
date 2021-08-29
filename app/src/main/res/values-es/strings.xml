@@ -3,8 +3,7 @@
     <string name="navigation">Navegación</string>
     <string name="weather">Clima</string>
     <string name="settings">Ajustes</string>
-    <string name="create_beacon_title">Crear baliza</string>
-    <string name="name_hint">Nombre</string>
+    <string name="name">Nombre</string>
     <string name="select_beacon">Seleccione baliza</string>
     <string name="delete_beacon">Eliminar baliza</string>
     <string name="astronomy">Astronomía</string>
@@ -14,10 +13,8 @@
     <string name="until_sun_time">Hasta %s</string>
     <string name="pref_use_true_north_title">Norte verdadero</string>
     <string name="pref_use_sea_level_pressure_title">Presión a nivel del mar</string>
-    <string name="pref_units_header">General</string>
-    <string name="pref_distance_units_title">Distancia</string>
-    <string name="pref_pressure_units_title">Presión</string>
-    <string name="pref_send_storm_alerts_title">Alertas de tormenta</string>
+    <string name="general">General</string>
+    <string name="pressure">Presión</string>
     <string name="pref_use_24_hour_title">Usar el formato de 24 horas</string>
     <string name="pref_sun_time_mode_title">Amanecer / atardecer</string>
     <string name="weather_improving_fast">Mejorará muy pronto</string>
@@ -51,7 +48,6 @@
         <item quantity="one">Último %d minuto</item>
         <item quantity="other">Últimos %d minutos</item>
     </plurals>
-    <string name="meters">Medidores</string>
     <string name="feet_miles">Pies / Millas</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
@@ -93,7 +89,7 @@
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_title">Alerta de tormenta</string>
     <string name="notification_storm_alert_text">Podría estar acercándose una tormenta</string>
-    <string name="notification_storm_alert_channel_desc">Alertas de tormenta</string>
+    <string name="storm_alerts">Alertas de tormenta</string>
     <string name="notification_storm_alert_channel_name">Alertas</string>
     <string name="pressure_reading_time_ago">%s - hace %s</string>
     <string name="pressure_format">%s %s</string>
@@ -104,7 +100,6 @@
     <string name="beacon_invalid_elevation">Elevación inválida</string>
     <string name="beacon_invalid_name">Nombre inválido</string>
     <string name="maps">Mapas</string>
-    <string name="action_copy">Copiar</string>
     <string name="share_action_send">Enviar</string>
     <string name="edit_beacon">Editar baliza</string>
     <string name="flashlight_title">Linterna</string>
@@ -199,7 +194,6 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="dash">-</string>
     <string name="battery_capacity_format">%s mAh</string>
-    <string name="decrease">-</string>
     <string name="direction_south_east">SE</string>
     <string name="precise_nautical_miles_format">%s Millas nauticas</string>
     <string name="app_disclaimer_message_title">Cláusula de protección / Terminos de servicios</string>
@@ -211,7 +205,7 @@
     <string name="elevation_diff_format">%s%s</string>
     <string name="request_permission">Solicitar permiso</string>
     <string name="pref_auto_location_title">Autoajustar ubicación</string>
-    <string name="gps_location">Ubicación</string>
+    <string name="location">Ubicación</string>
     <string name="offline_maps">Mapas Offline</string>
     <string name="no_data">No hay datos</string>
     <string name="units_inhg_short">pulgadas</string>
@@ -228,7 +222,6 @@
     <string name="unit_meters">Metros</string>
     <string name="distance_to">Hasta</string>
     <string name="distance_from">Desde</string>
-    <string name="distance_hint">Distancia</string>
     <string name="inventory_empty_text">Sin ítems</string>
     <string name="tool_whistle_title">Silbato</string>
     <string name="max_depth">Máximo: %s</string>
@@ -238,7 +231,6 @@
     <string name="tool_cliff_height_title">Altura de precipicio</string>
     <string name="toast_destination_bearing_set">Orientación al destino establecida</string>
     <string name="guide_avalanche_risk">Estimación de riesgo de avalancha</string>
-    <string name="item_name_hint">Nombre</string>
     <string name="depth_disclaimer">Use bajo su propio riesgo
 \n
 \nNo usar sin funda a prueba de agua, y quedarse a una distancia de nadado segura, de ser posible.</string>
@@ -250,7 +242,7 @@
     <string name="category_clothing">Vestimenta</string>
     <string name="category_hydration">Hidratación</string>
     <string name="category_food">Comida</string>
-    <string name="category_other">Otro</string>
+    <string name="other">Otro</string>
     <string name="beacon_action_view_details">Ver detalles</string>
     <string name="tool_bubble_level_summary">Determine si una superficie es plana</string>
     <string name="tool_bubble_level_title">Nivel de burbuja</string>
@@ -258,7 +250,7 @@
     <string name="guide_conserving_battery_title">Conservación de batería</string>
     <string name="navigation_nearby_category">Cerca</string>
     <string name="forecasts_category">Pronósticos</string>
-    <string name="advanced_settings_category">Avanzado</string>
+    <string name="advanced">Avanzado</string>
     <string name="tap_sun_moon_hint">Tocar sol o luna para detalles de posición</string>
     <string name="sun_and_moon_position_details">"Sol
 \n   Altitud: %s
@@ -271,10 +263,8 @@
     <string name="pref_sea_level_require_dwell_title">Ignorar cambios rápidos de altitud</string>
     <string name="pref_sea_level_require_dwell_summary">Sólo mostrar lecturas cuando la altitud no cambió en al menos una hora. Mejora la legibilidad del pronóstico.</string>
     <string name="weather_update_notification_channel">Actualización de clima</string>
-    <string name="beacon_group_spinner_title">Grupo</string>
     <string name="no_group">Sin grupo</string>
-    <string name="beacon_group_name_hint">Nombre</string>
-    <string name="beacon_create_group">Grupo</string>
+    <string name="group">Grupo</string>
     <string name="beacon_create_beacon">Baliza</string>
     <string name="beacon_create">Crear</string>
     <string name="edit_beacon_group">Editar grupo</string>
@@ -290,7 +280,6 @@
     <string name="pref_category_about">Acerca de</string>
     <string name="pref_open_source_licenses_title">Licencias</string>
     <string name="pref_sunset_alert_time_title">Tiempo de alerta de anochecer</string>
-    <string name="pref_sunset_alerts_title">Alertas de anochecer</string>
     <string name="update_60_minutes">1 hora</string>
     <string name="update_30_minutes">30 minutos</string>
     <string name="update_180_minutes">3 horas</string>
@@ -298,9 +287,8 @@
     <string name="update_120_minutes">2 horas</string>
     <string name="update_90_minutes">1 hora 30 minutos</string>
     <string name="pref_center_sun_and_moon_title">Mantener sol/luna centrados</string>
-    <string name="sun_moon_compass_never">Nunca</string>
     <string name="sun_moon_compass_when_up">Al estar arriba</string>
-    <string name="sun_moon_compass_always">Siempre</string>
+    <string name="always">Siempre</string>
     <string name="pref_weather_update_frequency_title">Frecuencia de actualización de clima</string>
     <string name="pref_show_pressure_in_notification_title">Mostrar presión en notificación</string>
     <string name="pref_show_weather_notification_title">Mostrar notificación de clima</string>
@@ -331,17 +319,13 @@
     <string name="pref_forecast_sensitivity_title">Sensibilidad de pronóstico</string>
     <string name="pref_max_beacon_distance_title">Radio de balizas cercanas</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrar antes de navegar</string>
-    <string name="pref_temperature_holder_title">Temperatura</string>
     <string name="pref_sea_level_use_rapid_summary">Usar cambios rápidos de presión en conversiones de presión atmosférica</string>
     <string name="pref_sea_level_use_rapid_title">Factor en cambios rápidos de presión</string>
     <string name="pref_adjust_for_temperature_summary">Usar la temperatura en conversiones de presión atmosférica</string>
     <string name="pref_adjust_for_temperature_title">Factor en temperatura</string>
-    <string name="pref_barometer_pressure_title">Presión</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibración</string>
-    <string name="altimeter_mode_override">Nunca</string>
+    <string name="never">Nunca</string>
     <string name="altimeter_mode_gps_barometer">GPS + barómetro</string>
-    <string name="altimeter_mode_barometer">Barómetro</string>
-    <string name="altimeter_mode_gps">GPS</string>
     <string name="altitude">Altitud</string>
     <string name="pref_altimeter_calibration_title">Altímetro</string>
     <string name="compass_accuracy_improved">Precisión de brújula mejorada a %s</string>
@@ -357,24 +341,21 @@
     <string name="compass_declination">Declinación magnética</string>
     <string name="compass_auto_declination">Autoajustar declinación</string>
     <string name="compass_declination_override">Sobreescribir declinación</string>
-    <string name="compass_from_gps">Reemplazar con GPS</string>
+    <string name="override_from_gps">Reemplazar con GPS</string>
     <string name="pref_compass_sensor_title">Brújula</string>
     <string name="coordinate_format_decimal_degrees">Grados Decimales</string>
     <string name="theme_sunset_sunrise">Salida/Puesta del sol</string>
-    <string name="pref_general_header">General</string>
     <string name="edit_item_title">Editar ítem</string>
     <string name="create_item_title">Crear ítem</string>
-    <string name="dialog_item_subtract">Restar</string>
     <string name="dialog_item_amount">Monto</string>
-    <string name="dialog_item_add">Agregar</string>
-    <string name="spinner_category_prompt">Categoría</string>
-    <string name="action_item_edit">Editar</string>
-    <string name="action_item_delete">Eliminar</string>
-    <string name="action_item_subtract">Restar</string>
-    <string name="action_item_add">Agregar</string>
+    <string name="category">Categoría</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Eliminar</string>
+    <string name="subtract">Restar</string>
+    <string name="add">Agregar</string>
     <string name="your_height">Tu altura</string>
     <string name="sunset_alert_channel_title">Alerta de puesta de sol</string>
-    <string name="sunset_alert_channel_description">Alertas de puesta de sol</string>
+    <string name="sunset_alerts">Alertas de puesta de sol</string>
     <string name="sunset_alert_notification_title">El sol se pondrá pronto</string>
     <string name="waxing_crescent">Luna Creciente</string>
     <string name="heat_alert_frostbite_caution_title">Precaución de hipotermia</string>

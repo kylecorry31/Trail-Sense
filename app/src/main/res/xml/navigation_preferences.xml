@@ -4,7 +4,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/pref_general_header">
+        app:title="@string/general">
         <SwitchPreferenceCompat
             android:title="@string/pref_show_calibrate_on_navigate_dialog_title"
             app:defaultValue="true"
@@ -115,14 +115,14 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/tool_backtrack_title">
+        app:title="@string/backtrack">
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_enabled"
             app:singleLineTitle="false"
             app:summary="@string/pref_backtrack_enabled_summary"
-            app:title="@string/tool_backtrack_title" />
+            app:title="@string/backtrack" />
 
         <Preference
             app:iconSpaceReserved="false"

@@ -274,7 +274,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         return when (health) {
             BatteryHealth.Cold -> getString(R.string.battery_health_cold)
             BatteryHealth.Dead -> getString(R.string.battery_health_dead)
-            BatteryHealth.Good -> getString(R.string.battery_health_good)
+            BatteryHealth.Good -> getString(R.string.quality_good)
             BatteryHealth.Overheat -> getString(R.string.battery_health_overheat)
             BatteryHealth.OverVoltage -> getString(R.string.battery_health_over_voltage)
             BatteryHealth.Unknown -> getString(R.string.unknown)

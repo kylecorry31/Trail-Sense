@@ -13,7 +13,7 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_distance_units"
             app:singleLineTitle="false"
-            app:title="@string/pref_distance_units_title"
+            app:title="@string/distance"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
@@ -23,7 +23,7 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_pressure_units"
             app:singleLineTitle="false"
-            app:title="@string/pref_pressure_units_title"
+            app:title="@string/pressure"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference

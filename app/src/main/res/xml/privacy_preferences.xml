@@ -9,7 +9,7 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_gps_calibration"
             app:singleLineTitle="false"
-            app:title="@string/gps_location" />
+            app:title="@string/location" />
 
         <SwitchPreferenceCompat
             app:defaultValue="false"

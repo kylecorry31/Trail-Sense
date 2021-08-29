@@ -90,7 +90,7 @@ class MapsFragment: BoundFragment<FragmentMapsBinding>() {
                             getString(R.string.create_map),
                             getString(R.string.create_map_description),
                             map?.name,
-                            hint = getString(R.string.name_hint)
+                            hint = getString(R.string.name)
                         ) {
                             if (it != null) {
                                 map = map?.copy(name = it)

@@ -8,7 +8,7 @@ class ItemCategoryStringMapper(private val context: Context) {
 
     fun getString(category: ItemCategory): String {
         return when (category) {
-            ItemCategory.Other -> context.getString(R.string.category_other)
+            ItemCategory.Other -> context.getString(R.string.other)
             ItemCategory.Food -> context.getString(R.string.category_food)
             ItemCategory.Hydration -> context.getString(R.string.category_hydration)
             ItemCategory.Tools -> context.getString(R.string.tools)

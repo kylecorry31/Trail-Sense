@@ -61,7 +61,7 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
         return Notify.persistent(
             this,
             FOREGROUND_CHANNEL_ID,
-            getString(R.string.backtrack_notification_channel),
+            getString(R.string.backtrack),
             getString(
                 R.string.backtrack_high_priority_notification,
                 formatService.formatDuration(prefs.backtrackRecordFrequency)

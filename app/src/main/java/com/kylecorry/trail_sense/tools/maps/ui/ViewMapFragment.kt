@@ -180,7 +180,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             // TODO: ask to create or navigate
             Alerts.dialog(
                 requireContext(),
-                getString(R.string.create_beacon_title),
+                getString(R.string.create_beacon),
                 getString(R.string.place_beacon_at, formatted),
                 okText = getString(R.string.beacon_create)
             ) { cancelled ->

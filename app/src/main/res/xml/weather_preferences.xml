@@ -4,7 +4,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        android:title="@string/pref_general_header">
+        android:title="@string/general">
         <ListPreference
             app:defaultValue="2"
             app:iconSpaceReserved="false"
@@ -41,7 +41,7 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_send_storm_alert"
             app:singleLineTitle="false"
-            app:title="@string/pref_send_storm_alerts_title" />
+            app:title="@string/storm_alerts" />
 
         <ListPreference
             app:defaultValue="medium"
@@ -99,7 +99,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/advanced_settings_category">
+        app:title="@string/advanced">
 
         <Preference
             app:dependency="@string/pref_monitor_weather"

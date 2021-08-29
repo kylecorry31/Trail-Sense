@@ -5,8 +5,8 @@
         android:title="@string/navigate" />
     <item
         android:id="@+id/action_waypoint_create_beacon"
-        android:title="@string/action_waypoint_create_beacon" />
+        android:title="@string/create_beacon" />
     <item
         android:id="@+id/action_waypoint_delete"
-        android:title="@string/waypoint_action_delete" />
+        android:title="@string/delete" />
 </menu>

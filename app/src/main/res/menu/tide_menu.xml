@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_tide_edit"
-        android:title="@string/action_item_edit" />
+        android:title="@string/edit" />
     <item
         android:id="@+id/action_tide_delete"
-        android:title="@string/action_item_delete" />
+        android:title="@string/delete" />
 </menu>

@@ -51,9 +51,9 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
             binding.perspective.isPreview = !binding.perspective.isPreview
 
             if (binding.perspective.isPreview) {
-                binding.perspectiveToggleBtn.text = getString(R.string.map_edit)
+                binding.perspectiveToggleBtn.text = getString(R.string.edit)
             } else {
-                binding.perspectiveToggleBtn.text = getString(R.string.map_preview)
+                binding.perspectiveToggleBtn.text = getString(R.string.preview)
             }
         }
 

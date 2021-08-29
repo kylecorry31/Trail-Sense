@@ -257,12 +257,6 @@ class UserPreferences(private val context: Context) {
             cache.putFloat(getString(R.string.pref_stride_length), value.meters().distance)
         }
 
-    var useCameraFeatures: Boolean by BooleanPreference(
-        cache,
-        getString(R.string.pref_use_camera_features),
-        false
-    )
-
     val mapSite: MapSite by StringEnumPreference(
         cache, context.getString(R.string.pref_map_url_source), mapOf(
             "apple" to MapSite.Apple,

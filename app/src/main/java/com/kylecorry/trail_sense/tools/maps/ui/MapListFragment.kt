@@ -73,7 +73,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 getString(R.string.create_map),
                 getString(R.string.create_map_description),
                 null,
-                hint = getString(R.string.name_hint)
+                hint = getString(R.string.name)
             ) {
                 if (it != null) {
                     mapName = it
@@ -103,7 +103,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 getString(R.string.create_map),
                 getString(R.string.create_map_description),
                 null,
-                hint = getString(R.string.name_hint)
+                hint = getString(R.string.name)
             ) {
                 if (it != null) {
                     mapName = it

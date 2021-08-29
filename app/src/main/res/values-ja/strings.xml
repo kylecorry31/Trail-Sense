@@ -3,8 +3,7 @@
     <string name="navigation">ナビゲーション</string>
     <string name="weather">天気</string>
     <string name="settings">設定</string>
-    <string name="create_beacon_title">ビーコンを追加</string>
-    <string name="name_hint">名前</string>
+    <string name="name">名前</string>
     <string name="select_beacon">ビーコンを選択</string>
     <string name="delete_beacon">ビーコンを削除</string>
     <string name="astronomy">天文学</string>
@@ -13,10 +12,8 @@
     <string name="until_sunset_label">日の入りまで</string>
     <string name="pref_use_true_north_title">真北</string>
     <string name="pref_use_sea_level_pressure_title">海面気圧</string>
-    <string name="pref_units_header">一般</string>
-    <string name="pref_distance_units_title">距離</string>
-    <string name="pref_pressure_units_title">気圧</string>
-    <string name="pref_send_storm_alerts_title">暴風雨アラート</string>
+    <string name="general">一般</string>
+    <string name="pressure">気圧</string>
     <string name="pref_use_24_hour_title">24時間形式を使用する</string>
     <string name="pref_sun_time_mode_title">日の出/日の入りの時刻</string>
     <string name="weather_improving_fast">急速に晴れてきています</string>
@@ -48,7 +45,6 @@
     <plurals name="last_minutes">
         <item quantity="other">過去 %d 分間</item>
     </plurals>
-    <string name="meters">メートル</string>
     <string name="feet_miles">フィート/マイル</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
@@ -88,15 +84,13 @@
     <string name="pref_category_about">About</string>
     <string name="pref_open_source_licenses_title">Licenses</string>
     <string name="pref_sunset_alert_time_title">日没アラートの時刻</string>
-    <string name="pref_sunset_alerts_title">日没アラート</string>
     <string name="update_180_minutes">3 時間</string>
     <string name="update_150_minutes">2 時間 30 分</string>
     <string name="update_120_minutes">2 分</string>
     <string name="update_90_minutes">1 時間 30 分</string>
     <string name="pref_center_sun_and_moon_title">太陽/月を常に中央に表示</string>
-    <string name="sun_moon_compass_never">表示しない</string>
     <string name="sun_moon_compass_when_up">太陽/月が昇っている場合</string>
-    <string name="sun_moon_compass_always">常に</string>
+    <string name="always">常に</string>
     <string name="pref_show_pressure_in_notification_title">Show pressure in notification</string>
     <string name="pref_show_weather_notification_title">天気通知を表示</string>
     <string name="storm_sensitivity_high_in">High (0.089 in / 3h)</string>
@@ -128,19 +122,17 @@
     <string name="pref_monitor_weather_summary">バックグラウンドで動作します</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrate before navigating</string>
     <string name="pref_display_multi_beacons_summary">最も近いビーコンをコンパスに表示</string>
-    <string name="pref_barometer_pressure_title">Pressure</string>
     <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Enter sea level pressure</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Enter the current pressure at sea level in hPa</string>
     <string name="altitude_override_updated_toast">Altitude override updated</string>
     <string name="pref_altitude_override_title">Altitude override</string>
     <string name="altitude_from_pressure">Set override from barometer</string>
-    <string name="altitude_from_gps">Set override from GPS</string>
     <string name="altitude">高度</string>
     <string name="pref_altimeter_calibration_title">高度計</string>
     <string name="request_permission">Request permission</string>
     <string name="pref_auto_location_title">Auto adjust location</string>
-    <string name="gps_location">Location</string>
+    <string name="location">Location</string>
     <string name="compass_accuracy_improved">Compass accuracy improved to %s</string>
     <string name="compass_reported_accuracy">Reported accuracy: %s</string>
     <string name="calibrate_compass_dialog_content">Rotate your phone in a figure 8 pattern several times, click %s when finished.</string>
@@ -152,7 +144,7 @@
     <string name="compass_azimuth">方位</string>
     <string name="compass_auto_declination">Auto adjust declination</string>
     <string name="compass_declination_override">Declination override</string>
-    <string name="compass_from_gps">Set override from GPS</string>
+    <string name="override_from_gps">Set override from GPS</string>
     <string name="pref_compass_sensor_title">Compass</string>
     <string name="pref_ruler_calibration_title">ものさしの大きさ</string>
     <string name="sensors">Sensors</string>
@@ -177,7 +169,7 @@
     <string name="tide_neap">Neap</string>
     <string name="tidal_range">潮汐</string>
     <string name="sunset_alert_channel_title">日没アラート</string>
-    <string name="sunset_alert_channel_description">日没アラート</string>
+    <string name="sunset_alerts">日没アラート</string>
     <string name="sunset_alert_notification_text">太陽は %s に沈みます</string>
     <string name="sunset_alert_notification_title">太陽がもうすぐ沈みます</string>
     <string name="waxing_crescent">三日月</string>
@@ -197,7 +189,7 @@
     <string name="notification_monitoring_weather">天気をバックグラウンドで監視しています</string>
     <string name="notification_storm_alert_title">暴風雨アラート</string>
     <string name="notification_storm_alert_text">暴風雨が近づいている可能性があります</string>
-    <string name="notification_storm_alert_channel_desc">暴風雨アラート</string>
+    <string name="storm_alerts">暴風雨アラート</string>
     <string name="notification_storm_alert_channel_name">アラート</string>
     <string name="pressure_format">%s %s</string>
     <string name="units_inhg_short">in</string>
@@ -207,7 +199,6 @@
     <string name="beacon_invalid_elevation">不正な高度</string>
     <string name="beacon_invalid_name">不正な名前</string>
     <string name="maps">geo:</string>
-    <string name="action_copy">コピー</string>
     <string name="share_action_send">送信</string>
     <string name="edit_beacon">ビーコンを編集</string>
     <string name="eta">~ %s 離れています</string>
@@ -223,7 +214,6 @@
     <string name="unknown">不明</string>
     <string name="dash">-</string>
     <string name="elevation_diff_format">%s%s</string>
-    <string name="decrease">-</string>
     <string name="increase">+</string>
     <string name="direction_south_west">南西</string>
     <string name="direction_north_west">北西</string>

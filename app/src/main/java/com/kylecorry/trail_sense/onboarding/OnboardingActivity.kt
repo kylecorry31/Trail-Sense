@@ -70,7 +70,7 @@ class OnboardingActivity : AppCompatActivity() {
         if (page == OnboardingPages.NAVIGATION){
             val backtrackSwitch = SwitchCompat(this)
             backtrackSwitch.isChecked = prefs.backtrackEnabled
-            backtrackSwitch.text = getString(R.string.tool_backtrack_title)
+            backtrackSwitch.text = getString(R.string.backtrack)
             backtrackSwitch.setOnCheckedChangeListener { _, isChecked ->
                 prefs.backtrackEnabled = isChecked
             }
@@ -80,7 +80,7 @@ class OnboardingActivity : AppCompatActivity() {
         if (page == OnboardingPages.ASTRONOMY){
             val sunsetAlertSwitch = SwitchCompat(this)
             sunsetAlertSwitch.isChecked = prefs.astronomy.sendSunsetAlerts
-            sunsetAlertSwitch.text = getString(R.string.pref_sunset_alerts_title)
+            sunsetAlertSwitch.text = getString(R.string.sunset_alerts)
             sunsetAlertSwitch.setOnCheckedChangeListener { _, isChecked ->
                 prefs.astronomy.sendSunsetAlerts = isChecked
             }

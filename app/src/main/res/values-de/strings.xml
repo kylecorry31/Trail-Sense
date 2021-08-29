@@ -3,8 +3,7 @@
     <string name="navigation">Navigation</string>
     <string name="weather">Wetter</string>
     <string name="settings">Einstellungen</string>
-    <string name="create_beacon_title">Wegpunkt erstellen</string>
-    <string name="name_hint">Name</string>
+    <string name="name">Name</string>
     <string name="select_beacon">Wegpunkt auswählen</string>
     <string name="delete_beacon">Wegpunkt löschen</string>
     <string name="astronomy">Astronomie</string>
@@ -13,10 +12,8 @@
     <string name="until_sunset_label">bis Sonnenuntergang</string>
     <string name="pref_use_true_north_title">Geographischer Norden</string>
     <string name="pref_use_sea_level_pressure_title">Luftdruck auf Meereshöhe</string>
-    <string name="pref_units_header">Allgemein</string>
-    <string name="pref_distance_units_title">Entfernung</string>
-    <string name="pref_pressure_units_title">Luftdruck</string>
-    <string name="pref_send_storm_alerts_title">Sturmwarnungen</string>
+    <string name="general">Allgemein</string>
+    <string name="pressure">Luftdruck</string>
     <string name="pref_use_24_hour_title">24-Stunden-Zählung verwenden</string>
     <string name="pref_sun_time_mode_title">Sonnenaufgangs-/Sonnenuntergangszeiten</string>
     <string name="weather_improving_fast">Sehr bald Besserung</string>
@@ -51,7 +48,6 @@
         <item quantity="one">Letzte %d Minute</item>
         <item quantity="other">Letzte %d Protokoll</item>
     </plurals>
-    <string name="meters">Meter</string>
     <string name="feet_miles">Fuß / Meilen</string>
     <string name="units_hpa">hPa</string>
     <string name="units_mbar">mbar</string>
@@ -94,23 +90,21 @@
     <string name="pref_forecast_sensitivity_title">Vorhersagegenauigkeit</string>
     <string name="pref_center_sun_and_moon_title">Sonne/Mond zentriert lassen</string>
     <string name="sun_moon_compass_when_up">Wenn aufgegangen</string>
-    <string name="sun_moon_compass_never">Nie</string>
-    <string name="sun_moon_compass_always">Immer</string>
+    <string name="always">Immer</string>
     <string name="pref_show_weather_notification_title">Wetterbenachrichtigung anzeigen</string>
     <string name="update_90_minutes">1 Stunde 30 Minuten</string>
     <string name="update_120_minutes">2 Stunden</string>
     <string name="update_150_minutes">2 Stunden 30 Minuten</string>
     <string name="update_180_minutes">3 Stunden</string>
-    <string name="sunset_alert_channel_description">Sonnenuntergangsalarme</string>
+    <string name="sunset_alerts">Sonnenuntergangsalarme</string>
     <string name="sunset_alert_channel_title">Sonnenuntergangsalarm</string>
-    <string name="pref_sunset_alerts_title">Sonnenuntergangsalarme</string>
     <string name="pref_sunset_alert_time_title">Sonnenuntergang: Alarmzeit</string>
     <string name="moon_illumination">Mond: beleuchteter Anteil</string>
     <string name="moon_phase">Mondphase</string>
     <string name="lunar_noon">Mondkulmination</string>
     <string name="solar_noon">Sonnenkulmination</string>
     <string name="notification_storm_alert_channel_name">Warnungen</string>
-    <string name="notification_storm_alert_channel_desc">Sturmwarnungen</string>
+    <string name="storm_alerts">Sturmwarnungen</string>
     <string name="pref_coordinate_format_title">Koordinatenformat</string>
     <string name="coordinate_format_decimal_degrees">Dezimalgrad</string>
     <string name="coordinate_format_degrees_decimal_minutes">Grad und Dezimalminuten</string>
@@ -128,7 +122,6 @@
     <string name="unknown">Unbekannt</string>
     <string name="edit_beacon">Wegpunkt bearbeiten</string>
     <string name="share_action_send">Senden</string>
-    <string name="action_copy">Kopieren</string>
     <string name="maps">Karten</string>
     <string name="beacon_invalid_name">Ungültiger Name</string>
     <string name="units_inhg_short">in</string>
@@ -173,7 +166,7 @@
     <string name="altitude">Höhe</string>
     <string name="pref_altimeter_calibration_title">Höhenmesser</string>
     <string name="request_permission">Berechtigung anfordern</string>
-    <string name="gps_location">Standort</string>
+    <string name="location">Standort</string>
     <string name="calibrate_compass_dialog_title">Kompass kalibrieren</string>
     <string name="temperature">Temperatur</string>
     <string name="celsius">Celsius</string>
@@ -183,7 +176,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="dash">-</string>
-    <string name="decrease">-</string>
     <string name="increase">+</string>
     <string name="direction_south_west">SW</string>
     <string name="direction_north_west">NW</string>
@@ -215,12 +207,9 @@
     <string name="update_60_minutes">1 Stunde</string>
     <string name="update_30_minutes">30 Minuten</string>
     <string name="pref_max_beacon_distance_title">Radius für nahegelegene Wegpunkte</string>
-    <string name="pref_temperature_holder_title">Temperatur</string>
     <string name="pref_altimeter_calibration_mode_title">Autokalibrierung</string>
-    <string name="altimeter_mode_override">Nie</string>
+    <string name="never">Nie</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometer</string>
-    <string name="altimeter_mode_barometer">Barometer</string>
-    <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Geben Sie den aktuellen Luftdruck auf Meereshöhe in hPa ein</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Rotieren Sie das Telefon mehrfach in Form einer 8 oder in alle Richtungen, drücken Sie %s wenn beendet.
 \n
@@ -242,10 +231,8 @@
         <item quantity="one">%d Wegpunkt</item>
         <item quantity="other">%d Wegpunkte</item>
     </plurals>
-    <string name="beacon_group_spinner_title">Gruppe</string>
     <string name="no_group">Keine Gruppe</string>
-    <string name="beacon_group_name_hint">Name</string>
-    <string name="beacon_create_group">Gruppe</string>
+    <string name="group">Gruppe</string>
     <string name="beacon_create_beacon">Wegpunkt</string>
     <string name="beacon_create">Erstellen</string>
     <string name="edit_beacon_group">Gruppe bearbeiten</string>
@@ -293,17 +280,14 @@
     <string name="forecast_sensitivity_med_hpa">Mittel (1.5 hPa / 3h)</string>
     <string name="forecast_sensitivity_low_hpa">Niedrig (2.5 hPa / 3h)</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Vor dem Navigieren kalibrieren</string>
-    <string name="pref_barometer_pressure_title">Luftdruck</string>
     <string name="pref_altitude_override_sea_level_title">Verwendung bekannten Luftdrucks auf Meereshöhe</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Geben sie den Luftdruck auf Meereshöhe ein</string>
     <string name="altitude_from_pressure">Überschreibung durch Barometer einstellen</string>
-    <string name="altitude_from_gps">Überschreibung durch GPS einstellen</string>
     <string name="compass_reported_accuracy">Festgestellte Genauigkeit: %s</string>
-    <string name="compass_from_gps">Überschreibung durch GPS einstellen</string>
-    <string name="pref_general_header">Allgemein</string>
+    <string name="override_from_gps">Überschreibung durch GPS einstellen</string>
     <string name="set_inclination_instructions">Tippen um den Inklinationswinkel zu setzen/löschen</string>
     <string name="tool_user_guide_summary">Ein Handbuch für die Benutzung von Trail Sense</string>
-    <string name="advanced_settings_category">Fortgeschritten</string>
+    <string name="advanced">Fortgeschritten</string>
     <string name="tool_bubble_level_summary">Feststellen, ob eine Oberfläche flach ist</string>
     <string name="beacon_action_view_details">Zeige Details</string>
     <string name="guide_weather_prediction_title">Wettervorhersage</string>
@@ -321,21 +305,18 @@
     <string name="tool_bubble_level_title">Libelle</string>
     <string name="edit_item_title">Gegenstand bearbeiten</string>
     <string name="create_item_title">Gegenstand erstellen</string>
-    <string name="dialog_item_subtract">Abziehen</string>
     <string name="dialog_item_amount">Betrag</string>
-    <string name="dialog_item_add">Hinzufügen</string>
-    <string name="spinner_category_prompt">Kategorie</string>
-    <string name="action_item_edit">Bearbeiten</string>
-    <string name="action_item_delete">Löschen</string>
-    <string name="action_item_subtract">Abziehen</string>
-    <string name="action_item_add">Hinzufügen</string>
+    <string name="category">Kategorie</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="delete">Löschen</string>
+    <string name="subtract">Abziehen</string>
+    <string name="add">Hinzufügen</string>
     <string name="water_purification_step_3">Starten Sie den Timer</string>
     <string name="water_purification_step_2">Wasser zum Kochen bringen</string>
     <string name="water_purification_step_1">Filtern Sie das Wasser</string>
     <string name="tool_ruler_title">Lineal</string>
     <string name="distance_to">entspricht</string>
     <string name="distance_from">Von</string>
-    <string name="distance_hint">Entfernung</string>
     <string name="inventory_empty_text">Keine Einträge</string>
     <string name="tool_whistle_title">Trillerpfeife</string>
     <string name="max_depth">Max.: %s</string>
@@ -345,7 +326,6 @@
     <string name="tool_cliff_height_title">Höhe einer Klippe</string>
     <string name="object_height_guide">Höhe von Objekten abschätzen</string>
     <string name="guide_avalanche_risk">Lawinengefahr bestimmen</string>
-    <string name="item_name_hint">Name</string>
     <string name="depth_disclaimer">Verwendung auf eigenes Risiko.
 \n
 \nNicht ohne wasserdichtes Gehäuse verwenden und in einer sicheren Tauchtiefe bleiben.</string>
@@ -357,7 +337,7 @@
     <string name="category_clothing">Bekleidung</string>
     <string name="category_hydration">Flüssigkeiten</string>
     <string name="category_food">Lebensmittel</string>
-    <string name="category_other">Sonstiges</string>
+    <string name="other">Sonstiges</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="tool_lightning_title">Blitz-Entfernung</string>
     <string name="tool_lightning_description">Die Entfernung eines Gewitters messen</string>
@@ -368,7 +348,6 @@
     <string name="tool_clock_title">Uhr</string>
     <string name="flashlight_strobe">Stroboskop</string>
     <string name="pref_sensor_details_title">Sensordetails</string>
-    <string name="tool_boil_title">Wasserkocher-Timer</string>
     <string name="tool_boil_summary">Bestimmen wann Wasser trinkbar ist</string>
     <string name="boil_start">Starten</string>
     <plurals name="water_boil_timer_content">
@@ -379,7 +358,7 @@
     <string name="water_boil_timer_done_title">Wasser ist fertig gekocht</string>
     <string name="water_boil_timer_title">Wasser kocht</string>
     <string name="water_boil_timer_channel_description">Wasser kocht</string>
-    <string name="water_boil_timer_channel">Wasserkocher-Timer</string>
+    <string name="water_boil_timer">Wasserkocher-Timer</string>
     <string name="solar_panel_instructions">Zum Starten Handy flach auf dem Panel positionieren.</string>
     <string name="solar_align_now">Jetzt</string>
     <string name="tool_solar_panel_title">Solarpanel ausrichten</string>
@@ -393,21 +372,16 @@
     <string name="unit_kilometers">Kilometer</string>
     <string name="unit_meters">Meter</string>
     <string name="notification_channel_clock_sync">Zeit Synchronisation</string>
-    <string name="tool_category_distance">Entfernung</string>
     <string name="tool_battery_title">Batterie</string>
     <string name="strobe_warning_content">Das Stroboskob erzeugt Blitzlicht, welches gefährlich für manche Nutzer sein könnte.</string>
     <string name="clock_waiting_for_gps">Zeit wird mittels GPS aktualisiert…</string>
     <string name="precise_inches_format">%s in</string>
     <string name="precise_miles_format">%s Meilen</string>
     <string name="precise_feet_format">%s Fuß</string>
-    <string name="metal_detector_calibrate">Kalibrieren</string>
     <string name="tool_triangulate_summary">Standortbestimmung ohne GPS</string>
-    <string name="tool_category_other">Andere</string>
     <string name="tool_category_angles">Neigung</string>
-    <string name="tool_category_time">Zeit</string>
     <string name="battery_health">Zustand: %s</string>
     <string name="battery_health_overheat">Überhitzt</string>
-    <string name="battery_health_good">Gut</string>
     <string name="battery_health_dead">Kaputt</string>
     <string name="three">3</string>
     <string name="two">2</string>
@@ -429,7 +403,6 @@
     <string name="beacon_1">Wegpunkt 1</string>
     <string name="tool_triangulate_title">Standort mittels Triangulation bestimmen</string>
     <string name="tool_category_signaling">Signalisieren</string>
-    <string name="tool_category_location">Position</string>
     <string name="power">Energie</string>
     <string name="battery_health_over_voltage">Überspannung</string>
     <string name="battery_health_cold">Kalt</string>
@@ -444,9 +417,7 @@
     <string name="delete_waypoint_prompt">Wegpunkt löschen\?</string>
     <string name="coordinate_input_invalid_location">Ungültige Ortsangabe</string>
     <string name="location_input_help_title">Unterstützte Ortsformate</string>
-    <string name="location_input_hint">Ort</string>
-    <string name="waypoint_action_delete">Löschen</string>
-    <string name="backtrack_notification_channel">Rückweg</string>
+    <string name="backtrack">Rückweg</string>
     <string name="guide_location_no_gps_title">Ortsbestimmung ohne GPS</string>
     <string name="min_temp_uncalibrated">Minimale Gerätetemperatur (nicht geeicht)</string>
     <string name="min_temp_calibrated">Minimale Umgebungstemperatur (geeicht)</string>
@@ -486,7 +457,6 @@
     <string name="pref_backtrack_frequency_title">Abstand der Wegpunkte</string>
     <string name="pref_backtrack_enabled_summary">Wegpunkte aufzeichnen</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_title">Rückweg</string>
     <string name="tool_backtrack_summary">Wegpunkte für den Rückweg zeigen</string>
     <string name="beacon_set_bearing_btn">Richtung festlegen (%s)</string>
     <string name="bearing">Richtung</string>
@@ -496,7 +466,7 @@
     <string name="toast_destination_bearing_set">Zielrichtung gesetzt</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="waypoint_beacon_title_template">%s, %s Wegpunkt</string>
-    <string name="action_waypoint_create_beacon">Wegpunkt anlegen</string>
+    <string name="create_beacon">Wegpunkt anlegen</string>
     <string name="charging_wireless">Batterie wird geladen (%s)</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
@@ -537,9 +507,6 @@
     <string name="cirrostratus">Cirrostratus</string>
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="pref_require_satellites_description">Signal von mindestens 4 Satelliten benötigt, verbessert die Genauigkeit</string>
-    <string name="cloud_low">NIEDRIG</string>
-    <string name="cloud_middle">MITTEL</string>
-    <string name="cloud_high">HOCH</string>
     <string name="clouds">Wolken</string>
     <string name="dialog_leave">Verlassen</string>
     <string name="unsaved_changes_message">Änderungen werden nicht gespeichert.</string>
@@ -570,16 +537,14 @@
 \n- Falls Sie sich entscheiden, den Zugriff auf Ihre Ortsdaten nicht zu erlauben, können Sie selber Koordinaten im Trail Sense Menu Einstellungen -&gt; GPS Kalibration eingeben.
 \n
 \n- Nach \"Weiter\" werden Sie darum gebeten, die Freigabe Ihrer Ortsdaten im Vorder- und Hintergrund zu erteilen. Ablehnung dieser Rechte wird verhindern, dass Trail Sense Zugriff auf Ihren Ort erlangt, in diesem Fall wird empfohlen, Koordinaten manuell einzugeben.</string>
-    <string name="select_import_file">Datei auswählen</string>
     <string name="export">Exportieren</string>
     <string name="import_btn">Importieren</string>
-    <string name="gps_unavailable">Nicht verfügbar</string>
+    <string name="unavailable">Nicht verfügbar</string>
     <string name="gps_searching">Suchend</string>
     <string name="gps_stale">Veraltet</string>
     <string name="privacy_and_location">Datenschutz und Ortsbestimmung</string>
     <string name="gps_user">Benutzer</string>
     <string name="quality_poor">Schlecht</string>
-    <string name="quality_moderate">Mittel</string>
     <string name="quality_good">Gut</string>
     <string name="time_ago">vor %s</string>
     <string name="network_5g">5G</string>
@@ -718,8 +683,6 @@
     <string name="pedometer_disclaimer">Die Batterienutzung und Genauigkeit des Schrittzählers hängt vom Hersteller des Gerätes und der angegeben Schrittlänge ab. Probieren Sie es zu Hause aus, bevor Sie es beim Wandern benutzen, um die Batterienutzung und Genauigkeit zu prüfen.</string>
     <string name="guide_signaling_for_help_title">Signalisieren, dass Hilfe benötigt wird</string>
     <string name="saltwater_switch">Salzwasser\?</string>
-    <string name="tide_high_short">Flut</string>
-    <string name="tide_low_short">Ebbe</string>
     <string name="experimental">Experimentell</string>
     <string name="pref_daily_weather_notification">pref_backtrack_save_cell</string>
     <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
@@ -805,8 +768,7 @@
     <string name="pref_flashlight_toggle_with_system_title">Mit System ändern</string>
     <string name="map_rotate_instructions">Rotieren, bis Norden nach oben zeigt</string>
     <string name="map_perspective_instructions">Umriss der Karte</string>
-    <string name="map_edit">Bearbeiten</string>
-    <string name="map_preview">Vorschau</string>
+    <string name="preview">Vorschau</string>
     <string name="weather_prediction">Wetter: %s</string>
     <string name="pressure_no_change">Druck ändert sich nicht</string>
     <string name="pressure_falling_fast">Druck fällt schnell</string>
@@ -910,7 +872,6 @@
     <string name="pack_sort_weight_low_to_high">Gewicht (gering zu hoch)</string>
     <string name="pack_sort_percent_high_to_low">Prozent gepackt (hoch zu wenig)</string>
     <string name="pack_sort_percent_low_to_high">Prozent gepackt (wenig zu hoch)</string>
-    <string name="pack_sort_category">Kategorie</string>
     <string name="climate_tropical">Tropische</string>
     <string name="climate_temperate">Gemäßigte</string>
     <string name="climate_polar">Polare</string>

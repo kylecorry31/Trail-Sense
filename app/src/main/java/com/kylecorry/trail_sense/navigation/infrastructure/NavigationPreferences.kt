@@ -85,8 +85,7 @@ class NavigationPreferences(private val context: Context) {
 
     val backtrackPathStyle: PathStyle
         get() {
-            val raw = cache.getString(context.getString(R.string.pref_backtrack_path_style))
-            return when (raw) {
+            return when (cache.getString(context.getString(R.string.pref_backtrack_path_style))) {
                 "solid" -> PathStyle.Solid
                 "arrow" -> PathStyle.Arrow
                 else -> PathStyle.Dotted

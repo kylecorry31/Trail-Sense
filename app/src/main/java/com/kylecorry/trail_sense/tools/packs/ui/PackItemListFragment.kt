@@ -120,7 +120,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
                         R.id.action_item_add -> {
                             Pickers.number(
                                 requireContext(),
-                                getString(R.string.dialog_item_add),
+                                getString(R.string.add),
                                 null,
                                 null,
                                 allowNegative = false,
@@ -134,7 +134,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
                         R.id.action_item_subtract -> {
                             Pickers.number(
                                 requireContext(),
-                                getString(R.string.dialog_item_subtract),
+                                getString(R.string.subtract),
                                 null,
                                 null,
                                 allowNegative = false,
@@ -230,7 +230,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             getString(R.string.rename),
             null,
             pack.name,
-            hint = getString(R.string.name_hint)
+            hint = getString(R.string.name)
         ) {
             if (it != null) {
                 runInBackground {
@@ -337,7 +337,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     private fun getSortTitle(sort: String): String {
         return when (sort) {
-            "category" -> getString(R.string.pack_sort_category)
+            "category" -> getString(R.string.category)
             "percent_asc" -> getString(R.string.pack_sort_percent_low_to_high)
             "percent_desc" -> getString(R.string.pack_sort_percent_high_to_low)
             "weight_asc" -> getString(R.string.pack_sort_weight_low_to_high)

@@ -3,8 +3,7 @@
     <string name="navigation">导航</string>
     <string name="weather">天气</string>
     <string name="settings">设定值</string>
-    <string name="create_beacon_title">创建信标</string>
-    <string name="name_hint">名称</string>
+    <string name="name">名称</string>
     <string name="select_beacon">选择信标</string>
     <string name="delete_beacon">删除信标</string>
     <string name="astronomy">天文学</string>
@@ -13,10 +12,8 @@
     <string name="until_sunset_label">直到日落</string>
     <string name="pref_use_true_north_title">真北</string>
     <string name="pref_use_sea_level_pressure_title">海平面压力</string>
-    <string name="pref_units_header">一般</string>
-    <string name="pref_distance_units_title">距离</string>
-    <string name="pref_pressure_units_title">压力</string>
-    <string name="pref_send_storm_alerts_title">风暴警报</string>
+    <string name="general">一般</string>
+    <string name="pressure">压力</string>
     <string name="pref_use_24_hour_title">使用24小时制</string>
     <string name="pref_sun_time_mode_title">日出/日落时间</string>
     <string name="weather_improving_fast">很快改进</string>
@@ -48,7 +45,6 @@
     <plurals name="last_minutes">
         <item quantity="other">持续 %d 分钟</item>
     </plurals>
-    <string name="meters">仪表</string>
     <string name="feet_miles">英尺/英里</string>
     <string name="units_hpa">压力</string>
     <string name="units_inhg">汞</string>
@@ -72,10 +68,8 @@
     <string name="pressure_12_hours">十二小时</string>
     <string name="pressure_4_hours">四个小时</string>
     <string name="pref_pressure_history_title">压力历史</string>
-    <string name="altimeter_mode_override">从不</string>
+    <string name="never">从不</string>
     <string name="altimeter_mode_gps_barometer">GPS + 气压表</string>
-    <string name="altimeter_mode_barometer">气压表</string>
-    <string name="altimeter_mode_gps">GPS</string>
     <string name="pref_altitude_override_sea_level_title">使用已知的海平面气压</string>
     <string name="pref_altitude_override_sea_level_dialog_title">输入海平面气压</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">以百帕为单位输入现在海平面的气压</string>
@@ -83,7 +77,7 @@
     <string name="pref_altimeter_calibration_title">高度表</string>
     <string name="request_permission">请求权限</string>
     <string name="pref_auto_location_title">自动调整位置</string>
-    <string name="gps_location">位置</string>
+    <string name="location">位置</string>
     <string name="compass_accuracy_improved">指南针的精确度提升至 %s</string>
     <string name="compass_reported_accuracy">报告的准确度： %s</string>
     <string name="calibrate_compass_on_navigate_dialog_content">以8字形或全方位旋转手机几次，完成后轻触 %s 。
@@ -106,7 +100,6 @@
     <string name="celsius">摄氏度</string>
     <string name="fahrenheit">华氏度</string>
     <string name="pref_coordinate_format_title">坐标格式</string>
-    <string name="pref_general_header">一般</string>
     <string name="estimated_height">预计的高度</string>
     <string name="set_inclination_instructions">轻触任何地方以设定/复位倾斜角度</string>
     <string name="inclinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
@@ -123,7 +116,7 @@
     <string name="tide_neap">小潮</string>
     <string name="tidal_range">潮汐变化范围</string>
     <string name="sunset_alert_channel_title">日落警告</string>
-    <string name="sunset_alert_channel_description">日落警告</string>
+    <string name="sunset_alerts">日落警告</string>
     <string name="sunset_alert_notification_text">太阳将于 %s 落下</string>
     <string name="sunset_alert_notification_title">太阳即将落下</string>
     <string name="waxing_crescent">残月</string>
@@ -156,7 +149,7 @@
     <string name="notification_monitoring_weather">后台监测天气</string>
     <string name="notification_storm_alert_title">暴风雨警报</string>
     <string name="notification_storm_alert_text">一场暴风雨可能正在逼近</string>
-    <string name="notification_storm_alert_channel_desc">暴风雨警报</string>
+    <string name="storm_alerts">暴风雨警报</string>
     <string name="notification_storm_alert_channel_name">警报</string>
     <string name="units_inhg_short">英寸汞柱</string>
     <string name="beacon_elevation_hint_feet">海拔英尺数（可选）</string>
@@ -166,7 +159,6 @@
     <string name="beacon_invalid_elevation">无效的海拔</string>
     <string name="beacon_invalid_name">无效的名称</string>
     <string name="maps">地图</string>
-    <string name="action_copy">复制</string>
     <string name="share_action_send">发送</string>
     <plurals name="beacon_group_summary">
         <item quantity="other">%d 个信标</item>
@@ -202,7 +194,6 @@
     <string name="access_background_location">更新位置设置</string>
     <string name="copied_to_clipboard_toast">已复制到剪贴板</string>
     <string name="tools">工具</string>
-    <string name="pref_barometer_pressure_title">气压</string>
     <string name="pref_altimeter_calibration_mode_title">自动校准</string>
     <string name="kilometers_per_hour_format">%.1f 千米/时</string>
     <string name="sun_moon_compass_when_up">升起时</string>
@@ -210,7 +201,6 @@
     <string name="water_boil_timer_done_title">水已开</string>
     <string name="unit_feet">英尺</string>
     <string name="metal_detector_disclaimer">只检测磁性金属 （如铁）</string>
-    <string name="metal_detector_calibrate">校准</string>
     <string name="tool_metal_detector_title">金属探测器</string>
     <string name="threshold">阈值</string>
     <string name="clock_sync_time_settings">打开时间设置？</string>
@@ -226,16 +216,11 @@
     <string name="tool_triangulate_summary">在没有GPS的情况下确定你的位置</string>
     <string name="tool_triangulate_title">三角定位</string>
     <string name="tool_category_signaling">信号传递</string>
-    <string name="tool_category_other">其他</string>
-    <string name="tool_category_location">位置</string>
     <string name="tool_category_angles">角度</string>
-    <string name="tool_category_time">时间</string>
     <string name="power">能源</string>
-    <string name="tool_category_distance">距离</string>
     <string name="battery_health">健康状况：%s</string>
     <string name="battery_health_over_voltage">过电压</string>
     <string name="battery_health_overheat">过热</string>
-    <string name="battery_health_good">良好</string>
     <string name="battery_health_dead">死</string>
     <string name="battery_health_cold">冷</string>
     <string name="tool_battery_title">电池</string>
@@ -260,7 +245,6 @@
     <string name="tool_clock_title">时钟</string>
     <string name="flashlight_strobe">频闪闪光灯</string>
     <string name="pref_sensor_details_title">传感器详情</string>
-    <string name="tool_boil_title">水沸腾计时器</string>
     <string name="tool_boil_summary">判断水何时可以饮用</string>
     <string name="boil_start">开始</string>
     <plurals name="water_boil_timer_content">
@@ -269,7 +253,7 @@
     <string name="water_boil_timer_done_content">你的水现在可以饮用了</string>
     <string name="water_boil_timer_title">水沸计时器</string>
     <string name="water_boil_timer_channel_description">水在沸腾</string>
-    <string name="water_boil_timer_channel">水沸腾计时器</string>
+    <string name="water_boil_timer">水沸腾计时器</string>
     <string name="solar_panel_instructions">要开始，请把你的手机放在太阳能电池板的面上。</string>
     <string name="solar_align_now">立刻</string>
     <string name="tool_solar_panel_title">太阳能电池板对准器</string>
@@ -283,7 +267,6 @@
     <string name="unit_meters">米</string>
     <string name="distance_to">终点</string>
     <string name="distance_from">起点</string>
-    <string name="distance_hint">距离</string>
     <string name="inventory_empty_text">无物品</string>
     <string name="tool_whistle_title">哨子</string>
     <string name="max_depth">最大值：%s</string>
@@ -294,7 +277,6 @@
     <string name="toast_destination_bearing_set">已设定目的地方位</string>
     <string name="object_height_guide">预测物体高度</string>
     <string name="guide_avalanche_risk">雪崩风险预测</string>
-    <string name="item_name_hint">名称</string>
     <string name="depth_disclaimer">如果可能请保持在安全的潜水距离内。使用本软件测量水深，风险自负。
 \n
 \n不要在没有防水外壳的情况下使用，如果可能请保持在安全的潜水距离内。</string>
@@ -307,7 +289,7 @@
     <string name="category_clothing">着装</string>
     <string name="category_hydration">水和作用</string>
     <string name="category_food">食物</string>
-    <string name="category_other">其他</string>
+    <string name="other">其他</string>
     <string name="pref_sea_level_pressure_change_thresh_title">旅行气压变更阈值</string>
     <string name="pref_barometer_altitude_change_title">旅行高度变更阈值</string>
     <string name="beacon_action_view_details">查看详情</string>
@@ -318,7 +300,7 @@
     <string name="guide_conserving_battery_title">节约电池</string>
     <string name="navigation_nearby_category">附近</string>
     <string name="forecasts_category">预测</string>
-    <string name="advanced_settings_category">高级设置</string>
+    <string name="advanced">高级设置</string>
     <string name="tap_sun_moon_hint">点按太阳或月亮了解位置详情</string>
     <string name="sun_and_moon_position_details">太阳
 \n\t高度: %s
@@ -331,10 +313,8 @@
     <string name="pref_sea_level_require_dwell_title">忽略快速高度变化</string>
     <string name="pref_sea_level_require_dwell_summary">只有当高度至少一小时没有变化时才显示读数。提高预报的可靠性。</string>
     <string name="weather_update_notification_channel">天气更新</string>
-    <string name="beacon_group_spinner_title">群组</string>
     <string name="no_group">无群组</string>
-    <string name="beacon_group_name_hint">名称</string>
-    <string name="beacon_create_group">群组</string>
+    <string name="group">群组</string>
     <string name="beacon_create_beacon">信标</string>
     <string name="beacon_create">创建</string>
     <string name="edit_beacon_group">编辑群组</string>
@@ -350,7 +330,6 @@
     <string name="pref_category_about">关于</string>
     <string name="pref_open_source_licenses_title">许可证</string>
     <string name="pref_sunset_alert_time_title">日落警告时间</string>
-    <string name="pref_sunset_alerts_title">日落警告</string>
     <string name="update_60_minutes">1 小时</string>
     <string name="update_30_minutes">30 分钟</string>
     <string name="update_180_minutes">3 小时</string>
@@ -358,8 +337,7 @@
     <string name="update_120_minutes">2 小时</string>
     <string name="update_90_minutes">1.5 小时</string>
     <string name="pref_center_sun_and_moon_title">保持太阳/月亮居中</string>
-    <string name="sun_moon_compass_never">从不</string>
-    <string name="sun_moon_compass_always">始终</string>
+    <string name="always">始终</string>
     <string name="pref_weather_update_frequency_title">天气更新频率</string>
     <string name="pref_show_pressure_in_notification_title">在通知中显示气压</string>
     <string name="pref_show_weather_notification_title">显示天气通知</string>
@@ -393,7 +371,6 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">导航前矫正</string>
     <string name="pref_display_multi_beacons_summary">在指南针上显示最近的信标</string>
     <string name="pref_num_visible_beacons_title">附近的信标</string>
-    <string name="pref_temperature_holder_title">温度</string>
     <string name="pref_sea_level_use_rapid_summary">在海平面压力转换中使用快速压力变化</string>
     <string name="pref_sea_level_use_rapid_title">将快速压力变化考虑在内</string>
     <string name="pref_adjust_for_temperature_summary">使用海平面压力转换中的温度</string>
@@ -401,21 +378,18 @@
     <string name="altitude_override_updated_toast">海拔覆盖已更新</string>
     <string name="pref_altitude_override_title">海拔覆盖</string>
     <string name="altitude_from_pressure">从气压计设置覆盖</string>
-    <string name="altitude_from_gps">从 GPS 设置覆盖</string>
     <string name="declination_override_updated_toast">赤纬覆盖已更新</string>
     <string name="compass_declination_override">赤纬覆盖</string>
-    <string name="compass_from_gps">从 GPS 设置覆盖</string>
+    <string name="override_from_gps">从 GPS 设置覆盖</string>
     <string name="coordinate_format_decimal_degrees">十进位度数</string>
     <string name="edit_item_title">编辑项目</string>
     <string name="create_item_title">创建项目</string>
-    <string name="dialog_item_subtract">减去</string>
     <string name="dialog_item_amount">数量</string>
-    <string name="dialog_item_add">添加</string>
-    <string name="spinner_category_prompt">类别</string>
-    <string name="action_item_edit">编辑</string>
-    <string name="action_item_delete">删除</string>
-    <string name="action_item_subtract">减去</string>
-    <string name="action_item_add">添加</string>
+    <string name="category">类别</string>
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
+    <string name="subtract">减去</string>
+    <string name="add">添加</string>
     <string name="lunar_noon">月亮升到晚上的最高点</string>
     <string name="tide_normal">正常</string>
     <string name="pressure_reading_time_ago">%s - %s 前</string>
@@ -429,7 +403,6 @@
     <string name="charging_fast">快速充电 (%s)</string>
     <string name="battery_capacity_format">%s 毫安时</string>
     <string name="elevation_diff_format">%s%s</string>
-    <string name="decrease">-</string>
     <string name="increase">+</string>
     <string name="miles_per_hour_format">%.1f 英里/时</string>
     <string name="precise_kilometers_format">%s 千米</string>
@@ -464,15 +437,13 @@
     <string name="compass_declination">磁偏角</string>
     <string name="battery_temp">手机电池：%s</string>
     <string name="bearing">方位</string>
-    <string name="backtrack_notification_channel">依照记录的位置历史返回先前位置 （Backtrack）</string>
+    <string name="backtrack">依照记录的位置历史返回先前位置 （Backtrack）</string>
     <string name="pref_backtrack_frequency_title">Backtrack 间隔</string>
     <string name="pref_backtrack_enabled_summary">记录位置历史</string>
     <string name="waypoint_beacon_title_template">路径点 %s, %s</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_title">依照记录的位置历史返回先前位置（Backtrack）</string>
     <string name="tool_backtrack_summary">查看位置历史</string>
-    <string name="action_waypoint_create_beacon">创建信标</string>
-    <string name="waypoint_action_delete">删除</string>
+    <string name="create_beacon">创建信标</string>
     <string name="backtrack_notification_description">放置位置路径点</string>
     <string name="backtrack_notification_channel_description">Backtrack 位置更新</string>
     <string name="guide_location_no_gps_title">不用 GPS 进行定位</string>
@@ -501,7 +472,6 @@
 \n
 \nOSNG (OSGB36) (如， TG 51409 13177)</string>
     <string name="location_input_help_title">支持的位置格式</string>
-    <string name="location_input_hint">位置</string>
     <string name="tool_thermometer_title">温度计</string>
     <string name="guide_thermometer_calibration_title">温度计校正</string>
     <string name="delete_waypoint_prompt">删除路径点？</string>
@@ -521,7 +491,6 @@
     <string name="dialog_leave">离开</string>
     <string name="unsaved_changes_message">你所做的更改将不被保存。</string>
     <string name="unsaved_changes">未保存的变更</string>
-    <string name="cloud_low">低云</string>
     <string name="cirrus_desc">高且柔软如羽毛。</string>
     <string name="cumulonimbus_desc">深灰色、高大、砧形。</string>
     <string name="cumulus_desc">看起来像蓬松的棉球。</string>
@@ -549,8 +518,6 @@
     <string name="pref_require_satellites_description">需要至少四颗卫星，改善精度</string>
     <string name="pref_require_satellites_title">需要卫星修复</string>
     <string name="pref_require_satellites">pref_require_satellites</string>
-    <string name="cloud_middle">中云</string>
-    <string name="cloud_high">高云</string>
     <string name="clouds">云</string>
     <string name="unit_inches_abbreviation">英寸</string>
     <string name="unit_centimeters_abbreviation">厘米</string>
@@ -608,9 +575,8 @@
 \n
 \n- 用 Backtrack 追溯你的脚步 (启用时在后台运行)</string>
     <string name="import_btn">导入</string>
-    <string name="select_import_file">选择导入文件</string>
     <string name="export">导出</string>
-    <string name="gps_unavailable">不可用</string>
+    <string name="unavailable">不可用</string>
     <string name="gps_searching">正在搜索</string>
     <string name="gps_stale">过时的</string>
     <string name="gps_user">用户</string>
@@ -630,7 +596,6 @@
     <string name="time_ago">%s 前</string>
     <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="quality_good">好</string>
-    <string name="quality_moderate">一般</string>
     <string name="quality_poor">差</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="help">帮助</string>
@@ -668,8 +633,6 @@
     <string name="tide_calibration_instructions">设定在你附近的涨潮时间，最好是在新月或满月的日期。这可以从网上或通过印刷的潮汐表获得。Trail Sense 中显示的潮汐可能至多偏离两个小时，这足供参考之用，但不能依赖。</string>
     <string name="date_not_set">未设置日期</string>
     <string name="time_not_set">未设置时间</string>
-    <string name="tide_high_short">涨潮</string>
-    <string name="tide_low_short">落潮</string>
     <string name="half_tide">半潮</string>
     <string name="low_tide">落潮</string>
     <string name="high_tide">涨潮</string>
@@ -798,8 +761,7 @@
     <string name="convert">转换</string>
     <string name="map_rotate_instructions">旋转直到北指向上</string>
     <string name="map_perspective_instructions">勾勒地图轮廓</string>
-    <string name="map_edit">编辑</string>
-    <string name="map_preview">预览</string>
+    <string name="preview">预览</string>
     <string name="weather_prediction">天气：%s</string>
     <string name="pressure_no_change">气压未更改</string>
     <string name="pressure_falling_fast">气压在快速下降</string>
@@ -903,7 +865,6 @@
     <string name="pack_sort_weight_low_to_high">重量 (从低到高)</string>
     <string name="pack_sort_percent_high_to_low">已打包百分比 (从高到低)</string>
     <string name="pack_sort_percent_low_to_high">已打包百分比 (从低到高)</string>
-    <string name="pack_sort_category">类别</string>
     <string name="sort">排序</string>
     <string name="humidity">%s 湿度</string>
     <string name="guide_packing_list">创建包装清单</string>

@@ -2,8 +2,7 @@
     <string name="navigation">नेभिगेसन</string>
     <string name="weather">मौसम</string>
     <string name="settings">सेटिंग्स</string>
-    <string name="create_beacon_title">ड्रप बीकन</string>
-    <string name="name_hint">नाम</string>
+    <string name="name">नाम</string>
     <string name="select_beacon">बीकन चयन गर्नुहोस्</string>
     <string name="delete_beacon">बीकन मेटाउनुहोस्</string>
     <string name="astronomy">खगोल विज्ञान</string>
@@ -14,10 +13,8 @@
 
     <string name="pref_use_true_north_title">साँचो उत्तर</string>
     <string name="pref_use_sea_level_pressure_title">समुद्री सतह दबाव</string>
-    <string name="pref_units_header">सामान्य</string>
-    <string name="pref_distance_units_title">दूरी</string>
-    <string name="pref_pressure_units_title">दवाव</string>
-    <string name="pref_send_storm_alerts_title">आँधी चेतावनी</string>
+    <string name="general">सामान्य</string>
+    <string name="pressure">दवाव</string>
     <string name="pref_use_24_hour_title">२--घण्टा ढाँचा प्रयोग गर्नुहोस्</string>
     <string name="pref_sun_time_mode_title">सूर्योदय /सूर्यास्त समय</string>
     <string name="weather_improving_fast">धेरै चाँडै सुधार हुँदैछ</string>
@@ -54,7 +51,6 @@
         <item quantity="other">अन्तिम %d मिनेट</item>
     </plurals>
 
-    <string name="meters">मीटर</string>
     <string name="feet_miles">फुट /माइल</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>

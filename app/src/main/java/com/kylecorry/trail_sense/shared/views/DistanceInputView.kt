@@ -14,7 +14,7 @@ class DistanceInputView(context: Context, attrs: AttributeSet? = null) :
     private val formatService by lazy { FormatService(context) }
 
     init {
-        hint = context.getString(R.string.distance_hint)
+        hint = context.getString(R.string.distance)
     }
 
     override fun createDisplayUnit(units: DistanceUnits): UnitInputView.DisplayUnit<DistanceUnits> {

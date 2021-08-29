@@ -2,8 +2,7 @@
     <string name="navigation">Kusanthula</string>
     <string name="weather">Nyengo</string>
     <string name="settings">Makonda</string>
-    <string name="create_beacon_title">Dontho Beacon</string>
-    <string name="name_hint">Dzinalo</string>
+    <string name="name">Dzinalo</string>
     <string name="select_beacon">Sankhani Beacon</string>
     <string name="delete_beacon">Chotsani beacon</string>
     <string name="astronomy">Zakuthambo</string>
@@ -14,10 +13,8 @@
 
     <string name="pref_use_true_north_title">Kumpoto Kwenikweni</string>
     <string name="pref_use_sea_level_pressure_title">Kupsinjika kwa nyanja</string>
-    <string name="pref_units_header">Zambiri</string>
-    <string name="pref_distance_units_title">Mtunda</string>
-    <string name="pref_pressure_units_title">Kukakamizidwa</string>
-    <string name="pref_send_storm_alerts_title">Chenjezo</string>
+    <string name="general">Zambiri</string>
+    <string name="pressure">Kukakamizidwa</string>
     <string name="pref_use_24_hour_title">Gwiritsani ntchito maola 24</string>
     <string name="pref_sun_time_mode_title">Kutuluka kwa dzuwa /nthawi zamadzulo</string>
     <string name="weather_improving_fast">Kupititsa patsogolo posachedwa</string>
@@ -54,7 +51,6 @@
         <item quantity="other">komaliza %d mphindi</item>
     </plurals>
 
-    <string name="meters">Ma meters</string>
     <string name="feet_miles">Mapazi /Miles</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>

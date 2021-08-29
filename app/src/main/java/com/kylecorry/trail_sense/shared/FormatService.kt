@@ -197,7 +197,7 @@ class FormatService(private val context: Context) {
         return when (batteryHealth) {
             BatteryHealth.Cold -> context.getString(R.string.battery_health_cold)
             BatteryHealth.Dead -> context.getString(R.string.battery_health_dead)
-            BatteryHealth.Good -> context.getString(R.string.battery_health_good)
+            BatteryHealth.Good -> context.getString(R.string.quality_good)
             BatteryHealth.Overheat -> context.getString(R.string.battery_health_overheat)
             BatteryHealth.OverVoltage -> context.getString(R.string.battery_health_over_voltage)
             BatteryHealth.Unknown -> context.getString(R.string.unknown)
@@ -274,7 +274,7 @@ class FormatService(private val context: Context) {
     fun formatQuality(quality: Quality): String {
         return when (quality) {
             Quality.Poor -> context.getString(R.string.quality_poor)
-            Quality.Moderate -> context.getString(R.string.quality_moderate)
+            Quality.Moderate -> context.getString(R.string.moderate)
             Quality.Good -> context.getString(R.string.quality_good)
             else -> context.getString(R.string.unknown)
         }

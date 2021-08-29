@@ -61,7 +61,7 @@ object NotificationChannels {
         Notify.createChannel(
             context,
             BacktrackAlwaysOnService.FOREGROUND_CHANNEL_ID,
-            context.getString(R.string.backtrack_notification_channel),
+            context.getString(R.string.backtrack),
             context.getString(R.string.backtrack_notification_channel_description),
             Notify.CHANNEL_IMPORTANCE_LOW,
             muteSound = true
@@ -91,7 +91,7 @@ object NotificationChannels {
         Notify.createChannel(
             context,
             WaterPurificationTimerService.CHANNEL_ID,
-            context.getString(R.string.water_boil_timer_channel),
+            context.getString(R.string.water_boil_timer),
             context.getString(R.string.water_boil_timer_channel_description),
             Notify.CHANNEL_IMPORTANCE_HIGH,
             false
@@ -111,7 +111,7 @@ object NotificationChannels {
             context,
             WeatherUpdateService.STORM_CHANNEL_ID,
             context.getString(R.string.notification_storm_alert_channel_name),
-            context.getString(R.string.notification_storm_alert_channel_desc),
+            context.getString(R.string.storm_alerts),
             Notify.CHANNEL_IMPORTANCE_HIGH
         )
 
@@ -138,7 +138,7 @@ object NotificationChannels {
             context,
             SunsetAlarmService.NOTIFICATION_CHANNEL_ID,
             context.getString(R.string.sunset_alert_channel_title),
-            context.getString(R.string.sunset_alert_channel_description),
+            context.getString(R.string.sunset_alerts),
             Notify.CHANNEL_IMPORTANCE_HIGH,
             false
         )

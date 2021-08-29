@@ -83,7 +83,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
             getString(R.string.rename),
             null,
             pack.name,
-            hint = getString(R.string.name_hint)
+            hint = getString(R.string.name)
         ) {
             if (it != null) {
                 lifecycleScope.launch {
@@ -124,7 +124,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
             getString(R.string.new_packing_list),
             null,
             null,
-            hint = getString(R.string.name_hint)
+            hint = getString(R.string.name)
         ) {
             if (it != null) {
                 lifecycleScope.launch {
@@ -146,7 +146,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
             getString(R.string.new_packing_list),
             null,
             null,
-            hint = getString(R.string.name_hint)
+            hint = getString(R.string.name)
         ) {
             if (it != null) {
                 lifecycleScope.launch {

@@ -30,7 +30,7 @@
             app:singleLineTitle="false" />
 
         <Preference
-            android:title="@string/altitude_from_gps"
+            android:title="@string/override_from_gps"
             app:iconSpaceReserved="false"
             app:key="@string/pref_altitude_from_gps_btn"
             app:singleLineTitle="false" />
