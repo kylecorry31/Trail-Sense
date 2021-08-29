@@ -45,27 +45,29 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
+        android:background="@color/colorSecondary"
         app:layout_constraintBottom_toBottomOf="@id/sunMoonChart"
         app:layout_constraintEnd_toEndOf="@id/sunMoonChart"
-        app:layout_constraintStart_toStartOf="@id/sunMoonChart"
-        android:background="@color/colorSecondary"/>
+        app:layout_constraintStart_toStartOf="@id/sunMoonChart" />
 
     <ImageView
         android:id="@+id/chart_day"
         android:layout_width="0dp"
         android:layout_height="92dp"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
         android:layout_marginTop="15dp"
-        app:layout_constraintTop_toTopOf="@id/sunMoonChart"
+        android:layout_marginEnd="15dp"
+        android:background="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="@id/sunMoonChart"
         app:layout_constraintStart_toStartOf="@id/sunMoonChart"
-        android:background="@color/colorAccent"/>
+        app:layout_constraintTop_toTopOf="@id/sunMoonChart" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/sunMoonChart"
         android:layout_width="0dp"
         android:layout_height="200dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
