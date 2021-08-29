@@ -920,4 +920,21 @@
     <string name="location_override_not_set_resolution">Standort in den Einstellungen überschreiben</string>
     <string name="location_override_resolution">Automatisches Anpassen des Standorts in den Einstellungen aktivieren.</string>
     <string name="units_inhg">inHg</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d Wegpunkt wird entfernt</item>
+        <item quantity="other">%d Wegpunkte werden entfernt</item>
+    </plurals>
+    <string name="new_text">Neu</string>
+    <string name="old">Alt</string>
+    <string name="path">Pfad</string>
+    <string name="units_mmhg_short">mm</string>
+    <string name="grid_size">%s Raster</string>
+    <string name="no_previous_path">Kein vorheriger Pfad</string>
+    <string name="merge_previous_path_title">Mit dem vorherigen Pfad zusammenführen\?</string>
+    <string name="path_merge_previous">Vorherige zusammenführen</string>
+    <string name="delete_path">Pfad löschen\?</string>
+    <string name="dash_separated_pair">%s - %s</string>
+    <string name="auto">Auto</string>
+    <string name="lightning_dangerously_close">Gewitter gefährlich nah</string>
+    <string name="autofill">Autofill</string>
 </resources>

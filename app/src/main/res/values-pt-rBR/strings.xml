@@ -933,4 +933,20 @@
     <string name="gps_signal_lost">Sinal do GPS perdido</string>
     <string name="altitude_history_length">Histórico de altitude</string>
     <string name="last_duration">Último %s</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d ponto de passagem será excluído</item>
+        <item quantity="other">%d pontos de passagem serão excluídos</item>
+    </plurals>
+    <string name="new_text">Novo</string>
+    <string name="old">Anterior</string>
+    <string name="path">Caminho</string>
+    <string name="units_mmhg_short">mm</string>
+    <string name="grid_size">%s grade</string>
+    <string name="no_previous_path">Nenhum caminho anterior</string>
+    <string name="merge_previous_path_title">Unir com o caminho anterior\?</string>
+    <string name="path_merge_previous">Adicionar o anterior</string>
+    <string name="delete_path">Eliminar o caminho\?</string>
+    <string name="dash_separated_pair">%s - %s</string>
+    <string name="auto">Automático</string>
+    <string name="lightning_dangerously_close">O relâmpago está perigosamente perto</string>
 </resources>

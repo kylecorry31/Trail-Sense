@@ -945,4 +945,8 @@
     <string name="auto">Авто</string>
     <string name="lightning_dangerously_close">Блискавка небезпечно близько</string>
     <string name="units_inhg">дюйм рт.ст.</string>
+    <string name="new_text">Нове</string>
+    <string name="old">Старе</string>
+    <string name="path">Шлях</string>
+    <string name="units_mmhg_short">мм</string>
 </resources>
