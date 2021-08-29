@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.IBeaconRepo
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.IWaypointRepo
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
@@ -55,9 +54,7 @@ class Backtrack(
                         existing?.id ?: 0L,
                         context.getString(
                             R.string.last_signal_beacon_name,
-                            CellSignalUtils.getCellTypeString(
-                                context,
-                                // TODO: Return the correct cell network type
+                            formatService.formatCellNetwork(
                                 CellNetwork.values()
                                     .first { it.id == point.cellSignal!!.network.id }
                             ),

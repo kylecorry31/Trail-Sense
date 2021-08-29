@@ -50,9 +50,8 @@ class WaypointListItem(
 
         if (prefs.backtrackSaveCellHistory) {
             itemBinding.signalStrength.setStatusText(
-                CellSignalUtils.getCellTypeString(
-                    context,
-                    CellNetwork.values().firstOrNull() { it.id == item.cellSignal?.network?.id }
+                formatService.formatCellNetwork(
+                    CellNetwork.values().firstOrNull { it.id == item.cellSignal?.network?.id }
                 )
             )
             itemBinding.signalStrength.setImageResource(

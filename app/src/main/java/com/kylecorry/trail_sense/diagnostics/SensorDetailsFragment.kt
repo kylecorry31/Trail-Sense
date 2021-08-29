@@ -275,10 +275,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
         sensorDetailsMap["cell"] = SensorDetails(
             getString(R.string.cell_signal),
             "${
-                CellSignalUtils.getCellTypeString(
-                    requireContext(),
-                    signal?.network
-                )
+                formatService.formatCellNetwork(signal?.network)
             }\n${formatService.formatPercentage(signal?.strength ?: 0f)} (${
                 formatService.formatDbm(
                     signal?.dbm ?: 0
