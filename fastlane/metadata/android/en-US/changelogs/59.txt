@@ -1,0 +1,6 @@
+- Backtrack paths
+- Backtrack path map (click a backtrack path)
+- Show altitude, cell signal, and time on backtrack path maps
+- Export backtrack paths as GPX
+- Add mmHg pressure units
+- Bug fixes
