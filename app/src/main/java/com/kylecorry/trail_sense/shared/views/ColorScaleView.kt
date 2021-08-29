@@ -3,7 +3,9 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
+import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.shared.scales.IColorScale
 
 class ColorScaleView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs) {
@@ -24,7 +26,11 @@ class ColorScaleView(context: Context, attrs: AttributeSet? = null) : CanvasView
         runEveryCycle = false
     }
 
+    @ColorInt
+    private var textColor: Int = Color.BLACK
+
     override fun setup() {
+        textColor = Resources.androidTextColorSecondary(context)
     }
 
     override fun draw() {
@@ -49,7 +55,7 @@ class ColorScaleView(context: Context, attrs: AttributeSet? = null) : CanvasView
         textMode(TextMode.Center)
 
         noStroke()
-        fill(Color.WHITE)
+        fill(textColor)
         for (label in labels){
             text(label.value, width * label.key, height.toFloat() - textHeight(label.value) / 2 - labelPadding)
         }
