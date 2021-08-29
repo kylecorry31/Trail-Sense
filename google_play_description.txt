@@ -1,0 +1,37 @@
+Explore beyond the reaches of the Internet with Trail Sense.
+
+Trail Sense is an app which uses your phone's sensors to help your on wilderness treks. Trail Sense contains many tools that can be used in different scenarios, such as hiking, camping, backpacking, rock climbing, etc.
+
+This app also does not, and will never, use the Internet - all information in Trail Sense comes directly from your phone's sensors, and no data will leave Trail Sense.
+
+How can Trail Sense help you explore the wilderness?
+
+Navigating
+- Place beacons and navigate back to them using your phone's compass
+- Retrace your steps with Backtrack
+- View your current GPS coordinates and altitude
+
+Weather
+- Predict how the weather might change
+- Get alerted when a storm might be approaching (on phones with a barometer)
+
+Astronomy
+- See when the sun and moon will rise or set
+- Get notified when the sun is about to set, so you don't get caught in the dark
+
+Other Tools
+- Use your phone as a flashlight or whistle to signal for help
+- Measure using just your phone - useful for reading distance from a map
+- Determine if surfaces are level, estimate avalanche risk, or determine the height of objects
+- Convert distances, coordinates, weight, and more
+- Create and manage packing lists
+- And more!
+
+Trail Sense is a tool that you can use, but not something you should rely on. This app is intended for information purposes only and the accuracy of the predictions and sensors are determined by a number of factors, including calibration, sensor quality, external sources, etc. Use at your own risk, always have backup tools (ex. compass), and stay safe as much as possible.
+
+Found an issue or want a new feature? Contact me at trailsense@protonmail.com or create a new issue on GitHub: github.com/kylecorry31/Trail-Sense
+
+I'm the only developer of Trail Sense, so I will do my best to help out with issues - but I have a limited device selection to test on.
+
+Privacy policy: https://kylecorry.com/Trail-Sense/#privacy
+FAQ: https://github.com/kylecorry31/Trail-Sense#faq
