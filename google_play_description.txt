@@ -1,6 +1,6 @@
 Explore beyond the reaches of the Internet with Trail Sense.
 
-Trail Sense is an app which uses your phone's sensors to help your on wilderness treks. Trail Sense contains many tools that can be used in different scenarios, such as hiking, camping, backpacking, rock climbing, etc.
+Trail Sense is an app that uses your phone's sensors to help you on wilderness treks. Trail Sense contains many tools that can be used in different scenarios, such as hiking, camping, backpacking, rock climbing, etc.
 
 This app also does not, and will never, use the Internet - all information in Trail Sense comes directly from your phone's sensors, and no data will leave Trail Sense.
 
