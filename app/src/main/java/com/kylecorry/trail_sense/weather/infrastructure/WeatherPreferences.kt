@@ -111,31 +111,31 @@ class WeatherPreferences(private val context: Context) {
     val dailyForecastChangeThreshold: Float
         get() {
             return when (cache.getString(context.getString(R.string.pref_forecast_sensitivity))) {
-                "low" -> 0.75f
-                "high" -> 0.3f
-                else -> 0.5f
+                "low" -> HPA_DAILY_LOW
+                "high" -> HPA_DAILY_HIGH
+                else -> HPA_DAILY_MEDIUM
             }
         }
 
     val hourlyForecastChangeThreshold: Float
         get() {
             return when (cache.getString(context.getString(R.string.pref_forecast_sensitivity))) {
-                "low" -> 2.5f
-                "high" -> 0.5f
-                else -> 1.5f
+                "low" -> HPA_FORECAST_LOW
+                "high" -> HPA_FORECAST_HIGH
+                else -> HPA_FORECAST_MEDIUM
             }
         }
 
     val stormAlertThreshold: Float
         get() {
             if (!sendStormAlerts) {
-                return -4.5f
+                return HPA_STORM_MEDIUM
             }
 
             return when (cache.getString(context.getString(R.string.pref_storm_alert_sensitivity))) {
-                "low" -> -6f
-                "high" -> -3f
-                else -> -4.5f
+                "low" -> HPA_STORM_LOW
+                "high" -> HPA_STORM_HIGH
+                else -> HPA_STORM_MEDIUM
             }
         }
 
@@ -294,5 +294,20 @@ class WeatherPreferences(private val context: Context) {
     val showColoredNotificationIcon: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon))
             ?: true
+
+
+    companion object {
+        const val HPA_FORECAST_LOW = 2.5f
+        const val HPA_FORECAST_MEDIUM = 1.5f
+        const val HPA_FORECAST_HIGH = 0.5f
+
+        const val HPA_DAILY_LOW = 0.75f
+        const val HPA_DAILY_MEDIUM = 0.5f
+        const val HPA_DAILY_HIGH = 0.3f
+
+        const val HPA_STORM_LOW = -6f
+        const val HPA_STORM_MEDIUM = -4.5f
+        const val HPA_STORM_HIGH = -3f
+    }
 
 }

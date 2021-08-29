@@ -45,7 +45,6 @@
 
         <ListPreference
             app:defaultValue="medium"
-            app:entries="@array/storm_sensitivity_entries_hpa"
             app:entryValues="@array/storm_alert_sensitivity_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_storm_alert_sensitivity"
@@ -55,7 +54,6 @@
 
         <ListPreference
             app:defaultValue="medium"
-            app:entries="@array/forecast_sensitivity_entries_hpa"
             app:entryValues="@array/forecast_sensitivity_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_forecast_sensitivity"

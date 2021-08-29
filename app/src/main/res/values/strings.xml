@@ -90,6 +90,8 @@
 
 <!--    This will always be in inches-->
     <string name="units_inhg">inHg</string>
+    <!--    This will always be in mm-->
+    <string name="units_mmhg">mmHg</string>
     <!--    This will always be in inches-->
     <string name="units_inhg_short">in</string>
     <string name="units_mbar">mbar</string>
@@ -301,6 +303,8 @@
     <string name="pref_monitor_weather_summary">In the background</string>
     <string name="pref_monitor_weather_title">Monitor weather</string>
     <string name="pref_forecast_sensitivity_title">Forecast sensitivity</string>
+
+<!--    TODO: DELETE THESE-->
     <string name="forecast_sensitivity_low_hpa">Low (2.5 hPa / 3h)</string>
     <string name="forecast_sensitivity_med_hpa">Medium (1.5 hPa / 3h)</string>
     <string name="forecast_sensitivity_high_hpa">High (0.5 hPa / 3h)</string>
@@ -325,6 +329,8 @@
     <string name="storm_sensitivity_low_in">Low (0.177 in / 3h)</string>
     <string name="storm_sensitivity_med_in">Medium (0.133 in / 3h)</string>
     <string name="storm_sensitivity_high_in">High (0.089 in / 3h)</string>
+
+
     <string name="pref_show_weather_notification_title">Show weather notification</string>
     <string name="pref_show_pressure_in_notification_title">Show pressure in notification</string>
     <string name="pref_weather_update_frequency_title">Weather update frequency</string>
@@ -1078,6 +1084,9 @@
     <string name="path_exported">Path exported</string>
     <string name="export_path_error">Could not export path</string>
     <string name="pick_file">Pick file</string>
+    <string name="low_amount">Low (%s)</string>
+    <string name="medium_amount">Medium (%s)</string>
+    <string name="high_amount">High (%s)</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d waypoint will be deleted</item>
         <item quantity="other">%d waypoints will be deleted</item>

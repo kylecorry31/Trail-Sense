@@ -1,21 +1,19 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
-import androidx.annotation.ArrayRes
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
+import com.kylecorry.andromeda.core.units.Pressure
+import com.kylecorry.andromeda.core.units.PressureUnits
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.QuickActionUtils
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
-import com.kylecorry.andromeda.core.units.PressureUnits
 import kotlinx.coroutines.launch
 
 class WeatherSettingsFragment : AndromedaPreferenceFragment() {
@@ -62,7 +60,8 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefLeftQuickAction?.entryValues = actionValues.toTypedArray()
         prefRightQuickAction?.entryValues = actionValues.toTypedArray()
 
-        prefMonitorWeather?.isEnabled = !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesWeather)
+        prefMonitorWeather?.isEnabled =
+            !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesWeather)
         prefMonitorWeather?.setOnPreferenceClickListener {
             if (prefs.weather.shouldMonitorWeather) {
                 WeatherUpdateScheduler.start(requireContext())
@@ -80,11 +79,17 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        prefWeatherUpdateFrequency?.summary = formatService.formatDuration(prefs.weather.weatherUpdateFrequency)
+        prefWeatherUpdateFrequency?.summary =
+            formatService.formatDuration(prefs.weather.weatherUpdateFrequency)
         prefWeatherUpdateFrequency?.setOnPreferenceClickListener {
             val title = it.title.toString()
-            CustomUiUtils.pickDuration(requireContext(), prefs.weather.weatherUpdateFrequency, title, getString(R.string.actual_frequency_disclaimer)){
-                if (it != null && !it.isZero){
+            CustomUiUtils.pickDuration(
+                requireContext(),
+                prefs.weather.weatherUpdateFrequency,
+                title,
+                getString(R.string.actual_frequency_disclaimer)
+            ) {
+                if (it != null && !it.isZero) {
                     prefs.weather.weatherUpdateFrequency = it
                     prefWeatherUpdateFrequency?.summary = formatService.formatDuration(it)
                     restartWeatherMonitor()
@@ -97,10 +102,15 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        prefDailyWeatherTime?.summary = formatService.formatTime(prefs.weather.dailyForecastTime, false)
+        prefDailyWeatherTime?.summary =
+            formatService.formatTime(prefs.weather.dailyForecastTime, false)
         prefDailyWeatherTime?.setOnPreferenceClickListener {
-            Pickers.time(requireContext(), prefs.use24HourTime, prefs.weather.dailyForecastTime){ time ->
-                if (time != null){
+            Pickers.time(
+                requireContext(),
+                prefs.use24HourTime,
+                prefs.weather.dailyForecastTime
+            ) { time ->
+                if (time != null) {
                     prefs.weather.dailyForecastTime = time
                     it.summary = formatService.formatTime(time, false)
                     restartWeatherMonitor()
@@ -111,7 +121,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
         val forecastSensitivity =
             preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_forecast_sensitivity))
-        forecastSensitivity?.setEntries(getForecastSensitivityArray(userPrefs.pressureUnits))
+        forecastSensitivity?.entries = getForecastSensitivities(userPrefs.pressureUnits)
 
         forecastSensitivity?.setOnPreferenceChangeListener { _, _ ->
             lifecycleScope.launch {
@@ -122,7 +132,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
         val stormSensitivity =
             preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_storm_alert_sensitivity))
-        stormSensitivity?.setEntries(getStormSensitivityArray(userPrefs.pressureUnits))
+        stormSensitivity?.entries = getStormSensitivities(userPrefs.pressureUnits)
 
         stormSensitivity?.setOnPreferenceChangeListener { _, _ ->
             lifecycleScope.launch {
@@ -137,24 +147,52 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         WeatherUpdateScheduler.start(requireContext())
     }
 
-    @ArrayRes
-    private fun getForecastSensitivityArray(units: PressureUnits): Int {
-        return when (units) {
-            PressureUnits.Hpa -> R.array.forecast_sensitivity_entries_hpa
-            PressureUnits.Inhg -> R.array.forecast_sensitivity_entries_in
-            PressureUnits.Psi -> R.array.forecast_sensitivity_entries_psi
-            else -> R.array.forecast_sensitivity_entries_mbar
+    private fun getForecastSensitivities(units: PressureUnits): Array<CharSequence> {
+        val hpa = listOf(
+            Pressure(WeatherPreferences.HPA_FORECAST_LOW, PressureUnits.Hpa),
+            Pressure(WeatherPreferences.HPA_FORECAST_MEDIUM, PressureUnits.Hpa),
+            Pressure(WeatherPreferences.HPA_FORECAST_HIGH, PressureUnits.Hpa),
+        )
+
+        val stringValues = hpa.map {
+            getString(
+                R.string.pressure_tendency_format_2, formatService.formatPressure(
+                    it.convertTo(units),
+                    Units.getDecimalPlaces(units) + 1,
+                    false
+                )
+            )
         }
+
+        return arrayOf(
+            getString(R.string.low_amount, stringValues[0]),
+            getString(R.string.medium_amount, stringValues[1]),
+            getString(R.string.high_amount, stringValues[2])
+        )
     }
 
-    @ArrayRes
-    private fun getStormSensitivityArray(units: PressureUnits): Int {
-        return when (units) {
-            PressureUnits.Hpa -> R.array.storm_sensitivity_entries_hpa
-            PressureUnits.Inhg -> R.array.storm_sensitivity_entries_in
-            PressureUnits.Psi -> R.array.storm_sensitivity_entries_psi
-            else -> R.array.storm_sensitivity_entries_mbar
+    private fun getStormSensitivities(units: PressureUnits): Array<CharSequence> {
+        val hpa = listOf(
+            Pressure(WeatherPreferences.HPA_STORM_LOW, PressureUnits.Hpa),
+            Pressure(WeatherPreferences.HPA_STORM_MEDIUM, PressureUnits.Hpa),
+            Pressure(WeatherPreferences.HPA_STORM_HIGH, PressureUnits.Hpa),
+        )
+
+        val stringValues = hpa.map {
+            getString(
+                R.string.pressure_tendency_format_2, formatService.formatPressure(
+                    it.convertTo(units),
+                    Units.getDecimalPlaces(units) + 1,
+                    false
+                )
+            )
         }
+
+        return arrayOf(
+            getString(R.string.low_amount, stringValues[0]),
+            getString(R.string.medium_amount, stringValues[1]),
+            getString(R.string.high_amount, stringValues[2])
+        )
     }
 
 }
