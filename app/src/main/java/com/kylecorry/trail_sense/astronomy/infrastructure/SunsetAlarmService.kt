@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -41,8 +42,10 @@ class SunsetAlarmService : CoroutineForegroundService() {
         Log.i(TAG, "Broadcast received at ${ZonedDateTime.now()}")
 
         withContext(Dispatchers.IO) {
-            if (!gps.hasValidReading) {
-                gps.read()
+            withTimeoutOrNull(Duration.ofSeconds(12).toMillis()) {
+                if (!gps.hasValidReading) {
+                    gps.read()
+                }
             }
         }
 
