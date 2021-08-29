@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.paths
 
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.trail_sense.shared.PathEffectFactory
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 
 class ArrowPathLineDrawerStrategy : IPathLineDrawerStrategy {

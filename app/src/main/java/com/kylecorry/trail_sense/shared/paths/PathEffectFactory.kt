@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared
+package com.kylecorry.trail_sense.shared.paths
 
 import android.graphics.PathEffect
 import com.kylecorry.andromeda.canvas.ArrowPathEffect
