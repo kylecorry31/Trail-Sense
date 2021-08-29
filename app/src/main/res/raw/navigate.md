@@ -57,7 +57,7 @@ Backtrack can be used to record waypoints while hiking, and if lost you can navi
 
 You can enable Backtrack by opening it from the 'Tools' tab. Once on the Backtrack page, you can click the start button in the bottom right to turn it on. It will stay on until you disable it by clicking the same button. You can change the waypoint placing interval in Trail Sense Settings > Tools.
 
-On the Backtrack screen, you should see a list of waypoints, which represent your position at a specific time. From there, you can tap on a waypoint to start navigation, or you can click the menu button to either create a beacon from it or delete it. It is recommended that you create a beacon from the waypoint and use that to navigate, as waypoints will only be available for 2 days before being deleted forever.
+On the Backtrack screen, you should see a list of paths, which represent a backtrack session. Each path will contain waypoints (click on the path to view) which you can navigate to or create beacons. From there, you can see the path on a map with a grid for scale. You can select how to color the waypoints to find attributes you are interested in. It is recommended that you create a beacon from the waypoint and use that to navigate, as waypoints will only be available for the backtrack history duration (navigation settings) before being automatically deleted.
 
 Backtrack also shows your cell phone signal strength at time and location of the waypoint, learn more about that on the 'Signaling for help' guide.
 
