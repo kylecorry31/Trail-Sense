@@ -90,11 +90,14 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             if (timeAgo == null || pressure == null) {
                 binding.pressureMarker.text = ""
             } else {
-                val formatted = formatService.formatPressure(Pressure(pressure, units), Units.getDecimalPlaces(units))
+                val formatted = formatService.formatPressure(
+                    Pressure(pressure, units),
+                    Units.getDecimalPlaces(units)
+                )
                 binding.pressureMarker.text = getString(
                     R.string.pressure_reading_time_ago,
                     formatted,
-                    timeAgo.formatHM(false)
+                    formatService.formatDuration(timeAgo, false)
                 )
                 valueSelectedTime = System.currentTimeMillis()
             }
@@ -217,7 +220,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         binding.pressureMarker.text = getString(
             R.string.pressure_setpoint_format,
             formatted,
-            timeAgo.formatHM(true)
+            formatService.formatDuration(timeAgo, true)
         )
     }
 

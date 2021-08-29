@@ -15,10 +15,10 @@ import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.toDisplayFormat
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -129,7 +129,8 @@ class SunsetAlarmService : CoroutineForegroundService() {
 
         userPrefs.astronomy.setSunsetAlertLastSentDate(LocalDate.now())
 
-        val formattedTime = sunset.toDisplayFormat(this)
+        val formatService = FormatService(this)
+        val formattedTime = formatService.formatTime(sunset.toLocalTime(), false)
 
         val openIntent = NavigationUtils.pendingIntent(this, R.id.action_astronomy)
 

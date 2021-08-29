@@ -46,12 +46,16 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatTime(time: LocalTime, includeSeconds: Boolean = true): String {
+    fun formatTime(
+        time: LocalTime,
+        includeSeconds: Boolean = true,
+        includeMinutes: Boolean = true
+    ): String {
         val amPm = !prefs.use24HourTime
         return if (amPm) {
-            time.format(DateTimeFormatter.ofPattern("h:mm${if (includeSeconds) ":ss" else ""} a"))
+            time.format(DateTimeFormatter.ofPattern("h${if (includeMinutes) ":mm" else ""}${if (includeSeconds) ":ss" else ""} a"))
         } else {
-            time.format(DateTimeFormatter.ofPattern("H:mm${if (includeSeconds) ":ss" else ""}"))
+            time.format(DateTimeFormatter.ofPattern("H${if (includeMinutes) ":mm" else ""}${if (includeSeconds) ":ss" else ""}"))
         }
     }
 

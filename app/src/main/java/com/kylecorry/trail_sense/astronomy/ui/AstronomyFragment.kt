@@ -651,12 +651,14 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         withContext(Dispatchers.Main) {
             if (nextSunrise != null && (nextSunset == null || nextSunrise?.isBefore(nextSunset) == true)) {
-                binding.remainingTime.text = Duration.between(currentTime, nextSunrise).formatHM()
+                binding.remainingTime.text =
+                    formatService.formatDuration(Duration.between(currentTime, nextSunrise))
                 binding.remainingTimeLbl.text = getString(
                     R.string.until_sun_time, getSunriseWording()
                 )
             } else if (nextSunset != null) {
-                binding.remainingTime.text = Duration.between(currentTime, nextSunset).formatHM()
+                binding.remainingTime.text =
+                    formatService.formatDuration(Duration.between(currentTime, nextSunset))
                 binding.remainingTimeLbl.text = getString(
                     R.string.until_sun_time, getSunsetWording()
                 )
@@ -671,7 +673,10 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun getTimeString(time: LocalDateTime?): String {
-        return time?.toDisplayFormat(requireContext()) ?: "-"
+        if (time == null) {
+            return "-"
+        }
+        return formatService.formatTime(time.toLocalTime(), false)
     }
 
     private fun getDateString(date: LocalDate): String {
