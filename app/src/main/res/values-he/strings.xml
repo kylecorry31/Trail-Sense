@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="decrease">-</string>
     <string name="increase">+</string>
     <string name="direction_south_west">ד-מע</string>
     <string name="direction_north_west">צ-מע</string>
