@@ -31,9 +31,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRep
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.filterIndices
-import com.kylecorry.trail_sense.shared.io.ExternalUriService
-import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
-import com.kylecorry.trail_sense.shared.io.GpxIOService
+import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
@@ -58,10 +56,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private var displayedGroup: BeaconGroup? = null
 
     private val gpxService by lazy {
-        GpxIOService(
-            FragmentUriPicker(this),
-            ExternalUriService(requireContext())
-        )
+        IOFactory().createGpxService(this)
     }
 
     private val delayedUpdate = Timer {

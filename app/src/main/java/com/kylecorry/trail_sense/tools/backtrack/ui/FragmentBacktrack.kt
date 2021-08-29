@@ -17,9 +17,7 @@ import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.filterSatisfied
-import com.kylecorry.trail_sense.shared.io.ExternalUriService
-import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
-import com.kylecorry.trail_sense.shared.io.GpxIOService
+import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.tools.backtrack.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
@@ -41,10 +39,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     private val navigationService = NavigationService()
 
     private val gpxService by lazy {
-        GpxIOService(
-            FragmentUriPicker(this),
-            ExternalUriService(requireContext())
-        )
+        IOFactory().createGpxService(this)
     }
 
     private var pathIds: List<Long> = emptyList()
