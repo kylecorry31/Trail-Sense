@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.commands.LunarEclipseAlertCommand
 import com.kylecorry.trail_sense.astronomy.infrastructure.commands.MeteorShowerAlertCommand
+import com.kylecorry.trail_sense.astronomy.infrastructure.commands.TestAlertCommand
 import com.kylecorry.trail_sense.shared.commands.LocationCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.Dispatchers
@@ -48,7 +49,8 @@ class AstronomyAlertService : CoroutineForegroundService() {
 
         val commands: List<LocationCommand> = listOf(
             LunarEclipseAlertCommand(this),
-            MeteorShowerAlertCommand(this)
+            MeteorShowerAlertCommand(this),
+            TestAlertCommand(this)
         )
 
         withContext(Dispatchers.Main) {
