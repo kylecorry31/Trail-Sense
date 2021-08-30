@@ -1,22 +1,17 @@
 package com.kylecorry.trail_sense.shared
 
-import android.util.Range
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.kylecorry.andromeda.core.specifications.Specification
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
-import java.time.LocalDate
-import java.util.*
 
 fun Distance.times(value: Float): Distance {
     return Distance(distance * value, units)
@@ -60,44 +55,4 @@ fun IGPS.getPathPoint(pathId: Long): PathPoint {
         altitude,
         time
     )
-}
-
-fun <T : Comparable<T>> List<T>.rangeOrNull(): Range<T>? {
-    val min = minOrNull() ?: return null
-    val max = maxOrNull() ?: return null
-    return Range(min, max)
-}
-
-fun <T> List<T>.filterSatisfied(spec: Specification<T>): List<T> {
-    return filter { spec.isSatisfiedBy(it) }
-}
-
-fun <T> List<T>.filterNotSatisfied(spec: Specification<T>): List<T> {
-    return filterNot { spec.isSatisfiedBy(it) }
-}
-
-fun <T> List<T>.filterIndices(indices: List<Int>): List<T> {
-    return filterIndexed { index, _ -> indices.contains(index) }
-}
-
-fun String.capitalizeCompat(): String {
-    return replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-}
-
-fun String.capitalizeWords(): String {
-    val words = split(" ")
-    return words.joinToString(" ") { it.capitalizeCompat() }
-}
-
-fun Preferences.getLocalDate(key: String): LocalDate? {
-    val raw = getString(key) ?: return null
-    return try {
-        LocalDate.parse(raw)
-    } catch (e: Exception) {
-        null
-    }
-}
-
-fun Preferences.putLocalDate(key: String, date: LocalDate) {
-    putString(key, date.toString())
 }

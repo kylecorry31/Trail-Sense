@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.filterSatisfied
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
@@ -16,7 +17,6 @@ import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.filterSatisfied
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.tools.backtrack.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity

@@ -206,12 +206,7 @@
         <receiver
             android:name="com.kylecorry.trail_sense.astronomy.infrastructure.receivers.AstronomyAlertReceiver"
             android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.kylecorry.trail_sense.ASTRONOMY_ALERT" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+            android:exported="false" />
         <receiver
             android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver"
             android:enabled="true"

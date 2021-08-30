@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.tools.backtrack.domain.factories
 import android.content.Context
 import android.graphics.Color
 import android.util.Range
+import com.kylecorry.andromeda.core.rangeOrNull
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trail_sense.shared.rangeOrNull
 import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
 import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy

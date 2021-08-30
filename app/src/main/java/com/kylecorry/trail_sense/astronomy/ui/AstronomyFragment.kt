@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.time.roundNearestMinute
 import com.kylecorry.andromeda.core.units.Coordinate
