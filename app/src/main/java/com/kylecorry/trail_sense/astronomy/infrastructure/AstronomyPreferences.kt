@@ -45,7 +45,11 @@ class AstronomyPreferences(private val context: Context) {
             return raw == "always"
         }
 
-    var sendSunsetAlerts by BooleanPreference(cache, context.getString(R.string.pref_sunset_alerts), true)
+    var sendSunsetAlerts by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_sunset_alerts),
+        true
+    )
 
     val sunsetAlertMinutesBefore: Long
         get() {
@@ -61,6 +65,12 @@ class AstronomyPreferences(private val context: Context) {
 
     val showMeteorShowers: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_meteor_showers)) ?: true
+
+    val showLunarEclipses by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_lunar_eclipses),
+        true
+    )
 
     val showCivilTimes: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_civil_times)) ?: true
@@ -79,15 +89,19 @@ class AstronomyPreferences(private val context: Context) {
     }
 
     val leftQuickAction: QuickActionType
-        get(){
-            val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_left))?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Flashlight
+        get() {
+            val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_left))
+                ?.toIntCompat()
+            return QuickActionType.values().firstOrNull { it.id == id }
+                ?: QuickActionType.Flashlight
         }
 
     val rightQuickAction: QuickActionType
-        get(){
-            val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_right))?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.WhiteNoise
+        get() {
+            val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_right))
+                ?.toIntCompat()
+            return QuickActionType.values().firstOrNull { it.id == id }
+                ?: QuickActionType.WhiteNoise
         }
 
 }

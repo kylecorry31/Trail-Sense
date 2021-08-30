@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyEvent
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.astronomy.domain.LunarEclipse
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
@@ -141,6 +142,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 AstronomyEvent.NewMoon,
                 AstronomyEvent.QuarterMoon,
                 AstronomyEvent.MeteorShower,
+                AstronomyEvent.PartialLunarEclipse,
+                AstronomyEvent.TotalLunarEclipse
             )
             Pickers.item(
                 requireContext(),
@@ -149,7 +152,9 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     getString(R.string.full_moon),
                     getString(R.string.new_moon),
                     getString(R.string.quarter_moon),
-                    getString(R.string.meteor_shower)
+                    getString(R.string.meteor_shower),
+                    getString(R.string.partial_lunar_eclipse),
+                    getString(R.string.total_lunar_eclipse)
                 ),
                 options.indexOf(lastAstronomyEventSearch)
             ) {
@@ -410,6 +415,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             val solarNoon = astronomyService.getSolarNoon(gps.location, displayDate)
             val lunarNoon = astronomyService.getLunarNoon(gps.location, displayDate)
             val meteorShower = astronomyService.getMeteorShower(gps.location, displayDate)
+            val lunarEclipses = astronomyService.getLunarEclipses(gps.location, displayDate)
 
             // Sun and moon times
             details = listOfNotNull(
@@ -425,7 +431,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                         getString(R.string.sunset_label)
                     ), sunTimes.set?.toLocalDateTime()
                 ),
-                // TODO: Get moon icons
                 Pair(
                     Pair(R.drawable.ic_moon_rise to -1, getString(R.string.moon_rise)),
                     moonTimes.rise?.toLocalDateTime()
@@ -524,12 +529,50 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     )
                 )
             }
+
+            if (prefs.astronomy.showLunarEclipses) {
+                // TODO: Get eclipse icon
+                for (eclipse in sortEclipses(lunarEclipses)) {
+                    details.add(
+                        AstroDetail(
+                            R.drawable.ic_moon_new,
+                            if (eclipse.isTotal) getString(R.string.total_lunar_eclipse) else getString(
+                                R.string.partial_lunar_eclipse
+                            ),
+                            formatEclipseTimes(eclipse),
+                            -1
+                        )
+                    )
+                }
+            }
         }
 
         withContext(Dispatchers.Main) {
             detailList.setData(details)
         }
 
+    }
+
+    private fun sortEclipses(eclipses: List<LunarEclipse>): List<LunarEclipse> {
+        return eclipses.sortedWith(
+            compareBy { if (it.start.toLocalDate() == displayDate) it.start else it.end }
+        )
+    }
+
+    private fun formatEclipseTimes(eclipse: LunarEclipse): String {
+        val start = if (eclipse.start.toLocalDate() == displayDate) {
+            formatService.formatTime(eclipse.start.toLocalTime(), false)
+        } else {
+            "-"
+        }
+
+        val end = if (eclipse.end.toLocalDate() == displayDate) {
+            formatService.formatTime(eclipse.end.toLocalTime(), false)
+        } else {
+            "-"
+        }
+
+        return "$start\n$end"
     }
 
     private suspend fun getCivilDetails(): List<AstroDetail> {

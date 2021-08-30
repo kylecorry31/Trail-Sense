@@ -46,36 +46,36 @@
         app:title="@string/fields">
 
         <SwitchPreferenceCompat
+            android:summary="@string/pref_show_noon_summary"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_noon"
             app:singleLineTitle="false"
-            app:title="@string/noon"
-            android:summary="@string/pref_show_noon_summary"/>
+            app:title="@string/noon" />
 
         <SwitchPreferenceCompat
+            android:summary="@string/pref_show_civil_times_summary"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_civil_times"
             app:singleLineTitle="false"
-            app:title="@string/pref_show_civil_times_title"
-            android:summary="@string/pref_show_civil_times_summary"/>
+            app:title="@string/pref_show_civil_times_title" />
 
         <SwitchPreferenceCompat
+            android:summary="@string/for_sunrise_and_set"
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_nautical_times"
             app:singleLineTitle="false"
-            app:title="@string/pref_show_nautical_times_title"
-            android:summary="@string/for_sunrise_and_set"/>
+            app:title="@string/pref_show_nautical_times_title" />
 
         <SwitchPreferenceCompat
+            android:summary="@string/for_sunrise_and_set"
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_astronomical_times"
             app:singleLineTitle="false"
-            app:title="@string/pref_show_astronomical_times_title"
-            android:summary="@string/for_sunrise_and_set"/>
+            app:title="@string/pref_show_astronomical_times_title" />
 
         <SwitchPreferenceCompat
             app:defaultValue="false"
@@ -83,6 +83,13 @@
             app:key="@string/pref_show_moon_illumination"
             app:singleLineTitle="false"
             app:title="@string/moon_illumination" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_lunar_eclipses"
+            app:singleLineTitle="false"
+            app:title="@string/lunar_eclipses" />
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
@@ -117,7 +124,6 @@
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
-
 
 
 </PreferenceScreen>

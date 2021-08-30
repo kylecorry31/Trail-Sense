@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.core.units.Bearing
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.trailsensecore.domain.astronomy.*
 import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
+import com.kylecorry.trailsensecore.domain.astronomy.eclipse.EclipseType
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonPhase
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.time.Season
@@ -195,6 +196,44 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         )
     }
 
+    fun getLunarEclipses(
+        location: Coordinate,
+        date: LocalDate = LocalDate.now()
+    ): List<LunarEclipse> {
+        val partial = newAstronomyService.getNextEclipse(
+            date.atStartOfDay(ZoneId.systemDefault()).toInstant(),
+            location,
+            EclipseType.PartialLunar
+        )
+        val total = newAstronomyService.getNextEclipse(
+            date.atStartOfDay(ZoneId.systemDefault()).toInstant(),
+            location,
+            EclipseType.TotalLunar
+        )
+
+        val eclipses = mutableListOf<LunarEclipse>()
+
+        if (partial != null) {
+            val start = partial.start.toZonedDateTime().toLocalDateTime()
+            val end = partial.end.toZonedDateTime().toLocalDateTime()
+
+            if (start.toLocalDate() == date || end.toLocalDate() == date) {
+                eclipses.add(LunarEclipse(start, end, false))
+            }
+        }
+
+        if (total != null) {
+            val start = total.start.toZonedDateTime().toLocalDateTime()
+            val end = total.end.toZonedDateTime().toLocalDateTime()
+
+            if (start.toLocalDate() == date || end.toLocalDate() == date) {
+                eclipses.add(LunarEclipse(start, end, true))
+            }
+        }
+
+        return eclipses
+    }
+
     fun findNextEvent(
         event: AstronomyEvent,
         location: Coordinate,
@@ -213,6 +252,14 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
                 location,
                 start
             )?.peak?.toLocalDate() == start
+            AstronomyEvent.PartialLunarEclipse -> getLunarEclipses(
+                location,
+                start
+            ).find { !it.isTotal } != null
+            AstronomyEvent.TotalLunarEclipse -> getLunarEclipses(
+                location,
+                start
+            ).find { it.isTotal } != null
         }
         var date = start.plusDays(1)
         val end = start.plusDays(maxSearch.toDays())
@@ -228,6 +275,14 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
                     location,
                     date
                 )?.peak?.toLocalDate() == date
+                AstronomyEvent.PartialLunarEclipse -> getLunarEclipses(
+                    location,
+                    date
+                ).find { !it.isTotal } != null
+                AstronomyEvent.TotalLunarEclipse -> getLunarEclipses(
+                    location,
+                    date
+                ).find { it.isTotal } != null
             }
             if (hasEvent && !isInEvent) {
                 return date
