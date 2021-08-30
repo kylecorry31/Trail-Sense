@@ -2,15 +2,14 @@ package com.kylecorry.trail_sense.tools.level.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.kylecorry.andromeda.core.math.Vector3
+import com.kylecorry.andromeda.core.math.toDegrees
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.andromeda.core.math.Vector3
-import com.kylecorry.andromeda.core.math.toDegrees
-import com.kylecorry.trailsensecore.infrastructure.system.*
+import com.kylecorry.trail_sense.shared.*
 import kotlin.math.abs
 import kotlin.math.atan2
 

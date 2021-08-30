@@ -8,11 +8,11 @@ import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import com.kylecorry.andromeda.core.math.toDoubleCompat
 import com.kylecorry.andromeda.core.math.toFloatCompat
+import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.files.ExternalFiles
 import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
 import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
-import com.kylecorry.trailsensecore.infrastructure.view.ViewMeasurementUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -31,8 +31,8 @@ object PDFUtils {
                 return null
             }
             val pdfPage = renderer.openPage(page)
-            val width = ViewMeasurementUtils.dpi(context) / 72 * pdfPage.width
-            val height = ViewMeasurementUtils.dpi(context) / 72 * pdfPage.height
+            val width = Screen.dpi(context) / 72 * pdfPage.width
+            val height = Screen.dpi(context) / 72 * pdfPage.height
             val bitmap = Bitmap.createBitmap(width.toInt(), height.toInt(), Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
             canvas.drawColor(Color.WHITE)

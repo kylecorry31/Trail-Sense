@@ -12,7 +12,6 @@ import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.infrastructure.view.ViewMeasurementUtils
 import kotlin.math.ceil
 
 class Ruler(private val view: ConstraintLayout, private var units: DistanceUnits) {
@@ -69,7 +68,7 @@ class Ruler(private val view: ConstraintLayout, private var units: DistanceUnits
 
     @SuppressLint("ClickableViewAccessibility")
     private fun update() {
-        val dpi = ViewMeasurementUtils.dpi(context)
+        val dpi = Screen.dpi(context)
         val scale = userPrefs.navigation.rulerScale
         val height =
             scale * view.height / dpi.toDouble() * if (units == DistanceUnits.Centimeters) 2.54 else 1.0

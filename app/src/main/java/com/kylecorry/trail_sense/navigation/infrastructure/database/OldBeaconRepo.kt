@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.navigation.infrastructure.database
 import android.content.Context
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
-import com.kylecorry.trailsensecore.infrastructure.persistence.DatabaseConnection
+import com.kylecorry.trail_sense.shared.database.DatabaseConnection
 
 class OldBeaconRepo private constructor(context: Context) {
 

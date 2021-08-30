@@ -32,6 +32,7 @@ import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.ExceptionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView

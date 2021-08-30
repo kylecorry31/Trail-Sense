@@ -11,16 +11,15 @@ import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.asSignal
-import com.kylecorry.trailsensecore.domain.morse.MorseService
-import com.kylecorry.trailsensecore.domain.morse.Signal
-import com.kylecorry.trailsensecore.infrastructure.morse.SignalPlayer
+import com.kylecorry.trail_sense.shared.morse.Signal
+import com.kylecorry.trail_sense.shared.morse.SignalPlayer
+import com.kylecorry.trail_sense.shared.morse.Signals
 import java.time.Duration
 
 class SosService : ForegroundService() {
 
     private var torch: ITorch? = null
     private val signalPlayer by lazy { if (torch == null) null else SignalPlayer(torch!!.asSignal()) }
-    private val morseService = MorseService()
     override val foregroundNotificationId: Int
         get() = NOTIFICATION_ID
 
@@ -47,7 +46,7 @@ class SosService : ForegroundService() {
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
         isRunning = true
         torch = Torch(this)
-        val sos = morseService.sosSignal(Duration.ofMillis(200)) + listOf(
+        val sos = Signals.sos(Duration.ofMillis(200)) + listOf(
             Signal.off(Duration.ofMillis(200L * 7))
         )
         signalPlayer?.play(sos, true)

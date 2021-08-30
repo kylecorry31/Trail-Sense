@@ -13,11 +13,11 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.IBeaconRepo
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.IWaypointRepo
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
-import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.FusedAltimeter
 import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant

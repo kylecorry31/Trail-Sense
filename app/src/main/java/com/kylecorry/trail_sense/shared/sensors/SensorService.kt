@@ -32,6 +32,7 @@ import com.kylecorry.andromeda.signal.CellSignalSensor
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
 import com.kylecorry.trail_sense.shared.sensors.odometer.Odometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
@@ -39,7 +40,6 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
-import com.kylecorry.trailsensecore.infrastructure.sensors.altimeter.FusedAltimeter
 
 class SensorService(ctx: Context) {
 

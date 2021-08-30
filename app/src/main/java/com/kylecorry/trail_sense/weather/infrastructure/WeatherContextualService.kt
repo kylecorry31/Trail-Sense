@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
+import com.kylecorry.trail_sense.shared.MemoryCachedValue
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
@@ -9,7 +10,6 @@ import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.PressureTendency
 import com.kylecorry.trailsensecore.domain.weather.Weather
-import com.kylecorry.trailsensecore.infrastructure.persistence.MemoryCachedValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext

@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
-import com.kylecorry.trailsensecore.infrastructure.audio.Whistle
+import com.kylecorry.trail_sense.tools.whistle.infrastructure.Whistle
 
 class QuickActionWhistle(btn: FloatingActionButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {

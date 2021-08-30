@@ -12,41 +12,27 @@ import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
 import com.kylecorry.trail_sense.shared.asSignal
-import com.kylecorry.trailsensecore.domain.morse.MorseService
-import com.kylecorry.trailsensecore.domain.morse.Signal
-import com.kylecorry.trailsensecore.infrastructure.audio.Whistle
-import com.kylecorry.trailsensecore.infrastructure.morse.SignalPlayer
+import com.kylecorry.trail_sense.shared.morse.Signal
+import com.kylecorry.trail_sense.shared.morse.SignalPlayer
+import com.kylecorry.trail_sense.shared.morse.Signals
+import com.kylecorry.trail_sense.tools.whistle.infrastructure.Whistle
 import java.time.Duration
 
 class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
 
     private lateinit var whistle: ISoundPlayer
-    private val morseService = MorseService()
 
     private val morseDurationMs = 400L
 
     private var state = WhistleState.Off
 
-    private val emergencySignal = listOf(
-        Signal.on(Duration.ofSeconds(2)),
-        Signal.off(Duration.ofSeconds(1)),
-        Signal.on(Duration.ofSeconds(2)),
-        Signal.off(Duration.ofSeconds(1)),
-        Signal.on(Duration.ofSeconds(2)),
-        Signal.off(Duration.ofSeconds(3))
-    )
+    private val emergencySignal = Signals.help()
 
-    private val whereAreYouAndAcknowledgedSignal = listOf(
-        Signal.on(Duration.ofSeconds(2)),
-    )
+    private val whereAreYouAndAcknowledgedSignal = Signals.acknowledged()
 
-    private val comeHereSignal = listOf(
-        Signal.on(Duration.ofSeconds(2)),
-        Signal.off(Duration.ofSeconds(1)),
-        Signal.on(Duration.ofSeconds(2)),
-    )
+    private val comeHereSignal = Signals.comeHere()
 
-    private val sosSignal = morseService.sosSignal(Duration.ofMillis(morseDurationMs)) + listOf(
+    private val sosSignal = Signals.sos(Duration.ofMillis(morseDurationMs)) + listOf(
         Signal.off(
             Duration.ofMillis(morseDurationMs * 7)
         )
@@ -76,8 +62,8 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
                 requireContext(),
                 getString(R.string.tool_whistle_title),
                 options
-            ){
-                if (it != null){
+            ) {
+                if (it != null) {
                     whistle.off()
                     when (it) {
                         0 -> signalWhistle.play(
