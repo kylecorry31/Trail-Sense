@@ -531,11 +531,10 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             }
 
             if (prefs.astronomy.showLunarEclipses) {
-                // TODO: Get eclipse icon
                 for (eclipse in sortEclipses(lunarEclipses)) {
                     details.add(
                         AstroDetail(
-                            R.drawable.ic_moon_new,
+                            if (eclipse.isTotal) R.drawable.ic_moon_total_eclipse else R.drawable.ic_moon_partial_eclipse,
                             if (eclipse.isTotal) getString(R.string.total_lunar_eclipse) else getString(
                                 R.string.partial_lunar_eclipse
                             ),
