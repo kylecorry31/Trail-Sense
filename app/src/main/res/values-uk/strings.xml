@@ -948,7 +948,7 @@
 \n%s</string>
     <string name="gps_unavailable_resolution">Увімкніть \"Місцезнаходження\" або змініть джерело місцезнаходження на \"Лише пристрій\" або \"Висока точність\"</string>
     <string name="battery_restricted_resolution">Установіть Trail Sense як Не оптимізований</string>
-    <string name="power_saving_mode_resolution">Вимкніть режим енергозбереження</string>
+    <string name="power_saving_mode_resolution">Вимкніть режим енергоощадження</string>
     <string name="location_override_not_set_resolution">Установіть перевизначення розташування в налаштуваннях</string>
     <string name="location_override_resolution">Увімкніть автоматичне налаштування розташування в налаштуваннях.</string>
     <string name="altitude_override_resolution">Увімкніть автоматичне калібрування в налаштуваннях.</string>
@@ -957,7 +957,7 @@
     <string name="activity_recognition">Розпізнавання діяльності</string>
     <string name="background_location_permission">Розташування (дозволити весь час)</string>
     <string name="grant_permission">Надання дозволу %s</string>
-    <string name="no_resolution">Немає роздільної здатності</string>
+    <string name="no_resolution">Немає дозволу</string>
     <string name="sighting_compass">Ручний компас</string>
     <string name="no_issues">Хиб не виявлено</string>
     <string name="notifications_blocked">Сповіщення заблоковано</string>
@@ -988,4 +988,9 @@
     <string name="old">Старе</string>
     <string name="path">Шлях</string>
     <string name="units_mmhg_short">мм</string>
+    <string name="pick_file">Виберіть файл</string>
+    <string name="export_path_error">Не вдалося експортувати шлях</string>
+    <string name="path_exported">Шлях експортовано</string>
+    <string name="no_paths">Шляхів немає</string>
+    <string name="navigate">Навігація</string>
 </resources>
