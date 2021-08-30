@@ -38,7 +38,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.volumeactions.VolumeAction
-import com.kylecorry.trailsensecore.infrastructure.system.*
 import java.time.Duration
 import kotlin.system.exitProcess
 
