@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.receivers
 import android.content.Context
 import android.os.Build
 import com.kylecorry.trail_sense.NotificationChannels
+import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.AstronomyAlertReceiver
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -20,6 +21,7 @@ object TrailSenseServiceUtils {
         NotificationChannels.createChannels(context)
         startWeatherMonitoring(context)
         startSunsetAlarm(context)
+        startAstronomyAlerts(context)
         startBacktrack(context)
         startPedometer(context)
         BatteryLogWorker.scheduler(context).schedule(Duration.ofSeconds(1))
@@ -58,6 +60,10 @@ object TrailSenseServiceUtils {
 
     private fun startSunsetAlarm(context: Context) {
         context.sendBroadcast(SunsetAlarmReceiver.intent(context))
+    }
+
+    private fun startAstronomyAlerts(context: Context){
+        context.sendBroadcast(AstronomyAlertReceiver.intent(context))
     }
 
 }

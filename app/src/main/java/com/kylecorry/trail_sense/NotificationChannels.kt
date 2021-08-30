@@ -19,6 +19,7 @@ object NotificationChannels {
     const val GROUP_FLASHLIGHT = "trail_sense_flashlight"
     const val GROUP_WEATHER = "trail_sense_weather"
     const val GROUP_DAILY_WEATHER = "trail_sense_daily_weather"
+    const val GROUP_ASTRONOMY_ALERTS = "trail_sense_astronomy_alerts"
     const val GROUP_STORM = "trail_sense_storm"
     const val GROUP_SUNSET = "trail_sense_sunset"
     const val GROUP_PEDOMETER = "trail_sense_pedometer"
@@ -26,6 +27,7 @@ object NotificationChannels {
     const val GROUP_CLOCK = "trail_sense_clock"
 
     const val CHANNEL_BACKGROUND_UPDATES = "background_updates"
+    const val CHANNEL_ASTRONOMY_ALERTS = "astronomy_alerts"
 
     fun createChannels(context: Context) {
         // Flashlight
@@ -140,6 +142,16 @@ object NotificationChannels {
             context.getString(R.string.sunset_alert_channel_title),
             context.getString(R.string.sunset_alerts),
             Notify.CHANNEL_IMPORTANCE_HIGH,
+            false
+        )
+
+        // Astronomy alerts
+        Notify.createChannel(
+            context,
+            CHANNEL_ASTRONOMY_ALERTS,
+            context.getString(R.string.astronomy_alerts),
+            context.getString(R.string.astronomy_alerts),
+            Notify.CHANNEL_IMPORTANCE_LOW,
             false
         )
 

@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import java.time.LocalDate
+import java.time.LocalTime
 
 class AstronomyPreferences(private val context: Context) {
 
@@ -48,6 +49,27 @@ class AstronomyPreferences(private val context: Context) {
     var sendSunsetAlerts by BooleanPreference(
         cache,
         context.getString(R.string.pref_sunset_alerts),
+        true
+    )
+
+    val sendAstronomyAlerts: Boolean
+        get() {
+            return sendLunarEclipseAlerts || sendMeteorShowerAlerts
+        }
+
+    // TODO: Let the user set this
+    var astronomyAlertTime: LocalTime = LocalTime.of(10, 0)
+
+    // TODO: Alerts should be off by default
+    val sendLunarEclipseAlerts by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_send_lunar_eclipse_alerts),
+        true
+    )
+
+    val sendMeteorShowerAlerts by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_send_meteor_shower_alerts),
         true
     )
 

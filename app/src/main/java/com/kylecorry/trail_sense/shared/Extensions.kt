@@ -9,11 +9,13 @@ import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trailsensecore.domain.geo.PathPoint
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
+import java.time.LocalDate
 import java.util.*
 
 fun Distance.times(value: Float): Distance {
@@ -85,4 +87,17 @@ fun String.capitalizeCompat(): String {
 fun String.capitalizeWords(): String {
     val words = split(" ")
     return words.joinToString(" ") { it.capitalizeCompat() }
+}
+
+fun Preferences.getLocalDate(key: String): LocalDate? {
+    val raw = getString(key) ?: return null
+    return try {
+        LocalDate.parse(raw)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+fun Preferences.putLocalDate(key: String, date: LocalDate) {
+    putString(key, date.toString())
 }
