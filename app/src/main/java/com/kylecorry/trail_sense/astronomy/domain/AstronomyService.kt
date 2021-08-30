@@ -196,49 +196,32 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         )
     }
 
-    fun getLunarEclipses(
+    fun getLunarEclipse(
         location: Coordinate,
         date: LocalDate = LocalDate.now()
-    ): List<LunarEclipse> {
-        val partial = newAstronomyService.getNextEclipse(
+    ): LunarEclipse? {
+        val nextEclipse = newAstronomyService.getNextEclipse(
             date.atStartOfDay(ZoneId.systemDefault()).toInstant(),
             location,
             EclipseType.PartialLunar
-        )
-        val total = newAstronomyService.getNextEclipse(
-            date.atStartOfDay(ZoneId.systemDefault()).toInstant(),
-            location,
-            EclipseType.TotalLunar
-        )
+        ) ?: return null
 
-        val eclipses = mutableListOf<LunarEclipse>()
+        val start = nextEclipse.start.toZonedDateTime().toLocalDateTime()
+        val end = nextEclipse.end.toZonedDateTime().toLocalDateTime()
+        val peak = nextEclipse.maximum.toZonedDateTime().toLocalDateTime()
 
-        if (partial != null) {
-            val start = partial.start.toZonedDateTime().toLocalDateTime()
-            val end = partial.end.toZonedDateTime().toLocalDateTime()
-
-            if (start.toLocalDate() == date || end.toLocalDate() == date) {
-                eclipses.add(LunarEclipse(start, end, false))
-            }
+        if (start.toLocalDate() != date && end.toLocalDate() != date){
+            return null
         }
 
-        if (total != null) {
-            val start = total.start.toZonedDateTime().toLocalDateTime()
-            val end = total.end.toZonedDateTime().toLocalDateTime()
-
-            if (start.toLocalDate() == date || end.toLocalDate() == date) {
-                eclipses.add(LunarEclipse(start, end, true))
-            }
-        }
-
-        return eclipses
+        return LunarEclipse(start, end, peak, nextEclipse.magnitude)
     }
 
     fun findNextEvent(
         event: AstronomyEvent,
         location: Coordinate,
         start: LocalDate = LocalDate.now(),
-        maxSearch: Duration = Duration.ofDays(365)
+        maxSearch: Duration = Duration.ofDays(365 * 2L)
     ): LocalDate? {
         // TODO: Add method to get date of true moon phase in TS Core and remove the is in event logic
         var isInEvent = when (event) {
@@ -252,14 +235,10 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
                 location,
                 start
             )?.peak?.toLocalDate() == start
-            AstronomyEvent.PartialLunarEclipse -> getLunarEclipses(
+            AstronomyEvent.LunarEclipse -> getLunarEclipse(
                 location,
                 start
-            ).find { !it.isTotal } != null
-            AstronomyEvent.TotalLunarEclipse -> getLunarEclipses(
-                location,
-                start
-            ).find { it.isTotal } != null
+            ) != null
         }
         var date = start.plusDays(1)
         val end = start.plusDays(maxSearch.toDays())
@@ -275,14 +254,10 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
                     location,
                     date
                 )?.peak?.toLocalDate() == date
-                AstronomyEvent.PartialLunarEclipse -> getLunarEclipses(
+                AstronomyEvent.LunarEclipse -> getLunarEclipse(
                     location,
                     date
-                ).find { !it.isTotal } != null
-                AstronomyEvent.TotalLunarEclipse -> getLunarEclipses(
-                    location,
-                    date
-                ).find { it.isTotal } != null
+                ) != null
             }
             if (hasEvent && !isInEvent) {
                 return date

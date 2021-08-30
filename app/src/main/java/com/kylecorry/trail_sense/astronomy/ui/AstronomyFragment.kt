@@ -142,8 +142,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 AstronomyEvent.NewMoon,
                 AstronomyEvent.QuarterMoon,
                 AstronomyEvent.MeteorShower,
-                AstronomyEvent.PartialLunarEclipse,
-                AstronomyEvent.TotalLunarEclipse
+                AstronomyEvent.LunarEclipse
             )
             Pickers.item(
                 requireContext(),
@@ -153,9 +152,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     getString(R.string.new_moon),
                     getString(R.string.quarter_moon),
                     getString(R.string.meteor_shower),
-                    getString(R.string.partial_lunar_eclipse),
-                    getString(R.string.total_lunar_eclipse)
-                ),
+                    getString(R.string.lunar_eclipse)
+                ).map { it.capitalizeWords() },
                 options.indexOf(lastAstronomyEventSearch)
             ) {
                 if (it != null) {
@@ -415,7 +413,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             val solarNoon = astronomyService.getSolarNoon(gps.location, displayDate)
             val lunarNoon = astronomyService.getLunarNoon(gps.location, displayDate)
             val meteorShower = astronomyService.getMeteorShower(gps.location, displayDate)
-            val lunarEclipses = astronomyService.getLunarEclipses(gps.location, displayDate)
+            val lunarEclipse = astronomyService.getLunarEclipse(gps.location, displayDate)
 
             // Sun and moon times
             details = listOfNotNull(
@@ -530,18 +528,17 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 )
             }
 
-            if (prefs.astronomy.showLunarEclipses) {
-                for (eclipse in sortEclipses(lunarEclipses)) {
-                    details.add(
-                        AstroDetail(
-                            if (eclipse.isTotal) R.drawable.ic_moon_total_eclipse else R.drawable.ic_moon_partial_eclipse,
-                            if (eclipse.isTotal) getString(R.string.total_lunar_eclipse) else getString(
-                                R.string.partial_lunar_eclipse
-                            ),
-                            formatEclipseTimes(eclipse),
-                            -1
-                        )
-                    )
+            if (prefs.astronomy.showLunarEclipses && lunarEclipse != null) {
+                // TODO: Add popup for eclipse details
+                val start = lunarEclipse.start.toLocalDate()
+                val end = lunarEclipse.end.toLocalDate()
+
+                if (start == displayDate) {
+                    details.add(lunarEclipseStart(lunarEclipse))
+                }
+
+                if (end == displayDate) {
+                    details.add(lunarEclipseEnd(lunarEclipse))
                 }
             }
         }
@@ -552,13 +549,35 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     }
 
-    private fun sortEclipses(eclipses: List<LunarEclipse>): List<LunarEclipse> {
-        return eclipses.sortedWith(
-            compareBy { if (it.start.toLocalDate() == displayDate) it.start else it.end }
+    private fun lunarEclipseStart(eclipse: LunarEclipse): AstroDetail {
+        val eclipseAmount = if (eclipse.isTotal) getString(R.string.total) else getString(
+            R.string.partial,
+            formatService.formatPercentage(eclipse.magnitude * 100)
+        )
+        val time = formatService.formatTime(eclipse.start.toLocalTime(), includeSeconds = false)
+        return AstroDetail(
+            if (eclipse.isTotal) R.drawable.ic_moon_total_eclipse else R.drawable.ic_moon_partial_eclipse,
+            getString(R.string.lunar_eclipse_start),
+            "$time\n$eclipseAmount",
+            -1
         )
     }
 
-    private fun formatEclipseTimes(eclipse: LunarEclipse): String {
+    private fun lunarEclipseEnd(eclipse: LunarEclipse): AstroDetail {
+        val eclipseAmount = if (eclipse.isTotal) getString(R.string.total) else getString(
+            R.string.partial,
+            formatService.formatPercentage(eclipse.magnitude * 100)
+        )
+        val time = formatService.formatTime(eclipse.end.toLocalTime(), includeSeconds = false)
+        return AstroDetail(
+            if (eclipse.isTotal) R.drawable.ic_moon_total_eclipse else R.drawable.ic_moon_partial_eclipse,
+            getString(R.string.lunar_eclipse_end),
+            "$time\n$eclipseAmount",
+            -1
+        )
+    }
+
+    private fun getEclipseDescription(eclipse: LunarEclipse): String {
         val start = if (eclipse.start.toLocalDate() == displayDate) {
             formatService.formatTime(eclipse.start.toLocalTime(), false)
         } else {

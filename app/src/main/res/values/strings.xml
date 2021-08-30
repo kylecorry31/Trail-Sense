@@ -88,7 +88,7 @@
     <!--Weather Tab-->
     <string name="units_hpa">hPa</string>
 
-<!--    This will always be in inches-->
+    <!--    This will always be in inches-->
     <string name="units_inhg">inHg</string>
     <!--    This will always be in mm-->
     <string name="units_mmhg">mmHg</string>
@@ -304,7 +304,7 @@
     <string name="pref_monitor_weather_title">Monitor weather</string>
     <string name="pref_forecast_sensitivity_title">Forecast sensitivity</string>
 
-<!--    TODO: DELETE THESE-->
+    <!--    TODO: DELETE THESE-->
     <string name="forecast_sensitivity_low_hpa">Low (2.5 hPa / 3h)</string>
     <string name="forecast_sensitivity_med_hpa">Medium (1.5 hPa / 3h)</string>
     <string name="forecast_sensitivity_high_hpa">High (0.5 hPa / 3h)</string>
@@ -1074,7 +1074,7 @@
     <string name="merge_previous_path_title">Merge with previous path?</string>
     <string name="no_previous_path">No previous path</string>
     <string name="grid_size">%s grid</string>
-<!--    This will always be in mm-->
+    <!--    This will always be in mm-->
     <string name="units_mmhg_short">mm</string>
     <string name="path">Path</string>
     <string name="old">Old</string>
@@ -1087,10 +1087,13 @@
     <string name="low_amount">Low (%s)</string>
     <string name="medium_amount">Medium (%s)</string>
     <string name="high_amount">High (%s)</string>
-    <string name="pref_show_lunar_eclipses">pref_show_lunar_eclipses</string>
-    <string name="total_lunar_eclipse">Total lunar eclipse</string>
-    <string name="partial_lunar_eclipse">Partial lunar eclipse</string>
+    <string name="pref_show_lunar_eclipses" translatable="false">pref_show_lunar_eclipses</string>
     <string name="lunar_eclipses">Lunar eclipses</string>
+    <string name="total">Total</string>
+    <string name="partial">Partial (%s)</string>
+    <string name="lunar_eclipse_start">Lunar eclipse (start)</string>
+    <string name="lunar_eclipse_end">Lunar eclipse (end)</string>
+    <string name="lunar_eclipse">Lunar eclipse</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d waypoint will be deleted</item>
         <item quantity="other">%d waypoints will be deleted</item>
