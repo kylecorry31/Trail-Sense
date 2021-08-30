@@ -126,7 +126,7 @@ object CustomUiUtils {
         }
         distanceInput?.units = units
         distanceInput?.value = default
-        if (default == null){
+        if (default == null) {
             distanceInput?.unit = units.firstOrNull()
         }
 
@@ -276,11 +276,19 @@ object CustomUiUtils {
         }
     }
 
-    fun setImageColor(view: ImageView, @ColorInt color: Int){
+    fun setImageColor(view: ImageView, @ColorInt color: Int?) {
+        if (color == null) {
+            view.clearColorFilter()
+            return
+        }
         view.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
 
-    fun setImageColor(drawable: Drawable, @ColorInt color: Int){
+    fun setImageColor(drawable: Drawable, @ColorInt color: Int?) {
+        if (color == null) {
+            drawable.clearColorFilter()
+            return
+        }
         drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
 

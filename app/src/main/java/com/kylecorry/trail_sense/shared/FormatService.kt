@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.core.units.*
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
+import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Region
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import java.time.Duration
@@ -484,6 +485,21 @@ class FormatService(private val context: Context) {
             CellNetwork.Wcdma -> context.getString(R.string.network_3g)
             else -> context.getString(R.string.network_no_signal)
         }
+    }
+
+    fun formatMoonPhase(phase: MoonTruePhase): String {
+        return context.getString(
+            when (phase) {
+                MoonTruePhase.FirstQuarter -> R.string.first_quarter
+                MoonTruePhase.Full -> R.string.full_moon
+                MoonTruePhase.ThirdQuarter -> R.string.third_quarter
+                MoonTruePhase.New -> R.string.new_moon
+                MoonTruePhase.WaningCrescent -> R.string.waning_crescent
+                MoonTruePhase.WaningGibbous -> R.string.waning_gibbous
+                MoonTruePhase.WaxingCrescent -> R.string.waxing_crescent
+                MoonTruePhase.WaxingGibbous -> R.string.waxing_gibbous
+            }
+        )
     }
 
 
