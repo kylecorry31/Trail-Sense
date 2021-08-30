@@ -162,7 +162,7 @@
     <string name="third_quarter">Ostatnia kwadra</string>
     <string name="until_sun_time">do %s</string>
     <string name="notification_monitoring_weather">Monitorowanie pogody w tle</string>
-    <string name="notification_storm_alert_channel_name">Alerty</string>
+    <string name="alerts">Alerty</string>
     <string name="units_inhg_short">in</string>
     <string name="beacon_invalid_name">Nieprawidłowa nazwa</string>
     <string name="share_action_send">Wyślij</string>

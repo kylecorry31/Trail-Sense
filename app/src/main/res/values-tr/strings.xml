@@ -574,7 +574,7 @@
     <string name="notification_storm_alert_title">Fırtına Uyarısı</string>
     <string name="notification_storm_alert_text">Fırtına yaklaşıyor olabilir</string>
     <string name="storm_alerts">Fırtına uyarıları</string>
-    <string name="notification_storm_alert_channel_name">Uyarılar</string>
+    <string name="alerts">Uyarılar</string>
     <string name="pressure_reading_time_ago">%s - %s önce</string>
     <string name="pressure_setpoint_format">Ayarla: %s - %s önce</string>
     <string name="pressure_format">%s %s</string>

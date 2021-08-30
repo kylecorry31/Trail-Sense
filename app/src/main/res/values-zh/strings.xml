@@ -150,7 +150,7 @@
     <string name="notification_storm_alert_title">暴风雨警报</string>
     <string name="notification_storm_alert_text">一场暴风雨可能正在逼近</string>
     <string name="storm_alerts">暴风雨警报</string>
-    <string name="notification_storm_alert_channel_name">警报</string>
+    <string name="alerts">警报</string>
     <string name="units_inhg_short">英寸汞柱</string>
     <string name="beacon_elevation_hint_feet">海拔英尺数（可选）</string>
     <string name="accuracy_distance_unknown">\?</string>

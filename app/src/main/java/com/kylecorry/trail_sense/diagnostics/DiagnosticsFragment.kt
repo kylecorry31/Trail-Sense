@@ -293,7 +293,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             )
             DiagnosticCode.StormAlertsBlocked -> getString(
                 R.string.unblock_notification_channel,
-                getString(R.string.notification_storm_alert_channel_name)
+                getString(R.string.alerts)
             )
             DiagnosticCode.DailyForecastNotificationsBlocked -> getString(
                 R.string.unblock_notification_channel,

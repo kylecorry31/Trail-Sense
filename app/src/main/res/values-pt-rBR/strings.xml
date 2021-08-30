@@ -165,7 +165,7 @@
     <string name="moon_illumination">Iluminação da lua</string>
     <string name="degree_format">%.0f°</string>
     <string name="pref_show_weather_notification_title">Mostrar notificação meteorológica</string>
-    <string name="notification_storm_alert_channel_name">Alertas</string>
+    <string name="alerts">Alertas</string>
     <string name="storm_alerts">Alertas de tempestade</string>
     <string name="update_90_minutes">1 hora 30 minutos</string>
     <string name="update_120_minutes">2 horas</string>

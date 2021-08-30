@@ -114,7 +114,7 @@
     <string name="no_humidity_data">Нет данных о влажности</string>
     <string name="notification_storm_alert_text">Приближается шторм</string>
     <string name="storm_alerts">Штормовые предупреждения</string>
-    <string name="notification_storm_alert_channel_name">Предупреждения</string>
+    <string name="alerts">Предупреждения</string>
     <string name="units_inhg_short">д</string>
     <string name="beacon_comment">Примечания (необязательно)</string>
     <string name="beacon_invalid_name">Неверное название</string>

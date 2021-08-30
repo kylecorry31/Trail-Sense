@@ -413,7 +413,7 @@
     <string name="notification_storm_alert_title">Alerta de tempestade</string>
     <string name="notification_storm_alert_text">Uma tempestade pode estar se aproximando</string>
     <string name="storm_alerts">Alertas de tempestade</string>
-    <string name="notification_storm_alert_channel_name">Alertas</string>
+    <string name="alerts">Alertas</string>
     <string name="pressure_reading_time_ago">%s - %s atrás</string>
     <string name="pressure_setpoint_format">Definir: %s - %s atrás</string>
     <string name="pressure_format">%s %s</string>

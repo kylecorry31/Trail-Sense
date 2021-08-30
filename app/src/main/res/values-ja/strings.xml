@@ -190,7 +190,7 @@
     <string name="notification_storm_alert_title">暴風雨アラート</string>
     <string name="notification_storm_alert_text">暴風雨が近づいている可能性があります</string>
     <string name="storm_alerts">暴風雨アラート</string>
-    <string name="notification_storm_alert_channel_name">アラート</string>
+    <string name="alerts">アラート</string>
     <string name="pressure_format">%s %s</string>
     <string name="units_inhg_short">in</string>
     <string name="beacon_comment">ノート (オプション)</string>

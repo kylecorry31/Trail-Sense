@@ -679,7 +679,7 @@
     <string name="notification_storm_alert_title">Upozorenje o Oluji</string>
     <string name="notification_storm_alert_text">Možda se bliži oluja</string>
     <string name="storm_alerts">Upozorenja za oluju</string>
-    <string name="notification_storm_alert_channel_name">Upozorenja</string>
+    <string name="alerts">Upozorenja</string>
     <string name="pressure_reading_time_ago">prije %s - %s</string>
     <string name="pressure_setpoint_format">Postavljeno: prije %s - %s</string>
     <string name="pressure_format">%s %s</string>

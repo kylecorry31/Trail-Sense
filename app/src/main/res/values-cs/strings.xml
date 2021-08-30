@@ -223,7 +223,7 @@
     <string name="notification_monitoring_weather">Sledování počasí na pozadí</string>
     <string name="notification_storm_alert_title">Výstraha před bouří</string>
     <string name="storm_alerts">Výstrahy před bouřkami</string>
-    <string name="notification_storm_alert_channel_name">Výstrahy</string>
+    <string name="alerts">Výstrahy</string>
     <string name="pressure_reading_time_ago">před %s - %s</string>
     <string name="pressure_setpoint_format">Nastaveno před: %s - %s</string>
     <string name="turn_off">Vypnout</string>

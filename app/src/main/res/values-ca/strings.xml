@@ -134,7 +134,7 @@
     <string name="notification_storm_alert_title">Alerta de tempesta</string>
     <string name="notification_storm_alert_text">Una tempesta podria estar apropant-se</string>
     <string name="storm_alerts">Alertes de tempesta</string>
-    <string name="notification_storm_alert_channel_name">Alertes</string>
+    <string name="alerts">Alertes</string>
     <string name="pressure_reading_time_ago">fa %s - %s</string>
     <string name="pressure_setpoint_format">Establert: fa %s - %s</string>
     <string name="pressure_format">%s %s</string>

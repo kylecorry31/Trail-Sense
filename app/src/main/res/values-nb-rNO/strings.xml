@@ -72,7 +72,7 @@
     <string name="notification_storm_alert_title">Stormvarsel</string>
     <string name="notification_storm_alert_text">En storm kan nærme seg</string>
     <string name="storm_alerts">Stormvarsler</string>
-    <string name="notification_storm_alert_channel_name">Varsler</string>
+    <string name="alerts">Varsler</string>
     <string name="stop_monitoring">Stopp</string>
     <string name="beacon_invalid_name">Ugyldig navn</string>
     <string name="name">Navn</string>

@@ -112,7 +112,7 @@ object NotificationChannels {
         Notify.createChannel(
             context,
             WeatherUpdateService.STORM_CHANNEL_ID,
-            context.getString(R.string.notification_storm_alert_channel_name),
+            context.getString(R.string.alerts),
             context.getString(R.string.storm_alerts),
             Notify.CHANNEL_IMPORTANCE_HIGH
         )

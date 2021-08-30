@@ -252,7 +252,7 @@
     <string name="notification_storm_alert_title">Avviso temporale</string>
     <string name="notification_storm_alert_text">Potrebbe essere in arriv un temporale</string>
     <string name="storm_alerts">Allarme temporali</string>
-    <string name="notification_storm_alert_channel_name">Allarmi</string>
+    <string name="alerts">Allarmi</string>
     <string name="pressure_reading_time_ago">%s - %s fa</string>
     <string name="pressure_setpoint_format">Impostato: %s - %s fa</string>
     <string name="quality_good">Buono</string>

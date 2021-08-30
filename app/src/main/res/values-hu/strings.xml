@@ -37,7 +37,7 @@
     <string name="notification_storm_alert_title">Vihar riasztás</string>
     <string name="notification_storm_alert_text">Vihar közeledhet</string>
     <string name="storm_alerts">Vihar riasztások</string>
-    <string name="notification_storm_alert_channel_name">Riasztások</string>
+    <string name="alerts">Riasztások</string>
     <string name="pressure_reading_time_ago">%s - %s óta</string>
     <string name="pressure_setpoint_format">Beállítva ennyi ideje: %s - %s</string>
     <string name="pressure_format">%s %s</string>

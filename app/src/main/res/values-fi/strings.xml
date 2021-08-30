@@ -28,7 +28,7 @@
     <string name="notification_storm_alert_title">Myrskyhälytys</string>
     <string name="notification_storm_alert_text">Myrsky saattaa lähestyä</string>
     <string name="storm_alerts">Myrskyhälytykset</string>
-    <string name="notification_storm_alert_channel_name">Hälytykset</string>
+    <string name="alerts">Hälytykset</string>
     <string name="pressure_reading_time_ago">%s - %s sitten</string>
     <string name="pressure_setpoint_format">Asetettu: %s - %s sitten</string>
     <string name="pressure_format">%s %s</string>

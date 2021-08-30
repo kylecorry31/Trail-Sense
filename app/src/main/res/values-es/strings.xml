@@ -90,7 +90,7 @@
     <string name="notification_storm_alert_title">Alerta de tormenta</string>
     <string name="notification_storm_alert_text">Podría estar acercándose una tormenta</string>
     <string name="storm_alerts">Alertas de tormenta</string>
-    <string name="notification_storm_alert_channel_name">Alertas</string>
+    <string name="alerts">Alertas</string>
     <string name="pressure_reading_time_ago">%s - hace %s</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>

@@ -74,7 +74,7 @@
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_text">暴風雨可能正在接近</string>
     <string name="storm_alerts">暴風雨警報</string>
-    <string name="notification_storm_alert_channel_name">警告</string>
+    <string name="alerts">警告</string>
     <string name="pressure_format">%s %s</string>
     <string name="stop_monitoring">停止</string>
     <string name="units_psi">磅每平方吋(PSI)</string>

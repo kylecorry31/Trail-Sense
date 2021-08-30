@@ -103,7 +103,7 @@
     <string name="moon_phase">Mondphase</string>
     <string name="lunar_noon">Mondkulmination</string>
     <string name="solar_noon">Sonnenkulmination</string>
-    <string name="notification_storm_alert_channel_name">Warnungen</string>
+    <string name="alerts">Warnungen</string>
     <string name="storm_alerts">Sturmwarnungen</string>
     <string name="pref_coordinate_format_title">Koordinatenformat</string>
     <string name="coordinate_format_decimal_degrees">Dezimalgrad</string>

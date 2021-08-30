@@ -9,7 +9,7 @@
     <string name="notification_storm_alert_title">Výstraha pred búrkou</string>
     <string name="notification_storm_alert_text">Možno sa blíži búrka</string>
     <string name="storm_alerts">Výstrahy pred búrkami</string>
-    <string name="notification_storm_alert_channel_name">Výstrahy</string>
+    <string name="alerts">Výstrahy</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="stop_monitoring">Zastaviť</string>

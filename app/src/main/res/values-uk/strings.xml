@@ -658,7 +658,7 @@
     <string name="notification_storm_alert_title">Штормове попередження</string>
     <string name="notification_storm_alert_text">Можливо, наближається шторм</string>
     <string name="storm_alerts">Штормові попередження</string>
-    <string name="notification_storm_alert_channel_name">Попередження</string>
+    <string name="alerts">Попередження</string>
     <string name="pressure_reading_time_ago">%s - %s тому</string>
     <string name="pressure_setpoint_format">Задано: %s - %s тому</string>
     <string name="pressure_format">%s %s</string>

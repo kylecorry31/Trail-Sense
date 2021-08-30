@@ -75,7 +75,7 @@
     <string name="notification_storm_alert_title">Ekaitz abisua</string>
     <string name="notification_storm_alert_text">Ekaitz bat hurbiltzen egon liteke</string>
     <string name="storm_alerts">Ekaitz abisuak</string>
-    <string name="notification_storm_alert_channel_name">Abisuak</string>
+    <string name="alerts">Abisuak</string>
     <string name="pressure_setpoint_format">Ezarrita: orain dela %s - %s</string>
     <string name="pressure_reading_time_ago">Orain dela %s - %s</string>
     <string name="pressure_format">%s %s</string>

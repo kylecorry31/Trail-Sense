@@ -172,7 +172,7 @@
     <string name="notification_storm_alert_title">Stormwaarschuwing</string>
     <string name="notification_storm_alert_text">Er komt misschien een storm aan</string>
     <string name="storm_alerts">Stormwaarschuwingen</string>
-    <string name="notification_storm_alert_channel_name">Waarschuwingen</string>
+    <string name="alerts">Waarschuwingen</string>
     <string name="pressure_reading_time_ago">%s - %s geleden</string>
     <string name="pressure_setpoint_format">Stel in: %s - %s geleden</string>
     <string name="pressure_format">%s %s</string>

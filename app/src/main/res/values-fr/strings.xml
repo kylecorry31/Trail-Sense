@@ -191,7 +191,7 @@
     <string name="notification_storm_alert_title">Alerte tempête</string>
     <string name="notification_storm_alert_text">Une tempête est peut-être imminente</string>
     <string name="storm_alerts">Alertes relatives aux tempêtes</string>
-    <string name="notification_storm_alert_channel_name">Alertes</string>
+    <string name="alerts">Alertes</string>
     <string name="no_humidity_data">Données d\'hygrométrie indisponibles</string>
     <string name="beacon_comment">Notes (optionnel)</string>
     <string name="beacon_elevation_hint_meters">Altitude, en mètres (optionnel)</string>
