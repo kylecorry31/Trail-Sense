@@ -57,13 +57,13 @@ Example beacons: home, work, trailhead, campsite
 
 The barometer can be used to determine if the weather will change soon and if a storm is likely to occur. The barometric pressure history (last 48 hours) is displayed as a graph and an interpretation of the current reading is shown. If the pressure suddenly drops, a storm alert notification is sent. Note, this feature is only available for phones which have a barometer.
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="Weather Screenshot" height="500"/>
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" alt="Weather Screenshot" height="500"/>
 
 ### Astronomy
 
 View the sun/moon rise and set times and see the current phase of the moon at your exact location.
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="Astronomy Screenshot" height="500"/>
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" alt="Astronomy Screenshot" height="500"/>
 
 # Privacy
 
