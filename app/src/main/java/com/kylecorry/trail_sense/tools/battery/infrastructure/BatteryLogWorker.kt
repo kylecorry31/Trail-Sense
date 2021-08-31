@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.kylecorry.andromeda.jobs.DeferredTaskScheduler
 import com.kylecorry.andromeda.jobs.ITaskScheduler
+import com.kylecorry.andromeda.jobs.WorkTaskScheduler
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.BatteryLogCommand
 import java.time.Duration
 import java.time.LocalDateTime
@@ -29,10 +29,11 @@ class BatteryLogWorker(context: Context, params: WorkerParameters) :
         private const val WORK_TAG = "com.kylecorry.trail_sense.BatteryLogWorker"
 
         fun scheduler(context: Context): ITaskScheduler {
-            return DeferredTaskScheduler(
+            return WorkTaskScheduler(
                 context,
                 BatteryLogWorker::class.java,
-                WORK_TAG
+                WORK_TAG,
+                false
             )
         }
     }

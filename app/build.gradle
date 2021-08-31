@@ -38,8 +38,8 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
     packagingOptions {
-        merge  'META-INF/LICENSE.md'
-        merge  'META-INF/LICENSE-notice.md'
+        merge 'META-INF/LICENSE.md'
+        merge 'META-INF/LICENSE-notice.md'
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
@@ -83,7 +83,7 @@ dependencies {
     implementation 'com.github.kylecorry31:Trail-Sense-Core:4.3.0'
 
     // Andromeda
-    def andromeda_version = "1.3.2"
+    def andromeda_version = "1.4.0"
     implementation "com.github.kylecorry31.andromeda:core:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:fragments:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:forms:${andromeda_version}"

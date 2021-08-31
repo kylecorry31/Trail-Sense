@@ -5,7 +5,8 @@ import android.content.pm.ServiceInfo
 import android.os.Build
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import com.kylecorry.andromeda.jobs.DeferredTaskScheduler
+import com.kylecorry.andromeda.jobs.DailyWorker
+import com.kylecorry.andromeda.jobs.WorkTaskScheduler
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
@@ -66,7 +67,7 @@ class AstronomyDailyWorker(context: Context, params: WorkerParameters) : DailyWo
     companion object {
         private const val UNIQUE_ID = "com.kylecorry.trail_sense.astronomy.AstronomyDailyWorker"
         fun start(context: Context) {
-            DeferredTaskScheduler(context, AstronomyDailyWorker::class.java, UNIQUE_ID).schedule(
+            WorkTaskScheduler(context, AstronomyDailyWorker::class.java, UNIQUE_ID, false).schedule(
                 Duration.ZERO
             )
         }

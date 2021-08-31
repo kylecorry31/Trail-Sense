@@ -7,7 +7,7 @@ import android.util.Log
 import com.kylecorry.andromeda.core.sensors.read
 import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.andromeda.jobs.ExactTaskScheduler
+import com.kylecorry.andromeda.jobs.AlarmTaskScheduler
 import com.kylecorry.andromeda.jobs.ITaskScheduler
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.services.CoroutineForegroundService
@@ -178,7 +178,7 @@ class SunsetAlarmService : CoroutineForegroundService() {
         const val NOTIFICATION_CHANNEL_ID = "Sunset alert"
 
         fun scheduler(context: Context): ITaskScheduler {
-            return ExactTaskScheduler(context) { SunsetAlarmReceiver.pendingIntent(context) }
+            return AlarmTaskScheduler(context) { SunsetAlarmReceiver.pendingIntent(context) }
         }
 
         fun intent(context: Context): Intent {

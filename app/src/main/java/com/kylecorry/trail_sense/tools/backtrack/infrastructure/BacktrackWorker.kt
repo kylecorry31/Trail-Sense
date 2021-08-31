@@ -7,8 +7,8 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import com.kylecorry.andromeda.jobs.DeferredTaskScheduler
 import com.kylecorry.andromeda.jobs.ITaskScheduler
+import com.kylecorry.andromeda.jobs.WorkTaskScheduler
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
@@ -62,10 +62,11 @@ class BacktrackWorker(context: Context, params: WorkerParameters) :
         private const val WORK_TAG = "com.kylecorry.trail_sense.BacktrackWorker"
 
         fun scheduler(context: Context): ITaskScheduler {
-            return DeferredTaskScheduler(
+            return WorkTaskScheduler(
                 context,
                 BacktrackWorker::class.java,
-                WORK_TAG
+                WORK_TAG,
+                false
             )
         }
     }
