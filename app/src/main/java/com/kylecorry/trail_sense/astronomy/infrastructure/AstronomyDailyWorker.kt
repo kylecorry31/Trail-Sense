@@ -7,7 +7,6 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.jobs.DeferredTaskScheduler
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.commands.AstronomyAlertCommand
@@ -31,7 +30,6 @@ class AstronomyDailyWorker(context: Context, params: WorkerParameters) : DailyWo
     }
 
     override fun getLastRunKey(context: Context): String {
-        Preferences(context).remove("pref_astronomy_alerts_last_run_date")
         return "pref_astronomy_alerts_last_run_date"
     }
 
