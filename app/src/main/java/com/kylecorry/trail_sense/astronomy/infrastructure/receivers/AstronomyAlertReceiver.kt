@@ -33,6 +33,7 @@ class AstronomyAlertReceiver : DailyJobReceiver() {
 
     companion object {
         fun start(context: Context) {
+            // TODO: Switch this to a daily worker
             context.sendBroadcast(Intent(context, AstronomyAlertReceiver::class.java))
         }
     }

@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.receivers
 import android.content.Context
 import android.os.Build
 import com.kylecorry.trail_sense.NotificationChannels
-import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.AstronomyAlertReceiver
+import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -63,7 +63,8 @@ object TrailSenseServiceUtils {
     }
 
     private fun startAstronomyAlerts(context: Context) {
-        AstronomyAlertReceiver.start(context)
+//        AstronomyAlertReceiver.start(context)
+        AstronomyDailyWorker.start(context)
     }
 
 }
