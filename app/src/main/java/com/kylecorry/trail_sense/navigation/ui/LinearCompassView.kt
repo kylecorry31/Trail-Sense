@@ -150,7 +150,7 @@ class LinearCompassView : CanvasView, ICompassView {
                             else -> ""
                         }
                         noStroke()
-                        fill(Resources.androidTextColorPrimary(context))
+                        fill(Resources.color(context, R.color.colorPrimary))
                         textMode(TextMode.Corner)
                         text(coord, pixDeg * (i - minDegrees), 5 / 12f * height)
                     }
