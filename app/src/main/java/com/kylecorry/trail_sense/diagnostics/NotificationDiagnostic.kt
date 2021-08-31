@@ -9,7 +9,9 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
-import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
+import com.kylecorry.trail_sense.weather.infrastructure.commands.CurrentWeatherAlertCommand
+import com.kylecorry.trail_sense.weather.infrastructure.commands.DailyWeatherAlertCommand
+import com.kylecorry.trail_sense.weather.infrastructure.commands.StormAlertCommand
 
 class NotificationDiagnostic(private val context: Context) : IDiagnostic {
 
@@ -24,11 +26,11 @@ class NotificationDiagnostic(private val context: Context) : IDiagnostic {
             codes.add(DiagnosticCode.SunsetAlertsBlocked)
         }
 
-        if (isChannelBlocked(context, WeatherUpdateService.STORM_CHANNEL_ID)) {
+        if (isChannelBlocked(context, StormAlertCommand.STORM_CHANNEL_ID)) {
             codes.add(DiagnosticCode.StormAlertsBlocked)
         }
 
-        if (isChannelBlocked(context, WeatherUpdateService.DAILY_CHANNEL_ID)) {
+        if (isChannelBlocked(context, DailyWeatherAlertCommand.DAILY_CHANNEL_ID)) {
             codes.add(DiagnosticCode.DailyForecastNotificationsBlocked)
         }
 
@@ -42,7 +44,7 @@ class NotificationDiagnostic(private val context: Context) : IDiagnostic {
 
         if (isChannelBlocked(
                 context,
-                WeatherUpdateService.WEATHER_CHANNEL_ID
+                CurrentWeatherAlertCommand.WEATHER_CHANNEL_ID
             ) && Sensors.hasBarometer(context)
         ) {
             codes.add(DiagnosticCode.WeatherNotificationsBlocked)

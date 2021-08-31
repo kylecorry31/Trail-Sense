@@ -1,17 +1,50 @@
 package com.kylecorry.trail_sense.tools.backtrack.infrastructure
 
 import android.content.Context
-import androidx.work.Worker
+import android.content.pm.ServiceInfo
+import android.os.Build
+import androidx.work.CoroutineWorker
+import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.jobs.DeferredTaskScheduler
 import com.kylecorry.andromeda.jobs.ITaskScheduler
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackService
+import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.trail_sense.NotificationChannels
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.commands.BacktrackCommand
 
 
-class BacktrackWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
-    override fun doWork(): Result {
-        BacktrackService.start(applicationContext)
+class BacktrackWorker(context: Context, params: WorkerParameters) :
+    CoroutineWorker(context, params) {
+    override suspend fun doWork(): Result {
+        setForeground(createForegroundInfo(applicationContext))
+        BacktrackCommand(applicationContext).execute()
+        scheduler(applicationContext).schedule(UserPreferences(applicationContext).backtrackRecordFrequency)
         return Result.success()
+    }
+
+    private fun createForegroundInfo(context: Context): ForegroundInfo {
+        val notification = Notify.background(
+            context,
+            NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
+            context.getString(R.string.backtrack),
+            context.getString(R.string.backtrack_notification_description),
+            R.drawable.ic_update,
+            group = NotificationChannels.GROUP_UPDATES
+        )
+
+        val notificationId = 76984343
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ForegroundInfo(
+                notificationId,
+                notification,
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
+            )
+        } else {
+            ForegroundInfo(notificationId, notification)
+        }
     }
 
     companion object {
@@ -21,7 +54,8 @@ class BacktrackWorker(context: Context, params: WorkerParameters) : Worker(conte
             return DeferredTaskScheduler(
                 context,
                 BacktrackWorker::class.java,
-                WORK_TAG)
+                WORK_TAG
+            )
         }
     }
 

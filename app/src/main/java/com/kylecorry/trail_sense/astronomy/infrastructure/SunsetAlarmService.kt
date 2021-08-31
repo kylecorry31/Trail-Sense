@@ -166,7 +166,8 @@ class SunsetAlarmService : CoroutineForegroundService() {
             NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
             getString(R.string.background_update),
             getString(R.string.sunset_alert_location_update),
-            R.drawable.ic_update
+            R.drawable.ic_update,
+            group = NotificationChannels.GROUP_UPDATES
         )
     }
 

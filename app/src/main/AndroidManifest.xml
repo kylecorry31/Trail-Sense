@@ -92,11 +92,6 @@
             android:exported="false" />
 
         <service
-            android:name=".weather.infrastructure.services.WeatherUpdateService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="location" />
-        <service
             android:name=".astronomy.infrastructure.SunsetAlarmService"
             android:enabled="true"
             android:exported="false"
@@ -125,10 +120,9 @@
             android:exported="false" />
 
         <service
-            android:name=".tools.backtrack.infrastructure.services.BacktrackService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="location" />
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:foregroundServiceType="location"
+            tools:node="merge" />
 
         <service
             android:name=".tools.whitenoise.infrastructure.WhiteNoiseService"

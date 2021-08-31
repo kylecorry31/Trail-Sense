@@ -5,42 +5,21 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.services.CoroutineIntervalService
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.backtrack.domain.Backtrack
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.commands.BacktrackCommand
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.receivers.StopBacktrackReceiver
 import java.time.Duration
 
 class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
-    private val gps by lazy { sensorService.getGPS(true) }
-    private val altimeter by lazy { sensorService.getAltimeter(true) }
-    private val cellSignal by lazy { sensorService.getCellSignal(true) }
-    private val sensorService by lazy { SensorService(applicationContext) }
-    private val waypointRepo by lazy { WaypointRepo.getInstance(applicationContext) }
-    private val beaconRepo by lazy { BeaconRepo.getInstance(applicationContext) }
     private val prefs by lazy { UserPreferences(applicationContext) }
     private val formatService by lazy { FormatService(this) }
-    private val cache by lazy { Preferences(this) }
 
-    private val backtrack by lazy {
-        Backtrack(
-            this,
-            gps,
-            altimeter,
-            cellSignal,
-            waypointRepo,
-            beaconRepo,
-            prefs.backtrackSaveCellHistory,
-            prefs.navigation.backtrackHistory,
-            cache
-        )
+    private val backtrackCommand by lazy {
+        BacktrackCommand(this)
     }
 
     override val foregroundNotificationId: Int
@@ -73,7 +52,7 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
     }
 
     override suspend fun doWork() {
-        backtrack.recordLocation()
+        backtrackCommand.execute()
     }
 
     override fun onDestroy() {

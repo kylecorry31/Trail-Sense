@@ -7,7 +7,6 @@ import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
 import com.kylecorry.trailsensecore.domain.weather.Weather
 
 class StormAlertCommand(private val context: Context, private val forecast: Weather) :
@@ -24,7 +23,7 @@ class StormAlertCommand(private val context: Context, private val forecast: Weat
             if (shouldSend && !sentAlert) {
                 val notification = Notify.alert(
                     context,
-                    WeatherUpdateService.STORM_CHANNEL_ID,
+                    STORM_CHANNEL_ID,
                     context.getString(R.string.notification_storm_alert_title),
                     context.getString(R.string.notification_storm_alert_text),
                     R.drawable.ic_alert,
@@ -42,6 +41,7 @@ class StormAlertCommand(private val context: Context, private val forecast: Weat
 
     companion object {
         private const val STORM_ALERT_NOTIFICATION_ID = 74309823
+        const val STORM_CHANNEL_ID = "Alerts"
     }
 
 }

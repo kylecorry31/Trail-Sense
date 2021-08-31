@@ -7,7 +7,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.CanSendDailyForecast
-import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import java.time.LocalDate
 import java.time.LocalTime
@@ -48,7 +47,7 @@ class DailyWeatherAlertCommand(private val context: Context, private val forecas
 
         val notification = Notify.status(
             context,
-            WeatherUpdateService.DAILY_CHANNEL_ID,
+            DAILY_CHANNEL_ID,
             context.getString(if (prefs.weather.dailyWeatherIsForTomorrow) R.string.tomorrows_forecast else R.string.todays_forecast),
             description,
             icon,
@@ -62,6 +61,7 @@ class DailyWeatherAlertCommand(private val context: Context, private val forecas
 
     companion object {
         private const val DAILY_NOTIFICATION_ID = 798643
+        const val DAILY_CHANNEL_ID = "daily-weather"
     }
 
 }

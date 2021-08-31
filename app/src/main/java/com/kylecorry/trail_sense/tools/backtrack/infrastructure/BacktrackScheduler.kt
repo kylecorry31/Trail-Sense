@@ -6,7 +6,6 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackAlwaysOnService
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackService
 import java.time.Duration
 
 object BacktrackScheduler {
@@ -34,7 +33,6 @@ object BacktrackScheduler {
         val scheduler = getScheduler(context)
         scheduler.cancel()
         context.stopService(BacktrackAlwaysOnService.intent(context))
-        context.stopService(BacktrackService.intent(context))
     }
 
     fun isOn(context: Context): Boolean {

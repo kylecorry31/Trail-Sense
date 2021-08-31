@@ -11,7 +11,9 @@ import com.kylecorry.trail_sense.tools.flashlight.infrastructure.StrobeService
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
+import com.kylecorry.trail_sense.weather.infrastructure.commands.CurrentWeatherAlertCommand
+import com.kylecorry.trail_sense.weather.infrastructure.commands.DailyWeatherAlertCommand
+import com.kylecorry.trail_sense.weather.infrastructure.commands.StormAlertCommand
 
 object NotificationChannels {
 
@@ -111,7 +113,7 @@ object NotificationChannels {
         // Storm alert
         Notify.createChannel(
             context,
-            WeatherUpdateService.STORM_CHANNEL_ID,
+            StormAlertCommand.STORM_CHANNEL_ID,
             context.getString(R.string.alerts),
             context.getString(R.string.storm_alerts),
             Notify.CHANNEL_IMPORTANCE_HIGH
@@ -119,7 +121,7 @@ object NotificationChannels {
 
         Notify.createChannel(
             context,
-            WeatherUpdateService.WEATHER_CHANNEL_ID,
+            CurrentWeatherAlertCommand.WEATHER_CHANNEL_ID,
             context.getString(R.string.weather),
             context.getString(R.string.notification_monitoring_weather),
             Notify.CHANNEL_IMPORTANCE_LOW,
@@ -128,7 +130,7 @@ object NotificationChannels {
 
         Notify.createChannel(
             context,
-            WeatherUpdateService.DAILY_CHANNEL_ID,
+            DailyWeatherAlertCommand.DAILY_CHANNEL_ID,
             context.getString(R.string.todays_forecast),
             context.getString(R.string.todays_forecast),
             Notify.CHANNEL_IMPORTANCE_LOW,

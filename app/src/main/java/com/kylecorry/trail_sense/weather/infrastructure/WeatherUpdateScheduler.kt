@@ -4,7 +4,6 @@ import android.content.Context
 import com.kylecorry.andromeda.jobs.ITaskScheduler
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.services.WeatherUpdateService
 import java.time.Duration
 
 object WeatherUpdateScheduler {
@@ -22,10 +21,9 @@ object WeatherUpdateScheduler {
         Notify.cancel(context, WEATHER_NOTIFICATION_ID)
         val scheduler = getScheduler(context)
         scheduler.cancel()
-        context.stopService(WeatherUpdateService.intent(context))
     }
 
-    fun getScheduler(context: Context): ITaskScheduler {
+    private fun getScheduler(context: Context): ITaskScheduler {
         return WeatherUpdateWorker.scheduler(context)
     }
 

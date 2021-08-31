@@ -72,7 +72,8 @@ class AstronomyAlertService : CoroutineForegroundService() {
             NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
             getString(R.string.background_update),
             getString(R.string.checking_for_astronomy_events),
-            R.drawable.ic_update
+            R.drawable.ic_update,
+            group = NotificationChannels.GROUP_UPDATES
         )
     }
 
