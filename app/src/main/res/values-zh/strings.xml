@@ -929,4 +929,9 @@
     <string name="old">旧</string>
     <string name="path">路径</string>
     <string name="units_mmhg_short">毫米</string>
+    <string name="pick_file">挑选文件</string>
+    <string name="export_path_error">无法导出路径</string>
+    <string name="path_exported">已导出路径</string>
+    <string name="no_paths">无路径</string>
+    <string name="navigate">导航</string>
 </resources>
