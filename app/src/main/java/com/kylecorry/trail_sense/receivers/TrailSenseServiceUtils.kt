@@ -63,7 +63,6 @@ object TrailSenseServiceUtils {
     }
 
     private fun startAstronomyAlerts(context: Context) {
-//        AstronomyAlertReceiver.start(context)
         AstronomyDailyWorker.start(context)
     }
 
