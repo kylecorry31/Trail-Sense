@@ -115,11 +115,6 @@
             android:exported="false" />
 
         <service
-            android:name=".tools.battery.infrastructure.BatteryLogService"
-            android:enabled="true"
-            android:exported="false" />
-
-        <service
             android:name="androidx.work.impl.foreground.SystemForegroundService"
             android:foregroundServiceType="location"
             tools:node="merge" />

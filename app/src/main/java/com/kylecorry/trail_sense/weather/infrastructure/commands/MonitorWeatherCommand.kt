@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.weather.infrastructure.commands
 
 import android.content.Context
-import android.util.Log
 import com.kylecorry.andromeda.core.sensors.read
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
@@ -15,7 +14,6 @@ import com.kylecorry.trailsensecore.domain.weather.Weather
 import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant
-import java.time.ZonedDateTime
 
 class MonitorWeatherCommand(private val context: Context) : CoroutineCommand {
 
@@ -73,7 +71,6 @@ class MonitorWeatherCommand(private val context: Context) : CoroutineCommand {
             )
             pressureRepo.deleteOlderThan(Instant.now().minus(Duration.ofDays(2)))
         }
-        Log.i("MonitorWeatherCommand", "Got all readings recorded at ${ZonedDateTime.now()}")
     }
 
     private suspend fun sendWeatherNotifications() {

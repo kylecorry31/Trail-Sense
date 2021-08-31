@@ -24,7 +24,7 @@ object TrailSenseServiceUtils {
         startAstronomyAlerts(context)
         startBacktrack(context)
         startPedometer(context)
-        BatteryLogWorker.scheduler(context).schedule(Duration.ofSeconds(1))
+        BatteryLogWorker.scheduler(context).schedule(Duration.ZERO)
         TileManager().setTilesEnabled(
             context,
             UserPreferences(context).power.areTilesEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
@@ -62,7 +62,7 @@ object TrailSenseServiceUtils {
         context.sendBroadcast(SunsetAlarmReceiver.intent(context))
     }
 
-    private fun startAstronomyAlerts(context: Context){
+    private fun startAstronomyAlerts(context: Context) {
         AstronomyAlertReceiver.start(context)
     }
 
