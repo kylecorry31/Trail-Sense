@@ -711,7 +711,7 @@
     <string name="disclaimer_message_title">免责声明</string>
     <string name="background_update">后台升级</string>
     <string name="sunset_alert_location_update">更新日落警报的位置</string>
-    <string name="backtrack_battery_warning">间隔时间过短(10分钟以下)可能导致电池过度消耗</string>
+    <string name="backtrack_battery_warning">间隔时间过短(15分钟以下)可能导致电池过度消耗</string>
     <string name="battery_warning">电池耗竭警告</string>
     <string name="backtrack_high_priority_notification">路标放置间隔 %s</string>
     <string name="updates">更新</string>

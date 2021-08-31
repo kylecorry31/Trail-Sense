@@ -13,7 +13,7 @@
     <string name="calibrate_new_tide">Yeni gelgit için kalibre etmek istediğinizden emin misiniz\?</string>
     <string name="background_update">Arkaplan güncellemesi</string>
     <string name="sunset_alert_location_update">Gün batımı uyarısı için konum güncelleniyor</string>
-    <string name="backtrack_battery_warning">Kısa aralıklar (10 dakikanın altında) aşırı pil tüketimine neden olabilir</string>
+    <string name="backtrack_battery_warning">Kısa aralıklar (15 dakikanın altında) aşırı pil tüketimine neden olabilir</string>
     <string name="battery_warning">Pil tüketimi uyarısı</string>
     <string name="backtrack_high_priority_notification">Her %s\'de ara nokta konuluyor</string>
     <string name="updates">Güncellemeler</string>

@@ -5,7 +5,7 @@
     <string name="calibrate_new_tide">Відкалібрувати новий приплив\?</string>
     <string name="background_update">Оновлення у тлі</string>
     <string name="sunset_alert_location_update">Оновлення місцеперебування для попередження про захід сонця</string>
-    <string name="backtrack_battery_warning">Невеликі інтервали (менш як 10 хвилин) можуть призвести до надмірного розряджання батареї</string>
+    <string name="backtrack_battery_warning">Невеликі інтервали (менш як 15 хвилин) можуть призвести до надмірного розряджання батареї</string>
     <string name="battery_warning">Попередження про розряджання акумулятора</string>
     <string name="backtrack_high_priority_notification">Розміщення шляхової точки кожні %s</string>
     <string name="updates">Оновлення</string>

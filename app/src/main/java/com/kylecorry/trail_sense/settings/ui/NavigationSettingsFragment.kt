@@ -89,7 +89,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
                     prefBacktrackInterval.summary = formatService.formatDuration(it)
                     restartBacktrack()
 
-                    if (it < Duration.ofMinutes(10)) {
+                    if (it < Duration.ofMinutes(15)) {
                         Alerts.dialog(
                             requireContext(),
                             getString(R.string.battery_warning),

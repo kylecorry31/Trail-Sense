@@ -726,7 +726,7 @@
     <string name="calibrate_new_tide">Откалибровать новый прилив\?</string>
     <string name="background_update">Фоновое обновление</string>
     <string name="sunset_alert_location_update">Обновление местоположения для оповещения о закате</string>
-    <string name="backtrack_battery_warning">Небольшие интервалы (менее 10 минут) могут привести к чрезмерному разряду батареи</string>
+    <string name="backtrack_battery_warning">Небольшие интервалы (менее 15 минут) могут привести к чрезмерному разряду батареи</string>
     <string name="battery_warning">Предупреждение о разряде батареи</string>
     <string name="backtrack_high_priority_notification">Размещение путевой точки каждые %s</string>
     <string name="updates">Обновления</string>

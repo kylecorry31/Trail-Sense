@@ -806,7 +806,7 @@
     <string name="calibrate_new_tide">Calibrar para uma nova maré\?</string>
     <string name="background_update">Atualização em segundo plano</string>
     <string name="sunset_alert_location_update">Atualização do local para alerta de pôr-do-sol</string>
-    <string name="backtrack_battery_warning">Pequenos intervalos (menos de 10 minutos) pode causar um consumo excessivo da bateria</string>
+    <string name="backtrack_battery_warning">Pequenos intervalos (menos de 15 minutos) pode causar um consumo excessivo da bateria</string>
     <string name="battery_warning">Aviso do consumo da bateria</string>
     <string name="backtrack_high_priority_notification">Colocando um ponto de passagem a cada %s</string>
     <string name="updates">Atualizações</string>

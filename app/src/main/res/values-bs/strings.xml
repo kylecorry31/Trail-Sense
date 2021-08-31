@@ -213,7 +213,7 @@
     <string name="water_boil_guide_title">Pretvori vodu da bude sigurna za piće</string>
     <string name="background_update">Ažuriranje u pozadini</string>
     <string name="sunset_alert_location_update">Ažuriranje lokacije za upozorenje o zalasku sunca</string>
-    <string name="backtrack_battery_warning">Mali intervali (ispod 10 minuta) mogu prouzrokovati prekomjerno pražnjenje baterije</string>
+    <string name="backtrack_battery_warning">Mali intervali (ispod 15 minuta) mogu prouzrokovati prekomjerno pražnjenje baterije</string>
     <string name="battery_warning">Upozorenje o pražnjenju baterije</string>
     <string name="backtrack_high_priority_notification">Postavljanje međutočke svakih %s</string>
     <string name="updates">Ažuriranja</string>

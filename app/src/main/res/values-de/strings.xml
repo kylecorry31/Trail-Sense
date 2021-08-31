@@ -717,7 +717,7 @@
     <string name="calibrate_new_tide">Für eine neue Gezeit kalibrieren\?</string>
     <string name="background_update">Hintergrundaktualisierungen</string>
     <string name="sunset_alert_location_update">Aktualisiere Standort für Sonnenuntergangsalarme</string>
-    <string name="backtrack_battery_warning">Kleine Intervalle (unter 10 Minuten) könnten hohe Batterieentladung verursachen</string>
+    <string name="backtrack_battery_warning">Kleine Intervalle (unter 15 Minuten) könnten hohe Batterieentladung verursachen</string>
     <string name="battery_warning">Batterieentladungswarnung</string>
     <string name="backtrack_high_priority_notification">Platziere einen Wegpunkt alle %s</string>
     <string name="updates">Aktualisierungen</string>

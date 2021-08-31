@@ -146,7 +146,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
 
     private fun getBatteryUsage(service: RunningService): String {
         val usage = when {
-            service.frequency <= Duration.ofMinutes(10) -> {
+            service.frequency < Duration.ofMinutes(15) -> {
                 getString(R.string.high)
             }
             service.frequency <= Duration.ofMinutes(25) -> {

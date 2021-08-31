@@ -21,7 +21,7 @@ object BacktrackScheduler {
             return
         }
 
-        if (prefs.backtrackRecordFrequency >= Duration.ofMinutes(10)) {
+        if (prefs.backtrackRecordFrequency >= Duration.ofMinutes(15)) {
             val scheduler = getScheduler(context)
             scheduler.schedule(Duration.ZERO)
         } else {

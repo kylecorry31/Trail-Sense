@@ -694,7 +694,7 @@
     <string name="calibrate_new_tide">Skalibrować do nowego przypływu\?</string>
     <string name="background_update">Aktualizacja w tle</string>
     <string name="sunset_alert_location_update">Aktualizowanie lokalizacji alertu o zachodzie słońca</string>
-    <string name="backtrack_battery_warning">Małe odstępy czasu (poniżej 10 minut) mogą powodować nadmierne rozładowanie baterii</string>
+    <string name="backtrack_battery_warning">Małe odstępy czasu (poniżej 15 minut) mogą powodować nadmierne rozładowanie baterii</string>
     <string name="battery_warning">Ostrzeżenie o nadmiernym rozładowaniu baterii</string>
     <string name="updates">Aktualizacje</string>
     <string name="pref_weather_show_detailed_icon_title">Pokaż kolorową ikonę powiadomienia</string>

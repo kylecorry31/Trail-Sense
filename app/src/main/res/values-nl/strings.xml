@@ -356,7 +356,7 @@
     <string name="pref_gps_override_title">Locatie overschrijven</string>
     <string name="coordinate_input_invalid_location">Locatie ongeldig</string>
     <string name="pref_backtrack_history_days_title">Terugweg-geschiedenis</string>
-    <string name="backtrack_battery_warning">Kleine intervallen (minder dan 10 minuten) kunnen de batterij snel doen leeglopen</string>
+    <string name="backtrack_battery_warning">Kleine intervallen (minder dan 15 minuten) kunnen de batterij snel doen leeglopen</string>
     <string name="backtrack_high_priority_notification">Er wordt elke %s een routepunt geplaatst</string>
     <string name="pref_backtrack_path_color_title">Padkleur voor Terugweg</string>
     <string name="pref_backtrack_path_style_title">Padstijl voor Terugweg</string>
