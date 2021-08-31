@@ -53,6 +53,7 @@ class SunsetAlarmService : CoroutineForegroundService() {
 
         if (gps.location == Coordinate.zero) {
             setAlarm(now.plusDays(1))
+            stopService(true)
             return
         }
 
