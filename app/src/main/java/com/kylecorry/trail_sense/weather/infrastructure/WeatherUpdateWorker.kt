@@ -21,7 +21,7 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) :
         } finally {
             val frequency = UserPreferences(applicationContext).weather.weatherUpdateFrequency
             scheduler(applicationContext).schedule(frequency)
-            Log.d(javaClass.simpleName, "Scheduled next job at ${LocalDateTime.now().plus(frequency)}")
+            Log.d(javaClass.simpleName, "Scheduled next run at ${LocalDateTime.now().plus(frequency)}")
 
         }
         return Result.success()

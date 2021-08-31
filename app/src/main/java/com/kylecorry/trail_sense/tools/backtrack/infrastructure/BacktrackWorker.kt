@@ -22,7 +22,7 @@ class BacktrackWorker(context: Context, params: WorkerParameters) :
         } finally {
             val frequency = UserPreferences(applicationContext).backtrackRecordFrequency
             scheduler(applicationContext).schedule(frequency)
-            Log.d(javaClass.simpleName, "Scheduled next job at ${LocalDateTime.now().plus(frequency)}")
+            Log.d(javaClass.simpleName, "Scheduled next run at ${LocalDateTime.now().plus(frequency)}")
 
         }
         return Result.success()

@@ -58,7 +58,7 @@ class AstronomyPreferences(private val context: Context) {
         }
 
     // TODO: Let the user set this
-    var astronomyAlertTime: LocalTime = LocalTime.of(12, 35)
+    var astronomyAlertTime: LocalTime = LocalTime.of(10, 0)
 
     val sendLunarEclipseAlerts by BooleanPreference(
         cache,

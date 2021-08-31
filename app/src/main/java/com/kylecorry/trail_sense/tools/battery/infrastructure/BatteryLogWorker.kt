@@ -20,7 +20,7 @@ class BatteryLogWorker(context: Context, params: WorkerParameters) :
             throw e
         } finally {
             scheduler(applicationContext).schedule(Duration.ofHours(1))
-            Log.d(javaClass.simpleName, "Scheduled next job at ${LocalDateTime.now().plusHours(1)}")
+            Log.d(javaClass.simpleName, "Scheduled next run at ${LocalDateTime.now().plusHours(1)}")
         }
         return Result.success()
     }

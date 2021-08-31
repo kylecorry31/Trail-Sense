@@ -180,12 +180,7 @@
         <receiver
             android:name="com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver"
             android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.kylecorry.trail_sense.ALARM_SUNSET" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+            android:exported="false"/>
         <receiver
             android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver"
             android:enabled="true"

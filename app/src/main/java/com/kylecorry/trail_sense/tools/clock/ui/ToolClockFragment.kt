@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.jobs.AlarmTaskScheduler
+import com.kylecorry.andromeda.jobs.ExactTaskScheduler
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolClockBinding
 import com.kylecorry.trail_sense.shared.FormatService
@@ -122,7 +122,7 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
                     )
                 )
 
-                val scheduler = AlarmTaskScheduler(requireContext()) {
+                val scheduler = ExactTaskScheduler(requireContext()){
                     NextMinuteBroadcastReceiver.pendingIntent(
                         requireContext(),
                         formattedTime

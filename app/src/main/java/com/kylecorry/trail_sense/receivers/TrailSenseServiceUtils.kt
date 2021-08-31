@@ -59,7 +59,7 @@ object TrailSenseServiceUtils {
     }
 
     private fun startSunsetAlarm(context: Context) {
-        context.sendBroadcast(SunsetAlarmReceiver.intent(context))
+        SunsetAlarmReceiver.start(context)
     }
 
     private fun startAstronomyAlerts(context: Context) {
