@@ -275,7 +275,9 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         // TODO: Only redraw the last selected point and new point
         listView.setData(path)
         if (selectedPointId != null) {
-            listView.scrollToPosition(path.indexOf(point), true)
+            tryOrNothing {
+                listView.scrollToPosition(path.indexOf(point), true)
+            }
         }
         onPathChanged()
     }

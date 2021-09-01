@@ -33,7 +33,8 @@
         android:resizeableActivity="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".TrailSenseApplication">
         <activity
             android:name="com.kylecorry.trail_sense.MainActivity"
             android:exported="true"
