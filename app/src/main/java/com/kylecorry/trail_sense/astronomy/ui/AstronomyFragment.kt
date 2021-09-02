@@ -113,7 +113,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 AstronomyEvent.NewMoon,
                 AstronomyEvent.QuarterMoon,
                 AstronomyEvent.MeteorShower,
-                AstronomyEvent.LunarEclipse
+                AstronomyEvent.LunarEclipse,
+                AstronomyEvent.Supermoon
             )
             Pickers.item(
                 requireContext(),
@@ -123,7 +124,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     getString(R.string.new_moon),
                     getString(R.string.quarter_moon),
                     getString(R.string.meteor_shower),
-                    getString(R.string.lunar_eclipse)
+                    getString(R.string.lunar_eclipse),
+                    getString(R.string.supermoon)
                 ).map { it.capitalizeWords() },
                 options.indexOf(lastAstronomyEventSearch)
             ) {

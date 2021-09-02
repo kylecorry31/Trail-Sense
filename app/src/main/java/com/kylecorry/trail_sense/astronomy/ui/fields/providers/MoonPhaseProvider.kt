@@ -14,6 +14,7 @@ class MoonPhaseProvider : AstroFieldProvider {
         } else {
             astronomyService.getMoonPhase(date)
         }
-        return listOf(MoonPhaseAstroField(phase))
+        val isSupermoon = astronomyService.isSuperMoon(date)
+        return listOf(MoonPhaseAstroField(phase, isSupermoon))
     }
 }

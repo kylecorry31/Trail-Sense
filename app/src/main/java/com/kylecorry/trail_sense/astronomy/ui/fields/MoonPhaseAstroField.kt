@@ -1,13 +1,15 @@
 package com.kylecorry.trail_sense.astronomy.ui.fields
 
 import android.content.Context
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonPhase
 
-class MoonPhaseAstroField(val phase: MoonPhase) : AstroFieldTemplate() {
+class MoonPhaseAstroField(val phase: MoonPhase, val isSupermoon: Boolean) : AstroFieldTemplate() {
     override fun getTitle(context: Context): String {
         return context.getString(R.string.moon_phase)
     }
@@ -24,5 +26,22 @@ class MoonPhaseAstroField(val phase: MoonPhase) : AstroFieldTemplate() {
 
     override fun getImage(context: Context): Int {
         return MoonPhaseImageMapper().getPhaseImage(phase.phase)
+    }
+
+    override fun onClick(context: Context) {
+        val formatService = FormatService(context)
+        val markdownService = MarkdownService(context)
+        val text = context.getString(
+            R.string.astro_dialog_moon_phase,
+            formatService.formatMoonPhase(phase.phase) + if (isSupermoon) " (${context.getString(R.string.supermoon)})" else "",
+            formatService.formatPercentage(phase.illumination)
+        )
+
+        Alerts.dialog(
+            context,
+            getTitle(context),
+            markdownService.toMarkdown(text),
+            cancelText = null
+        )
     }
 }

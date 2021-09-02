@@ -33,6 +33,11 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return newAstronomyService.getMoonPhase(time)
     }
 
+    fun isSuperMoon(date: LocalDate): Boolean {
+        val time = date.atTime(12, 0).toZonedDateTime()
+        return newAstronomyService.isSuperMoon(time.toInstant())
+    }
+
     fun getMoonTimes(location: Coordinate, date: LocalDate): RiseSetTransitTimes {
         return newAstronomyService.getMoonEvents(date.atStartOfDay().toZonedDateTime(), location)
     }
@@ -255,6 +260,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
                 location,
                 start
             ) != null
+            AstronomyEvent.Supermoon -> isSuperMoon(start)
         }
         var date = start.plusDays(1)
         val end = start.plusDays(maxSearch.toDays())
@@ -274,6 +280,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
                     location,
                     date
                 ) != null
+                AstronomyEvent.Supermoon -> isSuperMoon(date)
             }
             if (hasEvent && !isInEvent) {
                 return date

@@ -1086,4 +1086,9 @@
 
     <!--This is in markdown formatting-->
     <string name="astro_dialog_lunar_eclipse">**Start**: %s\n\n**Peak**: %s\n\n**End**: %s\n\n**Duration**: %s\n\n**Magnitude**: %s\n\n**Altitude**: %s</string>
+
+    <!--This is in markdown formatting-->
+    <string name="astro_dialog_moon_phase">**Phase**: %s\n\n**Illumination**: %s</string>
+
+    <string name="supermoon">Supermoon</string>
 </resources>
