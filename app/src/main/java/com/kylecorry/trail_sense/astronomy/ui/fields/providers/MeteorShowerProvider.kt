@@ -10,6 +10,10 @@ class MeteorShowerProvider : AstroFieldProvider {
     override fun getFields(date: LocalDate, location: Coordinate): List<AstroField> {
         val astronomyService = AstronomyService()
         val meteorShower = astronomyService.getMeteorShower(location, date) ?: return emptyList()
-        return listOf(MeteorShowerField(date, meteorShower))
+
+        val azimuth = astronomyService.getMeteorShowerPeakAzimuth(meteorShower, location)
+        val altitude = astronomyService.getMeteorShowerPeakAltitude(meteorShower, location)
+
+        return listOf(MeteorShowerField(date, meteorShower, azimuth, altitude))
     }
 }

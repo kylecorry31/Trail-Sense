@@ -15,12 +15,14 @@ class LunarEclipseProvider : AstroFieldProvider {
 
         val fields = mutableListOf<AstroField>()
 
+        val altitude = astronomyService.getMoonAltitude(location, lunarEclipse.peak)
+
         if (start == date) {
-            fields.add(LunarEclipseField(lunarEclipse, true))
+            fields.add(LunarEclipseField(lunarEclipse, true, altitude))
         }
 
         if (end == date) {
-            fields.add(LunarEclipseField(lunarEclipse, false))
+            fields.add(LunarEclipseField(lunarEclipse, false, altitude))
         }
 
         return fields

@@ -19,6 +19,10 @@ abstract class AstroFieldTemplate : AstroField {
 
         binding.astronomyDetailValue.isVisible = true
         binding.astronomyDetailValue.text = getValue(context)
+
+        binding.root.setOnClickListener {
+            onClick(context)
+        }
     }
 
 
@@ -32,6 +36,8 @@ abstract class AstroFieldTemplate : AstroField {
 
     @DrawableRes
     abstract fun getImage(context: Context): Int
+
+    open fun onClick(context: Context) {}
 
 
 }

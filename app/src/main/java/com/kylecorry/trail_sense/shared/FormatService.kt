@@ -68,8 +68,11 @@ class FormatService(private val context: Context) {
         )
     }
 
-    fun formatDateTime(dateTime: ZonedDateTime): String {
-        val date = formatDate(dateTime, false)
+    fun formatDateTime(dateTime: ZonedDateTime, relative: Boolean = false): String {
+        val date = if (relative) formatRelativeDate(dateTime.toLocalDate()) else formatDate(
+            dateTime,
+            false
+        )
         val time = formatTime(dateTime.toLocalTime(), false)
         return "$date $time"
     }

@@ -1,13 +1,21 @@
 package com.kylecorry.trail_sense.astronomy.ui.fields
 
 import android.content.Context
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.Bearing
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trailsensecore.domain.astronomy.MeteorShowerPeak
 import java.time.LocalDate
 
-class MeteorShowerField(val date: LocalDate, val shower: MeteorShowerPeak) : AstroFieldTemplate() {
+class MeteorShowerField(
+    val date: LocalDate,
+    val shower: MeteorShowerPeak,
+    val azimuth: Bearing,
+    val altitude: Float
+) : AstroFieldTemplate() {
     override fun getTitle(context: Context): String {
         return context.getString(R.string.meteor_shower)
     }
@@ -22,6 +30,25 @@ class MeteorShowerField(val date: LocalDate, val shower: MeteorShowerPeak) : Ast
 
     override fun getImageTint(context: Context): Int {
         return Resources.androidTextColorSecondary(context)
+    }
+
+    override fun onClick(context: Context) {
+        val formatService = FormatService(context)
+        val markdownService = MarkdownService(context)
+        val text = context.getString(
+            R.string.astro_dialog_meteor_shower,
+            formatService.formatDateTime(shower.peak, true),
+            formatService.formatDegrees(altitude),
+            formatService.formatDirection(azimuth.direction),
+            context.getString(R.string.meteors_per_hour, shower.shower.rate)
+        )
+
+        Alerts.dialog(
+            context,
+            shower.shower.name,
+            markdownService.toMarkdown(text),
+            cancelText = null
+        )
     }
 
     private fun getMeteorShowerTime(

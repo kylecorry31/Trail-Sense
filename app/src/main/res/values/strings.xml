@@ -1075,4 +1075,15 @@
         <item quantity="one">%d waypoint will be deleted</item>
         <item quantity="other">%d waypoints will be deleted</item>
     </plurals>
+    <!--This is in markdown formatting-->
+    <string name="astro_dialog_meteor_shower">**Peak**: %s\n\n**Peak altitude**: %s\n\n**Peak direction**: %s\n\n**Rate**: %s</string>
+
+    <!--This is in markdown formatting-->
+    <string name="astro_dialog_rise_set">**Time**: %s\n\n**Direction**: %s</string>
+
+    <!--This is in markdown formatting-->
+    <string name="astro_dialog_noon">**Time**: %s\n\n**Altitude**: %s</string>
+
+    <!--This is in markdown formatting-->
+    <string name="astro_dialog_lunar_eclipse">**Start**: %s\n\n**Peak**: %s\n\n**End**: %s\n\n**Duration**: %s\n\n**Magnitude**: %s\n\n**Altitude**: %s</string>
 </resources>

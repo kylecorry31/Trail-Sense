@@ -1,11 +1,15 @@
 package com.kylecorry.trail_sense.astronomy.ui.fields
 
 import android.content.Context
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.time.toZonedDateTime
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.LunarEclipse
 import com.kylecorry.trail_sense.shared.FormatService
 
-class LunarEclipseField(val eclipse: LunarEclipse, val showStart: Boolean) : AstroFieldTemplate() {
+class LunarEclipseField(val eclipse: LunarEclipse, val showStart: Boolean, val altitude: Float) :
+    AstroFieldTemplate() {
     override fun getTitle(context: Context): String {
         return if (showStart) {
             context.getString(R.string.lunar_eclipse_start)
@@ -30,6 +34,30 @@ class LunarEclipseField(val eclipse: LunarEclipse, val showStart: Boolean) : Ast
         } else {
             R.drawable.ic_moon_partial_eclipse
         }
+    }
+
+    override fun onClick(context: Context) {
+        val formatService = FormatService(context)
+        val markdownService = MarkdownService(context)
+        val text = context.getString(
+            R.string.astro_dialog_lunar_eclipse,
+            formatService.formatDateTime(eclipse.start.toZonedDateTime(), true),
+            formatService.formatDateTime(eclipse.peak.toZonedDateTime(), true),
+            formatService.formatDateTime(eclipse.end.toZonedDateTime(), true),
+            formatService.formatDuration(eclipse.duration, short = false),
+            if (eclipse.isTotal) context.getString(R.string.total) else context.getString(
+                R.string.partial,
+                formatService.formatPercentage(eclipse.magnitude * 100)
+            ),
+            formatService.formatDegrees(altitude)
+        )
+
+        Alerts.dialog(
+            context,
+            context.getString(R.string.lunar_eclipse),
+            markdownService.toMarkdown(text),
+            cancelText = null
+        )
     }
 
 

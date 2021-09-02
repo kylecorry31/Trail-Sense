@@ -167,8 +167,8 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return newAstronomyService.isSunUp(ZonedDateTime.now(clock), location)
     }
 
-    fun getSunAzimuth(location: Coordinate): Bearing {
-        return newAstronomyService.getSunAzimuth(ZonedDateTime.now(clock), location)
+    fun getSunAzimuth(location: Coordinate, time: LocalDateTime = LocalDateTime.now()): Bearing {
+        return newAstronomyService.getSunAzimuth(time.toZonedDateTime(), location)
     }
 
     fun getSolarNoon(location: Coordinate, date: LocalDate = LocalDate.now()): LocalDateTime? {
@@ -187,6 +187,22 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         val todays = newAstronomyService.getMeteorShower(location, today)
         val tomorrows = newAstronomyService.getMeteorShower(location, today.plusDays(1))
         return todays ?: tomorrows
+    }
+
+    fun getMeteorShowerPeakAltitude(peak: MeteorShowerPeak, location: Coordinate): Float {
+        return newAstronomyService.getMeteorShowerAltitude(
+            peak.shower,
+            location,
+            peak.peak.toInstant()
+        )
+    }
+
+    fun getMeteorShowerPeakAzimuth(peak: MeteorShowerPeak, location: Coordinate): Bearing {
+        return newAstronomyService.getMeteorShowerAzimuth(
+            peak.shower,
+            location,
+            peak.peak.toInstant()
+        )
     }
 
     fun getSeason(location: Coordinate, date: LocalDate = LocalDate.now()): Season {
@@ -210,7 +226,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         val end = nextEclipse.end.toZonedDateTime().toLocalDateTime()
         val peak = nextEclipse.maximum.toZonedDateTime().toLocalDateTime()
 
-        if (start.toLocalDate() != date && end.toLocalDate() != date){
+        if (start.toLocalDate() != date && end.toLocalDate() != date) {
             return null
         }
 

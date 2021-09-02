@@ -33,10 +33,17 @@ class SunMoonTimesProvider(private val showNoon: Boolean) :
                     it.second,
                     SunTimesMode.Actual
                 )
-                SunMoonFieldType.SolarNoon -> SolarNoonAstroField(it.second)
+                SunMoonFieldType.SolarNoon -> {
+                    val altitude = astronomyService.getSunAltitude(location, it.second.atDate(date))
+                    SolarNoonAstroField(it.second, altitude)
+                }
                 SunMoonFieldType.Moonrise -> MoonriseAstroField(it.second)
                 SunMoonFieldType.Moonset -> MoonsetAstroField(it.second)
-                SunMoonFieldType.LunarNoon -> LunarNoonAstroField(it.second)
+                SunMoonFieldType.LunarNoon -> {
+                    val altitude =
+                        astronomyService.getMoonAltitude(location, it.second.atDate(date))
+                    LunarNoonAstroField(it.second, altitude)
+                }
             }
         }
     }
