@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trail_sense.shared.beacons.Beacon
 
 class BeaconGeoSender(private val context: Context): IBeaconSender {
 

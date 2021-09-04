@@ -32,8 +32,8 @@ import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.domain.navigation.Position
+import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.Position
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -16,8 +16,8 @@ import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBindin
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.waterpurification.domain.WaterService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
-import com.kylecorry.trailsensecore.domain.water.WaterService
 import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant

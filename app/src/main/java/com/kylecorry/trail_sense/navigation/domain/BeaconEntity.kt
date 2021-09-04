@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
+import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
 
 @Entity(
     tableName = "beacons"

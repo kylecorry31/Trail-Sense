@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.navigation.domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
+import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
 
 @Entity(
     tableName = "beacon_groups"

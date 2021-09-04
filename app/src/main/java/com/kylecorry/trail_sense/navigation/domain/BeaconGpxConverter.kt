@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.navigation.domain
 
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.gpx.GPXWaypoint
-import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
+import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
 
 class BeaconGpxConverter {
 

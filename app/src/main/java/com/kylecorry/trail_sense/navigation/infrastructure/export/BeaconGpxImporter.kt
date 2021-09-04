@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trail_sense.shared.beacons.Beacon
 
 class BeaconGpxImporter(private val context: Context) {
 

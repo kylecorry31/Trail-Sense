@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.battery.domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.kylecorry.trailsensecore.domain.power.BatteryReading
 import java.time.Instant
 
 @Entity(tableName = "battery")

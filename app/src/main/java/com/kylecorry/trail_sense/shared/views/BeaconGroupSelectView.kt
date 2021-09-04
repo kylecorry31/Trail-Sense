@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.databinding.ViewBeaconGroupSelectBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
+import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
 import kotlinx.coroutines.*
 
 class BeaconGroupSelectView(context: Context?, attrs: AttributeSet?) :

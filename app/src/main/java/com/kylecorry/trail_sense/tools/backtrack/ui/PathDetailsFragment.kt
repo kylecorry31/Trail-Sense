@@ -34,8 +34,8 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsValidBacktrack
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
+import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

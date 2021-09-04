@@ -4,7 +4,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
-import com.kylecorry.trailsensecore.domain.power.BatteryReading
+import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 
 class BatteryChart(chart: LineChart) {
 

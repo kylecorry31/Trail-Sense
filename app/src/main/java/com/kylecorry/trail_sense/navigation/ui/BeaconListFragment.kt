@@ -33,10 +33,10 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
-import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
-import com.kylecorry.trailsensecore.domain.navigation.IBeacon
+import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
+import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
+import com.kylecorry.trail_sense.shared.beacons.IBeacon
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

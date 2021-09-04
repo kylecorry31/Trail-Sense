@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
+import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

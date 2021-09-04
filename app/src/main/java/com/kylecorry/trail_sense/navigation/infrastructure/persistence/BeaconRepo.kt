@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.shared.database.AppDatabase
-import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
+import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
 
 class BeaconRepo private constructor(context: Context) : IBeaconRepo {
 

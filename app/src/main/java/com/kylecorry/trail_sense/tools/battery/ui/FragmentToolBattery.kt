@@ -20,11 +20,11 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.databinding.ListItemServiceBinding
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
+import com.kylecorry.trail_sense.tools.battery.domain.PowerService
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
-import com.kylecorry.trailsensecore.domain.power.BatteryReading
-import com.kylecorry.trailsensecore.domain.power.PowerService
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.absoluteValue

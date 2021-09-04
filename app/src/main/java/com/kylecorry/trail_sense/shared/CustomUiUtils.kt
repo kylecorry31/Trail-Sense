@@ -24,8 +24,8 @@ import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.*
-import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
+import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
 import java.time.Duration
 
 object CustomUiUtils {

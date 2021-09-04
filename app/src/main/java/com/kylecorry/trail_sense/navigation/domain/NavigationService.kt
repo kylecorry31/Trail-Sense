@@ -1,15 +1,18 @@
 package com.kylecorry.trail_sense.navigation.domain
 
+import com.kylecorry.andromeda.core.math.clamp
+import com.kylecorry.andromeda.core.math.deltaAngle
 import com.kylecorry.andromeda.core.units.Bearing
 import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.andromeda.core.math.deltaAngle
-import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.INavigationService
 import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import com.kylecorry.trailsensecore.domain.navigation.NavigationVector
-import com.kylecorry.trailsensecore.domain.navigation.Position
+import com.kylecorry.trail_sense.shared.Position
 import java.time.Duration
+import kotlin.math.PI
 import kotlin.math.abs
+import kotlin.math.max
 
 class NavigationService {
 
@@ -30,11 +33,23 @@ class NavigationService {
         declination: Float,
         usingTrueNorth: Boolean = true
     ): NavigationVector {
-        return newNavigationService.navigate(from, to, declination, usingTrueNorth)
+        val originalVector = navigate(from.location, to.coordinate, declination, usingTrueNorth)
+        val altitudeChange = if (to.elevation != null) to.elevation - from.altitude else null
+        return originalVector.copy(altitudeChange = altitudeChange)
     }
 
     fun eta(from: Position, to: Beacon, nonLinear: Boolean = false): Duration {
-        return newNavigationService.eta(from, to, nonLinear)
+        val speed =
+            if (from.speed < 3) clamp(from.speed, 0.89408f, 1.78816f) else from.speed
+        val elevationGain =
+            max(if (to.elevation == null) 0f else (to.elevation - from.altitude), 0f)
+        val distance =
+            from.location.distanceTo(to.coordinate) * (if (nonLinear) PI.toFloat() / 2f else 1f)
+
+        val baseTime = distance / speed
+        val elevationSeconds = (elevationGain / 300f) * 30f * 60f
+
+        return Duration.ofSeconds(baseTime.toLong()).plusSeconds(elevationSeconds.toLong())
     }
 
     fun getNearbyBeacons(

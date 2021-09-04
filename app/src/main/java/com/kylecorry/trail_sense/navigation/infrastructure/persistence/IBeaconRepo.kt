@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.navigation.infrastructure.persistence
 import androidx.lifecycle.LiveData
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
-import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
+import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
 
 interface IBeaconRepo {
     fun getBeacons(): LiveData<List<BeaconEntity>>

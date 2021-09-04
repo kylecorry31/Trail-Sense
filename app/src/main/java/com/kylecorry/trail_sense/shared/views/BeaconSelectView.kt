@@ -19,9 +19,9 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.navigation.Beacon
-import com.kylecorry.trailsensecore.domain.navigation.BeaconGroup
-import com.kylecorry.trailsensecore.domain.navigation.IBeacon
+import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
+import com.kylecorry.trail_sense.shared.beacons.IBeacon
 import kotlinx.coroutines.*
 
 

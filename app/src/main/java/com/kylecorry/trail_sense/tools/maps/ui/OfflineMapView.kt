@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
-import com.kylecorry.trailsensecore.domain.navigation.Beacon
+import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trailsensecore.domain.pixels.PixelCircle
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
 
