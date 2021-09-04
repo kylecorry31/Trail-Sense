@@ -31,8 +31,7 @@ class AstronomyAlertCommand(private val context: Context) : CoroutineCommand {
 
         val commands: List<LocationCommand> = listOf(
             LunarEclipseAlertCommand(context),
-            MeteorShowerAlertCommand(context),
-            TestAlertCommand(context)
+            MeteorShowerAlertCommand(context)
         )
 
         withContext(Dispatchers.Main) {
