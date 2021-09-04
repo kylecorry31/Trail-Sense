@@ -26,9 +26,9 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.NoDrawPoi
 import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.paths.PathStyle
-import com.kylecorry.trailsensecore.domain.pixels.PixelCircle
-import com.kylecorry.trailsensecore.domain.pixels.PixelLine
-import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
+import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import com.kylecorry.trail_sense.shared.canvas.PixelLine
+import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
 import kotlin.math.floor
 import kotlin.math.log10
 import kotlin.math.min

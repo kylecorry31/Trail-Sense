@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.shared.paths
 
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.trailsensecore.domain.pixels.PixelLine
-import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
+import com.kylecorry.trail_sense.shared.canvas.PixelLine
+import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.abs

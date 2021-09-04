@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.weather.domain.sealevel.kalman
 
 import com.kylecorry.trail_sense.weather.domain.sealevel.ISeaLevelCalibrationStrategy
-import com.kylecorry.trailsensecore.domain.weather.KalmanSeaLevelPressureConverter
 import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import com.kylecorry.trailsensecore.domain.weather.PressureReading
 import kotlin.math.pow

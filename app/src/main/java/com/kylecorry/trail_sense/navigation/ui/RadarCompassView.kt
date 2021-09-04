@@ -27,7 +27,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.paths.Path
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.paths.toPixelLines
-import com.kylecorry.trailsensecore.domain.pixels.PixelLine
+import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import kotlin.math.min
 
 class RadarCompassView : CanvasView, ICompassView {

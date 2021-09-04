@@ -18,21 +18,21 @@ class WeatherService(
 
 
     fun getHourlyWeather(
-        readings: List<PressureReading>,
-        lastReading: PressureReading? = null
+        readings: List<com.kylecorry.trailsensecore.domain.weather.PressureReading>,
+        lastReading: com.kylecorry.trailsensecore.domain.weather.PressureReading? = null
     ): Weather {
         val tendency = getTendency(readings, lastReading)
         val current = readings.lastOrNull() ?: return Weather.NoChange
         return newWeatherService.forecast(tendency, current, stormThreshold)
     }
 
-    fun getDailyWeather(readings: List<PressureReading>): Weather {
+    fun getDailyWeather(readings: List<com.kylecorry.trailsensecore.domain.weather.PressureReading>): Weather {
         return longTermForecaster.forecast(readings)
     }
 
     fun getTendency(
-        readings: List<PressureReading>,
-        lastReading: PressureReading? = null
+        readings: List<com.kylecorry.trailsensecore.domain.weather.PressureReading>,
+        lastReading: com.kylecorry.trailsensecore.domain.weather.PressureReading? = null
     ): PressureTendency {
         val last = readings.minByOrNull {
             Duration.between(
@@ -50,9 +50,9 @@ class WeatherService(
     }
 
     fun calibrate(
-        readings: List<PressureAltitudeReading>,
+        readings: List<com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading>,
         prefs: UserPreferences
-    ): List<PressureReading> {
+    ): List<com.kylecorry.trailsensecore.domain.weather.PressureReading> {
         val calibrationStrategy = SeaLevelCalibrationFactory().create(prefs)
         return calibrationStrategy.calibrate(readings)
     }

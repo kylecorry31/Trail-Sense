@@ -10,8 +10,8 @@ import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trailsensecore.domain.pixels.PixelLine
-import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
+import com.kylecorry.trail_sense.shared.canvas.PixelLine
+import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
 
 fun Distance.times(value: Float): Distance {
     return Distance(distance * value, units)

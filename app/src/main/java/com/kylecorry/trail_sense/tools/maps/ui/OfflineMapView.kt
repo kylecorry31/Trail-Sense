@@ -27,8 +27,8 @@ import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
 import com.kylecorry.trail_sense.shared.beacons.Beacon
-import com.kylecorry.trailsensecore.domain.pixels.PixelCircle
-import com.kylecorry.trailsensecore.domain.pixels.PixelLine
+import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import com.kylecorry.trail_sense.shared.canvas.PixelLine
 
 
 class OfflineMapView : CanvasView {

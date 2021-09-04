@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.paths
 
-import com.kylecorry.trailsensecore.domain.pixels.PixelLineStyle
+import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
 
 class PathLineDrawerFactory {
 
