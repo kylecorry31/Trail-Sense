@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.packs.infrastructure
 
 import androidx.lifecycle.LiveData
-import com.kylecorry.trailsensecore.domain.packs.Pack
-import com.kylecorry.trailsensecore.domain.packs.PackItem
+import com.kylecorry.trail_sense.tools.packs.domain.Pack
+import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 
 interface IPackRepo {
     suspend fun getItem(id: Long): PackItem?

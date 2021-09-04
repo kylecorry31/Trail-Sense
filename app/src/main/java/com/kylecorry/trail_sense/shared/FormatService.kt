@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 import com.kylecorry.trailsensecore.domain.geo.Region
+import com.kylecorry.trailsensecore.domain.time.Season
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import java.time.Duration
 import java.time.LocalDate
@@ -503,6 +504,15 @@ class FormatService(private val context: Context) {
                 MoonTruePhase.WaxingGibbous -> R.string.waxing_gibbous
             }
         )
+    }
+    
+    fun formatSeason(season: Season): String {
+        return when(season){
+            Season.Winter -> context.getString(R.string.season_winter)
+            Season.Spring -> context.getString(R.string.season_spring)
+            Season.Summer -> context.getString(R.string.season_summer)
+            Season.Fall -> context.getString(R.string.season_fall)
+        }
     }
 
 

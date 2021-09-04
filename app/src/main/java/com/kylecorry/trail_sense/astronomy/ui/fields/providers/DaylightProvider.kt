@@ -11,6 +11,7 @@ class DaylightProvider(val sunTimesMode: SunTimesMode) : AstroFieldProvider {
     override fun getFields(date: LocalDate, location: Coordinate): List<AstroField> {
         val astronomyService = AstronomyService()
         val daylight = astronomyService.getLengthOfDay(location, sunTimesMode, date)
-        return listOf(DaylightAstroField(daylight))
+        val season = astronomyService.getSeason(location, date)
+        return listOf(DaylightAstroField(daylight, season))
     }
 }

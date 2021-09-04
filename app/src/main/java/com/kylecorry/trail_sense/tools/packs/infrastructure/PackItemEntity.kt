@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.packs.infrastructure
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.kylecorry.trailsensecore.domain.packs.ItemCategory
 import com.kylecorry.andromeda.core.units.WeightUnits
+import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 
 @Entity(
     tableName = "items"

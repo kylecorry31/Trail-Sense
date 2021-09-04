@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.packs.ui.mappers
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.packs.ItemCategory
+import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 
 class ItemCategoryStringMapper(private val context: Context) {
 

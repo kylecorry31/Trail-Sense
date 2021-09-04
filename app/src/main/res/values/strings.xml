@@ -1090,5 +1090,12 @@
     <!--This is in markdown formatting-->
     <string name="astro_dialog_moon_phase">**Phase**: %s\n\n**Illumination**: %s</string>
 
+    <!--This is in markdown formatting-->
+    <string name="astro_dialog_day_length">**Day**: %s\n\n**Night**: %s\n\n**Season**: %s</string>
+
     <string name="supermoon">Supermoon</string>
+    <string name="season_winter">Winter</string>
+    <string name="season_spring">Spring</string>
+    <string name="season_summer">Summer</string>
+    <string name="season_fall">Fall</string>
 </resources>

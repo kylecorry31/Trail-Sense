@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.packs.Pack
-import java.lang.Exception
+import com.kylecorry.trail_sense.tools.packs.domain.Pack
 
 class PackTableMigrationWorker(
     private val context: Context,
