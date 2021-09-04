@@ -35,7 +35,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
     fun isSuperMoon(date: LocalDate): Boolean {
         val time = date.atTime(12, 0).toZonedDateTime()
-        return newAstronomyService.isSuperMoon(time.toInstant())
+        return newAstronomyService.isSuperMoon(time)
     }
 
     fun getMoonTimes(location: Coordinate, date: LocalDate): RiseSetTransitTimes {
@@ -211,7 +211,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getSeason(location: Coordinate, date: LocalDate = LocalDate.now()): Season {
-        return newAstronomyService.getAstronomicalSeason(
+        return newAstronomyService.getSeason(
             location,
             date.atStartOfDay(ZoneId.systemDefault())
         )
@@ -222,7 +222,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         date: LocalDate = LocalDate.now()
     ): LunarEclipse? {
         val nextEclipse = newAstronomyService.getNextEclipse(
-            date.atStartOfDay(ZoneId.systemDefault()).toInstant(),
+            date.atStartOfDay(ZoneId.systemDefault()),
             location,
             EclipseType.PartialLunar
         ) ?: return null

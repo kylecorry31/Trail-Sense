@@ -4,7 +4,7 @@ import com.kylecorry.andromeda.core.math.cosDegrees
 import com.kylecorry.andromeda.core.math.sinDegrees
 import com.kylecorry.andromeda.core.math.wrap
 import com.kylecorry.andromeda.core.units.*
-import com.kylecorry.trailsensecore.domain.geo.cartography.CoordinateBounds
+import com.kylecorry.trailsensecore.domain.geo.CoordinateBounds
 
 data class Map(
     val id: Long,

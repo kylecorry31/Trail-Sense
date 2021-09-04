@@ -20,7 +20,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolDepthBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.depth.DepthService
+import com.kylecorry.trailsensecore.domain.oceanography.OceanographyService
 import com.kylecorry.trailsensecore.domain.units.*
 import java.time.Duration
 import java.time.Instant
@@ -30,7 +30,7 @@ class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val barometer by lazy { sensorService.getBarometer() }
-    private val depthService = DepthService()
+    private val oceanService = OceanographyService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
@@ -114,7 +114,7 @@ class ToolDepthFragment : BoundFragment<FragmentToolDepthBinding>() {
             return true
         }
 
-        val depth = depthService.calculateDepth(
+        val depth = oceanService.getDepth(
             Pressure(barometer.pressure, PressureUnits.Hpa),
             Pressure(seaLevelPressure, PressureUnits.Hpa),
             binding.saltwaterSwitch.isChecked

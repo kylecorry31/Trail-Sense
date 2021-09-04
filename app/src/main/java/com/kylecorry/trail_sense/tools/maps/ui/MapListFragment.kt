@@ -30,7 +30,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.PDFUtils
-import com.kylecorry.trailsensecore.domain.geo.cartography.CoordinateBounds
+import com.kylecorry.trailsensecore.domain.geo.CoordinateBounds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
