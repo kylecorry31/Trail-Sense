@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
-import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
-
 data class PercentBounds(
     val topLeft: PercentCoordinate,
     val topRight: PercentCoordinate,

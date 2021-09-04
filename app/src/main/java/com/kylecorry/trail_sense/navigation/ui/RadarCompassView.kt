@@ -24,11 +24,10 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.paths.Path
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
-import com.kylecorry.trail_sense.shared.times
-import com.kylecorry.trailsensecore.domain.geo.Path
+import com.kylecorry.trail_sense.shared.paths.toPixelLines
 import com.kylecorry.trailsensecore.domain.pixels.PixelLine
-import com.kylecorry.trailsensecore.domain.pixels.toPixelLines
 import kotlin.math.min
 
 class RadarCompassView : CanvasView, ICompassView {

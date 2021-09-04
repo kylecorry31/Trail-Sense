@@ -12,7 +12,7 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trailsensecore.domain.geo.PathStyle
+import com.kylecorry.trail_sense.shared.paths.PathStyle
 import java.time.Duration
 
 class NavigationPreferences(private val context: Context) {

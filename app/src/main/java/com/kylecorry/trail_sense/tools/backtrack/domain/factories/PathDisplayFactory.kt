@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.DefaultPo
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues.IPointValueStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues.NamePointValueStrategy
-import com.kylecorry.trailsensecore.domain.geo.PathPoint
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 
 class PathDisplayFactory(private val context: Context) : IPointDisplayFactory {
     override fun createColoringStrategy(path: List<PathPoint>): IPointColoringStrategy {

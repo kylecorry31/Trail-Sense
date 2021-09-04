@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
-import com.kylecorry.trailsensecore.domain.geo.PathPoint
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 import java.time.Instant
 
 class WaypointRepo private constructor(context: Context) : IWaypointRepo {

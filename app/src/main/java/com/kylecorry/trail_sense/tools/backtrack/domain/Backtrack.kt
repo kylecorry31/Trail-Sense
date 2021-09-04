@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.IWaypointRepo
-import com.kylecorry.trailsensecore.domain.geo.PathPoint
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 import com.kylecorry.trailsensecore.domain.navigation.BeaconOwner
 import kotlinx.coroutines.*

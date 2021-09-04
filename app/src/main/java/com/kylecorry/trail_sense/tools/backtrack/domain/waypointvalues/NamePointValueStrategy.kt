@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trailsensecore.domain.geo.PathPoint
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 
 class NamePointValueStrategy(private val context: Context) : IPointValueStrategy {
     override fun getValue(point: PathPoint): String {

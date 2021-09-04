@@ -14,10 +14,10 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.maps.domain.PercentBounds
+import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
-import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
 
 
 class PerspectiveCorrectionView : CanvasView {

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.backtrack.infrastructure
 
 import com.kylecorry.andromeda.core.specifications.Specification
-import com.kylecorry.trailsensecore.domain.geo.PathPoint
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 import java.time.Duration
 import java.time.Instant
 

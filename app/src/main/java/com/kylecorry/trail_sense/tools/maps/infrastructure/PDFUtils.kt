@@ -11,8 +11,8 @@ import com.kylecorry.andromeda.core.math.toFloatCompat
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.files.ExternalFiles
-import com.kylecorry.trailsensecore.domain.geo.cartography.MapCalibrationPoint
-import com.kylecorry.trailsensecore.domain.pixels.PercentCoordinate
+import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
+import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

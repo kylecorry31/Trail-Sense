@@ -2,18 +2,18 @@ package com.kylecorry.trail_sense.navigation.infrastructure.share
 
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.trailsensecore.domain.geo.GeoService
+import com.kylecorry.trail_sense.shared.sharing.MapSiteService
 import com.kylecorry.trailsensecore.domain.navigation.Beacon
 
 class BeaconSharesheet(private val context: Context) : IBeaconSender {
 
     private val prefs by lazy { UserPreferences(context) }
     private val formatService by lazy { FormatService(context) }
-    private val geoService = GeoService()
+    private val mapService = MapSiteService()
 
     override fun send(beacon: Beacon) {
         val sendIntent = Intent().apply {
@@ -30,7 +30,7 @@ class BeaconSharesheet(private val context: Context) : IBeaconSender {
     private fun getShareText(beacon: Beacon): String {
         val name = beacon.name
         val coordinate = beacon.coordinate
-        val mapUrl = geoService.getMapUrl(coordinate, prefs.mapSite)
+        val mapUrl = mapService.getUrl(coordinate, prefs.mapSite)
         val coordinateString = getCoordinateLatLon(coordinate)
         val coordinateUser = formatService.formatLocation(coordinate)
         return "${name}\n\n${coordinateString}\n\n${formatService.formatCoordinateType(prefs.navigation.coordinateFormat)}: ${coordinateUser}\n\n${

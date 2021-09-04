@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointCol
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.TimePointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues.IPointValueStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues.TimePointValueStrategy
-import com.kylecorry.trailsensecore.domain.geo.PathPoint
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 import java.time.Instant
 
 class TimePointDisplayFactory(private val context: Context) : IPointDisplayFactory {

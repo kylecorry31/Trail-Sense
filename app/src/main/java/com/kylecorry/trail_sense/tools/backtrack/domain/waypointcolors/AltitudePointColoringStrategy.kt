@@ -4,7 +4,7 @@ import android.util.Range
 import com.kylecorry.andromeda.core.math.constrain
 import com.kylecorry.andromeda.core.math.norm
 import com.kylecorry.trail_sense.shared.scales.IColorScale
-import com.kylecorry.trailsensecore.domain.geo.PathPoint
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 
 class AltitudePointColoringStrategy(
     private val altitudeRange: Range<Float>,

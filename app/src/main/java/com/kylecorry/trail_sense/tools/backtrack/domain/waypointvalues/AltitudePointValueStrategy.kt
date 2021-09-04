@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.geo.PathPoint
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 
 class AltitudePointValueStrategy(private val context: Context) : IPointValueStrategy {
     override fun getValue(point: PathPoint): String {

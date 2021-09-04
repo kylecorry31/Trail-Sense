@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues
 
-import com.kylecorry.trailsensecore.domain.geo.PathPoint
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 
 interface IPointValueStrategy {
 

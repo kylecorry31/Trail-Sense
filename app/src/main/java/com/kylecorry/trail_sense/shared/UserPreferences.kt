@@ -12,8 +12,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.*
+import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
-import com.kylecorry.trailsensecore.domain.geo.cartography.MapSite
 import java.time.Duration
 
 class UserPreferences(private val context: Context) {
