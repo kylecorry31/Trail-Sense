@@ -5,14 +5,14 @@ import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.time.isInPast
-import com.kylecorry.andromeda.core.units.*
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.time.Time.isInPast
+import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
+import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.geo.ApproximateCoordinate
 import java.time.Duration
 import java.time.Instant
 

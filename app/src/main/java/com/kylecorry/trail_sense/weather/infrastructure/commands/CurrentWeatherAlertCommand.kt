@@ -5,20 +5,20 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.hardware.SensorManager
-import com.kylecorry.andromeda.core.units.Pressure
-import com.kylecorry.andromeda.core.units.PressureUnits
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.sol.science.meteorology.PressureTendency
+import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.units.Pressure
+import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
-import com.kylecorry.trailsensecore.domain.weather.PressureReading
-import com.kylecorry.trailsensecore.domain.weather.PressureTendency
-import com.kylecorry.trailsensecore.domain.weather.Weather
 import java.time.Instant
 
 class CurrentWeatherAlertCommand(

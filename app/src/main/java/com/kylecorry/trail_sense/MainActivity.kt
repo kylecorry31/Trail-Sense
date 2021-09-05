@@ -21,7 +21,7 @@ import com.kylecorry.andromeda.core.system.GeoUriParser
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.permissions.Permissions

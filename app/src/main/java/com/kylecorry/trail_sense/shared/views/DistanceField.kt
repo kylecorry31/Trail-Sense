@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.andromeda.forms.Forms
 
 class DistanceField(

@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.astronomy.ui.fields
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.markdown.MarkdownService
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.LunarEclipse
 import com.kylecorry.trail_sense.shared.FormatService

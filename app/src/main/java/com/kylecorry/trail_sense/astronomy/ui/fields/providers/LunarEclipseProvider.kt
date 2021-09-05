@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.ui.fields.providers
 
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.fields.AstroField
 import com.kylecorry.trail_sense.astronomy.ui.fields.LunarEclipseField

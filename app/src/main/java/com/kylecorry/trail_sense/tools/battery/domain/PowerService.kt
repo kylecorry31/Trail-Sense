@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.battery.domain
 
-import com.kylecorry.andromeda.core.time.hours
+import com.kylecorry.sol.time.Time.hours
 import java.time.Duration
 
 class PowerService {
@@ -15,7 +15,7 @@ class PowerService {
 
         val hours = -(capacity / capacityDrainPerHour)
 
-        return hours(hours)
+        return hours(hours.toDouble())
     }
 
     fun getRates(readings: List<BatteryReading>, minDuration: Duration, hasCapacity: Boolean): List<Float> {
@@ -96,7 +96,7 @@ class PowerService {
             return Duration.ZERO
         }
 
-        return hours(hours)
+        return hours(hours.toDouble())
     }
 
     /**

@@ -4,7 +4,7 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.pedometer.Pedometer

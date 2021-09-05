@@ -2,12 +2,12 @@ package com.kylecorry.trail_sense.weather.infrastructure.commands
 
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.CanSendDailyForecast
-import com.kylecorry.trailsensecore.domain.weather.Weather
 import java.time.LocalDate
 import java.time.LocalTime
 

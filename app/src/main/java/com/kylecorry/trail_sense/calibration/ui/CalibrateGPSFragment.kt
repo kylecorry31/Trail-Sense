@@ -6,7 +6,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS

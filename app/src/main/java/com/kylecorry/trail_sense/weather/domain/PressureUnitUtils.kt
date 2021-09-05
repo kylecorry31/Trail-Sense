@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.domain
 
-import com.kylecorry.andromeda.core.units.Pressure
-import com.kylecorry.andromeda.core.units.PressureUnits
+import com.kylecorry.sol.units.Pressure
+import com.kylecorry.sol.units.PressureUnits
 
 /**
  * A collection of weather utilities

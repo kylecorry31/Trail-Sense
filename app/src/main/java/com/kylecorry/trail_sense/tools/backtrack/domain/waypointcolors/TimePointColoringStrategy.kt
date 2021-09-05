@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors
 
 import android.util.Range
-import com.kylecorry.andromeda.core.math.constrain
-import com.kylecorry.andromeda.core.math.norm
-import com.kylecorry.trail_sense.shared.scales.IColorScale
+import com.kylecorry.sol.math.SolMath.clamp
+import com.kylecorry.sol.math.SolMath.norm
 import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.shared.scales.IColorScale
 import java.time.Instant
 
 class TimePointColoringStrategy(
@@ -13,7 +13,7 @@ class TimePointColoringStrategy(
 ) : IPointColoringStrategy {
     override fun getColor(point: PathPoint): Int? {
         val time = point.time ?: return null
-        val ratio = constrain(
+        val ratio = clamp(
             norm(
                 time.toEpochMilli().toFloat(),
                 timeRange.lower.toEpochMilli().toFloat(),

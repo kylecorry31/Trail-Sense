@@ -12,13 +12,16 @@ import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
-import com.kylecorry.andromeda.core.math.constrain
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
+import com.kylecorry.sol.math.SolMath.clamp
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.paths.Path
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.paths.toPixelLines
@@ -26,9 +29,6 @@ import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
-import com.kylecorry.trail_sense.shared.beacons.Beacon
-import com.kylecorry.trail_sense.shared.canvas.PixelCircle
-import com.kylecorry.trail_sense.shared.canvas.PixelLine
 
 
 class OfflineMapView : CanvasView {
@@ -128,12 +128,12 @@ class OfflineMapView : CanvasView {
         var bottomRight = toMapCoordinate(PixelCoordinate(width.toFloat(), height.toFloat()))
 
         topLeft = PixelCoordinate(
-            constrain(topLeft.x, 0f, mapSize.first),
-            constrain(topLeft.y, 0f, mapSize.second)
+            clamp(topLeft.x, 0f, mapSize.first),
+            clamp(topLeft.y, 0f, mapSize.second)
         )
         bottomRight = PixelCoordinate(
-            constrain(bottomRight.x, 0f, mapSize.first),
-            constrain(bottomRight.y, 0f, mapSize.second)
+            clamp(bottomRight.x, 0f, mapSize.first),
+            clamp(bottomRight.y, 0f, mapSize.second)
         )
 
         return Rect(

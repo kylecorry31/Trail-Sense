@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.andromeda.signal.CellNetworkQuality
 import com.kylecorry.trail_sense.shared.paths.PathPoint

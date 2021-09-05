@@ -2,8 +2,9 @@ package com.kylecorry.trail_sense.tools.backtrack.ui
 
 import android.content.Context
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.sol.science.geology.IGeologyService
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -12,13 +13,12 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trailsensecore.domain.navigation.INavigationService
 
 class PathListItem(
     private val context: Context,
     private val formatService: FormatService,
     private val prefs: UserPreferences,
-    private val navigationService: INavigationService,
+    private val geologyService: IGeologyService,
     private val delete: (path: List<PathPoint>) -> Unit,
     private val merge: (path: List<PathPoint>) -> Unit,
     private val show: (path: List<PathPoint>) -> Unit,
@@ -37,7 +37,7 @@ class PathListItem(
 
         val start = item.first().time
         val end = item.last().time
-        val distance = navigationService.getPathDistance(item.map { it.coordinate })
+        val distance = geologyService.getPathDistance(item.map { it.coordinate })
             .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
         itemBinding.title.text = if (start != null && end != null) {
             formatService.formatTimeSpan(start.toZonedDateTime(), end.toZonedDateTime(), true)

@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.sol.science.meteorology.WeatherService
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightningBinding
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.weather.WeatherService
 import java.time.Instant
 
 class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {

@@ -6,8 +6,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.Bearing
-import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance

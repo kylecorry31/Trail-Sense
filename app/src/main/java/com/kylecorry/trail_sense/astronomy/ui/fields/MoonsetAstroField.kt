@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.astronomy.ui.fields
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.units.CompassDirection
+import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService

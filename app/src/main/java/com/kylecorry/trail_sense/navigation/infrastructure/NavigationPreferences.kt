@@ -1,14 +1,14 @@
 package com.kylecorry.trail_sense.navigation.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.core.math.toFloatCompat
-import com.kylecorry.andromeda.core.math.toIntCompat
+import com.kylecorry.andromeda.core.toFloatCompat
+import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.core.units.CoordinateFormat
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.QuickActionType

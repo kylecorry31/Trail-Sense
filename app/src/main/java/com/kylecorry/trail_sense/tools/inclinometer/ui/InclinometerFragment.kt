@@ -5,18 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.sol.math.InclinationService
+import com.kylecorry.sol.science.geology.AvalancheRisk
+import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentInclinometerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.inclinometer.AvalancheRisk
-import com.kylecorry.trailsensecore.domain.inclinometer.InclinationService
 
 class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
 
@@ -25,6 +26,7 @@ class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
     private val deviceOrientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val inclinationService = InclinationService()
+    private val geoService = GeologyService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val throttle = Throttle(20)
 
@@ -124,7 +126,7 @@ class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
             return
         }
 
-        val avalancheRisk = inclinationService.getAvalancheRisk(
+        val avalancheRisk = geoService.getAvalancheRisk(
             slopeAngle ?: inclinometer.angle
         )
 

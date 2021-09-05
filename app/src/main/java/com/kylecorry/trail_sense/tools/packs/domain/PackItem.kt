@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.packs.domain
 
-import com.kylecorry.andromeda.core.units.Weight
+import com.kylecorry.sol.units.Weight
 
 data class PackItem(
     val id: Long,

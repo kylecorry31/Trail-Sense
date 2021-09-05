@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.export
 
 import android.content.Context
-import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.gpx.GPXData
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo

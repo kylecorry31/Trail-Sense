@@ -1,12 +1,12 @@
 package com.kylecorry.trail_sense.astronomy.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.core.math.toIntCompat
+import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import java.time.LocalDate
 import java.time.LocalTime
 

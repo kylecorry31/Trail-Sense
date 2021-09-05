@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.convert.ui
 
-import com.kylecorry.andromeda.core.units.Weight
-import com.kylecorry.andromeda.core.units.WeightUnits
+import com.kylecorry.sol.units.Weight
+import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.absoluteValue
 

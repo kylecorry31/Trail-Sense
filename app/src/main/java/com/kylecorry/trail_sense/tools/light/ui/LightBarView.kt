@@ -2,17 +2,17 @@ package com.kylecorry.trail_sense.tools.light.ui
 
 import android.content.Context
 import android.graphics.*
+import android.hardware.SensorManager
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.math.MathUtils
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
+import com.kylecorry.sol.science.physics.PhysicsService
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.light.LightIntensity
-import com.kylecorry.trailsensecore.domain.light.LightService
 import kotlin.math.floor
 import kotlin.math.ln
 import kotlin.math.min
@@ -26,7 +26,7 @@ class LightBarView : View {
     var gradient: List<Int> = listOf()
     private var candela: Float = 0f
     var units: DistanceUnits = DistanceUnits.Meters
-    private val lightService = LightService()
+    private val lightService = PhysicsService()
     private var imageSize = 0
 
     constructor(context: Context?) : super(context)
@@ -128,8 +128,10 @@ class LightBarView : View {
     }
 
     private fun getColors(lux: List<Float>): List<Int> {
-        val minLux = ln(LightIntensity.FullMoon.lux - 0.05f)
-        val maxLux = ln(LightIntensity.Sunrise.lux)
+        val fullMoon = SensorManager.LIGHT_FULLMOON
+        val sunrise = SensorManager.LIGHT_SUNRISE
+        val minLux = ln(fullMoon - 0.05f)
+        val maxLux = ln(sunrise)
 
         val pcts = lux.map { MathUtils.clamp((ln(it) - minLux) / (maxLux - minLux), 0f, 1f) }
 

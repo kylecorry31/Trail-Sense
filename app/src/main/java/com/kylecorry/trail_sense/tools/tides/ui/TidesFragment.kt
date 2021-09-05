@@ -10,6 +10,9 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.sol.science.oceanography.OceanographyService
+import com.kylecorry.sol.science.oceanography.TidalRange
+import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
 import com.kylecorry.trail_sense.databinding.ListItemTideBinding
@@ -17,9 +20,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
-import com.kylecorry.trailsensecore.domain.oceanography.OceanographyService
-import com.kylecorry.trailsensecore.domain.oceanography.TidalRange
-import com.kylecorry.trailsensecore.domain.oceanography.TideType
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId

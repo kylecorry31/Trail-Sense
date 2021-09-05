@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared
 
 import android.view.View
-import com.kylecorry.andromeda.core.math.cosDegrees
-import com.kylecorry.andromeda.core.math.sinDegrees
+import com.kylecorry.sol.math.SolMath.cosDegrees
+import com.kylecorry.sol.math.SolMath.sinDegrees
 
 fun alignToVector(to: View, viewToAlign: View, radius: Float, angle: Float){
     align(viewToAlign,

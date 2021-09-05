@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.astronomy.ui.fields
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.markdown.MarkdownService
+import com.kylecorry.sol.science.shared.Season
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trailsensecore.domain.time.Season
 import java.time.Duration
 
 class DaylightAstroField(val length: Duration, val season: Season) : AstroFieldTemplate() {

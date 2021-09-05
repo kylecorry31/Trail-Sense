@@ -6,9 +6,9 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.sol.science.oceanography.Tide
+import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.oceanography.Tide
-import com.kylecorry.trailsensecore.domain.oceanography.TideType
 import java.time.Duration
 import java.time.ZonedDateTime
 import kotlin.math.cos

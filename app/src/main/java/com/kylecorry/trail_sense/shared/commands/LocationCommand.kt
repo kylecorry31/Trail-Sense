@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.commands
 
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.sol.units.Coordinate
 
 interface LocationCommand {
 

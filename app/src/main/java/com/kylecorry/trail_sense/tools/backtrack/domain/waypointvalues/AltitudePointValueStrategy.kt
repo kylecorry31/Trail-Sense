@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues
 
 import android.content.Context
-import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences

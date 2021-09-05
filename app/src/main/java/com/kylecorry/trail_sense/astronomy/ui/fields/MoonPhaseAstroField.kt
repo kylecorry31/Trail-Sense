@@ -3,11 +3,11 @@ package com.kylecorry.trail_sense.astronomy.ui.fields
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.markdown.MarkdownService
+import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonPhase
 
 class MoonPhaseAstroField(val phase: MoonPhase, val isSupermoon: Boolean) : AstroFieldTemplate() {
     override fun getTitle(context: Context): String {

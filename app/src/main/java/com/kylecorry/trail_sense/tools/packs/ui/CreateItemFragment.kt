@@ -8,9 +8,9 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.math.DecimalFormatter
-import com.kylecorry.andromeda.core.math.toDoubleCompat
-import com.kylecorry.andromeda.core.units.WeightUnits
+import com.kylecorry.andromeda.core.toDoubleCompat
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils

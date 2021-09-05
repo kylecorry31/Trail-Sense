@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.weather.infrastructure.persistence
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
+import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import java.time.Instant
 
 @Entity(

@@ -23,9 +23,6 @@ import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.core.units.Bearing
-import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.location.GPS
@@ -33,6 +30,10 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
@@ -45,7 +46,9 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSend
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.paths.BacktrackPathSplitter
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -61,10 +64,6 @@ import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.domain.AltitudeReading
-import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trail_sense.shared.beacons.Beacon
-import com.kylecorry.trail_sense.shared.Position
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -105,7 +104,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private val navigationService = NavigationService()
     private val astronomyService = AstronomyService()
-    private val geoService = GeoService()
+    private val geoService = GeologyService()
     private val formatService by lazy { FormatService(requireContext()) }
 
     private var beacons: Collection<Beacon> = listOf()
@@ -613,7 +612,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         return if (!userPrefs.useAutoDeclination) {
             userPrefs.declinationOverride
         } else {
-            geoService.getDeclination(gps.location, gps.altitude)
+            geoService.getMagneticDeclination(gps.location, gps.altitude)
         }
     }
 

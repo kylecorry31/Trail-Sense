@@ -3,11 +3,11 @@ package com.kylecorry.trail_sense.weather.infrastructure.commands
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.weather.Weather
 
 class StormAlertCommand(private val context: Context, private val forecast: Weather) :
     IWeatherAlertCommand {

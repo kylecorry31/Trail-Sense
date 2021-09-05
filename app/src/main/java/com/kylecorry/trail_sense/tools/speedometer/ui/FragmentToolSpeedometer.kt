@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSpeedometerBinding
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance

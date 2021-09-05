@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared
 
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
-import com.kylecorry.trailsensecore.domain.units.IsLargeUnitSpecification
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.trail_sense.shared.specifications.IsLargeUnitSpecification
 
 object DistanceUtils {
     fun Distance.toRelativeDistance(): Distance {

@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.astronomy.infrastructure.commands
 
 import android.content.Context
 import android.util.Log
-import com.kylecorry.andromeda.core.time.toZonedDateTime
-import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService

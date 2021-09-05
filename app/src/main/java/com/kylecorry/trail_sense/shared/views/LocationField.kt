@@ -5,7 +5,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.andromeda.forms.FormField
 import com.kylecorry.andromeda.forms.Forms
 

@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.clipboard.Clipboard
-import com.kylecorry.andromeda.core.units.Bearing
-import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
@@ -17,15 +18,12 @@ import com.kylecorry.trail_sense.shared.AppUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 
 class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val compass by lazy { sensorService.getCompass() }
-    private val geoService = GeoService()
-    private val navigationService = NavigationService()
+    private val geoService = GeologyService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
@@ -105,11 +103,11 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         val d2 = direction2 ?: return
 
         // All information is available to triangulate
-        val declination = geoService.getDeclination(c1)
+        val declination = geoService.getMagneticDeclination(c1)
         val bearing1 = d1.withDeclination(declination)
         val bearing2 = d2.withDeclination(declination)
 
-        val location = navigationService.triangulate(c1, bearing1, c2, bearing2)
+        val location = geoService.triangulate(c1, bearing1, c2, bearing2)
         this.location = location
 
         if (location == null || location.latitude.isNaN() || location.longitude.isNaN()) {

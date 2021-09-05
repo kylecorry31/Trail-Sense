@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.packs.domain.sort
 
-import com.kylecorry.andromeda.core.units.WeightUnits
+import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 
 class WeightPackItemSort(private val ascending: Boolean = true) : IPackItemSort {

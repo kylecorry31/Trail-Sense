@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors
 
-import com.kylecorry.andromeda.core.math.Vector3
+import com.kylecorry.sol.math.Vector3
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 

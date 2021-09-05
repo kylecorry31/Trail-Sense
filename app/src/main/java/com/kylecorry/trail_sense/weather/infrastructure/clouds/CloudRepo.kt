@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.weather.infrastructure.clouds
 import android.content.Context
 import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.weather.clouds.*
+import com.kylecorry.sol.science.meteorology.clouds.*
 
 class CloudRepo(private val context: Context) {
 

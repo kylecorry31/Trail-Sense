@@ -5,10 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.kylecorry.andromeda.core.sensors.read
-import com.kylecorry.andromeda.core.time.toZonedDateTime
-import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.services.CoroutineForegroundService
+import com.kylecorry.sol.science.astronomy.SunTimesMode
+import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -17,7 +18,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull

@@ -5,19 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.core.sensors.asLiveData
-import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.light.LightSensor
+import com.kylecorry.sol.science.physics.PhysicsService
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightBinding
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trailsensecore.domain.light.LightService
 import kotlin.math.max
 
 class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
 
     private val lightSensor by lazy { LightSensor(requireContext()) }
-    private val lightService = LightService()
+    private val lightService = PhysicsService()
     private val formatService by lazy { FormatService(requireContext()) }
     private var maxLux = 0f
 
@@ -62,8 +62,8 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
             return
         }
 
-        val candela = lightService.toCandela(maxLux, distance)
-        val beamDist = lightService.beamDistance(candela).convertTo(distance.units)
+        val candela = lightService.luxToCandela(maxLux, distance)
+        val beamDist = lightService.lightBeamDistance(candela).convertTo(distance.units)
 
         binding.intensity.text = formatService.formatCandela(candela)
         binding.beamDistanceText.text =

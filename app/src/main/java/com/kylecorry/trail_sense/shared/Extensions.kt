@@ -3,15 +3,15 @@ package com.kylecorry.trail_sense.shared
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 
 fun Distance.times(value: Float): Distance {
     return Distance(distance * value, units)

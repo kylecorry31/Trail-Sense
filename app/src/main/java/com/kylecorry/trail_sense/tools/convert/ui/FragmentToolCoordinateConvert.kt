@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import com.kylecorry.andromeda.core.units.CoordinateFormat
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCoordinateConvertBinding
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.andromeda.core.units.CoordinateFormat
-import com.kylecorry.andromeda.fragments.BoundFragment
 
 class FragmentToolCoordinateConvert : BoundFragment<FragmentToolCoordinateConvertBinding>() {
 

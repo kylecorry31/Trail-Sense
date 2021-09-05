@@ -14,10 +14,10 @@ import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.core.math.deltaAngle
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.CompassDirection
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.sol.math.SolMath.deltaAngle
+import com.kylecorry.sol.units.CompassDirection
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.absoluteValue

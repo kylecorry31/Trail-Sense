@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.paths
 
-import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
 import java.time.Duration

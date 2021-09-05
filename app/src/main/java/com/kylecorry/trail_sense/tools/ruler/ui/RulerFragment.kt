@@ -5,20 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolRulerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.geo.GeoService
 
 class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
-    private val geoService = GeoService()
+    private val geoService = GeologyService()
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var scaleMode = MapScaleMode.Fractional

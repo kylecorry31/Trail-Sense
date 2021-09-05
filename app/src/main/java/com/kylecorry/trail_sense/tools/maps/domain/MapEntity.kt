@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.maps.domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.sol.units.Coordinate
 
 @Entity(tableName = "maps")
 data class MapEntity(

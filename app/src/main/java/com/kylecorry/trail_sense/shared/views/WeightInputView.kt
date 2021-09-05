@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
 import android.util.AttributeSet
-import com.kylecorry.andromeda.core.units.Weight
-import com.kylecorry.andromeda.core.units.WeightUnits
+import com.kylecorry.sol.units.Weight
+import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.andromeda.forms.UnitInputView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService

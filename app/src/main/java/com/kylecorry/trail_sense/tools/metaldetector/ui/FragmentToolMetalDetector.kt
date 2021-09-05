@@ -6,9 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.buzz.Buzz
-import com.kylecorry.andromeda.core.math.LowPassFilter
-import com.kylecorry.andromeda.core.math.Quaternion
-import com.kylecorry.andromeda.core.math.Vector3
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
@@ -16,19 +13,22 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
+import com.kylecorry.sol.math.Quaternion
+import com.kylecorry.sol.math.Vector3
+import com.kylecorry.sol.math.filters.LowPassFilter
+import com.kylecorry.sol.science.physics.PhysicsService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.metaldetection.MetalDetectionService
 import java.time.Duration
 import kotlin.math.roundToInt
 
 class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding>() {
     private val magnetometer by lazy { Magnetometer(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
-    private val metalDetectionService = MetalDetectionService()
+    private val metalDetectionService = PhysicsService()
     private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
     private val orientation by lazy { SensorService(requireContext()).getGyroscope() }
     private val gravity by lazy { GravitySensor(requireContext()) }
@@ -62,8 +62,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             Resources.color(requireContext(), R.color.colorPrimary)
         )
         binding.calibrateBtn.setOnClickListener {
-            binding.threshold.progress =
-                metalDetectionService.getFieldStrength(magnetometer.magneticField).roundToInt() + 5
+            binding.threshold.progress = magnetometer.magneticField.magnitude().roundToInt() + 5
             if (prefs.metalDetector.showMetalDirection) {
                 calibratedField = lowPassMagnetometer.magneticField
                 calibratedOrientation = orientation.orientation
@@ -120,12 +119,11 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
                 metal,
                 gravity.acceleration
             )
-            binding.magnetometerView.setFieldStrength(metalDetectionService.getFieldStrength(metal))
+            binding.magnetometerView.setFieldStrength(metal.magnitude())
             binding.magnetometerView.setMetalDirection(direction)
             binding.magnetometerView.setSensitivity(prefs.metalDetector.directionSensitivity)
         }
-        val magneticField =
-            filter.filter(metalDetectionService.getFieldStrength(magnetometer.magneticField))
+        val magneticField = filter.filter(magnetometer.magneticField.magnitude())
 
         if (System.currentTimeMillis() - lastReadingTime > 20 && magneticField != 0f) {
             readings.add(magneticField)

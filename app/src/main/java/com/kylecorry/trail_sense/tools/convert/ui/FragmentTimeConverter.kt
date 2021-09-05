@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.convert.ui
 
-import com.kylecorry.andromeda.core.units.TimeUnits
+import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 

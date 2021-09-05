@@ -11,23 +11,23 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.core.math.cosDegrees
-import com.kylecorry.andromeda.core.math.deltaAngle
-import com.kylecorry.andromeda.core.math.sinDegrees
-import com.kylecorry.andromeda.core.math.wrap
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.SolMath.cosDegrees
+import com.kylecorry.sol.math.SolMath.deltaAngle
+import com.kylecorry.sol.math.SolMath.sinDegrees
+import com.kylecorry.sol.math.SolMath.wrap
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.paths.Path
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.paths.toPixelLines
-import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import kotlin.math.min
 
 class RadarCompassView : CanvasView, ICompassView {

@@ -10,7 +10,7 @@ import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.kylecorry.andromeda.core.math.LowPassFilter
+import com.kylecorry.sol.math.filters.LowPassFilter
 import com.kylecorry.andromeda.core.system.Resources
 import java.time.LocalDateTime
 

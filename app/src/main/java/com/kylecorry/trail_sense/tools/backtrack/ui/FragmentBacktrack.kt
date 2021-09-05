@@ -12,19 +12,19 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.filterSatisfied
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.tools.backtrack.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsValidBacktrackPointSpecification
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
-import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,7 +36,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     private lateinit var waypointsLiveData: LiveData<List<WaypointEntity>>
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val navigationService = NavigationService()
+    private val geoService = GeologyService()
 
     private val gpxService by lazy {
         IOFactory().createGpxService(this)
@@ -130,7 +130,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 requireContext(),
                 formatService,
                 prefs,
-                navigationService,
+                geoService,
                 { deletePath(it) },
                 { mergePreviousPath(it) },
                 { showPath(it) },

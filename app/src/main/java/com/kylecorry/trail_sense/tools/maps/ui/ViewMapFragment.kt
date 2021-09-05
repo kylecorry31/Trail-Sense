@@ -11,16 +11,19 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.getPathPoint
 import com.kylecorry.trail_sense.shared.paths.BacktrackPathSplitter
 import com.kylecorry.trail_sense.shared.paths.PathPoint
@@ -31,9 +34,6 @@ import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
-import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trail_sense.shared.beacons.Beacon
-import com.kylecorry.trail_sense.shared.Position
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -47,7 +47,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val compass by lazy { sensorService.getCompass() }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
-    private val geoService by lazy { GeoService() }
+    private val geoService by lazy { GeologyService() }
     private val cache by lazy { Preferences(requireContext()) }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
@@ -91,7 +91,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         })
         altimeter.asLiveData().observe(viewLifecycleOwner, { updateDestination() })
         compass.asLiveData().observe(viewLifecycleOwner, {
-            compass.declination = geoService.getDeclination(gps.location, gps.altitude)
+            compass.declination = geoService.getMagneticDeclination(gps.location, gps.altitude)
             binding.map.setAzimuth(compass.bearing.value, rotateMap)
             updateDestination()
         })

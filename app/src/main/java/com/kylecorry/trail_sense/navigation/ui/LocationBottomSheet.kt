@@ -8,10 +8,11 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.units.CoordinateFormat
-import com.kylecorry.andromeda.core.units.Distance
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLocationBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainMenuBinding
@@ -20,7 +21,6 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSend
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trailsensecore.domain.geo.GeoService
 import java.time.Duration
 import java.time.Instant
 
@@ -30,7 +30,7 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
 
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val geoService = GeoService()
+    private val geoService = GeologyService()
 
     private lateinit var coordinateList: ListView<CoordinateDisplay>
 

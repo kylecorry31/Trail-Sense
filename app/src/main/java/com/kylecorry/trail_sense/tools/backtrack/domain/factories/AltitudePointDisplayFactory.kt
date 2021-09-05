@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.backtrack.domain.factories
 import android.content.Context
 import android.util.Range
 import com.kylecorry.andromeda.core.rangeOrNull
-import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units

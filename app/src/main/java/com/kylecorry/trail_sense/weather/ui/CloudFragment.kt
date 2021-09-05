@@ -13,13 +13,13 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.sol.science.meteorology.WeatherService
+import com.kylecorry.sol.science.meteorology.clouds.CloudHeight
+import com.kylecorry.sol.science.meteorology.clouds.CloudType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
 import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
-import com.kylecorry.trailsensecore.domain.weather.WeatherService
-import com.kylecorry.trailsensecore.domain.weather.clouds.CloudHeight
-import com.kylecorry.trailsensecore.domain.weather.clouds.CloudType
 
 class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
 

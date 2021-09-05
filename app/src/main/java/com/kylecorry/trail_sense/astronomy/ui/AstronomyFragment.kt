@@ -10,13 +10,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.time.roundNearestMinute
-import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.science.astronomy.SunTimesMode
+import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
+import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.time.Time.roundNearestMinute
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyEvent
@@ -35,9 +38,6 @@ import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.tools.whitenoise.ui.QuickActionWhiteNoise
-import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
-import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
-import com.kylecorry.trailsensecore.domain.geo.GeoService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.isActive
@@ -61,7 +61,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
     private val astronomyService = AstronomyService()
-    private val geoService = GeoService()
+    private val geoService = GeologyService()
     private val formatService by lazy { FormatService(requireContext()) }
 
     private var leftQuickAction: QuickActionButton? = null
@@ -217,7 +217,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         return if (!prefs.useAutoDeclination) {
             prefs.declinationOverride
         } else {
-            geoService.getDeclination(gps.location, gps.altitude)
+            geoService.getMagneticDeclination(gps.location, gps.altitude)
         }
     }
 

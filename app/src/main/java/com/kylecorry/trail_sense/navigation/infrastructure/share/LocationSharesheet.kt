@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.navigation.infrastructure.share
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.andromeda.core.units.Coordinate
 import com.kylecorry.andromeda.core.units.CoordinateFormat
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences

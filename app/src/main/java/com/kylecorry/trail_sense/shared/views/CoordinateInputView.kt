@@ -10,8 +10,9 @@ import android.widget.ProgressBar
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.core.units.CoordinateExtensions.parse
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService

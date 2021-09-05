@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.weather.ui
 
 import com.github.mikephil.charting.charts.LineChart
-import com.kylecorry.andromeda.core.math.roundPlaces
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.PressureUnits
+import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils

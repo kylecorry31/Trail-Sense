@@ -3,14 +3,14 @@ package com.kylecorry.trail_sense.weather.infrastructure.commands
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.read
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.sol.science.meteorology.PressureTendency
+import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
-import com.kylecorry.trailsensecore.domain.weather.PressureReading
-import com.kylecorry.trailsensecore.domain.weather.PressureTendency
-import com.kylecorry.trailsensecore.domain.weather.Weather
 import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant

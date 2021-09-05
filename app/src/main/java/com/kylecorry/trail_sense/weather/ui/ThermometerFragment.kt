@@ -7,22 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.math.MovingAverageFilter
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.sol.math.filters.MovingAverageFilter
+import com.kylecorry.sol.science.meteorology.HeatAlert
+import com.kylecorry.sol.units.Temperature
+import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentThermometerHygrometerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
-import com.kylecorry.andromeda.core.units.Temperature
-import com.kylecorry.andromeda.core.units.TemperatureUnits
-import com.kylecorry.trailsensecore.domain.weather.HeatAlert
-import com.kylecorry.trailsensecore.domain.weather.PressureAltitudeReading
 import java.time.Duration
 import java.time.Instant
 
@@ -33,7 +33,7 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
     private val hygrometer by lazy { sensorService.getHygrometer() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
-    private val newWeatherService = com.kylecorry.trailsensecore.domain.weather.WeatherService()
+    private val newWeatherService = com.kylecorry.sol.science.meteorology.WeatherService()
     private val weatherService by lazy {
         WeatherService(
             prefs.weather.stormAlertThreshold,

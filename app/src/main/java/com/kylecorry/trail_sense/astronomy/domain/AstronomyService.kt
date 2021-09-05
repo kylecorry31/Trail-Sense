@@ -1,15 +1,18 @@
 package com.kylecorry.trail_sense.astronomy.domain
 
-import com.kylecorry.andromeda.core.time.roundNearestMinute
-import com.kylecorry.andromeda.core.time.toZonedDateTime
-import com.kylecorry.andromeda.core.units.Bearing
-import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.trailsensecore.domain.astronomy.*
-import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
-import com.kylecorry.trailsensecore.domain.astronomy.eclipse.EclipseType
-import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonPhase
-import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
-import com.kylecorry.trailsensecore.domain.time.Season
+import com.kylecorry.sol.science.astronomy.AstronomyService
+import com.kylecorry.sol.science.astronomy.IAstronomyService
+import com.kylecorry.sol.science.astronomy.RiseSetTransitTimes
+import com.kylecorry.sol.science.astronomy.SunTimesMode
+import com.kylecorry.sol.science.astronomy.eclipse.EclipseType
+import com.kylecorry.sol.science.astronomy.meteors.MeteorShowerPeak
+import com.kylecorry.sol.science.astronomy.moon.MoonPhase
+import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
+import com.kylecorry.sol.science.shared.Season
+import com.kylecorry.sol.time.Time.roundNearestMinute
+import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.Coordinate
 import java.time.*
 
 /**

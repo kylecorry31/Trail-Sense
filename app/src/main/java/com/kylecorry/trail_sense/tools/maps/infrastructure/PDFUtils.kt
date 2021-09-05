@@ -6,10 +6,10 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.pdf.PdfRenderer
 import android.net.Uri
-import com.kylecorry.andromeda.core.math.toDoubleCompat
-import com.kylecorry.andromeda.core.math.toFloatCompat
+import com.kylecorry.andromeda.core.toDoubleCompat
+import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.core.system.Screen
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.andromeda.files.ExternalFiles
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate

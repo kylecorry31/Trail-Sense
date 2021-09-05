@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSend
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.beacons.Beacon
-import com.kylecorry.andromeda.core.units.Distance
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.Units
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

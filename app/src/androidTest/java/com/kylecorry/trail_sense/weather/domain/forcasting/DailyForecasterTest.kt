@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.weather.domain.forcasting
 
-import com.kylecorry.trailsensecore.domain.weather.PressureReading
+import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trailsensecore.domain.weather.Weather
 import org.junit.Assert.assertEquals
 import org.junit.Test

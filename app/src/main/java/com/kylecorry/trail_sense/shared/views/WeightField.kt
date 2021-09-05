@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
-import com.kylecorry.andromeda.core.units.Weight
-import com.kylecorry.andromeda.core.units.WeightUnits
+import com.kylecorry.sol.units.Weight
+import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.andromeda.forms.Forms
 
 class WeightField(

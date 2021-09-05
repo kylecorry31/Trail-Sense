@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues
 
 import android.content.Context
-import com.kylecorry.andromeda.core.time.toZonedDateTime
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.paths.PathPoint

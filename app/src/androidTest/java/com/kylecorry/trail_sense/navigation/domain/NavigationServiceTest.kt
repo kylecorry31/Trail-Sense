@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.navigation.domain
 
 import android.graphics.Color
-import com.kylecorry.andromeda.core.units.Bearing
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.Position
 import org.junit.Assert

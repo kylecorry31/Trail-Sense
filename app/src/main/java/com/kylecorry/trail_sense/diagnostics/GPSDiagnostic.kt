@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.diagnostics
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.permissions.Permissions

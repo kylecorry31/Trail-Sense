@@ -1,8 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
-import com.kylecorry.andromeda.core.units.DistanceUnits
-import com.kylecorry.andromeda.core.units.PressureUnits
-import com.kylecorry.trailsensecore.domain.units.isLarge
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.PressureUnits
 
 object Units {
 

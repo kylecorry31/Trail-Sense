@@ -2,12 +2,13 @@ package com.kylecorry.trail_sense.navigation.infrastructure.share
 
 import android.content.Context
 import android.content.Intent
-import com.kylecorry.andromeda.core.units.Coordinate
+import com.kylecorry.andromeda.core.units.CoordinateExtensions.toDecimalDegrees
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sharing.MapSiteService
 import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.sharing.MapSiteService
 
 class BeaconSharesheet(private val context: Context) : IBeaconSender {
 

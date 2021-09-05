@@ -10,12 +10,13 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.filterSatisfied
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.time.toZonedDateTime
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathBottomSheetBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
@@ -24,6 +25,9 @@ import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
+import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.domain.factories.*
@@ -32,11 +36,6 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.SelectedP
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsCurrentPathSpecification
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsValidBacktrackPointSpecification
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
-import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trail_sense.shared.beacons.Beacon
-import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
-import com.kylecorry.trailsensecore.domain.navigation.NavigationService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -44,7 +43,6 @@ import java.time.Instant
 
 class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
 
-    private val navigationService = NavigationService()
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
@@ -55,7 +53,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     private val compass by lazy { sensorService.getCompass() }
     private val waypointRepo by lazy { WaypointRepo.getInstance(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
-    private val geoService = GeoService()
+    private val geoService = GeologyService()
 
     private var drawPathToGPS = false
     private var path: List<PathPoint> = emptyList()
@@ -146,7 +144,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
 
         drawPathToGPS = IsCurrentPathSpecification(requireContext()).isSatisfiedBy(pathId)
 
-        val distance = navigationService.getPathDistance(path.map { it.coordinate })
+        val distance = geoService.getPathDistance(path.map { it.coordinate })
             .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
 
         val start = path.lastOrNull()?.time
@@ -245,7 +243,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         return if (!prefs.useAutoDeclination) {
             prefs.declinationOverride
         } else {
-            geoService.getDeclination(gps.location, gps.altitude)
+            geoService.getMagneticDeclination(gps.location, gps.altitude)
         }
     }
 

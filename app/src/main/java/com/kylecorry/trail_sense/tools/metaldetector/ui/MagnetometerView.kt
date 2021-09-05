@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.andromeda.core.units.Bearing
+import com.kylecorry.sol.units.Bearing
 import kotlin.math.min
 
 class MagnetometerView : CanvasView {

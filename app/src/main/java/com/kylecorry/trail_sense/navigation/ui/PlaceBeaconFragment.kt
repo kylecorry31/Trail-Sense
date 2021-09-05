@@ -12,12 +12,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.capitalizeWords
-import com.kylecorry.andromeda.core.math.roundPlaces
-import com.kylecorry.andromeda.core.units.Bearing
-import com.kylecorry.andromeda.core.units.CompassDirection
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.CompassDirection
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
@@ -28,10 +29,9 @@ import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.geo.GeoService
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -59,7 +59,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     private var initialGroupId: Long? = null
     private var initialGroupIndex = 0
     private var initialLocation: MyNamedCoordinate? = null
-    private val geoService = GeoService()
+    private val geoService = GeologyService()
 
     private var bearingTo: Bearing? = null
 
@@ -274,7 +274,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             val coordinate = if (createAtDistance) {
                 val coord = binding.beaconLocation.coordinate
                 val declination = if (coord != null) {
-                    geoService.getDeclination(coord, elevation)
+                    geoService.getMagneticDeclination(coord, elevation)
                 } else {
                     0f
                 }
@@ -425,7 +425,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         val coordinate = if (createAtDistance) {
             val coord = binding.beaconLocation.coordinate
             val declination = if (coord != null) {
-                geoService.getDeclination(coord, elevation)
+                geoService.getMagneticDeclination(coord, elevation)
             } else {
                 0f
             }

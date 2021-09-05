@@ -2,11 +2,11 @@ package com.kylecorry.trail_sense.astronomy.ui.fields
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.units.CompassDirection
 import com.kylecorry.andromeda.markdown.MarkdownService
+import com.kylecorry.sol.science.astronomy.SunTimesMode
+import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trailsensecore.domain.astronomy.SunTimesMode
 import java.time.LocalTime
 
 class SunsetAstroField(val time: LocalTime, val type: SunTimesMode) : AstroFieldTemplate() {

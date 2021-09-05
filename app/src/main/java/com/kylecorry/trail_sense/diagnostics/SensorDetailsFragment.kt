@@ -13,7 +13,7 @@ import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.*
+import com.kylecorry.sol.units.*
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.GPS

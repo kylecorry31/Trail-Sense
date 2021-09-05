@@ -1,14 +1,13 @@
 package com.kylecorry.trail_sense.navigation.domain
 
-import com.kylecorry.andromeda.core.math.clamp
-import com.kylecorry.andromeda.core.math.deltaAngle
-import com.kylecorry.andromeda.core.units.Bearing
-import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.trail_sense.shared.beacons.Beacon
-import com.kylecorry.trailsensecore.domain.navigation.INavigationService
-import com.kylecorry.trailsensecore.domain.navigation.NavigationService
-import com.kylecorry.trailsensecore.domain.navigation.NavigationVector
+import com.kylecorry.sol.math.SolMath.clamp
+import com.kylecorry.sol.math.SolMath.deltaAngle
+import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.science.geology.NavigationVector
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.Position
+import com.kylecorry.trail_sense.shared.beacons.Beacon
 import java.time.Duration
 import kotlin.math.PI
 import kotlin.math.abs
@@ -16,7 +15,7 @@ import kotlin.math.max
 
 class NavigationService {
 
-    private val newNavigationService: INavigationService = NavigationService()
+    private val newNavigationService = GeologyService()
 
     fun navigate(
         from: Coordinate,

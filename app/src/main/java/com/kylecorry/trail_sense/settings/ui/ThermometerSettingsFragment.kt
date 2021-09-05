@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
-import com.kylecorry.andromeda.core.math.toFloatCompat
+import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
@@ -12,8 +12,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.andromeda.core.units.Temperature
-import com.kylecorry.andromeda.core.units.TemperatureUnits
+import com.kylecorry.sol.units.Temperature
+import com.kylecorry.sol.units.TemperatureUnits
 
 class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 

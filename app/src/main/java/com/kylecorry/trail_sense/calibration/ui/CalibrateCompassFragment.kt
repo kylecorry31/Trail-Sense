@@ -13,11 +13,11 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.sense.compass.ICompass
+import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.geo.GeoService
 
 
 class CalibrateCompassFragment : AndromedaPreferenceFragment() {
@@ -39,7 +39,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
 
     private lateinit var compass: ICompass
     private lateinit var gps: IGPS
-    private val geoService = GeoService()
+    private val geoService = GeologyService()
 
     private var prevQuality = Quality.Unknown
 
@@ -145,12 +145,12 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
         return if (!prefs.useAutoDeclination) {
             prefs.declinationOverride
         } else {
-            geoService.getDeclination(gps.location, gps.altitude)
+            geoService.getMagneticDeclination(gps.location, gps.altitude)
         }
     }
 
     private fun onUpdateDeclinationFromGpsCallback(): Boolean {
-        val declination = geoService.getDeclination(gps.location, gps.altitude)
+        val declination = geoService.getMagneticDeclination(gps.location, gps.altitude)
         prefs.declinationOverride = declination
         declinationOverrideEdit.text = declination.toString()
         Alerts.toast(requireContext(), getString(R.string.declination_override_updated_toast))

@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import com.github.mikephil.charting.charts.LineChart
-import com.kylecorry.andromeda.core.units.PressureUnits
+import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.weather.ui.PressureChart
 

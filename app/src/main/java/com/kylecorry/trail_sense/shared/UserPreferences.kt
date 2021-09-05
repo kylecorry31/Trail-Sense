@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.shared
 import android.content.Context
 import android.hardware.SensorManager
 import android.text.format.DateFormat
-import com.kylecorry.andromeda.core.math.toFloatCompat
-import com.kylecorry.andromeda.core.units.*
+import com.kylecorry.andromeda.core.toFloatCompat
+import com.kylecorry.sol.units.*
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.preferences.StringEnumPreference
@@ -47,8 +47,8 @@ class UserPreferences(private val context: Context) {
         WeightUnits.Kilograms
     )
 
-    val baseDistanceUnits: com.kylecorry.andromeda.core.units.DistanceUnits
-        get() = if (distanceUnits == DistanceUnits.Meters) com.kylecorry.andromeda.core.units.DistanceUnits.Meters else com.kylecorry.andromeda.core.units.DistanceUnits.Feet
+    val baseDistanceUnits: com.kylecorry.sol.units.DistanceUnits
+        get() = if (distanceUnits == DistanceUnits.Meters) com.kylecorry.sol.units.DistanceUnits.Meters else com.kylecorry.sol.units.DistanceUnits.Feet
 
     val pressureUnits: PressureUnits
         get() {

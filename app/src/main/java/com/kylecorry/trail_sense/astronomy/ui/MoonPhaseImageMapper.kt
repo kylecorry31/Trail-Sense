@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.astronomy.ui
 
 import androidx.annotation.DrawableRes
+import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trailsensecore.domain.astronomy.moon.MoonTruePhase
 
 class MoonPhaseImageMapper {
 

@@ -6,29 +6,29 @@ import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.core.math.cosDegrees
-import com.kylecorry.andromeda.core.math.power
-import com.kylecorry.andromeda.core.math.sinDegrees
-import com.kylecorry.andromeda.core.math.wrap
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.Coordinate
-import com.kylecorry.andromeda.core.units.Distance
-import com.kylecorry.andromeda.core.units.DistanceUnits
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.SolMath.cosDegrees
+import com.kylecorry.sol.math.SolMath.power
+import com.kylecorry.sol.math.SolMath.sinDegrees
+import com.kylecorry.sol.math.SolMath.wrap
+import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.paths.GrayPathLineDrawerDecoratorStrategy
-import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
-import com.kylecorry.trail_sense.shared.toPixelLines
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.NoDrawPointColoringStrategy
-import com.kylecorry.trailsensecore.domain.geo.GeoService
-import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trail_sense.shared.paths.PathStyle
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
+import com.kylecorry.trail_sense.shared.paths.GrayPathLineDrawerDecoratorStrategy
+import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
+import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.shared.paths.PathStyle
+import com.kylecorry.trail_sense.shared.toPixelLines
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.NoDrawPointColoringStrategy
 import kotlin.math.floor
 import kotlin.math.log10
 import kotlin.math.min
@@ -72,7 +72,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private val formatService by lazy { FormatService(context) }
     private val pathColor by lazy { prefs.navigation.backtrackPathColor }
     private val pathStyle by lazy { prefs.navigation.backtrackPathStyle }
-    private val geoService = GeoService()
+    private val geoService = GeologyService()
     private var metersPerPixel: Float = 1f
     private var center: Coordinate = Coordinate.zero
 

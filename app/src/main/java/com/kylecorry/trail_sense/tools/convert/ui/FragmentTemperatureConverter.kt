@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.convert.ui
 
-import com.kylecorry.andromeda.core.units.Temperature
-import com.kylecorry.andromeda.core.units.TemperatureUnits
+import com.kylecorry.sol.units.Temperature
+import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 

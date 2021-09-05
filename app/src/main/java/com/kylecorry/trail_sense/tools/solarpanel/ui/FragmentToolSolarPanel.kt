@@ -8,19 +8,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.math.deltaAngle
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
+import com.kylecorry.sol.math.SolMath.deltaAngle
+import com.kylecorry.sol.science.astronomy.AstronomyService
+import com.kylecorry.sol.science.astronomy.SolarPanelPosition
+import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSolarPanelBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trailsensecore.domain.astronomy.AstronomyService
-import com.kylecorry.trailsensecore.domain.astronomy.SolarPanelPosition
-import com.kylecorry.trailsensecore.domain.geo.GeoService
 import java.time.ZonedDateTime
 import kotlin.math.absoluteValue
 
@@ -32,7 +32,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
     private val compass by lazy { sensorService.getCompass() }
     private val orientation by lazy { GravityOrientationSensor(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
-    private val geoService = GeoService()
+    private val geoService = GeologyService()
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val throttle = Throttle(20)
 
@@ -80,7 +80,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
         return if (!prefs.useAutoDeclination) {
             prefs.declinationOverride
         } else {
-            geoService.getDeclination(gps.location, gps.altitude)
+            geoService.getMagneticDeclination(gps.location, gps.altitude)
         }
     }
 

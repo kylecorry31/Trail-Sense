@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors
 
 import android.util.Range
-import com.kylecorry.andromeda.core.math.constrain
-import com.kylecorry.andromeda.core.math.norm
-import com.kylecorry.trail_sense.shared.scales.IColorScale
+import com.kylecorry.sol.math.SolMath.clamp
+import com.kylecorry.sol.math.SolMath.norm
 import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.shared.scales.IColorScale
 
 class AltitudePointColoringStrategy(
     private val altitudeRange: Range<Float>,
@@ -12,7 +12,7 @@ class AltitudePointColoringStrategy(
 ) : IPointColoringStrategy {
     override fun getColor(point: PathPoint): Int? {
         val altitude = point.elevation ?: return null
-        val ratio = constrain(norm(altitude, altitudeRange.lower, altitudeRange.upper), 0f, 1f)
+        val ratio = clamp(norm(altitude, altitudeRange.lower, altitudeRange.upper), 0f, 1f)
         return colorScale.getColor(ratio)
     }
 }
