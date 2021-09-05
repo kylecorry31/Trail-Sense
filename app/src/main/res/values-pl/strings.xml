@@ -623,8 +623,8 @@
     <string name="always_on">Zawsze włączone</string>
     <string name="no_temperature_history">Brak historii temperatury</string>
     <string name="no_gps_signal">Brak sygnału GPS</string>
-    <string name="low_tide">Niski przypływ</string>
-    <string name="high_tide">Wysoki przypływ</string>
+    <string name="low_tide">Odpływ</string>
+    <string name="high_tide">Przypływ</string>
     <string name="right_quick_action">Prawa szybka akcja</string>
     <string name="left_quick_action">Lewa szybka akcja</string>
     <string name="guide_light_meter_description">Jak określić odległość wiązki światła z latarek</string>
@@ -639,13 +639,13 @@
     <string name="weather_worse_than_today">Gorsza niż dzisiaj</string>
     <string name="weather_better_than_today">Lepsza niż dzisiaj</string>
     <string name="tomorrows_forecast">Jutrzejsza prognoza</string>
-    <string name="tide_calibration_instructions">Ustaw czas przypływu w pobliżu, najlepiej w dniu nowiu lub pełni księżyca. Można go uzyskać online lub za pośrednictwem drukowanych tabel pływów. Pływy pokazane w Trail Sense mogą się różnić nawet o dwie godziny, co jest wystarczająco dobre dla odniesienia, ale nie można na nich polegać.</string>
+    <string name="tide_calibration_instructions">Ustaw czas przypływu w pobliżu, najlepiej w dniu nowiu lub pełni księżyca. Można znaleźć go w Internecie lub na drukowanych tabelach pływów. Pływy pokazane w programie Trail Sense mogą się różnić nawet o dwie godziny, co jest wystarczająco dobre dla odniesienia, ale nie można na nich polegać.</string>
     <string name="battery_power_ac">AC</string>
     <string name="low">Niskie</string>
     <string name="moderate">Umiarkowane</string>
     <string name="high">Wysokie</string>
     <string name="speedometer">Prędkościomierz</string>
-    <string name="speedometer_average">Średnia (z funkcji Backtrack)</string>
+    <string name="speedometer_average">Średnia (z funkcji śladu powrotnego)</string>
     <string name="speedometer_real_time">Czas rzeczywisty</string>
     <string name="screen_flashlight">Ekran</string>
     <string name="half_tide">Połowa przypływu</string>
@@ -742,9 +742,9 @@
     <string name="delete_map">Usunąć mapę\?</string>
     <string name="pref_nmea_altitude_title">Przesunięcia wysokości NMEA</string>
     <string name="water_boil_guide_title">Spraw, aby woda była bezpieczna do picia</string>
-    <string name="solid">Stała</string>
+    <string name="solid">Stały</string>
     <string name="arrow">Strzałka</string>
-    <string name="dotted">Kropkowana</string>
+    <string name="dotted">Kropkowany</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="convert">Przelicznik</string>
     <string name="distance">Odległość</string>
@@ -786,10 +786,10 @@
     <string name="location_mocked">Korzystanie z udawanej lokalizacji</string>
     <string name="underwater_mode">Tryb podwodny</string>
     <string name="leave_underwater_mode">Pod wodą: naciśnij wstecz, aby wyjść</string>
-    <string name="pref_tiles_enabled_summary">Może zapobiec aplikacjom oszczędzających baterię na całkowite zatrzymanie programu Trail Sense</string>
+    <string name="pref_tiles_enabled_summary">Może zapobiec całkowitemu zatrzymaniu programu Trail Sense przez aplikacje oszczędzające baterię</string>
     <string name="pref_cell_signal_refresh_cache_summary">Wymusza wczytywanie najnowszych danych o mocy sygnału</string>
     <string name="pref_cell_signal_refresh_cache_title">Odśwież pamięć podręczną sygnału</string>
-    <string name="pref_navigation_lock_screen_presence_title">Pokaż na ekranie blokady podczas nawigacji</string>
+    <string name="pref_navigation_lock_screen_presence_title">Pokaż na ekranie blokady podczas nawigowania</string>
     <string name="pref_flashlight_toggle_with_system_title">Przełącz z systemem</string>
     <string name="map_rotate_instructions">Obracaj, aż północ będzie skierowana do góry</string>
     <string name="pref_barometer_altitude_outlier_title">Usuwanie wartości odstających wysokości</string>
@@ -798,7 +798,7 @@
     <string name="pref_experimental_barometer_calibration_title">Użyj eksperymentalnej kalibracji</string>
     <string name="pref_nmea_altitude_summary">Wykorzystuje przesunięcia NMEA do konwersji wysokości</string>
     <string name="pref_barometer_info_summary">Ciśnienie może różnić się od ciśnienia w pobliskich stacjach</string>
-    <string name="battery_history">Historia baterii - ostatnio %s</string>
+    <string name="battery_history">Historia baterii - ostatnie %s</string>
     <string name="pref_show_last_signal_beacon_summary">Tworzy punkt dla ostatniej lokalizacji z sygnałem komórkowym</string>
     <string name="backtrack_high_priority_notification">Umieszczanie punktu trasy co %s</string>
     <string name="actual_frequency_disclaimer">Rzeczywista częstotliwość może się różnić, ponieważ niektóre urządzenia mają ograniczenia działania w tle.</string>
@@ -806,8 +806,8 @@
     <string name="speedometer_odometer_accuracy_dialog">Aby uzyskać najlepszą dokładność, włącz funkcję śladu powrotnego i ustaw źródło licznika kilometrów na krokomierz w ustawieniach.</string>
     <string name="pref_nearby_radar_title">Pokaż pobliski kompas radarowy</string>
     <string name="cirrocumulus_desc">Tworzy falistą taflę, chmury wyglądają niemal dwuwymiarowo.</string>
-    <string name="backtrack_disabled_low_power_toast">Funkcja trasy wstecznej jest wyłączona w trybie oszczędzania energii</string>
-    <string name="pref_backtrack_frequency_title">Interwał trasy wstecznej</string>
+    <string name="backtrack_disabled_low_power_toast">Funkcja śladu powrotnego jest wyłączona w trybie oszczędzania energii</string>
+    <string name="pref_backtrack_frequency_title">Interwał śladu powrotnego</string>
     <string name="backtrack_notification_channel_description">Aktualizacje lokalizacji śladu powrotnego</string>
     <string name="unit_yards">Jardy</string>
     <string name="yards_format">%s yd</string>
@@ -888,9 +888,9 @@
     <string name="us_pints">Pinty amerykańskie</string>
     <string name="us_quarts">Kwarty amerykańskie</string>
     <string name="quarter_moon">Kwadra Księżyca</string>
-    <string name="percent_packed">%s spakowano</string>
+    <string name="percent_packed">Spakowano %s</string>
     <string name="qr_code">Kod QR</string>
-    <string name="last_duration">Ostatnio %s</string>
+    <string name="last_duration">Ostatnie %s</string>
     <string name="notifications_blocked">Powiadomienia zablokowane</string>
     <string name="altitude_override_resolution">Włącz automatyczną kalibrację w ustawieniach.</string>
     <string name="location_override_not_set_resolution">Ustaw nadpisanie lokalizacji w ustawieniach</string>
@@ -917,7 +917,7 @@
     <string name="desired_amount">Pożądana ilość</string>
     <string name="packed_amount">Zapakowana ilość</string>
     <string name="pedometer_disclaimer">Dokładność krokomierza i zużycie baterii zależą od producenta urządzenia i wprowadzonej długości kroku. Wypróbuj go przez chwilę w domu, aby sprawdzić zużycie baterii i dokładność przed użyciem na szlaku.</string>
-    <string name="middle">Środek</string>
+    <string name="middle">Średnie</string>
     <string name="action_inventory_clear_confirm">Wyczyścić wszystkie spakowane ilości\?</string>
     <string name="lightning_dangerously_close">Błyskawica niebezpiecznie blisko</string>
     <string name="partial">Częściowe (%s)</string>
@@ -944,4 +944,48 @@
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Automatycznie</string>
     <string name="units_mmhg">mmHg</string>
+    <string name="altitude_history_length">Długość historii wysokości</string>
+    <string name="astro_dialog_lunar_eclipse">**Początek**: %s
+\n
+\n**Szczyt**: %s
+\n
+\n**Koniec**: %s
+\n
+\n**Czas trwania**: %s
+\n
+\n**Magnituda**: %s
+\n
+\n**Wysokość**: %s</string>
+    <string name="astro_dialog_noon">**Czas**: %s
+\n
+\n**Wysokość**: %s</string>
+    <string name="astro_dialog_rise_set">**Czas**: %s
+\n
+\n**Kierunek**: %s</string>
+    <string name="path_merge_previous">Scal z poprzednim</string>
+    <string name="delete_pack">Usunąć plecak\?</string>
+    <string name="default_pack_name">Plecak domyślny</string>
+    <string name="astro_dialog_day_length">**Dzień**: %s
+\n
+\n**Noc**: %s
+\n
+\n**Pora roku**: %s</string>
+    <string name="path_exported">Ślad wyeksportowany</string>
+    <string name="no_previous_path">Brak poprzednich śladów</string>
+    <string name="merge_previous_path_title">Scalić z poprzednim śladem\?</string>
+    <string name="astro_dialog_moon_phase">**Faza**: %s
+\n
+\n**Oświetlenie**: %s</string>
+    <string name="diagnostic_message_template">%s
+\n
+\n### Narzędzia, których dotyczy problem
+\n%s
+\n
+\n### Rozwiązanie
+\n%s</string>
+    <string name="supermoon">Superksiężyc</string>
+    <string name="season_fall">Jesień</string>
+    <string name="season_summer">Lato</string>
+    <string name="season_spring">Wiosna</string>
+    <string name="season_winter">Zima</string>
 </resources>
