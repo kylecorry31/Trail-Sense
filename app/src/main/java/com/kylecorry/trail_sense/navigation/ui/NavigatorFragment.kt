@@ -47,6 +47,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesh
 import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.declination.DeclinationProvider
 import com.kylecorry.trail_sense.shared.paths.BacktrackPathSplitter
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -90,6 +91,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val orientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val speedometer by lazy { sensorService.getSpeedometer() }
+    private val declination by lazy { DeclinationProvider().getDeclinationStrategy(userPrefs, gps) }
 
     private val userPrefs by lazy { UserPreferences(requireContext()) }
 
@@ -609,11 +611,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun getDeclination(): Float {
-        return if (!userPrefs.useAutoDeclination) {
-            userPrefs.declinationOverride
-        } else {
-            geoService.getMagneticDeclination(gps.location, gps.altitude)
-        }
+        return declination.getDeclination()
     }
 
     private fun getFacingBeacon(nearby: Collection<Beacon>): Beacon? {

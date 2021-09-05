@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
+import com.kylecorry.trail_sense.shared.declination.DeclinationProvider
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
@@ -54,6 +55,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     private val waypointRepo by lazy { WaypointRepo.getInstance(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val geoService = GeologyService()
+    private val declination by lazy { DeclinationProvider().getDeclinationStrategy(prefs, gps) }
 
     private var drawPathToGPS = false
     private var path: List<PathPoint> = emptyList()
@@ -240,11 +242,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     }
 
     private fun getDeclination(): Float {
-        return if (!prefs.useAutoDeclination) {
-            prefs.declinationOverride
-        } else {
-            geoService.getMagneticDeclination(gps.location, gps.altitude)
-        }
+        return declination.getDeclination()
     }
 
 
