@@ -778,4 +778,11 @@
     <string name="autofill">Auto-utfyll</string>
     <string name="overridden">Overstyrt</string>
     <string name="lightning_dangerously_close">Lyn faretruende nært</string>
+    <string name="total">Total</string>
+    <string name="lunar_eclipses">Måneformørkelser</string>
+    <string name="astronomy_alerts">Astronomivarsler</string>
+    <string name="lunar_eclipse">Måneformørkelse</string>
+    <string name="lunar_eclipse_end">Måneformørkelse (slutt)</string>
+    <string name="lunar_eclipse_start">Måneformørkelse (start)</string>
+    <string name="partial">Delvis (%s)</string>
 </resources>

@@ -687,7 +687,19 @@
     <string name="guide_thermometer_calibration_title">Termometre kalibrasyonu</string>
     <string name="pref_gps_override_title">Konumun üzerine yaz</string>
     <string name="coordinate_input_invalid_location">Geçersiz konum</string>
-    <string name="location_input_help">Ondalık dereceler (örn. 1.00, -2.00) Dereceler ondalık dakikalar (örn. 1°23.12\'N, 3°12.1\'W) Dereceler dakikalar saniyeler (örn. 1°23\'12.1\"N, 3°12\"1.2\'W) UTM (örn. 03T 12345E 67890N) MGRS (örn. 27PXM 09601 05579)</string>
+    <string name="location_input_help">Ondalık dereceler (örn. 1.00, -2.00)
+\n
+\nDereceler ondalık dakikalar (örn. 1°23.12\'N, 3°12.1\'W)
+\n
+\nDereceler dakikalar saniyeler (örn. 1°23\'12.1\"N, 3°12\"1.2\'W)
+\n
+\nUTM (örn. 03T 12345E 67890N)
+\n
+\nMGRS (örn. 27PXM 09601 05579)
+\n
+\nUSNG (örn. 14S NJ 39521 41744)
+\n
+\nOSNG (OSGB36) (örn. TG 51409 13177)</string>
     <string name="location_input_help_title">Desteklenen konum biçimleri</string>
     <string name="pref_backtrack_enabled_summary">Konum geçmişini kaydet</string>
     <string name="last_signal_beacon_name">Son sinyal - %s (%s)</string>
@@ -783,4 +795,149 @@
     <string name="privacy">Gizlilik</string>
     <string name="units">Birimler</string>
     <string name="pref_privacy_screenshot_protection_title">Ekran görüntüsü alınmasını engelle</string>
+    <string name="checking_for_astronomy_events">Astronomi olaylarının denetlenmesi</string>
+    <string name="battery_restricted_resolution">Trail Sense\'i Optimize Edilmedi Olarak Ayarla</string>
+    <string name="ounces_weight_format">%s ons</string>
+    <string name="ounces_volume_format">%s ons</string>
+    <string name="find_next_occurrence">Sonraki tekrarı bul</string>
+    <string name="pref_tiles_enabled_title">Sistem döşemeleri</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d ara nokta silinecek</item>
+        <item quantity="other">%d ara nokta silinecek</item>
+    </plurals>
+    <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
+    <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
+    <string name="astronomy_alerts">Astronomi uyarıları</string>
+    <string name="lunar_eclipse">Ay tutulması</string>
+    <string name="lunar_eclipse_end">Ay tutulması (bitiş)</string>
+    <string name="lunar_eclipse_start">Ay tutulması (başlangıç)</string>
+    <string name="partial">Kısmi (%s)</string>
+    <string name="total">Toplam</string>
+    <string name="lunar_eclipses">Ay tutulmaları</string>
+    <string name="high_amount">Yüksek (%s)</string>
+    <string name="medium_amount">Orta (%s)</string>
+    <string name="low_amount">Düşük (%s)</string>
+    <string name="pick_file">Dosya seç</string>
+    <string name="export_path_error">Yol dışa aktarılamadı</string>
+    <string name="path_exported">Yol dışa aktarıldı</string>
+    <string name="no_paths">Yol yok</string>
+    <string name="navigate">Gezin</string>
+    <string name="new_text">Yeni</string>
+    <string name="old">Eski</string>
+    <string name="path">Yol</string>
+    <string name="units_mmhg_short">mm</string>
+    <string name="no_previous_path">Önceki yol yok</string>
+    <string name="merge_previous_path_title">Önceki yolla birleştirilsin mi\?</string>
+    <string name="path_merge_previous">Öncekini birleştir</string>
+    <string name="delete_path">Yol silinsin mi\?</string>
+    <string name="dash_separated_pair">%s - %s</string>
+    <string name="auto">Otomatik</string>
+    <string name="lightning_dangerously_close">Yıldırım tehlikeli bir şekilde yakın</string>
+    <string name="autofill">Otomatik doldur</string>
+    <string name="diagnostic_message_template">%s
+\n
+\n### Etkilenen araçlar
+\n%s
+\n
+\n### Çözünürlük
+\n%s</string>
+    <string name="gps_unavailable_resolution">Konumu etkinleştirin veya konum kaynağınızı Yalnızca Aygıt ya da Yüksek Doğruluk olarak değiştirin</string>
+    <string name="power_saving_mode_resolution">Güç tasarrufu modunu devre dışı bırak</string>
+    <string name="location_override_not_set_resolution">Ayarlarda konumu geçersiz kılmayı ayarla</string>
+    <string name="location_override_resolution">Ayarlarda konumu otomatik ayarlamayı etkinleştir.</string>
+    <string name="altitude_override_resolution">Ayarlarda otomatik kalibrasyonu etkinleştir.</string>
+    <string name="unblock_notification_channel">Trail Sense için %s bildiriminin engellemesini kaldır</string>
+    <string name="get_gps_signal">Engelsiz bir gökyüzü görünümü olacak şekilde dışarı çıkın.</string>
+    <string name="activity_recognition">Etkinlik algılama</string>
+    <string name="background_location_permission">Konum (Her zaman izin ver)</string>
+    <string name="grant_permission">%s izni ver</string>
+    <string name="no_resolution">Çözünürlük yok</string>
+    <string name="no_issues">Sorun algılanmadı</string>
+    <string name="notifications_blocked">Bildirimler engellendi</string>
+    <string name="on">Açık</string>
+    <string name="overridden">Üzerine yazıldı</string>
+    <string name="battery_usage_restricted">Pil kullanımı kısıtlandı</string>
+    <string name="diagnostics">Tanılama</string>
+    <string name="no_permission">İzin verilmedi</string>
+    <string name="camera">Kamera</string>
+    <string name="quarter_moon">Çeyrek Ay</string>
+    <string name="gps_signal_lost">GPS sinyali kayboldu</string>
+    <string name="altitude_history_length">Rakım geçmişi uzunluğu</string>
+    <string name="last_duration">Son %s</string>
+    <string name="pref_filter_altitude_history_title">Düz rakım geçmişi</string>
+    <string name="beacon_qr_import_instructions">İçe aktarmak için bir QR kodu tarayın</string>
+    <string name="qr_code">QR Kodu</string>
+    <string name="altitude_history">Rakım geçmişi</string>
+    <string name="climate_tropical">Tropikal</string>
+    <string name="climate_polar">Kutupsal</string>
+    <string name="climate_zone">%s bölge</string>
+    <string name="climate_temperate">Ilıman</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="num_satellites">%d uydu</string>
+    <string name="no_compass_message">Aygıtınızda pusula sensörü yok</string>
+    <string name="humidity">%s nem</string>
+    <string name="guide_packing_list">Paketleme listeleri oluştur</string>
+    <string name="pref_depth_enabled">pref_depth_enabled</string>
+    <string name="weight_per_item">Öge başına ağırlık</string>
+    <string name="pack_sort_weight_high_to_low">Ağırlık (yüksekten düşüğe)</string>
+    <string name="pack_sort_weight_low_to_high">Ağırlık (düşükten yükseğe)</string>
+    <string name="pack_sort_percent_high_to_low">Paketlenen yüzde (yüksekten düşüğe)</string>
+    <string name="pack_sort_percent_low_to_high">Paketlenen yüzde (düşükten yükseğe)</string>
+    <string name="sort">Sırala</string>
+    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="delete_pack">Paket silinsin mi\?</string>
+    <string name="new_packing_list">Yeni paketleme listesi</string>
+    <string name="no_packing_lists">Paketleme listesi yok</string>
+    <string name="percent_packed">%s paketlendi</string>
+    <string name="packing_lists">Paketleme Listeleri</string>
+    <string name="hygiene">Hijyen</string>
+    <string name="documents">Belgeler</string>
+    <string name="electronics">Elektronik</string>
+    <string name="clear_amounts">Miktarları temizle</string>
+    <string name="desired_amount">İstenen miktar</string>
+    <string name="packed_amount">Paketlenen miktar</string>
+    <string name="default_pack_name">Öntanımlı paket</string>
+    <string name="time">Saat</string>
+    <string name="days_format">%s gün</string>
+    <string name="hours_format">%s sa</string>
+    <string name="minutes_format">%s dak</string>
+    <string name="seconds_format">%s s</string>
+    <string name="milliseconds_format">%s ms</string>
+    <string name="hours">Saat</string>
+    <string name="minutes">Dakika</string>
+    <string name="seconds">Saniye</string>
+    <string name="weight">Ağırlık</string>
+    <string name="grams_format">%s g</string>
+    <string name="kilograms_format">%s kg</string>
+    <string name="pounds_format">%s lb</string>
+    <string name="grams">Gram</string>
+    <string name="kilograms">Kilogram</string>
+    <string name="ounces_weight">Ons</string>
+    <string name="volume">Hacim</string>
+    <string name="milliliters">Mililitre</string>
+    <string name="liters">Litre</string>
+    <string name="milliliter_format">%s ml</string>
+    <string name="liter_format">%s l</string>
+    <string name="pref_map_url_source_title">Konum paylaşımı haritası</string>
+    <string name="clear_cache">Önbelleği temizle</string>
+    <string name="destination_elevation">Hedef yüksekliği</string>
+    <string name="base_temperature">Temel sıcaklık</string>
+    <string name="base_elevation">Temel yükseklik</string>
+    <string name="unit_yards">Yarda</string>
+    <string name="yards_format">%s yd</string>
+    <string name="daylight">Gün ışığı</string>
+    <string name="pref_auto_low_power_title">Otomatik güç tasarrufu</string>
+    <string name="pref_auto_low_power_summary">Piliniz azaldığında</string>
+    <string name="pref_low_resolution_maps_title">Düşük çözünürlük kullan</string>
+    <string name="pref_low_resolution_maps_summary">Bellek kısıtlamaları olan aygıtlar için</string>
+    <string name="pref_flashlight_toggle_with_volume_title">Ses düğmeleri ile aç/kapat</string>
+    <string name="pref_flashlight_toggle_with_volume_summary">Trail Sense açıkken</string>
+    <string name="back_press_confirm">Ayrılmak için tekrar geri düğmesine basın</string>
+    <string name="leave_underwater_mode">Su altı: çıkmak için geri düğmesine basın</string>
+    <string name="underwater_mode">Su altı modu</string>
+    <string name="middle">Orta</string>
+    <string name="action_inventory_clear_confirm">Tüm paketlenen miktarlar silinsin mi\?</string>
+    <string name="units_mmhg">mmHg</string>
+    <string name="current_format">%s mA</string>
 </resources>
