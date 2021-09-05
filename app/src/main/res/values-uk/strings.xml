@@ -969,4 +969,41 @@
     <string name="low_amount">Низько (%s)</string>
     <string name="middle">Середньо</string>
     <string name="units_mmhg">мм рт.ст.</string>
+    <string name="season_fall">Осінь</string>
+    <string name="season_summer">Літо</string>
+    <string name="season_spring">Весна</string>
+    <string name="season_winter">Зима</string>
+    <string name="supermoon">Надмісяць</string>
+    <string name="astro_dialog_day_length">**День**: %s
+\n
+\n**Ніч**: %s
+\n
+\n**Пора року**: %s</string>
+    <string name="astro_dialog_moon_phase">**Фаза**: %s
+\n
+\n**Освітлення**: %s</string>
+    <string name="astro_dialog_lunar_eclipse">**Початок**: %s
+\n
+\n**Пік**: %s
+\n
+\n**Кінець**: %s
+\n
+\n**Тривалість**: %s
+\n
+\n**Величина**: %s
+\n
+\n**Висота**: %s</string>
+    <string name="astro_dialog_noon">**Час**: %s
+\n
+\n**Висота**: %s</string>
+    <string name="astro_dialog_rise_set">**Час**: %s
+\n
+\n**Напрямок**: %s</string>
+    <string name="astro_dialog_meteor_shower">**Пік**: %s
+\n
+\n**Пікова висота**: %s
+\n
+\n**Піковий напрямок**: %s
+\n
+\n**Швидкість**: %s</string>
 </resources>
