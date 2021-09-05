@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSolarPanelBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.declination.DeclinationProvider
+import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.ZonedDateTime
 import kotlin.math.absoluteValue
@@ -32,7 +32,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
     private val compass by lazy { sensorService.getCompass() }
     private val orientation by lazy { GravityOrientationSensor(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
-    private val declination by lazy { DeclinationProvider().getDeclinationStrategy(prefs, gps) }
+    private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val throttle = Throttle(20)
 

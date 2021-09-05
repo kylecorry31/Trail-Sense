@@ -17,7 +17,7 @@ import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.declination.DeclinationProvider
+import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 
@@ -143,7 +143,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
     }
 
     private fun getDeclination(): Float {
-        return DeclinationProvider().getDeclinationStrategy(prefs, gps).getDeclination()
+        return DeclinationFactory().getDeclinationStrategy(prefs, gps).getDeclination()
     }
 
     private fun onUpdateDeclinationFromGpsCallback(): Boolean {

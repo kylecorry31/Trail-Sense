@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 
-internal class DeclinationProviderTest {
+internal class DeclinationFactoryTest {
 
     @Test
     fun returnsGPSStrategyWhenAutoDeclination() {
@@ -15,7 +15,7 @@ internal class DeclinationProviderTest {
         val gps = mock(IGPS::class.java)
         whenever(prefs.useAutoDeclination).thenReturn(true)
 
-        val provider = DeclinationProvider()
+        val provider = DeclinationFactory()
 
         val strategy = provider.getDeclinationStrategy(prefs, gps)
 
@@ -28,7 +28,7 @@ internal class DeclinationProviderTest {
         val gps = mock(IGPS::class.java)
         whenever(prefs.useAutoDeclination).thenReturn(false)
 
-        val provider = DeclinationProvider()
+        val provider = DeclinationFactory()
 
         val strategy = provider.getDeclinationStrategy(prefs, gps)
 
@@ -40,7 +40,7 @@ internal class DeclinationProviderTest {
         val prefs = mock(IDeclinationPreferences::class.java)
         whenever(prefs.useAutoDeclination).thenReturn(true)
 
-        val provider = DeclinationProvider()
+        val provider = DeclinationFactory()
 
         val strategy = provider.getDeclinationStrategy(prefs)
 

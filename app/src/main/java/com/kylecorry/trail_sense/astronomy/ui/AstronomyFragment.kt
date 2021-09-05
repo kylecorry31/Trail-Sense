@@ -29,7 +29,7 @@ import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.databinding.ListItemAstronomyDetailBinding
 import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.declination.DeclinationProvider
+import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
@@ -62,7 +62,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private val cache by lazy { Preferences(requireContext()) }
     private val astronomyService = AstronomyService()
     private val formatService by lazy { FormatService(requireContext()) }
-    private val declination by lazy { DeclinationProvider().getDeclinationStrategy(prefs, gps) }
+    private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
 
     private var leftQuickAction: QuickActionButton? = null
     private var rightQuickAction: QuickActionButton? = null
