@@ -99,43 +99,4 @@ class PowerService {
         return hours(hours.toDouble())
     }
 
-    /**
-     * The readings are pairs of percent to capacity
-     * @return the maximum capacity (100%) in mAh
-     */
-    fun getMaxCapacity(readings: List<BatteryReading>): Float? {
-
-        if (readings.isEmpty() || readings.first().capacity == 0f){
-            return null
-        }
-
-        val fullReading = readings.filter { it.percent == 100f }.minByOrNull { it.capacity }?.capacity
-
-        if (fullReading != null) {
-            return fullReading
-        }
-
-        // Calculate the average mAh between percentages
-        val percentGroupedReadings = readings.groupBy { it.percent }
-            .map { it.key to it.value.map { it.capacity }.average().toFloat() }.sortedBy { it.first }
-
-        val mAhPerPercent = mutableListOf<Float>()
-
-        for (i in 1 until percentGroupedReadings.size) {
-            val firstReading = percentGroupedReadings[i - 1]
-            val secondReading = percentGroupedReadings[i]
-
-            val diffPercent = secondReading.first - firstReading.first
-            val diffCapacity = secondReading.second - firstReading.second
-
-            mAhPerPercent.add(diffCapacity / diffPercent)
-        }
-
-        if (mAhPerPercent.isEmpty()) {
-            return null
-        }
-
-        return mAhPerPercent.average().toFloat()
-    }
-
 }

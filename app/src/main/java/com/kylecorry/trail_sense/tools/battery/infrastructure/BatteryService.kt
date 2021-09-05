@@ -1,9 +1,12 @@
 package com.kylecorry.trail_sense.tools.battery.infrastructure
 
 import android.content.Context
+import com.kylecorry.andromeda.battery.IBattery
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
+import com.kylecorry.trail_sense.tools.battery.domain.PowerService
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
@@ -12,6 +15,8 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import java.time.Duration
 
 class BatteryService {
+
+    private val powerService = PowerService()
 
     fun getRunningServices(context: Context): List<RunningService> {
         val prefs = UserPreferences(context)
@@ -79,5 +84,21 @@ class BatteryService {
 
         return services
     }
+
+    fun getTimeUntilEmpty(battery: IBattery, readings: List<BatteryReading>): Duration? {
+        val capacity = battery.percent
+        val rates = powerService.getRates(readings, Duration.ofMinutes(5), false)
+        val lastDischargeRate = rates.lastOrNull { it < 0f } ?: return null
+        return powerService.getTimeUntilEmpty(capacity, lastDischargeRate)
+    }
+
+    fun getTimeUntilFull(battery: IBattery, readings: List<BatteryReading>): Duration? {
+        val capacity = battery.percent
+        val rates = powerService.getRates(readings, Duration.ofMinutes(5), false)
+        val lastChargeRate = rates.lastOrNull { it > 0f } ?: return null
+        val maxCapacity = 100f
+        return powerService.getTimeUntilFull(capacity, maxCapacity, lastChargeRate)
+    }
+
 
 }

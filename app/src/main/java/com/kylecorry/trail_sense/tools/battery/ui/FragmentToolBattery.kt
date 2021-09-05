@@ -21,7 +21,6 @@ import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.databinding.ListItemServiceBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
-import com.kylecorry.trail_sense.tools.battery.domain.PowerService
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
@@ -42,8 +41,6 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
     private lateinit var servicesList: ListView<RunningService>
 
     private var readings = listOf<BatteryReading>()
-
-    private val powerService = PowerService()
 
     private val intervalometer = Timer {
         update()
@@ -238,47 +235,22 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         }
     }
 
-    private fun updateServices(){
+    private fun updateServices() {
         val services = batteryService.getRunningServices(requireContext())
         servicesList.setData(services)
     }
 
     private fun getTimeUntilEmpty(): Duration? {
-        val hasCapacity = false // battery.capacity != 0f
-        val capacity = if (hasCapacity) battery.capacity else battery.percent
-        val rates = powerService.getRates(readings, Duration.ofMinutes(5), hasCapacity)
-        val lastDischargeRate = rates.lastOrNull { it < 0f } ?: return null
-        return powerService.getTimeUntilEmpty(capacity, lastDischargeRate)
+        return batteryService.getTimeUntilEmpty(battery, readings)
     }
 
     private fun getTimeUntilFull(): Duration? {
-        val hasCapacity = false // battery.capacity != 0f
-        val capacity = if (hasCapacity) battery.capacity else battery.percent
-        val rates = powerService.getRates(readings, Duration.ofMinutes(5), hasCapacity)
-        val lastChargeRate = rates.lastOrNull { it > 0f } ?: return null
-        val maxCapacity = if (hasCapacity) getMaxCapacity() else 100f
-        return powerService.getTimeUntilFull(capacity, maxCapacity, lastChargeRate)
-    }
-
-    private fun getMaxCapacity(): Float {
-        return if (battery.percent != 0f) {
-            battery.maxCapacity
-        } else {
-            100f
-        }
-//        return powerService.getMaxCapacity(readings) ?: (battery.capacity / battery.percent) * 100f
+        return batteryService.getTimeUntilFull(battery, readings)
     }
 
 
     private fun getHealthString(health: BatteryHealth): String {
-        return when (health) {
-            BatteryHealth.Cold -> getString(R.string.battery_health_cold)
-            BatteryHealth.Dead -> getString(R.string.battery_health_dead)
-            BatteryHealth.Good -> getString(R.string.quality_good)
-            BatteryHealth.Overheat -> getString(R.string.battery_health_overheat)
-            BatteryHealth.OverVoltage -> getString(R.string.battery_health_over_voltage)
-            BatteryHealth.Unknown -> getString(R.string.unknown)
-        }
+        return formatService.formatBatteryHealth(health)
     }
 
     override fun generateBinding(
