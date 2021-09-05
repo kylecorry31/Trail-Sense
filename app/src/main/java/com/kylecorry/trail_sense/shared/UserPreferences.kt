@@ -4,10 +4,10 @@ import android.content.Context
 import android.hardware.SensorManager
 import android.text.format.DateFormat
 import com.kylecorry.andromeda.core.toFloatCompat
-import com.kylecorry.sol.units.*
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.preferences.StringEnumPreference
+import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import java.time.Duration
 
-class UserPreferences(private val context: Context) {
+class UserPreferences(private val context: Context): IDeclinationPreferences {
 
     private val cache by lazy { Preferences(context) }
 
@@ -99,11 +99,11 @@ class UserPreferences(private val context: Context) {
 
     // Calibration
 
-    var useAutoDeclination: Boolean
+    override var useAutoDeclination: Boolean
         get() = cache.getBoolean(getString(R.string.pref_auto_declination)) ?: true
         set(value) = cache.putBoolean(getString(R.string.pref_auto_declination), value)
 
-    var declinationOverride: Float
+    override var declinationOverride: Float
         get() = (cache.getString(getString(R.string.pref_declination_override))
             ?: "0.0").toFloatCompat() ?: 0.0f
         set(value) = cache.putString(
