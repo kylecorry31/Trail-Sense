@@ -6,19 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.sol.science.physics.PhysicsService
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCliffHeightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import java.time.Duration
+import com.kylecorry.trail_sense.tools.cliffheight.domain.CliffHeightService
 import java.time.Instant
 
 class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() {
 
-    private val physicsService = PhysicsService()
+    private val service = CliffHeightService()
     private val intervalometer = Timer {
         update()
     }
@@ -66,15 +65,10 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
     }
 
     fun update() {
-        if (startTime == null) {
-            return
-        }
-
-        val duration = Duration.between(startTime, Instant.now())
-        val height = physicsService.fallHeight(duration)
+        val start = startTime ?: return
+        val height = service.getCliffHeight(start, Instant.now())
         val converted = height.convertTo(units)
         val formatted = formatService.formatDistance(converted, 2)
-
         binding.height.text = formatted
     }
 
