@@ -17,7 +17,6 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
-import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.time.Time.roundNearestMinute
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.MainActivity
@@ -30,6 +29,7 @@ import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.databinding.ListItemAstronomyDetailBinding
 import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.declination.DeclinationProvider
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
@@ -61,8 +61,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
     private val astronomyService = AstronomyService()
-    private val geoService = GeologyService()
     private val formatService by lazy { FormatService(requireContext()) }
+    private val declination by lazy { DeclinationProvider().getDeclinationStrategy(prefs, gps) }
 
     private var leftQuickAction: QuickActionButton? = null
     private var rightQuickAction: QuickActionButton? = null
@@ -214,11 +214,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun getDeclination(): Float {
-        return if (!prefs.useAutoDeclination) {
-            prefs.declinationOverride
-        } else {
-            geoService.getMagneticDeclination(gps.location, gps.altitude)
-        }
+        return declination.getDeclination()
     }
 
     private fun updateUI() {
