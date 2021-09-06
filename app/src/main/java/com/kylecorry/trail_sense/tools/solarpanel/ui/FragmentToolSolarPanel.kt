@@ -13,7 +13,6 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
 import com.kylecorry.sol.math.SolMath.deltaAngle
-import com.kylecorry.sol.science.astronomy.AstronomyService
 import com.kylecorry.sol.science.astronomy.SolarPanelPosition
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSolarPanelBinding
@@ -21,12 +20,13 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import java.time.ZonedDateTime
+import com.kylecorry.trail_sense.tools.solarpanel.domain.SolarPanelService
+import com.kylecorry.trail_sense.tools.solarpanel.domain.SolarPanelState
 import kotlin.math.absoluteValue
 
 class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
 
-    private val astronomyService = AstronomyService()
+    private val solarPanelService = SolarPanelService()
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
@@ -37,18 +37,18 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
     private val throttle = Throttle(20)
 
     private var position: SolarPanelPosition? = null
-    private var useToday = true
+    private var state = SolarPanelState.Today
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         updateButtonState()
         binding.solarTodayBtn.setOnClickListener {
-            useToday = true
+            state = SolarPanelState.Today
             updatePosition()
             updateButtonState()
         }
         binding.solarNowBtn.setOnClickListener {
-            useToday = false
+            state = SolarPanelState.Now
             updatePosition()
             updateButtonState()
         }
@@ -90,23 +90,19 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             return
         }
 
-        position = if (useToday) {
-            astronomyService.getBestSolarPanelPositionForDay(ZonedDateTime.now(), gps.location)
-        } else {
-            astronomyService.getBestSolarPanelPositionForTime(ZonedDateTime.now(), gps.location)
-        }
+        position = solarPanelService.getBestPosition(state, gps.location)
     }
 
     private fun updateButtonState() {
         setButtonState(
             binding.solarTodayBtn,
-            useToday,
+            state == SolarPanelState.Today,
             Resources.color(requireContext(), R.color.colorPrimary),
             Resources.color(requireContext(), R.color.colorSecondary)
         )
         setButtonState(
             binding.solarNowBtn,
-            !useToday,
+            state == SolarPanelState.Now,
             Resources.color(requireContext(), R.color.colorPrimary),
             Resources.color(requireContext(), R.color.colorSecondary)
         )
@@ -136,8 +132,10 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
         val azimuthDiff = deltaAngle(desiredAzimuth.value, compass.bearing.value)
         val azimuthAligned = azimuthDiff.absoluteValue < AZIMUTH_THRESHOLD
         binding.azimuthComplete.visibility = if (azimuthAligned) View.VISIBLE else View.INVISIBLE
-        binding.currentAzimuth.text = formatService.formatDegrees(compass.bearing.value, replace360 = true)
-        binding.desiredAzimuth.text = formatService.formatDegrees(desiredAzimuth.value, replace360 = true)
+        binding.currentAzimuth.text =
+            formatService.formatDegrees(compass.bearing.value, replace360 = true)
+        binding.desiredAzimuth.text =
+            formatService.formatDegrees(desiredAzimuth.value, replace360 = true)
         binding.arrowLeft.visibility =
             if (!azimuthAligned && azimuthDiff < 0) View.VISIBLE else View.INVISIBLE
         binding.arrowRight.visibility =
