@@ -949,4 +949,41 @@
     <string name="low_amount">低 (%s)</string>
     <string name="middle">中间</string>
     <string name="units_mmhg">mmHg</string>
+    <string name="season_fall">秋季</string>
+    <string name="season_summer">夏季</string>
+    <string name="season_spring">春季</string>
+    <string name="season_winter">冬季</string>
+    <string name="supermoon">超级月亮</string>
+    <string name="astro_dialog_day_length">**日长**: %s
+\n
+\n**夜长**: %s
+\n
+\n**季节**: %s</string>
+    <string name="astro_dialog_moon_phase">**月相**: %s
+\n
+\n**照度**: %s</string>
+    <string name="astro_dialog_lunar_eclipse">**开始**: %s
+\n
+\n**峰值**: %s
+\n
+\n**结束**: %s
+\n
+\n**持续时长**: %s
+\n
+\n**等级**: %s
+\n
+\n**高度**: %s</string>
+    <string name="astro_dialog_noon">**时间**: %s
+\n
+\n**高度**: %s</string>
+    <string name="astro_dialog_rise_set">**时间**: %s
+\n
+\n**方向**: %s</string>
+    <string name="astro_dialog_meteor_shower">**峰值**: %s
+\n
+\n**峰高**: %s
+\n
+\n**峰的方向**: %s
+\n
+\n**速率**: %s</string>
 </resources>
