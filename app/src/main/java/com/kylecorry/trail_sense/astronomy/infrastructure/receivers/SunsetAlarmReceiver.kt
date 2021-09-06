@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.andromeda.jobs.AlarmBroadcastTaskScheduler
 import com.kylecorry.andromeda.jobs.ITaskScheduler
+import com.kylecorry.andromeda.jobs.TaskSchedulerFactory
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import java.time.Duration
@@ -27,7 +27,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         private const val PI_ID = 8309
 
         fun scheduler(context: Context): ITaskScheduler {
-            return AlarmBroadcastTaskScheduler(context, SunsetAlarmReceiver::class.java, PI_ID)
+            return TaskSchedulerFactory(context).exact(SunsetAlarmReceiver::class.java, PI_ID)
         }
 
         fun start(context: Context) {
