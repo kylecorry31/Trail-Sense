@@ -957,4 +957,12 @@
     <string name="navigate">Navigieren</string>
     <string name="middle">Mittel</string>
     <string name="units_mmhg">mmHg</string>
+    <string name="season_fall">Herbst</string>
+    <string name="season_summer">Sommer</string>
+    <string name="season_spring">Frühling</string>
+    <string name="season_winter">Winter</string>
+    <string name="supermoon">Supermond</string>
+    <string name="astro_dialog_rise_set">**Zeit**: %s
+\n
+\n**Richtung**: %s</string>
 </resources>

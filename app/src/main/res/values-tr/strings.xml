@@ -940,4 +940,14 @@
     <string name="action_inventory_clear_confirm">Tüm paketlenen miktarlar silinsin mi\?</string>
     <string name="units_mmhg">mmHg</string>
     <string name="current_format">%s mA</string>
+    <string name="season_fall">Sonbahar</string>
+    <string name="season_summer">Yaz</string>
+    <string name="season_spring">İlkbahar</string>
+    <string name="season_winter">Kış</string>
+    <string name="supermoon">Süper ay</string>
+    <string name="astro_dialog_day_length">**Gündüz**: %s
+\n
+\n**Gece**: %s
+\n
+\n**Mevsim**: %s</string>
 </resources>
