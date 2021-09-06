@@ -147,7 +147,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
     }
 
     private fun onUpdateDeclinationFromGpsCallback(): Boolean {
-        val declination = geoService.getMagneticDeclination(gps.location, gps.altitude)
+        val declination = geoService.getGeomagneticDeclination(gps.location, gps.altitude)
         prefs.declinationOverride = declination
         declinationOverrideEdit.text = declination.toString()
         Alerts.toast(requireContext(), getString(R.string.declination_override_updated_toast))

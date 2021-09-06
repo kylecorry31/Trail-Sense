@@ -20,7 +20,7 @@ internal class GPSDeclinationStrategyTest {
 
         whenever(gps.location).thenReturn(Coordinate.zero)
         whenever(gps.altitude).thenReturn(0.0f)
-        whenever(geology.getMagneticDeclination(eq(Coordinate.zero), eq(0.0f), any())).thenReturn(
+        whenever(geology.getGeomagneticDeclination(eq(Coordinate.zero), eq(0.0f), any())).thenReturn(
             5.0f
         )
 
@@ -29,7 +29,7 @@ internal class GPSDeclinationStrategyTest {
         whenever(gps.location).thenReturn(Coordinate(1.0, 2.0))
         whenever(gps.altitude).thenReturn(10.0f)
         whenever(
-            geology.getMagneticDeclination(
+            geology.getGeomagneticDeclination(
                 eq(Coordinate(1.0, 2.0)),
                 eq(10.0f),
                 any()

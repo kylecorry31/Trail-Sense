@@ -187,4 +187,15 @@
         app:layout_constraintEnd_toStartOf="@+id/arrow_up"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/arrow_up" />
+
+    <TextView
+        android:id="@+id/energy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        tools:text="@string/up_to_amount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/solar_now_btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

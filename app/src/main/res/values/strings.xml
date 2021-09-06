@@ -1098,4 +1098,8 @@
     <string name="season_spring">Spring</string>
     <string name="season_summer">Summer</string>
     <string name="season_fall">Fall</string>
+    <string name="up_to_amount">Up to %s</string>
+
+    <!--Kilowatt hour / meter squared - solar energy -->
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
 </resources>

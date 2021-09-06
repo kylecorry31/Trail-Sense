@@ -103,7 +103,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         val d2 = direction2 ?: return
 
         // All information is available to triangulate
-        val declination = geoService.getMagneticDeclination(c1)
+        val declination = geoService.getGeomagneticDeclination(c1)
         val bearing1 = d1.withDeclination(declination)
         val bearing2 = d2.withDeclination(declination)
 

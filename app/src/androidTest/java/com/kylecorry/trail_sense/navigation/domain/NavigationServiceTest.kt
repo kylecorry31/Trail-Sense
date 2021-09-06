@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.navigation.domain
 import android.graphics.Color
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.Position
+import com.kylecorry.trail_sense.shared.beacons.Beacon
 import org.junit.Assert
 import org.junit.Test
 
@@ -16,13 +16,13 @@ internal class NavigationServiceTest {
     fun nearby() {
         val mtWashington = Coordinate(44.2706, -71.3036)
         val beacons = listOf(
-            Beacon(0, "Tip top house", Coordinate(44.2705, -71.3036), color = Color.BLACK),
-            Beacon(1, "Crawford", Coordinate(44.2709, -71.3056), color = Color.BLACK),
-            Beacon(2, "Pinkham", Coordinate(44.2571, -71.2530), color = Color.BLACK)
+            Beacon(0, "Tip top house", Coordinate(44.2705, -71.3036), color = Color.BLACK, visible = true),
+            Beacon(1, "Crawford", Coordinate(44.2709, -71.3056), color = Color.BLACK, visible = true),
+            Beacon(2, "Pinkham", Coordinate(44.2571, -71.2530), color = Color.BLACK, visible = true)
         )
 
-        val near5km = service.getNearbyBeacons(mtWashington, beacons, 100, 5000f).map { it.id }
-        val near500m = service.getNearbyBeacons(mtWashington, beacons, 100, 500f).map { it.id }
+        val near5km = service.getNearbyBeacons(mtWashington, beacons, 100, 0f, 5000f).map { it.id }
+        val near500m = service.getNearbyBeacons(mtWashington, beacons, 100, 0f, 500f).map { it.id }
 
         Assert.assertEquals(listOf(0L, 1L, 2L), near5km)
         Assert.assertEquals(listOf(0L, 1L), near500m)

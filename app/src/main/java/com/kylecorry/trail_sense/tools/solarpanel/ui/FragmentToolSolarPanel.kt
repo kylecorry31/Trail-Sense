@@ -152,6 +152,14 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
         binding.arrowDown.visibility =
             if (!altitudeAligned && altitudeDiff < 0) View.VISIBLE else View.INVISIBLE
 
+        val energy = solarPanelService.getSolarEnergy(
+            gps.location,
+            SolarPanelPosition(-euler.pitch, compass.bearing.inverse())
+        )
+        binding.energy.text =
+            getString(R.string.up_to_amount, formatService.formatSolarEnergy(energy))
+
+
         return true
     }
 

@@ -91,7 +91,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         })
         altimeter.asLiveData().observe(viewLifecycleOwner, { updateDestination() })
         compass.asLiveData().observe(viewLifecycleOwner, {
-            compass.declination = geoService.getMagneticDeclination(gps.location, gps.altitude)
+            compass.declination = geoService.getGeomagneticDeclination(gps.location, gps.altitude)
             binding.map.setAzimuth(compass.bearing.value, rotateMap)
             updateDestination()
         })

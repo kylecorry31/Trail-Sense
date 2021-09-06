@@ -14,13 +14,13 @@ import com.kylecorry.andromeda.core.units.CoordinateExtensions.toOSNG
 import com.kylecorry.andromeda.core.units.CoordinateExtensions.toUSNG
 import com.kylecorry.andromeda.core.units.CoordinateExtensions.toUTM
 import com.kylecorry.andromeda.core.units.CoordinateFormat
-import com.kylecorry.sol.units.*
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.science.geology.Region
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.science.shared.Season
 import com.kylecorry.sol.time.Time.toEpochMillis
+import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import java.time.Duration
@@ -364,6 +364,11 @@ class FormatService(private val context: Context) {
     fun formatCandela(candela: Float, decimalPlaces: Int = 0): String {
         val formatted = DecimalFormatter.format(candela.toDouble(), decimalPlaces)
         return context.getString(R.string.candela_format, formatted)
+    }
+
+    fun formatSolarEnergy(energy: Float, decimalPlaces: Int = 1, strict: Boolean = false): String {
+        val formatted = DecimalFormatter.format(energy, decimalPlaces, strict)
+        return context.getString(R.string.kwh_per_meter_squared_format, formatted)
     }
 
     fun formatFileSize(bytes: Long, short: Boolean = true): String {

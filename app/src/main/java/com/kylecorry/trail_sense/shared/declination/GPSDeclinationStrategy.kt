@@ -9,6 +9,6 @@ class GPSDeclinationStrategy(
     private val geology: IGeologyService = GeologyService()
 ) : IDeclinationStrategy {
     override fun getDeclination(): Float {
-        return geology.getMagneticDeclination(gps.location, gps.altitude)
+        return geology.getGeomagneticDeclination(gps.location, gps.altitude)
     }
 }

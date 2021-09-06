@@ -274,7 +274,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             val coordinate = if (createAtDistance) {
                 val coord = binding.beaconLocation.coordinate
                 val declination = if (coord != null) {
-                    geoService.getMagneticDeclination(coord, elevation)
+                    geoService.getGeomagneticDeclination(coord, elevation)
                 } else {
                     0f
                 }
@@ -425,7 +425,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         val coordinate = if (createAtDistance) {
             val coord = binding.beaconLocation.coordinate
             val declination = if (coord != null) {
-                geoService.getMagneticDeclination(coord, elevation)
+                geoService.getGeomagneticDeclination(coord, elevation)
             } else {
                 0f
             }
