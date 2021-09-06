@@ -466,7 +466,6 @@
     <string name="privacy_policy_url" translatable="false">https://kylecorry.com/Trail-Sense/privacy_policy.html</string>
     <string name="tool_solar_panel_summary">Position solar panels for optimal power production</string>
     <string name="tool_solar_panel_title">Solar Panel Aligner</string>
-    <string name="solar_align_now">Now</string>
     <string name="solar_panel_instructions">Place your phone on the face of the solar panel to begin.</string>
     <string name="water_boil_timer">Water Boil Timer</string>
     <string name="water_boil_timer_channel_description">Water is boiling</string>
@@ -1102,4 +1101,6 @@
 
     <!--Kilowatt hour / meter squared - solar energy -->
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="tilt">Tilt</string>
+    <string name="duration_of_charge">Duration of charge</string>
 </resources>

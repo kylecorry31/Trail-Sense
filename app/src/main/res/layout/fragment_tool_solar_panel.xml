@@ -136,7 +136,7 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/altitude"
+            android:text="@string/tilt"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -183,7 +183,7 @@
         android:id="@+id/solar_now_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/solar_align_now"
+        tools:text="2 H"
         app:layout_constraintEnd_toStartOf="@+id/arrow_up"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/arrow_up" />

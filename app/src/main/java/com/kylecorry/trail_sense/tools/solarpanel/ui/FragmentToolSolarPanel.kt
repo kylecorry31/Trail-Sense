@@ -7,21 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.ColorInt
+import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.science.astronomy.SolarPanelPosition
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSolarPanelBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.solarpanel.domain.SolarPanelService
-import com.kylecorry.trail_sense.tools.solarpanel.domain.SolarPanelState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.time.Duration
 import kotlin.math.absoluteValue
 
 class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
@@ -34,23 +38,30 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val throttle = Throttle(20)
 
     private var position: SolarPanelPosition? = null
-    private var state = SolarPanelState.Today
+    private var nowDuration = Duration.ofHours(2)
+    private var alignToRestOfDay = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         updateButtonState()
         binding.solarTodayBtn.setOnClickListener {
-            state = SolarPanelState.Today
+            position = null
+            alignToRestOfDay = true
             updatePosition()
             updateButtonState()
         }
         binding.solarNowBtn.setOnClickListener {
-            state = SolarPanelState.Now
-            updatePosition()
-            updateButtonState()
+            position = null
+            alignToRestOfDay = false
+            CustomUiUtils.pickDuration(requireContext(), nowDuration, getString(R.string.duration_of_charge)){
+                if (it != null){
+                    nowDuration = it
+                    updatePosition()
+                    updateButtonState()
+                }
+            }
         }
         Alerts.dialog(
             requireContext(),
@@ -58,6 +69,12 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             getString(R.string.solar_panel_instructions),
             cancelText = null
         )
+
+        compass.asLiveData().observe(viewLifecycleOwner, {})
+        orientation.asLiveData().observe(viewLifecycleOwner, {})
+
+        scheduleUpdates(INTERVAL_30_FPS)
+        throttleUpdates(16)
     }
 
     override fun onResume() {
@@ -65,15 +82,11 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
         if (position == null) {
             gps.start(this::onGPSUpdate)
         }
-        compass.start(this::update)
-        orientation.start(this::update)
     }
 
     override fun onPause() {
         super.onPause()
         gps.stop(this::onGPSUpdate)
-        compass.stop(this::update)
-        orientation.stop(this::update)
     }
 
     private fun getDeclination(): Float {
@@ -86,34 +99,40 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
     }
 
     private fun updatePosition() {
-        if (!gps.hasValidReading) {
-            return
+        runInBackground {
+            withContext(Dispatchers.IO) {
+                position = solarPanelService.getBestPosition(
+                    gps.location,
+                    if (alignToRestOfDay) Duration.ofDays(1) else nowDuration
+                )
+            }
         }
-
-        position = solarPanelService.getBestPosition(state, gps.location)
     }
 
     private fun updateButtonState() {
         setButtonState(
             binding.solarTodayBtn,
-            state == SolarPanelState.Today,
+            alignToRestOfDay,
             Resources.color(requireContext(), R.color.colorPrimary),
             Resources.color(requireContext(), R.color.colorSecondary)
         )
         setButtonState(
             binding.solarNowBtn,
-            state == SolarPanelState.Now,
+            !alignToRestOfDay,
             Resources.color(requireContext(), R.color.colorPrimary),
             Resources.color(requireContext(), R.color.colorSecondary)
         )
     }
 
-    private fun update(): Boolean {
-        if (throttle.isThrottled()) {
-            return true
+    override fun onUpdate() {
+        binding.solarNowBtn.text = formatService.formatDuration(nowDuration)
+
+        if (position == null) {
+            binding.solarContent.isVisible = false
+            binding.solarLoading.isVisible = true
         }
 
-        val solarPosition = position ?: return true
+        val solarPosition = position ?: return
 
         if (prefs.navigation.useTrueNorth) {
             compass.declination = getDeclination()
@@ -121,8 +140,8 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             compass.declination = 0f
         }
 
-        binding.solarContent.visibility = View.VISIBLE
-        binding.solarLoading.visibility = View.GONE
+        binding.solarContent.isVisible = true
+        binding.solarLoading.isVisible = false
         val declinationOffset = if (prefs.navigation.useTrueNorth) {
             0f
         } else {
@@ -158,9 +177,6 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
         )
         binding.energy.text =
             getString(R.string.up_to_amount, formatService.formatSolarEnergy(energy))
-
-
-        return true
     }
 
     private fun setButtonState(
