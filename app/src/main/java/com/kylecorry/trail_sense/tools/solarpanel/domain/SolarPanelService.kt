@@ -87,8 +87,6 @@ class SolarPanelService(
             end = start.atEndOfDay()
         }
 
-        println("Getting best position for next $maxDuration")
-
         val startAzimuth = if (location.isNorthernHemisphere) {
             170
         } else {
