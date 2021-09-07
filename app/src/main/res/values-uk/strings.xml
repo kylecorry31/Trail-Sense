@@ -1006,4 +1006,8 @@
 \n**Піковий напрямок**: %s
 \n
 \n**Швидкість**: %s</string>
+    <string name="duration_of_charge">Тривалість заряду</string>
+    <string name="tilt">Нахил</string>
+    <string name="kwh_per_meter_squared_format">%s кВт-год / м²</string>
+    <string name="up_to_amount">До %s</string>
 </resources>
