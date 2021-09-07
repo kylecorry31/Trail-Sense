@@ -34,11 +34,12 @@ class SolarPanelService(
         maxDuration: Duration
     ): SolarPanelPosition {
 
-        val duration = if (maxDuration <= Duration.ofMinutes(15)) {
-            Duration.ofMinutes(30)
+        val duration = if (maxDuration <= Duration.ofMinutes(15).plusSeconds(5)) {
+            Duration.ofMinutes(15).plusSeconds(15)
         } else {
             maxDuration
         }
+
 
 
         return getBestPosition(
@@ -121,7 +122,7 @@ class SolarPanelService(
                 )
 
                 if (radiation < lastTiltRadiation) {
-                    startTilt = tilt - 20
+                    startTilt = (tilt - 20).coerceAtLeast(0)
                     break
                 }
 
