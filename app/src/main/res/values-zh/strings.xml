@@ -986,4 +986,8 @@
 \n**峰的方向**: %s
 \n
 \n**速率**: %s</string>
+    <string name="duration_of_charge">充电时间</string>
+    <string name="tilt">倾斜度</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="up_to_amount">最多 %s</string>
 </resources>
