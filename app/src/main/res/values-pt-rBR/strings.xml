@@ -1006,4 +1006,7 @@
     <string name="units_mmhg">mmHg</string>
     <string name="path_exported">Caminho exportado</string>
     <string name="no_paths">Sem caminhos</string>
+    <string name="duration_of_charge">Duração da carga</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="up_to_amount">Até %s</string>
 </resources>
