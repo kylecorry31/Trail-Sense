@@ -988,4 +988,6 @@
     <string name="season_summer">Lato</string>
     <string name="season_spring">Wiosna</string>
     <string name="season_winter">Zima</string>
+    <string name="duration_of_charge">Czas trwania ładowania</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
 </resources>
