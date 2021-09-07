@@ -320,7 +320,7 @@
     <string name="altitude">Altitude</string>
     <string name="pref_altimeter_calibration_title">Altímetro</string>
     <string name="request_permission">Solicitar permissão</string>
-    <string name="pref_auto_location_title">Ajuste automático de Localização</string>
+    <string name="pref_auto_location_title">Ajustar automaticamente a localização</string>
     <string name="location">Localização</string>
     <string name="compass_accuracy_improved">Precisão da bússola melhorada para %s</string>
     <string name="compass_reported_accuracy">Precisão reportada: %s</string>
@@ -391,8 +391,8 @@
     <string name="until_sun_time">até %s</string>
     <string name="sun_down_no_set">O sol pôs-se</string>
     <string name="sun_up_no_set">O sol nasceu</string>
-    <string name="sun_does_not_rise">Sem o nascer do sol</string>
-    <string name="sun_does_not_set">Sem pôr do sol</string>
+    <string name="sun_does_not_rise">não nasce</string>
+    <string name="sun_does_not_set">não se põe</string>
     <string name="temperature_disclaimer">A temperatura mostrada pode ser mais alta devido ao calor do seu telemóvel.</string>
     <string name="heat_alert_frostbite_danger_title">Perigo de hipotermia</string>
     <string name="heat_alert_frostbite_warning_title">Aviso de hipotermia</string>
@@ -578,7 +578,7 @@
     <string name="cirrocumulus">Cirro-cúmulos</string>
     <string name="cirrus">Cirro</string>
     <string name="pref_require_satellites_description">Necessita de pelo menos 4 satélites, melhora a precisão</string>
-    <string name="pref_require_satellites_title">Requer estabilização dos satélites</string>
+    <string name="pref_require_satellites_title">Requer estabilização dos sinais dos satélites</string>
     <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="clouds">Nuvens</string>
     <string name="how">Como</string>
@@ -962,4 +962,45 @@
     <string name="preview">Pré-visualização</string>
     <string name="middle">Meio</string>
     <string name="units_mmhg">mmHg</string>
+    <string name="season_fall">Outono</string>
+    <string name="season_summer">Verão</string>
+    <string name="season_spring">Primavera</string>
+    <string name="season_winter">Inverno</string>
+    <string name="supermoon">Superlua</string>
+    <string name="astro_dialog_day_length">**Dia**: %s
+\n
+\n**Noite**: %s
+\n
+\n**Estação**: %s</string>
+    <string name="astro_dialog_moon_phase">**Fase**: %s
+\n
+\n**Iluminação**: %s</string>
+    <string name="astro_dialog_lunar_eclipse">**Início**: %s
+\n
+\n**Auge**: %s
+\n
+\n**Fim**: %s
+\n
+\n**Duração**: %s
+\n
+\n**Magnitude**: %s
+\n
+\n**Altitude**: %s</string>
+    <string name="astro_dialog_noon">**Hora**: %s
+\n
+\n**Altitude**: %s</string>
+    <string name="astro_dialog_rise_set">**Hora**: %s
+\n
+\n**Direção**: %s</string>
+    <string name="astro_dialog_meteor_shower">**Auge**: %s
+\n
+\n**Altitude do auge**: %s
+\n
+\n**Direção do auge**: %s
+\n
+\n**Proporção**: %s</string>
+    <string name="duration_of_charge">Duração da carga</string>
+    <string name="tilt">Inclinação</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="up_to_amount">Até %s</string>
 </resources>
