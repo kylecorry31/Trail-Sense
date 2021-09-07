@@ -5,16 +5,23 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
-import com.kylecorry.sol.units.Pressure
-import com.kylecorry.sol.units.PressureUnits
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.sol.units.Pressure
+import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherCsvConverter
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.time.Instant
 
 class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -140,6 +147,10 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             }
             true
         }
+
+        onClick(preference(R.string.pref_export_weather_csv)) {
+            exportWeatherData()
+        }
     }
 
     private fun restartWeatherMonitor() {
@@ -193,6 +204,24 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             getString(R.string.medium_amount, stringValues[1]),
             getString(R.string.high_amount, stringValues[2])
         )
+    }
+
+    private fun exportWeatherData() {
+        val exporter = IOFactory().createCsvService(requireMainActivity())
+        val repo = PressureRepo.getInstance(requireContext())
+        lifecycleScope.launch {
+            val exported = withContext(Dispatchers.IO) {
+                val readings = repo.getPressuresSync().map { it.toPressureAltitudeReading() }
+                    .sortedByDescending { it.time }
+                val csv = WeatherCsvConverter().toCSV(readings)
+                exporter.export(csv, "weather-${Instant.now().toEpochMilli()}.csv")
+            }
+            if (exported) {
+                withContext(Dispatchers.Main) {
+                    Alerts.toast(requireContext(), getString(R.string.weather_exported))
+                }
+            }
+        }
     }
 
 }

@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
+        android:title="@string/general"
         app:iconSpaceReserved="false"
-        app:singleLineTitle="false"
-        android:title="@string/general">
+        app:singleLineTitle="false">
         <ListPreference
             app:defaultValue="2"
             app:iconSpaceReserved="false"
@@ -83,14 +83,14 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_daily_weather_notification"
             app:singleLineTitle="false"
-            app:title="@string/pref_daily_weather_notification_title"/>
+            app:title="@string/pref_daily_weather_notification_title" />
 
         <Preference
             android:dependency="@string/pref_daily_weather_notification"
             app:iconSpaceReserved="false"
             app:key="@string/pref_daily_weather_time_holder"
             app:singleLineTitle="false"
-            app:title="@string/pref_daily_weather_time_title"/>
+            app:title="@string/pref_daily_weather_time_title" />
 
     </PreferenceCategory>
 
@@ -112,7 +112,13 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_weather_show_detailed_icon"
             app:singleLineTitle="false"
-            app:title="@string/pref_weather_show_detailed_icon_title"/>
+            app:title="@string/pref_weather_show_detailed_icon_title" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_export_weather_csv"
+            app:singleLineTitle="false"
+            app:title="@string/pref_export_weather_csv_title" />
 
     </PreferenceCategory>
 

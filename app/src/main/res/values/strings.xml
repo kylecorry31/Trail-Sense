@@ -1103,4 +1103,7 @@
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
     <string name="tilt">Tilt</string>
     <string name="duration_of_charge">Duration of charge</string>
+    <string name="pref_export_weather_csv">pref_export_weather_csv</string>
+    <string name="pref_export_weather_csv_title">Export weather readings</string>
+    <string name="weather_exported">Weather exported</string>
 </resources>

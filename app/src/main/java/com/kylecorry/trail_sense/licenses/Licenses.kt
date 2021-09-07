@@ -153,6 +153,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE."""
             )
         ),
         Library(
+            "kotlin-csv",
+            "https://github.com/doyaaaaaken/kotlin-csv",
+            apache2("2021", "doyaaaaaken", "")
+        ),
+        Library(
             "NASA WORLD WIND (ported by Berico-Technologies)",
             "https://github.com/Berico-Technologies/Geo-Coordinate-Conversion-Java",
             """NASA WORLD WIND
