@@ -103,9 +103,9 @@ class SolarPanelService(
         }
 
         val endAzimuth = if (location.isNorthernHemisphere) {
-            280.0
+            300.0
         } else {
-            100.0
+            120.0
         }
 
         val startTilt = 0.0
@@ -124,11 +124,12 @@ class SolarPanelService(
 
         val optimizer = GradientDescentOptimizer(
             30.0,
-            gradientFn = GradientDescentOptimizer.approximateGradientFn(fn = fn)
+            gradientFn = GradientDescentOptimizer.approximateGradientFn(0.1, fn = fn)
         )
         val best = optimizer.optimize(
             Range(startAzimuth, endAzimuth),
             Range(startTilt, endTilt),
+            true,
             fn = fn
         )
 
