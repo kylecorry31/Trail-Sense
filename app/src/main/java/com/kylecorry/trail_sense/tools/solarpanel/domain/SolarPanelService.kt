@@ -99,13 +99,13 @@ class SolarPanelService(
         val startAzimuth = if (location.isNorthernHemisphere) {
             170.0
         } else {
-            -10.0
+            -120.0
         }
 
         val endAzimuth = if (location.isNorthernHemisphere) {
             300.0
         } else {
-            120.0
+            10.0
         }
 
         val startTilt = 0.0
