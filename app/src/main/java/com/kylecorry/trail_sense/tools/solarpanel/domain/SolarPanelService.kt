@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.sensors.SystemTimeProvider
 import java.time.Duration
 import java.time.ZonedDateTime
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.pow
 
 class SolarPanelService(
@@ -126,20 +127,24 @@ class SolarPanelService(
         val sunAzimuth = astronomy.getSunAzimuth(start, location).value.toDouble()
 
         val startAzimuth = if (location.isNorthernHemisphere) {
+            // East
             max(80.0, sunAzimuth)
         } else {
+            // West
+            -100.0
+        }
+
+        val endAzimuth = if (location.isNorthernHemisphere) {
+            // West
+            280.0
+        } else {
+            // East
             val sunBearing = if (sunAzimuth < 180){
                 sunAzimuth
             } else {
                 sunAzimuth - 360
             }
-            max(-100.0, sunBearing)
-        }
-
-        val endAzimuth = if (location.isNorthernHemisphere) {
-            280.0
-        } else {
-            100.0
+            min(100.0, sunBearing)
         }
 
         val startTilt = 0.0
