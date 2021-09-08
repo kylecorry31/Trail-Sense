@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.solarpanel.domain
 
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.optimization.GradientDescentOptimizer
 import com.kylecorry.sol.science.astronomy.AstronomyService
 import com.kylecorry.sol.science.astronomy.IAstronomyService
@@ -11,6 +12,7 @@ import com.kylecorry.trail_sense.shared.sensors.ITimeProvider
 import com.kylecorry.trail_sense.shared.sensors.SystemTimeProvider
 import java.time.Duration
 import java.time.ZonedDateTime
+import kotlin.math.pow
 
 class SolarPanelService(
     private val astronomy: IAstronomyService = AstronomyService(),
@@ -85,6 +87,30 @@ class SolarPanelService(
         return total
     }
 
+
+    private fun getSolarRadiationGradientForRemainderOfDay(
+        start: ZonedDateTime,
+        end: ZonedDateTime,
+        location: Coordinate,
+        tilt: Float,
+        bearing: Bearing,
+        dt: Duration = Duration.ofMinutes(15)
+    ): Pair<Double, Double> {
+        var time = start
+        var totalX = 0.0
+        var totalY = 0.0
+        val dtSeconds = dt.seconds
+
+        while (time < end) {
+            val radiation = getRadiationPanelGradient(time, location, tilt, bearing)
+            totalX += dtSeconds / 3600.0 * radiation.first
+            totalY += dtSeconds / 3600.0 * radiation.second
+            time = time.plusSeconds(dtSeconds)
+        }
+
+        return totalX to totalY
+    }
+
     private fun getBestPosition(
         location: Coordinate,
         start: ZonedDateTime = timeProvider.getTime(),
@@ -97,7 +123,7 @@ class SolarPanelService(
         }
 
         val startAzimuth = if (location.isNorthernHemisphere) {
-            170.0
+            70.0
         } else {
             -120.0
         }
@@ -123,9 +149,17 @@ class SolarPanelService(
         }
 
         val optimizer = GradientDescentOptimizer(
-            30.0,
-            gradientFn = GradientDescentOptimizer.approximateGradientFn(0.1, fn = fn)
-        )
+            30.0
+        ) { x: Double, y: Double ->
+            getSolarRadiationGradientForRemainderOfDay(
+                start,
+                end,
+                location,
+                y.toFloat(),
+                Bearing(x.toFloat()),
+                energyResolution
+            )
+        }
         val best = optimizer.optimize(
             Range(startAzimuth, endAzimuth),
             Range(startTilt, endTilt),
@@ -134,6 +168,43 @@ class SolarPanelService(
         )
 
         return Pair(best.second.toFloat(), Bearing(best.first.toFloat()))
+    }
+
+    /**
+     * Gets the solar radiation in kW/m^2 at the given time and location
+     */
+    fun getRadiationPanelGradient(
+        time: ZonedDateTime,
+        location: Coordinate,
+        tilt: Float,
+        bearing: Bearing
+    ): Pair<Double, Double> {
+        val altitude = astronomy.getSunAltitude(time, location).toDouble()
+        if (altitude < 0){
+            return 0.0 to 0.0
+        }
+        val am = 1 / SolMath.cosDegrees(90 - altitude)
+        val radiantPowerDensity =
+            (1 + 0.033 * SolMath.cosDegrees(360 * (time.dayOfYear - 2) / 365.0)) * 1.353
+        val incident = radiantPowerDensity * 0.7.pow(am.pow(0.678))
+
+        val azimuth = astronomy.getSunAzimuth(time, location).value.toDouble()
+
+        val gradientAzimuth = incident * (
+                -SolMath.cosDegrees(altitude) * SolMath.sinDegrees(tilt) * SolMath.sinDegrees(
+                    bearing.value - azimuth
+                ) + SolMath.sinDegrees(
+                    altitude
+                ) * SolMath.cosDegrees(tilt)
+                )
+
+        val gradientTilt = incident * (
+                SolMath.cosDegrees(altitude) * SolMath.cosDegrees(tilt) * SolMath.cosDegrees(bearing.value - azimuth) - SolMath.sinDegrees(
+                    altitude
+                ) * SolMath.sinDegrees(tilt)
+                )
+
+        return gradientAzimuth to gradientTilt
     }
 
 }
