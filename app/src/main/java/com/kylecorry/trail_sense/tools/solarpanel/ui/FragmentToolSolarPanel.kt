@@ -14,7 +14,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
 import com.kylecorry.sol.math.SolMath.deltaAngle
-import com.kylecorry.sol.science.astronomy.SolarPanelPosition
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSolarPanelBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -39,7 +39,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
-    private var position: SolarPanelPosition? = null
+    private var position: Pair<Float, Bearing>? = null
     private var nowDuration = Duration.ofHours(2)
     private var alignToRestOfDay = true
 
@@ -55,8 +55,12 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
         binding.solarNowBtn.setOnClickListener {
             position = null
             alignToRestOfDay = false
-            CustomUiUtils.pickDuration(requireContext(), nowDuration, getString(R.string.duration_of_charge)){
-                if (it != null){
+            CustomUiUtils.pickDuration(
+                requireContext(),
+                nowDuration,
+                getString(R.string.duration_of_charge)
+            ) {
+                if (it != null) {
                     nowDuration = it
                     updatePosition()
                     updateButtonState()
@@ -147,7 +151,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
         } else {
             -getDeclination()
         }
-        val desiredAzimuth = solarPosition.bearing.withDeclination(declinationOffset).inverse()
+        val desiredAzimuth = solarPosition.second.withDeclination(declinationOffset).inverse()
         val azimuthDiff = deltaAngle(desiredAzimuth.value, compass.bearing.value)
         val azimuthAligned = azimuthDiff.absoluteValue < AZIMUTH_THRESHOLD
         binding.azimuthComplete.visibility = if (azimuthAligned) View.VISIBLE else View.INVISIBLE
@@ -161,11 +165,11 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             if (!azimuthAligned && azimuthDiff > 0) View.VISIBLE else View.INVISIBLE
 
         val euler = orientation.orientation.toEuler()
-        val altitudeDiff = solarPosition.tilt + euler.pitch
+        val altitudeDiff = solarPosition.first + euler.pitch
         val altitudeAligned = altitudeDiff.absoluteValue < ALTITUDE_THRESHOLD
         binding.altitudeComplete.visibility = if (altitudeAligned) View.VISIBLE else View.INVISIBLE
         binding.currentAltitude.text = formatService.formatDegrees(-euler.pitch)
-        binding.desiredAltitude.text = formatService.formatDegrees(solarPosition.tilt)
+        binding.desiredAltitude.text = formatService.formatDegrees(solarPosition.first)
         binding.arrowUp.visibility =
             if (!altitudeAligned && altitudeDiff > 0) View.VISIBLE else View.INVISIBLE
         binding.arrowDown.visibility =
@@ -173,7 +177,9 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
 
         val energy = solarPanelService.getSolarEnergy(
             gps.location,
-            SolarPanelPosition(-euler.pitch, compass.bearing.inverse())
+            -euler.pitch,
+            compass.bearing.inverse(),
+            if (alignToRestOfDay) Duration.ofDays(1) else nowDuration
         )
         binding.energy.text =
             getString(R.string.up_to_amount, formatService.formatSolarEnergy(energy))
