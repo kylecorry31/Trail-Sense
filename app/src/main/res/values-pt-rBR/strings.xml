@@ -1011,4 +1011,6 @@
     <string name="up_to_amount">Até %s</string>
     <string name="weather_exported">Leituras meteorológicas exportadas</string>
     <string name="pref_export_weather_csv_title">Exportar leituras meteorológicas</string>
+    <string name="tilt">Inclinação</string>
+    <string name="pref_export_weather_csv">pref_export_weather_csv</string>
 </resources>
