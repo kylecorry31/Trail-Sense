@@ -1009,4 +1009,6 @@
     <string name="duration_of_charge">Duração da carga</string>
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
     <string name="up_to_amount">Até %s</string>
+    <string name="weather_exported">Leituras meteorológicas exportadas</string>
+    <string name="pref_export_weather_csv_title">Exportar leituras meteorológicas</string>
 </resources>
