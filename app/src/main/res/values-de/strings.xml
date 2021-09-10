@@ -965,4 +965,37 @@
     <string name="astro_dialog_rise_set">**Zeit**: %s
 \n
 \n**Richtung**: %s</string>
+    <string name="duration_of_charge">Ladedauer</string>
+    <string name="tilt">Neigung</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="up_to_amount">Bis zu %s</string>
+    <string name="astro_dialog_day_length">**Tag**: %s
+\n
+\n**Nacht**: %s
+\n
+\n**Jahreszeit**: %s</string>
+    <string name="astro_dialog_moon_phase">**Phase**: %s
+\n
+\n**Beleuchtung**: %s</string>
+    <string name="astro_dialog_lunar_eclipse">**Start**: %s
+\n
+\n**Höhepunkt**: %s
+\n
+\n**Ende**: %s
+\n
+\n**Dauer**: %s
+\n
+\n**Magnitude**: %s
+\n
+\n**Höhe**: %s</string>
+    <string name="astro_dialog_noon">**Zeit**: %s
+\n
+\n**Höhe**: %s</string>
+    <string name="astro_dialog_meteor_shower">**Höhepunkt**: %s
+\n
+\n**Höhe am Höhepunkt**: %s
+\n
+\n**Richtung beim Höhepunkt**: %s
+\n
+\n**Rate**: %s</string>
 </resources>
