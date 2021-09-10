@@ -21,12 +21,12 @@ import com.kylecorry.andromeda.core.system.GeoUriParser
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
@@ -81,8 +81,6 @@ class MainActivity : AndromedaActivity() {
                 }
             }
         }
-
-        NotificationChannels.createChannels(applicationContext)
 
         userPrefs = UserPreferences(this)
         val mode = when (userPrefs.theme) {
