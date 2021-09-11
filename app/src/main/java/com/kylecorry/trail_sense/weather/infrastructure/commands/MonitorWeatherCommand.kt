@@ -28,29 +28,41 @@ class MonitorWeatherCommand(private val context: Context) : CoroutineCommand {
     override suspend fun execute() {
         sendWeatherNotifications()
 
-        withTimeoutOrNull(Duration.ofSeconds(30).toMillis()) {
-            val jobs = mutableListOf<Job>()
-            if (!altimeter.hasValidReading) {
-                jobs.add(launch { altimeter.read() })
-            }
+        try {
+            withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
+                val jobs = mutableListOf<Job>()
+                if (!altimeter.hasValidReading) {
+                    jobs.add(launch { altimeter.read() })
+                }
 
-            if (!barometer.hasValidReading) {
-                jobs.add(launch { barometer.read() })
-            }
+                if (!barometer.hasValidReading) {
+                    jobs.add(launch { barometer.read() })
+                }
 
-            if (!thermometer.hasValidReading) {
-                jobs.add(launch { thermometer.read() })
-            }
+                if (!thermometer.hasValidReading) {
+                    jobs.add(launch { thermometer.read() })
+                }
 
-            if (!hygrometer.hasValidReading) {
-                jobs.add(launch { hygrometer.read() })
-            }
+                if (!hygrometer.hasValidReading) {
+                    jobs.add(launch { hygrometer.read() })
+                }
 
-            jobs.joinAll()
+                jobs.joinAll()
+            }
+        } finally {
+            forceStopSensors()
         }
 
         recordReading()
         sendWeatherNotifications()
+    }
+
+    private fun forceStopSensors(){
+        // This shouldn't be needed, but for some reason the GPS got stuck on
+        altimeter.stop(null)
+        barometer.stop(null)
+        thermometer.stop(null)
+        hygrometer.stop(null)
     }
 
 

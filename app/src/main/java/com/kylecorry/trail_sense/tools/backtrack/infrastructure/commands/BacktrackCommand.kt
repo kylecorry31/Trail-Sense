@@ -11,15 +11,15 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRep
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.sensors.NullCellSignalSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
-import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trail_sense.shared.beacons.Beacon
-import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
 import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant
@@ -50,17 +50,23 @@ class BacktrackCommand(private val context: Context) : CoroutineCommand {
 
     private suspend fun updateSensors() {
         withContext(Dispatchers.IO) {
-            withTimeoutOrNull(Duration.ofSeconds(30).toMillis()) {
-                val jobs = mutableListOf<Job>()
-                jobs.add(launch { gps.read() })
+            try {
+                withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
+                    val jobs = mutableListOf<Job>()
+                    jobs.add(launch { gps.read() })
 
-                if (shouldReadAltimeter()) {
-                    jobs.add(launch { altimeter.read() })
+                    if (shouldReadAltimeter()) {
+                        jobs.add(launch { altimeter.read() })
+                    }
+
+                    jobs.add(launch { cellSignalSensor.read() })
+
+                    jobs.joinAll()
                 }
-
-                jobs.add(launch { cellSignalSensor.read() })
-
-                jobs.joinAll()
+            } finally {
+                gps.stop(null)
+                altimeter.stop(null)
+                cellSignalSensor.stop(null)
             }
         }
     }

@@ -18,8 +18,12 @@ class BatteryLogCommand(private val context: Context) : CoroutineCommand {
         val battery = Battery(context)
         val batteryRepo = BatteryRepo.getInstance(context)
         withContext(Dispatchers.IO) {
-            withTimeoutOrNull(Duration.ofSeconds(30).toMillis()) {
-                battery.read()
+            try {
+                withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
+                    battery.read()
+                }
+            } finally {
+                battery.stop(null)
             }
         }
         val pct = battery.percent

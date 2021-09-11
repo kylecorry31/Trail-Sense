@@ -15,12 +15,16 @@ class AstronomyAlertCommand(private val context: Context) : CoroutineCommand {
     override suspend fun execute() {
         val gps = SensorService(context).getGPS(true)
 
-        withContext(Dispatchers.IO) {
-            withTimeoutOrNull(Duration.ofSeconds(12).toMillis()) {
-                if (!gps.hasValidReading) {
-                    gps.read()
+        try {
+            withContext(Dispatchers.IO) {
+                withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
+                    if (!gps.hasValidReading) {
+                        gps.read()
+                    }
                 }
             }
+        } finally {
+            gps.stop(null)
         }
 
         val location = gps.location

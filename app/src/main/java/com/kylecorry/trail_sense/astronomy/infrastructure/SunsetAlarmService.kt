@@ -38,12 +38,16 @@ class SunsetAlarmService : CoroutineForegroundService() {
         acquireWakelock(TAG, Duration.ofSeconds(30))
         Log.i(TAG, "Started")
 
-        withContext(Dispatchers.IO) {
-            withTimeoutOrNull(Duration.ofSeconds(12).toMillis()) {
-                if (!gps.hasValidReading) {
-                    gps.read()
+        try {
+            withContext(Dispatchers.IO) {
+                withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
+                    if (!gps.hasValidReading) {
+                        gps.read()
+                    }
                 }
             }
+        } finally {
+            gps.stop(null)
         }
 
         val now = LocalDateTime.now()

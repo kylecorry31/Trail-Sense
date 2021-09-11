@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.core.sensors.read
-import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -129,7 +129,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
         if (selectedTime == TimeSelection.Auto) {
             // Try to update the altimeter
             if (!altimeter.hasValidReading) {
-                withTimeoutOrNull(10000) {
+                withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
                     altimeter.read()
                 }
             }
