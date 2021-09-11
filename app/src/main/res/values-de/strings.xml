@@ -998,4 +998,7 @@
 \n**Richtung beim Höhepunkt**: %s
 \n
 \n**Rate**: %s</string>
+    <string name="weather_exported">Wetterdaten exportiert</string>
+    <string name="pref_export_weather_csv_title">Wetterdaten exportieren</string>
+    <string name="pref_export_weather_csv">pref_export_weather_csv</string>
 </resources>
