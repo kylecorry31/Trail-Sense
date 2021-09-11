@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.astronomy.infrastructure
 
 import android.content.Context
 import androidx.work.WorkerParameters
+import com.kylecorry.andromeda.core.system.Wakelocks
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.jobs.DailyWorker
 import com.kylecorry.andromeda.jobs.WorkTaskScheduler
 import com.kylecorry.trail_sense.astronomy.infrastructure.commands.AstronomyAlertCommand
@@ -29,13 +31,21 @@ class AstronomyDailyWorker(context: Context, params: WorkerParameters) : DailyWo
     }
 
     override suspend fun execute(context: Context) {
+        val wakelock = Wakelocks.get(applicationContext, WAKELOCK_TAG)
+        tryOrNothing {
+            wakelock?.acquire(Duration.ofSeconds(15).toMillis())
+        }
         AstronomyAlertCommand(context).execute()
+        wakelock?.release()
     }
 
     override val uniqueId: String = UNIQUE_ID
 
 
     companion object {
+
+        private const val WAKELOCK_TAG = "com.kylecorry.trail_sense.AstronomyDailyWorker:wakelock"
+
         private const val UNIQUE_ID = "com.kylecorry.trail_sense.astronomy.AstronomyDailyWorker"
         fun start(context: Context) {
             WorkTaskScheduler(context, AstronomyDailyWorker::class.java, UNIQUE_ID, false).schedule(
