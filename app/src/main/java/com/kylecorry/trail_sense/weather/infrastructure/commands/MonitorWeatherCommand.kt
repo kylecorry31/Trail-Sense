@@ -57,7 +57,7 @@ class MonitorWeatherCommand(private val context: Context) : CoroutineCommand {
         sendWeatherNotifications()
     }
 
-    private fun forceStopSensors(){
+    private fun forceStopSensors() {
         // This shouldn't be needed, but for some reason the GPS got stuck on
         altimeter.stop(null)
         barometer.stop(null)
@@ -81,7 +81,9 @@ class MonitorWeatherCommand(private val context: Context) : CoroutineCommand {
                     Instant.now().toEpochMilli()
                 )
             )
-            pressureRepo.deleteOlderThan(Instant.now().minus(Duration.ofDays(2)))
+            pressureRepo.deleteOlderThan(
+                Instant.now().minus(PressureRepo.PRESSURE_HISTORY_DURATION)
+            )
         }
     }
 
