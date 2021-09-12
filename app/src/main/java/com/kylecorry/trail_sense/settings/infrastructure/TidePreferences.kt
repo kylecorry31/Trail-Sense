@@ -4,21 +4,21 @@ import android.content.Context
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.trail_sense.R
 
-class TidePreferences(context: Context) : PreferenceRepo(context) {
+class TidePreferences(context: Context) : PreferenceRepo(context), ITidePreferences {
 
-    var areTidesEnabled by BooleanPreference(
+    override var areTidesEnabled by BooleanPreference(
         cache,
         context.getString(R.string.pref_experimental_tide_clock),
         false
     )
 
-    val showNearestTide by BooleanPreference(
+    override val showNearestTide by BooleanPreference(
         cache,
         context.getString(R.string.pref_show_nearest_tide),
         false
     )
 
-    var lastTide: Long?
+    override var lastTide: Long?
         get() = cache.getLong(context.getString(R.string.last_tide_id))
         set(value) {
             if (value != null) {

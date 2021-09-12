@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.infrastructure.commands
 
 import android.content.Context
-import com.kylecorry.andromeda.core.sensors.read
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.commands.LocationCommand

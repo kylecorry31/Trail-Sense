@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
-import com.kylecorry.andromeda.core.sensors.read
 import com.kylecorry.andromeda.location.IGPS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

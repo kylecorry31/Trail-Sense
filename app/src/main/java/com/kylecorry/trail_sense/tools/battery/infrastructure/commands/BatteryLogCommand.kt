@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure.commands
 import android.content.Context
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryChargingStatus
-import com.kylecorry.andromeda.core.sensors.read
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo

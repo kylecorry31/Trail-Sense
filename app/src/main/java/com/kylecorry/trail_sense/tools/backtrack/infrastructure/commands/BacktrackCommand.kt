@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.backtrack.infrastructure.commands
 
 import android.content.Context
-import com.kylecorry.andromeda.core.sensors.read
+
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.signal.CellNetwork

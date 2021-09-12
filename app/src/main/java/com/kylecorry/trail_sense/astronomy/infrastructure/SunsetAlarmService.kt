@@ -4,7 +4,6 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.kylecorry.andromeda.core.sensors.read
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.services.CoroutineForegroundService
 import com.kylecorry.sol.science.astronomy.SunTimesMode

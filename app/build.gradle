@@ -85,7 +85,7 @@ dependencies {
     implementation 'com.github.kylecorry31:sol:5.1.2'
 
     // Andromeda
-    def andromeda_version = "2.1.0"
+    def andromeda_version = "2.2.0-beta01"
     implementation "com.github.kylecorry31.andromeda:core:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:fragments:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:forms:${andromeda_version}"

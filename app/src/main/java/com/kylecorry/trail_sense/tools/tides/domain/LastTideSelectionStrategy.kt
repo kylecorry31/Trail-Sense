@@ -1,11 +1,11 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
-import com.kylecorry.trail_sense.settings.infrastructure.TidePreferences
+import com.kylecorry.trail_sense.settings.infrastructure.ITidePreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class LastTideSelectionStrategy(
-    private val prefs: TidePreferences,
+    private val prefs: ITidePreferences,
     private val clearLastTideAfterUse: Boolean = false
 ) :
     ITideSelectionStrategy {
