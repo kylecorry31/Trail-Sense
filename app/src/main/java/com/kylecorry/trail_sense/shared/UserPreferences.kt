@@ -219,16 +219,6 @@ class UserPreferences(private val context: Context): IDeclinationPreferences {
     val lowPowerModeDisablesBacktrack: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_low_power_mode_backtrack)) ?: true
 
-    var lastTide: Long?
-        get() = cache.getLong(context.getString(R.string.last_tide_id))
-        set(value) {
-            if (value != null) {
-                cache.putLong(context.getString(R.string.last_tide_id), value)
-            } else {
-                cache.remove(context.getString(R.string.last_tide_id))
-            }
-        }
-
     var usePedometer: Boolean
         get() {
             val raw = cache.getString(getString(R.string.pref_odometer_source))

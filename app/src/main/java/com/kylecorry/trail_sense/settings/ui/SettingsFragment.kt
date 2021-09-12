@@ -27,6 +27,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_astronomy_category to R.id.action_action_settings_to_astronomySettingsFragment,
         R.string.pref_flashlight_settings to R.id.action_action_settings_to_flashlightSettingsFragment,
         R.string.pref_maps_header_key to R.id.action_settings_to_map_settings,
+        R.string.pref_tide_settings to R.id.action_settings_to_tide_settings,
 
         // About
         R.string.pref_open_source_licenses to R.id.action_action_settings_to_licenseFragment,
@@ -43,6 +44,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         }
 
         preference(R.string.pref_maps_header_key)?.isVisible = prefs.navigation.areMapsEnabled
+        preference(R.string.pref_tide_settings)?.isVisible = prefs.tides.areTidesEnabled
         preference(R.string.pref_weather_category)?.isVisible = Sensors.hasBarometer(requireContext())
 
         preference(R.string.pref_flashlight_settings)?.isVisible =
@@ -73,6 +75,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
     override fun onResume() {
         super.onResume()
         preference(R.string.pref_maps_header_key)?.isVisible = prefs.navigation.areMapsEnabled
+        preference(R.string.pref_tide_settings)?.isVisible = prefs.tides.areTidesEnabled
     }
 
     private fun refreshOnChange(pref: Preference?) {

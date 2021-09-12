@@ -10,6 +10,9 @@ interface TideDao {
     @Query("SELECT * FROM tides")
     fun getAll(): LiveData<List<TideEntity>>
 
+    @Query("SELECT * FROM tides")
+    suspend fun getAllSuspend(): List<TideEntity>
+
     @Query("SELECT * FROM tides WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): TideEntity?
 

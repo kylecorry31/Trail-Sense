@@ -9,6 +9,7 @@ class TideRepo private constructor(context: Context) : ITideRepo {
     private val tideDao = AppDatabase.getInstance(context).tideDao()
 
     override fun getTides() = tideDao.getAll()
+    override suspend fun getTidesSuspend(): List<TideEntity> = tideDao.getAllSuspend()
 
     override suspend fun getTide(id: Long) = tideDao.get(id)
 

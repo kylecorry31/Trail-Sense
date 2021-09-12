@@ -18,6 +18,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/high_tide" />
 
+    <ProgressBar
+        android:id="@+id/loading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="@id/tide_height"
+        app:layout_constraintEnd_toEndOf="@id/tide_height"
+        app:layout_constraintStart_toStartOf="@id/tide_height"
+        app:layout_constraintTop_toTopOf="@id/tide_height" />
+
     <TextView
         android:id="@+id/tide_location"
         android:layout_width="wrap_content"

@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
@@ -17,9 +17,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
 import com.kylecorry.trail_sense.databinding.ListItemTideBinding
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
-import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
+import com.kylecorry.trail_sense.tools.tides.domain.TideLoaderFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
@@ -30,13 +31,8 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
     private val oceanService = OceanographyService()
     private val formatService by lazy { FormatService(requireContext()) }
-    private val prefs by lazy { UserPreferences(requireContext()) }
     private var displayDate = LocalDate.now()
     private lateinit var tideList: ListView<Pair<String, String>>
-    private val intervalometer = Timer {
-        update()
-    }
-    private val tideRepo by lazy { TideRepo.getInstance(requireContext()) }
     private var referenceTide: TideEntity? = null
 
     override fun generateBinding(
@@ -57,48 +53,53 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             findNavController().navigate(R.id.action_tides_to_tideList)
         }
         binding.tideListDatePicker.setOnClickListener {
-            Pickers.date(requireContext(), displayDate){
-                if (it != null){
+            Pickers.date(requireContext(), displayDate) {
+                if (it != null) {
                     displayDate = it
-                    update()
+                    onUpdate()
                 }
             }
         }
 
-        tideRepo.getTides().observe(viewLifecycleOwner, {
-            // TODO: Allow auto tide choosing based on location
-            val lastTide = prefs.lastTide
-            referenceTide = it.firstOrNull { tide -> tide.id == lastTide } ?: it.firstOrNull()
-            if (referenceTide == null) {
-                Alerts.dialog(requireContext(), getString(R.string.no_tides), getString(R.string.calibrate_new_tide)){ cancelled ->
-                    if (!cancelled){
-                        findNavController().navigate(R.id.action_tides_to_tideList)
+        binding.loading.isVisible = true
+        runInBackground {
+            val loader = TideLoaderFactory().getTideLoader(requireContext())
+            referenceTide = loader.getReferenceTide()
+            withContext(Dispatchers.Main) {
+                if (isBound) {
+                    binding.loading.isVisible = false
+                    if (referenceTide == null) {
+                        Alerts.dialog(
+                            requireContext(),
+                            getString(R.string.no_tides),
+                            getString(R.string.calibrate_new_tide)
+                        ) { cancelled ->
+                            if (!cancelled) {
+                                findNavController().navigate(R.id.action_tides_to_tideList)
+                            }
+                        }
                     }
+                    onUpdate()
                 }
             }
-            update()
-        })
+        }
+
+        scheduleUpdates(Duration.ofSeconds(15))
     }
 
-    override fun onResume() {
-        super.onResume()
-        // TODO: Add check if reference is too old
-        intervalometer.interval(Duration.ofSeconds(15))
-    }
 
-    override fun onPause() {
-        super.onPause()
-        intervalometer.stop()
-    }
-
-    private fun update() {
-        context ?: return
+    override fun onUpdate() {
+        super.onUpdate()
         val reference = referenceTide?.reference ?: return
+        binding.loading.isVisible = false
         binding.tideListDateText.text = formatService.formatRelativeDate(displayDate)
         binding.tideClock.time = ZonedDateTime.now()
         val next = oceanService.getNextTide(reference)
         binding.tideClock.nextTide = next
-        binding.tideLocation.text = referenceTide?.name ?: if (referenceTide?.coordinate != null) formatService.formatLocation(referenceTide!!.coordinate!!) else getString(android.R.string.untitled)
+        binding.tideLocation.text = referenceTide?.name
+            ?: if (referenceTide?.coordinate != null) formatService.formatLocation(referenceTide!!.coordinate!!) else getString(
+                android.R.string.untitled
+            )
         binding.tideHeight.text = getTideTypeName(oceanService.getTideType(reference))
         val tides = oceanService.getTides(reference, displayDate)
         val tideStrings = tides.map {

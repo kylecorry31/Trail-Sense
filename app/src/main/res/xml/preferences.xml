@@ -53,6 +53,7 @@
             app:icon="@drawable/maps"
             app:key="@string/pref_maps_header_key"
             app:singleLineTitle="false"
+            app:summary="@string/experimental"
             app:title="@string/maps" />
 
         <Preference
@@ -74,6 +75,14 @@
             app:key="@string/pref_flashlight_settings"
             app:singleLineTitle="false"
             app:title="@string/flashlight_title" />
+
+        <Preference
+            app:icon="@drawable/ic_tool_tides"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_tide_settings"
+            app:singleLineTitle="false"
+            app:summary="@string/experimental"
+            app:title="@string/tides" />
 
     </PreferenceCategory>
 

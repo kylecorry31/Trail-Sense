@@ -306,6 +306,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_settings_to_tide_settings"
+            app:destination="@id/tideSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_settings_to_privacy_settings"
             app:destination="@id/privacySettingsFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -861,5 +868,9 @@
             android:defaultValue="0L"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/tideSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.TideSettingsFragment"
+        android:label="TideSettingsFragment" />
 
 </navigation>

@@ -6,6 +6,8 @@ import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 interface ITideRepo {
     fun getTides(): LiveData<List<TideEntity>>
 
+    suspend fun getTidesSuspend(): List<TideEntity>
+
     suspend fun getTide(id: Long): TideEntity?
 
     suspend fun deleteTide(tide: TideEntity)
