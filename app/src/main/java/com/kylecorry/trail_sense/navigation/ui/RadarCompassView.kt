@@ -244,7 +244,7 @@ class RadarCompassView : CanvasView, ICompassView {
         )
         val threeQuarterText = formatService.formatDistance(
             threeQuarterDist,
-            Units.getDecimalPlaces(quarterDist.units),
+            Units.getDecimalPlaces(threeQuarterDist.units),
             false
         )
 
