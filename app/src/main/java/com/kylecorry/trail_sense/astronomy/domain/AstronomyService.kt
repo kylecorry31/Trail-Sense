@@ -82,16 +82,12 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return newAstronomyService.getMoonAltitude(time.toZonedDateTime(), location, true)
     }
 
-    fun getMoonAzimuth(location: Coordinate): Bearing {
-        return newAstronomyService.getMoonAzimuth(ZonedDateTime.now(clock), location)
+    fun getMoonAzimuth(location: Coordinate, time: LocalDateTime = LocalDateTime.now()): Bearing {
+        return newAstronomyService.getMoonAzimuth(time.toZonedDateTime(), location)
     }
 
     fun isMoonUp(location: Coordinate): Boolean {
         return newAstronomyService.isMoonUp(ZonedDateTime.now(clock), location)
-    }
-
-    fun getLunarNoon(location: Coordinate, date: LocalDate = LocalDate.now()): LocalDateTime? {
-        return getMoonTimes(location, date).transit?.toLocalDateTime()
     }
 
     // PUBLIC SUN METHODS

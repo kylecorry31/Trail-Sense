@@ -1109,4 +1109,9 @@
     <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
     <string name="pref_show_nearest_tide_title">Show closest tide</string>
     <string name="pref_tide_settings">pref_tide_settings</string>
+
+    <!--This is in markdown formatting - the first %s is either Sun or Moon-->
+    <string name="sun_moon_position_template">### %s\n**Altitude**: %s\n\n**Azimuth**: %s</string>
+    <string name="sun">Sun</string>
+    <string name="moon">Moon</string>
 </resources>

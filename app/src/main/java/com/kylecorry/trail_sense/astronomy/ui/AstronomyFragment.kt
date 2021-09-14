@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -68,6 +69,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private var rightQuickAction: QuickActionButton? = null
 
     private var lastAstronomyEventSearch: AstronomyEvent? = null
+
+    private var moonAltitudes: List<Pair<LocalDateTime, Float>> = emptyList()
+    private var sunAltitudes: List<Pair<LocalDateTime, Float>> = emptyList()
+    private var minChartTime = LocalDateTime.now()
+    private var maxChartTime = LocalDateTime.now()
 
     private var gpsErrorShown = false
 
@@ -164,6 +170,54 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         binding.moonPosition.setOnClickListener {
             openDetailsDialog()
         }
+
+    }
+
+    private fun openDetailsDialog() {
+        if (displayDate == LocalDate.now()) {
+            val sheet = AstroDaySeekerBottomSheet()
+            sheet.show(
+                this,
+                minChartTime,
+                maxChartTime,
+                LocalDateTime.now()
+            ) {
+                if (it != null) {
+                    plotCelestialBodyImage(binding.moonPosition, moonAltitudes, 0, it)
+                    plotCelestialBodyImage(binding.sunPosition, sunAltitudes, 1, it)
+                    sheet.updatePositions(getSunMoonPositions(it))
+                } else {
+                    plotCelestialBodyImage(binding.moonPosition, moonAltitudes, 0)
+                    plotCelestialBodyImage(binding.sunPosition, sunAltitudes, 1)
+                }
+            }
+
+            sheet.updatePositions(getSunMoonPositions(LocalDateTime.now()))
+        }
+    }
+
+
+    private fun getSunMoonPositions(time: LocalDateTime): AstroDaySeekerBottomSheet.AstroPositions {
+        val moonAltitude =
+            astronomyService.getMoonAltitude(gps.location, time)
+        val sunAltitude =
+            astronomyService.getSunAltitude(gps.location, time)
+
+        val declination =
+            if (!prefs.navigation.useTrueNorth) getDeclination() else 0f
+
+        val sunAzimuth =
+            astronomyService.getSunAzimuth(gps.location, time).withDeclination(-declination).value
+        val moonAzimuth =
+            astronomyService.getMoonAzimuth(gps.location, time)
+                .withDeclination(-declination).value
+
+        return AstroDaySeekerBottomSheet.AstroPositions(
+            moonAltitude,
+            sunAltitude,
+            moonAzimuth,
+            sunAzimuth
+        )
     }
 
     override fun onDestroy() {
@@ -253,14 +307,15 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             return
         }
 
-        val moonAltitudes: List<Pair<LocalDateTime, Float>>
-        val sunAltitudes: List<Pair<LocalDateTime, Float>>
         val startHour: Float
 
         withContext(Dispatchers.Default) {
             if (displayDate == LocalDate.now() && prefs.astronomy.centerSunAndMoon) {
                 val startTime = LocalDateTime.now().roundNearestMinute(10).minusHours(12)
                 startHour = startTime.hour + startTime.minute / 60f
+
+                minChartTime = startTime
+                maxChartTime = startTime.plusHours(24)
 
                 moonAltitudes = astronomyService.getCenteredMoonAltitudes(
                     gps.location,
@@ -272,6 +327,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 )
             } else {
                 startHour = 0f
+                minChartTime = displayDate.atStartOfDay()
+                maxChartTime = minChartTime.plusHours(24)
                 moonAltitudes = astronomyService.getMoonAltitudes(gps.location, displayDate)
                 sunAltitudes = astronomyService.getSunAltitudes(gps.location, displayDate)
             }
@@ -293,31 +350,32 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             )
 
             if (displayDate == LocalDate.now()) {
-                val current =
-                    moonAltitudes.minByOrNull {
-                        Duration.between(LocalDateTime.now(), it.first).abs()
-                    }
-                val currentIdx = moonAltitudes.indexOf(current)
-                val point = chart.getPoint(0, currentIdx)
-                binding.moonPosition.x = point.first - binding.moonPosition.width / 2f
-                binding.moonPosition.y = point.second - binding.moonPosition.height / 2f
-
-                val point2 = chart.getPoint(1, currentIdx)
-                binding.sunPosition.x = point2.first - binding.sunPosition.width / 2f
-                binding.sunPosition.y = point2.second - binding.sunPosition.height / 2f
-
-                if (binding.moonPosition.height != 0) {
-                    binding.moonPosition.visibility = View.VISIBLE
-                }
-
-                if (binding.sunPosition.height != 0) {
-                    binding.sunPosition.visibility = View.VISIBLE
-                }
-
+                plotCelestialBodyImage(binding.moonPosition, moonAltitudes, 0)
+                plotCelestialBodyImage(binding.sunPosition, sunAltitudes, 1)
             } else {
                 binding.sunPosition.visibility = View.INVISIBLE
                 binding.moonPosition.visibility = View.INVISIBLE
             }
+        }
+    }
+
+
+    private fun plotCelestialBodyImage(
+        image: ImageView,
+        altitudes: List<Pair<LocalDateTime, Float>>,
+        datasetId: Int,
+        time: LocalDateTime = LocalDateTime.now()
+    ) {
+        val current = altitudes.minByOrNull {
+            Duration.between(time, it.first).abs()
+        }
+        val currentIdx = altitudes.indexOf(current)
+        val point = chart.getPoint(datasetId, currentIdx)
+        image.x = point.first - image.width / 2f
+        image.y = point.second - image.height / 2f
+
+        if (image.height != 0) {
+            image.visibility = View.VISIBLE
         }
     }
 
@@ -327,44 +385,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
 
         displayTimeUntilNextSunEvent()
-    }
-
-    private fun openDetailsDialog() {
-        // TODO: Improve the UI of this
-        runInBackground {
-            withContext(Dispatchers.Default) {
-                val moonAltitude =
-                    astronomyService.getMoonAltitude(gps.location)
-                val sunAltitude =
-                    astronomyService.getSunAltitude(gps.location)
-
-                val declination =
-                    if (!prefs.navigation.useTrueNorth) getDeclination() else 0f
-
-                val sunAzimuth =
-                    astronomyService.getSunAzimuth(gps.location).withDeclination(-declination).value
-                val moonAzimuth =
-                    astronomyService.getMoonAzimuth(gps.location)
-                        .withDeclination(-declination).value
-
-                withContext(Dispatchers.Main) {
-                    if (context != null) {
-                        Alerts.dialog(
-                            requireContext(),
-                            getString(R.string.sun_and_moon),
-                            getString(
-                                R.string.sun_and_moon_position_details,
-                                getString(R.string.degree_format, sunAltitude),
-                                getString(R.string.degree_format, sunAzimuth),
-                                getString(R.string.degree_format, moonAltitude),
-                                getString(R.string.degree_format, moonAzimuth)
-                            ),
-                            cancelText = null
-                        )
-                    }
-                }
-            }
-        }
     }
 
     private suspend fun updateAstronomyDetails() {
