@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.SeekBar
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -14,6 +16,7 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.astronomy.SunTimesMode
@@ -22,6 +25,7 @@ import com.kylecorry.sol.time.Time.roundNearestMinute
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.astronomy.domain.AstroPositions
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyEvent
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.fields.AstroField
@@ -64,6 +68,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private val astronomyService = AstronomyService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
+    private val markdownService by lazy { MarkdownService(requireContext()) }
 
     private var leftQuickAction: QuickActionButton? = null
     private var rightQuickAction: QuickActionButton? = null
@@ -74,6 +79,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private var sunAltitudes: List<Pair<LocalDateTime, Float>> = emptyList()
     private var minChartTime = LocalDateTime.now()
     private var maxChartTime = LocalDateTime.now()
+    private var currentSeekChartTime = LocalDateTime.now()
+    private val maxProgress = 60 * 24
 
     private var gpsErrorShown = false
 
@@ -164,40 +171,94 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         sunTimesMode = prefs.astronomy.sunTimesMode
 
         binding.sunPosition.setOnClickListener {
-            openDetailsDialog()
+            showTimeSeeker()
         }
 
         binding.moonPosition.setOnClickListener {
-            openDetailsDialog()
+            showTimeSeeker()
         }
 
-    }
+        binding.timeSeeker.max = maxProgress
 
-    private fun openDetailsDialog() {
-        if (displayDate == LocalDate.now()) {
-            val sheet = AstroDaySeekerBottomSheet()
-            sheet.show(
-                this,
-                minChartTime,
-                maxChartTime,
-                LocalDateTime.now()
-            ) {
-                if (it != null) {
-                    plotCelestialBodyImage(binding.moonPosition, moonAltitudes, 0, it)
-                    plotCelestialBodyImage(binding.sunPosition, sunAltitudes, 1, it)
-                    sheet.updatePositions(getSunMoonPositions(it))
-                } else {
-                    plotCelestialBodyImage(binding.moonPosition, moonAltitudes, 0)
-                    plotCelestialBodyImage(binding.sunPosition, sunAltitudes, 1)
-                }
+        binding.timeSeeker.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                val seconds = (Duration.between(
+                    minChartTime,
+                    maxChartTime
+                ).seconds * progress / maxProgress.toFloat()).toLong()
+                currentSeekChartTime = minChartTime.plusSeconds(seconds)
+                binding.seekTime.text =
+                    formatService.formatTime(
+                        currentSeekChartTime.toLocalTime(),
+                        includeSeconds = false
+                    )
+                plotCelestialBodyImage(binding.moonPosition, moonAltitudes, 0, currentSeekChartTime)
+                plotCelestialBodyImage(binding.sunPosition, sunAltitudes, 1, currentSeekChartTime)
+                updateSeekPositions()
             }
 
-            sheet.updatePositions(getSunMoonPositions(LocalDateTime.now()))
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
+
+    }
+
+    private fun showTimeSeeker() {
+        binding.timeSeekerPanel.isVisible = true
+        binding.astronomyDetailList.isVisible = false
+        currentSeekChartTime = LocalDateTime.now()
+        binding.seekTime.text =
+            formatService.formatTime(currentSeekChartTime.toLocalTime(), includeSeconds = false)
+
+        binding.timeSeeker.progress = getSeekProgress()
+
+        binding.closeSeek.setOnClickListener {
+            hideTimeSeeker()
         }
+
+        updateSeekPositions()
+    }
+
+    private fun updateSeekPositions() {
+        val positions = getSunMoonPositions(currentSeekChartTime)
+        binding.sunPositionText.text = markdownService.toMarkdown(
+            getString(
+                R.string.sun_moon_position_template,
+                getString(R.string.sun),
+                formatService.formatDegrees(positions.sunAltitude),
+                formatService.formatDegrees(positions.sunAzimuth)
+            )
+        )
+
+        binding.moonPositionText.text = markdownService.toMarkdown(
+            getString(
+                R.string.sun_moon_position_template,
+                getString(R.string.moon),
+                formatService.formatDegrees(positions.moonAltitude),
+                formatService.formatDegrees(positions.moonAzimuth)
+            )
+        )
+    }
+
+    private fun getSeekProgress(): Int {
+        val totalDuration = Duration.between(minChartTime, maxChartTime).seconds
+        val currentDuration = Duration.between(minChartTime, currentSeekChartTime).seconds
+        val progress = maxProgress * currentDuration / totalDuration.toFloat()
+        return progress.toInt()
+    }
+
+    private fun hideTimeSeeker() {
+        binding.timeSeekerPanel.isVisible = false
+        binding.astronomyDetailList.isVisible = true
+        plotCelestialBodyImage(binding.moonPosition, moonAltitudes, 0)
+        plotCelestialBodyImage(binding.sunPosition, sunAltitudes, 1)
     }
 
 
-    private fun getSunMoonPositions(time: LocalDateTime): AstroDaySeekerBottomSheet.AstroPositions {
+    private fun getSunMoonPositions(time: LocalDateTime): AstroPositions {
         val moonAltitude =
             astronomyService.getMoonAltitude(gps.location, time)
         val sunAltitude =
@@ -212,7 +273,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             astronomyService.getMoonAzimuth(gps.location, time)
                 .withDeclination(-declination).value
 
-        return AstroDaySeekerBottomSheet.AstroPositions(
+        return AstroPositions(
             moonAltitude,
             sunAltitude,
             moonAzimuth,
