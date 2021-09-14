@@ -1006,4 +1006,7 @@
     <string name="weather_exported">Leituras meteorológicas exportadas</string>
     <string name="pref_export_weather_csv_title">Exportar leituras meteorológicas</string>
     <string name="pref_export_weather_csv">pref_export_weather_csv</string>
+    <string name="pref_tide_settings">pref_tide_settings</string>
+    <string name="pref_show_nearest_tide_title">Mostrar maré mais próxima</string>
+    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
 </resources>
