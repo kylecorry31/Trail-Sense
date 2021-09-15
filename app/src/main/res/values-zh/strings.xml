@@ -993,4 +993,7 @@
     <string name="pref_export_weather_csv_title">导出气温读数</string>
     <string name="weather_exported">已导出气温</string>
     <string name="pref_export_weather_csv">pref_export_weather_csv</string>
+    <string name="pref_tide_settings">pref_tide_settings</string>
+    <string name="pref_show_nearest_tide_title">显示最近的潮汐</string>
+    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
 </resources>
