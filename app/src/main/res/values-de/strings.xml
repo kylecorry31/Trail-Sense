@@ -1001,4 +1001,13 @@
     <string name="weather_exported">Wetterdaten exportiert</string>
     <string name="pref_export_weather_csv_title">Wetterdaten exportieren</string>
     <string name="pref_export_weather_csv">pref_export_weather_csv</string>
+    <string name="moon">Mond</string>
+    <string name="sun">Sonne</string>
+    <string name="sun_moon_position_template">### %s
+\n**Höhe**: %s
+\n
+\n**Azimut**: %s</string>
+    <string name="pref_tide_settings">pref_tide_settings</string>
+    <string name="pref_show_nearest_tide_title">Nächste Gezeit anzeigen</string>
+    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
 </resources>
