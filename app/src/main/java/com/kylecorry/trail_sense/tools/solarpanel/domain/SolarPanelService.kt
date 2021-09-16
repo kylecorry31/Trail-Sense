@@ -1,10 +1,13 @@
 package com.kylecorry.trail_sense.tools.solarpanel.domain
 
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.calculus.CalculusService
 import com.kylecorry.sol.math.optimization.HillClimbingOptimizer
 import com.kylecorry.sol.science.astronomy.AstronomyService
 import com.kylecorry.sol.science.astronomy.IAstronomyService
 import com.kylecorry.sol.time.Time.atEndOfDay
+import com.kylecorry.sol.time.Time.plusHours
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.sensors.ITimeProvider
@@ -18,6 +21,8 @@ class SolarPanelService(
     private val astronomy: IAstronomyService = AstronomyService(),
     private val timeProvider: ITimeProvider = SystemTimeProvider()
 ) {
+
+    private val calculus = CalculusService()
 
     /**
      * Gets the solar radiation in kWh / m^2
@@ -69,22 +74,15 @@ class SolarPanelService(
         bearing: Bearing,
         dt: Duration = Duration.ofMinutes(15)
     ): Double {
-        var time = start
-        var total = 0.0
-        val dtSeconds = dt.seconds
-
-        while (time < end) {
-            val radiation = astronomy.getSolarRadiation(time, location, tilt, bearing)
-            if (radiation > 0) {
-                total += dtSeconds / 3600.0 * radiation
-            } else if (total != 0.0) {
-                // The sun set
-                break
-            }
-            time = time.plusSeconds(dtSeconds)
+        val secondsToHours = 1.0 / (60 * 60)
+        return calculus.integral(
+            0.0,
+            Duration.between(start, end).seconds * secondsToHours,
+            dt.seconds * secondsToHours
+        ) { hours ->
+            val t = start.toLocalDateTime().plusHours(hours).toZonedDateTime()
+            astronomy.getSolarRadiation(t, location, tilt, bearing)
         }
-
-        return total
     }
 
     private fun getBestPosition(
@@ -113,7 +111,7 @@ class SolarPanelService(
             280.0
         } else {
             // East
-            val sunBearing = if (sunAzimuth < 180){
+            val sunBearing = if (sunAzimuth < 180) {
                 sunAzimuth
             } else {
                 sunAzimuth - 360
@@ -145,6 +143,16 @@ class SolarPanelService(
             Range(startTilt, endTilt),
             true,
             fn = fn
+        )
+
+        println(
+            getSolarRadiationForRemainderOfDay(
+                start,
+                end,
+                location,
+                best.second.toFloat(),
+                Bearing(best.first.toFloat())
+            )
         )
 
         return Pair(best.second.toFloat(), Bearing(best.first.toFloat()))
