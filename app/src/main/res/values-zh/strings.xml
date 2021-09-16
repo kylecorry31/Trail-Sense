@@ -996,4 +996,9 @@
     <string name="pref_tide_settings">pref_tide_settings</string>
     <string name="pref_show_nearest_tide_title">显示最近的潮汐</string>
     <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
+    <string name="sun">太阳</string>
+    <string name="sun_moon_position_template">### %s
+\n**高度**: %s
+\n
+\n**方位角**: %s</string>
 </resources>
