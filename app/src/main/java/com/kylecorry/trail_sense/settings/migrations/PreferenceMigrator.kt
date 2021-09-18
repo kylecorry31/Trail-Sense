@@ -29,7 +29,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 1
+        private const val version = 2
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -44,6 +44,17 @@ class PreferenceMigrator private constructor() {
                     )
                     prefs.remove("pref_enable_experimental")
                     prefs.remove("pref_use_camera_features")
+                }
+            },
+            PreferenceMigration(1, 2) { context, prefs ->
+                if (prefs.getBoolean(context.getString(R.string.pref_onboarding_completed)) == true) {
+                    if (!prefs.contains(context.getString(R.string.pref_sunset_alerts))) {
+                        prefs.putBoolean(context.getString(R.string.pref_sunset_alerts), true)
+                    }
+
+                    if (!prefs.contains(context.getString(R.string.pref_monitor_weather))) {
+                        prefs.putBoolean(context.getString(R.string.pref_monitor_weather), true)
+                    }
                 }
             }
         )

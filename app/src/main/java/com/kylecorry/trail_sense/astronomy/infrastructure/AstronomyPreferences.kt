@@ -49,7 +49,7 @@ class AstronomyPreferences(private val context: Context) {
     var sendSunsetAlerts by BooleanPreference(
         cache,
         context.getString(R.string.pref_sunset_alerts),
-        true
+        false
     )
 
     val sendAstronomyAlerts: Boolean

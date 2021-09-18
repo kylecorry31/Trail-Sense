@@ -1114,4 +1114,6 @@
     <string name="sun_moon_position_template">### %s\n**Altitude**: %s\n\n**Azimuth**: %s</string>
     <string name="sun">Sun</string>
     <string name="moon">Moon</string>
+    <string name="weather_monitoring_disabled">Weather monitoring disabled</string>
+    <string name="enable">Enable</string>
 </resources>

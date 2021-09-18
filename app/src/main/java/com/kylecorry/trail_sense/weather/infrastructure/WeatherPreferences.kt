@@ -23,7 +23,7 @@ class WeatherPreferences(private val context: Context) {
 
     var shouldMonitorWeather: Boolean
         get() = Sensors.hasBarometer(context) && (cache.getBoolean(context.getString(R.string.pref_monitor_weather))
-            ?: true)
+            ?: false)
         set(value) {
             cache.putBoolean(context.getString(R.string.pref_monitor_weather), value)
         }

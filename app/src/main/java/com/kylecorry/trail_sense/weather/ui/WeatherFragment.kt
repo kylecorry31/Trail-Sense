@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
+import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
@@ -31,6 +32,7 @@ import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import kotlinx.coroutines.*
@@ -142,7 +144,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         barometer.asLiveData().observe(viewLifecycleOwner, { update() })
         thermometer.asLiveData().observe(viewLifecycleOwner, { update() })
-
     }
 
     override fun onDestroy() {
@@ -150,6 +151,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         leftQuickAction?.onDestroy()
         rightQuickAction?.onDestroy()
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -175,6 +177,20 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         update()
+
+        if (!prefs.weather.shouldMonitorWeather) {
+            val error = UserError(
+                USER_ERROR_WEATHER_MONITOR_OFF,
+                getString(R.string.weather_monitoring_disabled),
+                R.drawable.ic_weather,
+                action = getString(R.string.enable)
+            ) {
+                prefs.weather.shouldMonitorWeather = true
+                WeatherUpdateScheduler.start(requireContext())
+                requireMainActivity().errorBanner.dismiss(USER_ERROR_WEATHER_MONITOR_OFF)
+            }
+            requireMainActivity().errorBanner.report(error)
+        }
     }
 
     override fun onPause() {
@@ -184,6 +200,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         if (lifecycleScope.isActive) {
             lifecycleScope.cancel()
         }
+
+        requireMainActivity().errorBanner.dismiss(USER_ERROR_WEATHER_MONITOR_OFF)
     }
 
 
