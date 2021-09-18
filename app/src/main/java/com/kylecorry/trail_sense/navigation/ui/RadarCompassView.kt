@@ -17,6 +17,10 @@ import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.SolMath.wrap
+import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.geometry.Circle
+import com.kylecorry.sol.math.geometry.GeometryService
+import com.kylecorry.sol.math.geometry.Line
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -38,6 +42,7 @@ class RadarCompassView : CanvasView, ICompassView {
     private var pathBitmap: Bitmap? = null
     private var azimuth = 0f
     private var destination: Float? = null
+    private val geometry = GeometryService()
 
     @ColorInt
     private var destinationColor: Int? = null
@@ -189,12 +194,29 @@ class RadarCompassView : CanvasView, ICompassView {
 
     fun setPaths(paths: List<Path>) {
         val maxTimeAgo = prefs.navigation.showBacktrackPathDuration
-        pathLines = paths.flatMap {
+        pathLines = trimPathsToCompass(paths.flatMap {
             it.toPixelLines(maxTimeAgo) {
                 coordinateToPixel(it)
             }
-        }
+        })
         invalidate()
+    }
+
+    private fun trimPathsToCompass(lines: List<PixelLine>): List<PixelLine> {
+        val compassCircle = Circle(Vector2(width / 2f, height / 2f), compassSize / 2f)
+        val geometryLines =
+            lines.map { Line(Vector2(it.start.x, it.start.y), Vector2(it.end.x, it.end.y)) }
+        val intersection = geometryLines.map { geometry.getIntersection(it, compassCircle) }
+        return intersection.mapIndexed { index, line ->
+            if (line == null) {
+                null
+            } else {
+                lines[index].copy(
+                    start = PixelCoordinate(line.start.x, line.start.y),
+                    end = PixelCoordinate(line.end.x, line.end.y)
+                )
+            }
+        }.filterNotNull()
     }
 
     override fun setDestination(bearing: Float?, @ColorInt color: Int?) {
