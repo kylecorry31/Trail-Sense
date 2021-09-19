@@ -991,4 +991,15 @@
     <string name="duration_of_charge">Czas trwania ładowania</string>
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
     <string name="pref_export_weather_csv">pref_export_weather_csv</string>
+    <string name="moon">Księżyc</string>
+    <string name="sun">Słońce</string>
+    <string name="sun_moon_position_template">### %s
+\n**Wysokość**: %s
+\n
+\n**Azymut**: %s</string>
+    <string name="pref_tide_settings">pref_tide_settings</string>
+    <string name="pref_show_nearest_tide_title">Pokaż najbliższy przypływ</string>
+    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
+    <string name="weather_exported">Dane pogodowe wyeksportowane</string>
+    <string name="pref_export_weather_csv_title">Eksportuj odczyty pogody</string>
 </resources>

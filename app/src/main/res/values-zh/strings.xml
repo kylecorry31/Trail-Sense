@@ -1001,4 +1001,5 @@
 \n**高度**: %s
 \n
 \n**方位角**: %s</string>
+    <string name="moon">月亮</string>
 </resources>

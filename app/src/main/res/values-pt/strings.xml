@@ -1009,4 +1009,10 @@
     <string name="pref_tide_settings">pref_tide_settings</string>
     <string name="pref_show_nearest_tide_title">Mostrar maré mais próxima</string>
     <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
+    <string name="moon">Lua</string>
+    <string name="sun">Sol</string>
+    <string name="sun_moon_position_template">### %s
+\n**Altitude**: %s
+\n
+\n**Azimute**: %s</string>
 </resources>
