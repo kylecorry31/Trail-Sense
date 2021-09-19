@@ -1016,4 +1016,10 @@
     <string name="pref_tide_settings">pref_tide_settings</string>
     <string name="pref_show_nearest_tide_title">Показати найближчий приплив</string>
     <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
+    <string name="moon">Місяць</string>
+    <string name="sun">Сонце</string>
+    <string name="sun_moon_position_template">### %s
+\n**Висота**: %s
+\n
+\n**Азимут**: %s</string>
 </resources>
