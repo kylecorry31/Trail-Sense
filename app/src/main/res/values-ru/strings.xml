@@ -934,4 +934,98 @@
     <string name="no_permission">Разрешение не выдано</string>
     <string name="camera">Камера</string>
     <string name="quarter_moon">Четверть Луны</string>
+    <string name="middle">Средний</string>
+    <string name="enable">Включить</string>
+    <string name="weather_monitoring_disabled">Мониторинг погоды отключен</string>
+    <string name="moon">Луна</string>
+    <string name="sun">Солнце</string>
+    <string name="sun_moon_position_template">### %s
+\n**Высота**: %s
+\n
+\n**Азимут**: %s</string>
+    <string name="pref_tide_settings">pref_tide_settings</string>
+    <string name="pref_show_nearest_tide_title">Показать ближайший прилив</string>
+    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
+    <string name="weather_exported">Погода экспортирована</string>
+    <string name="pref_export_weather_csv_title">Экспорт показаний погоды</string>
+    <string name="pref_export_weather_csv">pref_export_weather_csv</string>
+    <string name="duration_of_charge">Продолжительность зарядки</string>
+    <string name="tilt">Наклон</string>
+    <string name="kwh_per_meter_squared_format">%s кВтч / м²</string>
+    <string name="up_to_amount">До %s</string>
+    <string name="season_fall">Осень</string>
+    <string name="season_summer">Лето</string>
+    <string name="season_spring">Весна</string>
+    <string name="season_winter">Зима</string>
+    <string name="supermoon">Суперлуние</string>
+    <string name="astro_dialog_day_length">**День**: %s
+\n
+\n**Ночь**: %s
+\n
+\n**Время года**: %s</string>
+    <string name="astro_dialog_moon_phase">**Фаза**: %s
+\n
+\n**Освещение**: %s</string>
+    <string name="astro_dialog_lunar_eclipse">**Начало**: %s
+\n
+\n**Пик**: %s
+\n
+\n**Конец**: %s
+\n
+\n**Длительность**: %s
+\n
+\n**Магнитуда**: %s
+\n
+\n**Высота**: %s</string>
+    <string name="astro_dialog_noon">** Время **: %s
+\n
+\n** Высота **: %s</string>
+    <string name="astro_dialog_rise_set">** Время **: %s
+\n
+\n** Направление **: %s</string>
+    <string name="astro_dialog_meteor_shower">**Пик**: %s
+\n
+\n**Пиковая высота**: %s
+\n
+\n**Пиковое направление**: %s
+\n
+\n**Скорость**: %s</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d путевая точка будет удалена</item>
+        <item quantity="few">%d путевые точки будут удалены</item>
+        <item quantity="many">%d путевых точки будут удалены</item>
+        <item quantity="other">%d путевых точки будут удалены</item>
+    </plurals>
+    <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
+    <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
+    <string name="astronomy_alerts">Астрономические предупреждения</string>
+    <string name="checking_for_astronomy_events">Проверка астрономических событий</string>
+    <string name="lunar_eclipse">Лунное затмение</string>
+    <string name="lunar_eclipse_end">Лунное затмение (конец)</string>
+    <string name="lunar_eclipse_start">Лунное затмение (начало)</string>
+    <string name="partial">Частично (%s)</string>
+    <string name="total">Всего</string>
+    <string name="lunar_eclipses">Лунные затмения</string>
+    <string name="high_amount">Высокий (%s)</string>
+    <string name="medium_amount">Средний (%s)</string>
+    <string name="low_amount">Низкий (%s)</string>
+    <string name="pick_file">Выберите файл</string>
+    <string name="export_path_error">Не удалось экспортировать путь</string>
+    <string name="path_exported">Путь экспортирован</string>
+    <string name="no_paths">Нет путей</string>
+    <string name="navigate">Навигация</string>
+    <string name="new_text">Новый</string>
+    <string name="old">Старый</string>
+    <string name="path">Путь</string>
+    <string name="units_mmhg_short">мм</string>
+    <string name="grid_size">Сетка %s</string>
+    <string name="no_previous_path">Нет предыдущего пути</string>
+    <string name="merge_previous_path_title">Объединить с предыдущим путем\?</string>
+    <string name="path_merge_previous">Объединить предыдущий</string>
+    <string name="delete_path">Удалить путь\?</string>
+    <string name="dash_separated_pair">%s - %s</string>
+    <string name="auto">Авто</string>
+    <string name="lightning_dangerously_close">Молния опасно близко</string>
+    <string name="units_mmhg">мм рт.ст.</string>
+    <string name="units_inhg">дюйм рт. ст.</string>
 </resources>
