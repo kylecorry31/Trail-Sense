@@ -1002,4 +1002,6 @@
 \n
 \n**方位角**: %s</string>
     <string name="moon">月亮</string>
+    <string name="enable">启用</string>
+    <string name="weather_monitoring_disabled">已禁用天气检测</string>
 </resources>
