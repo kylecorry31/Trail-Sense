@@ -1002,4 +1002,6 @@
     <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
     <string name="weather_exported">Dane pogodowe wyeksportowane</string>
     <string name="pref_export_weather_csv_title">Eksportuj odczyty pogody</string>
+    <string name="enable">Włączone</string>
+    <string name="weather_monitoring_disabled">Monitorowanie pogody wyłączone</string>
 </resources>
