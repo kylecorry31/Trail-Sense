@@ -1022,4 +1022,6 @@
 \n**Висота**: %s
 \n
 \n**Азимут**: %s</string>
+    <string name="enable">Увімкнути</string>
+    <string name="weather_monitoring_disabled">Відстеження погоди вимкнено</string>
 </resources>
