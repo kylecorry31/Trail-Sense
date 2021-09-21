@@ -1010,4 +1010,6 @@
     <string name="pref_tide_settings">pref_tide_settings</string>
     <string name="pref_show_nearest_tide_title">Nächste Gezeit anzeigen</string>
     <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
+    <string name="enable">Aktivieren</string>
+    <string name="weather_monitoring_disabled">Wettermonitor deaktiviert</string>
 </resources>
