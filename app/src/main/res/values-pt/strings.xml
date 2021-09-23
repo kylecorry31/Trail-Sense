@@ -1015,4 +1015,6 @@
 \n**Altitude**: %s
 \n
 \n**Azimute**: %s</string>
+    <string name="enable">Ativar</string>
+    <string name="weather_monitoring_disabled">Monitorização da meteorologia desativada</string>
 </resources>
