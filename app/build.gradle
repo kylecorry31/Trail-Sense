@@ -59,7 +59,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     kapt "androidx.room:room-compiler:2.3.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.30"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.31"
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
@@ -85,7 +85,7 @@ dependencies {
     implementation 'com.github.kylecorry31:sol:5.2.0'
 
     // Andromeda
-    def andromeda_version = "2.2.0-beta01"
+    def andromeda_version = "2.2.0"
     implementation "com.github.kylecorry31.andromeda:core:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:fragments:${andromeda_version}"
     implementation "com.github.kylecorry31.andromeda:forms:${andromeda_version}"
