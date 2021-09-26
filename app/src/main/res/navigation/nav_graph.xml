@@ -662,6 +662,10 @@
         android:name="com.kylecorry.trail_sense.weather.ui.CloudFragment"
         android:label="CloudFragment" />
     <fragment
+        android:id="@+id/cloudScanFragment"
+        android:name="com.kylecorry.trail_sense.weather.ui.CloudScanFragment"
+        android:label="CloudScanFragment" />
+    <fragment
         android:id="@+id/sensorDetailsFragment"
         android:name="com.kylecorry.trail_sense.diagnostics.SensorDetailsFragment"
         android:label="SensorDetailsFragment" />
