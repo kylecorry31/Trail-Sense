@@ -443,9 +443,9 @@
     <string name="tool_thermometer_title">Thermometer</string>
     <string name="location_input_help">Dezimalgrad (z. B. 1,00, -2,00)
 \n
-\nGrad Dezimal Minuten (z. B. 1°23,12\'N, 3°12,1\'W)
+\nGrad und Dezimalminuten (z. B. 1°23,12\'N, 3°12,1\'W)
 \n
-\nGrad Minuten Sekunden (zB 1°23\'12,1\"N, 3°12\"1,2\'W)
+\nGrad, Minuten und Sekunden (zB 1°23\'12,1\"N, 3°12\"1,2\'W)
 \n
 \nUTM (z. B. 03T 12345E 67890N)
 \n
