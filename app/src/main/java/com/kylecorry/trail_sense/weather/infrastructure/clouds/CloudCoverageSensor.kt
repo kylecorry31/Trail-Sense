@@ -47,6 +47,10 @@ class CloudCoverageSensor(
     override val hasValidReading: Boolean
         get() = true
 
+    fun setZoom(zoom: Float) {
+        camera.setZoom(zoom)
+    }
+
     @SuppressLint("UnsafeExperimentalUsageError")
     override fun startImpl() {
         if (!Camera.isAvailable(context)) {

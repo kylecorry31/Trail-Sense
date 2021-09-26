@@ -34,10 +34,10 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
         return FragmentCloudScanBinding.inflate(layoutInflater, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.thresholdSeek.max = 100
+        binding.zoomSeek.max = 100
         binding.thresholdSeek.progress = cloudSensor.skyThreshold
         binding.threshold.text = cloudSensor.skyThreshold.toString()
 
@@ -70,7 +70,20 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
+        })
 
+        // TODO: Replace with pinch to zoom
+        binding.zoomSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                val zoom = progress / 100f
+                cloudSensor.setZoom(zoom)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
         })
 
         binding.recordBtn.setOnClickListener {

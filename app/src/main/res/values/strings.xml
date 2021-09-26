@@ -1122,4 +1122,5 @@
     <string name="cloud_cover_scattered">Scattered</string>
     <string name="cloud_cover_broken">Broken</string>
     <string name="cloud_cover_overcast">Overcast</string>
+    <string name="sensitivity">Sensitivity</string>
 </resources>
