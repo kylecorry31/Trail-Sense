@@ -59,6 +59,14 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
             cloudSensor.bitmask = !cloudSensor.bitmask
         }
 
+        binding.excludeObstaclesSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            cloudSensor.excludeObstacles = isChecked
+        }
+
+        binding.excludeSunSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            cloudSensor.excludeSun = isChecked
+        }
+
         binding.thresholdSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 cloudSensor.skyThreshold = progress

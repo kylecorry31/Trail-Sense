@@ -70,6 +70,7 @@
         app:layout_constraintTop_toBottomOf="@id/cloud_image" />
 
     <LinearLayout
+        android:id="@+id/threshold_entry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -94,6 +95,30 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             tools:text="30" />
     </LinearLayout>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/exclude_sun_switch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/exclude_sun_experimental"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/threshold_entry" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/exclude_obstacles_switch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/exclude_obstacles_experimental"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exclude_sun_switch" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

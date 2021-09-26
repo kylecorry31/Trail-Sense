@@ -1123,4 +1123,6 @@
     <string name="cloud_cover_broken">Broken</string>
     <string name="cloud_cover_overcast">Overcast</string>
     <string name="sensitivity">Sensitivity</string>
+    <string name="exclude_sun_experimental">Exclude sun (experimental)</string>
+    <string name="exclude_obstacles_experimental">Exclude obstacles (experimental)</string>
 </resources>

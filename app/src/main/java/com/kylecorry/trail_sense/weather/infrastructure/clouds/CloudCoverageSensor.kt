@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Size
+import androidx.annotation.ColorInt
 import androidx.camera.core.ImageProxy
 import androidx.core.graphics.set
 import androidx.lifecycle.LifecycleOwner
@@ -12,6 +13,7 @@ import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.trail_sense.shared.AppColor
+import com.kylecorry.trail_sense.shared.specifications.FalseSpecification
 
 class CloudCoverageSensor(
     private val context: Context,
@@ -28,6 +30,7 @@ class CloudCoverageSensor(
     }
 
     private val cloudColorOverlay = AppColor.Green.color
+    private val excludedColorOverlay = AppColor.Red.color
 
     val coverage: Float
         get() = _coverage
@@ -40,6 +43,8 @@ class CloudCoverageSensor(
 
     var bitmask: Boolean = false
     var skyThreshold: Int = 30
+    var excludeObstacles = false
+    var excludeSun = false
 
     private var _clouds: Bitmap? = null
     private var _coverage: Float = 0f
@@ -80,38 +85,45 @@ class CloudCoverageSensor(
         }
 
         var bluePixels = 0
-        val total = bitmap.width * bitmap.height.toFloat()
+        var cloudPixels = 0
+
+        val isSky = BGIsSkySpecification(skyThreshold)
+
+        val isObstacle = if (excludeObstacles) {
+            ColorVarianceIsObstacleSpecification(20).or(LuminanceIsObstacleSpecification(50))
+        } else {
+            FalseSpecification()
+        }
+
+        val isSun = if (excludeSun) {
+            IsSunSpecification()
+        } else {
+            FalseSpecification()
+        }
+
         for (w in 0 until bitmap.width) {
             for (h in 0 until bitmap.height) {
                 val pixel = bitmap.getPixel(w, h)
-                val blue = Color.blue(pixel)
-                val green = Color.green(pixel)
 
-                val bg = blue - green
-
-                val isSky = bg >= skyThreshold
-
-                if (isSky) {
+                if (isSky.isSatisfiedBy(pixel) || isSun.isSatisfiedBy(pixel)) {
                     bluePixels++
                     if (bitmask) {
                         _clouds?.set(w, h, Color.BLACK)
                     } else {
                         _clouds?.set(w, h, pixel)
                     }
+                } else if (isObstacle.isSatisfiedBy(pixel)) {
+                    if (bitmask) {
+                        _clouds?.set(w, h, Color.BLACK)
+                    } else {
+                        _clouds?.set(w, h, addColors(pixel, excludedColorOverlay))
+                    }
                 } else {
+                    cloudPixels++
                     if (bitmask) {
                         _clouds?.set(w, h, Color.WHITE)
                     } else {
-                        _clouds?.set(
-                            w,
-                            h,
-                            Color.argb(
-                                255,
-                                (Color.red(pixel) + Color.red(cloudColorOverlay)).coerceAtMost(255),
-                                (green + Color.green(cloudColorOverlay)).coerceAtMost(255),
-                                (blue + Color.blue(cloudColorOverlay)).coerceAtMost(255)
-                            )
-                        )
+                        _clouds?.set(w, h, addColors(pixel, cloudColorOverlay))
                     }
                 }
 
@@ -120,9 +132,23 @@ class CloudCoverageSensor(
         bitmap.recycle()
         image.close()
 
-        _coverage = 1 - bluePixels / total
+        _coverage = if (bluePixels + cloudPixels != 0) {
+            cloudPixels / (bluePixels + cloudPixels).toFloat()
+        } else {
+            0f
+        }
 
         notifyListeners()
+    }
+
+    @ColorInt
+    private fun addColors(@ColorInt color1: Int, @ColorInt color2: Int): Int {
+        return Color.argb(
+            Color.alpha(color1),
+            (Color.red(color1) + Color.red(color2)).coerceAtMost(255),
+            (Color.green(color1) + Color.green(color2)).coerceAtMost(255),
+            (Color.blue(color1) + Color.blue(color2)).coerceAtMost(255)
+        )
     }
 
     override fun stopImpl() {
