@@ -8,13 +8,18 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.weather.domain.CloudObservation
+import com.kylecorry.trail_sense.weather.domain.CloudService
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudCoverageSensor
+import java.time.Instant
 
 class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
 
     private val formatService by lazy { FormatService(requireContext()) }
+    private val cloudService = CloudService()
     private val cloudSensor by lazy { CloudCoverageSensor(requireContext(), this) }
 
     override fun generateBinding(
@@ -34,6 +39,8 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
         var lastBitmap: Bitmap? = null
         cloudSensor.asLiveData().observe(viewLifecycleOwner, {
             binding.coverage.text = formatService.formatPercentage(cloudSensor.coverage * 100)
+            binding.coverageDescription.text =
+                formatService.formatCloudCover(cloudService.classifyCloudCover(cloudSensor.coverage))
             cloudSensor.clouds?.let {
                 if (lastBitmap != it) {
                     binding.cloudImage.setImageBitmap(it)
@@ -60,11 +67,20 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
             }
 
         })
+
+        binding.recordBtn.setOnClickListener {
+            record()
+        }
     }
 
     override fun onPause() {
         super.onPause()
         binding.cloudImage.setImageBitmap(null)
+    }
+
+    private fun record() {
+        val reading = Reading(CloudObservation(cloudSensor.coverage), Instant.now())
+        // TODO: Put coverage in DB
     }
 
 }

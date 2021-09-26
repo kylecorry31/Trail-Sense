@@ -1116,4 +1116,10 @@
     <string name="moon">Moon</string>
     <string name="weather_monitoring_disabled">Weather monitoring disabled</string>
     <string name="enable">Enable</string>
+    <string name="cloud_cover_none">No Clouds</string>
+    <string name="cloud_cover_few">Few</string>
+    <string name="cloud_cover_isolated">Isolated</string>
+    <string name="cloud_cover_scattered">Scattered</string>
+    <string name="cloud_cover_broken">Broken</string>
+    <string name="cloud_cover_overcast">Overcast</string>
 </resources>

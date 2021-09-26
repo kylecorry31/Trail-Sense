@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.sol.science.meteorology.PressureTendency
-import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.science.meteorology.forecast.Weather
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.PressureReading

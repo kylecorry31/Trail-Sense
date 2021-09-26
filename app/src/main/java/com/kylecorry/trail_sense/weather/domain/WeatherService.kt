@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.weather.domain
 
 import com.kylecorry.sol.science.meteorology.*
 import com.kylecorry.sol.science.meteorology.WeatherService
+import com.kylecorry.sol.science.meteorology.forecast.Weather
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster

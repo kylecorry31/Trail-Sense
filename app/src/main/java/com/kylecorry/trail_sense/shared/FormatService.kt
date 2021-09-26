@@ -17,7 +17,8 @@ import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.science.geology.Region
-import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.science.meteorology.clouds.CloudCover
+import com.kylecorry.sol.science.meteorology.forecast.Weather
 import com.kylecorry.sol.science.shared.Season
 import com.kylecorry.sol.time.Time.toEpochMillis
 import com.kylecorry.sol.units.*
@@ -204,6 +205,17 @@ class FormatService(private val context: Context) {
     fun formatPercentage(percent: Float, decimalPlaces: Int = 0): String {
         val formatted = DecimalFormatter.format(percent, decimalPlaces)
         return context.getString(R.string.precise_percent_format, formatted)
+    }
+
+    fun formatCloudCover(cover: CloudCover): String {
+        return when (cover) {
+            CloudCover.NoClouds -> context.getString(R.string.cloud_cover_none)
+            CloudCover.Few -> context.getString(R.string.cloud_cover_few)
+            CloudCover.Isolated -> context.getString(R.string.cloud_cover_isolated)
+            CloudCover.Scattered -> context.getString(R.string.cloud_cover_scattered)
+            CloudCover.Broken -> context.getString(R.string.cloud_cover_broken)
+            CloudCover.Overcast -> context.getString(R.string.cloud_cover_overcast)
+        }
     }
 
     fun formatBatteryHealth(batteryHealth: BatteryHealth): String {
@@ -518,9 +530,9 @@ class FormatService(private val context: Context) {
             }
         )
     }
-    
+
     fun formatSeason(season: Season): String {
-        return when(season){
+        return when (season) {
             Season.Winter -> context.getString(R.string.season_winter)
             Season.Spring -> context.getString(R.string.season_spring)
             Season.Summer -> context.getString(R.string.season_summer)
