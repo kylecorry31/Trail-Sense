@@ -1,3 +1,5 @@
 package com.kylecorry.trail_sense.weather.domain
 
-data class CloudObservation(val coverage: Float)
+import com.kylecorry.trail_sense.shared.database.Identifiable
+
+data class CloudObservation(override val id: Long, val coverage: Float) : Identifiable

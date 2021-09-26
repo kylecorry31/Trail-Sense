@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.units.Reading
@@ -14,6 +15,9 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.weather.domain.CloudObservation
 import com.kylecorry.trail_sense.weather.domain.CloudService
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudCoverageSensor
+import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudObservationRepo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.time.Instant
 
 class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
@@ -21,6 +25,7 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val cloudService = CloudService()
     private val cloudSensor by lazy { CloudCoverageSensor(requireContext(), this) }
+    private val cloudRepo by lazy { CloudObservationRepo.getInstance(requireContext()) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -79,8 +84,15 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
     }
 
     private fun record() {
-        val reading = Reading(CloudObservation(cloudSensor.coverage), Instant.now())
-        // TODO: Put coverage in DB
+        val reading = Reading(CloudObservation(0, cloudSensor.coverage), Instant.now())
+        runInBackground {
+            withContext(Dispatchers.IO) {
+                cloudRepo.add(reading)
+            }
+            withContext(Dispatchers.Main) {
+                findNavController().navigateUp()
+            }
+        }
     }
 
 }
