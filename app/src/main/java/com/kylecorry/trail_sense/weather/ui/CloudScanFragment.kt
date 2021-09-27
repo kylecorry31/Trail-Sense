@@ -1,14 +1,14 @@
 package com.kylecorry.trail_sense.weather.ui
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.SeekBar
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.sol.math.SolMath.clamp
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.shared.FormatService
@@ -27,6 +27,35 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
     private val cloudSensor by lazy { CloudCoverageSensor(requireContext(), this) }
     private val cloudRepo by lazy { CloudObservationRepo.getInstance(requireContext()) }
 
+    private val cloudImageScaleListener =
+        object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+            override fun onScale(detector: ScaleGestureDetector): Boolean {
+                val zoom = clamp(cloudSensor.zoom * detector.scaleFactor, 1f, 2f)
+                cloudSensor.zoom = zoom
+                return true
+            }
+        }
+
+    private val cloudImageGestureListener = object : GestureDetector.SimpleOnGestureListener() {
+        override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
+            cloudSensor.bitmask = !cloudSensor.bitmask
+            return super.onSingleTapConfirmed(e)
+        }
+    }
+
+    private val mScaleDetector by lazy {
+        ScaleGestureDetector(
+            requireContext(),
+            cloudImageScaleListener
+        )
+    }
+    private val mGestureDetector by lazy {
+        GestureDetector(
+            requireContext(),
+            cloudImageGestureListener
+        )
+    }
+
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
@@ -34,11 +63,11 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
         return FragmentCloudScanBinding.inflate(layoutInflater, container, false)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.thresholdSeek.max = 100
         binding.thresholdObstacleSeek.max = 100
-        binding.zoomSeek.max = 100
         binding.thresholdSeek.progress = cloudSensor.skyDetectionSensitivity
         binding.threshold.text = cloudSensor.skyDetectionSensitivity.toString()
         binding.thresholdObstacleSeek.progress = cloudSensor.obstacleRemovalSensitivity
@@ -48,7 +77,7 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
         cloudSensor.asLiveData().observe(viewLifecycleOwner, {
             binding.coverage.text =
                 formatService.formatPercentage(cloudSensor.coverage * 100) + "\n" +
-            formatService.formatCloudCover(cloudService.classifyCloudCover(cloudSensor.coverage))
+                        formatService.formatCloudCover(cloudService.classifyCloudCover(cloudSensor.coverage))
 
             binding.luminance.text = formatService.formatPercentage(
                 cloudSensor.luminance * 100
@@ -61,10 +90,6 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
                 binding.cloudImage.invalidate()
             }
         })
-
-        binding.cloudImage.setOnClickListener {
-            cloudSensor.bitmask = !cloudSensor.bitmask
-        }
 
         binding.thresholdSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -93,19 +118,11 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
             }
         })
 
-        // TODO: Replace with pinch to zoom
-        binding.zoomSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val zoom = progress / 100f
-                cloudSensor.setZoom(zoom)
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
-        })
+        binding.cloudImage.setOnTouchListener { _, event ->
+            mScaleDetector.onTouchEvent(event)
+            mGestureDetector.onTouchEvent(event)
+            true
+        }
 
         binding.recordBtn.setOnClickListener {
             record()

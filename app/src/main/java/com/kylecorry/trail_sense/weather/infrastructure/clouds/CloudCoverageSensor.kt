@@ -33,6 +33,11 @@ class CloudCoverageSensor(
     var bitmask: Boolean = false
     var skyDetectionSensitivity: Int = 70
     var obstacleRemovalSensitivity: Int = 0
+    var zoom: Float = 1f
+        set(value) {
+            camera.setZoom(field - 1f)
+            field = value
+        }
 
     private val camera by lazy {
         Camera(
@@ -46,7 +51,6 @@ class CloudCoverageSensor(
     private val cloudColorOverlay = Color.WHITE
     private val excludedColorOverlay = AppColor.Red.color
     private val skyColorOverlay = AppColor.Blue.color
-    private val sunColorOverlay = AppColor.Yellow.color
 
     private var isRunning = false
     private val analysisLock = Object()
@@ -60,10 +64,6 @@ class CloudCoverageSensor(
 
     override val hasValidReading: Boolean
         get() = true
-
-    fun setZoom(zoom: Float) {
-        camera.setZoom(zoom)
-    }
 
     @SuppressLint("UnsafeExperimentalUsageError")
     override fun startImpl() {
@@ -122,19 +122,11 @@ class CloudCoverageSensor(
 
         val isObstacle = SaturationIsObstacleSpecification(1 - obstacleRemovalSensitivity / 100f)
 
-        val isSun = IsSunSpecification()
-
         for (w in 0 until bitmap.width) {
             for (h in 0 until bitmap.height) {
                 val pixel = bitmap.getPixel(w, h)
 
-                if (isSun.isSatisfiedBy(pixel)) {
-                    if (bitmask) {
-                        setCloudPixel(w, h, sunColorOverlay)
-                    } else {
-                        setCloudPixel(w, h, pixel)
-                    }
-                } else if (isSky.isSatisfiedBy(pixel)) {
+                if (isSky.isSatisfiedBy(pixel)) {
                     bluePixels++
                     if (bitmask) {
                         setCloudPixel(w, h, skyColorOverlay)

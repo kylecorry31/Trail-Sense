@@ -7,12 +7,14 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="@dimen/default_top_margin"
+        android:layout_marginEnd="64dp"
         android:text="Scan Sky"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="32sp"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,30 +22,14 @@
 
     <ImageView
         android:id="@+id/cloud_image"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
-
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:rotation="-90"
-        app:layout_constraintBottom_toBottomOf="@id/cloud_image"
-        app:layout_constraintStart_toEndOf="@id/cloud_image"
-        app:layout_constraintTop_toTopOf="@id/cloud_image">
-
-        <SeekBar
-            android:id="@+id/zoom_seek"
-            android:layout_width="248dp"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/results"
@@ -71,7 +57,6 @@
             android:id="@+id/luminance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
             android:layout_weight="1"
             android:drawablePadding="8dp"
             android:gravity="center"
