@@ -61,7 +61,7 @@
             android:drawablePadding="8dp"
             android:gravity="center"
             app:drawableTint="?android:textColorSecondary"
-            app:drawableTopCompat="@drawable/cloud"
+            app:drawableTopCompat="@drawable/light_rain"
             tools:text="10 %" />
 
     </LinearLayout>

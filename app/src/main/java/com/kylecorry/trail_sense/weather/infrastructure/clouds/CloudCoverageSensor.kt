@@ -23,6 +23,8 @@ class CloudCoverageSensor(
         get() = _coverage
     val luminance: Float
         get() = _luminance
+    val dark: Float
+        get() = _darkClouds
     val clouds: Bitmap?
         get() {
             return synchronized(this) {
@@ -60,6 +62,7 @@ class CloudCoverageSensor(
 
     private var _clouds: Bitmap? = null
     private var _coverage: Float = 0f
+    private var _darkClouds: Float = 0f
     private var _luminance: Float = 0f
 
     override val hasValidReading: Boolean
@@ -117,6 +120,7 @@ class CloudCoverageSensor(
         var bluePixels = 0
         var cloudPixels = 0
         var cloudColor = 0.0
+        var darkCloudPixels = 0
 
         val isSky = BGIsSkySpecification(100 - skyDetectionSensitivity)
 
@@ -141,7 +145,11 @@ class CloudCoverageSensor(
                     }
                 } else {
                     cloudPixels++
-                    cloudColor += luminance(pixel)
+                    val l = luminance(pixel)
+                    cloudColor += l
+                    if (l < 0.33){
+                        darkCloudPixels++
+                    }
                     if (bitmask) {
                         setCloudPixel(w, h, cloudColorOverlay)
                     } else {
@@ -161,6 +169,12 @@ class CloudCoverageSensor(
 
         _luminance = if (cloudPixels != 0) {
             (cloudColor / cloudPixels).toFloat()
+        } else {
+            0f
+        }
+
+        _darkClouds = if (cloudPixels != 0) {
+            darkCloudPixels / cloudPixels.toFloat()
         } else {
             0f
         }
