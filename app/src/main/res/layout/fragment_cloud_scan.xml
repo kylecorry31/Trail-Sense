@@ -6,39 +6,28 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/coverage"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
+        android:text="Scan Sky"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="10 %" />
-
-    <TextView
-        android:id="@+id/coverage_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textIsSelectable="true"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coverage"
-        tools:text="Overcast" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/cloud_image"
-        android:layout_width="200dp"
-        android:layout_height="248dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
+        android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/coverage_description" />
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
 
     <FrameLayout
@@ -56,82 +45,126 @@
             android:layout_height="wrap_content" />
     </FrameLayout>
 
-
-    <TextView
-        android:id="@+id/sensitivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/sensitivity"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cloud_image" />
-
     <LinearLayout
-        android:id="@+id/threshold_entry"
-        android:layout_width="match_parent"
+        android:id="@+id/results"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sensitivity">
-
-        <SeekBar
-            android:id="@+id/threshold_seek"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+        app:layout_constraintEnd_toEndOf="@id/cloud_image"
+        app:layout_constraintStart_toStartOf="@id/cloud_image"
+        app:layout_constraintTop_toBottomOf="@id/cloud_image">
 
         <TextView
-            android:id="@+id/threshold"
-            android:layout_width="64dp"
+            android:id="@+id/coverage"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            tools:text="30" />
+            android:layout_marginEnd="32dp"
+            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            app:drawableTint="?android:textColorSecondary"
+            app:drawableTopCompat="@drawable/cloud"
+            tools:text="10 %" />
+
+        <TextView
+            android:id="@+id/luminance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            app:drawableTint="?android:textColorSecondary"
+            app:drawableTopCompat="@drawable/cloud"
+            tools:text="10 %" />
+
     </LinearLayout>
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/exclude_sun_switch"
+    <LinearLayout
+        android:id="@+id/calibration"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/exclude_sun_experimental"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/threshold_entry" />
+        app:layout_constraintTop_toBottomOf="@id/results">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/exclude_obstacles_switch"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/exclude_obstacles_experimental"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/exclude_sun_switch" />
+        <TextView
+            android:id="@+id/sensitivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sky detection sensitivity"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <LinearLayout
+            android:id="@+id/threshold_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/threshold_seek"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/threshold"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                tools:text="30" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/obstacle_sensitivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Obstacle removal sensitivity"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <LinearLayout
+            android:id="@+id/threshold_obstacle_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/threshold_obstacle_seek"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/threshold_obstacle"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                tools:text="30" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <Button
         android:id="@+id/record_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:clickable="true"
-        android:focusable="true"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:text="Log"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_check" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,15 +37,22 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.thresholdSeek.max = 100
+        binding.thresholdObstacleSeek.max = 100
         binding.zoomSeek.max = 100
-        binding.thresholdSeek.progress = cloudSensor.skyThreshold
-        binding.threshold.text = cloudSensor.skyThreshold.toString()
+        binding.thresholdSeek.progress = cloudSensor.skyDetectionSensitivity
+        binding.threshold.text = cloudSensor.skyDetectionSensitivity.toString()
+        binding.thresholdObstacleSeek.progress = cloudSensor.obstacleRemovalSensitivity
+        binding.thresholdObstacle.text = cloudSensor.obstacleRemovalSensitivity.toString()
 
         var lastBitmap: Bitmap? = null
         cloudSensor.asLiveData().observe(viewLifecycleOwner, {
-            binding.coverage.text = formatService.formatPercentage(cloudSensor.coverage * 100)
-            binding.coverageDescription.text =
-                formatService.formatCloudCover(cloudService.classifyCloudCover(cloudSensor.coverage))
+            binding.coverage.text =
+                formatService.formatPercentage(cloudSensor.coverage * 100) + "\n" +
+            formatService.formatCloudCover(cloudService.classifyCloudCover(cloudSensor.coverage))
+
+            binding.luminance.text = formatService.formatPercentage(
+                cloudSensor.luminance * 100
+            ) + "\nLuminance"
             cloudSensor.clouds?.let {
                 if (lastBitmap != it) {
                     binding.cloudImage.setImageBitmap(it)
@@ -59,18 +66,24 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
             cloudSensor.bitmask = !cloudSensor.bitmask
         }
 
-        binding.excludeObstaclesSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            cloudSensor.excludeObstacles = isChecked
-        }
-
-        binding.excludeSunSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            cloudSensor.excludeSun = isChecked
-        }
-
         binding.thresholdSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                cloudSensor.skyThreshold = progress
+                cloudSensor.skyDetectionSensitivity = progress
                 binding.threshold.text = progress.toString()
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
+
+        binding.thresholdObstacleSeek.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                cloudSensor.obstacleRemovalSensitivity = progress
+                binding.thresholdObstacle.text = progress.toString()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
