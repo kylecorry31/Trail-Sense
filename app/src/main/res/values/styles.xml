@@ -5,6 +5,7 @@
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="materialButtonStyle">@style/ButtonTheme</item>
     </style>
 
     <style name="AppBottomSheetDialogTheme" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
@@ -18,6 +19,15 @@
 
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="dialogCornerRadius">16dp</item>
+    </style>
+
+    <style name="ButtonTheme" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearanceOverlay">@style/ButtonAppearance</item>
+    </style>
+
+    <style name="ButtonAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>
