@@ -12,9 +12,15 @@
         <item name="bottomSheetStyle">@style/AppBottomSheetModalStyle</item>
     </style>
 
-    <style name="AppBottomSheetModalStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/rounded_bottom_dialog</item>
+    <style name="AppBottomSheetModalStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearance">@style/AppBottomSheetAppearance</item>
         <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="AppBottomSheetAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
     </style>
 
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
