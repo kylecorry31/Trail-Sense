@@ -11,6 +11,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudLogBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.weather.domain.CloudObservation
 import com.kylecorry.trail_sense.weather.domain.CloudService
@@ -51,6 +52,7 @@ class CloudLogFragment : BoundFragment<FragmentCloudLogBinding>() {
             log()
         }
 
+        CustomUiUtils.setButtonState(binding.cloudTypeBtn, false)
         binding.cloudTypeBtn.setOnClickListener {
             viewCloudTypes()
         }
