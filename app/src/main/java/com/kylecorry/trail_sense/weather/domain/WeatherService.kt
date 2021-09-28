@@ -47,12 +47,14 @@ class WeatherService(
             return PressureTendency(PressureCharacteristic.Steady, 0f)
         }
 
-        return newWeatherService.getTendency(
+        val tendency = newWeatherService.getTendency(
             Pressure.hpa(last.value),
             Pressure.hpa(current.value),
             Duration.between(last.time, current.time),
-            hourlyForecastChangeThreshold
+            hourlyForecastChangeThreshold / 3f
         )
+
+        return tendency.copy(amount = tendency.amount * 3f)
     }
 
     fun calibrate(

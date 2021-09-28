@@ -18,7 +18,7 @@ class QuickActionClouds(btn: FloatingActionButton, fragment: Fragment) :
         )
         button.setOnClickListener {
             fragment.findNavController()
-                .navigate(R.id.cloudScanFragment)
+                .navigate(R.id.cloudLogFragment)
         }
     }
 

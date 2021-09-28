@@ -26,17 +26,15 @@ import com.kylecorry.trail_sense.tools.packs.infrastructure.*
 import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDao
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDatabaseMigrationSharedPrefWorker
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureDatabaseMigrationWorker
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingDao
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.*
 import java.io.File
 
 /**
  * The Room database for this app
  */
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class],
-    version = 16,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class],
+    version = 17,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -51,6 +49,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao
     abstract fun mapDao(): MapDao
     abstract fun batteryDao(): BatteryDao
+    abstract fun cloudDao(): CloudReadingDao
 
     companion object {
 
@@ -200,6 +199,12 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_16_17 = object : Migration(16, 17) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `clouds` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `cover` REAL NOT NULL)")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -217,6 +222,7 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_13_14,
                     MIGRATION_14_15,
                     MIGRATION_15_16,
+                    MIGRATION_16_17
                 )
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {

@@ -876,5 +876,17 @@
         android:id="@+id/tideSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.TideSettingsFragment"
         android:label="TideSettingsFragment" />
+    <fragment
+        android:id="@+id/cloudLogFragment"
+        android:name="com.kylecorry.trail_sense.weather.ui.CloudLogFragment"
+        android:label="CloudLogFragment">
+        <action
+            android:id="@+id/action_cloud_log_to_cloud_scan"
+            app:destination="@id/cloudScanFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
 </navigation>
