@@ -1,6 +1,7 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">#90000000</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
