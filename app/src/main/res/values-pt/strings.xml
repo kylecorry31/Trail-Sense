@@ -1017,4 +1017,13 @@
 \n**Azimute**: %s</string>
     <string name="enable">Ativar</string>
     <string name="weather_monitoring_disabled">Monitorização da meteorologia desativada</string>
+    <string name="exclude_obstacles_experimental">Excluir obstáculos (experimental)</string>
+    <string name="exclude_sun_experimental">Excluir sol (experimental)</string>
+    <string name="sensitivity">Sensibilidade</string>
+    <string name="cloud_cover_overcast">Encoberto</string>
+    <string name="cloud_cover_broken">Divididas</string>
+    <string name="cloud_cover_scattered">Espalhadas</string>
+    <string name="cloud_cover_isolated">Isoladas</string>
+    <string name="cloud_cover_few">Poucas</string>
+    <string name="cloud_cover_none">Sem nuvens</string>
 </resources>
