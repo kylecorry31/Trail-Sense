@@ -50,6 +50,10 @@ class CloudLogFragment : BoundFragment<FragmentCloudLogBinding>() {
         binding.logBtn.setOnClickListener {
             log()
         }
+
+        binding.cloudTypeBtn.setOnClickListener {
+            viewCloudTypes()
+        }
     }
 
     override fun generateBinding(
@@ -80,6 +84,10 @@ class CloudLogFragment : BoundFragment<FragmentCloudLogBinding>() {
 
     private fun log() {
         findNavController().navigate(R.id.action_cloud_log_to_cloud_scan)
+    }
+
+    private fun viewCloudTypes(){
+        findNavController().navigate(R.id.action_cloud_log_to_cloud_types)
     }
 
     private fun displayReading(
