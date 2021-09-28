@@ -14,6 +14,8 @@ class TrailSenseApplication : Application() {
         Log.d("TrailSenseApplication", "onCreate")
         NotificationChannels.createChannels(this)
         PreferenceMigrator.getInstance().migrate(this)
+
+        // TODO: Run this every day / when Trail Sense is opened
         val scheduler =
             TaskSchedulerFactory(this).deferrable(RepoCleanupWorker::class.java, 2739523)
         scheduler.schedule(Duration.ZERO)
