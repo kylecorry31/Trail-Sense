@@ -127,9 +127,8 @@
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
-        app:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_check"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_check"
         tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

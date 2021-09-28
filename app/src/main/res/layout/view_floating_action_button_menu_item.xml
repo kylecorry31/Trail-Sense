@@ -30,7 +30,6 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="@color/colorPrimary"
         app:fabSize="mini"
         tools:srcCompat="@drawable/ic_location" />
 

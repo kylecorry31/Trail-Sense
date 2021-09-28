@@ -159,11 +159,10 @@
         android:layout_marginBottom="@dimen/default_bottom_margin"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_beacon"
         app:tint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_beacon" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/location"
