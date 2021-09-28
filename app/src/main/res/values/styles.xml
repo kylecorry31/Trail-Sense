@@ -35,6 +35,7 @@
 
     <style name="ButtonTheme" parent="Widget.MaterialComponents.Button">
         <item name="shapeAppearanceOverlay">@style/ButtonAppearance</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="ButtonAppearance">
