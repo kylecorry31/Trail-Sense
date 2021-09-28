@@ -1012,4 +1012,13 @@
     <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
     <string name="enable">Aktivieren</string>
     <string name="weather_monitoring_disabled">Wettermonitor deaktiviert</string>
+    <string name="exclude_obstacles_experimental">Hindernisse ausschließen (experimentell)</string>
+    <string name="exclude_sun_experimental">Sonne ausschließen (experimentell)</string>
+    <string name="sensitivity">Empfindlichkeit</string>
+    <string name="cloud_cover_overcast">Bedeckt</string>
+    <string name="cloud_cover_broken">Gebrochen</string>
+    <string name="cloud_cover_scattered">Verstreut</string>
+    <string name="cloud_cover_isolated">Isoliert</string>
+    <string name="cloud_cover_few">Einige</string>
+    <string name="cloud_cover_none">Keine Wolken</string>
 </resources>
