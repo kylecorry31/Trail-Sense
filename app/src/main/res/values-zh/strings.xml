@@ -1004,4 +1004,13 @@
     <string name="moon">月亮</string>
     <string name="enable">启用</string>
     <string name="weather_monitoring_disabled">已禁用天气检测</string>
+    <string name="cloud_cover_isolated">孤云</string>
+    <string name="cloud_cover_scattered">疏云</string>
+    <string name="exclude_obstacles_experimental">排除障碍（实验性）</string>
+    <string name="exclude_sun_experimental">排除太阳（实验性）</string>
+    <string name="sensitivity">敏感度</string>
+    <string name="cloud_cover_overcast">阴云</string>
+    <string name="cloud_cover_broken">碎云</string>
+    <string name="cloud_cover_few">少云</string>
+    <string name="cloud_cover_none">没有云</string>
 </resources>
