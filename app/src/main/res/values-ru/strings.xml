@@ -1028,4 +1028,12 @@
     <string name="lightning_dangerously_close">Молния опасно близко</string>
     <string name="units_mmhg">мм рт.ст.</string>
     <string name="units_inhg">дюйм рт. ст.</string>
+    <string name="exclude_obstacles_experimental">Исключить препятствия (экспериментально)</string>
+    <string name="exclude_sun_experimental">Исключить солнце (экспериментально)</string>
+    <string name="sensitivity">Чувствительность</string>
+    <string name="cloud_cover_broken">Разбитые</string>
+    <string name="cloud_cover_scattered">Рассеянные</string>
+    <string name="cloud_cover_isolated">Изолированные</string>
+    <string name="cloud_cover_few">Мало</string>
+    <string name="cloud_cover_none">Нет облаков</string>
 </resources>
