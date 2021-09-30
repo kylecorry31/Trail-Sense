@@ -1,6 +1,7 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!--This is used for all Android versions-->
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor">#90000000</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
@@ -9,6 +10,9 @@
         <item name="materialButtonStyle">@style/ButtonTheme</item>
         <item name="floatingActionButtonStyle">@style/AppFloatingActionButtonStyle</item>
     </style>
+
+    <!--Override this for other Android versions-->
+    <style name="AppTheme" parent="BaseAppTheme" />
 
     <style name="AppFloatingActionButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="backgroundTint">@color/colorPrimary</item>
