@@ -29,7 +29,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 2
+        private const val version = 3
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -56,6 +56,12 @@ class PreferenceMigrator private constructor() {
                         prefs.putBoolean(context.getString(R.string.pref_monitor_weather), true)
                     }
                 }
+            },
+            PreferenceMigration(2, 3) { context, prefs ->
+                prefs.remove("cache_pressure_setpoint")
+                prefs.remove("cache_pressure_setpoint_altitude")
+                prefs.remove("cache_pressure_setpoint_temperature")
+                prefs.remove("cache_pressure_setpoint_time")
             }
         )
 

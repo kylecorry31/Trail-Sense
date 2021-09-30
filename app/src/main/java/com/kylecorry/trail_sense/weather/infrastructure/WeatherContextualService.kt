@@ -79,17 +79,8 @@ class WeatherContextualService private constructor(private val context: Context)
         resetWeatherService()
     }
 
-    private fun getSetpoint(): PressureReading? {
-        val setpoint = prefs.weather.pressureSetpoint
-        return if (prefs.weather.useSeaLevelPressure) {
-            setpoint?.seaLevel(prefs.weather.seaLevelFactorInTemp)
-        } else {
-            setpoint?.pressureReading()
-        }
-    }
-
     private fun getHourlyForecast(readings: List<PressureReading>): Weather {
-        return weatherService.getHourlyWeather(readings, getSetpoint())
+        return weatherService.getHourlyWeather(readings)
     }
 
     private fun getDailyForecast(readings: List<PressureReading>): Weather {
@@ -101,7 +92,7 @@ class WeatherContextualService private constructor(private val context: Context)
         val daily = getDailyForecast(readings)
         val hourly = getHourlyForecast(readings)
         val last = readings.lastOrNull()
-        val tendency = weatherService.getTendency(readings, getSetpoint())
+        val tendency = weatherService.getTendency(readings)
         return ForecastCache(hourly, daily, tendency, last)
     }
 

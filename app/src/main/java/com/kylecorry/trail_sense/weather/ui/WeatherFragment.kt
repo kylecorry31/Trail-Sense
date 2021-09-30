@@ -35,7 +35,9 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 
@@ -60,8 +62,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private val pressureRepo by lazy { PressureRepo.getInstance(requireContext()) }
 
     private val throttle = Throttle(20)
-
-    private var pressureSetpoint: PressureAltitudeReading? = null
 
     private var readingHistory: List<PressureAltitudeReading> = listOf()
 
@@ -108,26 +108,19 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             }
         }
 
+        // TODO: Make this a button
         binding.pressure.setOnLongClickListener {
-            pressureSetpoint = if (pressureSetpoint == null) {
-                PressureAltitudeReading(
-                    Instant.now(),
-                    barometer.pressure,
-                    altimeter.altitude,
-                    thermometer.temperature,
-                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
-                )
-            } else {
-                null
-            }
+            val reading = PressureAltitudeReading(
+                Instant.now(),
+                barometer.pressure,
+                altimeter.altitude,
+                thermometer.temperature,
+                if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
+            )
 
-            prefs.weather.pressureSetpoint = pressureSetpoint
-
-            pressureSetpoint?.let {
-                lifecycleScope.launch {
-                    withContext(Dispatchers.IO) {
-                        pressureRepo.addPressure(PressureReadingEntity.from(it))
-                    }
+            runInBackground {
+                withContext(Dispatchers.IO) {
+                    pressureRepo.addPressure(PressureReadingEntity.from(reading))
                 }
             }
 
@@ -162,9 +155,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         altitude = altimeter.altitude
         units = prefs.pressureUnits
 
-        pressureSetpoint = prefs.weather.pressureSetpoint
-
-        lifecycleScope.launch {
+        runInBackground {
             withContext(Dispatchers.IO) {
                 if (!altimeter.hasValidReading) {
                     altimeter.read()
@@ -197,10 +188,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         super.onPause()
         leftQuickAction?.onPause()
         rightQuickAction?.onPause()
-        if (lifecycleScope.isActive) {
-            lifecycleScope.cancel()
-        }
-
         requireMainActivity().errorBanner.dismiss(USER_ERROR_WEATHER_MONITOR_OFF)
     }
 
@@ -217,32 +204,15 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         displayChart(readings)
 
-        val setpoint = getSetpoint()
-        val tendency = weatherService.getTendency(readings, setpoint)
+        val tendency = weatherService.getTendency(readings)
         displayTendency(tendency)
 
         val pressure = getCurrentPressure()
         displayPressure(pressure)
 
-        if (setpoint != null && System.currentTimeMillis() - valueSelectedTime > 2000) {
-            displaySetpoint(setpoint)
-        } else if (System.currentTimeMillis() - valueSelectedTime > 2000) {
+        if (System.currentTimeMillis() - valueSelectedTime > 5000) {
             binding.pressureMarker.text = ""
         }
-    }
-
-    private fun displaySetpoint(setpoint: PressureReading) {
-        val formatted = formatService.formatPressure(
-            Pressure(setpoint.value, PressureUnits.Hpa).convertTo(units),
-            Units.getDecimalPlaces(units)
-        )
-
-        val timeAgo = Duration.between(setpoint.time, Instant.now())
-        binding.pressureMarker.text = getString(
-            R.string.pressure_setpoint_format,
-            formatted,
-            formatService.formatDuration(timeAgo, true)
-        )
     }
 
     private fun getCalibratedPressures(includeCurrent: Boolean = false): List<PressureReading> {
@@ -362,15 +332,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 )
             )
             binding.weatherLaterLbl.text = getLongTermWeatherDescription(daily)
-        }
-    }
-
-    private fun getSetpoint(): PressureReading? {
-        val setpoint = pressureSetpoint
-        return if (useSeaLevelPressure) {
-            setpoint?.seaLevel(prefs.weather.seaLevelFactorInTemp)
-        } else {
-            setpoint?.pressureReading()
         }
     }
 

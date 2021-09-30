@@ -19,11 +19,8 @@ class WeatherService(
     private val newWeatherService: IWeatherService = WeatherService()
 
 
-    fun getHourlyWeather(
-        readings: List<PressureReading>,
-        lastReading: PressureReading? = null
-    ): Weather {
-        val tendency = getTendency(readings, lastReading)
+    fun getHourlyWeather(readings: List<PressureReading>): Weather {
+        val tendency = getTendency(readings)
         return newWeatherService.forecast(tendency, stormThreshold)
     }
 
@@ -31,16 +28,13 @@ class WeatherService(
         return longTermForecaster.forecast(readings)
     }
 
-    fun getTendency(
-        readings: List<PressureReading>,
-        lastReading: PressureReading? = null
-    ): PressureTendency {
+    fun getTendency(readings: List<PressureReading>): PressureTendency {
         val last = readings.minByOrNull {
             Duration.between(
                 it.time,
                 Instant.now().minus(Duration.ofHours(3))
             ).abs()
-        } ?: lastReading
+        }
         val current = readings.lastOrNull()
 
         if (last == null || current == null) {

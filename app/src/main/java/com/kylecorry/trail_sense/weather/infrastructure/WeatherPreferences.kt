@@ -231,29 +231,6 @@ class WeatherPreferences(private val context: Context) {
     val lawOfCoolingReadingInterval: Long
         get() = 500L
 
-    var pressureSetpoint: PressureAltitudeReading?
-        get() {
-            val pressure = cache.getFloat("cache_pressure_setpoint") ?: return null
-            val altitude = cache.getFloat("cache_pressure_setpoint_altitude") ?: 0f
-            val temperature = cache.getFloat("cache_pressure_setpoint_temperature") ?: 16f
-            val time = Instant.ofEpochMilli(
-                cache.getLong("cache_pressure_setpoint_time") ?: Instant.MIN.toEpochMilli()
-            )
-
-            return PressureAltitudeReading(time, pressure, altitude, temperature)
-        }
-        set(value) {
-            if (value == null) {
-                cache.remove("cache_pressure_setpoint")
-                return
-            }
-
-            cache.putFloat("cache_pressure_setpoint", value.pressure)
-            cache.putFloat("cache_pressure_setpoint_altitude", value.altitude)
-            cache.putFloat("cache_pressure_setpoint_temperature", value.temperature)
-            cache.putLong("cache_pressure_setpoint_time", value.time.toEpochMilli())
-        }
-
     var dailyWeatherLastSent: LocalDate
         get() {
             val raw = (cache.getString("daily_weather_last_sent_date") ?: LocalDate.MIN.toString())
