@@ -33,7 +33,7 @@ class CloudCoverageSensor(
         }
 
     var bitmask: Boolean = false
-    var skyDetectionSensitivity: Int = 70
+    var skyDetectionSensitivity: Int = 50
     var obstacleRemovalSensitivity: Int = 0
     var zoom: Float = 1f
         set(value) {
