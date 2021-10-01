@@ -48,9 +48,7 @@ class AstronomyDailyWorker(context: Context, params: WorkerParameters) : DailyWo
 
         private const val UNIQUE_ID = "com.kylecorry.trail_sense.astronomy.AstronomyDailyWorker"
         fun start(context: Context) {
-            WorkTaskScheduler(context, AstronomyDailyWorker::class.java, UNIQUE_ID, false).schedule(
-                Duration.ZERO
-            )
+            WorkTaskScheduler(context, AstronomyDailyWorker::class.java, UNIQUE_ID, false).once()
         }
     }
 }

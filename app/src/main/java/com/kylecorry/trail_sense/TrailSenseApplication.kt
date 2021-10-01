@@ -13,7 +13,7 @@ class TrailSenseApplication : Application() {
         Log.d("TrailSenseApplication", "onCreate")
         NotificationChannels.createChannels(this)
         PreferenceMigrator.getInstance().migrate(this)
-        RepoCleanupWorker.scheduler(this).schedule(Duration.ZERO)
+        RepoCleanupWorker.scheduler(this).interval(Duration.ofDays(1))
     }
 
 }

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.backtrack.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.jobs.ITaskScheduler
+import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -23,7 +23,7 @@ object BacktrackScheduler {
 
         if (prefs.backtrackRecordFrequency >= Duration.ofMinutes(15)) {
             val scheduler = getScheduler(context)
-            scheduler.schedule(Duration.ZERO)
+            scheduler.once()
         } else {
             BacktrackAlwaysOnService.start(context)
         }
@@ -45,7 +45,7 @@ object BacktrackScheduler {
         return prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack
     }
 
-    fun getScheduler(context: Context): ITaskScheduler {
+    fun getScheduler(context: Context): IOneTimeTaskScheduler {
         return BacktrackWorker.scheduler(context)
     }
 }

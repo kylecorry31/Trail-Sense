@@ -6,8 +6,8 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.core.system.Wakelocks
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.jobs.ITaskScheduler
-import com.kylecorry.andromeda.jobs.TaskSchedulerFactory
+import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
+import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.BatteryLogCommand
 import java.time.Duration
 import java.time.LocalDateTime
@@ -25,7 +25,7 @@ class BatteryLogWorker(context: Context, params: WorkerParameters) :
         } catch (e: Exception) {
             throw e
         } finally {
-            scheduler(applicationContext).schedule(Duration.ofHours(1))
+            scheduler(applicationContext).once(Duration.ofHours(1))
             Log.d(javaClass.simpleName, "Scheduled next run at ${LocalDateTime.now().plusHours(1)}")
             wakelock?.release()
         }
@@ -36,8 +36,8 @@ class BatteryLogWorker(context: Context, params: WorkerParameters) :
 
         private const val WAKELOCK_TAG = "com.kylecorry.trail_sense.BatteryLogWorker:wakelock"
 
-        fun scheduler(context: Context): ITaskScheduler {
-            return TaskSchedulerFactory(context).deferrable(
+        fun scheduler(context: Context): IOneTimeTaskScheduler {
+            return OneTimeTaskSchedulerFactory(context).deferrable(
                 BatteryLogWorker::class.java,
                 2739852
             )

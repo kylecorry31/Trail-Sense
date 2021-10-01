@@ -6,8 +6,8 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.core.system.Wakelocks
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.jobs.ITaskScheduler
-import com.kylecorry.andromeda.jobs.TaskSchedulerFactory
+import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
+import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
 import java.time.Duration
@@ -27,7 +27,7 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) :
             throw e
         } finally {
             val frequency = UserPreferences(applicationContext).weather.weatherUpdateFrequency
-            scheduler(applicationContext).schedule(frequency)
+            scheduler(applicationContext).once(frequency)
             Log.d(
                 javaClass.simpleName,
                 "Scheduled next run at ${LocalDateTime.now().plus(frequency)}"
@@ -41,8 +41,8 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) :
 
         private const val WAKELOCK_TAG = "com.kylecorry.trail_sense.WeatherUpdateWorker:wakelock"
 
-        fun scheduler(context: Context): ITaskScheduler {
-            return TaskSchedulerFactory(context).deferrable(
+        fun scheduler(context: Context): IOneTimeTaskScheduler {
+            return OneTimeTaskSchedulerFactory(context).deferrable(
                 WeatherUpdateWorker::class.java,
                 2387092
             )

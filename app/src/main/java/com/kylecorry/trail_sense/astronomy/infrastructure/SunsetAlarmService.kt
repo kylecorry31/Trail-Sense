@@ -155,7 +155,7 @@ class SunsetAlarmService : CoroutineForegroundService() {
     private fun setAlarm(time: LocalDateTime) {
         val scheduler = SunsetAlarmReceiver.scheduler(this)
         scheduler.cancel()
-        scheduler.schedule(time.toZonedDateTime().toInstant())
+        scheduler.once(time.toZonedDateTime().toInstant())
         Log.i(TAG, "Scheduled next run at $time")
     }
 
