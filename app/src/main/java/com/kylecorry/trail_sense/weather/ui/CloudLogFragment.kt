@@ -13,8 +13,8 @@ import com.kylecorry.trail_sense.databinding.FragmentCloudLogBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.weather.domain.CloudObservation
-import com.kylecorry.trail_sense.weather.domain.CloudService
+import com.kylecorry.trail_sense.weather.domain.clouds.CloudObservation
+import com.kylecorry.trail_sense.weather.domain.clouds.CloudService
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudObservationRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

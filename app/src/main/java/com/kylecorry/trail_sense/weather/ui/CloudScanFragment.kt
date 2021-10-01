@@ -12,8 +12,8 @@ import com.kylecorry.sol.math.SolMath.clamp
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.weather.domain.CloudObservation
-import com.kylecorry.trail_sense.weather.domain.CloudService
+import com.kylecorry.trail_sense.weather.domain.clouds.CloudObservation
+import com.kylecorry.trail_sense.weather.domain.clouds.CloudService
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudCoverageSensor
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudObservationRepo
 import kotlinx.coroutines.Dispatchers

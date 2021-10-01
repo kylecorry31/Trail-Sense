@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.weather.domain.CloudObservation
+import com.kylecorry.trail_sense.weather.domain.clouds.CloudObservation
 import java.time.Instant
 
 @Entity(tableName = "clouds")

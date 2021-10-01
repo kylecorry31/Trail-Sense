@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
-import com.kylecorry.trail_sense.weather.domain.CloudObservation
+import com.kylecorry.trail_sense.weather.domain.clouds.CloudObservation
 
 
 class CloudChart(chart: LineChart) {

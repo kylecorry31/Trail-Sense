@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.domain
+package com.kylecorry.trail_sense.weather.domain.clouds
 
 import com.kylecorry.sol.math.statistics.StatisticsService
 import com.kylecorry.sol.science.meteorology.clouds.CloudCover

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure.clouds
+package com.kylecorry.trail_sense.weather.domain.clouds
 
 import android.graphics.Color
 import com.kylecorry.andromeda.core.specifications.Specification

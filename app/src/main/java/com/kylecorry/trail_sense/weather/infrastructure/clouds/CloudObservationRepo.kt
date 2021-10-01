@@ -6,7 +6,7 @@ import androidx.lifecycle.Transformations
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.database.IReadingRepo
-import com.kylecorry.trail_sense.weather.domain.CloudObservation
+import com.kylecorry.trail_sense.weather.domain.clouds.CloudObservation
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudReadingEntity
 import java.time.Duration
 import java.time.Instant

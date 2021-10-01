@@ -13,6 +13,8 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.trail_sense.shared.AppColor
+import com.kylecorry.trail_sense.weather.domain.clouds.BGIsSkySpecification
+import com.kylecorry.trail_sense.weather.domain.clouds.SaturationIsObstacleSpecification
 import kotlinx.coroutines.*
 
 class CloudCoverageSensor(

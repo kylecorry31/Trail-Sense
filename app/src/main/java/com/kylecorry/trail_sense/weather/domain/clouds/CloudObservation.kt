@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.domain
+package com.kylecorry.trail_sense.weather.domain.clouds
 
 import com.kylecorry.trail_sense.shared.database.Identifiable
 
