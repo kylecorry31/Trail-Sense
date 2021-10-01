@@ -17,6 +17,8 @@ class FloatingActionButtonMenu(context: Context, attrs: AttributeSet?) : FrameLa
 ) {
 
     private var onMenuItemClick: MenuItem.OnMenuItemClickListener? = null
+    private var onHideAction: (() -> Unit)? = null
+    private var onShowAction: (() -> Unit)? = null
     private var overlay: View? = null
 
     init {
@@ -64,13 +66,29 @@ class FloatingActionButtonMenu(context: Context, attrs: AttributeSet?) : FrameLa
         this.onMenuItemClick = menuItemClickListener
     }
 
+    fun setOnHideListener(listener: () -> Unit){
+        this.onHideAction = listener
+    }
+
+    fun setOnShowListener(listener: () -> Unit){
+        this.onShowAction = listener
+    }
+
     fun hide(){
+        val wasVisible = isVisible
         isVisible = false
         overlay?.isVisible = false
+        if (wasVisible){
+            onHideAction?.invoke()
+        }
     }
 
     fun show(){
+        val wasHidden = !isVisible
         isVisible = true
         overlay?.isVisible = true
+        if (wasHidden){
+            onShowAction?.invoke()
+        }
     }
 }

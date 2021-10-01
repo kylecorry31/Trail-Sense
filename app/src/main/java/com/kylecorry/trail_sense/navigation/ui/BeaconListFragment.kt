@@ -31,12 +31,12 @@ import com.kylecorry.trail_sense.navigation.infrastructure.export.BeaconGpxImpor
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
 import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
 import com.kylecorry.trail_sense.shared.beacons.IBeacon
+import com.kylecorry.trail_sense.shared.io.IOFactory
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -107,10 +107,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             onExportBeacons()
         }
 
-        binding.overlayMask.setOnClickListener {
-            // TODO: Maybe collapse the fab menu
-        }
-
         binding.createMenu.setOverlay(binding.overlayMask)
         binding.createMenu.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -163,6 +159,13 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             }
             true
         }
+        binding.createMenu.setOnHideListener {
+            binding.createBtn.setImageResource(R.drawable.ic_add)
+        }
+
+        binding.createMenu.setOnShowListener {
+            binding.createBtn.setImageResource(R.drawable.ic_cancel)
+        }
 
         binding.createBtn.setOnClickListener {
             if (displayedGroup != null) {
@@ -203,7 +206,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         } else {
             binding.createMenu.hide()
         }
-        binding.createBtn.setImageResource(if (!isShowing) R.drawable.ic_add else R.drawable.ic_cancel)
     }
 
     private fun isCreateMenuOpen(): Boolean {
