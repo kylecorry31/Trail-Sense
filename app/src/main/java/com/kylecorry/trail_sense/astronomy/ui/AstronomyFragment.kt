@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.SeekBar
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.IGPS
@@ -44,8 +44,7 @@ import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.tools.whitenoise.ui.QuickActionWhiteNoise
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.isActive
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.LocalDate
@@ -83,6 +82,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private val maxProgress = 60 * 24
 
     private var gpsErrorShown = false
+
+    private var uiUpdateJob: Job? = null
 
     private val intervalometer = Timer {
         updateUI()
@@ -305,8 +306,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     override fun onPause() {
         super.onPause()
-        if (lifecycleScope.isActive) {
-            lifecycleScope.cancel()
+        tryOrNothing {
+            uiUpdateJob?.cancel()
         }
         leftQuickAction?.onPause()
         rightQuickAction?.onPause()
@@ -336,7 +337,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         if (!isBound) {
             return
         }
-        runInBackground {
+        uiUpdateJob = runInBackground {
             withContext(Dispatchers.Main) {
                 detectAndShowGPSError()
                 binding.date.text = getDateString(displayDate)

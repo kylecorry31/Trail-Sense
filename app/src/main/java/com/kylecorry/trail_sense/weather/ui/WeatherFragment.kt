@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.science.meteorology.PressureCharacteristic
@@ -36,6 +37,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -71,6 +73,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private var rightQuickAction: QuickActionButton? = null
 
     private val weatherForecastService by lazy { WeatherContextualService.getInstance(requireContext()) }
+
+    private var loadAltitudeJob: Job? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -155,7 +159,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         altitude = altimeter.altitude
         units = prefs.pressureUnits
 
-        runInBackground {
+        loadAltitudeJob = runInBackground {
             withContext(Dispatchers.IO) {
                 if (!altimeter.hasValidReading) {
                     altimeter.read()
@@ -188,6 +192,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         super.onPause()
         leftQuickAction?.onPause()
         rightQuickAction?.onPause()
+        tryOrNothing {
+            loadAltitudeJob?.cancel()
+        }
         requireMainActivity().errorBanner.dismiss(USER_ERROR_WEATHER_MONITOR_OFF)
     }
 
