@@ -79,9 +79,7 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
                 formatService.formatPercentage(cloudSensor.coverage * 100) + "\n" +
                         formatService.formatCloudCover(cloudService.classifyCloudCover(cloudSensor.coverage))
 
-            binding.luminance.text = formatService.formatPercentage(
-                cloudSensor.dark * 100
-            ) + "(${formatService.formatPercentage((1 - cloudSensor.luminance) * 100)})\nDark"
+            binding.luminance.text = cloudSensor.cloudType?.toString()
             cloudSensor.clouds?.let {
                 if (lastBitmap != it) {
                     binding.cloudImage.setImageBitmap(it)

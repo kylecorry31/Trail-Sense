@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.weather.domain.forcasting
 
-import com.kylecorry.sol.science.meteorology.forecast.Weather
+import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.trail_sense.weather.domain.PressureReading
 
 interface IWeatherForecaster {

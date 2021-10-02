@@ -17,8 +17,8 @@ import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.science.geology.Region
+import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.science.meteorology.clouds.CloudCover
-import com.kylecorry.sol.science.meteorology.forecast.Weather
 import com.kylecorry.sol.science.shared.Season
 import com.kylecorry.sol.time.Time.toEpochMillis
 import com.kylecorry.sol.units.*

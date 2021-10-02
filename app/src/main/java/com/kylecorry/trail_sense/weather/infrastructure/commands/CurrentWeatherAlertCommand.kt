@@ -7,7 +7,7 @@ import android.content.Intent
 import android.hardware.SensorManager
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.science.meteorology.PressureTendency
-import com.kylecorry.sol.science.meteorology.forecast.Weather
+import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.NotificationChannels

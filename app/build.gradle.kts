@@ -80,7 +80,7 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
     // TS Core
-    implementation("com.github.kylecorry31:sol:5.3.0-beta01")
+    implementation("com.github.kylecorry31:sol:5.3.0-beta02")
 
     // Andromeda
     val andromedaVersion = "2.3.0-beta01"
