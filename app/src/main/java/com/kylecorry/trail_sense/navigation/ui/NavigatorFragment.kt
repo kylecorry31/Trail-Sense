@@ -648,7 +648,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.compassStatus.setStatusText(formatService.formatQuality(compass.quality))
         binding.compassStatus.setBackgroundTint(getCompassColor())
 
-        if ((compass.quality == Quality.Poor || compass.quality == Quality.Moderate) && !shownAccuracyToast) {
+        if ((compass.quality == Quality.Poor) && !shownAccuracyToast) {
             val banner = requireMainActivity().errorBanner
             banner.report(
                 UserError(
@@ -665,7 +665,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     banner.hide()
                 })
             shownAccuracyToast = true
-        } else if (compass.quality == Quality.Good) {
+        } else if (compass.quality == Quality.Good || compass.quality == Quality.Moderate) {
             requireMainActivity().errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
         }
 
