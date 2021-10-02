@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.weather.domain.clouds.CloudObservation
 import com.kylecorry.trail_sense.weather.domain.clouds.CloudService
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudCoverageSensor
+import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudSensor
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudObservationRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -24,7 +24,7 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
 
     private val formatService by lazy { FormatService(requireContext()) }
     private val cloudService = CloudService()
-    private val cloudSensor by lazy { CloudCoverageSensor(requireContext(), this) }
+    private val cloudSensor by lazy { CloudSensor(requireContext(), this) }
     private val cloudRepo by lazy { CloudObservationRepo.getInstance(requireContext()) }
 
     private val cloudImageScaleListener =

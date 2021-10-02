@@ -15,7 +15,7 @@ import com.kylecorry.sol.science.meteorology.clouds.CloudType
 import com.kylecorry.trail_sense.shared.AppColor
 import kotlinx.coroutines.*
 
-class CloudCoverageSensor(
+class CloudSensor(
     private val context: Context,
     private val lifecycleOwner: LifecycleOwner
 ) : AbstractSensor() {
