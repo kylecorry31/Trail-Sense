@@ -76,10 +76,11 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
         var lastBitmap: Bitmap? = null
         cloudSensor.asLiveData().observe(viewLifecycleOwner, {
             binding.coverage.text =
-                formatService.formatPercentage(cloudSensor.coverage * 100) + "\n" +
-                        formatService.formatCloudCover(cloudService.classifyCloudCover(cloudSensor.coverage))
+                formatService.formatPercentage(cloudSensor.cover * 100) + "\n" +
+                        formatService.formatCloudCover(cloudService.classifyCloudCover(cloudSensor.cover))
 
-            binding.luminance.text = cloudSensor.cloudType?.toString()
+            binding.luminance.text =
+                cloudSensor.cloudType?.toString() + "\n" + formatService.formatPercentage(100 * cloudSensor.luminance)
             cloudSensor.clouds?.let {
                 if (lastBitmap != it) {
                     binding.cloudImage.setImageBitmap(it)
@@ -127,13 +128,14 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
+        super.onDestroy()
         binding.cloudImage.setImageBitmap(null)
+        cloudSensor.destroy()
     }
 
     private fun record() {
-        val reading = Reading(CloudObservation(0, cloudSensor.coverage), Instant.now())
+        val reading = Reading(CloudObservation(0, cloudSensor.cover), Instant.now())
         runInBackground {
             withContext(Dispatchers.IO) {
                 cloudRepo.add(reading)

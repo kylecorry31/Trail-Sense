@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Size
+import androidx.core.graphics.set
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
@@ -18,8 +19,10 @@ class CloudCoverageSensor(
     private val context: Context,
     private val lifecycleOwner: LifecycleOwner
 ) : AbstractSensor() {
-    val coverage: Float
+    val cover: Float
         get() = _coverage
+    val luminance: Float
+        get() = _luminance
     val cloudType: CloudType?
         get() = _cloudType
     val clouds: Bitmap?
@@ -59,6 +62,7 @@ class CloudCoverageSensor(
 
     private var _clouds: Bitmap? = null
     private var _coverage: Float = 0f
+    private var _luminance: Float = 0f
     private var _cloudType: CloudType? = null
     private var override: Bitmap? = null
 
@@ -111,7 +115,11 @@ class CloudCoverageSensor(
     private suspend fun analyzeImage(bitmap: Bitmap) {
         synchronized(this) {
             if (_clouds == null) {
-                _clouds = Bitmap.createBitmap(bitmap.width, bitmap.height, bitmap.config)
+                _clouds = bitmap.copy(bitmap.config, true)
+            } else if (!bitmask) {
+                val pixels = IntArray(bitmap.width * bitmap.height)
+                bitmap.getPixels(pixels, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
+                _clouds?.setPixels(pixels, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
             }
         }
 
@@ -123,21 +131,21 @@ class CloudCoverageSensor(
             cloudColorOverlay
         )
 
-        val features = withContext(Dispatchers.IO) {
-            analyzer.getFeatures(bitmap, _clouds, bitmask)
+        val observation = withContext(Dispatchers.IO) {
+            analyzer.getClouds(bitmap){ x, y, pixel ->
+                if (bitmask) {
+                    synchronized(this) {
+                        _clouds?.set(x, y, pixel)
+                    }
+                }
+            }
         }
+        _coverage = observation.cover
+        _luminance = observation.luminance
+        _cloudType = observation.types.firstOrNull()
 
         if (bitmap != override) {
             bitmap.recycle()
-        }
-
-        println(features)
-
-        _coverage = features.cover
-        _cloudType = if (features.cover > 0.9f) {
-            CloudType.Stratus
-        } else {
-            CloudType.Cumulus
         }
 
         withContext(Dispatchers.Main) {
@@ -155,6 +163,9 @@ class CloudCoverageSensor(
         synchronized(analysisLock) {
             isRunning = false
         }
+    }
+
+    fun destroy() {
         synchronized(this) {
             _clouds?.recycle()
             _clouds = null

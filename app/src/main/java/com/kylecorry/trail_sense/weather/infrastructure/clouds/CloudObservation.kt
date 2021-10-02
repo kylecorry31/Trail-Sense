@@ -1,8 +1,11 @@
 package com.kylecorry.trail_sense.weather.infrastructure.clouds
 
-data class CloudFeatures(
+import com.kylecorry.sol.science.meteorology.clouds.CloudType
+
+data class CloudObservation(
     val cover: Float,
-    val blueStdDev: Float
+    val luminance: Float,
+    val types: List<CloudType>
 )
 // TODO Add the following features
 /*

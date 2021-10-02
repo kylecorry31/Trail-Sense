@@ -3,9 +3,8 @@ package com.kylecorry.trail_sense.weather.infrastructure.clouds
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Color
-import androidx.core.graphics.set
-import com.kylecorry.sol.math.SolMath.power
-import com.kylecorry.sol.math.statistics.StatisticsService
+import androidx.annotation.ColorInt
+import com.kylecorry.sol.science.meteorology.clouds.CloudType
 import com.kylecorry.trail_sense.weather.domain.clouds.BGIsSkySpecification
 import com.kylecorry.trail_sense.weather.domain.clouds.SaturationIsObstacleSpecification
 
@@ -18,11 +17,10 @@ class CloudAnalyzer(
 ) {
 
     @SuppressLint("UnsafeExperimentalUsageError", "UnsafeOptInUsageError")
-    suspend fun getFeatures(bitmap: Bitmap, out: Bitmap?, bitmask: Boolean): CloudFeatures {
+    suspend fun getClouds(bitmap: Bitmap, setPixel: (x: Int, y: Int, pixel: Int) -> Unit = {_, _, _ ->}): CloudObservation {
         var bluePixels = 0
         var cloudPixels = 0
-
-        val blueCloudPixels = mutableListOf<Float>()
+        var luminance = 0.0
 
         val isSky = BGIsSkySpecification(100 - skyDetectionSensitivity)
 
@@ -32,62 +30,68 @@ class CloudAnalyzer(
             for (h in 0 until bitmap.height) {
                 val pixel = bitmap.getPixel(w, h)
 
-                if (isSky.isSatisfiedBy(pixel)) {
-                    bluePixels++
-                    if (bitmask) {
-                        out?.set(w, h, skyColorOverlay)
-                    } else {
-                        out?.set(w, h, pixel)
+                when {
+                    isSky.isSatisfiedBy(pixel) -> {
+                        bluePixels++
+                        setPixel(w, h, skyColorOverlay)
                     }
-                } else if (isObstacle.isSatisfiedBy(pixel)) {
-                    if (bitmask) {
-                        out?.set(w, h, excludedColorOverlay)
-                    } else {
-                        out?.set(w, h, pixel)
+                    isObstacle.isSatisfiedBy(pixel) -> {
+                        setPixel(w, h, excludedColorOverlay)
                     }
-                } else {
-                    blueCloudPixels.add(Color.blue(pixel).toFloat())
-                    cloudPixels++
-                    if (bitmask) {
-                        out?.set(w, h, cloudColorOverlay)
-                    } else {
-                        out?.set(w, h, pixel)
+                    else -> {
+                        cloudPixels++
+                        luminance += average(pixel)
+                        setPixel(w, h, cloudColorOverlay)
                     }
                 }
 
             }
         }
 
-        val coverage = if (bluePixels + cloudPixels != 0) {
+        val cover = if (bluePixels + cloudPixels != 0) {
             cloudPixels / (bluePixels + cloudPixels).toFloat()
         } else {
             0f
         }
 
-        val statistics = StatisticsService()
+        luminance = if (cloudPixels != 0) {
+            luminance / cloudPixels
+        } else {
+            0.0
+        }
 
-        val blueStandardDeviation = statistics.variance(blueCloudPixels)
+        // TODO: Replace this with a logistic regression model
+        val type = when {
+            cover > 0.85f && luminance > 0.4f -> {
+                CloudType.Stratus
+            }
+            cover > 0.85f -> {
+                CloudType.Nimbostratus
+            }
+            cover > 0.1f && luminance > 0.4f -> {
+                CloudType.Cumulus
+            }
+            cover > 0.1f -> {
+                CloudType.Cumulonimbus
+            }
+            else -> {
+                null
+            }
+        }
 
-        return CloudFeatures(
-            coverage,
-            blueStandardDeviation / 255
+        return CloudObservation(
+            cover,
+            luminance.toFloat(),
+            listOfNotNull(type)
         )
     }
 
 
-    fun StatisticsService.skewness(values: List<Float>): Float {
-
-        if (values.isEmpty()) {
-            return 0f
-        }
-
-        val mean = this.mean(values)
-        val stdev = this.stdev(values)
-        var total = 0.0
-        for (value in values) {
-            total += power((value - mean).toDouble() / stdev, 3)
-        }
-        return (total / values.size).toFloat()
+    private fun average(@ColorInt color: Int): Float {
+        val r = Color.red(color) / 255.0
+        val g = Color.green(color) / 255.0
+        val b = Color.blue(color) / 255.0
+        return (r + g + b).toFloat() / 3f
     }
 
 }
