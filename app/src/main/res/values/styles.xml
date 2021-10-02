@@ -1,7 +1,7 @@
 <resources>
 
     <!--This is used for all Android versions-->
-    <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="BaseAppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">#90000000</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
@@ -9,6 +9,7 @@
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="materialButtonStyle">@style/ButtonTheme</item>
         <item name="floatingActionButtonStyle">@style/AppFloatingActionButtonStyle</item>
+        <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
     </style>
 
     <!--Override this for other Android versions-->
@@ -30,16 +31,16 @@
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 
-    <style name="AppFloatingActionButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+    <style name="AppFloatingActionButtonStyle" parent="Widget.Material3.FloatingActionButton.Primary">
         <item name="backgroundTint">?attr/colorPrimary</item>
         <item name="tint">@color/white</item>
     </style>
 
-    <style name="AppBottomSheetDialogTheme" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <style name="AppBottomSheetDialogTheme" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppBottomSheetModalStyle</item>
     </style>
 
-    <style name="AppBottomSheetModalStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+    <style name="AppBottomSheetModalStyle" parent="Widget.Material3.BottomSheet.Modal">
         <item name="shapeAppearance">@style/AppBottomSheetAppearance</item>
         <item name="android:padding">16dp</item>
     </style>
@@ -50,18 +51,12 @@
         <item name="cornerSizeTopRight">16dp</item>
     </style>
 
-    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+    <style name="AlertDialogTheme" parent="ThemeOverlay.Material3.Dialog.Alert">
         <item name="dialogCornerRadius">16dp</item>
     </style>
 
-    <style name="ButtonTheme" parent="Widget.MaterialComponents.Button">
-        <item name="shapeAppearanceOverlay">@style/ButtonAppearance</item>
+    <style name="ButtonTheme" parent="Widget.Material3.Button">
         <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="ButtonAppearance">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
     </style>
 
 </resources>
