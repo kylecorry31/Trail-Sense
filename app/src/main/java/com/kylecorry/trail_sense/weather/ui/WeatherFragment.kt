@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -34,7 +36,7 @@ import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
+import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -97,7 +99,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         chart = PressureChart(binding.chart) { timeAgo, pressure ->
             if (timeAgo == null || pressure == null) {
-                binding.pressureMarker.text = ""
+                binding.pressureMarker.isVisible = false
+                binding.logBtn.isVisible = true
             } else {
                 val formatted = formatService.formatPressure(
                     Pressure(pressure, units),
@@ -108,27 +111,25 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                     formatted,
                     formatService.formatDuration(timeAgo, false)
                 )
+                binding.pressureMarker.isVisible = true
+                binding.logBtn.isInvisible = true
                 valueSelectedTime = System.currentTimeMillis()
             }
         }
 
-        // TODO: Make this a button
-        binding.pressure.setOnLongClickListener {
-            val reading = PressureAltitudeReading(
-                Instant.now(),
-                barometer.pressure,
-                altimeter.altitude,
-                thermometer.temperature,
-                if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
-            )
-
+        binding.logBtn.setOnClickListener {
             runInBackground {
+                withContext(Dispatchers.Main) {
+                    binding.logBtn.isEnabled = false
+                }
                 withContext(Dispatchers.IO) {
-                    pressureRepo.addPressure(PressureReadingEntity.from(reading))
+                    MonitorWeatherCommand(requireContext(), false).execute()
+                }
+                withContext(Dispatchers.Main) {
+                    toast(getString(R.string.pressure_logged))
+                    binding.logBtn.isEnabled = true
                 }
             }
-
-            true
         }
 
         pressureRepo.getPressures().observe(viewLifecycleOwner) {
@@ -218,7 +219,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         displayPressure(pressure)
 
         if (System.currentTimeMillis() - valueSelectedTime > 5000) {
-            binding.pressureMarker.text = ""
+            binding.pressureMarker.isVisible = false
+            binding.logBtn.isVisible = true
         }
     }
 

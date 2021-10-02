@@ -13,7 +13,7 @@
         android:layout_height="250dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/pressure_marker"
+        app:layout_constraintBottom_toTopOf="@+id/log_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -23,9 +23,9 @@
         android:id="@+id/pressure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="32sp"
-        android:layout_marginTop="@dimen/default_top_margin"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,8 +64,8 @@
         android:id="@+id/weather_left_quick_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
         android:focusable="true"
         android:tint="?android:textColorSecondary"
@@ -104,11 +104,13 @@
         android:id="@+id/pressure_marker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/log_btn"
         app:layout_constraintEnd_toEndOf="@+id/chart"
         app:layout_constraintStart_toStartOf="@+id/chart"
-        tools:text="999 hPa, 3h ago" />
+        app:layout_constraintTop_toTopOf="@id/log_btn"
+        tools:text="999 hPa, 3h ago"
+        tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -144,8 +146,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/weather_now_lbl"
             app:layout_constraintEnd_toEndOf="@+id/weather_now_lbl"
+            app:layout_constraintStart_toStartOf="@+id/weather_now_lbl"
             app:layout_constraintTop_toBottomOf="@+id/weather_now_img"
             tools:text="Prediction: Worsening soon " />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -157,9 +159,19 @@
         android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         tools:text="@string/forecast_worsening" />
+
+    <Button
+        android:id="@+id/log_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:text="@string/log"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/chart"
+        app:layout_constraintStart_toStartOf="@+id/chart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

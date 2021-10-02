@@ -14,10 +14,10 @@ import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant
 
-class MonitorWeatherCommand(private val context: Context) : CoroutineCommand {
+class MonitorWeatherCommand(private val context: Context, private val background: Boolean = true) : CoroutineCommand {
 
     private val sensorService by lazy { SensorService(context) }
-    private val altimeter by lazy { sensorService.getGPSAltimeter(true) }
+    private val altimeter by lazy { sensorService.getGPSAltimeter(background) }
     private val barometer by lazy { sensorService.getBarometer() }
     private val thermometer by lazy { sensorService.getThermometer() }
     private val hygrometer by lazy { sensorService.getHygrometer() }
