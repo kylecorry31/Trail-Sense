@@ -54,9 +54,6 @@ class CloudCoverageSensor(
     private val excludedColorOverlay = AppColor.Red.color
     private val skyColorOverlay = AppColor.Blue.color
 
-    private var isRunning = false
-    private val analysisLock = Object()
-
     private var job = Job()
     private var scope = CoroutineScope(Dispatchers.Default + job)
 
@@ -74,10 +71,6 @@ class CloudCoverageSensor(
         if (!Camera.isAvailable(context)) {
             return
         }
-
-        synchronized(analysisLock) {
-            isRunning = false
-        }
         job = Job()
         scope = CoroutineScope(Dispatchers.Default + job)
 //        override = Resources.drawable(context, R.drawable.nimbostratus)?.toBitmap()
@@ -87,24 +80,15 @@ class CloudCoverageSensor(
     @SuppressLint("UnsafeOptInUsageError")
     private fun onCameraUpdate(): Boolean {
         val image = camera.image ?: return true
-        synchronized(analysisLock) {
-            if (!isRunning) {
-                isRunning = true
-                val bitmap = try {
-                    override ?: image.image?.toBitmap()
-                } catch (e: Exception) {
-                    null
-                }
-                if (bitmap != null) {
-                    scope.launch {
-                        analyzeImage(bitmap)
-                        synchronized(analysisLock) {
-                            isRunning = false
-                        }
-                    }
-                } else {
-                    isRunning = false
-                }
+
+        scope.launch {
+            val bitmap = try {
+                override ?: image.image?.toBitmap()
+            } catch (e: Exception) {
+                null
+            }
+            bitmap?.let {
+                analyzeImage(it)
             }
             image.close()
         }
@@ -132,7 +116,7 @@ class CloudCoverageSensor(
         )
 
         val observation = withContext(Dispatchers.IO) {
-            analyzer.getClouds(bitmap){ x, y, pixel ->
+            analyzer.getClouds(bitmap) { x, y, pixel ->
                 if (bitmask) {
                     synchronized(this) {
                         _clouds?.set(x, y, pixel)
@@ -155,13 +139,8 @@ class CloudCoverageSensor(
 
     override fun stopImpl() {
         camera.stop(this::onCameraUpdate)
-        if (scope.isActive) {
-            tryOrNothing {
-                scope.cancel()
-            }
-        }
-        synchronized(analysisLock) {
-            isRunning = false
+        tryOrNothing {
+            scope.cancel()
         }
     }
 
