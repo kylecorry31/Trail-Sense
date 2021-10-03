@@ -14,8 +14,8 @@ import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.weather.domain.clouds.CloudObservation
 import com.kylecorry.trail_sense.weather.domain.clouds.CloudService
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudSensor
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudObservationRepo
+import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudSensor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Instant
@@ -77,10 +77,13 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
         cloudSensor.asLiveData().observe(viewLifecycleOwner, {
             binding.coverage.text =
                 formatService.formatPercentage(cloudSensor.cover * 100) + "\n" +
-                        formatService.formatCloudCover(cloudService.classifyCloudCover(cloudSensor.cover))
+                        formatService.formatPercentage(cloudSensor.contrast * 100)
+//                        formatService.formatCloudCover(cloudService.classifyCloudCover(cloudSensor.cover))
 
             binding.luminance.text =
-                cloudSensor.cloudType?.toString() + "\n" + formatService.formatPercentage(100 * cloudSensor.luminance)
+                cloudSensor.cloudType?.toString() + " (${formatService.formatPercentage((cloudSensor.cloudTypeConfidence ?: 0f) * 100)})\n" + formatService.formatPercentage(
+                    100 * cloudSensor.luminance
+                )
             cloudSensor.clouds?.let {
                 if (lastBitmap != it) {
                     binding.cloudImage.setImageBitmap(it)
@@ -130,7 +133,6 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.cloudImage.setImageBitmap(null)
         cloudSensor.destroy()
     }
 

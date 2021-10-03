@@ -23,8 +23,12 @@ class CloudSensor(
         get() = _coverage
     val luminance: Float
         get() = _luminance
+    val contrast: Float
+        get() = _contrast
     val cloudType: CloudType?
         get() = _cloudType
+    val cloudTypeConfidence: Float?
+        get() = _cloudTypeConfidence
     val clouds: Bitmap?
         get() {
             return synchronized(this) {
@@ -60,7 +64,9 @@ class CloudSensor(
     private var _clouds: Bitmap? = null
     private var _coverage: Float = 0f
     private var _luminance: Float = 0f
+    private var _contrast: Float = 0f
     private var _cloudType: CloudType? = null
+    private var _cloudTypeConfidence: Float? = null
     private var override: Bitmap? = null
 
     override val hasValidReading: Boolean
@@ -126,7 +132,9 @@ class CloudSensor(
         }
         _coverage = observation.cover
         _luminance = observation.luminance
-        _cloudType = observation.types.firstOrNull()
+        _contrast = observation.contrast
+        _cloudType = observation.type
+        _cloudTypeConfidence = observation.typeConfidence
 
         if (bitmap != override) {
             bitmap.recycle()

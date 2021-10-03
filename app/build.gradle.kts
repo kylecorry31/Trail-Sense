@@ -56,6 +56,8 @@ android {
 }
 
 dependencies {
+    implementation("com.github.kylecorry31:renderscript-intrinsics-replacement-toolkit:0.8")
+
     kapt("androidx.room:room-compiler:2.3.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.31")
     implementation("androidx.appcompat:appcompat:1.3.1")
