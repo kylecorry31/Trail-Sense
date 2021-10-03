@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.annotation.ColorInt
-import com.google.android.renderscript.Toolkit
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.convolve
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
@@ -34,7 +34,7 @@ class CloudAnalyzer(
 
         val isObstacle = SaturationIsObstacleSpecification(1 - obstacleRemovalSensitivity / 100f)
 
-        val edges = Toolkit.convolve(bitmap, floatArrayOf(-0.99f, -0.99f, -0.99f, -0.99f, 8f, -0.99f, -0.99f, -0.99f, -0.99f))
+        val edges = bitmap.convolve(floatArrayOf(-0.99f, -0.99f, -0.99f, -0.99f, 8f, -0.99f, -0.99f, -0.99f, -0.99f))
 
         for (w in 0 until bitmap.width) {
             for (h in 0 until bitmap.height) {
