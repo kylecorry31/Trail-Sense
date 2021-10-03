@@ -5,27 +5,23 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.*
 import android.widget.SeekBar
-import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.sol.math.SolMath.clamp
-import com.kylecorry.sol.units.Reading
+import com.kylecorry.sol.science.meteorology.clouds.CloudType
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.weather.domain.clouds.CloudObservation
-import com.kylecorry.trail_sense.weather.domain.clouds.CloudService
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudObservationRepo
+import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
+import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudSensor
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.time.Instant
 
 class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
 
-    private val formatService by lazy { FormatService(requireContext()) }
-    private val cloudService = CloudService()
     private val cloudSensor by lazy { CloudSensor(requireContext(), this) }
-    private val cloudRepo by lazy { CloudObservationRepo.getInstance(requireContext()) }
+    private val cloudRepo by lazy { CloudRepo(requireContext()) }
+    private lateinit var listView: ListView<CloudType>
+    private var currentClouds = emptyList<CloudType>()
 
     private val cloudImageScaleListener =
         object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
@@ -73,17 +69,24 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
         binding.thresholdObstacleSeek.progress = cloudSensor.obstacleRemovalSensitivity
         binding.thresholdObstacle.text = cloudSensor.obstacleRemovalSensitivity.toString()
 
+        listView = ListView(binding.cloudList, R.layout.list_item_cloud) { itemView, item ->
+            val itemBinding = ListItemCloudBinding.bind(itemView)
+            CloudListItem(item, cloudRepo).display(itemBinding)
+        }
+
+        listView.addLineSeparator()
+
         var lastBitmap: Bitmap? = null
         cloudSensor.asLiveData().observe(viewLifecycleOwner, {
-            binding.coverage.text =
-                formatService.formatPercentage(cloudSensor.cover * 100) + "\n" +
-                        formatService.formatPercentage(cloudSensor.contrast * 100)
-//                        formatService.formatCloudCover(cloudService.classifyCloudCover(cloudSensor.cover))
+            cloudSensor.observation?.let { observation ->
+                val newClouds = observation.possibleClouds
+                if (!(newClouds.toTypedArray() contentEquals currentClouds.toTypedArray())) {
+                    listView.setData(newClouds)
+                    listView.scrollToPosition(0, false)
+                    currentClouds = newClouds
+                }
+            }
 
-            binding.luminance.text =
-                cloudSensor.cloudType?.toString() + " (${formatService.formatPercentage((cloudSensor.cloudTypeConfidence ?: 0f) * 100)})\n" + formatService.formatPercentage(
-                    100 * cloudSensor.luminance
-                )
             cloudSensor.clouds?.let {
                 if (lastBitmap != it) {
                     binding.cloudImage.setImageBitmap(it)
@@ -125,27 +128,10 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
             mGestureDetector.onTouchEvent(event)
             true
         }
-
-        binding.recordBtn.setOnClickListener {
-            record()
-        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         cloudSensor.destroy()
     }
-
-    private fun record() {
-        val reading = Reading(CloudObservation(0, cloudSensor.cover), Instant.now())
-        runInBackground {
-            withContext(Dispatchers.IO) {
-                cloudRepo.add(reading)
-            }
-            withContext(Dispatchers.Main) {
-                findNavController().navigateUp()
-            }
-        }
-    }
-
 }

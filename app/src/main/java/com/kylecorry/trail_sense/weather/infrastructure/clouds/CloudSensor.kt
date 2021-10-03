@@ -11,7 +11,6 @@ import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.sol.science.meteorology.clouds.CloudType
 import com.kylecorry.trail_sense.shared.AppColor
 import kotlinx.coroutines.*
 
@@ -19,16 +18,9 @@ class CloudSensor(
     private val context: Context,
     private val lifecycleOwner: LifecycleOwner
 ) : AbstractSensor() {
-    val cover: Float
-        get() = _coverage
-    val luminance: Float
-        get() = _luminance
-    val contrast: Float
-        get() = _contrast
-    val cloudType: CloudType?
-        get() = _cloudType
-    val cloudTypeConfidence: Float?
-        get() = _cloudTypeConfidence
+
+    val observation: CloudObservation?
+        get() = _cloudObservation
     val clouds: Bitmap?
         get() {
             return synchronized(this) {
@@ -62,11 +54,7 @@ class CloudSensor(
     private var scope = CoroutineScope(Dispatchers.Default + job)
 
     private var _clouds: Bitmap? = null
-    private var _coverage: Float = 0f
-    private var _luminance: Float = 0f
-    private var _contrast: Float = 0f
-    private var _cloudType: CloudType? = null
-    private var _cloudTypeConfidence: Float? = null
+    private var _cloudObservation: CloudObservation? = null
     private var override: Bitmap? = null
 
     override val hasValidReading: Boolean
@@ -121,7 +109,7 @@ class CloudSensor(
             cloudColorOverlay
         )
 
-        val observation = withContext(Dispatchers.IO) {
+        _cloudObservation = withContext(Dispatchers.IO) {
             analyzer.getClouds(bitmap) { x, y, pixel ->
                 if (bitmask) {
                     synchronized(this) {
@@ -130,11 +118,6 @@ class CloudSensor(
                 }
             }
         }
-        _coverage = observation.cover
-        _luminance = observation.luminance
-        _contrast = observation.contrast
-        _cloudType = observation.type
-        _cloudTypeConfidence = observation.typeConfidence
 
         if (bitmap != override) {
             bitmap.recycle()

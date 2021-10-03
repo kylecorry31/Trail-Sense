@@ -5,27 +5,26 @@ import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
+import android.view.Gravity
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.views.*
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
+import com.kylecorry.trail_sense.shared.views.*
 import java.time.Duration
 
 object CustomUiUtils {
@@ -274,6 +273,32 @@ object CustomUiUtils {
         } else {
             onClose(false)
         }
+    }
+
+    fun showImage(
+        context: Context,
+        title: String,
+        @DrawableRes image: Int
+    ) {
+        val view = LinearLayout(context)
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.gravity = Gravity.CENTER
+        view.layoutParams = params
+        val imageView = ImageView(context)
+        val imageParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            1f
+        )
+        imageParams.gravity = Gravity.CENTER
+        imageView.layoutParams = imageParams
+        imageView.setImageResource(image)
+        view.addView(imageView)
+
+        Alerts.dialog(context, title, contentView = view, cancelText = null)
     }
 
     fun setImageColor(view: ImageView, @ColorInt color: Int?) {

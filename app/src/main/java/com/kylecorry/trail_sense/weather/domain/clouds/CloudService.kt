@@ -2,9 +2,8 @@ package com.kylecorry.trail_sense.weather.domain.clouds
 
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.statistics.StatisticsService
-import com.kylecorry.sol.science.meteorology.clouds.CloudCover
+import com.kylecorry.sol.science.meteorology.clouds.*
 import com.kylecorry.sol.science.meteorology.clouds.CloudService
-import com.kylecorry.sol.science.meteorology.clouds.ICloudService
 import com.kylecorry.sol.units.Reading
 import java.time.Duration
 
@@ -14,6 +13,14 @@ class CloudService(private val baseCloudService: ICloudService = CloudService())
 
     fun classifyCloudCover(percent: Float): CloudCover {
         return baseCloudService.getCloudCover(percent)
+    }
+
+    fun getCloudsWithShape(shape: CloudShape): List<CloudType> {
+        return baseCloudService.getCloudsByShape(shape)
+    }
+
+    fun getCloudPrecipitation(type: CloudType): CloudWeather {
+        return baseCloudService.getCloudPrecipitation(type)
     }
 
     fun forecastClouds(readings: List<Reading<CloudObservation>>): Float {

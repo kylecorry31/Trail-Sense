@@ -1124,4 +1124,6 @@
     <string name="cloud_cover_overcast">Overcast</string>
     <string name="log">Log</string>
     <string name="pressure_logged">Pressure logged</string>
+    <string name="sky_detection_sensitivity">Sky detection sensitivity</string>
+    <string name="obstacle_removal_sensitivity">Obstacle removal sensitivity</string>
 </resources>
