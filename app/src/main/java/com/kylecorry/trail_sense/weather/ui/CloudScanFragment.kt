@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudSensor
+import kotlin.math.roundToInt
 
 class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
 
@@ -85,6 +86,9 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
                     listView.scrollToPosition(0, false)
                     currentClouds = newClouds
                 }
+
+                // This is for testing only
+                binding.features.text = "Cover: ${(observation.cover * 100).roundToInt()}  Contrast: ${(observation.contrast * 100).roundToInt()}  Luminance: ${(observation.luminance * 100).roundToInt()}"
             }
 
             cloudSensor.clouds?.let {

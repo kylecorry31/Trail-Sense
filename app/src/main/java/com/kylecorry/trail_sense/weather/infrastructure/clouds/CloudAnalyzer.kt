@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.convolve
 import com.kylecorry.sol.science.meteorology.clouds.CloudShape
 import com.kylecorry.trail_sense.weather.domain.clouds.BGIsSkySpecification
 import com.kylecorry.trail_sense.weather.domain.clouds.CloudService
@@ -32,6 +33,9 @@ class CloudAnalyzer(
 
         val isObstacle = SaturationIsObstacleSpecification(1 - obstacleRemovalSensitivity / 100f)
 
+        val edges = bitmap.convolve(floatArrayOf(-0.99f, -0.99f, -0.99f, -0.99f, 8f, -0.99f, -0.99f, -0.99f, -0.99f))
+        var totalContrast = 0.0
+
         for (w in 0 until bitmap.width) {
             for (h in 0 until bitmap.height) {
                 val pixel = bitmap.getPixel(w, h)
@@ -49,10 +53,13 @@ class CloudAnalyzer(
                         val lum = average(pixel)
                         luminance += lum
                         setPixel(w, h, cloudColorOverlay)
+                        totalContrast += Color.blue(edges.getPixel(w, h))
                     }
                 }
             }
         }
+
+        edges.recycle()
 
         val cover = if (bluePixels + cloudPixels != 0) {
             cloudPixels / (bluePixels + cloudPixels).toFloat()
@@ -78,6 +85,12 @@ class CloudAnalyzer(
             }
         }
 
+        val contrast = if (cloudPixels != 0){
+            (totalContrast / cloudPixels).toFloat() / 255
+        } else {
+            0f
+        }
+
         // TODO: Determine height by contrast
 
         val clouds = if (shape != null) cloudService.getCloudsWithShape(shape)
@@ -86,6 +99,7 @@ class CloudAnalyzer(
         return CloudObservation(
             cover,
             luminance.toFloat(),
+            contrast,
             clouds
         )
     }
