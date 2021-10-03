@@ -1103,12 +1103,12 @@
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
     <string name="tilt">Tilt</string>
     <string name="duration_of_charge">Duration of charge</string>
-    <string name="pref_export_weather_csv">pref_export_weather_csv</string>
+    <string name="pref_export_weather_csv" translatable="false">pref_export_weather_csv</string>
     <string name="pref_export_weather_csv_title">Export weather readings</string>
     <string name="weather_exported">Weather exported</string>
-    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
+    <string name="pref_show_nearest_tide" translatable="false">pref_show_nearest_tide</string>
     <string name="pref_show_nearest_tide_title">Show closest tide</string>
-    <string name="pref_tide_settings">pref_tide_settings</string>
+    <string name="pref_tide_settings" translatable="false">pref_tide_settings</string>
 
     <!--This is in markdown formatting - the first %s is either Sun or Moon-->
     <string name="sun_moon_position_template">### %s\n**Altitude**: %s\n\n**Azimuth**: %s</string>
@@ -1117,13 +1117,10 @@
     <string name="weather_monitoring_disabled">Weather monitoring disabled</string>
     <string name="enable">Enable</string>
     <string name="cloud_cover_none">No Clouds</string>
-    <string name="cloud_cover_few">Few</string>
-    <string name="cloud_cover_isolated">Isolated</string>
-    <string name="cloud_cover_scattered">Scattered</string>
-    <string name="cloud_cover_broken">Broken</string>
-    <string name="cloud_cover_overcast">Overcast</string>
     <string name="log">Log</string>
     <string name="pressure_logged">Pressure logged</string>
     <string name="sky_detection_sensitivity">Sky detection sensitivity</string>
     <string name="obstacle_removal_sensitivity">Obstacle removal sensitivity</string>
+    <string name="pref_experimental_cloud_scanner_title">Cloud scanner</string>
+    <string name="pref_experimental_cloud_scanner" translatable="false">pref_experimental_cloud_scanner</string>
 </resources>

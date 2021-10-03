@@ -41,7 +41,7 @@ class CloudSensor(
         Camera(
             context,
             lifecycleOwner,
-            targetResolution = Size(100, 100),
+            targetResolution = Size(300, 300),
             analyze = true
         )
     }
