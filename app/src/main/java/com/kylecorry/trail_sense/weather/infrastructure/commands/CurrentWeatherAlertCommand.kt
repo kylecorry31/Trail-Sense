@@ -89,8 +89,7 @@ class CurrentWeatherAlertCommand(
         }
 
         val description = formatService.formatShortTermWeather(
-            forecast,
-            prefs.weather.useRelativeWeatherPredictions
+            forecast
         )
 
         val newNotification = getNotification(

@@ -325,14 +325,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         withContext(Dispatchers.Main) {
             binding.weatherNowLbl.text = formatService.formatShortTermWeather(
-                hourly,
-                prefs.weather.useRelativeWeatherPredictions
-            )
-            binding.weatherNowPredictionLbl.isVisible =
-                !prefs.weather.useRelativeWeatherPredictions && hourly != Weather.Storm
-            binding.weatherNowPredictionLbl.text = getString(
-                R.string.weather_prediction,
-                formatService.formatShortTermWeather(hourly, true)
+                hourly
             )
             binding.weatherNowImg.setImageResource(
                 getWeatherImage(

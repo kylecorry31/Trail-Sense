@@ -11,11 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
         android:text="@string/backtrack"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="32sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

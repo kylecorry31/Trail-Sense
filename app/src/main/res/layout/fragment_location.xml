@@ -16,10 +16,9 @@
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textAppearance="@style/AppTheme.HeaderText"
             android:textIsSelectable="true"
             android:textSize="18sp"
-            android:textStyle="bold"
             tools:text="0.0000, 0.00000" />
 
         <ImageButton
@@ -112,8 +111,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        app:tint="?android:textColorSecondary"
-        app:srcCompat="@drawable/rectangle"/>
+        app:srcCompat="@drawable/rectangle"
+        app:tint="?android:textColorSecondary" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/coordinate_formats"

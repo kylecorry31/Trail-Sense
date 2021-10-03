@@ -389,25 +389,14 @@ class FormatService(private val context: Context) {
         return context.getString(R.string.climate_zone, regionStr)
     }
 
-    fun formatShortTermWeather(weather: Weather, relative: Boolean): String {
-        return if (relative) {
-            when (weather) {
-                Weather.ImprovingFast -> context.getString(R.string.weather_improving_fast)
-                Weather.ImprovingSlow -> context.getString(R.string.weather_improving_slow)
-                Weather.WorseningSlow -> context.getString(R.string.weather_worsening_slow)
-                Weather.WorseningFast -> context.getString(R.string.weather_worsening_fast)
-                Weather.Storm -> context.getString(R.string.weather_storm_incoming)
-                else -> context.getString(R.string.weather_not_changing)
-            }
-        } else {
-            when (weather) {
-                Weather.ImprovingFast -> context.getString(R.string.pressure_rising_fast)
-                Weather.ImprovingSlow -> context.getString(R.string.pressure_rising)
-                Weather.WorseningSlow -> context.getString(R.string.pressure_falling)
-                Weather.WorseningFast -> context.getString(R.string.pressure_falling_fast)
-                Weather.Storm -> context.getString(R.string.weather_storm_incoming)
-                else -> context.getString(R.string.pressure_no_change)
-            }
+    fun formatShortTermWeather(weather: Weather): String {
+        return when (weather) {
+            Weather.ImprovingFast -> context.getString(R.string.weather_improving_fast)
+            Weather.ImprovingSlow -> context.getString(R.string.weather_improving_slow)
+            Weather.WorseningSlow -> context.getString(R.string.weather_worsening_slow)
+            Weather.WorseningFast -> context.getString(R.string.weather_worsening_fast)
+            Weather.Storm -> context.getString(R.string.weather_storm_incoming)
+            else -> context.getString(R.string.weather_not_changing)
         }
     }
 

@@ -19,9 +19,8 @@
             android:layout_marginTop="@dimen/default_top_margin"
             android:layout_marginEnd="16dp"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textAppearance="@style/AppTheme.HeaderText"
             android:textSize="18sp"
-            android:textStyle="bold"
             tools:text="Start - End" />
 
         <LinearLayout

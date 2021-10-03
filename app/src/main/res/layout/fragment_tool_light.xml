@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
@@ -13,62 +13,60 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
         android:textAlignment="center"
-        tools:text="10 lux"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="32sp"
-        android:textStyle="bold" />
+        android:textAppearance="@style/AppTheme.HeaderText"
+        tools:text="10 lux" />
 
     <TextView
         android:id="@+id/intensity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="8dp"
         android:textAlignment="center"
+        android:textAppearance="@style/AppTheme.SubHeaderText"
         tools:text="13,500 cd" />
 
     <TextView
         android:id="@+id/beam_distance_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintEnd_toEndOf="@+id/lux"
-        app:layout_constraintStart_toStartOf="@+id/lux"
-        app:layout_constraintBottom_toTopOf="@+id/light_chart"
         android:layout_marginTop="16dp"
         android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintBottom_toTopOf="@+id/light_chart"
+        app:layout_constraintEnd_toEndOf="@+id/lux"
+        app:layout_constraintStart_toStartOf="@+id/lux"
         tools:text="180 meter beam distance" />
 
     <com.kylecorry.trail_sense.tools.light.ui.LightBarView
         android:id="@+id/light_chart"
         android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
-        android:layout_height="125dp"/>
+        android:layout_height="125dp"
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/distance_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginStart="26dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:text="@string/distance_from_flashlight" />
+        android:layout_marginTop="32dp"
+        android:text="@string/distance_from_flashlight"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <com.kylecorry.trail_sense.shared.views.DistanceInputView
         android:id="@+id/beam_distance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"/>
+        android:layout_marginEnd="16dp" />
 
     <Button
+        android:id="@+id/reset_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="26dp"
-        android:text="@string/reset"
-        android:id="@+id/reset_btn"/>
+        android:layout_marginTop="16dp"
+        android:text="@string/reset" />
 
 
 </LinearLayout>

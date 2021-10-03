@@ -11,21 +11,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="32sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/dash"
         tools:text="10 m" />
 
-
-
     <TextView
         android:id="@+id/estimated_height_lbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/AppTheme.SubHeaderText"
         android:text="@string/estimated_height"
         app:layout_constraintEnd_toEndOf="@+id/estimated_height"
         app:layout_constraintStart_toStartOf="@+id/estimated_height"

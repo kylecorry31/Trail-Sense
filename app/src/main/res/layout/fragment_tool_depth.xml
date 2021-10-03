@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
         android:text="@string/tool_depth_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/AppTheme.HeaderText"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

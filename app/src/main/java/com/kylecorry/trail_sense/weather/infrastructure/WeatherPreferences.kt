@@ -137,9 +137,6 @@ class WeatherPreferences(private val context: Context) {
             }
         }
 
-    val useRelativeWeatherPredictions: Boolean
-        get() = true
-
     var minBatteryTemperature: Float
         get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_c))
             ?.toFloatCompat() ?: 0f
