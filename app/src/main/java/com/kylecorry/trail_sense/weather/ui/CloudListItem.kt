@@ -1,13 +1,15 @@
 package com.kylecorry.trail_sense.weather.ui
 
+import android.widget.ImageView
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.sol.science.meteorology.clouds.CloudHeight
 import com.kylecorry.sol.science.meteorology.clouds.CloudType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.weather.domain.clouds.CloudService
+import com.kylecorry.trail_sense.weather.domain.clouds.Precipitation
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
 
 class CloudListItem(
@@ -21,80 +23,40 @@ class CloudListItem(
         binding.name.text = type.name
         binding.description.text = cloudRepo.getCloudDescription(type)
         binding.cloudImg.setImageResource(cloudRepo.getCloudImage(type))
-        val weather = cloudService.getCloudPrecipitation(type)
-        binding.precipitation.setImageResource(cloudRepo.getCloudWeatherIcon(weather))
+        val precipitation = cloudService.getPrecipitation(type)
+        setPrecipitationActive(
+            binding.precipitationHail,
+            precipitation.containsAny(listOf(Precipitation.Hail, Precipitation.SmallHail))
+        )
+        setPrecipitationActive(
+            binding.precipitationLightning,
+            precipitation.contains(Precipitation.Lightning)
+        )
+        setPrecipitationActive(
+            binding.precipitationRain,
+            precipitation.containsAny(listOf(Precipitation.Rain, Precipitation.Drizzle))
+        )
+        setPrecipitationActive(
+            binding.precipitationSnow,
+            precipitation.containsAny(
+                listOf(
+                    Precipitation.Snow,
+                    Precipitation.SnowPellets,
+                    Precipitation.SnowGrains,
+                    Precipitation.IcePellets
+                )
+            )
+        )
 
-        when (type.height) {
-            CloudHeight.Low -> {
-                binding.cloudHeightHigh.setTextColor(
-                    Resources.androidTextColorSecondary(
-                        context
-                    )
-                )
-                binding.cloudHeightMiddle.setTextColor(
-                    Resources.androidTextColorSecondary(
-                        context
-                    )
-                )
-                binding.cloudHeightLow.setTextColor(
-                    Resources.color(
-                        context,
-                        R.color.colorPrimary
-                    )
-                )
-                binding.cloudHeightHigh.alpha = 0.25f
-                binding.cloudHeightMiddle.alpha = 0.25f
-                binding.cloudHeightLow.alpha = 1f
-            }
-            CloudHeight.Middle -> {
-                binding.cloudHeightHigh.setTextColor(
-                    Resources.androidTextColorSecondary(
-                        context
-                    )
-                )
-                binding.cloudHeightMiddle.setTextColor(
-                    Resources.color(
-                        context,
-                        R.color.colorPrimary
-                    )
-                )
-                binding.cloudHeightLow.setTextColor(
-                    Resources.androidTextColorSecondary(
-                        context
-                    )
-                )
-                binding.cloudHeightHigh.alpha = 0.25f
-                binding.cloudHeightMiddle.alpha = 1f
-                binding.cloudHeightLow.alpha = 0.25f
-            }
-            CloudHeight.High -> {
-                binding.cloudHeightHigh.setTextColor(
-                    Resources.color(
-                        context,
-                        R.color.colorPrimary
-                    )
-                )
-                binding.cloudHeightMiddle.setTextColor(
-                    Resources.androidTextColorSecondary(
-                        context
-                    )
-                )
-                binding.cloudHeightLow.setTextColor(
-                    Resources.androidTextColorSecondary(
-                        context
-                    )
-                )
-                binding.cloudHeightHigh.alpha = 1f
-                binding.cloudHeightMiddle.alpha = 0.25f
-                binding.cloudHeightLow.alpha = 0.25f
-            }
-        }
+        val formatter = FormatService(context)
 
         binding.precipitation.setOnClickListener {
             Alerts.dialog(
                 context,
                 cloudRepo.getCloudName(type),
-                cloudRepo.getCloudWeatherString(weather),
+                if (precipitation.isEmpty()) context.getString(R.string.precipitation_none) else precipitation.joinToString(
+                    "\n"
+                ) { formatter.formatPrecipitation(it) },
                 cancelText = null
             )
         }
@@ -106,6 +68,23 @@ class CloudListItem(
                 cloudRepo.getCloudImage(type)
             )
         }
+    }
+
+    private fun setPrecipitationActive(precipitation: ImageView, active: Boolean) {
+        if (active) {
+            CustomUiUtils.setImageColor(precipitation, null)
+            precipitation.alpha = 1f
+        } else {
+            CustomUiUtils.setImageColor(
+                precipitation,
+                Resources.color(precipitation.context, R.color.colorSecondary)
+            )
+            precipitation.alpha = 0.02f
+        }
+    }
+
+    private fun <T> List<T>.containsAny(values: List<T>): Boolean {
+        return any { it in values }
     }
 
 

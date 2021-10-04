@@ -19,6 +19,46 @@ class CloudService(private val baseCloudService: ICloudService = CloudService())
         return baseCloudService.getCloudsByShape(shape)
     }
 
+    fun getPrecipitation(type: CloudType): List<Precipitation> {
+        return when (type) {
+            CloudType.Altostratus -> listOf(
+                Precipitation.Rain,
+                Precipitation.Snow,
+                Precipitation.IcePellets
+            )
+            CloudType.Nimbostratus -> listOf(
+                Precipitation.Rain,
+                Precipitation.Snow,
+                Precipitation.IcePellets
+            )
+            CloudType.Stratus -> listOf(
+                Precipitation.Drizzle,
+                Precipitation.Snow,
+                Precipitation.SnowGrains
+            )
+            CloudType.Stratocumulus -> listOf(
+                Precipitation.Rain,
+                Precipitation.Drizzle,
+                Precipitation.Snow,
+                Precipitation.SnowPellets
+            )
+            CloudType.Cumulus -> listOf(
+                Precipitation.Rain,
+                Precipitation.Snow,
+                Precipitation.SnowPellets
+            )
+            CloudType.Cumulonimbus -> listOf(
+                Precipitation.Rain,
+                Precipitation.Snow,
+                Precipitation.SnowPellets,
+                Precipitation.Hail,
+                Precipitation.SmallHail,
+                Precipitation.Lightning
+            )
+            else -> emptyList()
+        }
+    }
+
     fun getCloudPrecipitation(type: CloudType): CloudWeather {
         return baseCloudService.getCloudPrecipitation(type)
     }

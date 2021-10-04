@@ -620,16 +620,16 @@
     <string name="cloud_possible_rain">Precipitation possible</string>
     <string name="cloud_likely_rain">Precipitation likely</string>
     <string name="cloud_likely_storm">Storm likely</string>
-    <string name="cirrocumulus_desc">Forms a wavy sheet, clouds almost look two dimensional.</string>
-    <string name="cirrostratus_desc">Covers the sky, but the sun can be seen through it.</string>
-    <string name="altocumulus_desc">Looks like puffy cotton balls.</string>
-    <string name="altostratus_desc">Covers the sky, the sun can barely be seen.</string>
-    <string name="nimbostratus_desc">Dark gray and covers the sky. It may be raining.</string>
-    <string name="stratus_desc">Covers the sky, objects don\'t cast shadows.</string>
-    <string name="stratocumulus_desc">Rolling masses which form a sheet.</string>
-    <string name="cumulus_desc">Looks like puffy cotton balls.</string>
-    <string name="cumulonimbus_desc">Dark gray, tall and anvil shape.</string>
-    <string name="cirrus_desc">High and feathery.</string>
+    <string name="cirrocumulus_desc">High level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two dimensional.</string>
+    <string name="cirrostratus_desc">A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun.</string>
+    <string name="altocumulus_desc">Mid level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like.</string>
+    <string name="altostratus_desc">A mid level cloud that covers the sky. The sun can barely be seen as a bright patch.</string>
+    <string name="nimbostratus_desc">A mid level cloud that is dark gray and covers the sky. It may be raining.</string>
+    <string name="stratus_desc">A low cloud that covers the sky. Objects don\'t cast shadows and it may be foggy.</string>
+    <string name="stratocumulus_desc">Low clouds that look like a sheet of cotton balls with small gaps. The color ranges from white to dark gray.</string>
+    <string name="cumulus_desc">Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below.</string>
+    <string name="cumulonimbus_desc">Low puffy clouds that are very tall. They typically have an anvil shape and are dark.</string>
+    <string name="cirrus_desc">High wispy clouds that look like tufts of white hair.</string>
     <!--This is in Markdown format-->
     <string name="onboarding_navigation">- Place beacons and navigate back to them\n\n- Get your current location, altitude, and speed\n\n- Retrace your steps with Backtrack (runs in the background when enabled)</string>
     <!--This is in Markdown format-->
@@ -1123,4 +1123,13 @@
     <string name="obstacle_removal_sensitivity">Obstacle removal sensitivity</string>
     <string name="pref_experimental_cloud_scanner_title">Cloud scanner</string>
     <string name="pref_experimental_cloud_scanner" translatable="false">pref_experimental_cloud_scanner</string>
+    <string name="precipitation_none">No precipitation</string>
+    <string name="precipitation_rain">Rain</string>
+    <string name="precipitation_drizzle">Drizzle</string>
+    <string name="precipitation_snow">Snow</string>
+    <string name="precipitation_snow_pellets">Snow pellets</string>
+    <string name="precipitation_hail">Hail</string>
+    <string name="precipitation_small_hail">Small Hail</string>
+    <string name="precipitation_ice_pellets">Ice Pellets</string>
+    <string name="precipitation_snow_grains">Snow Grains</string>
 </resources>

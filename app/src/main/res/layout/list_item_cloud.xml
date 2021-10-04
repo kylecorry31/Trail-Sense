@@ -5,73 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/cloud_img"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:padding="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/AppTheme.CircleImageView"
         tools:src="@drawable/cirrocumulus" />
-
-    <LinearLayout
-        android:id="@+id/cloud_height"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:orientation="vertical"
-        android:gravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cloud_img"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/cloud_height_high"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:textAllCaps="true"
-            android:text="@string/high"
-            android:textColor="@color/colorPrimary"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/cloud_height_middle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:text="@string/middle"
-            android:textAllCaps="true"
-            android:textColor="@color/colorPrimary"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/cloud_height_low"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:text="@string/low"
-            android:textAllCaps="true"
-            android:textColor="@color/colorPrimary"
-            android:textSize="10sp" />
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/precipitation"
-        app:layout_constraintStart_toEndOf="@+id/cloud_height"
+        app:layout_constraintStart_toEndOf="@+id/cloud_img"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Name" />
 
@@ -88,14 +44,53 @@
         app:layout_constraintTop_toBottomOf="@+id/name"
         tools:text="A description of the cloud" />
 
-    <ImageView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/precipitation"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="16dp"
-        android:alpha="0.86"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/heavy_rain" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/precipitation_rain"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_precipitation_rain"
+            app:layout_constraintEnd_toStartOf="@id/precipitation_snow"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/precipitation_snow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_precipitation_snow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/precipitation_hail"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/bubble"
+            app:layout_constraintStart_toStartOf="@id/precipitation_rain"
+            app:layout_constraintTop_toBottomOf="@id/precipitation_rain"
+            app:tint="@color/offWhite" />
+
+        <ImageView
+            android:id="@+id/precipitation_lightning"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_lightning"
+            app:layout_constraintStart_toStartOf="@id/precipitation_snow"
+            app:layout_constraintTop_toBottomOf="@id/precipitation_snow"
+            app:tint="@color/sun" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@
     <color name="colorAccent">#a0caff</color>
     <color name="colorSecondary">#222222</color>
     <color name="white">#FFFFFF</color>
+    <color name="offWhite">#cccccc</color>
     <color name="positive">#0F9A05</color>
     <color name="negative">#FF001E</color>
 

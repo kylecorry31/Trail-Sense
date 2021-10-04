@@ -23,6 +23,7 @@ import com.kylecorry.sol.time.Time.toEpochMillis
 import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
+import com.kylecorry.trail_sense.weather.domain.clouds.Precipitation
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -525,6 +526,20 @@ class FormatService(private val context: Context) {
             PressureUnits.Inhg -> context.getString(R.string.units_inhg_short)
             PressureUnits.Psi -> context.getString(R.string.units_psi)
             PressureUnits.MmHg -> context.getString(R.string.units_mmhg_short)
+        }
+    }
+
+    fun formatPrecipitation(precipitation: Precipitation): String {
+        return when (precipitation) {
+            Precipitation.Rain -> context.getString(R.string.precipitation_rain)
+            Precipitation.Drizzle -> context.getString(R.string.precipitation_drizzle)
+            Precipitation.Snow -> context.getString(R.string.precipitation_snow)
+            Precipitation.SnowPellets -> context.getString(R.string.precipitation_snow_pellets)
+            Precipitation.Hail -> context.getString(R.string.precipitation_hail)
+            Precipitation.SmallHail -> context.getString(R.string.precipitation_small_hail)
+            Precipitation.IcePellets -> context.getString(R.string.precipitation_ice_pellets)
+            Precipitation.SnowGrains -> context.getString(R.string.precipitation_snow_grains)
+            Precipitation.Lightning -> context.getString(R.string.lightning)
         }
     }
 
