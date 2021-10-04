@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.convert.ui
+package com.kylecorry.trail_sense.shared.views
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

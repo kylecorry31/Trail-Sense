@@ -11,28 +11,22 @@ import android.widget.SeekBar
 import androidx.core.graphics.set
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.list.ListView
-import com.kylecorry.sol.science.meteorology.clouds.CloudType
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
-import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudAnalyzer
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
+import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudObservation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
-class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
+class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
 
-    private val cloudRepo by lazy { CloudRepo(requireContext()) }
-    private lateinit var listView: ListView<CloudType>
-    private var currentClouds = emptyList<CloudType>()
     private var lastBitmap: Bitmap? = null
     private var clouds: Bitmap? = null
     private var showingBitmask = false
+
+    private var onCloudResults: (CloudObservation) -> Unit = {}
+    private var onDone: () -> Unit = {}
 
     private val runner = ControlledRunner<Unit>()
 
@@ -52,13 +46,6 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
         binding.threshold.text = "50"
         binding.thresholdObstacleSeek.progress = 0
         binding.thresholdObstacle.text = "0"
-
-        listView = ListView(binding.cloudList, R.layout.list_item_cloud) { itemView, item ->
-            val itemBinding = ListItemCloudBinding.bind(itemView)
-            CloudListItem(item, cloudRepo).display(itemBinding)
-        }
-
-        listView.addLineSeparator()
 
         binding.thresholdSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -91,8 +78,6 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
             }
         })
 
-        loadImage()
-
         binding.cloudImage.setOnClickListener {
             showingBitmask = !showingBitmask
             if (showingBitmask) {
@@ -101,30 +86,46 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
                 binding.cloudImage.setImageBitmap(lastBitmap)
             }
         }
+
+        binding.doneBtn.setOnClickListener {
+            onDone.invoke()
+        }
+
+        lastBitmap?.let {
+            setImage(it)
+        }
     }
 
-    private fun loadImage() {
-        CustomUiUtils.pickImage(this) { image ->
-            if (image != null) {
-                binding.cloudImage.setImageBitmap(null)
-                lastBitmap?.recycle()
-                clouds?.recycle()
-                lastBitmap = image.resize(500, 500)
-                image.recycle()
-                clouds = lastBitmap?.let {
-                    it.copy(it.config, true)
-                }
-                binding.cloudImage.setImageBitmap(lastBitmap)
-                showingBitmask = false
-                lastBitmap?.let {
-                    analyze(it)
-                }
-            }
+    fun setOnResultsListener(listener: (CloudObservation) -> Unit) {
+        onCloudResults = listener
+    }
+
+    fun setOnDoneListener(listener: () -> Unit) {
+        onDone = listener
+    }
+
+    fun setImage(image: Bitmap) {
+        if (isBound) {
+            binding.cloudImage.setImageBitmap(null)
+        }
+        clouds?.recycle()
+        lastBitmap = image
+        clouds = lastBitmap?.let {
+            it.copy(it.config, true)
+        }
+        if (isBound) {
+            binding.cloudImage.setImageBitmap(lastBitmap)
+        }
+        showingBitmask = false
+        lastBitmap?.let {
+            analyze(it)
         }
     }
 
     private fun analyze(image: Bitmap) {
-        // TODO: Only queue up once
+        if (!isBound) {
+            return
+        }
         runInBackground {
             runner.cancelPreviousThenRun {
                 val cloudColorOverlay = Color.WHITE
@@ -142,14 +143,8 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
                         clouds?.set(x, y, pixel)
                     }
                 }
+                onCloudResults.invoke(observation)
                 if (isBound) {
-                    val newClouds = observation.possibleClouds
-                    if (!(newClouds.toTypedArray() contentEquals currentClouds.toTypedArray())) {
-                        listView.setData(newClouds)
-                        listView.scrollToPosition(0, false)
-                        currentClouds = newClouds
-                    }
-
                     // This is for testing only
                     binding.features.text =
                         "Cover: ${(observation.cover * 100).roundToInt()}  Contrast: ${(observation.contrast * 100).roundToInt()}  Luminance: ${(observation.luminance * 100).roundToInt()}"
@@ -165,7 +160,6 @@ class CloudScanFragment : BoundFragment<FragmentCloudScanBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
-        lastBitmap?.recycle()
         clouds?.recycle()
     }
 }

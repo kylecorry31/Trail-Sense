@@ -1132,4 +1132,7 @@
     <string name="precipitation_small_hail">Small Hail</string>
     <string name="precipitation_ice_pellets">Ice Pellets</string>
     <string name="precipitation_snow_grains">Snow Grains</string>
+    <string name="capture">Capture</string>
+    <string name="results">Results</string>
+    <string name="disclaimer_experimental_clouds_key" translatable="false">disclaimer_experimental_clouds_key</string>
 </resources>

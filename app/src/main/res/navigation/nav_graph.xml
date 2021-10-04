@@ -664,7 +664,7 @@
     </fragment>
     <fragment
         android:id="@+id/cloudScanFragment"
-        android:name="com.kylecorry.trail_sense.weather.ui.CloudScanFragment"
+        android:name="com.kylecorry.trail_sense.weather.ui.CloudIdentificationFragment"
         android:label="CloudScanFragment" />
     <fragment
         android:id="@+id/sensorDetailsFragment"

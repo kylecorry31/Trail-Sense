@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
-import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentToolConvertBinding
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.databinding.FragmentTabsBinding
+import com.kylecorry.trail_sense.shared.views.CustomViewPagerAdapter
 
-class FragmentToolConvert : BoundFragment<FragmentToolConvertBinding>() {
+class FragmentToolConvert : BoundFragment<FragmentTabsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,9 +31,9 @@ class FragmentToolConvert : BoundFragment<FragmentToolConvertBinding>() {
             getString(R.string.weight),
             getString(R.string.time)
         )
-        binding.convertViewpager.adapter = CustomViewPagerAdapter(this, convertTools)
+        binding.viewpager.adapter = CustomViewPagerAdapter(this, convertTools)
 
-        TabLayoutMediator(binding.tabLayoutConvert, binding.convertViewpager) { tab, position ->
+        TabLayoutMediator(binding.tabs, binding.viewpager) { tab, position ->
             tab.text = convertNames[position]
         }.attach()
     }
@@ -40,7 +41,7 @@ class FragmentToolConvert : BoundFragment<FragmentToolConvertBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentToolConvertBinding {
-        return FragmentToolConvertBinding.inflate(layoutInflater, container, false)
+    ): FragmentTabsBinding {
+        return FragmentTabsBinding.inflate(layoutInflater, container, false)
     }
 }
