@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
@@ -12,11 +13,13 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -24,6 +27,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
+import com.kylecorry.trail_sense.shared.camera.CameraInputBottomSheet
 import com.kylecorry.trail_sense.shared.views.*
 import java.time.Duration
 
@@ -315,6 +319,20 @@ object CustomUiUtils {
             return
         }
         drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+    }
+
+    fun pickImage(fragment: Fragment, onImage: (image: Bitmap?) -> Unit) {
+        val cameraInput = CameraInputBottomSheet()
+        var called = false
+        cameraInput.setOnImageListener {
+            if (!called) {
+                called = true
+                onImage.invoke(it)
+                cameraInput.dismiss()
+            }
+        }
+
+        cameraInput.show(fragment)
     }
 
 }
