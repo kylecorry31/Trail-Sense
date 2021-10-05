@@ -145,9 +145,19 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
                 }
                 onCloudResults.invoke(observation)
                 if (isBound) {
+
+                    val features = listOf(
+                        "CC" to observation.cover,
+                        "CON" to observation.contrast,
+                        "EN" to observation.energy,
+                        "ENT" to observation.entropy,
+                        "HOM" to observation.homogeneity,
+                        "LUM" to observation.luminance
+                    )
+
                     // This is for testing only
                     binding.features.text =
-                        "Cover: ${(observation.cover * 100).roundToInt()}  Contrast: ${(observation.contrast * 100).roundToInt()}  Luminance: ${(observation.luminance * 100).roundToInt()}"
+                        features.joinToString(", ") { "${it.first}: ${(it.second * 100).roundToInt()}" }
                 }
             }
         }

@@ -18,6 +18,22 @@
         tools:src="@drawable/cirrocumulus" />
 
     <TextView
+        android:id="@+id/confidence"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:background="@drawable/bubble"
+        android:backgroundTint="@color/transparentWhite"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/cloud_img"
+        app:layout_constraintEnd_toEndOf="@id/cloud_img"
+        app:layout_constraintStart_toStartOf="@id/cloud_img"
+        app:layout_constraintTop_toTopOf="@id/cloud_img"
+        tools:text="10" />
+
+    <TextView
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

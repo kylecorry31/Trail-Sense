@@ -31,7 +31,6 @@ class CloudIdentificationFragment : BoundFragment<FragmentTabsBinding>() {
         val calibration = CloudCalibrationFragment()
         val results = CloudResultsFragment()
 
-
         camera.setOnImageListener {
             image?.recycle()
             image = it.resize(500, 500)

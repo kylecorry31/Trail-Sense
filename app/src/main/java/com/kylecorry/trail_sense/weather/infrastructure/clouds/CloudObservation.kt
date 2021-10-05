@@ -6,5 +6,8 @@ data class CloudObservation(
     val cover: Float,
     val luminance: Float,
     val contrast: Float,
-    val possibleClouds: List<CloudGenus>
+    val energy: Float,
+    val entropy: Float,
+    val homogeneity: Float,
+    val possibleClouds: List<Pair<CloudGenus, Float>>
 )

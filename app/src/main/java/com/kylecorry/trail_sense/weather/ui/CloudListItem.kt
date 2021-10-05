@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.ui
 
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.science.meteorology.Precipitation
@@ -15,6 +16,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
 class CloudListItem(
     private val type: CloudGenus,
     private val cloudRepo: CloudRepo,
+    private val confidence: Float? = null,
     private val cloudService: CloudService = CloudService()
 ) {
 
@@ -49,6 +51,11 @@ class CloudListItem(
         )
 
         val formatter = FormatService(context)
+
+        binding.confidence.isVisible = confidence != null
+        if (confidence != null) {
+            binding.confidence.text = formatter.formatPercentage(confidence * 100)
+        }
 
         binding.precipitation.setOnClickListener {
             Alerts.dialog(

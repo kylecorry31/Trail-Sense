@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.weather.ui
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,28 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
 
         binding.ok.setOnClickListener {
             captureNextImage = true
+        }
+
+        binding.upload.setOnClickListener {
+            pickFile(
+                listOf("image/*"),
+                "Cloud picture"
+            ) {
+                it?.also { uri ->
+                    runInBackground {
+                        val stream = try {
+                            @Suppress("BlockingMethodInNonBlockingContext")
+                            requireContext().contentResolver.openInputStream(uri)
+                        } catch (e: Exception) {
+                            null
+                        } ?: return@runInBackground
+                        val bp = BitmapFactory.decodeStream(stream)
+                        @Suppress("BlockingMethodInNonBlockingContext")
+                        stream.close()
+                        onImage.invoke(bp)
+                    }
+                }
+            }
         }
 
         binding.zoom.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -69,7 +92,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
             val bitmap = camera.image?.image?.toBitmap()
             bitmap?.let(onImage)
             captureNextImage = false
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             // Do nothing
         } finally {
             camera.image?.close()

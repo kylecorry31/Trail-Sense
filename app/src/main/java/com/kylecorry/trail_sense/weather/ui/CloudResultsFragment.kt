@@ -17,8 +17,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
 class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     private val cloudRepo by lazy { CloudRepo(requireContext()) }
-    private lateinit var listView: ListView<CloudGenus>
-    private var currentClouds = emptyList<CloudGenus>()
+    private lateinit var listView: ListView<Pair<CloudGenus, Float>>
 
     private var observation: CloudObservation? = null
 
@@ -36,7 +35,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
         listView = ListView(binding.cloudList, R.layout.list_item_cloud) { itemView, item ->
             val itemBinding = ListItemCloudBinding.bind(itemView)
-            CloudListItem(item, cloudRepo).display(itemBinding)
+            CloudListItem(item.first, cloudRepo, item.second).display(itemBinding)
         }
 
         listView.addLineSeparator()
@@ -52,11 +51,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
             return
         }
 
-        val newClouds = observation.possibleClouds
-        if (!(newClouds.toTypedArray() contentEquals currentClouds.toTypedArray())) {
-            listView.setData(newClouds)
-            listView.scrollToPosition(0, false)
-            currentClouds = newClouds
-        }
+        listView.setData(observation.possibleClouds)
+        listView.scrollToPosition(0, false)
     }
 }
