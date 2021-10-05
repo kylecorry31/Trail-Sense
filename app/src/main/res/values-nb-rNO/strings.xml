@@ -807,8 +807,8 @@
     <string name="cloud_cover_isolated">Isolert</string>
     <string name="cloud_cover_few">Få</string>
     <string name="cloud_cover_none">Ingen skyer</string>
-    <string name="moon">Måne</string>
-    <string name="sun">Sol</string>
+    <string name="moon">Månen</string>
+    <string name="sun">Solen</string>
     <string name="pick_file">Velg fil</string>
     <string name="path_exported">Sti eksportert</string>
     <string name="no_paths">Ingen stier</string>
@@ -851,4 +851,50 @@
 \n
 \nBruk med vanntett omslag og hold deg på trygg dykkeavstand hvis mulig.</string>
     <string name="tide_normal">Normal</string>
+    <string name="astro_dialog_rise_set">**Tid**: %s
+\n
+\n**Retning**: %s</string>
+    <string name="astro_dialog_meteor_shower">**Maksimum**: %s
+\n
+\n**Maksimum - høyde**: %s
+\n
+\n**Maksimum - retning**: %s
+\n
+\n**Rate**: %s</string>
+    <string name="middle">Middels</string>
+    <string name="season_winter">Vinter</string>
+    <string name="season_spring">Vår</string>
+    <string name="season_summer">Sommer</string>
+    <string name="season_fall">Høst</string>
+    <string name="astro_dialog_moon_phase">**Fase**: %s
+\n
+\n**Opplyst**: %s</string>
+    <string name="astro_dialog_day_length">**Dag**: %s
+\n
+\n**Natt**: %s
+\n
+\n**Årstid**: %s</string>
+    <string name="astro_dialog_noon">**Tid**: %s
+\n
+\n**Høyde**: %s</string>
+    <string name="pref_export_weather_csv_title">Eksporter væravlesninger</string>
+    <string name="find_next_occurrence">Finn neste hendelse</string>
+    <string name="sun_moon_position_template">### %s
+\n**Høyde**: %s
+\n
+\n**Asimut**: %s</string>
+    <string name="weather_monitoring_disabled">Værovervåking slått av</string>
+    <string name="enable">Slå på</string>
+    <string name="supermoon">Supermåne</string>
+    <string name="astro_dialog_lunar_eclipse">**Start**: %s
+\n
+\n**Maksimal**: %s
+\n
+\n**Slutt**: %s
+\n
+\n**Varighet**: %s
+\n
+\n**Magnitude**: %s
+\n
+\n**Høyde**: %s</string>
 </resources>
