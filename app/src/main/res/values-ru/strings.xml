@@ -1036,4 +1036,5 @@
     <string name="cloud_cover_isolated">Изолированные</string>
     <string name="cloud_cover_few">Мало</string>
     <string name="cloud_cover_none">Нет облаков</string>
+    <string name="cloud_cover_overcast">Облачно</string>
 </resources>

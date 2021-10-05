@@ -1024,4 +1024,10 @@
 \n**Азимут**: %s</string>
     <string name="enable">Увімкнути</string>
     <string name="weather_monitoring_disabled">Відстеження погоди вимкнено</string>
+    <string name="cloud_cover_broken">Розбиті</string>
+    <string name="cloud_cover_none">Хмар немає</string>
+    <string name="cloud_cover_few">Мало</string>
+    <string name="cloud_cover_isolated">Місцями</string>
+    <string name="cloud_cover_scattered">Розсіяні</string>
+    <string name="cloud_cover_overcast">Хмарні</string>
 </resources>
