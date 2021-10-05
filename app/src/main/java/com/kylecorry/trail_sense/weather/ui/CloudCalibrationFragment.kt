@@ -42,8 +42,8 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.thresholdSeek.max = 100
         binding.thresholdObstacleSeek.max = 100
-        binding.thresholdSeek.progress = 50
-        binding.threshold.text = "50"
+        binding.thresholdSeek.progress = 60
+        binding.threshold.text = "60"
         binding.thresholdObstacleSeek.progress = 0
         binding.thresholdObstacle.text = "0"
 
