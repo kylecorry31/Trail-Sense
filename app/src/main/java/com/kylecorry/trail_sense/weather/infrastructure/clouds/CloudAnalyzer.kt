@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.convolve
-import com.kylecorry.sol.science.meteorology.clouds.CloudShape
+import com.kylecorry.sol.science.meteorology.clouds.CloudCategory
 import com.kylecorry.trail_sense.weather.domain.clouds.BGIsSkySpecification
 import com.kylecorry.trail_sense.weather.domain.clouds.CloudService
 import com.kylecorry.trail_sense.weather.domain.clouds.SaturationIsObstacleSpecification
@@ -33,7 +33,19 @@ class CloudAnalyzer(
 
         val isObstacle = SaturationIsObstacleSpecification(1 - obstacleRemovalSensitivity / 100f)
 
-        val edges = bitmap.convolve(floatArrayOf(-0.99f, -0.99f, -0.99f, -0.99f, 8f, -0.99f, -0.99f, -0.99f, -0.99f))
+        val edges = bitmap.convolve(
+            floatArrayOf(
+                -0.99f,
+                -0.99f,
+                -0.99f,
+                -0.99f,
+                8f,
+                -0.99f,
+                -0.99f,
+                -0.99f,
+                -0.99f
+            )
+        )
         var totalContrast = 0.0
 
         for (w in 0 until bitmap.width) {
@@ -73,19 +85,19 @@ class CloudAnalyzer(
             0.0
         }
 
-        val shape = when {
+        val category = when {
             cover > 0.85f -> {
-                CloudShape.Strato
+                CloudCategory.Strato
             }
             cover > 0.1f -> {
-                CloudShape.Cumulo
+                CloudCategory.Cumulo
             }
             else -> {
                 null
             }
         }
 
-        val contrast = if (cloudPixels != 0){
+        val contrast = if (cloudPixels != 0) {
             (totalContrast / cloudPixels).toFloat() / 255
         } else {
             0f
@@ -93,8 +105,8 @@ class CloudAnalyzer(
 
         // TODO: Determine height by contrast
 
-        val clouds = if (shape != null) cloudService.getCloudsWithShape(shape)
-            .sortedBy { it.height } else emptyList()
+        val clouds = if (category != null) cloudService.getCloudsInCategory(category)
+            .sortedBy { it.level } else emptyList()
 
         return CloudObservation(
             cover,

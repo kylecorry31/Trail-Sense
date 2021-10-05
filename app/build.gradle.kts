@@ -79,8 +79,8 @@ dependencies {
     implementation("com.google.android.material:material:1.4.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
-    // TS Core
-    implementation("com.github.kylecorry31:sol:5.3.0-beta02")
+    // Sol
+    implementation("com.github.kylecorry31:sol:5.3.0-beta03")
 
     // Andromeda
     val andromedaVersion = "2.3.0-beta04"

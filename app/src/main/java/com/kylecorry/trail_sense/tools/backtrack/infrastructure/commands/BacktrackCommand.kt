@@ -113,9 +113,9 @@ class BacktrackCommand(private val context: Context) : CoroutineCommand {
                             R.string.last_signal_beacon_name,
                             formatService.formatCellNetwork(
                                 CellNetwork.values()
-                                    .first { it.id == point.cellSignal!!.network.id }
+                                    .first { it.id == point.cellSignal.network.id }
                             ),
-                            formatService.formatQuality(point.cellSignal!!.quality)
+                            formatService.formatQuality(point.cellSignal.quality)
                         ),
                         point.coordinate,
                         false,

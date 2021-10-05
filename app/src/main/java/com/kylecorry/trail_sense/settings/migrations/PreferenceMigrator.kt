@@ -57,7 +57,7 @@ class PreferenceMigrator private constructor() {
                     }
                 }
             },
-            PreferenceMigration(2, 3) { context, prefs ->
+            PreferenceMigration(2, 3) { _, prefs ->
                 prefs.remove("cache_pressure_setpoint")
                 prefs.remove("cache_pressure_setpoint_altitude")
                 prefs.remove("cache_pressure_setpoint_temperature")

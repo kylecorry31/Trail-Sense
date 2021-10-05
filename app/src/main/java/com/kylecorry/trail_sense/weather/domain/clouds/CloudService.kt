@@ -1,53 +1,50 @@
 package com.kylecorry.trail_sense.weather.domain.clouds
 
-import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.statistics.StatisticsService
-import com.kylecorry.sol.science.meteorology.clouds.*
+import com.kylecorry.sol.science.meteorology.Precipitation
+import com.kylecorry.sol.science.meteorology.clouds.CloudCategory
+import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.science.meteorology.clouds.CloudService
-import com.kylecorry.sol.units.Reading
-import java.time.Duration
+import com.kylecorry.sol.science.meteorology.clouds.ICloudService
 
 class CloudService(private val baseCloudService: ICloudService = CloudService()) {
 
-    private val statistics = StatisticsService()
-
-    fun classifyCloudCover(percent: Float): CloudCover {
-        return baseCloudService.getCloudCover(percent)
+    fun getPrecipitationChance(cloud: CloudGenus): Float {
+        return baseCloudService.getPrecipitationChance(cloud)
     }
 
-    fun getCloudsWithShape(shape: CloudShape): List<CloudType> {
-        return baseCloudService.getCloudsByShape(shape)
+    fun getCloudsInCategory(category: CloudCategory): List<CloudGenus> {
+        return CloudGenus.values().filter { category in it.categories }
     }
 
-    fun getPrecipitation(type: CloudType): List<Precipitation> {
+    fun getPrecipitation(type: CloudGenus): List<Precipitation> {
         return when (type) {
-            CloudType.Altostratus -> listOf(
+            CloudGenus.Altostratus -> listOf(
                 Precipitation.Rain,
                 Precipitation.Snow,
                 Precipitation.IcePellets
             )
-            CloudType.Nimbostratus -> listOf(
+            CloudGenus.Nimbostratus -> listOf(
                 Precipitation.Rain,
                 Precipitation.Snow,
                 Precipitation.IcePellets
             )
-            CloudType.Stratus -> listOf(
+            CloudGenus.Stratus -> listOf(
                 Precipitation.Drizzle,
                 Precipitation.Snow,
                 Precipitation.SnowGrains
             )
-            CloudType.Stratocumulus -> listOf(
+            CloudGenus.Stratocumulus -> listOf(
                 Precipitation.Rain,
                 Precipitation.Drizzle,
                 Precipitation.Snow,
                 Precipitation.SnowPellets
             )
-            CloudType.Cumulus -> listOf(
+            CloudGenus.Cumulus -> listOf(
                 Precipitation.Rain,
                 Precipitation.Snow,
                 Precipitation.SnowPellets
             )
-            CloudType.Cumulonimbus -> listOf(
+            CloudGenus.Cumulonimbus -> listOf(
                 Precipitation.Rain,
                 Precipitation.Snow,
                 Precipitation.SnowPellets,
@@ -58,22 +55,4 @@ class CloudService(private val baseCloudService: ICloudService = CloudService())
             else -> emptyList()
         }
     }
-
-    fun getCloudPrecipitation(type: CloudType): CloudWeather {
-        return baseCloudService.getCloudPrecipitation(type)
-    }
-
-    fun forecastClouds(readings: List<Reading<CloudObservation>>): Float {
-        return getTendency(readings.map { Reading(it.value.coverage, it.time) })
-    }
-
-    private fun getTendency(readings: List<Reading<Float>>): Float {
-        val first = readings.firstOrNull() ?: return 0f
-        val normalizedReadings = readings.map {
-            val hours = Duration.between(first.time, it.time).seconds / 3600f
-            Vector2(hours, it.value)
-        }
-        return statistics.slope(normalizedReadings)
-    }
-
 }

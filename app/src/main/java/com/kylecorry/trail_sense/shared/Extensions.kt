@@ -13,10 +13,6 @@ import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 
-fun Distance.times(value: Float): Distance {
-    return Distance(distance * value, units)
-}
-
 fun Fragment.requireMainActivity(): MainActivity {
     return requireActivity() as MainActivity
 }

@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
-import com.kylecorry.sol.science.meteorology.clouds.CloudType
+import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
 import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
@@ -22,7 +22,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
 class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
 
     private val cloudRepo by lazy { CloudRepo(requireContext()) }
-    private lateinit var listView: ListView<CloudType>
+    private lateinit var listView: ListView<CloudGenus>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,7 +33,7 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
         }
 
         listView.addLineSeparator()
-        listView.setData(cloudRepo.getClouds().sortedByDescending { it.height })
+        listView.setData(cloudRepo.getClouds().sortedByDescending { it.level })
 
         CustomUiUtils.setButtonState(binding.cloudScanBtn, false)
         binding.cloudScanBtn.isVisible = UserPreferences(requireContext()).weather.showCloudScanner

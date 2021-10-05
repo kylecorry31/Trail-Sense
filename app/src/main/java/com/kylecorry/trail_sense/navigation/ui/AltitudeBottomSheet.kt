@@ -61,7 +61,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
             backtrackReadings = path.mapNotNull { point ->
                 point.elevation ?: return@mapNotNull null
                 point.time ?: return@mapNotNull null
-                AltitudeReading(point.time!!, point.elevation!!)
+                AltitudeReading(point.time, point.elevation)
             }
             updateChart()
         } else {

@@ -11,7 +11,7 @@ class NamePointValueStrategy(private val context: Context) : IPointValueStrategy
         if (point.time == null) {
             return context.getString(android.R.string.untitled)
         }
-        val date = point.time!!.toZonedDateTime()
+        val date = point.time.toZonedDateTime()
         val time = date.toLocalTime()
         val formatService = FormatService(context)
         return context.getString(

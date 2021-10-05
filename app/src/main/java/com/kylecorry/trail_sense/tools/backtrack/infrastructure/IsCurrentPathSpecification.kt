@@ -7,11 +7,11 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 
 class IsCurrentPathSpecification(private val context: Context) : Specification<Long>() {
-    override fun isSatisfiedBy(pathId: Long): Boolean {
+    override fun isSatisfiedBy(value: Long): Boolean {
         val prefs = UserPreferences(context)
         val cache = Preferences(context)
         if (!prefs.backtrackEnabled || (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)) return false
         val current = cache.getLong(context.getString(R.string.pref_last_backtrack_path_id))
-        return current == pathId
+        return current == value
     }
 }

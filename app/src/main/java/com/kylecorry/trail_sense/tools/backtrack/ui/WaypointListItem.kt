@@ -36,7 +36,7 @@ class WaypointListItem(
             val timeAgo = Duration.between(item.time, Instant.now())
             itemBinding.waypointCoordinates.text =
                 context.getString(R.string.time_ago, formatService.formatDuration(timeAgo, false))
-            val date = item.time!!.toZonedDateTime()
+            val date = item.time.toZonedDateTime()
             val time = date.toLocalTime()
             itemBinding.waypointTime.text = context.getString(
                 R.string.waypoint_time_format,

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
-import com.kylecorry.sol.science.meteorology.clouds.CloudType
+import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudResultsBinding
 import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
@@ -17,8 +17,8 @@ import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
 class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     private val cloudRepo by lazy { CloudRepo(requireContext()) }
-    private lateinit var listView: ListView<CloudType>
-    private var currentClouds = emptyList<CloudType>()
+    private lateinit var listView: ListView<CloudGenus>
+    private var currentClouds = emptyList<CloudGenus>()
 
     private var observation: CloudObservation? = null
 

@@ -97,7 +97,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         binding.beaconLocation.coordinate = beacon.coordinate
         binding.beaconElevation.setText(
             if (beacon.elevation != null) {
-                val dist = Distance.meters(beacon.elevation!!)
+                val dist = Distance.meters(beacon.elevation)
                 val userUnits =
                     dist.convertTo(if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Meters else DistanceUnits.Feet)
                 userUnits.distance.toString()

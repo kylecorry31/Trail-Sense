@@ -9,15 +9,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconDetailsBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.beacons.Beacon
-import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.Units
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,7 +48,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                     binding.locationText.text = formatService.formatLocation(this.coordinate)
 
                     if (this.elevation != null) {
-                        val d = Distance.meters(this.elevation!!).convertTo(prefs.baseDistanceUnits)
+                        val d = Distance.meters(this.elevation).convertTo(prefs.baseDistanceUnits)
                         binding.altitudeText.text =
                             formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
                     } else {

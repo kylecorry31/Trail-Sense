@@ -17,13 +17,13 @@ import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.science.geology.Region
+import com.kylecorry.sol.science.meteorology.Precipitation
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.science.shared.Season
 import com.kylecorry.sol.time.Time.toEpochMillis
 import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
-import com.kylecorry.trail_sense.weather.domain.clouds.Precipitation
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime

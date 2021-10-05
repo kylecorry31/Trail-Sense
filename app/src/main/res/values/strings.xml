@@ -616,10 +616,6 @@
     <string name="stratocumulus">Stratocumulus</string>
     <string name="cumulus">Cumulus</string>
     <string name="cumulonimbus">Cumulonimbus</string>
-    <string name="cloud_fair">Fair weather likely</string>
-    <string name="cloud_possible_rain">Precipitation possible</string>
-    <string name="cloud_likely_rain">Precipitation likely</string>
-    <string name="cloud_likely_storm">Storm likely</string>
     <string name="cirrocumulus_desc">High level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two dimensional.</string>
     <string name="cirrostratus_desc">A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun.</string>
     <string name="altocumulus_desc">Mid level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like.</string>
