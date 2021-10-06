@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.ui
+package com.kylecorry.trail_sense.quickactions
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -7,18 +7,15 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 
-class QuickActionClouds(btn: FloatingActionButton, fragment: Fragment) :
+class QuickActionThermometer(btn: FloatingActionButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
     override fun onCreate() {
-        button.setImageResource(R.drawable.cloudy)
-        CustomUiUtils.setButtonState(
-            button,
-            false
-        )
+        button.setImageResource(R.drawable.thermometer)
+        CustomUiUtils.setButtonState(button, false)
         button.setOnClickListener {
             fragment.findNavController()
-                .navigate(R.id.cloudFragment)
+                .navigate(R.id.action_action_weather_to_thermometerFragment)
         }
     }
 

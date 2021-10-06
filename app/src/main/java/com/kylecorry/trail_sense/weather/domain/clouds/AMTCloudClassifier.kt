@@ -1,10 +1,12 @@
-package com.kylecorry.trail_sense.weather.infrastructure.clouds
+package com.kylecorry.trail_sense.weather.domain.clouds
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Log
 import androidx.annotation.ColorInt
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.glcm
+import com.kylecorry.andromeda.core.bitmap.ColorChannel
 import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.math.SolMath.power
 import com.kylecorry.sol.math.SolMath.roundPlaces
@@ -13,8 +15,6 @@ import com.kylecorry.sol.math.statistics.GLCMService
 import com.kylecorry.sol.math.statistics.StatisticsService
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.shared.specifications.FalseSpecification
-import com.kylecorry.trail_sense.weather.domain.clouds.*
-import com.kylecorry.trail_sense.weather.domain.clouds.GLCMUtils.glcm
 
 /**
  * A cloud classifier using the method outlined in: doi:10.5194/amt-3-557-2010
@@ -33,7 +33,6 @@ class AMTCloudClassifier(
     ): List<ClassificationResult<CloudGenus>> {
         var skyPixels = 0
         var cloudPixels = 0
-        var luminance = 0.0
 
         var redMean = 0.0
         var greenMean = 0.0
@@ -69,8 +68,6 @@ class AMTCloudClassifier(
                         blueMean += Color.blue(pixel)
                         greenMean += Color.green(pixel)
                         cloudBluePixels.add(Color.blue(pixel).toFloat())
-                        val lum = average(pixel)
-                        luminance += lum
                         setPixel(w, h, SkyPixelClassification.Cloud)
                     }
                 }
@@ -85,12 +82,6 @@ class AMTCloudClassifier(
             cloudPixels / (skyPixels + cloudPixels).toFloat()
         } else {
             0f
-        }
-
-        luminance = if (cloudPixels != 0) {
-            luminance / cloudPixels
-        } else {
-            0.0
         }
 
         if (cloudPixels != 0) {

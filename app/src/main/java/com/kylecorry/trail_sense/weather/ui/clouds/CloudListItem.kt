@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.ui
+package com.kylecorry.trail_sense.weather.ui.clouds
 
 import android.widget.ImageView
 import androidx.core.view.isVisible

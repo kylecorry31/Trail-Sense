@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.ui
+package com.kylecorry.trail_sense.weather.ui.clouds
 
 import android.graphics.Bitmap
 import android.os.Bundle

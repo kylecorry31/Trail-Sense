@@ -652,7 +652,7 @@
     </fragment>
     <fragment
         android:id="@+id/cloudFragment"
-        android:name="com.kylecorry.trail_sense.weather.ui.CloudFragment"
+        android:name="com.kylecorry.trail_sense.weather.ui.clouds.CloudFragment"
         android:label="CloudFragment">
         <action
             android:id="@+id/action_cloud_to_cloud_scan"
@@ -664,7 +664,7 @@
     </fragment>
     <fragment
         android:id="@+id/cloudScanFragment"
-        android:name="com.kylecorry.trail_sense.weather.ui.CloudIdentificationFragment"
+        android:name="com.kylecorry.trail_sense.weather.ui.clouds.CloudIdentificationFragment"
         android:label="CloudScanFragment" />
     <fragment
         android:id="@+id/sensorDetailsFragment"

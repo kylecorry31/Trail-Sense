@@ -24,6 +24,8 @@ import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
+import com.kylecorry.trail_sense.quickactions.QuickActionClouds
+import com.kylecorry.trail_sense.quickactions.QuickActionThermometer
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.QuickActionNone

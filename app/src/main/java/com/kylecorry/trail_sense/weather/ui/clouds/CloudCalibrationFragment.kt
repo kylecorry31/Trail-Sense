@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.ui
+package com.kylecorry.trail_sense.weather.ui.clouds
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.weather.domain.clouds.ClassificationResult
 import com.kylecorry.trail_sense.weather.domain.clouds.SkyPixelClassification
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.AMTCloudClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.AMTCloudClassifier
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
