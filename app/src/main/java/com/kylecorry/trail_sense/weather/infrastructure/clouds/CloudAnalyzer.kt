@@ -4,10 +4,16 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
+import com.kylecorry.sol.math.statistics.GLCMService
+import com.kylecorry.sol.math.statistics.StatisticsService
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.trail_sense.weather.domain.clouds.*
+import com.kylecorry.trail_sense.weather.domain.clouds.BrightnessIsObstacleSpecification
+import com.kylecorry.trail_sense.weather.domain.clouds.ColorChannel
 import com.kylecorry.trail_sense.weather.domain.clouds.GLCMUtils.glcm
+import com.kylecorry.trail_sense.weather.domain.clouds.NRBRIsSkySpecification
+import com.kylecorry.trail_sense.weather.domain.clouds.SaturationIsObstacleSpecification
 
 class CloudAnalyzer(
     private val skyDetectionSensitivity: Int,
@@ -25,6 +31,12 @@ class CloudAnalyzer(
         var bluePixels = 0
         var cloudPixels = 0
         var luminance = 0.0
+
+        var redMean = 0.0
+        var greenMean = 0.0
+        var blueMean = 0.0
+
+        val blue = mutableListOf<Float>()
 
         val isSky = NRBRIsSkySpecification(skyDetectionSensitivity / 200f)
 
@@ -51,6 +63,10 @@ class CloudAnalyzer(
                     }
                     else -> {
                         cloudPixels++
+                        redMean += Color.red(pixel)
+                        blueMean += Color.blue(pixel)
+                        greenMean += Color.green(pixel)
+                        blue.add(Color.blue(pixel).toFloat())
                         val lum = average(pixel)
                         luminance += lum
                         setPixel(w, h, cloudColorOverlay)
@@ -59,7 +75,7 @@ class CloudAnalyzer(
             }
         }
 
-        val glcm: GLCM = cloudBitmap.glcm(1 to 1, ColorChannel.Blue, true)
+        val glcm = cloudBitmap.glcm(1 to 1, ColorChannel.Blue, true)
         cloudBitmap.recycle()
         val features = GLCMService().features(glcm)
 
@@ -75,6 +91,21 @@ class CloudAnalyzer(
         } else {
             0.0
         }
+
+        if (cloudPixels != 0) {
+            redMean /= cloudPixels
+            greenMean /= cloudPixels
+            blueMean /= cloudPixels
+        }
+
+        val statistics = StatisticsService()
+
+        val blueStdev = statistics.stdev(blue, mean = blueMean.toFloat())
+
+        blue.clear()
+
+        // TODO: Get blue standard deviation
+        // TODO: Get blue skewness
 
         val classifier = LogisticRegressionClassifier(weights)
 
@@ -109,13 +140,22 @@ class CloudAnalyzer(
 
         return CloudObservation(
             cover,
-            luminance.toFloat(),
             features.contrast / 255f,
             features.energy * 100,
             features.entropy / 16f,
             features.homogeneity,
+            (redMean / 255).toFloat(),
+            (blueMean / 255).toFloat(),
+            percentDifference(redMean, greenMean),
+            percentDifference(redMean, blueMean),
+            percentDifference(greenMean, blueMean),
+            blueStdev / 255f,
             result
         )
+    }
+
+    private fun percentDifference(color1: Double, color2: Double): Float {
+        return map((color1 - color2).toFloat(), -255f, 255f, 0f, 1f)
     }
 
 

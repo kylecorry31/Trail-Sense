@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -145,22 +146,28 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
                 }
                 onCloudResults.invoke(observation)
                 if (isBound) {
-
-                    val features = listOf(
-                        "CC" to observation.cover,
-                        "CON" to observation.contrast,
-                        "EN" to observation.energy,
-                        "ENT" to observation.entropy,
-                        "HOM" to observation.homogeneity,
-                        "LUM" to observation.luminance
-                    )
-
-                    // This is for testing only
-                    binding.features.text =
-                        features.joinToString(", ") { "${it.first}: ${(it.second * 100).roundToInt()}" }
+                    logObservation(observation)
                 }
             }
         }
+    }
+
+    private fun logObservation(observation: CloudObservation) {
+        val values = listOf(
+            observation.cover,
+            observation.redMean,
+            observation.blueMean,
+            observation.redGreenDiff,
+            observation.redBlueDiff,
+            observation.greenBlueDiff,
+            observation.energy,
+            observation.entropy,
+            observation.contrast,
+            observation.homogeneity,
+            observation.blueStdev
+        )
+
+        Log.d("CloudObservation", values.joinToString(",") { (it * 100).roundToInt().toString() })
     }
 
     override fun onPause() {
