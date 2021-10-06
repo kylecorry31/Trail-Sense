@@ -25,13 +25,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@android:string/ok" />
+        android:text="@string/take_photo" />
+
+    <TextView
+        android:id="@+id/orText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/or"
+        android:gravity="center"
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Upload image" />
+        android:layout_marginBottom="16dp"
+        android:text="@string/upload_photo" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

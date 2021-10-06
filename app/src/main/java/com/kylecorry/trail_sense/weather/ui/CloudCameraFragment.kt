@@ -11,6 +11,7 @@ import android.widget.SeekBar
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCameraInputBinding
 
 class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
@@ -33,6 +34,8 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
         binding.ok.setOnClickListener {
             captureNextImage = true
         }
+
+        binding.orText.text = getString(R.string.or).uppercase()
 
         binding.upload.setOnClickListener {
             pickFile(
@@ -74,6 +77,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
         super.onResume()
         println("RESUME")
         camera.start(this::onCameraUpdate)
+        camera.setZoom(binding.zoom.progress / 100f)
     }
 
     override fun onPause() {

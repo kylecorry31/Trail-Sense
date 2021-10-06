@@ -24,6 +24,7 @@ import com.kylecorry.sol.time.Time.toEpochMillis
 import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
+import com.kylecorry.trail_sense.shared.domain.Probability
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -33,6 +34,16 @@ import java.time.format.DateTimeFormatter
 class FormatService(private val context: Context) {
 
     private val prefs by lazy { UserPreferences(context) }
+
+    fun formatProbability(probability: Probability): String {
+        return when (probability) {
+            Probability.Never -> context.getString(R.string.never)
+            Probability.Low -> context.getString(R.string.low)
+            Probability.Moderate -> context.getString(R.string.moderate)
+            Probability.High -> context.getString(R.string.high)
+            Probability.Always -> context.getString(R.string.always)
+        }
+    }
 
     fun formatRelativeDate(date: LocalDate): String {
         val now = LocalDate.now()

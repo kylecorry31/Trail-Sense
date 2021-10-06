@@ -61,9 +61,13 @@ class CloudListItem(
             Alerts.dialog(
                 context,
                 cloudRepo.getCloudName(type),
-                if (precipitation.isEmpty()) context.getString(R.string.precipitation_none) else precipitation.joinToString(
-                    "\n"
-                ) { formatter.formatPrecipitation(it) },
+                context.getString(
+                    R.string.precipitation_chance,
+                    formatter.formatProbability(cloudService.getPrecipitationProbability(type))
+                ) + "\n\n" +
+                        if (precipitation.isEmpty()) context.getString(R.string.precipitation_none) else precipitation.joinToString(
+                            "\n"
+                        ) { formatter.formatPrecipitation(it) },
                 cancelText = null
             )
         }
@@ -84,9 +88,9 @@ class CloudListItem(
         } else {
             CustomUiUtils.setImageColor(
                 precipitation,
-                Resources.color(precipitation.context, R.color.colorSecondary)
+                Resources.androidTextColorSecondary(precipitation.context)
             )
-            precipitation.alpha = 0.02f
+            precipitation.alpha = 0.1f
         }
     }
 

@@ -27,7 +27,6 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
-import com.kylecorry.trail_sense.shared.camera.CameraInputBottomSheet
 import com.kylecorry.trail_sense.shared.views.*
 import java.time.Duration
 
@@ -320,19 +319,4 @@ object CustomUiUtils {
         }
         drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
-
-    fun pickImage(fragment: Fragment, onImage: (image: Bitmap?) -> Unit) {
-        val cameraInput = CameraInputBottomSheet()
-        var called = false
-        cameraInput.setOnImageListener {
-            if (!called) {
-                called = true
-                onImage.invoke(it)
-                cameraInput.dismiss()
-            }
-        }
-
-        cameraInput.show(fragment)
-    }
-
 }

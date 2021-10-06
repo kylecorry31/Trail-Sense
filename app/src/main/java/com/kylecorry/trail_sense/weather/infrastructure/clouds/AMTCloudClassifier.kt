@@ -16,6 +16,9 @@ import com.kylecorry.trail_sense.shared.specifications.FalseSpecification
 import com.kylecorry.trail_sense.weather.domain.clouds.*
 import com.kylecorry.trail_sense.weather.domain.clouds.GLCMUtils.glcm
 
+/**
+ * A cloud classifier using the method outlined in: doi:10.5194/amt-3-557-2010
+ */
 class AMTCloudClassifier(
     private val skyDetectionSensitivity: Int,
     private val obstacleRemovalSensitivity: Int
