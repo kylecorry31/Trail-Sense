@@ -11,15 +11,15 @@ import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudResultsBinding
 import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudObservation
+import com.kylecorry.trail_sense.weather.domain.clouds.ClassificationResult
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
 
 class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     private val cloudRepo by lazy { CloudRepo(requireContext()) }
-    private lateinit var listView: ListView<Pair<CloudGenus, Float>>
+    private lateinit var listView: ListView<ClassificationResult<CloudGenus>>
 
-    private var observation: CloudObservation? = null
+    private var result: List<ClassificationResult<CloudGenus>> = emptyList()
 
 
     override fun generateBinding(
@@ -35,23 +35,21 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
         listView = ListView(binding.cloudList, R.layout.list_item_cloud) { itemView, item ->
             val itemBinding = ListItemCloudBinding.bind(itemView)
-            CloudListItem(item.first, cloudRepo, item.second).display(itemBinding)
+            CloudListItem(item.value, cloudRepo, item.confidence).display(itemBinding)
         }
 
         listView.addLineSeparator()
 
-        observation?.let {
-            setObservation(it)
-        }
+        setResult(result)
     }
 
-    fun setObservation(observation: CloudObservation) {
-        this.observation = observation
+    fun setResult(result: List<ClassificationResult<CloudGenus>>) {
+        this.result = result
         if (!isBound) {
             return
         }
 
-        listView.setData(observation.possibleClouds)
+        listView.setData(result)
         listView.scrollToPosition(0, false)
     }
 }

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +11,14 @@ import android.widget.SeekBar
 import androidx.core.graphics.set
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudAnalyzer
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudObservation
+import com.kylecorry.trail_sense.weather.domain.clouds.ClassificationResult
+import com.kylecorry.trail_sense.weather.domain.clouds.SkyPixelClassification
+import com.kylecorry.trail_sense.weather.infrastructure.clouds.AMTCloudClassifier
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.math.roundToInt
 
 class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
 
@@ -26,7 +26,7 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
     private var clouds: Bitmap? = null
     private var showingBitmask = false
 
-    private var onCloudResults: (CloudObservation) -> Unit = {}
+    private var onCloudResults: (List<ClassificationResult<CloudGenus>>) -> Unit = {}
     private var onDone: () -> Unit = {}
 
     private val runner = ControlledRunner<Unit>()
@@ -97,7 +97,7 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
         }
     }
 
-    fun setOnResultsListener(listener: (CloudObservation) -> Unit) {
+    fun setOnResultsListener(listener: (List<ClassificationResult<CloudGenus>>) -> Unit) {
         onCloudResults = listener
     }
 
@@ -132,42 +132,33 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
                 val cloudColorOverlay = Color.WHITE
                 val excludedColorOverlay = AppColor.Red.color
                 val skyColorOverlay = AppColor.Blue.color
-                val analyzer = CloudAnalyzer(
+                val analyzer = AMTCloudClassifier(
                     binding.thresholdSeek.progress,
-                    binding.thresholdObstacleSeek.progress,
-                    skyColorOverlay,
-                    excludedColorOverlay,
-                    cloudColorOverlay
+                    binding.thresholdObstacleSeek.progress
                 )
-                val observation = withContext(Dispatchers.IO) {
-                    analyzer.getClouds(image) { x, y, pixel ->
-                        clouds?.set(x, y, pixel)
+                val result = withContext(Dispatchers.IO) {
+                    analyzer.classify(image) { x, y, classification ->
+                        when (classification) {
+                            SkyPixelClassification.Sky -> clouds?.set(x, y, skyColorOverlay)
+                            SkyPixelClassification.Cloud -> clouds?.set(x, y, cloudColorOverlay)
+                            SkyPixelClassification.Obstacle -> clouds?.set(
+                                x,
+                                y,
+                                excludedColorOverlay
+                            )
+                        }
                     }
                 }
-                onCloudResults.invoke(observation)
+
                 if (isBound) {
-                    logObservation(observation)
+                    withContext(Dispatchers.Main) {
+                        binding.cloudImage.invalidate()
+                    }
                 }
+
+                onCloudResults.invoke(result)
             }
         }
-    }
-
-    private fun logObservation(observation: CloudObservation) {
-        val values = listOf(
-            observation.cover,
-            observation.redMean,
-            observation.blueMean,
-            observation.redGreenDiff,
-            observation.redBlueDiff,
-            observation.greenBlueDiff,
-            observation.energy,
-            observation.entropy,
-            observation.contrast,
-            observation.homogeneity,
-            observation.blueStdev
-        )
-
-        Log.d("CloudObservation", values.joinToString(",") { (it * 100).roundToInt().toString() })
     }
 
     override fun onPause() {

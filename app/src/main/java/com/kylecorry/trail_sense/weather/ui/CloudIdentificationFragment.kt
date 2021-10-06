@@ -42,7 +42,7 @@ class CloudIdentificationFragment : BoundFragment<FragmentTabsBinding>() {
         }
 
         calibration.setOnResultsListener {
-            results.setObservation(it)
+            results.setResult(it)
         }
 
         calibration.setOnDoneListener {
