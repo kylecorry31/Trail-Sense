@@ -1133,6 +1133,6 @@
     <string name="disclaimer_experimental_clouds_key" translatable="false">disclaimer_experimental_clouds_key</string>
     <string name="precipitation_chance">Precipitation chance: %s</string>
     <string name="take_photo">Take photo</string>
-    <string name="upload_photo">Upload photo</string>
+    <string name="choose_photo">Choose photo</string>
     <string name="or">Or</string>
 </resources>

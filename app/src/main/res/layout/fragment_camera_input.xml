@@ -41,6 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/upload_photo" />
+        android:text="@string/choose_photo" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

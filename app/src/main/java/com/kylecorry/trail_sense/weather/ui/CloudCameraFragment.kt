@@ -40,7 +40,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
         binding.upload.setOnClickListener {
             pickFile(
                 listOf("image/*"),
-                "Cloud picture"
+                getString(R.string.choose_photo)
             ) {
                 it?.also { uri ->
                     runInBackground {
