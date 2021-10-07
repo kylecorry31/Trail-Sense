@@ -866,7 +866,7 @@
     <string name="pack_sort_percent_high_to_low">已打包百分比 (从高到低)</string>
     <string name="pack_sort_percent_low_to_high">已打包百分比 (从低到高)</string>
     <string name="sort">排序</string>
-    <string name="humidity">%s 湿度</string>
+    <string name="humidity_amount">%s 湿度</string>
     <string name="guide_packing_list">创建包装清单</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="current_format">%s 毫安</string>

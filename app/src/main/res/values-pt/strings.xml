@@ -916,7 +916,7 @@
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satélites</string>
     <string name="no_compass_message">O seu aparelho não possui um sensor de bússola</string>
-    <string name="humidity">%s de humidade</string>
+    <string name="humidity_amount">%s de humidade</string>
     <string name="guide_packing_list">Criar lista de itens na mochila</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Peso por item</string>

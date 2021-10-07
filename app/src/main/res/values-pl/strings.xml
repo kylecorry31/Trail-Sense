@@ -846,7 +846,7 @@
     <string name="ounces_volume_format">%s oz</string>
     <string name="gallon_format">%s gal</string>
     <string name="quart_format">%s qt</string>
-    <string name="humidity">%s wilgotność</string>
+    <string name="humidity_amount">%s wilgotność</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="pack_sort_weight_high_to_low">Waga (od najwyższej do najniższej)</string>
     <string name="pack_sort_weight_low_to_high">Waga (od najniższej do najwyższej)</string>

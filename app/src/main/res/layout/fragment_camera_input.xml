@@ -31,16 +31,15 @@
         android:id="@+id/orText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/or"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:layout_weight="1" />
+        android:text="@string/or" />
 
     <Button
         android:id="@+id/upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:text="@string/choose_photo" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

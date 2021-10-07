@@ -875,7 +875,7 @@
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d uydu</string>
     <string name="no_compass_message">Aygıtınızda pusula sensörü yok</string>
-    <string name="humidity">%s nem</string>
+    <string name="humidity_amount">%s nem</string>
     <string name="guide_packing_list">Paketleme listeleri oluştur</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Öge başına ağırlık</string>

@@ -991,7 +991,8 @@
     <string name="weight_per_item">Weight per item</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="guide_packing_list">Create packing lists</string>
-    <string name="humidity">%s humidity</string>
+    <string name="humidity_amount">%s humidity</string>
+    <string name="humidity">Humidity</string>
     <string name="no_compass_message">Your device does not have a compass sensor</string>
     <string name="num_satellites">%d satellites</string>
     <string name="wgs84">WGS 84</string>

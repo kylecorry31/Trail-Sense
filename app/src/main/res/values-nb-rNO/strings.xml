@@ -684,7 +684,7 @@
     <string name="climate_zone">%s sone</string>
     <string name="num_satellites">%d satellitter</string>
     <string name="no_compass_message">Enheten din har ikke kompassensor</string>
-    <string name="humidity">%s luftfuktighet</string>
+    <string name="humidity_amount">%s luftfuktighet</string>
     <string name="sort">Sorter</string>
     <string name="packing_lists">Pakkelister</string>
     <string name="pref_backtrack_history_days_title">Tilbakesporingshistorikk</string>

@@ -7,8 +7,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import java.time.Duration
 
-
-class TemperatureChart(chart: LineChart) {
+class HumidityChart(chart: LineChart) {
 
     private val simpleChart = SimpleLineChart(chart, chart.context.getString(R.string.no_data))
 
@@ -19,6 +18,8 @@ class TemperatureChart(chart: LineChart) {
     init {
         simpleChart.configureYAxis(
             granularity = granularity,
+            minimum = 0f,
+            maximum = 100f,
             labelCount = 5,
             drawGridLines = true
         )

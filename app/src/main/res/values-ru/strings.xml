@@ -813,7 +813,7 @@
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d спутников</string>
     <string name="no_compass_message">В вашем устройстве отсутствует датчик компаса</string>
-    <string name="humidity">%s влажности</string>
+    <string name="humidity_amount">%s влажности</string>
     <string name="guide_packing_list">Создание списков упаковки</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Вес на единицу</string>

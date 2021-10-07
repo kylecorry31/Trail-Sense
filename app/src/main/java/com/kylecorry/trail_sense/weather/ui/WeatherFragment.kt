@@ -251,9 +251,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             ) <= prefs.weather.pressureHistory
         }
 
-        if (displayReadings.size >= 2) {
+        if (displayReadings.isNotEmpty()) {
             val totalTime = Duration.between(
-                displayReadings.first().time, displayReadings.last().time
+                displayReadings.first().time, Instant.now()
             )
             var hours = totalTime.toHours()
             val minutes = totalTime.toMinutes() % 60

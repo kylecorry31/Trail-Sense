@@ -75,14 +75,12 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
 
     override fun onResume() {
         super.onResume()
-        println("RESUME")
+        binding.zoom.progress = 0
         camera.start(this::onCameraUpdate)
-        camera.setZoom(binding.zoom.progress / 100f)
     }
 
     override fun onPause() {
         super.onPause()
-        println("PAUSE")
         camera.stop(this::onCameraUpdate)
     }
 

@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.jobs.IPeriodicTaskScheduler
 import com.kylecorry.andromeda.jobs.PeriodicTaskSchedulerFactory
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Instant
@@ -20,8 +20,8 @@ class RepoCleanupWorker(private val context: Context, params: WorkerParameters) 
         val backtrack = WaypointRepo.getInstance(context)
         backtrack.deleteOlderThan(Instant.now().minus(prefs.navigation.backtrackHistory))
 
-        val pressure = PressureRepo.getInstance(context)
-        pressure.deleteOlderThan(Instant.now().minus(PressureRepo.PRESSURE_HISTORY_DURATION))
+        val weather = WeatherRepo.getInstance(context)
+        weather.clean()
 
         Result.success()
     }

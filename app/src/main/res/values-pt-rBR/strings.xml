@@ -864,7 +864,7 @@
     <string name="destination_elevation">Elevação de local de destino</string>
     <string name="base_temperature">Temperatura de base</string>
     <string name="base_elevation">Elevação de base</string>
-    <string name="humidity">%s de umidade</string>
+    <string name="humidity_amount">%s de umidade</string>
     <string name="guide_packing_list">Criar listas de conteúdo</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Peso por item</string>
