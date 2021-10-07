@@ -47,6 +47,14 @@
             app:singleLineTitle="false"
             app:title="@string/pref_experimental_metal_direction_title" />
 
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_background_compat_mode_summary"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_background_compat_mode"
+            app:singleLineTitle="false"
+            app:title="@string/pref_background_compat_mode_title" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

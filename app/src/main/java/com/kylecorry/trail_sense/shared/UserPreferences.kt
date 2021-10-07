@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import java.time.Duration
 
-class UserPreferences(private val context: Context): IDeclinationPreferences {
+class UserPreferences(private val context: Context) : IDeclinationPreferences {
 
     private val cache by lazy { Preferences(context) }
 
@@ -255,6 +255,12 @@ class UserPreferences(private val context: Context): IDeclinationPreferences {
             "google" to MapSite.Google,
             "osm" to MapSite.OSM
         ), MapSite.OSM
+    )
+
+    val useBackgroundCompatibilityMode by BooleanPreference(
+        cache,
+        getString(R.string.pref_background_compat_mode),
+        false
     )
 
     private fun getString(id: Int): String {
