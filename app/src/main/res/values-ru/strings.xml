@@ -1037,4 +1037,20 @@
     <string name="cloud_cover_few">Мало</string>
     <string name="cloud_cover_none">Нет облаков</string>
     <string name="cloud_cover_overcast">Облачно</string>
+    <string name="pressure_logged">Давление зарегистрировано</string>
+    <string name="precipitation_snow_pellets">Снежная крупа</string>
+    <string name="precipitation_hail">Град</string>
+    <string name="precipitation_small_hail">Мелкий град</string>
+    <string name="precipitation_ice_pellets">Ледяная крупа</string>
+    <string name="precipitation_snow_grains">Снежные зерна</string>
+    <string name="results">Результаты</string>
+    <string name="obstacle_removal_sensitivity">Чувствительность устранения препятствий</string>
+    <string name="log">Журнал</string>
+    <string name="sky_detection_sensitivity">Чувствительность обнаружения неба</string>
+    <string name="pref_experimental_cloud_scanner_title">Сканер облаков</string>
+    <string name="precipitation_none">Без осадков</string>
+    <string name="capture">Захват</string>
+    <string name="precipitation_rain">Дождь</string>
+    <string name="precipitation_drizzle">Морось</string>
+    <string name="precipitation_snow">Снег</string>
 </resources>

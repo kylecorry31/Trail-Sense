@@ -204,16 +204,16 @@
 \n- Отримайте своє місцеперебування, висоту та швидкість
 \n
 \n- Повторюйте свої кроки за допомогою історії маршруту (працює у тлі, коли увімкнено)</string>
-    <string name="cirrus_desc">Високі та перисті.</string>
-    <string name="cumulonimbus_desc">Темно-сірі, високі, у формі ковадла.</string>
-    <string name="cumulus_desc">Схожі на пухкі ватяні кульки.</string>
-    <string name="stratocumulus_desc">Стяжні маси, що утворюють лист.</string>
-    <string name="stratus_desc">Покривають небо, об\'єкти не відкидають тіні.</string>
-    <string name="nimbostratus_desc">Темно-сірі та покривають небо. Може бути дощ.</string>
-    <string name="altostratus_desc">Покривають небо, сонце ледь видно.</string>
-    <string name="altocumulus_desc">Схожі на пухкі ватяні кульки.</string>
-    <string name="cirrostratus_desc">Покривають небо, але через них видно сонце.</string>
-    <string name="cirrocumulus_desc">Формують хвилястий лист, хмари виглядають майже двомірними.</string>
+    <string name="cirrus_desc">Високі білі хмари, схожі на пучки білого волосся.</string>
+    <string name="cumulonimbus_desc">Низькі пухкі хмари, дуже високі. Вони зазвичай мають форму ковадла і темні.</string>
+    <string name="cumulus_desc">Низькі пухкі хмари, схожі на ватяні кульки. Вони розташовані на невеликій відстані один від одного і зазвичай білі з темнішими плямами знизу.</string>
+    <string name="stratocumulus_desc">Низькі хмари, схожі на лист ватних кульок з невеликими просвічуваннями. Колір варіюється від білого до темно-сірого.</string>
+    <string name="stratus_desc">Низька хмара, що закриває небо. Об\'єкти не відкидають тіні, і може бути туман.</string>
+    <string name="nimbostratus_desc">Хмара середньої висоти, темно-сірого кольору, що закриває небо. Може йти дощ.</string>
+    <string name="altostratus_desc">Хмара середньої висоти, що закриває небо. Сонце ледь видно у вигляді яскравої плями.</string>
+    <string name="altocumulus_desc">Пухкі хмари середнього рівня, схожі на ватяні кульки. Вони зазвичай білі з темнішими плямами внизу і можуть бути розрізненими або схожими на лист.</string>
+    <string name="cirrostratus_desc">Висока хмара, що закриває небо. Вона прозора і зазвичай викликає утворення ореолу навколо сонця.</string>
+    <string name="cirrocumulus_desc">Хмари високого рівня, які утворюють хвилястий лист. Лист складається з маленьких крапок, які виглядають майже двовимірними.</string>
     <string name="cloud_likely_storm">Імовірний шторм</string>
     <string name="cloud_likely_rain">Імовірні опади</string>
     <string name="cloud_possible_rain">Можливі опади</string>
@@ -1030,4 +1030,20 @@
     <string name="cloud_cover_isolated">Місцями</string>
     <string name="cloud_cover_scattered">Розсіяні</string>
     <string name="cloud_cover_overcast">Хмарні</string>
+    <string name="precipitation_drizzle">Мряка</string>
+    <string name="precipitation_snow">Сніг</string>
+    <string name="precipitation_snow_pellets">Снігова крупа</string>
+    <string name="precipitation_hail">Град</string>
+    <string name="precipitation_snow_grains">Снігові зернята</string>
+    <string name="capture">Захоплення</string>
+    <string name="results">Підсумки</string>
+    <string name="log">Журнал</string>
+    <string name="precipitation_small_hail">Дрібний град</string>
+    <string name="precipitation_ice_pellets">Льодяна крупа</string>
+    <string name="pref_experimental_cloud_scanner_title">Зчитувач хмар</string>
+    <string name="pressure_logged">Тиск записано</string>
+    <string name="sky_detection_sensitivity">Чутливість виявлення неба</string>
+    <string name="obstacle_removal_sensitivity">Чутливість усунення перешкод</string>
+    <string name="precipitation_none">Без опадів</string>
+    <string name="precipitation_rain">Дощ</string>
 </resources>

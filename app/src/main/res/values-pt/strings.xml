@@ -553,16 +553,16 @@
 \n- Obtenha a sua localização, altitude e velocidade atuais
 \n
 \n- Reconstitua os seus passos com o voltar para trás (funciona em segundo plano se esta opção estiver ativada)</string>
-    <string name="cirrus_desc">Alto e emplumado.</string>
-    <string name="cumulonimbus_desc">Cinza escuro, alto e em forma de bigorna.</string>
-    <string name="cumulus_desc">Parecem bolas de algodão.</string>
-    <string name="stratocumulus_desc">Massas rolantes que formam uma camada.</string>
-    <string name="stratus_desc">Cobre o céu, os objetos não projetam sombras.</string>
-    <string name="nimbostratus_desc">Cinza escuro e cobre o céu. Pode estar a chover.</string>
-    <string name="altostratus_desc">Cobre o céu, o sol mal pode ser visto.</string>
-    <string name="altocumulus_desc">Parecem bolas de algodão.</string>
-    <string name="cirrostratus_desc">Cobre o céu, mas o sol pode ser visto através delas.</string>
-    <string name="cirrocumulus_desc">Forma uma camada ondulada, as nuvens quase parecem bidimensionais.</string>
+    <string name="cirrus_desc">Nuvens altas e onduladas que parecem tufos de cabelo branco.</string>
+    <string name="cumulonimbus_desc">Nuvens baixas e inchadas muito altas. Têm tipicamente uma forma de bigorna e são escuras.</string>
+    <string name="cumulus_desc">Nuvens baixas e inchadas que parecem bolas de algodão. Estão espaçadas e são tipicamente brancas com manchas mais escuras por baixo.</string>
+    <string name="stratocumulus_desc">Nuvens baixas que parecem um lençol de bolas de algodão com pequenas aberturas. A cor varia entre o branco e o cinzento escuro.</string>
+    <string name="stratus_desc">Uma nuvem baixa que cobre o céu. Os objetos não projetam sombras e pode estar enevoado.</string>
+    <string name="nimbostratus_desc">Uma nuvem de nível médio cinzenta escura e que cobre o céu. Pode estar a chover.</string>
+    <string name="altostratus_desc">Uma nuvem de nível médio que cobre o céu. O sol mal pode ser visto como uma mancha brilhante.</string>
+    <string name="altocumulus_desc">Nuvens inchadas de nível médio que se parecem com bolas de algodão. São tipicamente brancas com manchas mais escuras por baixo e podem ser espaçadas ou em forma de lençol.</string>
+    <string name="cirrostratus_desc">Uma nuvem alta que cobre o céu. É transparente e normalmente causa a formação de um halo ao redor do sol.</string>
+    <string name="cirrocumulus_desc">Nuvens altas que formam um lençol ondulado. O lençol é composto de pequenos pontos que parecem quase bidimensionais.</string>
     <string name="cloud_likely_storm">Tempestade provável</string>
     <string name="cloud_likely_rain">Precipitação provável</string>
     <string name="cloud_possible_rain">Precipitação possível</string>
@@ -1026,4 +1026,20 @@
     <string name="cloud_cover_isolated">Isoladas</string>
     <string name="cloud_cover_few">Poucas</string>
     <string name="cloud_cover_none">Sem nuvens</string>
+    <string name="log">Registo</string>
+    <string name="pressure_logged">Pressão registada</string>
+    <string name="sky_detection_sensitivity">Sensibilidade de deteção do céu</string>
+    <string name="obstacle_removal_sensitivity">Sensibilidade à remoção de obstáculos</string>
+    <string name="pref_experimental_cloud_scanner_title">Digitalizador de nuvens</string>
+    <string name="precipitation_none">Sem precipitação</string>
+    <string name="precipitation_rain">Chuva</string>
+    <string name="precipitation_drizzle">Chuviscos</string>
+    <string name="precipitation_snow">Neve</string>
+    <string name="precipitation_snow_pellets">Flocos de neve</string>
+    <string name="precipitation_hail">Granizo</string>
+    <string name="precipitation_small_hail">Granizo pequeno</string>
+    <string name="precipitation_snow_grains">Grãos de neve</string>
+    <string name="precipitation_ice_pellets">Flocos de gelo</string>
+    <string name="capture">Capturar</string>
+    <string name="results">Resultados</string>
 </resources>
