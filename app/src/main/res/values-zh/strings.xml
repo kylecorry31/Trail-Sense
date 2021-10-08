@@ -968,4 +968,15 @@
     <string name="precipitation_snow_grains">雪粒</string>
     <string name="capture">捕获</string>
     <string name="results">结果</string>
+    <string name="precipitation_chance">降水概率：%s</string>
+    <string name="take_photo">拍照</string>
+    <string name="choose_photo">选择照片</string>
+    <string name="or">或</string>
+    <string name="notification_weather_update_title">天气监测器更新</string>
+    <string name="notification_backtrack_update_title">Backtrack 更新</string>
+    <string name="notification_backtrack_update_content">正在记录你的位置</string>
+    <string name="pref_background_compat_mode_summary">如果后台服务不能正常运行，请启用此选项</string>
+    <string name="pref_background_compat_mode_title">后台兼容模式</string>
+    <string name="notification_weather_update_content">正在记录气压</string>
+    <string name="humidity">湿度</string>
 </resources>
