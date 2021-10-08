@@ -93,11 +93,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         navController = findNavController()
 
-        weatherService = WeatherService(
-            prefs.weather.stormAlertThreshold,
-            prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold
-        )
+        weatherService = WeatherService(prefs.weather)
 
         chart = PressureChart(binding.chart) { timeAgo, pressure ->
             if (timeAgo == null || pressure == null) {

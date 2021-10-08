@@ -225,6 +225,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_tools_to_temperature_humidity"
+            app:destination="@id/temperatureHumidityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_action_experimental_tools_to_cloudFragment"
             app:destination="@id/cloudFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -247,6 +254,13 @@
         <action
             android:id="@+id/action_action_weather_to_thermometerFragment"
             app:destination="@id/thermometerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_weather_to_temperature_humidity"
+            app:destination="@id/temperatureHumidityFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -437,6 +451,10 @@
         android:id="@+id/licenseFragment"
         android:name="com.kylecorry.trail_sense.licenses.LicenseFragment"
         android:label="LicenseFragment" />
+    <fragment
+        android:id="@+id/temperatureHumidityFragment"
+        android:name="com.kylecorry.trail_sense.weather.ui.TemperatureHumidityFragment"
+        android:label="TemperatureHumidityFragment" />
     <fragment
         android:id="@+id/thermometerFragment"
         android:name="com.kylecorry.trail_sense.weather.ui.ThermometerFragment"

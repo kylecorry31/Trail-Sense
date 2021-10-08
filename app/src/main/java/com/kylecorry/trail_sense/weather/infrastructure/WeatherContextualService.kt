@@ -97,11 +97,7 @@ class WeatherContextualService private constructor(private val context: Context)
     }
 
     private fun resetWeatherService() {
-        weatherService = WeatherService(
-            prefs.weather.stormAlertThreshold,
-            prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold
-        )
+        weatherService = WeatherService(prefs.weather)
     }
 
     private data class ForecastCache(

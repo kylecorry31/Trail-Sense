@@ -15,13 +15,15 @@ class TemperatureHumidityFragment : BoundFragment<FragmentTabsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val thermometer = ThermometerFragment()
-        // TODO: Add humidity fragment
+        val hygrometer = HumidityFragment()
 
         val fragments = listOf(
-            thermometer
+            thermometer,
+            hygrometer
         )
         val names = listOf(
-            getString(R.string.temperature)
+            getString(R.string.temperature),
+            getString(R.string.humidity)
         )
         binding.viewpager.adapter = CustomViewPagerAdapter(this, fragments)
 

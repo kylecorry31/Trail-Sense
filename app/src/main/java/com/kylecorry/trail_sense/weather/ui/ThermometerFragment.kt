@@ -34,11 +34,7 @@ class ThermometerFragment : BoundFragment<FragmentThermometerBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private val weatherService by lazy {
-        WeatherService(
-            prefs.weather.stormAlertThreshold,
-            prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold
-        )
+        WeatherService(prefs.weather)
     }
 
     private val repo by lazy { WeatherRepo.getInstance(requireContext()) }
@@ -79,6 +75,8 @@ class ThermometerFragment : BoundFragment<FragmentThermometerBinding>() {
                     .filter { it.time <= Instant.now() }
             )
         }
+
+        updateUI()
 
     }
 
@@ -127,7 +125,7 @@ class ThermometerFragment : BoundFragment<FragmentThermometerBinding>() {
         val hasTemp = thermometer.hasValidReading
         val uncalibrated = thermometer.temperature
 
-        val reading = getCalibratedReading(thermometer.temperature)
+        val reading = weatherService.calibrateTemperature(thermometer.temperature)
 
         if (!hasTemp) {
             binding.temperature.text = getString(R.string.dash)
@@ -214,15 +212,6 @@ class ThermometerFragment : BoundFragment<FragmentThermometerBinding>() {
         }
         updateUI()
         return true
-    }
-
-    private fun getCalibratedReading(temp: Float): Float {
-        val calibrated1 = prefs.weather.minActualTemperature
-        val uncalibrated1 = prefs.weather.minBatteryTemperature
-        val calibrated2 = prefs.weather.maxActualTemperature
-        val uncalibrated2 = prefs.weather.maxBatteryTemperature
-
-        return calibrated1 + (calibrated2 - calibrated1) * (uncalibrated1 - temp) / (uncalibrated1 - uncalibrated2)
     }
 
     override fun generateBinding(

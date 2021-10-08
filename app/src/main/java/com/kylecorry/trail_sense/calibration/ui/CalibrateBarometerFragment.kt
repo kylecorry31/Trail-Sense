@@ -10,13 +10,13 @@ import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.IThermometer
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.Pressure
-import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.sense.barometer.IBarometer
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.Pressure
+import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
 import com.kylecorry.trail_sense.shared.FormatService
@@ -89,11 +89,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     }
 
     private fun refreshWeatherService() {
-        weatherService = WeatherService(
-            prefs.weather.stormAlertThreshold,
-            prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold
-        )
+        weatherService = WeatherService(prefs.weather)
         lifecycleScope.launch {
             WeatherContextualService.getInstance(requireContext()).setDataChanged()
         }

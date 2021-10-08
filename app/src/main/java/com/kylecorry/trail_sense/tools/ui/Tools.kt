@@ -151,7 +151,7 @@ object Tools {
                 Tool(
                     context.getString(R.string.tool_thermometer_title),
                     R.drawable.thermometer,
-                    R.id.action_action_experimental_tools_to_thermometerFragment
+                    if (Sensors.hasHygrometer(context)) R.id.action_tools_to_temperature_humidity else R.id.action_action_experimental_tools_to_thermometerFragment
                 ),
                 Tool(
                     context.getString(R.string.clouds),
