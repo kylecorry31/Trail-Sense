@@ -9,14 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.core.graphics.set
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.shared.AppColor
+import com.kylecorry.trail_sense.weather.domain.clouds.AMTCloudClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.ClassificationResult
 import com.kylecorry.trail_sense.weather.domain.clouds.SkyPixelClassification
-import com.kylecorry.trail_sense.weather.domain.clouds.AMTCloudClassifier
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -95,6 +97,8 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
         lastBitmap?.let {
             setImage(it)
         }
+
+        toast(getString(R.string.cloud_photo_mask_toast))
     }
 
     fun setOnResultsListener(listener: (List<ClassificationResult<CloudGenus>>) -> Unit) {

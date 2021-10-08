@@ -1142,4 +1142,5 @@
     <string name="notification_backtrack_update_content">Recording your location</string>
     <string name="pref_background_compat_mode_summary">Enable this if background services aren\'t running properly</string>
     <string name="pref_background_compat_mode_title">Background compatibility mode</string>
+    <string name="cloud_photo_mask_toast">Tap photo to toggle mask</string>
 </resources>
