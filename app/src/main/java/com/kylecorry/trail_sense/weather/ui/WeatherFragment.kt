@@ -79,6 +79,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private val weatherForecastService by lazy { WeatherContextualService.getInstance(requireContext()) }
 
     private var loadAltitudeJob: Job? = null
+    private var logJob: Job? = null
+
+    private var isLogging = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -96,6 +99,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         weatherService = WeatherService(prefs.weather)
 
         chart = PressureChart(binding.chart) { timeAgo, pressure ->
+            if (isLogging){
+                return@PressureChart
+            }
             if (timeAgo == null || pressure == null) {
                 binding.pressureMarker.isVisible = false
                 binding.logBtn.isVisible = true
@@ -116,17 +122,21 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         binding.logBtn.setOnClickListener {
-            runInBackground {
+            logJob = runInBackground {
+                isLogging = true
                 withContext(Dispatchers.Main) {
-                    binding.logBtn.isEnabled = false
+                    binding.logBtn.isInvisible = true
+                    binding.logLoading.isVisible = true
                 }
                 withContext(Dispatchers.IO) {
                     MonitorWeatherCommand(requireContext(), false).execute()
                 }
                 withContext(Dispatchers.Main) {
                     toast(getString(R.string.pressure_logged))
-                    binding.logBtn.isEnabled = true
+                    binding.logBtn.isInvisible = false
+                    binding.logLoading.isVisible = false
                 }
+                isLogging = false
             }
         }
 
@@ -194,6 +204,10 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         tryOrNothing {
             loadAltitudeJob?.cancel()
         }
+        tryOrNothing {
+            logJob?.cancel()
+        }
+        isLogging = false
         requireMainActivity().errorBanner.dismiss(USER_ERROR_WEATHER_MONITOR_OFF)
     }
 
@@ -218,7 +232,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         if (System.currentTimeMillis() - valueSelectedTime > 5000) {
             binding.pressureMarker.isVisible = false
-            binding.logBtn.isVisible = true
+            if (!isLogging) {
+                binding.logBtn.isVisible = true
+            }
         }
     }
 

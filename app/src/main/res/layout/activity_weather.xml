@@ -163,4 +163,15 @@
         app:layout_constraintEnd_toEndOf="@+id/chart"
         app:layout_constraintStart_toStartOf="@+id/chart" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/log_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/log_btn"
+        app:layout_constraintEnd_toEndOf="@+id/log_btn"
+        app:layout_constraintStart_toStartOf="@+id/log_btn"
+        app:layout_constraintTop_toTopOf="@id/log_btn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
