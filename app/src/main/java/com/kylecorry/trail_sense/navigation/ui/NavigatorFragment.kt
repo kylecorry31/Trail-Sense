@@ -15,6 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.sensors.asLiveData
@@ -341,7 +342,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             camera.start(this::onCameraUpdate)
         } catch (e: Exception){
             e.printStackTrace()
-            disableSightingCompass()
+            toast(getString(R.string.no_camera_access))
+            setSightingCompassStatus(false)
             return
         }
         binding.viewCameraLine.isVisible = true
