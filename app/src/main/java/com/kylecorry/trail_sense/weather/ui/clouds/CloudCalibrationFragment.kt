@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.shared.AppColor
 import com.kylecorry.trail_sense.weather.domain.clouds.AMTCloudClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.ClassificationResult
+import com.kylecorry.trail_sense.weather.domain.clouds.NRBRSkyThresholdCalculator
 import com.kylecorry.trail_sense.weather.domain.clouds.SkyPixelClassification
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -95,7 +96,8 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
         }
 
         lastBitmap?.let {
-            setImage(it)
+            binding.cloudImage.setImageBitmap(it)
+            updateThreshold(it)
         }
 
         toast(getString(R.string.cloud_photo_mask_toast))
@@ -123,7 +125,26 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
         }
         showingBitmask = false
         lastBitmap?.let {
-            analyze(it)
+            updateThreshold(it)
+        }
+    }
+
+    private fun updateThreshold(image: Bitmap){
+        if (!isBound) {
+            return
+        }
+        val thresholdCalculator = NRBRSkyThresholdCalculator()
+        runInBackground {
+            val threshold = withContext(Dispatchers.Default){
+                thresholdCalculator.getThreshold(image)
+            }
+
+            withContext(Dispatchers.Main){
+                if (isBound){
+                    binding.thresholdSeek.progress = threshold
+                }
+                analyze(image)
+            }
         }
     }
 
