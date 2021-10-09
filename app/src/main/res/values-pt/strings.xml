@@ -976,4 +976,15 @@
     <string name="precipitation_ice_pellets">Flocos de gelo</string>
     <string name="capture">Capturar</string>
     <string name="results">Resultados</string>
+    <string name="or">ou</string>
+    <string name="notification_weather_update_title">Atualização do monitor de metereologia</string>
+    <string name="notification_weather_update_content">A gravar a pressão</string>
+    <string name="notification_backtrack_update_title">Atualização do voltar para trás</string>
+    <string name="humidity">Humidade</string>
+    <string name="precipitation_chance">Probabilidade de precipitação: %s</string>
+    <string name="take_photo">Tirar fotografia</string>
+    <string name="notification_backtrack_update_content">A gravar a sua localização</string>
+    <string name="pref_background_compat_mode_title">Modo de compatibilidade em segundo plano</string>
+    <string name="choose_photo">Escolher fotografia</string>
+    <string name="pref_background_compat_mode_summary">Ative isto se os serviços em segundo plano não estiverem a funcionar corretamente</string>
 </resources>
