@@ -951,4 +951,9 @@
     <string name="pref_export_weather_csv_title">Eksportuj odczyty pogody</string>
     <string name="enable">Włączone</string>
     <string name="weather_monitoring_disabled">Monitorowanie pogody wyłączone</string>
+    <string name="precipitation_rain">Deszcz</string>
+    <string name="precipitation_snow">Śnieg</string>
+    <string name="or">Lub</string>
+    <string name="take_photo">Zrób zdjęcie</string>
+    <string name="choose_photo">Wybierz zdjęcie</string>
 </resources>
