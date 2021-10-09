@@ -337,7 +337,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
         sightingCompassInitialized = true
 
-        camera.start(this::onCameraUpdate)
+        try {
+            camera.start(this::onCameraUpdate)
+        } catch (e: Exception){
+            e.printStackTrace()
+            disableSightingCompass()
+            return
+        }
         binding.viewCameraLine.isVisible = true
         binding.viewCamera.isVisible = true
         binding.zoomRatioSeekbar.isVisible = true

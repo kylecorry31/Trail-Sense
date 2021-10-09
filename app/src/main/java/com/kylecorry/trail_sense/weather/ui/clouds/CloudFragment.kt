@@ -1,14 +1,12 @@
 package com.kylecorry.trail_sense.weather.ui.clouds
 
-import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.camera.Camera
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
@@ -38,18 +36,8 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
         CustomUiUtils.setButtonState(binding.cloudScanBtn, false)
         binding.cloudScanBtn.isVisible = UserPreferences(requireContext()).weather.showCloudScanner
         binding.cloudScanBtn.setOnClickListener {
-            requestPermissions(
-                listOf(Manifest.permission.CAMERA)
-            ) {
-                if (Camera.isAvailable(requireContext())) {
-                    findNavController().navigate(R.id.action_cloud_to_cloud_scan)
-                } else {
-                    Alerts.toast(
-                        requireContext(),
-                        getString(R.string.camera_permission_denied),
-                        short = false
-                    )
-                }
+            tryOrNothing {
+                findNavController().navigate(R.id.action_cloud_to_cloud_scan)
             }
         }
     }

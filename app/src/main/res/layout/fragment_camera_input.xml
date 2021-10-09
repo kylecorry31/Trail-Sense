@@ -8,8 +8,8 @@
 
     <androidx.camera.view.PreviewView
         android:id="@+id/preview"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_marginTop="16dp"
         android:keepScreenOn="true"
         app:scaleType="fitCenter" />
@@ -24,14 +24,14 @@
         android:id="@+id/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/take_photo" />
 
     <TextView
         android:id="@+id/orText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="@string/or" />
 
@@ -39,7 +39,7 @@
         android:id="@+id/upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/choose_photo" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

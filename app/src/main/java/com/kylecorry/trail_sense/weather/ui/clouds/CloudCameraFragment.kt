@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.weather.ui.clouds
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.core.view.isVisible
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -34,8 +36,6 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
         binding.ok.setOnClickListener {
             captureNextImage = true
         }
-
-        binding.orText.text = getString(R.string.or).uppercase()
 
         binding.upload.setOnClickListener {
             pickFile(
@@ -73,10 +73,39 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
         })
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestPermissions(listOf(Manifest.permission.CAMERA)){}
+    }
+
     override fun onResume() {
         super.onResume()
         binding.zoom.progress = 0
-        camera.start(this::onCameraUpdate)
+        if (Camera.isAvailable(requireContext())) {
+            try {
+                camera.start(this::onCameraUpdate)
+                showCamera()
+            } catch (e: Exception){
+                e.printStackTrace()
+                hideCamera()
+            }
+        } else {
+            hideCamera()
+        }
+    }
+
+    private fun showCamera(){
+        binding.orText.text = getString(R.string.or).uppercase()
+        binding.zoom.isVisible = true
+        binding.ok.isVisible = true
+        binding.preview.isVisible = true
+    }
+
+    private fun hideCamera(){
+        binding.orText.text = getString(R.string.no_camera_access)
+        binding.zoom.isVisible = false
+        binding.ok.isVisible = false
+        binding.preview.isVisible = false
     }
 
     override fun onPause() {
