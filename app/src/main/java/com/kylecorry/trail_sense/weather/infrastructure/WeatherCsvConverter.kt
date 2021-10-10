@@ -1,10 +1,11 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
+import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.weather.domain.WeatherObservation
 
 class WeatherCsvConverter {
 
-    fun toCSV(readings: List<PressureAltitudeReading>): List<List<String>> {
+    fun toCSV(readings: List<Reading<WeatherObservation>>): List<List<String>> {
         val header = listOf(
             "Time",
             "Pressure (hPa)",
@@ -16,11 +17,11 @@ class WeatherCsvConverter {
         return listOf(header) + readings.map {
             listOf(
                 it.time.toString(),
-                it.pressure.toString(),
-                it.altitude.toString(),
-                if (it.altitudeError != null) it.altitudeError.toString() else "",
-                it.temperature.toString(),
-                if (it.humidity != null) it.humidity.toString() else ""
+                it.value.pressure.toString(),
+                it.value.altitude.toString(),
+                if (it.value.altitudeError != null) it.value.altitudeError.toString() else "",
+                it.value.temperature.toString(),
+                if (it.value.humidity != null) it.value.humidity.toString() else ""
             )
         }
     }

@@ -101,8 +101,7 @@ class AMTCloudClassifier(
 
         cloudBluePixels.clear()
 
-        // TODO: If no clouds or < 10% cloudiness return no clouds
-        if (cover < 0.1) {
+        if (cover < 0.05) {
             return emptyList()
         }
 

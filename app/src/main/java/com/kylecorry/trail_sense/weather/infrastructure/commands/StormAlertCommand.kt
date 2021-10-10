@@ -19,7 +19,7 @@ class StormAlertCommand(private val context: Context, private val forecast: Weat
         val sentAlert = cache.getBoolean(context.getString(R.string.pref_just_sent_alert)) ?: false
 
         if (forecast == Weather.Storm) {
-            val shouldSend = prefs.weather.sendStormAlerts
+            val shouldSend = prefs.weather.sendStormAlerts && prefs.weather.shouldMonitorWeather
             if (shouldSend && !sentAlert) {
                 val notification = Notify.alert(
                     context,

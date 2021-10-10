@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
@@ -49,6 +50,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
             return
         }
 
+        binding.emptyText.isVisible = result.isEmpty()
         listView.setData(result)
         listView.scrollToPosition(0, false)
     }

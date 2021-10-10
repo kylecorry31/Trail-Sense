@@ -17,7 +17,7 @@ class DailyWeatherAlertCommand(private val context: Context, private val forecas
     private val prefs by lazy { UserPreferences(context) }
 
     override fun execute() {
-        if (!prefs.weather.shouldShowDailyWeatherNotification) {
+        if (!prefs.weather.shouldShowDailyWeatherNotification || !prefs.weather.shouldMonitorWeather) {
             return
         }
 

@@ -35,6 +35,7 @@ import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
@@ -65,7 +66,6 @@ import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
 import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
-import com.kylecorry.trail_sense.weather.domain.AltitudeReading
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -240,7 +240,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.altitudeHolder.setOnClickListener {
             val sheet = AltitudeBottomSheet()
             sheet.backtrackPoints = backtrack
-            sheet.currentAltitude = AltitudeReading(Instant.now(), altimeter.altitude)
+            sheet.currentAltitude = Reading(altimeter.altitude, Instant.now())
             sheet.show(this)
         }
 
