@@ -80,10 +80,10 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
     // Sol
-    implementation("com.github.kylecorry31:sol:5.3.0-beta04")
+    implementation("com.github.kylecorry31:sol:5.3.0")
 
     // Andromeda
-    val andromedaVersion = "2.3.0-beta06"
+    val andromedaVersion = "2.3.0"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
