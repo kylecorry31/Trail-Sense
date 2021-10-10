@@ -184,7 +184,6 @@
     <string name="lightning">Tximista</string>
     <string name="tool_clock_title">Erlojua</string>
     <string name="boil_start">Hasi</string>
-    <string name="solar_align_now">Orain</string>
     <string name="unit_miles">Miliak</string>
     <string name="unit_feet">Oinak</string>
     <string name="unit_kilometers">Kilometroak</string>
@@ -367,9 +366,6 @@
     <string name="network_no_signal">Seinalerik ez</string>
     <string name="time_ago">duela %s</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="cloud_likely_storm">Ekaitza arriskua</string>
-    <string name="cloud_likely_rain">Prezipitazio arriskua</string>
-    <string name="cloud_possible_rain">Prezipitazio aukera</string>
     <string name="guide_barometer_calibration_title">Barometroaren kalibrazioa</string>
     <string name="charging_wireless">Kargatzen (%s)</string>
     <string name="guide_thermometer_calibration_title">Termometroaren kalibrazioa</string>

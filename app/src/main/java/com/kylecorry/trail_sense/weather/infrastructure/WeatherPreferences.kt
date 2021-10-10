@@ -217,14 +217,8 @@ class WeatherPreferences(private val context: Context) {
             )
         }
 
-    val useLawOfCooling: Boolean
-        get() = false
-
     val lawOfCoolingReadings: Int
         get() = 180
-
-    val lawOfCoolingReadingInterval: Long
-        get() = 500L
 
     var dailyWeatherLastSent: LocalDate
         get() {

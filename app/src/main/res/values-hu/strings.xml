@@ -120,7 +120,6 @@
 \nNe használja vízhatlan tok nélkül! Tartózkodjon biztonságos búvárkodási távolságon belül, ha lehetséges!</string>
     <string name="tool_depth_title">Mélység</string>
     <string name="solar_panel_instructions">Helyezze a telefont a napelem felületére a kezdéshez!</string>
-    <string name="solar_align_now">Most</string>
     <string name="tool_solar_panel_title">Napelem beállító</string>
     <string name="tool_solar_panel_summary">Napelemek beállítása a megfelelő energiatermeléshez</string>
     <string name="solar_noon">Dél</string>

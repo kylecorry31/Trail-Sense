@@ -67,11 +67,11 @@
     <string name="forecast_worsening">Possivelmente piorando mais tarde</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <plurals name="last_hours">
-        <item quantity="one">Última hora</item>
+        <item quantity="one">Última %d hora</item>
         <item quantity="other">Últimas %d horas</item>
     </plurals>
     <plurals name="last_minutes">
-        <item quantity="one">Último minuto</item>
+        <item quantity="one">Último %d minuto</item>
         <item quantity="other">Últimos %d minutos</item>
     </plurals>
     <!--Astronomy Tab-->
@@ -209,30 +209,6 @@
     <string name="dash">-</string>
     <string name="increase">+</string>
     <string name="elevation_diff_format">%s%s</string>
-    <string name="forecast_sensitivity_low_hpa">Baixa (2.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_med_hpa">Média (1.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_high_hpa">Alta (0.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_low_mbar">Baixa (2.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_med_mbar">Média (1.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_high_mbar">Alta (0.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_low_psi">Baixa (0.036 PSI / 3h)</string>
-    <string name="forecast_sensitivity_med_psi">Média (0.022 PSI / 3h)</string>
-    <string name="forecast_sensitivity_high_psi">Alta (0.007 PSI / 3h)</string>
-    <string name="forecast_sensitivity_low_in">Baixa (0.074 in / 3h)</string>
-    <string name="forecast_sensitivity_med_in">Média (0.044 in / 3h)</string>
-    <string name="forecast_sensitivity_high_in">Alta (0.015 in / 3h)</string>
-    <string name="storm_sensitivity_low_hpa">Baixa (6 hPa / 3h)</string>
-    <string name="storm_sensitivity_med_hpa">Média (4.5 hPa / 3h)</string>
-    <string name="storm_sensitivity_high_hpa">Alta (3 hPa / 3h)</string>
-    <string name="storm_sensitivity_low_mbar">Baixa (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_med_mbar">Média (4.5 mbar / 3h)</string>
-    <string name="storm_sensitivity_high_mbar">Alta (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_low_psi">Baixa (0.087 PSI / 3h)</string>
-    <string name="storm_sensitivity_med_psi">Média (0.065 PSI / 3h)</string>
-    <string name="storm_sensitivity_high_psi">Alta (0.044 PSI / 3h)</string>
-    <string name="storm_sensitivity_low_in">Baixa (0.177 in / 3h)</string>
-    <string name="storm_sensitivity_med_in">Média (0.133 in / 3h)</string>
-    <string name="storm_sensitivity_high_in">Alta (0.089 in / 3h)</string>
     <string name="inclinometer_title">Inclinômetro</string>
     <string name="tool_inclinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
     <string name="tools">Ferramentas</string>
@@ -353,7 +329,6 @@
     <string name="water_boil_timer_channel_description">A água está fervendo</string>
     <string name="water_boil_timer">Temporizador de fervura de água</string>
     <string name="solar_panel_instructions">Para começar coloque seu telefone sobre a face do painel solar.</string>
-    <string name="solar_align_now">Agora</string>
     <string name="tool_solar_panel_title">Alinhador de painéis solares</string>
     <string name="tool_solar_panel_summary">Posicionar painéis solares para otimizar a produção da energia</string>
     <string name="pref_privacy_policy_title">Política de privacidade</string>
@@ -529,10 +504,6 @@
     <string name="altostratus_desc">Cobre o céu, o sol mal pode ser visto.</string>
     <string name="altocumulus_desc">Parecem bolas de algodão inchado.</string>
     <string name="cirrostratus_desc">Cobre o céu, mas o sol pode ser visto através dele.</string>
-    <string name="cloud_likely_storm">Tempestade provável</string>
-    <string name="cloud_likely_rain">Precipitação provável</string>
-    <string name="cloud_possible_rain">Precipitação possível</string>
-    <string name="cloud_fair">Probabilidade de bom tempo</string>
     <string name="cumulus">Cúmulo</string>
     <string name="stratocumulus">Stratocumulus</string>
     <string name="stratus">Estrato</string>
@@ -864,7 +835,6 @@
     <string name="destination_elevation">Elevação de local de destino</string>
     <string name="base_temperature">Temperatura de base</string>
     <string name="base_elevation">Elevação de base</string>
-    <string name="humidity_amount">%s de umidade</string>
     <string name="guide_packing_list">Criar listas de conteúdo</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Peso por item</string>
@@ -1012,14 +982,11 @@
     <string name="weather_exported">Leituras meteorológicas exportadas</string>
     <string name="pref_export_weather_csv_title">Exportar leituras meteorológicas</string>
     <string name="tilt">Inclinação</string>
-    <string name="pref_export_weather_csv">pref_export_weather_csv</string>
     <string name="moon">Lua</string>
     <string name="sun">Sol</string>
     <string name="sun_moon_position_template">### %s
 \n**Altitude**: %s
 \n
 \n**Azimute**: %s</string>
-    <string name="pref_tide_settings">pref_tide_settings</string>
     <string name="pref_show_nearest_tide_title">Mostrar maré mais próxima</string>
-    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
 </resources>

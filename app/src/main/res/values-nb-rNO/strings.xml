@@ -181,24 +181,6 @@
     <string name="tool_user_guide_title">Brukerveiledning</string>
     <string name="degree_format">%.0f°</string>
     <string name="duration_hour_minute_format">%dt %dm</string>
-    <string name="storm_sensitivity_med_hpa">Middels (4,5 hPa / 3t)</string>
-    <string name="forecast_sensitivity_high_psi">Høy (0,007 PSI / 3t)</string>
-    <string name="forecast_sensitivity_med_psi">Middels (0,022 PSI / 3t)</string>
-    <string name="forecast_sensitivity_low_psi">Lav (0,036 PSI / 3t)</string>
-    <string name="forecast_sensitivity_high_mbar">Høy (0,5 mbar / 3t)</string>
-    <string name="forecast_sensitivity_med_mbar">Middels (1,5 mbar / 3t)</string>
-    <string name="forecast_sensitivity_low_mbar">Lav (2,5 mbar / 3t)</string>
-    <string name="forecast_sensitivity_high_hpa">Høy (0,5 hPa / 3t)</string>
-    <string name="forecast_sensitivity_med_hpa">Middels (1,5 hPa / 3t)</string>
-    <string name="forecast_sensitivity_low_hpa">Lav (2,5 hPa / 3t)</string>
-    <string name="storm_sensitivity_high_psi">Høy (0,044 PSI / 3t)</string>
-    <string name="storm_sensitivity_med_psi">Middels (0,065 PSI / 3t)</string>
-    <string name="storm_sensitivity_low_psi">Lav (0,087 PSI / 3t)</string>
-    <string name="storm_sensitivity_high_mbar">Høy (3 mbar / 3t)</string>
-    <string name="storm_sensitivity_med_mbar">Middels (4,5 mbar / 3t)</string>
-    <string name="storm_sensitivity_low_mbar">Lav (3 mbar / 3t)</string>
-    <string name="storm_sensitivity_high_hpa">Høy (3 hPa / 3t)</string>
-    <string name="storm_sensitivity_low_hpa">Lav (6 hPa / 3t)</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Roter telefonen i et åttetallsmønster eller i alle retninger flere ganger, trykk %s når du er ferdig.
 \n
 \nDenne meldingen kan slås av i appinnstillingene.</string>
@@ -254,15 +236,8 @@
     <string name="tool_cliff_height_disclaimer">Bruk bare dette verktøyet når det er trygt å gjøre det, og sørg for å sjekke hva som er under klippen for å unngå skade. Se brukerveiledningen for instruksjoner.</string>
     <string name="tool_cliff_height_description">Mål høyden på en klippe eller på et fall</string>
     <string name="object_height_guide">Anslå objekthøyder</string>
-    <string name="storm_sensitivity_med_in">Middels (0,133 in / 3t)</string>
-    <string name="storm_sensitivity_low_in">Lav (0,177 in / 3t)</string>
-    <string name="storm_sensitivity_high_in">Høy (0,089 in / 3t)</string>
-    <string name="forecast_sensitivity_high_in">Høy (0,015 in / 3t)</string>
-    <string name="forecast_sensitivity_med_in">Middels (0,044 in / 3t)</string>
-    <string name="forecast_sensitivity_low_in">Lav (0,074 in / 3t)</string>
     <string name="pref_use_legacy_compass_summary">Kan fikse kompassproblemer</string>
     <string name="pref_privacy_policy_title">Personvernspraksis</string>
-    <string name="solar_align_now">Nå</string>
     <string name="unit_miles">Engelsk mil</string>
     <string name="unit_feet">Fot</string>
     <string name="unit_kilometers">Kilometer</string>
@@ -443,10 +418,6 @@
     <string name="unsaved_changes">Ulagrede endringer</string>
     <string name="pref_require_satellites_description">Krever minst 4 satellitter for posisjonsbestemmelse, forbedrer nøyaktigheten</string>
     <string name="clouds">Skyer</string>
-    <string name="cloud_likely_storm">Storm sannsynlig</string>
-    <string name="cloud_likely_rain">Nedbør sannsynlig</string>
-    <string name="cloud_possible_rain">Nedbør mulig</string>
-    <string name="cloud_fair">Pent vær sannsynlig</string>
     <string name="cumulonimbus">Cumulonimbus (Bygeskyer)</string>
     <string name="cumulus">Cumulus (Haugskyer)</string>
     <string name="stratocumulus">Stratocumulus (Bukleskyer)</string>
@@ -502,7 +473,7 @@
 \n- Lokaliser solen og månen på kompasset</string>
     <string name="onboarding_weather">- Få veldig lokale værvarsler med telefonens barometer
 \n
-\n- Bruker ikke internett-tilkobling
+\n- Bruker ikke Internett-tilkobling
 \n
 \n- Bli varslet om stormer som nærmer seg</string>
     <string name="unavailable">Utilgjengelig</string>
@@ -684,7 +655,6 @@
     <string name="climate_zone">%s sone</string>
     <string name="num_satellites">%d satellitter</string>
     <string name="no_compass_message">Enheten din har ikke kompassensor</string>
-    <string name="humidity_amount">%s luftfuktighet</string>
     <string name="sort">Sorter</string>
     <string name="packing_lists">Pakkelister</string>
     <string name="pref_backtrack_history_days_title">Tilbakesporingshistorikk</string>
@@ -730,7 +700,7 @@
     <string name="pref_nmea_altitude_summary">Bruker NMEA-offset for høydeomregning</string>
     <string name="pref_nmea_altitude_title">NMEA høyde-offset</string>
     <string name="pref_backtrack_save_cell_title">Registrer mobiltelefonsignal</string>
-    <string name="pref_backtrack_save_cell_summary">Registrerer mobiltelefonsignal på rutepunktet. Bruker ikke internett.</string>
+    <string name="pref_backtrack_save_cell_summary">Registrerer mobiltelefonsignal på rutepunktet. Bruker ikke Internett.</string>
     <string name="pack_sort_weight_high_to_low">Vekt (høy til lav)</string>
     <string name="pack_sort_weight_low_to_high">Vekt (lav til høy)</string>
     <string name="pack_sort_percent_high_to_low">Prosent pakket (høy til lav)</string>
@@ -798,15 +768,7 @@
     <string name="packed_amount">Sammenpakket mengde</string>
     <string name="default_pack_name">Forvalgt pakke</string>
     <string name="us_gallons">Amerikanske gallon</string>
-    <string name="exclude_obstacles_experimental">Utelukk hindre (eksperimentelt)</string>
-    <string name="exclude_sun_experimental">Utelukk sol (eksperimentelt)</string>
-    <string name="sensitivity">Sensitivitet</string>
-    <string name="cloud_cover_overcast">Overskyet</string>
-    <string name="cloud_cover_broken">Brutt</string>
-    <string name="cloud_cover_scattered">Spredt</string>
-    <string name="cloud_cover_isolated">Isolert</string>
-    <string name="cloud_cover_few">Få</string>
-    <string name="cloud_cover_none">Ingen skyer</string>
+    <string name="no_clouds">Ingen skyer</string>
     <string name="moon">Månen</string>
     <string name="sun">Solen</string>
     <string name="pick_file">Velg fil</string>

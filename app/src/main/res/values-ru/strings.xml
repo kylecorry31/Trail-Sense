@@ -250,16 +250,6 @@
 \n    %s спутников
 \n
 \nКомпас: Вращайте устройство по траектории восьмерки или во всех направлениях и постарайтесь находиться подальше от крупных металлоконструкций."</string>
-    <string name="forecast_sensitivity_low_in">Низкая (0.074 in / 3ч)</string>
-    <string name="forecast_sensitivity_high_psi">Высокая (0.007 PSI / 3ч)</string>
-    <string name="forecast_sensitivity_med_psi">Средняя (0.022 PSI / 3ч)</string>
-    <string name="forecast_sensitivity_low_psi">Низкая (0.036 PSI / 3ч)</string>
-    <string name="forecast_sensitivity_high_mbar">Высокая (0,5 мбар / 3 ч)</string>
-    <string name="forecast_sensitivity_med_mbar">Средняя (1,5 мбар / 3 ч)</string>
-    <string name="forecast_sensitivity_low_mbar">Низкая (2,5 мбар / 3 ч)</string>
-    <string name="forecast_sensitivity_high_hpa">Высокая (0,5 гПа / 3 ч)</string>
-    <string name="forecast_sensitivity_med_hpa">Средняя (1,5 гПа / 3 ч)</string>
-    <string name="forecast_sensitivity_low_hpa">Низкая (2,5 гПа / 3 ч)</string>
     <string name="pref_forecast_sensitivity_title">Чувствительность прогноза</string>
     <string name="pref_sea_level_pressure_change_thresh_title">Порог изменения давления при движении</string>
     <string name="pref_barometer_altitude_change_title">Порог изменения высоты движения</string>
@@ -274,20 +264,6 @@
         <item quantity="many">%d маячков</item>
         <item quantity="other">%d маячков</item>
     </plurals>
-    <string name="forecast_sensitivity_med_in">Средняя (0,044 in / 3 ч)</string>
-    <string name="forecast_sensitivity_high_in">Высокая (0,015 in / 3 ч)</string>
-    <string name="storm_sensitivity_low_hpa">Низкая (6 гПа / 3 ч)</string>
-    <string name="storm_sensitivity_med_hpa">Средняя (4,5 гПа / 3 ч)</string>
-    <string name="storm_sensitivity_high_hpa">Высокая (3 гПа / 3 ч)</string>
-    <string name="storm_sensitivity_low_mbar">Низкая (3 мбар / 3 ч)</string>
-    <string name="storm_sensitivity_med_mbar">Средняя (4,5 мбар / 3 ч)</string>
-    <string name="storm_sensitivity_high_mbar">Высокая (3 мбар / 3 ч)</string>
-    <string name="storm_sensitivity_low_psi">Низкая (0.087 PSI / 3ч)</string>
-    <string name="storm_sensitivity_med_psi">Средняя (0.065 PSI / 3ч)</string>
-    <string name="storm_sensitivity_high_psi">Высокая (0.007 PSI / 3 ч)</string>
-    <string name="storm_sensitivity_low_in">Низкая (0,177 in / 3 ч)</string>
-    <string name="storm_sensitivity_med_in">Средняя (0,133 in / 3 ч)</string>
-    <string name="storm_sensitivity_high_in">Высокая (0,089 in / 3 ч)</string>
     <string name="tool_user_guide_title">Руководство пользователя</string>
     <string name="tool_user_guide_summary">Руководство по использованию Trail Sense</string>
     <string name="delete_beacon_group">Удалить группу</string>
@@ -343,7 +319,6 @@
     <string name="precise_inches_format">%s in</string>
     <string name="thunder">Гром</string>
     <string name="toast_destination_bearing_set">Ориентация установлена</string>
-    <string name="solar_align_now">Сейчас</string>
     <string name="unit_miles">Мили</string>
     <string name="unit_feet">Шаги</string>
     <string name="water_purification_step_3">Запустите таймер</string>
@@ -512,12 +487,8 @@
     <string name="altocumulus_desc">Похожи на пухлые ватные шарики.</string>
     <string name="cirrostratus_desc">Покрывают небо, но через них видно солнце.</string>
     <string name="cirrocumulus_desc">Формируют волнистый лист, облака выглядят почти двумерно.</string>
-    <string name="cloud_possible_rain">Возможны осадки</string>
-    <string name="cloud_fair">Вероятна хорошая погода</string>
     <string name="clouds">Облака</string>
     <string name="stratocumulus_desc">Скатывающиеся массы, образующие лист.</string>
-    <string name="cloud_likely_storm">Вероятен шторм</string>
-    <string name="cloud_likely_rain">Вероятны осадки</string>
     <string name="cumulonimbus">Кучево-дождевые</string>
     <string name="cumulus">Кучевые</string>
     <string name="stratocumulus">Слоисто-кучевые</string>
@@ -813,7 +784,6 @@
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d спутников</string>
     <string name="no_compass_message">В вашем устройстве отсутствует датчик компаса</string>
-    <string name="humidity_amount">%s влажности</string>
     <string name="guide_packing_list">Создание списков упаковки</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Вес на единицу</string>
@@ -943,12 +913,9 @@
 \n**Высота**: %s
 \n
 \n**Азимут**: %s</string>
-    <string name="pref_tide_settings">pref_tide_settings</string>
     <string name="pref_show_nearest_tide_title">Показать ближайший прилив</string>
-    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
     <string name="weather_exported">Погода экспортирована</string>
     <string name="pref_export_weather_csv_title">Экспорт показаний погоды</string>
-    <string name="pref_export_weather_csv">pref_export_weather_csv</string>
     <string name="duration_of_charge">Продолжительность зарядки</string>
     <string name="tilt">Наклон</string>
     <string name="kwh_per_meter_squared_format">%s кВтч / м²</string>
@@ -1028,15 +995,7 @@
     <string name="lightning_dangerously_close">Молния опасно близко</string>
     <string name="units_mmhg">мм рт.ст.</string>
     <string name="units_inhg">дюйм рт. ст.</string>
-    <string name="exclude_obstacles_experimental">Исключить препятствия (экспериментально)</string>
-    <string name="exclude_sun_experimental">Исключить солнце (экспериментально)</string>
-    <string name="sensitivity">Чувствительность</string>
-    <string name="cloud_cover_broken">Разбитые</string>
-    <string name="cloud_cover_scattered">Рассеянные</string>
-    <string name="cloud_cover_isolated">Изолированные</string>
-    <string name="cloud_cover_few">Мало</string>
-    <string name="cloud_cover_none">Нет облаков</string>
-    <string name="cloud_cover_overcast">Облачно</string>
+    <string name="no_clouds">Нет облаков</string>
     <string name="pressure_logged">Давление зарегистрировано</string>
     <string name="precipitation_snow_pellets">Снежная крупа</string>
     <string name="precipitation_hail">Град</string>

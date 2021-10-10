@@ -261,30 +261,6 @@
     <string name="pref_weather_update_frequency_title">Częstotliwość aktualizacji pogody</string>
     <string name="pref_show_pressure_in_notification_title">Pokaż ciśnienie w powiadomieniu</string>
     <string name="pref_show_weather_notification_title">Pokaż powiadomienie o pogodzie</string>
-    <string name="storm_sensitivity_high_in">Wysokie (0.089 in / 3h)</string>
-    <string name="storm_sensitivity_med_in">Średnie (0.133 in / 3h)</string>
-    <string name="storm_sensitivity_low_in">Niskie (0.177 in / 3h)</string>
-    <string name="storm_sensitivity_high_psi">Wysokie (0.044 PSI / 3h)</string>
-    <string name="storm_sensitivity_med_psi">Średnie (0.065 PSI / 3h)</string>
-    <string name="storm_sensitivity_low_psi">Niskie (0.087 PSI / 3h)</string>
-    <string name="storm_sensitivity_high_mbar">Wysokie (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_med_mbar">Średnie (4.5 mbar / 3h)</string>
-    <string name="storm_sensitivity_low_mbar">Niskie (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_high_hpa">Wysokie (3 hPa / 3h)</string>
-    <string name="storm_sensitivity_med_hpa">Średnie (4.5 hPa / 3h)</string>
-    <string name="storm_sensitivity_low_hpa">Niskie (6 hPa / 3h)</string>
-    <string name="forecast_sensitivity_high_in">Wysoka (0.015 in / 3h)</string>
-    <string name="forecast_sensitivity_med_in">Średnia (0.044 in / 3h)</string>
-    <string name="forecast_sensitivity_low_in">Niska (0.074 in / 3h)</string>
-    <string name="forecast_sensitivity_high_psi">Wysoka (0.007 PSI / 3h)</string>
-    <string name="forecast_sensitivity_med_psi">Średnia (0.022 PSI / 3h)</string>
-    <string name="forecast_sensitivity_low_psi">Niska (0.036 PSI / 3h)</string>
-    <string name="forecast_sensitivity_high_mbar">Wysoka (0.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_med_mbar">Średnia (1.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_low_mbar">Niska (2.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_high_hpa">Wysoka (0.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_med_hpa">Średnia (1.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_low_hpa">Niska (2.5 hPa / 3h)</string>
     <string name="pref_forecast_sensitivity_title">Dokładność prognozy</string>
     <string name="pref_monitor_weather_summary">W tle</string>
     <string name="pref_altimeter_calibration_mode_title">Automatyczna kalibracja</string>
@@ -294,7 +270,6 @@
     <string name="water_boil_timer_channel_description">Woda wrze</string>
     <string name="water_boil_timer">Minutnik przegotowywania wody</string>
     <string name="boil_start">Rozpocznij</string>
-    <string name="solar_align_now">Teraz</string>
     <string name="guide_recommended_apps">Polecane aplikacje</string>
     <string name="distance_to">Na</string>
     <string name="distance_from">Z</string>
@@ -568,10 +543,6 @@
     <string name="nimbostratus_desc">Ciemnoszara i zakrywa niebo. Może padać deszcz.</string>
     <string name="altostratus_desc">Zakrywa niebo, słońce jest ledwo widoczne.</string>
     <string name="altocumulus_desc">Wygląda jak puchate kulki z waty.</string>
-    <string name="cloud_likely_storm">Prawdopodobieństwo burzy</string>
-    <string name="cloud_likely_rain">Prawdopodobieństwo wystąpienia opadów</string>
-    <string name="cloud_possible_rain">Możliwe opady</string>
-    <string name="cloud_fair">Prawdopodobna ładna pogoda</string>
     <string name="pref_require_satellites_title">Wymagane ustalenie pozycji satelitarnej</string>
     <string name="delete_waypoint_prompt">Usunąć punkt orientacyjny\?</string>
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
@@ -846,7 +817,6 @@
     <string name="ounces_volume_format">%s oz</string>
     <string name="gallon_format">%s gal</string>
     <string name="quart_format">%s qt</string>
-    <string name="humidity_amount">%s wilgotność</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="pack_sort_weight_high_to_low">Waga (od najwyższej do najniższej)</string>
     <string name="pack_sort_weight_low_to_high">Waga (od najniższej do najwyższej)</string>
@@ -990,16 +960,13 @@
     <string name="season_winter">Zima</string>
     <string name="duration_of_charge">Czas trwania ładowania</string>
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
-    <string name="pref_export_weather_csv">pref_export_weather_csv</string>
     <string name="moon">Księżyc</string>
     <string name="sun">Słońce</string>
     <string name="sun_moon_position_template">### %s
 \n**Wysokość**: %s
 \n
 \n**Azymut**: %s</string>
-    <string name="pref_tide_settings">pref_tide_settings</string>
     <string name="pref_show_nearest_tide_title">Pokaż najbliższy przypływ</string>
-    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
     <string name="weather_exported">Dane pogodowe wyeksportowane</string>
     <string name="pref_export_weather_csv_title">Eksportuj odczyty pogody</string>
     <string name="enable">Włączone</string>

@@ -40,11 +40,11 @@
     <string name="pref_show_linear_compass_title">Mostrar bússola linear</string>
     <string name="pref_show_linear_compass_summary">Quando o telemóvel está na vertical</string>
     <plurals name="last_hours">
-        <item quantity="one">Última hora</item>
+        <item quantity="one">Última %d hora</item>
         <item quantity="other">Últimas %d horas</item>
     </plurals>
     <plurals name="last_minutes">
-        <item quantity="one">Último minuto</item>
+        <item quantity="one">Último %d minuto</item>
         <item quantity="other">Últimos %d minutos</item>
     </plurals>
     <string name="feet_miles">Pés / milhas</string>
@@ -186,7 +186,6 @@
     <string name="water_boil_timer_channel_description">A água está a ferver</string>
     <string name="water_boil_timer">Temporizador de fervura da água</string>
     <string name="solar_panel_instructions">Para começar coloque o seu telefone na face do painel solar.</string>
-    <string name="solar_align_now">Agora</string>
     <string name="tool_solar_panel_title">Alinhador de painéis solares</string>
     <string name="tool_solar_panel_summary">Posicionar painéis solares para otimizar a produção da energia</string>
     <string name="pref_privacy_policy_title">Política de privacidade</string>
@@ -273,30 +272,6 @@
     <string name="pref_weather_update_frequency_title">Frequência da atualização meteorológica</string>
     <string name="pref_show_pressure_in_notification_title">Mostrar pressão atmosférica na notificação</string>
     <string name="pref_show_weather_notification_title">Mostrar notificação meteorológica</string>
-    <string name="storm_sensitivity_high_in">Alta (0.089 in / 3h)</string>
-    <string name="storm_sensitivity_med_in">Média (0.133 in / 3h)</string>
-    <string name="storm_sensitivity_low_in">Baixa (0.177 in / 3h)</string>
-    <string name="storm_sensitivity_high_psi">Alta (0.044 PSI / 3h)</string>
-    <string name="storm_sensitivity_med_psi">Média (0.065 PSI / 3h)</string>
-    <string name="storm_sensitivity_low_psi">Baixa (0.087 PSI / 3h)</string>
-    <string name="storm_sensitivity_high_mbar">Alta (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_med_mbar">Média (4.5 mbar / 3h)</string>
-    <string name="storm_sensitivity_low_mbar">Baixa (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_high_hpa">Alta (3 hPa / 3h)</string>
-    <string name="storm_sensitivity_med_hpa">Média (4.5 hPa / 3h)</string>
-    <string name="storm_sensitivity_low_hpa">Baixa (6 hPa / 3h)</string>
-    <string name="forecast_sensitivity_high_in">Alta (0.015 in / 3h)</string>
-    <string name="forecast_sensitivity_med_in">Média (0.044 in / 3h)</string>
-    <string name="forecast_sensitivity_low_in">Baixa (0.074 in / 3h)</string>
-    <string name="forecast_sensitivity_high_psi">Alta (0.007 PSI / 3h)</string>
-    <string name="forecast_sensitivity_med_psi">Média (0.022 PSI / 3h)</string>
-    <string name="forecast_sensitivity_low_psi">Baixa (0.036 PSI / 3h)</string>
-    <string name="forecast_sensitivity_high_mbar">Alta (0.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_med_mbar">Média (1.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_low_mbar">Baixa (2.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_high_hpa">Alta (0.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_med_hpa">Média (1.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_low_hpa">Baixa (2.5 hPa / 3h)</string>
     <string name="pref_forecast_sensitivity_title">Sensibilidade de previsão</string>
     <string name="pref_monitor_weather_title">Monitorizar previsão meteorológica</string>
     <string name="pref_monitor_weather_summary">Em segundo plano</string>
@@ -563,10 +538,6 @@
     <string name="altocumulus_desc">Nuvens inchadas de nível médio que se parecem com bolas de algodão. São tipicamente brancas com manchas mais escuras por baixo e podem ser espaçadas ou em forma de lençol.</string>
     <string name="cirrostratus_desc">Uma nuvem alta que cobre o céu. É transparente e normalmente causa a formação de um halo ao redor do sol.</string>
     <string name="cirrocumulus_desc">Nuvens altas que formam um lençol ondulado. O lençol é composto de pequenos pontos que parecem quase bidimensionais.</string>
-    <string name="cloud_likely_storm">Tempestade provável</string>
-    <string name="cloud_likely_rain">Precipitação provável</string>
-    <string name="cloud_possible_rain">Precipitação possível</string>
-    <string name="cloud_fair">Probabilidade de bom tempo</string>
     <string name="cumulonimbus">Cúmulo-nimbo</string>
     <string name="cumulus">Cúmulos</string>
     <string name="stratocumulus">Estratos-cúmulos</string>
@@ -760,8 +731,6 @@
     <string name="pref_flashlight_toggle_with_system_title">Alternar com o sistema</string>
     <string name="map_rotate_instructions">Rodar até que o Norte aponte para cima</string>
     <string name="map_perspective_instructions">Endireitar o mapa</string>
-    <string name="map_edit">Editar</string>
-    <string name="map_preview">Pré-visualização</string>
     <string name="weather_prediction">Previsão do tempo: %s</string>
     <string name="pressure_no_change">Pressão sem alterações</string>
     <string name="pressure_falling_fast">Pressão a diminuir rapidamente</string>
@@ -874,8 +843,6 @@
     <string name="date_not_set">Data não definida</string>
     <string name="time_not_set">Relógio não definido</string>
     <string name="tide_calibration_instructions">Defina a hora da maré alta perto de si, de preferência na data de uma lua nova ou cheia. Pode obter isto na Internet ou em tabelas de marés impressas. As marés mostradas no Trail Sense podem estar dessincronizadas até duas horas, que é o suficiente para referência, mas não o suficiente para confiar.</string>
-    <string name="tide_high_short">Alta</string>
-    <string name="tide_low_short">Baixa</string>
     <string name="half_tide">Maré média</string>
     <string name="low_tide">Maré baixa</string>
     <string name="high_tide">Maré cheia</string>
@@ -916,7 +883,6 @@
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satélites</string>
     <string name="no_compass_message">O seu aparelho não possui um sensor de bússola</string>
-    <string name="humidity_amount">%s de humidade</string>
     <string name="guide_packing_list">Criar lista de itens na mochila</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Peso por item</string>
@@ -924,7 +890,6 @@
     <string name="pack_sort_weight_low_to_high">Peso (baixo para alto)</string>
     <string name="pack_sort_percent_high_to_low">Percentagem já na mochila (alta para baixa)</string>
     <string name="pack_sort_percent_low_to_high">Percentagem já na mochila (baixa para alta)</string>
-    <string name="pack_sort_category">Categoria</string>
     <string name="sort">Ordenar</string>
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
@@ -935,7 +900,7 @@
     <string name="packing_lists">Listas de itens na mochila</string>
     <string name="hygiene">Higiene</string>
     <string name="documents">Documentos</string>
-    <string name="electronics">Eletrónica</string>
+    <string name="electronics">Eletrônica</string>
     <string name="clear_amounts">Limpar quantidades</string>
     <string name="desired_amount">Quantidade desejada</string>
     <string name="packed_amount">Quantidade de itens na mochila</string>
@@ -1005,10 +970,7 @@
     <string name="up_to_amount">Até %s</string>
     <string name="weather_exported">Leituras meteorológicas exportadas</string>
     <string name="pref_export_weather_csv_title">Exportar leituras meteorológicas</string>
-    <string name="pref_export_weather_csv">pref_export_weather_csv</string>
-    <string name="pref_tide_settings">pref_tide_settings</string>
     <string name="pref_show_nearest_tide_title">Mostrar maré mais próxima</string>
-    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
     <string name="moon">Lua</string>
     <string name="sun">Sol</string>
     <string name="sun_moon_position_template">### %s
@@ -1017,15 +979,7 @@
 \n**Azimute**: %s</string>
     <string name="enable">Ativar</string>
     <string name="weather_monitoring_disabled">Monitorização da meteorologia desativada</string>
-    <string name="exclude_obstacles_experimental">Excluir obstáculos (experimental)</string>
-    <string name="exclude_sun_experimental">Excluir sol (experimental)</string>
-    <string name="sensitivity">Sensibilidade</string>
-    <string name="cloud_cover_overcast">Encoberto</string>
-    <string name="cloud_cover_broken">Divididas</string>
-    <string name="cloud_cover_scattered">Espalhadas</string>
-    <string name="cloud_cover_isolated">Isoladas</string>
-    <string name="cloud_cover_few">Poucas</string>
-    <string name="cloud_cover_none">Sem nuvens</string>
+    <string name="no_clouds">Sem nuvens</string>
     <string name="log">Registo</string>
     <string name="pressure_logged">Pressão registada</string>
     <string name="sky_detection_sensitivity">Sensibilidade de deteção do céu</string>

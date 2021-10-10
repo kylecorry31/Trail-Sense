@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.weather.infrastructure.persistence
 import android.content.Context
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
-import java.time.Duration
 import java.time.Instant
 
 class PressureRepo private constructor(context: Context) : IPressureRepo {
@@ -31,8 +30,6 @@ class PressureRepo private constructor(context: Context) : IPressureRepo {
     }
 
     companion object {
-
-        val PRESSURE_HISTORY_DURATION = Duration.ofDays(2).plusHours(6)
 
         private var instance: PressureRepo? = null
 

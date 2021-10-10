@@ -261,24 +261,6 @@
     <string name="tool_user_guide_title">Benutzerhandbuch</string>
     <string name="pref_weather_update_frequency_title">Häufigkeit der Wetteraktualisierungen</string>
     <string name="pref_show_pressure_in_notification_title">Zeige den Luftdruck in den Benachrichtigungen</string>
-    <string name="storm_sensitivity_high_mbar">Hoch (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_med_mbar">Mittel (4.5 mbar / 3h)</string>
-    <string name="storm_sensitivity_low_mbar">Niedrig (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_high_hpa">Hoch (3 hPa / 3h)</string>
-    <string name="storm_sensitivity_med_hpa">Mittel (4.5 hPa / 3h)</string>
-    <string name="storm_sensitivity_low_hpa">Niedrig (6 hPa / 3h)</string>
-    <string name="forecast_sensitivity_high_in">Hoch (0.015 in / 3h)</string>
-    <string name="forecast_sensitivity_med_in">Mittel (0.044 in / 3h)</string>
-    <string name="forecast_sensitivity_low_in">Niedrig (0.074 in / 3h)</string>
-    <string name="forecast_sensitivity_high_psi">Hoch (0.007 PSI / 3h)</string>
-    <string name="forecast_sensitivity_med_psi">Mittel (0.022 PSI / 3h)</string>
-    <string name="forecast_sensitivity_low_psi">Niedrig (0.036 PSI / 3h)</string>
-    <string name="forecast_sensitivity_high_mbar">Hoch (0.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_med_mbar">Mittel (1.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_low_mbar">Niedrig (2.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_high_hpa">Hoch (0.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_med_hpa">Mittel (1.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_low_hpa">Niedrig (2.5 hPa / 3h)</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Vor dem Navigieren kalibrieren</string>
     <string name="pref_altitude_override_sea_level_title">Verwendung bekannten Luftdrucks auf Meereshöhe</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Geben sie den Luftdruck auf Meereshöhe ein</string>
@@ -294,12 +276,6 @@
     <string name="guide_conserving_battery_title">Stromsparmodus</string>
     <string name="pref_sea_level_require_dwell_title">Schnelle Höhenänderungen ignorieren</string>
     <string name="pref_sea_level_require_dwell_summary">Zeige nur Werte, wenn sich die Höhe in der letzten Stunde nicht geändert hat. Dies verbessert die Zuverlässigkeit der Vorhersage.</string>
-    <string name="storm_sensitivity_high_in">Hoch (0.089 in / 3h)</string>
-    <string name="storm_sensitivity_med_in">Mittel (0.133 in / 3h)</string>
-    <string name="storm_sensitivity_low_in">Niedrig (0.177 in / 3h)</string>
-    <string name="storm_sensitivity_high_psi">Hoch (0.044 PSI / 3h)</string>
-    <string name="storm_sensitivity_med_psi">Mittel (0.065 PSI / 3h)</string>
-    <string name="storm_sensitivity_low_psi">Langsam (0.087 PSI / 3h)</string>
     <string name="pref_sea_level_use_rapid_summary">Verwende schnelle Luftdruckänderungen für die Umrechnung auf Meereshöhe</string>
     <string name="pref_adjust_for_temperature_summary">Verwende die Temperatur zur Umrechnung auf Meereshöhe</string>
     <string name="tool_bubble_level_title">Libelle</string>
@@ -360,7 +336,6 @@
     <string name="water_boil_timer_channel_description">Wasser kocht</string>
     <string name="water_boil_timer">Wasserkocher-Timer</string>
     <string name="solar_panel_instructions">Zum Starten Handy flach auf dem Panel positionieren.</string>
-    <string name="solar_align_now">Jetzt</string>
     <string name="tool_solar_panel_title">Solarpanel ausrichten</string>
     <string name="tool_solar_panel_summary">Solarpanels für optimale Energiegewinnung ausrichten</string>
     <string name="pref_privacy_policy_title">Datenschutzerklärung</string>
@@ -492,10 +467,6 @@
     <string name="altostratus_desc">Eine Wolke mittlerer Höhe, die den Himmel bedeckt. Die Sonne ist kaum, als helle Stelle, zu sehen.</string>
     <string name="altocumulus_desc">Mittlere Höhe, bauschige Wolken, die wie Wattebäusche aussehen. Sind typischerweise weiß mit dunkleren Stellen an der Unterseite und können getrennt oder wie ein Blatt sein.</string>
     <string name="cirrostratus_desc">Eine hohe Wolke, die den Himmel bedeckt. Transparent und erzeugt typischerweise einen Halo, der sich um die Sonne bildet.</string>
-    <string name="cloud_likely_storm">Wahrscheinlich Sturm</string>
-    <string name="cloud_likely_rain">Wahrscheinlich Niederschlag</string>
-    <string name="cloud_possible_rain">Möglicherweise Niederschlag</string>
-    <string name="cloud_fair">Schönes Wetter ist zu erwarten</string>
     <string name="cumulonimbus">Cumulonimbus</string>
     <string name="cumulus">Cumulus</string>
     <string name="stratocumulus">Stratocumulus</string>
@@ -879,7 +850,6 @@
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d Satelliten</string>
     <string name="no_compass_message">Ihr Gerät hat keinen Kompass</string>
-    <string name="humidity_amount">%s Luftfeuchtigkeit</string>
     <string name="guide_packing_list">Packlisten erstellen</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="current_format">%s mA</string>
@@ -1000,27 +970,16 @@
 \n**Rate**: %s</string>
     <string name="weather_exported">Wetterdaten exportiert</string>
     <string name="pref_export_weather_csv_title">Wetterdaten exportieren</string>
-    <string name="pref_export_weather_csv">pref_export_weather_csv</string>
     <string name="moon">Mond</string>
     <string name="sun">Sonne</string>
     <string name="sun_moon_position_template">### %s
 \n**Höhe**: %s
 \n
 \n**Azimut**: %s</string>
-    <string name="pref_tide_settings">pref_tide_settings</string>
     <string name="pref_show_nearest_tide_title">Nächste Gezeit anzeigen</string>
-    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
     <string name="enable">Aktivieren</string>
     <string name="weather_monitoring_disabled">Wettermonitor deaktiviert</string>
-    <string name="exclude_obstacles_experimental">Hindernisse ausschließen (experimentell)</string>
-    <string name="exclude_sun_experimental">Sonne ausschließen (experimentell)</string>
-    <string name="sensitivity">Empfindlichkeit</string>
-    <string name="cloud_cover_overcast">Bedeckt</string>
-    <string name="cloud_cover_broken">Gebrochen</string>
-    <string name="cloud_cover_scattered">Verstreut</string>
-    <string name="cloud_cover_isolated">Isoliert</string>
-    <string name="cloud_cover_few">Einige</string>
-    <string name="cloud_cover_none">Keine Wolken</string>
+    <string name="no_clouds">Keine Wolken</string>
     <string name="obstacle_removal_sensitivity">Empfindlichkeit für Hindernisentfernung</string>
     <string name="pref_experimental_cloud_scanner_title">Wolkenscanner</string>
     <string name="precipitation_ice_pellets">Hagelkörner</string>

@@ -36,8 +36,8 @@ object ExceptionUtils {
         context.startActivity(intent)
     }
 
-    private @Suppress("DEPRECATION")
-    fun getSensorDetails(context: Context): String {
+    @Suppress("DEPRECATION")
+    private fun getSensorDetails(context: Context): String {
         val locationPermission = Permissions.canGetFineLocation(context)
         val backgroundLocationPermission = Permissions.isBackgroundLocationEnabled(context)
         val gps = GPS.isAvailable(context)

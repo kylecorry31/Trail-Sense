@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">Trail Sense</string>
     <!--Tabs-->
     <string name="navigation">Navigation</string>
@@ -99,7 +99,6 @@
     <string name="stop_monitoring">Stop</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%s %s</string>
-    <string name="pressure_setpoint_format">Set: %s - %s ago</string>
     <string name="pressure_reading_time_ago">%s - %s ago</string>
     <string name="alerts">Alerts</string>
     <string name="storm_alerts">Storm alerts</string>
@@ -117,7 +116,6 @@
     </plurals>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_temp_c_format">%s °C</string>
-    <string name="no_humidity_data">No humidity data</string>
     <string name="no_data">No data</string>
     <string name="dew_point">Dew point %s</string>
     <!--Weather Tab - Forecasts-->
@@ -752,7 +750,7 @@
     <string name="menu">Menu</string>
     <string name="meteor_shower">Meteor shower</string>
     <string name="tomorrow_at">Tomorrow at %s</string>
-    <string name="meteors_per_hour">Max %d meteors / h</string>
+    <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d meteors / h</string>
     <string name="pref_meteor_showers" translatable="false">pref_meteor_showers</string>
     <string name="pref_meteor_showers_title">Meteor showers</string>
     <string name="guide_signaling_for_help_title">Signaling for help</string>
@@ -1112,7 +1110,7 @@
     <string name="moon">Moon</string>
     <string name="weather_monitoring_disabled">Weather monitoring disabled</string>
     <string name="enable">Enable</string>
-    <string name="cloud_cover_none">No Clouds</string>
+    <string name="no_clouds">No Clouds</string>
     <string name="log">Log</string>
     <string name="pressure_logged">Pressure logged</string>
     <string name="sky_detection_sensitivity">Sky detection sensitivity</string>
@@ -1144,5 +1142,4 @@
     <string name="pref_background_compat_mode_title">Background compatibility mode</string>
     <string name="cloud_photo_mask_toast">Tap photo to toggle mask</string>
     <string name="no_camera_access">Unable to access camera</string>
-    <string name="no_clouds">No clouds</string>
 </resources>
