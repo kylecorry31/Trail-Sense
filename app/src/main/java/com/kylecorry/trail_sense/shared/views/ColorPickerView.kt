@@ -7,7 +7,7 @@ import androidx.core.view.setPadding
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.AppColor
+import com.kylecorry.trail_sense.shared.colors.AppColor
 
 class ColorPickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 

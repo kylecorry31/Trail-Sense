@@ -10,7 +10,7 @@ import androidx.core.content.res.getColorOrThrow
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.AppColor
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.min
 
 

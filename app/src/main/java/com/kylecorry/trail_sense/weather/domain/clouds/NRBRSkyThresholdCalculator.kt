@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.weather.domain.clouds
 
 import android.graphics.Bitmap
-import android.graphics.Color
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import kotlin.math.roundToInt
 
 class NRBRSkyThresholdCalculator : ISkyThresholdCalculator {
@@ -27,12 +27,7 @@ class NRBRSkyThresholdCalculator : ISkyThresholdCalculator {
     }
 
     private fun nrbr(value: Int): Float {
-        val blue = Color.blue(value)
-        val red = Color.red(value)
-
-        val nrbr = (red - blue) / (red + blue).toFloat().coerceAtLeast(1f)
-
-        return SolMath.map(nrbr, -1f, 1f, 0f, 1f)
+        return SolMath.map(ColorUtils.nrbr(value), -1f, 1f, 0f, 1f)
     }
 
 }

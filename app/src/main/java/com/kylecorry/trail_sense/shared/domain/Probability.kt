@@ -19,7 +19,7 @@ fun probability(chance: Float): Probability {
         chance < 0.75f -> {
             Probability.Moderate
         }
-        chance < 0.95 -> {
+        chance < 0.95f -> {
             Probability.High
         }
         else -> {

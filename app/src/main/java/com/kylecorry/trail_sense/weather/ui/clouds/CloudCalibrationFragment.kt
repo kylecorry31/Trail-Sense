@@ -15,7 +15,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
-import com.kylecorry.trail_sense.shared.AppColor
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.weather.domain.clouds.AMTCloudClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.ClassificationResult
 import com.kylecorry.trail_sense.weather.domain.clouds.NRBRSkyThresholdCalculator

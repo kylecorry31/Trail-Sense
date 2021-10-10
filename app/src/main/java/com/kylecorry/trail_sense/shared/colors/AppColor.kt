@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared
+package com.kylecorry.trail_sense.shared.colors
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
