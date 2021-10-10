@@ -23,27 +23,23 @@ import java.time.LocalDateTime
 class BacktrackWorker(context: Context, params: WorkerParameters) :
     CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
-        val prefs = UserPreferences(applicationContext)
-
-        if (prefs.useBackgroundCompatibilityMode) {
-            setForeground(
-                ForegroundInfo(
-                    73922,
-                    Notify.background(
-                        applicationContext,
-                        NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
-                        applicationContext.getString(R.string.notification_backtrack_update_title),
-                        applicationContext.getString(R.string.notification_backtrack_update_content),
-                        R.drawable.ic_update
-                    ),
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
-                    } else {
-                        0
-                    }
-                )
+        setForeground(
+            ForegroundInfo(
+                73922,
+                Notify.background(
+                    applicationContext,
+                    NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
+                    applicationContext.getString(R.string.notification_backtrack_update_title),
+                    applicationContext.getString(R.string.notification_backtrack_update_content),
+                    R.drawable.ic_update
+                ),
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
+                } else {
+                    0
+                }
             )
-        }
+        )
 
         val wakelock = Wakelocks.get(applicationContext, WAKELOCK_TAG)
         tryOrNothing {

@@ -257,12 +257,6 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
         ), MapSite.OSM
     )
 
-    val useBackgroundCompatibilityMode by BooleanPreference(
-        cache,
-        getString(R.string.pref_background_compat_mode),
-        false
-    )
-
     private fun getString(id: Int): String {
         return context.getString(id)
     }
