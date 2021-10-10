@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.jobs.AlarmTaskScheduler
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolClockBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -40,6 +41,7 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         binding.pipButton.setOnClickListener {
             sendNextMinuteNotification()
         }
+        CustomUiUtils.setButtonState(binding.clockRefresh, false)
         binding.clockRefresh.setOnClickListener {
             gps.start(this::onGPSUpdate)
             binding.updatingClock.visibility = View.VISIBLE
