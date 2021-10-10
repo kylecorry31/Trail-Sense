@@ -61,7 +61,7 @@ class HumidityFragment : BoundFragment<FragmentHumidityBinding>() {
 
             when (hours) {
                 0L -> binding.chartTitle.text =
-                    getString(R.string.temperature) + " - " + context?.resources?.getQuantityString(
+                    getString(R.string.humidity) + " - " + context?.resources?.getQuantityString(
                         R.plurals.last_minutes,
                         minutes.toInt(),
                         minutes
@@ -69,7 +69,7 @@ class HumidityFragment : BoundFragment<FragmentHumidityBinding>() {
                 else -> {
                     if (minutes >= 30) hours++
                     binding.chartTitle.text =
-                        getString(R.string.temperature) + " - " +
+                        getString(R.string.humidity) + " - " +
                                 context?.resources?.getQuantityString(
                                     R.plurals.last_hours,
                                     hours.toInt(),

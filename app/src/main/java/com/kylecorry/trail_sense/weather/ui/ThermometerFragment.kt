@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.math.SolMath.movingAverage
 import com.kylecorry.sol.science.meteorology.HeatAlert
 import com.kylecorry.sol.units.Reading
@@ -64,13 +65,18 @@ class ThermometerFragment : BoundFragment<FragmentThermometerBinding>() {
 
         CustomUiUtils.setButtonState(binding.temperatureEstimationBtn, false)
         binding.temperatureEstimationBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_thermometer_to_temperature_estimation)
+            findNavController().navigate(if (Sensors.hasHygrometer(requireContext())) R.id.action_temperature_humidity_to_temperature_estimation else R.id.action_thermometer_to_temperature_estimation)
         }
 
         thermometer.asLiveData().observe(viewLifecycleOwner, { onTemperatureUpdate() })
         repo.getAllLive().observe(viewLifecycleOwner) {
             updateChart(
-                it.map { Reading(weatherService.calibrateTemperature(it.value.temperature), it.time) }
+                it.map {
+                    Reading(
+                        weatherService.calibrateTemperature(it.value.temperature),
+                        it.time
+                    )
+                }
                     .sortedBy { it.time }
                     .filter { it.time <= Instant.now() }
             )
