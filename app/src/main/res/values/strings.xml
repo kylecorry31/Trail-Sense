@@ -406,12 +406,9 @@
     <string name="beacon_create_beacon">Beacon</string>
     <string name="group">Group</string>
     <string name="no_group">No group</string>
-    <string name="weather_update_notification_channel">Weather update</string>
     <string name="pref_sea_level_require_dwell" translatable="false">pref_sea_level_require_dwell</string>
     <string name="pref_sea_level_require_dwell_summary">Only show readings when the altitude hasn\'t changed for at least an hour. Improves forecast reliability.</string>
     <string name="pref_sea_level_require_dwell_title">Ignore rapid altitude changes</string>
-    <string name="sun_and_moon">Sun &amp; Moon Positions</string>
-    <string name="sun_and_moon_position_details">Sun\n\tAltitude: %s\n\tAzimuth: %s\n\nMoon\n\tAltitude: %s\n\tAzimuth: %s</string>
     <string name="tap_sun_moon_hint">Tap sun or moon for position details</string>
     <string name="advanced">Advanced</string>
     <string name="forecasts_category">Forecasts</string>
@@ -563,7 +560,6 @@
     <string name="guide_location_no_gps_title">Determine location without GPS</string>
     <string name="backtrack">Backtrack</string>
     <string name="backtrack_notification_channel_description">Backtrack location updates</string>
-    <string name="backtrack_notification_description">Placing location waypoint</string>
     <string name="create_beacon">Create beacon</string>
     <string name="tool_backtrack_summary">View location history</string>
     <string name="pref_backtrack_enabled" translatable="false">pref_backtrack_enabled</string>
@@ -600,7 +596,6 @@
     <string name="compass_calibrate_toast">Compass accuracy %s, calibration is advised</string>
     <string name="how">How</string>
     <string name="clouds">Clouds</string>
-    <string name="middle">Middle</string>
     <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="pref_require_satellites_title">Require satellite fix</string>
     <string name="pref_require_satellites_description">Requires at least 4 satellites, improves accuracy</string>
@@ -701,7 +696,6 @@
     <string name="high">High</string>
     <string name="moderate">Moderate</string>
     <string name="low">Low</string>
-    <string name="no_temperature_history">No temperature history</string>
     <string name="no_gps_signal">No GPS Signal</string>
     <string name="pref_navigation_quick_action_left" translatable="false">pref_navigation_quick_action_left</string>
     <string name="pref_navigation_quick_action_right" translatable="false">pref_navigation_quick_action_right</string>
@@ -809,7 +803,6 @@
     <string name="calibrate_new_tide">Calibrate to a new tide?</string>
     <string name="water_boil_guide_title">Make water safe to drink</string>
     <string name="color">Color</string>
-    <string name="pref_use_camera_features" translatable="false">pref_use_camera_features</string>
     <string name="camera_permission_denied">Camera permission denied, unable to turn on camera features. You can enable it in settings.</string>
     <string name="last_signal_beacon_name">Last signal - %s (%s)</string>
     <string name="pref_show_last_signal_beacon" translatable="false">pref_show_last_signal_beacon</string>
@@ -854,12 +847,6 @@
     <string name="no_groups">No groups</string>
     <string name="move">Move</string>
     <string name="beacon_moved_to">Moved to %s</string>
-    <string name="pressure_rising_fast">Pressure rising fast</string>
-    <string name="pressure_rising">Pressure rising</string>
-    <string name="pressure_falling">Pressure dropping</string>
-    <string name="pressure_falling_fast">Pressure dropping fast</string>
-    <string name="pressure_no_change">Pressure not changing</string>
-    <string name="weather_prediction">Weather: %s</string>
     <string name="preview">Preview</string>
     <string name="map_perspective_instructions">Outline the map</string>
     <string name="map_rotate_instructions">Rotate until North points up</string>
@@ -1060,7 +1047,6 @@
     <string name="lunar_eclipse_start">Lunar eclipse (start)</string>
     <string name="lunar_eclipse_end">Lunar eclipse (end)</string>
     <string name="lunar_eclipse">Lunar eclipse</string>
-    <string name="checking_for_astronomy_events">Checking for astronomy events</string>
     <string name="astronomy_alerts">Astronomy alerts</string>
     <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>

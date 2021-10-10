@@ -83,7 +83,6 @@
     <string name="left_quick_action">Ação rápida da esquerda</string>
     <string name="quick_action_none">Nenhuma</string>
     <string name="no_gps_signal">Sem sinal do GPS</string>
-    <string name="no_temperature_history">Sem histórico de temperatura</string>
     <string name="low">Baixo</string>
     <string name="moderate">Moderado</string>
     <string name="high">Alto</string>
@@ -232,17 +231,9 @@
     <string name="forecasts_category">Previsões</string>
     <string name="advanced">Avançado</string>
     <string name="tap_sun_moon_hint">Toque no sol ou na lua para detalhes da posição</string>
-    <string name="sun_and_moon_position_details">Sol
-\n\tAltitude: %s
-\n\tAzimute: %s
-\n
-\nLua
-\n\tAltitude: %s
-\n\tAzimute: %s</string>
-    <string name="sun_and_moon">Posições do Sol e da Lua</string>
+
     <string name="pref_sea_level_require_dwell_title">Ignorar as mudanças rápidas de altitude</string>
     <string name="pref_sea_level_require_dwell_summary">Mostrar as leituras apenas quando a altitude não mudou pelo menos durante a última hora. Melhora a fiabilidade da previsão.</string>
-    <string name="weather_update_notification_channel">Atualização meteorológica</string>
     <string name="no_group">Nenhum grupo</string>
     <string name="group">Grupo</string>
     <string name="beacon_create_beacon">Alfinete</string>
@@ -380,7 +371,6 @@
     <string name="heat_alert_heat_message">Risco de exaustão por calor/acidente vascular cerebral. Certifique-se que está hidratado, fique dentro de casa ou na sombra, limite o exercício físico e esteja atento aos sinais de exaustão pelo calor ou AVC.</string>
     <string name="heat_alert_heat_danger_title">Risco de calor intenso</string>
     <string name="dew_point">Ponto de orvalho %s</string>
-    <string name="no_humidity_data">Sem dados de humidade</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
@@ -390,7 +380,6 @@
     <string name="storm_alerts">Alertas de tempestade</string>
     <string name="alerts">Alertas</string>
     <string name="pressure_reading_time_ago">%s - há %s</string>
-    <string name="pressure_setpoint_format">Definido: %s - há %s</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="units_inhg_short">polegadas</string>
@@ -591,7 +580,6 @@
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">Ver histórico de localização</string>
     <string name="create_beacon">Criar alfinete</string>
-    <string name="backtrack_notification_description">A inserir localização de ponto de passagem</string>
     <string name="backtrack_notification_channel_description">Atualização das localizações de voltar para trás</string>
     <string name="backtrack">Voltar para trás</string>
     <string name="guide_location_no_gps_title">Determinar localização sem GPS</string>
@@ -731,12 +719,6 @@
     <string name="pref_flashlight_toggle_with_system_title">Alternar com o sistema</string>
     <string name="map_rotate_instructions">Rodar até que o Norte aponte para cima</string>
     <string name="map_perspective_instructions">Endireitar o mapa</string>
-    <string name="weather_prediction">Previsão do tempo: %s</string>
-    <string name="pressure_no_change">Pressão sem alterações</string>
-    <string name="pressure_falling_fast">Pressão a diminuir rapidamente</string>
-    <string name="pressure_falling">Pressão a diminuir</string>
-    <string name="pressure_rising">Pressão a aumentar</string>
-    <string name="pressure_rising_fast">Pressão a aumentar rapidamente</string>
     <string name="beacon_moved_to">Movido para %s</string>
     <string name="move">Mover</string>
     <string name="no_groups">Sem grupos</string>
@@ -909,7 +891,6 @@
     <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
     <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Alertas astronómicos</string>
-    <string name="checking_for_astronomy_events">A verificar eventos astronómicos</string>
     <string name="lunar_eclipse">Eclipse lunar</string>
     <string name="lunar_eclipse_start">Eclipse lunar (início)</string>
     <string name="lunar_eclipse_end">Eclipse lunar (fim)</string>
@@ -925,7 +906,6 @@
     <string name="export_path_error">Não foi possível exportar o percurso</string>
     <string name="navigate">Navegar</string>
     <string name="preview">Pré-visualização</string>
-    <string name="middle">Meio</string>
     <string name="units_mmhg">mmHg</string>
     <string name="season_fall">Outono</string>
     <string name="season_summer">Verão</string>

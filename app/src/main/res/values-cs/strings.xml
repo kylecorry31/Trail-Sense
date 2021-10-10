@@ -73,7 +73,6 @@
     <string name="weather_worsening_slow">Bude se brzo zhoršovat</string>
     <string name="weather_improving_slow">Bude se brzo zlepšovat</string>
     <string name="weather_improving_fast">Bude se velmi brzo zlepšovat</string>
-    <string name="no_humidity_data">Žádné data o vlhkosti</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_text">Bouře se může blížit</string>
     <string name="pressure_format">%s %s</string>
@@ -225,7 +224,6 @@
     <string name="storm_alerts">Výstrahy před bouřkami</string>
     <string name="alerts">Výstrahy</string>
     <string name="pressure_reading_time_ago">před %s - %s</string>
-    <string name="pressure_setpoint_format">Nastaveno před: %s - %s</string>
     <string name="turn_off">Vypnout</string>
     <string name="battery_temp">Telefon: %s</string>
     <string name="precise_percent_format">%s%%</string>

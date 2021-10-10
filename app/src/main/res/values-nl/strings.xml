@@ -164,7 +164,6 @@
     <string name="heat_alert_heat_message">Risico op oververhitting. Blijf voldoende gehydrateerd, blijf binnen of in de schaduw, beperk je inspanning en wees alert op oververhittingsverschijnselen.</string>
     <string name="heat_alert_heat_danger_title">Hittegevaar</string>
     <string name="dew_point">Dauwpunt %s</string>
-    <string name="no_humidity_data">Geen luchtvochtigheidsgegevens</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
@@ -174,7 +173,6 @@
     <string name="storm_alerts">Stormwaarschuwingen</string>
     <string name="alerts">Waarschuwingen</string>
     <string name="pressure_reading_time_ago">%s - %s geleden</string>
-    <string name="pressure_setpoint_format">Stel in: %s - %s geleden</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3u</string>
     <string name="units_inhg_short">in</string>
@@ -391,7 +389,6 @@
 \n- Dezelfde weg teruglopen met Terugweg (draait op de achtergrond indien ingeschakeld)</string>
     <string name="backtrack_disabled_low_power_toast">Terugweg is uitgeschakeld in energiebesparingsmodus</string>
     <string name="backtrack">Terugweg</string>
-    <string name="backtrack_notification_description">Routepunt plaatsen</string>
     <string name="backtrack_notification_channel_description">Locatie-updates voor Terugweg</string>
     <string name="location_input_help_title">Ondersteunde locatieformaten</string>
     <string name="pref_backtrack_frequency_title">Afstand tussen routepunten</string>
@@ -486,17 +483,9 @@
     <string name="forecasts_category">Voorspellingen</string>
     <string name="advanced">Geavanceerd</string>
     <string name="tap_sun_moon_hint">Tik op zon of maan voor positiedetails</string>
-    <string name="sun_and_moon_position_details">Sun
-\n\tElevatie: %s
-\n\tAzimut: %s
-\n
-\nMoon
-\n\tElevatie: %s
-\n\tAzimut: %s</string>
-    <string name="sun_and_moon">Zon- en maanposities</string>
+
     <string name="pref_sea_level_require_dwell_title">Snelle hoogteveranderingen negeren</string>
     <string name="pref_sea_level_require_dwell_summary">Alleen metingen tonen als de hoogte minstens een uur niet is veranderd. Verbetert de betrouwbaarheid van de voorspelling.</string>
-    <string name="weather_update_notification_channel">Weerupdate</string>
     <string name="no_group">Geen groep</string>
     <string name="group">Groep</string>
     <string name="beacon_create_beacon">Baken</string>
@@ -693,12 +682,6 @@
     <string name="map_rotate_instructions">Draai totdat het noorden omhoog wijst</string>
     <string name="map_perspective_instructions">Maak een overzicht van de kaart</string>
     <string name="preview">Voorbeeld</string>
-    <string name="weather_prediction">Weer: %s</string>
-    <string name="pressure_no_change">Druk verandert niet</string>
-    <string name="pressure_falling_fast">Druk daalt snel</string>
-    <string name="pressure_rising">Drukstijging</string>
-    <string name="pressure_falling">Drukdaling</string>
-    <string name="pressure_rising_fast">Druk stijgt snel</string>
     <string name="beacon_moved_to">Verplaatst naar %s</string>
     <string name="move">Verplaatsen</string>
     <string name="no_groups">Geen groepen</string>
@@ -806,7 +789,6 @@
     <string name="left_quick_action">Snelle actie links</string>
     <string name="quick_action_none">Geen</string>
     <string name="no_gps_signal">Geen GPS Signaal</string>
-    <string name="no_temperature_history">Geen temperatuur geschiedenis</string>
     <string name="low">Laag</string>
     <string name="onboarding_user_guide">Met de gebruikershandleiding leer je hoe je de functies van Trail Sense kunt gebruiken. Je kunt het vinden onderaan het Hulpmiddelen-tabblad.
 \n
@@ -887,6 +869,5 @@
     <string name="gps_signal_lost">gps-signaal verloren</string>
     <string name="altitude_history_length">Lengte hoogtegeschiedenis</string>
     <string name="last_duration">Afgelopen %s</string>
-    <string name="middle">Midden</string>
     <string name="units_mmhg">mmHg</string>
 </resources>

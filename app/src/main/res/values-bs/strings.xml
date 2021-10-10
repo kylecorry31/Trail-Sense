@@ -175,12 +175,6 @@
     <string name="map_rotate_instructions">Rotirajte dok Sjever nije prema gore usmjeren</string>
     <string name="map_perspective_instructions">Zacrtajte kartu</string>
     <string name="preview">Pregled</string>
-    <string name="weather_prediction">Vrijeme: %s</string>
-    <string name="pressure_no_change">Pritisak se ne mijenja</string>
-    <string name="pressure_falling_fast">Pritisak brzo pada</string>
-    <string name="pressure_falling">Pritisak pada</string>
-    <string name="pressure_rising">Pritisak raste</string>
-    <string name="pressure_rising_fast">Pritisak brzo raste</string>
     <string name="move">Premjesti</string>
     <string name="beacon_moved_to">Premješteno u %s</string>
     <string name="no_groups">Nema grupa</string>
@@ -292,7 +286,6 @@
     <string name="left_quick_action">Lijeva brza akcija</string>
     <string name="quick_action_none">Nema</string>
     <string name="no_gps_signal">Nema GPS Signala</string>
-    <string name="no_temperature_history">Nema povijesti temperature</string>
     <string name="low">Niska</string>
     <string name="moderate">Srednja</string>
     <string name="high">Visoka</string>
@@ -578,15 +571,7 @@
     <string name="forecasts_category">Prognoze</string>
     <string name="advanced">Napredno</string>
     <string name="tap_sun_moon_hint">Za detalje položaja dodirnite sunce ili mjesec</string>
-    <string name="sun_and_moon_position_details">Sunce
-\nNadmorska visina: %s
-\nAzimut: %s
-\n
-\nMjesec
-\nNadmorska visina: %s
-\nAzimut: %s</string>
-    <string name="sun_and_moon">Položaj Sunca i Mjeseca</string>
-    <string name="weather_update_notification_channel">Ažuriranje vremena</string>
+
     <string name="no_group">Bez grupe</string>
     <string name="group">Grupa</string>
     <string name="beacon_create_beacon">Svjetionik</string>
@@ -649,7 +634,6 @@
     <string name="heat_alert_heat_danger_title">Opasnost za vrućinu</string>
     <string name="dew_point">Tačka rose %s</string>
     <string name="no_data">Nema podataka</string>
-    <string name="no_humidity_data">Nema podataka o vlagi</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
@@ -659,7 +643,6 @@
     <string name="storm_alerts">Upozorenja za oluju</string>
     <string name="alerts">Upozorenja</string>
     <string name="pressure_reading_time_ago">prije %s - %s</string>
-    <string name="pressure_setpoint_format">Postavljeno: prije %s - %s</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="units_inhg_short">in</string>
@@ -757,7 +740,6 @@
     <string name="waypoint_beacon_title_template">%s, %s Međutočka</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">Pogledajte lokacijsku historiju</string>
-    <string name="backtrack_notification_description">Postavljanje međutočke lokacije</string>
     <string name="backtrack_notification_channel_description">Ažuriranja lokacija Izatraga</string>
     <string name="backtrack">Izatrag</string>
     <string name="pref_show_last_signal_beacon_summary">Stvara svjetionik za lokaciju posljednjeg signala ćelije</string>

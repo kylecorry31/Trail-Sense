@@ -76,7 +76,6 @@
     <string name="heat_alert_heat_warning_title">Allarme surriscaldamento</string>
     <string name="heat_alert_heat_alert_title">Allerta surriscaldamento</string>
     <string name="dew_point">Punto di rugiada %s</string>
-    <string name="no_humidity_data">Nessun dato sull\'umidità</string>
     <string name="beacon_comment">Note (opzionale)</string>
     <string name="beacon_elevation_hint_meters">Altezza in metri (opzionale)</string>
     <string name="beacon_elevation_hint_feet">Altezza in piedi (opzionale)</string>
@@ -254,7 +253,6 @@
     <string name="storm_alerts">Allarme temporali</string>
     <string name="alerts">Allarmi</string>
     <string name="pressure_reading_time_ago">%s - %s fa</string>
-    <string name="pressure_setpoint_format">Impostato: %s - %s fa</string>
     <string name="quality_good">Buono</string>
     <string name="quality_poor">Debole</string>
     <string name="unavailable">Non disponibile</string>
@@ -268,7 +266,6 @@
     <string name="tool_thermometer_title">Termometro</string>
     <string name="tool_backtrack_summary">Visualizza lo storico delle posizioni</string>
     <string name="create_beacon">Crea Segnaposto</string>
-    <string name="backtrack_notification_description">Posizionamento del waypoint</string>
     <string name="backtrack_notification_channel_description">Aggiornamento delle posizioni per il ritorno</string>
     <string name="backtrack">Ritorno</string>
     <string name="map_scale_title">Scala della mappa</string>
@@ -313,7 +310,6 @@
     <string name="tool_bubble_level_summary">Determinare se le superfici sono piane</string>
     <string name="error_occurred_message">Trail Sense</string>
     <string name="quick_action_none">Nessuno</string>
-    <string name="no_temperature_history">Nessuno storico temperatura</string>
     <string name="low">Bassa</string>
     <string name="moderate">Moderata</string>
     <string name="high">Elevata</string>
@@ -341,16 +337,8 @@
     <string name="tool_bubble_level_title">Livello a bolla</string>
     <string name="guide_weather_prediction_title">Previsioni meteo</string>
     <string name="tap_sun_moon_hint">Clicca il sole o la luna per dettagli sulla posizione</string>
-    <string name="sun_and_moon_position_details">Sole
-\n\tAltitudine: %s
-\n\tAzimut: %s
-\n
-\nMoon
-\n\tAltitudine: %s
-\n\tAzimut: %s</string>
-    <string name="sun_and_moon">Posizioni di sole e luna</string>
+
     <string name="pref_sea_level_require_dwell_title">Ignora cambiamenti rapidi di altitudine</string>
-    <string name="weather_update_notification_channel">Aggiornamenti meteo</string>
     <string name="no_group">Nessun gruppo</string>
     <string name="group">Gruppo</string>
     <string name="beacon_create_beacon">Segnaposto</string>

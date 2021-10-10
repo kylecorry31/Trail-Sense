@@ -18,17 +18,9 @@
     <string name="forecasts_category">Previsions</string>
     <string name="advanced">Avançat</string>
     <string name="tap_sun_moon_hint">Premeu sol o lluna per obtenir els detalls de posició</string>
-    <string name="sun_and_moon_position_details">Sol
-\n\tAltitud: %s
-\n\tAzimut: %s
-\n
-\nLluna
-\n\tAltitud: %s
-\n\tAzimut: %s</string>
-    <string name="sun_and_moon">Posicions de la Lluna i el Sol</string>
+
     <string name="pref_sea_level_require_dwell_title">Ignorar els canvis ràpids d\'altitud</string>
     <string name="pref_sea_level_require_dwell_summary">Només mostrar les lectures quan la altitud no canvii en una hora. Permet millorar la fiabilitat del pronòstic.</string>
-    <string name="weather_update_notification_channel">Actualizar les dades del clima</string>
     <string name="no_group">Sense grup</string>
     <string name="group">Grup</string>
     <string name="beacon_create_beacon">Fita</string>
@@ -94,7 +86,6 @@
     <string name="weather_improving_fast">Millorarà aviat</string>
     <string name="dew_point">Punt de rosada %s</string>
     <string name="no_data">Sense dades</string>
-    <string name="no_humidity_data">Sense dades d\'humitat</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -112,7 +103,6 @@
     <string name="storm_alerts">Alertes de tempesta</string>
     <string name="alerts">Alertes</string>
     <string name="pressure_reading_time_ago">fa %s - %s</string>
-    <string name="pressure_setpoint_format">Establert: fa %s - %s</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="stop_monitoring">Aturar</string>

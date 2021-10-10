@@ -85,7 +85,6 @@
     <string name="sun_up_no_set">el sol está arriba</string>
     <string name="sun_down_no_set">el sol está abajo</string>
     <string name="tools">Herramientas</string>
-    <string name="no_humidity_data">Sin datos de humedad</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_title">Alerta de tormenta</string>
     <string name="notification_storm_alert_text">Podría estar acercándose una tormenta</string>
@@ -252,17 +251,9 @@
     <string name="forecasts_category">Pronósticos</string>
     <string name="advanced">Avanzado</string>
     <string name="tap_sun_moon_hint">Tocar sol o luna para detalles de posición</string>
-    <string name="sun_and_moon_position_details">"Sol
-\n   Altitud: %s
-\n   Acimut: %s
-\n
-\nLuna
-\n   Altitud: %s
-\n   Acimut: %s"</string>
-    <string name="sun_and_moon">Posiciones de Luna y Sol</string>
+
     <string name="pref_sea_level_require_dwell_title">Ignorar cambios rápidos de altitud</string>
     <string name="pref_sea_level_require_dwell_summary">Sólo mostrar lecturas cuando la altitud no cambió en al menos una hora. Mejora la legibilidad del pronóstico.</string>
-    <string name="weather_update_notification_channel">Actualización de clima</string>
     <string name="no_group">Sin grupo</string>
     <string name="group">Grupo</string>
     <string name="beacon_create_beacon">Baliza</string>
@@ -338,7 +329,6 @@
     <string name="heat_alert_heat_caution_title">Precaución de calor</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="pressure_setpoint_format">Establecido: hace %s - %s</string>
     <string name="object_height_guide">Estimar alturas de objetos</string>
     <string name="tool_depth_title">Profundidad</string>
 </resources>

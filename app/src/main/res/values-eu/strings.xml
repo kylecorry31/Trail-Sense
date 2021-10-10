@@ -61,7 +61,6 @@
     <string name="weather_improving_fast">Berehala hobetuko du</string>
     <string name="weather_improving_slow">Laster hobetuko du</string>
     <string name="dew_point">Ihintz-puntua %s</string>
-    <string name="no_humidity_data">Ez dago hezetasun daturik</string>
     <plurals name="last_minutes">
         <item quantity="one">Azken %d minutua</item>
         <item quantity="other">Azken %d minutuak</item>
@@ -76,7 +75,6 @@
     <string name="notification_storm_alert_text">Ekaitz bat hurbiltzen egon liteke</string>
     <string name="storm_alerts">Ekaitz abisuak</string>
     <string name="alerts">Abisuak</string>
-    <string name="pressure_setpoint_format">Ezarrita: orain dela %s - %s</string>
     <string name="pressure_reading_time_ago">Orain dela %s - %s</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3o</string>
@@ -337,7 +335,6 @@
     <string name="strobe_warning_title">Aldizkako argiak</string>
     <string name="tool_cliff_height_title">Labarraren altuera</string>
     <string name="tool_bubble_level_title">Nibela</string>
-    <string name="weather_update_notification_channel">Eguraldiaren eguneraketa</string>
     <string name="coordinate_input_invalid_location">Kokapen ez balioduna</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="notification_channel_clock_sync">Erlojuaren sinkronizazioa</string>

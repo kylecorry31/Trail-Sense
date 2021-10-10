@@ -85,7 +85,6 @@
     <string name="left_quick_action">Швидка дія зліва</string>
     <string name="quick_action_none">Нічого</string>
     <string name="no_gps_signal">Немає сигналу GPS</string>
-    <string name="no_temperature_history">Немає історії температури</string>
     <string name="low">Низьке</string>
     <string name="moderate">Помірне</string>
     <string name="high">Високе</string>
@@ -279,17 +278,9 @@
     <string name="forecasts_category">Прогнози</string>
     <string name="advanced">Додатково</string>
     <string name="tap_sun_moon_hint">Торкніться Сонця або Місяця, щоб дізнатися про місцеперебування</string>
-    <string name="sun_and_moon_position_details">Сонце
-\n\tВисота: %s
-\n\tАзимут: %s
-\n
-\nМісяць
-\n\tВисота: %s
-\n\tАзимут: %s</string>
-    <string name="sun_and_moon">Положення Сонця і Місяця</string>
+
     <string name="pref_sea_level_require_dwell_title">Нехтувати швидкими змінами висоти</string>
     <string name="pref_sea_level_require_dwell_summary">Відображати показники тільки тоді, коли висота не змінювалася щонайменш протягом години. Підвищує надійність прогнозів.</string>
-    <string name="weather_update_notification_channel">Оновлення погоди</string>
     <string name="no_group">Немає групи</string>
     <string name="group">Група</string>
     <string name="beacon_create_beacon">Маячок</string>
@@ -500,7 +491,6 @@
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">Перегляд історії місцеперебувань</string>
     <string name="create_beacon">Створити маячок</string>
-    <string name="backtrack_notification_description">Розміщення шляхової точки</string>
     <string name="backtrack_notification_channel_description">Оновлення місцеперебування історії маршруту</string>
     <string name="backtrack">Історія маршруту</string>
     <string name="guide_location_no_gps_title">Визначення місцеперебування без GPS</string>
@@ -609,7 +599,6 @@
     <string name="weather_improving_slow">Скоро поліпшиться</string>
     <string name="weather_improving_fast">Дуже скоро поліпшиться</string>
     <string name="dew_point">Точка роси %s</string>
-    <string name="no_humidity_data">Немає даних про вологість</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -631,7 +620,6 @@
     <string name="storm_alerts">Штормові попередження</string>
     <string name="alerts">Попередження</string>
     <string name="pressure_reading_time_ago">%s - %s тому</string>
-    <string name="pressure_setpoint_format">Задано: %s - %s тому</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3 год</string>
     <string name="stop_monitoring">Зупин</string>
@@ -746,12 +734,6 @@
     <string name="map_rotate_instructions">Обертайте, поки північ не буде вгорі</string>
     <string name="map_perspective_instructions">Накресліть мапу</string>
     <string name="preview">Попередній перегляд</string>
-    <string name="weather_prediction">Погода: %s</string>
-    <string name="pressure_no_change">Тиск не змінюється</string>
-    <string name="pressure_falling_fast">Тиск швидко спадає</string>
-    <string name="pressure_falling">Тиск спадає</string>
-    <string name="pressure_rising">Тиск зростає</string>
-    <string name="pressure_rising_fast">Тиск швидко зростає</string>
     <string name="pref_flashlight_toggle_with_system_summary">Показує сповіщення, коли ліхтарик увімкнено за межами Trail Sense</string>
     <string name="pref_flashlight_toggle_with_system_title">Перемикати із системою</string>
     <string name="pref_navigation_lock_screen_presence_title">Показувати на екрані блокування під час навігації</string>
@@ -927,7 +909,6 @@
     <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
     <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Астрономічні попередження</string>
-    <string name="checking_for_astronomy_events">Перевіряння астрономічних подій</string>
     <string name="lunar_eclipse">Місячне затемнення</string>
     <string name="lunar_eclipse_end">Місячне затемнення (кінець)</string>
     <string name="lunar_eclipse_start">Місячне затемнення (початок)</string>
@@ -937,7 +918,6 @@
     <string name="high_amount">Високо (%s)</string>
     <string name="medium_amount">Середньо (%s)</string>
     <string name="low_amount">Низько (%s)</string>
-    <string name="middle">Середньо</string>
     <string name="units_mmhg">мм рт.ст.</string>
     <string name="season_fall">Осінь</string>
     <string name="season_summer">Літо</string>

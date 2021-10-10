@@ -23,7 +23,6 @@
     <string name="weather_improving_slow">Nemsokára javulni fog</string>
     <string name="weather_worsening_slow">Nemsokára romlani fog</string>
     <string name="weather_improving_fast">Javulni fog nagyon hamar</string>
-    <string name="no_humidity_data">Nincs páratartalom adat</string>
     <plurals name="last_minutes">
         <item quantity="one">Utolsó %d perc</item>
         <item quantity="other">Utolsó %d perc</item>
@@ -39,7 +38,6 @@
     <string name="storm_alerts">Vihar riasztások</string>
     <string name="alerts">Riasztások</string>
     <string name="pressure_reading_time_ago">%s - %s óta</string>
-    <string name="pressure_setpoint_format">Beállítva ennyi ideje: %s - %s</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3ó</string>
     <string name="stop_monitoring">Stop</string>

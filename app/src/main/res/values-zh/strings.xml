@@ -144,7 +144,6 @@
     <string name="heat_alert_frostbite_message">存在低体温症/冻伤风险。请确保水分充足，穿着暖和并且限制暴露的皮肤，并注意低体温症或冻伤的迹象。</string>
     <string name="heat_alert_heat_danger_title">酷热威胁</string>
     <string name="dew_point">露点 %s</string>
-    <string name="no_humidity_data">无湿度数据</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_monitoring_weather">后台监测天气</string>
     <string name="notification_storm_alert_title">暴风雨警报</string>
@@ -301,17 +300,9 @@
     <string name="forecasts_category">预测</string>
     <string name="advanced">高级设置</string>
     <string name="tap_sun_moon_hint">点按太阳或月亮了解位置详情</string>
-    <string name="sun_and_moon_position_details">太阳
-\n\t高度: %s
-\n\t方位: %s
-\n
-\n月亮
-\n\t高度: %s
-\n\t方位: %s</string>
-    <string name="sun_and_moon">太阳 &amp; 月亮位置</string>
+
     <string name="pref_sea_level_require_dwell_title">忽略快速高度变化</string>
     <string name="pref_sea_level_require_dwell_summary">只有当高度至少一小时没有变化时才显示读数。提高预报的可靠性。</string>
-    <string name="weather_update_notification_channel">天气更新</string>
     <string name="no_group">无群组</string>
     <string name="group">群组</string>
     <string name="beacon_create_beacon">信标</string>
@@ -368,7 +359,6 @@
     <string name="lunar_noon">月亮升到晚上的最高点</string>
     <string name="tide_normal">正常</string>
     <string name="pressure_reading_time_ago">%s - %s 前</string>
-    <string name="pressure_setpoint_format">设定: %s - %s 前</string>
     <string name="pressure_format">%s %s</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="dash">-</string>
@@ -419,7 +409,6 @@
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">查看位置历史</string>
     <string name="create_beacon">创建信标</string>
-    <string name="backtrack_notification_description">放置位置路径点</string>
     <string name="backtrack_notification_channel_description">Backtrack 位置更新</string>
     <string name="guide_location_no_gps_title">不用 GPS 进行定位</string>
     <string name="beacon_set_bearing_btn">设定方位（%s）</string>
@@ -590,7 +579,6 @@
     <string name="weather_worse_than_yesterday">比昨天差</string>
     <string name="weather_better_than_yesterday">比昨天好</string>
     <string name="todays_forecast">今日预报</string>
-    <string name="no_temperature_history">无温度历史</string>
     <string name="low">低</string>
     <string name="moderate">中等</string>
     <string name="high">高</string>
@@ -733,12 +721,6 @@
     <string name="map_rotate_instructions">旋转直到北指向上</string>
     <string name="map_perspective_instructions">勾勒地图轮廓</string>
     <string name="preview">预览</string>
-    <string name="weather_prediction">天气：%s</string>
-    <string name="pressure_no_change">气压未更改</string>
-    <string name="pressure_falling_fast">气压在快速下降</string>
-    <string name="pressure_falling">气压在下降</string>
-    <string name="pressure_rising">气压在上升</string>
-    <string name="pressure_rising_fast">气压快速上升</string>
     <string name="pref_flashlight_toggle_with_system_summary">当手电筒在 Trail Sense 外打开时显示一则通知</string>
     <string name="pref_flashlight_toggle_with_system_title">随系统切换</string>
     <string name="pref_navigation_lock_screen_presence_title">导航时在锁定屏幕上显示</string>
@@ -907,7 +889,6 @@
     <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
     <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">天文警报</string>
-    <string name="checking_for_astronomy_events">检查天文事件</string>
     <string name="lunar_eclipse">月食</string>
     <string name="lunar_eclipse_end">月食 (结束)</string>
     <string name="lunar_eclipse_start">月食 (开始)</string>
@@ -917,7 +898,6 @@
     <string name="high_amount">高 (%s)</string>
     <string name="medium_amount">中等 (%s)</string>
     <string name="low_amount">低 (%s)</string>
-    <string name="middle">中间</string>
     <string name="units_mmhg">mmHg</string>
     <string name="season_fall">秋季</string>
     <string name="season_summer">夏季</string>

@@ -182,7 +182,6 @@
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">Konum geçmişini görüntüle</string>
     <string name="create_beacon">İşaret oluştur</string>
-    <string name="backtrack_notification_description">Konum hedefi yerleştiriliyor</string>
     <string name="backtrack_notification_channel_description">Geri iz sürme konum güncellemeleri</string>
     <string name="backtrack">Geri iz sürme</string>
     <string name="guide_location_no_gps_title">GPS olmadan konum belirle</string>
@@ -329,17 +328,9 @@
     <string name="forecasts_category">Hava durumu tahminleri</string>
     <string name="advanced">Gelişmiş</string>
     <string name="tap_sun_moon_hint">Pozisyon detayları için aya veya güneşe dokunun</string>
-    <string name="sun_and_moon_position_details">Güneş
-\n İrtifa: %s
-\n Azimut: %s
-\n
-\nAy
-\n İrtifa: %s
-\n Azimut: %s</string>
-    <string name="sun_and_moon">Güneş &amp; Ay Pozisyonları</string>
+
     <string name="pref_sea_level_require_dwell_title">Hızlı irtifa değişimlerini yoksay</string>
     <string name="pref_sea_level_require_dwell_summary">Okunan değerleri sadece irtifa en az bir saat boyunca değişmediğinde göster. Hava durumu tahimini güvenirliliğini arttırır.</string>
-    <string name="weather_update_notification_channel">Hava durumu güncellemesi</string>
     <string name="no_group">Grup yok</string>
     <string name="group">Grup</string>
     <string name="beacon_create_beacon">İşaret</string>
@@ -529,7 +520,6 @@
     <string name="weather_improving_slow">Yakında iyileşiyor</string>
     <string name="weather_improving_fast">Çok yakında iyileşiyor</string>
     <string name="dew_point">Çiy noktası %s</string>
-    <string name="no_humidity_data">Nemlilik verisi yok</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -547,7 +537,6 @@
     <string name="storm_alerts">Fırtına uyarıları</string>
     <string name="alerts">Uyarılar</string>
     <string name="pressure_reading_time_ago">%s - %s önce</string>
-    <string name="pressure_setpoint_format">Ayarla: %s - %s önce</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3 sa</string>
     <string name="stop_monitoring">Dur</string>
@@ -699,7 +688,6 @@
     <string name="saltwater_switch">Tuzlu su mu\?</string>
     <string name="experimental">Deneysel</string>
     <string name="no_gps_signal">GPS Sinyali Yok</string>
-    <string name="no_temperature_history">Sıcaklık geçmişi yok</string>
     <string name="low">Düşük</string>
     <string name="moderate">Orta</string>
     <string name="high">Yüksek</string>
@@ -739,12 +727,6 @@
     <string name="map_rotate_instructions">Kuzey yukarıyı işaret edene kadar döndür</string>
     <string name="map_perspective_instructions">Haritanın ana hatlarını çiz</string>
     <string name="preview">Ön izleme</string>
-    <string name="weather_prediction">Hava durumu: %s</string>
-    <string name="pressure_no_change">Basınç değişmiyor</string>
-    <string name="pressure_falling_fast">Basınç hızla düşüyor</string>
-    <string name="pressure_falling">Basınç düşüyor</string>
-    <string name="pressure_rising">Basınç yükseliyor</string>
-    <string name="pressure_rising_fast">Basınç hızla yükseliyor</string>
     <string name="pref_flashlight_toggle_with_system_summary">El feneri Trail Sense dışında açıldığında bir bildirim görüntüler</string>
     <string name="pref_flashlight_toggle_with_system_title">Sistem ile aç/kapat</string>
     <string name="pref_navigation_lock_screen_presence_title">Gezinirken kilit ekranında göster</string>
@@ -766,7 +748,6 @@
     <string name="privacy">Gizlilik</string>
     <string name="units">Birimler</string>
     <string name="pref_privacy_screenshot_protection_title">Ekran görüntüsü alınmasını engelle</string>
-    <string name="checking_for_astronomy_events">Astronomi olaylarının denetlenmesi</string>
     <string name="battery_restricted_resolution">Trail Sense\'i Optimize Edilmedi Olarak Ayarla</string>
     <string name="ounces_weight_format">%s ons</string>
     <string name="ounces_volume_format">%s ons</string>
@@ -906,7 +887,6 @@
     <string name="back_press_confirm">Ayrılmak için tekrar geri düğmesine basın</string>
     <string name="leave_underwater_mode">Su altı: çıkmak için geri düğmesine basın</string>
     <string name="underwater_mode">Su altı modu</string>
-    <string name="middle">Orta</string>
     <string name="action_inventory_clear_confirm">Tüm paketlenen miktarlar silinsin mi\?</string>
     <string name="units_mmhg">mmHg</string>
     <string name="current_format">%s mA</string>

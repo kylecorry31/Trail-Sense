@@ -100,15 +100,12 @@
     <string name="settings">Innstillinger</string>
     <string name="weather">Vær</string>
     <string name="navigation">Navigasjon</string>
-    <string name="no_humidity_data">Ingen luftfuktighetsdata</string>
     <string name="pressure_format">%s %s</string>
     <string name="dialog_deny">Nei takk</string>
     <string name="dialog_grant">Oppdater innstillinger</string>
     <string name="navigation_nearby_category">I nærheten</string>
     <string name="forecasts_category">Værvarsler</string>
     <string name="advanced">Avansert</string>
-    <string name="sun_and_moon">Solens og månens posisjon</string>
-    <string name="weather_update_notification_channel">Væroppdatering</string>
     <string name="no_group">Ingen gruppe</string>
     <string name="group">Gruppe</string>
     <string name="beacon_create">Opprett</string>
@@ -157,7 +154,6 @@
     <string name="dew_point">Duggpunkt %s</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">%s - %s siden</string>
-    <string name="pressure_setpoint_format">Satt: %s - %s siden</string>
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Notater (valgfritt)</string>
@@ -223,13 +219,7 @@
     <string name="moon_set">Månenedgang</string>
     <string name="moon_rise">Måneoppgang</string>
     <string name="tap_sun_moon_hint">Trykk på solen eller månen for posisjonsdetaljer</string>
-    <string name="sun_and_moon_position_details">Solen
-\n\tHøyde: %s
-\n\tRetning: %s
-\n
-\nMånen
-\n\tHøyde: %s
-\n\tRetning: %s</string>
+
     <string name="pref_storm_alert_sensitivity_title">Stormfølsomhet</string>
     <string name="pref_forecast_sensitivity_title">Værvarselfølsomhet</string>
     <string name="cliff_height_guide">Anslå høyden på en klippe</string>
@@ -526,7 +516,6 @@
     <string name="right_quick_action">Høyre hurtighandling</string>
     <string name="left_quick_action">Venstre hurtighandling</string>
     <string name="quick_action_none">Ingen</string>
-    <string name="no_temperature_history">Ingen temperaturhistorikk</string>
     <string name="weather_same_as_today">Samme som i dag</string>
     <string name="weather_worse_than_today">Verre enn i dag</string>
     <string name="weather_better_than_today">Bedre enn i dag</string>
@@ -562,12 +551,6 @@
     <string name="dusk_type">Solnedgang (%s)</string>
     <string name="dawn_type">Soloppgang (%s)</string>
     <string name="weather_monitor">Værovervåking</string>
-    <string name="weather_prediction">Vær: %s</string>
-    <string name="pressure_no_change">Trykket endres ikke</string>
-    <string name="pressure_falling_fast">Trykket faller raskt</string>
-    <string name="pressure_falling">Trykkfall</string>
-    <string name="pressure_rising">Trykkstigning</string>
-    <string name="pressure_rising_fast">Trykket stiger raskt</string>
     <string name="no_groups">Ingen grupper</string>
     <string name="coordinates_tab">Koordinater</string>
     <string name="distance">Distanse</string>
@@ -823,7 +806,6 @@
 \n**Maksimum - retning**: %s
 \n
 \n**Rate**: %s</string>
-    <string name="middle">Middels</string>
     <string name="season_winter">Vinter</string>
     <string name="season_spring">Vår</string>
     <string name="season_summer">Sommer</string>

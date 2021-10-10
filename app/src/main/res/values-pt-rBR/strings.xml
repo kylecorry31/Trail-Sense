@@ -229,17 +229,9 @@
     <string name="forecasts_category">Previsões</string>
     <string name="advanced">Avançado</string>
     <string name="tap_sun_moon_hint">Toque no sol ou na lua para detalhes de posição</string>
-    <string name="sun_and_moon_position_details">Sol
-\n\tAltitude: %s
-\n\tAzimute: %s
-\n
-\nLua
-\n\tAltitude: %s
-\n\tAzimute: %s</string>
-    <string name="sun_and_moon">Posições do Sol e da Lua</string>
+
     <string name="pref_sea_level_require_dwell_title">Ignorar as mudanças rápidas de altitude</string>
     <string name="pref_sea_level_require_dwell_summary">Mostrar as leituras somente quando a altitude não mudou por pelo menos uma hora. Melhora a confiabilidade da previsão.</string>
-    <string name="weather_update_notification_channel">Atualização meteorológica</string>
     <string name="no_group">Nenhum grupo</string>
     <string name="group">Grupo</string>
     <string name="beacon_create_beacon">Ponto de orientação</string>
@@ -278,8 +270,6 @@
     <string name="heat_alert_heat_message">Risco de exaustão de calor/AVC. Certifique-se que esteja hidratado, fique dentro de casa ou na sombra, limite o exercício e observe os sinais de exaustão de calor ou derrame.</string>
     <string name="heat_alert_heat_danger_title">Risco de calor intenso</string>
     <string name="dew_point">Ponto de orvalho %s</string>
-    <string name="no_humidity_data">Sem dados de umidade</string>
-    <string name="pressure_setpoint_format">Definido: %s - há %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="maps">Mapas</string>
     <plurals name="beacon_group_summary">
@@ -551,7 +541,6 @@
     <string name="pref_backtrack_enabled_summary">Registrar histórico de localização</string>
     <string name="waypoint_beacon_title_template">%s, %s ponto de passagem</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="backtrack_notification_description">Colocando ponto de passagem de localização</string>
     <string name="backtrack_notification_channel_description">Atualizações de localização do recuo</string>
     <string name="backtrack">Recuar</string>
     <string name="beacon_set_bearing_btn">Definir rumo (%s)</string>
@@ -571,7 +560,6 @@
     <string name="left_quick_action">Ação rápida da esquerda</string>
     <string name="quick_action_none">Nenhuma</string>
     <string name="no_gps_signal">Sem sinal do GPS</string>
-    <string name="no_temperature_history">Sem histórico de temperatura</string>
     <string name="low">Baixo</string>
     <string name="moderate">Moderado</string>
     <string name="high">Alto</string>
@@ -682,12 +670,6 @@
     <string name="map_rotate_instructions">Girar até que o Norte aponte para cima</string>
     <string name="map_perspective_instructions">Contornar o mapa</string>
     <string name="preview">Pré-visualização</string>
-    <string name="weather_prediction">Tempo: %s</string>
-    <string name="pressure_no_change">A pressão estável</string>
-    <string name="pressure_rising_fast">A pressão aumentando rápido</string>
-    <string name="pressure_falling_fast">A pressão diminuindo rápido</string>
-    <string name="pressure_falling">Queda de pressão</string>
-    <string name="pressure_rising">A pressão aumentando</string>
     <string name="beacon_moved_to">Movido para %s</string>
     <string name="move">Mover</string>
     <string name="no_groups">Sem grupos</string>
@@ -960,7 +942,6 @@
     <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
     <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Alertas de astronomia</string>
-    <string name="checking_for_astronomy_events">Verificando eventos de astronomia</string>
     <string name="lunar_eclipse">Eclipse lunar</string>
     <string name="lunar_eclipse_end">Eclipse lunar (fim)</string>
     <string name="lunar_eclipse_start">Eclipse lunar (início)</string>
@@ -972,7 +953,6 @@
     <string name="low_amount">Baixa (%s)</string>
     <string name="pick_file">Escolha o arquivo</string>
     <string name="navigate">Navegar</string>
-    <string name="middle">Meio</string>
     <string name="units_mmhg">mmHg</string>
     <string name="path_exported">Caminho exportado</string>
     <string name="no_paths">Sem caminhos</string>

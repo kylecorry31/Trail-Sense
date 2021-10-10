@@ -67,7 +67,6 @@
     <string name="tomorrow">明日</string>
     <string name="today">今日</string>
     <string name="dew_point">露點溫度 %s</string>
-    <string name="no_humidity_data">無濕度資料</string>
     <plurals name="last_hours">
         <item quantity="other">持續 %d 小時</item>
     </plurals>
@@ -146,7 +145,6 @@
     <string name="tool_bubble_level_title">水平儀</string>
     <string name="guide_weather_prediction_title">天氣預測</string>
     <string name="guide_conserving_battery_title">節省電量</string>
-    <string name="weather_update_notification_channel">更新天氣</string>
     <string name="no_group">無群組</string>
     <string name="edit_beacon_group">編輯群組</string>
     <string name="delete_beacon_group">刪除群組</string>
@@ -245,14 +243,7 @@
     <string name="boil_start">開始</string>
     <string name="navigation_nearby_category">附近</string>
     <string name="tap_sun_moon_hint">點擊太陽或月亮以取得詳細位置</string>
-    <string name="sun_and_moon_position_details">太陽
-\n\t高度: %s
-\n\t方位角: %s
-\n
-\n月球
-\n\t高度: %s
-\n\t方位角: %s</string>
-    <string name="sun_and_moon">太陽與月亮位置</string>
+
     <string name="error_occurred_message">Trail Sense 遇到一個錯誤且將會關閉。請發送電子郵件給開發者以解決此問題。</string>
     <string name="error_occurred">一個錯誤發生</string>
     <string name="pref_open_source_licenses_title">許可證</string>
@@ -288,7 +279,6 @@
     </plurals>
     <string name="notification_storm_alert_title">暴風雨警報</string>
     <string name="pressure_reading_time_ago">%s - %s 之前</string>
-    <string name="pressure_setpoint_format">Set: %s - %s 之前</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="share_action_send">寄送</string>
     <string name="accuracy_info">"GPS: 走到室外無視野遮擋的天空下

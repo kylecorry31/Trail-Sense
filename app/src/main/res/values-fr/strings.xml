@@ -192,7 +192,6 @@
     <string name="notification_storm_alert_text">Une tempête est peut-être imminente</string>
     <string name="storm_alerts">Alertes relatives aux tempêtes</string>
     <string name="alerts">Alertes</string>
-    <string name="no_humidity_data">Données d\'hygrométrie indisponibles</string>
     <string name="beacon_comment">Notes (optionnel)</string>
     <string name="beacon_elevation_hint_meters">Altitude, en mètres (optionnel)</string>
     <string name="beacon_elevation_hint_feet">Altitude, en pieds (optionnel)</string>
@@ -220,7 +219,6 @@
     <string name="lunar_noon">Midi lunaire</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">il y a %s - %s</string>
-    <string name="pressure_setpoint_format">Défini : il y a %s - %s</string>
     <string name="maps">Cartes</string>
     <string name="pref_sea_level_use_rapid_summary">Utiliser les variation rapides des niveaux de pression locale pour estimer les valeurs de pression au niveau de la mer</string>
     <string name="pref_adjust_for_temperature_summary">Utiliser la température pour l\'estimation des valeurs de pressions au niveau de la mer</string>
@@ -266,21 +264,13 @@
     <string name="forecasts_category">Prévisions</string>
     <string name="advanced">Avancé</string>
     <string name="tap_sun_moon_hint">Appuyer sur les astres pour obtenir des détails sur leurs positions</string>
-    <string name="sun_and_moon_position_details">Soleil
-\n\tHauteur : %s
-\n\tAzimuth : %s
-\n
-\nLune
-\n\tHauteur : %s
-\n\tAzimuth: %s</string>
+
     <string name="beacon_action_view_details">Voir les détails</string>
     <string name="tool_bubble_level_summary">Permet de déterminer la planéité d\'une surface</string>
     <string name="tool_bubble_level_title">Niveau à bulle</string>
     <string name="guide_weather_prediction_title">Prévisions météorologiques</string>
-    <string name="sun_and_moon">Position du soleil et de la lune</string>
     <string name="pref_sea_level_require_dwell_title">Ignorer les variations d\'altitude rapides</string>
     <string name="pref_sea_level_require_dwell_summary">Ne fournir des informations que lorsque l\'altitude a été constante pour au moins une heure. Cela permet d\'améliorer la fiabilité des prévisions.</string>
-    <string name="weather_update_notification_channel">Mise à jour des données météorologiques</string>
     <string name="tool_user_guide_summary">Un manuel pour la prise en main de Trail Sense</string>
     <string name="tool_user_guide_title">Guide d\'utilisation</string>
     <string name="pref_sea_level_pressure_change_thresh_title">La pression atmosphérique de voyage change le seuil</string>
@@ -453,7 +443,6 @@
     <string name="distance">Distance</string>
     <string name="convert">Convertir</string>
     <string name="move">Déplacer</string>
-    <string name="weather_prediction">Météo : %s</string>
     <string name="preview">Prévisualiser</string>
     <string name="weather_same_as_today">Comme aujourd\'hui</string>
     <string name="weather_worse_than_today">Pire qu\'aujourd\'hui</string>
@@ -504,7 +493,6 @@
     <string name="unsaved_changes_message">Les modifications que vous avez apportées ne seront pas enregistrées.</string>
     <string name="unsaved_changes">Modifications non enregistrées</string>
     <string name="pref_gps_override_title">Remplacement d\'emplacement</string>
-    <string name="backtrack_notification_description">Placer un repère de localisation</string>
     <string name="backtrack_notification_channel_description">Mises à jour des emplacements de retour</string>
     <string name="map_fractional_separator">:</string>
     <string name="unit_inches_abbreviation">po</string>

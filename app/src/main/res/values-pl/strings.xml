@@ -120,7 +120,6 @@
     <string name="heat_alert_normal_title">Brak ostrzeżenia o temperaturze</string>
     <string name="heat_alert_heat_alert_title">Ostrzeżenie przed upałem</string>
     <string name="dew_point">Punkt rosy %s</string>
-    <string name="no_humidity_data">Brak danych dotyczących wilgotności</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_title">Alarmy burzowe</string>
     <string name="notification_storm_alert_text">Może zbliżać się burza</string>
@@ -185,15 +184,7 @@
     <string name="guide_conserving_battery_title">Oszczędzanie baterii</string>
     <string name="navigation_nearby_category">W pobliżu</string>
     <string name="forecasts_category">Prognozy</string>
-    <string name="sun_and_moon_position_details">Słońce
-\n\tWysokość: %s
-\n\tAzymut: %s
-\n
-\nKsiężyc
-\n\tWysokość: %s
-\n\tAzymut: %s</string>
-    <string name="sun_and_moon">Pozycje słońca i księżyca</string>
-    <string name="weather_update_notification_channel">Aktualizacja pogody</string>
+
     <string name="beacon_create_beacon">Punkt nawigacyjny</string>
     <string name="beacon_create">Utwórz</string>
     <string name="tool_user_guide_summary">Poradnik dotyczący korzystania z Trail Sense</string>
@@ -323,7 +314,6 @@
     <string name="heat_alert_heat_message">Ryzyko wyczerpania / udaru cieplnego. Pamiętaj, aby pozostać nawodnionym, pozostań w domu lub w cieniu, ogranicz ćwiczenia i uważaj na objawy wyczerpania lub udaru cieplnego.</string>
     <string name="heat_alert_frostbite_message">Ryzyko hipotermii/odmrożenia. Pamiętaj, aby pozostać nawodnionym, ubierz się ciepło i ogranicz odsłoniętą skórę, i uważaj na objawy hipotermii lub odmrożeń.</string>
     <string name="heat_alert_heat_danger_title">Zagrożenie termiczne</string>
-    <string name="pressure_setpoint_format">Ustawione: %s - %s temu</string>
     <string name="beacon_elevation_hint_meters">Wysokość w metrach (opcjonalnie)</string>
     <string name="tool_clock_title">Zegar</string>
     <string name="utc_format">UTC %s</string>
@@ -546,7 +536,6 @@
     <string name="pref_require_satellites_title">Wymagane ustalenie pozycji satelitarnej</string>
     <string name="delete_waypoint_prompt">Usunąć punkt orientacyjny\?</string>
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
-    <string name="backtrack_notification_description">Umieszczanie punktu orientacyjnego</string>
     <string name="location_override_updated">Zaktualizowano zastępowanie lokalizacji</string>
     <string name="tool_cliff_height_disclaimer">Używaj tego narzędzia tylko wtedy, gdy jest to bezpieczne i sprawdź, co znajduje się pod urwiskiem, aby uniknąć obrażeń. Instrukcje znajdują się w podręczniku użytkownika.</string>
     <string name="pref_sea_level_pressure_change_thresh_title">Próg zmiany ciśnienia w podróży</string>
@@ -592,7 +581,6 @@
     <string name="battery_usage">%s użycie baterii</string>
     <string name="service_update_frequency">Aktualizacje co %s</string>
     <string name="always_on">Zawsze włączone</string>
-    <string name="no_temperature_history">Brak historii temperatury</string>
     <string name="no_gps_signal">Brak sygnału GPS</string>
     <string name="low_tide">Odpływ</string>
     <string name="high_tide">Przypływ</string>
@@ -721,14 +709,8 @@
     <string name="distance">Odległość</string>
     <string name="coordinates_tab">Współrzędne</string>
     <string name="no_groups">Brak grup</string>
-    <string name="weather_prediction">Pogoda: %s</string>
     <string name="preview">Podgląd</string>
     <string name="pref_flashlight_toggle_with_system_summary">Wyświetla powiadomienie, gdy latarka zostanie włączona poza programem Trail Sense</string>
-    <string name="pressure_no_change">Ciśnienie się nie zmienia</string>
-    <string name="pressure_falling_fast">Ciśnienie szybko spada</string>
-    <string name="pressure_falling">Ciśnienie spada</string>
-    <string name="pressure_rising">Ciśnienie rośnie</string>
-    <string name="pressure_rising_fast">Ciśnienie szybko rośnie</string>
     <string name="import_map">Importuj mapę</string>
     <string name="camera_permission_denied">Odmowa dostępu do aparatu, nie można włączyć funkcji aparatu. Możesz to włączyć w ustawieniach.</string>
     <string name="days">Dni</string>
@@ -887,7 +869,6 @@
     <string name="desired_amount">Pożądana ilość</string>
     <string name="packed_amount">Zapakowana ilość</string>
     <string name="pedometer_disclaimer">Dokładność krokomierza i zużycie baterii zależą od producenta urządzenia i wprowadzonej długości kroku. Wypróbuj go przez chwilę w domu, aby sprawdzić zużycie baterii i dokładność przed użyciem na szlaku.</string>
-    <string name="middle">Średnie</string>
     <string name="action_inventory_clear_confirm">Wyczyścić wszystkie spakowane ilości\?</string>
     <string name="lightning_dangerously_close">Błyskawica niebezpiecznie blisko</string>
     <string name="partial">Częściowe (%s)</string>
@@ -895,7 +876,6 @@
     <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
     <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Alerty astronomiczne</string>
-    <string name="checking_for_astronomy_events">Sprawdzanie wydarzeń astronomicznych</string>
     <string name="lunar_eclipse">Zaćmienie Księżyca</string>
     <string name="lunar_eclipse_end">Zaćmienie Księżyca (koniec)</string>
     <string name="lunar_eclipse_start">Zaćmienie Księżyca (początek)</string>

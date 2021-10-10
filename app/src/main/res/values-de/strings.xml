@@ -141,7 +141,6 @@
     <string name="beacon_comment">Anmerkungen (optional)</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%s %s</string>
-    <string name="no_humidity_data">Keine Luftfeuchigkeitswerte</string>
     <string name="dew_point">Taupunkt %s</string>
     <string name="heat_alert_heat_danger_title">Hitzegefahr</string>
     <string name="heat_alert_heat_message">Gefahr durch Hitzeerschöpfung/Hitzschlag. Trinken Sie genug, halten Sie sich nicht unnötig im Freien auf, bleiben Sie in Gebäuden oder im Schatten. Vermeiden Sie körperliche Anstrenungen und Sport. Achten Sie auf Zeichen von Erschöpfung oder Hitzschlag.</string>
@@ -155,7 +154,6 @@
     <string name="heat_alert_normal_title">Keine Temeraturwarnungen</string>
     <string name="temperature_disclaimer">Die angezeigte Temperatur kann aufgrund der Wärmeentwicklung Ihres Telefons höher sein.</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
-    <string name="pressure_setpoint_format">Setze %s - vor %s</string>
     <string name="pressure_reading_time_ago">vor %s - %s</string>
     <string name="accuracy_info">"GPS: gehen Sie nach draußen mit einem freien Blick auf den Himmel.
 \n    %s der aktuellen Position
@@ -249,15 +247,7 @@
     <string name="navigation_nearby_category">Nahegelegen</string>
     <string name="forecasts_category">Vorhersagen</string>
     <string name="tap_sun_moon_hint">Tippe Sonne oder Mond an, um Positionseinzelheiten zu sehen</string>
-    <string name="sun_and_moon_position_details">Sonne
-\n\tHöhe: %s
-\n\tAzimut: %s
-\n
-\nMond
-\n\tHöhe: %s
-\n\tAzimut: %s</string>
-    <string name="sun_and_moon">Positionen von Sonne &amp; Mond</string>
-    <string name="weather_update_notification_channel">Wetteraktualisierung</string>
+
     <string name="tool_user_guide_title">Benutzerhandbuch</string>
     <string name="pref_weather_update_frequency_title">Häufigkeit der Wetteraktualisierungen</string>
     <string name="pref_show_pressure_in_notification_title">Zeige den Luftdruck in den Benachrichtigungen</string>
@@ -483,7 +473,6 @@
     <string name="unsaved_changes_message">Änderungen werden nicht gespeichert.</string>
     <string name="unsaved_changes">Nicht gespeicherte Änderungen</string>
     <string name="battery_power_ac">AC</string>
-    <string name="backtrack_notification_description">Einen Wegpunkt setzen</string>
     <string name="create_at_distance">Mit Abstand festlegen</string>
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
@@ -535,7 +524,6 @@
     <string name="lux_format">%s lx</string>
     <string name="candela_format">%s cd</string>
     <string name="no_gps_signal">Kein GPS-Signal</string>
-    <string name="no_temperature_history">Keine Temperatur-Historie</string>
     <string name="low">Niedrig</string>
     <string name="moderate">Moderat</string>
     <string name="high">Hoch</string>
@@ -740,12 +728,6 @@
     <string name="map_rotate_instructions">Rotieren, bis Norden nach oben zeigt</string>
     <string name="map_perspective_instructions">Umriss der Karte</string>
     <string name="preview">Vorschau</string>
-    <string name="weather_prediction">Wetter: %s</string>
-    <string name="pressure_no_change">Druck ändert sich nicht</string>
-    <string name="pressure_falling_fast">Druck fällt schnell</string>
-    <string name="pressure_falling">Druckabfall</string>
-    <string name="pressure_rising">Druckanstieg</string>
-    <string name="pressure_rising_fast">Druck steigt schnell</string>
     <string name="pref_navigation_lock_screen_presence_title">Während der Navigation auf dem Sperrbildschirm zeigen</string>
     <string name="import_map">Karte importieren</string>
     <string name="pref_cell_signal_refresh_cache_summary">Erzwingt das Laden der letzten Signalstärke</string>
@@ -910,7 +892,6 @@
     <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
     <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Astronomie-Alarme</string>
-    <string name="checking_for_astronomy_events">Suche nach astronomischen Events</string>
     <string name="lunar_eclipse">Mondfinsternis</string>
     <string name="lunar_eclipse_end">Mondfinsternis (Ende)</string>
     <string name="lunar_eclipse_start">Mondfinsternis (Beginn)</string>
@@ -925,7 +906,6 @@
     <string name="path_exported">Pfad exportiert</string>
     <string name="no_paths">Keine Pfade</string>
     <string name="navigate">Navigieren</string>
-    <string name="middle">Mittel</string>
     <string name="units_mmhg">mmHg</string>
     <string name="season_fall">Herbst</string>
     <string name="season_summer">Sommer</string>

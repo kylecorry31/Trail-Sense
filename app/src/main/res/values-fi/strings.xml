@@ -12,7 +12,6 @@
     <string name="weather_improving_slow">Selkenee piakkoin</string>
     <string name="weather_improving_fast">Selkenee pian</string>
     <string name="dew_point">Kastepiste %s</string>
-    <string name="no_humidity_data">Ei kosteustietoja</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -30,7 +29,6 @@
     <string name="storm_alerts">Myrskyhälytykset</string>
     <string name="alerts">Hälytykset</string>
     <string name="pressure_reading_time_ago">%s - %s sitten</string>
-    <string name="pressure_setpoint_format">Asetettu: %s - %s sitten</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="stop_monitoring">Lopeta</string>

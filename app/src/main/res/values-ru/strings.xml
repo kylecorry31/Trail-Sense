@@ -111,7 +111,6 @@
     <string name="third_quarter">Третья четверть</string>
     <string name="new_moon">Новолуние</string>
     <string name="heat_alert_heat_danger_title">Тепловая опасность</string>
-    <string name="no_humidity_data">Нет данных о влажности</string>
     <string name="notification_storm_alert_text">Приближается шторм</string>
     <string name="storm_alerts">Штормовые предупреждения</string>
     <string name="alerts">Предупреждения</string>
@@ -144,7 +143,6 @@
     <string name="tools">Инструменты</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">%s - %s тому назад</string>
-    <string name="pressure_setpoint_format">Заданно: %s - %s тому назад</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3ч</string>
     <string name="pref_show_pressure_in_notification_title">Показывать давление в уведомлении</string>
@@ -273,17 +271,9 @@
     <string name="beacon_create_beacon">Маячок</string>
     <string name="group">Группа</string>
     <string name="no_group">Нет группы</string>
-    <string name="weather_update_notification_channel">Обновление погоды</string>
     <string name="pref_sea_level_require_dwell_summary">Показывать показания только тогда, когда высота не менялась в течение как минимум часа. Повышает надежность прогнозов.</string>
     <string name="pref_sea_level_require_dwell_title">Игнорировать быстрые изменения высоты</string>
-    <string name="sun_and_moon">Положения Солнца и Луны</string>
-    <string name="sun_and_moon_position_details">Солнце
-\n\tВысота: %s
-\n\tАзимут: %s
-\n
-\nЛуна
-\n\tВысота: %s
-\n\tАзимут: %s</string>
+
     <string name="tap_sun_moon_hint">Коснитесь солнца или луны, чтобы узнать о местоположении</string>
     <string name="forecasts_category">Прогнозы</string>
     <string name="guide_conserving_battery_title">Экономия батареи</string>
@@ -456,7 +446,6 @@
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">Просмотр истории местоположений</string>
     <string name="create_beacon">Создать маячок</string>
-    <string name="backtrack_notification_description">Размещение путевой точки</string>
     <string name="backtrack_notification_channel_description">Обновление местоположения истории маршрута</string>
     <string name="backtrack">История маршрута</string>
     <string name="guide_location_no_gps_title">Определить местоположение без GPS</string>
@@ -593,7 +582,6 @@
     <string name="location_disabled">Местоположение отключено</string>
     <string name="set">Установить</string>
     <string name="location_not_set">Местоположение не установлено</string>
-    <string name="no_temperature_history">Нет истории температуры</string>
     <string name="low">Низкий</string>
     <string name="moderate">Умеренный</string>
     <string name="high">Высокий</string>
@@ -748,12 +736,6 @@
     <string name="pref_flashlight_toggle_with_system_title">Переключение с системой</string>
     <string name="map_rotate_instructions">Поворачивайте, пока север не будет направлен вверх</string>
     <string name="preview">Предпросмотр</string>
-    <string name="weather_prediction">Погода: %s</string>
-    <string name="pressure_no_change">Давление не изменяется</string>
-    <string name="pressure_falling_fast">Давление падает быстро</string>
-    <string name="pressure_falling">Давление падает</string>
-    <string name="pressure_rising">Давление растет</string>
-    <string name="pressure_rising_fast">Давление быстро растет</string>
     <string name="beacon_moved_to">Перемещено в %s</string>
     <string name="move">Переместить</string>
     <string name="no_groups">Нет групп</string>
@@ -904,7 +886,6 @@
     <string name="no_permission">Разрешение не выдано</string>
     <string name="camera">Камера</string>
     <string name="quarter_moon">Четверть Луны</string>
-    <string name="middle">Средний</string>
     <string name="enable">Включить</string>
     <string name="weather_monitoring_disabled">Мониторинг погоды отключен</string>
     <string name="moon">Луна</string>
@@ -966,7 +947,6 @@
     <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
     <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Астрономические предупреждения</string>
-    <string name="checking_for_astronomy_events">Проверка астрономических событий</string>
     <string name="lunar_eclipse">Лунное затмение</string>
     <string name="lunar_eclipse_end">Лунное затмение (конец)</string>
     <string name="lunar_eclipse_start">Лунное затмение (начало)</string>
