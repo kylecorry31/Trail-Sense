@@ -70,7 +70,7 @@ class ThermometerFragment : BoundFragment<FragmentThermometerBinding>() {
         thermometer.asLiveData().observe(viewLifecycleOwner, { onTemperatureUpdate() })
         repo.getAllLive().observe(viewLifecycleOwner) {
             updateChart(
-                it.map { Reading(it.value.temperature, it.time) }
+                it.map { Reading(weatherService.calibrateTemperature(it.value.temperature), it.time) }
                     .sortedBy { it.time }
                     .filter { it.time <= Instant.now() }
             )
@@ -115,7 +115,7 @@ class ThermometerFragment : BoundFragment<FragmentThermometerBinding>() {
         }
 
         val filtered = movingAverage(readings.map { it.value }, 8).mapIndexed { index, value ->
-            Reading(value, readings[index].time)
+            Reading(Temperature.celsius(value).convertTo(units).temperature, readings[index].time)
         }
 
         temperatureChart.plot(filtered)
