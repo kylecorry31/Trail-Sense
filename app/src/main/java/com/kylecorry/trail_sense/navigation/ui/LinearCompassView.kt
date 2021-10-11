@@ -9,21 +9,23 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
-import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath.deltaAngle
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
-class LinearCompassView : CanvasView, ICompassView {
+class LinearCompassView : CanvasView, INearbyCompassView {
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -33,13 +35,18 @@ class LinearCompassView : CanvasView, ICompassView {
         defStyleAttr
     )
 
+    private var azimuth = 0f
+    private var locations: List<IMappableLocation> = emptyList()
+    private var location: Coordinate = Coordinate.zero
+    private var declination: Float = 0f
+    private var destination: IMappableBearing? = null
+    private var references = emptyList<IMappableReferencePoint>()
+
+    private val prefs by lazy { UserPreferences(context) }
+    private var useTrueNorth = false
+
     private val formatService = FormatService(context)
     private val icons = mutableMapOf<Int, Bitmap>()
-    private var indicators = listOf<BearingIndicator>()
-    private var azimuth = 0f
-    private var destination: Float? = null
-    @ColorInt
-    private var destinationColor: Int? = null
 
     private val north by lazy { formatService.formatDirection(CompassDirection.North) }
     private val south by lazy { formatService.formatDirection(CompassDirection.South) }
@@ -58,7 +65,7 @@ class LinearCompassView : CanvasView, ICompassView {
 
     fun finalize() {
         try {
-            for (icon in icons){
+            for (icon in icons) {
                 icon.value.recycle()
             }
             icons.clear()
@@ -66,53 +73,83 @@ class LinearCompassView : CanvasView, ICompassView {
         }
     }
 
-    private fun drawBearings() {
-        val minDegrees = (azimuth - range / 2).roundToInt()
-        val maxDegrees = (azimuth + range / 2).roundToInt()
-        for (indicator in indicators) {
-            if (indicator.tint != null){
-                tint(indicator.tint)
-            } else {
-                noTint()
-            }
-            val delta = deltaAngle(
-                azimuth.roundToInt().toFloat(),
-                indicator.bearing.roundToInt().toFloat()
-            )
-            val centerPixel = when {
-                delta < -range / 2f -> {
-                    0f // TODO: Display indicator that is off screen
-                }
-                delta > range / 2f -> {
-                    width.toFloat() // TODO: Display indicator that is off screen
-                }
-                else -> {
-                    val deltaMin = deltaAngle(
-                        indicator.bearing,
-                        minDegrees.toFloat()
-                    ).absoluteValue / (maxDegrees - minDegrees).toFloat()
-                    deltaMin * width
-                }
-            }
-            opacity((255 * indicator.opacity).toInt())
-            val bitmap = getBitmap(indicator.icon)
-            imageMode(ImageMode.Corner)
-            image(bitmap, centerPixel - iconSize / 2f,
-                0f
-            )
-        }
-        noTint()
-        opacity(255)
-    }
-
     private fun drawAzimuth() {
         tint(Resources.androidTextColorPrimary(context))
         imageMode(ImageMode.Corner)
-        image(getBitmap(R.drawable.ic_arrow_target),
+        image(
+            getBitmap(R.drawable.ic_arrow_target),
             width / 2f - iconSize / 2f,
             0f
         )
         noTint()
+    }
+
+    private fun drawLocations() {
+        locations.forEach { drawLocation(it) }
+    }
+
+    private fun drawLocation(location: IMappableLocation) {
+        val bearing = if (useTrueNorth) {
+            this.location.bearingTo(location.coordinate)
+        } else {
+            DeclinationUtils.fromTrueNorthBearing(
+                this.location.bearingTo(location.coordinate),
+                declination
+            )
+        }
+        drawReference(
+            MappableReferencePoint(
+                location.id,
+                R.drawable.ic_arrow_target,
+                bearing,
+                location.color
+            )
+        )
+    }
+
+    private fun drawReferences() {
+        for (reference in references) {
+            drawReference(reference)
+        }
+    }
+
+    private fun drawReference(reference: IMappableReferencePoint) {
+        val minDegrees = (azimuth - range / 2).roundToInt()
+        val maxDegrees = (azimuth + range / 2).roundToInt()
+        val tint = reference.tint
+        if (tint != null) {
+            tint(tint)
+        } else {
+            noTint()
+        }
+        val delta = deltaAngle(
+            azimuth.roundToInt().toFloat(),
+            reference.bearing.value.roundToInt().toFloat()
+        )
+        val centerPixel = when {
+            delta < -range / 2f -> {
+                0f // TODO: Display indicator that is off screen
+            }
+            delta > range / 2f -> {
+                width.toFloat() // TODO: Display indicator that is off screen
+            }
+            else -> {
+                val deltaMin = deltaAngle(
+                    reference.bearing.value,
+                    minDegrees.toFloat()
+                ).absoluteValue / (maxDegrees - minDegrees).toFloat()
+                deltaMin * width
+            }
+        }
+        opacity((255 * reference.opacity).toInt())
+        val bitmap = getBitmap(reference.drawableId)
+        imageMode(ImageMode.Corner)
+        image(
+            bitmap, centerPixel - iconSize / 2f,
+            0f
+        )
+        noTint()
+        opacity(255)
     }
 
 
@@ -180,17 +217,17 @@ class LinearCompassView : CanvasView, ICompassView {
     private fun drawDestination() {
         val d = destination
         d ?: return
-        val color = destinationColor ?: Resources.color(context, R.color.colorPrimary)
         val delta = deltaAngle(
             azimuth.roundToInt().toFloat(),
-            d.roundToInt().toFloat()
+            d.bearing.value.roundToInt().toFloat()
         )
 
         val pixelsPerDegree = width / range
-        fill(color)
+        fill(d.color)
         opacity(100)
         rect(width / 2f, height - 0.5f * height, delta * pixelsPerDegree, height * 0.5f)
         opacity(255)
+        drawReference(MappableReferencePoint(-1, R.drawable.ic_arrow_target, d.bearing, d.color))
     }
 
     private fun getBitmap(@DrawableRes id: Int): Bitmap {
@@ -205,27 +242,37 @@ class LinearCompassView : CanvasView, ICompassView {
         return bitmap!!
     }
 
-    override fun setAzimuth(azimuth: Float) {
-        this.azimuth = azimuth
+    override fun setAzimuth(azimuth: Bearing) {
+        this.azimuth = azimuth.value
         invalidate()
     }
 
     override fun setDeclination(declination: Float) {
-        // Do nothing for now
-    }
-
-    override fun setLocation(location: Coordinate) {
-        // Nothing
-    }
-
-    override fun setIndicators(indicators: List<BearingIndicator>) {
-        this.indicators = indicators
+        this.declination = declination
         invalidate()
     }
 
-    override fun setDestination(bearing: Float?, @ColorInt color: Int?) {
+    override fun showLocations(locations: List<IMappableLocation>) {
+        this.locations = locations
+        invalidate()
+    }
+
+    override fun showPaths(paths: List<IMappablePath>) {
+        // Do nothing
+    }
+
+    override fun showReferences(references: List<IMappableReferencePoint>) {
+        this.references = references
+        invalidate()
+    }
+
+    override fun showDirection(bearing: IMappableBearing?) {
         destination = bearing
-        destinationColor = color
+        invalidate()
+    }
+
+    override fun setLocation(location: Coordinate) {
+        this.location = location
         invalidate()
     }
 
@@ -234,6 +281,7 @@ class LinearCompassView : CanvasView, ICompassView {
         iconSize = dp(25f).toInt()
         textSize = sp(15f)
         textSize(textSize)
+        useTrueNorth = prefs.navigation.useTrueNorth
     }
 
     override fun draw() {
@@ -243,7 +291,8 @@ class LinearCompassView : CanvasView, ICompassView {
         clear()
         drawAzimuth()
         drawCompass()
-        drawBearings()
+        drawReferences()
+        drawLocations()
         drawDestination()
     }
 }

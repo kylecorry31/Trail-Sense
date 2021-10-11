@@ -496,65 +496,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         return references
     }
 
-    private fun getIndicators(): List<BearingIndicator> {
-        // TODO: Don't create this on every update
-        val indicators = mutableListOf<BearingIndicator>()
-        if (userPrefs.astronomy.showOnCompass) {
-            val showWhenDown = userPrefs.astronomy.showOnCompassWhenDown
-
-            if (isSunUp) {
-                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun))
-            } else if (!isSunUp && showWhenDown) {
-                indicators.add(BearingIndicator(sunBearing, R.drawable.ic_sun, opacity = 0.5f))
-            }
-
-            if (isMoonUp) {
-                indicators.add(BearingIndicator(moonBearing, getMoonImage()))
-            } else if (!isMoonUp && showWhenDown) {
-                indicators.add(BearingIndicator(moonBearing, getMoonImage(), opacity = 0.5f))
-            }
-        }
-
-        if (destination != null) {
-            indicators.add(
-                BearingIndicator(
-                    fromTrueNorth(
-                        gps.location.bearingTo(
-                            destination!!.coordinate
-                        ).value
-                    ), R.drawable.ic_arrow_target,
-                    distance = Distance.meters(gps.location.distanceTo(destination!!.coordinate)),
-                    tint = destination!!.color
-                )
-            )
-            return indicators
-        }
-
-        if (destinationBearing != null) {
-            indicators.add(
-                BearingIndicator(
-                    destinationBearing!!,
-                    R.drawable.ic_arrow_target,
-                    Resources.color(requireContext(), R.color.colorAccent)
-                )
-            )
-        }
-
-        val nearby = nearbyBeacons
-        for (beacon in nearby) {
-            indicators.add(
-                BearingIndicator(
-                    fromTrueNorth(gps.location.bearingTo(beacon.coordinate).value),
-                    R.drawable.ic_arrow_target,
-                    distance = Distance.meters(gps.location.distanceTo(beacon.coordinate)),
-                    tint = beacon.color
-                )
-            )
-        }
-
-        return indicators
-    }
-
     override fun onResume() {
         super.onResume()
         rightQuickAction?.onResume()
@@ -721,7 +662,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.compassDirection.text = formatService.formatDirection(compass.bearing.direction)
 
         // Compass
-        val indicators = getIndicators()
         val destBearing = getDestinationBearing()
         val destColor = if (destination != null) destination!!.color else Resources.color(
             requireContext(),
@@ -737,20 +677,22 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         val references = getReferencePoints()
         val declination = getDeclination()
+        val nearby = nearbyBeacons.toList()
 
-        binding.roundCompass.setAzimuth(compass.bearing)
-        binding.roundCompass.setDeclination(declination)
-        binding.roundCompass.setLocation(gps.location)
-        binding.roundCompass.showLocations(nearbyBeacons.toList())
-        binding.roundCompass.showReferences(references)
-        binding.roundCompass.showDirection(direction)
+        val compasses = listOf<INearbyCompassView>(
+            binding.roundCompass,
+            binding.radarCompass,
+            binding.linearCompass
+        )
 
-        binding.radarCompass.setAzimuth(compass.bearing)
-        binding.radarCompass.setDeclination(declination)
-        binding.radarCompass.setLocation(gps.location)
-        binding.radarCompass.showLocations(nearbyBeacons.toList())
-        binding.radarCompass.showReferences(references)
-        binding.radarCompass.showDirection(direction)
+        compasses.forEach {
+            it.setAzimuth(compass.bearing)
+            it.setDeclination(declination)
+            it.setLocation(gps.location)
+            it.showLocations(nearby)
+            it.showReferences(references)
+            it.showDirection(direction)
+        }
 
         val bt = backtrack
         if (userPrefs.navigation.showBacktrackPath && bt != null) {
@@ -767,14 +709,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
             val mappablePaths = paths.map { it.asMappable(requireContext()) }
 
-            binding.radarCompass.showPaths(mappablePaths)
-            binding.roundCompass.showPaths(mappablePaths)
+            compasses.forEach {
+                it.showPaths(mappablePaths)
+                it.showPaths(mappablePaths)
+                it.showPaths(mappablePaths)
+            }
         }
-
-
-        binding.linearCompass.setIndicators(indicators)
-        binding.linearCompass.setAzimuth(compass.rawBearing)
-        binding.linearCompass.setDestination(destBearing, destColor)
 
         // Altitude
         binding.altitude.text = formatService.formatDistance(
