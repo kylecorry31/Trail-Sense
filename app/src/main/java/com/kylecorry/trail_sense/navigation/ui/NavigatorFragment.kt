@@ -525,10 +525,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         compass.declination = getDeclination()
 
         binding.beaconBtn.show()
-        binding.roundCompass.visibility =
-            if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
-        binding.radarCompass.visibility =
-            if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
+        binding.roundCompass.isInvisible = userPrefs.navigation.useRadarCompass
+        binding.radarCompass.isInvisible = !userPrefs.navigation.useRadarCompass
 
         // Update the UI
         updateNavigator()
