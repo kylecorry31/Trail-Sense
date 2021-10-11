@@ -7,7 +7,6 @@ package com.kylecorry.trail_sense.navigation.ui
  */
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.util.AttributeSet
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
@@ -30,7 +29,6 @@ class LinearCompassView : BaseCompassView {
     )
 
     private val formatService = FormatService(context)
-    private val icons = mutableMapOf<Int, Bitmap>()
 
     private val north by lazy { formatService.formatDirection(CompassDirection.North) }
     private val south by lazy { formatService.formatDirection(CompassDirection.South) }
