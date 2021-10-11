@@ -727,14 +727,30 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             requireContext(),
             R.color.colorAccent
         )
-        binding.roundCompass.setIndicators(indicators)
-        binding.roundCompass.setAzimuth(compass.rawBearing)
-        binding.roundCompass.setDestination(destBearing, destColor)
+
+        val direction = destBearing?.let {
+            MappableBearing(
+                Bearing(it),
+                destColor
+            )
+        }
+
+        val references = getReferencePoints()
+        val declination = getDeclination()
+
+        binding.roundCompass.setAzimuth(compass.bearing)
+        binding.roundCompass.setDeclination(declination)
+        binding.roundCompass.setLocation(gps.location)
+        binding.roundCompass.showLocations(nearbyBeacons.toList())
+        binding.roundCompass.showReferences(references)
+        binding.roundCompass.showDirection(direction)
+
         binding.radarCompass.setAzimuth(compass.bearing)
-        binding.radarCompass.setDeclination(getDeclination())
+        binding.radarCompass.setDeclination(declination)
         binding.radarCompass.setLocation(gps.location)
         binding.radarCompass.showLocations(nearbyBeacons.toList())
-        binding.radarCompass.showReferences(getReferencePoints())
+        binding.radarCompass.showReferences(references)
+        binding.radarCompass.showDirection(direction)
 
         val bt = backtrack
         if (userPrefs.navigation.showBacktrackPath && bt != null) {
@@ -749,15 +765,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
             val paths = BacktrackPathSplitter(userPrefs).split(points)
 
-            binding.radarCompass.showPaths(paths.map { it.asMappable(requireContext()) })
+            val mappablePaths = paths.map { it.asMappable(requireContext()) }
+
+            binding.radarCompass.showPaths(mappablePaths)
+            binding.roundCompass.showPaths(mappablePaths)
         }
 
-        binding.radarCompass.showDirection(destBearing?.let {
-            MappableBearing(
-                Bearing(it),
-                destColor
-            )
-        })
+
         binding.linearCompass.setIndicators(indicators)
         binding.linearCompass.setAzimuth(compass.rawBearing)
         binding.linearCompass.setDestination(destBearing, destColor)
