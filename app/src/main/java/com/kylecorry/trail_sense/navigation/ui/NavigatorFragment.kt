@@ -662,8 +662,31 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.compassDirection.text = formatService.formatDirection(compass.bearing.direction)
 
         // Compass
+        updateCompassView()
+
+        // Altitude
+        binding.altitude.text = formatService.formatDistance(
+            Distance.meters(altimeter.altitude).convertTo(userPrefs.baseDistanceUnits)
+        )
+
+        // Location
+        binding.location.text = formatService.formatLocation(gps.location)
+
+        updateNavigationButton()
+
+        // show on lock screen
+        if (userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)) {
+            activity?.let {
+                tryOrNothing {
+                    Screen.setShowWhenLocked(it, true)
+                }
+            }
+        }
+    }
+
+    private fun updateCompassView(){
         val destBearing = getDestinationBearing()
-        val destColor = if (destination != null) destination!!.color else Resources.color(
+        val destColor = destination?.color ?: Resources.color(
             requireContext(),
             R.color.colorAccent
         )
@@ -679,6 +702,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         val declination = getDeclination()
         val nearby = nearbyBeacons.toList()
 
+        // TODO: Only update the current compass
         val compasses = listOf<INearbyCompassView>(
             binding.roundCompass,
             binding.radarCompass,
@@ -715,27 +739,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 it.showPaths(mappablePaths)
             }
         }
-
-        // Altitude
-        binding.altitude.text = formatService.formatDistance(
-            Distance.meters(altimeter.altitude).convertTo(userPrefs.baseDistanceUnits)
-        )
-
-        // Location
-        binding.location.text = formatService.formatLocation(gps.location)
-
-        updateNavigationButton()
-
-        // show on lock screen
-        if (userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)) {
-            activity?.let {
-                tryOrNothing {
-                    Screen.setShowWhenLocked(it, true)
-                }
-            }
-        }
     }
-
 
     private fun getPosition(): Position {
         return Position(gps.location, altimeter.altitude, compass.bearing, speedometer.speed.speed)
