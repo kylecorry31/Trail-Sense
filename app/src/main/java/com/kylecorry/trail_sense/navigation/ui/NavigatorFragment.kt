@@ -9,6 +9,7 @@ import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.os.bundleOf
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -31,7 +32,6 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
-import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -40,6 +40,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
+import com.kylecorry.trail_sense.navigation.domain.CompassStyle
+import com.kylecorry.trail_sense.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
@@ -50,8 +52,10 @@ import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.paths.BacktrackPathSplitter
 import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.shared.paths.asMappable
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -339,7 +343,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         try {
             camera.start(this::onCameraUpdate)
-        } catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             toast(getString(R.string.no_camera_access))
             setSightingCompassStatus(false)
@@ -458,6 +462,40 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
+    private fun getReferencePoints(): List<IMappableReferencePoint> {
+        val references = mutableListOf<IMappableReferencePoint>()
+        if (userPrefs.astronomy.showOnCompass) {
+            val showWhenDown = userPrefs.astronomy.showOnCompassWhenDown
+
+            if (isSunUp) {
+                references.add(MappableReferencePoint(1, R.drawable.ic_sun, Bearing(sunBearing)))
+            } else if (!isSunUp && showWhenDown) {
+                references.add(
+                    MappableReferencePoint(
+                        1,
+                        R.drawable.ic_sun,
+                        Bearing(sunBearing),
+                        opacity = 0.5f
+                    )
+                )
+            }
+
+            if (isMoonUp) {
+                references.add(MappableReferencePoint(2, getMoonImage(), Bearing(moonBearing)))
+            } else if (!isMoonUp && showWhenDown) {
+                references.add(
+                    MappableReferencePoint(
+                        2,
+                        getMoonImage(),
+                        Bearing(moonBearing),
+                        opacity = 0.5f
+                    )
+                )
+            }
+        }
+        return references
+    }
+
     private fun getIndicators(): List<BearingIndicator> {
         // TODO: Don't create this on every update
         val indicators = mutableListOf<BearingIndicator>()
@@ -480,7 +518,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         if (destination != null) {
             indicators.add(
                 BearingIndicator(
-                    transformTrueNorthBearing(
+                    fromTrueNorth(
                         gps.location.bearingTo(
                             destination!!.coordinate
                         ).value
@@ -506,7 +544,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         for (beacon in nearby) {
             indicators.add(
                 BearingIndicator(
-                    transformTrueNorthBearing(gps.location.bearingTo(beacon.coordinate).value),
+                    fromTrueNorth(gps.location.bearingTo(beacon.coordinate).value),
                     R.drawable.ic_arrow_target,
                     distance = Distance.meters(gps.location.distanceTo(beacon.coordinate)),
                     tint = beacon.color
@@ -528,7 +566,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // Resume navigation
         val lastBeaconId = cache.getLong(LAST_BEACON_ID)
         if (lastBeaconId != null) {
-            lifecycleScope.launch {
+            runInBackground {
                 withContext(Dispatchers.IO) {
                     destination = beaconRepo.getBeacon(lastBeaconId)?.toBeacon()
                 }
@@ -583,18 +621,18 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun getSunBearing(): Float {
-        return transformTrueNorthBearing(astronomyService.getSunAzimuth(gps.location).value)
+        return fromTrueNorth(astronomyService.getSunAzimuth(gps.location).value)
     }
 
     private fun getMoonBearing(): Float {
-        return transformTrueNorthBearing(astronomyService.getMoonAzimuth(gps.location).value)
+        return fromTrueNorth(astronomyService.getMoonAzimuth(gps.location).value)
     }
 
     private fun getDestinationBearing(): Float? {
         val destLocation = destination?.coordinate
         return when {
             destLocation != null -> {
-                transformTrueNorthBearing(gps.location.bearingTo(destLocation).value)
+                fromTrueNorth(gps.location.bearingTo(destLocation).value)
             }
             destinationBearing != null -> {
                 destinationBearing
@@ -609,12 +647,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         return destination ?: getFacingBeacon(nearby)
     }
 
-    private fun transformTrueNorthBearing(bearing: Float): Float {
-        return if (useTrueNorth) {
-            bearing
-        } else {
-            Bearing.getBearing(bearing - getDeclination())
+    private fun fromTrueNorth(bearing: Float): Float {
+        if (useTrueNorth) {
+            return bearing
         }
+        return DeclinationUtils.fromTrueNorthBearing(bearing, getDeclination())
     }
 
     private fun getDeclination(): Float {
@@ -693,10 +730,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.roundCompass.setIndicators(indicators)
         binding.roundCompass.setAzimuth(compass.rawBearing)
         binding.roundCompass.setDestination(destBearing, destColor)
-        binding.radarCompass.setIndicators(indicators)
-        binding.radarCompass.setAzimuth(compass.rawBearing)
+        binding.radarCompass.setAzimuth(compass.bearing)
         binding.radarCompass.setDeclination(getDeclination())
         binding.radarCompass.setLocation(gps.location)
+        binding.radarCompass.showLocations(nearbyBeacons.toList())
+        binding.radarCompass.showReferences(getReferencePoints())
+
         val bt = backtrack
         if (userPrefs.navigation.showBacktrackPath && bt != null) {
             val isTracking = BacktrackScheduler.isOn(requireContext())
@@ -710,9 +749,15 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
             val paths = BacktrackPathSplitter(userPrefs).split(points)
 
-            binding.radarCompass.setPaths(paths)
+            binding.radarCompass.showPaths(paths.map { it.asMappable(requireContext()) })
         }
-        binding.radarCompass.setDestination(destBearing, destColor)
+
+        binding.radarCompass.showDirection(destBearing?.let {
+            MappableBearing(
+                Bearing(it),
+                destColor
+            )
+        })
         binding.linearCompass.setIndicators(indicators)
         binding.linearCompass.setAzimuth(compass.rawBearing)
         binding.linearCompass.setDestination(destBearing, destColor)
@@ -735,10 +780,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 }
             }
         }
-    }
-
-    private fun shouldShowLinearCompass(): Boolean {
-        return userPrefs.navigation.showLinearCompass && orientation.orientation == DeviceOrientation.Orientation.Portrait
     }
 
 
@@ -765,22 +806,19 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         lastOrientation = orientation.orientation
 
-        if (shouldShowLinearCompass()) {
-            binding.linearCompass.visibility = View.VISIBLE
+        val style = CompassStyleChooser(userPrefs.navigation).getStyle(orientation.orientation)
+
+        binding.linearCompass.isInvisible = style != CompassStyle.Linear
+        binding.sightingCompassBtn.isInvisible = style != CompassStyle.Linear
+        binding.roundCompass.isInvisible = style != CompassStyle.Round
+        binding.radarCompass.isInvisible = style != CompassStyle.Radar
+
+        if (style == CompassStyle.Linear) {
             if (sightingCompassActive && !sightingCompassInitialized) {
                 enableSightingCompass()
             }
-            binding.sightingCompassBtn.isVisible = true
-            binding.roundCompass.visibility = View.INVISIBLE
-            binding.radarCompass.visibility = View.INVISIBLE
         } else {
-            binding.linearCompass.visibility = View.INVISIBLE
-            binding.sightingCompassBtn.isVisible = false
             disableSightingCompass()
-            binding.roundCompass.visibility =
-                if (userPrefs.navigation.useRadarCompass) View.INVISIBLE else View.VISIBLE
-            binding.radarCompass.visibility =
-                if (userPrefs.navigation.useRadarCompass) View.VISIBLE else View.INVISIBLE
         }
         updateUI()
         return true

@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.domain.factories.*
@@ -64,7 +65,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     private lateinit var listView: ListView<PathPoint>
 
 
-    private var pointColoringStyle = PointColoringStyle.None
+    private var pointColoringStyle = PathPointColoringStyle.None
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,8 +118,8 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             ) {
                 if (it != null) {
                     pointColoringStyle =
-                        PointColoringStyle.values().find { style -> style.ordinal == it }
-                            ?: PointColoringStyle.None
+                        PathPointColoringStyle.values().find { style -> style.ordinal == it }
+                            ?: PathPointColoringStyle.None
                     cache.putInt("pref_path_waypoint_style", pointColoringStyle.ordinal)
                     updatePointStyleLegend()
                     onPathChanged()
@@ -128,8 +129,8 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
 
         val lastStyle = cache.getInt("pref_path_waypoint_style")
         pointColoringStyle =
-            PointColoringStyle.values().find { style -> style.ordinal == lastStyle }
-                ?: PointColoringStyle.None
+            PathPointColoringStyle.values().find { style -> style.ordinal == lastStyle }
+                ?: PathPointColoringStyle.None
 
         updatePointStyleLegend()
         onPathChanged()
@@ -205,7 +206,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         }
 
         binding.pathImage.arePointsHighlighted =
-            selected != null || pointColoringStyle != PointColoringStyle.None
+            selected != null || pointColoringStyle != PathPointColoringStyle.None
     }
 
     private fun updatePointStyleLegend() {
@@ -225,13 +226,6 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
 
     private fun getGPSWaypoint(pathId: Long): PathPoint {
         return gps.getPathPoint(pathId)
-    }
-
-    private enum class PointColoringStyle {
-        None,
-        CellSignal,
-        Altitude,
-        Time
     }
 
     override fun generateBinding(
@@ -363,10 +357,10 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
 
     private fun getPointFactory(): IPointDisplayFactory {
         return when (pointColoringStyle) {
-            PointColoringStyle.None -> PathDisplayFactory(requireContext())
-            PointColoringStyle.CellSignal -> CellSignalPointDisplayFactory(requireContext())
-            PointColoringStyle.Altitude -> AltitudePointDisplayFactory(requireContext())
-            PointColoringStyle.Time -> TimePointDisplayFactory(requireContext())
+            PathPointColoringStyle.None -> PathDisplayFactory(requireContext())
+            PathPointColoringStyle.CellSignal -> CellSignalPointDisplayFactory(requireContext())
+            PathPointColoringStyle.Altitude -> AltitudePointDisplayFactory(requireContext())
+            PathPointColoringStyle.Time -> TimePointDisplayFactory(requireContext())
         }
     }
 }

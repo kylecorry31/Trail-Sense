@@ -10,12 +10,13 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trail_sense.shared.paths.PathStyle
+import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.paths.LineStyle
 import java.time.Duration
 
-class NavigationPreferences(private val context: Context) {
+class NavigationPreferences(private val context: Context) : ICompassStylePreferences {
 
     private val cache by lazy { Preferences(context) }
 
@@ -55,21 +56,21 @@ class NavigationPreferences(private val context: Context) {
     val showLastSignalBeacon: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_last_signal_beacon)) ?: true
 
-    val showLinearCompass: Boolean
+    override val useLinearCompass: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_linear_compass)) ?: true
 
     val showMultipleBeacons: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_display_multi_beacons)) ?: false
+        get() = cache.getBoolean(context.getString(R.string.pref_display_multi_beacons)) ?: true
 
     val numberOfVisibleBeacons: Int
         get() {
-            val raw = cache.getString(context.getString(R.string.pref_num_visible_beacons)) ?: "1"
-            return raw.toIntOrNull() ?: 1
+            val raw = cache.getString(context.getString(R.string.pref_num_visible_beacons)) ?: "10"
+            return raw.toIntOrNull() ?: 10
         }
 
-    val useRadarCompass: Boolean
+    override val useRadarCompass: Boolean
         get() = showMultipleBeacons && (cache.getBoolean(context.getString(R.string.pref_nearby_radar))
-            ?: false)
+            ?: true)
 
     val showBacktrackPath: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_backtrack_path_radar)) ?: true
@@ -77,18 +78,18 @@ class NavigationPreferences(private val context: Context) {
     var backtrackPathColor: AppColor
         get() {
             val id = cache.getInt(context.getString(R.string.pref_backtrack_path_color))
-            return AppColor.values().firstOrNull { it.id == id } ?: AppColor.Blue
+            return AppColor.values().firstOrNull { it.id == id } ?: AppColor.Gray
         }
         set(value) {
             cache.putInt(context.getString(R.string.pref_backtrack_path_color), value.id)
         }
 
-    val backtrackPathStyle: PathStyle
+    val backtrackPathStyle: LineStyle
         get() {
             return when (cache.getString(context.getString(R.string.pref_backtrack_path_style))) {
-                "solid" -> PathStyle.Solid
-                "arrow" -> PathStyle.Arrow
-                else -> PathStyle.Dotted
+                "solid" -> LineStyle.Solid
+                "arrow" -> LineStyle.Arrow
+                else -> LineStyle.Dotted
             }
         }
 
@@ -110,8 +111,9 @@ class NavigationPreferences(private val context: Context) {
 
     var maxBeaconDistance: Float
         get() {
-            val raw = cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "100"
-            return Distance.kilometers(raw.toFloatCompat() ?: 100f).meters().distance
+            val raw =
+                cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "0.75"
+            return Distance.kilometers(raw.toFloatCompat() ?: 0.75f).meters().distance
         }
         set(value) = cache.putString(
             context.getString(R.string.pref_max_beacon_distance),

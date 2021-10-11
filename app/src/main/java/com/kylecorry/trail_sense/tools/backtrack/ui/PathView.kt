@@ -25,7 +25,7 @@ import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
 import com.kylecorry.trail_sense.shared.paths.GrayPathLineDrawerDecoratorStrategy
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trail_sense.shared.paths.PathStyle
+import com.kylecorry.trail_sense.shared.paths.LineStyle
 import com.kylecorry.trail_sense.shared.toPixelLines
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.NoDrawPointColoringStrategy
@@ -243,11 +243,11 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         return PixelCoordinate(width / 2f + xDiff, height / 2f - yDiff)
     }
 
-    private fun mapPixelLineStyle(style: PathStyle): PixelLineStyle {
+    private fun mapPixelLineStyle(style: LineStyle): PixelLineStyle {
         return when (style) {
-            PathStyle.Solid -> PixelLineStyle.Solid
-            PathStyle.Dotted -> PixelLineStyle.Dotted
-            PathStyle.Arrow -> PixelLineStyle.Arrow
+            LineStyle.Solid -> PixelLineStyle.Solid
+            LineStyle.Dotted -> PixelLineStyle.Dotted
+            LineStyle.Arrow -> PixelLineStyle.Arrow
         }
     }
 

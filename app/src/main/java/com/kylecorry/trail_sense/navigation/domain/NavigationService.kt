@@ -8,6 +8,7 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import java.time.Duration
 import kotlin.math.PI
 import kotlin.math.abs
@@ -79,18 +80,20 @@ class NavigationService {
         usingTrueNorth: Boolean = true
     ): Beacon? {
         return beacons.map {
-                val declinationAdjustment = if (usingTrueNorth) {
-                    0f
+            Pair(
+                it,
+                if (usingTrueNorth) {
+                    position.location.bearingTo(it.coordinate)
                 } else {
-                    -declination
+                    DeclinationUtils.fromTrueNorthBearing(
+                        position.location.bearingTo(it.coordinate),
+                        declination
+                    )
                 }
-                Pair(
-                    it,
-                    position.location.bearingTo(it.coordinate).withDeclination(declinationAdjustment)
-                )
-            }.filter {
-                isFacingBearing(position.bearing, it.second)
-            }.minByOrNull { abs(deltaAngle(it.second.value, position.bearing.value)) }?.first
+            )
+        }.filter {
+            isFacingBearing(position.bearing, it.second)
+        }.minByOrNull { abs(deltaAngle(it.second.value, position.bearing.value)) }?.first
     }
 
 }
