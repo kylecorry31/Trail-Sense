@@ -8,38 +8,30 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.SolMath.wrap
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.paths.toPixelLines
 import kotlin.math.min
 
-class RadarCompassView : CanvasView, INearbyCompassView {
+class RadarCompassView : BaseCompassView {
     private lateinit var center: PixelCoordinate
-    private val icons = mutableMapOf<Int, Bitmap>()
     private var compass: Bitmap? = null
     private var pathBitmap: Bitmap? = null
-    private var azimuth = 0f
-    private var destination: IMappableBearing? = null
-
-    private val prefs by lazy { UserPreferences(context) }
 
     @ColorInt
     private var primaryColor: Int = Color.WHITE
@@ -57,9 +49,6 @@ class RadarCompassView : CanvasView, INearbyCompassView {
     private var cardinalSize = 0f
 
     private var metersPerPixel = 1f
-    private var location = Coordinate.zero
-    private var useTrueNorth = false
-    private var declination: Float = 0f
 
     private lateinit var maxDistanceBaseUnits: Distance
     private lateinit var maxDistanceMeters: Distance
@@ -71,10 +60,6 @@ class RadarCompassView : CanvasView, INearbyCompassView {
     private var east = ""
     private var west = ""
 
-    private var locations: List<IMappableLocation> = emptyList()
-    private var paths: List<IMappablePath> = emptyList()
-    private var references: List<IMappableReferencePoint> = emptyList()
-
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -83,17 +68,12 @@ class RadarCompassView : CanvasView, INearbyCompassView {
         defStyleAttr
     )
 
-    init {
-        runEveryCycle = false
-        setupAfterVisible = true
-    }
-
     fun setOnSingleTapListener(action: (() -> Unit)?) {
         singleTapAction = action
     }
 
     private fun drawDestination() {
-        val destination = destination ?: return
+        val destination = _destination ?: return
         val color = destination.color
         push()
         fill(color)
@@ -104,8 +84,8 @@ class RadarCompassView : CanvasView, INearbyCompassView {
             iconSize.toFloat() + dp2,
             compassSize.toFloat(),
             compassSize.toFloat(),
-            azimuth - 90,
-            azimuth - 90 + deltaAngle(azimuth, destination.bearing.value),
+            _azimuth - 90,
+            _azimuth - 90 + deltaAngle(_azimuth, destination.bearing.value),
             ArcMode.Pie
         )
         opacity(255)
@@ -163,63 +143,24 @@ class RadarCompassView : CanvasView, INearbyCompassView {
         return pixel.distanceTo(center)
     }
 
-    fun finalize() {
-        try {
+    override fun finalize() {
+        super.finalize()
+        tryOrNothing {
             compass?.recycle()
             pathBitmap?.recycle()
-            for (icon in icons) {
-                icon.value.recycle()
-            }
-            icons.clear()
-        } catch (e: Exception) {
         }
-    }
-
-    override fun setAzimuth(azimuth: Bearing) {
-        this.azimuth = azimuth.value
-        invalidate()
-    }
-
-    override fun setLocation(location: Coordinate) {
-        this.location = location
-        invalidate()
-    }
-
-    override fun setDeclination(declination: Float) {
-        this.declination = declination
-        invalidate()
-    }
-
-    override fun showLocations(locations: List<IMappableLocation>) {
-        this.locations = locations
-        invalidate()
-    }
-
-    override fun showPaths(paths: List<IMappablePath>) {
-        this.paths = paths
-        invalidate()
-    }
-
-    override fun showReferences(references: List<IMappableReferencePoint>) {
-        this.references = references
-        invalidate()
-    }
-
-    override fun showDirection(bearing: IMappableBearing?) {
-        destination = bearing
-        invalidate()
     }
 
     private fun drawLocations() {
-        locations.forEach { drawLocation(it) }
+        _locations.forEach { drawLocation(it) }
     }
 
     private fun drawPaths() {
-        val lines = paths.flatMap { path ->
+        val lines = _paths.flatMap { path ->
             path.toPixelLines { coordinateToPixel(it) }
         }
         drawLines(lines)
-        paths.forEach { drawPathPoints(it) }
+        _paths.forEach { drawPathPoints(it) }
     }
 
     private fun drawLocation(location: IMappableLocation) {
@@ -248,7 +189,7 @@ class RadarCompassView : CanvasView, INearbyCompassView {
     }
 
     private fun drawReferencePoints() {
-        references.forEach { drawReferencePoint(it) }
+        _references.forEach { drawReferencePoint(it) }
     }
 
     private fun drawReferencePoint(reference: IMappableReferencePoint) {
@@ -264,7 +205,7 @@ class RadarCompassView : CanvasView, INearbyCompassView {
         opacity((255 * reference.opacity).toInt())
         push()
         rotate(reference.bearing.value)
-        val bitmap = getBitmap(reference.drawableId)
+        val bitmap = getBitmap(reference.drawableId, iconSize)
         image(bitmap, width / 2f - iconSize / 2f, 0f)
         pop()
         noTint()
@@ -287,8 +228,8 @@ class RadarCompassView : CanvasView, INearbyCompassView {
         stroke(color(60))
         strokeWeight(3f)
         push()
-        rotate(azimuth)
-        if (destination == null) {
+        rotate(_azimuth)
+        if (_destination == null) {
             line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
         }
         image(getBitmap(R.drawable.ic_beacon, directionSize), width / 2f, height / 2f)
@@ -368,11 +309,11 @@ class RadarCompassView : CanvasView, INearbyCompassView {
     }
 
     private fun coordinateToPixel(coordinate: Coordinate): PixelCoordinate {
-        val distance = location.distanceTo(coordinate)
-        val bearing = if (useTrueNorth) {
-            location.bearingTo(coordinate)
+        val distance = _location.distanceTo(coordinate)
+        val bearing = if (_useTrueNorth) {
+            _location.bearingTo(coordinate)
         } else {
-            DeclinationUtils.fromTrueNorthBearing(location.bearingTo(coordinate), declination)
+            DeclinationUtils.fromTrueNorthBearing(_location.bearingTo(coordinate), _declination)
         }
         val angle = wrap(-(bearing.value - 90), 0f, 360f)
         val pixelDistance = distance / metersPerPixel
@@ -381,17 +322,8 @@ class RadarCompassView : CanvasView, INearbyCompassView {
         return PixelCoordinate(width / 2f + xDiff, height / 2f - yDiff)
     }
 
-    private fun getBitmap(@DrawableRes id: Int, size: Int = iconSize): Bitmap {
-        val bitmap = if (icons.containsKey(id)) {
-            icons[id]
-        } else {
-            icons[id] = loadImage(id, size, size)
-            icons[id]
-        }
-        return bitmap!!
-    }
-
     override fun setup() {
+        super.setup()
         iconSize = dp(24f).toInt()
         radarSize = dp(10f).toInt()
         directionSize = dp(16f).toInt()
@@ -402,7 +334,6 @@ class RadarCompassView : CanvasView, INearbyCompassView {
         secondaryColor = Resources.color(context, R.color.colorSecondary)
         compass = loadImage(R.drawable.compass, compassSize, compassSize)
         pathBitmap = Bitmap.createBitmap(compassSize, compassSize, Bitmap.Config.ARGB_8888)
-        useTrueNorth = prefs.navigation.useTrueNorth
         maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
         maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
         metersPerPixel = maxDistanceMeters.distance / (compassSize / 2f)
@@ -419,7 +350,7 @@ class RadarCompassView : CanvasView, INearbyCompassView {
         }
         clear()
         push()
-        rotate(-azimuth)
+        rotate(-_azimuth)
         drawCompass()
         drawLocations()
         drawReferencePoints()
