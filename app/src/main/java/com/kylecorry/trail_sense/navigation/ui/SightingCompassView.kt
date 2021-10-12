@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import kotlin.math.roundToInt
 
-class SightingCompass(
+class SightingCompassView(
     private val lifecycleOwner: LifecycleOwner,
     private val preview: PreviewView,
     private val reticle: View,
@@ -70,14 +70,6 @@ class SightingCompass(
             (100 * (prefs.getFloat(NavigatorFragment.CACHE_CAMERA_ZOOM) ?: 0.5f)).roundToInt()
         val handler = FlashlightHandler.getInstance(preview.context)
         handler.off()
-        /* TODO: Disable the flashlight quick actions
-        if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
-            binding.navigationRightQuickAction.isClickable = false
-        }
-        if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
-            binding.navigationLeftQuickAction.isClickable = false
-        }
-         */
     }
 
     fun stop() {

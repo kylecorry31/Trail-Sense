@@ -12,18 +12,19 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.deltaAngle
-import com.kylecorry.sol.math.SolMath.sinDegrees
-import com.kylecorry.sol.math.SolMath.wrap
+import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.geometry.Circle
+import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.domain.RadarCompassCoordinateToPixelStrategy
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.canvas.PixelLine
-import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
+import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.paths.toPixelLines
 import kotlin.math.min
@@ -52,6 +53,7 @@ class RadarCompassView : BaseCompassView {
 
     private lateinit var maxDistanceBaseUnits: Distance
     private lateinit var maxDistanceMeters: Distance
+    private lateinit var coordinateToPixelStrategy: ICoordinateToPixelStrategy
 
     private var singleTapAction: (() -> Unit)? = null
 
@@ -177,6 +179,9 @@ class RadarCompassView : BaseCompassView {
 
     private fun drawPathPoints(path: IMappablePath) {
         for (point in path.points) {
+            if (point.color == Color.TRANSPARENT){
+                continue
+            }
             val pixel = coordinateToPixel(point.coordinate)
             if (getDistanceFromCenter(pixel) > compassSize / 2) {
                 continue
@@ -309,17 +314,7 @@ class RadarCompassView : BaseCompassView {
     }
 
     private fun coordinateToPixel(coordinate: Coordinate): PixelCoordinate {
-        val distance = _location.distanceTo(coordinate)
-        val bearing = if (_useTrueNorth) {
-            _location.bearingTo(coordinate)
-        } else {
-            DeclinationUtils.fromTrueNorthBearing(_location.bearingTo(coordinate), _declination)
-        }
-        val angle = wrap(-(bearing.value - 90), 0f, 360f)
-        val pixelDistance = distance / metersPerPixel
-        val xDiff = cosDegrees(angle.toDouble()).toFloat() * pixelDistance
-        val yDiff = sinDegrees(angle.toDouble()).toFloat() * pixelDistance
-        return PixelCoordinate(width / 2f + xDiff, height / 2f - yDiff)
+        return coordinateToPixelStrategy.getPixels(coordinate)
     }
 
     override fun setup() {
@@ -342,12 +337,14 @@ class RadarCompassView : BaseCompassView {
         east = context.getString(R.string.direction_east)
         west = context.getString(R.string.direction_west)
         center = PixelCoordinate(width / 2f, height / 2f)
+        updateCoordinateToPixelStrategy()
     }
 
     override fun draw() {
         if (!isVisible) {
             return
         }
+        updateCoordinateToPixelStrategy()
         clear()
         push()
         rotate(-_azimuth)
@@ -372,6 +369,15 @@ class RadarCompassView : BaseCompassView {
             super.onScaleEnd(detector)
             // TODO: Signal for the beacons to be rescanned
         }
+    }
+
+    private fun updateCoordinateToPixelStrategy() {
+        coordinateToPixelStrategy = RadarCompassCoordinateToPixelStrategy(
+            Circle(Vector2(center.x, center.y), compassSize / 2f),
+            Geofence(_location, maxDistanceMeters),
+            _useTrueNorth,
+            _declination
+        )
     }
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {

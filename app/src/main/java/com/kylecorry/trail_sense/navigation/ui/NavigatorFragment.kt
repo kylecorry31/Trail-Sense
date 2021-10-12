@@ -81,7 +81,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
     private val sightingCompass by lazy {
-        SightingCompass(this, binding.viewCamera, binding.viewCameraLine, binding.zoomRatioSeekbar)
+        SightingCompassView(this, binding.viewCamera, binding.viewCameraLine, binding.zoomRatioSeekbar)
     }
     private val orientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val altimeter by lazy { sensorService.getAltimeter() }
@@ -608,7 +608,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.speed.text = formatService.formatSpeed(speedometer.speed.speed)
 
         // Azimuth
-        binding.compassAzimuth.text = formatService.formatDegrees(compass.bearing.value)
+        binding.compassAzimuth.text = formatService.formatDegrees(compass.bearing.value, replace360 = true)
         binding.compassDirection.text = formatService.formatDirection(compass.bearing.direction)
 
         // Compass
