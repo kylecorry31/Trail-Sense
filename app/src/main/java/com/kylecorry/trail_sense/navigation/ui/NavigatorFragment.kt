@@ -5,18 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.sensors.asLiveData
@@ -65,7 +62,6 @@ import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
-import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
 import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
@@ -81,17 +77,11 @@ import java.util.*
 class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private var shownAccuracyToast = false
-    private var sightingCompassInitialized = false
-    private var sightingCompassActive = false
+    private var showSightingCompass = false
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
-    private val camera by lazy {
-        Camera(
-            requireContext(),
-            this,
-            previewView = binding.viewCamera,
-            analyze = false
-        )
+    private val sightingCompass by lazy {
+        SightingCompass(this, binding.viewCamera, binding.viewCameraLine, binding.zoomRatioSeekbar)
     }
     private val orientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val altimeter by lazy { sensorService.getAltimeter() }
@@ -247,10 +237,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             sheet.show(this)
         }
 
-        CustomUiUtils.setButtonState(binding.sightingCompassBtn, sightingCompassActive)
+        CustomUiUtils.setButtonState(binding.sightingCompassBtn, showSightingCompass)
         binding.sightingCompassBtn.setOnClickListener {
-            setSightingCompassStatus(!sightingCompassActive)
+            setSightingCompassStatus(!showSightingCompass)
         }
+        sightingCompass.stop()
 
         binding.viewCamera.setOnClickListener {
             toggleDestinationBearing()
@@ -259,19 +250,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.viewCameraLine.setOnClickListener {
             toggleDestinationBearing()
         }
-
-        binding.zoomRatioSeekbar.setOnSeekBarChangeListener(object :
-            SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val zoom = (progress / 100f).coerceIn(0f, 1f)
-                camera.setZoom(zoom)
-                cache.putFloat(CACHE_CAMERA_ZOOM, zoom)
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
 
         binding.beaconBtn.setOnClickListener {
             if (destination == null) {
@@ -313,7 +291,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun setSightingCompassStatus(isOn: Boolean) {
-        sightingCompassActive = isOn
+        showSightingCompass = isOn
         CustomUiUtils.setButtonState(binding.sightingCompassBtn, isOn)
         if (isOn) {
             requestPermissions(
@@ -336,52 +314,27 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun enableSightingCompass() {
-        if (!Camera.isAvailable(requireContext())) {
-            return
-        }
-        sightingCompassInitialized = true
+        sightingCompass.start()
 
-        try {
-            camera.start(this::onCameraUpdate)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            toast(getString(R.string.no_camera_access))
-            setSightingCompassStatus(false)
-            return
+        if (sightingCompass.isRunning()) {
+            // TODO: Extract this logic to the flashlight (if camera is in use)
+            if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
+                binding.navigationRightQuickAction.isClickable = false
+            }
+            if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
+                binding.navigationLeftQuickAction.isClickable = false
+            }
         }
-        binding.viewCameraLine.isVisible = true
-        binding.viewCamera.isVisible = true
-        binding.zoomRatioSeekbar.isVisible = true
-
-        // TODO: Extract this logic to the flashlight (if camera is in use)
-        if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
-            binding.navigationRightQuickAction.isClickable = false
-        }
-        if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
-            binding.navigationLeftQuickAction.isClickable = false
-        }
-        val handler = FlashlightHandler.getInstance(requireContext())
-        handler.off()
-    }
-
-    private fun onCameraUpdate(): Boolean {
-        val zoom = cache.getFloat(CACHE_CAMERA_ZOOM) ?: 0.5f
-        camera.setZoom(zoom)
-        return true
     }
 
     private fun disableSightingCompass() {
-        camera.stop(this::onCameraUpdate)
-        binding.viewCameraLine.isVisible = false
-        binding.viewCamera.isVisible = false
-        binding.zoomRatioSeekbar.isVisible = false
+        sightingCompass.stop()
         if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
             binding.navigationRightQuickAction.isClickable = true
         }
         if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
             binding.navigationLeftQuickAction.isClickable = true
         }
-        sightingCompassInitialized = false
     }
 
     private fun toggleDestinationBearing() {
@@ -534,8 +487,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onPause() {
         super.onPause()
-        sightingCompassInitialized = false
-        camera.stop(this::onCameraUpdate)
+        sightingCompass.stop()
         rightQuickAction?.onPause()
         leftQuickAction?.onPause()
         astronomyIntervalometer.stop()
@@ -770,7 +722,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.radarCompass.isInvisible = style != CompassStyle.Radar
 
         if (style == CompassStyle.Linear) {
-            if (sightingCompassActive && !sightingCompassInitialized) {
+            if (showSightingCompass && !sightingCompass.isRunning()) {
                 enableSightingCompass()
             }
         } else {
