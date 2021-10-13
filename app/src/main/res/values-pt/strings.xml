@@ -231,7 +231,6 @@
     <string name="forecasts_category">Previsões</string>
     <string name="advanced">Avançado</string>
     <string name="tap_sun_moon_hint">Toque no sol ou na lua para detalhes da posição</string>
-
     <string name="pref_sea_level_require_dwell_title">Ignorar as mudanças rápidas de altitude</string>
     <string name="pref_sea_level_require_dwell_summary">Mostrar as leituras apenas quando a altitude não mudou pelo menos durante a última hora. Melhora a fiabilidade da previsão.</string>
     <string name="no_group">Nenhum grupo</string>
@@ -987,4 +986,6 @@
     <string name="pref_background_compat_mode_title">Modo de compatibilidade em segundo plano</string>
     <string name="choose_photo">Escolher fotografia</string>
     <string name="pref_background_compat_mode_summary">Ative isto se os serviços em segundo plano não estiverem a funcionar corretamente</string>
+    <string name="cloud_photo_mask_toast">Toque na fotografia para alternar a máscara</string>
+    <string name="no_camera_access">Não foi possível aceder à câmara</string>
 </resources>
