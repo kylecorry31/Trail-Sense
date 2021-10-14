@@ -28,7 +28,7 @@
     <string name="pref_backtrack_path_radar_title">Показати шлях історії маршруту</string>
     <string name="map_auto_calibrated">Мапа відкалібрована автоматично, перевірте її точність</string>
     <string name="time_until_full">до повного</string>
-    <string name="time_until_empty">до порожнього</string>
+    <string name="time_until_empty">до спустошення</string>
     <string name="guide_speedometer_desc">Як визначити пройдену відстань і час прибуття</string>
     <string name="guide_speedometer_title">Визначте швидкість і відстань</string>
     <string name="next">Далі</string>
@@ -100,7 +100,7 @@
     <string name="weather_better_than_yesterday">Краще, ніж учора</string>
     <string name="tomorrows_forecast">Завтрашній прогноз</string>
     <string name="todays_forecast">Сьогоднішній прогноз</string>
-    <string name="guide_light_meter_description">Як визначити відстань променя ліхтарика</string>
+    <string name="guide_light_meter_description">Визначає відстань променя ліхтарика</string>
     <string name="guide_light_meter_title">Визначення дієвості ліхтарика</string>
     <string name="gps_cache">GPS-кеш</string>
     <string name="location_disabled">Місцеперебування вимкнено</string>
@@ -536,7 +536,7 @@
     <string name="beacon_2">Маячок 2</string>
     <string name="beacon_1">Маячок 1</string>
     <string name="could_not_triangulate">Не вдалося виконати триангуляцію</string>
-    <string name="tool_triangulate_summary">Визначте своє місцеперебування без GPS</string>
+    <string name="tool_triangulate_summary">Визначення вашого місця без GPS</string>
     <string name="tool_triangulate_title">Триангуляція місцеперебування</string>
     <string name="tool_category_signaling">Сигналізація</string>
     <string name="tool_category_angles">Кути</string>
@@ -560,14 +560,14 @@
     <string name="precise_inches_format">%s дюйм</string>
     <string name="precise_centimeters_format">%s см</string>
     <string name="tool_lightning_title">Дальність удару блискавки</string>
-    <string name="tool_lightning_description">Виміряйте відстань від удару блискавки</string>
+    <string name="tool_lightning_description">Виміряє відстань від удару блискавки</string>
     <string name="reset">Скинути</string>
     <string name="thunder">Грім</string>
     <string name="lightning">Блискавки</string>
     <string name="utc_format">Всесвітній час %s</string>
     <string name="tool_clock_title">Годинник</string>
     <string name="flashlight_strobe">Стробоскоп</string>
-    <string name="tool_boil_summary">Дізнайтеся, коли вода придатна для пиття</string>
+    <string name="tool_boil_summary">Сповіщає, коли вода питна</string>
     <string name="boil_start">Почати</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d секунда до пиття</item>
@@ -582,7 +582,7 @@
     <string name="water_boil_timer">Відлік часу кип\'ятіння води</string>
     <string name="solar_panel_instructions">Для початку покладіть телефон на сонячну панель.</string>
     <string name="tool_solar_panel_title">Вирівнювач сонячних панелей</string>
-    <string name="tool_solar_panel_summary">Розмістіть сонячні панелі для оптимального виробництва електроенергії</string>
+    <string name="tool_solar_panel_summary">Дає найвигідніше положення сонячних батарей</string>
     <string name="pref_privacy_policy_title">Політика приватності</string>
     <string name="guide_recommended_apps_description">Корисні застосунки для виживання</string>
     <string name="guide_recommended_apps">Пораджені застосунки</string>
@@ -988,4 +988,5 @@
     <string name="obstacle_removal_sensitivity">Чутливість усунення перешкод</string>
     <string name="precipitation_none">Без опадів</string>
     <string name="precipitation_rain">Дощ</string>
+    <string name="humidity">Вологість</string>
 </resources>

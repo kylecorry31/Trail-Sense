@@ -992,4 +992,15 @@
     <string name="precipitation_rain">Дождь</string>
     <string name="precipitation_drizzle">Морось</string>
     <string name="precipitation_snow">Снег</string>
+    <string name="or">Или</string>
+    <string name="humidity">Влажность</string>
+    <string name="choose_photo">Выбрать фото</string>
+    <string name="precipitation_chance">Вероятность осадков: %s</string>
+    <string name="take_photo">Сделать фото</string>
+    <string name="notification_weather_update_title">Обновление погодного монитора</string>
+    <string name="notification_weather_update_content">Запись давления</string>
+    <string name="notification_backtrack_update_title">Обновление истории маршрута</string>
+    <string name="notification_backtrack_update_content">Запись вашего местоположения</string>
+    <string name="pref_background_compat_mode_title">Режим фоновой совместимости</string>
+    <string name="pref_background_compat_mode_summary">Включите эту функцию, если фоновые службы не работают должным образом</string>
 </resources>

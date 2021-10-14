@@ -300,7 +300,6 @@
     <string name="forecasts_category">预测</string>
     <string name="advanced">高级设置</string>
     <string name="tap_sun_moon_hint">点按太阳或月亮了解位置详情</string>
-
     <string name="pref_sea_level_require_dwell_title">忽略快速高度变化</string>
     <string name="pref_sea_level_require_dwell_summary">只有当高度至少一小时没有变化时才显示读数。提高预报的可靠性。</string>
     <string name="no_group">无群组</string>
@@ -968,4 +967,17 @@
     <string name="precipitation_snow_grains">雪粒</string>
     <string name="capture">捕获</string>
     <string name="results">结果</string>
+    <string name="precipitation_chance">降水概率：%s</string>
+    <string name="take_photo">拍照</string>
+    <string name="choose_photo">选择照片</string>
+    <string name="or">或</string>
+    <string name="notification_weather_update_title">天气监测器更新</string>
+    <string name="notification_backtrack_update_title">Backtrack 更新</string>
+    <string name="notification_backtrack_update_content">正在记录你的位置</string>
+    <string name="pref_background_compat_mode_summary">如果后台服务不能正常运行，请启用此选项</string>
+    <string name="pref_background_compat_mode_title">后台兼容模式</string>
+    <string name="notification_weather_update_content">正在记录气压</string>
+    <string name="humidity">湿度</string>
+    <string name="cloud_photo_mask_toast">轻按照片来切换蒙版</string>
+    <string name="no_camera_access">无法访问相机</string>
 </resources>
