@@ -418,16 +418,16 @@
     <string name="cirrostratus">Cirrostratus (Slørskyer)</string>
     <string name="cirrocumulus">Cirrocumulus (Makrellskyer)</string>
     <string name="cirrus">Cirrus (Fjærskyer)</string>
-    <string name="cirrus_desc">Høye, hvite og fjæraktige.</string>
-    <string name="cumulonimbus_desc">Mørk grå, høy og amboltlignende form.</string>
-    <string name="cumulus_desc">Tette, oppblåste, skarpe konturer i form av kupler eller tårn.</string>
-    <string name="stratocumulus_desc">Hvitaktige eller gråblåe flak av dotter eller valker.</string>
-    <string name="stratus_desc">Jevne og ullene, grå til hvite, dekker himmelen, gjenstander kaster ikke skygger.</string>
-    <string name="nimbostratus_desc">Mørk grå, diffus og dekker himmelen. Det kan regne.</string>
-    <string name="altostratus_desc">Jevn gråfarge, dekker himmelen, solen kan knapt sees.</string>
-    <string name="altocumulus_desc">Kuleformede, oppblåste dotter eller ruller.</string>
-    <string name="cirrostratus_desc">Tynne og hvitaktige, dekker himmelen, men solen kan sees gjennom.</string>
-    <string name="cirrocumulus_desc">Tynne, hvite dotter eller små krusninger.</string>
+    <string name="cirrus_desc">Høye skyer, hvite og fjæraktige.</string>
+    <string name="cumulonimbus_desc">Lave skyer. De har vanligvis en amboltlignende form, er veldig høye og er mørke.</string>
+    <string name="cumulus_desc">Lave skyer. Tette, oppblåste, skarpe konturer i form av kupler eller tårn. De er atskilt fra hverandre og vanligvis hvite med mørkere flekker under.</string>
+    <string name="stratocumulus_desc">Lave skyer. Hvitaktige eller gråblåe flak av dotter eller valker.</string>
+    <string name="stratus_desc">En lav sky som dekker himmelen. Jevn og ullen, grå til hvit, gjenstander kaster ikke skygger og det kan være tåkete.</string>
+    <string name="nimbostratus_desc">En middels høy sky som er mørk grå, diffus og dekker himmelen. Det kan regne.</string>
+    <string name="altostratus_desc">En middels høy sky som dekker himmelen. Jevn gråfarge, solen kan knapt sees.</string>
+    <string name="altocumulus_desc">Middels høye skyer. Kuleformede, oppblåste dotter eller ruller. Vanligvis hvite med mørkere flekker under.</string>
+    <string name="cirrostratus_desc">En høy sky som dekker himmelen. Tynn, hvitaktig, gjennomsiktig og forårsaker vanligvis at en halo dannes rundt solen.</string>
+    <string name="cirrocumulus_desc">Høye skyer. Tynne, hvite dotter eller små krusninger.</string>
     <string name="import_btn">Importer</string>
     <string name="export">Eksporter</string>
     <string name="privacy_and_location">Personvern og posisjon</string>
@@ -841,4 +841,30 @@
 \n**Magnitude**: %s
 \n
 \n**Høyde**: %s</string>
+    <string name="weather_exported">Værdata eksportert</string>
+    <string name="log">Logg</string>
+    <string name="pressure_logged">Trykk logget</string>
+    <string name="duration_of_charge">Ladevarighet</string>
+    <string name="precipitation_rain">Regn</string>
+    <string name="precipitation_drizzle">Duskregn</string>
+    <string name="precipitation_hail">Hagl</string>
+    <string name="precipitation_small_hail">Småhagl</string>
+    <string name="results">Resultater</string>
+    <string name="precipitation_chance">Nedbørsmulighet: %s</string>
+    <string name="pref_background_compat_mode_title">Bakgrunnkompatibilitetsmodus</string>
+    <string name="take_photo">Ta bilde</string>
+    <string name="choose_photo">Velg bilde</string>
+    <string name="notification_weather_update_title">Værovervåkingsoppdatering</string>
+    <string name="pref_experimental_cloud_scanner_title">Skyskanner</string>
+    <string name="precipitation_none">Ingen nedbør</string>
+    <string name="precipitation_snow">Snø</string>
+    <string name="pref_background_compat_mode_summary">Slå på dette hvis bakgrunnstjenester ikke kjører på riktig måte</string>
+    <string name="updates">Oppdateringer</string>
+    <string name="no_tides">Ingen tidevann</string>
+    <string name="humidity">Luftfuktighet</string>
+    <string name="no_issues">Ingen problemer oppdaget</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d rutepunkt blir slettet</item>
+        <item quantity="other">%d rutepunkter blir slettet</item>
+    </plurals>
 </resources>
