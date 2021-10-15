@@ -291,9 +291,9 @@ class MainActivity : AndromedaActivity() {
             (if (isVolumeUp) getVolumeUpAction() else getVolumeDownAction()) ?: return false
 
         if (isButtonPressed) {
-            action.onButtonDown()
+            action.onButtonPress()
         } else {
-            action.onButtonUp()
+            action.onButtonRelease()
         }
 
         return true

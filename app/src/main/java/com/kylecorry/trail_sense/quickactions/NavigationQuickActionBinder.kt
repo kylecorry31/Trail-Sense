@@ -7,11 +7,6 @@ import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
-import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
-import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
-import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
-import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
-import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 
 class NavigationQuickActionBinder(
     private val fragment: NavigatorFragment,

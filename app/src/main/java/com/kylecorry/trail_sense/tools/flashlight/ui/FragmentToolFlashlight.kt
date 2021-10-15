@@ -30,11 +30,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         binding.strobeBtn.isVisible = hasFlashlight
         binding.sosBtn.isVisible = hasFlashlight
         binding.flashlightBtn.setOnClickListener {
-            if (flashlight.getState() == FlashlightState.On) {
-                flashlight.set(FlashlightState.Off)
-            } else {
-                flashlight.set(FlashlightState.On)
-            }
+            flashlight.toggle()
         }
         binding.sosBtn.setOnClickListener {
             if (flashlight.getState() == FlashlightState.SOS) {

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.whitenoise.ui
+package com.kylecorry.trail_sense.quickactions
 
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton

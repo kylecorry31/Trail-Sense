@@ -71,6 +71,14 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
         forceOff(200)
     }
 
+    override fun toggle() {
+        if (getState() == FlashlightState.On) {
+            off()
+        } else {
+            on()
+        }
+    }
+
     private fun forceOff(millis: Long) {
         val increment = 20L
         if ((millis - increment) < 0) {

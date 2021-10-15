@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.backtrack.ui
+package com.kylecorry.trail_sense.quickactions
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -7,14 +7,12 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import java.time.Duration
 
 class QuickActionBacktrack(btn: FloatingActionButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
-
-    private val prefs by lazy { UserPreferences(context) }
-
+    
     private val timer = Timer {
         update()
     }
@@ -22,7 +20,7 @@ class QuickActionBacktrack(btn: FloatingActionButton, fragment: Fragment) :
     private fun update() {
         CustomUiUtils.setButtonState(
             button,
-            prefs.backtrackEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)
+            BacktrackScheduler.isOn(context)
         )
     }
 

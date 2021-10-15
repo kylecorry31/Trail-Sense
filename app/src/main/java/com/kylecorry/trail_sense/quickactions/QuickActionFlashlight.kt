@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.flashlight.ui
+package com.kylecorry.trail_sense.quickactions
 
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -32,11 +32,7 @@ class QuickActionFlashlight(btn: FloatingActionButton, fragment: Fragment) :
             button.visibility = View.GONE
         } else {
             button.setOnClickListener {
-                if (flashlight.getState() == FlashlightState.On) {
-                    flashlight.set(FlashlightState.Off)
-                } else {
-                    flashlight.set(FlashlightState.On)
-                }
+                flashlight.toggle()
             }
         }
     }

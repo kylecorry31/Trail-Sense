@@ -5,8 +5,6 @@ import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
-import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
-import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.weather.ui.WeatherFragment
 

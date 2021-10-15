@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.ruler.ui
+package com.kylecorry.trail_sense.quickactions
 
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.ruler.ui.Ruler
 
 class QuickActionRuler(
     btn: FloatingActionButton,

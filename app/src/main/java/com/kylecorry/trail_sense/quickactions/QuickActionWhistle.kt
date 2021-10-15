@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.whistle.ui
+package com.kylecorry.trail_sense.quickactions
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent

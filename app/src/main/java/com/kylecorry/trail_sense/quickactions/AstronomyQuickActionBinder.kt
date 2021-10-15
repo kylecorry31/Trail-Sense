@@ -7,9 +7,6 @@ import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
-import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
-import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
-import com.kylecorry.trail_sense.tools.whitenoise.ui.QuickActionWhiteNoise
 
 class AstronomyQuickActionBinder(
     private val fragment: AstronomyFragment,

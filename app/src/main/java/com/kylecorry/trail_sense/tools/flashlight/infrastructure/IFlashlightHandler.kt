@@ -8,6 +8,7 @@ interface IFlashlightHandler {
     fun release()
     fun on()
     fun off()
+    fun toggle()
     fun sos()
     fun strobe()
     fun set(state: FlashlightState)

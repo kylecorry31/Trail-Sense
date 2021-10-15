@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.maps.ui
+package com.kylecorry.trail_sense.quickactions
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
