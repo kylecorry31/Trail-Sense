@@ -1,18 +1,17 @@
 package com.kylecorry.trail_sense.tools.backtrack.infrastructure.commands
 
 import android.content.Context
-
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.sensors.NullCellSignalSensor
@@ -34,9 +33,7 @@ class BacktrackCommand(private val context: Context) : CoroutineCommand {
     private val altimeter = sensorService.getAltimeter(true)
     private val cellSignalSensor =
         if (prefs.backtrackSaveCellHistory) sensorService.getCellSignal(true) else NullCellSignalSensor()
-
-    private val history = prefs.navigation.backtrackHistory
-
+    
     private val waypointRepo = WaypointRepo.getInstance(context)
     private val beaconRepo = BeaconRepo.getInstance(context)
     private val formatService = FormatService(context)
@@ -94,7 +91,7 @@ class BacktrackCommand(private val context: Context) : CoroutineCommand {
             )
 
             waypointRepo.addWaypoint(waypoint)
-            waypointRepo.deleteOlderThan(Instant.now().minus(history))
+            waypointRepo.clean()
             waypoint.toPathPoint()
         }
     }

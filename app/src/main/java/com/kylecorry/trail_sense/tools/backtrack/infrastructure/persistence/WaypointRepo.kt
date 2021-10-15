@@ -3,14 +3,16 @@ package com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.database.AppDatabase
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import java.time.Instant
 
 class WaypointRepo private constructor(context: Context) : IWaypointRepo {
 
     private val waypointDao = AppDatabase.getInstance(context).waypointDao()
+    private val prefs = UserPreferences(context)
 
     override fun getWaypoints() = waypointDao.getAll()
 
@@ -23,15 +25,16 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
 
     override suspend fun deleteWaypoint(waypoint: WaypointEntity) = waypointDao.delete(waypoint)
 
-    override suspend fun deleteOlderThan(instant: Instant) =
-        waypointDao.deleteOlderThan(instant.toEpochMilli())
-
     override suspend fun getLastPathId(): Long? = waypointDao.getLastPathId()
 
     override suspend fun deletePath(pathId: Long) = waypointDao.deletePath(pathId)
 
     override suspend fun moveToPath(fromPathId: Long, toPathId: Long) =
         waypointDao.changePath(fromPathId, toPathId)
+
+    override suspend fun clean() {
+        waypointDao.deleteOlderThan(Instant.now().minus(prefs.navigation.backtrackHistory).toEpochMilli())
+    }
 
     override suspend fun addWaypoint(waypoint: WaypointEntity) {
         if (waypoint.id != 0L) {
