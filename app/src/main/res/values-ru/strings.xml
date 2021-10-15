@@ -273,7 +273,6 @@
     <string name="no_group">Нет группы</string>
     <string name="pref_sea_level_require_dwell_summary">Показывать показания только тогда, когда высота не менялась в течение как минимум часа. Повышает надежность прогнозов.</string>
     <string name="pref_sea_level_require_dwell_title">Игнорировать быстрые изменения высоты</string>
-
     <string name="tap_sun_moon_hint">Коснитесь солнца или луны, чтобы узнать о местоположении</string>
     <string name="forecasts_category">Прогнозы</string>
     <string name="guide_conserving_battery_title">Экономия батареи</string>
@@ -467,17 +466,17 @@
     <string name="dialog_leave">Покинуть</string>
     <string name="unsaved_changes_message">Внесенные вами изменения не сохранятся.</string>
     <string name="unsaved_changes">Несохраненные изменения</string>
-    <string name="cirrus_desc">Высокие и перистые.</string>
-    <string name="cumulonimbus_desc">Темно-серые, высокие, в форме наковальни.</string>
-    <string name="cumulus_desc">Похожи на пухлые ватные шарики.</string>
-    <string name="stratus_desc">Покрывают небо, объекты не отбрасывают тени.</string>
-    <string name="nimbostratus_desc">Темно-серые и покрывают небо. Может быть дождь.</string>
-    <string name="altostratus_desc">Покрывают небо, солнце едва видно.</string>
-    <string name="altocumulus_desc">Похожи на пухлые ватные шарики.</string>
-    <string name="cirrostratus_desc">Покрывают небо, но через них видно солнце.</string>
-    <string name="cirrocumulus_desc">Формируют волнистый лист, облака выглядят почти двумерно.</string>
+    <string name="cirrus_desc">Высокие белые облака, похожие на пучки белых волос.</string>
+    <string name="cumulonimbus_desc">Низкие пухлые облака, очень высокие. Они обычно имеют форму наковальни и тёмные.</string>
+    <string name="cumulus_desc">Низкие пухлые облака, похожие на ватные шарики. Они расположены на небольшом расстоянии друг от друга и обычно белые с более тёмными пятнами внизу.</string>
+    <string name="stratus_desc">Низкое облако, закрывающее небо. Предметы не отбрасывают тени, и может быть туман.</string>
+    <string name="nimbostratus_desc">Облако средней высоты, темно-серого цвета, закрывающее небо. Может идти дождь.</string>
+    <string name="altostratus_desc">Облако средней высоты, закрывающее небо. Солнце едва видно в виде яркого пятна.</string>
+    <string name="altocumulus_desc">Пухлые облака средней высоты, похожие на ватные шарики. Они обычно белые с более темными пятнами внизу и могут быть разрозненными или похожими на лист.</string>
+    <string name="cirrostratus_desc">Высокое облако, закрывающее небо. Оно прозрачно и обычно вызывает образование ореола вокруг солнца.</string>
+    <string name="cirrocumulus_desc">Высоко расположенные облака, образующие волнистый лист. Лист состоит из маленьких точек, которые выглядят почти двухмерными.</string>
     <string name="clouds">Облака</string>
-    <string name="stratocumulus_desc">Скатывающиеся массы, образующие лист.</string>
+    <string name="stratocumulus_desc">Низкие облака, похожие на лист ватных шариков с небольшими просветами. Цвет варьируется от белого до тёмно-серого.</string>
     <string name="cumulonimbus">Кучево-дождевые</string>
     <string name="cumulus">Кучевые</string>
     <string name="stratocumulus">Слоисто-кучевые</string>
@@ -976,7 +975,7 @@
     <string name="units_mmhg">мм рт.ст.</string>
     <string name="units_inhg">дюйм рт. ст.</string>
     <string name="no_clouds">Нет облаков</string>
-    <string name="pressure_logged">Давление зарегистрировано</string>
+    <string name="pressure_logged">Давление записано</string>
     <string name="precipitation_snow_pellets">Снежная крупа</string>
     <string name="precipitation_hail">Град</string>
     <string name="precipitation_small_hail">Мелкий град</string>
@@ -1003,4 +1002,6 @@
     <string name="notification_backtrack_update_content">Запись вашего местоположения</string>
     <string name="pref_background_compat_mode_title">Режим фоновой совместимости</string>
     <string name="pref_background_compat_mode_summary">Включите эту функцию, если фоновые службы не работают должным образом</string>
+    <string name="cloud_photo_mask_toast">Нажмите на фотографию, чтобы переключить маску</string>
+    <string name="no_camera_access">Не удается получить доступ к камере</string>
 </resources>
