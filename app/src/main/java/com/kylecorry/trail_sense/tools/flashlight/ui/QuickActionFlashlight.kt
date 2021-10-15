@@ -3,12 +3,12 @@ package com.kylecorry.trail_sense.tools.flashlight.ui
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
-import com.kylecorry.andromeda.core.time.Timer
 
 class QuickActionFlashlight(btn: FloatingActionButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
@@ -25,6 +25,7 @@ class QuickActionFlashlight(btn: FloatingActionButton, fragment: Fragment) :
     }
 
     override fun onCreate() {
+        super.onCreate()
         button.setImageResource(R.drawable.flashlight)
         CustomUiUtils.setButtonState(button, false)
         if (!flashlight.isAvailable()) {
@@ -41,16 +42,19 @@ class QuickActionFlashlight(btn: FloatingActionButton, fragment: Fragment) :
     }
 
     override fun onResume() {
+        super.onResume()
         if (!intervalometer.isRunning()) {
             intervalometer.interval(20)
         }
     }
 
     override fun onPause() {
+        super.onPause()
         intervalometer.stop()
     }
 
     override fun onDestroy() {
+        super.onDestroy()
         onPause()
     }
 

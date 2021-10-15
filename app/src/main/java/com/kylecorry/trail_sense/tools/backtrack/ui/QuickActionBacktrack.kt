@@ -3,11 +3,11 @@ package com.kylecorry.trail_sense.tools.backtrack.ui
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.core.time.Timer
 import java.time.Duration
 
 class QuickActionBacktrack(btn: FloatingActionButton, fragment: Fragment) :
@@ -15,7 +15,7 @@ class QuickActionBacktrack(btn: FloatingActionButton, fragment: Fragment) :
 
     private val prefs by lazy { UserPreferences(context) }
 
-    private val intervalometer = Timer {
+    private val timer = Timer {
         update()
     }
 
@@ -27,6 +27,7 @@ class QuickActionBacktrack(btn: FloatingActionButton, fragment: Fragment) :
     }
 
     override fun onCreate() {
+        super.onCreate()
         button.setImageResource(R.drawable.ic_tool_backtrack)
         button.setOnClickListener {
             fragment.findNavController()
@@ -35,16 +36,19 @@ class QuickActionBacktrack(btn: FloatingActionButton, fragment: Fragment) :
     }
 
     override fun onResume() {
-        if (!intervalometer.isRunning()) {
-            intervalometer.interval(Duration.ofSeconds(1))
+        super.onResume()
+        if (!timer.isRunning()) {
+            timer.interval(Duration.ofSeconds(1))
         }
     }
 
     override fun onPause() {
-        intervalometer.stop()
+        super.onPause()
+        timer.stop()
     }
 
     override fun onDestroy() {
+        super.onDestroy()
         onPause()
     }
 

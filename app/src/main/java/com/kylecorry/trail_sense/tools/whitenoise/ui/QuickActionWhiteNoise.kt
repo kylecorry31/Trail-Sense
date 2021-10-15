@@ -21,6 +21,7 @@ class QuickActionWhiteNoise(btn: FloatingActionButton, fragment: Fragment) :
     }
 
     override fun onCreate() {
+        super.onCreate()
         button.setImageResource(R.drawable.ic_tool_white_noise)
         CustomUiUtils.setButtonState(button, false)
 
@@ -34,16 +35,19 @@ class QuickActionWhiteNoise(btn: FloatingActionButton, fragment: Fragment) :
     }
 
     override fun onResume() {
+        super.onResume()
         if (!intervalometer.isRunning()) {
             intervalometer.interval(20)
         }
     }
 
     override fun onPause() {
+        super.onPause()
         intervalometer.stop()
     }
 
     override fun onDestroy() {
+        super.onDestroy()
         onPause()
     }
 

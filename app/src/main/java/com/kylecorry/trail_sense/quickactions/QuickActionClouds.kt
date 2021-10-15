@@ -11,6 +11,7 @@ class QuickActionClouds(btn: FloatingActionButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
     override fun onCreate() {
+        super.onCreate()
         button.setImageResource(R.drawable.cloudy)
         CustomUiUtils.setButtonState(
             button,
@@ -20,15 +21,6 @@ class QuickActionClouds(btn: FloatingActionButton, fragment: Fragment) :
             fragment.findNavController()
                 .navigate(R.id.cloudFragment)
         }
-    }
-
-    override fun onResume() {
-    }
-
-    override fun onPause() {
-    }
-
-    override fun onDestroy() {
     }
 
 }

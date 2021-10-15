@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
@@ -23,15 +22,10 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
-import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
-import com.kylecorry.trail_sense.quickactions.QuickActionClouds
-import com.kylecorry.trail_sense.quickactions.QuickActionThermometer
+import com.kylecorry.trail_sense.quickactions.WeatherQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
-import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
@@ -73,9 +67,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private var valueSelectedTime = 0L
 
-    private var leftQuickAction: QuickActionButton? = null
-    private var rightQuickAction: QuickActionButton? = null
-
     private val weatherForecastService by lazy { WeatherContextualService.getInstance(requireContext()) }
 
     private var loadAltitudeJob: Job? = null
@@ -86,20 +77,18 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        leftQuickAction =
-            getQuickActionButton(prefs.weather.leftQuickAction, binding.weatherLeftQuickAction)
-        leftQuickAction?.onCreate()
-
-        rightQuickAction =
-            getQuickActionButton(prefs.weather.rightQuickAction, binding.weatherRightQuickAction)
-        rightQuickAction?.onCreate()
+        WeatherQuickActionBinder(
+            this,
+            binding,
+            prefs.weather
+        ).bind()
 
         navController = findNavController()
 
         weatherService = WeatherService(prefs.weather)
 
         chart = PressureChart(binding.chart) { timeAgo, pressure ->
-            if (isLogging){
+            if (isLogging) {
                 return@PressureChart
             }
             if (timeAgo == null || pressure == null) {
@@ -152,18 +141,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         thermometer.asLiveData().observe(viewLifecycleOwner, { update() })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        leftQuickAction?.onDestroy()
-        rightQuickAction?.onDestroy()
-    }
-
-
     override fun onResume() {
         super.onResume()
-        leftQuickAction?.onResume()
-        rightQuickAction?.onResume()
-
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
         altitude = altimeter.altitude
         units = prefs.pressureUnits
@@ -199,8 +178,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     override fun onPause() {
         super.onPause()
-        leftQuickAction?.onPause()
-        rightQuickAction?.onPause()
         tryOrNothing {
             loadAltitudeJob?.cancel()
         }
@@ -391,20 +368,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             Weather.ImprovingFast, Weather.ImprovingSlow -> getString(R.string.forecast_improving)
             Weather.WorseningSlow, Weather.WorseningFast, Weather.Storm -> getString(R.string.forecast_worsening)
             else -> ""
-        }
-    }
-
-    private fun getQuickActionButton(
-        type: QuickActionType,
-        button: FloatingActionButton
-    ): QuickActionButton {
-        return when (type) {
-            QuickActionType.Whistle -> QuickActionWhistle(button, this)
-            QuickActionType.Flashlight -> QuickActionFlashlight(button, this)
-            QuickActionType.Clouds -> QuickActionClouds(button, this)
-            QuickActionType.Temperature -> QuickActionThermometer(button, this)
-            QuickActionType.LowPowerMode -> LowPowerQuickAction(button, this)
-            else -> QuickActionNone(button, this)
         }
     }
 

@@ -21,6 +21,7 @@ class LowPowerQuickAction(button: FloatingActionButton, fragment: Fragment): Qui
     }
 
     override fun onCreate() {
+        super.onCreate()
         button.setImageResource(R.drawable.ic_tool_battery)
         button.setOnClickListener {
             if (lowerPowerMode.isEnabled()){
@@ -35,12 +36,7 @@ class LowPowerQuickAction(button: FloatingActionButton, fragment: Fragment): Qui
     }
 
     override fun onResume() {
+        super.onResume()
         update()
-    }
-
-    override fun onPause() {
-    }
-
-    override fun onDestroy() {
     }
 }

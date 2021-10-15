@@ -12,6 +12,7 @@ class QuickActionThermometer(btn: FloatingActionButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
     override fun onCreate() {
+        super.onCreate()
         button.setImageResource(R.drawable.thermometer)
         CustomUiUtils.setButtonState(button, false)
         button.setOnClickListener {
@@ -19,14 +20,4 @@ class QuickActionThermometer(btn: FloatingActionButton, fragment: Fragment) :
                 .navigate(if (Sensors.hasHygrometer(context)) R.id.action_weather_to_temperature_humidity else R.id.action_action_weather_to_thermometerFragment)
         }
     }
-
-    override fun onResume() {
-    }
-
-    override fun onPause() {
-    }
-
-    override fun onDestroy() {
-    }
-
 }

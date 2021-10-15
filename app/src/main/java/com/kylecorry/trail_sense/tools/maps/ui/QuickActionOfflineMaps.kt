@@ -13,6 +13,7 @@ class QuickActionOfflineMaps(
 ) : QuickActionButton(button, fragment) {
 
     override fun onCreate() {
+        super.onCreate()
         button.setImageResource(R.drawable.maps)
         CustomUiUtils.setButtonState(button, false)
         button.setOnClickListener {
@@ -20,15 +21,4 @@ class QuickActionOfflineMaps(
         }
 
     }
-
-    override fun onResume() {
-    }
-
-    override fun onPause() {
-    }
-
-    override fun onDestroy() {
-    }
-
-
 }

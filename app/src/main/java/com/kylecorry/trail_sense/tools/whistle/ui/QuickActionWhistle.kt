@@ -17,6 +17,7 @@ class QuickActionWhistle(btn: FloatingActionButton, fragment: Fragment) :
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate() {
+        super.onCreate()
         whistle = Whistle()
         button.setImageResource(R.drawable.ic_tool_whistle)
         CustomUiUtils.setButtonState(button, false)
@@ -33,14 +34,17 @@ class QuickActionWhistle(btn: FloatingActionButton, fragment: Fragment) :
     }
 
     override fun onResume() {
+        super.onResume()
         CustomUiUtils.setButtonState(button, false)
     }
 
     override fun onPause() {
+        super.onPause()
         whistle.off()
     }
 
     override fun onDestroy() {
+        super.onDestroy()
         whistle.release()
     }
 

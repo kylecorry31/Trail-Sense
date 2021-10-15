@@ -12,7 +12,6 @@ import androidx.core.view.isInvisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.sensors.Quality
@@ -45,7 +44,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRep
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
-import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
+import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
@@ -57,15 +56,9 @@ import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
-import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
-import com.kylecorry.trail_sense.tools.backtrack.ui.QuickActionBacktrack
-import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
-import com.kylecorry.trail_sense.tools.maps.ui.QuickActionOfflineMaps
-import com.kylecorry.trail_sense.tools.ruler.ui.QuickActionRuler
-import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -81,7 +74,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS() }
     private val sightingCompass by lazy {
-        SightingCompassView(this, binding.viewCamera, binding.viewCameraLine, binding.zoomRatioSeekbar)
+        SightingCompassView(
+            this,
+            binding.viewCamera,
+            binding.viewCameraLine,
+            binding.zoomRatioSeekbar
+        )
     }
     private val orientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val altimeter by lazy { sensorService.getAltimeter() }
@@ -111,9 +109,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var destinationBearing: Float? = null
     private var useTrueNorth = false
 
-    private var leftQuickAction: QuickActionButton? = null
-    private var rightQuickAction: QuickActionButton? = null
-
     private var isMoonUp = true
     private var isSunUp = true
     private var moonBearing = 0f
@@ -129,13 +124,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateAstronomyData()
         }
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        rightQuickAction?.onDestroy()
-        leftQuickAction?.onDestroy()
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -178,14 +166,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             )
         }
 
-        rightQuickAction = getQuickActionButton(
-            userPrefs.navigation.rightQuickAction,
-            binding.navigationRightQuickAction
-        )
-        leftQuickAction = getQuickActionButton(
-            userPrefs.navigation.leftQuickAction,
-            binding.navigationLeftQuickAction
-        )
+        NavigationQuickActionBinder(
+            this,
+            binding,
+            userPrefs.navigation
+        ).bind()
 
         beaconRepo.getBeacons().observe(viewLifecycleOwner) {
             beacons = it.map { it.toBeacon() }
@@ -200,9 +185,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             backtrack = waypoints.map { it.toPathPoint() }
             updateUI()
         }
-
-        rightQuickAction?.onCreate()
-        leftQuickAction?.onCreate()
         navController = findNavController()
 
         compass.asLiveData().observe(viewLifecycleOwner, { updateUI() })
@@ -451,8 +433,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onResume() {
         super.onResume()
-        rightQuickAction?.onResume()
-        leftQuickAction?.onResume()
         lastOrientation = null
         astronomyIntervalometer.interval(Duration.ofMinutes(1))
         useTrueNorth = userPrefs.navigation.useTrueNorth
@@ -488,8 +468,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onPause() {
         super.onPause()
         sightingCompass.stop()
-        rightQuickAction?.onPause()
-        leftQuickAction?.onPause()
         astronomyIntervalometer.stop()
         requireMainActivity().errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
         shownAccuracyToast = false
@@ -608,7 +586,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.speed.text = formatService.formatSpeed(speedometer.speed.speed)
 
         // Azimuth
-        binding.compassAzimuth.text = formatService.formatDegrees(compass.bearing.value, replace360 = true)
+        binding.compassAzimuth.text =
+            formatService.formatDegrees(compass.bearing.value, replace360 = true)
         binding.compassDirection.text = formatService.formatDirection(compass.bearing.direction)
 
         // Compass
@@ -634,7 +613,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
-    private fun updateCompassView(){
+    private fun updateCompassView() {
         val destBearing = getDestinationBearing()
         val destColor = destination?.color ?: Resources.color(
             requireContext(),
@@ -842,22 +821,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             )
             requireMainActivity().errorBanner.report(error)
             gpsTimeoutShown = true
-        }
-    }
-
-    private fun getQuickActionButton(
-        type: QuickActionType,
-        button: FloatingActionButton
-    ): QuickActionButton {
-        return when (type) {
-            QuickActionType.None -> QuickActionNone(button, this)
-            QuickActionType.Backtrack -> QuickActionBacktrack(button, this)
-            QuickActionType.Flashlight -> QuickActionFlashlight(button, this)
-            QuickActionType.Ruler -> QuickActionRuler(button, this, binding.ruler)
-            QuickActionType.Maps -> QuickActionOfflineMaps(button, this)
-            QuickActionType.Whistle -> QuickActionWhistle(button, this)
-            QuickActionType.LowPowerMode -> LowPowerQuickAction(button, this)
-            else -> QuickActionNone(button, this)
         }
     }
 
