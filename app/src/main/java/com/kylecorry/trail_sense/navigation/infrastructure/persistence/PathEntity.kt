@@ -1,34 +1,86 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.persistence
 
-import androidx.annotation.ColorInt
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.database.Identifiable
-import com.kylecorry.trail_sense.shared.paths.LineStyle
-import com.kylecorry.trail_sense.shared.paths.PathOwner
-import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
-import com.kylecorry.trail_sense.shared.paths.PathStyle
+import com.kylecorry.trail_sense.shared.paths.*
+import java.time.Instant
 
+@Entity(tableName = "paths")
 data class PathEntity(
-    val name: String?,
+    @ColumnInfo(name = "name") val name: String?,
     // Style
-    val lineStyle: LineStyle,
-    val pointStyle: PathPointColoringStyle,
-    @ColorInt val color: Int,
-    val visible: Boolean,
+    @ColumnInfo(name = "lineStyle") val lineStyle: LineStyle,
+    @ColumnInfo(name = "pointStyle") val pointStyle: PathPointColoringStyle,
+    @ColumnInfo(name = "color") val color: AppColor,
+    @ColumnInfo(name = "visible") val visible: Boolean,
     // Saved
-    val temporary: Boolean = false,
-    val owner: PathOwner = PathOwner.User,
+    @ColumnInfo(name = "temporary") val temporary: Boolean = false,
+    @ColumnInfo(name = "owner") val owner: PathOwner = PathOwner.User,
     // Metadata
-    val distance: Double,
-    val numWaypoints: Int,
+    @ColumnInfo(name = "distance") val distance: Float,
+    @ColumnInfo(name = "numWaypoints") val numWaypoints: Int,
+    @ColumnInfo(name = "startTime") val startTime: Instant?,
+    @ColumnInfo(name = "endTime") val endTime: Instant?,
     // Bounds
-    val north: Double,
-    val east: Double,
-    val south: Double,
-    val west: Double,
+    @ColumnInfo(name = "north") val north: Double,
+    @ColumnInfo(name = "east") val east: Double,
+    @ColumnInfo(name = "south") val south: Double,
+    @ColumnInfo(name = "west") val west: Double,
 ) : Identifiable {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     override var id: Long = 0L
 
-    val bounds = CoordinateBounds(north, east, south, west)
-    val style = PathStyle(lineStyle, pointStyle, color, visible)
+    fun toPath(): Path2 {
+        return Path2(
+            id,
+            name,
+            PathStyle(
+                lineStyle,
+                pointStyle,
+                color.color,
+                visible
+            ),
+            PathMetadata(
+                Distance.meters(distance),
+                numWaypoints,
+                if (startTime != null && endTime != null) Range(startTime, endTime) else null,
+                CoordinateBounds(north, east, south, west)
+            ),
+            temporary,
+            owner
+        )
+    }
+
+    companion object {
+        fun fromPath(path: Path2): PathEntity {
+            return PathEntity(
+                path.name,
+                path.style.line,
+                path.style.point,
+                AppColor.values().firstOrNull { it.color == path.style.color } ?: AppColor.Gray,
+                path.style.visible,
+                path.temporary,
+                path.owner,
+                path.metadata.distance.meters().distance,
+                path.metadata.waypoints,
+                path.metadata.duration?.start,
+                path.metadata.duration?.end,
+                path.metadata.bounds.north,
+                path.metadata.bounds.east,
+                path.metadata.bounds.south,
+                path.metadata.bounds.west
+            ).also {
+                it.id = path.id
+            }
+        }
+    }
+
+
 }
