@@ -219,7 +219,6 @@
     <string name="moon_set">Månenedgang</string>
     <string name="moon_rise">Måneoppgang</string>
     <string name="tap_sun_moon_hint">Trykk på solen eller månen for posisjonsdetaljer</string>
-
     <string name="pref_storm_alert_sensitivity_title">Stormfølsomhet</string>
     <string name="pref_forecast_sensitivity_title">Værvarselfølsomhet</string>
     <string name="cliff_height_guide">Anslå høyden på en klippe</string>
@@ -790,8 +789,8 @@
     <string name="set">Sett</string>
     <string name="delete_tide_prompt">Slett tidevann\?</string>
     <string name="solar_panel_instructions">Plasser telefonen din på overflaten av solcellepanelet for å begynne.</string>
-    <string name="tool_solar_panel_title">Solcellejustrerer</string>
-    <string name="tool_solar_panel_summary">Juster solcellepaneler for optimal kraftproduksjon</string>
+    <string name="tool_solar_panel_title">Solcellepaneljustering</string>
+    <string name="tool_solar_panel_summary">Juster solcellepaneler for optimal strømproduksjon</string>
     <string name="depth_disclaimer">Bruk på egen risiko.
 \n
 \nBruk med vanntett omslag og hold deg på trygg dykkeavstand hvis mulig.</string>
@@ -867,4 +866,8 @@
         <item quantity="one">%d rutepunkt blir slettet</item>
         <item quantity="other">%d rutepunkter blir slettet</item>
     </plurals>
+    <string name="no_camera_access">Ikke i stand til å få tilgang til kamera</string>
+    <string name="precipitation_snow_pellets">Sprøhagl</string>
+    <string name="precipitation_ice_pellets">Iskorn</string>
+    <string name="precipitation_snow_grains">Kornsnø</string>
 </resources>
