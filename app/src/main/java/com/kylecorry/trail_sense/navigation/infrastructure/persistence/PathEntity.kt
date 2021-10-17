@@ -21,7 +21,6 @@ data class PathEntity(
     @ColumnInfo(name = "visible") val visible: Boolean,
     // Saved
     @ColumnInfo(name = "temporary") val temporary: Boolean = false,
-    @ColumnInfo(name = "owner") val owner: PathOwner = PathOwner.User,
     // Metadata
     @ColumnInfo(name = "distance") val distance: Float,
     @ColumnInfo(name = "numWaypoints") val numWaypoints: Int,
@@ -53,8 +52,7 @@ data class PathEntity(
                 if (startTime != null && endTime != null) Range(startTime, endTime) else null,
                 CoordinateBounds(north, east, south, west)
             ),
-            temporary,
-            owner
+            temporary
         )
     }
 
@@ -67,7 +65,6 @@ data class PathEntity(
                 AppColor.values().firstOrNull { it.color == path.style.color } ?: AppColor.Gray,
                 path.style.visible,
                 path.temporary,
-                path.owner,
                 path.metadata.distance.meters().distance,
                 path.metadata.waypoints,
                 path.metadata.duration?.start,

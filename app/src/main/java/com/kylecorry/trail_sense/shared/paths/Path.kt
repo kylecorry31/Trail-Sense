@@ -22,8 +22,7 @@ data class Path2(
     val name: String?,
     val style: PathStyle,
     val metadata: PathMetadata,
-    val temporary: Boolean = false,
-    val owner: PathOwner = PathOwner.User,
+    val temporary: Boolean = false
 ) : Identifiable
 
 data class PathMetadata(
