@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="settings">Cài đặt</string>
+    <string name="astronomy">Thiên văn học</string>
+    <string name="copied_to_clipboard_toast">Sao chép vào bộ nhớ tạm</string>
+    <string name="dialog_grant">Cập nhật cài đặt</string>
+    <string name="dialog_deny">Không, cảm ơn</string>
+    <string name="disclaimer_message_title">Điều khoản bỏ quyền</string>
+    <string name="app_disclaimer_message_title">Điều khoản bỏ quyền/ Điều khoản dịch vụ</string>
+    <string name="navigation">Điều hướng</string>
+    <string name="weather">Thời tiết</string>
+    <string name="tools">Công cụ</string>
+    <string name="access_background_location">Cập nhật Cài đặt vị trí</string>
+    <string name="access_background_location_rationale">Trail Sense sử dụng dữ liệu vị trí ở nền sau. Dữ liệu này được dùng để xác định áp suất mực nước biển trong giám sát thời tiết và để cung cấp chính xác hơn thông báo mặt trời lặn.</string>
+</resources>
