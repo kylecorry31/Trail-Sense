@@ -247,7 +247,6 @@
     <string name="navigation_nearby_category">Nahegelegen</string>
     <string name="forecasts_category">Vorhersagen</string>
     <string name="tap_sun_moon_hint">Tippe Sonne oder Mond an, um Positionseinzelheiten zu sehen</string>
-
     <string name="tool_user_guide_title">Benutzerhandbuch</string>
     <string name="pref_weather_update_frequency_title">Häufigkeit der Wetteraktualisierungen</string>
     <string name="pref_show_pressure_in_notification_title">Zeige den Luftdruck in den Benachrichtigungen</string>
@@ -976,4 +975,15 @@
     <string name="precipitation_snow_pellets">Schneeflocken</string>
     <string name="precipitation_hail">Hagel</string>
     <string name="precipitation_small_hail">Wenig Hagel</string>
+    <string name="cloud_photo_mask_toast">Auf das Foto tippen, um die Maske zu zeigen/verstecken</string>
+    <string name="precipitation_chance">Niederschlagswahrscheinlichkeit: %s</string>
+    <string name="notification_weather_update_title">Aktualisierung des Wettermonitors</string>
+    <string name="take_photo">Foto aufnehmen</string>
+    <string name="choose_photo">Foto auswählen</string>
+    <string name="or">Oder</string>
+    <string name="notification_weather_update_content">Aufnahme des Drucks</string>
+    <string name="notification_backtrack_update_title">Aktualisierung für Rückweg</string>
+    <string name="notification_backtrack_update_content">Aufnehmen des Standorts</string>
+    <string name="no_camera_access">Kann nicht auf die Kamera zugreifen</string>
+    <string name="humidity">Luftfeuchtigkeit</string>
 </resources>
