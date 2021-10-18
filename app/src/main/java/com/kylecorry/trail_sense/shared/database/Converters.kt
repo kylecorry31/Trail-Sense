@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.shared.database
 
 import androidx.room.TypeConverter
 import com.kylecorry.sol.units.WeightUnits
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 import java.time.Instant
 
@@ -49,12 +49,12 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromAppColor(value: AppColor): Int {
+    fun fromAppColor(value: AppColor): Long {
         return value.id
     }
 
     @TypeConverter
-    fun toAppColor(value: Int): AppColor {
+    fun toAppColor(value: Long): AppColor {
         return AppColor.values().firstOrNull { it.id == value } ?: AppColor.Orange
     }
 }

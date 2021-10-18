@@ -79,11 +79,11 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
 
     override var backtrackPathColor: AppColor
         get() {
-            val id = cache.getInt(context.getString(R.string.pref_backtrack_path_color))
+            val id = cache.getLong(context.getString(R.string.pref_backtrack_path_color))
             return AppColor.values().firstOrNull { it.id == id } ?: AppColor.Gray
         }
         set(value) {
-            cache.putInt(context.getString(R.string.pref_backtrack_path_color), value.id)
+            cache.putLong(context.getString(R.string.pref_backtrack_path_color), value.id)
         }
 
     override val backtrackPathStyle: LineStyle

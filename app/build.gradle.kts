@@ -65,7 +65,7 @@ dependencies {
     implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("androidx.work:work-runtime-ktx:2.6.0")
+    implementation("androidx.work:work-runtime-ktx:2.7.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
@@ -75,7 +75,7 @@ dependencies {
     val cameraxVersion = "1.0.1"
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
-    implementation("androidx.camera:camera-view:1.0.0-alpha29")
+    implementation("androidx.camera:camera-view:1.0.0-alpha30")
     implementation("com.google.android.material:material:1.4.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
@@ -123,4 +123,5 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
+    androidTestImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
 }
