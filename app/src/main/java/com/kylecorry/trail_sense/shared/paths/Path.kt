@@ -30,4 +30,8 @@ data class PathMetadata(
     val waypoints: Int,
     val duration: Range<Instant>?,
     val bounds: CoordinateBounds
-)
+) {
+    companion object {
+        val empty = PathMetadata(Distance.meters(0f), 0, null, CoordinateBounds.empty)
+    }
+}

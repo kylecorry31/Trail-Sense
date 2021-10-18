@@ -8,6 +8,8 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 interface IWaypointRepo: ICleanable {
     fun getWaypoints(): LiveData<List<WaypointEntity>>
 
+    suspend fun getWaypointsSync(): List<WaypointEntity>
+
     suspend fun getWaypoint(id: Long): WaypointEntity?
 
     fun getWaypointsByPath(pathId: Long): LiveData<List<PathPoint>>

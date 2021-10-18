@@ -9,6 +9,9 @@ interface WaypointDao {
     @Query("SELECT * FROM waypoints")
     fun getAll(): LiveData<List<WaypointEntity>>
 
+    @Query("SELECT * FROM waypoints")
+    suspend fun getAllSync(): List<WaypointEntity>
+
     @Query("SELECT * FROM waypoints WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): WaypointEntity?
 

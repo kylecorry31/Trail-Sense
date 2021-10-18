@@ -16,6 +16,8 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
 
     override fun getWaypoints() = waypointDao.getAll()
 
+    override suspend fun getWaypointsSync() = waypointDao.getAllSync()
+
     override suspend fun getWaypoint(id: Long) = waypointDao.get(id)
 
     override fun getWaypointsByPath(pathId: Long): LiveData<List<PathPoint>> {

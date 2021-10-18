@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.infrastructure.persistence
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.math.Range
@@ -8,6 +9,7 @@ import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.science.geology.IGeologyService
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.navigation.infrastructure.IPathService
+import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.paths.Path2
 import com.kylecorry.trail_sense.shared.paths.PathMetadata
 import com.kylecorry.trail_sense.shared.paths.PathPoint
@@ -80,8 +82,12 @@ class PathService(
 
     }
 
-    override suspend fun getWaypoints(paths: List<Long>): Map<Long, List<PathPoint>> {
-        val points = waypointRepo.getAllInPaths(paths)
+    override suspend fun getWaypoints(paths: List<Long>?): Map<Long, List<PathPoint>> {
+        val points = if (paths != null) {
+            waypointRepo.getAllInPaths(paths)
+        } else {
+            waypointRepo.getAll()
+        }
         return points.groupBy { it.pathId }
     }
 
@@ -98,6 +104,20 @@ class PathService(
     override suspend fun deleteWaypoint(point: PathPoint) {
         waypointRepo.delete(point)
         updatePathMetadata(point.pathId)
+    }
+
+    override suspend fun moveWaypointsToPath(points: List<PathPoint>, pathId: Long) {
+        val oldPaths = mutableSetOf<Long>()
+        for (waypoint in points) {
+            if (waypoint.pathId != 0L) {
+                oldPaths.add(waypoint.pathId)
+            }
+            waypointRepo.add(waypoint.copy(pathId = pathId))
+        }
+        updatePathMetadata(pathId)
+        for (path in oldPaths){
+            updatePathMetadata(pathId)
+        }
     }
 
     override suspend fun clean() {
@@ -151,5 +171,19 @@ class PathService(
 
     companion object {
         private const val BACKTRACK_PATH_KEY = "last_backtrack_path_id"
+        private var instance: PathService? = null
+
+        @Synchronized
+        fun getInstance(context: Context): PathService {
+            if (instance == null) {
+                instance = PathService(
+                    PathRepo(context),
+                    WaypointRepo(context),
+                    NavigationPreferences(context),
+                    Preferences(context)
+                )
+            }
+            return instance!!
+        }
     }
 }

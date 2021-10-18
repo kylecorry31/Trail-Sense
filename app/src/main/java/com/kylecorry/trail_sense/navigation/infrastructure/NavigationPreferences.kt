@@ -10,13 +10,15 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.IBacktrackPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.paths.LineStyle
+import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
 import java.time.Duration
 
-class NavigationPreferences(private val context: Context) : ICompassStylePreferences {
+class NavigationPreferences(private val context: Context) : ICompassStylePreferences, IBacktrackPreferences {
 
     private val cache by lazy { Preferences(context) }
 
@@ -75,7 +77,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     val showBacktrackPath: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_backtrack_path_radar)) ?: true
 
-    var backtrackPathColor: AppColor
+    override var backtrackPathColor: AppColor
         get() {
             val id = cache.getInt(context.getString(R.string.pref_backtrack_path_color))
             return AppColor.values().firstOrNull { it.id == id } ?: AppColor.Gray
@@ -84,7 +86,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             cache.putInt(context.getString(R.string.pref_backtrack_path_color), value.id)
         }
 
-    val backtrackPathStyle: LineStyle
+    override val backtrackPathStyle: LineStyle
         get() {
             return when (cache.getString(context.getString(R.string.pref_backtrack_path_style))) {
                 "solid" -> LineStyle.Solid
@@ -92,11 +94,13 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
                 else -> LineStyle.Dotted
             }
         }
+    override val backtrackPointStyle: PathPointColoringStyle
+        get() = PathPointColoringStyle.None
 
     val showBacktrackPathDuration: Duration
         get() = Duration.ofDays(1)
 
-    var backtrackHistory: Duration
+    override var backtrackHistory: Duration
         get() {
             val days = cache.getInt(context.getString(R.string.pref_backtrack_history_days)) ?: 2
             return Duration.ofDays(days.toLong())
