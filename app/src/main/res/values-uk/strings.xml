@@ -278,7 +278,6 @@
     <string name="forecasts_category">Прогнози</string>
     <string name="advanced">Додатково</string>
     <string name="tap_sun_moon_hint">Торкніться Сонця або Місяця, щоб дізнатися про місцеперебування</string>
-
     <string name="pref_sea_level_require_dwell_title">Нехтувати швидкими змінами висоти</string>
     <string name="pref_sea_level_require_dwell_summary">Відображати показники тільки тоді, коли висота не змінювалася щонайменш протягом години. Підвищує надійність прогнозів.</string>
     <string name="no_group">Немає групи</string>
@@ -989,4 +988,14 @@
     <string name="precipitation_none">Без опадів</string>
     <string name="precipitation_rain">Дощ</string>
     <string name="humidity">Вологість</string>
+    <string name="choose_photo">Обрати знімок</string>
+    <string name="precipitation_chance">Імовірність опадів: %s</string>
+    <string name="take_photo">Зробити знімок</string>
+    <string name="or">або</string>
+    <string name="notification_backtrack_update_title">Оновлення історії маршруту</string>
+    <string name="notification_backtrack_update_content">Записування місцеперебування</string>
+    <string name="notification_weather_update_content">Натисніть на зображення для перемикання маски</string>
+    <string name="notification_weather_update_title">Оновлення відстеження погоди</string>
+    <string name="no_camera_access">Не вдається отримати доступ до камери</string>
+    <string name="cloud_photo_mask_toast">Натисніть на зображення для перемикання маски</string>
 </resources>
