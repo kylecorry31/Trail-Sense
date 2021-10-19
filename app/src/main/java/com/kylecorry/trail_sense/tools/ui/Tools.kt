@@ -71,10 +71,9 @@ object Tools {
                     context.getString(R.string.experimental)
                 ) else null,
                 Tool(
-                    context.getString(R.string.backtrack),
+                    context.getString(R.string.paths),
                     R.drawable.ic_tool_backtrack,
-                    R.id.action_action_experimental_tools_to_fragmentBacktrack,
-                    context.getString(R.string.tool_backtrack_summary)
+                    R.id.action_action_experimental_tools_to_fragmentBacktrack
                 ),
                 Tool(
                     context.getString(R.string.tool_triangulate_title),

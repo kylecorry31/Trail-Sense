@@ -1125,4 +1125,5 @@
     <string name="notification_backtrack_update_content">Recording your location</string>
     <string name="cloud_photo_mask_toast">Tap photo to toggle mask</string>
     <string name="no_camera_access">Unable to access camera</string>
+    <string name="paths">Paths</string>
 </resources>
