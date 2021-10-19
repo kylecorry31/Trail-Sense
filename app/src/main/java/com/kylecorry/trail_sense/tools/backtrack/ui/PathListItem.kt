@@ -17,10 +17,7 @@ class PathListItem(
     private val context: Context,
     private val formatService: FormatService,
     private val prefs: UserPreferences,
-    private val delete: (path: Path2) -> Unit,
-    private val merge: (path: Path2) -> Unit,
-    private val show: (path: Path2) -> Unit,
-    private val export: (path: Path2) -> Unit
+    private val action: (path: Path2, action: PathAction) -> Unit
 ) {
 
     fun display(
@@ -35,8 +32,11 @@ class PathListItem(
 
         val start = item.metadata.duration?.start
         val end = item.metadata.duration?.end
-        val distance = item.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-        itemBinding.title.text = if (start != null && end != null) {
+        val distance =
+            item.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+        itemBinding.title.text = if (item.name != null){
+            item.name
+        } else if (start != null && end != null) {
             formatService.formatTimeSpan(start.toZonedDateTime(), end.toZonedDateTime(), true)
         } else {
             context.getString(android.R.string.untitled)
@@ -47,19 +47,26 @@ class PathListItem(
             false
         )
         itemBinding.root.setOnClickListener {
-            show(item)
+            action(item, PathAction.Show)
         }
         itemBinding.menuBtn.setOnClickListener {
+            // TODO: Don't use the menu XML to conditionally display options
             Pickers.menu(it, R.menu.path_item_menu) {
                 when (it) {
                     R.id.action_path_delete -> {
-                        delete(item)
+                        action(item, PathAction.Delete)
                     }
                     R.id.action_path_export -> {
-                        export(item)
+                        action(item, PathAction.Export)
                     }
                     R.id.action_path_merge -> {
-                        merge(item)
+                        action(item, PathAction.Merge)
+                    }
+                    R.id.action_path_rename -> {
+                        action(item, PathAction.Rename)
+                    }
+                    R.id.action_path_keep -> {
+                        action(item, PathAction.Keep)
                     }
                 }
                 true

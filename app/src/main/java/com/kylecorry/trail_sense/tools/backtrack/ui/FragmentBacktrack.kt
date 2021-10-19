@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
@@ -117,13 +118,53 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
             PathListItem(
                 requireContext(),
                 formatService,
-                prefs,
-                { deletePath(it) },
-                { mergePreviousPath(it) },
-                { showPath(it) },
-                { exportPath(it) }
-            )
+                prefs
+            ) { path, action ->
+                when (action) {
+                    PathAction.Export -> exportPath(path)
+                    PathAction.Delete -> deletePath(path)
+                    PathAction.Merge -> mergePreviousPath(path)
+                    PathAction.Show -> showPath(path)
+                    PathAction.Rename -> renamePath(path)
+                    PathAction.Keep -> keepPath(path)
+                    PathAction.ToggleVisibility -> togglePathVisibility(path)
+                }
+            }
         itemStrategy.display(itemBinding, item)
+    }
+
+    private fun togglePathVisibility(path: Path2) {
+        runInBackground {
+            withContext(Dispatchers.IO) {
+                pathService.addPath(path.copy(style = path.style.copy(visible = !path.style.visible)))
+            }
+        }
+    }
+
+    private fun renamePath(path: Path2) {
+        Pickers.text(
+            requireContext(),
+            getString(R.string.rename),
+            default = path.name,
+            hint = getString(R.string.name)
+        ) {
+            if (it != null) {
+                runInBackground {
+                    withContext(Dispatchers.IO) {
+                        pathService.addPath(path.copy(name = if (it.isBlank()) null else it))
+                    }
+                }
+
+            }
+        }
+    }
+
+    private fun keepPath(path: Path2) {
+        runInBackground {
+            withContext(Dispatchers.IO) {
+                pathService.addPath(path.copy(temporary = false))
+            }
+        }
     }
 
     private fun showPath(path: Path2) {

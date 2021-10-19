@@ -76,7 +76,6 @@ class PathService(
 
         waypointRepo.deleteInPath(path.id)
         pathRepo.delete(path)
-
     }
 
     override suspend fun getWaypoints(paths: List<Long>?): Map<Long, List<PathPoint>> {
