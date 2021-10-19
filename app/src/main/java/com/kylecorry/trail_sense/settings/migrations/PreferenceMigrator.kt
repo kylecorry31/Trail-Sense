@@ -29,7 +29,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 3
+        private const val version = 4
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -62,6 +62,19 @@ class PreferenceMigrator private constructor() {
                 prefs.remove("cache_pressure_setpoint_altitude")
                 prefs.remove("cache_pressure_setpoint_temperature")
                 prefs.remove("cache_pressure_setpoint_time")
+            },
+            PreferenceMigration(3, 4) { context, prefs ->
+                try {
+                    val color = prefs.getInt(context.getString(R.string.pref_backtrack_path_color))
+                        ?: return@PreferenceMigration
+                    prefs.remove(context.getString(R.string.pref_backtrack_path_color))
+                    prefs.putLong(
+                        context.getString(R.string.pref_backtrack_path_color),
+                        color.toLong()
+                    )
+                } catch (e: Exception) {
+                    prefs.remove(context.getString(R.string.pref_backtrack_path_color))
+                }
             }
         )
 
