@@ -88,8 +88,8 @@ class PathService(
         return points.groupBy { it.pathId }
     }
 
-    override fun getLiveWaypoints(path: Long): LiveData<List<PathPoint>> {
-        return waypointRepo.getAllInPathsLive(listOf(path))
+    override suspend fun getWaypoints(path: Long): List<PathPoint> {
+        return waypointRepo.getAllInPaths(listOf(path))
     }
 
     override suspend fun addWaypoint(point: PathPoint): Long {
@@ -173,7 +173,7 @@ class PathService(
             if (instance == null) {
                 instance = PathService(
                     PathRepo(context),
-                    WaypointRepo(context),
+                    WaypointRepo.getInstance(context),
                     NavigationPreferences(context),
                     Preferences(context)
                 )

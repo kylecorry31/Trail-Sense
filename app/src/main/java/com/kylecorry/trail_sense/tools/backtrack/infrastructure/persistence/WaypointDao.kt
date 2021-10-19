@@ -18,6 +18,9 @@ interface WaypointDao {
     @Query("SELECT * FROM waypoints WHERE pathId = :pathId")
     fun getAllInPath(pathId: Long): LiveData<List<WaypointEntity>>
 
+    @Query("SELECT * FROM waypoints WHERE pathId = :pathId")
+    suspend fun getAllInPathSync(pathId: Long): List<WaypointEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(waypoint: WaypointEntity): Long
 
@@ -27,6 +30,9 @@ interface WaypointDao {
     @Query("DELETE FROM waypoints WHERE createdOn < :minEpochMillis")
     suspend fun deleteOlderThan(minEpochMillis: Long)
 
+    @Query("DELETE FROM waypoints WHERE createdOn < :minEpochMillis AND pathId = :pathId")
+    suspend fun deleteOlderThan(minEpochMillis: Long, pathId: Long)
+
     @Update
     suspend fun update(waypoint: WaypointEntity)
 
@@ -34,7 +40,7 @@ interface WaypointDao {
     suspend fun getLastPathId(): Long?
 
     @Query("DELETE FROM waypoints WHERE pathId = :pathId")
-    suspend fun deletePath(pathId: Long)
+    suspend fun deleteByPath(pathId: Long)
 
     @Query("UPDATE waypoints SET pathId = :toPathId WHERE pathId = :fromPathId")
     suspend fun changePath(fromPathId: Long, toPathId: Long)

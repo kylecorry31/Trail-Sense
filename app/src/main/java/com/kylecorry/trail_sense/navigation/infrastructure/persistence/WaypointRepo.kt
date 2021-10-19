@@ -2,43 +2,68 @@ package com.kylecorry.trail_sense.navigation.infrastructure.persistence
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import java.time.Instant
 
-class WaypointRepo(context: Context): IWaypointRepo {
+class WaypointRepo private constructor(context: Context) : IWaypointRepo {
+
+    private val waypointDao = AppDatabase.getInstance(context).waypointDao()
+
     override suspend fun add(value: PathPoint): Long {
-        TODO("Not yet implemented")
+        return if (value.id != 0L) {
+            waypointDao.update(WaypointEntity.from(value))
+            value.id
+        } else {
+            waypointDao.insert(WaypointEntity.from(value))
+        }
     }
 
     override suspend fun delete(value: PathPoint) {
-        TODO("Not yet implemented")
+        waypointDao.delete(WaypointEntity.from(value))
     }
 
     override suspend fun deleteInPath(pathId: Long) {
-        TODO("Not yet implemented")
+        waypointDao.deleteByPath(pathId)
     }
 
     override suspend fun deleteOlderInPath(pathId: Long, time: Instant) {
-        TODO("Not yet implemented")
+        waypointDao.deleteOlderThan(time.toEpochMilli(), pathId)
     }
 
     override suspend fun get(id: Long): PathPoint? {
-        TODO("Not yet implemented")
+        return waypointDao.get(id)?.toPathPoint()
     }
 
     override suspend fun getAll(): List<PathPoint> {
-        TODO("Not yet implemented")
+        return waypointDao.getAllSync().map { it.toPathPoint() }
     }
 
     override fun getAllLive(): LiveData<List<PathPoint>> {
-        TODO("Not yet implemented")
+        return Transformations.map(waypointDao.getAll()) {
+            it.map { waypoint -> waypoint.toPathPoint() }
+        }
     }
 
     override suspend fun getAllInPaths(pathIds: List<Long>): List<PathPoint> {
-        TODO("Not yet implemented")
+        val points = mutableListOf<WaypointEntity>()
+        for (pathId in pathIds){
+            points.addAll(waypointDao.getAllInPathSync(pathId))
+        }
+        return points.map { it.toPathPoint() }
     }
 
-    override fun getAllInPathsLive(pathIds: List<Long>): LiveData<List<PathPoint>> {
-        TODO("Not yet implemented")
+    companion object {
+        private var instance: WaypointRepo? = null
+
+        @Synchronized
+        fun getInstance(context: Context): WaypointRepo {
+            if (instance == null) {
+                instance = WaypointRepo(context.applicationContext)
+            }
+            return instance!!
+        }
     }
 }
