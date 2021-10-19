@@ -27,7 +27,7 @@ class PathListItem(
         itemBinding: ListItemPlainIconMenuBinding,
         item: Path2
     ) {
-        itemBinding.icon.setImageResource(R.drawable.ic_tool_backtrack)
+        itemBinding.icon.setImageResource(if (item.temporary) R.drawable.ic_update else R.drawable.ic_tool_backtrack)
         CustomUiUtils.setImageColor(
             itemBinding.icon,
             Resources.androidTextColorSecondary(context)

@@ -75,7 +75,8 @@ internal class MigrateBacktrackPathsCommandTest {
             0L,
             null,
             prefs.defaultPathStyle,
-            PathMetadata.empty
+            PathMetadata.empty,
+            temporary = true
         )
 
         whenever(pathService.getWaypoints()).thenReturn(mapOf(5L to path1))
@@ -110,7 +111,8 @@ internal class MigrateBacktrackPathsCommandTest {
             0L,
             null,
             prefs.defaultPathStyle,
-            PathMetadata.empty
+            PathMetadata.empty,
+            temporary = true
         )
 
         val path2 = listOf(
@@ -130,7 +132,8 @@ internal class MigrateBacktrackPathsCommandTest {
             0L,
             null,
             prefs.defaultPathStyle,
-            PathMetadata.empty
+            PathMetadata.empty,
+            temporary = true
         )
 
         whenever(pathService.getWaypoints()).thenReturn(mapOf(5L to path1, 6L to path2))

@@ -159,7 +159,8 @@ class PathService(
             0,
             null,
             pathPreferences.defaultPathStyle,
-            PathMetadata.empty
+            PathMetadata.empty,
+            temporary = true
         )
         return addPath(path)
     }

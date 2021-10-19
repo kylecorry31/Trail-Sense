@@ -18,7 +18,7 @@ class MigrateBacktrackPathsCommand(
         pathService.endBacktrackPath()
 
         for (path in paths) {
-            val newPath = pathService.addPath(Path2(0, null, style, PathMetadata.empty))
+            val newPath = pathService.addPath(Path2(0, null, style, PathMetadata.empty, temporary = true))
             pathService.moveWaypointsToPath(path.value.map { it.copy(pathId = 0) }, newPath)
         }
     }
