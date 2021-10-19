@@ -4,16 +4,13 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.science.geology.IGeologyService
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.navigation.infrastructure.IPathService
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.paths.Path2
 import com.kylecorry.trail_sense.shared.paths.PathMetadata
 import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trail_sense.shared.paths.PathStyle
 import com.kylecorry.trail_sense.shared.sensors.ITimeProvider
 import com.kylecorry.trail_sense.shared.sensors.SystemTimeProvider
 import kotlinx.coroutines.sync.Mutex
@@ -22,7 +19,7 @@ import kotlinx.coroutines.sync.withLock
 class PathService(
     private val pathRepo: IPathRepo,
     private val waypointRepo: IWaypointRepo,
-    private val backtrackPreferences: IBacktrackPreferences,
+    private val pathPreferences: IPathPreferences,
     private val cache: Preferences,
     private val time: ITimeProvider = SystemTimeProvider(),
     private val geology: IGeologyService = GeologyService()
@@ -115,7 +112,7 @@ class PathService(
             waypointRepo.add(waypoint.copy(pathId = pathId))
         }
         updatePathMetadata(pathId)
-        for (path in oldPaths){
+        for (path in oldPaths) {
             updatePathMetadata(pathId)
         }
     }
@@ -130,7 +127,7 @@ class PathService(
     private suspend fun deleteOldWaypoints(pathId: Long) {
         waypointRepo.deleteOlderInPath(
             pathId,
-            time.getTime().toInstant().minus(backtrackPreferences.backtrackHistory)
+            time.getTime().toInstant().minus(pathPreferences.backtrackHistory)
         )
         updatePathMetadata(pathId, true)
     }
@@ -159,12 +156,10 @@ class PathService(
 
     private suspend fun createBacktrackPath(): Long {
         val path = Path2(
-            0, null, PathStyle(
-                backtrackPreferences.backtrackPathStyle,
-                backtrackPreferences.backtrackPointStyle,
-                backtrackPreferences.backtrackPathColor.color,
-                true
-            ), PathMetadata(Distance.meters(0f), 0, null, CoordinateBounds.empty)
+            0,
+            null,
+            pathPreferences.defaultPathStyle,
+            PathMetadata.empty
         )
         return addPath(path)
     }

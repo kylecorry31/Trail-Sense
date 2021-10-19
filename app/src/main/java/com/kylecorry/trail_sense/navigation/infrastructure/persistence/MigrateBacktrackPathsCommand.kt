@@ -4,22 +4,16 @@ import com.kylecorry.trail_sense.navigation.infrastructure.IPathService
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.paths.Path2
 import com.kylecorry.trail_sense.shared.paths.PathMetadata
-import com.kylecorry.trail_sense.shared.paths.PathStyle
 
 class MigrateBacktrackPathsCommand(
     private val pathService: IPathService,
-    private val prefs: IBacktrackPreferences
+    private val prefs: IPathPreferences
 ) : CoroutineCommand {
 
     override suspend fun execute() {
         val paths = pathService.getWaypoints()
 
-        val style = PathStyle(
-            prefs.backtrackPathStyle,
-            prefs.backtrackPointStyle,
-            prefs.backtrackPathColor.color,
-            true
-        )
+        val style = prefs.defaultPathStyle
 
         pathService.endBacktrackPath()
 

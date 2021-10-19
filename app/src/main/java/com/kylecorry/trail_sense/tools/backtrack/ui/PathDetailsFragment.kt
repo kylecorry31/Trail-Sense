@@ -295,7 +295,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
                         visible = false,
                         elevation = point.elevation,
                         temporary = true,
-                        color = prefs.navigation.backtrackPathColor.color,
+                        color = prefs.navigation.defaultPathColor.color,
                         owner = BeaconOwner.Backtrack
                     )
                     beaconRepo.addBeacon(BeaconEntity.from(beacon))

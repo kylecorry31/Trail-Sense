@@ -1,22 +1,18 @@
 package com.kylecorry.trail_sense.shared.paths
 
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.paths.Path
-import com.kylecorry.trail_sense.shared.paths.PathOwner
-import com.kylecorry.trail_sense.shared.paths.PathPoint
 
 class BacktrackPathSplitter(private val prefs: UserPreferences) : IBacktrackPathSplitter {
     override fun split(points: List<PathPoint>): List<Path> {
         val grouped = points.groupBy { it.pathId }
-        val color = prefs.navigation.backtrackPathColor.color
-        val style = prefs.navigation.backtrackPathStyle
+        val style = prefs.navigation.defaultPathStyle
         return grouped.map {
             Path(
                 it.key,
                 "",
                 it.value,
-                color,
-                style,
+                style.color,
+                style.line,
                 true,
                 PathOwner.Backtrack
             )

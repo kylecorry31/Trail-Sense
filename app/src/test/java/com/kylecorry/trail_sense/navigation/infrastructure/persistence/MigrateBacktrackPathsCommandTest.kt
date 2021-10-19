@@ -10,16 +10,21 @@ import org.mockito.kotlin.*
 
 internal class MigrateBacktrackPathsCommandTest {
 
-    private lateinit var prefs: IBacktrackPreferences
+    private lateinit var prefs: IPathPreferences
     private lateinit var pathService: IPathService
     private lateinit var command: MigrateBacktrackPathsCommand
 
     @BeforeEach
     fun setup() {
         prefs = mock()
-        whenever(prefs.backtrackPathColor).thenReturn(mock())
-        whenever(prefs.backtrackPathStyle).thenReturn(LineStyle.Dotted)
-        whenever(prefs.backtrackPointStyle).thenReturn(PathPointColoringStyle.None)
+        whenever(prefs.defaultPathStyle).thenReturn(
+            PathStyle(
+                LineStyle.Dotted,
+                PathPointColoringStyle.None,
+                0,
+                true
+            )
+        )
 
         pathService = mock()
         command = MigrateBacktrackPathsCommand(pathService, prefs)
@@ -69,12 +74,7 @@ internal class MigrateBacktrackPathsCommandTest {
         val expectedPath1 = Path2(
             0L,
             null,
-            PathStyle(
-                prefs.backtrackPathStyle,
-                prefs.backtrackPointStyle,
-                prefs.backtrackPathColor.color,
-                true
-            ),
+            prefs.defaultPathStyle,
             PathMetadata.empty
         )
 
@@ -109,12 +109,7 @@ internal class MigrateBacktrackPathsCommandTest {
         val expectedPath1 = Path2(
             0L,
             null,
-            PathStyle(
-                prefs.backtrackPathStyle,
-                prefs.backtrackPointStyle,
-                prefs.backtrackPathColor.color,
-                true
-            ),
+            prefs.defaultPathStyle,
             PathMetadata.empty
         )
 
@@ -134,12 +129,7 @@ internal class MigrateBacktrackPathsCommandTest {
         val expectedPath2 = Path2(
             0L,
             null,
-            PathStyle(
-                prefs.backtrackPathStyle,
-                prefs.backtrackPointStyle,
-                prefs.backtrackPathColor.color,
-                true
-            ),
+            prefs.defaultPathStyle,
             PathMetadata.empty
         )
 

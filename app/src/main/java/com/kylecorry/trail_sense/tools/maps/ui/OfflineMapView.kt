@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
+import java.time.Duration
 
 
 class OfflineMapView : CanvasView {
@@ -243,9 +244,8 @@ class OfflineMapView : CanvasView {
     private fun createPathLines() {
         mapImage ?: return
         val paths = paths ?: return
-        val maxTimeAgo = prefs.navigation.showBacktrackPathDuration
         pathLines = paths.flatMap {
-            it.toPixelLines(maxTimeAgo) {
+            it.toPixelLines(Duration.ofDays(2)) {
                 getPixelCoordinate(it, false) ?: PixelCoordinate(0f, 0f)
             }
         }

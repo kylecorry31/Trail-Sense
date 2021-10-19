@@ -10,15 +10,17 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.infrastructure.persistence.IBacktrackPreferences
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.IPathPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.paths.LineStyle
 import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
+import com.kylecorry.trail_sense.shared.paths.PathStyle
 import java.time.Duration
 
-class NavigationPreferences(private val context: Context) : ICompassStylePreferences, IBacktrackPreferences {
+class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
+    IPathPreferences {
 
     private val cache by lazy { Preferences(context) }
 
@@ -77,7 +79,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     val showBacktrackPath: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_backtrack_path_radar)) ?: true
 
-    override var backtrackPathColor: AppColor
+    var defaultPathColor: AppColor
         get() {
             val id = cache.getLong(context.getString(R.string.pref_backtrack_path_color))
             return AppColor.values().firstOrNull { it.id == id } ?: AppColor.Gray
@@ -86,7 +88,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             cache.putLong(context.getString(R.string.pref_backtrack_path_color), value.id)
         }
 
-    override val backtrackPathStyle: LineStyle
+    private val backtrackPathLineStyle: LineStyle
         get() {
             return when (cache.getString(context.getString(R.string.pref_backtrack_path_style))) {
                 "solid" -> LineStyle.Solid
@@ -94,11 +96,16 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
                 else -> LineStyle.Dotted
             }
         }
-    override val backtrackPointStyle: PathPointColoringStyle
+    private val defaultPathPointStyle: PathPointColoringStyle
         get() = PathPointColoringStyle.None
 
-    val showBacktrackPathDuration: Duration
-        get() = Duration.ofDays(1)
+    override val defaultPathStyle: PathStyle
+        get() = PathStyle(
+            backtrackPathLineStyle,
+            defaultPathPointStyle,
+            defaultPathColor.color,
+            true
+        )
 
     override var backtrackHistory: Duration
         get() {

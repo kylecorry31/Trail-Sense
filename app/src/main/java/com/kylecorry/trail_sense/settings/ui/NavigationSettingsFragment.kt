@@ -6,10 +6,10 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -126,17 +126,17 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
 
         val prefBacktrackPathColor = preference(R.string.pref_backtrack_path_color)
         prefBacktrackPathColor?.icon?.setTint(
-            prefs.navigation.backtrackPathColor.color
+            prefs.navigation.defaultPathColor.color
         )
 
         prefBacktrackPathColor?.setOnPreferenceClickListener {
             CustomUiUtils.pickColor(
                 requireContext(),
-                prefs.navigation.backtrackPathColor,
+                prefs.navigation.defaultPathColor,
                 it.title.toString()
             ) {
                 if (it != null) {
-                    prefs.navigation.backtrackPathColor = it
+                    prefs.navigation.defaultPathColor = it
                     prefBacktrackPathColor.icon?.setTint(it.color)
                 }
             }

@@ -23,9 +23,9 @@ import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
 import com.kylecorry.trail_sense.shared.paths.GrayPathLineDrawerDecoratorStrategy
+import com.kylecorry.trail_sense.shared.paths.LineStyle
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trail_sense.shared.paths.LineStyle
 import com.kylecorry.trail_sense.shared.toPixelLines
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.NoDrawPointColoringStrategy
@@ -70,8 +70,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
     private val prefs by lazy { UserPreferences(context) }
     private val formatService by lazy { FormatService(context) }
-    private val pathColor by lazy { prefs.navigation.backtrackPathColor }
-    private val pathStyle by lazy { prefs.navigation.backtrackPathStyle }
+    private val pathColor by lazy { prefs.navigation.defaultPathStyle.color }
+    private val pathStyle by lazy { prefs.navigation.defaultPathStyle.line }
     private val geoService = GeologyService()
     private var metersPerPixel: Float = 1f
     private var center: Coordinate = Coordinate.zero
@@ -113,7 +113,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         drawLegend(gridGap)
 
         val pathLines =
-            path.map { it.coordinate }.toPixelLines(pathColor.color, mapPixelLineStyle(pathStyle)) {
+            path.map { it.coordinate }.toPixelLines(pathColor, mapPixelLineStyle(pathStyle)) {
                 getPixels(it)
             }
         drawPaths(pathLines)
