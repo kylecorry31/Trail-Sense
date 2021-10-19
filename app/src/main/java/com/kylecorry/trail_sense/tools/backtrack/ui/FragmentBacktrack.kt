@@ -5,14 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.filterSatisfied
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
-import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
@@ -20,34 +16,30 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathServi
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.shared.paths.*
+import com.kylecorry.trail_sense.shared.paths.Path2
 import com.kylecorry.trail_sense.tools.backtrack.domain.PathGPXConverter
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsValidBacktrackPointSpecification
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Instant
 
 class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
-    private val waypointRepo by lazy { WaypointRepo.getInstance(requireContext()) }
-    private lateinit var waypointsLiveData: LiveData<List<WaypointEntity>>
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val geoService = GeologyService()
+    private val pathService by lazy {
+        PathService.getInstance(requireContext())
+    }
 
     private val gpxService by lazy {
         IOFactory().createGpxService(this)
     }
 
-    private var pathIds: List<Long> = emptyList()
-
     private var wasEnabled = false
 
-    private lateinit var listView: ListView<List<PathPoint>>
+    private var paths = emptyList<Path2>()
+
+    private lateinit var listView: ListView<Path2>
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,9 +52,8 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
         listView.addLineSeparator()
 
-        waypointsLiveData = waypointRepo.getWaypoints()
-        waypointsLiveData.observe(viewLifecycleOwner) { waypoints ->
-            onWaypointsChanged(waypoints.map { it.toPathPoint() })
+        pathService.getLivePaths().observe(viewLifecycleOwner) { paths ->
+            onPathsChanged(paths)
         }
 
         wasEnabled = prefs.backtrackEnabled
@@ -110,28 +101,23 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         return FragmentBacktrackBinding.inflate(layoutInflater, container, false)
     }
 
-    private fun onWaypointsChanged(waypoints: List<PathPoint>) {
-        val filteredWaypoints = filterCurrentWaypoints(waypoints)
-        val groupedWaypoints =
-            groupWaypointsByPath(filteredWaypoints).toList().sortedByDescending { it.first }
-        pathIds = groupedWaypoints.map { it.first }
-        val listItems = groupedWaypoints.map { it.second }
-        listView.setData(listItems)
+    private fun onPathsChanged(paths: List<Path2>) {
+        this.paths = paths.sortedByDescending { it.id }
+        listView.setData(this.paths)
 
-        if (filteredWaypoints.isEmpty()) {
+        if (paths.isEmpty()) {
             binding.waypointsEmptyText.visibility = View.VISIBLE
         } else {
             binding.waypointsEmptyText.visibility = View.INVISIBLE
         }
     }
 
-    private fun drawPathListItem(itemBinding: ListItemPlainIconMenuBinding, item: List<PathPoint>) {
+    private fun drawPathListItem(itemBinding: ListItemPlainIconMenuBinding, item: Path2) {
         val itemStrategy =
             PathListItem(
                 requireContext(),
                 formatService,
                 prefs,
-                geoService,
                 { deletePath(it) },
                 { mergePreviousPath(it) },
                 { showPath(it) },
@@ -140,22 +126,14 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         itemStrategy.display(itemBinding, item)
     }
 
-    private fun filterCurrentWaypoints(waypoints: List<PathPoint>): List<PathPoint> {
-        return waypoints.filterSatisfied(IsValidBacktrackPointSpecification(prefs.navigation.backtrackHistory))
+    private fun showPath(path: Path2) {
+        findNavController().navigate(R.id.action_backtrack_to_path, bundleOf("path_id" to path.id))
     }
 
-    private fun groupWaypointsByPath(waypoints: List<PathPoint>): Map<Long, List<PathPoint>> {
-        return waypoints.groupBy { it.pathId }
-    }
-
-    private fun showPath(path: List<PathPoint>) {
-        val pathId = path.firstOrNull()?.pathId ?: return
-        findNavController().navigate(R.id.action_backtrack_to_path, bundleOf("path_id" to pathId))
-    }
-
-    private fun exportPath(path: List<PathPoint>) {
+    private fun exportPath(path: Path2) {
         runInBackground {
-            val gpx = PathGPXConverter().toGPX(path)
+            val waypoints = pathService.getWaypoints(path.id)
+            val gpx = PathGPXConverter().toGPX(waypoints)
             val exportFile = "trail-sense-${Instant.now().epochSecond}.gpx"
             val success = gpxService.export(gpx, exportFile)
             withContext(Dispatchers.Main) {
@@ -174,35 +152,29 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         }
     }
 
-    private fun deletePath(path: List<PathPoint>) {
-        val pathId = path.firstOrNull()?.pathId ?: return
+    private fun deletePath(path: Path2) {
         Alerts.dialog(
             requireContext(),
             getString(R.string.delete_path),
-            resources.getQuantityString(R.plurals.waypoints_to_be_deleted, path.size, path.size)
+            resources.getQuantityString(
+                R.plurals.waypoints_to_be_deleted,
+                path.metadata.waypoints,
+                path.metadata.waypoints
+            )
         ) { cancelled ->
             if (!cancelled) {
-                lifecycleScope.launch {
+                runInBackground {
                     withContext(Dispatchers.IO) {
-                        PathService.getInstance(requireContext()).deletePath(
-                            Path2(
-                                pathId,
-                                null,
-                                PathStyle(LineStyle.Dotted, PathPointColoringStyle.None, 0, true),
-                                PathMetadata.empty
-                            )
-                        )
+                        pathService.deletePath(path)
                     }
                 }
             }
         }
     }
 
-    private fun mergePreviousPath(path: List<PathPoint>) {
-        val current = path.first().pathId
-        val previous = pathIds.filter { it < current }.maxOrNull()
-
-        if (previous == null) {
+    private fun mergePreviousPath(path: Path2) {
+        val previousPath = paths.filter { it.id < path.id }.maxByOrNull { it.id }
+        if (previousPath == null) {
             Alerts.toast(requireContext(), getString(R.string.no_previous_path))
             return
         }
@@ -212,9 +184,11 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
             getString(R.string.merge_previous_path_title)
         ) { cancelled ->
             if (!cancelled) {
-                lifecycleScope.launch {
+                runInBackground {
                     withContext(Dispatchers.IO) {
-                        waypointRepo.moveToPath(previous, current)
+                        val waypoints = pathService.getWaypoints(previousPath.id)
+                        pathService.moveWaypointsToPath(waypoints, path.id)
+                        pathService.deletePath(previousPath)
                     }
                 }
             }
